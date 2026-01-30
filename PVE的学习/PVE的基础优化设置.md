@@ -53,3 +53,32 @@ apt dist-upgrade
 ```
 或是直接在更新选项中搞：
 ![](assets/PVE的基础优化设置/截屏2026-01-30%2022.43.36.png)
+# 4. 开启CPU节能模式
+
+## 4.1 **安装必备工具**
+
+```
+apt install linux-cpupower powertop -y
+```
+
+## 4.2执行以下命令开启高性能或者省电模式
+
+**全核高性能**
+
+```bash
+cpupower  frequency-set -g performance
+```
+
+**全核省电**
+
+```bash
+cpupower  frequency-set -g powersave
+```
+
+**0-16 开启高性能**
+
+```bash
+cpupower -c 0-15  frequency-set -g  performance
+```
+
+切换全核省点模式后重启PVE会自动变回高性能模式，需要再次执行省电命令即可！

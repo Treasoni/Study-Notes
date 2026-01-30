@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "PVE的学习/PVE存储库.md",
+                "file": "PVE的学习/PVE的基础优化设置.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "PVE存储库"
+              "title": "PVE的基础优化设置"
             }
           }
         ],
@@ -151,7 +151,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "PVE的学习/PVE存储库.md",
+                "file": "PVE的学习/PVE的基础优化设置.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -161,7 +161,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "PVE存储库 的反向链接列表"
+              "title": "PVE的基础优化设置 的反向链接列表"
             }
           },
           {
@@ -170,12 +170,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "PVE的学习/PVE存储库.md",
+                "file": "PVE的学习/PVE的基础优化设置.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "PVE存储库 的出链列表"
+              "title": "PVE的基础优化设置 的出链列表"
             }
           },
           {
@@ -213,13 +213,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "PVE的学习/PVE存储库.md",
+                "file": "PVE的学习/PVE的基础优化设置.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "PVE存储库 的大纲"
+              "title": "PVE的基础优化设置 的大纲"
             }
           }
         ],
@@ -243,26 +243,26 @@
   },
   "active": "632bab0b87f87eeb",
   "lastOpenFiles": [
+    "PVE的学习/WinPE.md",
+    "PVE的学习/写盘工具.md",
+    "PVE的学习/修改PVE的网络信息.md",
+    "PVE的学习/PVE的基础优化设置.md",
+    "PVE的学习/安装和使用PVE.md",
+    "PVE的学习/PVE存储库.md",
     "PVE的学习/assets/PVE存储库/截屏2026-01-30 22.49.20.png",
     "PVE的学习/assets/PVE存储库",
-    "PVE的学习/PVE的基础优化设置.md",
-    "PVE的学习/修改PVE的网络信息.md",
-    "PVE的学习/PVE存储库.md",
     "未命名",
     "PVE的学习/assets/PVE的基础优化设置/截屏2026-01-30 22.43.36.png",
     "PVE的学习/assets/PVE的基础优化设置/截屏2026-01-30 22.30.12.png",
     "PVE的学习/assets/PVE的基础优化设置",
     "额外知识",
-    "PVE的学习/安装和使用PVE.md",
     "PVE的学习/assets/安装和使用PVE/file-20260130214122746.png",
-    "PVE的学习/写盘工具.md",
     "PVE的学习/assets/修改PVE的网络信息/截屏2026-01-30 21.29.59.png",
     "PVE的学习/assets/修改PVE的网络信息",
     "PVE的学习/assets/安装和使用PVE/截屏2026-01-30 21.23.23.png",
     "PVE的学习/assets/安装和使用PVE/截屏2026-01-30 21.07.38.png",
     "PVE的学习/assets/安装和使用PVE",
     "PVE的学习/assets",
-    "PVE的学习/WinPE.md",
     "如何使用obsidian做笔记.md",
     "Git/git教程.md",
     "Git/Git创建仓库.md",
@@ -272,7 +272,6 @@
     "Git/assets/git教程/file-20260130182825116.png",
     "Git/assets/git教程/file-20260130182825117.png",
     "Git/assets/git教程/file-20260130182825117 1.png",
-    "Git/assets/git教程/file-20260130182825119.png",
     "README.md"
   ]
 }
