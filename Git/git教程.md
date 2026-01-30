@@ -374,7 +374,7 @@ git commit -m \"initial commit\"
 
 # Git 的 4 种状态
 
-![](assets/git教程/file-20260130182158669.png)
+![](assets/git教程/file-20260130182825120.png)
 
 ## untracked（未跟踪）
 
@@ -1380,7 +1380,7 @@ provide shell access.
 
 git@github.com:yourname/demo.git
 
-![](assets/git教程/file-20260130182255019.png)
+![](assets/git教程/file-20260130182825119.png)
 
 ### 克隆仓库
 
@@ -1856,5 +1856,5 @@ git revert 提交ID
 
 如下所示：
 
-![](assets/git教程/file-20260130182317533.png)
-![](assets/git教程/file-20260130182614458.png)
+![](assets/git教程/file-20260130182825117%201.png)
+![](assets/git教程/file-20260130182825116.png)
