@@ -83,7 +83,7 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical",
+                "sortOrder": "custom",
                 "autoReveal": false
               },
               "icon": "lucide-folder-closed",
@@ -227,13 +227,14 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "52ff2f9fbef74052",
+  "active": "6dc4052fa1f48e1f",
   "lastOpenFiles": [
-    "PVE的学习/安装和使用PVE.md",
+    "PVE的学习/修改PVE的网络信息.md",
     "PVE的学习/PVE的基础优化设置.md",
+    "额外知识",
+    "PVE的学习/安装和使用PVE.md",
     "PVE的学习/assets/安装和使用PVE/file-20260130214122746.png",
     "PVE的学习/写盘工具.md",
-    "PVE的学习/修改PVE的网络信息.md",
     "PVE的学习/assets/修改PVE的网络信息/截屏2026-01-30 21.29.59.png",
     "PVE的学习/assets/修改PVE的网络信息",
     "PVE的学习/assets/安装和使用PVE/截屏2026-01-30 21.23.23.png",
@@ -256,7 +257,6 @@
     "assets/git教程",
     "README.md",
     "git教程.docx",
-    "assets/如何使用obsidian做笔记",
-    "assets"
+    "assets/如何使用obsidian做笔记"
   ]
 }

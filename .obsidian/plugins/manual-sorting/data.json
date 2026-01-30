@@ -1,0 +1,97 @@
+{
+  "customOrder": {
+    "/": {
+      "children": [
+        "额外知识",
+        "assets",
+        "Git",
+        "PVE的学习",
+        "如何使用obsidian做笔记.md",
+        "git教程.docx",
+        "README.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "assets": {
+      "children": [
+        "assets/如何使用obsidian做笔记"
+      ],
+      "sortOrder": "custom"
+    },
+    "assets/如何使用obsidian做笔记": {
+      "children": [
+        "assets/如何使用obsidian做笔记/截屏2026-01-30 17.29.55.png",
+        "assets/如何使用obsidian做笔记/截屏2026-01-30 17.38.34.png",
+        "assets/如何使用obsidian做笔记/截屏2026-01-30 17.41.45.png",
+        "assets/如何使用obsidian做笔记/截屏2026-01-30 17.42.17.png",
+        "assets/如何使用obsidian做笔记/截屏2026-01-30 17.45.06.png",
+        "assets/如何使用obsidian做笔记/截屏2026-01-30 17.52.33.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "Git": {
+      "children": [
+        "Git/assets",
+        "Git/Git创建仓库.md",
+        "Git/git教程.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "Git/assets": {
+      "children": [
+        "Git/assets/git教程"
+      ],
+      "sortOrder": "custom"
+    },
+    "Git/assets/git教程": {
+      "children": [
+        "Git/assets/git教程/file-20260130182825116.png",
+        "Git/assets/git教程/file-20260130182825117.png",
+        "Git/assets/git教程/file-20260130182825117 1.png",
+        "Git/assets/git教程/file-20260130182825119.png",
+        "Git/assets/git教程/file-20260130182825119 1.png",
+        "Git/assets/git教程/file-20260130182825120.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习": {
+      "children": [
+        "PVE的学习/assets",
+        "PVE的学习/安装和使用PVE.md",
+        "PVE的学习/PVE的基础优化设置.md",
+        "PVE的学习/修改PVE的网络信息.md",
+        "PVE的学习/写盘工具.md",
+        "PVE的学习/WinPE.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/assets": {
+      "children": [
+        "PVE的学习/assets/安装和使用PVE",
+        "PVE的学习/assets/修改PVE的网络信息"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/assets/安装和使用PVE": {
+      "children": [
+        "PVE的学习/assets/安装和使用PVE/截屏2026-01-30 21.07.38.png",
+        "PVE的学习/assets/安装和使用PVE/截屏2026-01-30 21.23.23.png",
+        "PVE的学习/assets/安装和使用PVE/file-20260130214122746.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/assets/修改PVE的网络信息": {
+      "children": [
+        "PVE的学习/assets/修改PVE的网络信息/截屏2026-01-30 21.29.59.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "额外知识": {
+      "children": [],
+      "sortOrder": "custom"
+    }
+  },
+  "sortOrder": "custom",
+  "debugMode": false,
+  "newItemPlacement": "top"
+}
