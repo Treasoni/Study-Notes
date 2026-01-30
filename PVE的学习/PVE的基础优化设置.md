@@ -45,7 +45,7 @@ apt --reinstall install proxmox-widget-toolkit && service pveproxy restart
 清华源：
 
 [https://mirrors.tuna.tsinghua.edu.cn/help/proxmox](https://mirrors.tuna.tsinghua.edu.cn/help/proxmox)
-# 3.更新 PVE
+## 2.3.更新 PVE
 用命令：
 ```bash
 apt update
