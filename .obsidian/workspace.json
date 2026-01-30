@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "PVE的学习/如何使用PVE.md",
+                "file": "PVE的学习/安装和使用PVE.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "如何使用PVE"
+              "title": "安装和使用PVE"
             }
           },
           {
@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Git/git教程.md",
+                "file": "PVE的学习/安装和使用PVE.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "git教程"
+              "title": "安装和使用PVE"
             }
           }
         ],
@@ -109,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Git/git教程.md",
+                "file": "PVE的学习/安装和使用PVE.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -119,7 +119,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "git教程 的反向链接列表"
+              "title": "安装和使用PVE 的反向链接列表"
             }
           },
           {
@@ -128,12 +128,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Git/git教程.md",
+                "file": "PVE的学习/安装和使用PVE.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "git教程 的出链列表"
+              "title": "安装和使用PVE 的出链列表"
             }
           },
           {
@@ -171,13 +171,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Git/git教程.md",
+                "file": "PVE的学习/安装和使用PVE.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "git教程 的大纲"
+              "title": "安装和使用PVE 的大纲"
             }
           }
         ]
@@ -200,9 +200,9 @@
   },
   "active": "45a64b2b757c84ac",
   "lastOpenFiles": [
+    "Git/git教程.md",
     "Git/Git创建仓库.md",
     "如何使用obsidian做笔记.md",
-    "Git/git教程.md",
     "Git/assets/git教程",
     "Git/assets",
     "Git",
@@ -214,7 +214,7 @@
     "Git/assets/git教程/file-20260130182825120.png",
     "assets/git教程",
     "README.md",
-    "PVE的学习/如何使用PVE.md",
+    "PVE的学习/安装和使用PVE.md",
     "git教程.docx",
     "assets/如何使用obsidian做笔记/截屏2026-01-30 17.52.33.png",
     "assets/如何使用obsidian做笔记/截屏2026-01-30 17.45.06.png",
