@@ -45,3 +45,6 @@ https://www.firpe.cn
 > [!warning]
 
 > ⚠️我们这里需要的是==**iso**==格式的文件。
+
+# 进入BIOS系统
+我们一直按==delete==、==F10==等按键进入BIOS系统，xin a
