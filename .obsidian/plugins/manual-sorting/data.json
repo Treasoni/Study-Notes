@@ -2,7 +2,6 @@
   "customOrder": {
     "/": {
       "children": [
-        "额外知识",
         "assets",
         "Git",
         "PVE的学习",
@@ -58,6 +57,7 @@
       "children": [
         "PVE的学习/assets",
         "PVE的学习/安装和使用PVE.md",
+        "PVE的学习/PVE存储库.md",
         "PVE的学习/PVE的基础优化设置.md",
         "PVE的学习/修改PVE的网络信息.md",
         "PVE的学习/写盘工具.md",
@@ -67,6 +67,7 @@
     },
     "PVE的学习/assets": {
       "children": [
+        "PVE的学习/assets/PVE的基础优化设置",
         "PVE的学习/assets/安装和使用PVE",
         "PVE的学习/assets/修改PVE的网络信息"
       ],
@@ -86,8 +87,11 @@
       ],
       "sortOrder": "custom"
     },
-    "额外知识": {
-      "children": [],
+    "PVE的学习/assets/PVE的基础优化设置": {
+      "children": [
+        "PVE的学习/assets/PVE的基础优化设置/截屏2026-01-30 22.43.36.png",
+        "PVE的学习/assets/PVE的基础优化设置/截屏2026-01-30 22.30.12.png"
+      ],
       "sortOrder": "custom"
     }
   },
