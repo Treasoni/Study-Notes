@@ -10,10 +10,10 @@ tags:
 https://www.proxmox.com/en/downloads
 ```
 下载好镜像
-## 1.2下载写盘工具
+## 1.2 下载写盘工具
 我这里使用的是ventoy，这里可以看[写盘工具](写盘工具.md)的内容进行选择，因为我们需要用用到[[WinPE]]进行写盘。
-# 2.下载相应的WinPE
-## 2.2那 PVE 安装时为什么“需要”WinPE？
+# 2. 下载相应的WinPE
+## 2.2 那 PVE 安装时为什么“需要”WinPE？
 
 严格说一句实话：
 
@@ -22,7 +22,7 @@ https://www.proxmox.com/en/downloads
 
 原因是：
 
-### 2.2.1PVE 安装器特点
+### 2.2.1 PVE 安装器特点
 
 >- 是 Linux 安装器
 >- 对磁盘“历史遗留问题”很敏感
