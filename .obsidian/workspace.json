@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "如何使用obsidian做笔记.md",
+                "file": "Git/git教程.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "如何使用obsidian做笔记"
+              "title": "git教程"
             }
           }
         ],
@@ -109,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "如何使用obsidian做笔记.md",
+                "file": "Git/git教程.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -119,7 +119,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "如何使用obsidian做笔记 的反向链接列表"
+              "title": "git教程 的反向链接列表"
             }
           },
           {
@@ -128,12 +128,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "如何使用obsidian做笔记.md",
+                "file": "Git/git教程.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "如何使用obsidian做笔记 的出链列表"
+              "title": "git教程 的出链列表"
             }
           },
           {
@@ -144,7 +144,7 @@
               "state": {
                 "sortOrder": "frequency",
                 "useHierarchy": true,
-                "showSearch": false,
+                "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-tags",
@@ -171,17 +171,16 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "如何使用obsidian做笔记.md",
+                "file": "Git/git教程.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "如何使用obsidian做笔记 的大纲"
+              "title": "git教程 的大纲"
             }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "horizontal",
@@ -202,8 +201,8 @@
   "active": "45a64b2b757c84ac",
   "lastOpenFiles": [
     "Git/Git创建仓库.md",
-    "Git/git教程.md",
     "如何使用obsidian做笔记.md",
+    "Git/git教程.md",
     "Git/assets/git教程",
     "Git/assets",
     "Git",
