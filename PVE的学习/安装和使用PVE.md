@@ -42,3 +42,6 @@ https://www.proxmox.com/en/downloads
 ```http
 https://www.firpe.cn
 ```
+> [!warning]
+
+> ⚠️我们这里需要的是==**iso**==格式的文件。
