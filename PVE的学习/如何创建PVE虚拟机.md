@@ -181,21 +181,9 @@ PVE 就用 **EFI Disk 来模拟这块区域**
 >- q35是支持一些新的设备的。
 
 
-### 🔹 EFI Disk（如果用 UEFI）
 
-⚠️ **必须加！**
-
-- 这是 UEFI 的“启动配置盘”
-    
-- 不是真正的系统盘
-    
-
----
-
-### 🔹 SCSI Controller
+### 2.3.3  SCSI Controller
 
 👉 **VirtIO SCSI**
 
 性能最好，CPU 占用低。
-
----
