@@ -29,17 +29,14 @@
 
 **✔ Use CD/DVD disc image file (iso)**
 
-- 用 ISO 装系统（Linux / Windows）
+>- 用 ISO 装系统（Linux / Windows）
 
-#### ✔ Do not use any media
+**✔ Do not use any media**
 
-- iStoreOS / OpenWRT 常用
-- 稍后手动导入磁盘
+>- iStoreOS / OpenWRT 常用
+>- 稍后手动导入磁盘
 
----
-
-### ISO 文件从哪来？
+### 2.2.2 ISO 文件从哪来？
 
 👉 **PVE 的存储库（local）里**
-
 `Datacenter → Storage → local → ISO Images`
