@@ -313,6 +313,9 @@
   },
   "active": "11198a5b857fe999",
   "lastOpenFiles": [
+    "plugins/claudian/main.js",
+    "plugins/claudian/manifest.json",
+    "plugins/claudian/styles.css",
     "plugins/claudian",
     "plugins/未命名文件夹",
     "plugins",
@@ -337,17 +340,14 @@
     "硬盘教程和NAS硬盘知识讲解.docx",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 13.48.50.png",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 13.48.27.png",
-    "PVE的学习/assets/如何创建PVE虚拟机",
     "PVE的学习/修改PVE的网络信息.md",
     "PVE的学习/PVE的基础优化设置.md",
     "PVE的学习/安装和使用PVE.md",
-    "PVE的学习/assets/PVE的网络逻辑讲解",
     "PVE的学习/写盘工具.md",
     "Git/git教程.md",
     "如何使用obsidian做笔记.md",
     "Git/Git创建仓库.md",
     "PVE的学习/WinPE.md",
-    "PVE的学习/assets/PVE存储库",
     "README.md"
   ]
 }
