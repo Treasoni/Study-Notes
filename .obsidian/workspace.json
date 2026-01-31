@@ -111,12 +111,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "硬盘教程和NAS硬盘知识讲解.md",
+                "file": "PVE的学习/如何创建PVE虚拟机.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "硬盘教程和NAS硬盘知识讲解"
+              "title": "如何创建PVE虚拟机"
             }
           }
         ],
@@ -193,7 +193,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "硬盘教程和NAS硬盘知识讲解.md",
+                "file": "PVE的学习/如何创建PVE虚拟机.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -203,7 +203,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "硬盘教程和NAS硬盘知识讲解 的反向链接列表"
+              "title": "如何创建PVE虚拟机 的反向链接列表"
             }
           },
           {
@@ -212,12 +212,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "硬盘教程和NAS硬盘知识讲解.md",
+                "file": "PVE的学习/如何创建PVE虚拟机.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "硬盘教程和NAS硬盘知识讲解 的出链列表"
+              "title": "如何创建PVE虚拟机 的出链列表"
             }
           },
           {
@@ -255,13 +255,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "硬盘教程和NAS硬盘知识讲解.md",
+                "file": "PVE的学习/如何创建PVE虚拟机.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "硬盘教程和NAS硬盘知识讲解 的大纲"
+              "title": "如何创建PVE虚拟机 的大纲"
             }
           }
         ],
@@ -285,8 +285,8 @@
   },
   "active": "d2302046c287f1f0",
   "lastOpenFiles": [
-    "PVE的学习/如何创建PVE虚拟机.md",
     "硬盘教程和NAS硬盘知识讲解.md",
+    "PVE的学习/如何创建PVE虚拟机.md",
     "PVE的学习/PVE的网络逻辑讲解.md",
     "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135822229.png",
     "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135811371.png",
