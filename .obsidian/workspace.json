@@ -111,12 +111,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "PVE的学习/如何创建PVE虚拟机.md",
+                "file": "硬盘教程和NAS硬盘知识讲解.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "如何创建PVE虚拟机"
+              "title": "硬盘教程和NAS硬盘知识讲解"
             }
           }
         ],
@@ -193,7 +193,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "PVE的学习/如何创建PVE虚拟机.md",
+                "file": "硬盘教程和NAS硬盘知识讲解.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -203,7 +203,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "如何创建PVE虚拟机 的反向链接列表"
+              "title": "硬盘教程和NAS硬盘知识讲解 的反向链接列表"
             }
           },
           {
@@ -212,12 +212,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "PVE的学习/如何创建PVE虚拟机.md",
+                "file": "硬盘教程和NAS硬盘知识讲解.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "如何创建PVE虚拟机 的出链列表"
+              "title": "硬盘教程和NAS硬盘知识讲解 的出链列表"
             }
           },
           {
@@ -255,13 +255,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "PVE的学习/如何创建PVE虚拟机.md",
+                "file": "硬盘教程和NAS硬盘知识讲解.md",
                 "followCursor": false,
-                "showSearch": false,
+                "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "如何创建PVE虚拟机 的大纲"
+              "title": "硬盘教程和NAS硬盘知识讲解 的大纲"
             }
           }
         ],
@@ -283,19 +283,27 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "d2302046c287f1f0",
+  "active": "746e3216e1c18840",
   "lastOpenFiles": [
+    "PVE的学习/如何创建PVE虚拟机.md",
+    "PVE的学习/PVE的网络逻辑讲解.md",
+    "硬盘教程和NAS硬盘知识讲解.md",
+    "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135822229.png",
+    "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135811371.png",
+    "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135759797.png",
+    "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135734584.png",
+    "assets/硬盘教程和NAS硬盘知识讲解",
+    "~$教程和NAS硬盘知识讲解.docx",
+    "硬盘教程和NAS硬盘知识讲解.docx",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 13.48.50.png",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 13.48.27.png",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 13.43.29.png",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 13.39.50.png",
     "PVE的学习/assets/如何创建PVE虚拟机",
     "未命名.md",
-    "PVE的学习/如何创建PVE虚拟机.md",
     "PVE的学习/修改PVE的网络信息.md",
     "PVE的学习/PVE的基础优化设置.md",
     "PVE的学习/PVE存储库.md",
-    "PVE的学习/PVE的网络逻辑讲解.md",
     "PVE的学习/安装和使用PVE.md",
     "PVE的学习/assets/PVE的网络逻辑讲解/截屏2026-01-31 12.22.09.png",
     "PVE的学习/assets/PVE的网络逻辑讲解/截屏2026-01-31 12.12.51.png",
@@ -305,19 +313,11 @@
     "如何使用obsidian做笔记.md",
     "Git/Git创建仓库.md",
     "PVE的学习/WinPE.md",
-    "PVE的学习/assets/PVE存储库/截屏2026-01-30 22.49.20.png",
     "PVE的学习/assets/PVE存储库",
     "未命名",
-    "PVE的学习/assets/PVE的基础优化设置/截屏2026-01-30 22.43.36.png",
-    "PVE的学习/assets/PVE的基础优化设置/截屏2026-01-30 22.30.12.png",
     "PVE的学习/assets/PVE的基础优化设置",
     "额外知识",
-    "PVE的学习/assets/安装和使用PVE/file-20260130214122746.png",
-    "PVE的学习/assets/修改PVE的网络信息/截屏2026-01-30 21.29.59.png",
     "PVE的学习/assets/修改PVE的网络信息",
-    "PVE的学习/assets/安装和使用PVE",
-    "PVE的学习/assets",
-    "Git/assets/git教程",
     "README.md"
   ]
 }
