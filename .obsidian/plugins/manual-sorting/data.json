@@ -31,7 +31,6 @@
     "Git": {
       "children": [
         "Git/assets",
-        "Git/Git创建仓库.md",
         "Git/git教程.md"
       ],
       "sortOrder": "custom"
@@ -57,6 +56,7 @@
       "children": [
         "PVE的学习/assets",
         "PVE的学习/安装和使用PVE.md",
+        "PVE的学习/PVE的网络逻辑讲解.md",
         "PVE的学习/PVE存储库.md",
         "PVE的学习/PVE的基础优化设置.md",
         "PVE的学习/修改PVE的网络信息.md",
@@ -67,6 +67,7 @@
     },
     "PVE的学习/assets": {
       "children": [
+        "PVE的学习/assets/PVE存储库",
         "PVE的学习/assets/PVE的基础优化设置",
         "PVE的学习/assets/安装和使用PVE",
         "PVE的学习/assets/修改PVE的网络信息"
@@ -84,6 +85,12 @@
     "PVE的学习/assets/修改PVE的网络信息": {
       "children": [
         "PVE的学习/assets/修改PVE的网络信息/截屏2026-01-30 21.29.59.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/assets/PVE存储库": {
+      "children": [
+        "PVE的学习/assets/PVE存储库/截屏2026-01-30 22.49.20.png"
       ],
       "sortOrder": "custom"
     },
