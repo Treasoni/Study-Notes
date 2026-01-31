@@ -283,8 +283,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "52ff2f9fbef74052",
+  "active": "d2302046c287f1f0",
   "lastOpenFiles": [
+    "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 13.39.50.png",
+    "PVE的学习/assets/如何创建PVE虚拟机",
     "未命名.md",
     "PVE的学习/如何创建PVE虚拟机.md",
     "PVE的学习/修改PVE的网络信息.md",
@@ -315,7 +317,6 @@
     "PVE的学习/assets/安装和使用PVE",
     "PVE的学习/assets",
     "Git/assets/git教程",
-    "Git/assets",
     "Git/assets/git教程/file-20260130182825116.png",
     "README.md"
   ]
