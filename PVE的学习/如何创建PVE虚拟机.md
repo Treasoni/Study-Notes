@@ -40,3 +40,46 @@
 
 👉 **PVE 的存储库（local）里**
 `Datacenter → Storage → local → ISO Images`
+## 2.3 System（系统）
+
+这里是**很多人第一次会懵的地方**，但你现在能懂。
+### 🔹 BIOS
+
+|选项|建议|
+|---|---|
+|SeaBIOS|老系统 / 简单|
+|OVMF (UEFI)|**现代系统推荐**|
+
+👉 **Linux / Windows 10+ / iStoreOS → UEFI**
+
+---
+
+### 🔹 Machine
+
+- `q35`（新）
+    
+- `i440fx`（老）
+    
+
+👉 **选 q35**
+
+---
+
+### 🔹 EFI Disk（如果用 UEFI）
+
+⚠️ **必须加！**
+
+- 这是 UEFI 的“启动配置盘”
+    
+- 不是真正的系统盘
+    
+
+---
+
+### 🔹 SCSI Controller
+
+👉 **VirtIO SCSI**
+
+性能最好，CPU 占用低。
+
+---
