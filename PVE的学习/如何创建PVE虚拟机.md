@@ -52,16 +52,13 @@
 
 👉 **Linux / Windows 10+ / iStoreOS → UEFI**
 
-### 2.3.2 jixi
+### 2.3.2 机型
 
-- `q35`（新）
-    
-- `i440fx`（老）
-    
+>- `q35`（新）
+>- `i440fx`（老）
 
 👉 **选 q35**
-
----
+这里的i440fx不支持zui xing
 
 ### 🔹 EFI Disk（如果用 UEFI）
 
