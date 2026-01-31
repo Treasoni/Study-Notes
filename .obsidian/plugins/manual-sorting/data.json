@@ -57,6 +57,7 @@
         "PVE的学习/assets",
         "PVE的学习/安装和使用PVE.md",
         "PVE的学习/PVE的网络逻辑讲解.md",
+        "PVE的学习/如何创建PVE虚拟机.md",
         "PVE的学习/PVE存储库.md",
         "PVE的学习/PVE的基础优化设置.md",
         "PVE的学习/修改PVE的网络信息.md",
@@ -67,6 +68,7 @@
     },
     "PVE的学习/assets": {
       "children": [
+        "PVE的学习/assets/PVE的网络逻辑讲解",
         "PVE的学习/assets/PVE存储库",
         "PVE的学习/assets/PVE的基础优化设置",
         "PVE的学习/assets/安装和使用PVE",
@@ -98,6 +100,13 @@
       "children": [
         "PVE的学习/assets/PVE的基础优化设置/截屏2026-01-30 22.43.36.png",
         "PVE的学习/assets/PVE的基础优化设置/截屏2026-01-30 22.30.12.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/assets/PVE的网络逻辑讲解": {
+      "children": [
+        "PVE的学习/assets/PVE的网络逻辑讲解/截屏2026-01-31 12.22.09.png",
+        "PVE的学习/assets/PVE的网络逻辑讲解/截屏2026-01-31 12.12.51.png"
       ],
       "sortOrder": "custom"
     }
