@@ -15,7 +15,31 @@
 |网卡|虚拟网卡|
 |U 盘 / 光驱|ISO|
 # 2. PVE 中「创建虚拟机」完整流程
-#@2. 常规配置
+## 2.1  常规配置
 ![](assets/如何创建PVE虚拟机/截屏2026-01-31%2013.39.50.png)
 这里我们一般是配置这里的==**VM ID**==和==**名称**==
 ![](assets/如何创建PVE虚拟机/截屏2026-01-31%2013.43.29.png)
+## 2.2 OS（操作系统）
+
+ **核心问题：**
+
+👉 **这台虚拟机是“怎么启动的”？**
+
+### 2.2.1 常见选择
+
+**✔ Use CD/DVD disc image file (iso)**
+
+- 用 ISO 装系统（Linux / Windows）
+
+#### ✔ Do not use any media
+
+- iStoreOS / OpenWRT 常用
+- 稍后手动导入磁盘
+
+---
+
+### ISO 文件从哪来？
+
+👉 **PVE 的存储库（local）里**
+
+`Datacenter → Storage → local → ISO Images`
