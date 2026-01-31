@@ -195,7 +195,7 @@ file:.git/config user.email=liu@company.com
 
 - 提供了哪个配置
 
-# [[Git创建仓库]]
+# Git创建仓库
 
 ## 什么是"创建仓库"？先统一概念
 

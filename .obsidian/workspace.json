@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "如何使用obsidian做笔记.md",
+                "file": "Git/git教程.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "如何使用obsidian做笔记"
+              "title": "git教程"
             }
           }
         ],
@@ -151,7 +151,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "如何使用obsidian做笔记.md",
+                "file": "Git/git教程.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -161,7 +161,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "如何使用obsidian做笔记 的反向链接列表"
+              "title": "git教程 的反向链接列表"
             }
           },
           {
@@ -170,12 +170,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "如何使用obsidian做笔记.md",
+                "file": "Git/git教程.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "如何使用obsidian做笔记 的出链列表"
+              "title": "git教程 的出链列表"
             }
           },
           {
@@ -213,13 +213,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "如何使用obsidian做笔记.md",
+                "file": "Git/git教程.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "如何使用obsidian做笔记 的大纲"
+              "title": "git教程 的大纲"
             }
           }
         ],
@@ -243,10 +243,10 @@
   },
   "active": "632bab0b87f87eeb",
   "lastOpenFiles": [
-    "PVE的学习/WinPE.md",
-    "Git/git教程.md",
     "如何使用obsidian做笔记.md",
+    "Git/git教程.md",
     "Git/Git创建仓库.md",
+    "PVE的学习/WinPE.md",
     "PVE的学习/安装和使用PVE.md",
     "PVE的学习/PVE存储库.md",
     "PVE的学习/修改PVE的网络信息.md",
