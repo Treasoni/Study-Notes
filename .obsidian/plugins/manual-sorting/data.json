@@ -2,17 +2,20 @@
   "customOrder": {
     "/": {
       "children": [
+        "iso和img.md",
+        "硬盘教程和NAS硬盘知识讲解.md",
+        "硬盘教程和NAS硬盘知识讲解.docx",
         "assets",
         "Git",
         "PVE的学习",
         "如何使用obsidian做笔记.md",
-        "git教程.docx",
         "README.md"
       ],
       "sortOrder": "custom"
     },
     "assets": {
       "children": [
+        "assets/硬盘教程和NAS硬盘知识讲解",
         "assets/如何使用obsidian做笔记"
       ],
       "sortOrder": "custom"
@@ -68,6 +71,7 @@
     },
     "PVE的学习/assets": {
       "children": [
+        "PVE的学习/assets/如何创建PVE虚拟机",
         "PVE的学习/assets/PVE的网络逻辑讲解",
         "PVE的学习/assets/PVE存储库",
         "PVE的学习/assets/PVE的基础优化设置",
@@ -107,6 +111,25 @@
       "children": [
         "PVE的学习/assets/PVE的网络逻辑讲解/截屏2026-01-31 12.22.09.png",
         "PVE的学习/assets/PVE的网络逻辑讲解/截屏2026-01-31 12.12.51.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/assets/如何创建PVE虚拟机": {
+      "children": [
+        "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.07.11.png",
+        "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 13.48.50.png",
+        "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 13.48.27.png",
+        "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 13.43.29.png",
+        "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 13.39.50.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "assets/硬盘教程和NAS硬盘知识讲解": {
+      "children": [
+        "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135822229.png",
+        "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135811371.png",
+        "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135759797.png",
+        "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135734584.png"
       ],
       "sortOrder": "custom"
     }
