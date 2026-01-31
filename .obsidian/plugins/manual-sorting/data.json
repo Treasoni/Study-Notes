@@ -2,6 +2,7 @@
   "customOrder": {
     "/": {
       "children": [
+        "PVE的CT.md",
         "iso和img.md",
         "硬盘教程和NAS硬盘知识讲解.md",
         "硬盘教程和NAS硬盘知识讲解.docx",
@@ -116,6 +117,9 @@
     },
     "PVE的学习/assets/如何创建PVE虚拟机": {
       "children": [
+        "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.41.10.png",
+        "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.39.59.png",
+        "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.35.33.png",
         "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.07.11.png",
         "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 13.48.50.png",
         "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 13.48.27.png",
