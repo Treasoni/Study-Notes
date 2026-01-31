@@ -2,6 +2,8 @@
 tags:
   - pve
 ---
+
+# 1. 网桥（Bridge / vmbr）
 ```css
 [ 物理网线 ]
      │
@@ -20,8 +22,6 @@ tags:
 [ 物理网卡 eno2 ] ─── 直通 ───> VM（独占）
 
 ```
-# 1. 网桥（Bridge / vmbr）
-
 ## 1.1 它是什么？
 
 **vmbr = Linux Bridge = 二层交换机**
