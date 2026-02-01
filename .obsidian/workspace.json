@@ -13,57 +13,15 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "PVE的学习/安装和使用PVE.md",
+                "file": "PVE的学习/PVE的CT.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "安装和使用PVE"
-            }
-          },
-          {
-            "id": "d2302046c287f1f0",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "PVE的学习/如何创建PVE虚拟机.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "如何创建PVE虚拟机"
-            }
-          },
-          {
-            "id": "4caa5d1b3c3d2bfd",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "PVE的学习/如何创建PVE虚拟机.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "如何创建PVE虚拟机"
-            }
-          },
-          {
-            "id": "11198a5b857fe999",
-            "type": "leaf",
-            "state": {
-              "type": "bases",
-              "state": {
-                "file": "未命名.base",
-                "viewName": "表格"
-              },
-              "icon": "lucide-table",
-              "title": "未命名"
+              "title": "PVE的CT"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -198,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "未命名.base",
+                "file": "PVE的学习/PVE的CT.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "未命名 的大纲"
+              "title": "PVE的CT 的大纲"
             }
           },
           {
@@ -228,7 +186,7 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -247,12 +205,20 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "d2302046c287f1f0",
+  "active": "0771d2e7b12a93de",
   "lastOpenFiles": [
+    "PVE的学习/如何创建PVE虚拟机.md",
+    "PVE的学习/PVE的CT.md",
+    "PVE的学习/assets/PVE的CT/截屏2026-02-01 14.49.51.png",
+    "PVE的学习/assets/PVE的CT/截屏2026-02-01 14.47.58.png",
+    "PVE的学习/assets/PVE的CT",
+    "Git/git教程.md",
+    "未命名.base",
+    "硬盘教程和NAS硬盘知识讲解.md",
+    "PVE的学习/安装和使用PVE.md",
     "PVE的学习/修改PVE的网络信息.md",
     "PVE的学习/PVE存储库.md",
     "PVE的学习/PVE的基础优化设置.md",
-    "未命名.base",
     "iso和img.md",
     "plugins/claudian/main.js",
     "plugins/claudian/manifest.json",
@@ -261,25 +227,17 @@
     "plugins/未命名文件夹",
     "plugins",
     "未命名文件夹",
-    "PVE的CT.md",
-    "PVE的学习/如何创建PVE虚拟机.md",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.41.10.png",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.39.59.png",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.35.33.png",
     "PVE的学习/PVE的网络逻辑讲解.md",
     "ISO和Img",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.07.11.png",
-    "硬盘教程和NAS硬盘知识讲解.md",
     "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135822229.png",
     "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135811371.png",
     "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135759797.png",
     "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135734584.png",
-    "assets/硬盘教程和NAS硬盘知识讲解",
-    "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 13.48.50.png",
-    "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 13.48.27.png",
-    "PVE的学习/安装和使用PVE.md",
     "PVE的学习/写盘工具.md",
-    "Git/git教程.md",
     "如何使用obsidian做笔记.md",
     "Git/Git创建仓库.md",
     "PVE的学习/WinPE.md",
