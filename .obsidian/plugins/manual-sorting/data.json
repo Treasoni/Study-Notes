@@ -2,6 +2,8 @@
   "customOrder": {
     "/": {
       "children": [
+        "带宽和宽带.md",
+        "计算机网络",
         "linux如何修改网络信息.md",
         "iso和img.md",
         "硬盘教程和NAS硬盘知识讲解.md",
@@ -16,6 +18,7 @@
     },
     "assets": {
       "children": [
+        "assets/linux如何修改网络信息",
         "assets/硬盘教程和NAS硬盘知识讲解",
         "assets/如何使用obsidian做笔记"
       ],
@@ -144,6 +147,16 @@
         "PVE的学习/assets/PVE的CT/截屏2026-02-01 14.49.51.png",
         "PVE的学习/assets/PVE的CT/截屏2026-02-01 14.47.58.png"
       ],
+      "sortOrder": "custom"
+    },
+    "assets/linux如何修改网络信息": {
+      "children": [
+        "assets/linux如何修改网络信息/截屏2026-02-01 18.45.35.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "计算机网络": {
+      "children": [],
       "sortOrder": "custom"
     }
   },
