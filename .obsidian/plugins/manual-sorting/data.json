@@ -16,6 +16,10 @@
       ],
       "sortOrder": "custom"
     },
+    "计算机网络": {
+      "children": [],
+      "sortOrder": "custom"
+    },
     "assets": {
       "children": [
         "assets/linux如何修改网络信息",
@@ -41,6 +45,12 @@
         "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135811371.png",
         "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135759797.png",
         "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135734584.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "assets/linux如何修改网络信息": {
+      "children": [
+        "assets/linux如何修改网络信息/截屏2026-02-01 18.45.35.png"
       ],
       "sortOrder": "custom"
     },
@@ -147,16 +157,6 @@
         "PVE的学习/assets/PVE的CT/截屏2026-02-01 14.49.51.png",
         "PVE的学习/assets/PVE的CT/截屏2026-02-01 14.47.58.png"
       ],
-      "sortOrder": "custom"
-    },
-    "assets/linux如何修改网络信息": {
-      "children": [
-        "assets/linux如何修改网络信息/截屏2026-02-01 18.45.35.png"
-      ],
-      "sortOrder": "custom"
-    },
-    "计算机网络": {
-      "children": [],
       "sortOrder": "custom"
     }
   },
