@@ -96,7 +96,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#两则关系区分",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -248,7 +248,7 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "9b9c858155dd8f58",
+  "active": "52ff2f9fbef74052",
   "lastOpenFiles": [
     "计算机网络/网络宽带的上传和下载.md",
     "计算机网络/带宽和宽带.md",
