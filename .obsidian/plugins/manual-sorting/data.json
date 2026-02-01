@@ -2,8 +2,6 @@
   "customOrder": {
     "/": {
       "children": [
-        "未命名.base",
-        "PVE的CT.md",
         "iso和img.md",
         "硬盘教程和NAS硬盘知识讲解.md",
         "硬盘教程和NAS硬盘知识讲解.docx",
@@ -71,6 +69,7 @@
         "PVE的学习/assets",
         "PVE的学习/安装和使用PVE.md",
         "PVE的学习/PVE的网络逻辑讲解.md",
+        "PVE的学习/PVE的CT.md",
         "PVE的学习/如何创建PVE虚拟机.md",
         "PVE的学习/PVE存储库.md",
         "PVE的学习/PVE的基础优化设置.md",
