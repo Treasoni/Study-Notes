@@ -2,6 +2,7 @@
   "customOrder": {
     "/": {
       "children": [
+        "cpu的线程和内核.md",
         "计算机网络",
         "linux如何修改网络信息.md",
         "iso和img.md",
