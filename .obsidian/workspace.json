@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "cpu的线程和内核.md",
+                "file": "计算机网络/网络宽带的上传和下载.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "cpu的线程和内核"
+              "title": "网络宽带的上传和下载"
             }
           }
         ],
@@ -227,13 +227,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cpu的线程和内核.md",
+                "file": "计算机网络/网络宽带的上传和下载.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "cpu的线程和内核 的大纲"
+              "title": "网络宽带的上传和下载 的大纲"
             }
           },
           {
@@ -278,15 +278,21 @@
   },
   "active": "1a15bb7dd1246c0f",
   "lastOpenFiles": [
-    "计算机网络/网络宽带的上传和下载.md",
+    "如何使用obsidian做笔记.md",
+    "PVE的学习/写盘工具.md",
+    "PVE的学习/PVE存储库.md",
+    "PVE的学习/PVE的CT.md",
+    "PVE的学习/修改PVE的网络信息.md",
+    "PVE的学习/PVE的网络逻辑讲解.md",
+    "PVE的学习/PVE的基础优化设置.md",
     "cpu的线程和内核.md",
+    "计算机网络/网络宽带的上传和下载.md",
     "计算机网络/带宽和宽带.md",
     "计算机网络/网口的作用.md",
     "linux如何修改网络信息.md",
     "计算机网络",
     "assets/linux如何修改网络信息/截屏2026-02-01 18.45.35.png",
     "assets/linux如何修改网络信息",
-    "PVE的学习/PVE的CT.md",
     "PVE的学习/如何创建PVE虚拟机.md",
     "PVE的学习/assets/PVE的CT/截屏2026-02-01 14.49.51.png",
     "PVE的学习/assets/PVE的CT/截屏2026-02-01 14.47.58.png",
@@ -295,9 +301,6 @@
     "未命名.base",
     "硬盘教程和NAS硬盘知识讲解.md",
     "PVE的学习/安装和使用PVE.md",
-    "PVE的学习/修改PVE的网络信息.md",
-    "PVE的学习/PVE存储库.md",
-    "PVE的学习/PVE的基础优化设置.md",
     "iso和img.md",
     "plugins/claudian/main.js",
     "plugins/claudian/manifest.json",
@@ -308,13 +311,10 @@
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.41.10.png",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.39.59.png",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.35.33.png",
-    "PVE的学习/PVE的网络逻辑讲解.md",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.07.11.png",
     "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135822229.png",
     "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135811371.png",
     "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135759797.png",
-    "PVE的学习/写盘工具.md",
-    "如何使用obsidian做笔记.md",
     "Git/Git创建仓库.md",
     "PVE的学习/WinPE.md",
     "README.md"
