@@ -2,6 +2,7 @@
   "customOrder": {
     "/": {
       "children": [
+        "linux如何修改网络信息.md",
         "iso和img.md",
         "硬盘教程和NAS硬盘知识讲解.md",
         "硬盘教程和NAS硬盘知识讲解.docx",
@@ -81,6 +82,7 @@
     },
     "PVE的学习/assets": {
       "children": [
+        "PVE的学习/assets/PVE的CT",
         "PVE的学习/assets/如何创建PVE虚拟机",
         "PVE的学习/assets/PVE的网络逻辑讲解",
         "PVE的学习/assets/PVE存储库",
@@ -134,6 +136,13 @@
       "children": [
         "PVE的学习/assets/PVE的网络逻辑讲解/截屏2026-01-31 12.22.09.png",
         "PVE的学习/assets/PVE的网络逻辑讲解/截屏2026-01-31 12.12.51.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/assets/PVE的CT": {
+      "children": [
+        "PVE的学习/assets/PVE的CT/截屏2026-02-01 14.49.51.png",
+        "PVE的学习/assets/PVE的CT/截屏2026-02-01 14.47.58.png"
       ],
       "sortOrder": "custom"
     }
