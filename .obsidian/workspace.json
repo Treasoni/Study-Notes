@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "计算机网络/网络宽带的上传和下载.md",
+                "file": "linux/linux磁盘相关的知识.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "网络宽带的上传和下载"
+              "title": "linux磁盘相关的知识"
             }
           }
         ],
@@ -227,13 +227,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "计算机网络/网络宽带的上传和下载.md",
+                "file": "linux/linux磁盘相关的知识.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "网络宽带的上传和下载 的大纲"
+              "title": "linux磁盘相关的知识 的大纲"
             }
           },
           {
@@ -278,6 +278,10 @@
   },
   "active": "1a15bb7dd1246c0f",
   "lastOpenFiles": [
+    "linux如何修改网络信息.md",
+    "linux/linux磁盘相关的知识.md",
+    "linux",
+    "计算机网络/网络宽带的上传和下载.md",
     "Linux磁盘相关的知识.docx",
     "如何使用obsidian做笔记.md",
     "PVE的学习/写盘工具.md",
@@ -287,10 +291,8 @@
     "PVE的学习/PVE的网络逻辑讲解.md",
     "PVE的学习/PVE的基础优化设置.md",
     "cpu的线程和内核.md",
-    "计算机网络/网络宽带的上传和下载.md",
     "计算机网络/带宽和宽带.md",
     "计算机网络/网口的作用.md",
-    "linux如何修改网络信息.md",
     "计算机网络",
     "assets/linux如何修改网络信息/截屏2026-02-01 18.45.35.png",
     "assets/linux如何修改网络信息",
@@ -307,8 +309,6 @@
     "plugins/claudian/manifest.json",
     "plugins/claudian/styles.css",
     "plugins/claudian",
-    "plugins/未命名文件夹",
-    "plugins",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.41.10.png",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.39.59.png",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.35.33.png",
