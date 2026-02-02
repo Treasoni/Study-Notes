@@ -77,7 +77,7 @@
 
 2.  在**复制下载完的.torrent文件到**：这个选项的作用就是对种子文件进行备份。以防后面数据丢失。
 
-!![](assets/qBittorrent的使用/file-20260202224412228.png)
+!![](assets/qBittorrent的使用/file-20260202224515442.png)
 
 ## 配置BitTorrent
 
@@ -85,13 +85,14 @@
 
 我们可以在下面找到相应的tracker：
 
+```
 公共 Tracker 列表合集：https://trackerslist.com/#/zh
 
 Tracker
 列表（GitHub）：https://github.com/XIU2/TrackersListCollection/blob/master/README-ZH.md
+```
 
-![](media/image2.png){width="4.027407042869641in"
-height="3.7054483814523183in"}
+!![](assets/qBittorrent的使用/file-20260202224515441%201.png)
 
 ## 速度和Web UI
 
@@ -102,4 +103,4 @@ height="3.7054483814523183in"}
 在高级配置中如果有**自动更新**选项最好关闭，并且打开**总是向同级的所有
 Tracker 汇报**
 
-!
+!![](assets/qBittorrent的使用/file-20260202224515441.png)
