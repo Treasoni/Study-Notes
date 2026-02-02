@@ -90,9 +90,23 @@
               "icon": "lucide-file",
               "title": "linux磁盘相关的知识"
             }
+          },
+          {
+            "id": "2b296d08d141a971",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "linux的LVG.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "linux的LVG"
+            }
           }
         ],
-        "currentTab": 5
+        "currentTab": 6
       }
     ],
     "direction": "vertical"
@@ -227,13 +241,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux/linux磁盘相关的知识.md",
+                "file": "linux的LVG.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "linux磁盘相关的知识 的大纲"
+              "title": "linux的LVG 的大纲"
             }
           },
           {
@@ -276,14 +290,16 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "1a15bb7dd1246c0f",
+  "active": "2b296d08d141a971",
   "lastOpenFiles": [
+    "linux/linux磁盘相关的知识.md",
+    "linux的LVG.md",
+    "linux/assets/linux磁盘相关的知识/file-20260202185455396.png",
     "linux/assets/linux磁盘相关的知识/file-20260202185441540.png",
     "linux/assets/linux磁盘相关的知识/file-20260202185424052.png",
     "linux/assets/linux磁盘相关的知识",
     "linux/assets",
     "linux如何修改网络信息.md",
-    "linux/linux磁盘相关的知识.md",
     "linux",
     "计算机网络/网络宽带的上传和下载.md",
     "Linux磁盘相关的知识.docx",
@@ -315,8 +331,6 @@
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.39.59.png",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.35.33.png",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.07.11.png",
-    "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135822229.png",
-    "assets/硬盘教程和NAS硬盘知识讲解/file-20260131135811371.png",
     "Git/Git创建仓库.md",
     "PVE的学习/WinPE.md",
     "README.md"
