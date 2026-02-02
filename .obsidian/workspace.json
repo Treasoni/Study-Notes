@@ -97,12 +97,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux的LVG.md",
+                "file": "linux的LVM管理.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "linux的LVG"
+              "title": "linux的LVM管理"
             }
           }
         ],
@@ -241,13 +241,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux的LVG.md",
+                "file": "linux的LVM管理.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "linux的LVG 的大纲"
+              "title": "linux的LVM管理 的大纲"
             }
           },
           {
@@ -293,7 +293,7 @@
   "active": "2b296d08d141a971",
   "lastOpenFiles": [
     "linux/linux磁盘相关的知识.md",
-    "linux的LVG.md",
+    "linux的LVM管理.md",
     "linux/assets/linux磁盘相关的知识/file-20260202185455396.png",
     "linux/assets/linux磁盘相关的知识/file-20260202185441540.png",
     "linux/assets/linux磁盘相关的知识/file-20260202185424052.png",
