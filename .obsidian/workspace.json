@@ -255,13 +255,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux/linux的LVM管理.md",
+                "file": "qBittorent的Tracker.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "linux的LVM管理 的大纲"
+              "title": "qBittorent的Tracker 的大纲"
             }
           },
           {
@@ -304,9 +304,22 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "6a8bd2263225f813",
+  "active": "52ff2f9fbef74052",
   "lastOpenFiles": [
-    "未命名.md",
+    "qBittorent/qBittorent配置代理.md",
+    "qBittorent/qBittorent的Tracker.md",
+    "qBittorent",
+    "未命名文件夹",
+    "qBittorent配置代理.md",
+    "assets/qBittorent的Tracker",
+    "qBittorent/assets/qBittorent的Tracker",
+    "qBittorent/assets",
+    "给.md",
+    "assets/qBittorent配置代理/file-20260202223705113.png",
+    "assets/qBittorent配置代理/截屏2026-02-02 22.35.34.png",
+    "assets/qBittorent配置代理",
+    "qBittorent的Tracker.md",
+    "assets/qBittorent的Tracker/file-20260202223827013.png",
     "linux/linux的LVM管理.md",
     "linux/linux磁盘相关的知识.md",
     "linux/assets/linux磁盘相关的知识/file-20260202185455396.png",
@@ -328,26 +341,16 @@
     "cpu的线程和内核.md",
     "计算机网络/带宽和宽带.md",
     "计算机网络/网口的作用.md",
-    "计算机网络",
     "assets/linux如何修改网络信息/截屏2026-02-01 18.45.35.png",
-    "assets/linux如何修改网络信息",
     "PVE的学习/如何创建PVE虚拟机.md",
     "PVE的学习/assets/PVE的CT/截屏2026-02-01 14.49.51.png",
     "PVE的学习/assets/PVE的CT/截屏2026-02-01 14.47.58.png",
-    "PVE的学习/assets/PVE的CT",
     "Git/git教程.md",
-    "未命名.base",
     "硬盘教程和NAS硬盘知识讲解.md",
     "PVE的学习/安装和使用PVE.md",
     "iso和img.md",
-    "plugins/claudian/main.js",
-    "plugins/claudian/manifest.json",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.41.10.png",
-    "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.39.59.png",
-    "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.35.33.png",
-    "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.07.11.png",
     "Git/Git创建仓库.md",
-    "PVE的学习/WinPE.md",
-    "README.md"
+    "PVE的学习/WinPE.md"
   ]
 }
