@@ -258,3 +258,64 @@ sda        200G   ← 整块硬盘
 - 仓库里：≈ 198G
 - `/` 实际用的：99G
 - **剩下 ≈ 100G：还在仓库里，没人用**
+
+# 4. 如何把剩下的 100G 全部用上（标准做法）
+
+⚠️ 好消息：  
+**你是 LVM + ext4（默认），这是最安全、最简单的扩容场景**
+
+### 🔥 总体思路（你先理解）
+
+`VG 里还有空闲空间 ↓ 把空闲空间分给 ubuntu-lv ↓ 扩展文件系统 ↓ / 变大`
+
+
+## 四、一步一步操作（照抄即可）
+
+### ① 查看 VG 还有多少空闲空间（确认）
+
+`sudo vgdisplay`
+
+你会看到类似：
+
+`VG Size               <198.00 GiB Alloc PE / Size       99.00 GiB Free  PE / Size       ~99.00 GiB`
+
+👉 `Free Size` ≈ 100G 就对了
+
+---
+
+### ② 把 VG 剩余空间全部分给 `/`
+
+#### 【最推荐】一行命令完成
+
+`sudo lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv`
+
+解释一下：
+
+- `+100%FREE`：把 VG 里**所有剩余空间**
+    
+- 分给这个 LV
+    
+
+---
+
+### ③ 扩展文件系统（ext4）
+
+Ubuntu 默认是 ext4，直接执行：
+
+`sudo resize2fs /dev/ubuntu-vg/ubuntu-lv`
+
+⚠️ **在线扩容，不用重启，不丢数据**
+
+---
+
+### ④ 验证是否成功 🎉
+
+`df -h`
+
+你现在应该能看到：
+
+`Filesystem                         Size  Used Avail Use% /dev/mapper/ubuntu--vg-ubuntu--lv  ~198G  ...`
+
+👉 **根目录从 99G → 198G**
+
+---
