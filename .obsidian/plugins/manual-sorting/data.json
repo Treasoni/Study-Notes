@@ -2,7 +2,8 @@
   "customOrder": {
     "/": {
       "children": [
-        "未命名.md",
+        "qBittorent的Tracker.md",
+        "qBittorent配置代理.md",
         "linux",
         "Linux磁盘相关的知识.docx",
         "cpu的线程和内核.md",
@@ -29,6 +30,8 @@
     },
     "assets": {
       "children": [
+        "assets/qBittorent的Tracker",
+        "assets/qBittorent配置代理",
         "assets/linux如何修改网络信息",
         "assets/硬盘教程和NAS硬盘知识讲解",
         "assets/如何使用obsidian做笔记"
@@ -58,6 +61,19 @@
     "assets/linux如何修改网络信息": {
       "children": [
         "assets/linux如何修改网络信息/截屏2026-02-01 18.45.35.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "assets/qBittorent的Tracker": {
+      "children": [
+        "assets/qBittorent的Tracker/file-20260202223827013.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "assets/qBittorent配置代理": {
+      "children": [
+        "assets/qBittorent配置代理/file-20260202223705113.png",
+        "assets/qBittorent配置代理/截屏2026-02-02 22.35.34.png"
       ],
       "sortOrder": "custom"
     },
