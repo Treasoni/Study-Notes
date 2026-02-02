@@ -2,8 +2,9 @@
   "customOrder": {
     "/": {
       "children": [
-        "qBittorent的Tracker.md",
-        "qBittorent配置代理.md",
+        "~$ittorrent的使用.docx",
+        "qBittorrent的使用.docx",
+        "qBittorent",
         "linux",
         "Linux磁盘相关的知识.docx",
         "cpu的线程和内核.md",
@@ -30,6 +31,7 @@
     },
     "assets": {
       "children": [
+        "assets/qBittorrent的使用",
         "assets/qBittorent的Tracker",
         "assets/qBittorent配置代理",
         "assets/linux如何修改网络信息",
@@ -74,6 +76,14 @@
       "children": [
         "assets/qBittorent配置代理/file-20260202223705113.png",
         "assets/qBittorent配置代理/截屏2026-02-02 22.35.34.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "assets/qBittorrent的使用": {
+      "children": [
+        "assets/qBittorrent的使用/file-20260202224447569.png",
+        "assets/qBittorrent的使用/file-20260202224419971.png",
+        "assets/qBittorrent的使用/file-20260202224412228.png"
       ],
       "sortOrder": "custom"
     },
@@ -201,6 +211,14 @@
       "children": [
         "PVE的学习/assets/PVE的CT/截屏2026-02-01 14.49.51.png",
         "PVE的学习/assets/PVE的CT/截屏2026-02-01 14.47.58.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "qBittorent": {
+      "children": [
+        "qBittorent/qBittorrent的使用.md",
+        "qBittorent/qBittorent配置代理.md",
+        "qBittorent/qBittorent的Tracker.md"
       ],
       "sortOrder": "custom"
     }
