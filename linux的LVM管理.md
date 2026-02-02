@@ -264,24 +264,23 @@ sda        200G   ← 整块硬盘
 ⚠️ 好消息：  
 **你是 LVM + ext4（默认），这是最安全、最简单的扩容场景**
 
-### 🔥 总体思路（你先理解）
+**🔥 总体思路（你先理解）**
 
 `VG 里还有空闲空间 ↓ 把空闲空间分给 ubuntu-lv ↓ 扩展文件系统 ↓ / 变大`
 
-
-## 四、一步一步操作（照抄即可）
-
-### ① 查看 VG 还有多少空闲空间（确认）
+## 4.1 查看 VG 还有多少空闲空间（确认）
 
 `sudo vgdisplay`
 
 你会看到类似：
 
-`VG Size               <198.00 GiB Alloc PE / Size       99.00 GiB Free  PE / Size       ~99.00 GiB`
+```text
+VG Size               <198.00 GiB
+Alloc PE / Size       99.00 GiB
+Free  PE / Size       ~99.00 GiB
+```
 
 👉 `Free Size` ≈ 100G 就对了
-
----
 
 ### ② 把 VG 剩余空间全部分给 `/`
 
