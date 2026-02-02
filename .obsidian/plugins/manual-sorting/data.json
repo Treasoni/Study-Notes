@@ -2,7 +2,7 @@
   "customOrder": {
     "/": {
       "children": [
-        "linux的LVM管理.md",
+        "未命名.md",
         "linux",
         "Linux磁盘相关的知识.docx",
         "cpu的线程和内核.md",
@@ -88,7 +88,22 @@
     "linux": {
       "children": [
         "linux/assets",
+        "linux/linux的LVM管理.md",
         "linux/linux磁盘相关的知识.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "linux/assets": {
+      "children": [
+        "linux/assets/linux磁盘相关的知识"
+      ],
+      "sortOrder": "custom"
+    },
+    "linux/assets/linux磁盘相关的知识": {
+      "children": [
+        "linux/assets/linux磁盘相关的知识/file-20260202185455396.png",
+        "linux/assets/linux磁盘相关的知识/file-20260202185441540.png",
+        "linux/assets/linux磁盘相关的知识/file-20260202185424052.png"
       ],
       "sortOrder": "custom"
     },
@@ -170,20 +185,6 @@
       "children": [
         "PVE的学习/assets/PVE的CT/截屏2026-02-01 14.49.51.png",
         "PVE的学习/assets/PVE的CT/截屏2026-02-01 14.47.58.png"
-      ],
-      "sortOrder": "custom"
-    },
-    "linux/assets": {
-      "children": [
-        "linux/assets/linux磁盘相关的知识"
-      ],
-      "sortOrder": "custom"
-    },
-    "linux/assets/linux磁盘相关的知识": {
-      "children": [
-        "linux/assets/linux磁盘相关的知识/file-20260202185455396.png",
-        "linux/assets/linux磁盘相关的知识/file-20260202185441540.png",
-        "linux/assets/linux磁盘相关的知识/file-20260202185424052.png"
       ],
       "sortOrder": "custom"
     }
