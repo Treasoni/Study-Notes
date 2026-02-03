@@ -21,7 +21,7 @@ https://pve.proxmox.com/wiki/Windows_VirtIO_Drivers#virtio-win_Releases
 
 我们对比一下 👇
 
-==**不用 VirtIO（用 SATA / IDE / E1000）==**
+### 1.1.1 不用 VirtIO（用 SATA / IDE / E1000）
 
 虚拟机里的 Windows 会以为：
 
@@ -39,7 +39,7 @@ https://pve.proxmox.com/wiki/Windows_VirtIO_Drivers#virtio-win_Releases
 
 👉 **能用，但很“虚”**
 
-**==✅ 用 VirtIO（推荐）==**
+### 1.1.2 用 VirtIO（推荐）
 
 Windows 会被明确告诉：
 
@@ -50,14 +50,9 @@ Windows 会被明确告诉：
 - 磁盘：VirtIO Block / VirtIO SCSI
 - 网卡：VirtIO Network
 - 特点：
-    
     - ✅ 几乎直通级性能
-        
     - ✅ IOPS 高
-        
     - ✅ CPU 占用低
-        
     - ✅ 延迟小
-        
 
 👉 **这才是“虚拟机的正确打开方式”**
