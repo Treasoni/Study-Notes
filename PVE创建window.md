@@ -60,4 +60,6 @@ Windows 会被明确告诉：
 # 2. 创建window虚拟机
 当我们按照PVE创建虚拟机的你可以看[如何创建PVE虚拟机](PVE的学习/安装和使用PVE教程/如何创建PVE虚拟机.md)。我们要在==**硬件**==中新增一个==**CD/DVD Drive**==来添加我们的virtio镜像。
 ![](assets/PVE创建window/截屏2026-02-03%2020.16.22.png)
-改变启动循序：先window镜像
+改变启动循序：先window镜像，再是virtio镜像。
+
+我们创建window得过程和
