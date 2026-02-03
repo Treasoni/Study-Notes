@@ -2,7 +2,6 @@
   "customOrder": {
     "/": {
       "children": [
-        "PVE创建window.md",
         "系统架构.md",
         "系统架构.docx",
         "如何安装window系统.md",
@@ -34,12 +33,21 @@
     },
     "assets": {
       "children": [
+        "assets/PVE创建window",
         "assets/如何安装window系统",
         "assets/qBittorent的Tracker",
         "assets/qBittorent配置代理",
         "assets/linux如何修改网络信息",
         "assets/硬盘教程和NAS硬盘知识讲解",
         "assets/如何使用obsidian做笔记"
+      ],
+      "sortOrder": "custom"
+    },
+    "assets/如何安装window系统": {
+      "children": [
+        "assets/如何安装window系统/截屏2026-02-03 19.08.44.png",
+        "assets/如何安装window系统/截屏2026-02-03 19.05.26.png",
+        "assets/如何安装window系统/截屏2026-02-03 19.03.05.png"
       ],
       "sortOrder": "custom"
     },
@@ -66,6 +74,18 @@
     "assets/linux如何修改网络信息": {
       "children": [
         "assets/linux如何修改网络信息/截屏2026-02-01 18.45.35.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "assets/PVE创建window": {
+      "children": [
+        "assets/PVE创建window/截屏2026-02-03 21.24.10.png",
+        "assets/PVE创建window/截屏2026-02-03 21.19.37.png",
+        "assets/PVE创建window/截屏2026-02-03 21.18.03.png",
+        "assets/PVE创建window/截屏2026-02-03 20.22.54.png",
+        "assets/PVE创建window/截屏2026-02-03 20.20.06.png",
+        "assets/PVE创建window/截屏2026-02-03 20.19.45.png",
+        "assets/PVE创建window/截屏2026-02-03 20.16.22.png"
       ],
       "sortOrder": "custom"
     },
@@ -152,6 +172,7 @@
     },
     "PVE的学习/安装和使用PVE教程/assets": {
       "children": [
+        "PVE的学习/安装和使用PVE教程/assets/PVE创建window.md",
         "PVE的学习/安装和使用PVE教程/assets/PVE的基础优化设置",
         "PVE的学习/安装和使用PVE教程/assets/PVE存储库",
         "PVE的学习/安装和使用PVE教程/assets/PVE的网络逻辑讲解",
@@ -244,14 +265,6 @@
         "qBittorent/assets/qBittorrent的使用/file-20260202224515441.png",
         "qBittorent/assets/qBittorrent的使用/file-20260202224515441 1.png",
         "qBittorent/assets/qBittorrent的使用/file-20260202224515442.png"
-      ],
-      "sortOrder": "custom"
-    },
-    "assets/如何安装window系统": {
-      "children": [
-        "assets/如何安装window系统/截屏2026-02-03 19.08.44.png",
-        "assets/如何安装window系统/截屏2026-02-03 19.05.26.png",
-        "assets/如何安装window系统/截屏2026-02-03 19.03.05.png"
       ],
       "sortOrder": "custom"
     }
