@@ -12,7 +12,7 @@ tags:
 ## 1.1. Step 1：BIOS 设置（硬件层）
 
 **必开选项（名字可能略有不同）**
-具体操作看[3.进入BIOS系统](PVE的学习/安装和使用PVE.md#3.进入BIOS系统)
+具体操作看[3.进入BIOS系统](../安装和使用PVE教程/安装和使用PVE.md#3.进入BIOS系统)
 
 |选项|必须|说明|
 |---|---|---|
@@ -104,7 +104,9 @@ nano /etc/modprobe.d/vfio.conf
 
 写入（示例）：
 
-`options vfio-pci ids=10de:1c82,10de:0fb9`
+```bash
+options vfio-pci ids=10de:1c82,10de:0fb9
+```
 
 > `10de:xxxx` 来自 `lspci -nn`
 
@@ -114,7 +116,7 @@ update-initramfs -u
 reboot
 ```
 
----
+详细讲解看[[绑定vfio驱动]]
 
 ## Step 7：PVE Web 里添加 PCI 设备
 
