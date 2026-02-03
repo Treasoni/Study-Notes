@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "PVE的学习/PVE直通教程/IOMMU分组情况.md",
+                "file": "PVE的学习/PVE直通教程/绑定vfio驱动.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "IOMMU分组情况"
+              "title": "绑定vfio驱动"
             }
           }
         ],
@@ -199,13 +199,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "PVE的学习/PVE直通教程/IOMMU分组情况.md",
+                "file": "PVE的学习/PVE直通教程/绑定vfio驱动.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "IOMMU分组情况 的大纲"
+              "title": "绑定vfio驱动 的大纲"
             }
           },
           {
@@ -252,6 +252,9 @@
   "lastOpenFiles": [
     "PVE的学习/PVE直通教程/PVE直通.md",
     "PVE的学习/PVE直通教程/绑定vfio驱动.md",
+    "PVE的学习/PVE直通教程/IOMMU分组情况.md",
+    "硬盘教程和NAS硬盘知识讲解.md",
+    "linux如何修改网络信息.md",
     "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",
     "PVE的学习/安装和使用PVE教程/assets/PVE的基础优化设置",
     "PVE的学习/安装和使用PVE教程/assets/PVE存储库",
@@ -261,7 +264,6 @@
     "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机",
     "PVE的学习/安装和使用PVE教程/assets/安装和使用PVE",
     "PVE的学习/安装和使用PVE教程/assets",
-    "PVE的学习/PVE直通教程/IOMMU分组情况.md",
     "PVE的学习/安装和使用PVE教程",
     "PVE的学习/PVE直通教程",
     "qBittorent/qBittorent配置代理.md",
@@ -281,7 +283,6 @@
     "linux/assets/linux磁盘相关的知识/file-20260202185455396.png",
     "linux/assets/linux磁盘相关的知识/file-20260202185441540.png",
     "linux/assets/linux磁盘相关的知识/file-20260202185424052.png",
-    "linux如何修改网络信息.md",
     "计算机网络/网络宽带的上传和下载.md",
     "如何使用obsidian做笔记.md",
     "PVE的学习/写盘工具.md",
