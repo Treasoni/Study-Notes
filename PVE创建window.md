@@ -76,4 +76,4 @@ Windows 会被明确告诉：
 这里我们选择**浏览**
 ![](assets/PVE创建window/截屏2026-02-03%2020.19.45.png)
 ![](assets/PVE创建window/截屏2026-02-03%2020.22.54.png)
-window
+window系统放到我们给的硬盘就可以了。
