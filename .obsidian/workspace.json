@@ -62,9 +62,23 @@
               "icon": "lucide-file",
               "title": "绑定vfio驱动"
             }
+          },
+          {
+            "id": "51f5905f8784bb83",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "如何安装window系统.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "如何安装window系统"
+            }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -199,13 +213,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "PVE的学习/PVE直通教程/绑定vfio驱动.md",
+                "file": "如何安装window系统.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "绑定vfio驱动 的大纲"
+              "title": "如何安装window系统 的大纲"
             }
           },
           {
@@ -248,14 +262,16 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "36eb24221134bd6e",
+  "active": "51f5905f8784bb83",
   "lastOpenFiles": [
-    "PVE的学习/PVE直通教程/PVE直通.md",
+    "PVE的学习/WinPE.md",
+    "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",
+    "如何安装window系统.md",
     "PVE的学习/PVE直通教程/绑定vfio驱动.md",
+    "PVE的学习/PVE直通教程/PVE直通.md",
     "PVE的学习/PVE直通教程/IOMMU分组情况.md",
     "硬盘教程和NAS硬盘知识讲解.md",
     "linux如何修改网络信息.md",
-    "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",
     "PVE的学习/安装和使用PVE教程/assets/PVE的基础优化设置",
     "PVE的学习/安装和使用PVE教程/assets/PVE存储库",
     "PVE的学习/安装和使用PVE教程/assets/PVE的网络逻辑讲解",
@@ -293,8 +309,6 @@
     "PVE的学习/安装和使用PVE教程/PVE的基础优化设置.md",
     "cpu的线程和内核.md",
     "计算机网络/带宽和宽带.md",
-    "计算机网络/网口的作用.md",
-    "assets/linux如何修改网络信息/截屏2026-02-01 18.45.35.png",
-    "PVE的学习/安装和使用PVE教程/如何创建PVE虚拟机.md"
+    "assets/linux如何修改网络信息/截屏2026-02-01 18.45.35.png"
   ]
 }
