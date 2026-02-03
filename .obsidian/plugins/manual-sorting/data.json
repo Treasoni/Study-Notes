@@ -2,8 +2,10 @@
   "customOrder": {
     "/": {
       "children": [
+        "PVE创建window.md",
+        "系统架构.md",
+        "系统架构.docx",
         "如何安装window系统.md",
-        "~$ittorrent的使用.docx",
         "qBittorrent的使用.docx",
         "qBittorent",
         "linux",
@@ -32,6 +34,7 @@
     },
     "assets": {
       "children": [
+        "assets/如何安装window系统",
         "assets/qBittorent的Tracker",
         "assets/qBittorent配置代理",
         "assets/linux如何修改网络信息",
@@ -241,6 +244,14 @@
         "qBittorent/assets/qBittorrent的使用/file-20260202224515441.png",
         "qBittorent/assets/qBittorrent的使用/file-20260202224515441 1.png",
         "qBittorent/assets/qBittorrent的使用/file-20260202224515442.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "assets/如何安装window系统": {
+      "children": [
+        "assets/如何安装window系统/截屏2026-02-03 19.08.44.png",
+        "assets/如何安装window系统/截屏2026-02-03 19.05.26.png",
+        "assets/如何安装window系统/截屏2026-02-03 19.03.05.png"
       ],
       "sortOrder": "custom"
     }

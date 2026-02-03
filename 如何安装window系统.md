@@ -1,6 +1,8 @@
 这里我是打算用WinPE的方式进行安装。[WinPE](PVE的学习/WinPE.md)
 
-前提准备：
+# 前提准备
+
+
 - 一个刷了ventoy的U盘[1.3Ventoy（最灵活）](PVE的学习/写盘工具.md#1.3Ventoy（最灵活）)
 - window的iso镜像
 ```http
