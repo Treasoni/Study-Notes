@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "PVE的学习/安装和使用PVE.md",
+                "file": "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",
                 "mode": "source",
                 "source": false
               },
@@ -27,7 +27,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "PVE直通.md",
+                "file": "PVE的学习/PVE直通教程/PVE直通.md",
                 "mode": "source",
                 "source": false
               },
@@ -41,16 +41,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "PVE直通.md",
+                "file": "PVE的学习/PVE直通教程/PVE直通.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
               "title": "PVE直通"
             }
+          },
+          {
+            "id": "36eb24221134bd6e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "PVE的学习/PVE直通教程/绑定vfio驱动.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "绑定vfio驱动"
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -185,13 +199,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "PVE直通.md",
+                "file": "PVE的学习/PVE直通教程/绑定vfio驱动.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "PVE直通 的大纲"
+              "title": "绑定vfio驱动 的大纲"
             }
           },
           {
@@ -234,32 +248,33 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "b1d67ad44453b01a",
+  "active": "36eb24221134bd6e",
   "lastOpenFiles": [
-    "IOMMU分组情况.md",
-    "PVE直通.md",
-    "PVE的学习/安装和使用PVE.md",
+    "PVE的学习/PVE直通教程/PVE直通.md",
+    "PVE的学习/PVE直通教程/绑定vfio驱动.md",
+    "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",
+    "PVE的学习/安装和使用PVE教程/assets/PVE的基础优化设置",
+    "PVE的学习/安装和使用PVE教程/assets/PVE存储库",
+    "PVE的学习/安装和使用PVE教程/assets/PVE的网络逻辑讲解",
+    "PVE的学习/安装和使用PVE教程/assets/PVE的CT",
+    "PVE的学习/安装和使用PVE教程/assets/修改PVE的网络信息",
+    "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机",
+    "PVE的学习/安装和使用PVE教程/assets/安装和使用PVE",
+    "PVE的学习/安装和使用PVE教程/assets",
+    "PVE的学习/PVE直通教程/IOMMU分组情况.md",
+    "PVE的学习/安装和使用PVE教程",
+    "PVE的学习/PVE直通教程",
     "qBittorent/qBittorent配置代理.md",
     "qBittorent/qBittorrent的使用.md",
     "qBittorent/qBittorent的Tracker.md",
-    "qBittorent/assets/qBittorrent的使用",
-    "qBittorent/assets",
     "qBittorent/assets/qBittorrent的使用/file-20260202224515441.png",
     "qBittorent/assets/qBittorrent的使用/file-20260202224515441 1.png",
     "qBittorent/assets/qBittorrent的使用/file-20260202224515442.png",
-    "assets/qBittorrent的使用",
-    "~$ittorrent的使用.docx",
     "qBittorent的Tracker.md",
-    "qBittorrent的使用.docx",
-    "qBittorent",
-    "未命名文件夹",
     "qBittorent配置代理.md",
-    "assets/qBittorent的Tracker",
-    "qBittorent/assets/qBittorent的Tracker",
     "给.md",
     "assets/qBittorent配置代理/file-20260202223705113.png",
     "assets/qBittorent配置代理/截屏2026-02-02 22.35.34.png",
-    "assets/qBittorent配置代理",
     "assets/qBittorent的Tracker/file-20260202223827013.png",
     "linux/linux的LVM管理.md",
     "linux/linux磁盘相关的知识.md",
@@ -270,17 +285,15 @@
     "计算机网络/网络宽带的上传和下载.md",
     "如何使用obsidian做笔记.md",
     "PVE的学习/写盘工具.md",
-    "PVE的学习/PVE存储库.md",
-    "PVE的学习/PVE的CT.md",
-    "PVE的学习/修改PVE的网络信息.md",
-    "PVE的学习/PVE的网络逻辑讲解.md",
-    "PVE的学习/PVE的基础优化设置.md",
+    "PVE的学习/安装和使用PVE教程/PVE存储库.md",
+    "PVE的学习/安装和使用PVE教程/PVE的CT.md",
+    "PVE的学习/安装和使用PVE教程/修改PVE的网络信息.md",
+    "PVE的学习/安装和使用PVE教程/PVE的网络逻辑讲解.md",
+    "PVE的学习/安装和使用PVE教程/PVE的基础优化设置.md",
     "cpu的线程和内核.md",
     "计算机网络/带宽和宽带.md",
     "计算机网络/网口的作用.md",
     "assets/linux如何修改网络信息/截屏2026-02-01 18.45.35.png",
-    "PVE的学习/如何创建PVE虚拟机.md",
-    "Git/git教程.md",
-    "硬盘教程和NAS硬盘知识讲解.md"
+    "PVE的学习/安装和使用PVE教程/如何创建PVE虚拟机.md"
   ]
 }

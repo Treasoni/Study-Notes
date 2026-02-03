@@ -2,8 +2,6 @@
   "customOrder": {
     "/": {
       "children": [
-        "IOMMU分组情况.md",
-        "PVE直通.md",
         "~$ittorrent的使用.docx",
         "qBittorrent的使用.docx",
         "qBittorent",
@@ -128,82 +126,97 @@
     },
     "PVE的学习": {
       "children": [
-        "PVE的学习/assets",
-        "PVE的学习/安装和使用PVE.md",
-        "PVE的学习/PVE的网络逻辑讲解.md",
-        "PVE的学习/PVE的CT.md",
-        "PVE的学习/如何创建PVE虚拟机.md",
-        "PVE的学习/PVE存储库.md",
-        "PVE的学习/PVE的基础优化设置.md",
-        "PVE的学习/修改PVE的网络信息.md",
+        "PVE的学习/PVE直通教程",
+        "PVE的学习/安装和使用PVE教程",
         "PVE的学习/写盘工具.md",
         "PVE的学习/WinPE.md"
       ],
       "sortOrder": "custom"
     },
-    "PVE的学习/assets": {
+    "PVE的学习/安装和使用PVE教程": {
       "children": [
-        "PVE的学习/assets/PVE的CT",
-        "PVE的学习/assets/如何创建PVE虚拟机",
-        "PVE的学习/assets/PVE的网络逻辑讲解",
-        "PVE的学习/assets/PVE存储库",
-        "PVE的学习/assets/PVE的基础优化设置",
-        "PVE的学习/assets/安装和使用PVE",
-        "PVE的学习/assets/修改PVE的网络信息"
+        "PVE的学习/安装和使用PVE教程/assets",
+        "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",
+        "PVE的学习/安装和使用PVE教程/如何创建PVE虚拟机.md",
+        "PVE的学习/安装和使用PVE教程/修改PVE的网络信息.md",
+        "PVE的学习/安装和使用PVE教程/PVE的CT.md",
+        "PVE的学习/安装和使用PVE教程/PVE的网络逻辑讲解.md",
+        "PVE的学习/安装和使用PVE教程/PVE存储库.md",
+        "PVE的学习/安装和使用PVE教程/PVE的基础优化设置.md"
       ],
       "sortOrder": "custom"
     },
-    "PVE的学习/assets/安装和使用PVE": {
+    "PVE的学习/安装和使用PVE教程/assets": {
       "children": [
-        "PVE的学习/assets/安装和使用PVE/截屏2026-01-30 21.07.38.png",
-        "PVE的学习/assets/安装和使用PVE/截屏2026-01-30 21.23.23.png",
-        "PVE的学习/assets/安装和使用PVE/file-20260130214122746.png"
+        "PVE的学习/安装和使用PVE教程/assets/PVE的基础优化设置",
+        "PVE的学习/安装和使用PVE教程/assets/PVE存储库",
+        "PVE的学习/安装和使用PVE教程/assets/PVE的网络逻辑讲解",
+        "PVE的学习/安装和使用PVE教程/assets/PVE的CT",
+        "PVE的学习/安装和使用PVE教程/assets/修改PVE的网络信息",
+        "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机",
+        "PVE的学习/安装和使用PVE教程/assets/安装和使用PVE"
       ],
       "sortOrder": "custom"
     },
-    "PVE的学习/assets/如何创建PVE虚拟机": {
+    "PVE的学习/安装和使用PVE教程/assets/安装和使用PVE": {
       "children": [
-        "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.41.10.png",
-        "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.39.59.png",
-        "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.35.33.png",
-        "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 14.07.11.png",
-        "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 13.48.50.png",
-        "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 13.48.27.png",
-        "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 13.43.29.png",
-        "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-01-31 13.39.50.png"
+        "PVE的学习/安装和使用PVE教程/assets/安装和使用PVE/file-20260203173620214.png",
+        "PVE的学习/安装和使用PVE教程/assets/安装和使用PVE/file-20260203173620217.png",
+        "PVE的学习/安装和使用PVE教程/assets/安装和使用PVE/file-20260203173620217 1.png"
       ],
       "sortOrder": "custom"
     },
-    "PVE的学习/assets/修改PVE的网络信息": {
+    "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机": {
       "children": [
-        "PVE的学习/assets/修改PVE的网络信息/截屏2026-01-30 21.29.59.png"
+        "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/file-20260203173628031.png",
+        "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/file-20260203173628032.png",
+        "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/file-20260203173628033.png",
+        "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/file-20260203173628033 1.png",
+        "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/file-20260203173628034.png",
+        "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/file-20260203173628034 1.png",
+        "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/file-20260203173628035.png",
+        "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/file-20260203173628035 1.png"
       ],
       "sortOrder": "custom"
     },
-    "PVE的学习/assets/PVE存储库": {
+    "PVE的学习/安装和使用PVE教程/assets/修改PVE的网络信息": {
       "children": [
-        "PVE的学习/assets/PVE存储库/截屏2026-01-30 22.49.20.png"
+        "PVE的学习/安装和使用PVE教程/assets/修改PVE的网络信息/file-20260203173647080.png"
       ],
       "sortOrder": "custom"
     },
-    "PVE的学习/assets/PVE的基础优化设置": {
+    "PVE的学习/安装和使用PVE教程/assets/PVE存储库": {
       "children": [
-        "PVE的学习/assets/PVE的基础优化设置/截屏2026-01-30 22.43.36.png",
-        "PVE的学习/assets/PVE的基础优化设置/截屏2026-01-30 22.30.12.png"
+        "PVE的学习/安装和使用PVE教程/assets/PVE存储库/file-20260203173658581.png"
       ],
       "sortOrder": "custom"
     },
-    "PVE的学习/assets/PVE的网络逻辑讲解": {
+    "PVE的学习/安装和使用PVE教程/assets/PVE的基础优化设置": {
       "children": [
-        "PVE的学习/assets/PVE的网络逻辑讲解/截屏2026-01-31 12.22.09.png",
-        "PVE的学习/assets/PVE的网络逻辑讲解/截屏2026-01-31 12.12.51.png"
+        "PVE的学习/安装和使用PVE教程/assets/PVE的基础优化设置/file-20260203173702427.png",
+        "PVE的学习/安装和使用PVE教程/assets/PVE的基础优化设置/file-20260203173702428.png"
       ],
       "sortOrder": "custom"
     },
-    "PVE的学习/assets/PVE的CT": {
+    "PVE的学习/安装和使用PVE教程/assets/PVE的网络逻辑讲解": {
       "children": [
-        "PVE的学习/assets/PVE的CT/截屏2026-02-01 14.49.51.png",
-        "PVE的学习/assets/PVE的CT/截屏2026-02-01 14.47.58.png"
+        "PVE的学习/安装和使用PVE教程/assets/PVE的网络逻辑讲解/file-20260203173655286.png",
+        "PVE的学习/安装和使用PVE教程/assets/PVE的网络逻辑讲解/file-20260203173655287.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/安装和使用PVE教程/assets/PVE的CT": {
+      "children": [
+        "PVE的学习/安装和使用PVE教程/assets/PVE的CT/file-20260203173652017.png",
+        "PVE的学习/安装和使用PVE教程/assets/PVE的CT/file-20260203173652018.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/PVE直通教程": {
+      "children": [
+        "PVE的学习/PVE直通教程/PVE直通.md",
+        "PVE的学习/PVE直通教程/IOMMU分组情况.md",
+        "PVE的学习/PVE直通教程/绑定vfio驱动.md"
       ],
       "sortOrder": "custom"
     },
@@ -223,7 +236,11 @@
       "sortOrder": "custom"
     },
     "qBittorent/assets/qBittorrent的使用": {
-      "children": [],
+      "children": [
+        "qBittorent/assets/qBittorrent的使用/file-20260202224515441.png",
+        "qBittorent/assets/qBittorrent的使用/file-20260202224515441 1.png",
+        "qBittorent/assets/qBittorrent的使用/file-20260202224515442.png"
+      ],
       "sortOrder": "custom"
     }
   },
