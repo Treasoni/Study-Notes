@@ -68,7 +68,7 @@ Windows 会被明确告诉：
     - 看见硬盘
     - 正常安装
     - 启动不蓝屏
-为什么选择amd64
+为什么选择amd64看[安装window一般是amd64](系统架构.md#安装window一般是amd64)
 
 
 我们创建window中这里我们选择==**加载驱动程序**==
@@ -76,3 +76,4 @@ Windows 会被明确告诉：
 这里我们选择**浏览**
 ![](assets/PVE创建window/截屏2026-02-03%2020.19.45.png)
 ![](assets/PVE创建window/截屏2026-02-03%2020.22.54.png)
+window
