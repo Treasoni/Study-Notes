@@ -139,7 +139,7 @@ IOMMU Group */devices/*: 00:00.0 Host bridge [0600]: Intel Corporation Xeon E3-1
 > **一个 Group 里，只包含：  
 > 设备本体 + 它必须捆绑的附属功能（如 audio）**
 
-## 1.1 最理想的 IOMMU 分组（教科书级）
+## 4.1 最理想的 IOMMU 分组（教科书级）
 
 这是你在**服务器主板 / 高端平台**上能看到的。
 
@@ -167,19 +167,47 @@ Group 4:
 
 👉 **你想直通谁，就拿谁**
 
-# 二、正常但“略差一点”的分组（很常见）
+## 4.2 正常但“略差一点”的分组（很常见）
 
 消费级主板、较新平台常见。
 
-`Group 5:   01:00.0 VGA controller   01:00.1 Audio device  Group 6:   00:14.0 USB controller   00:14.2 USB controller  Group 7:   00:1f.3 Audio device   00:1f.4 SMBus`
+```bash
+Group 5:
+  01:00.0 VGA controller
+  01:00.1 Audio device
+
+Group 6:
+  00:14.0 USB controller
+  00:14.2 USB controller
+
+Group 7:
+  00:1f.3 Audio device
+  00:1f.4 SMBus
+
+```
 
 ### 怎么看？
 
 - GPU + audio 在一起 → ✅ 正常
-    
 - USB 控制器有两个 → ⚠️
-    
     - 但如果 **整个 group 都直通**  
         👉 也是安全的
-        
 - 芯片组杂项一组 → 不动它就行
+## 4.3 你现在这种“异常但很常见”的分组（差）
+
+你现在看到的本质是👇
+
+`Group 0:   Host bridge   CPU internal devices   USB   SATA   MEI   LPC   SMBus   网卡`
+
+### 这说明什么？
+
+- 所有设备走 **同一个 Root Complex**
+    
+- 没有 ACS
+    
+- 没有隔离
+    
+- **这是“家用低端平台的常态”**
+    
+
+👉 并不是坏，是**定位不同**
