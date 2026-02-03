@@ -118,23 +118,14 @@ reboot
 
 详细讲解看[[绑定vfio驱动]]
 
-## Step 7：PVE Web 里添加 PCI 设备
+## 4.7 Step 7：PVE Web 里添加 PCI 设备
 
 - VM → Hardware → Add → PCI Device
-    
 - 勾选：
-    
     - ✅ All Functions
-        
     - ✅ PCI-Express
-        
     - ✅ ROM-Bar（部分显卡）
-        
 
----
-
-### ✅ Intel 直通总结一句话
+# 5.  Intel 直通总结一句话
 
 > **BIOS 是“许可”，GRUB 是“执行”，vfio 是“接管”**
-
----
