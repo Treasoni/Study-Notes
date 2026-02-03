@@ -98,7 +98,7 @@ done
 
 ## 1.6 Step 6：绑定 vfio 驱动（防止宿主机占用）
 
-```
+```bash
 nano /etc/modprobe.d/vfio.conf
 ```
 
@@ -109,8 +109,10 @@ nano /etc/modprobe.d/vfio.conf
 > `10de:xxxx` 来自 `lspci -nn`
 
 然后：
-
-`update-initramfs -u reboot`
+```bash
+update-initramfs -u
+reboot
+```
 
 ---
 
