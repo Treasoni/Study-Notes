@@ -82,7 +82,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#两则关系区分",
+                "query": "tag:#一句话先给你一个",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -234,7 +234,7 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "b1d67ad44453b01a",
+  "active": "52ff2f9fbef74052",
   "lastOpenFiles": [
     "PVE直通.md",
     "IOMMU分组情况.md",
