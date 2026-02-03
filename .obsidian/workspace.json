@@ -83,7 +83,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "PVE创建window.md",
+                "file": "PVE的学习/安装和使用PVE教程/assets/PVE创建window.md",
                 "mode": "source",
                 "source": false
               },
@@ -227,7 +227,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "PVE创建window.md",
+                "file": "PVE的学习/安装和使用PVE教程/assets/PVE创建window.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
@@ -276,18 +276,20 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "b4caaa54df715a53",
+  "active": "52ff2f9fbef74052",
   "lastOpenFiles": [
-    "assets/PVE创建window/截屏2026-02-03 21.24.10.png",
-    "assets/PVE创建window/截屏2026-02-03 21.19.37.png",
-    "assets/PVE创建window/截屏2026-02-03 21.18.03.png",
+    "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window",
+    "PVE的学习/安装和使用PVE教程/assets/assets",
+    "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732140.png",
+    "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732142.png",
+    "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732143.png",
     "如何安装window系统.md",
     "系统架构.md",
-    "PVE创建window.md",
-    "assets/PVE创建window/截屏2026-02-03 20.22.54.png",
-    "assets/PVE创建window/截屏2026-02-03 20.20.06.png",
-    "assets/PVE创建window/截屏2026-02-03 20.19.45.png",
-    "assets/PVE创建window/截屏2026-02-03 20.16.22.png",
+    "PVE的学习/安装和使用PVE教程/assets/PVE创建window.md",
+    "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732144.png",
+    "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732144 1.png",
+    "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732145.png",
+    "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732145 1.png",
     "assets/PVE创建window",
     "PVE的学习/写盘工具.md",
     "系统架构.docx",
@@ -308,11 +310,9 @@
     "PVE的学习/安装和使用PVE教程/assets/PVE的CT",
     "PVE的学习/安装和使用PVE教程/assets/修改PVE的网络信息",
     "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机",
-    "PVE的学习/安装和使用PVE教程/assets/安装和使用PVE",
     "qBittorent/qBittorent配置代理.md",
     "qBittorent/qBittorrent的使用.md",
     "qBittorent/qBittorent的Tracker.md",
-    "qBittorent/assets/qBittorrent的使用/file-20260202224515441.png",
     "qBittorent的Tracker.md",
     "qBittorent配置代理.md",
     "给.md",
