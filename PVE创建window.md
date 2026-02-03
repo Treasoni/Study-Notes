@@ -62,4 +62,6 @@ Windows 会被明确告诉：
 ![](assets/PVE创建window/截屏2026-02-03%2020.16.22.png)
 改变启动循序：先window镜像，再是virtio镜像。
 
-我们创建window得过程和
+我们创建window中再
+![](assets/PVE创建window/截屏2026-02-03%2020.20.06.png)
+![](assets/PVE创建window/截屏2026-02-03%2020.19.45.png)
