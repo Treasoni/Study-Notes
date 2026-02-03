@@ -129,37 +129,14 @@ options vfio-pci ids=10de:1c03,10de:10f1
 
 ## 4.4 第 4 步（非常重要）：禁止宿主机原驱动加载
 
-**例：核显 / 显卡**
-
+然后：
 ```bash
-nano /etc/modprobe.d/blacklist.conf
-```
-
-写：
-
-```bash
-blacklist nouveau
-blacklist nvidia
-blacklist i915   # 只有你真要直通核显才加
-```
-
-⚠️ **不要随便 blacklist i915**  
-👉 否则宿主机没显示
-
-
-## 4.5 第 5 步：更新 initramfs
-
-```bash
-update-initramfs -u -k all
-```
-
-## 4.6 第 6 步：重启
-
-```bash
+update-initramfs -u
 reboot
 ```
 
-## 4.7 第 7 步：确认绑定成功（一定要做）
+
+## 4.5 第 5 步：确认绑定成功（一定要做）
 
 ```bash
 lspci -nnk -s 01:00.0
