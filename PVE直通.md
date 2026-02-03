@@ -29,7 +29,7 @@ BIOS 这里只是说一句话：
 
 ⚠️ **此时 PVE 还不能直通**
 
-# 1.2 Step 2：PVE 启用 IOMMU（系统层，关键）
+## 1.2 Step 2：PVE 启用 IOMMU（系统层，关键）
 
 ### 1.2.1 修改 GRUB
 
@@ -96,9 +96,11 @@ done
 详细讲解看[IOMMU分组情况](IOMMU分组情况.md)
 ---
 
-## Step 6：绑定 vfio 驱动（防止宿主机占用）
+## 1.6 Step 6：绑定 vfio 驱动（防止宿主机占用）
 
-`nano /etc/modprobe.d/vfio.conf`
+```
+nano /etc/modprobe.d/vfio.conf
+```
 
 写入（示例）：
 
