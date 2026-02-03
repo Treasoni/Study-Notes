@@ -69,7 +69,10 @@ Windows 会被明确告诉：
     - 正常安装
     - 启动不蓝屏
 为什么选择amd64看[安装window一般是amd64](系统架构.md#安装window一般是amd64)
+> [!warning]
 
+> ⚠️ 
+![](assets/PVE创建window/截屏2026-02-03%2021.18.03.png)
 
 我们创建window中这里我们选择==**加载驱动程序**==
 ![](assets/PVE创建window/截屏2026-02-03%2020.20.06.png)
@@ -77,3 +80,10 @@ Windows 会被明确告诉：
 ![](assets/PVE创建window/截屏2026-02-03%2020.19.45.png)
 ![](assets/PVE创建window/截屏2026-02-03%2020.22.54.png)
 window系统放到我们给的硬盘就可以了。
+> [!warning]
+
+> ⚠️ 这里不用改引导循序了，就让让重启就好了。
+
+# 3. 配置网络
+文件夹中点击virtio的安装程序==**virtio-win-gt-x64**==，网络就配置好了。
+![](assets/PVE创建window/截屏2026-02-03%2021.19.37.png)
