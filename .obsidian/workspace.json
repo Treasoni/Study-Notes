@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "系统架构.md",
+                "file": "PVE创建window.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "系统架构"
+              "title": "PVE创建window"
             }
           }
         ],
@@ -227,13 +227,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "系统架构.md",
+                "file": "PVE创建window.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "系统架构 的大纲"
+              "title": "PVE创建window 的大纲"
             }
           },
           {
@@ -278,15 +278,15 @@
   },
   "active": "b4caaa54df715a53",
   "lastOpenFiles": [
+    "如何安装window系统.md",
+    "系统架构.md",
     "PVE创建window.md",
     "assets/PVE创建window/截屏2026-02-03 20.22.54.png",
     "assets/PVE创建window/截屏2026-02-03 20.20.06.png",
     "assets/PVE创建window/截屏2026-02-03 20.19.45.png",
-    "如何安装window系统.md",
     "assets/PVE创建window/截屏2026-02-03 20.16.22.png",
     "assets/PVE创建window",
     "PVE的学习/写盘工具.md",
-    "系统架构.md",
     "系统架构.docx",
     "assets/如何安装window系统/截屏2026-02-03 19.08.44.png",
     "assets/如何安装window系统/截屏2026-02-03 19.05.26.png",
