@@ -2,6 +2,8 @@
   "customOrder": {
     "/": {
       "children": [
+        "IOMMU分组情况.md",
+        "PVE直通.md",
         "~$ittorrent的使用.docx",
         "qBittorrent的使用.docx",
         "qBittorent",
@@ -31,7 +33,6 @@
     },
     "assets": {
       "children": [
-        "assets/qBittorrent的使用",
         "assets/qBittorent的Tracker",
         "assets/qBittorent配置代理",
         "assets/linux如何修改网络信息",
@@ -76,14 +77,6 @@
       "children": [
         "assets/qBittorent配置代理/file-20260202223705113.png",
         "assets/qBittorent配置代理/截屏2026-02-02 22.35.34.png"
-      ],
-      "sortOrder": "custom"
-    },
-    "assets/qBittorrent的使用": {
-      "children": [
-        "assets/qBittorrent的使用/file-20260202224447569.png",
-        "assets/qBittorrent的使用/file-20260202224419971.png",
-        "assets/qBittorrent的使用/file-20260202224412228.png"
       ],
       "sortOrder": "custom"
     },
@@ -216,10 +209,21 @@
     },
     "qBittorent": {
       "children": [
+        "qBittorent/assets",
         "qBittorent/qBittorrent的使用.md",
         "qBittorent/qBittorent配置代理.md",
         "qBittorent/qBittorent的Tracker.md"
       ],
+      "sortOrder": "custom"
+    },
+    "qBittorent/assets": {
+      "children": [
+        "qBittorent/assets/qBittorrent的使用"
+      ],
+      "sortOrder": "custom"
+    },
+    "qBittorent/assets/qBittorrent的使用": {
+      "children": [],
       "sortOrder": "custom"
     }
   },
