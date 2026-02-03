@@ -197,17 +197,22 @@ Group 7:
 
 你现在看到的本质是👇
 
-`Group 0:   Host bridge   CPU internal devices   USB   SATA   MEI   LPC   SMBus   网卡`
-
+```bash
+Group 0:
+  Host bridge
+  CPU internal devices
+  USB
+  SATA
+  MEI
+  LPC
+  SMBus
+  网卡
+```
 ### 这说明什么？
 
 - 所有设备走 **同一个 Root Complex**
-    
 - 没有 ACS
-    
 - 没有隔离
-    
 - **这是“家用低端平台的常态”**
-    
 
 👉 并不是坏，是**定位不同**
