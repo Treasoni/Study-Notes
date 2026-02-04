@@ -2,9 +2,12 @@
   "customOrder": {
     "/": {
       "children": [
+        "linux的文件权限.md",
+        "未命名.md",
+        "docker里的GID和UID.md",
+        "docker",
         "github文件直链方式.md",
         "如何搭建漫画库.md",
-        "docker容器搭建错误的知识讲解.md",
         "系统架构.md",
         "系统架构.docx",
         "如何安装window系统.md",
@@ -12,9 +15,7 @@
         "qBittorent",
         "linux",
         "Linux磁盘相关的知识.docx",
-        "cpu的线程和内核.md",
         "计算机网络",
-        "linux如何修改网络信息.md",
         "iso和img.md",
         "硬盘教程和NAS硬盘知识讲解.md",
         "硬盘教程和NAS硬盘知识讲解.docx",
@@ -40,7 +41,6 @@
         "assets/如何安装window系统",
         "assets/qBittorent的Tracker",
         "assets/qBittorent配置代理",
-        "assets/linux如何修改网络信息",
         "assets/硬盘教程和NAS硬盘知识讲解",
         "assets/如何使用obsidian做笔记"
       ],
@@ -51,6 +51,12 @@
         "assets/如何安装window系统/截屏2026-02-03 19.08.44.png",
         "assets/如何安装window系统/截屏2026-02-03 19.05.26.png",
         "assets/如何安装window系统/截屏2026-02-03 19.03.05.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "assets/如何搭建漫画库": {
+      "children": [
+        "assets/如何搭建漫画库/截屏2026-02-04 12.12.41.png"
       ],
       "sortOrder": "custom"
     },
@@ -74,12 +80,6 @@
       ],
       "sortOrder": "custom"
     },
-    "assets/linux如何修改网络信息": {
-      "children": [
-        "assets/linux如何修改网络信息/截屏2026-02-01 18.45.35.png"
-      ],
-      "sortOrder": "custom"
-    },
     "assets/qBittorent的Tracker": {
       "children": [
         "assets/qBittorent的Tracker/file-20260202223827013.png"
@@ -90,6 +90,12 @@
       "children": [
         "assets/qBittorent配置代理/file-20260202223705113.png",
         "assets/qBittorent配置代理/截屏2026-02-02 22.35.34.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "docker": {
+      "children": [
+        "docker/docker容器搭建错误的知识讲解.md"
       ],
       "sortOrder": "custom"
     },
@@ -121,12 +127,15 @@
       "children": [
         "linux/assets",
         "linux/linux的LVM管理.md",
+        "linux/cpu的线程和内核.md",
+        "linux/linux如何修改网络信息.md",
         "linux/linux磁盘相关的知识.md"
       ],
       "sortOrder": "custom"
     },
     "linux/assets": {
       "children": [
+        "linux/assets/linux如何修改网络信息",
         "linux/assets/linux磁盘相关的知识"
       ],
       "sortOrder": "custom"
@@ -136,6 +145,12 @@
         "linux/assets/linux磁盘相关的知识/file-20260202185455396.png",
         "linux/assets/linux磁盘相关的知识/file-20260202185441540.png",
         "linux/assets/linux磁盘相关的知识/file-20260202185424052.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "linux/assets/linux如何修改网络信息": {
+      "children": [
+        "linux/assets/linux如何修改网络信息/file-20260204122916989.png"
       ],
       "sortOrder": "custom"
     },
@@ -202,6 +217,24 @@
       ],
       "sortOrder": "custom"
     },
+    "PVE的学习/安装和使用PVE教程/assets/assets": {
+      "children": [
+        "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window": {
+      "children": [
+        "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732140.png",
+        "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732142.png",
+        "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732143.png",
+        "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732144.png",
+        "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732144 1.png",
+        "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732145.png",
+        "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732145 1.png"
+      ],
+      "sortOrder": "custom"
+    },
     "PVE的学习/安装和使用PVE教程/assets/PVE存储库": {
       "children": [
         "PVE的学习/安装和使用PVE教程/assets/PVE存储库/file-20260203173658581.png"
@@ -257,22 +290,6 @@
         "qBittorent/assets/qBittorrent的使用/file-20260202224515441.png",
         "qBittorent/assets/qBittorrent的使用/file-20260202224515441 1.png",
         "qBittorent/assets/qBittorrent的使用/file-20260202224515442.png"
-      ],
-      "sortOrder": "custom"
-    },
-    "PVE的学习/安装和使用PVE教程/assets/assets": {
-      "children": [
-        "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window"
-      ],
-      "sortOrder": "custom"
-    },
-    "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window": {
-      "children": [],
-      "sortOrder": "custom"
-    },
-    "assets/如何搭建漫画库": {
-      "children": [
-        "assets/如何搭建漫画库/截屏2026-02-04 12.12.41.png"
       ],
       "sortOrder": "custom"
     }
