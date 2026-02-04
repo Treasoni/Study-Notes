@@ -83,16 +83,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "PVE的学习/安装和使用PVE教程/assets/PVE创建window.md",
+                "file": "计算机网络/带宽和宽带.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "PVE创建window"
+              "title": "带宽和宽带"
+            }
+          },
+          {
+            "id": "03ac06d93df874ec",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "docker容器搭建错误的知识讲解.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "docker容器搭建错误的知识讲解"
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 6
       }
     ],
     "direction": "vertical"
@@ -227,13 +241,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "PVE的学习/安装和使用PVE教程/assets/PVE创建window.md",
+                "file": "docker容器搭建错误的知识讲解.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "PVE创建window 的大纲"
+              "title": "docker容器搭建错误的知识讲解 的大纲"
             }
           },
           {
@@ -276,8 +290,12 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "52ff2f9fbef74052",
+  "active": "03ac06d93df874ec",
   "lastOpenFiles": [
+    "计算机网络/带宽和宽带.md",
+    "docker容器搭建错误的知识讲解.md",
+    "计算机网络/网络宽带的上传和下载.md",
+    "PVE的学习/安装和使用PVE教程/assets/PVE创建window.md",
     "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window",
     "PVE的学习/安装和使用PVE教程/assets/assets",
     "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732140.png",
@@ -285,7 +303,6 @@
     "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732143.png",
     "如何安装window系统.md",
     "系统架构.md",
-    "PVE的学习/安装和使用PVE教程/assets/PVE创建window.md",
     "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732144.png",
     "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732144 1.png",
     "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732145.png",
@@ -309,7 +326,6 @@
     "PVE的学习/安装和使用PVE教程/assets/PVE的网络逻辑讲解",
     "PVE的学习/安装和使用PVE教程/assets/PVE的CT",
     "PVE的学习/安装和使用PVE教程/assets/修改PVE的网络信息",
-    "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机",
     "qBittorent/qBittorent配置代理.md",
     "qBittorent/qBittorrent的使用.md",
     "qBittorent/qBittorent的Tracker.md",
@@ -318,11 +334,9 @@
     "给.md",
     "linux/linux的LVM管理.md",
     "linux/linux磁盘相关的知识.md",
-    "计算机网络/网络宽带的上传和下载.md",
     "如何使用obsidian做笔记.md",
     "PVE的学习/安装和使用PVE教程/PVE存储库.md",
     "PVE的学习/安装和使用PVE教程/PVE的CT.md",
-    "PVE的学习/安装和使用PVE教程/修改PVE的网络信息.md",
-    "PVE的学习/安装和使用PVE教程/PVE的网络逻辑讲解.md"
+    "PVE的学习/安装和使用PVE教程/修改PVE的网络信息.md"
   ]
 }
