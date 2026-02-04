@@ -2,7 +2,7 @@
   "customOrder": {
     "/": {
       "children": [
-        "docker里的GID和UID.md",
+        "docker进行代理.md",
         "docker",
         "github文件直链方式.md",
         "如何搭建漫画库.md",
@@ -93,6 +93,7 @@
     },
     "docker": {
       "children": [
+        "docker/docker里的GID和UID.md",
         "docker/docker容器搭建错误的知识讲解.md"
       ],
       "sortOrder": "custom"
