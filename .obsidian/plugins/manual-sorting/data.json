@@ -2,8 +2,6 @@
   "customOrder": {
     "/": {
       "children": [
-        "linux的文件权限.md",
-        "未命名.md",
         "docker里的GID和UID.md",
         "docker",
         "github文件直链方式.md",
@@ -128,6 +126,7 @@
         "linux/assets",
         "linux/linux的LVM管理.md",
         "linux/cpu的线程和内核.md",
+        "linux/linux的文件权限.md",
         "linux/linux如何修改网络信息.md",
         "linux/linux磁盘相关的知识.md"
       ],

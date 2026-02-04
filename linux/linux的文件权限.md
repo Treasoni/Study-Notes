@@ -231,3 +231,54 @@ sudo chmod 750 app.sh
 
 **chmod 决定“能干啥”**  
 **chown / group 决定“谁能干”**
+
+# 4. 如何查看文件的【用户 + 组】？
+
+**最常用（90% 场景）**
+
+```bash
+ls -l 文件名
+```
+
+**示例**
+
+```bash
+ls -l app.sh
+```
+
+输出：
+
+`-rwxr-x--- 1 root dev 4096 app.sh`
+
+重点看中间这两列：
+
+```nginx
+root   dev
+↑      ↑
+所有者  所属组
+```
+
+👉 结论：
+
+- **文件所有者：root**
+- **文件所属组：dev**
+
+# 5. 如何看【某个组】里有哪些用户？
+
+
+**直接查系统用户组（最标准）**
+
+```bash
+getent group dev
+```
+
+输出：
+
+`dev:x:1001:alice,bob`
+
+解释：
+```yaml
+组名 : x : GID : 成员列表
+```
+
+👉 **dev 组里有 alice 和 bob**
