@@ -104,18 +104,23 @@ ls -l /tmp/rootfile
 
 这是**最直接、最暴力**的方式。
 
-#### 例 1：所有人都能读
+**例 1：所有人都能读**
 
-`chmod 644 file.txt # 等价于 chmod u=rw,g=r,o=r file.txt`
+```bash
+chmod 644 file.txt
+# 等价于
+chmod u=rw,g=r,o=r file.txt
+```
 
-#### 例 2：所有人都能执行（脚本/程序）
+**例 2：所有人都能执行（脚本/程序）**
 
-`chmod 755 run.sh`
+```bash
+chmod 755 run.sh
+```
 
 意思是：
 
 - 所有者：rwx
-    
 - 组用户：r-x
     
 - 其他人：r-x
