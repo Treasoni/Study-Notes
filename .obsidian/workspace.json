@@ -118,9 +118,23 @@
               "icon": "lucide-file",
               "title": "如何搭建漫画库"
             }
+          },
+          {
+            "id": "679fcb357471f8db",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "github文件直链方式.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "github文件直链方式"
+            }
           }
         ],
-        "currentTab": 7
+        "currentTab": 8
       }
     ],
     "direction": "vertical"
@@ -255,13 +269,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "如何搭建漫画库.md",
+                "file": "github文件直链方式.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "如何搭建漫画库 的大纲"
+              "title": "github文件直链方式 的大纲"
             }
           },
           {
@@ -304,12 +318,13 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "04d61fcf1a4ec005",
+  "active": "679fcb357471f8db",
   "lastOpenFiles": [
+    "如何搭建漫画库.md",
+    "github文件直链方式.md",
     "assets/如何搭建漫画库/截屏2026-02-04 12.12.41.png",
     "assets/如何搭建漫画库",
     "docker容器搭建错误的知识讲解.md",
-    "如何搭建漫画库.md",
     "计算机网络/带宽和宽带.md",
     "计算机网络/网络宽带的上传和下载.md",
     "PVE的学习/安装和使用PVE教程/assets/PVE创建window.md",
@@ -329,7 +344,6 @@
     "系统架构.docx",
     "assets/如何安装window系统/截屏2026-02-03 19.08.44.png",
     "assets/如何安装window系统/截屏2026-02-03 19.05.26.png",
-    "assets/如何安装window系统/截屏2026-02-03 19.03.05.png",
     "assets/如何安装window系统",
     "PVE的学习/WinPE.md",
     "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",

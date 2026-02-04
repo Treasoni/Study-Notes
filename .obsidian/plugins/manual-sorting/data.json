@@ -2,6 +2,7 @@
   "customOrder": {
     "/": {
       "children": [
+        "github文件直链方式.md",
         "如何搭建漫画库.md",
         "docker容器搭建错误的知识讲解.md",
         "系统架构.md",
@@ -35,6 +36,7 @@
     },
     "assets": {
       "children": [
+        "assets/如何搭建漫画库",
         "assets/如何安装window系统",
         "assets/qBittorent的Tracker",
         "assets/qBittorent配置代理",
@@ -266,6 +268,12 @@
     },
     "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window": {
       "children": [],
+      "sortOrder": "custom"
+    },
+    "assets/如何搭建漫画库": {
+      "children": [
+        "assets/如何搭建漫画库/截屏2026-02-04 12.12.41.png"
+      ],
       "sortOrder": "custom"
     }
   },
