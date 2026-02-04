@@ -4,179 +4,20 @@
     "type": "split",
     "children": [
       {
-        "id": "713dce0b5de8b23f",
+        "id": "42208a531b5ed4fb",
         "type": "tabs",
         "children": [
           {
-            "id": "6a8bd2263225f813",
+            "id": "a1fadb878495b58e",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "安装和使用PVE"
-            }
-          },
-          {
-            "id": "1a1cb88283b91280",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "PVE的学习/PVE直通教程/PVE直通.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "PVE直通"
-            }
-          },
-          {
-            "id": "b1d67ad44453b01a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "PVE的学习/PVE直通教程/PVE直通.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "PVE直通"
-            }
-          },
-          {
-            "id": "36eb24221134bd6e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "PVE的学习/PVE直通教程/绑定vfio驱动.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "绑定vfio驱动"
-            }
-          },
-          {
-            "id": "51f5905f8784bb83",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "如何安装window系统.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "如何安装window系统"
-            }
-          },
-          {
-            "id": "b4caaa54df715a53",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "计算机网络/带宽和宽带.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "带宽和宽带"
-            }
-          },
-          {
-            "id": "03ac06d93df874ec",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docker/docker容器搭建错误的知识讲解.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "docker容器搭建错误的知识讲解"
-            }
-          },
-          {
-            "id": "04d61fcf1a4ec005",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "如何搭建漫画库.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "如何搭建漫画库"
-            }
-          },
-          {
-            "id": "679fcb357471f8db",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "如何搭建漫画库.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "如何搭建漫画库"
-            }
-          },
-          {
-            "id": "645a5ba589ed8822",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docker里的GID和UID.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "docker里的GID和UID"
-            }
-          },
-          {
-            "id": "4bf41e83a4f3a755",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "未命名.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "未命名"
-            }
-          },
-          {
-            "id": "5ab9485b8c3764c6",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "linux的文件权限.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "linux的文件权限"
+              "title": "新标签页"
             }
           }
-        ],
-        "currentTab": 11
+        ]
       }
     ],
     "direction": "vertical"
@@ -311,13 +152,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux的文件权限.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "linux的文件权限 的大纲"
+              "title": "大纲"
             }
           },
           {
@@ -360,22 +200,25 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "5ab9485b8c3764c6",
+  "active": "a1fadb878495b58e",
   "lastOpenFiles": [
-    "未命名.md",
-    "linux的文件权限.md",
+    "linux/linux的文件权限.md",
     "docker里的GID和UID.md",
-    "docker/docker容器搭建错误的知识讲解.md",
     "如何搭建漫画库.md",
+    "docker/docker容器搭建错误的知识讲解.md",
+    "计算机网络/带宽和宽带.md",
+    "如何安装window系统.md",
+    "PVE的学习/PVE直通教程/绑定vfio驱动.md",
+    "PVE的学习/PVE直通教程/PVE直通.md",
+    "未命名 1.md",
+    "未命名.md",
     "docker",
     "linux/cpu的线程和内核.md",
     "linux/assets/linux如何修改网络信息",
     "github文件直链方式.md",
-    "如何安装window系统.md",
     "系统架构.md",
     "assets/如何搭建漫画库/截屏2026-02-04 12.12.41.png",
     "assets/如何搭建漫画库",
-    "计算机网络/带宽和宽带.md",
     "计算机网络/网络宽带的上传和下载.md",
     "PVE的学习/安装和使用PVE教程/assets/PVE创建window.md",
     "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window",
@@ -395,8 +238,6 @@
     "assets/如何安装window系统",
     "PVE的学习/WinPE.md",
     "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",
-    "PVE的学习/PVE直通教程/绑定vfio驱动.md",
-    "PVE的学习/PVE直通教程/PVE直通.md",
     "PVE的学习/PVE直通教程/IOMMU分组情况.md",
     "硬盘教程和NAS硬盘知识讲解.md",
     "linux/linux如何修改网络信息.md",
@@ -406,7 +247,6 @@
     "qBittorent/qBittorrent的使用.md",
     "qBittorent/qBittorent的Tracker.md",
     "qBittorent的Tracker.md",
-    "qBittorent配置代理.md",
-    "给.md"
+    "qBittorent配置代理.md"
   ]
 }
