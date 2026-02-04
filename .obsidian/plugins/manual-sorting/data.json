@@ -2,6 +2,7 @@
   "customOrder": {
     "/": {
       "children": [
+        "如何搭建漫画库.md",
         "docker容器搭建错误的知识讲解.md",
         "系统架构.md",
         "系统架构.docx",
