@@ -1,3 +1,8 @@
+---
+tags:
+  - docker
+---
+
 # 1. 我改正了 docker-compose.yml，再执行 docker compose up -d 会发生什么？
 
  **🔑 结论先给你：**
