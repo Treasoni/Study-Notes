@@ -104,9 +104,23 @@
               "icon": "lucide-file",
               "title": "docker容器搭建错误的知识讲解"
             }
+          },
+          {
+            "id": "04d61fcf1a4ec005",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "如何搭建漫画库.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "如何搭建漫画库"
+            }
           }
         ],
-        "currentTab": 6
+        "currentTab": 7
       }
     ],
     "direction": "vertical"
@@ -241,13 +255,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker容器搭建错误的知识讲解.md",
+                "file": "如何搭建漫画库.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "docker容器搭建错误的知识讲解 的大纲"
+              "title": "如何搭建漫画库 的大纲"
             }
           },
           {
@@ -290,10 +304,11 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "03ac06d93df874ec",
+  "active": "04d61fcf1a4ec005",
   "lastOpenFiles": [
-    "计算机网络/带宽和宽带.md",
     "docker容器搭建错误的知识讲解.md",
+    "如何搭建漫画库.md",
+    "计算机网络/带宽和宽带.md",
     "计算机网络/网络宽带的上传和下载.md",
     "PVE的学习/安装和使用PVE教程/assets/PVE创建window.md",
     "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window",
@@ -336,7 +351,6 @@
     "linux/linux磁盘相关的知识.md",
     "如何使用obsidian做笔记.md",
     "PVE的学习/安装和使用PVE教程/PVE存储库.md",
-    "PVE的学习/安装和使用PVE教程/PVE的CT.md",
-    "PVE的学习/安装和使用PVE教程/修改PVE的网络信息.md"
+    "PVE的学习/安装和使用PVE教程/PVE的CT.md"
   ]
 }
