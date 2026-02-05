@@ -364,7 +364,13 @@ sudo lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
 ```bash
 sudo lvextend -L +100G /dev/ubuntu-vg/ubuntu-lv
 ```
+### 推荐的一步到位写法（强烈建议）
 
+`sudo lvextend -L +100G -r /dev/ubuntu-vg/ubuntu-lv`
+
+👉 `-r` = resize filesystem  
+👉 **逻辑卷 + 文件系统一起扩**
+可以省了第6步。
 ## 4.6 第 6 步：扩展文件系统（非常重要）
 
 ### 如果是 ext4（Ubuntu 默认）
