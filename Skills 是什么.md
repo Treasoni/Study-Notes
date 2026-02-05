@@ -91,7 +91,7 @@ Skills 可以接受参数来定制行为，例如 `/commit -m "修复登录bug"`
 ![](assets/Skills%20是什么/截屏2026-02-05%2015.55.05.png)
 
 ### 4.2 skills的实际工作过程
-我们的的skills本身是个文件夹，这个文件夹中有一个文件叫做skill.md，这个skill.md实际就是我们所的prompt（提示词）。只是我们把这个promp放到了一个skill.md的文件中。我们有许多文件夹，这些文件旧爱
+我们的的skills本身是个文件夹，这个文件夹中有一个文件叫做skill.md，这个skill.md实际就是我们所的prompt（提示词）。只是我们把这个promp放到了一个skill.md的文件中。我们有许多文件夹，这些文件夹中存放了一个个skill.md存放着不同的功能的prompt，但是wo当我们进行ai对话是，
 ## 6. Skills vs MCP
 
 > 🎯 **智能音箱比喻**
