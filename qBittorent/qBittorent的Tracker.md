@@ -1,4 +1,4 @@
-![](assets/qBittorent的Tracker/file-20260202222958349.png)
+
 # 1.  Tracker 是干嘛的？（一句话版）
 
 > **Tracker 就是“告诉你：谁手里有这个文件”的服务器**
@@ -35,8 +35,8 @@
 只有 **前两步成功**，才会写文件。
 
 # 3. 无法现在是为什么？
-![](assets/qBittorent的Tracker/file-20260202222958349.png)
 
+![](assets/qBittorent的Tracker/截屏2026-02-05%2021.08.11.png)
 结合你截图里的信息：
 
 - Tracker 页面是空的

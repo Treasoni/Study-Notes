@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "qBittorent/qBittorrent的使用.md",
+                "file": "qBittorent/qBittorent配置代理.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "qBittorrent的使用"
+              "title": "qBittorent配置代理"
             }
           }
         ],
@@ -185,13 +185,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "qBittorent/qBittorrent的使用.md",
+                "file": "qBittorent/qBittorent配置代理.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "qBittorrent的使用 的大纲"
+              "title": "qBittorent配置代理 的大纲"
             }
           },
           {
@@ -236,9 +236,15 @@
   },
   "active": "7c35df9d06705d5a",
   "lastOpenFiles": [
-    "qBittorent/qBittorent PT站点与分享率.md",
-    "qBittorent/qBittorent的Tracker.md",
+    "docker进行代理.md",
     "qBittorent/qBittorent配置代理.md",
+    "qBittorent/qBittorent的Tracker.md",
+    "qBittorent/qBittorent PT站点与分享率.md",
+    "qBittorent/assets/qBittorent的Tracker/截屏2026-02-05 21.08.11.png",
+    "qBittorent/assets/qBittorent的Tracker",
+    "qBittorent/assets/qBittorrent的使用/file-20260202224515442.png",
+    "qBittorent/assets/qBittorrent的使用/file-20260202224515441 1.png",
+    "qBittorent/assets/qBittorrent的使用/file-20260202224515441.png",
     "qBittorent/qBittorrent的使用.md",
     "系统架构.md",
     "Git/git教程.md",
@@ -263,15 +269,9 @@
     "AI学习/assets/assets/Skills 是什么",
     "AI学习/assets/assets",
     "AI学习/assets/Prompt, Agent, MCP 是什么",
-    "AI学习/assets",
     "AI学习/assets/Skills 是什么/file-20260205160852903.png",
     "AI学习/assets/Skills 是什么/file-20260205160852905.png",
-    "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820077.png",
-    "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820093.png",
     "外网如何使用代理进行翻墙.md",
-    "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820094.png",
-    "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820095.png",
-    "docker进行代理.md",
     "docker/docker容器搭建错误的知识讲解.md",
     "linux/linux的文件权限.md",
     "docker/docker里的GID和UID.md",
@@ -281,7 +281,6 @@
     "PVE的学习/PVE直通教程/绑定vfio驱动.md",
     "PVE的学习/PVE直通教程/PVE直通.md",
     "未命名 1.md",
-    "linux/cpu的线程和内核.md",
-    "github文件直链方式.md"
+    "linux/cpu的线程和内核.md"
   ]
 }
