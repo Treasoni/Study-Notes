@@ -201,7 +201,7 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -220,8 +220,10 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "bb3d69debd12c4af",
+  "active": "746e3216e1c18840",
   "lastOpenFiles": [
+    "外网如何使用代理进行翻墙.md",
+    "Prompt, Agent, MCP 是什么.md",
     "assets/Prompt, Agent, MCP 是什么/file-20260205122526685.png",
     "assets/Prompt, Agent, MCP 是什么/file-20260205122520132.png",
     "assets/Prompt, Agent, MCP 是什么/file-20260205122509266.png",
@@ -231,9 +233,7 @@
     "assets/Prompt, Agent, MCP 是什么/file-20260205122434067.png",
     "assets/Prompt, Agent, MCP 是什么",
     "docker进行代理.md",
-    "Prompt, Agent, MCP 是什么.md",
     "Prompt, Agent, MCP 是什么.docx",
-    "外网如何使用代理进行翻墙.md",
     "assets/外网如何使用代理进行翻墙/file-20260204203252366.png",
     "assets/外网如何使用代理进行翻墙",
     "外网如何使用代理进行翻墙.docx",
@@ -259,7 +259,6 @@
     "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window",
     "PVE的学习/安装和使用PVE教程/assets/assets",
     "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732140.png",
-    "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732142.png",
     "assets/PVE创建window",
     "PVE的学习/写盘工具.md",
     "PVE的学习/WinPE.md",
