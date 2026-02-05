@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Prompt, Agent, MCP 是什么.md",
+                "file": "Skills 是什么.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Prompt, Agent, MCP 是什么"
+              "title": "Skills 是什么"
             }
           }
         ],
@@ -171,13 +171,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Prompt, Agent, MCP 是什么.md",
+                "file": "Skills 是什么.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Prompt, Agent, MCP 是什么 的大纲"
+              "title": "Skills 是什么 的大纲"
             }
           },
           {
@@ -222,10 +222,11 @@
   },
   "active": "363bfe6d4474c702",
   "lastOpenFiles": [
+    "Prompt, Agent, MCP 是什么.md",
+    "Skills 是什么.md",
     "assets/Prompt, Agent, MCP 是什么/file-20260205124252571.png",
     "assets/Prompt, Agent, MCP 是什么/file-20260205124233782.png",
     "外网如何使用代理进行翻墙.md",
-    "Prompt, Agent, MCP 是什么.md",
     "assets/Prompt, Agent, MCP 是什么/file-20260205122526685.png",
     "assets/Prompt, Agent, MCP 是什么/file-20260205122520132.png",
     "assets/Prompt, Agent, MCP 是什么/file-20260205122509266.png",
@@ -254,7 +255,6 @@
     "linux/assets/linux如何修改网络信息",
     "github文件直链方式.md",
     "系统架构.md",
-    "assets/如何搭建漫画库/截屏2026-02-04 12.12.41.png",
     "assets/如何搭建漫画库",
     "计算机网络/网络宽带的上传和下载.md",
     "PVE的学习/安装和使用PVE教程/assets/PVE创建window.md",
