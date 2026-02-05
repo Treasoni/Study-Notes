@@ -37,3 +37,18 @@ https://github.com/jgm/pandoc
 ```
 >下载相应的可执行程序，然后把可执行程序的文件位置添写在这里
 >![](assets/如何使用obsidian做笔记/截屏2026-01-30%2017.52.33.png)
+
+# 4. 如何使用Claude code
+## 4.1 下载相应的插件
+用下面的链接：
+```http
+https://github.com/YishenTu/claudian
+```
+按照教程把这个插件放在
+```
+.obsidian/plugins/
+```
+## 4.2 进行环境配置
+我们主要是配置着插件的环境：
+这里的环境[2.2 进行Claude code配置](AI学习/如何使用Claude%20code.md#2.2%20进行Claude%20code配置)里的火山引擎的那个。
+![](assets/如何使用obsidian做笔记/截屏2026-02-05%2017.36.08.png)
