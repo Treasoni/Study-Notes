@@ -2,21 +2,19 @@
   "customOrder": {
     "/": {
       "children": [
+        "AI学习",
+        "外网如何使用代理进行翻墙.md",
         "docker进行代理.md",
         "docker",
         "github文件直链方式.md",
         "如何搭建漫画库.md",
         "系统架构.md",
-        "系统架构.docx",
         "如何安装window系统.md",
-        "qBittorrent的使用.docx",
         "qBittorent",
         "linux",
-        "Linux磁盘相关的知识.docx",
         "计算机网络",
         "iso和img.md",
         "硬盘教程和NAS硬盘知识讲解.md",
-        "硬盘教程和NAS硬盘知识讲解.docx",
         "assets",
         "Git",
         "PVE的学习",
@@ -33,8 +31,48 @@
       ],
       "sortOrder": "custom"
     },
+    "AI学习": {
+      "children": [
+        "AI学习/assets",
+        "AI学习/Skills 是什么.md",
+        "AI学习/如何使用Claude code.md",
+        "AI学习/Prompt, Agent, MCP 是什么.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/assets": {
+      "children": [
+        "AI学习/assets/Skills 是什么",
+        "AI学习/assets/Prompt, Agent, MCP 是什么"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/assets/Prompt, Agent, MCP 是什么": {
+      "children": [
+        "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820077.png",
+        "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820093.png",
+        "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820094.png",
+        "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820095.png",
+        "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820096.png",
+        "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820096 1.png",
+        "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820096 2.png",
+        "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820097.png",
+        "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820097 1.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/assets/Skills 是什么": {
+      "children": [
+        "AI学习/assets/Skills 是什么/file-20260205160852903.png",
+        "AI学习/assets/Skills 是什么/file-20260205160852905.png",
+        "AI学习/assets/Skills 是什么/file-20260205161420021.png"
+      ],
+      "sortOrder": "custom"
+    },
     "assets": {
       "children": [
+        "assets/如何使用Claude code",
+        "assets/外网如何使用代理进行翻墙",
         "assets/如何搭建漫画库",
         "assets/如何安装window系统",
         "assets/qBittorent的Tracker",
@@ -58,6 +96,13 @@
       ],
       "sortOrder": "custom"
     },
+    "assets/如何使用Claude code": {
+      "children": [
+        "assets/如何使用Claude code/截屏2026-02-05 16.30.26.png",
+        "assets/如何使用Claude code/截屏2026-02-05 16.29.44.png"
+      ],
+      "sortOrder": "custom"
+    },
     "assets/如何使用obsidian做笔记": {
       "children": [
         "assets/如何使用obsidian做笔记/截屏2026-01-30 17.29.55.png",
@@ -66,6 +111,12 @@
         "assets/如何使用obsidian做笔记/截屏2026-01-30 17.42.17.png",
         "assets/如何使用obsidian做笔记/截屏2026-01-30 17.45.06.png",
         "assets/如何使用obsidian做笔记/截屏2026-01-30 17.52.33.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "assets/外网如何使用代理进行翻墙": {
+      "children": [
+        "assets/外网如何使用代理进行翻墙/file-20260204203252366.png"
       ],
       "sortOrder": "custom"
     },

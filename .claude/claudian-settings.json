@@ -39,7 +39,7 @@
     ]
   },
   "permissionMode": "yolo",
-  "model": "haiku",
+  "model": "glm-4-7-251222",
   "thinkingBudget": "low",
   "enableAutoTitleGeneration": true,
   "titleGenerationModel": "",
@@ -53,7 +53,7 @@
     "~/Downloads"
   ],
   "persistentExternalContextPaths": [],
-  "environmentVariables": "",
+  "environmentVariables": "ANTHROPIC_BASE_URL=\"https://ark.cn-beijing.volces.com/api/compatible\"\nANTHROPIC_AUTH_TOKEN=\"08aa4eec-0c31-406e-a71f-d7ad16bc14ac\"\nANTHROPIC_MODEL=\"glm-4-7-251222\"\nCLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=\"1\"",
   "envSnippets": [],
   "customContextLimits": {},
   "keyboardNavigation": {
@@ -61,13 +61,13 @@
     "scrollDownKey": "s",
     "focusInputKey": "i"
   },
-  "locale": "en",
+  "locale": "zh-CN",
   "claudeCliPath": "",
   "claudeCliPathsByHost": {},
   "loadUserClaudeSettings": true,
   "lastClaudeModel": "haiku",
   "lastCustomModel": "",
-  "lastEnvHash": "",
+  "lastEnvHash": "ANTHROPIC_BASE_URL=https://ark.cn-beijing.volces.com/api/compatible|ANTHROPIC_MODEL=glm-4-7-251222",
   "maxTabs": 3,
   "tabBarPosition": "input",
   "enableAutoScroll": true,

@@ -27,16 +27,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Skills 是什么.md",
+                "file": "AI学习/Skills 是什么.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
               "title": "Skills 是什么"
             }
+          },
+          {
+            "id": "7c35df9d06705d5a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "如何使用obsidian做笔记.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "如何使用obsidian做笔记"
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -171,13 +185,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Skills 是什么.md",
+                "file": "如何使用obsidian做笔记.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Skills 是什么 的大纲"
+              "title": "如何使用obsidian做笔记 的大纲"
             }
           },
           {
@@ -201,7 +215,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
@@ -220,29 +234,34 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "363bfe6d4474c702",
+  "active": "bb3d69debd12c4af",
   "lastOpenFiles": [
-    "assets/Skills 是什么/截屏2026-02-05 15.55.05.png",
-    "assets/Skills 是什么/截屏2026-02-05 15.54.25.png",
+    "AI学习/如何使用Claude code.md",
+    "如何使用obsidian做笔记.md",
+    "assets/如何使用obsidian做笔记/截屏2026-02-05 17.36.08.png",
+    "AI学习/Skills 是什么.md",
+    "AI学习/Prompt, Agent, MCP 是什么.md",
+    "AI学习/assets/如何使用Claude code",
+    "AI学习/assets/如何使用Claude code/file-20260205163233510.png",
+    "AI学习/assets/如何使用Claude code/file-20260205163233511.png",
+    "assets/如何使用Claude code",
+    "AI学习/assets/Skills 是什么/file-20260205161420021.png",
+    "AI学习/assets/Skills 是什么",
     "assets/Skills 是什么",
-    "Prompt, Agent, MCP 是什么.md",
-    "Skills 是什么.md",
-    "assets/Prompt, Agent, MCP 是什么/file-20260205124252571.png",
-    "assets/Prompt, Agent, MCP 是什么/file-20260205124233782.png",
+    "AI学习/assets/Prompt, Agent, MCP 是什么/assets/Skills 是什么",
+    "AI学习/assets/Prompt, Agent, MCP 是什么/assets",
+    "AI学习/assets/assets/Skills 是什么",
+    "AI学习/assets/assets",
+    "AI学习/assets/Prompt, Agent, MCP 是什么",
+    "AI学习/assets",
+    "AI学习/assets/Skills 是什么/file-20260205160852903.png",
+    "AI学习/assets/Skills 是什么/file-20260205160852905.png",
+    "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820077.png",
+    "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820093.png",
     "外网如何使用代理进行翻墙.md",
-    "assets/Prompt, Agent, MCP 是什么/file-20260205122526685.png",
-    "assets/Prompt, Agent, MCP 是什么/file-20260205122520132.png",
-    "assets/Prompt, Agent, MCP 是什么/file-20260205122509266.png",
-    "assets/Prompt, Agent, MCP 是什么/file-20260205122501551.png",
-    "assets/Prompt, Agent, MCP 是什么/file-20260205122453248.png",
-    "assets/Prompt, Agent, MCP 是什么/file-20260205122444835.png",
-    "assets/Prompt, Agent, MCP 是什么/file-20260205122434067.png",
-    "assets/Prompt, Agent, MCP 是什么",
+    "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820094.png",
+    "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820095.png",
     "docker进行代理.md",
-    "Prompt, Agent, MCP 是什么.docx",
-    "assets/外网如何使用代理进行翻墙",
-    "外网如何使用代理进行翻墙.docx",
-    "未命名.md",
     "docker/docker容器搭建错误的知识讲解.md",
     "linux/linux的文件权限.md",
     "docker/docker里的GID和UID.md",
@@ -252,21 +271,15 @@
     "PVE的学习/PVE直通教程/绑定vfio驱动.md",
     "PVE的学习/PVE直通教程/PVE直通.md",
     "未命名 1.md",
-    "docker",
     "linux/cpu的线程和内核.md",
-    "linux/assets/linux如何修改网络信息",
     "github文件直链方式.md",
     "系统架构.md",
-    "assets/如何搭建漫画库",
     "计算机网络/网络宽带的上传和下载.md",
     "PVE的学习/安装和使用PVE教程/assets/PVE创建window.md",
-    "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window",
-    "PVE的学习/安装和使用PVE教程/assets/assets",
     "PVE的学习/写盘工具.md",
     "PVE的学习/WinPE.md",
     "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",
     "PVE的学习/PVE直通教程/IOMMU分组情况.md",
-    "硬盘教程和NAS硬盘知识讲解.md",
-    "linux/linux如何修改网络信息.md"
+    "硬盘教程和NAS硬盘知识讲解.md"
   ]
 }

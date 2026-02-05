@@ -1,3 +1,9 @@
+---
+tags:
+  - ai
+---
+看这个之前最好看看[Prompt, Agent, MCP 是什么](Prompt,%20Agent,%20MCP%20是什么.md)
+
 # Skills（技能）
 
 ## 1. 什么是 Skills？
@@ -88,11 +94,100 @@ Skills 可以接受参数来定制行为，例如 `/commit -m "修复登录bug"`
 │  返回执行结果给用户                                              │
 └─────────────────────────────────────────────────────────────────┘
 ```
-![](assets/Skills%20是什么/截屏2026-02-05%2015.55.05.png)
+![](assets/Skills%20是什么/file-20260205160852903.png)
 
-### 4.2 skills的实际工作过程
-我们的的skills本身是个文件夹，这个文件夹中有一个文件叫做skill.md，这个skill.md实际就是我们所的prompt（提示词）。只是我们把这个promp放到了一个skill.md的文件中。我们有许多文件夹，这些文件夹中存放了一个个skill.md存放着不同的功能的prompt，但是我的的skill.md中的内容都非常长，如果我们把所有的skill.md的内容当作ti ci当我们进行ai对话是，
-## 6. Skills vs MCP
+### 4.1 Skills 的基本结构
+
+```text
+skills/
+ ├── skill_a/
+ │    ├── skill.md
+ │    └── metadata.json
+ ├── skill_b/
+ │    ├── skill.md
+ │    └── metadata.json
+ └── skill_c/
+      ├── skill.md
+      └── metadata.json
+
+```
+![](assets/Skills%20是什么/file-20260205161420021.png)
+我们为什么每个skill都是一个单独的文件夹，是因为如果我们的要求多了也可能导致skill.md过长，所以我们又可以用图中的方式通过引用文件名的方式来减小skill.md的体积。
+### 4.2 skill.md 的定义
+
+- `skill.md` 是一个 **完整的 Prompt 定义文件**
+- 内容通常包括：
+    - AI 的角色设定
+    - 行为规则
+    - 输出格式约束
+    - 思考或执行步骤
+    - 禁止事项 / 注意事项
+
+📌 本质上：
+
+> **skill.md = 高质量、强约束、可复用的 Prompt 模块**
+
+### 4.3  metadata 的定义与作用
+
+`metadata` 是 skill 的简要能力描述，用于 **低 token 成本下的能力匹配**。
+
+常见字段示例：
+
+```json
+{
+  "name": "sql_expert",
+  "description": "用于生成、优化和解释 SQL 查询语句",
+  "use_cases": [
+    "编写 SQL",
+    "优化慢查询",
+    "解释 SQL 逻辑"
+  ],
+  "keywords": ["SQL", "数据库", "查询", "索引"],
+  "when_to_use": "当用户问题涉及数据库查询或 SQL 语句时"
+}
+
+```
+
+### 4.4 对话时的 Skill 选择流程
+
+##### Step 1：初始对话阶段
+
+- 系统 **只向 AI 提供所有 skill 的 metadata 列表**
+- 不加载任何 `skill.md` 的完整内容
+
+##### Step 2：AI 进行能力匹配
+
+- AI 根据：
+    - 用户输入的问题
+    - metadata 中描述的 skill 能力
+- 判断：
+    - 是否需要某个 skill
+    - 需要哪一个或多个 skill
+
+##### Step 3：按需加载 Skill Prompt
+
+- AI 明确声明需要某个 skill    
+- 客户端读取对应的 `skill.md`
+- 将：
+    - 用户问题
+    - skill.md 的完整内容  
+        一并发送给 AI
+
+##### Step 4：生成最终回复
+
+- AI 在 **完整 Prompt + 用户问题** 的上下文中生成高质量回复
+- 回复结果返回给用户
+
+### 4.5 . 该设计的核心优势
+
+- ✅ **极大降低 token 消耗**
+- ✅ Prompt 模块化、可维护
+- ✅ Skill 可独立升级、迭代
+- ✅ 支持复杂系统中多个能力并存
+- ✅ 非常适合 Agent / Tool / AI 助手系统
+
+ 
+## 5. Skills vs MCP
 
 > 🎯 **智能音箱比喻**
 >
@@ -109,8 +204,9 @@ Skills 可以接受参数来定制行为，例如 `/commit -m "修复登录bug"`
 | **可发现性** | 列表可见，有文档 | 需要查询工具列表 |
 | **比喻** | 「点套餐」按钮 | 后厨的厨师 |
 | **典型用途** | 常用操作的快捷方式 | 提供可调用的函数 |
-
-## 7. Skills 的优势
+因为我们的skills究其根本可以看成就是一个prompt的合集，即使我们可以通过文字的方式或内嵌代码块的方式来实现用工具，但是效率还是低于mcp。
+**Skills 是“语言驱动的能力”，MCP 是“结构化接口驱动的能力”**
+## 6. Skills 的优势
 
 > 🎯 **手机 App 比喻**
 >
@@ -126,73 +222,8 @@ Skills 可以接受参数来定制行为，例如 `/commit -m "修复登录bug"`
 4. **低门槛** - 用户只需记住命令，无需了解内部实现
 5. **可组合** - Skills 可以调用其他 Skills、Agent 或 MCP 工具
 
-## 8. 如何创建自定义 Skill
 
-> 🎯 **菜谱比喻**
->
-> 创建自定义 Skill 就像写菜谱：
-> - **name** = 菜名（宫保鸡丁）
-> - **description** = 菜品介绍（川菜名菜，麻辣鲜香）
-> - **parameters** = 原料（鸡肉、花生、辣椒...）
-> - **prompt** = 烹饪步骤（先炒鸡丁，再加配菜...）
->
-> 按照菜谱就能做出相同的菜！
-
-### 8.1 基本结构
-
-一个 Skill 通常包含以下部分：
-
-```yaml
-# skill.yaml
-name: my-skill
-description: 这是我自定义的技能
-parameters:
-  - name: input
-    type: string
-    required: true
-prompt: |
-  请帮我处理以下内容：{{input}}
-  要求：
-  1. 格式化输出
-  2. 检查语法错误
-```
-
-### 8.2 实现方式（以 Claude Code 为例）
-
-Claude Code 支持 User Skills，用户可以定义自己的技能：
-
-**步骤：**
-1. 在配置目录创建 `.claude/skills/` 文件夹
-2. 创建 `.yaml` 或 `.py` 文件定义 Skill
-3. 使用时通过 `/skill-name` 触发
-
-**示例（Python Skill）：**
-
-```python
-# .claude/skills/analyze.py
-
-def execute(context, args):
-    """
-    分析当前代码库结构
-
-    Args:
-        context: 运行上下文（包含文件系统、代码信息等）
-        args: 用户传入的参数
-    """
-    files = context.get_files("**/*.py")
-    analysis = []
-
-    for file in files:
-        analysis.append({
-            "path": file.path,
-            "lines": len(file.lines),
-            "functions": extract_functions(file.content)
-        })
-
-    return format_analysis(analysis)
-```
-
-## 9. 完整示例对比
+## 7. 完整示例对比
 
 > 🎯 **做饭比喻**
 >
@@ -222,7 +253,7 @@ AI: （自动执行预定义的完整提交流程）
 > - Skill 方式：只需输入 `/commit`（8 个字符）
 > - 效率提升：**6 倍以上**！
 
-## 10. 总结
+## 8. 总结
 
 Skills 是连接用户和 AI 能力的桥梁：
 
