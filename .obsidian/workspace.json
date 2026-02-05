@@ -201,7 +201,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
@@ -220,8 +220,14 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "363bfe6d4474c702",
+  "active": "bb3d69debd12c4af",
   "lastOpenFiles": [
+    "assets/Prompt, Agent, MCP 是什么/file-20260205122526685.png",
+    "assets/Prompt, Agent, MCP 是什么/file-20260205122520132.png",
+    "assets/Prompt, Agent, MCP 是什么/file-20260205122509266.png",
+    "assets/Prompt, Agent, MCP 是什么/file-20260205122501551.png",
+    "assets/Prompt, Agent, MCP 是什么/file-20260205122453248.png",
+    "assets/Prompt, Agent, MCP 是什么/file-20260205122444835.png",
     "assets/Prompt, Agent, MCP 是什么/file-20260205122434067.png",
     "assets/Prompt, Agent, MCP 是什么",
     "docker进行代理.md",
@@ -254,14 +260,8 @@
     "PVE的学习/安装和使用PVE教程/assets/assets",
     "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732140.png",
     "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732142.png",
-    "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732143.png",
-    "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732144.png",
-    "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732144 1.png",
-    "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732145.png",
-    "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732145 1.png",
     "assets/PVE创建window",
     "PVE的学习/写盘工具.md",
-    "assets/如何安装window系统/截屏2026-02-03 19.08.44.png",
     "PVE的学习/WinPE.md",
     "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",
     "PVE的学习/PVE直通教程/IOMMU分组情况.md",

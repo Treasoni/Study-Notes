@@ -11,8 +11,7 @@ prompt(系统提示词)。
 就这样我们只要预先设置好系统提示词后，之后我们在发布消息（user
 prompt）时会自动把系统提示词也发给AI模型
 
-![](media/image2.png){width="3.5210542432195977in"
-height="2.747404855643045in"}
+!![](assets/Prompt,%20Agent,%20MCP%20是什么/file-20260205122444835.png)
 
 # Agent
 
@@ -24,17 +23,14 @@ prompt和user
 prompt一起发送给AI大模型。AI模型就会根据要求返回一个调用某个函数的消息
 ，然后agent就会把这个请求发给需要调用的函数，函数执行完后就会返回一个格式给agent，agent把这个内容给AI大模型，然后AI大模型会根据这个内容生成内容后再执行下一步（如果不是最终的信息就会重复上面的操作），最后就是AI大模型把最终信息发给agent，再由agent把内容呈现给用户
 
-![](media/image3.png){width="5.768055555555556in"
-height="2.8354166666666667in"}
-
+![](assets/Prompt,%20Agent,%20MCP%20是什么/file-20260205122453248.png)
 # Function calling
 
 上面这个是通过自然语言（就是大白话）给AI模型说明白了该用什么格式返回，但AI是一个概率模型（不一定会要求返回信息）因此可能这步会执行多次。为了解决这种问题就出现了Function
 calling（就是实现了统一格式，实现规范描述）。比如之前我们使用自然语言进行描述的，我们就把每个TOOL都用一个json对象来进行描述。然后也规定了AI使用工具是应该返回的格式。这用system
 prompt就被function calling代替了。
 
-![](media/image4.png){width="3.9814785651793527in"
-height="2.0123108048993874in"}
+!![](assets/Prompt,%20Agent,%20MCP%20是什么/file-20260205122501551.png)
 
 但这由于不同大模型大厂的function
 calling不同导致没有统一个格式（每家大厂的API都不一样），因此现在还是system
@@ -50,8 +46,7 @@ Server中有那些tool,tool的功能，要的参数等）。
 
 # 总结
 
-![](media/image5.png){width="5.768055555555556in"
-height="3.1638888888888888in"}
+!![](assets/Prompt,%20Agent,%20MCP%20是什么/file-20260205122509266.png)
 
 用户给agent用户提示词user prompt，同时agent（MCP Client）会与MCP
 Server进行连接从mcp
@@ -67,15 +62,13 @@ Server)中找到相应的TOOL去调用函数并返还结果格agent，agent把�
 
 然后配置你的大语言模型，python中用pydantic_ai这个库去配置的，然后要获得你这个大模型的API才行，但直接放在代码中不安全，我们一般是放在.env文件中，然后用dotenv中的load_dotenv把你部署的环境放入你的环境变量中
 
-![](media/image6.png){width="5.409237751531059in"
-height="2.7736515748031496in"}
+!![](assets/Prompt,%20Agent,%20MCP%20是什么/file-20260205122520132.png)
 
 Agent就配置好了agent对象，这里可以填的参数一般是模型，系统提示词或者function
 calling，你的工具函数
 
 这里的主程序是先获得用户的输入，然后用agent.run_sync去运行最后返还结果
 
-![](media/image7.png){width="5.768055555555556in"
-height="1.2284722222222222in"}
+!![](assets/Prompt,%20Agent,%20MCP%20是什么/file-20260205122526685.png)
 
 我们如果想让它记住之前的内容，就用一个变量保存resp.all_messages()，然后当成参数给到agent.run_sync中当成一个参数。
