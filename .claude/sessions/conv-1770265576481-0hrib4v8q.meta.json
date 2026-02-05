@@ -1,0 +1,20 @@
+{
+  "id": "conv-1770265576481-0hrib4v8q",
+  "title": "你看看我这个对prompt,agent，mcp理解的对不对，帮我在完善一下",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1770265576486,
+  "updatedAt": 1770265579021,
+  "lastResponseAt": 1770265576747,
+  "sessionId": "07614afb-a939-47b1-83b0-cbd8ba620227",
+  "sdkSessionId": "07614afb-a939-47b1-83b0-cbd8ba620227",
+  "currentNote": "Prompt, Agent, MCP 是什么.md",
+  "usage": {
+    "model": "haiku",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}
