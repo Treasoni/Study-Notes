@@ -481,6 +481,12 @@ def chat_loop():
 
 ## 完整示例
 
+> **比喻**：就像一个完整的餐厅开业流程——
+> - 拿到营业执照（加载环境变量）
+> - 雇佣厨师（创建 Agent）
+> - 告诉厨师菜谱（注册工具）
+> - 开门营业（运行主程序）
+
 ```python
 # main.py
 import os
@@ -515,5 +521,16 @@ if __name__ == '__main__':
 
         result = agent.run_sync(user_input)
         print(f"\nAI: {result.data}")
-```)
+```
+
+---
+
+> 💡 **一句话总结：Prompt + Agent + Function Calling + MCP = 能说能做的 AI！**
+>
+> - **Prompt** = 让 AI 会说话（有人设）
+> - **Agent** = 让 AI 能动手（有工具）
+> - **Function Calling** = 让 AI 动手有规范（标准化）
+> - **MCP** = 让工具可以随意换（通用接口）
+>
+> 就像从「只会聊天」升级到「全能管家」！
 
