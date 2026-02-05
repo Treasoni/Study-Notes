@@ -1,0 +1,203 @@
+{
+  "nodes": [
+    {
+      "id": "center-node",
+      "type": "text",
+      "x": 400,
+      "y": 300,
+      "width": 200,
+      "height": 100,
+      "text": "# PVE 学习笔记\n\n**MOC - Map of Content**",
+      "color": "4"
+    },
+    {
+      "id": "node-write-disk",
+      "type": "text",
+      "x": -300,
+      "y": -200,
+      "width": 220,
+      "height": 150,
+      "text": "## 📝 写盘准备\n\n- Rufus: 最常用\n- balenaEtcher: 最无脑\n- Ventoy: 多系统\n- WinPE: 格式化硬盘",
+      "color": "3"
+    },
+    {
+      "id": "node-install",
+      "type": "text",
+      "x": 100,
+      "y": -350,
+      "width": 220,
+      "height": 150,
+      "text": "## 🏗️ 安装 PVE\n\n- 下载 PVE 镜像\n- BIOS 设置\n- VT-x / VT-d\n- Above 4G Decoding",
+      "color": "3"
+    },
+    {
+      "id": "node-basic-config",
+      "type": "text",
+      "x": 500,
+      "y": -200,
+      "width": 220,
+      "height": 150,
+      "text": "## ⚙️ 基础配置\n\n- 修改网络信息\n- Web UI 修改\n- 命令行修改\n- ifreload -a",
+      "color": "3"
+    },
+    {
+      "id": "node-create-vm",
+      "type": "text",
+      "x": 700,
+      "y": 200,
+      "width": 250,
+      "height": 180,
+      "text": "## 💻 创建虚拟机\n\n- BIOS: OVMF/UEFI\n- EFI Disk\n- VirtIO 驱动\n- CPU 类别: host\n- Windows VM 配置",
+      "color": "2"
+    },
+    {
+      "id": "node-create-ct",
+      "type": "text",
+      "x": 500,
+      "y": 500,
+      "width": 220,
+      "height": 150,
+      "text": "## 🐳 创建容器\n\n- CT vs VM\n- CT vs Docker\n- 下载 CT 模板\n- 轻量级、高性能",
+      "color": "2"
+    },
+    {
+      "id": "node-network",
+      "type": "text",
+      "x": 100,
+      "y": 650,
+      "width": 250,
+      "height": 180,
+      "text": "## 🌐 网络配置\n\n- 网桥: 二层交换\n  - 内交换\n  - 外交换\n- 直通: 独占网卡\n- 虚拟网卡: VirtIO",
+      "color": "2"
+    },
+    {
+      "id": "node-storage",
+      "type": "text",
+      "x": -300,
+      "y": 500,
+      "width": 220,
+      "height": 150,
+      "text": "## 📦 存储管理\n\n- Storage\n- Repository\n- local vs local-lvm\n- 新建存储库",
+      "color": "2"
+    },
+    {
+      "id": "node-passthrough",
+      "type": "text",
+      "x": -500,
+      "y": 200,
+      "width": 250,
+      "height": 180,
+      "text": "## 🔌 设备直通\n\n- IOMMU 分组\n- vfio 驱动绑定\n- BIOS: VT-d\n- GRUB 参数配置\n- PCIe Passthrough",
+      "color": "1"
+    },
+    {
+      "id": "node-optimization",
+      "type": "text",
+      "x": -400,
+      "y": -50,
+      "width": 220,
+      "height": 150,
+      "text": "## 🛠️ 系统优化\n\n- 禁用企业源\n- 更换国内源\n- CPU 节能模式\n- 移除订阅提示",
+      "color": "1"
+    },
+    {
+      "id": "node-resources",
+      "type": "text",
+      "x": 400,
+      "y": 850,
+      "width": 350,
+      "height": 120,
+      "text": "## 🔗 相关资源\n\n- PVE 官方下载\n- VirtIO 驱动\n- FirPE / 中科大源 / 清华源",
+      "color": "5"
+    },
+    {
+      "id": "node-commands",
+      "type": "text",
+      "x": 850,
+      "y": 50,
+      "width": 250,
+      "height": 250,
+      "text": "## ⌨️ 常用命令\n\n```bash\n# 修改网络\nnano /etc/network/interfaces\nifreload -a\n\n# 启用 IOMMU\nupdate-grub\n\n# 绑定 vfio\nupdate-initramfs -u\n\n# CPU 性能\ncpupower frequency-set\n\n# 更新 PVE\napt update && apt dist-upgrade\n```",
+      "color": "6"
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-center-write-disk",
+      "fromNode": "center-node",
+      "fromSide": "left",
+      "toNode": "node-write-disk",
+      "toSide": "right"
+    },
+    {
+      "id": "edge-center-install",
+      "fromNode": "center-node",
+      "fromSide": "top",
+      "toNode": "node-install",
+      "toSide": "bottom"
+    },
+    {
+      "id": "edge-center-basic-config",
+      "fromNode": "center-node",
+      "fromSide": "right",
+      "toNode": "node-basic-config",
+      "toSide": "left"
+    },
+    {
+      "id": "edge-center-create-vm",
+      "fromNode": "center-node",
+      "fromSide": "right",
+      "toNode": "node-create-vm",
+      "toSide": "left"
+    },
+    {
+      "id": "edge-center-create-ct",
+      "fromNode": "center-node",
+      "fromSide": "right",
+      "toNode": "node-create-ct",
+      "toSide": "left"
+    },
+    {
+      "id": "edge-center-network",
+      "fromNode": "center-node",
+      "fromSide": "bottom",
+      "toNode": "node-network",
+      "toSide": "top"
+    },
+    {
+      "id": "edge-center-storage",
+      "fromNode": "center-node",
+      "fromSide": "left",
+      "toNode": "node-storage",
+      "toSide": "right"
+    },
+    {
+      "id": "edge-center-passthrough",
+      "fromNode": "center-node",
+      "fromSide": "left",
+      "toNode": "node-passthrough",
+      "toSide": "right"
+    },
+    {
+      "id": "edge-center-optimization",
+      "fromNode": "center-node",
+      "fromSide": "left",
+      "toNode": "node-optimization",
+      "toSide": "right"
+    },
+    {
+      "id": "edge-network-resources",
+      "fromNode": "node-network",
+      "fromSide": "bottom",
+      "toNode": "node-resources",
+      "toSide": "top"
+    },
+    {
+      "id": "edge-create-vm-commands",
+      "fromNode": "node-create-vm",
+      "fromSide": "right",
+      "toNode": "node-commands",
+      "toSide": "left"
+    }
+  ]
+}
