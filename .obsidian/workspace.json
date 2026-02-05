@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docker进行代理.md",
+                "file": "Prompt, Agent, MCP 是什么.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "docker进行代理"
+              "title": "Prompt, Agent, MCP 是什么"
             }
           }
         ],
@@ -171,13 +171,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker进行代理.md",
+                "file": "Prompt, Agent, MCP 是什么.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "docker进行代理 的大纲"
+              "title": "Prompt, Agent, MCP 是什么 的大纲"
             }
           },
           {
@@ -222,11 +222,14 @@
   },
   "active": "363bfe6d4474c702",
   "lastOpenFiles": [
+    "assets/Prompt, Agent, MCP 是什么/file-20260205122434067.png",
+    "assets/Prompt, Agent, MCP 是什么",
+    "docker进行代理.md",
+    "Prompt, Agent, MCP 是什么.md",
     "Prompt, Agent, MCP 是什么.docx",
     "外网如何使用代理进行翻墙.md",
     "assets/外网如何使用代理进行翻墙/file-20260204203252366.png",
     "assets/外网如何使用代理进行翻墙",
-    "docker进行代理.md",
     "外网如何使用代理进行翻墙.docx",
     "未命名.md",
     "docker/docker容器搭建错误的知识讲解.md",
@@ -258,15 +261,12 @@
     "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732145 1.png",
     "assets/PVE创建window",
     "PVE的学习/写盘工具.md",
-    "系统架构.docx",
     "assets/如何安装window系统/截屏2026-02-03 19.08.44.png",
-    "assets/如何安装window系统",
     "PVE的学习/WinPE.md",
     "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",
     "PVE的学习/PVE直通教程/IOMMU分组情况.md",
     "硬盘教程和NAS硬盘知识讲解.md",
     "linux/linux如何修改网络信息.md",
-    "qBittorent/qBittorent配置代理.md",
-    "qBittorent/qBittorrent的使用.md"
+    "qBittorent/qBittorent配置代理.md"
   ]
 }
