@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/如何使用Claude code.md",
+                "file": "PVE的学习/PVE学习笔记MOC.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "如何使用Claude code"
+              "title": "PVE学习笔记MOC"
             }
           }
         ],
@@ -185,13 +185,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/如何使用Claude code.md",
+                "file": "PVE的学习/PVE学习笔记MOC.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "如何使用Claude code 的大纲"
+              "title": "PVE学习笔记MOC 的大纲"
             }
           },
           {
@@ -215,7 +215,7 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -234,14 +234,15 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "bb3d69debd12c4af",
+  "active": "7c35df9d06705d5a",
   "lastOpenFiles": [
     "AI学习/Claude Code 常用功能.md",
-    "如何使用obsidian做笔记.md",
-    "AI学习/如何使用Claude code.md",
-    "assets/如何使用obsidian做笔记/截屏2026-02-05 17.36.08.png",
-    "AI学习/Skills 是什么.md",
+    "PVE的学习/PVE学习笔记MOC.md",
     "AI学习/Prompt, Agent, MCP 是什么.md",
+    "AI学习/如何使用Claude code.md",
+    "AI学习/Skills 是什么.md",
+    "如何使用obsidian做笔记.md",
+    "assets/如何使用obsidian做笔记/截屏2026-02-05 17.36.08.png",
     "AI学习/assets/如何使用Claude code",
     "AI学习/assets/如何使用Claude code/file-20260205163233510.png",
     "AI学习/assets/如何使用Claude code/file-20260205163233511.png",
@@ -280,7 +281,6 @@
     "PVE的学习/写盘工具.md",
     "PVE的学习/WinPE.md",
     "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",
-    "PVE的学习/PVE直通教程/IOMMU分组情况.md",
-    "硬盘教程和NAS硬盘知识讲解.md"
+    "PVE的学习/PVE直通教程/IOMMU分组情况.md"
   ]
 }
