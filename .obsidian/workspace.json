@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "PVE的学习/PVE学习笔记MOC.md",
+                "file": "linux/linux的LVM管理.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "PVE学习笔记MOC"
+              "title": "linux的LVM管理"
             }
           }
         ],
@@ -82,7 +82,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#一句话先给你一个",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -185,13 +185,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "PVE的学习/PVE学习笔记MOC.md",
+                "file": "linux/linux的LVM管理.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "PVE学习笔记MOC 的大纲"
+              "title": "linux的LVM管理 的大纲"
             }
           },
           {
@@ -236,9 +236,10 @@
   },
   "active": "7c35df9d06705d5a",
   "lastOpenFiles": [
+    "linux/linux磁盘相关的知识.md",
+    "PVE的学习/PVE学习笔记MOC.md",
     "PVE的学习/PVE直通教程/IOMMU分组情况.md",
     "PVE的学习/安装和使用PVE教程/PVE存储库.md",
-    "PVE的学习/PVE学习笔记MOC.md",
     "硬盘教程和NAS硬盘知识讲解.md",
     "qBittorent/qBittorent的Tracker.md",
     "qBittorent/qBittorent配置代理.md",
@@ -281,7 +282,6 @@
     "如何搭建漫画库.md",
     "计算机网络/带宽和宽带.md",
     "如何安装window系统.md",
-    "PVE的学习/PVE直通教程/绑定vfio驱动.md",
-    "PVE的学习/PVE直通教程/PVE直通.md"
+    "PVE的学习/PVE直通教程/绑定vfio驱动.md"
   ]
 }
