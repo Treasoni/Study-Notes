@@ -229,7 +229,7 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -248,7 +248,7 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "bb3d69debd12c4af",
+  "active": "746e3216e1c18840",
   "lastOpenFiles": [
     "linux/linux如何修改网络信息.md",
     "Linux换源.md",

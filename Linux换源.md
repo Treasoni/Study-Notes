@@ -196,28 +196,6 @@ deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted
 | **universe** | 社区维护的软件 |
 | **multiverse** | 非自由软件，可能有版权限制 |
 
-### 4.4 PPA 源（Ubuntu 特有）
-
-PPA (Personal Package Archive) 是个人软件包存档，常用于安装最新版本的软件。
-
-#### 添加 PPA
-```bash
-sudo add-apt-repository ppa:用户名/ppa名称
-sudo apt update
-```
-
-#### 移除 PPA
-```bash
-sudo add-apt-repository --remove ppa:用户名/ppa名称
-sudo apt update
-```
-
-#### 查看已添加的 PPA
-```bash
-ls /etc/apt/sources.list.d/
-```
-
----
 
 ## 五、常见问题与解决
 
