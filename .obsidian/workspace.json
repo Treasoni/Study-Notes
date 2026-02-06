@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux/Linux换源.md",
+                "file": "linux/linux的LVM管理.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Linux换源"
+              "title": "linux的LVM管理"
             }
           }
         ],
@@ -110,7 +110,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "PID",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -213,13 +213,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux/Linux换源.md",
+                "file": "linux/linux的LVM管理.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Linux换源 的大纲"
+              "title": "linux的LVM管理 的大纲"
             }
           },
           {
@@ -262,11 +262,13 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "52ff2f9fbef74052",
+  "active": "004624a81df7944d",
   "lastOpenFiles": [
-    "未命名.md",
-    "linux/Linux换源.md",
     "linux/linux如何修改网络信息.md",
+    "docker/docker里的GID和UID.md",
+    "linux/linux的文件权限.md",
+    "linux/Linux换源.md",
+    "未命名.md",
     "qBittorent/qBittorent配置代理.md",
     "qBittorent/qBittorent的Tracker.md",
     "qBittorent/qBittorrent的使用.md",
@@ -308,8 +310,6 @@
     "AI学习/assets/assets",
     "AI学习/assets/Skills 是什么/file-20260205160852903.png",
     "外网如何使用代理进行翻墙.md",
-    "docker/docker容器搭建错误的知识讲解.md",
-    "linux/linux的文件权限.md",
-    "docker/docker里的GID和UID.md"
+    "docker/docker容器搭建错误的知识讲解.md"
   ]
 }
