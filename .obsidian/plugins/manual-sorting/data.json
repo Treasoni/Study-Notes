@@ -2,6 +2,7 @@
   "customOrder": {
     "/": {
       "children": [
+        "Linux换源.md",
         "AI学习",
         "外网如何使用代理进行翻墙.md",
         "docker进行代理.md",
@@ -153,6 +154,7 @@
     },
     "Git": {
       "children": [
+        "Git/Git MOC.md",
         "Git/assets",
         "Git/git教程.md"
       ],
@@ -209,6 +211,8 @@
     },
     "PVE的学习": {
       "children": [
+        "PVE的学习/PVE学习笔记MOC.canvas",
+        "PVE的学习/PVE学习笔记MOC.md",
         "PVE的学习/PVE直通教程",
         "PVE的学习/安装和使用PVE教程",
         "PVE的学习/写盘工具.md",
@@ -325,6 +329,7 @@
     },
     "qBittorent": {
       "children": [
+        "qBittorent/qBittorent PT站点与分享率.md",
         "qBittorent/assets",
         "qBittorent/qBittorrent的使用.md",
         "qBittorent/qBittorent配置代理.md",
@@ -334,6 +339,8 @@
     },
     "qBittorent/assets": {
       "children": [
+        "qBittorent/assets/qBittorent配置代理",
+        "qBittorent/assets/qBittorent的Tracker",
         "qBittorent/assets/qBittorrent的使用"
       ],
       "sortOrder": "custom"
@@ -343,6 +350,18 @@
         "qBittorent/assets/qBittorrent的使用/file-20260202224515441.png",
         "qBittorent/assets/qBittorrent的使用/file-20260202224515441 1.png",
         "qBittorent/assets/qBittorrent的使用/file-20260202224515442.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "qBittorent/assets/qBittorent的Tracker": {
+      "children": [
+        "qBittorent/assets/qBittorent的Tracker/截屏2026-02-05 21.08.11.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "qBittorent/assets/qBittorent配置代理": {
+      "children": [
+        "qBittorent/assets/qBittorent配置代理/截屏2026-02-05 21.17.18.png"
       ],
       "sortOrder": "custom"
     }
