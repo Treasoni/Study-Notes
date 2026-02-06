@@ -1,0 +1,20 @@
+{
+  "id": "conv-1770349873711-uageyy8iu",
+  "title": "Create notes on source changing methods and imp...",
+  "titleGenerationStatus": "success",
+  "createdAt": 1770349873712,
+  "updatedAt": 1770349963356,
+  "lastResponseAt": 1770349963356,
+  "sessionId": "c70de8f1-e9d7-46b9-85bf-0f1b4623dc6d",
+  "sdkSessionId": "c70de8f1-e9d7-46b9-85bf-0f1b4623dc6d",
+  "currentNote": "Linux换源.md",
+  "usage": {
+    "model": "glm-4-7-251222",
+    "inputTokens": 24217,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 24217,
+    "percentage": 12
+  }
+}
