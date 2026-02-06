@@ -2,7 +2,7 @@
   "customOrder": {
     "/": {
       "children": [
-        "Linux换源.md",
+        "未命名.md",
         "AI学习",
         "外网如何使用代理进行翻墙.md",
         "docker进行代理.md",
@@ -181,6 +181,7 @@
       "children": [
         "linux/assets",
         "linux/linux的LVM管理.md",
+        "linux/Linux换源.md",
         "linux/cpu的线程和内核.md",
         "linux/linux的文件权限.md",
         "linux/linux如何修改网络信息.md",
@@ -345,14 +346,6 @@
       ],
       "sortOrder": "custom"
     },
-    "qBittorent/assets/qBittorrent的使用": {
-      "children": [
-        "qBittorent/assets/qBittorrent的使用/file-20260202224515441.png",
-        "qBittorent/assets/qBittorrent的使用/file-20260202224515441 1.png",
-        "qBittorent/assets/qBittorrent的使用/file-20260202224515442.png"
-      ],
-      "sortOrder": "custom"
-    },
     "qBittorent/assets/qBittorent的Tracker": {
       "children": [
         "qBittorent/assets/qBittorent的Tracker/截屏2026-02-05 21.08.11.png"
@@ -362,6 +355,14 @@
     "qBittorent/assets/qBittorent配置代理": {
       "children": [
         "qBittorent/assets/qBittorent配置代理/截屏2026-02-05 21.17.18.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "qBittorent/assets/qBittorrent的使用": {
+      "children": [
+        "qBittorent/assets/qBittorrent的使用/file-20260202224515441.png",
+        "qBittorent/assets/qBittorrent的使用/file-20260202224515441 1.png",
+        "qBittorent/assets/qBittorrent的使用/file-20260202224515442.png"
       ],
       "sortOrder": "custom"
     }

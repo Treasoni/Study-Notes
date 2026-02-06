@@ -55,6 +55,10 @@ sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
 ```
 
 #### Ubuntu 常用镜像源
+| 原地址                 | 用途    |
+| ------------------- | ----- |
+| archive.ubuntu.com  | 普通软件包 |
+| security.ubuntu.com | 安全更新  |
 
 **清华大学镜像** (推荐)
 ```bash
@@ -79,7 +83,115 @@ sudo sed -i 's|http://security.ubuntu.com|https://mirrors.ustc.edu.cn|g' /etc/ap
 sudo apt update
 ```
 
----
+**这条命令整体在干嘛？**
+
+一句话概括：
+
+> **用 sed 把 sources.list 里所有  
+> `http://archive.ubuntu.com`  
+> 替换成  
+> `https://mirrors.tuna.tsinghua.edu.cn`**
+
+而且是：
+
+- **直接改文件**
+- **所有匹配的地方**
+- **无需你手动编辑**
+#### 代码解读
+
+**从左到右逐块拆解**
+
+**① `sudo**`
+
+`sudo`
+
+- `/etc/apt/sources.list` 属于系统配置
+- 普通用户 **没有写权限**
+- `sudo` = 以 root 身份执行
+
+👉 不加会直接 `Permission denied`
+
+**② `sed**`
+
+`sed`
+
+全名：**Stream EDitor（流编辑器）**
+
+特点：
+
+- 不打开编辑器
+- 不进交互界面
+- **按规则批量修改文本**
+
+👉 特别适合：
+
+- 配置文件
+- 批量替换
+- 自动化脚本
+
+**③ `-i**`
+
+`-i`
+
+含义：**in-place（原地修改）**
+
+对比一下👇
+
+|命令|结果|
+|---|---|
+|`sed 's/a/b/' file`|只输出到屏幕|
+|`sed -i 's/a/b/' file`|**直接改文件本身**|
+
+⚠️ 这是个“危险但高效”的参数  
+👉 所以换源前一般会先备份：
+
+```bash
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+```
+
+**④ `'s|A|B|g'` —— 核心中的核心**
+
+`'s|http://archive.ubuntu.com|https://mirrors.tuna.tsinghua.edu.cn|g'`
+
+这是 **sed 的替换语法**：
+
+```text
+s | 被替换的内容 | 新内容 | 标志
+```
+
+
+**🔹 `s**`
+
+`s`
+
+- **substitute（替换）**
+- sed 最常用的命令，没有之一
+
+**🔹 `g**`
+
+`g`
+
+含义：**global（全局）**
+
+|有没有 g|效果|
+|---|---|
+|没有|每一行只替换第一个|
+|有|**一行内所有匹配都替换**|
+
+👉 源文件中一行一般只有一个 URL  
+但加 `g` 是**良好习惯**
+
+**⑤ `/etc/apt/sources.list**`
+
+`/etc/apt/sources.list`
+
+- Ubuntu / Debian 的 **主软件源配置文件**
+- apt 每次更新都会读它
+
+
+## 四、执行后真实发生了什么？
+
+假设原来文件里有：
 
 ### 3.2 CentOS / RHEL / Fedora
 
