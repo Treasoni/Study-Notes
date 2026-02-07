@@ -461,21 +461,20 @@ fdisk ------\> gdisk ------\> parted
 
 #### 用 fdisk 分区（MBR）
 
+```
 sudo fdisk /dev/sda
+```
 
 进入交互界面后常用命令：
 
+```
 m \# 帮助
-
 p \# 查看分区表
-
 n \# 新建分区
-
 d \# 删除分区
-
 w \# 写入保存
-
 q \# 退出不保存
+```
 
 我们用n开始新建分区
 
@@ -483,18 +482,16 @@ q \# 退出不保存
 
 这里填的分区号，表示要创建或编辑第几个分区。比如输入 1 表示第一个分区（/dev/sda1），输入 2 表示第二个分区（/dev/sda2）。分区的大小是由后面的 Last sector 决定的。
 
+```
 First sector (2048-\..., default 2048): \[按回车\]
-
 Last sector, +sectors or +size{K,M,G,T,P} (default \...): +50G
-
 **First sector (2048-\..., default 2048):**
+```
 
 💬 意思：
 
 1.  询问分区的**起始扇区号。**
-
 2.  每个磁盘被划分成很多"扇区"（sector，通常每个扇区512字节）。
-
 3.  通常从 **2048** 开始（前面留出一点空间给引导记录）。
 
 ✅ 操作：
@@ -529,17 +526,18 @@ sudo partprobe \# 通知内核重新读取分区表
 
 #### 用 gdisk 分区（GPT）
 
+```
 sudo gdisk /dev/sda
+```
 
 常用命令几乎与 fdisk 一样：
 
+```
 n 新建分区
-
 p 打印分区表
-
 d 删除分区
-
 w 写入保存
+```
 
 区别是：
 
@@ -549,25 +547,21 @@ w 写入保存
 
 **1️⃣启动 gdisk**
 
+```
 sudo gdisk /dev/sdb
+```
 
 输出：
-
+```
 GPT fdisk (gdisk) version 1.0.9
-
 Partition table scan:
-
 MBR: not present
-
 BSD: not present
-
 APM: not present
-
 GPT: not present
-
 Creating new GPT entries.
-
 Command (? for help):
+```
 
 这几行是 gdisk 启动时自动扫描磁盘 的结果：
 
@@ -591,35 +585,28 @@ Command (? for help):
 
 2️⃣ 查看帮助
 
+```
 ?
-
 常见命令：
-
 n 新建分区
-
 d 删除分区
-
 p 打印分区表
-
 t 改类型
-
 w 写入磁盘
-
 q 退出不保存
+```
 
 **3️⃣ 创建新分区**
 
 n
 
 系统提示：
-
+```
 Partition number (1-128, default 1): 1
-
 First sector (34-\..., default = 2048): \[回车\]
-
 Last sector (2048-\..., default = \...): +50G
-
 Hex code or GUID (L to show codes, Enter = 8300): \[回车\]
+```
 
 **Partition number (1-128, default 1): 1**
 
@@ -680,53 +667,62 @@ GPT 分区每个都有一个"类型 GUID"，用 16 进制代码表示用途。
 
 **4️⃣ 查看结果**
 
+```
 p
+```
 
 示例输出：
 
+```
 Number Start (sector) End (sector) Size Code Name
 
 1 2048 104857599 50.0 GiB 8300 Linux filesystem
+```
 
 **5️⃣ 保存并退出**
 
+```
 w
+```
 
 系统提示你是否确认写入 → 输入 Y。
 
 #### 用 parted 分区（支持 MBR/GPT）
 
+```
 sudo parted /dev/sda
+```
 
 输出：
 
+```
 GNU Parted 3.4
-
 Using /dev/sdb
-
 Welcome to GNU Parted! Type \'help\' to view a list of commands.
-
 (parted)
+```
 
 常见命令：
 
+```
 mklabel gpt \# 创建 GPT 分区表
-
 mkpart primary ext4 0% 50% \# 创建一个从 0%-50% 的 ext4 主分区
-
 print \# 查看分区
-
 rm 1 \# 删除第 1 个分区
-
 quit \# 退出
+```
 
 1.  **创建 GPT 分区表**
 
+```
 (parted) mklabel gpt
+```
 
 2.  **创建分区**
 
+```
 (parted) mkpart primary ext4 0% 50%
+```
 
 解释：
 
@@ -738,21 +734,20 @@ ext4 → 文件系统类型（只是标记，不会真正格式化）
 
 3.  **查看分区信息**
 
+```
 (parted) print
+```
 
 输出：
 
+```
 Model: ATA VBOX HARDDISK (scsi)
-
 Disk /dev/sdb: 107GB
-
 Sector size (logical/physical): 512B/512B
-
 Partition Table: gpt
-
 Number Start End Size File system Name Flags
-
 1 1049kB 53.7GB 53.7GB primary
+```
 
 ① Model: ATA VBOX HARDDISK (scsi)
 
@@ -837,7 +832,9 @@ Number Start End Size File system Name Flags
 
 4.  **退出**
 
+```
 (parted) quit
+```
 
 ### 总结对比
 
