@@ -207,6 +207,7 @@ UUID=你的UUID /mnt/data ext4 defaults 0 2
 sudo mount -a    # 无报错则成功
 ```
 
+
 ---
 
 # 6. /etc/fstab 配置详解
@@ -386,3 +387,4 @@ PV（物理卷）→ VG（卷组）→ LV（逻辑卷）
 ```
 
 详细内容请参考：[[linux的LVM管理]]
+[linux磁盘相关的知识](#8.3%20文件系统命令)
