@@ -6,10 +6,6 @@
         "AI学习",
         "外网如何使用代理进行翻墙.md",
         "docker",
-        "github文件直链方式.md",
-        "如何搭建漫画库.md",
-        "docker进行代理.md",
-        "docker容器如何更新.md",
         "系统架构.md",
         "如何安装window系统.md",
         "qBittorent",
@@ -83,7 +79,6 @@
     "assets": {
       "children": [
         "assets/外网如何使用代理进行翻墙",
-        "assets/如何搭建漫画库",
         "assets/如何安装window系统",
         "assets/qBittorent的Tracker",
         "assets/qBittorent配置代理",
@@ -97,12 +92,6 @@
         "assets/如何安装window系统/截屏2026-02-03 19.08.44.png",
         "assets/如何安装window系统/截屏2026-02-03 19.05.26.png",
         "assets/如何安装window系统/截屏2026-02-03 19.03.05.png"
-      ],
-      "sortOrder": "custom"
-    },
-    "assets/如何搭建漫画库": {
-      "children": [
-        "assets/如何搭建漫画库/截屏2026-02-04 12.12.41.png"
       ],
       "sortOrder": "custom"
     },
@@ -148,8 +137,25 @@
     },
     "docker": {
       "children": [
+        "docker/assets",
         "docker/docker里的GID和UID.md",
+        "docker/github文件直链方式.md",
+        "docker/如何搭建漫画库.md",
+        "docker/docker进行代理.md",
+        "docker/docker容器如何更新.md",
         "docker/docker容器搭建错误的知识讲解.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "docker/assets": {
+      "children": [
+        "docker/assets/如何搭建漫画库"
+      ],
+      "sortOrder": "custom"
+    },
+    "docker/assets/如何搭建漫画库": {
+      "children": [
+        "docker/assets/如何搭建漫画库/file-20260209175749354.png"
       ],
       "sortOrder": "custom"
     },
