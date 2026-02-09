@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux/linux的LVM管理.md",
+                "file": "docker容器如何更新.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "linux的LVM管理"
+              "title": "docker容器如何更新"
             }
           }
         ],
@@ -213,13 +213,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux/linux的LVM管理.md",
+                "file": "docker容器如何更新.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "linux的LVM管理 的大纲"
+              "title": "docker容器如何更新 的大纲"
             }
           },
           {
@@ -264,6 +264,7 @@
   },
   "active": "004624a81df7944d",
   "lastOpenFiles": [
+    "github文件直链方式.md",
     "linux/linux磁盘相关的知识.md",
     "linux/linux的LVM管理.md",
     "未命名 1.md",
@@ -272,7 +273,7 @@
     "linux/Linux换源.md",
     "linux/linux如何修改网络信息.md",
     "docker/docker里的GID和UID.md",
-    "未命名.md",
+    "docker容器如何更新.md",
     "qBittorent/qBittorent配置代理.md",
     "qBittorent/qBittorent的Tracker.md",
     "qBittorent/qBittorrent的使用.md",
@@ -297,7 +298,6 @@
     "AI学习/Claude Code 常用功能.md",
     "AI学习/如何使用Claude code.md",
     "AI学习/Skills 是什么.md",
-    "如何使用obsidian做笔记.md",
     "assets/如何使用obsidian做笔记/截屏2026-02-05 17.36.08.png",
     "AI学习/assets/如何使用Claude code",
     "AI学习/assets/如何使用Claude code/file-20260205163233510.png",
