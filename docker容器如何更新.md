@@ -36,69 +36,78 @@ docker compose up -d
 - 检测镜像有更新
 - 停止旧容器
 - 用新镜像创建新容器
-- 数据不会丢（前提是你有挂载 volume）
+- 数据不会丢（前提是你有挂载 volume或你的docker-compose.yml的存放路径没变）
 
 
-## ✅ 第三步（可选）：清理旧镜像
+## 1.3 第三步（可选）：清理旧镜像
 
-`docker image prune -f`
+```bash
+docker image prune -f
+```
 
 或者：
 
-`docker system prune -a`
+```bash
+docker system prune -a
+```
 
 ⚠️ 第二个会删所有未使用镜像，慎用
 
----
 
 # 二、你是用 `docker run` 启动的
 
 那更新步骤是：
 
----
+## 2.1 先拉新镜像
 
-## 1️⃣ 先拉新镜像
-
-`docker pull 镜像名`
+```bash
+docker pull 镜像名
+```
 
 比如：
 
-`docker pull ghcr.io/suwayomi/tachidesk:latest`
+```bash
+docker pull ghcr.io/suwayomi/tachidesk:latest
+```
 
----
 
-## 2️⃣ 删除旧容器
+## 2.2 删除旧容器
 
 ⚠️ 先确认你有挂载 volume！
 
-`docker ps`
+```
+docker ps
+```
 
 然后：
+```bash
+docker stop 容器名
+docker rm 容器名
+```
 
-`docker stop 容器名 docker rm 容器名`
-
----
-
-## 3️⃣ 用原来的 run 命令重新创建
+## 2.3 用原来的 run 命令重新创建
 
 把你当初的 `docker run` 命令再执行一遍。
 
----
 
-# 如何确认你是不是 compose 部署？
+# 3. 如何确认你是不是 compose 部署？
 
 执行：
 
-`docker ps`
+```bash
+docker ps
+```
 
 如果看到：
 
-`suwayomi_suwayomi_1`
+```bash
+suwayomi_suwayomi_1
+```
 
 这种带 `_1` 的，通常是 compose。
 
 或者：
 
-`docker inspect 容器名 | grep -i compose`
-
----
+```bash
+docker inspect 容器名 | grep -i compose
+```

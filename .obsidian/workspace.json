@@ -76,9 +76,23 @@
               "icon": "lucide-file",
               "title": "docker容器如何更新"
             }
+          },
+          {
+            "id": "b8c87bd651ae2bfc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "docker容器如何更新.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "docker容器如何更新"
+            }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -262,8 +276,10 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "004624a81df7944d",
+  "active": "b8c87bd651ae2bfc",
   "lastOpenFiles": [
+    "未命名.md",
+    "docker容器如何更新.md",
     "github文件直链方式.md",
     "linux/linux磁盘相关的知识.md",
     "linux/linux的LVM管理.md",
@@ -273,7 +289,6 @@
     "linux/Linux换源.md",
     "linux/linux如何修改网络信息.md",
     "docker/docker里的GID和UID.md",
-    "docker容器如何更新.md",
     "qBittorent/qBittorent配置代理.md",
     "qBittorent/qBittorent的Tracker.md",
     "qBittorent/qBittorrent的使用.md",
@@ -297,7 +312,6 @@
     "AI学习/Prompt, Agent, MCP 是什么.md",
     "AI学习/Claude Code 常用功能.md",
     "AI学习/如何使用Claude code.md",
-    "AI学习/Skills 是什么.md",
     "assets/如何使用obsidian做笔记/截屏2026-02-05 17.36.08.png",
     "AI学习/assets/如何使用Claude code",
     "AI学习/assets/如何使用Claude code/file-20260205163233510.png",
