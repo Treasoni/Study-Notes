@@ -69,7 +69,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docker容器如何更新.md",
+                "file": "docker/docker容器如何更新.md",
                 "mode": "source",
                 "source": false
               },
@@ -83,7 +83,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docker容器如何更新.md",
+                "file": "docker/docker容器如何更新.md",
                 "mode": "source",
                 "source": false
               },
@@ -227,7 +227,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker容器如何更新.md",
+                "file": "docker/docker容器如何更新.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
@@ -276,11 +276,13 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "b8c87bd651ae2bfc",
+  "active": "52ff2f9fbef74052",
   "lastOpenFiles": [
+    "docker/assets/如何搭建漫画库",
+    "docker/assets",
     "未命名.md",
-    "docker容器如何更新.md",
-    "github文件直链方式.md",
+    "docker/docker容器如何更新.md",
+    "docker/github文件直链方式.md",
     "linux/linux磁盘相关的知识.md",
     "linux/linux的LVM管理.md",
     "未命名 1.md",
@@ -298,7 +300,7 @@
     "硬盘教程和NAS硬盘知识讲解.md",
     "qBittorent/assets/qBittorent配置代理/截屏2026-02-05 21.17.18.png",
     "qBittorent/assets/qBittorent配置代理",
-    "docker进行代理.md",
+    "docker/docker进行代理.md",
     "qBittorent/qBittorent PT站点与分享率.md",
     "qBittorent/assets/qBittorent的Tracker/截屏2026-02-05 21.08.11.png",
     "qBittorent/assets/qBittorent的Tracker",
@@ -311,7 +313,6 @@
     "PVE的学习/PVE学习笔记MOC.canvas",
     "AI学习/Prompt, Agent, MCP 是什么.md",
     "AI学习/Claude Code 常用功能.md",
-    "AI学习/如何使用Claude code.md",
     "assets/如何使用obsidian做笔记/截屏2026-02-05 17.36.08.png",
     "AI学习/assets/如何使用Claude code",
     "AI学习/assets/如何使用Claude code/file-20260205163233510.png",
@@ -323,7 +324,6 @@
     "AI学习/assets/Prompt, Agent, MCP 是什么/assets/Skills 是什么",
     "AI学习/assets/Prompt, Agent, MCP 是什么/assets",
     "AI学习/assets/assets/Skills 是什么",
-    "AI学习/assets/assets",
     "AI学习/assets/Skills 是什么/file-20260205160852903.png"
   ]
 }
