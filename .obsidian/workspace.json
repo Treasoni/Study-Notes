@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docker/docker容器如何更新.md",
+                "file": "网络协议详解-WebDAV_Samba_FTP_iSCSI.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "docker容器如何更新"
+              "title": "网络协议详解-WebDAV_Samba_FTP_iSCSI"
             }
           }
         ],
@@ -227,13 +227,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker/docker容器如何更新.md",
+                "file": "网络协议详解-WebDAV_Samba_FTP_iSCSI.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "docker容器如何更新 的大纲"
+              "title": "网络协议详解-WebDAV_Samba_FTP_iSCSI 的大纲"
             }
           },
           {
@@ -276,12 +276,13 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "52ff2f9fbef74052",
+  "active": "b8c87bd651ae2bfc",
   "lastOpenFiles": [
+    "docker/docker容器如何更新.md",
+    "网络协议详解-WebDAV_Samba_FTP_iSCSI.md",
     "docker/assets/如何搭建漫画库",
     "docker/assets",
     "未命名.md",
-    "docker/docker容器如何更新.md",
     "docker/github文件直链方式.md",
     "linux/linux磁盘相关的知识.md",
     "linux/linux的LVM管理.md",
@@ -323,7 +324,6 @@
     "assets/Skills 是什么",
     "AI学习/assets/Prompt, Agent, MCP 是什么/assets/Skills 是什么",
     "AI学习/assets/Prompt, Agent, MCP 是什么/assets",
-    "AI学习/assets/assets/Skills 是什么",
     "AI学习/assets/Skills 是什么/file-20260205160852903.png"
   ]
 }
