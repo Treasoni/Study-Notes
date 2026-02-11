@@ -180,7 +180,7 @@ PVE 就用 **EFI Disk 来模拟这块区域**
 >- 这里的i440fx不支持最新的PCIe或一些NVME但是兼容性最好
 >- q35是支持一些新的设备的。
 
-
+UEFI如何取消
 
 ### 2.3.3  SCSI Controller
 

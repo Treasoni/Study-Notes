@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "iso和img.md",
+                "file": "PVE的学习/安装和使用PVE教程/如何创建PVE虚拟机.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "iso和img"
+              "title": "如何创建PVE虚拟机"
             }
           }
         ],
@@ -227,13 +227,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "iso和img.md",
+                "file": "PVE的学习/安装和使用PVE教程/如何创建PVE虚拟机.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "iso和img 的大纲"
+              "title": "如何创建PVE虚拟机 的大纲"
             }
           },
           {
@@ -278,10 +278,10 @@
   },
   "active": "b8c87bd651ae2bfc",
   "lastOpenFiles": [
+    "iso和img.md",
     "如何安装window系统.md",
     "PVE的学习/安装和使用PVE教程/PVE存储库.md",
     "PVE的学习/安装和使用PVE教程/如何创建PVE虚拟机.md",
-    "iso和img.md",
     "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",
     "Strm流文件与302播放详解.md",
     "网络协议详解-WebDAV_Samba_FTP_iSCSI.md",
