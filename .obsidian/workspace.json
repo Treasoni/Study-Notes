@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "网络协议详解-WebDAV_Samba_FTP_iSCSI.md",
+                "file": "iso和img.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "网络协议详解-WebDAV_Samba_FTP_iSCSI"
+              "title": "iso和img"
             }
           }
         ],
@@ -227,13 +227,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "网络协议详解-WebDAV_Samba_FTP_iSCSI.md",
+                "file": "iso和img.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "网络协议详解-WebDAV_Samba_FTP_iSCSI 的大纲"
+              "title": "iso和img 的大纲"
             }
           },
           {
@@ -278,9 +278,14 @@
   },
   "active": "b8c87bd651ae2bfc",
   "lastOpenFiles": [
+    "如何安装window系统.md",
+    "PVE的学习/安装和使用PVE教程/PVE存储库.md",
+    "PVE的学习/安装和使用PVE教程/如何创建PVE虚拟机.md",
+    "iso和img.md",
+    "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",
     "Strm流文件与302播放详解.md",
-    "docker/docker容器如何更新.md",
     "网络协议详解-WebDAV_Samba_FTP_iSCSI.md",
+    "docker/docker容器如何更新.md",
     "docker/assets/如何搭建漫画库",
     "docker/assets",
     "未命名.md",
@@ -298,7 +303,6 @@
     "qBittorent/qBittorrent的使用.md",
     "PVE的学习/PVE学习笔记MOC.md",
     "PVE的学习/PVE直通教程/IOMMU分组情况.md",
-    "PVE的学习/安装和使用PVE教程/PVE存储库.md",
     "硬盘教程和NAS硬盘知识讲解.md",
     "qBittorent/assets/qBittorent配置代理/截屏2026-02-05 21.17.18.png",
     "qBittorent/assets/qBittorent配置代理",
@@ -309,11 +313,7 @@
     "qBittorent/assets/qBittorrent的使用/file-20260202224515442.png",
     "qBittorent/assets/qBittorrent的使用/file-20260202224515441 1.png",
     "qBittorent/assets/qBittorrent的使用/file-20260202224515441.png",
-    "系统架构.md",
-    "Git/git教程.md",
-    "Git/Git MOC.md",
     "PVE的学习/PVE学习笔记MOC.canvas",
-    "AI学习/Prompt, Agent, MCP 是什么.md",
     "assets/如何使用obsidian做笔记/截屏2026-02-05 17.36.08.png",
     "AI学习/assets/如何使用Claude code",
     "AI学习/assets/如何使用Claude code/file-20260205163233510.png",

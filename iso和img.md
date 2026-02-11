@@ -79,6 +79,7 @@
 
 1. 创建 VM（不选 OS）
 2. 导入磁盘：
+	 在这个路径下：/var/lib/vz/template/iso
     `qm importdisk 100 istoreos.img local-lvm`
 3. 把导入的盘设为启动盘
 4. 开机
