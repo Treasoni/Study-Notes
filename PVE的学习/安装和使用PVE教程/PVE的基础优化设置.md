@@ -82,3 +82,16 @@ cpupower -c 0-15  frequency-set -g  performance
 ```
 
 切换全核省点模式后重启PVE会自动变回高性能模式，需要再次执行省电命令即可！
+### 4.2.1 如何查看当前模式
+在 PVE 主机执行：
+
+```bash
+cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+```
+
+可能返回：
+`performance`
+或
+`powersave`
+
+---

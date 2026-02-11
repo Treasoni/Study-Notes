@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "PVE的学习/安装和使用PVE教程/如何创建PVE虚拟机.md",
+                "file": "PVE的学习/安装和使用PVE教程/PVE的基础优化设置.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "如何创建PVE虚拟机"
+              "title": "PVE的基础优化设置"
             }
           }
         ],
@@ -227,13 +227,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "PVE的学习/安装和使用PVE教程/如何创建PVE虚拟机.md",
+                "file": "PVE的学习/安装和使用PVE教程/PVE的基础优化设置.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "如何创建PVE虚拟机 的大纲"
+              "title": "PVE的基础优化设置 的大纲"
             }
           },
           {
@@ -278,11 +278,11 @@
   },
   "active": "b8c87bd651ae2bfc",
   "lastOpenFiles": [
+    "PVE的学习/安装和使用PVE教程/如何创建PVE虚拟机.md",
     "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/截屏2026-02-11 20.44.24.png",
     "iso和img.md",
     "如何安装window系统.md",
     "PVE的学习/安装和使用PVE教程/PVE存储库.md",
-    "PVE的学习/安装和使用PVE教程/如何创建PVE虚拟机.md",
     "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",
     "Strm流文件与302播放详解.md",
     "网络协议详解-WebDAV_Samba_FTP_iSCSI.md",
@@ -323,7 +323,6 @@
     "AI学习/assets/Skills 是什么",
     "assets/Skills 是什么",
     "AI学习/assets/Prompt, Agent, MCP 是什么/assets/Skills 是什么",
-    "AI学习/assets/Prompt, Agent, MCP 是什么/assets",
-    "AI学习/assets/Skills 是什么/file-20260205160852903.png"
+    "AI学习/assets/Prompt, Agent, MCP 是什么/assets"
   ]
 }
