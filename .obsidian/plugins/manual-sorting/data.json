@@ -34,6 +34,8 @@
     "AI学习": {
       "children": [
         "AI学习/assets",
+        "AI学习/Claude MCP 使用指南.md",
+        "AI学习/Claude Subagent 使用指南.md",
         "AI学习/Skills 是什么.md",
         "AI学习/Claude Code 常用功能.md",
         "AI学习/如何编写Skills.md",

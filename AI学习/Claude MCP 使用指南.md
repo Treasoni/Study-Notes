@@ -606,4 +606,4 @@ curl -H "Authorization: Bearer $TOKEN" https://api.example.com/mcp/health
 
 ## 相关概念
 
-[[Claude Code 基础]] | [[Claude Subagent 使用指南]] | [[Agent Skills]]
+[[Claude Subagent 使用指南]] 

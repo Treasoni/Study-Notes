@@ -165,7 +165,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "PVE的学习/PVE的基础优化设置.md",
+                "file": "AI学习/如何使用Claude code.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -175,7 +175,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "PVE的基础优化设置 的反向链接列表"
+              "title": "如何使用Claude code 的反向链接列表"
             }
           },
           {
@@ -184,12 +184,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "PVE的学习/PVE的基础优化设置.md",
+                "file": "AI学习/如何使用Claude code.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "PVE的基础优化设置 的出链列表"
+              "title": "如何使用Claude code 的出链列表"
             }
           },
           {
@@ -257,7 +257,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -278,16 +278,17 @@
   },
   "active": "b8c87bd651ae2bfc",
   "lastOpenFiles": [
-    "AI学习/Claude MCP 使用指南.md",
     "AI学习/如何编写Skills.md",
-    "AI学习/如何使用Claude code.md",
-    "AI学习/Skills 是什么.md",
     "AI学习/Claude Code 常用功能.md",
+    "AI学习/Skills 是什么.md",
+    "AI学习/Claude MCP 使用指南.md",
     "AI学习/Claude Subagent 使用指南.md",
+    "Agent Skills.md",
+    "AI学习/如何使用Claude code.md",
+    "AI学习/Prompt, Agent, MCP 是什么.md",
     "Strm流文件与302播放详解.md",
     "网络协议详解-WebDAV_Samba_FTP_iSCSI.md",
     "docker/docker里的GID和UID.md",
-    "AI学习/Prompt, Agent, MCP 是什么.md",
     "Git/git教程.md",
     "PVE的学习/安装和使用PVE教程/PVE的基础优化设置.md",
     "PVE的学习/安装和使用PVE教程/如何创建PVE虚拟机.md",
@@ -306,7 +307,6 @@
     "未命名 1.md",
     "linux/cpu的线程和内核.md",
     "linux/linux的文件权限.md",
-    "linux/Linux换源.md",
     "qBittorent/assets/qBittorent配置代理/截屏2026-02-05 21.17.18.png",
     "qBittorent/assets/qBittorent配置代理",
     "qBittorent/assets/qBittorent的Tracker/截屏2026-02-05 21.08.11.png",
