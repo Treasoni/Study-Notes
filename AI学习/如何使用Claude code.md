@@ -67,6 +67,275 @@ MCP 配置文件位于：
 - **@modelcontextprotocol/server-postgres**: PostgreSQL 数据库访问
 - **@modelcontextprotocol/server-github**: GitHub API 访问
 
+## 3.4 CLI 里怎么用 MCP？
+
+### 3.4.1 配置 MCP 服务器
+
+Claude Code 使用：
+
+```bash
+claude mcp add
+```
+
+示例：添加一个本地 MCP server
+
+```bash
+claude mcp add myserver --command "node server.js"
+```
+
+或者使用官方 MCP：
+
+```bash
+claude mcp add filesystem --command "npx @modelcontextprotocol/server-filesystem"
+```
+
+### 3.4.2 查看已安装 MCP
+
+```bash
+claude mcp list
+```
+
+### 3.4.3 启用 MCP
+
+在项目目录：
+
+```bash
+claude
+```
+
+Claude 会自动加载已注册的 MCP。
+
+你可以直接说：
+
+`读取当前目录所有 js 文件`
+
+它会通过 MCP filesystem server 访问文件。
+
+
+# 三、如何使用 Skills？
+
+Skills 在 Claude Code 里通常通过：
+
+- Agent 模式
+    
+- 指定工具
+    
+- 自动调用
+    
+
+---
+
+## 方法 1：直接让 Claude 用
+
+比如：
+
+`claude`
+
+然后输入：
+
+`重构这个项目的所有 API 层代码`
+
+Claude 会自动调用：
+
+- 文件系统
+    
+- 搜索
+    
+- 编辑工具
+    
+
+这就是 skills 在工作。
+
+---
+
+## 方法 2：指定模式
+
+你可以使用：
+
+`claude --agent`
+
+或者：
+
+`claude --dangerously-skip-permissions`
+
+允许自动调用工具。
+
+---
+
+## 方法 3：使用任务式命令
+
+例如：
+
+`claude "分析这个项目结构并给出重构建议"`
+
+Claude 会：
+
+- 扫描项目
+    
+- 调用 MCP filesystem
+    
+- 生成分析报告
+    
+
+---
+
+# 四、完整工作流示例
+
+假设你想：
+
+> 用 Claude 自动分析项目 + 修改代码 + 提交 git
+
+---
+
+## ① 添加 filesystem MCP
+
+`claude mcp add filesystem --command "npx @modelcontextprotocol/server-filesystem"`
+
+---
+
+## ② 添加 git MCP
+
+`claude mcp add git --command "npx @modelcontextprotocol/server-git"`
+
+---
+
+## ③ 进入项目目录
+
+`cd my-project claude`
+
+---
+
+## ④ 给指令
+
+`重构所有 controller 为 service + repository 分层，并提交 git commit`
+
+Claude 会：
+
+- 读代码
+    
+- 修改文件
+    
+- 调用 git
+    
+- 自动 commit
+    
+
+---
+
+# 五、常用命令总结
+
+### 查看 MCP
+
+`claude mcp list`
+
+---
+
+### 删除 MCP
+
+`claude mcp remove filesystem`
+
+---
+
+### 直接执行一次任务
+
+`claude "为当前项目生成 README"`
+
+---
+
+### 进入交互模式
+
+`claude`
+
+---
+
+### 启用 agent 自动模式
+
+`claude --agent`
+
+---
+
+# 六、常见问题
+
+## ❓MCP 和 Skills 有什么区别？
+
+|MCP|Skills|
+|---|---|
+|插件服务器|预置能力|
+|外部扩展|内部工具集合|
+|你可以自己写|官方内置|
+
+简单理解：
+
+> MCP 是扩展接口  
+> Skills 是内置能力
+
+---
+
+## ❓需要自己写 MCP 吗？
+
+不一定。
+
+官方已有：
+
+- filesystem
+    
+- git
+    
+- browser
+    
+- sqlite
+    
+- puppeteer
+    
+
+如果你要接入：
+
+- 企业 API
+    
+- 内网数据库
+    
+- 私有系统
+    
+
+那就要自己写 MCP。
+
+---
+
+# 七、进阶：自己写 MCP Server
+
+基本结构：
+
+`import { Server } from "@modelcontextprotocol/sdk";  const server = new Server({   name: "my-server",   version: "1.0.0", });  server.tool("sayHello", async () => {   return "Hello World"; });  server.listen();`
+
+然后注册：
+
+`claude mcp add myserver --command "node index.js"`
+
+---
+
+# 八、总结一句话
+
+在命令行使用 MCP 和 Skills 的流程：
+
+`1️⃣ 安装 claude 2️⃣ 添加 mcp server 3️⃣ 进入项目 4️⃣ 用自然语言指挥`
+
+Claude 会自动调用 skills + MCP。
+
+---
+
+如果你告诉我：
+
+- 你是想做自动写代码？
+    
+- 还是接数据库？
+    
+- 还是做 CI/CD？
+    
+- 还是接浏览器自动化？
+    
+
+我可以给你一个完整实战案例流程。
+
 # 4. 使用 Skills (技能)
 
 Skills 是 Claude Code 的可扩展功能模块，可以通过斜杠命令调用。
