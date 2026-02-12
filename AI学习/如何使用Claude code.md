@@ -110,73 +110,11 @@ Claude 会自动加载已注册的 MCP。
 `读取当前目录所有 js 文件`
 
 它会通过 MCP filesystem server 访问文件。
+### 3.4.4 如何删除mcp
 
-
-# 三、如何使用 Skills？
-
-Skills 在 Claude Code 里通常通过：
-
-- Agent 模式
-    
-- 指定工具
-    
-- 自动调用
-    
-
----
-
-## 方法 1：直接让 Claude 用
-
-比如：
-
-`claude`
-
-然后输入：
-
-`重构这个项目的所有 API 层代码`
-
-Claude 会自动调用：
-
-- 文件系统
-    
-- 搜索
-    
-- 编辑工具
-    
-
-这就是 skills 在工作。
-
----
-
-## 方法 2：指定模式
-
-你可以使用：
-
-`claude --agent`
-
-或者：
-
-`claude --dangerously-skip-permissions`
-
-允许自动调用工具。
-
----
-
-## 方法 3：使用任务式命令
-
-例如：
-
-`claude "分析这个项目结构并给出重构建议"`
-
-Claude 会：
-
-- 扫描项目
-    
-- 调用 MCP filesystem
-    
-- 生成分析报告
-    
-
+```
+claude mcp remove <name>
+```
 
 
 # 4. 使用 Skills (技能)
