@@ -71,6 +71,17 @@ MCP 配置文件位于：
 
 ### 3.4.1 配置 MCP 服务器
 
+```json
+{
+  "mcpServers": {
+    "browsermcp": {
+      "command": "npx",
+      "args": ["@browsermcp/mcp@latest"]
+    }
+  }
+}
+```
+
 Claude Code 使用：
 
 ```bash
@@ -79,16 +90,19 @@ claude mcp add
 
 示例：添加一个本地 MCP server
 
-```bash
-claude mcp add myserver command "node server.js"
+```
+claude mcp add browsermcp npx @browsermcp/mcp@latest
 ```
 
-或者使用官方 MCP：
+命令格式说明：
 
-```bash
-claude mcp add filesystem command "npx @modelcontextprotocol/server-filesystem"
+```
+claude mcp add <name> <command> [args...]
 ```
 
+- `<name>` = 服务器名称（如 `browsermcp`）
+- `<command>` = 执行命令（如 `npx`）
+- `[args...]` = 命令参数（如 `@browsermcp/mcp@latest`）
 ### 3.4.2 查看已安装 MCP
 
 ```bash
