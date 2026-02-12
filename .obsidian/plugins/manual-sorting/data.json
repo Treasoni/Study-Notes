@@ -2,6 +2,8 @@
   "customOrder": {
     "/": {
       "children": [
+        "Strm流文件与302播放详解.md",
+        "网络协议详解-WebDAV_Samba_FTP_iSCSI.md",
         "未命名.md",
         "AI学习",
         "外网如何使用代理进行翻墙.md",
@@ -34,6 +36,7 @@
         "AI学习/assets",
         "AI学习/Skills 是什么.md",
         "AI学习/Claude Code 常用功能.md",
+        "AI学习/如何编写Skills.md",
         "AI学习/如何使用Claude code.md",
         "AI学习/Prompt, Agent, MCP 是什么.md"
       ],
@@ -265,6 +268,7 @@
     },
     "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机": {
       "children": [
+        "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/截屏2026-02-11 20.44.24.png",
         "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/file-20260203173628031.png",
         "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/file-20260203173628032.png",
         "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/file-20260203173628033.png",

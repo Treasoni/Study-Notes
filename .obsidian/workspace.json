@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/Skills 是什么.md",
+                "file": "AI学习/如何使用Claude code.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Skills 是什么"
+              "title": "如何使用Claude code"
             }
           }
         ],
@@ -124,7 +124,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "PID",
+                "query": "skills",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -227,13 +227,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/Skills 是什么.md",
+                "file": "AI学习/如何使用Claude code.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Skills 是什么 的大纲"
+              "title": "如何使用Claude code 的大纲"
             }
           },
           {
@@ -278,8 +278,8 @@
   },
   "active": "b8c87bd651ae2bfc",
   "lastOpenFiles": [
-    "AI学习/如何编写Skills.md",
     "AI学习/Claude Code 常用功能.md",
+    "AI学习/如何编写Skills.md",
     "AI学习/Skills 是什么.md",
     "Git/git教程.md",
     "PVE的学习/安装和使用PVE教程/PVE的基础优化设置.md",
