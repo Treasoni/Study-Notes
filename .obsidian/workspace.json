@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/如何使用Claude code.md",
+                "file": "AI学习/Claude Subagent 使用指南.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "如何使用Claude code"
+              "title": "Claude Subagent 使用指南"
             }
           }
         ],
@@ -227,13 +227,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/如何使用Claude code.md",
+                "file": "AI学习/Claude Subagent 使用指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "如何使用Claude code 的大纲"
+              "title": "Claude Subagent 使用指南 的大纲"
             }
           },
           {
@@ -279,9 +279,13 @@
   "active": "b8c87bd651ae2bfc",
   "lastOpenFiles": [
     "AI学习/如何编写Skills.md",
-    "AI学习/Claude Code 常用功能.md",
-    "AI学习/如何使用Claude code.md",
+    "AI学习/Claude Subagent 使用指南.md",
+    "Strm流文件与302播放详解.md",
+    "网络协议详解-WebDAV_Samba_FTP_iSCSI.md",
+    "docker/docker里的GID和UID.md",
     "AI学习/Prompt, Agent, MCP 是什么.md",
+    "AI学习/如何使用Claude code.md",
+    "AI学习/Claude Code 常用功能.md",
     "AI学习/Skills 是什么.md",
     "Git/git教程.md",
     "PVE的学习/安装和使用PVE教程/PVE的基础优化设置.md",
@@ -291,8 +295,6 @@
     "如何安装window系统.md",
     "PVE的学习/安装和使用PVE教程/PVE存储库.md",
     "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",
-    "Strm流文件与302播放详解.md",
-    "网络协议详解-WebDAV_Samba_FTP_iSCSI.md",
     "docker/docker容器如何更新.md",
     "docker/assets/如何搭建漫画库",
     "docker/assets",
@@ -305,8 +307,6 @@
     "linux/linux的文件权限.md",
     "linux/Linux换源.md",
     "linux/linux如何修改网络信息.md",
-    "docker/docker里的GID和UID.md",
-    "qBittorent/qBittorent配置代理.md",
     "qBittorent/assets/qBittorent配置代理/截屏2026-02-05 21.17.18.png",
     "qBittorent/assets/qBittorent配置代理",
     "qBittorent/assets/qBittorent的Tracker/截屏2026-02-05 21.08.11.png",
