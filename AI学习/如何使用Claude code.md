@@ -80,13 +80,13 @@ claude mcp add
 示例：添加一个本地 MCP server
 
 ```bash
-claude mcp add myserver --command "node server.js"
+claude mcp add myserver command "node server.js"
 ```
 
 或者使用官方 MCP：
 
 ```bash
-claude mcp add filesystem --command "npx @modelcontextprotocol/server-filesystem"
+claude mcp add filesystem command "npx @modelcontextprotocol/server-filesystem"
 ```
 
 ### 3.4.2 查看已安装 MCP
