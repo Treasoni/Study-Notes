@@ -46,7 +46,7 @@ tags:
 > - Subagent 返回**最终结果**而非中间过程，节省主会话上下文
 > - 多个 subagent 可以**并行运行**，大幅提升效率
 
-## 可用的 Subagent 类型
+## 内置 Subagent 类型
 
 ### 1. Bash
 > [!tip] 命令执行专家
@@ -83,13 +83,7 @@ tags:
 - "找出所有使用了 React Context 的组件"
 - "分析项目的依赖关系和循环引用"
 
-### 3. Statusline Setup
-> [!tip] 状态栏配置专家
-> 专门用于配置 Claude Code 状态栏设置。
-
-**可用工具**：`Read`、`Edit`
-
-### 4. Explore
+### 3. Explore
 > [!tip] 代码库快速探索者
 > 专门用于快速探索代码库结构：
 > - 查找文件模式（如 `src/**/*.tsx`）
@@ -104,19 +98,7 @@ tags:
 - `medium` - 适度探索，适合「了解某部分代码」
 - `very thorough` - 全面分析，适合「理解整个项目」
 
-**CLI 使用示例**：
-```bash
-# 快速查找
-"用 explore agent 快速找到路由配置文件"
-
-# 适度探索
-"用 explore agent 探索 API 模块的结构"
-
-# 深度分析
-"用 very thorough 模式探索整个项目的架构"
-```
-
-### 5. Plan
+### 4. Plan
 > [!tip] 软件架构师
 > 专门用于设计实现方案：
 > - 规划实现策略和步骤
@@ -126,16 +108,7 @@ tags:
 
 **可用工具**：除 `Task`、`ExitPlanMode`、`Edit`、`Write`、`NotebookEdit` 外的所有工具
 
-**CLI 使用示例**：
-```bash
-# 规划新功能
-"用 plan agent 为用户认证功能设计实现方案"
-
-# 规划重构
-"用 plan agent 规划如何将状态管理迁移到 Zustand"
-```
-
-### 6. Claude Code Guide
+### 5. Claude Code Guide
 > [!tip] Claude Code 专家
 > 专门回答关于 Claude Code 的问题：
 > - Claude Code CLI 特性和命令
@@ -143,22 +116,314 @@ tags:
 > - 斜杠命令（slash commands）
 > - MCP 服务器配置
 > - IDE 集成方式
-> - Agent SDK 使用
 
 **可用工具**：`Glob`、`Grep`、`Read`、`WebFetch`、`WebSearch`
 
-**CLI 使用示例**：
-```bash
-# 了解 CLI 功能
-"用 Claude Code Guide 了解如何配置 pre-commit 钩子"
+---
 
-# 学习高级功能
-"用 Claude Code Guide 解释 MCP 服务器的工作原理"
+# 创建自定义 Subagent
+
+> [!warning] 重要概念
+> **在 CLI 中创建自定义 subagent 需要通过「插件（Plugin）**来实现**。**
+>
+> Claude Code 的插件系统允许你创建包含自定义 agent、command、skill、hook 的扩展包。
+
+## 插件结构
+
+```
+my-plugin/
+├── .claude-plugin/
+│   └── plugin.json          # 插件元数据（必需）
+├── agents/                   # 自定义 agents 目录
+│   └── my-agent.md          # agent 定义文件（.md 格式）
+├── commands/                 # 斜杠命令
+│   └── my-command.md         # 命令定义文件
+├── skills/                  # 自定义 skills
+│   └── my-skill/
+│       ├── SKILL.md
+│       └── metadata.json
+├── hooks/                   # 钩子脚本
+│   └── my-hook.sh
+└── README.md                # 插件文档
 ```
 
-## CLI 中的使用模式
+## Agent 文件格式
 
-### 模式 1：让 Claude 自主探索
+每个 agent 是一个 `.md` 文件，包含 **YAML frontmatter** 和 **系统提示词**：
+
+```markdown
+---
+name: my-agent                  # agent 标识符（小写，连字符）
+description: Use this agent when...  # 触发条件描述
+model: inherit                 # 使用的模型（inherit/sonnet/opus/haiku）
+color: blue                   # 显示颜色（blue/cyan/green/yellow/red/magenta）
+tools: ["Read", "Write"]      # 可用工具列表（可选）
+---
+
+你是一个专业的 [领域] 专家...
+
+## 核心职责
+
+1. [职责 1]
+2. [职责 2]
+...
+
+## 执行流程
+
+1. [步骤 1]
+2. [步骤 2]
+...
+
+## 输出格式
+
+[定义输出规范]
+```
+
+### Frontmatter 字段说明
+
+| 字段 | 类型 | 必需 | 说明 |
+|------|------|------|------|
+| `name` | string | ✅ | agent 标识符，小写字母、数字、连字符，3-50 字符 |
+| `description` | string | ✅ | 触发条件描述，包含 `<example>` 块 |
+| `model` | string | ❌ | 使用的模型，默认 `inherit` |
+| `color` | string | ❌ | 显示颜色 |
+| `tools` | array | ❌ | 允许使用的工具列表，不填则全部可用 |
+
+### 触发示例（description 中的 `<example>`）
+
+```markdown
+---
+description: Use this agent when user asks to "create an agent" or "generate an agent". Examples:
+
+<example>
+Context: User wants to create a code review agent
+user: "Create an agent that reviews code for quality issues"
+assistant: "I'll use the agent-creator agent to generate it."
+<commentary>
+User requesting new agent creation, trigger agent-creator.
+</commentary>
+</example>
+
+<example>
+Context: User describes needed functionality
+user: "I need an agent that generates unit tests for my code"
+assistant: "I'll use the agent-creator agent to create a test generator."
+<commentary>
+User describes agent need, trigger agent-creator.
+</commentary>
+</example>
+---
+```
+
+## 在 CLI 中创建 Agent
+
+### 方法 1：使用 plugin-dev 插件（推荐）
+
+**plugin-dev** 是官方提供的插件开发工具包，包含 agent-creator agent。
+
+```bash
+# 首先安装 plugin-dev
+/plugin install plugin-dev@claude-code-marketplace
+
+# 创建 agent
+"创建一个 agent，用于代码审查"
+```
+
+Claude 会：
+1. 询问你 agent 的用途
+2. 自动生成 agent 配置
+3. 创建 agent 文件
+
+### 方法 2：手动创建
+
+```bash
+# 1. 创建插件目录结构
+mkdir -p my-plugin/agents
+cd my-plugin
+
+# 2. 创建 plugin.json
+cat > .claude-plugin/plugin.json << 'EOF'
+{
+  "name": "my-plugin",
+  "description": "我的自定义插件",
+  "author": {
+    "name": "Your Name",
+    "email": "your@email.com"
+  }
+}
+EOF
+
+# 3. 创建 agent 文件（见下一节的示例）
+cat > agents/my-agent.md << 'EOF'
+[agent 内容]
+EOF
+
+# 4. 使用插件
+claude --plugin-dir /path/to/my-plugin
+```
+
+## 完整示例：创建代码审查 Agent
+
+```markdown
+---
+name: code-reviewer
+description: Use this agent when user asks to "review code", "check code quality", "analyze code issues", or wants code review. Examples:
+
+<example>
+Context: User just wrote code and wants review
+user: "Review the code I just wrote"
+assistant: "I'll use the code-reviewer agent to analyze the code."
+<commentary>
+User explicitly requests code review, trigger code-reviewer.
+</commentary>
+</example>
+
+<example>
+Context: User mentions checking code quality
+user: "Check if there are any issues with this code"
+assistant: "I'll use the code-reviewer agent to identify issues."
+<commentary>
+User asks for code quality check, trigger code-reviewer.
+</commentary>
+</example>
+model: sonnet
+color: blue
+---
+
+你是一个资深的代码审查专家，擅长识别代码质量问题和最佳实践偏差。
+
+## 核心职责
+
+1. **分析代码质量**：识别潜在 Bug、性能问题、安全漏洞
+2. **检查最佳实践**：对照语言/框架的最佳实践
+3. **提供具体建议**：给出可执行的改进建议
+4. **评估代码风格**：检查一致性和可读性
+
+## 审查流程
+
+1. **读取代码**：使用 Read 工具读取相关文件
+2. **静态分析**：识别常见问题模式
+3. **深度分析**：理解代码意图和上下文
+4. **生成报告**：按优先级整理问题
+
+## 输出格式
+
+### 严重问题
+> [!danger] 问题标题
+> 描述和影响
+
+### 警告
+> [!warning] 警告标题
+> 描述和建议
+
+### 建议
+> [!tip] 优化建议
+> 具体可执行的改进建议
+
+## 审查检查点
+
+- [ ] 命名规范
+- [ ] 代码复杂度
+- [ ] 错误处理
+- [ ] 安全问题
+- [ ] 性能优化
+- [ ] 代码重复
+- [ ] 注释质量
+- [ ] 类型安全
+```
+
+## Agent 最佳实践
+
+### 命名规范
+
+```bash
+✅ 好的命名：
+- code-reviewer
+- test-generator
+- api-explorer
+- config-validator
+
+❌ 不好的命名：
+- helper           # 太泛
+- my-agent         # 无意义
+- do_something      # snake_case 应该用 kebab-case
+```
+
+### 颜色选择指南
+
+| 颜色 | 适用场景 |
+|--------|----------|
+| `blue` | 分析、审查、探索 |
+| `cyan` | 信息展示、文档 |
+| `green` | 生成、创建、构建 |
+| `yellow` | 验证、警告、检查 |
+| `red` | 安全、严重错误 |
+| `magenta` | 转换、创意生成 |
+
+### 模型选择指南
+
+```yaml
+# 简单任务，快速响应
+model: haiku
+
+# 标准任务，平衡性能和质量
+model: inherit   # 或 sonnet
+
+# 复杂推理，需要深度分析
+model: sonnet
+
+# 最高质量要求
+model: opus
+```
+
+### 工具权限原则
+
+> [!tip] 最小权限原则
+> 只给 agent 必要的工具，而不是全部。
+
+```yaml
+# ❌ 不推荐：给予过多权限
+tools: ["*"]
+
+# ✅ 推荐：只给必要的工具
+tools: ["Read", "Glob", "Grep"]
+```
+
+## 测试和验证
+
+### 使用 Claude Code 测试
+
+```bash
+# 1. 启动带有你的插件的 Claude
+claude --plugin-dir /path/to/my-plugin
+
+# 2. 测试触发
+"用 code-reviewer agent 审查这段代码"
+
+# 3. 验证 agent 是否被正确触发
+```
+
+### 使用 plugin-dev 的验证工具
+
+```bash
+# plugin-dev 提供了验证脚本
+./scripts/validate-agent.sh agents/my-agent.md
+```
+
+## 发布到市场
+
+当你完成插件开发后，可以发布到 claude-code-marketplace：
+
+```bash
+# 参考官方发布指南
+https://github.com/anthropics/claude-code-marketplace/blob/main/docs/PLUGIN_PUBLISHING.md
+```
+
+---
+
+# CLI 中使用 Subagent 的模式
+
+## 模式 1：让 Claude 自主探索
 
 > [!info] 为什么这样用
 > 在 CLI 中，你无法像在 IDE 中那样浏览文件树。让 subagent 自主探索，它能：
@@ -196,7 +461,7 @@ Claude: 根据探索结果，我找到了以下路由配置：
     ...
 ```
 
-### 模式 2：并行搜索多个话题
+## 模式 2：并行搜索多个话题
 
 > [!info] 性能优化技巧
 > 当你需要了解多个不相关的话题时，让 Claude 启动多个并行 subagent 可以大幅节省时间。
@@ -213,146 +478,15 @@ Claude: (启动三个并行 General Purpose subagent)
     我将并行搜索这三个话题。
 
 (三个 subagent 同时运行)
-    Agent 1: 搜索错误处理相关的代码（try/catch、error handler等）
-    Agent 2: 搜索认证相关的代码（login、auth token等）
-    Agent 3: 搜索数据库配置相关代码（database、connection等）
+    Agent 1: 搜索错误处理相关的代码
+    Agent 2: 搜索认证相关的代码
+    Agent 3: 搜索数据库配置相关代码
 
 Claude: 搜索完成，结果如下：
-
-    ## 错误处理机制
-    - 使用自定义 Error 类继承
-    - 在 api 模块有统一的错误处理包装器
-    - 前端使用 ErrorBoundary 捕获错误
-    ...
-
-    ## 认证流程
-    - 使用 JWT token
-    - 在 LocalStorage 存储 token
-    - 通过 api/auth.ts 进行认证
-    ...
-
-    ## 数据库连接
-    - 使用 Prisma ORM
-    - 配置在 prisma/schema.prisma
-    - 连接池大小为 10
-    ...
+    [三个话题的分析结果...]
 ```
 
-### 模式 3：规划复杂改动
-
-> [!info] 架构思考
-> 在做复杂改动前，让 Plan subagent 先分析方案，可以避免踩坑。
-
-**示例对话**：
-
-```bash
-你: 我想把项目的状态管理从 Redux 迁移到 Zustand。
-    需要先规划一下怎么做。
-
-Claude: (启动 Plan subagent)
-    我将使用 Plan agent 来设计迁移方案。
-
-(Plan 内部执行)
-    - 探索现有 Redux store 结构
-    - 找出所有使用 Redux 的组件
-    - 设计 Zustand store 的对应结构
-    - 规划迁移步骤和顺序
-    - 识别潜在的坑点
-
-Claude: 迁移方案如下：
-
-    ## 实现方案
-
-    ### 第一步：创建 Zustand stores
-    - 将 Redux slices 转换为 Zustand stores
-    - 文件位置：src/stores/
-
-    ### 第二步：更新组件
-    - 需要修改的组件（共 15 个）：
-      - UserProfile.tsx
-      - Cart.tsx
-      - ...
-
-    ### 第三步：移除 Redux 依赖
-    - 删除 Redux store 配置
-    - 移除 Provider 包装
-
-    ### 关键文件
-    - 需要新建：src/stores/userStore.ts
-    - 需要修改：src/App.tsx（移除 Provider）
-    - 需要删除：src/store/
-
-    ### 注意事项
-    - ⚠️ 有些组件使用了 Redux 的 createSelector，需要改写为 Zustand 的 computed
-    - ⚠️ 中间件有日志效果，需要在 Zustand 中实现
-```
-
-### 模式 4：研究特定实现
-
-> [!info] 深度理解代码
-> 当你想深入了解某个功能的实现细节时，General Purpose subagent 可以进行多轮研究。
-
-**示例对话**：
-
-```bash
-你: 这个项目中的 WebSocket 连接是怎么实现的？
-    我想了解连接建立、重连逻辑、消息处理等所有细节。
-
-Claude: (启动 General Purpose subagent)
-    我将深入研究 WebSocket 实现。
-
-(subagent 内部多轮执行)
-    Round 1: 搜索 WebSocket 相关代码
-    Round 2: 读取连接管理文件，理解连接建立流程
-    Round 3: 分析重连逻辑的实现
-    Round 4: 研究消息处理器
-    Round 5: 总结所有发现
-
-Claude: WebSocket 实现分析如下：
-
-    ## 架构概览
-    使用原生 WebSocket库，在 src/utils/websocket.ts 实现。
-
-    ## 连接建立流程
-    1. 通过 connectWebSocket() 函数建立连接
-    2. 连接 URL 从环境变量获取
-    3. 支持 token 认证，通过 URL query 参数传递
-
-    ## 重连逻辑
-    - 使用指数退避策略
-    - 首次重连等待 1s，每次失败时间翻倍
-    - 最大重连间隔 30s
-    - 最大重连次数 10 次
-    - 实现位置：src/utils/websocket.ts:45-67
-
-    ## 消息处理
-    - 使用消息类型分发（type 字段）
-    - 注册的处理器在 messageHandlers 对象中
-    - 支持的心跳机制：每 30s 发送 ping
-
-    ## 代码片段（关键部分）
-    ```typescript
-    // src/utils/websocket.ts:45-67
-    function reconnect() {
-      if (reconnectAttempts >= MAX_RECONNECT_ATTEMPTS) {
-        logger.error('Max reconnect attempts reached');
-        return;
-      }
-
-      const delay = Math.min(
-        INITIAL_RECONNECT_DELAY * Math.pow(2, reconnectAttempts),
-        MAX_RECONNECT_DELAY
-      );
-
-      setTimeout(connectWebSocket, delay);
-    }
-    ```
-```
-
-## CLI 使用提示词模式
-
-> [!tip] 如何在 CLI 中触发 subagent
-> 你不需要直接指定使用哪个 subagent。只需描述你的需求，Claude 会自动判断是否需要 subagent 以及使用哪种类型。
+## CLI 提示词模式
 
 ### 探索型提示词
 
@@ -362,8 +496,6 @@ Claude: WebSocket 实现分析如下：
 "找出处理用户输入的所有地方"
 ```
 
-Claude 会自动使用 **Explore subagent**。
-
 ### 研究型提示词
 
 ```bash
@@ -371,8 +503,6 @@ Claude 会自动使用 **Explore subagent**。
 "深入分析认证系统的完整流程"
 "找出所有数据库查询的模式和优化点"
 ```
-
-Claude 会自动使用 **General Purpose subagent**。
 
 ### 规划型提示词
 
@@ -382,153 +512,33 @@ Claude 会自动使用 **General Purpose subagent**。
 "规划将代码库迁移到 TypeScript 的步骤"
 ```
 
-Claude 会自动使用 **Plan subagent**。
-
-### 多话题并行提示词
+### 使用自定义 Agent
 
 ```bash
-"我需要了解以下三个方面：XXX、YYY、ZZZ"
-"同时搜索这些关键词：A、B、C"
-```
-
-Claude 会自动启动多个 **并行 subagent**。
-
-## 中级使用技巧
-
-### 技巧 1：指定探索深度
-
-```bash
-# 快速查找（默认）
-"快速找到处理认证的文件"
-
-# 明确指定深度
-"用 medium 深度探索认证模块"
-"用 very thorough 模式分析整个权限系统"
-```
-
-### 技巧 2：明确输出格式
-
-```bash
-# 要求结构化输出
-"探索 API 端点，以表格形式列出：路径、方法、描述"
-
-# 要求代码示例
-"研究错误处理，找出所有自定义错误类的定义并展示"
-
-# 要求对比分析
-"分析新旧两种实现方式的差异"
-```
-
-### 技巧 3：结合多个操作
-
-```bash
-# 探索 + 分析
-"探索路由配置，然后分析每个路由需要的权限"
-
-# 规划 + 估算
-"规划缓存系统的实现，并估算需要修改多少文件"
-
-# 研究 + 建议
-"研究当前的性能瓶颈，给出优化建议"
-```
-
-### 技巧 4：追问和细化
-
-```bash
-你: 探索项目的状态管理
-
-Claude: (返回结果) 项目使用 Redux，有 3 个 slices...
-
-你: 进一步分析 userSlice 的所有 action
-
-Claude: (使用 subagent 深入分析)
-    userSlice 包含以下 actions：
-
-    - setUser(payload: User): 设置当前用户
-    - updateUser(field: string, value: any): 更新单个字段
-    - clearUser(): 清除用户信息
-
-    每个 action 被 X 个组件使用...
+"用 code-reviewer agent 审查这段代码"
+"让 test-generator agent 为这个函数生成测试"
 ```
 
 ## 常见问题
 
 > [!faq] Q: 为什么有时候 Claude 不使用 subagent？
-> A: Subagent 的启动有成本。对于简单的、单次性的操作（如读取一个文件、搜索一个类名），Claude 会直接使用专用工具更快。只有在真正需要多轮、复杂操作时才会启动 subagent。
+> A: Subagent 的启动有成本。对于简单的、单次性的操作（如读取一个文件、搜索一个类名），Claude 会直接使用专用工具更快。只有在真正需要多轮、复杂操作时才会启动。
 
-> [!faq] Q: 我能控制使用哪个 subagent 吗？
-> A: 可以，通过在提示词中明确指定：
-> ```bash
-> "用 explore agent 搜索..."
-> "用 general purpose agent 研究..."
-> "用 plan agent 规划..."
-> ```
+> [!faq] Q:我能在 CLI 中创建自定义 subagent 吗？
+> A: 可以！但需要通过创建**插件（Plugin）**来实现。在插件目录的 `agents/` 文件夹中创建 `.md` 文件定义 agent。
 
-> [!faq] Q: Subagent 的执行过程我能看到吗？
-> A: 在 CLI 中，subagent 的内部对话是隐藏的，你只能看到最终结果。如果你需要了解过程，可以在提示词中要求：
-> ```bash
-> "研究错误处理，并展示你的探索过程"
-> ```
+> [!faq] Q: 如何测试我创建的 agent？
+> A: 使用 `claude --plugin-dir /path/to/my-plugin` 启动带有你插件的 Claude，然后尝试触发你的 agent。
 
-> [!faq] Q: 多个 subagent 并行执行会更快吗？
-> A: 是的。并行执行的 subagent 之间互不阻塞，可以同时进行不同的任务。对于不相关的研究话题，这种方式能显著节省总时间。
-
-## 实战练习
-
-> [!example] 练习 1：探索未知项目
->
-> **目标**：拿到一个新项目，快速理解其结构
->
-> **提示词**：
-> ```bash
-> "探索这个项目的整体结构，告诉我：
-> 1. 项目类型（前端/后端/全栈）
-> 2. 使用的主要技术栈
-> 3. 代码组织方式
-> 4. 关键模块有哪些
-> 5. 如何启动项目"
-> ```
->
-> **预期输出**：项目概览、技术栈、目录结构说明、启动命令
-
-> [!example] 练习 2：研究特定功能
->
-> **目标**：深入理解某个功能的实现
->
-> **提示词**：
-> ```bash
-> "深入研究这个项目中用户认证的完整实现：
-> 1. 认证方式（JWT/Session/OAuth）
-> 2. 登录流程的每一步
-> 3. token 如何存储和验证
-> 4. 登录状态的持久化
-> 5. 需要认证的路由如何保护"
-> ```
->
-> **预期输出**：详细的流程分析、关键代码位置、代码片段
-
-> [!example] 练习 3：规划改动
->
-> **目标**：为某个改动制定详细方案
->
-> **提示词**：
-> ```bash
-> "规划如何为这个项目添加深色模式：
-> 1. 需要新建/修改哪些文件
-> 2. 如何管理主题状态
-> 3. 需要修改哪些组件
-> 4. 如何持久化用户的选择
-> 5. 估算改动范围"
-> ```
->
-> **预期输出**：详细的实现步骤、文件列表、注意事项
+> [!faq] Q: plugin-dev 插件是什么？
+> A: `plugin-dev` 是官方提供的插件开发工具包，包含 `agent-creator` agent，可以帮助你快速生成高质量的 agent 配置。
 
 ## 参考资源
 
-- [Subagent 工具文档](https://docs.anthropic.com/claude-code/tools/task)
-- [Explore Agent 最佳实践](https://docs.anthropic.com/claude-code/agents/explore)
-- [Plan Agent 使用指南](https://docs.anthropic.com/claude-code/agents/plan)
+- [Agent SDK Overview](https://docs.anthropic.com/claude-code/tools/task)
+- [Plugin 开发指南](https://github.com/anthropics/claude-code-marketplace/tree/main/plugins/plugin-dev)
+- [Claude Code Marketplace](https://github.com/anthropics/claude-code-marketplace)
 
 ## 相关概念
 
-[[Claude Code 基础]] | [[Agent Skills]] | [[MCP 服务器]]
+[[Claude Code 基础]] | [[MCP 服务器]] | [[Agent Skills]]
