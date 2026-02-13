@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/如何使用Claude code.md",
+                "file": "AI学习/Claude Subagent 使用指南.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "如何使用Claude code"
+              "title": "Claude Subagent 使用指南"
             }
           }
         ],
@@ -165,7 +165,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "AI学习/如何使用Claude code.md",
+                "file": "AI学习/Claude Subagent 使用指南.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -175,7 +175,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "如何使用Claude code 的反向链接列表"
+              "title": "Claude Subagent 使用指南 的反向链接列表"
             }
           },
           {
@@ -184,12 +184,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "AI学习/如何使用Claude code.md",
+                "file": "AI学习/Claude Subagent 使用指南.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "如何使用Claude code 的出链列表"
+              "title": "Claude Subagent 使用指南 的出链列表"
             }
           },
           {
@@ -227,13 +227,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/如何使用Claude code.md",
+                "file": "AI学习/Claude Subagent 使用指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "如何使用Claude code 的大纲"
+              "title": "Claude Subagent 使用指南 的大纲"
             }
           },
           {
@@ -278,14 +278,14 @@
   },
   "active": "b8c87bd651ae2bfc",
   "lastOpenFiles": [
+    "AI学习/Claude MCP 使用指南.md",
+    "AI学习/Prompt, Agent, MCP 是什么.md",
+    "AI学习/如何使用Claude code.md",
     "AI学习/如何编写Skills.md",
     "AI学习/Claude Code 常用功能.md",
     "AI学习/Skills 是什么.md",
-    "AI学习/Claude MCP 使用指南.md",
     "AI学习/Claude Subagent 使用指南.md",
     "Agent Skills.md",
-    "AI学习/如何使用Claude code.md",
-    "AI学习/Prompt, Agent, MCP 是什么.md",
     "Strm流文件与302播放详解.md",
     "网络协议详解-WebDAV_Samba_FTP_iSCSI.md",
     "docker/docker里的GID和UID.md",
