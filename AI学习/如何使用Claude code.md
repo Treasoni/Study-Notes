@@ -16,14 +16,117 @@ claude
 ```
 如果你有claudecode账号可以直接使用，但是如果你没有就不行。但是你可以按照我下面的操作来实现不用订阅和账号就能使用。
 
-# 2. 使用火山引擎
-这里我调用的是火山引擎的模型，其他平台的类似。
-## 2.1 创建API Key
-![](assets/如何使用Claude%20code/file-20260205163233511.png)
-## 2.2 进行Claude code配置
+# 2. 配置和使用其他平台 API
 
-我们在**文档**中直接搜索**Claude code**。按照文档中的过程来就可以了。
-![](assets/如何使用Claude%20code/file-20260205163233510.png)
+Claude Code 支持使用兼容 OpenAI API 格式的其他平台，如火山引擎、通义千问、智谱 AI、DeepSeek 等。
+
+## 2.1 配置步骤
+
+### 第一步：创建 API Key
+
+在目标平台创建 API Key，例如火山引擎：
+![](assets/如何使用Claude%20code/file-20260205163233511.png)
+
+### 第二步：设置 Claude Code 环境变量
+
+在终端中设置环境变量：
+
+```bash
+# macOS/Linux
+export ANTHROPIC_BASE_URL="https://ark.cn-beijing.volces.com/v1"
+export ANTHROPIC_API_KEY="你的火山引擎API Key"
+
+# 或者使用 alias 方式更方便
+alias claude='ANTHROPIC_BASE_URL="https://ark.cn-beijing.volces.com/v1" ANTHROPIC_API_KEY="你的API Key" /usr/local/bin/claude'
+```
+
+### 第三步：验证配置
+
+```bash
+claude
+# 首次使用会提示登录，但如果有 API Key 环境变量，会直接使用配置的 API
+```
+
+## 2.2 不同平台配置示例
+
+### 火山引擎（字节跳动）
+
+```bash
+export ANTHROPIC_BASE_URL="https://ark.cn-beijing.volces.com/v1"
+export ANTHROPIC_API_KEY="你的火山引擎API Key"
+```
+
+### 通义千问（阿里）- 使用 OpenAI 兼容接口
+
+```bash
+export ANTHROPIC_BASE_URL="https://dashscope.aliyuncs.com/compatible-mode/v1"
+export ANTHROPIC_API_KEY="sk-你的通义千问API Key"
+```
+
+### DeepSeek
+
+```bash
+export ANTHROPIC_BASE_URL="https://api.deepseek.com"
+export ANTHROPIC_API_KEY="sk-你的DeepSeek API Key"
+```
+
+### 智谱 AI（GLM）- 使用兼容接口
+
+```bash
+export ANTHROPIC_BASE_URL="https://open.bigmodel.cn/api/paas/v4"
+export ANTHROPIC_API_KEY="你的智谱API Key"
+```
+
+### Ollama（本地模型）
+
+```bash
+export ANTHROPIC_BASE_URL="http://localhost:11434/v1"
+export ANTHROPIC_API_KEY="ollama"  # 可以是任意值
+```
+
+## 2.3 持久化配置
+
+### 方式一：写入 shell 配置文件
+
+```bash
+# 添加到 ~/.zshrc (zsh) 或 ~/.bashrc (bash)
+echo 'export ANTHROPIC_BASE_URL="https://ark.cn-beijing.volces.com/v1"' >> ~/.zshrc
+echo 'export ANTHROPIC_API_KEY="你的API Key"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+### 方式二：使用配置文件
+
+创建 `~/.claude/config.json`：
+
+```json
+{
+  "baseUrl": "https://ark.cn-beijing.volces.com/v1",
+  "apiKey": "你的API Key",
+  "model": "claude-3-5-sonnet-20241022"
+}
+```
+
+## 2.4 指定模型
+
+可以在启动时指定使用的模型：
+
+```bash
+claude --model claude-3-5-sonnet-20241022
+# 或
+claude -m ep-20250813142523-6k5kg  # 火山引擎的端点 ID
+```
+
+## 2.5 检查当前配置
+
+```bash
+# 查看环境变量
+echo $ANTHROPIC_BASE_URL
+echo $ANTHROPIC_API_KEY
+
+# 查看 Claude Code 版本和配置
+claude --version
+```
 
 # 3. 使用 MCP (Model Context Protocol)
 
