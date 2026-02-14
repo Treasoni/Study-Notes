@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/如何使用Claude code.md",
+                "file": "硬件解码vs软件解码.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "如何使用Claude code"
+              "title": "硬件解码vs软件解码"
             }
           }
         ],
@@ -165,7 +165,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "AI学习/如何使用Claude code.md",
+                "file": "硬件解码vs软件解码.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -175,7 +175,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "如何使用Claude code 的反向链接列表"
+              "title": "硬件解码vs软件解码 的反向链接列表"
             }
           },
           {
@@ -184,12 +184,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "AI学习/如何使用Claude code.md",
+                "file": "硬件解码vs软件解码.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "如何使用Claude code 的出链列表"
+              "title": "硬件解码vs软件解码 的出链列表"
             }
           },
           {
@@ -227,13 +227,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/如何使用Claude code.md",
+                "file": "硬件解码vs软件解码.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "如何使用Claude code 的大纲"
+              "title": "硬件解码vs软件解码 的大纲"
             }
           },
           {
@@ -278,13 +278,14 @@
   },
   "active": "b8c87bd651ae2bfc",
   "lastOpenFiles": [
-    "环境变量使用指南.md",
-    "AI学习/Claude Subagent 使用指南.md",
-    "AI学习/Claude MCP 使用指南.md",
-    "AI学习/Prompt, Agent, MCP 是什么.md",
-    "AI学习/如何使用Claude code.md",
-    "AI学习/如何编写Skills.md",
     "AI学习/Claude Code 常用功能.md",
+    "硬件解码vs软件解码.md",
+    "AI学习/如何编写Skills.md",
+    "AI学习/如何使用Claude code.md",
+    "AI学习/Prompt, Agent, MCP 是什么.md",
+    "AI学习/Claude MCP 使用指南.md",
+    "AI学习/Claude Subagent 使用指南.md",
+    "环境变量使用指南.md",
     "AI学习/Skills 是什么.md",
     "Agent Skills.md",
     "Strm流文件与302播放详解.md",
@@ -306,7 +307,6 @@
     "linux/linux磁盘相关的知识.md",
     "linux/linux的LVM管理.md",
     "未命名 1.md",
-    "linux/cpu的线程和内核.md",
     "qBittorent/assets/qBittorent配置代理/截屏2026-02-05 21.17.18.png",
     "qBittorent/assets/qBittorent配置代理",
     "qBittorent/assets/qBittorent的Tracker/截屏2026-02-05 21.08.11.png",
