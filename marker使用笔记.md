@@ -1,5 +1,7 @@
 # Marker 使用笔记
 
+> 📚 **关联笔记**：想了解 Marker 如何使用 OCR 识别技术？请查看 [OCR概念笔记](./OCR概念笔记.md)
+
 ## 项目简介
 
 Marker 是一个开源工具，专门用于将 PDF 文档转换为高质量的 Markdown 格式。它利用深度学习模型来识别和处理 PDF 中的各种元素，包括文本、表格、公式、图片等。
@@ -93,13 +95,56 @@ marker_convert input_directory output_directory
 marker_convert input_directory output_directory --workers 4
 ```
 
-### 下载模型
+### 模型下载说明
 
-首次使用时，Marker 会自动下载所需的模型。也可以手动指定模型目录：
+**首次运行时会发生什么？**
+
+当你首次运行 `marker_convert` 命令时：
+
+1. **自动检查**：Marker 会检查本地是否有所需的模型文件
+2. **自动下载**：如果没有找到，会自动从 Hugging Face 下载模型
+3. **下载大小**：约 2-3GB，需要稳定的网络连接
+4. **下载位置**：默认存储在 `~/.cache/huggingface/` 目录下
+5. **下载时间**：根据网速，通常需要几分钟
+
+**示例输出：**
+```
+Downloading models...
+[========================================] 100%
+Models downloaded successfully!
+```
+
+### 指定模型目录
+
+你可以手动指定模型文件的存储位置：
 
 ```bash
-marker_convert input.pdf output_dir --model_dir /path/to/models
+# 指定模型目录
+marker_convert input.pdf output_dir --model_dir /path/to/your/models
 ```
+
+**什么时候需要指定模型目录？**
+- 多台电脑共享模型
+- 首次下载后想把模型移到其他位置
+- 网络受限，需要手动下载模型
+
+### Marker 使用的模型
+
+Marker 使用的是它自己训练的专有深度学习模型：
+
+| 模型类型 | 作用 | 说明 |
+|---------|------|------|
+| 文本检测模型 | 识别文本区域 | Marker 专有，自动使用 |
+| 表格检测模型 | 识别表格结构 | Marker 专有，自动使用 |
+| 公式检测模型 | 识别数学公式 | Marker 专有，自动使用 |
+| OCR 引擎 | 识别图片文字 | 可选 Tesseract（需手动安装） |
+
+**问题：哪个模型更好用？**
+
+**答案：** 对于大多数用户，Marker 的默认模型就是最好的选择。
+- 模型是固定搭配的，不需要手动选择
+- 训练时专门针对 PDF 转换场景优化
+- 如果需要更好的 OCR 效果，可以安装 Tesseract（见"系统依赖安装"部分）
 
 ---
 
