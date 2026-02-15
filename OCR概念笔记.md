@@ -1,5 +1,7 @@
 # OCR 概念笔记
 
+> 📚 **关联笔记**：想了解如何在 Marker 工具中使用 OCR？请查看 [Marker使用笔记](./marker使用笔记.md)
+
 ## 什么是 OCR？
 
 **OCR** 是 **Optical Character Recognition**（光学字符识别）的缩写。
