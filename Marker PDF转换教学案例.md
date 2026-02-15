@@ -6,6 +6,36 @@
 
 ---
 
+## 实际案例记录
+
+### 案例：张宇高等数学基础30讲 PDF 转换
+
+**转换信息**：
+- **输入文件**：`/Users/zhqznc/Documents/27张宇基础30讲高数.pdf`
+- **输出文件**：`/Users/zhqznc/Documents/27张宇基础30讲高数.md`
+- **转换命令**：
+```bash
+marker_single /Users/zhqznc/Documents/27张宇基础30讲高数.pdf \
+  --force_ocr \
+  --output_format markdown
+```
+
+**命令参数说明**：
+- `--force_ocr`：强制使用 OCR 识别（适用于扫描型或图片型 PDF）
+- `--output_format markdown`：指定输出格式为 Markdown
+
+**转换过程**：
+- **总处理块数**：7909 个
+- **当前进度**：约 6% (489/7909)
+- **已运行时间**：约 48 分钟
+- **预计完成时间**：根据当前速度，可能需要数小时
+
+**输出位置**：
+- 默认情况下，Marker 在输入文件所在目录生成同名 `.md` 文件
+- 即：`/Users/zhqznc/Documents/27张宇基础30讲高数.md`
+
+---
+
 ## 第一步：环境准备
 
 ### 1.1 安装 Marker
