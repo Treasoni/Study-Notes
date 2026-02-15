@@ -1,6 +1,6 @@
 # Marker 使用笔记
 
-> 📚 **关联笔记**：想了解 Marker 如何使用 OCR 识别技术？请查看 [OCR概念笔记](./OCR概念笔记.md)
+> 📚 **[关联笔记](./OCR概念笔记.md)**：想了解 Marker 如何使用 OCR 识别技术？
 
 ## 项目简介
 
@@ -14,6 +14,8 @@ Marker 是一个开源工具，专门用于将 PDF 文档转换为高质量的 M
 - **图片提取**：保留文档中的图片
 - **多语言支持**：支持中文等多种语言
 - **批量处理**：支持批量转换多个 PDF 文件
+- **LLM 增强**：支持使用 LLM 提高转换准确率
+- **多种输出格式**：支持 Markdown、JSON、HTML、Chunks
 
 ### 应用场景
 
@@ -21,6 +23,7 @@ Marker 是一个开源工具，专门用于将 PDF 文档转换为高质量的 M
 - 电子书籍格式转换
 - 文档归档和索引
 - 知识库构建
+- 扫描文档的数字识别
 
 ---
 
@@ -32,11 +35,11 @@ Marker 是一个开源工具，专门用于将 PDF 文档转换为高质量的 M
 # 基本安装
 pip install marker-pdf
 
-# 从 GitHub 安装最新版本
-pip install git+https://github.com/VikParuchuri/marker.git
+# 支全支持所有文件类型（PDF、图片、PPTX、DOCX 等）
+pip install marker-pdf[full]
 ```
 
-### 系统依赖安装（可选的 OCR 支持）
+### 系统依赖安装（OCR 支持）
 
 为了获得最佳的 OCR 支持，建议安装以下系统依赖：
 
@@ -63,94 +66,166 @@ sudo apt-get install pdftoppm
 
 ## 命令行使用
 
-### 基本命令结构
+### 交互式 GUI
 
 ```bash
-marker_convert <输入路径> <输出目录> [选项]
+pip install streamlit streamlit-ace
+marker_gui
 ```
 
-### 转换单个 PDF
+### 转换单个文件
 
 ```bash
-# 转换单个 PDF 文件
-marker_convert input.pdf output_dir
+marker_single /path/to/file.pdf [OPTIONS]
+```
 
-# 指定输出文件名
-marker_convert input.pdf output_dir --output_filename my_document.md
+**选项：**
 
-# 使用特定页数范围
-marker_convert input.pdf output_dir --pages 1-5
+| 参数 | 说明 |
+|------|------|
+| `--page_range` | 指定页面，如 `"0,5-10,20"` |
+| `--output_format` | 输出格式：`markdown`/`json`/`html`/`chunks` |
+| `--output_dir` | 自定义输出目录 |
+| `--paginate_output` | 按页编号输出 |
+| `--use_llm` | 使用 LLM 提高准确率 |
+| `--force_ocr` | 强制对整篇文档进行 OCR |
+| `--block_correction_prompt` | 自定义块修正的 LLM 提示词 |
+| `--strip_existing_ocr` | 移除现有 OCR 文本 |
+| `--redo_inline_math` | 高质量数学公式转换（需 `--use_llm`） |
+| `--disable_image_extraction` | 跳过图片保存 |
+| `--debug` | 启用调试日志/可视化 |
+| `--processors` | 自定义处理器（逗号分隔） |
+| `--config_json` | JSON 配置文件路径 |
+| `--converter_cls` | 转换器类，默认 `marker.converters.pdf.PdfConverter` |
+| `--llm_service` | LLM 服务提供商 |
+| `--help` | 显示所有可用选项 |
 
-# 跳过页数
-marker_convert input.pdf output_dir --max_pages 10
+### 转换文件夹
+
+```bash
+marker /path/to/input/folder [OPTIONS]
+```
+
+**额外选项：**
+
+| 参数 | 说明 |
+|------|------|
+| `--workers` | 并行转换的工作线程数 |
+
+### 多 GPU 批量转换
+
+```bash
+NUM_DEVICES=4 NUM_WORKERS=15 marker_chunk_convert /path/to/input /path/to/output
+```
+
+### API 服务器
+
+```bash
+pip install -U uvicorn fastapi python-multipart
+marker_server --port 8001
+```
+
+访问 `http://localhost:8001` 或使用 API：
+
+```python
+import requests
+import json
+post_data = {'filepath': '/path/to/file.pdf', 'output_format': 'markdown'}
+response = requests.post("http://localhost:8001/marker", data=json.dumps(post_data))
+```
+
+---
+
+## 使用示例
+
+### 基本转换
+
+```bash
+# 转换单个 PDF
+marker_single input.pdf
+
+# 指定输出格式
+marker_single input.pdf --output_format json
+
+# 指定页面范围
+marker_single input.pdf --page_range "0,5-10,20"
+
+# 按页编号输出
+marker_single input.pdf --paginate_output
+```
+
+### 使用 LLM 增强转换
+
+```bash
+# 使用 Gemini API（默认）
+marker_single /data/research.pdf --use_llm --gemini_api_key YOUR_KEY
+
+# 使用 OpenAI
+marker_single input.pdf --use_llm \
+  --llm_service marker.services.openai.OpenAIService \
+  --openai_api_key KEY \
+  --openai_model gpt-4o
+
+# 使用 Claude
+marker_single input.pdf --use_llm \
+  --llm_service marker.services.claude.ClaudeService \
+  --claude_api_key KEY \
+  --claude_model_name claude-3-5-sonnet
+
+# 使用 Ollama（本地）
+marker_single input.pdf --use_llm \
+  --llm_service marker.services.ollama.OllamaService \
+  --ollama_model llama3 \
+  --ollama_base_url http://localhost:11434
+```
+
+### OCR 相关
+
+```bash
+# 强制 OCR 整篇文档
+marker_single input.pdf --force_ocr
+
+# 移除现有 OCR 并重新处理
+marker_single input.pdf --strip_existing_ocr
+
+# 高质量数学公式转换
+marker_single input.pdf --use_llm --redo_inline_math
+```
+
+### 仅提取特定内容
+
+```bash
+# 仅提取表格
+marker_single input.pdf \
+  --converter_cls marker.converters.table.TableConverter \
+  --use_llm \
+  --output_format json \
+  --force_layout_block Table
+
+# 仅 OCR 处理
+marker_single input.pdf \
+  --converter_cls marker.converters.ocr.OCRConverter \
+  --keep_chars
 ```
 
 ### 批量转换
 
 ```bash
-# 转换目录下所有 PDF 文件
-marker_convert input_directory output_directory
+# 转换整个文件夹
+marker /data/documents
 
-# 并行处理多个文件
-marker_convert input_directory output_directory --workers 4
+# 使用多线程
+marker /data/documents --workers 4
+
+# 转换为 JSON 并强制 OCR
+marker /data/documents --output_format json --force_ocr --paginate_output
 ```
-
-### 模型下载说明
-
-**首次运行时会发生什么？**
-
-当你首次运行 `marker_convert` 命令时：
-
-1. **自动检查**：Marker 会检查本地是否有所需的模型文件
-2. **自动下载**：如果没有找到，会自动从 Hugging Face 下载模型
-3. **下载大小**：约 2-3GB，需要稳定的网络连接
-4. **下载位置**：默认存储在 `~/.cache/huggingface/` 目录下
-5. **下载时间**：根据网速，通常需要几分钟
-
-**示例输出：**
-```
-Downloading models...
-[========================================] 100%
-Models downloaded successfully!
-```
-
-### 指定模型目录
-
-你可以手动指定模型文件的存储位置：
-
-```bash
-# 指定模型目录
-marker_convert input.pdf output_dir --model_dir /path/to/your/models
-```
-
-**什么时候需要指定模型目录？**
-- 多台电脑共享模型
-- 首次下载后想把模型移到其他位置
-- 网络受限，需要手动下载模型
-
-### Marker 使用的模型
-
-Marker 使用的是它自己训练的专有深度学习模型：
-
-| 模型类型 | 作用 | 说明 |
-|---------|------|------|
-| 文本检测模型 | 识别文本区域 | Marker 专有，自动使用 |
-| 表格检测模型 | 识别表格结构 | Marker 专有，自动使用 |
-| 公式检测模型 | 识别数学公式 | Marker 专有，自动使用 |
-| OCR 引擎 | 识别图片文字 | 可选 Tesseract（需手动安装） |
-
-**问题：哪个模型更好用？**
-
-**答案：** 对于大多数用户，Marker 的默认模型就是最好的选择。
-- 模型是固定搭配的，不需要手动选择
-- 训练时专门针对 PDF 转换场景优化
-- 如果需要更好的 OCR 效果，可以安装 Tesseract（见"系统依赖安装"部分）
 
 ---
 
 ## Python API 使用
 
-### 基本用法示例
+### 基本用法
 
 ```python
 from marker.convert import convert_single_pdf
@@ -169,29 +244,6 @@ full_text, images, out_meta = convert_single_pdf(
 
 # 输出结果
 print(full_text)
-```
-
-### 高级用法示例
-
-```python
-from marker.convert import convert_single_pdf
-from marker.models import load_all_models
-
-# 加载模型（可指定模型目录）
-model_list = load_all_models(model_dir="./models")
-
-# 转换 PDF 并使用更多选项
-full_text, images, out_meta = convert_single_pdf(
-    "input.pdf",
-    model_list,
-    max_pages=None,          # 不限制页数
-    parallel_factor=2,       # 并行因子
-2,       # 输出格式
-)
-
-# 处理提取的图片
-for img_name, img_data in images.items():
-    print(f"图片: {img_name}, 大小: {len(img_data)} bytes")
 ```
 
 ### 批量处理脚本
@@ -240,94 +292,72 @@ if __name__ == "__main__":
 
 ---
 
-## 常用参数选项
+## LLM 服务配置
 
-| 参数 | 说明 | 默认值 |
-|------|------|--------|
-| `--max_pages` | 最大转换页数 | None (全部) |
-| `--output_filename` | 指定输出文件名 | 自动生成 |
-| `--pages` | 指定页数范围（如 1-5） | None |
-| `--workers` | 并行工作数 | 1 |
-| `--model_dir` | 模型文件目录 | 默认目录 |
-| `--batch_multiplier` | 批量处理乘数 | 1 |
-| `--dpi` | PDF 渲染 DPI | 96 |
-| `--ocr_all_pages` | 对所有页面使用 OCR | False |
-| `--extract_images` | 提取图片 | True |
+使用 `--use_llm` 时可配置以下服务：
+
+| 服务 | 命令 |
+|------|------|
+| **Gemini** | `--llm_service marker.services.gemini.GoogleGeminiService --gemini_api_key KEY` |
+| **Ollama** | `--llm_service marker.services.ollama.OllamaService --ollama_model llama3 --ollama_base_url http://localhost:11434` |
+| **OpenAI** | `--llm_service marker.services.openai.OpenAIService --openai_api_key KEY --openai_model gpt-4o` |
+| **Claude** | `--llm_service marker.services.claude.ClaudeService --claude_api_key KEY --claude_model_name claude-3-5-sonnet` |
+| **Vertex AI** | `--llm_service marker.services.vertex.VertexAIService` |
+| **Azure OpenAI** | `--llm_service marker.services.azure_openai.AzureOpenAIService` |
 
 ---
 
-## 注意事项
+## 配置说明
 
-### 首次使用建议
+- `TORCH_DEVICE` 环境变量可指定设备：`cuda`/`cpu`/`mps`（默认自动检测）
+- 运行 `marker_single --help` 或 `marker --help` 查看所有选项
 
-1. **首次运行会下载模型**：首次使用时，Marker 会自动下载约 2-3GB 的模型文件，请确保网络连接稳定
-2. **测试单个文件**：建议先转换单个 PDF 测试效果，确认无误后再批量处理
-3. **检查输出格式**：查看转换后的 Markdown 文件，确认表格、公式等元素是否正确转换
+---
 
-### 性能优化建议
+## 首次使用
 
-1. **限制并行数**：根据 CPU 核心数调整 `parallel_factor`，一般设置为 CPU 核心数的一半
-2. **分批处理**：对于大量文件，可以分批处理以避免内存不足
-3. **指定页数范围**：如果只需要部分内容，使用 `--pages` 或 `--max_pages` 加速处理
+### 模型下载说明
 
-### 系统要求
+**首次运行时会发生什么？**
 
-- **Python**：3.8 或更高版本
+当你首次运行 `marker_single` 命令时：
+
+1. **自动检查**：Marker 会检查本地是否有所需的模型文件
+2. **自动下载**：如果没有找到，会自动从 Hugging Face 下载模型
+3. **下载大小**：约 2-3GB，需要稳定的网络连接
+4. **下载位置**：默认存储在 `~/.cache/huggingface/` 目录下
+5. **下载时间**：根据网速，通常需要几分钟
+
+**示例输出：**
+```
+Downloading models...
+[========================================] 100%
+Models downloaded successfully!
+```
+
+### 指定模型目录
+
+你可以手动指定模型文件的存储位置：
+
+```bash
+# 指定模型目录
+marker_single input.pdf --model_dir /path/to/your/models
+```
+
+**什么时候需要指定模型目录？**
+- 多台电脑共享模型
+- 首次下载后想把模型移到其他位置
+- 网络受限，需要手动下载模型
+
+---
+
+## 系统要求
+
+- **Python**：3.10 或更高版本
+- **PyTorch**：自动安装
 - **内存**：建议至少 4GB 可用内存
 - **存储空间**：模型文件需要约 2-3GB 空间
 - **GPU**：可选，有 GPU 可以显著提升处理速度
-
----
-
-## 实战示例
-
-### 示例：转换学术论文
-
-```bash
-# 1. 安装 Marker
-pip install marker-pdf
-
-# 2. 下载一篇论文 PDF（示例）
-# 假设已下载为 paper.pdf
-
-# 3. 转换 PDF
-marker_convert paper.pdf output
-
-# 4. 查看结果
-cat output/paper.md
-```
-
-### 示例：Python 批量处理
-
-```python
-from marker.convert import convert_single_pdf
-from marker.models import load_all_models
-from pathlib import Path
-
-# 配置
-INPUT_DIR = "papers"
-OUTPUT_DIR = "converted"
-
-# 初始化
-model_list = load_all_models()
-Path(OUTPUT_DIR).mkdir(exist_ok=True)
-
-# 批量转换
-for pdf in Path(INPUT_DIR).glob("*.pdf"):
-    print(f"处理: {pdf.name}")
-
-    text, images, meta = convert_single_pdf(
-        str(pdf),
-        model_list,
-        max_pages=50  # 限制前 50 页
-    )
-
-    # 保存结果
-    md_file = Path(OUTPUT_DIR) / f"{pdf.stem}.md"
-    md_file.write_text(text, encoding="utf-8")
-
-    print(f"完成: {md_file.name}")
-```
 
 ---
 
@@ -335,7 +365,7 @@ for pdf in Path(INPUT_DIR).glob("*.pdf"):
 
 - **GitHub 仓库**：https://github.com/VikParuchuri/marker
 - **PyPI 页面**：https://pypi.org/project/marker-pdf/
-- **在线文档**: [查看官方文档获取最新信息](https://github.com/Vikparuchuri/marker/blob/main/README.md)
+- **官方文档**：https://github.com/VikParuchuri/marker/blob/main/README.md
 - **问题反馈**：https://github.com/VikParuchuri/marker/issues
 
 ---
