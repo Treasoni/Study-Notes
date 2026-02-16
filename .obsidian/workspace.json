@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docker/docker容器如何更新.md",
+                "file": "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/full.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "docker容器如何更新"
+              "title": "full"
             }
           }
         ],
@@ -151,6 +151,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/full.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -160,7 +161,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "反向链接"
+              "title": "full 的反向链接列表"
             }
           },
           {
@@ -169,11 +170,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/full.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "出链"
+              "title": "full 的出链列表"
             }
           },
           {
@@ -211,13 +213,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "27张宇基础30讲高数/_page_113_Figure_3.jpeg",
+                "file": "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/full.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "_page_113_Figure_3 的大纲"
+              "title": "full 的大纲"
             }
           },
           {
@@ -260,20 +262,30 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "52ff2f9fbef74052",
+  "active": "004624a81df7944d",
   "lastOpenFiles": [
-    "27张宇基础30讲高数/_page_107_Figure_2.jpeg",
-    "27张宇基础30讲高数/_page_0_Picture_4.jpeg",
     "Marker PDF转换教学案例.md",
-    "27张宇基础30讲高数/_page_169_Picture_5.jpeg",
-    "27张宇基础30讲高数/_page_344_Picture_4.jpeg",
-    "27张宇基础30讲高数/_page_26_Figure_16.jpeg",
-    "27张宇基础30讲高数/_page_70_Figure_18.jpeg",
-    "27张宇基础30讲高数/_page_495_Picture_4.jpeg",
-    "27张宇基础30讲高数/_page_480_Picture_4.jpeg",
-    "27张宇基础30讲高数/_page_382_Picture_0.jpeg",
-    "27张宇基础30讲高数/_page_237_Picture_5.jpeg",
-    "27张宇基础30讲高数/_page_369_Figure_12.jpeg",
+    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/MinerU_markdown_202602161656970.md",
+    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/layout.json",
+    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/86cfa39e-f87f-4cd2-b00a-d0b48c4fefa6_content_list.json",
+    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/block_list.json",
+    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/86cfa39e-f87f-4cd2-b00a-d0b48c4fefa6_model.json",
+    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/images/cda5f6a399fbb56cd993228e49c76fa4be5950651cd49d8b4678b5fd82d106bd.jpg",
+    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/images/ed07330863ceea2f80aa07bc541342a4e7234ad356d3a84cf8fe5a087cc67e32.jpg",
+    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/images/570d3cfd9497a91bbd8f6ce6de33d81365b2a1eee81ba079a33b902ad0ca045d.jpg",
+    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/images/bed16cdb1c039d5b1fdd6eb58b818a0e77e3f9e6b9846a86826b7d538e88eab5.jpg",
+    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/images/6f0d9efd930e4fa95436bc6ba165882a0a93c1d2ed3440760b18cb0f8e4fb4f6.jpg",
+    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/images/7f35b74fd2f573d4e6e75c21265e203265843866586c8b0ddfbde81bcd0c0642.jpg",
+    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/images/341dcb4b686b359e104a206cd76a0145fd42ff3e6ae7effc4cb9610ed266487e.jpg",
+    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/images/cb191c63a6f1c5942866bcb3f1ebc19761b241896afb38f8dc096708db2a5ddd.jpg",
+    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/images/a194179fa7f8b2836c6633d9a6f4f3c647db9efa8a508c1716e6f0bcc45bf0ca.jpg",
+    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/images/0b5614c4e4d18d1e6dbc78768c069dd1a114593526bd563330e3a89d39a992f6.jpg",
+    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/images",
+    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/86cfa39e-f87f-4cd2-b00a-d0b48c4fefa6_origin.pdf",
+    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/full.md",
+    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/content_list_v2.json",
+    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08",
+    "docker/docker容器如何更新.md",
     "27张宇基础30讲高数/27张宇基础30讲高数.md",
     "27张宇基础30讲高数/27张宇基础30讲高数_meta.json",
     "27张宇基础30讲高数",
@@ -298,16 +310,6 @@
     "iso和img.md",
     "如何安装window系统.md",
     "PVE的学习/安装和使用PVE教程/PVE存储库.md",
-    "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",
-    "docker/docker容器如何更新.md",
-    "docker/assets/如何搭建漫画库",
-    "docker/assets",
-    "qBittorent/assets/qBittorent配置代理",
-    "qBittorent/assets/qBittorent的Tracker",
-    "PVE的学习/PVE学习笔记MOC.canvas",
-    "AI学习/assets/如何使用Claude code",
-    "assets/如何使用Claude code",
-    "AI学习/assets/Skills 是什么",
-    "assets/Skills 是什么"
+    "PVE的学习/PVE学习笔记MOC.canvas"
   ]
 }
