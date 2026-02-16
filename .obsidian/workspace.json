@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/full.md",
+                "file": "Marker PDF转换教学案例.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "full"
+              "title": "Marker PDF转换教学案例"
             }
           }
         ],
@@ -151,7 +151,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/full.md",
+                "file": "Marker PDF转换教学案例.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -161,7 +161,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "full 的反向链接列表"
+              "title": "Marker PDF转换教学案例 的反向链接列表"
             }
           },
           {
@@ -170,12 +170,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/full.md",
+                "file": "Marker PDF转换教学案例.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "full 的出链列表"
+              "title": "Marker PDF转换教学案例 的出链列表"
             }
           },
           {
@@ -213,13 +213,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/full.md",
+                "file": "Marker PDF转换教学案例.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "full 的大纲"
+              "title": "Marker PDF转换教学案例 的大纲"
             }
           },
           {
@@ -264,6 +264,7 @@
   },
   "active": "004624a81df7944d",
   "lastOpenFiles": [
+    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/full.md",
     "Marker PDF转换教学案例.md",
     "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/MinerU_markdown_202602161656970.md",
     "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/layout.json",
@@ -282,7 +283,6 @@
     "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/images/0b5614c4e4d18d1e6dbc78768c069dd1a114593526bd563330e3a89d39a992f6.jpg",
     "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/images",
     "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/86cfa39e-f87f-4cd2-b00a-d0b48c4fefa6_origin.pdf",
-    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/full.md",
     "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/content_list_v2.json",
     "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08",
     "docker/docker容器如何更新.md",
