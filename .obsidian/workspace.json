@@ -81,14 +81,12 @@
             "id": "b8c87bd651ae2bfc",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "Marker PDF转换教学案例.md",
-                "mode": "source",
-                "source": false
+                "file": "27张宇基础30讲高数/_page_113_Figure_3.jpeg"
               },
-              "icon": "lucide-file",
-              "title": "Marker PDF转换教学案例"
+              "icon": "lucide-image",
+              "title": "_page_113_Figure_3"
             }
           }
         ],
@@ -165,7 +163,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Marker PDF转换教学案例.md",
+                "file": "27张宇基础30讲高数/_page_113_Figure_3.jpeg",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -175,7 +173,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Marker PDF转换教学案例 的反向链接列表"
+              "title": "_page_113_Figure_3 的反向链接列表"
             }
           },
           {
@@ -184,12 +182,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Marker PDF转换教学案例.md",
+                "file": "27张宇基础30讲高数/_page_113_Figure_3.jpeg",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Marker PDF转换教学案例 的出链列表"
+              "title": "_page_113_Figure_3 的出链列表"
             }
           },
           {
@@ -227,13 +225,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Marker PDF转换教学案例.md",
+                "file": "27张宇基础30讲高数/_page_113_Figure_3.jpeg",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Marker PDF转换教学案例 的大纲"
+              "title": "_page_113_Figure_3 的大纲"
             }
           },
           {
@@ -278,8 +276,22 @@
   },
   "active": "b8c87bd651ae2bfc",
   "lastOpenFiles": [
-    "marker使用笔记.md",
+    "27张宇基础30讲高数/_page_107_Figure_2.jpeg",
+    "27张宇基础30讲高数/_page_0_Picture_4.jpeg",
     "Marker PDF转换教学案例.md",
+    "27张宇基础30讲高数/_page_169_Picture_5.jpeg",
+    "27张宇基础30讲高数/_page_344_Picture_4.jpeg",
+    "27张宇基础30讲高数/_page_26_Figure_16.jpeg",
+    "27张宇基础30讲高数/_page_70_Figure_18.jpeg",
+    "27张宇基础30讲高数/_page_495_Picture_4.jpeg",
+    "27张宇基础30讲高数/_page_480_Picture_4.jpeg",
+    "27张宇基础30讲高数/_page_382_Picture_0.jpeg",
+    "27张宇基础30讲高数/_page_237_Picture_5.jpeg",
+    "27张宇基础30讲高数/_page_369_Figure_12.jpeg",
+    "27张宇基础30讲高数/27张宇基础30讲高数.md",
+    "27张宇基础30讲高数/27张宇基础30讲高数_meta.json",
+    "27张宇基础30讲高数",
+    "marker使用笔记.md",
     "OCR概念笔记.md",
     "硬件解码vs软件解码.md",
     "AI学习/Claude Code 常用功能.md",
@@ -297,7 +309,6 @@
     "Git/git教程.md",
     "PVE的学习/安装和使用PVE教程/PVE的基础优化设置.md",
     "PVE的学习/安装和使用PVE教程/如何创建PVE虚拟机.md",
-    "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/截屏2026-02-11 20.44.24.png",
     "iso和img.md",
     "如何安装window系统.md",
     "PVE的学习/安装和使用PVE教程/PVE存储库.md",
@@ -305,25 +316,12 @@
     "docker/docker容器如何更新.md",
     "docker/assets/如何搭建漫画库",
     "docker/assets",
-    "未命名.md",
-    "docker/github文件直链方式.md",
-    "qBittorent/assets/qBittorent配置代理/截屏2026-02-05 21.17.18.png",
     "qBittorent/assets/qBittorent配置代理",
-    "qBittorent/assets/qBittorent的Tracker/截屏2026-02-05 21.08.11.png",
     "qBittorent/assets/qBittorent的Tracker",
-    "qBittorent/assets/qBittorrent的使用/file-20260202224515442.png",
-    "qBittorent/assets/qBittorrent的使用/file-20260202224515441 1.png",
-    "qBittorent/assets/qBittorrent的使用/file-20260202224515441.png",
     "PVE的学习/PVE学习笔记MOC.canvas",
-    "assets/如何使用obsidian做笔记/截屏2026-02-05 17.36.08.png",
     "AI学习/assets/如何使用Claude code",
-    "AI学习/assets/如何使用Claude code/file-20260205163233510.png",
-    "AI学习/assets/如何使用Claude code/file-20260205163233511.png",
     "assets/如何使用Claude code",
-    "AI学习/assets/Skills 是什么/file-20260205161420021.png",
     "AI学习/assets/Skills 是什么",
-    "assets/Skills 是什么",
-    "AI学习/assets/Prompt, Agent, MCP 是什么/assets/Skills 是什么",
-    "AI学习/assets/Prompt, Agent, MCP 是什么/assets"
+    "assets/Skills 是什么"
   ]
 }
