@@ -76,21 +76,9 @@
               "icon": "lucide-file",
               "title": "docker容器如何更新"
             }
-          },
-          {
-            "id": "b8c87bd651ae2bfc",
-            "type": "leaf",
-            "state": {
-              "type": "image",
-              "state": {
-                "file": "27张宇基础30讲高数/_page_113_Figure_3.jpeg"
-              },
-              "icon": "lucide-image",
-              "title": "_page_113_Figure_3"
-            }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -163,7 +151,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "27张宇基础30讲高数/_page_113_Figure_3.jpeg",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -173,7 +160,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "_page_113_Figure_3 的反向链接列表"
+              "title": "反向链接"
             }
           },
           {
@@ -182,12 +169,11 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "27张宇基础30讲高数/_page_113_Figure_3.jpeg",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "_page_113_Figure_3 的出链列表"
+              "title": "出链"
             }
           },
           {
@@ -274,7 +260,7 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "b8c87bd651ae2bfc",
+  "active": "52ff2f9fbef74052",
   "lastOpenFiles": [
     "27张宇基础30讲高数/_page_107_Figure_2.jpeg",
     "27张宇基础30讲高数/_page_0_Picture_4.jpeg",
