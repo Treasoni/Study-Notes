@@ -76,9 +76,21 @@
               "icon": "lucide-file",
               "title": "如何使用Claude code"
             }
+          },
+          {
+            "id": "44eb8632d540ead3",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.11.7"
+              },
+              "icon": "lucide-book-up",
+              "title": "版本说明 1.11.7"
+            }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -213,13 +225,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/如何使用Claude code.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "如何使用Claude code 的大纲"
+              "title": "大纲"
             }
           },
           {
@@ -262,7 +273,7 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "004624a81df7944d",
+  "active": "44eb8632d540ead3",
   "lastOpenFiles": [
     "AI学习/Claude Code 常用功能.md",
     "AI学习/Claude MCP 使用指南.md",
