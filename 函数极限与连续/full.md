@@ -1,0 +1,3060 @@
+# 第1讲
+
+# 函数极限与连续
+
+![](images/8f7921d618cc5db677e5d4cab9cde324d52328cb09c800d7739d10174def5baf.jpg)
+
+<table><tr><td>考题</td><td>计算函数极限</td></tr><tr><td>题型</td><td>选择题、填空题、解答题</td></tr><tr><td>目标</td><td>①理解函数的概念,掌握函数的表示法,会建立应用问题的函数关系;②了解函数的有界性、单调性、周期性和奇偶性;③理解复合函数及分段函数的概念,了解反函数及隐函数的概念;④掌握基本初等函数的性质及其图形,了解初等函数的概念;⑤理解极限的概念,理解函数左极限与右极限的概念以及函数极限存在与左极限、右极限之间的关系;⑥掌握极限的性质及四则运算法则,掌握利用两个重要极限求极限的方法;⑦掌握极限存在的两个准则,并会利用它们求极限(仅数学一、数学二),了解极限的性质及极限存在的两个准则(仅数学三);⑧理解无穷小量、无穷大量的概念,掌握无穷小量的比较方法,会用等价无穷小量求极限;⑨理解函数连续性的概念(含左连续与右连续),会判别函数间断点的类型;⑩了解连续函数的性质和初等函数的连续性</td></tr><tr><td>重难点</td><td>①洛必达法则;②泰勒公式</td></tr></table>
+
+按《全国硕士研究生招生考试数学考试大纲》来编写基础知识结构,只不过我把大纲中罗列的知识点做成了一个体系化的知识结构图,希望同学们每学完一讲,回过头来能够自己写出基础知识结构.
+
+![](images/47a72b0b9a836b3a36e8b0927177c656aea247651ed523e615ee58643cfae982.jpg)
+
+# 基础知识结构
+
+![](images/045d74cd78b37c9a21df1919deb0db5a42f1dc6c544deb931b33fb62b686731a.jpg)
+
+![](images/4134c0c6f2784e0e9305373fe9db26fb017e61304d986bb87bdb4ce4a25716a5.jpg)
+
+注 以上是第1讲的全面的知识结构。学完这一讲，做完这一讲的题目之后，回过头来看这个知识结构，相信大家会有完全不同的认识。学完之后，这些知识框架不再是陌生的文字，而是展现在头脑中的清晰的知识与方法。
+
+![](images/85d11218e98630126b97e6ae254af6633f154519d8ad4f3001f7c6b4e0af0884.jpg)
+
+# 函数的概念与特性
+
+![](images/1f00f5ee30f20664908afec1fd0c3f28bf7c7960a4c8f423f03d5d428fc94bc4.jpg)
+
+![](images/f085b115a0b6f7eba65bfa0b34523dfc19eaf80619f92531a6c8ea71ee9655a2.jpg)
+
+# 函数
+
+# 单值函数
+
+设 $x$ 与 $y$ 是两个变量， $D$ 是一个给定的数集，若对于每一个 $x \in D$ ，按照一定的法则 $f$ ，有一个确定的 $y$ 值与之对应，则称 $y$ 为 $x$ 的函数，记作 $y = f(x)$ ，称 $x$ 为自变量， $y$ 为因变量，称数集 $D$ 为此函数的定义域，定义域一般由实际背景中变量的具体意义或者函数对应法则的要求确定，称 $\{f(x) | x \in D\}$ 为值域.
+
+![](images/9f2188fc0255714a7301d92421c4126acc8b647f65ec11b6f934cf6d12fc8f43.jpg)
+
+单值函数与多值函数.
+
+事实上，上述定义的函数是单值函数，若给一个 $x_{1}$ ，对应一个 $y_{1}$ ；给另外一个 $x_{2}$ ，对应另外一个 $y_{2}$ ，这叫一对一[见图1-1(a)]。若给定 $x_{1}, x_{2} (x_{1} \neq x_{2})$ ，它们对应同一个 $y$ ，则称多对一[见图1-1(b)]，所以函数可以一对一，也可以多对一，这叫单值函数。
+
+但是，若一个 $x$ 对应一个 $y_{1}$ ，又对应另一个 $y_{2}$ ，也就是一对多，这叫多值函数[见图1-1(c)]，它不在上述定义中.
+
+![](images/d9ed87ca74373e81aada3f93e35722afef8e0bc6a633c5dbd85cece9d9a20bfb.jpg)
+
+![](images/a91bf4c14f07ebd1950542e4c1a67d22012d72d174f6b118345f68a07a6a6286.jpg)
+
+图1-1  
+![](images/efa585c3ac1a2abb603954781157727d55a7a7774d67d98ac6efdc5e3dea8ca9.jpg)  
+多值函数（不是我们传统意义上的函数）
+
+我们的研究对象主要是单值函数.
+
+★数与形：如何判断一个函数是单值还是多值呢？数与形是辩证统一的关系，用铅直画线法——作铅直线，若任一条铅直线与 $f(x)$ 至多有一个交点，则 $f(x)$ 为单值函数.
+
+例1.1 设 $f\left(x + \frac{1}{x}\right) = \frac{x + x^3}{1 + x^4}$ ，则当 $x \geq 2$ 时， $f(x) =$ _______.
+
+解 应填 $\frac{x}{x^2 - 2}$
+
+![](images/9972098f13a24bf9b34a19a78908f481925c6199712f792ac920238315f449a3.jpg)
+
+$f\left(x + \frac{1}{x}\right) = \frac{x + x^3}{1 + x^4} = \frac{(x + x^3) / x^2}{(1 + x^4) / x^2} = \frac{x + \frac{1}{x}}{x^2 + \frac{1}{x^2}} = \frac{x + \frac{1}{x}}{\left(x + \frac{1}{x}\right)^2 - 2}$ ，于是当 $x \geqslant 2$ 时， $f(x) = \frac{x}{x^2 - 2}$ .
+
+方法总结 将 $x + \frac{1}{x}$ 视为整体，找出对应法则.  
+公式 $x^{2} + \frac{1}{x^{2}} = \left(x + \frac{1}{x}\right)^{2} - 2.$
+
+注 以后会经常用到，给出复合函数，把它写回原来的函数，这样的考法也较常见。
+
+例1.2 设函数 $f(x)$ 的定义域为 $(0, +\infty)$ ，且满足 $2f(x) + x^2 \sqrt{f\left(\frac{1}{x}\right)} = \frac{x^2 + 2x}{\sqrt{1 + x^2}}$ ，则 $f(x) =$
+
+分析 将 $x$ 写成 $\frac{1}{x}$ ，找到方程组①，②，联立，消去 $f\left(\frac{1}{x}\right)$ 即可.
+
+解 应填 $\frac{x}{\sqrt{1 + x^2}}$
+
+$$
+2 f (x) + x ^ {2} f \left(\frac {1}{x}\right) = \frac {x ^ {2} + 2 x}{\sqrt {1 + x ^ {2}}}, \tag {①}
+$$
+
+将①中 $x$ 写成 $\frac{1}{x}$ ，则
+
+$$
+2 \sqrt {f \left(\frac {1}{x}\right)} + \frac {1}{x ^ {2}} f (x) = \frac {1 + 2 x}{x \sqrt {1 + x ^ {2}}} \tag {②}
+$$
+
+由 $1 \times 2 - 2 \times x^{2}$ ，得 $3f(x) = \frac{3x}{\sqrt{1 + x^2}}$ ，则 $f(x) = \frac{x}{\sqrt{1 + x^2}}$ 。
+
+方法总结 用所给关系式，造出方程组，解出所需的量.  
+公式 对应法则与所用的自变量无关，如 $f(x) = x^2$ ，则 $f\left(\frac{1}{x}\right) = \left(\frac{1}{x}\right)^2.$
+
+注 (1)学习《考研数学基础30讲》，要关注“前世今生”，目前是要打基础.
+
+(2) 若给 $f\left( x\right)  + {xf}\left( {-x}\right)  = x$ ,应学会写 $f\left( {-x}\right)  - {xf}\left( x\right)  =  - x$ ,消去 $f\left( {-x}\right)$ ,得 $f\left( x\right)  = \frac{x + {x}^{2}}{1 + {x}^{2}}$ . 自练
+
+考生既要掌握单值函数，同时也要会根据给出的复合函数表达式，求出相应的对应法则.
+
+注 本书所讲的知识是全面的，对题目的把握是准确的。从范围上、广度上讲是涵盖整个考研大纲的；从深度上讲，掌握我说的题目的难度就够了，达到这个难度，考研数学就能解决了。比
+
+这个题目的难度低，不行；超过这个题目的难度，不需要！
+
+2反函数 前提：符合铅直画线法
+
+设函数 $y = f(x)$ 的定义域为 $D$ ，值域为 $R$ 。如果对于每一个 $y \in R$ ，必存在唯一的 $x \in D$ ，使得 $y = f(x)$ 成立，则由此定义了一个新的函数 $x = \varphi(y)$ ，这个函数称为函数 $y = f(x)$ 的反函数，一般记作 $x = f^{-1}(y)$ ，它的定义域为 $R$ ，值域为 $D$ 。相对于反函数来说，原来的函数也称为直接函数。以下两点需要说明：
+
+第一，严格单调函数必有反函数，比如函数 $y = x^{2} (x \in [0, +\infty))$ 是严格单调函数，故它有反函数充分条件 $x = \sqrt{y}$ 反函数：强调对应法则
+
+第二，若把 $x = f^{-1}(y)$ 与 $y = f(x)$ 的图形画在同一坐标系中，则它们完全重合.只有把 $y = f(x)$ 的反函数 $x = f^{-1}(y)$ 写成 $y = f^{-1}(x)$ 后，它们的图形才关于 $y = x$ 对称.事实上，这也是字母 $\boxed{x}$ 与 $y$ 互换的结果
+
+注 (1) 单值函数（符合铅直画线法）才谈反函数.
+
+(2)有反函数的函数不一定是单调函数.比如
+
+$$
+f (x) = \left\{ \begin{array}{l l} x, & x \geqslant 0, \\ \frac {1}{x}, & x <   0, \end{array} \right.
+$$
+
+其图像如图1-2所示，其反函数即为 $f(x)$ 本身，但 $f(x)$ 不是单调函数.
+
+![](images/bd8bb9679c2f897ea4018629197ab73645f7bdb08b5ad6895043044171b005d0.jpg)  
+图1-2
+
+判断一个函数是否具有反函数：用水平画线法.
+
+水平画线法——在符合铅直画线法的条件下，作水平直线，若任一条水平直线与 $f(x)$ 至多有一个交点，则 $f(x)$ 有反函数.
+
+口诀： 铅直直线定单、多（单值函数、多值函数），水平直线定反、直（反函数、直接函数）.
+
+重要关系： $\left\{ \begin{array}{l}f[f^{-1}(x)] = x,\\ f^{-1}[f(x)] = x. \end{array} \right.$ 如： $\mathrm{e}^{\ln 2^{x}} = \boxed{2^{x}}.$
+
+例1.3 求函数 $y = f(x) = \ln \left(x + \sqrt{x^2 + 1}\right)$ 的反函数 $f^{-1}(x)$ 的表达式及其定义域.
+
+分析 对数函数是一个极为重要的研究对象，三个基本公式要掌握 $(a,b > 0)$ ：
+
+$$
+\left\{ \begin{array}{l} {\ln a b = \ln a + \ln b (\text {积 变 和})  ,} \\ {\ln \frac {a}{b} = \ln a - \ln b (\text {商 变 差})  ,} \\ {\ln a ^ {b} = b \ln a (\text {幂 次 变 倍 数})  .} \end{array} \right.
+$$
+
+解 直接由 $y = \ln \left(x + \sqrt{x^2 + 1}\right)$ 解出 $x = f^{-1}(y)$ 会很麻烦，现采用下述方法.
+
+$$
+\begin{array}{l} - y = - \ln \left(x + \sqrt {x ^ {2} + 1}\right) = \ln \frac {1}{x + \sqrt {x ^ {2} + 1}} \\ \xlongequal {\text {分 母 有 理 化}} \ln \frac {\sqrt {x ^ {2} + 1} - x}{\left(\sqrt {x ^ {2} + 1} + x\right) \left(\sqrt {x ^ {2} + 1} - x\right)} = \ln \left(\sqrt {x ^ {2} + 1} - x\right), \\ \end{array}
+$$
+
+所以 $\mathrm{e}^{-y} = \sqrt{x^2 + 1} - x,$ ①
+
+再由 $y = f(x)$ 的表达式有
+
+$$
+e ^ {y} = \sqrt {x ^ {2} + 1} + x, \tag {②}
+$$
+
+$② - ①$ ，得 $x = \frac{1}{2}\left(\mathrm{e}^{y} - \mathrm{e}^{-y}\right),$
+
+交换上式中 $x, y$ 的位置后就是 $y = f(x)$ 的反函数，即
+
+$$
+y = f ^ {- 1} (x) = \frac {1}{2} \left(\mathrm {e} ^ {x} - \mathrm {e} ^ {- x}\right), - \infty <   x <   + \infty .
+$$
+
+方法总结 利用对数的性质，巧妙地反解 $x$ ：  
+公式 $\ln (x + \sqrt{x^2 + 1})$ 是常见的奇函数.
+
+注 (1) 函数 $y = \ln \left( x + \sqrt{x^2 + 1} \right)$ 叫作反双曲正弦函数，其图像如图 1-3(a) 所示。函数 $y = \frac{e^x - e^{-x}}{2}$ 叫作双曲正弦函数，其图像如图 1-3(b) 所示。考生应记住这两个函数的图像。
+
+![](images/7f4eba00f3e24035dd5a9a49fca93d6438610dd440dae0b49c2515f7885a457f.jpg)  
+(a)
+
+![](images/085dec78d808d025cae623b94b3642855717ae2091375e36dc5d558c01c05879.jpg)  
+(b)   
+图1-3
+
+(2) $y = \frac{e^x + e^{-x}}{2}$ 叫作双曲余弦函数, 其图像如图1-4所示, 它是偶函数, 是一种特殊的悬链线. 达·芬
+
+奇在画《抱银貂的女子》时，曾仔细思索过女子的脖子上戴的项链的形状是什么函数，可惜他一生都未能明白，在他去世近200年后，约翰·伯努利解决了这个问题。那不是抛物线 $y = x^2$ ，而是悬链线 $y = \frac{a}{2} \left( e^{\frac{x}{a}} + e^{-\frac{x}{a}} \right)$ ，取 $a = 1$ ，便是 $y = \frac{e^x + e^{-x}}{2}$ 。
+
+![](images/3333ec490b392b6649662512f4fb88ae14c79098ab8287b24ec3ce0b6790027f.jpg)  
+图1-4
+
+三个重要函数：① $y = \ln (x + \sqrt{x^2 + 1})$ ② $y = \frac{e^x - e^{-x}}{2}$ ③ $y = \frac{e^x + e^{-x}}{2}$ （2023年考查过）.
+
+(3) 以后会知道如下 3 个重要结论.
+
+① 当 $x \to 0$ 时， $\ln (x + \sqrt{x^2 + 1}) \sim x$ 。即当 $x \to 0$ 时，反双曲正弦函数 $\ln (x + \sqrt{x^2 + 1})$ 与 $x$ 是等价无穷小。
+
+当 $x\to 0$ 时， $\sin x\sim x,\tan x\sim x,\ln (x + \sqrt{x^2 + 1})\sim x,\dots .$
+
+$2\left[\ln \left(x + \sqrt{x^2 + 1}\right)\right]' = \frac{1}{\sqrt{x^2 + 1}}$ $= \int \frac{1}{\sqrt{x^2 + 1}}\mathrm{d}x = \ln \left(x + \sqrt{x^2 + 1}\right) + C.$
+
+③ 由于 $y = \ln \left(x + \sqrt{x^2 + 1}\right)$ 是奇函数，于是 $\int_{-1}^{1} \left[\ln \left(x + \sqrt{x^2 + 1}\right) + x^2\right] \mathrm{d}x = \int_{-1}^{1} x^2 \mathrm{d}x = \frac{2}{3}$ .
+
+③是在预告未来,未来会用到在第1讲中讲到的知识,同时我们要明白一个道理：我们现在在讲基础,基础要慢慢去打.你所有的东西实际上是一个联系的整体. 假如不知道 $y = \ln \left( {x + \sqrt{{x}^{2} + 1}}\right)$ 这个函数,不知道它的图像,不知道它的性质,那么在后面去学习的时候就会遇到困难. 反过来说,如果知识掌握得很扎实,那么后面学到极限、导数、积分、面积等,就能很快速地把问题解决了, 从而可以掌握强大的基础知识,再学会做题,就可以应对综合题了.
+
+# 3 复合函数
+
+设函数 $y = f(u)$ 的定义域为 $D_{1}$ ，函数 $u = g(x)$ 在 $D$ 上有定义，且 $g(D) \subset D_{1}$ ，则由
+
+$$
+y = f [ g (x) ] (x \in D)
+$$
+
+确定的函数称为由函数 $u = g(x)$ 和函数 $y = f(u)$ 构成的复合函数，它的定义域为 $D$ ， $u$ 称为中间变量。考生要重点掌握复合的方法。三层复合函数 $h[f[g(x)]$
+
+例1.4 设 $f(x) = x^{2}$ ， $f[\varphi(x)] = -x^{2} + 2x + 3$ ，且 $\varphi(x) \geqslant 0$ ，求 $\varphi(x)$ 及其定义域与值域。
+
+解由题设条件知， $f[\varphi (x)] = \varphi^2 (x) = -x^2 +2x + 3$ ，于是 $\varphi (x) = \sqrt{-x^{2} + 2x + 3}$ 因 $\varphi (x)\geqslant 0$
+
+由 $-x^{2} + 2x + 3\geqslant 0$ ，即 $(x - 3)(x + 1)\leqslant 0$ ，知 $\varphi (x)$ 的定义域为[-1,3].
+
+又 $\sqrt{-x^2 + 2x + 3} = \sqrt{-(x - 1)^2 + 4}$ ，当 $x = 1$ 时， $\varphi (1) = 2$ 为最大值，显然 $\varphi (-1) = \varphi (3) = 0$ 为最小值，故 $\varphi (x)$ 的值域为[0,2].
+
+方法总结 将 $\varphi (x)$ 视为一个整体口，由 $f[\varphi (x)]$ 已知，可求出 $\varphi (x)$ ：
+
+公式 若 $\varphi^2 (x) = g(x)$ ，则 $\varphi (x) = \pm \sqrt{g(x)}$
+
+注 这个题目比较简单，可能是我们后面综合题的第一问，我们一定要把《考研数学基础30讲》吃透，把与本书配套的《张宇考研数学题源探析经典1000题》基础篇吃透，把它背下来最好，后面会发现做起题来，越来越顺，为什么呢？因为原材料准备得好，然后加上你高超的烹饪技术，炒菜水平就很高，解题能力和速度都会有一个很大的提高。
+
+例1.5 设 $g(x) = \begin{cases} 2 - x, & x \leqslant 0, \\ 2 + x, & x > 0, \end{cases}$ $f(x) = \begin{cases} x^2, & x < 0, \\ -x - 1, & x \geqslant 0, \end{cases}$ 则 $g[f(x)] =$
+
+分析 数与形结合.
+
+华罗庚先生说：“数无形时少直觉，形少数时难入微，数形结合百般好”。
+
+解
+
+应填 $\left\{ \begin{array}{ll}3 + x, & x\geqslant 0,\\ 2 + x^2, & x <   0. \end{array} \right.$
+
+$$
+g [ f (x) ] = \left\{ \begin{array}{l} 2 - f (x), f (x) \leqslant 0, \\ 2 + f (x), f (x) > 0, \end{array} \right.
+$$
+
+![](images/f05496cb84f425dc4865bfae5d9e25c44aa54b188c7172e920c1ae63bf357bbf.jpg)
+
+当 $f(x) \leqslant 0$ 时， $x \geqslant 0$ ，此时 $f(x) = -x - 1$ ；当 $f(x) > 0$ 时， $x < 0$ ，此时 $f(x) = x^2$ 。
+
+综上，
+
+$$
+g [ f (x) ] = \left\{ \begin{array}{l l} 2 - (- x - 1), & x \geqslant 0, \\ 2 + x ^ {2}, & x <   0 \end{array} = \left\{ \begin{array}{l l} 3 + x, & x \geqslant 0, \\ 2 + x ^ {2}, & x <   0. \end{array} \right. \right.
+$$
+
+方法总结 画出内层函数的图形，数形结合.
+
+4
+
+# 隐函数
+
+前面讲了单值函数和多值函数的区别
+
+设方程 $F\left( {x,y}\right)  = 0$ ,若当 $x$ 取某区间内的任一值时,总有满足该方程的唯一的值 $y$ 存在,则称方程 $F\left( {x,y}\right)  = 0$ 在上述区间内确定了一个隐函数 $y = y\left( x\right)$ .
+
+多值函数不适用于铅直画线法.比如,上图有两个交点,则不满足铅直画线法,这个对应的就是多值函数,不能确定隐函数.能确定隐函数就不能是多值函数,这是基本概念,关于隐函数存在定理,我们后面专门讲.
+
+如 $x + y^3 - 1 = 0$ 就表示一个隐函数，且可显化为 $y = \sqrt[3]{1 - x}$ ；再如 $\sin(xy) = \ln \frac{x + e}{y} + 1$ 也表示一个隐函数，但不易显化，很难写出 $y = y(x)$ 或 $x = x(y)$ 。
+
+一般来说，由 $F(x,y) = 0$ 所确定的隐函数求 $y(x_0)$ ，若代入 $x_0$ 易求出 $y(x_0)$ ，则直接求之；若不易求出 $y(x_0)$ ，则用观察法.如：方程这个东西，解无定法，观察得之，有时“显然”，有时超越方程无解析解，只有数值解
+
+① 设函数 $y = y(x)$ 由方程 $\ln y - \frac{x}{y} + x = 0 (x > 0)$ 确定，当 $x = 2$ 时， $y(2) = 1$ 。
+
+方程 $\ln y - \frac{2}{y} + 2 = 0$ 是可观察的，用画图法，如图1-5所示.
+
+由 $\ln y = \frac{2}{y} - 2$ ，得 $\left\{ \begin{array}{l} z = \ln y, \\ z = \frac{2}{y} - 2, \end{array} \right.$ 看两条曲线交点.
+
+这些都是考研真题里面出现过的形式。
+
+$\ln y + \mathrm{e}^{y - 1} = 1$ ，显然可看出， $y = 1$ 时成立，画草图
+
+![](images/14ecea67363496389fb7faa5c24a383c03a99c54ef08e85272452dfd4e41384f.jpg)
+
+![](images/37eb8a3ef47dc6ae9f069cb34faeb9b737fca485f699b6728f092796843cb9c5.jpg)  
+图1-5
+
+② 设函数 $y = y(x)$ 由方程 $\ln y + \mathrm{e}^{y - 1} = \frac{x}{2}$ 确定，当 $x = 2$ 时， $y(2) = 1$
+
+注 考研试题中常出现这种问题，考生要重视。
+
+隐函数问题先给大家提到这里，与之相关的隐函数存在定理，以及隐函数存在定理所推出的公式法等，我们到后面再去讲.
+
+★★★5函数的四种特性 考研中怎么去使用这些特性呢？微积分是利用极限这个工具研究函数、函数的导数及积分的四种特性
+
+(1) 有界性.
+
+设 $f(x)$ 的定义域为 $D$ ，数集 $I \subset D$ 。如果存在某个正数 $M$ ，使对任一 $x \in I$ ，有 $|f(x)| \leqslant M$ ，则称 $f(x)$ 在 $I$ 上有界；如果这样的 $M$ 不存在，则称 $f(x)$ 在 $I$ 上无界。
+
+注 (1) 从几何上看, 如果在给定的区间, 函数 $y = f(x)$ 的图形能够被直线 $y = -M$ 和 $y = M$ “完全包起来”, 则为有界; 从解析上说, 如果找到某个正数 $M$ , 使得 $|f(x)| \leqslant M$ , 则为有界.
+
+![](images/6bc7fa9bca13c00d0d5c17623a782e5bce1039c440bbab375d1aa4bc3d64d166.jpg)
+
+(2)有界还是无界的讨论首先需指明区间 $I$ ，不知区间，无法谈论有界性.比如 $y = \frac{1}{x}$ 在 $(2, + \infty)$ 内有界，但在(0,2)内无界.
+
+![](images/6f0d9efd930e4fa95436bc6ba165882a0a93c1d2ed3440760b18cb0f8e4fb4f6.jpg)
+
+(3) 事实上，只要在区间 $I$ 上或其端点处存在点 $x_0$ ，使得 $\lim_{x \to x_0} f(x)$ 的值为无穷大，则没有任何两条直线 $y = -M$ 和 $y = M$ 可以把 $I$ 上的 $f(x)$ “包起来”，这就叫无界。考研中常出这样的题目，比如例1.17。
+
+例1.6 证明函数 $f(x) = \frac{x}{1 + x^2}$ 在 $(- \infty, + \infty)$ 内有界.
+
+补充： $x^{2} = \left|x^{2}\right| = \left|x\right|^{2}$
+
+$$
+\begin{array}{l} x ^ {3} \neq \left| x ^ {3} \right| = \left| x \right| ^ {3}. \\ | x | = \sqrt {x ^ {2}}. \\ \end{array}
+$$
+
+分析 当 $x \neq 0$ 时， $|f(x)| = \frac{|x|}{1 + x^2}$ 分子分母同除 $|x|$ 或者用 $|x| = \sqrt{x^2}$
+
+若求 $[f(x)]'$ 呢？
+
+$$
+\begin{array}{l} \left[ \left. f (x) \right| \right] ^ {\prime} = \left[ \sqrt {f ^ {2} (x)} \right] ^ {\prime} \\ = \frac {2 f (x) f ^ {\prime} (x)}{2 \sqrt {f ^ {2} (x)}} = \frac {f (x) f ^ {\prime} (x)}{| f (x) |}. \\ \end{array}
+$$
+
+再如： $f(x) = 2x + \sqrt{x^2 + 2x + 1}$
+
+$$
+\begin{array}{l} = 2 x + \sqrt {(x + 1) ^ {2}} \\ = 2 x + | x + 1 |. \\ \end{array}
+$$
+
+由不等式 $\frac{a + b}{2} \geqslant \sqrt{ab} (a, b > 0)$ ，有 $\frac{1}{|x|} + |x| \geqslant 2\sqrt{\frac{1}{|x|} |x|} = 2$ ，即 $|f(x)| \leqslant \frac{1}{2}$ 。
+
+当 $x = 0$ 时， $f(0) = 0$ 。综上，函数 $f(x)$ 在 $(- \infty, + \infty)$ 内有界。
+
+方法二 当 $x \neq 0$ 时， $\frac{1 + x^2}{2} \geqslant \sqrt{1 \cdot x^2} = |x|$ ，则 $1 + x^2 \geqslant 2|x|$ ，故 $\frac{1}{1 + x^2} \leqslant \frac{1}{2|x|}$ ，则
+
+$$
+| f (x) | = \frac {| x |}{1 + x ^ {2}} \leqslant \frac {| x |}{2 | x |} = \frac {1}{2}.
+$$
+
+当 $x = 0$ 时， $f(0) = 0$ 。综上，函数 $f(x)$ 在 $(- \infty, + \infty)$ 内有界。
+
+方法总结 用基本不等式，找 $M$ ，使 $\mid f(x)\mid \leqslant M$ ：
+
+公式 $\frac{a + b}{2} \geqslant \sqrt{ab} (a, b > 0)$ ; $\frac{2}{\frac{1}{a} + \frac{1}{b}} \leqslant \sqrt{ab} \leqslant \frac{a + b}{2} \leqslant \sqrt{\frac{a^2 + b^2}{2}} (a, b > 0)$ .
+
+(2) 单调性. $\rightarrow$ 整个考研数学, 离不升单调性这个话题
+
+设 $f(x)$ 的定义域为 $D$ ，区间 $I \subset D$ 。如果对于区间 $I$ 上任意两点 $x_1, x_2$ ，当 $x_1 < x_2$ 时，恒有 $f(x_1) < f(x_2)$ ，则称 $f(x)$ 在区间 $I$ 上单调增加。如果对于区间 $I$ 上任意两点 $x_1, x_2$ ，当 $x_1 < x_2$ 时，恒有 $f(x_1) > f(x_2)$ ，则称 $f(x)$ 在区间 $I$ 上单调减少。
+
+注 (1) 以上是定义法, 是充要条件.
+
+(2) 后面会看到，在考研试题中常常用求导的方法来讨论函数在某个区间上的单调性，但是定义法不可以忘记。试题中也常用到如下定义法的判别形式，请考生留意。
+
+对任意 $x_{1}, x_{2} \in D, x_{1} \neq x_{2}$ ，有
+
+严格单增 $f(x)$ 是单调增函数 $\Leftrightarrow (x_{1} - x_{2})[f(x_{1}) - f(x_{2})] > 0$ $f(x)$ 是单调减函数 $\Leftrightarrow (x_1 - x_2)[f(x_1) - f(x_2)] <   0$ $f(x)$ 是单调不减函数 $\Leftrightarrow (x_{1} - x_{2})[f(x_{1}) - f(x_{2})]\geqslant 0$ $f(x)$ 是单调不增函数 $\Leftrightarrow (x_{1} - x_{2})[f(x_{1}) - f(x_{2})]\leqslant 0.$
+
+在考研数学中，函数的单调性虽然是基础知识，但也会有综合应用.
+
+例1.7 设 $f(x)$ 在 $(- \infty, + \infty)$ 上有定义，任给 $x_{1}, x_{2}, x_{1} \neq x_{2}$ ，均有 $(x_{1} - x_{2}) \cdot [f(x_{1}) - f(x_{2})] > 0$ ，则以下函数一定单调增加的是（ ）.
+
+(A) $|f(x)|$
+
+(B) $f(|x|)$
+
+(C) $f(-x)$
+
+(D) $-f(-x)$
+
+分析 由条件知 $f\left( x\right)$ 是严格单调增加函数,利用图形的变换,去讨论其他函数的单调性.
+
+保留 $f\left( x\right)  \geq  0$ 部分. $f\left( x\right)  < 0$ 部分去掉,关于 $x$ 轴对称过来
+
+![](images/dcb53503467723ab42ab500bec10fdb322c59af6c007bca24ef852eb4c9365d4.jpg)
+
+![](images/081e2e5a85cb98927e66d4e4056498c92717e559087d0fdee17d3cd3e4eabdd2.jpg)
+
+保留 $x \geqslant 0$ 部分, $x < 0$ 部分消去, 关于 $y$ 轴对称
+
+![](images/6f23a202a66366b16e6cedd7c0df6649658bd3171469561f511e3d09f5ffdeff.jpg)
+
+![](images/2b21ed09f55e6b7a8a475813226dca1b80bd44f2d6df0925173eb747fe1d2300.jpg)
+
+![](images/d0c7365e6556609f91f47c813874248e1d004320c4039951c6547c2f2cdbb08c.jpg)  
+两者关于 $y$ 轴对称
+
+![](images/70a1c18923c9553124fa1a200277cf8eeeb527776293faadb4c295df01d67283.jpg)
+
+![](images/11e02b56fd0f3f5a8741d1314b0e13359d7a35f1a4209373d7e5e94df067eb9b.jpg)
+
+![](images/8cfc0594775e360094bf4b02b428217f61117342442167d8f7b9e8753e159505.jpg)
+
+![](images/93f180222fdb3b4ef98822f3be4892819fb7e201a8be4bce6643eb8e2836740e.jpg)  
+关于原点对称
+
+# 解 应选(D).
+
+由上述注的(2)知， $f(x)$ 是单调增函数，又 $f(-x)$ 与 $f(x)$ 的图像关于 $y$ 轴对称， $-f(-x)$ 与 $f(x)$ 的图像关于原点对称[见附录1(2)的②，③]，可知 $f(-x)$ 单调减少， $-f(-x)$ 单调增加. $|f(x)|$ 是否具有单
+
+调性与 $f(x)$ 的正负相关， $f(|x|)$ 为偶函数，在 $(-\infty, +\infty)$ 上无单调性[见附录1(2)的⑤，⑥]，故选(D).
+
+方法总结 $f(ax),af(x)$ 等可参考附录1.  
+公式 $f(x)$ 与 $f(-x)$ 关于 $y$ 轴对称； $f(x)$ 与 $-f(x)$ 关于 $x$ 轴对称； $f(x)$ 与 $-f(-x)$ 关于原点对称.
+
+(3) 奇偶性. 这个是四大特性中最重要的性质, 原因: ①题目易出; ②对称差.
+
+设 $f(x)$ 的定义域 $D$ 关于原点对称（若 $x \in D$ ，则 $-x \in D$ ）。如果对于任一 $x \in D$ ，恒有 $f(-x) = f(x)$ ，则称 $f(x)$ 为偶函数。如果对于任一 $x \in D$ ，恒有 $f(-x) = -f(x)$ ，则称 $f(x)$ 为奇函数。我们熟知的是，偶函数的图形关于 $y$ 轴对称，奇函数的图形关于原点对称。
+
+注 那么,怎么做题呢?要想会做题需要有:①原材料(我们正在学习的各种基础知识);②技术. 我们继续来看原材料.
+
+(1)前提：定义域关于原点对称.  
+(2)基本类型.
+
+① $f(x) + f(-x)$ 必是偶函数.
+
+如 $\frac{{\mathrm{e}}^{x} + {\mathrm{e}}^{-x}}{2}$ . 双曲余弦,记住图像
+
+如 $\sqrt[3]{(1 + x)^2} +\sqrt[3]{(1 - x)^2}$
+
+② $f(x) - f(-x)$ 必是奇函数.
+
+如 $\frac{{\mathrm{e}}^{x} - {\mathrm{e}}^{-x}}{2}$ . 双曲正弦 $\xrightarrow[\text{ 反函数 }]{\text{ 反函数 }}y = \ln \left( {x + \sqrt{{x}^{2} + 1}}\right)$ (反双曲正弦) 如 $\ln \frac{1 + x}{1 - x} = \ln \left( {1 + x}\right)  - \ln \left( {1 - x}\right)$ . $\rightarrow  \frac{y}{O}$
+
+对任一函数 $f(x)$ ，令 $u(x) = \frac{1}{2} [f(x) + f(-x)]$ ， $\nu (x) = \frac{1}{2} [f(x) - f(-x)]$ ，则 $u(x)$ 是偶函数， $\nu (x)$ 是奇函数.由
+
+$$
+f (x) = \frac {1}{2} [ f (x) + f (- x) ] + \frac {1}{2} [ f (x) - f (- x) ] = u (x) + v (x),
+$$
+
+可知任何一个函数都可以写成一个奇函数与一个偶函数之和的形式.（重要结论）
+
+③ $f[\varphi(x)]$ （内偶则偶，内奇同外）.
+
+若内层是偶，不管外面函数，复合起来一定是偶函数，这是内偶则偶；若内层是奇，则复合函数奇偶性与外层函数奇偶性一致，这是内奇同外
+
+奇[偶] $\Rightarrow$ 偶.如 $\sin x^2$ 偶[奇] $\Rightarrow$ 偶.如 $\cos (\sin x),|\sin x|$ 奇[奇] $\Rightarrow$ 奇.如 $\sin {\frac{1}{x}},\sqrt[3]{\tan{x}}.$ 偶[偶] $\Rightarrow$ 偶.如 $\cos |x|,|\cos x|$ 非奇非偶[偶] $\Rightarrow$ 偶.如 $\mathrm{e}^{x^2},\ln |x|$
+
+④一个特色: ${\left\lbrack  \ln \left( x + \sqrt{{x}^{2} + 1}\right) \right\rbrack  }^{\prime } = \frac{1}{\sqrt{{x}^{2} + 1}}$ .
+
+★⑤f(x)奇 $\Rightarrow f^{\prime}(x)$ 偶 $\Rightarrow f''(x)$ 奇 $\Rightarrow \dots$ .见例3.1.（偶） （奇） （偶） 后面再讲证明
+
+求导一次，奇偶性互换.
+
+从直观上解析：（数与形）
+
+![](images/8f69ccc21baa7df591926bea32147b953bc5161aa1398d1d24d9d4800a87ecdc.jpg)
+
+⑥ $f(x)$ 奇 $\Rightarrow \int_0^x f(t)\mathrm{d}t$ 偶. 微积分的研究主体：导数，积分（偶） （奇）
+
+![](images/a5e9d116ea4728e32aa47b43c6c8bfde05bed97c58deaac434321ee876bbf182.jpg)
+
+⑦ 设对任意的 $x, y$ ，都有 $f(x + y) = f(x) + f(y)$ ，则 $f(x)$ 是奇函数，证明见例1.8.
+
+隐含条件 恒等式例1.8 设对任意 $x,y$ ，都有 $f(x + y) = f(x) + f(y)$ ，证明： $f(x)$ 是奇函数.
+
+$\mathcal{P}$ 分析 用定义法.
+
+证 令 $x = y = 0$ ，则 $f(0) = f(0) + f(0)$ ，于是 $f(0) = 0$ ，再令 $y = -x$ ，则 $f(0) = f(x) + f(-x)$ ，即 $f(-x) = -f(x)$ ，故 $f(x)$ 是奇函数.
+
+方法总结 用定义法证明 $f(-x) = -f(x)$   
+公式 $f(x) + f(-x) = 0$ ，则 $f(x)$ 为奇函数.
+
+(4)周期性：
+
+设 $f(x)$ 的定义域为 $D$ ，如果存在一个正数 $T$ ，使得对于任一 $x\in D$ ，有 $x\pm T\in D$ ，且 $f(x + T) = f(x)$ ，则称 $f(x)$ 为周期函数， $T$ 称为 $f(x)$ 的周期，一般指最小正周期.
+
+注 重要结论.
+
+① 若 $f(x)$ 以 $T$ 为周期，则 $f(ax + b)$ 以 $\frac{T}{|a|}$ 为周期.  
+②若 $g\left( x\right)$ 是周期函数,则复合函数 $f\left\lbrack  {g\left( x\right) }\right\rbrack$ 也是周期函数,如 ${\mathrm{e}}^{\sin x},{\cos }^{2}x$ 等. ${\cos }^{2}x = \frac{1 + \cos {2x}}{2}$ . 则 $T = \frac{2\pi }{\left| 2\right| } = \pi$ .
+
+$\star 3$ 若 $f(x)$ 是以 $T$ 为周期的可导函数，则 $f^{\prime}(x)$ 也以 $T$ 为周期.见例3.1.  
+$\star 4$ 若 $f(x)$ 是以 $T$ 为周期的连续函数，则只有在 $\int_0^T f(x)\mathrm{d}x = 0$ 时， $\int_0^x f(t)\mathrm{d}t$ 也以 $T$ 为周期.见例9.25.
+
+例1.9 设函数 $f(x)$ 在 $(- \infty, + \infty)$ 上满足 $f(x) = f(x - \pi) + \sin x$ . 证明： $f(x)$ 是以 $T = 2\pi$ 为周期的周期函数.
+
+分析 证 $f(x + 2\pi) = f(x)$ 即可.
+
+证 多次利用题目等式条件，得到 $f(x + 2\pi) = f(x + \pi) + \sin (x + 2\pi) = f(x) + \sin (x + \pi) + \sin (x + 2\pi) = f(x)$ ，故 $f(x)$ 以 $T = 2\pi$ 为周期.
+
+方法总结 若 $f(x + 2\pi) = f(x)$ ，则 $f(x)$ 是以 $2\pi$ 为周期的周期函数.
+
+公式 诱导公式： $\sin (x + 2\pi) = \sin x$ ， $\sin (x + \pi) = -\sin x$
+
+注希望考生在学习过程中，记具体例子.这些例子的记忆可以帮助我们很好地理解各种各样的方法，同时有实实在在的例子记在脑子里，可以形成一个解题思路，这是非常重要的.很多人以为例子不要记，只要会即可，其实不然.你要形成数学的思维习惯，一定要记一些具体的例子.
+
+要用典型的例子与习题撑起来我们的知识与方法，这是给大家的建议。
+
+# 函数的图像
+
+![](images/44f0fe9b0da9f6df65dcb9f120de79e11dddf2f3d4cc7f9f2a339d7bd2005172.jpg)
+
+1 基本初等函数与初等函数 我们在学习分部积分法时，有口诀：反对幂指三.
+
+基本初等函数：常数函数、幂函数、指数函数、对数函数、三角函数和反三角函数.
+
+(1) 常数函数. 易考“找交点个数”或在概率论中求概率 $P(g(X) \leqslant y)$ . $y = A$ , $A$ 为常数, 其图形为平行于 $x$ 轴的水平直线 (见图1-6).
+
+![](images/66cdef18ed5b894c99bef61f06629907db78edde401f2989152cc77d8c9174c5.jpg)  
+图1-6
+
+如求 $\ln x - \frac{x}{\mathrm{e}} + a = 0$ 实根的个数其实就是求直线 $y = a$ 与曲线 $y = \frac{x}{\mathrm{e}} - \ln x$ 交点的个数.
+
+在数学一和数学三学习的概率论中： $Y = g(X)$ ， $Y = y$ ， $g(X) \leqslant y$ 即 $Y = g(X)$ 在 $Y = y$ 直线下方 $X$ 的取值范围.
+
+(2)幂函数.
+
+$y = x^{\mu}(\mu$ 是实数）：
+
+注 (1) $y = x^{\mu}$ 的定义域和值域取决于 $\mu$ 的值. 当 $x > 0$ 时, $y = x^{\mu}$ 都有定义.
+
+(2) 常用的幂函数（见图1-7）
+
+$$
+y = x, y = x ^ {2}, y = \sqrt {x}, y = x ^ {3}, y = \sqrt [ 3 ]{x}, y = \frac {1}{x}.
+$$
+
+![](images/25bfc0a4fc25fc964460ac22673a51be097c7922c57e497bd0239d1836ac29ce.jpg)  
+(a)
+
+![](images/1905804096f1e479c7965e818953ff9628cf8edc727cda8f6918690746c9697e.jpg)  
+(b)
+
+![](images/fe999f73d12b336262a3a27ff3fb00903b256adc04d771b3cdf81f72fae0f3f8.jpg)  
+(c)   
+图1-7
+
+(3) 当 $x > 0$ 时，由 $y = x$ 与 $y = \sqrt{x}$ ， $y = \sqrt[3]{x}$ ， $y = \ln x$ 具有相同的单调性且与 $y = \frac{1}{x}$ 具有相反的单调性，故
+
+① 见到 $\sqrt{u}, \sqrt[3]{u}$ 时，可用 $u$ 来研究最值.
+
+考得最多 $\star ②$ 见到 $|u|$ 时，由 $|u| = \sqrt{u^2}$ ，可用 $u^{2}$ 来研究最值； $\sqrt{u^2}$ 与 $u^2$ 具有相同的最值点.★③见到 $u_{1}u_{2}u_{3}$ 时，可用 $\ln (u_1u_2u_3) = \ln u_1 + \ln u_2 + \ln u_3$ 来研究最值.
+
+考得频率不高
+
+$$
+\text {如}: \ln (x ^ {\frac {1}{3}} y ^ {\frac {1}{2}} z ^ {\frac {1}{5}}) = \frac {1}{3} \ln x + \frac {1}{2} \ln y + \frac {1}{5} \ln z
+$$
+
+④ 见到 $\frac{1}{u}$ 时，可用 $u$ 来研究最值（结论相反，即 $\frac{1}{u}$ 与 $u$ 的最大值点、最小值点相反）.
+
+利用以上①~④，可使得计算简单方便. 以上4点是我们在研究最值问题时的一个非常有用的技巧——简洁美.
+
+例1.10 设 $0 < x < \frac{1}{2}$ ，求 $y(x) = x^6 (1 - x)^2 (1 - 2x)^4$ 的最大值点.
+
+分析 多项相乘（除）乘方（开方）的式子 $\Rightarrow$ 取对数 $\Rightarrow$ 计算 $\Rightarrow$ 线性运算.实现“简洁美”！
+
+解 取对数，得
+
+$$
+\ln y (x) = 6 \ln x + 2 \ln (1 - x) + 4 \ln (1 - 2 x).
+$$
+
+令 $\frac{\mathrm{d}[\ln y(x)]}{\mathrm{d}x} = \frac{6}{x} - \frac{2}{1 - x} - \frac{8}{1 - 2x} = \frac{24x^2 - 28x + 6}{x(1 - x)(1 - 2x)} = 0,$
+
+即 $12x^{2} - 14x + 3 = 0$ ，解得 $x = \frac{7\pm\sqrt{13}}{12}$ 因为 $\frac{7 + \sqrt{13}}{12} >\frac{1}{2}$ 不符合题意，又 $\lim_{x\to 0^{+}}y(x) = \lim_{x\to \left(\frac{1}{2}\right)^{-}}y(x) = 0 <   y\left(\frac{7 - \sqrt{13}}{12}\right)$ 故 $y$ 的最大值点为 $x = \frac{7 - \sqrt{13}}{12}$
+
+方法总结 遇到多项相乘（除）函数的最值问题，常用对数求导法.
+
+公式 $(\ln x)' = \frac{1}{x}, [\ln (1 - x)]' = \frac{1}{x - 1}, \{f[g(x)]'\} = f_g' \cdot g_x'$ .
+
+注希望同学们明白，做例题不是念一个题，把答案一抄这么简单，而是大家通过做这个题目，在不同的阶段可以有不同的收获。例如，在它的分析阶段你要学会什么，在它的解题过程中你要学会什么，然后在整个题目学完之后，你通过这个题目提高了哪些方面的解题能力。只有通过这样的学习，你才能快速地提高自己的解题水平。
+
+(3) 指数函数.
+
+$y = a^{x}(a > 0,a\neq 1)$ [见图1-8(a)].
+
+![](images/a861d6d7ff0446c42f1db2b5e0f78df4021d659fbc869aa54db82caa2e71e512.jpg)  
+(a)
+
+![](images/d13f711d11f2cd56a4020584ccb9a7c993e3da8b7eaae14e5ef4eb9b6ad1790e.jpg)  
+(b)
+
+![](images/fb37e2a8f4a436f31e3e023e733f5a297abfd2ad2ddb0c13f8e87620ded63dd7.jpg)
+
+注 (1) 定义域: $(- \infty, + \infty)$ , 值域: $(0, +\infty)$ .
+
+(2) 单调性：当 $a > 1$ 时， $y = a^x$ 单调增加；当 $0 < a < 1$ 时， $y = a^x$ 单调减少.  
+(3) 常用的指数函数: $y = \mathrm{e}^{x}$ [见图1-8(b)].
+
+(4) 极限: $\lim_{x \to -\infty} e^x = 0, \lim_{x \to +\infty} e^x = +\infty$ .   
+“∞”符号是华里士给出的（华里士是牛顿的老师）. “∞”不是常数，把它归到哪里呢？“∞”实际上是一个广义的数，是一个特殊的存在，在很多定理中，“∞”的作用与任意常数的作用是一样的，比如后面我们会学“夹逼准则”，也 $y_{n}\leqslant x_{n}\leqslant z_{n}$ ↓↓↓ n→∞,a→a←a +∞→+∞←+∞ -∞→-∞←-∞  
+(5) 特殊函数值: $a^0 = 1, \mathrm{e}^0 = 1$ .
+
+考: ${e}^{x} - 1 = {e}^{x} - {e}^{0}$ . 神秘的数字 “1” 和 “0”, 这个是解题时常见的包装. 统一式 反面就可以用 “拉格朗日中值定理” 的学习捅破这层“窗户纸”.
+
+(6)指数运算法则.
+
+$$
+\begin{array}{l} {\text {算 法 则 .}} \\ {a ^ {\alpha} \bullet a ^ {\beta} = a ^ {\alpha + \beta}, \frac {a ^ {\alpha}}{a ^ {\beta}} = a ^ {\alpha - \beta}, (a ^ {\alpha}) ^ {\beta} = a ^ {\alpha \beta}, (a b) ^ {\alpha} = a ^ {\alpha} b ^ {\alpha}, \left(\frac {a}{b}\right) ^ {\alpha} = \frac {a ^ {\alpha}}{b ^ {\alpha}},} \\ {e ^ {\tan x} - e ^ {\sin x} = e ^ {\sin x} (e ^ {\tan x - \sin x} - 1)} \end{array}
+$$
+
+其中 $a, b$ 是正实数， $\alpha, \beta$ 是任意实数。
+
+(4)对数函数.
+
+$y = \log_a x(a > 0, a \neq 1)$ [见图1-9(a)]是 $y = a^x$ 的反函数.
+
+![](images/cda5f6a399fbb56cd993228e49c76fa4be5950651cd49d8b4678b5fd82d106bd.jpg)  
+(a)
+
+![](images/2fa7592f60dc65aaba06d5c4c0a77f6729f7e317a70f6fb893c23cfa33f8bf60.jpg)  
+(b)   
+图1-9
+
+注 (1) 定义域: $(0, +\infty)$ , 值域: $(- \infty, +\infty)$ .
+
+(2) 单调性：当 $a > 1$ 时， $y = \log_a x$ 单调增加；当 $0 < a < 1$ 时， $y = \log_a x$ 单调减少.  
+(3)常用的对数函数： $y = \ln x$ （自然对数： $\ln x = \log_e x, \sqrt{e} = 2.71828\dots)$ [见图1-9(b)].  
+(4) 特殊函数值: $\log_a 1 = 0, \log_a a = 1, \ln 1 = 0, \ln e = 1$ . 神秘的数字“0”和“1”，实现“统一美”“简洁美”.
+
+如 $\mathrm{e}^{x_n} - 1 = \mathrm{e}^{x_n} - \mathrm{e}^0$ ， $\ln x_{n} = \ln x_{n} - \ln 1$
+
+再如， $\ln \left(\mathrm{e} + \frac{1}{x}\right) - 1 = \ln \left(\mathrm{e} + \frac{1}{x}\right) - \ln \mathrm{e}$ $= \ln \left(1 + \frac{1}{\mathrm{ex}}\right)$ .这个转化是极为有意义的
+
+又如 $\lim_{x\to \infty}x\left[\ln \left(e + \frac{1}{x}\right) - 1\right] = \lim_{x\to \infty}x\cdot \frac{1}{ex} = \frac{1}{e}$ . 如果你考虑用洛必达法则，那么就舍近求远了.考研需要区分度，考生要掌握一些解题技巧.从辩证法去看，实现“统一美”
+
+(5) 极限: $\lim_{x \to 0^{+}} \ln x = -\infty, \lim_{x \to +\infty} \ln x = +\infty$ . 当 $x \to +\infty$ 时, $\mathrm{e}^{x} \to +\infty$ 的速度越来越快, $\ln x \to +\infty$ 的速度越来越慢.
+
+(6) 常用公式： $x = \mathrm{e}^{\ln x}(x > 0), u^{\nu} = \mathrm{e}^{\ln u^{\nu}} = \mathrm{e}^{\nu \ln u}(u > 0).$ $x^{x} = \mathrm{e}^{\ln x^{x}} = \mathrm{e}^{x\ln x}$ ，从而可看到， $x^{x}$ 是初等函数.
+
+(7)对数运算法则. 积变和
+
+① $\log_a(MN) = \log_aM + \log_aN$ （积的对数 $=$ 对数的和）  
+高变差 $2{\log }_{a}\frac{M}{N} = {\log }_{a}M - {\log }_{a}N$ (商的对数 = 对数的差).  
+③ $\log_a M^n = n\log_a M$ ， $\log_a\sqrt[n]{M} = \frac{1}{n}\log_a M$ （幂的对数 $=$ 对数的倍数）.
+
+一定要用好对数的运算法则，如： $\mathrm{e}^{\ln \sqrt{f^2(x) - f(x) + 1}} = \sqrt{f^2(x) - f(x) + 1}$
+
+常考：当 $x > 0$ 时， 中值定理（拉格朗日中值定理）证明
+
+利用例1.11，学习解题技巧。
+
+例1.11 已知 $\mathrm{e}^x = \sum_{n=0}^{\infty} \frac{x^n}{n!}$ , $x \in \mathbf{R}$ , 则 $2^x = (\quad)$ .
+
+(A) $\sum_{n = 1}^{\infty}\frac{(x\ln 2)^n}{n!}$
+
+(B) $\sum_{n=0}^{\infty} \frac{(x \ln 2)^n}{n!}$
+
+(C) $\sum_{n=1}^{\infty} \frac{(\ln 2)x^n}{n!}$
+
+(D) $\sum_{n = 0}^{\infty}\frac{(\ln 2)x^n}{n!}$
+
+分析 $2^{x} = \mathrm{e}^{\ln 2^{x}} = \mathrm{e}^{x\ln 2}$
+
+解 应选(B).
+
+由于 $2^{x} = \mathrm{e}^{x\ln 2}$ ，又 $\mathrm{e}^x = \sum_{n = 0}^{\infty}\frac{x^n}{n!},x\in \mathbf{R}$ ，因此 $2^{x} = \sum_{n = 0}^{\infty}\frac{(x\ln 2)^{n}}{n!}$
+
+方法总结 $\mathrm{e}^{x} = \sum_{n = 0}^{\infty}\frac{x^{n}}{n!}$ ，广义化： $2^{x} = \mathrm{e}^{x\ln 2} = \sum_{n = 0}^{\infty}\frac{(x\ln 2)^{n}}{n!}$
+
+公式 $\mathrm{e}^{x} = \sum_{n = 0}^{\infty}\frac{x^{n}}{n!},x\in \mathbf{R}.$
+
+注 理工类以及自然科学中，当然会用到 $e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots$ ；在社会科学中，也经常会看到这个式子，因为多项式是最简单的。
+
+三角函数与反三角函数这里公式多、杂，是区分度比较高的部分
+
+(5) 三角函数.
+
+一拱的面积为2，
+
+![](images/627b66f5c73b3930a367e642e411cade8dd5324c55de30eeb9a0625293b531b8.jpg)
+
+① 正弦函数与余弦函数.
+
+正弦函数 $y = \sin x$ [见图1-10(a)], 余弦函数 $y = \cos x$ [见图1-10(b)].
+
+![](images/3b548f3a85abc4ee25bb3673605c437adfa5516e902ac4e8b6c9b7370543da90.jpg)  
+(a)
+
+![](images/63cb1102a1b4e1537730bfd2d57e2ace43df90c2578b0240cdfba5ef6622a5d2.jpg)  
+(b)
+
+![](images/45f2bd2c85f494fc6efac95e675a25e938da77b4cd13c694b7dfc90d32be1e37.jpg)  
+图1-10
+
+注 (1) 定义域: 均为 $(- \infty, + \infty)$ , 值域: 均为 $[-1, 1]$ .
+
+当 $x \to 0^+$ 时， $\sin x \leqslant 1, \sin x < x$
+
+![](images/1e9b0eec5287a285554ec01bbc46f0b2bb1342d74ec76d7161d47eeaa92b419a.jpg)
+
+(2) 奇偶性: $y = \sin x$ 是奇函数, $y = \cos x$ 是偶函数, $x \in (-\infty, +\infty)$ .  
+(3) 周期性: $y = \sin x$ 和 $y = \cos x$ 均以 $2\pi$ 为最小正周期, $x \in (-\infty, +\infty)$ .  
+(4) 有界性: $|\sin x| \leqslant 1, |\cos x| \leqslant 1$ .  
+(5) 特殊函数值： $\sin 0 = 0, \sin \frac{\pi}{6} = \frac{1}{2}, \sin \frac{\pi}{4} = \frac{\sqrt{2}}{2}, \sin \frac{\pi}{3} = \frac{\sqrt{3}}{2},$
+
+$$
+\sin \frac {\pi}{2} = 1, \sin \pi = 0, \sin \frac {3 \pi}{2} = - 1, \sin 2 \pi = 0,
+$$
+
+$$
+\cos 0 = 1, \cos \frac {\pi}{6} = \frac {\sqrt {3}}{2}, \cos \frac {\pi}{4} = \frac {\sqrt {2}}{2}, \cos \frac {\pi}{3} = \frac {1}{2},
+$$
+
+$$
+\cos \frac {\pi}{2} = 0, \cos \pi = - 1, \cos \frac {3 \pi}{2} = 0, \cos 2 \pi = 1.
+$$
+
+(6) $\sin^2\alpha +\cos^2\alpha = 1$
+
+恒等变形的一个办法，如： $\sin^2 \alpha + \cos^2 \alpha = 1$ ， $\sqrt{\sin^2 x - \cos^2 \alpha} = \sqrt{1 - \cos^2 x - \cos^2 \alpha} = \sqrt{\sin^2 \alpha - \cos^2 x}$ ，命题老师常用“手段”。
+
+② 正切函数与余切函数.
+
+正切函数 $y = \tan x$ [见图1-11(a)], 余切函数 $y = \cot x$ [见图1-11(b)].
+
+$$
+\tan x = \frac {\sin x}{\cos x}, \cot x = \frac {\cos x}{\sin x} = \frac {1}{\tan x}.
+$$
+
+![](images/9b0e6924dc41447e62c524e16764ba2ca5bcdd0f29214c354f9f7ef8519b5295.jpg)  
+(a)
+
+![](images/1bbce76c34e4c8c1257d5f55df4767251e41f5730ed68037612b89c160a290fc.jpg)  
+(b)   
+图1-11
+
+注 (1) 定义域: $y = \tan x$ 的定义域为 $\left\{x \mid x \neq k\pi + \frac{\pi}{2} (k \in \mathbf{Z})\right\}$ ; $y = \cot x$ 的定义域为 $\{x \mid x \neq k\pi (k \in \mathbf{Z})\}$ .
+
+值域：均为 $(-\infty, +\infty)$ 。
+
+(2) 奇偶性: $y = \tan x$ 和 $y = \cot x$ 均为奇函数 (在其定义域内).  
+(3) 周期性: $y = \tan x$ 和 $y = \cot x$ 均以 $\pi$ 为最小正周期（在其定义域内）.
+
+(4) 特殊函数值: $\tan 0 = 0, \tan \frac{\pi}{6} = \frac{\sqrt{3}}{3}, \tan \frac{\pi}{4} = 1, \tan \frac{\pi}{3} = \sqrt{3}$ ,
+
+$$
+\begin{array}{l} \lim  _ {x \to \frac {\pi}{2}} \tan x = \infty , \tan \pi = 0, \lim  _ {x \to \frac {3 \pi}{2}} \tan x = \infty , \tan 2 \pi = 0, \\ \lim  _ {x \rightarrow 0} \cot x = \infty , \cot \frac {\pi}{6} = \sqrt {3}, \cot \frac {\pi}{4} = 1, \cot \frac {\pi}{3} = \frac {\sqrt {3}}{3}, \\ \cot \frac {\pi}{2} = 0, \lim  _ {x \rightarrow \pi} \cot x = \infty , \cot \frac {3 \pi}{2} = 0, \lim  _ {x \rightarrow 2 \pi} \cot x = \infty . \\ \end{array}
+$$
+
+记住
+
+③ 正割函数与余割函数.
+
+正割函数 $y = \sec x$ [见图1-12(a)], 余割函数 $y = \csc x$ [见图1-12(b)].
+
+$$
+\sec x = \frac {1}{\cos x}, \csc x = \frac {1}{\sin x}.
+$$
+
+![](images/85048148689d9a445a9204b14d03e8d63638256ab342c12e56df54ba6c775927.jpg)  
+(a)
+
+![](images/c3ccfa831a50095e84cd13706fbad05820eb300c6a1e6b44817c136f06e01f2f.jpg)  
+(b)   
+图1-12
+
+注 (1) 定义域: $y = \sec x$ 的定义域为 $\left\{x \mid x \neq k\pi + \frac{\pi}{2} (k \in \mathbf{Z})\right\}$ ; $y = \csc x$ 的定义域为 $\{x \mid x \neq k\pi (k \in \mathbf{Z})\}$ .
+
+值域：均为 $(- \infty, -1] \cup [1, +\infty)$ 。
+
+(2) 奇偶性: $y = \sec x$ 为偶函数, $y = \csc x$ 为奇函数 (在其定义域内).  
+(3) 周期性: $y = \sec x$ 和 $y = \csc x$ 均以 $2\pi$ 为最小正周期（在其定义域内）.  
+(4) $1 + \tan^2\alpha = \sec^2\alpha ; 1 + \cot^2\alpha = \csc^2\alpha$ .★非常重要
+
+(6) 反三角函数.
+
+① 反正弦函数与反余弦函数.
+
+反正弦函数 $y = \arcsin x$ [见图1-13(a)], 反余弦函数 $y = \arccos x$ [见图1-13(b)].
+
+![](images/520ea56cad653cf751646e02f459fa953c64e3610a0ce3581be7e19f5b35289e.jpg)  
+(a)
+
+![](images/54fda79cb289e00f3fd0104e88230eaf883fa62c4b05c6f69d45e419c056375e.jpg)  
+(b)   
+图1-13
+
+$y = \arcsin x$ 是 $y = \sin x\left(-\frac{\pi}{2} \leqslant x \leqslant \frac{\pi}{2}\right)$ 的反函数， $y = \arccos x$ 是 $y = \cos x (0 \leqslant x \leqslant \pi)$ 的反函数.
+
+注 (1) 主值区间.
+
+$y = \arcsin x$ 的主值区间为 $\left[-\frac{\pi}{2}, \frac{\pi}{2}\right]$ , $y = \arccos x$ 的主值区间为 $[0, \pi]$ .
+
+(2) 反三角函数的恒等式有
+
+$\sin (\arcsin x) = x,x\in [-1,1],\sin (\arccos x) = \sqrt{1 - x^2},x\in [-1,1];$ sin(arccosx）=√1-x²，x∈[-1,1]； 令t=arccosx∈[0,π].   
+cos(arccosx)=x，x∈[-1,1],cos(arcsinx)=√1-x²，x∈[-1,1]； 则x=cos t,sin t≥0. 又sin²t+cos²t=1. 因此sin $t = \sqrt{1 - x^2}$ .   
+arcsin(sin x)=x，x∈[-π/2,π/2]； 即sin(arccosx)=√1-x².   
+arccos(cosx)=x，x∈[0,π]；   
+arcsin x+arccos x=（-1≤x≤1）这个结论记住，证明中值定理处讲.
+
+(3)特殊函数值：
+
+$$
+\arcsin 0 = 0, \arcsin \frac {1}{2} = \frac {\pi}{6}, \arcsin \frac {\sqrt {2}}{2} = \frac {\pi}{4}, \arcsin \frac {\sqrt {3}}{2} = \frac {\pi}{3}, \arcsin 1 = \frac {\pi}{2},
+$$
+
+$$
+\arccos  1 = 0, \arccos  \frac {\sqrt {3}}{2} = \frac {\pi}{6}, \arccos  \frac {\sqrt {2}}{2} = \frac {\pi}{4}, \arccos  \frac {1}{2} = \frac {\pi}{3}, \arccos  0 = \frac {\pi}{2}.
+$$
+
+例1.12 设 $y = \sin x, 0 \leqslant x \leqslant 2\pi$ ，求其所有单调区间上的反函数.
+
+分析 分单调区间，分别讨论反函数（用诱导公式）.
+
+只有当 $x$ 范在 $\left[-\frac{\pi}{2}, \frac{\pi}{2}\right]$ 上时，才有反函数 $x = \arcsin y, y \in [-1, 1]$ .
+
+解当 $0\leqslant x\leqslant \frac{\pi}{2}$ 时，对 $y = \sin x$ ，有 $x = \arcsin y,y\in [0,1]$ ，此时反函数为 $y = \arcsin x$ ， $x\in [0,1]$
+
+当 $\frac{\pi}{2} < x \leqslant \frac{3\pi}{2}$ 时（见图1-14），有 $-\frac{\pi}{2} < x - \pi \leqslant \frac{\pi}{2}$ ，此时 $\sin (x - \pi) = -\sin (\pi - x) = -\sin x = -y$ ，于是有 $x - \pi = -\arcsin y$ ，故 $x = \pi - \arcsin y, y \in [-1, 1)$ ，此时反函数为 $y = \pi - \arcsin x, x \in [-1, 1)$ .
+
+当 $\frac{3\pi}{2} < x \leqslant 2\pi$ 时（见图1-14），有 $-\frac{\pi}{2} < x - 2\pi \leqslant 0$ ，此时 $\sin (x - 2\pi) = \sin x = y$ ，于是有 $x - 2\pi = \arcsin y$ ，故 $x = 2\pi + \arcsin y, y \in (-1, 0]$ ，此时反函数为 $y = 2\pi + \arcsin x, x \in (-1, 0]$ .
+
+![](images/408ad5cbbb898590d6c69280bc91c8b424201731ece4a106babe2c703f5eb034.jpg)  
+图1-14
+
+方法总结 $\arcsin x$ 的主值区间是 $\left[-\frac{\pi}{2}, \frac{\pi}{2}\right]$ .  
+公式 若 $y = \sin x, x\in \left(\frac{\pi}{2},\frac{3}{2}\pi\right)$ ，则 $x = \pi -\arcsin y$
+
+注 (1) 用处：如二重积分中，
+
+$$
+\int_ {- 1} ^ {0} d y \int_ {\pi - \arcsin y} ^ {2 \pi + \arcsin y} f (x, y) d x.
+$$
+
+![](images/c6fc52d7d3eecb409c08617e0693a48d7f7eb85f3cff1957e70883392252e341.jpg)
+
+后面我们讲二重积分时再讲.
+
+(2)现在来回答大家：为什么不写成一个分段函数？会出现以下情况.
+
+$$
+y = \left\{\begin{array}{l l}\arcsin x,&0 \leqslant y \leqslant \frac {\pi}{2},\\\pi - \arcsin x,&\frac {\pi}{2} <   y \leqslant \frac {3}{2} \pi ,\\2 \pi + \arcsin x,&\frac {3}{2} \pi <   y \leqslant 2 \pi .\end{array}\right. \quad\begin{array}{l l}\rightarrow \text {一 般 习 惯 写 自 变 量 :}\\x \in [ 0, 1 ];\\x \in [ - 1, 1);\\x \in (- 1, 0 ].\end{array}
+$$
+
+这样的图形是什么呢？如图1-15所示.
+
+![](images/f79fdcfd6a1a80289cc614d86a6418ad543f6662d106f0d30a2204f0451877ba.jpg)  
+图1-15
+
+这个图就是 $y = \sin x$ 在 $[0, 2\pi]$ 的沿 $y = x$ 镜像的函数，就变成多值函数了。
+
+②反正切函数与反余切函数. ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+
+反正切函数 $y = \arctan x$ [见图1-16(a)]，反余切函数 $y = \operatorname{arccot} x$ [见图1-16(b)].
+
+![](images/3891988d107530e9a40d2644c162e2dd95a426746d653870bfedcb512c844c75.jpg)  
+(a)
+
+![](images/140bb1bc5795db5cf2c1ecb7d9d80be6bee9c5bee635c3f0aee27485c73c2c0f.jpg)  
+(b)   
+图1-16
+
+$y = \arctan x$ 是 $y = \tan x\left(-\frac{\pi}{2} <  x <   \frac{\pi}{2}\right)$ 的反函数， $y = \operatorname {arcot}x$ 是 $y = \cot x(0 <   x <   \pi)$ 的反函数.
+
+注
+
+(1) 定义域：均为 $(- \infty, + \infty)$ .
+
+值域： $y = \arctan x$ 的值域为 $\left(-\frac{\pi}{2},\frac{\pi}{2}\right)$ ， $y = \operatorname {arccot}x$ 的值域为 $(0,\pi)$ ：
+
+隐藏条件
+
+(2) 单调性： $\sqrt{y} = \arctan x$ 单调增加， $y = \operatorname{arccot} x$ 单调减少.
+
+若 $a_{n} > 0$ ， $\arctan a_{n} + a_{n} = \arctan b_{n}$ ，则 $\arctan b_{n} - \arctan a_{n} = a_{n} > 0$ （因 $y = \arctan x$ 是单调增加函数），因此 $b_{n} > a_{n} > 0$ ，若 $b_{n} = a_{n - 1}$ ，则 $\{a_n\}$ 有下界且单调减少，从而 $\{a_n\}$ 极限存在.
+
+若再加条件， $\lim_{n\to \infty}b_n = 0$ ，则 $b_{n} > a_{n} > 0$ ：
+
+由夹逼准则， $\lim_{n\to \infty}a_n = 0$
+
+命题老师给的关系式一般都需要做逆运算：
+
+该加的，他减；该减的，他加；该乘的，他除；该除的，他乘，等等，这些都是需要作恒等变形的。命题老师通过做逆运算来迷惑你，要跟他唱反调，这是非常重要的解题经验。
+
+(3) 奇偶性: $y = \arctan x$ 为奇函数 (在其定义域内).  
+(4) 有界性：两个函数在其定义域内有界， $-\frac{\pi}{2} < \arctan x < \frac{\pi}{2}, 0 < \operatorname{arccot} x < \pi.$   
+(5) 性质：arctan $x + \operatorname{arccot} x = \frac{\pi}{2} (-\infty < x < +\infty)$ . 这个也是以后会讲到  
+(6)特殊函数值：
+
+$$
+\arctan 0 = 0, \arctan \frac {\sqrt {3}}{3} = \frac {\pi}{6}, \arctan 1 = \frac {\pi}{4}, \arctan \sqrt {3} = \frac {\pi}{3},
+$$
+
+$$
+\operatorname {a r c c o t} 0 = \frac {\pi}{2}, \operatorname {a r c c o t} \sqrt {3} = \frac {\pi}{6}, \operatorname {a r c c o t} 1 = \frac {\pi}{4}, \operatorname {a r c c o t} \frac {\sqrt {3}}{3} = \frac {\pi}{3}.
+$$
+
+(7)极限：
+
+$$
+\lim  _ {x \rightarrow - \infty} \arctan x = - \frac {\pi}{2}, \lim  _ {x \rightarrow + \infty} \arctan x = \frac {\pi}{2}, \lim  _ {x \rightarrow - \infty} \operatorname {a r c c o t} x = \pi , \lim  _ {x \rightarrow + \infty} \operatorname {a r c c o t} x = 0.
+$$
+
+记住
+
+# (7) 初等函数.
+
+由基本初等函数经过有限次的四则运算，以及有限次的复合步骤所构成的并且可以由一个式子所表示的函数称为初等函数.
+
+注 (1) 初等函数的定义域可以是一个区间, 也可以是几个区间的并集, 甚至可以是一些孤立的点. 例如, $y = \sqrt{\cos\pi x - 1}$ 的定义域是 $\{x \mid x = 0, \pm 2, \pm 4, \dots\}$ .  
+★(2)幂指函数 $u(x)^{\nu (x)} = \mathrm{e}^{\nu (x)\ln u(x)}$ 也是初等函数，如 $x > 0$ 时， $f(x) = x^{x} = \mathrm{e}^{x\ln x}$ 是初等函数，其图形如图1-17所示.具体作图过程见例5.12.
+
+等到学完工具后再画图，如 $x^{2}, x^{2x}, x^{3x}$ 的图像都类似.
+
+![](images/ea1bdb5acac869cb8925d93b65251a8674970953e8add8261a1e2dc6e65326cf.jpg)  
+图1-17
+
+# 2 分段函数 有别于初等函数的另一种重要的函数.
+
+在自变量的不同变化范围中，对应法则用不同式子来表示的函数称为分段函数。需要强调一句，分段函数是用几个式子来表示的一个（不是几个）函数。一般来说，它不是初等函数。分段函数的典型形式如下：
+
+$$
+f (x) = \left\{ \begin{array}{l l} {\varphi_ {1} (x),} & {x > x _ {0},} \\ {a,} & {x = x _ {0}, \text {或} f (x) = \left\{ \begin{array}{l l} {\varphi (x),} & {x \neq x _ {0},} \\ {a,} & {x = x _ {0}.} \end{array} \right.} \\ {\varphi_ {2} (x),} & {x <   x _ {0}} \end{array} \right.
+$$
+
+分段函数很重要，原因在于其形式的复杂性所带来的命题的丰富性.后面会看到，不论是求极限、求导数，还是求积分，出现最多的研究对象之一便是分段函数.
+
+兮段函数是非常重要的一个命题素材.
+
+下面列出三个重要的分段函数.
+
+① $y = |x| = \begin{cases} x, & x \geqslant 0, \\ -x, & x < 0 \end{cases}$ 称为绝对值函数，如图1-18(a)所示.
+
+$\left| x\right|$ 既然是分段函数,那它是不是切等函数呢？是,因为 $\left| x\right|  = \sqrt{{x}^{2}}$ . 一般来讲,分段函数不是切等函数,但 $\left| x\right|$ 是一个特例.
+
+② $y = \operatorname{sgn} x = \left\{ \begin{array}{ll} 1, & x > 0, \\ 0, & x = 0, \\ -1, & x < 0 \end{array} \right.$ 称为符号函数，如图1-18(b)所示。对于任意实数 $x$ ，有 $x = |x| \operatorname{sgn} x$ 。
+
+![](images/0b34d347454a0afb0ff39f83b77de8406986b0ba265617edbb818e81e4c7fc09.jpg)  
+(a)
+
+![](images/4db56b413d176f27ebf77db7239da3bd148e3918e5d1b0e72f014f41d8c67285.jpg)  
+(b)   
+图1-18
+
+③ $y = [x]$ 称为取整函数. 先给出定义：设 $x$ 为任一实数，不超过 $x$ 的最大整数称为 $x$ 的整数部分，记作 $[x]$ . 如
+
+$$
+[ 0. 9 9 ] = 0, [ \pi ] = 3, [ - 1 ] = - 1, [ - 1. 9 9 ] = - 2.
+$$
+
+因此，取整函数 $y = [x]$ 的定义域为 $\mathbf{R}$ ，值域为 $\mathbf{Z}$ 。它的图形如图1-19所示，在 $x$ 为整数值处图形发生跳跃。
+
+![](images/ddbf6ad8b1a81c4db4f644157a026ca1508f5d3e2d29a8e3307cabea2d0c41bc.jpg)  
+图1-19
+
+注 $\star \star \star$ (1) $[x + n] = [x] + n$ ，其中 $n$ 为整数.
+
+★ (2) $x - 1 <   [x]\leqslant x$   
+★ (3) $\lim_{x\to 0^{+}}[x] = 0$ ； $\lim_{x\to 0^{-}}[x] = -1$
+
+★★★(4)换一种说法，“ $Y = i + 1$ 当且仅当 $i\leqslant X <   i + 1$ ， $i$ 为整数，则 $Y = [X] + 1$ ”考生要牢记.
+
+例1.13 设 $[x]$ 表示不超过 $x$ 的最大整数，则 $y = [x - x]$ 是（ ）.
+
+(A) 无界函数
+
+(B) 单调函数
+
+(C) 偶函数
+
+(D) 周期函数
+
+解 应选(D).
+
+由于 $y(x + 1) = x + 1 - [x + 1] = x + 1 - ([x] + 1) = x - [x] = y(x)$ ，即 $y(x)$ 是周期为1的周期函数，其图形如图1-20所示，故选(D).
+
+![](images/85a955901c41781615d5d3bac1e666c454a58113d0c3d6dd3e5a9529ee87ddbe.jpg)  
+图1-20
+
+方法总结 $x - [x]$ ： $\pmb{x}$ 的小数部分，是以1为周期的函数.  
+公式 $[x + n] = [x] + n,[x + 1] = [x] + 1.$
+
+注 (1) $y = x - [x] = \{x\}$ .
+
+$$
+1. 9 9 - [ 1. 9 9 ] = 0. 9 9,
+$$
+
+$$
+- 1. 9 9 - [ - 1. 9 9 ] = - 1. 9 9 + 2 = 0. 0 1,
+$$
+
+-1.99的整数部分是-2，
+
+-1.99的小数部分是0.01.
+
+(2) $y = \sin x$ ，其图形如图1-21所示.
+
+![](images/f91541b8ead9c5dbadb1c139ec694b1d799a0002032de6048674ffffbdbca8ee.jpg)  
+图1-21
+
+(3) $y \models \arcsin (\sin x)$ ，其图形如图1-22所示.
+
+![](images/d99dd5b4b400c112577c27c248476587311472e18bf2ebe43af6e72aa7ea6dc9.jpg)  
+图1-22
+
+以后我们算积分的相关题目，这些图都有重要的应用。
+
+# 三 函数极限的概念与性质
+
+![](images/28a03a6c69de712fbd19b1d6cde5c8281599edde71383503ae4b80c9e1b440f5.jpg)
+
+我们首先要厘清极限的概念，概念懂了，后面的性质是显然的，计算就会遵循概念和性质，从而不会出错.
+
+# 邻域
+
+![](images/ed07330863ceea2f80aa07bc541342a4e7234ad356d3a84cf8fe5a087cc67e32.jpg)
+
+① $\delta$ 邻域. 设 $x_0$ 是数轴上一个点， $\delta$ 是某一正数，则称 $(x_0 - \delta, x_0 + \delta)$ 为点 $x_0$ 的 $\delta$ 邻域，记作 $U(x_0, \delta)$ ，即
+
+$$
+U \left(x _ {0}, \delta\right) = \left\{x \mid x _ {0} - \delta <   x <   x _ {0} + \delta \right\} = \left\{x \mid | x - x _ {0} | <   \delta \right\},
+$$
+
+其中点 $x_0$ 称为邻域的中心， $\delta$ 称为邻域的半径.
+
+![](images/d64174eef5241e1292f5045d5d388fe40ae2f0e6e69df492b22ef2a362f63b06.jpg)
+
+② 去心 $\delta$ 邻域. 定义点 $x_0$ 的去心邻域 $\bar{U}(x_0, \delta) = \{x | 0 < |x - x_0| < \delta\}$ .
+
+③左、右 $\delta$ 邻域. $\left\{x|0 < x - x_0 < \delta\right\}$ 称为点 $x_0$ 的右 $\delta$ 邻域，记作 $U^{+}(x_{0},\delta)$ ； $\left\{x|0 < x_0 - x < \delta\right\}$ 称为点 $x_0$ 的左 $\delta$ 邻域，记作 $U^{-}(x_0,\delta)$ ：
+
+④邻域与区间（区域）.邻域当然属于区间（区域）的范畴，但事实上，邻域通常表示“一个局
+
+部位置”，比如“点 $x_0$ 的 $\delta$ 邻域”就可以称为“点 $x_0$ 的附近”。于是，函数 $f(x)$ 在点 $x_0$ 的某 $\delta$ 邻域内有定义也就是函数 $f(x)$ 在点 $x_0$ 的附近有定义，这个“附近”到底有多近多远，既难以说明也没有必要说明。
+
+注 (1)邻域是区间（区域），但是这个区间是为定义极限才创建的区间.  
+(2)关于邻域的一组概念非常重要，因为我们将要“在一个局部位置”细致地研究问题.
+
+# 函数极限的定义
+
+设函数 $f(x)$ 在点 $x_0$ 的某一去心邻域内有定义. 若存在常数 $A$ ，对于任意给定的 $\varepsilon > 0$ （不论它多么小），总存在正数 $\delta$ ，使得当 $0 < |x - x_0| < \delta$ 时，对应的函数值 $f(x)$ 都满足不等式 $|f(x) - A| < \varepsilon$ ，则 $A$ 叫作函数 $f(x)$ 当 $x \to x_0$ 时的极限，记为
+
+$$
+\lim  _ {x \to x _ {0}} f (x) = A \text {或} f (x) \to A (x \to x _ {0}) .
+$$
+
+写成“ $\varepsilon -\delta$ 语言”： $\lim_{x\to x_0}f(x) = A\Leftrightarrow \forall \varepsilon >0,\exists \delta >0$ ，当 $0 <   |x - x_0| <   \delta$ 时，有 $\left|f(x) - A\right| <   \varepsilon$ ：
+
+文字语言：任给的 $\varepsilon  > 0$ ,总能找到 $\delta$ 邻域,使得我们的距离小于你这个尺度.
+
+注符号“ $\forall$ ”是英文Arbitrary（任意的）的首字母上下方向倒着写出来的；符号“ $\exists$ ”是英文Exist（存在）的首字母左右方向倒着写出来的.
+
+画图理解.如图1-23所示，
+
+![](images/70e6e7044f1fed08f9620b4866312c9af64aa132de9b07aa907d6bda935a7444.jpg)  
+图1-23
+
+任给 $\varepsilon_{1} > 0$ ，再给 $\varepsilon_{2} > 0$ ，……，再给 $\varepsilon_{n} > 0$ ，当 $\varepsilon$ 一直取下去，越来越小，两条线越来越近。不管有多近，总能找到一个小邻域，使得在该邻域内，除了 $x_{0}$ 之外，曲线被夹在宽度要多小有多小的这两条线中，则称 $x \to x_{0}$ ， $f(x) \to A$ 。这就是魏尔斯特拉斯给的极限的标准语言。
+
+注 函数极限一共有 24 个定义, 其中自变量趋近方式有 6 种, 函数趋近方式有 4 种, 如表所示.
+
+<table><tr><td></td><td>f(x)→A</td><td>f(x)→∞</td><td>f(x)→+∞</td><td>f(x)→-∞</td></tr><tr><td>x→x0</td><td>∀ε&gt;0, ∃δ&gt;0,使得当0＜|x-x0|&lt;δ时，有|f(x)-A|&lt;ε</td><td>∀M&gt;0, ∃δ&gt;0,使得当0＜|x-x0|&lt;δ时，有|f(x)|&gt;M</td><td>∀M&gt;0, ∃δ&gt;0,使得当0＜|x-x0|&lt;δ时，有f(x)&gt;M</td><td>∀M&gt;0, ∃δ&gt;0,使得当0＜|x-x0|&lt;δ时，有f(x)&lt;-M 无极限近“-∞”</td></tr><tr><td>x→x0+(右极限)</td><td>∀ε&gt;0, ∃δ&gt;0,使得当0＜x-x0&lt;δ时，有|f(x)-A|&lt;ε</td><td>∀M&gt;0, ∃δ&gt;0,使得当0＜x-x0&lt;δ时，有|f(x)|&gt;M</td><td>∀M&gt;0, ∃δ&gt;0,使得当0＜x-x0&lt;δ时，有f(x)&gt;M</td><td>∀M&gt;0, ∃δ&gt;0,使得当0＜x-x0&lt;δ时，有f(x)&lt;-M</td></tr><tr><td>x→x0-(左极限)</td><td>∀ε&gt;0, ∃δ&gt;0,使得当0＜x0-x&lt;δ时，有|f(x)-A|&lt;ε</td><td>∀M&gt;0, ∃δ&gt;0,使得当0＜x0-x&lt;δ时，有|f(x)|&gt;M</td><td>∀M&gt;0, ∃δ&gt;0,使得当0＜x0-x&lt;δ时，有f(x)&gt;M</td><td>∀M&gt;0, ∃δ&gt;0,使得当0＜x0-x&lt;δ时，有f(x)&lt;-M</td></tr></table>
+
+24种情况，好好写一遍.
+
+例1.14 已知 $\lim_{x\to 0}\frac{f(x)}{x^2}$ 存在，且函数
+
+$$
+f (x) = \frac {x - \sin x}{x} + x ^ {2} \lim  _ {x \rightarrow 0} \frac {f (x)}{1 - \cos x},
+$$
+
+则 $\lim_{x\to 0}\frac{f(x)}{x^2} = (\quad)$
+
+(A) $-\frac{1}{3}$
+
+(B) $\frac{1}{3}$
+
+(C) $\frac{1}{6}$
+
+(D) $-\frac{1}{6}$
+
+分析 令 $\lim_{x\to 0}\frac{f(x)}{x^2} = A$ ，建立方程.
+
+![](images/db7c80e64838e312b2ddc1ee6bee657ee325dda5ddf6ffb58af6ad6c91ca9d61.jpg)
+
+解 应选(D).
+
+记 $\lim_{x\to 0}\frac{f(x)}{x^2} = A$ ，且当 $x\to 0$ 时，
+
+$$
+\frac {f (x)}{x ^ {2}} = \frac {x - \sin x}{x ^ {3}} + \lim  _ {x \rightarrow 0} \frac {f (x)}{1 - \cos x},   \lim  _ {x \rightarrow 0} \frac {| | f (x) | |}{x ^ {2}}. \boxed {\frac {x ^ {2}}{1 - \cos x}} \longrightarrow 2   \text {恒 等 变 形}
+$$
+
+则 $A = \lim_{x\to 0}\frac{x - \sin x}{x^3} +2A$ ，故 $A = \frac{1}{6} +2A$ ，得 $A = -\frac{1}{6}$
+
+# 3 超实数及其在极限中的应用
+
+下面讲一个极为重要的概念及其应用，帮助考生进一步深刻理解“极限”
+
+实数系 $\mathbf{R}$ 中有如下公理：
+
+若对任意大的自然数 $n$ ，均有 $\left|x\right| < \frac{1}{n}$ 则 $x = 0$ .这使得实数系 $\mathbf{R}$ 中不存在非零无穷小量及其倒数——无穷大量.
+
+(1)定义.
+
+$①$ 非零无穷小量与无穷大量.
+
+若对任意大的自然数 $n$ ，均有 $\left|x^{*}\right| < \frac{1}{n}$ 且 $x^{*} \neq 0$ ，则 $x^{*}$ 为非零无穷小量，其倒数 $\frac{1}{x^*}$ 为无穷大量.
+
+$②$ 超实数.
+
+设 $x_0$ 为任一实数，则 $x_0 + x^*$ 为有限超实数， $x_0 + \frac{1}{x^*}$ 为无穷超实数（无穷大量）.
+
+$③$ 超实数系 $\mathbf{R}^*$
+
+实数系 $\mathbf{R}$ ，非零无穷小量 $x^{*}$ ，无穷大量 $\frac{1}{x^*}$ 构成超实数系 $\mathbf{R}^*$ . $x_0 + x^*$ ， $x_0 + \frac{1}{x^*}$ 不在实数系 $\mathbf{R}$ 中.
+
+(2)实数与超实数的关系（见图1-24）.
+
+![](images/ee1e4c82b3c1338796b96f9485e47ba6369d3c01fd89968d0bc082fea9dbc078.jpg)  
+图1-24
+
+在实数轴上任取一点 $x_0$ ，称为核.
+
+$x_0 + x^*$ 是以 $x_0$ 为核的有限超实数，称为核 $x_0$ 的光环，由于 $x^*$ 是任意一个非零无穷小，故 $x_0$ 的光环有无穷多个.
+
+为方便，记 $X^{*} = x_{0} + x^{*} = \operatorname{std}(X^{*}) + [X^{*} - \operatorname{std}(X^{*})]$ ， $x_{0} = \operatorname{std}(X^{*})$ 也称为超实数 $X^{*}$ 的标准实数部分， $x^{*} = X^{*} - \operatorname{std}(X^{*})$ 即为非零无穷小量。
+
+如 $x_0 = 0$ ， $x_{1}^{*} = \sin x(x\to 0)$ ，则 $X_{1}^{*} = x_{0} + x_{1}^{*} = \sin x(x\to 0)$ 是以0为核，以 $\sin x$ 为无穷小量的超实数.
+
+![](images/70b8040d52a55c9602564dc4c6f3edafbef7cd99201d83c8a8a013ea4c927034.jpg)
+
+如 $x_0 = 0$ ， $x_{2}^{*} = 2x(x\to 0)$ ，则 $X_{2}^{*} = x_{0} + x_{2}^{*} = 2x(x\to 0)$ 是以0为核，以 $2x$ 为无穷小量的超实数.
+
+如 $x_0 = 0$ ， $x_{3}^{*} = \frac{1}{x} (x\to 0)$ ，则 $X_{3}^{*} = x_{0} + x_{3}^{*} = \frac{1}{x} (x\to 0)$ 是以0为核，以 $\frac{1}{x}$ 为无穷大量的超实数.
+
+如 $x_0 = 0$ ， $x_{4}^{*} = \frac{1}{x^{2}} (x\to 0)$ ，则 $X_{4}^{*} = x_{0} + x_{4}^{*} = \frac{1}{x^{2}} (x\to 0)$ 是以0为核，以 $\frac{1}{x^2}$ 为无穷大量的超实数.
+
+显然，上述4个超实数到它们的核的距离 $|\sin x|$ ， $|2x|$ ， $\left|\frac{1}{x}\right|$ ， $\left|\frac{1}{x^2}\right|(x \to 0)$ 均不是实数， $|\sin x|$ ， $|2x|(x \to 0)$ 是比任何正实数都小的量， $\left|\frac{1}{x}\right|$ ， $\left|\frac{1}{x^2}\right|(x \to 0)$ 是比任何正实数都大的量。
+
+(3) 超实数与极限的关系与运算.
+
+先举个例子. 如
+
+$$
+\lim  _ {x \rightarrow 0} \frac {\sin x}{x} = 1,
+$$
+
+![](images/c252c3582f8d4eeda9d099a7f24f8e15177926319e91740f20dae08b607c759c.jpg)
+
+其中，① $\frac{\sin x}{x}$ 在未作极限运算时，为实数运算.
+
+② $\lim_{x\to 0}\frac{\sin x}{x}$ 称为趋核运算，此时的 $\frac{\sin x}{x}$ 称为超实数， $\lim_{x\to 0}\frac{\sin x}{x}$ 的结果为其核值1.于是
+
+$\star$ 设 $\lim_{x\to x_0}f(x) = A$ ，其运算（及其运算顺序）为
+
+a. $f(x)$ 为实数运算.
+
+b. $\lim_{x\to x_0}f(x)$ 为趋核运算， $A$ 为核值，当 $A$ 唯一时，称趋核运算存在， $\lim_{x\to x_0}f(x)$ 存在；否则称趋核运算不存在， $\lim_{x\to x_0}f(x)$ 不存在.
+
+如 $\lim_{x\to 0}(x - x) = \lim_{x\to 0}0 = 0$ 实数运算 趋极运算 $=$ 模值0
+
+再如， $\lim_{x\to 0}(x - \sin x)\neq \lim_{x\to 0}(x - x) = 0$ ，当然不等， $\lim_{x\to 0}(x - \sin x)$ 首先要作实数运算.由于 $\sin x\neq x$ $x - \sin x\neq x - x$ ，故趋核运算便无从谈起了.
+
+实数运算错误
+
+又如，计算 $\lim_{x\to \infty}\frac{\left(1 + \frac{1}{x}\right)^{x^2}}{\mathrm{e}^x}$ ，若写 $\lim_{x\to \infty}\frac{\left(1 + \frac{1}{x}\right)^{x^2}}{\mathrm{e}^x} = \lim_{x\to \infty}\frac{\left[\left(1 + \frac{1}{x}\right)^x\right]^x}{\mathrm{e}^x} = \lim_{x\to \infty}\frac{\mathrm{e}^x}{\mathrm{e}^x} = 1$ ，显然也是错误的.
+
+因为， $\lim_{x\to \infty}\frac{\left(1 + \frac{1}{x}\right)^{x^2}}{\mathrm{e}^x}$ 的第一步，要作 $\frac{\left(1 + \frac{1}{x}\right)^{x^2}}{\mathrm{e}^x}$ 的实数运算，即
+
+$$
+\frac {\left(1 + \frac {1}{x}\right) ^ {x ^ {2}}}{e ^ {x}} = \frac {e ^ {x ^ {2} \ln \left(1 + \frac {1}{x}\right)}}{e ^ {x}} = e ^ {x ^ {2} \ln \left(1 + \frac {1}{x}\right) - x}.
+$$
+
+第二步，再作 $\lim_{x\to \infty}e^{x^2\ln \left(1 + \frac{1}{x}\right) - x}$ 的趋核运算.
+
+上述错误是将 $\frac{\left(1 + \frac{1}{x}\right)^x}{\mathrm{e}^x}$ 中的 $\left(1 + \frac{1}{x}\right)^x$ 换成了 $\mathbf{e}$ ，而在实数运算中， $\left(1 + \frac{1}{x}\right)^x \neq \mathbf{e}$ .
+
+注 有考生会问，等价无穷小替换的方法是否违背上述规则呢？举例来说，
+
+$$
+\lim  _ {x \rightarrow 0} \frac {1 - \cos x}{x ^ {2}} \xlongequal {\text {等 价 无 穷 小}} \lim  _ {x \rightarrow 0} \frac {\frac {1}{2} x ^ {2}}{x ^ {2}} = \frac {1}{2},
+$$
+
+这里是不是在实数运算中将 $1 - \cos x$ 写成了 $\frac{1}{2} x^2$ ？是否犯了错误？
+
+1-cosx 2 x² 10 2
+
+这与 $\lim_{x\to 0}(x - \sqrt{\sin x}) = \lim_{x\to 0}(x - \sqrt{x})$ ， $\lim_{x\to \infty}\frac{\left(1 + \frac{1}{x}\right)^x}{e^x} = \lim_{x\to \infty}\frac{e^x}{e^x}$ 的错误是一样的.
+
+事实上， $\lim_{x\to 0}\frac{1 - \cos x}{x^2}$ 是这样算的：
+
+实数运算，
+
+$\frac{1 - \cos x}{x^2} = \frac{A}{x^2}\frac{1 - \cos x}{A} = \frac{\frac{1}{2}x^2}{x^2}\frac{1 - \cos x}{\frac{1}{2}x^2}$ 进一步是可以这样写的）.
+
+趋核运算，
+
+$$
+\lim  _ {x \rightarrow 0} \frac {1 - \cos x}{x ^ {2}} = \lim  _ {x \rightarrow 0} \frac {\frac {1}{2} x ^ {2}}{x ^ {2}} \cdot \lim  _ {x \rightarrow 0} \frac {1 - \cos x}{\frac {1}{2} x ^ {2}},
+$$
+
+由于当 $x \to 0$ 时， $1 - \cos x$ 与 $\frac{1}{2} x^2$ 是等价无穷小量，即它们趋核速度相同，用趋核运算来刻画，即 $\lim_{x \to 0} \frac{1 - \cos x}{\frac{1}{2} x^2} = 1$ ，故 $\lim_{x \to 0} \frac{1 - \cos x}{x^2} = \lim_{x \to 0} \frac{\frac{1}{2} x^2}{x^2} \cdot 1$ ，这是此问题的正确来由。
+
+1-cosx与 $\frac{1}{2} x^{2}$ 趋核速度相同
+
+显然，上述 $\lim_{x\to 0}\frac{1 - \cos x}{\frac{1}{2}x^2} = 1$ 涉及“趋核速度”，需要详细说一说.
+
+(4)趋核速度.
+
+既然一个核值 $x_0$ 周围有无数个光环，这些光环的本质区别是什么呢？这就要提出“趋核速度”的问题了.
+
+比如，如图1-25所示.
+
+![](images/a5de039461a8cffab92cc919cc5d6829018fcfb773ea1f91902afda0b0e17026.jpg)  
+图1-25
+
+$\sin x(x \to 0)$ 与 $x(x \to 0)$ 均以0为核值，且趋核速度相同，则用下式来刻画这种关系：
+
+$$
+\lim  _ {x \rightarrow 0} \frac {\sin x}{x} = 1.
+$$
+
+$\sin x(x \to 0)$ 与 $x(x \to 0)$ 趟接速度相同
+
+于是，有下面的结论：
+
+若 $f(x)(x \to x_0)$ 与 $g(x)(x \to x_0)$ 均以0为核值，则 $\lim_{x \to x_0} \frac{f(x)}{g(x)} = a \neq 0 \Leftrightarrow f(x)(x \to x_0)$ 与 $g(x)(x \to x_0)$ 趋核速度相同.
+
+$\lim_{x \to x_0} \frac{f(x)}{g(x)} = 0 \Leftrightarrow f(x) (x \to x_0)$ 比 $g(x) (x \to x_0)$ 趋核速度快.
+
+$\lim_{x \to x_0} \frac{f(x)}{g(x)} = \infty \Leftrightarrow f(x) (x \to x_0)$ 比 $g(x) (x \to x_0)$ 趋核速度慢.
+
+(5) 极限四则运算规则.
+
+这也称为超实数趋核四则运算规则.
+
+设 $\lim_{x\to x_0}f(x) = A$ ， $\lim_{x\to x_0}g(x) = B$ ，则有
+
+① $\lim_{x\to x_0}[f(x)\pm g(x)] = A\pm B$
+
+② $\lim_{x\to x_0}f(x)g(x) = AB$
+
+③ $\lim_{x\to x_0}\frac{f(x)}{g(x)} = \frac{A}{B} (B\neq 0)$
+
+事实上，由于 $f(x)$ ， $g(x)$ 的趋核运算值均为其实数核值，故如
+
+$$
+\lim  _ {x \rightarrow x _ {0}} [ f (x) + g (x) ] = \lim  _ {x \rightarrow x _ {0}} f (x) + \lim  _ {x \rightarrow x _ {0}} g (x) = A + B,
+$$
+
+显然成立，比如
+
+$$
+\lim  _ {x \rightarrow 0} (x + \sin x) = \lim  _ {x \rightarrow 0} x + \lim  _ {x \rightarrow 0} \sin x = 0 + 0 = 0,
+$$
+
+$$
+\lim  _ {x \rightarrow 1} \frac {\sin x}{x} = \frac {\lim  _ {x \rightarrow 1} \sin x}{\lim  _ {x \rightarrow 1} x} = \frac {\sin 1}{1} = \sin 1.
+$$
+
+下面说明两种情况.
+
+① $f(x), g(x)$ 中恰有一个不存在核值.
+
+设 $\lim_{x\to x_0}f(x) = A$ ， $\lim_{x\to x_0}g(x)$ 不存在或为无穷大量，则
+
+a. $\lim_{x\to \infty}[f(x)\pm g(x)] = A\pm ($ 不存在或 $\infty$ ) $=$ 不存在或 $\infty$ ：
+
+实数运算为平 不存在或 $\infty$ 作有限平移，依然为 移运算 不存在或 $\infty$
+
+如 $\lim_{x\to 0}\left(\frac{\sin x}{x} +\sin \frac{1}{x}\right)$ ，其中 $\lim_{x\to 0}\frac{\sin x}{x} = 1,\lim_{x\to 0}\sin {\frac{1}{x}}$ 不存在（在-1到1之间振荡），则 $\lim_{x\to 0}\left(\frac{\sin x}{x} +\sin \frac{1}{x}\right) =$ $1+$ 不存在 $=$ 不存在.
+
+仅供理解，不要写出来。
+
+b. $\lim_{x\to x_0}f(x)g(x) = A\cdot$ （不存在或 $\infty$ ）
+
+$①$ 实数运算 $②$ 为放缩运算
+
+这里的趋核运算有多种情况.
+
+(i) 如 $\lim_{x\to 0}x\sin{\frac{1}{x}}$ ，其中 $\lim_{x\to 0}x = 0$ ， $\lim_{x\to 0}\sin {\frac{1}{x}}$ 不存在.
+
+此时 $A = 0$ ，可以将“-1到1之间振荡”的情形压缩成0，故 $\lim_{x\to 0}x\sin{\frac{1}{x}} = 0$ ·有界振荡 $= 0$ 压缩为0
+
+此时极限存在，即趋核运算值为0
+
+(ii) 如 $\lim_{x\to \infty}\sin{\frac{1}{x^2}}\cdot x$ ，其中 $\lim_{x\to \infty}\sin{\frac{1}{x^2}} = 0$ ， $\lim_{x\to \infty}x = \infty$ ，理由同 (i)， $\lim_{x\to \infty}\sin{\frac{1}{x^2}}\cdot x = 0$ ：
+
+(iii) 如 $\lim_{x\to 0}\cos x\cdot \sin {\frac{1}{x}}$ ，其中 $\lim_{x\to 0}\cos x = 1$ ， $\lim_{x\to 0}\sin{\frac{1}{x}}$ 不存在.此时 $A = 1$ ，放缩结果不变，故 $\lim_{x\to 0}\cos x\sin {\frac{1}{x}}$ 不存在.
+
+c. $\lim_{x\to x_0}\frac{f(x)}{g(x)} = \lim_{x\to x_0}f(x)\cdot \frac{1}{g(x)}$ ，讨论与b.类似.
+
+② $f(x)$ ， $g(x)$ 均不存在核值.
+
+设 $\lim_{x\to x_0}f(x)$ 不存在或为 $\infty$ ， $\lim_{x\to x_0}g(x)$ 不存在或为 $\infty$ ，则
+
+a. $\lim_{x\to x_0}\left[f(x)\pm g(x)\right] = \frac{\text{不存在} + \text{不存在}}{2}$
+
+这里的趋核运算有多种情况。
+
+(i)如 $\lim_{x\to 0}\left(\frac{1}{x} -\frac{1}{x}\right) = \lim_{x\to 0}0 = 0$ ，其中 $\lim_{x\to 0}\frac{1}{x} = \infty$
+
+此时要明白，应先算实数运算，且因不符合拆开的条件，不能拆开算。
+
+(ii) 如 $\lim_{x\to 0}\left(\frac{1}{x} -\frac{2}{x}\right) = -\lim_{x\to 0}\frac{1}{x} = \infty$ 易知，趋核运算可能存在，亦可能不存在.
+
+b. $\lim_{x\to x_0}\frac{f(x)g(x)}{1} = ($ （不存在或 $\infty$ ）·（不存在或 $\infty$ ）
+
+这里的趋核运算有多种情况.
+
+(i) 若取 $f(x) = \begin{cases} 1, & x \text{ 为有理数}, \\ -1, & x \text{ 为无理数}, \end{cases} g(x) = \begin{cases} 1, & x \text{ 为有理数}, \\ -1, & x \text{ 为无理数}, \end{cases}$ 则 $\lim_{x \to 0} f(x)$ 不存在， $\lim_{x \to 0} g(x)$ 不存在，而 $\underline{f(x)} \cdot g(x) \equiv 1$ ，故 $\lim_{x \to 0} f(x) \cdot g(x) = 1$ 。
+
+(ii) 若取 $f(x) = \sin \frac{1}{x}$ , $g(x) = \cos \frac{1}{x}$ ，则 $\lim_{x \to 0} f(x)$ 不存在， $\lim_{x \to 0} g(x)$ 不存在。而 $\underbrace{f(x)g(x)}_{\text{实数运算}} = \sin \frac{1}{x}\cos \frac{1}{x} = \frac{1}{2}\sin \frac{2}{x}$ ，故 $\lim_{x \to 0} f(x)g(x)$ 不存在。
+
+(iii) 若取 $f(x) = \sin \frac{1}{x}$ ， $g(x) = \frac{1}{x}$ ，则 $\lim_{x \to 0} f(x)$ 不存在（在 -1 到 1 之间振荡）， $\lim_{x \to 0} g(x) = \infty$ ，而 $\lim_{x \to 0} f(x)g(x) = \lim_{x \to 0} \frac{1}{x} \sin \frac{1}{x}$ . 实数运算
+
+若 $x = \frac{1}{n\pi}$ ， $n = 1,2,\dots$ ，则实数运算 $\left.\frac{1}{x}\sin \frac{1}{x}\right|_{x = \frac{1}{n\pi}} = n\pi \sin n\pi = 0,\lim_{x\to 0}f(x)g(x) = 0;$
+
+若 $x = \frac{1}{2n\pi + \frac{\pi}{2}}, n = 1, 2, \dots$ ，则实数运算
+
+$$
+\left. \frac {1}{x} \sin \frac {1}{x} \right| _ {\underset {2 n \pi + \frac {\pi}{2}} {=}} = \left(2 n \pi + \frac {\pi}{2}\right) \sin \left(2 n \pi + \frac {\pi}{2}\right) = 2 n \pi + \frac {\pi}{2}, \lim  _ {x \rightarrow 0} f (x) g (x) = \lim  _ {n \rightarrow \infty} \left(2 n \pi + \frac {\pi}{2}\right) = \infty .
+$$
+
+此处，趋核运算的结果既有实数0，也有无穷大量，称为“无界变量”，
+
+(iv) 显然， $\infty \cdot \infty = \infty$
+
+c. $\lim_{x\to x_0}\frac{f(x)}{g(x)} = \lim_{x\to x_0}f(x)\cdot \frac{1}{g(x)}$
+
+讨论与b.类似.
+
+综上所述，可列表如下：
+
+<table><tr><td>条件</td><td>结论</td></tr><tr><td>f(x), g(x)均存在核值</td><td>f(x)±g(x), f(x)·g(x), f(x)/g(x) (g(x)核值不为0)均存在核值</td></tr><tr><td>f(x), g(x)中恰有一个不存在核值</td><td>f(x)±g(x)不存在核值;
+f(x)·g(x)可能存在核值,也可能不存在核值;
+f(x)/g(x)可能存在核值,也可能不存在核值</td></tr><tr><td>f(x), g(x)均不存在核值</td><td>f(x)±g(x), f(x)·g(x), f(x)/g(x)均可能存在核值,也可能不存在核值</td></tr></table>
+
+# 4 函数极限的性质
+
+(1) 唯一性.
+
+如果极限 $\mathop{\lim }\limits_{{x \rightarrow  {x}_{0}}}f\left( x\right)$ 存在,那么极限唯一. 任何一个实数,周围有无数个光环.
+
+![](images/68e02b8a222bb158ca0fd2d2d5daf6d90ad62f10b989f78737353d8bd7662261.jpg)
+
+注 (1)函数极限存在的充要条件.
+
+![](images/ad8e5589b11ebf96b11a72fd6962ef87ace8f16b3d01b44cd69a7a9ec82633bd.jpg)
+
+![](images/8b3cfd8d8d13a62a4fe6b5b60eefdd83a38ad8000051fc3c4e4d14c0d79fe633.jpg)  
+一个超实数 $=$ 实数 $+$ 超实数
+
+(2) 关于唯一性的说明.
+
+① 对于 $x \to \infty$ ，意味着 $x \to +\infty$ 且 $x \to -\infty$ ；两个方向  
+② 对于 $x \to x_0$ ，意味着 $x \to x_0^+$ 且 $x \to x_0^-$ 。
+
+我们称这个细节的问题为自变量取值的“双向性（有正有负）”，基于此，我们看几个重要的函数极限问题。
+
+$1\lim_{x\to \infty}e^{x}$ 不存在，因为 $\lim_{x\to +\infty}e^{x} = +\infty$ ， $\lim_{x\to -\infty}e^{x} = 0$ ，根据“极限若存在，必唯一”，得原极限不存在.
+
+![](images/258dd26d62e3f8ae610118fcf25ed67b3233670fa551101160c29b999bb4e98a.jpg)
+
+② $\lim_{x\to 0}\frac{\sin x}{|x|}$ 不存在，因为 $\lim_{x\to 0^{+}}\frac{\sin x}{|x|} = \lim_{x\to 0^{+}}\frac{\sin x}{x} = 1,\lim_{x\to 0^{-}}\frac{\sin x}{|x|} = \lim_{x\to 0^{-}}\frac{\sin x}{-x} = -1.$
+
+![](images/b3acc30aacb00adf646de7ca728ac55fcc5f479e6a7c24f998a11850c8159491.jpg)
+
+③ $\lim_{x\to \infty}\arctan x$ 不存在，因为 $\lim_{x\to +\infty}\arctan x = \frac{\pi}{2},\lim_{x\to -\infty}\arctan x = -\frac{\pi}{2}.$   
+④ $\lim_{x\to 0}[x]$ 不存在，因为 $\lim_{x\to 0^{+}}[x] = 0,\lim_{x\to 0^{-}}[x] = -1.$
+
+$[x]$ 为不超过 $x$ 的最大整数，也就是 $x$ 的整数部分。
+
+⑤分段函数分段点两侧表达式不同，需分别求左、右极限。
+
+在实际考试中，主要是这些函数：一个是指数函数，一个是带绝对值的函数，也就是分段函数。如果分段函数在分段点处两端的解析式不同，是需要分别求左、右极限的，这个考点在研究生考试中几乎是必考的。所以考生不仅要知道这些唯一性，而且研究生考试中更会通过这些具体的例子去考查考生对唯一性的认识。
+
+例1.15 当 $x \to 1$ 时，函数 $\frac{\mathrm{e}^{\frac{1}{x - 1}} \ln |1 + x|}{(\mathrm{e}^x - 1)(x - 2)}$ 的极限（ ）.
+
+(A)等于1
+
+(B)等于0
+
+(C) 为 $\infty$
+
+(D) 不存在且不为 $\infty$
+
+分析 $x\to 1$ ，关键看 $\mathrm{e}^{\frac{1}{x - 1}}$
+
+$x \rightarrow  {1}^{ + },x - 1 \rightarrow  {0}^{ + },\frac{1}{\left| x - 1 \right| } \rightarrow   + \infty ;$ 你不能用一个非常非常小的正数去代替,后面会专门提无穷小的概念,它不是一个很小很小的数,而是无限趋于零的变量
+
+$\boxed{x\to 1^{-}},x - 1\to 0^{-},\frac{1}{x - 1}\to -\infty .$
+
+$x$ 无限趋于1,但比1小
+
+解 应选(D).
+
+函数 $\frac{\mathrm{e}^{\frac{1}{x - 1}}\ln|1 + x|}{(\mathrm{e}^x - 1)(x - 2)}$ 在 $x = 1$ 处没有定义，在 $x = 1$ 的两侧表达式虽然相同，但是注意到当 $x\to 1$ 时， $\frac{1}{x - 1}$ 左、右极限不相等，因此应该考虑单侧极限.
+
+$$
+\lim  _ {x \rightarrow 1 ^ {-}} \frac {\mathrm {e} ^ {\frac {1}{x - 1}} \ln | 1 + x |}{(\mathrm {e} ^ {x} - 1) (x - 2)} = 0,
+$$
+
+$$
+\lim  _ {x \rightarrow 1 ^ {+}} \frac {\mathrm {e} ^ {\frac {1}{x - 1}} \ln | 1 + x |}{(\mathrm {e} ^ {x} - 1) (x - 2)} = - \infty ,
+$$
+
+可知当 $x\to 1$ 时，函数 $\frac{\mathrm{e}^{\frac{1}{x - 1}}\ln|1 + x|}{(\mathrm{e}^x - 1)(x - 2)}$ 的极限不存在且不为 $\infty$ ，故选(D).
+
+方法总结 遇到 $\mathbf{e}^{\infty}$ ，需讨论 $\mathrm{e}^{+\infty}$ 和 $\mathrm{e}^{-\infty}$
+
+$\bullet$ 公式
+
+$$
+\lim  _ {u \rightarrow + \infty} e ^ {u} = + \infty , \lim  _ {u \rightarrow - \infty} e ^ {u} = 0.
+$$
+
+注 对于上述 $\lim_{x\to 1}e^{\frac{1}{x - 1}}$ 的情形，由于 $\lim_{x\to 1^{+}}\frac{1}{x - 1}$ 与 $\lim_{x\to 1^{-}}\frac{1}{x - 1}$ 不相等，因此不能忽视左极限与右极限，否则会导致错误，这是这类问题经常出现错误的原因.
+
+![](images/a666adb85faf33499fa188c7d71cdc0ff71e04f5abff8dfbb448b33eb1efb285.jpg)
+
+例1.16
+
+设 $g(x) = \left\{ \begin{array}{ll}2 - x, & x\leqslant 0,\\ 2 + x, & x > 0, \end{array} \right.$ $f(x) = \left\{ \begin{array}{ll}x^{2}, & x <   0,\\ -x - 1, & x\geqslant 0, \end{array} \right.$ 则 $\lim_{x\to 0}g[f(x)]$ （
+
+(A)为3
+
+(B) 为 2
+
+(C) 为1
+
+(D) 不存在
+
+这个题已见过,例1.5,分段函数的复合方法,有前世今生,越往后学越轻松,这个题还有连续剧,后面再说
+
+解
+
+应选(D).
+
+由例1.5可知，
+
+$$
+g [ f (x) ] = \left\{ \begin{array}{l l} 3 + x, & x \geqslant 0, \\ 2 + x ^ {2}, & x <   0. \end{array} \right.
+$$
+
+又 $\lim_{x\to 0^{+}}g[f(x)] = \lim_{x\to 0^{+}}(3 + x) = 3\neq \lim_{x\to 0^{-}}g[f(x)] = \lim_{x\to 0^{-}}(2 + x^{2}) = 2$ ，故 $\lim_{x\to 0}g[f(x)]$ 不存在.
+
+这是趋实数
+
+这个超实数的极限结果是2
+
+方法总结 分段函数在分段点处的极限要考虑左、右极限.
+
+公式
+
+若 $\lim_{x\to x_0^+}f(x)\neq \lim_{x\to x_0^-}f(x)$ ，则 $\lim_{x\to x_0}f(x)$ 不存在.
+
+(2)局部有界性.
+
+两件事：① 抽象证明，方法（技巧）重要.
+
+②具体例子理解.
+
+如果 $\lim_{x\to x_0}f(x) = A$ ，则存在正常数 $M$ 和 $\delta$ ，使得当 $0 < |x - x_0| < \delta$ 时，有 $|f(x)|\leqslant M$ ：
+
+![](images/f2788ab63a133ebac09285766f1c99c188df72a6b477967f74c0c25e70fc6b8a.jpg)
+
+(1)证 $\lim_{x\to x_0}f(x) = A\Leftrightarrow \forall \varepsilon >0,\exists \delta >0$ ，当 $0 <   |x - x_0| <   \delta$ 时， $|f(x) - A| <   \varepsilon$
+
+则 $|f(x)| = |f(x) - A + A| \leqslant |f(x) - A| + |A|$ . 取 $\varepsilon = 1, |f(x)| \leqslant 1 + |A| = M$ .
+
+(2) 这个 $M$ 必须是个确定的数，比如 2023 年考研试题中出现 $|b_n| = |b_n - a_n + a_n| \leqslant |b_n - a_n| + |a_n|$ （是整个过程中的最关键环节），下面 4 条都有可能在考场出现。
+
+① 设 $\lim_{x \to \infty} f(x)$ 存在，则当 $x \to \bullet$ 时， $f(x)$ 有界。其中“ $x \to \bullet$ ”是指 $x \to x_0, x \to x_0^-$ ， $x \to x_0^+$ ， $x \to \infty, x \to -\infty, x \to +\infty$ 六种情形。值得注意的是，极限存在只是函数局部有界的充分条件，并非必要条件。
+
+② 若 $y = f(x)$ 在 $[a, b]$ 上为连续函数，则 $f(x)$ 在 $[a, b]$ 上必定有界。
+
+这里直观上给大家介绍连续：在黑板上拿粉笔点 $A$ 点，一直到 $B$ 点，中间不要离开黑板.
+
+上界与下界都不是唯一的，下面这条极为重要。
+
+$\star 3$ 若 $f(x)$ 在 $(a,b)$ 内为连续函数，且 $\lim_{x\to a}f(x)$ 与 $\lim_{x\to b}f(x)$ 都存在，则 $f(x)$ 在 $(a,b)$ 内必定有界.  
+④有界函数与有界函数的和、差、积仍为有界函数.（商没有这个结论）
+
+例1.17 在下列区间内，函数 $f(x) = \frac{x\sin(x - 3)}{(x - 1)(x - 3)^2}$ 有界的是（ ）.
+
+(A) $(-2,1)$
+
+(B) $(-1,0)$
+
+(C) (1, 2)
+
+(D) (2, 3)
+
+分析 考查开区间上的连续函数的有界性.
+
+![](images/cea565a770b4d061360f75ca4c42f02ae2ed2bb4338da1766d383e6738a879f4.jpg)
+
+解 应选(B).
+
+所给选项皆为开区间，因此不能直接利用连续函数在闭区间上的有界性定理.可以考虑在开区间两个端点处函数的极限是否存在.
+
+由于 $f(x)$ 在 $x_{1} = 1, x_{2} = 3$ 处没有定义，因此当 $x \neq 1, x \neq 3$ 时， $f(x)$ 为初等函数且为连续函数。又由
+
+![](images/a0efee7bf17f60d599fb434813e0d3a1ffc9c32ea2694923931b9a14512ffdf4.jpg)
+
+可知在区间端点为1或3的开区间内， $f(x)$ 均为无界函数，故选(B).
+
+方法总结 若 $f(x)$ 在 $(a, b)$ 内是连续函数，且 $\lim_{x \to a^+} f(x), \lim_{x \to b^-} f(x)$ 都存在，则 $f(x)$ 在 $(a, b)$ 内必定有界.
+
+公式 若 $\lim_{x\to a^{+}}f(x)$ 存在，则存在 $\delta >0$ ，当 $x\in (a,a + \delta)$ 时， $f(x)$ 有界.
+
+★★★(3)局部保号性.（这个太重要了，极限的3个性质中最重要的一个）
+
+如果 $f(x)\rightarrow A(x\rightarrow x_0)$ 且 $\boxed{A > 0}$ （或 $\boxed{A <   0}$ ），那么存在常数 $\delta >0$ ，→超实数<使得当 $0 <   |x - x_0| <   \delta$ 时，有 $\boxed{f(x)} > 0$ （或 $\boxed{f(x)} <   0$ ).如果在 $x_0$ 的某去心邻域内 $f(x)\geqslant 0$ （或 $f(x)\leqslant 0$ ）且 $\lim_{x\to x_0}f(x) = A$ ，则 $A\geqslant 0$ （或 $A\leqslant 0$ ）.
+
+![](images/75affe361260ddad85d803779755d7953381e48ed3256b087170f4bae60e8414.jpg)
+
+取 $\varepsilon = 2A$ ，则 $-A < f(x) < 3A$ ，此范围不够精确，不能用于
+
+证明此结论
+
+lim我=你：即使给我整个世界，我也只在你身边
+
+证 $\lim_{x\to x_0}f(x) = A(A > 0)$ ，即对任意 $\varepsilon >0$ ，存在 $\delta >0$ ，使得当 $0 <   |x - x_0| <   \delta$ 时，有 $\left|f(x) - A\right| <   \varepsilon$ 取 $\varepsilon = \frac{A}{2} >0$ ，即有 $\left|f(x) - A\right| <   \frac{A}{2}$ ，所以 $f(x) > \frac{A}{2} >0$ ，证毕.
+
+四面八方均可到来,以 $A$ 为校心,A自带光环
+
+问题：超实数的标准实数部分都大于零，那这些超实数都怎么样呢？
+
+答：它们与 $A$ 的距离无限小，从而它们一定大于零.
+
+注 只要核心大于零，它的所有光晕都大于零。
+
+如 $\lim_{x\to +\infty}\frac{1}{x} = 0.$
+
+即使 $f(x) > 0$ ，它的极限也有可能等于零，即存在 $f(x) > 0$ ，使 $\operatorname{std}[f(x)] = 0$ .对于大于零的超实数，它的标准实数部分有可能是零.
+
+例1.18 已知 $f(x)$ 在 $x = 0$ 的某个邻域内连续，且 $\lim_{x\to 0}\frac{f(x)}{1 - \cos{x}} = -1$ ，则存在 $\delta > 0$ ，（ ）.
+
+(A)当 $x\in (-\delta ,0)$ 时， $f(x) > 0$ ；当 $x\in (0,\delta)$ 时， $f(x) <   0$   
+(B)当 $x\in (-\delta ,0)$ 时， $f(x) <   0$ ；当 $x\in (0,\delta)$ 时， $f(x) > 0$   
+(C)当 $x\in (-\delta ,0)$ 时， $f(x) > 0$ ；当 $x\in (0,\delta)$ 时， $f(x) > 0$   
+(D) 当 $x \in (-\delta, 0)$ 时， $f(x) < 0$ ；当 $x \in (0, \delta)$ 时， $f(x) < 0$
+
+分析 本题考查保号性，在考研中经常出类似的题，本题关键在于极限是负数.
+
+解 应选(D).
+
+由于
+
+$$
+\lim  _ {x \rightarrow 0} \frac {f (x)}{1 - \cos x} = \lim  _ {x \rightarrow 0} \frac {2 f (x)}{x ^ {2}} = - 1,
+$$
+
+故 $\lim_{x\to 0}\frac{f(x)}{x^2} = -\frac{1}{2} < 0$ ，由极限的局部保号性可知，在 $x = 0$ 的某去心邻域内有 $\frac{f(x)}{x^2} < 0$ ，即 $f(x) < 0$ ，从而选(D).
+
+方法总结 见到 $\lim_{x\to x_0}f(x) = A < 0$ ，则利用保号性：当 $x\in \mathring{U} (x_0,\delta)$ ，有 $f(x) < 0$ ：
+
+公式 $1 - \cos x\geqslant 0$
+
+# 5 无穷小的定义
+
+如果当 $x \to x_0$ （或 $x \to \infty$ ）时，函数 $f(x)$ 的极限为零，那么称函数 $f(x)$ 为当 $x \to x_0$ （或 $x \to \infty$ ）时的无穷小，记为有两种，包括
+
+$$
+\lim  _ {x \to x _ {0}} f (x) = 0 (\text {或} \lim  _ {x \to \infty} f (x) = 0).
+$$
+
+注（脱帽法） $\lim_{x\to \infty}f(x) = A\Leftrightarrow f(x) = A + \alpha$ ，这里 $\lim_{x\to \infty}\alpha = 0$ ，即 $\alpha$ 是 $x\rightarrow \bullet$ 时的无穷小.
+
+把 $A$ 换成0，为什么要单独讲这个定义呢？因为它有特殊的、重要的地位和意义.
+
+从牛顿、莱布尼茨开始，无穷小一直是一个无法解释的、必须回避的话题，包括第二次数学危机的产生，为什么大主教批判牛顿，牛顿都不敢讲话呢？因为对于无穷小是什么，他讲不出来，他一会儿让无穷小为零，一会儿让无穷小又不能为零，当无穷小在分母上，它就不能为零。然后，牛顿算出一个结果，加上一个无穷小，他就把无穷小扔掉了，无法解释！所以到了后来，才出现了魏尔斯特拉斯的 $\varepsilon-\delta$ 语言。在前面讲极限时，讲过超实数系，这里来简单复习下，从数学上来讲，
+
+有理数 $\xrightarrow{\sqrt{2}}$ 实数 $\xrightarrow{\sqrt{-1}}$ 复数.
+
+现在又遇到问题了，这个无穷小怎么表示呢？牛顿、莱布尼茨没有想到，这是因为历史局限性。即便后来的柯西和魏尔斯特拉斯给出了数学分析中的标准极限定义，他们也没有想到，把实数系再扩展成超实数系。
+
+有理数 $\xrightarrow{\sqrt{2}}$ 实数 $\xrightarrow{\sqrt{-1}}$ 复数. 超实数系
+
+超实数系里面是什么呢？首先是我们所学到的实数，除了这些实数之外，还引入了无穷小量和无穷大量的概念。一旦无穷小量、无穷大量进来了，这个实数系就变成了超实数系。我用最通俗的语言讲给大家，不过也不要深究，因为这需要强大的数理逻辑的底子。
+
+超实数系告诉我们，任何一个实数 $x_0$ ，自带光环，边上有无限个以它作为极限的超实数.
+
+( ( 1 x0 ) )
+
+# 考研数学基础30讲·高等数学分册
+
+超实数：
+
+① $\lim  f(x) = \operatorname{std}[f(x)]$ . 实数部分 (最终归属)
+
+当 $x\to 0$ 时， $\sin x = \frac{\operatorname{std}(\sin x)}{0} +\frac{\sin x - \operatorname{std}(\sin x)}{\text{无穷小量}}.$
+
+② $\lim_{x\to 0}f(x) = 0$
+
+如：
+
+![](images/15d70283939d7cd1b77fcc09bd42990ba489bf9e803e8eac4741a11bd4c8f6a7.jpg)
+
+它们是无限趋于零的，但是又描述不出它到零的距离到底是多少。所以在超实数系中，就增加了所谓的无穷小量。
+
+问题：无穷小如何描述它的超实数部分与实数部分呢？
+
+$\lim_{x \to \infty} f(x) = A \Leftrightarrow f(x) = A + \alpha$ （ $A$ 是超实数的实数部分）.
+
+无穷小的实数部分是零，无穷小是超实数.
+
+![](images/5b39139576b17cb3e96ef33f0de06c6bc9716150da30190fdbe82455a5484375.jpg)
+
+# 无穷小的性质
+
+① 有限个无穷小的和是无穷小.
+
+简单组常用
+
+![](images/4f8e44a3340921c239d1c41a171a281a0b14ff07b3d951a46b8e28b9c2d1776f.jpg)
+
+无穷个无穷小的和可能不再是无穷小了，如第8讲习题8.4的注，
+
+$$
+\lim  _ {n \rightarrow \infty} \left(\frac {1}{n + 1} + \frac {1}{n + 2} + \dots + \frac {1}{n + n}\right) = \ln 2. \quad (\text {专 门 学})
+$$
+
+通俗理解：人多力量大.
+
+★②有界函数与无穷小的乘积是无穷小.
+
+若 $|\alpha_1| \leqslant m, \alpha_2 \to 0$ ，则
+
+![](images/eaa2593407ac6d29c25b73cabd712cc1d60e12225d4038691ca5a23204d06396.jpg)
+
+考研数学对分析问题的能力有一定的要求，如果想把数学学好，在《考研数学基础30讲》中，凡是给予证明的，它往往是今后解决问题要用到的解题方法或过程，不会很难但都比较经典，要认真学一学.
+
+③ 有限个无穷小的乘积是无穷小.
+
+如
+
+![](images/aafe9fa13cb0e5214e89f0bd917626763295d8793561c96f17497dc3b2648be3.jpg)
+
+# 无穷小的比阶
+
+在讲极限概念时，柯西也好，魏尔斯特拉斯也好，比牛顿和莱布尼茨的进步只是用了一个不等式，可是他们也没有讲 $\alpha$ 到0的距离到底有多少， $\beta$ 到0的距离是多少？不过我们可以尝试从 $\alpha$ ， $\beta$ 的阶数比入手.
+
+![](images/dd78d32b81348d81371b104fc32f09c185c15989940019c2febc6e46014f1722.jpg)
+
+设在自变量的同一变化过程中， $\lim_{x\to 0}\alpha (x) = 0,\lim_{x\to 0}\beta (x) = 0$ ，且 $\beta (x)\neq 0$ ，则
+
+0 0 ①若lim $\lim_{\substack{\alpha (x)\\ \beta (x)}}\frac{\alpha(x)}{0} = 0$ ，则称 $\alpha (x)$ 是比 $\beta (x)$ 高阶的无穷小，记为 $\alpha (x) = o\bigl (\beta (x)\bigr)$ 实数趋实数  
+$\alpha (x)\rightarrow 0$ 的速度比 $\beta (x)\rightarrow 0$ 的速度快  
+② 若 $\lim_{\beta \to 0} \frac{\alpha(x)}{\beta(x)} = \infty$ ，则称 $\alpha(x)$ 是比 $\beta(x)$ 低阶的无穷小；  
+★ ③若 $\lim_{x\to 0}\frac{\alpha(x)}{\beta(x)} = c\neq 0$ ，则称 $\alpha (x)$ 与 $\beta (x)$ 是同阶无穷小；
+
+最重要的是③与④
+
+速度相同
+
+若 $\lim_{x\to 0}\frac{\alpha(x)}{\beta(x)} = 1$ ，则称 $\alpha (x)$ 与 $\beta (x)$ 是等价无穷小，记为 $\alpha (x)\sim \beta (x)$
+
+趋实数此处不可替换为 $x$ “等价”不是相等，如 $\lim_{x\to 0}\frac{\sin x}{x} = 1\neq 0$ ，而 $\lim_{x\to 0}\frac{x - \sin x}{x^3} = \frac{1}{6}$
+
+是它的标准实数部分 $\mathrm{std}\left(\frac{\sin x}{x}\right) = 1$
+
+⑤ 若 $\lim_{\left[\beta(x)\right]^k} \frac{\alpha(x)}{c} = c \neq 0, k > 0$ ，则称 $\alpha(x)$ 是 $\beta(x)$ 的 $k$ 阶无穷小。
+
+注 并不是任意两个无穷小都可进行比阶的。例如，当 $x \to 0$ 时， $x \sin \frac{1}{x}$ 与 $x^2$ 虽然都是无穷小，但是却不可以比阶，也就是说既无高低阶之分，也无同阶可言，因为 $\lim_{x \to 0} \frac{x \sin \frac{1}{x}}{x^2} = \lim_{x \to 0} \frac{1}{x} \sin \frac{1}{x}$ 不存在。
+
+$\mathop{\lim }\limits_{{x \rightarrow  0}}\frac{x\sin \frac{1}{x}}{{x}^{2}} = \mathop{\lim }\limits_{{x \rightarrow  0}}\frac{1}{x}\sqrt{\sin \frac{1}{x}}$ 极限不存在,一会儿跑到无穷大,一会 跑到0.所以这种不专一的趋实数定义为无界变量
+
+![](images/e7807395b5061a8efaf55a00ef2add7ecc339854fb2e49fc95b3d0bc7efa58d9.jpg)
+
+$\infty$ 是超实数，也可以理解 $\infty$ 是一个广义的数，作为实数系上的一个特殊的数（双重身份）.
+
+通俗地讲，极限存在，就说明超实数找到了家，找到了标准实数部分，任何超实数在确定的趋向下都有唯一的家，即有唯一的核心，核心如果不唯一了，极限自然就不存在了。
+
+在这种情况下，比阶就出问题了，这是柯西、魏尔斯特拉斯也解决不了的问题。用极限可以预言到所有情况吗？答案是否定的，两个超实数速度一会儿这个快，一会儿那个快，它们在较量中，会出现一会儿这个的实力强，一会儿那个的实力强的情况，并不是总是沿着简单的情况出现的，一会儿 $\infty$ ，一会儿0。那就是说当 $x\to 0$ 时， $x\sin \frac{1}{x}$ 与 $x^{2}$ ，它们的力量是有对比的。
+
+# 8 常用的等价无穷小
+
+当 $x \to 0$ 时，常用的等价无穷小有
+
+$$
+\sin x \sim x, \tan x \sim x, \arcsin x \sim x, \arctan x \sim x, \ln (1 + x) \sim x, e ^ {x} - 1 \sim x,
+$$
+
+$$
+a ^ {x} - 1 \sim x \ln a, \underbrace {1 - \cos x} _ {\text {一 唯 一 的 一 个 2 次 方}} \sim \frac {1}{2} x ^ {2}, (1 + x) ^ {a} - 1 \sim a x.
+$$
+
+如图1-26所示，0作为实数，周围的无限个光晕紧密团结在核中心的周围.
+
+![](images/187d3fb5707428486dc8c886af0f920cadbd7afffd437a83c9c6379102eb88ad.jpg)  
+图1-26
+
+注使用时一般都要做广义化：可将 $x$ 替换为趋向于0的函数，请灵活使用.
+
+如
+
+$$
+\lim  _ {x \rightarrow 0} \frac {\sin x}{x} = 1;
+$$
+
+$$
+\lim  _ {g (x) \rightarrow 0} \frac {\sin [ g (x) ]}{g (x)} = 1;
+$$
+
+$$
+\lim _ {\mathrm {狗} \rightarrow 0} \frac {\sin (\mathrm {狗})}{\mathrm {狗}} = 1.
+$$
+
+![](images/64ca09aad2ab058ac1123807aae898eefb5fccbd5c5015768e7571ef243892a8.jpg)
+
+# 无穷大的定义
+
+如果当 $x \to x_0$ （或 $x \to \infty$ ）时，函数 $|f(x)|$ 无限增大，那么称函数 $f(x)$ 为当 $x \to x_0$ （或 $x \to \infty$ ）时的无穷大，记为
+
+同无穷小,也是一个极限过程一定无界,但无界不一定是无穷大量趋实数
+
+$$
+\lim  _ {x \to x _ {0}} f (x) = \infty (\text {或} \lim  _ {x \to \infty} f (x) = \infty).
+$$
+
+![](images/045b5893b0f6c28af5b84af742ac3aeb08a52524e36bb04c023abc638636dcce.jpg)
+
+注 无穷小与无穷大的关系.
+
+在自变量的同一变化过程中，如果 $f(x)$ 为无穷大，则 $\frac{1}{f(x)}$ 为无穷小；反之，如果 $f(x)$ 为无穷小，且 $f(x) \neq 0$ ，则 $\frac{1}{f(x)}$ 为无穷大。
+
+例1.19 设 $x \to 0$ 时， $\mathrm{e}^{\tan x} - \mathrm{e}^{\sin x}$ 与 $x^n$ 是同阶无穷小，则 $\frac{1}{1/2} = 2$ （次）； $1 - \frac{1}{2} - \frac{1}{2} = 0$ 。n为（ ）。
+
+(A)1
+
+(B)2
+
+(C)3
+
+(D)4
+
+分析 无穷小的比阶问题.
+
+当 $x \rightarrow 0$ 时， ${\mathrm{e}}^{\tan x} - {\mathrm{e}}^{\sin x} = {\mathrm{e}}^{\sin x}\left( {{\mathrm{e}}^{\tan x - \sin x} - 1}\right)$ 是以1作为标准实数部分。这种题往往需要提出公因式 (数学中的恒等变形) ${\mathrm{e}}^{x} - 1 \sim$ 狗(狗 $\rightarrow  0$ )
+
+用除法的新颖观点来理解“无穷”
+
+$$
+\begin{array}{l} \frac {1}{1 / 2} = 2 (\text {次}); \quad 1 - \frac {1}{2} - \frac {1}{2} = 0. \\ \frac {1}{1 / 4} = 4 (\text {次}) \colon 1 - \frac {1}{4} - \frac {1}{4} - \frac {1}{4} - \frac {1}{4} = 0. \\ \frac {1}{0} = \text {不 存 在}: 1 - 0 - 0 - \dots \neq 0. \\ (0 \mathrm {不 能 当 分 母}) \\ \lim  _ {x \rightarrow 0 ^ {+}} \frac {1}{x} = + \infty (\text {次}) \colon 1 - x - x - \dots = 0 \\ \end{array}
+$$
+
+![](images/dced631ee125a900a0c6d088d936f730cdd3bdc7530ef6dc36c6c9ad1e929604.jpg)
+
+应选 (C).
+
+当 $x\to 0$ 时，
+
+![](images/e881d783827c2faf8eae4d6f09ac3982fecb1b020b4541690b685aba4481b6b2.jpg)
+
+因此选(C).
+
+方法总结 $\mathrm{e}^{\tan x} - \mathrm{e}^{\sin x}$ ，通常要提公因式出现 $\mathbf{e}^{\circ} - 1$ 的形式.
+
+$\theta$ 公式 当 $x \to 0$ 时， $\tan x - \sin x = \tan x(1 - \cos x) \sim \frac{1}{2} x^3$
+
+# 四 计算
+
+![](images/9ee6abc7c5969def4a122dafcd4b0437e3bac8fd9c847197fc4b4a901a35545c.jpg)
+
+在学习了极限的定义和性质，尤其是了解了超实数的理论后，我们对于极限的计算方法有了一个完整、全面和深刻的认识。更为重要的是，今后在计算极限时，就不会再犯错误，什么位置该替换，什么位置不能替换，就能从一个新的角度，更加全面地去分析。
+
+# 方法
+
+(1) 极限四则运算规则.
+
+若 $\lim f(x) = A, \lim g(x) = B$ ，那么
+
+① $\lim [kf(x) \pm lg(x)] = k\lim f(x) \pm l\lim g(x) = kA \pm lB$ ，其中 $k, l$ 为常数.  
+② $\lim [f(x) \cdot g(x)] = \lim f(x) \cdot \lim g(x) = A \cdot B$ . 特别地，若 $\lim f(x)$ 存在， $n$ 为正整数，则
+
+$$
+\lim  [ f (x) ] ^ {n} = \lim  _ {n \text {个}} f (x) \bullet \dots \bullet f (x) = [ \lim  _ {n \text {个}} f (x) ] ^ {n}.
+$$
+
+③ $\lim_{x\to 0}\frac{f(x)}{g(x)} = \frac{\lim_{x\to0}f(x)}{\lim_{x\to0}g(x)} = \frac{A}{B}\left(B\neq 0\right).$
+
+上面定理可以用一句话概括：当 $f(x)$ 与 $g(x)$ 极限都存在时，函数的加减乘除的极限分别等于极限的加减乘除（除要求分母的极限不为零）.
+
+![](images/2cfec70d1cd882923aebcc913bc88b4329136a484d85abc2173e3f18a18b9e8c.jpg)
+
+例1.20
+
+证明：(1) 若 $\lim_{g(x)}\frac{f(x)}{g(x)} = A$ ，且 $\lim_{g(x)}g(x) = 0$ ，则 $\lim_{g(x)}f(x) = 0$ ；
+
+(2) 若 $\lim_{x \to 0} \frac{f(x)}{g(x)} = A \neq 0$ ，且 $\lim_{x \to 0} f(x) = 0$ ，则 $\lim_{x \to 0} g(x) = 0$ 。
+
+分析
+
+恒等变形.
+
+![](images/4e58d027a94029a208bfb9ef54ea9fc72be17130c96d3db277d3f488117a64a0.jpg)
+
+(1) 由于 $f(x) = \frac{f(x)}{g(x)} \cdot g(x)$ ，则
+
+$$
+\lim  f (x) = \lim  \frac {f (x)}{g (x)} \bullet g (x) \xlongequal {\text {四 则 运 算 法 则}} \lim  \frac {f (x)}{g (x)} \bullet \lim  g (x) = A \bullet 0 = 0 .
+$$
+
+(2) 由于 $g(x) = \frac{f(x)}{\frac{f(x)}{g(x)}}$ ,
+
+则 $\lim_{x\to 0}g(x) = \lim_{x\to 0}\frac{f(x)}{\frac{f(x)}{g(x)}}$ 四则运算法则 $\lim_{x\to 0}\frac{f(x)}{\frac{f(x)}{g(x)}} = \frac{0}{A} = 0.$
+
+![](images/a792917daaf42877ce859d53b1d657e1057049e832c6dd36756a4bc19c85a5bd.jpg)
+
+以上结论非常重要，以后在有关定参数的题目中可直接使用，如下例.
+
+![](images/a60879f193ae455d3c67d64911643327c929c0d8628c337b69cf34a14237085d.jpg)
+
+例1.21
+
+设 $\lim_{x\to 0}\frac{\sin x}{e^x - a} (\cos x - b) = 5$ ，则 $b = ()$
+
+(A)-4
+
+(B)-3
+
+(C)-2
+
+(D)-1
+
+分析 先利用例1.20的结果求出 $a$ 的值，再用等价无穷小的代换求 $b$ 的值.
+
+解 应选(A).
+
+$\lim_{x \to 0} \frac{\sin x}{e^x - a} (\cos x - b) = 5 \neq 0$ ，由例1.20的(2)知， $\lim_{x \to 0} (e^x - a) = 0$ ，故 $a = 1$ ，此时原极限变为 $\lim_{x \to 0} \frac{\sin x}{e^x - 1} (\cos x - b) = \lim_{x \to 0} (\cos x - b) = 1 - b$ ，故 $b = -4$ 。
+
+方法总结 若 $\lim_{x\to 0}\frac{f(x)}{g(x)} = A\neq 0$ ，且 $\lim_{x\to 0}f(x) = 0$ ，则 $\lim_{x\to 0}g(x) = 0$
+
+$\theta$ 公式 当 $x \to 0$ 时， $\mathrm{e}^x - 1 \sim x \sim \sin x$
+
+例1.20的两个结论，是用四则运算规则证明的，所以可以把刚才的解题方法归结为极限的四则运算规则：加减乘除的极限只要存在，就等于极限的加减乘除。考生们在刚开始复习要记住它，不要认为它简单就轻视，前面用超实数分析了“不存在 $+$ 不存在”为什么可能存在，这部分内容不是那么容易理解的，不是听一遍就能完全搞懂，需要不断地、反复地思考和实践。
+
+后面我们会遇到复杂的极限情况，那么怎么处理这些复杂情况呢？需要请两个了不起的数学人物“登场”，他们是洛必达和伯努利。
+
+(2) 洛必达法则.
+
+法则一设 $①$ 当 $x\to a$ 或 $x\to \infty$ 时，函数 $f(x)$ 及 $F(x)$ 都趋于零；
+
+② $f^{\prime}(x)$ 及 $F^{\prime}(x)$ 在点 $a$ 的某去心邻域内（或当 $|x| > X$ ，此时 $X$ 为充分大的正数）存在，且 $F^{\prime}(x) \neq 0$ ；
+
+③ $\lim_{x\to a}\frac{f'(x)}{F'(x)}$ （或 $\lim_{x\to \infty}\frac{f'(x)}{F'(x)}$ ）存在或为无穷大，则
+
+![](images/34f393025d2a9a297fe98da1bf11add5ead0eae91e6bd905ea763830346ce555.jpg)
+
+洛必达
+
+(1661-1704)
+
+$$
+\lim  _ {x \to a} {\frac {f (x)}{F (x)}} = \lim  _ {x \to a} {\frac {f ^ {\prime} (x)}{F ^ {\prime} (x)}}   (\text {或} \lim  _ {x \to \infty} {\frac {f (x)}{F (x)}} = \lim  _ {x \to \infty} {\frac {f ^ {\prime} (x)}{F ^ {\prime} (x)}}).
+$$
+
+法则二 设①当 $x \to a$ （或 $x \to \infty$ ）时，函数 $f(x)$ 及 $F(x)$ 都趋于无穷大；
+
+② $f^{\prime}(x)$ 及 $F^{\prime}(x)$ 在点 $a$ 的某去心邻域内（或当 $|x| > X$ ，此时 $X$ 为充分大的正数）存在，且 $F^{\prime}(x) \neq 0$
+
+③ $\lim_{x\to a}\frac{f'(x)}{F'(x)}$ （或 $\lim_{x\to \infty}\frac{f'(x)}{F'(x)}$ ）存在或为无穷大，则
+
+$$
+\lim  _ {x \to a} {\frac {f (x)}{F (x)}} = \lim  _ {x \to a} {\frac {f ^ {\prime} (x)}{F ^ {\prime} (x)}}   (\text {或} \lim  _ {x \to \infty} {\frac {f (x)}{F (x)}} = \lim  _ {x \to \infty} {\frac {f ^ {\prime} (x)}{F ^ {\prime} (x)}}).
+$$
+
+这两个是用柯西中值定理证明的.
+
+后面讲了柯西中值定理，再回头证明这个洛必达法则
+
+注法则二不是洛必达的，也不是伯努利的，实际上是柯西给的，但是为了称呼的统一性，都归到洛必达法则了.
+
+历史故事：洛必达（1661—1704）法国人，洛必达法则不是洛必达的，而是他老师约翰·伯努利（1667—1748）的。
+
+1694年，约翰·伯努利要结婚，洛必达送给他一个大礼包，他说“你结婚去吧，给你一笔钱，不用还，给我一篇论文就可以了”，然后伯努利欣然接受，主动拿着论文找到洛必达，一手交钱，一手交论文，这篇文章就被无情的卖掉了，是什么文章呢？就是大家看到的“洛必达法则”。这个法则实际上是伯努利在1694年卖给了洛必达，这是历史上的真事。有个人还在里面瞎掺和，那个人叫莱布尼茨（1646—1716），莱布尼茨是伯努利的老师，伯努利真正的学生是欧拉，这里面混进了洛必达。莱布尼茨听伯努利说“洛必达很有钱”，就主动找到洛必达，“孩子，我还有论文呢，你要不要？”而洛必达来者不拒，“来来来，买”。所以几乎在同一时间，洛必达还在世界上发表了一篇论文，叫“行列式的概念”。行列式的概念是谁给的呢？“莱布尼茨”；谁发表的呢？“洛必达”；世界上第一本微积分教材推出的呢？“洛必达”。洛必达可以称之为“伟大的”数学知识的传播者，他把数学大家的创作汇总起来出成书了。
+
+注 (1)一般来说，洛必达法则是用来计算 $\frac{0}{0}$ 型或者“ $\frac{\infty}{\infty}$ ”型未定式的，不是“ $\frac{0}{0}$ ”型和“ $\frac{\infty}{\infty}$ ”型，就不能用洛必达法则。
+
+（ $\frac{?}{\infty}$ 亦可直接用洛必达法则.但是这个不在考研范围内.）
+
+(2)如果极限 $\lim_{x\to a}\frac{f'(x)}{F'(x)}$ 仍属于“ $\frac{0}{0}$ ”型或者“ $\frac{\infty}{\infty}$ ”型，且 $f^{\prime}(x),F^{\prime}(x)$ 继续满足洛必达法则的条件，则可以继续使用洛必达法则，即 $\lim_{x\to a}\frac{f(x)}{F(x)} = \lim_{x\to a}\frac{f'(x)}{F'(x)} = \lim_{x\to a}\frac{f''(x)}{F''(x)}$ 可多次使用
+
+(3) 如果 $\lim_{x \to a} \frac{f'(x)}{F'(x)}$ 不存在也不为 $\infty$ ，不能推出 $\lim_{x \to a} \frac{f(x)}{F(x)}$ 不存在也不为 $\infty$ ，简单一点说就是：
+
+对于 $\lim_{x\to a}\frac{f(x)}{F(x)} = \lim_{x\to a}\frac{f'(x)}{F'(x)}$ “右存在，则左存在；但左存在，并不意味着右一定存在”．比如说，极限
+
+$$
+\lim  _ {x \rightarrow 0} \frac {x ^ {2} \cdot \sin \frac {1}{x}}{x} = \lim  _ {x \rightarrow 0} x \cdot \boxed {\sin \frac {1}{x}} = 0
+$$
+
+存在，而如果使用洛必达法则，会有
+
+$$
+\lim  _ {x \rightarrow 0} \frac {x ^ {2} \cdot \sin \frac {1}{x}}{x} = \lim  _ {x \rightarrow 0} \left(2 x \cdot \sin \frac {1}{x} - \boxed {\cos \frac {1}{x}}\right),
+$$
+
+这个极限显然不存在.这是一个很细致、很隐蔽的问题，稍不注意就可能出错.
+
+例1.22 证明：
+
+(1) 当 $x \to 0$ 时， $\ln \left(x + \sqrt{1 + x^2}\right) \sim x$ ；  
+(2) 当 $x \to 0$ 时， $1 - (\cos x)^{a} \sim \frac{1}{2} ax^{2}, a \neq 0$ .
+
+$\rho$ 分析 求极限 $\frac{0}{0}$ 型，用洛必达法则.
+
+证 (1) 由于 $\lim_{x \to 0} \frac{\ln(x + \sqrt{1 + x^2})}{x} = \frac{\text{洛必达法则}}{\lim_{x \to 0} \frac{1}{1}} = 1$ ，因此当 $x \to 0$ 时， $\ln (x + \sqrt{1 + x^2}) \sim x$ 。
+
+洛必达
+
+(2) 当 $x \to 0$ 时, $\lim_{x \to 0} \frac{1 - (\cos x)^a}{\frac{1}{2} ax^2}$ 法则 $\lim_{x \to 0} \frac{-a(\cos x)^{a-1}(-\sin x)}{ax} = \lim_{x \to 0} (\cos x)^{a-1} = 1$ . 证毕.
+
+方法总结 用洛必达法则解决 $\frac{0}{0}$ 型未定式.
+
+$\theta$ 公式 当 $x \to 0$ 时， $\ln (x + \sqrt{1 + x^2}) \sim x \sim \sin x \sim \tan x \sim \arctan x \sim e^x - 1 \sim \ln (1 + x)$
+
+当 $x \to 0$ 时， $1 - (\cos x)^{a} \sim \frac{1}{2} ax^{2}, a \neq 0$ ，如：当 $x \to 0$ 时， $1 - \cos x \sim \frac{1}{2} x^{2}, 1 - \sqrt{\cos x} \sim \frac{1}{4} x^{2}$ 。
+
+这个题目的价值：①练习了洛必达法则；②得到了两个重要结论。
+
+这两个重要结论，在未来会经常出现。
+
+凡是在《考研数学基础30讲》中给出的结论，都可以直接用，不必证明，这都是一些常见的、经典的结论.
+
+下面还有一个话题. 当遇到 $\frac{0}{0}$ 型未定式时, 是看分子、分母中谁趋于零的速度快, 在超实数体系中, 以 0 作为标准实数部分的超实数它们的比值是多少? 比如:
+
+$$
+\operatorname {s t d} \left(\frac {x - \sin x}{x ^ {3}}\right) = \frac {1}{6},
+$$
+
+$$
+\lim  _ {x \rightarrow 0} \frac {x - \sin x}{x ^ {3}} = \frac {1}{6}.
+$$
+
+在考研数学中，无穷小的关键是阶数，无穷小争先恐后趋于0，趋于0的速度是不一样的.接下来我们讨论无穷大的比阶问题，用例1.23来说明.
+
+例1.23
+
+设 $f(x) = \ln^{10}x$ ， $g(x) = x$ ， $h(x) = \mathrm{e}^{\frac{x}{10}}$ ，则当 $x$ 充分大时，有（ ）.
+
+(A) $g(x) <   h(x) <   f(x)$
+
+(B) $h(x) <   g(x) <   f(x)$
+
+(C) $f(x) <   g(x) <   h(x)$
+
+(D) $g(x) <   f(x) <   h(x)$
+
+$\mathbb{O}$ 分析 用洛必达法则，计算极限.
+
+解 应选(C).
+
+因为 $\lim_{x\to +\infty}\frac{g(x)}{f(x)} = +\infty$ ， $\lim_{x\to +\infty}\frac{h(x)}{g(x)} = +\infty$ ，所以当 $x$ 充分大时，有 $f(x) < g(x) < h(x)$ ：
+
+故选项(C)正确.
+
+注 $①$ 当 $x\to +\infty$ 时，有 $\ln^{\alpha}x\ll x^{\beta}\ll a^{x}$ ，其中 $\alpha ,\beta >0,a > 1$ ，符号“ $\ll$ ”叫远远小于；
+
+② 当 $n \to \infty$ 时，有 $\ln^{\alpha} n \ll n^{\beta} \ll a^{n} \ll n! \ll n^{n}$ ，其中 $\alpha, \beta > 0, a > 1$ 。记住，考试时直接用
+
+像上面这些公式必须要记住.在微积分中，有一个很要紧的问题，就是趋于零的函数，谁快谁慢，趋于无穷大的函数，谁快谁慢，这些问题解决好了，很多难题就迎刃而解.知识是有连续性的，它总是一环扣一环，其他方向如果欠缺，可能是因为这里的题目就掌握得不是太好.
+
+(3) 泰勒公式.
+
+设 $f(x)$ 在点 $x = 0$ 处 $n$ 阶可导，则存在 $x = 0$ 的一个邻域，对于该邻域内的任一点 $x$ ，有
+
+![](images/a16a67fababbf5a058c9c8865429a8a891eaeed20878d30e5b3610afff5eff20.jpg)
+
+泰勒（1685—1731）
+
+牛顿学生（英国教育家）
+
+$$
+f (x) = f (0) + f ^ {\prime} (0) x + \frac {f ^ {\prime \prime} (0)}{2 !} x ^ {2} + \dots + \frac {f ^ {(n)} (0)}{n !} x ^ {n} + o \left(x ^ {n}\right).
+$$
+
+泰勒公式背后的思想比拉格朗日中值定理的思想更精确. 泰勒有一个非常直接的观点, 就是可以用多项式 (表达式最简单的) 来表达任何一个函数 (当然这个函数可导性要好).
+
+泰勒有一双火眼金睛，一眼看穿所有函数.
+
+如sinx=sin0+（sinx）|x=0·x+（sinx）|x=0x²+（sinx）|x=0x³+o(x³），即sinx=x-1x+o(x3)
+
+再如 $\sec x = \sec 0 + (\sec x)'|_{x=0} \cdot x + \frac{(\sec x)''|_{x=0}}{2!} x^2 + \frac{(\sec x)'''|_{x=0}}{3!} x^3 + o(x^3)$ ，即 $\sec x = 1 + \frac{x^2}{2} + o(x^3)$ .
+
+下面给同学们看个真题.
+
+当 $x \to 0$ 时， $\sec x$ 与 2 次泰勒多项式 $g(x)$ 之差为 $o(x^2)$ ，则 $g(x) = \frac{1 + \frac{1}{2}x^2}{2}$ .
+
+另： $\sec x$ 在 $x = 0$ 处的2次泰勒多项式为 $1 + \frac{1}{2} x^2$
+
+同理可得如下重要函数的泰勒公式.
+
+$$
+\sin x = x - \frac {x ^ {3}}{3 !} + o \left(x ^ {3}\right), \quad \cos x = 1 - \frac {x ^ {2}}{2 !} + \frac {x ^ {4}}{4 !} + o \left(x ^ {4}\right),
+$$
+
+$$
+\arcsin x = x + \frac {x ^ {3}}{3 !} + o \left(x ^ {3}\right), \quad \tan x = x + \frac {x ^ {3}}{3} + o \left(x ^ {3}\right),
+$$
+
+$$
+\arctan x = x - \frac {x ^ {3}}{3} + o (x ^ {3}), \quad \ln (1 + x) = x - \frac {x ^ {2}}{2} + \frac {x ^ {3}}{3} + o (x ^ {3}),
+$$
+
+$$
+e ^ {x} = 1 + x + \frac {x ^ {2}}{2 !} + \frac {x ^ {3}}{3 !} + o (x ^ {3}), \quad (1 + x) ^ {\alpha} = 1 + \alpha x + \frac {\alpha (\alpha - 1)}{2 !} x ^ {2} + o (x ^ {2}).
+$$
+
+8个都要“背”，秦勒公式熟记于心，都要“一站直达”
+
+我们要泰勒公式，也要洛必达法则，但泰勒公式是远远优于洛必达法则的。不仅是因为泰勒公式用多项式逼近可导函数的方法意义深刻，还因为其计算的简洁性。
+
+注从数学命题的角度对以上公式进行处理，可得到一组“差函数”的等价无穷小代换式，如 $x - \sin x = \frac{1}{6} x^3 +o(x^3)$ ，则 $x - \sin x\sim \frac{1}{6} x^{3}(x\to 0)$ ，同理有 考研：g（x）→0,g（x）-sin[g（x）]~g³（x）
+
+$$
+\arcsin x - x \sim \frac {1}{6} x ^ {3} (x \rightarrow 0), \tan x - x \sim \frac {1}{3} x ^ {3} (x \rightarrow 0), x - \arctan x \sim \frac {x ^ {3}}{3} (x \rightarrow 0)
+$$
+
+等，并可将这些公式广义化，如第一个公式广义化为：狗 $-\sin$ 狗 $\sim \frac{1}{6}$ (狗）（狗 $\rightarrow 0$ ），其余类似.
+
+(4) 无穷小的运算.
+
+设 $m, n$ 为正整数，则
+
+① $o(x^{m}) \pm o(x^{n}) = o(x^{l}), l \geqslant \min \{m, n\}$ （加减法时低阶“吸收”高阶）.
+
+如： $o(x^{2}) - o(x^{3}) = o(x^{2})$ ，对于无穷小来说，次数越小越大.对于无穷大来说，次数越大越大.它说了算
+
+② $o(x^{m})\cdot o(x^{n}) = o(x^{m + n}),x^{m}\cdot o(x^{n}) = o(x^{m + n})$ （乘法时阶数“累加”）.  
+③ $o(x^{m}) = o(kx^{m}) = k \cdot o(x^{m}), k \neq 0$ 且为常数（非零常数相乘不影响阶数）.
+
+$$
+o \left(x ^ {2}\right) = 2 o \left(x ^ {2}\right) \text {记 号 运 算 不 是 符 号 运 算 ，} o \left(x ^ {2}\right) - o \left(x ^ {2}\right) = o \left(x ^ {2}\right)
+$$
+
+这种题在数学三卷子中考过.
+
+注在后面泰勒公式的应用中，会对上述高阶无穷小的运算提出要求，请考生学会正确书写.
+
+(5) 泰勒公式应用时的展开原则.
+
+有了展开原则，就可以有强大的能力解决计算问题了。
+
+泰勒公式： $f(x) = f(0) + f'(0)x + \frac{f''(0)}{2!} x^2 +\dots +\frac{f^{(n)}(0)}{n!} x^n +o(x^n).$
+
+再深刻一点讲，以后会遇到无数个可导函数可以由统一的式子表达时，需要对这个表达式进行研究，它就会成为无穷多个向量，在三维空间中可以由向量 $i,j,k$ 表示，线性代数中称其为三维空间的一个基，它可以表示三维空间中的任何一个向量，即三维空间中的任何一个点.
+
+再如：一维点可以比大小，但平面点（空间点）是不能比大小的，所以后面遇到多元函数会用偏导数退化为一维来研究.
+
+![](images/cbb99989ad998c4ecf691adb4cba5526e0cfd60bce0954486e157f03787ad5df.jpg)
+
+$$
+\left\{x ^ {0}, x ^ {1}, x ^ {2}, \dots , x ^ {n}, \dots \right\},
+$$
+
+幂函数是所有可导函数的一个基，体现“统一美”
+
+有句话是有道理的，微积分学得好坏，将决定未来走得有多远，光看一个公式，很多人看法层次是远远不同的，很多东西需要慢慢去体会。
+
+如：
+
+$$
+\left\{ \begin{array}{l} x _ {n} \cos x _ {n + 1} = \sin x _ {n}, \quad \cos x _ {n + 1} = \frac {\sin x _ {n} - \sin 0}{x _ {n} - 0} = \cos \xi \Rightarrow 0 <   \boxed {\xi} <   x _ {n} \\ \cos a _ {n} - a _ {n} = \cos b _ {n}. \quad \cos a _ {n} - \cos b _ {n} = a _ {n} > 0, 0 <   a _ {n}, b _ {n} <   \frac {\pi}{2}, \text {则} 0 <   a _ {n} <   b _ {n} \\ \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \downarrow \\ 0 & \downarrow \\ 0 & \downarrow \\ 0 & \downarrow \\ 0 & \downarrow \\ 0 & \downarrow \\ 0 & \downarrow \\ 0 & \downarrow \\ 0 & \downarrow \\ 0 & \downarrow \\ 0 & \downarrow \\ 0 & \downarrow \\ 0 & \downarrow \\ 0 & \downarrow \\ 0 & \downarrow \\ 0 & \end{array} \right.
+$$
+
+数学题的最高境界就是那些最简单的地方，不是庞然大物或者是用非常复杂的技巧.大道至简才是考研数学的本质.
+
+这种题是考研的压轴题，但是大家也不要急。在命题老师眼里，他给的东西，他想的东西最简单，最朴素的 $\cos x$ 在 $\left(0, \frac{\pi}{2}\right)$ 内递减，一个中学生也知道啊！但几百万考生，大部分考生都没想到。
+
+而且命题老师又说“不定积分”大家少做啊！因为在命题老师的知识体系中，他是深刻知道世界上能做出来的积分是寥寥无几的，世界上不能做出的积分，多得想象不到。再换句话说，几乎不定积分都没法做，那我们就把他喜欢出的那几个思想、方法掌握了，最基本的东西把握好了，那么考试就成功了，这就叫方向，不做无用功。
+
+$① \frac { A } { B }$ 型，适用“上下同阶”原则.
+
+具体说来，如果分母（或分子）是 $x$ 的 $k$ 次幂，则应把分子（或分母）展开到 $x$ 的 $k$ 次幂，可称为“上下同阶”原则.
+
+例如，计算 $\lim_{x\to 0}\frac{x - \ln(1 + x)}{x^2}$
+
+$$
+\begin{array}{r l} & \text {由 于} \quad \ln (1 + x) = x + o (x), \quad \ln (1 + x) = x - \frac {x ^ {2}}{2} + o (x ^ {2}), \end{array}
+$$
+
+$$
+\ln (1 + x) = x - \frac {x ^ {2}}{2} + \frac {x ^ {3}}{3} + o \left(x ^ {3}\right),
+$$
+
+因此 $\lim_{x\to 0}\frac{x - \ln(1 + x)}{x^2} = \lim_{x\to 0}\frac{x - \left[x - \frac{x^2}{2} + o(x^2)\right]}{x^2} = \lim_{x\to 0}\frac{\frac{x^2}{2}}{x^2} = \frac{1}{2},$
+
+这里顺便得到了一个重要的等价代换式 $x - \ln (1 + x)\sim \frac{1}{2} x^2 (x\to 0)$
+
+$$
+x - \ln (1 + x) \sim 1 - \cos x \sim \frac {1}{2} x ^ {2} (x \rightarrow 0)
+$$
+
+同理
+
+$$
+x - \sin x \sim \frac {x ^ {3}}{6} (x \rightarrow 0),
+$$
+
+$$
+\arcsin x - x \sim \frac {x ^ {3}}{6} (x \rightarrow 0),
+$$
+
+$$
+\tan x - x \sim \frac {x ^ {3}}{3} (x \rightarrow 0),
+$$
+
+$$
+x - \arctan x \sim \frac {x ^ {3}}{3} (x \rightarrow 0),
+$$
+
+均可由“上下同阶”原则得到.
+
+② $A - B$ 型，适用“幂次最低”原则. $A + B = A - (-B)$
+
+具体说来，即将 $A, B$ 分别展开到它们的系数不相等的 $x$ 的最低次幂为止.
+
+例如，已知当 $x\to 0$ 时， $\cos x - \mathrm{e}^{-\frac{x^2}{2}}$ 与 $ax^b$ 为等价无穷小，求 $a,b$ ：
+
+用泰勒公式， $\cos x = 1 - \frac{x^2}{2!} +\frac{x^4}{4!} +o(x^4),\mathrm{e}^{-\frac{x^2}{2}} = 1 - \frac{x^2}{2} +\frac{1}{2!}\frac{x^4}{4} +o(x^4).$
+
+显然，将 $\cos x, e^{-\frac{x^2}{2}}$ 展开到 $x^4$ 时，其系数就不一样了，使用“幂次最低”原则，展开到此项后，进行运算，得
+
+$$
+\cos x - \mathrm {e} ^ {- \frac {x ^ {2}}{2}} = \left[ 1 - \frac {x ^ {2}}{2 !} + \frac {x ^ {4}}{4 !} + o (x ^ {4}) \right] - \left[ 1 - \frac {x ^ {2}}{2} + \frac {1}{2 !} \frac {x ^ {4}}{4} + o (x ^ {4}) \right] = - \frac {1}{1 2} x ^ {4} + o (x ^ {4}),
+$$
+
+于是可知 $\cos x - \mathrm{e}^{-\frac{x^2}{2}} \sim -\frac{1}{12} x^4 (x \to 0)$ ，故 $a = -\frac{1}{12}, b = 4$ 。
+
+到此为止，整个泰勒公式就学习完了，在一般计算中，四则运算法则，洛必达法则，泰勒公式就够了，除此之外常用的，还有两个重要极限。
+
+(6) 两个重要极限.
+
+$$
+\lim  _ {x \rightarrow 0} \frac {\sin x}{x} = 1, \lim  _ {x \rightarrow \infty} \left(1 + \frac {1}{x}\right) ^ {x} = e. \quad \left\{\begin{array}{l l}\lim  _ {x \rightarrow 0} (1 + x) ^ {\frac {1}{x}} = e,\\\lim  _ {x \rightarrow \infty} \left(1 + \frac {1}{x}\right) ^ {x} = e\end{array}\right.
+$$
+
+注 常考变量广义化
+
+$$
+\lim  _ {\text {狗} \rightarrow 0} \frac {\sin \text {狗}}{\text {狗}} = 1, \lim  _ {\text {狗} \rightarrow \infty} \left(1 + \frac {1}{\text {狗}}\right) ^ {\text {狗}} = e.
+$$
+
+如狗 $= \frac{1}{x}$ ，则上述式子为
+
+$$
+\lim  _ {\frac {1}{x} \to 0} \frac {\sin \frac {1}{x}}{\frac {1}{x}} = 1 , \text {即} \lim  _ {x \to \infty} x \sin \frac {1}{x} = 1 ,
+$$
+
+$$
+\lim  _ {\frac {1}{x} \to \infty} \left(1 + \frac {1}{\frac {1}{x}}\right) ^ {\frac {1}{x}} = \mathrm {e} , \text {即} \lim  _ {x \to 0} (1 + x) ^ {\frac {1}{x}} = \mathrm {e} .
+$$
+
+(7)夹逼准则. 适当放缩已知不等式, 题设条件
+
+如果函数 $f(x)$ ， $g(x)$ 及 $h(x)$ 满足下列条件：
+
+① $h(x) \leqslant f(x) \leqslant g(x)$ ;   
+$\Rightarrow  h\left( x\right)  \leq  f\left( x\right)  \leq  g\left( x\right)$
+
+则 $\lim f(x)$ 存在，且 $\lim f(x) = A$ $+\infty \Rightarrow +\infty \Leftarrow +\infty$
+
+夹逼准则，说成两边夹，三明治定理都不太准确，没有突出“逼”，叫“迫敛定理”是可以的。
+
+注 常见的一个问题：设任意的 $x$ ，总有 $h(x) \leqslant f(x) \leqslant g(x)$ ，且 $\lim [g(x) - h(x)] = 0$ ，则 $\lim f(x)$ 是否一定存在？答案是否定的。 $\lim [g(x) - h(x)]$ 存在并不能说明 $\lim g(x), \lim h(x)$ 都存在，从而也不能保证 $\lim f(x)$ 存在。
+
+例如，当 $x > 0$ 时，取 $h(x) = x + \frac{1}{x + 1}$ ， $f(x) = x + \frac{2}{x + 1}$ ， $g(x) = x + \frac{3}{x + 1}$ ，则 $h(x) < f(x) < g(x)$ ，且 $\lim_{x \to +\infty} [g(x) - h(x)] = 0$ ，但 $\lim_{x \to +\infty} f(x)$ 不存在。
+
+# $②$ 七种未定式的计算
+
+七种未定式中，都是超实数的状态，我们算过七种超实数是否有一个标准实数部分.
+
+考研的函数极限计算题一般归纳为七种未定式： “求定”是由你来定，有可能存在有可能不存在
+
+![](images/11f81bdb5e5517d2b0987cfcc2137e1fc60efc16fa03750718004df34b3c93ee.jpg)
+
+★★★题型：直接计算、反求参数、已知某一极限求另一极限、无穷小的比阶等.
+
+在表达式中，有一些未知参数，已知这些超实数的极限值.来求这些未知参数，这是一种常考的反问题
+
+解题思路如下.
+
+已知一个超实数的极限值,给出另外一个超实数,另外一个超实数跟这个超实数有联系,有区别,需要找到它们的联系和区别,从而用已知来求解未知
+
+①化简先行. 在考研数学中,可能无穷小比阶的考题考的是最多的
+
+拿到极限计算的问题，不要直接开始就洛必达法则，泰勒展开等等。实际上，先做一些化简，有的时候化简完了，这个题目就非常简单了，在考研中是专门出过这种题的，比如说2023年有道大题就是，第一步要化简，如果不知道化简的话，那个题太复杂了。有哪些化简办法呢？
+
+![](images/653a6dcef6db8da3419379e3867246fd210ea71553f2180e6de82ea2f86a7e82.jpg)
+
+当 $x\to 0$ 时， $\mathrm{e}^{\sin x} - \mathrm{e}^{\tan x} = \sqrt{\frac{1}{\tan x}} (\mathrm{e}^{\sin x - \tan x} - 1)\sim \sin x - \tan x$
+
+a. 提出极限不为 0 的因式；b. 等价无穷小代换；c. 恒等变形（基本的恒等变形法如提公因式、拆项、
+
+合并、分子分母同除变量的最高次幂等,高级的恒等变形法如变量代换,也叫换元法等). 需要强调的是, 很多问题如果不化简就计算,可能计算会很复杂,甚至可能计算不出结果.
+
+如： $\lim_{x\to 0}\left(\frac{1 + \sin x}{x} -\frac{1}{\mathrm{e}^x - 1}\right) = \lim_{x\to 0}\left(\frac{1}{x} -\frac{1}{\mathrm{e}^x - 1}\right) + \lim_{x\to 0}\frac{\sin x}{x}$ 解题的方法，我们不能蛮干，一定要注意这些细节，细节决定成败.
+
+②判断类型（运算类型）.
+
+用在函数中，难度就很高了，对于这种问题呢，《考研数学基础30讲》里面也会提及，我会给大家一个完整的全面的归纳
+
+③选择方法（洛必达法则、泰勒公式、夹逼准则等）.
+
+太重要了,“火眼金睛”泰勒 (1) “ $\frac{0}{0}$ ” “ $\frac{\infty }{\infty }$ ” “ $0 \cdot  \infty$ ”
+
+例1.24 $\lim_{x\to 0^{+}}\frac{(1 + x)^{\frac{1}{x}} - e}{x} = \underline{\quad}$ 这是考研中喜欢出的一种类型（提前告诉存在了，实际上问是几）
+
+分析 $\frac{0}{0}$ ，先做恒等变形， $u(x)^{\nu (x)} = \mathrm{e}^{\nu (x)\ln u(x)}$ .碰到幂指函数，一定用e抬起来.
+
+解 应填 $-\frac{\mathrm{e}}{2}$
+
+原极限 $= \lim_{x\to 0^{+}}\frac{\mathrm{e}^{\frac{1}{x}\ln(1 + x)} - \mathrm{e}}{x} = \mathrm{e}\lim_{x\to 0^{+}}\frac{\mathrm{e}^{\frac{1}{x}\ln(1 + x) - 1}}{x} \frac{\mathrm{e}^{\text{狗}} - 1\sim\text{狗}(\text{狗}\rightarrow 0)}{x}\mathrm{e}\lim_{x\to 0^{+}}\frac{\frac{1}{x}\ln(1 + x) - 1}{x}$
+
+通分 e $\lim_{x\to 0^{+}}\frac{\ln(1 + x) - x}{x^2} = \lim_{x\to 0^{+}}\frac{-\frac{1}{2}x^2}{x^2} = -\frac{1}{2}\mathrm{e}^{-\frac{1}{2}}.$
+
+方法总结 碰到幂指函数，用e括起来， $u(x)^{\nu (x)} = \mathrm{e}^{\nu (x)\ln u(x)}$ 1+2
+
+$\mathcal{O}$ 公式 当 $x \to 0$ 时， $\ln (1 + x) - x \sim -\frac{1}{2} x^2$
+
+$=  - \frac{1}{2}$
+
+注 $f(x) = (1 + x)^{\frac{1}{x}}$ 在 $x > 0$ 时有以下性质：
+
+$1f(x)$ 单调减少； $② \lim_{x\to 0^{+}}f(x) = e$
+
+$$
+\lim  _ {x \rightarrow 0} (1 + x) ^ {\frac {1}{x}} = e \quad \lim  _ {x \rightarrow \infty} \left(1 + \frac {1}{x}\right) ^ {x} = e
+$$
+
+![](images/2208697888bed024dc3a8de4bdc99c5562357c7fdf2086f3b0abb599e17ccdc2.jpg)  
+(a)
+
+![](images/1d25b2382fb336d7e5b020b94214e520bf3c6f52e6365f6fff37aa2d6fbc5080.jpg)  
+(b)
+
+掌握这两个图
+
+$\star 3(1 + x)^{\frac{1}{x}} - \mathrm{e} \sim -\frac{\mathrm{e}}{2} x(x \rightarrow 0^{+})$ . 刚才的例1.24
+
+这个结论太重要了，0 是一个重要的实数。
+
+![](images/eee054713681951d0003ceff8dd8ef891e5e0e21f22ac143c4c83b8b4517bd7b.jpg)
+
+考研复习的方法很重要，如基础阶段只做“ $1 + 1 = 2$ ”这肯定是不行的.必须在基础阶段，扎扎实实地落实到考研数学的命题当中，掌握他们喜欢考的这些表达式，这个是很重要的.
+
+例1.25 求极限 $I = \lim_{x\to \infty}\frac{a_nx^n + a_{n - 1}x^{n - 1} + \cdots + a_1x + a_0}{b_mx^m + b_{m - 1}x^{m - 1} + \cdots + b_1x + b_0}$ ，其中 $a_{n}(\neq 0),b_{m}(\neq 0)$ 为常数.纸老虎
+
+分析 有理函数的极限问题,抓主要矛盾.找“带头大哥”,若“带头大哥”次数一致,结果就是系数比, 就能很快速地把问题解决了.
+
+解 若 $n = m$ ，则
+
+$$
+I \xlongequal {\text {上 下 都 除 以} x ^ {n}} \lim  _ {x \rightarrow \infty} \frac {a _ {n} + \frac {a _ {n - 1}}{x} + \cdots + \frac {a _ {1}}{x ^ {n - 1}} + \frac {a _ {0}}{x ^ {n}}}{b _ {m} + \frac {b _ {m - 1}}{x} + \cdots + \frac {b _ {1}}{x ^ {n - 1}} + \frac {b _ {0}}{x ^ {n}}}
+$$
+
+$$
+\frac {\text {四 则 运 算 法 则}}{\lim  _ {x \rightarrow \infty} \left(a _ {n} + \frac {a _ {n - 1}}{x} + \dots + \frac {a _ {1}}{x ^ {n - 1}} + \frac {a _ {0}}{x ^ {n}}\right)} = \frac {a _ {n}}{b _ {m}};
+$$
+
+若 $n > m$ ，则 $I = \lim_{x\to \infty}\frac{x^{n - m}\left(a_nx^m + a_{n - 1}x^{m - 1} + \dots + a_1x^{m - n + 1} + a_0x^{m - n}\right)}{b_mx^m + b_{m - 1}x^{m - 1} + \cdots + b_1x + b_0} = \lim_{x\to \infty}x^{n - m}\cdot \frac{a_n}{b_m} = \infty ;$ （2号 超实数，特殊的不存在  
+若 $n <   m$ ，则 $I = \lim_{x\to \infty}\frac{a_nx^n + a_{n - 1}x^{n - 1} + \cdots + a_1x + a_0}{x^{m - n}\left(b_mx^n + b_{m - 1}x^{n - 1} + \cdots + b_1x^{n - m + 1} + b_0x^{n - m}\right)} = \lim_{x\to \infty}\frac{1}{x^{m - n}}\cdot \frac{a_n}{b_m} = 0.$ （204 这两种情况出 规概率很小
+
+综上， $\lim_{x\to \infty}\frac{a_nx^n + a_{n - 1}x^{n - 1} + \cdots + a_1x + a_0}{b_mx^m + b_{m - 1}x^{m - 1} + \cdots + b_1x + b_0} = \left\{ \begin{array}{ll}\frac{a_n}{b_m}, & n = m,\\ \infty , & n > m,\\ 0, & n <   m. \end{array} \right.$
+
+方法总结 抓大头.
+
+$\lim_{x \to \infty} \frac{x^3 + x^2 - 1}{0 \cdot x^3 + 2x^2 + 2} = \infty, \lim_{x \to \infty} \frac{0 \cdot x^3 - x^2 + 2}{1 \cdot x^3 - x + 1} = 0$ 补一个“带头大哥” (但不要写卷子上) 最爱考的
+
+公式 $\lim_{x\to \infty}\frac{a_nx^n + a_{n - 1}x^{n - 1} + \cdots + a_1x + a_0}{b_mx^m + b_{m - 1}x^{m - 1} + \cdots + b_1x + b_0} = \left\{ \begin{array}{ll}\frac{a_n}{b_m}, & n = m,\\ \infty , & n > m,\\ 0, & n <   m. \end{array} \right.$
+
+注本题的结果要记住，以后直接使用，这就是通常说的“抓大头”，即当 $x\to \infty$ 时，分别抓分子、分母中关于 $x$ 的最高次项，忽略其他项，如 $\lim_{x\to -\infty}\frac{\sqrt{4x^2 + x - 1} + x + 1}{\sqrt{x^2 + \sin x}} = 1$ 另外特别注意，若 $x\rightarrow 0$ ，则应该分别抓分子、分母中关于 $x$ 的最低次项. $|2x| = -2x$
+
+例1.26 设函数 $f(x) = \lim_{n\to \infty}\frac{x^2 + nx(1 - x)\sin^2\pi x}{1 + n\sin^2\pi x}$ ，则 $f(x) =$
+
+分析 这道题是近几年常考的用极限来定义对应法则的题. 在本讲开头, 我讲过一些求对应法则的内容, 可以由关系式或复合函数的表达式求对应法则. 在这里再加一条, 由极限求对应法则. 用什么样的题目来创造这些对应法则, 这需要通过做题逐渐地积累起来.
+
+找特点：抓带头大哥， $n$ 在变， $x$ 在求极限过程中视为常数.
+
+![](images/585967c61e0eba33068b5ff8ee8dc008fab725c903abb4ac57cf5a62aa549e9a.jpg)
+
+解 应填 $\left\{ \begin{array}{ll}x^{2}, & x = 0,\pm 1,\pm 2,\dots ,\\ x(1 - x), & \text{其他}. \end{array} \right.$
+
+当 $\sin \pi x = 0$ ，即 $x = k$ （整数）时， $f(x) = \lim_{n\to \infty}\frac{x^2 + nx(1 - x)\cdot 0}{1 + n\cdot 0} = x^2;$
+
+当 $\sin \pi x \neq 0$ ，即 $x \neq k$ （整数）时， $f(x) = \lim_{n \to \infty} \frac{\frac{x^2}{n} + x(1 - x)\sin^2\pi x}{\frac{1}{n} + \sin^2\pi x} = \frac{x(1 - x)\sin^2\pi x}{\sin^2\pi x} = x(1 - x)$ .
+
+综上， $f(x) = \left\{ \begin{array}{ll}x^{2}, & x = 0,\pm 1,\pm 2,\dots ,\\ x(1 - x), & \text{其他}. \end{array} \right.$
+
+方法总结 主要关注 $n$ 前面的系数.
+
+公式 $\lim_{n\to \infty}n\cdot 0 = 0.$
+
+注 这个题目精彩的地方在于，若 $n$ 的系数为零，即 $\sin^2\pi x = 0$ 。此时，含 $n$ 的项消失了，结果就是 $x^2$ 。
+
+这个题目有“前世今生”，后面我们仍会用到它。这个例子记住了，后面再遇到类似由这种用极限定义函数的问题不在话下，这是构造函数的最高难度了，不会再超过这个难度。
+
+例1.27 已知极限 $\lim_{x\to 0}\frac{\tan 2x + xf(x)}{\sin x^3} = 0$ ，则 $\lim_{x\to 0}\frac{2 + f(x)}{x^2} = (\quad)$
+
+(A) $\frac{13}{9}$
+
+(B)4
+
+(C) $\frac{10}{3}$
+
+(D) $-\frac{8}{3}$
+
+分析 建立已知和未知的联系. 一是脱帽法, 二是泰勒展开.
+
+解 应选(D).
+
+方法一 脱帽法.
+
+$$
+\lim  _ {x \rightarrow 0} \frac {\tan 2 x + x f (x)}{\sin x ^ {3}} = 0,
+$$
+
+则 $\frac{\tan 2x + xf(x)}{x^3} = \alpha (x)$ ，其中 $\alpha (x)$ 为 $x\to 0$ 时的无穷小.因此
+
+$$
+f (x) = \frac {x ^ {3} \cdot \alpha (x) - \tan 2 x}{x},
+$$
+
+故 $\lim_{x\to 0}\frac{2 + f(x)}{x^2} = \lim_{x\to 0}\frac{2 + \frac{x^3\cdot\alpha(x) - \tan 2x}{x}}{x^2}$
+
+$$
+\begin{array}{l} \xlongequal {\text {通 分}} \lim  _ {x \rightarrow 0} \frac {2 x - \tan 2 x + x ^ {3} \alpha (x)}{x ^ {3}} \\ = \lim  _ {x \rightarrow 0} \frac {2 x - \left[ 2 x + \frac {1}{3} (2 x) ^ {3} + o \left(x ^ {3}\right)\right] + \boxed {x ^ {3} \alpha (x)}}{x ^ {3}} = - \frac {8}{3}. \\ \end{array}
+$$
+
+方法二 泰勒展开.
+
+由 $\lim_{x\to 0}\frac{\tan{2}x + xf(x)}{\sin{x}^3} = 0$ ，得
+
+$$
+\lim  _ {x \rightarrow 0} \frac {2 x + \frac {1}{3} (2 x) ^ {3} + o \left(x ^ {3}\right) + x f (x)}{x ^ {3}} = 0,
+$$
+
+故 $\lim_{x\to 0}\frac{2 + f(x)}{x^2} = -\frac{8}{3}.$
+
+方法总结 ①用好泰勒公式.
+
+② 已知极限，用脱帽法可解出 $f(x)$ ：
+
+公式 当狗 $\rightarrow 0$ 时，狗-tan狗 $-\frac{1}{3}$ 狗
+
+脱帽法：若 $\lim_{x\to 0}f(x) = A$ ，则 $\boxed{f(x)} = \boxed{A} + \alpha (x)\left(\lim_{x\to 0}\alpha (x) = 0\right).$ 超实数 超实数的标准实数部分
+
+例1.28 求极限 $\lim_{x\to 1^{-}}\ln x\ln (1 - x)$ . $0\cdot \infty$ 型
+
+0 0 分析 这是“ $0\bullet \infty$ ”型未定式，主要思路： $0\bullet \infty$ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∴ ∱
+
+把谁放在分母，是有讲究的.设置分母有原则，简单因式才下放.
+
+简单因式有 $x^{\alpha}, \mathrm{e}^{\beta x}, \sin rx$ 等.
+
+复杂因式有 $\arctan x, \arcsin x, \ln x$ 等.
+
+如： $\lim_{x\to 0^{+}}x\ln{x}$ ① $\lim_{x\to 0^{+}}\frac{x}{1}$ “0  
+设置分母出来， 语必达法则 $\lim_{x\to 0^{+}}\frac{1}{\frac{1}{\ln^2x} \cdot \frac{1}{x}}$ $= -\lim_{x\to 0^{+}}x\ln^{2}x$ ② $\lim_{x\to 0^{+}}\frac{\ln x}{\frac{1}{x}}$ “∞  
+③ $\lim_{x\to 0^{+}}\frac{\frac{1}{x}}{-\frac{1}{x^2}} = -\lim_{x\to 0^{+}}x = 0$
+
+这个题实际上是个小综合题，注意两点：
+
+$①$ 等价代换； $②$ 换元.
+
+这不是一个非常简单的问题，而是一个具有一定综合性，也有一定可以讨论的余地的一个好题目，它在以后还有很多用处。
+
+解这是“ $0\cdot \infty$ ”型未定式，注意一个事实：当 $x\to 0$ 时， $\ln (1 + x)\sim x$ ，将其广义化，得
+
+$$
+\ln (1 + u) \sim u (u \rightarrow 0),
+$$
+
+于是在考研中常考的一个式子是 $\ln x = \ln (1 + x - 1) \sim x - 1 (x \to 1)$ ，则这个公式出现的频率会更高
+
+$$
+\begin{array}{l} \lim  _ {x \rightarrow \Gamma} \ln x \ln (1 - x) = \lim  _ {x \rightarrow \Gamma} \ln (1 + x - 1) \ln (1 - x) \\ = \lim  _ {x \rightarrow \Gamma} (x - 1) \ln (1 - x) \\ \xlongequal {\text {令} 1 - x = t} - \lim  _ {t \rightarrow 0 ^ {+}} t \ln t = 0. \\ \end{array}
+$$
+
+极限换元（有二换）：
+
+① 表达式中的超实数换：  
+$②$ 极限符号的底下换
+
+事实上，当 $\alpha >0$ 时， $\lim_{x\to 0^{+}}\frac{x^{\alpha}}{x} \ln x = \lim_{x\to 0^{+}}\frac{\ln x}{x^{-\alpha}} = \lim_{x\to 0^{+}}\frac{x}{-\alpha x^{-\alpha - 1}} = -\frac{1}{\alpha}\lim_{x\to 0^{+}}x^{\alpha} = 0$ ，本题中 $\alpha = 1$ ：
+
+只要是 $x$ 的正次方即可, $\alpha  > 0$
+
+$$
+\lim  _ {x \rightarrow 0} x ^ {\sqrt [ 3 ]{1}} \ln x = 0
+$$
+
+趋于无穷大速度太慢了
+
+$\overrightarrow{a} = \left( {{x}_{1},{y}_{1}}\right) ,\overrightarrow{b} = \left( {{x}_{2},{y}_{2}}\right)$
+
+一般形式： $\lim_{x\to 0^{+}}x^{\alpha}\ln^{\beta}x = 0(\beta ,\alpha >0),\quad \lim_{x\to 0^{+}}\sqrt{x}\ln^{2}x = 0$
+
+例1.29 求 $I = \lim_{x\to 0}x\left|\frac{10}{x}\right|$ ，其中[·]为取整符号.
+
+无穷大
+
+分析 该问题的解决用“夹逼准则”.[∞]特殊不存在.
+
+解当 $x\to 0$ 时， $\frac{10}{x}\rightarrow \infty$ ，对于 $[\infty ]$ ，此时想到极限计算的利器——夹逼准则（当常规求极限的方法一一比如等价无穷小代换、泰勒公式、洛必达法则一一无法使用时，一定要能够想得起这个“两边夹击”的重要方法）.
+
+根据 $x - 1 <   [x]\leqslant x$ ，有
+
+$$
+\frac {1 0}{x} - 1 <   \left[ \frac {1 0}{x} \right] \leqslant \frac {1 0}{x},
+$$
+
+于是
+
+$$
+\left\{ \begin{array}{l l} x > 0 \text {时 , 有} 1 0 - x <   x \bullet \Bigg [ \frac {1 0}{x} \Bigg ] \leqslant 1 0, \\ x <   0 \text {时 , 有} 1 0 - x > x \bullet \Bigg [ \frac {1 0}{x} \Bigg ] \geqslant 1 0. \end{array} \right.
+$$
+
+可见，无论 $x > 0$ ，还是 $x < 0$ ，不等式两边均可趋于同一极限，故 $I = \lim_{x\to 0}x\left[\frac{10}{x}\right] = 10$
+
+注 这个题目还是蛮难的，从考试的角度看，还是要把这个取整函数搞明白，以前的数学一，大题中考过取整函数，现在就是考的频率不高了，但是一旦出现，都是很有区分度的。命题老师对这种题也是很青睐的。有了这种具体问题，大家才知道这些公式怎么用，对于这些抽象性的，或者是比较困难的理论和方法，一定要有实际的例子作为支撑，把抽象和具体紧密地结合起来，这样对知识的把握会更加的扎实和可靠。
+
+(2) “ $\infty - \infty$ ”.
+
+对于“ $\infty - \infty$ ”型未定式，一般有两种思路。
+
+$$
+\begin{array}{c c} \frac {0}{0} & \frac {\infty}{\infty} \end{array}
+$$
+
+① 如果函数中有分母，则通分，将加减法变形为乘除法，以便于使用其他计算工具（比如洛必达法则），见例1.30.  
+② 如果函数中没有分母，则可以通过提取公因式或者作倒代换，出现分母后，再利用通分等恒等变形的方法，将加减法变形为乘除法，见例1.31.
+
+例1.30 极限 $\lim_{x\to 0}\left[\frac{1}{\ln(1 + x)} -\frac{1}{x}\right] = ()$
+
+(A)2
+
+(B) $\frac{3}{2}$
+
+(C)1
+
+(D) $\frac{1}{2}$
+
+分析 “ $\infty -\infty$ ”常见考题： $\lim_{x\to 0}\left(\frac{1}{\square} -\frac{1}{\square}\right)$ .简洁美，统一美.
+
+解 应选(D).
+
+所给极限为“ $\infty - \infty$ ”型，先变形，化为“ $\frac{0}{0}$ ”型.
+
+方法一 洛必达法则.
+
+$$
+\begin{array}{l} \lim  _ {x \rightarrow 0} \left[ \frac {1}{\ln (1 + x)} - \frac {1}{x} \right] = \lim  _ {x \rightarrow 0} \frac {x - \ln (1 + x)}{x \ln (1 + x)} \\ = \lim  _ {x \rightarrow 0} \frac {x - \ln (1 + x)}{x ^ {2}} = \lim  _ {x \rightarrow 0} \frac {1 - \frac {1}{1 + x}}{2 x} \\ = \lim  _ {x \rightarrow 0} \frac {x}{2 x (1 + x)} = \lim  _ {x \rightarrow 0} \frac {1}{2 (1 + x)} = \frac {1}{2}. \\ \end{array}
+$$
+
+方法二 泰勒公式.
+
+$$
+\begin{array}{l} \text {原 式} = \lim  _ {x \rightarrow 0} \frac {x - \ln (1 + x)}{x \ln (1 + x)} \\ = \lim  _ {x \rightarrow 0} \frac {\frac {1}{2} x ^ {2}}{x ^ {2}} = \frac {1}{2}. \\ \end{array}
+$$
+
+故选 (D).
+
+方法总结 对于“ $\infty - \infty$ ”型的题目，如带分母，常常可以考虑通分.越是复杂和困难的情形，泰勒公式越
+
+能体现它的优越性.
+
+$\mathcal{O}$ 公式 当 $x \to 0$ 时， $x - \ln(1 + x) \sim \frac{1}{2} x^2$
+
+注 作为常见考题，在历年的考研数学题中，总会出现什么情况呢？命题老师觉得这个题是送分给你的，送你们一些分数，叠高分数底线，提高点下限，可是很多同学他不要，他说：“老师，我不好意思要这个分数。”这个实在不应该，这是基本问题，它常考，这种分数一定要拿到手。下面我们来看没有分母怎么办。
+
+例1.31 求极限 $\lim_{x\to +\infty}\left[x^{2}\left(\mathrm{e}^{\frac{1}{x}} - 1\right) - x\right]$
+
+分析 对于“ $\infty -\infty$ ”型，若无分母可以考虑倒代换，造出分母，或者考虑提公因式出来.
+
+解 原式 $= \lim_{x\to +\infty}x\cdot \left[x\left(\mathrm{e}^{\frac{1}{x}} - 1\right) - 1\right]$
+
+$= \lim_{x\to +\infty}\frac{x\left(\mathrm{e}^{\frac{1}{x}} - 1\right) - 1}{\frac{1}{x}}$ 设置今母有原则，简单  
+倒代换，极限里换元要两换 1 必达法则，今子、今母  
+令 $u = \frac{1}{x}$ 求导较烦琐 $= \lim_{u\to 0^{+}}\frac{\mathrm{e}^{u} - 1 - u}{u^{2}} = \lim_{u\to 0^{+}}\frac{\mathrm{e}^{u} - 1}{2u} = \frac{1}{2}.$ 或者直接用公式：当
+
+注 建议考生把这类题也练练，在《张宇考研数学题源探析经典1000题》中布置了这类题目，一定要把里面的每一道题反复地练，熟练地掌握这类题目的计算，为全面的综合题的学习、解题打下坚实的基础。
+
+(3) “ $\infty^0$ ” 和 “ $0^0$ ”.
+
+例1.32 求极限 $\lim_{x\to +\infty}\left(x + \sqrt{1 + x^2}\right)^{\frac{1}{x}}$
+
+分析 幂指函数的恒等变形： $u(x)^{\nu (x)} = \mathrm{e}^{\nu (x)\ln u(x)}$
+
+解这是“ $\infty^0$ ”型未定式，是幂指函数的极限，对于“ $\infty^0$ ”和“ $0^0$ ”型这两种未定式，一般来说，用恒等变形
+
+$$
+\lim  u ^ {\nu} = \mathrm {e} ^ {\lim  \nu \ln u} \xlongequal {\text {记}} \exp \{\lim  \nu \ln u \},
+$$
+
+将其化成 $\frac{0}{0}$ “ $\frac{\infty}{\infty}$ ”“ $0\cdot \infty$ ”这三种类型，然后计算，故原式 $= \exp \left\{\lim_{x\to +\infty}\frac{1}{x}\ln \left(x + \sqrt{1 + x^2}\right)\right\} .$
+
+因为 $\lim_{x\to +\infty}\frac{1}{x}\ln \left(x + \sqrt{1 + x^2}\right) = \lim_{x\to +\infty}\frac{1}{x + \sqrt{1 + x^2}}\left(1 + \frac{x}{\sqrt{1 + x^2}}\right) = \lim_{x\to +\infty}\frac{1}{\sqrt{1 + x^2}} = 0$ ，所以
+
+$$
+\lim  _ {x \rightarrow + \infty} \left(x + \sqrt {1 + x ^ {2}}\right) ^ {\frac {1}{x}} = e ^ {0} = 1.
+$$
+
+(4) “ $1^{\infty}$ ” $\longrightarrow$ 简化公式 $\lim u^{\nu} = e^{\lim \nu (u - 1)}$
+
+例1.33 求极限 $\lim_{x\to 0}\left(\frac{\mathrm{e}^x + \mathrm{e}^{2x} + \mathrm{e}^{3x}}{3}\right)^{\frac{\mathrm{e}}{x}}.$
+
+分析 “ $1^{\infty}$ ”型未定式，用好公式“ $\lim_{u\to 0}u^{y} = e^{\lim_{u\to 0}u(y - 1)}$ ”
+
+解这是“ $1^{\infty}$ ”型未定式，是幂指函数的极限，如果 $\lim u^{y}$ 属于“ $1^{\infty}$ ”型，则有一个重要且简单的计算方法： $\lim u^{\nu} = \mathrm{e}^{\lim (u - 1)\nu}$ .→这类问题不用凑重要极限 $\lim_{x\to 0}(1 + x)^{\frac{1}{x}} = \mathrm{e}^{x}$ ，用这个公式解决更快.
+
+推导如下：利用第二重要极限公式 $\lim_{x\to \infty}\left(1 + \frac{1}{x}\right)^x = e$ ，得
+
+$$
+\lim  u ^ {\nu} = \lim  \left\{\left[ 1 + (u - 1) \right] ^ {\frac {1}{u - 1}} \right\} ^ {(u - 1) \nu} = e ^ {\lim  (u - 1) \nu},
+$$
+
+故 原式 $= \exp \left\{\lim_{x\to 0}\frac{e}{x}\left(\frac{e^{x} + e^{2x} + e^{3x}}{3} -1\right)\right\} = \exp \left\{\lim_{x\to 0}\frac{e}{3}\left(\frac{e^{x} - 1}{x} +\frac{e^{2x} - 1}{x} +\frac{e^{3x} - 1}{x}\right)\right\}$
+
+$$
+= \exp \left\{\frac {e}{3} \left(\lim  _ {x \rightarrow 0} \frac {e ^ {x} - 1}{x} + \lim  _ {x \rightarrow 0} \frac {e ^ {2 x} - 1}{x} + \lim  _ {x \rightarrow 0} \frac {e ^ {3 x} - 1}{x}\right)\right\} = e ^ {\frac {e}{3} (1 + 2 + 3)} = e ^ {2 e}.
+$$
+
+注 整体“抄”，不要只算指数部分 $\lim_{x\to 0}v(x)[u(x) - 1]$ ，免得忘记！
+
+★(5)泰勒公式.
+
+泰勒公式是极为重要的，它在处理“ $\frac{0}{0}$ ”型未定式时，很好用.
+
+例1.34 设当 $x \to 0$ 时， $\mathrm{e}^x - (ax^2 + bx + 1)$ 是比 $x^2$ 高阶的无穷小，则（ ）.
+
+(A) $a = \frac{1}{2},b = 1$
+
+(B) $a = 1, b = 1$
+
+(C) $a = -\frac{1}{2},b = -1$
+
+(D) $a = -1, b = 1$
+
+分析 在无穷小比阶相关问题中，可优先考虑“泰勒公式”
+
+解 应选(A).
+
+方法一 由泰勒公式可知 $\mathrm{e}^{x} = 1 + x + \frac{x^{2}}{2!} + o(x^{2})$ .
+
+由题设可知 $\lim_{x\to 0}\frac{\mathrm{e}^x - (ax^2 + bx + 1)}{x^2} = 0,$
+
+即
+
+则 $a = \frac{1}{2}, b = 1$
+
+方法二 由洛必达法则可知
+
+$$
+\lim  _ {x \rightarrow 0} \frac {\mathrm {e} ^ {x} - (a x ^ {2} + b x + 1)}{x ^ {2}} = \lim  _ {x \rightarrow 0} \frac {\mathrm {e} ^ {x} - 2 a x - b}{2 x},
+$$
+
+若 $b \neq 1$ ，上式右端趋于无穷，从而左端也趋于无穷，与原题设矛盾，所以 $b = 1$ .因此
+
+$$
+\lim  _ {x \rightarrow 0} \frac {\mathrm {e} ^ {x} - 2 a x - b}{2 x} = \lim  _ {x \rightarrow 0} \frac {\mathrm {e} ^ {x} - 1}{2 x} - a = \frac {1}{2} - a = 0,
+$$
+
+故 $a = \frac{1}{2}$ ，所以应选(A).
+
+公式 当 $x\to 0$ 时， $\mathrm{e}^x = 1 + x + \frac{x^2}{2!} +o(x^2)$
+
+例1.35 设函数 $f(x) = \frac{\sin x}{1 + x^2}$ 在 $x = 0$ 处的3次泰勒多项式为 $ax + bx^2 + cx^3$ ，则（ ）
+
+(A) $a = 1, b = 0, c = -\frac{7}{6}$   
+(B) $a = 1, b = 0, c = \frac{7}{6}$   
+(C) $a = -1, b = -1, c = -\frac{7}{6}$   
+(D) $a = -1, b = -1, c = \frac{7}{6}$
+
+解 应选(A).
+
+方法一 由于在 $x = 0$ 处有泰勒展开式
+
+$$
+\sin x = x - \frac {x ^ {3}}{3 !} + \dots , \frac {1}{1 + x ^ {2}} = 1 - x ^ {2} + x ^ {4} - \dots ,
+$$
+
+因此
+
+$$
+\frac {\sin x}{1 + x ^ {2}} = \left(x - \frac {x ^ {3}}{3 !} + \dots\right) (1 - x ^ {2} + x ^ {4} - \dots) = x - \frac {7}{6} x ^ {3} + \dots .
+$$
+
+又由题设知，在 $x = 0$ 处有
+
+$$
+\frac {\sin x}{1 + x ^ {2}} = a x + b x ^ {2} + c x ^ {3} + \dots ,
+$$
+
+所以 $a = 1, b = 0, c = -\frac{7}{6}.$
+
+故选 (A).
+
+方法二 由题设可得在 $x = 0$ 处
+
+$$
+\sin x = (1 + x ^ {2}) \left(a x + b x ^ {2} + c x ^ {3} + \dots\right),
+$$
+
+所以 $\lim_{x\to 0}\frac{\sin x}{x} = \lim_{x\to 0}(1 + x^2)(a + bx + cx^2 +\dots) = a,$
+
+故 $a = 1$ ：
+
+又因为 $\sin x$ 为奇函数，所以 $b = 0$ ，从而可得
+
+$$
+\sin x = (1 + x ^ {2}) (x + c x ^ {3} + \dots),
+$$
+
+故 $c = \lim_{x\to 0}\frac{\sin x - (1 + x^2)x}{x^3} = \lim_{x\to 0}\frac{\sin x - x}{x^3} -1 = \lim_{x\to 0}\frac{\cos x - 1}{3x^2} -1 = -\frac{7}{6}.$
+
+故选 (A).
+
+注此题 $f(x)$ 是奇函数，既然写 $" = "$ ，则两边性质是一样的，相同的函数，即左边是奇函数，所以右边不能有偶次方，故 $b = 0$ ，(C)，(D)排除.
+
+无定义点（必间断）：五函数的连续与间断 分段点（未必间断）.②连续与间断的判别本质上是极限计算
+
+![](images/49b447ffeaecd6e2396b06a37bcfe21fa37db07c5ec0b46da0c9dcaaf766ef42.jpg)
+
+# 连续点的定义
+
+点 $x_0$ 的附近设函数 $f(x)$ 在点 $x_0$ 的某一邻域内有定义，且有 $\lim_{x\to x_0}f(x) = f(x_0)$ ，则称函数 $f(x)$ 在点 $x_0$ 处连续.
+
+什么叫函数连续？先说什么叫函数存在。存在是说，给了一个 $x$ ，就有一个 $y$ 对应在那里（见图1-27），它附近的点 $X$ 们所对应的 $Y$ 们也是如此，它们只是在那里，无牵无挂；连续是说， $Y$ 们充分靠近 $y$ （见图1-28），它们彼此的距离小到无法用任何小的正实数表达，只能用超实数“无穷小”来衡量，它们并不只是在那里，它们相依相偎。
+
+![](images/00994af5df609bf33323cf915688eec224e43ffbd4f5178ca866ab3e71593d52.jpg)  
+图1-27
+
+![](images/d5cc275c6e219f197ebca8a94347838cb22fb08c1937a37ad583c131dd4d7cca.jpg)  
+图1-28
+
+![](images/5eb03a0d7c27e57b8356dd84b1c7971cb38e16327d1f6fb65eac6113882cba0e.jpg)
+
+所以，函数存在，是 $y$ 和 $Y$ 们无牵无挂地待在那里；函数连续，是 $y$ 和 $Y$ 们充分靠近。连续并不是真的连着，连续只是 $Y$ 们彼此充分靠近而已，也可以说，连续就是一种离散，连续曲线不是曲线不断开，恰恰相反，它每一个位置都是断开的。我们对于客观事物的刻画，严格说来，都是一种近似，只是看这种近似的代价是不是可以被接受。
+
+注 (1)当需要讨论左、右极限时，用以下结论：
+
+$$
+\lim  _ {x \to x _ {0} ^ {*}} f (x) = \lim  _ {x \to x _ {0}} f (x) = f (x _ {0}) \Leftrightarrow f (x)   \text {在 点}   x _ {0}   \text {处 连 续}  .
+$$
+
+(2)连续性运算法则.
+
+①（连续性的四则运算法则）设 $f(x)$ 与 $g(x)$ 都在点 $x = x_0$ 处连续，则 $f(x) \pm g(x)$ 与 $f(x)g(x)$ 在点 $x = x_0$ 处连续，当 $g(x_0) \neq 0$ 时， $f(x) / g(x)$ 在点 $x = x_0$ 处也连续。
+
+两个函数如果在同一个点 $x_0$ 处连续, 则它们的和差积商在这点也是连续的
+
+②（复合函数的连续性）设 $u = \varphi(x)$ 在点 $x = x_0$ 处连续， $y = f(u)$ 在点 $u = u_0$ 处连续，且 $u_0 = \varphi(x_0)$ ，则 $f[\varphi(x)]$ 在点 $x = x_0$ 处连续。
+
+容易理解，不做证明，有些不需要证明，有些可能是超纲的
+
+③（反函数的连续性）设 $y = f(x)$ 在区间 $I_x$ 上单调且连续，则反函数 $x = \varphi(y)$ 在对应的区间 $I_y = \{y | y = f(x), x \in I_x\}$ 上连续且有相同的单调性.
+
+(3) 设 $f(x)$ 在点 $x = x_0$ 处连续，且 $f(x_0) > 0$ （或 $f(x_0) < 0$ ），则存在 $\delta > 0$ ，使得当 $|x - x_0| < \delta$ 时， $f(x) > 0$ （或 $f(x) < 0$ ）。这句话非常重要！
+
+![](images/9b315bd57b6bc287c369b3e1b7a2e61f60e9a974c3fde4ffa3c24a184e2bf8c3.jpg)
+
+# 间断点的定义与分类
+
+这是讨论间断点的前提。
+
+以下设函数 $f(x)$ 在点 $x_0$ 的某去心邻域内有定义.
+
+讨论间断点只看无定义点和分段点，一个初等函数在其定义区间内都是连续的.
+
+![](images/498e20275bf48000c4e1e0f71f5975bd4c3bbed5297d397a4ded61f6fa0fe8e6.jpg)
+
+区间 $[a,b]$ 上连续，是指 $a$ 处（左端点）右连续， $b$ 处（右端点）左连续.
+
+在间断点中，无单侧间断的概念（考研数学中）.区间端点是不考虑间断的.
+
+![](images/cb82d78db0b1ceadf418ad4e5c3f85fed701f63b604b406d90d2e0b55ca68c44.jpg)
+
+问“1”处的间断性，不予回答，因为1的右边没有定义
+
+(1) 可去间断点.
+
+若 $\lim_{x\to x_0}f(x) = A\neq f(x_0)(f(x_0)$ 甚至可以无定义），则 $x = x_0$ 称为可去间断点.（可补间断点）
+
+$f(x) = \left\{ \begin{array}{ll} \frac{\sin x}{x}, & x \neq 0, \\ 1, & x = 0, \end{array} \right.$ 则 $f(x)$ 在 $x = 0$ 处就连续
+
+注 只要修改或者补充 $f(x_0)$ ，使得 $f(x_0) = A = \lim_{x \to x_0} f(x)$ ，就会使得函数在点 $x_0$ 处连续，于是，这个点叫作可去间断点，也叫作可补间断点。
+
+(2) 跳跃间断点.
+
+若 $\lim_{x\to x_0^-}f(x)$ 与 $\lim_{x\to x_0^+}f(x)$ 都存在，但 $\lim_{x\to x_0^-}f(x)\neq \lim_{x\to x_0^+}f(x)$ ，则 $x = x_0$ 称为跳跃间断点.
+
+可去间断点和跳跃间断点统称为第一类间断点.
+
+第一类间断点在考研中是要求考生区分的.第一类间断点只有可去间断点和跳跃间断点
+
+![](images/0ed3b3f02a6968794e44e82f241fd4ec162e9f900baec1b76f992175dc7e6f0c.jpg)
+
+注 按此定义，跳跃间断点和 $f(x_0)$ 的值无关.
+
+(3) 无穷间断点.
+
+若 $\lim_{x\to x_0}f(x) = \infty$ 或 $\lim_{x\to x_0^-}f(x) = \infty$ 或 $\lim_{x\to x_0^+}f(x) = \infty$ ，则 $x = x_0$ 称为无穷间断点，如点 $x = 0$ 为函数 $y = \frac{1}{x}$ 的无穷间断点. $x_0$ 点的左、右极限至少有一个无穷大.
+
+![](images/989fa693ccbd0e474388c400b59237be8f030705c8f9d16b21ed311150031caf.jpg)
+
+![](images/225c347f2a83436b46e31ecc4a17e3668d0ca865a1fbf212556194e53dc187cd.jpg)
+
+说明：
+
+① 无穷间断点，不是说这一点的值是无穷大，是说这一点的左、右两侧，至少有一个极限值趋向无穷大.
+
+② 无穷间断点是第二类间断点.
+
+(4)振荡间断点.
+
+若 $\lim_{x\to x_0}f(x)$ 振荡不存在，则 $x = x_0$ 称为振荡间断点，如函数 $y = \sin {\frac{1}{x}}$ 在点 $x = 0$ 处没有定义，且当 $x\rightarrow 0$ 时，函数值在-1与1这两个数之间交替振荡取值，极限不存在，故点 $x = 0$ 为函数 $y = \sin {\frac{1}{x}}$ 的振荡间断点.
+
+![](images/c8fd91019116fdec4e813f11cd347e301e27ee7657d7dee6b00845efb4c732f9.jpg)
+
+无穷间断点和振荡间断点都属于第二类间断点. (第二类还有其他, 但与考研无关)
+
+$\lim_{x \to x_0^+} f(x)$ ; 研究对象 $\lim_{x \to x_0^-} f(x)$ ; $f(x_0)$ .
+
+$①$ 可去间断点； $②$ 跳跃间断点； $③$ 第二类间断点； $4f(x_0)\Delta \lim_{x\to x_0}f(x)$
+
+例1.36 已知 $f(x) = \begin{cases} (\cos x)^{x^2}, & x \neq 0, \\ a, & x = 0 \end{cases}$ ，在 $x = 0$ 处连续，则 $a =$ ________.
+
+分析 $\lim_{x\to x_0}f(x) = f(x_0)\Leftrightarrow f(x)$ 在 $x_0$ 处连续.
+
+解 应填 $\mathrm{e}^{-\frac{1}{2}}$
+
+$\lim_{x \to 0} f(x) = \lim_{x \to 0} (\cos x)^{x^2} \stackrel{"1"}{=} e^A$ ，式中 $A = \lim_{x \to 0} \frac{\cos x - 1}{x^2} = -\frac{1}{2}$ ，故 $\lim_{x \to 0} f(x) = e^{-\frac{1}{2}}$ 。
+
+又 $f(x)$ 在 $x = 0$ 处连续，所以 $a = \lim_{x\to 0}f(x) = \mathrm{e}^{-\frac{1}{2}}$
+
+方法总结 计算 $\lim_{x\to x_0}f(x)$ 即可.
+
+$\lim_{x \to 0} u(x)^{v(x)} = e^{\lim_{x \to 0} v(x)[u(x) - 1]}$ .
+
+例1.37 函数 $f(x) = \frac{\mathrm{e}^{\frac{1}{x - 1}}\ln|1 + x|}{(\mathrm{e}^{x} - 1)(x - 2)}$ 的第二类间断点的个数为（ ）.
+
+(A) 1
+
+(B) 2
+
+(C) 3
+
+(D) 4
+
+分析 找无定义点和分段函数的分界点，求 $\lim_{x\to x_0}f(x)$ ，进而判断间断点类型.
+
+解 应选(C).
+
+本题考查初等函数的连续性、间断点、间断点分类等基本概念，考查利用等价无穷小替换及洛必达法则求极限的方法，是一道考查基本概念和简单运算的题目.
+
+$f(x)$ 的定义域为 $\{x|x\in (-\infty , + \infty),x\neq -1,x\neq 0,x\neq 1,x\neq 2\}$ ，而初等函数在定义域内是连续的，所以该函数的所有间断点是-1，0，1，2.由于
+
+$$
+\lim  _ {x \rightarrow - 1} f (x) = \lim  _ {x \rightarrow - 1} \frac {\mathrm {e} ^ {\frac {1}{x - 1}} \ln | 1 + x |}{(\mathrm {e} ^ {x} - 1) (x - 2)} = - \infty ,
+$$
+
+$$
+\lim  _ {x \rightarrow 2} f (x) = \lim  _ {x \rightarrow 2} \frac {\mathrm {e} ^ {\frac {1}{x - 1}} \ln | 1 + x |}{(\mathrm {e} ^ {x} - 1) (x - 2)} = \infty ,
+$$
+
+由例1.15知，
+
+$$
+\lim  _ {x \rightarrow 1 ^ {+}} f (x) = + \infty ,
+$$
+
+$$
+\lim  _ {x \rightarrow 0} f (x) = \lim  _ {x \rightarrow 0} \frac {\mathrm {e} ^ {\frac {1}{x - 1}} \ln | 1 + x |}{(\mathrm {e} ^ {x} - 1) (x - 2)} = - \frac {1}{2 \mathrm {e}} \lim  _ {x \rightarrow 0} \frac {\ln (1 + x)}{\mathrm {e} ^ {x} - 1} = - \frac {1}{2 \mathrm {e}},
+$$
+
+因此 $x = 0$ 是函数的可去间断点，而其余3个点均为函数的第二类间断点，故选(C).
+
+方法总结 间断点找无定义点和分段函数的分界点.
+
+公式 $\mathbf{e}^{\infty}$ 要分 $\mathrm{e}^{+\infty},\mathrm{e}^{-\infty}$
+
+注这个题目的计算量还是比较大的，对于极限计算，命题老师的要求还是比较高的.
+
+例1.38 设函数 $f(x) = \lim_{n\to \infty}\frac{x^2 + nx(1 - x)\sin^2\pi x}{1 + n\sin^2\pi x}$ ，则 $f(x)$ （ ）.
+
+(A) 处处连续
+
+(B) 只有第一类间断点
+
+(C) 只有第二类间断点
+
+(D) 既有第一类间断点, 又有第二类间断点
+
+$\rho$ 分析 去掉极限符号，找出对应法则.
+
+解 应选(B).
+
+由例1.26可知， $f(x) = \left\{ \begin{array}{ll}x^{2}, & x = 0,\pm 1,\pm 2,\dots ,\\ x(1 - x), & \text{其他}. \end{array} \right.$
+
+可见 $f(x)$ 有第一类间断点，没有第二类间断点，故选(B).
+
+方法总结 求分段函数的分界点的极限值，进而判定间断点类型。若 $\lim_{x \to x_0} f(x)$ 存在，但 $\lim_{x \to x_0} f(x) \neq f(x_0)$ ，则 $x_0$ 为 $f(x)$ 的可去间断点。
+
+![](images/698097efcbcb4478af686906fb50757dc2df77cbcf6612f1a44ee5c4ad7ac1b8.jpg)
+
+注学好基础知识任重道远，数学成绩的提高，第一要靠理解，第二要通过做题，逐渐提高解题能力.
+
+第1讲就到这里，考生们需要做几个工作：①要把我们整个第1讲讲的内容好好地进行复习，复盘，熟练地掌握讲过的各种概念，知识，定理，方法；②要把《张宇考研数学题源探析经典1000题》基础篇全部做完.
+
+![](images/b7b352a3b332e9ee99d4dddd9e386d346519a22d408373fd48dea4b1aee8d7fe.jpg)
+
+# 基础习题精练
+
+# 习题
+
+1.1 若 $\lim_{x\to 0}\frac{\sin x + xf(x)}{x^3} = 0$ ，则 $\lim_{x\to 0}\frac{1 + f(x)}{x^2}$ 为（ ）.
+
+(A) 0
+
+(B) $\frac{1}{3}$
+
+(C) $\frac{1}{6}$
+
+(D) $\infty$
+
+1.2 设 $f(x)$ 在 $(- \infty, + \infty)$ 内有定义，且 $\lim_{x \to \infty} f(x) = a$ ， $g(x) = \begin{cases} f\left(\frac{1}{x}\right), & x \neq 0, \\ 0, & x = 0, \end{cases}$ 则（ ）.
+
+(A) $x = 0$ 必是 $g(x)$ 的第一类间断点
+
+(B) $x = 0$ 必是 $g(x)$ 的第二类间断点  
+(C) $x = 0$ 必是 $g(x)$ 的连续点  
+(D) $g(x)$ 在点 $x = 0$ 处的连续性与 $a$ 的取值有关
+
+1.3 设函数 $f(x) = \frac{1}{\mathrm{e}^{\frac{x}{x - 1}} - 1}$ ，则（ ）.
+
+(A) $x = 0, x = 1$ 都是 $f(x)$ 的第一类间断点  
+(B) $x = 0$ ， $x = 1$ 都是 $f(x)$ 的第二类间断点  
+(C) $x = 0$ 是 $f(x)$ 的第一类间断点， $x = 1$ 是 $f(x)$ 的第二类间断点  
+(D) $x = 0$ 是 $f(x)$ 的第二类间断点， $x = 1$ 是 $f(x)$ 的第一类间断点
+
+1.4 函数 $f(x) = \lim_{t\to 0}\left(1 + \frac{\sin t}{x}\right)^{\frac{x^2}{t}}$ 在 $(- \infty, + \infty)$ 内（ ）.
+
+(A) 连续   
+(B) 有可去间断点  
+(C)有跳跃间断点   
+(D) 有无穷间断点
+
+1.5 设函数 $f(x) = \lim_{n\to \infty}\frac{1 + x}{1 + x^{2n}}$ ，关于该函数的间断点，下列结论正确的是（ ）.
+
+(A) 不存在间断点  
+(B)存在间断点 $x = 1$   
+(C)存在间断点 $x = 0$   
+(D)存在间断点 $x = -1$
+
+1.6 设函数 $f(x) = \frac{x}{1 + x}$ ， $x \in [0, 1]$ ，定义函数列：
+
+$$
+f _ {1} (x) = f (x), f _ {2} (x) = f \left[ f _ {1} (x) \right], \dots , f _ {n} (x) = f \left[ f _ {n - 1} (x) \right] (n = 1, 2, 3, \dots),
+$$
+
+则 $f_{n}(x) = \_ .$
+
+1.7 $\lim_{x\to 0^{+}}\frac{1 - \sqrt{\cos x}}{x(1 - \cos\sqrt{x})} = \underline{\quad}$   
+1.8 $\lim_{x\to \infty}\left(\frac{x + 2}{x - 1}\right)^x = \underline{\quad}.$
+
+1.9 已知 $a > 0, b > 0$ ，则 $\lim_{x\to +\infty}x\left(a^{\frac{1}{x}} - b^{\frac{1}{x}}\right) = \_$ .  
+1.10 设函数 $f(x) = \begin{cases} \frac{1 - \mathrm{e}^{\tan x}}{\arcsin\frac{x}{2}}, & x > 0, \\ ae^{2x}, & x \leqslant 0 \end{cases}$ 在 $x = 0$ 处连续，则 $a =$   
+1.11 设 $f(x) = \arcsin (\sin x)$ ，画出 $f(x)$ 的图形。
+
+1.12 求极限 $\lim_{x\to 0}\left(\frac{\mathrm{e}^x + x\mathrm{e}^x}{\mathrm{e}^x - 1} -\frac{1}{x}\right)$   
+1.13 求极限 $\lim_{x\to 0}\left(\frac{a_1^x + a_2^x + \cdots + a_n^x}{n}\right)^{\frac{n}{x}}$ ，其中 $a_i > 0,i = 1,2,\dots ,n$ ：  
+1.14 已知 $\lim_{x\to 0}\left[a\frac{2 + \mathrm{e}^{\frac{1}{x}}}{1 + \mathrm{e}^{\frac{4}{x}}} +(1 + |x|)^{\frac{1}{x}}\right]$ 存在，求 $a$ 的值.  
+1.15 设 $\lim_{x\to 0}\frac{\ln(1 + x) - (ax + bx^2)}{x^2} = 2$ ，求常数 $a,b$ ：  
+1.16 求常数 $a$ 和 $b$ 的值，使得函数 $f(x) = x - (a + b\cos x)\sin x$ 在 $x \to 0$ 时是 $x$ 的5阶无穷小.
+
+# 解答
+
+1.1 (C) 解 方法一 $\lim_{x\to 0}\frac{\sin x + xf(x)}{x^3} = \lim_{x\to 0}\frac{\sin x - x + x + xf(x)}{x^3} = \lim_{x\to 0}\frac{\sin x - x}{x^3} +\lim_{x\to 0}\frac{x + xf(x)}{x^3}$
+
+$$
+= - \frac {1}{6} + \lim  _ {x \rightarrow 0} \frac {1 + f (x)}{x ^ {2}} = 0,
+$$
+
+则 $\lim_{x\to 0}\frac{1 + f(x)}{x^2} = \frac{1}{6}$ 故选(C).
+
+方法二 对 $\sin x$ 使用泰勒展开，
+
+$$
+\lim  _ {x \rightarrow 0} \frac {\sin x + x f (x)}{x ^ {3}} = \lim  _ {x \rightarrow 0} \frac {x - \frac {1}{6} x ^ {3} + o \left(x ^ {3}\right) + x f (x)}{x ^ {3}} = \lim  _ {x \rightarrow 0} \frac {1 + f (x)}{x ^ {2}} - \frac {1}{6} = 0,
+$$
+
+故 $\lim_{x\to 0}\frac{1 + f(x)}{x^2} = \frac{1}{6}$ 故选(C).
+
+方法三 由 $\lim_{x\to 0}\frac{\sin x + xf(x)}{x^3} = 0$ ，得 $\frac{\sin x + xf(x)}{x^3} = 0 + \alpha$ ，其中 $\lim_{x\to 0}\alpha = 0$ ，于是得
+
+$$
+x f (x) = - \sin x + o \left(x ^ {3}\right).
+$$
+
+故 $\lim_{x\to 0}\frac{1 + f(x)}{x^2} = \lim_{x\to 0}\frac{x - \sin x + o(x^3)}{x^3} = \frac{1}{6}$ 故选(C).
+
+1.2 (D) 解 因为 $\lim_{x\to 0}g(x) = \lim_{x\to 0}f\left(\frac{1}{x}\right) = \lim_{x\to \infty}f(x) = a$ ，而 $g(0) = 0$ ，所以当 $a = 0$ 时，函数 $g(x)$ 在点 $x = 0$ 处连续；当 $a\neq 0$ 时，函数 $g(x)$ 在点 $x = 0$ 处不连续，故选(D).
+
+1.3 (D) 解 $f(x)$ 非分段函数，只需讨论函数的无定义点 $x = 0, 1$ . 因为
+
+$$
+\lim  _ {x \rightarrow 0} f (x) = \lim  _ {x \rightarrow 0} \frac {1}{e ^ {\frac {x}{x - 1}} - 1} = \infty ,
+$$
+
+$$
+\lim  _ {x \rightarrow 1 ^ {+}} f (x) = \lim  _ {x \rightarrow 1 ^ {+}} \frac {1}{\mathrm {e} ^ {\frac {x}{x - 1}} - 1} = 0, \lim  _ {x \rightarrow 1 ^ {-}} f (x) = \lim  _ {x \rightarrow 1 ^ {-}} \frac {1}{\mathrm {e} ^ {\frac {x}{x - 1}} - 1} = - 1,
+$$
+
+故 $x = 0$ 是 $f(x)$ 的第二类间断点， $x = 1$ 是 $f(x)$ 的第一类间断点.故选(D).
+
+1.4 (B) 解 这是“ $1^{\infty}$ ”型未定式，于是
+
+$$
+f (x) = \lim  _ {t \rightarrow 0} \left(1 + \frac {\sin t}{x}\right) ^ {\frac {x ^ {2}}{t}} = e ^ {\lim  _ {t \rightarrow 0} \frac {x ^ {2}}{t} \cdot \left(1 + \frac {\sin t}{x} - 1\right)} = e ^ {\lim  _ {t \rightarrow 0} x \cdot \frac {\sin t}{t}} = e ^ {x}, x \neq 0.
+$$
+
+又 $f(x)$ 在 $x = 0$ 处无定义，且 $\lim_{x\to 0}f(x) = \lim_{x\to 0}e^x = 1$ ，故 $x = 0$ 是 $f(x)$ 的可去间断点.选(B).
+
+1.5 (B) 分析 函数 $f(x) = \lim_{n\to \infty}\frac{1 + x}{1 + x^{2n}}$ 是以 $x$ 为自变量的函数，但是当 $n\to \infty$ 求极限时， $x$ 则被看成一个常数（参数），根据 $x$ 的不同取值求出极限，求完极限后 $x$ 又恢复变量的本来身份。
+
+因为分式中有 $x^{2n}$ ，所以应先把 $x = -1$ 和 $x = 1$ 作为分段点将函数写成分段函数，然后讨论函数的间断点.
+
+解 当 $|x| < 1$ 时， $\lim_{n \to \infty} x^{2n} = 0$ ，所以 $f(x) = 1 + x$ ；当 $|x| > 1$ 时， $f(x) = \lim_{n \to \infty} \frac{1 + x}{1 + x^{2n}} = 0$ 。
+
+又 $f(1) = 1$ ， $f(-1) = 0$ ，所以
+
+$$
+f (x) = \lim  _ {n \rightarrow \infty} \frac {1 + x}{1 + x ^ {2 n}} = \left\{\begin{array}{l l}0,&x \leqslant - 1,\\1 + x,&- 1 <   x <   1,\\1,&x = 1,\\0,&x > 1.\end{array}\right.
+$$
+
+由此可知 $x = 1$ 为间断点.故选(B).
+
+1.6 $\frac{x}{1 + nx} (n = 1,2,3,\dots)$ 解 $f_{2}(x) = f[f_{1}(x)] = \frac{f_{1}(x)}{1 + f_{1}(x)} = \frac{\frac{x}{1 + x}}{1 + \frac{x}{1 + x}} = \frac{x}{1 + 2x}$ .
+
+$$
+f _ {3} (x) = f \left[ f _ {2} (x) \right] = \frac {f _ {2} (x)}{1 + f _ {2} (x)} = \frac {\frac {x}{1 + 2 x}}{1 + \frac {x}{1 + 2 x}} = \frac {x}{1 + 3 x},
+$$
+
+··
+
+由数学归纳法得 $f_{n}(x) = \frac{x}{1 + nx} (n = 1,2,3,\dots)$
+
+1.7 $\frac{1}{2}$ 解 原式 $= \lim_{x\to 0^{+}}\frac{1 - \cos{x}}{x(1 - \cos{\sqrt{x}})(1 + \sqrt{\cos{x}})} = \lim_{x\to 0^{+}}\frac{\frac{1}{2}x^{2}}{x\cdot\frac{1}{2}x\cdot(1 + \sqrt{\cos{x}})} = \frac{1}{2}.$
+
+注 若想到了例1.22的“当 $x \to 0$ 时， $1 - \cos^a x \sim \frac{a}{2} x^2, a \neq 0$ ”，则解题就更简单了。
+
+1.8 $\mathrm{e}^{3}$ 解 $\lim_{x\to \infty}\left(\frac{x + 2}{x - 1}\right)^{x} = \lim_{x\to \infty}\left(\frac{1 + \frac{2}{x}}{1 - \frac{1}{x}}\right)^{x} = \frac{\lim_{x\to\infty}\left(1 + \frac{2}{x}\right)^{x}}{\lim_{x\to\infty}\left(1 - \frac{1}{x}\right)^{x}} = \frac{\mathrm{e}^{2}}{\mathrm{e}^{-1}} = \mathrm{e}^{3}.$
+
+注 $\lim_{x\to \infty}\left(1 + \frac{a}{x}\right)^{bx + d} = \mathrm{e}^{ab}$ 是常用的公式.
+
+相仿，
+
+上述两种表达式变形是求极限运算的常见技巧，为固定模式的求解方法，应熟记.
+
+1.9 $\ln \frac{a}{b}$ 解 利用变量代换. 令 $\frac{1}{x} = t$ ，则
+
+$$
+\lim  _ {x \rightarrow + \infty} x \left(a ^ {\frac {1}{x}} - b ^ {\frac {1}{x}}\right) = \lim  _ {t \rightarrow 0 ^ {+}} \frac {a ^ {t} - b ^ {t}}{t} = \lim  _ {t \rightarrow 0 ^ {+}} \left(a ^ {t} \ln a - b ^ {t} \ln b\right) = \ln \frac {a}{b} (a > 0, b > 0).
+$$
+
+1.10 -2 解 因为 $f(x)$ 在 $x = 0$ 处连续，所以 $\lim_{x \to 0^+} f(x) = \lim_{x \to 0^-} f(x) = f(0)$ . 又
+
+$$
+\lim  _ {x \rightarrow 0 ^ {+}} f (x) = \lim  _ {x \rightarrow 0 ^ {+}} \frac {1 - e ^ {\tan x}}{\arcsin \frac {x}{2}} = \lim  _ {x \rightarrow 0 ^ {+}} \frac {- \tan x}{\frac {x}{2}} = - 2,
+$$
+
+$$
+\lim  _ {x \rightarrow 0 ^ {-}} f (x) = \lim  _ {x \rightarrow 0 ^ {-}} a e ^ {2 x} = a,
+$$
+
+所以 $a = -2$ ：
+
+1.11 解 $f(x + 2\pi) = \arcsin [\sin (x + 2\pi)] = \arcsin (\sin x) = f(x)$ ，故 $f(x)$ 以 $2\pi$ 为周期。
+
+当 $x\in \left[-\frac{\pi}{2},\frac{\pi}{2}\right)$ 时，有 $\arcsin (\sin x) = x$
+
+当 $x\in \left[\frac{\pi}{2},\pi\right)$ 时，有 $\pi -x\in \left(0,\frac{\pi}{2}\right]$ ，则
+
+$$
+\arcsin (\sin x) = \arcsin [ \sin (\pi - x) ] = \pi - x;
+$$
+
+当 $x\in \left[\pi ,\frac{3}{2}\pi\right)$ 时，有 $x - \pi \in \left[0,\frac{\pi}{2}\right)$ ，则
+
+$$
+\arcsin (\sin x) = \arcsin [ - \sin (x - \pi) ] = \pi - x.
+$$
+
+故在 $\left[-\frac{\pi}{2}, \frac{3}{2}\pi\right)$ 上， $f(x) = \begin{cases} x, & x \in \left[-\frac{\pi}{2}, \frac{\pi}{2}\right), \\ \pi - x, & x \in \left[\frac{\pi}{2}, \frac{3}{2}\pi\right), \end{cases}$ 于是在 $(-\infty, +\infty)$ 上，
+
+$$
+f (x) = \arcsin (\sin x) = \left\{ \begin{array}{l l} x - 2 k \pi , & x \in \left[ - \frac {\pi}{2} + 2 k \pi , \frac {\pi}{2} + 2 k \pi\right), \\ (2 k + 1) \pi - x, & x \in \left[ \frac {\pi}{2} + 2 k \pi , \frac {3}{2} \pi + 2 k \pi\right), \end{array} \right. k \text {为 整 数}.
+$$
+
+其图形如图1-29所示.
+
+![](images/d0e34c78eee29d0c72b38e5d432d1fed8d3d8890d9319701e815fa1e13212a6a.jpg)  
+图1-29
+
+1.12 解 利用等价无穷小量代换， $\mathrm{e}^x - 1 \sim x (x \to 0)$ ，则
+
+$$
+\begin{array}{l} \lim  _ {x \rightarrow 0} \left(\frac {\mathrm {e} ^ {x} + x \mathrm {e} ^ {x}}{\mathrm {e} ^ {x} - 1} - \frac {1}{x}\right) = \lim  _ {x \rightarrow 0} \frac {x \mathrm {e} ^ {x} (1 + x) + 1 - \mathrm {e} ^ {x}}{x \left(\mathrm {e} ^ {x} - 1\right)} = \lim  _ {x \rightarrow 0} \frac {x \mathrm {e} ^ {x} (1 + x) + 1 - \mathrm {e} ^ {x}}{x ^ {2}} \\ = \lim  _ {x \rightarrow 0} \frac {3 x e ^ {x} + x ^ {2} e ^ {x}}{2 x} = \lim  _ {x \rightarrow 0} \frac {3 e ^ {x} + x e ^ {x}}{2} = \frac {3}{2}. \\ \end{array}
+$$
+
+注 下面的做法是错误的：
+
+$$
+\begin{array}{l} \lim  _ {x \rightarrow 0} \left(\frac {\mathrm {e} ^ {x} + x \mathrm {e} ^ {x}}{\mathrm {e} ^ {x} - 1} - \frac {1}{x}\right) = \lim  _ {x \rightarrow 0} \left(\frac {\mathrm {e} ^ {x} + x \mathrm {e} ^ {x}}{x} - \frac {1}{x}\right) \\ = \lim  _ {x \rightarrow 0} \frac {\mathrm {e} ^ {x} + x \mathrm {e} ^ {x} - 1}{x} = \lim  _ {x \rightarrow 0} (2 \mathrm {e} ^ {x} + x \mathrm {e} ^ {x}) = 2. \\ \end{array}
+$$
+
+1.13 解 因为 $\lim_{x\to 0}a_i^x = 1$ ，所以原极限为“ $1^{\infty}$ ”型未定式.
+
+方法一 使用洛必达法则求极限.
+
+$$
+\begin{array}{l} \lim  _ {x \rightarrow 0} \left(\frac {a _ {1} ^ {x} + a _ {2} ^ {x} + \cdots + a _ {n} ^ {x}}{n}\right) ^ {\frac {n}{x}} = \exp \left\{\lim  _ {x \rightarrow 0} \frac {n}{x} \left(\frac {a _ {1} ^ {x} + a _ {2} ^ {x} + \cdots + a _ {n} ^ {x}}{n} - 1\right)\right\} \\ = \exp \left\{\lim  _ {x \rightarrow 0} \frac {a _ {1} ^ {x} - 1}{x} + \lim  _ {x \rightarrow 0} \frac {a _ {2} ^ {x} - 1}{x} + \dots + \lim  _ {x \rightarrow 0} \frac {a _ {n} ^ {x} - 1}{x} \right\} \\ = \exp \{\lim  _ {x \rightarrow 0} (a _ {1} ^ {x} \ln a _ {1} + a _ {2} ^ {x} \ln a _ {2} + \dots + a _ {n} ^ {x} \ln a _ {n}) \} = a _ {1} a _ {2} \dots a _ {n}. \\ \end{array}
+$$
+
+方法二 凑成第二个重要极限（“ $1^{\infty}$ ”型未定式都可以凑成第二个重要极限），在计算过程中使用洛必达法则.
+
+$$
+\lim  _ {x \rightarrow 0} \left(\frac {a _ {1} ^ {x} + a _ {2} ^ {x} + \cdots + a _ {n} ^ {x}}{n}\right) ^ {\frac {n}{x}} = \lim  _ {x \rightarrow 0} \left(1 + \frac {a _ {1} ^ {x} + a _ {2} ^ {x} + \cdots + a _ {n} ^ {x} - n}{n}\right) ^ {\frac {n}{a _ {1} ^ {x} + a _ {2} ^ {x} + \cdots + a _ {n} ^ {x} - n}} \cdot \frac {a _ {1} ^ {x} + a _ {2} ^ {x} + \cdots + a _ {n} ^ {x} - n}{x},
+$$
+
+其中
+
+$$
+\lim  _ {x \rightarrow 0} \frac {a _ {1} ^ {x} + a _ {2} ^ {x} + \cdots + a _ {n} ^ {x} - n}{x} = \ln (a _ {1} a _ {2} \dots a _ {n}), \lim  _ {x \rightarrow 0} \left(1 + \frac {a _ {1} ^ {x} + a _ {2} ^ {x} + \cdots + a _ {n} ^ {x} - n}{n}\right) ^ {\frac {n}{a _ {1} ^ {x} + a _ {2} ^ {x} + \cdots + a _ {n} ^ {x} - n}} = e,
+$$
+
+所以，原式 $= a_{1}a_{2}\dots a_{n}$
+
+1.14 解 因为 $\lim_{x\to 0}\left[a\frac{2 + \mathrm{e}^{\frac{1}{x}}}{1 + \mathrm{e}^{\frac{4}{x}}} +(1 + |x|)^{\frac{1}{x}}\right]$ 存在，且
+
+$$
+\lim  _ {x \rightarrow 0 ^ {+}} \left[ a \frac {2 + e ^ {\frac {1}{x}}}{1 + e ^ {\frac {4}{x}}} + (1 + | x |) ^ {\frac {1}{x}} \right] = \lim  _ {x \rightarrow 0 ^ {+}} \left[ a \frac {2 + e ^ {\frac {1}{x}}}{1 + e ^ {\frac {4}{x}}} + (1 + x) ^ {\frac {1}{x}} \right] = 0 + e = e,
+$$
+
+$$
+\lim  _ {x \rightarrow 0 ^ {-}} \left[ a \frac {2 + \mathrm {e} ^ {\frac {1}{x}}}{1 + \mathrm {e} ^ {\frac {4}{x}}} + (1 + | x |) ^ {\frac {1}{x}} \right] = \lim  _ {x \rightarrow 0 ^ {-}} \left[ a \frac {2 + \mathrm {e} ^ {\frac {1}{x}}}{1 + \mathrm {e} ^ {\frac {4}{x}}} + (1 - x) ^ {\frac {1}{x}} \right] = 2 a + \frac {1}{\mathrm {e}},
+$$
+
+所以 $e = 2a + \frac{1}{e}$
+
+解得 $a = \frac{e}{2} -\frac{1}{2e}$
+
+1.15 解 原极限 $= \lim_{x\to 0}\frac{x - \frac{1}{2}x^2 + o(x^2) - ax - bx^2}{x^2} = \lim_{x\to 0}\frac{(1 - a)x - \left(\frac{1}{2} + b\right)x^2 + o(x^2)}{x^2} = 2$ ，从而
+
+$$
+1 - a = 0, - \left(\frac {1}{2} + b\right) = 2,
+$$
+
+解得 $a = 1, b = -\frac{5}{2}$
+
+注 本题还有一个值得借鉴的解法.
+
+根据泰勒公式容易得： $x - \ln (1 + x)\sim \frac{1}{2} x^{2}(x\to 0)$ （请考生记住此式），故想办法把分子凑出这种形式.
+
+$$
+\begin{array}{l} 2 = \lim  _ {x \rightarrow 0} \frac {\ln (1 + x) - \left(a x + b x ^ {2}\right)}{x ^ {2}} = - \lim  _ {x \rightarrow 0} \frac {x - \ln (1 + x) - x + \left(a x + b x ^ {2}\right)}{x ^ {2}} \\ = - \lim  _ {x \rightarrow 0} \frac {x - \ln (1 + x)}{x ^ {2}} - \lim  _ {x \rightarrow 0} \frac {(a - 1) x}{x ^ {2}} - \lim  _ {x \rightarrow 0} \frac {b x ^ {2}}{x ^ {2}} = - \frac {1}{2} - b - \lim  _ {x \rightarrow 0} \frac {(a - 1) x}{x ^ {2}}, \\ \end{array}
+$$
+
+故 $a - 1 = 0$ ，得 $a = 1$ . 因而 $-\frac{1}{2} - b = 2$ ，得 $b = -\frac{5}{2}$
+
+1.16 解 先作恒等变形： $f(x) = x - a\sin x - \frac{1}{2} b\sin 2x$ ，再利用泰勒展开式，由
+
+$$
+\sin x = x - \frac {x ^ {3}}{6} + \frac {x ^ {5}}{1 2 0} + o (x ^ {5}),
+$$
+
+$$
+\sin 2 x = 2 x - \frac {(2 x) ^ {3}}{6} + \frac {(2 x) ^ {5}}{1 2 0} + o (x ^ {5}) = 2 x - \frac {4}{3} x ^ {3} + \frac {4}{1 5} x ^ {5} + o (x ^ {5}),
+$$
+
+可得
+
+$$
+f (x) = (1 - a - b) x + \left(\frac {a}{6} + \frac {2 b}{3}\right) x ^ {3} - \left(\frac {a}{1 2 0} + \frac {2 b}{1 5}\right) x ^ {5} + o \left(x ^ {5}\right).
+$$
+
+欲使在 $x\to 0$ 时，函数 $f(x)$ 是 $x$ 的5阶无穷小，则 $\begin{cases} 1 - a - b = 0,\\ \frac{a}{6} +\frac{2b}{3} = 0,\\ \frac{a}{120} +\frac{2b}{15}\neq 0, \end{cases}$ 解得 $a = \frac{4}{3},b = -\frac{1}{3}$
