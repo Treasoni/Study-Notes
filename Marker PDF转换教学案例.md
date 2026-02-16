@@ -26,8 +26,29 @@ marker_single /Users/zhqznc/Documents/27张宇基础30讲高数.pdf \
 
 
 **输出位置**：
-- 默认情况下，Marker 在输入文件所在目录生成同名 `.md` 文件
-- 即：`/Users/zhqznc/Documents/27张宇基础30讲高数.md`
+- **临时位置**：`/Users/zhqznc/miniconda3/envs/marker/lib/python3.10/site-packages/conversion_results/27张宇基础30讲高数/`
+- **最终位置**：`/Users/zhqznc/Documents/27张宇基础30讲高数.md`
+
+**转换结果**：
+- **状态**：✅ 成功完成
+- **文件大小**：1.2MB
+- **包含内容**：文本内容 + 提取的图片（JPEG 格式）
+
+**内容预览**：
+```markdown
+![](_page_0_Picture_1.jpeg)
+
+# 考研数学基础30讲
+
+## 高等数学分册
+
+- o 主 编 张 宇
+- o 副主编 高昆轮
+
+...
+```
+
+**注意**：图片引用的路径是相对路径，需要和图片放在同一目录才能正确显示。
 
 ---
 
