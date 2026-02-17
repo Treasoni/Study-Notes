@@ -43,8 +43,20 @@ nano /etc/apt/sources.list.d/ceph.list
 
 免费个人用户需要添加官方提供的非订阅源：
 
+**传统格式（PVE 8 / Debian Bookworm）**：
 ```bash
 echo "deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription" > /etc/apt/sources.list.d/pve-no-subscription.list
+```
+
+**DEB822 格式（PVE 9 / Debian Trixie，推荐）**：
+```bash
+cat > /etc/apt/sources.list.d/pve-no-subscription.sources <<EOF
+Types: deb
+URIs: http://download.proxmox.com/debian/pve
+Suites: bookworm
+Components: pve-no-subscription
+Signed-By: /usr/share/keyrings/proxmox-archive-keyring.gpg
+EOF
 ```
 
 ### 1.2 移除订阅提示
@@ -75,11 +87,45 @@ apt --reinstall install proxmox-widget-toolkit && service pveproxy restart
 
 #### 中科大源
 
-https://mirrors.ustc.edu.cn/help/proxmox.html
+地址：https://mirrors.ustc.edu.cn/proxmox/
+
+**传统格式（PVE 8）**：
+```bash
+echo "deb https://mirrors.ustc.edu.cn/proxmox/debian/pve bookworm pve-no-subscription" > /etc/apt/sources.list.d/pve-no-subscription.list
+```
+
+**DEB822 格式（PVE 9）**：
+```bash
+cat > /etc/apt/sources.list.d/pve-no-subscription.sources <<EOF
+Types: deb
+URIs: https://mirrors.ustc.edu.cn/proxmox/debian/pve
+Suites: bookworm
+Components: pve-no-subscription
+Signed-By: /usr/share/keyrings/proxmox-archive-keyring.gpg
+EOF
+```
+
+详细说明：https://mirrors.ustc.edu.cn/help/proxmox.html
 
 #### 清华源
 
-https://mirrors.tuna.tsinghua.edu.cn/help/proxmox
+地址：https://mirrors.tuna.tsinghua.edu.cn/help/proxmox
+
+**传统格式**：
+```bash
+echo "deb https://mirrors.tuna.tsinghua.edu.cn/proxmox/debian/pve bookworm pve-no-subscription" > /etc/apt/sources.list.d/pve-no-subscription.list
+```
+
+详细说明：https://mirrors.tuna.tsinghua.edu.cn/help/proxmox
+
+#### CT Templates 源加速
+
+将 CT Templates 下载源替换为国内镜像：
+
+```bash
+sed -i.bak 's|http://download.proxmox.com|https://mirrors.ustc.edu.cn/proxmox|g' /usr/share/perl5/PVE/APLInfo.pm
+systemctl restart pvedaemon
+```
 
 ## CPU 性能模式
 
