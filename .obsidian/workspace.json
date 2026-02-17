@@ -243,7 +243,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
@@ -262,7 +262,7 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "004624a81df7944d",
+  "active": "bb3d69debd12c4af",
   "lastOpenFiles": [
     "AI学习/Claude Code 常用功能.md",
     "AI学习/Claude MCP 使用指南.md",

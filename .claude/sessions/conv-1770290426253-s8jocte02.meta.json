@@ -3,8 +3,20 @@
   "title": "我现在想学习Claudecode的使用，写一个重要常用的claudecode的笔记文档",
   "titleGenerationStatus": "failed",
   "createdAt": 1770290426255,
-  "updatedAt": 1770290619253,
-  "lastResponseAt": 1770290470612,
-  "sessionId": "01ce3956-c246-4131-8738-0dfbec148f91",
-  "sdkSessionId": "01ce3956-c246-4131-8738-0dfbec148f91"
+  "updatedAt": 1771337478471,
+  "lastResponseAt": 1771337478471,
+  "sessionId": "edd44593-ea90-4834-8c84-103d77abd15b",
+  "sdkSessionId": "edd44593-ea90-4834-8c84-103d77abd15b",
+  "previousSdkSessionIds": [
+    "01ce3956-c246-4131-8738-0dfbec148f91"
+  ],
+  "usage": {
+    "model": "\"glm-4.5-air\",",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
 }
