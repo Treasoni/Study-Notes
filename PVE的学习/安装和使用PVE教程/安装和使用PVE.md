@@ -22,6 +22,10 @@ tags: [pve]
 
 官方下载地址：https://www.proxmox.com/en/downloads
 
+**当前最新版本**：Proxmox VE 9.1-1（发布于 2025 年 11 月 19 日，文件大小约 1.83 GB）
+
+SHA256SUM: `6d8f5afc78c0c66812d7272cde7c8b98be7eb54401ceb045400db05eb5ae6d22`
+
 选择最新版本的 ISO 镜像下载。
 
 #### 1.2 准备写盘工具
@@ -57,10 +61,10 @@ PVE 安装器对磁盘的"历史遗留问题"很敏感，可能出现：
 
 #### 推荐 WinPE 工具
 
-| 工具 | 下载地址 |
-|------|----------|
-| **FirPE** | https://www.firpe.cn |
-| 微PE | https://www.wepe.com.cn |
+| 工具 | 下载地址 | 当前版本 |
+|------|----------|----------|
+| **FirPE** | https://www.firpe.cn | V2.0.3（2025.04.03） |
+| 微PE | https://www.wepe.com.cn | - |
 
 > [!tip] 注意
 > 下载 **ISO 格式**的 WinPE，不要下载 exe 版本

@@ -34,9 +34,15 @@ tags: [pve]
 
 #### 1.2 下载 VirtIO 驱动
 
-访问：https://pve.proxmox.com/wiki/Windows_VirtIO_Drivers
+**官方文档**：https://pve.proxmox.com/wiki/Windows_VirtIO_Drivers
 
-下载最新版本的 VirtIO 驱动 ISO。
+**推荐版本**：virtio-win 0.1.271（目前没有已知问题）
+
+**下载地址**：
+- Fedora 镜像：https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/
+- 历史版本：https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/
+
+下载最新版本的 `virtio-win-x.x.x.iso` 文件。
 
 #### 1.3 上传到 PVE
 
@@ -107,8 +113,9 @@ tags: [pve]
 4. 点击 `加载驱动程序`
 5. 浏览到 VirtIO 驱动 ISO
 6. 选择对应驱动：
-   - **磁盘驱动**：`viostor\w11\amd64`
+   - **磁盘驱动**：`viostor\w11\amd64` 或 `vioscsi\w11\amd64`
    - **网络驱动**：`NetKVM\w11\amd64`
+   - ** balloon 驱动**：`Balloon\w11\amd64`（内存动态管理，可选）
 7. 安装驱动后，硬盘应该可见
 
 ### 5. 配置网络
@@ -133,21 +140,26 @@ tags: [pve]
 
 ```
 virtio-win.iso
-├── viostor/          # 磁盘驱动
+├── viostor/          # VirtIO Block 磁盘驱动
+│   ├── w10/          # Windows 10
+│   ├── w11/          # Windows 11
+│   └── 2k22/         # Windows Server 2022
+├── vioscsi/          # VirtIO SCSI 磁盘驱动（推荐）
 │   ├── w10/
-│   │   └── amd64/
-│   └── w11/
-│       └── amd64/
+│   ├── w11/
+│   └── 2k22/
 ├── NetKVM/           # 网络驱动
 │   ├── w10/
-│   │   └── amd64/
-│   └── w11/
-│       └── amd64/
+│   ├── w11/
+│   └── 2k22/
 ├── Balloon/          # 内存气球驱动
-├── qemupciserial/     # 串口驱动
+├── qemupciserial/    # 串口驱动
 ├── qxldod/           # 显示驱动
-└── viorng/           # RNG 驱动
+├── viorng/           # RNG 驱动
+└── virtio-win-gt-x64.msi  # 自动安装向导
 ```
+
+**推荐使用 vioscsi（VirtIO SCSI）** 而不是 viostor（VirtIO Block），性能更好。
 
 ## 注意事项 ⚠️
 
