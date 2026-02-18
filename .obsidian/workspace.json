@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docker/docker里的GID和UID.md",
+                "file": "linux/linux如何修改网络信息.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "docker里的GID和UID"
+              "title": "linux如何修改网络信息"
             }
           }
         ],
@@ -213,13 +213,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker/docker里的GID和UID.md",
+                "file": "linux/linux如何修改网络信息.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "docker里的GID和UID 的大纲"
+              "title": "linux如何修改网络信息 的大纲"
             }
           },
           {
@@ -264,10 +264,14 @@
   },
   "active": "004624a81df7944d",
   "lastOpenFiles": [
-    "linux/linux如何修改网络信息.md",
+    "AI学习/00-学习路线图.md",
+    "linux/linux磁盘相关的知识.md",
     "linux/linux的文件权限.md",
+    "linux/cpu的线程和内核.md",
     "linux/Linux换源.md",
     "linux/linux的LVM管理.md",
+    "docker/docker里的GID和UID.md",
+    "linux/linux如何修改网络信息.md",
     "Git/git教程.md",
     "PVE的学习/安装和使用PVE教程/修改PVE的网络信息.md",
     "PVE的学习/安装和使用PVE教程/如何创建PVE虚拟机.md",
@@ -275,7 +279,6 @@
     "docker/docker容器如何更新.md",
     "docker/docker进行代理.md",
     "docker/github文件直链方式.md",
-    "docker/docker里的GID和UID.md",
     "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",
     "PVE的学习/安装和使用PVE教程/PVE的CT.md",
     "PVE的学习/安装和使用PVE教程/PVE的网络逻辑讲解.md",
@@ -305,11 +308,8 @@
     "函数极限与连续/images",
     "函数极限与连续/content_list_v2.json",
     "函数极限与连续",
-    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/full.md",
-    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/MinerU_markdown_202602161656970.md",
     "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/layout.json",
     "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/86cfa39e-f87f-4cd2-b00a-d0b48c4fefa6_content_list.json",
-    "27张宇基础30讲高数/27张宇基础30讲高数.md",
     "PVE的学习/PVE学习笔记MOC.canvas"
   ]
 }
