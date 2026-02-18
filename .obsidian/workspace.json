@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux/linux如何修改网络信息.md",
+                "file": "AI学习/00-学习路线图.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "linux如何修改网络信息"
+              "title": "00-学习路线图"
             }
           }
         ],
@@ -213,13 +213,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux/linux如何修改网络信息.md",
+                "file": "AI学习/00-学习路线图.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "linux如何修改网络信息 的大纲"
+              "title": "00-学习路线图 的大纲"
             }
           },
           {
@@ -264,6 +264,7 @@
   },
   "active": "004624a81df7944d",
   "lastOpenFiles": [
+    "linux/linux如何修改网络信息.md",
     "AI学习/00-学习路线图.md",
     "linux/linux磁盘相关的知识.md",
     "linux/linux的文件权限.md",
@@ -271,7 +272,6 @@
     "linux/Linux换源.md",
     "linux/linux的LVM管理.md",
     "docker/docker里的GID和UID.md",
-    "linux/linux如何修改网络信息.md",
     "Git/git教程.md",
     "PVE的学习/安装和使用PVE教程/修改PVE的网络信息.md",
     "PVE的学习/安装和使用PVE教程/如何创建PVE虚拟机.md",
