@@ -126,6 +126,9 @@ claude mcp remove filesystem
 /context                  # 显示 token 消耗
 ```
 
+> [!tip] 详细说明
+> 更多会话管理技巧请参阅 [[Claude Code 会话管理]]
+
 ## 注意事项 ⚠️
 
 ### 常见错误
@@ -254,4 +257,4 @@ npx -y @modelcontextprotocol/server-filesystem /test/path
 ```
 
 ## 相关文档
-[[Claude Code 常用功能]] | [[Claude MCP 使用指南]] | [[Skills 是什么]]
+[[Claude Code 常用功能]] | [[Claude MCP 使用指南]] | [[Claude Code 会话管理]] | [[Skills 是什么]]
