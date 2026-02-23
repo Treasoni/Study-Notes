@@ -109,6 +109,23 @@ claude mcp remove filesystem
 "帮我画一个流程图"
 ```
 
+### 步骤 6：会话管理
+
+```bash
+# 创建新会话
+/new                      # 创建全新会话
+/new my-project           # 创建命名会话
+
+# 管理会话
+/resume                   # 列出所有历史会话
+/resume my-session        # 恢复特定会话
+/clear                    # 清除当前会话历史
+
+# 查看状态
+/status                   # 查看当前会话状态
+/context                  # 显示 token 消耗
+```
+
 ## 注意事项 ⚠️
 
 ### 常见错误
