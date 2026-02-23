@@ -139,6 +139,62 @@ claude mcp remove filesystem
 > [!tip] 详细说明
 > 更多会话管理技巧请参阅 [[Claude Code 会话管理]]
 
+### 步骤 7：使用 CLAUDE.md
+
+**什么是 CLAUDE.md**：
+- 项目级配置文件
+- Claude Code 启动时自动读取
+- 定义项目规范、工作流程、禁止事项
+
+**文件位置与优先级**：
+| 文件 | 位置 | 作用域 | 提交到 Git |
+|------|------|--------|------------|
+| `CLAUDE.md` | 项目根目录 | 项目级 | ✅ 是 |
+| `CLAUDE.local.md` | 项目根目录 | 项目级 | ❌ 否 |
+| `~/.claude/CLAUDE.md` | 用户目录 | 全局级 | ❌ 否 |
+
+**快速开始**：
+```bash
+# 方式一：自动生成（推荐）
+claude
+/init  # 分析代码库并生成 CLAUDE.md
+
+# 方式二：手动创建
+# 在项目根目录创建 CLAUDE.md 文件
+```
+
+**最小模板**：
+```markdown
+# CLAUDE.md
+
+## 项目概述
+一句话描述项目功能
+
+## 目录结构
+- /src - 源代码
+- /tests - 测试文件
+
+## 常用命令
+- npm install - 安装依赖
+- npm run dev - 启动开发
+- npm test - 运行测试
+
+## 代码规范
+- 使用 ESLint + Prettier
+- 组件命名 PascalCase
+
+## 禁止事项
+- 不要修改 package-lock.json
+- 不要使用 any 类型
+
+## 完成标准
+- 测试通过
+- 代码检查通过
+```
+
+> [!tip] 详细说明
+> 完整的 CLAUDE.md 编写指南请参阅 [[CLAUDE.md 使用指南]]
+
 ## 注意事项 ⚠️
 
 ### 常见错误
@@ -273,4 +329,4 @@ npx -y @modelcontextprotocol/server-filesystem /test/path
 > 如果需要调试 Agent 相关问题，请参阅 [[Claude Subagent 使用指南]]
 
 ## 相关文档
-[[Claude Code 常用功能]] | [[Claude MCP 使用指南]] | [[Claude Code 会话管理]] | [[Skills 是什么]] | [[如何编写Skills]] | [[Claude Subagent 使用指南]] | [[Prompt, Agent, MCP 是什么]]
+[[Claude Code 常用功能]] | [[Claude MCP 使用指南]] | [[Claude Code 会话管理]] | [[Skills 是什么]] | [[如何编写Skills]] | [[Claude Subagent 使用指南]] | [[Prompt, Agent, MCP 是什么]] | [[CLAUDE.md 使用指南]]
