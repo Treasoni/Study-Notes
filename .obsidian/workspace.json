@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/00-学习路线图.md",
+                "file": "AI学习/如何使用Claude code.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "00-学习路线图"
+              "title": "如何使用Claude code"
             }
           }
         ],
@@ -213,13 +213,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/00-学习路线图.md",
+                "file": "AI学习/如何使用Claude code.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "00-学习路线图 的大纲"
+              "title": "如何使用Claude code 的大纲"
             }
           },
           {
@@ -264,32 +264,32 @@
   },
   "active": "004624a81df7944d",
   "lastOpenFiles": [
-    "linux/linux如何修改网络信息.md",
+    "AI学习/Prompt, Agent, MCP 是什么.md",
+    "AI学习/如何使用Claude code.md",
+    "AI学习/如何编写Skills.md",
+    "AI学习/Claude Code 常用功能.md",
+    "AI学习/Skills 是什么.md",
+    "AI学习/Claude Subagent 使用指南.md",
+    "AI学习/Claude MCP 使用指南.md",
+    "Git/git教程.md",
+    "Git/Git MOC.md",
+    "docker/docker容器如何更新.md",
     "AI学习/00-学习路线图.md",
+    "linux/linux如何修改网络信息.md",
     "linux/linux磁盘相关的知识.md",
     "linux/linux的文件权限.md",
     "linux/cpu的线程和内核.md",
     "linux/Linux换源.md",
     "linux/linux的LVM管理.md",
     "docker/docker里的GID和UID.md",
-    "Git/git教程.md",
     "PVE的学习/安装和使用PVE教程/修改PVE的网络信息.md",
     "PVE的学习/安装和使用PVE教程/如何创建PVE虚拟机.md",
     "PVE的学习/安装和使用PVE教程/PVE创建window.md",
-    "docker/docker容器如何更新.md",
     "docker/docker进行代理.md",
     "docker/github文件直链方式.md",
     "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",
     "PVE的学习/安装和使用PVE教程/PVE的CT.md",
     "PVE的学习/安装和使用PVE教程/PVE的网络逻辑讲解.md",
-    "PVE的学习/安装和使用PVE教程/PVE存储库.md",
-    "PVE的学习/安装和使用PVE教程/PVE的基础优化设置.md",
-    "AI学习/如何使用Claude code.md",
-    "AI学习/Claude Code 常用功能.md",
-    "AI学习/Claude MCP 使用指南.md",
-    "Marker PDF转换教学案例.md",
-    "函数极限与连续/full.md",
-    "函数极限与连续/MinerU_markdown_202602161656970.md",
     "函数极限与连续/86cfa39e-f87f-4cd2-b00a-d0b48c4fefa6_origin.pdf",
     "函数极限与连续/layout.json",
     "函数极限与连续/86cfa39e-f87f-4cd2-b00a-d0b48c4fefa6_content_list.json",
