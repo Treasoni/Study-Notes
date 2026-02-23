@@ -70,6 +70,9 @@ claude
 }
 ```
 
+> [!info] 配置级别
+> MCP 支持三种配置级别：项目级 `.mcp.json`、全局级 `~/.claude/claude_desktop_config.json`、插件级。详见 [[Claude MCP 使用指南]]
+
 **配置优先级**：环境变量 > 配置文件
 
 ### 步骤 3：模型切换
@@ -95,6 +98,9 @@ claude mcp add filesystem npx -y @modelcontextprotocol/server-filesystem /path
 claude mcp remove filesystem
 ```
 
+> [!tip] 详细说明
+> 完整的 MCP 配置和使用教程请参阅 [[Claude MCP 使用指南]]
+
 ### 步骤 5：使用 Skills
 
 ```bash
@@ -108,6 +114,10 @@ claude mcp remove filesystem
 # 自然语言触发
 "帮我画一个流程图"
 ```
+
+> [!tip] 详细说明
+> - 了解 Skills 概念：[[Skills 是什么]]
+> - 学习编写自定义 Skills：[[如何编写Skills]]
 
 ### 步骤 6：会话管理
 
@@ -238,9 +248,12 @@ A: 在会话中询问："我当前使用的是什么模型？"
 **Q: MCP 和 Skills 有什么区别？**
 
 A:
-- **MCP**：提供工具能力（如文件访问、数据库查询）
-- **Skills**：预定义任务模板（如代码提交、PR 审查）
+- **MCP**：提供工具能力（如文件访问、数据库查询）- 详见 [[Claude MCP 使用指南]]
+- **Skills**：预定义任务模板（如代码提交、PR 审查）- 详见 [[Skills 是什么]]
 - Skills 可以调用 MCP 提供的工具
+
+> [!info] 深入理解
+> 想了解 Prompt、Agent、MCP 的关系，请参阅 [[Prompt, Agent, MCP 是什么]]
 
 **Q: 如何调试 MCP 配置？**
 
@@ -256,5 +269,8 @@ claude --debug
 npx -y @modelcontextprotocol/server-filesystem /test/path
 ```
 
+> [!tip] Subagent 调试
+> 如果需要调试 Agent 相关问题，请参阅 [[Claude Subagent 使用指南]]
+
 ## 相关文档
-[[Claude Code 常用功能]] | [[Claude MCP 使用指南]] | [[Claude Code 会话管理]] | [[Skills 是什么]]
+[[Claude Code 常用功能]] | [[Claude MCP 使用指南]] | [[Claude Code 会话管理]] | [[Skills 是什么]] | [[如何编写Skills]] | [[Claude Subagent 使用指南]] | [[Prompt, Agent, MCP 是什么]]
