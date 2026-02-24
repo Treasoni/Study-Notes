@@ -293,6 +293,50 @@ Start-ClaudeProxy
 }
 ```
 
+#### 方式五：通过 settings.json 配置（推荐）
+
+在 `~/.claude/settings.json` 中添加 `env` 字段：
+
+```json
+{
+  "env": {
+    "HTTP_PROXY": "http://127.0.0.1:7890",
+    "HTTPS_PROXY": "http://127.0.0.1:7890"
+  }
+}
+```
+
+**完整配置示例**（包含 API 配置）：
+```json
+{
+  "providers": {
+    "deepseek": {
+      "baseUrl": "https://api.deepseek.com",
+      "apiKey": "sk-xxx",
+      "defaultModel": "deepseek-chat"
+    }
+  },
+  "defaultProvider": "deepseek",
+  "env": {
+    "HTTP_PROXY": "http://127.0.0.1:7890",
+    "HTTPS_PROXY": "http://127.0.0.1:7890"
+  }
+}
+```
+
+**取消代理**：
+```json
+{
+  "env": {
+    "HTTP_PROXY": "",
+    "HTTPS_PROXY": ""
+  }
+}
+```
+
+> [!tip] 配置优先级
+> `env` 字段中的代理设置会被终端环境变量覆盖。如果需要临时使用不同代理，仍可通过环境变量方式。
+
 ## 注意事项 ⚠️
 
 ### 常见错误
@@ -476,6 +520,20 @@ A: 可能原因：
 1. 代理节点不稳定 - 尝试切换节点
 2. 网络质量差 - 检查网络连接
 3. 代理软件设置问题 - 调整代理规则
+
+**Q: settings.json 中的代理配置不生效？**
+
+A: 可能原因：
+1. JSON 格式错误 - 检查是否有尾随逗号或语法错误
+2. 环境变量优先级更高 - 终端中的 `HTTP_PROXY` 会覆盖配置文件
+3. 配置文件路径错误 - 确认是 `~/.claude/settings.json`
+4. 未重启 Claude Code - 修改后需要重启才生效
+
+**Q: settings.json 和环境变量方式哪个更好？**
+
+A:
+- **settings.json**：适合长期固定的代理配置，一次设置永久生效
+- **环境变量**：适合临时切换或需要频繁更改代理的场景
 
 ## 相关文档
 [[Claude Code 常用功能]] | [[Claude MCP 使用指南]] | [[Claude Code 会话管理]] | [[Skills 是什么]] | [[如何编写Skills]] | [[Claude Subagent 使用指南]] | [[Prompt, Agent, MCP 是什么]] | [[CLAUDE.md 使用指南]]
