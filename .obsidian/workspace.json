@@ -55,30 +55,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux/Linux换源.md",
+                "file": "PVE的学习/PVE学习笔记MOC.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Linux换源"
-            }
-          },
-          {
-            "id": "004624a81df7944d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Git/Git MOC.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Git MOC"
+              "title": "PVE学习笔记MOC"
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -110,8 +96,8 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "skills",
-                "matchingCase": false,
+                "query": "tag:#ai  ",
+                "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
                 "extraContext": false,
@@ -213,13 +199,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Git/Git MOC.md",
+                "file": "PVE的学习/PVE学习笔记MOC.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Git MOC 的大纲"
+              "title": "PVE学习笔记MOC 的大纲"
             }
           },
           {
@@ -252,11 +238,46 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "004624a81df7944d",
+  "active": "436ac59904cce83d",
   "lastOpenFiles": [
-    "AI学习/MOC.md",
+    "PVE的学习/PVE学习笔记MOC.canvas",
+    "PVE的学习/assets/修改PVE的网络信息/file-20260203173647080.png",
+    "PVE的学习/assets/修改PVE的网络信息",
+    "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-02-11 20.44.24.png",
+    "PVE的学习/assets/如何创建PVE虚拟机/file-20260203173628035.png",
+    "PVE的学习/assets/如何创建PVE虚拟机/file-20260203173628035 1.png",
+    "PVE的学习/assets/如何创建PVE虚拟机/file-20260203173628034.png",
+    "PVE的学习/assets/如何创建PVE虚拟机/file-20260203173628034 1.png",
+    "PVE的学习/assets/如何创建PVE虚拟机/file-20260203173628033.png",
+    "PVE的学习/assets/如何创建PVE虚拟机/file-20260203173628033 1.png",
+    "PVE的学习/assets/如何创建PVE虚拟机/file-20260203173628032.png",
+    "PVE的学习/assets/如何创建PVE虚拟机/file-20260203173628031.png",
+    "PVE的学习/assets/如何创建PVE虚拟机",
+    "PVE的学习/assets/安装和使用PVE",
+    "PVE的学习/assets/PVE的网络逻辑讲解",
+    "PVE的学习/assets/PVE的基础优化设置",
+    "PVE的学习/assets/PVE的CT",
+    "PVE的学习/assets/PVE存储库",
+    "PVE的学习/assets/PVE创建window",
+    "PVE的学习/assets",
+    "PVE的学习/04-设备直通/绑定vfio驱动.md",
+    "PVE的学习/04-设备直通/PVE直通.md",
+    "PVE的学习/04-设备直通/IOMMU分组情况.md",
+    "PVE的学习/04-设备直通",
+    "PVE的学习/03-容器管理/PVE的CT.md",
+    "PVE的学习/02-虚拟机管理/PVE的网络逻辑讲解.md",
+    "PVE的学习/02-虚拟机管理/PVE创建window.md",
+    "PVE的学习/02-虚拟机管理/如何创建PVE虚拟机.md",
+    "PVE的学习/01-安装配置/PVE的基础优化设置.md",
+    "PVE的学习/01-安装配置/PVE存储库.md",
+    "PVE的学习/01-安装配置/修改PVE的网络信息.md",
+    "PVE的学习/01-安装配置/安装和使用PVE.md",
+    "PVE的学习/00-准备工具/WinPE.md",
+    "PVE的学习/00-准备工具/写盘工具.md",
     "AI学习/README.md",
+    "AI学习/MOC.md",
     "AI学习/00-学习路线图.md",
+    "Git/Git MOC.md",
     "AI学习/Claude Code 会话管理.md",
     "AI学习/Subagent 实战练习.md",
     "AI学习/Skills 是什么.md",
@@ -264,42 +285,6 @@
     "AI学习/CLAUDE.md 使用指南.md",
     "AI学习/如何使用Claude code.md",
     "AI学习/Claude MCP 使用指南.md",
-    "AI学习/Claude Code 常用功能.md",
-    "AI学习/Prompt, Agent, MCP 是什么.md",
-    "AI学习/如何编写Skills.md",
-    "Git/git教程.md",
-    "Git/Git MOC.md",
-    "docker/docker容器如何更新.md",
-    "linux/linux如何修改网络信息.md",
-    "linux/linux磁盘相关的知识.md",
-    "linux/linux的文件权限.md",
-    "linux/cpu的线程和内核.md",
-    "linux/Linux换源.md",
-    "linux/linux的LVM管理.md",
-    "docker/docker里的GID和UID.md",
-    "PVE的学习/安装和使用PVE教程/修改PVE的网络信息.md",
-    "PVE的学习/安装和使用PVE教程/如何创建PVE虚拟机.md",
-    "PVE的学习/安装和使用PVE教程/PVE创建window.md",
-    "函数极限与连续/86cfa39e-f87f-4cd2-b00a-d0b48c4fefa6_origin.pdf",
-    "函数极限与连续/layout.json",
-    "函数极限与连续/86cfa39e-f87f-4cd2-b00a-d0b48c4fefa6_content_list.json",
-    "函数极限与连续/block_list.json",
-    "函数极限与连续/86cfa39e-f87f-4cd2-b00a-d0b48c4fefa6_model.json",
-    "函数极限与连续/images/cda5f6a399fbb56cd993228e49c76fa4be5950651cd49d8b4678b5fd82d106bd.jpg",
-    "函数极限与连续/images/ed07330863ceea2f80aa07bc541342a4e7234ad356d3a84cf8fe5a087cc67e32.jpg",
-    "函数极限与连续/images/570d3cfd9497a91bbd8f6ce6de33d81365b2a1eee81ba079a33b902ad0ca045d.jpg",
-    "函数极限与连续/images/bed16cdb1c039d5b1fdd6eb58b818a0e77e3f9e6b9846a86826b7d538e88eab5.jpg",
-    "函数极限与连续/images/6f0d9efd930e4fa95436bc6ba165882a0a93c1d2ed3440760b18cb0f8e4fb4f6.jpg",
-    "函数极限与连续/images/7f35b74fd2f573d4e6e75c21265e203265843866586c8b0ddfbde81bcd0c0642.jpg",
-    "函数极限与连续/images/341dcb4b686b359e104a206cd76a0145fd42ff3e6ae7effc4cb9610ed266487e.jpg",
-    "函数极限与连续/images/cb191c63a6f1c5942866bcb3f1ebc19761b241896afb38f8dc096708db2a5ddd.jpg",
-    "函数极限与连续/images/a194179fa7f8b2836c6633d9a6f4f3c647db9efa8a508c1716e6f0bcc45bf0ca.jpg",
-    "函数极限与连续/images/0b5614c4e4d18d1e6dbc78768c069dd1a114593526bd563330e3a89d39a992f6.jpg",
-    "函数极限与连续/images",
-    "函数极限与连续/content_list_v2.json",
-    "函数极限与连续",
-    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/layout.json",
-    "函数极限与连续.pdf-f6466e01-19e6-44fd-9207-31a1b20b5b08/86cfa39e-f87f-4cd2-b00a-d0b48c4fefa6_content_list.json",
-    "PVE的学习/PVE学习笔记MOC.canvas"
+    "AI学习/Claude Code 常用功能.md"
   ]
 }

@@ -335,6 +335,8 @@
     },
     "AI学习": {
       "children": [
+        "AI学习/README.md",
+        "AI学习/MOC.md",
         "AI学习/CLAUDE.md 使用指南.md",
         "AI学习/Claude Code 会话管理.md",
         "AI学习/00-学习路线图.md",
