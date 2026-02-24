@@ -223,16 +223,6 @@
             }
           },
           {
-            "id": "bb3d69debd12c4af",
-            "type": "leaf",
-            "state": {
-              "type": "claudian-view",
-              "state": {},
-              "icon": "bot",
-              "title": "Claudian"
-            }
-          },
-          {
             "id": "8f0ed8ba9067d029",
             "type": "leaf",
             "state": {
@@ -262,17 +252,17 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "004624a81df7944d",
+  "active": "746e3216e1c18840",
   "lastOpenFiles": [
     "AI学习/Subagent 实战练习.md",
+    "AI学习/CLAUDE.md 使用指南.md",
+    "AI学习/Claude Subagent 使用指南.md",
     "AI学习/如何使用Claude code.md",
     "AI学习/Claude MCP 使用指南.md",
     "AI学习/Claude Code 会话管理.md",
     "AI学习/Claude Code 常用功能.md",
-    "AI学习/Claude Subagent 使用指南.md",
     "AI学习/Prompt, Agent, MCP 是什么.md",
     "AI学习/Skills 是什么.md",
-    "AI学习/CLAUDE.md 使用指南.md",
     "AI学习/00-学习路线图.md",
     "AI学习/如何编写Skills.md",
     "Git/git教程.md",
