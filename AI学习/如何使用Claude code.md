@@ -195,6 +195,104 @@ claude
 > [!tip] 详细说明
 > 完整的 CLAUDE.md 编写指南请参阅 [[CLAUDE.md 使用指南]]
 
+### 步骤 8：配置代理
+
+如果需要通过代理访问 Claude API，可以使用以下几种方式配置。
+
+#### 方式一：环境变量（临时）
+
+**macOS/Linux:**
+```bash
+# 临时设置（当前终端会话有效）
+export HTTP_PROXY="http://127.0.0.1:7890"
+export HTTPS_PROXY="http://127.0.0.1:7890"
+
+# 启动 Claude Code
+claude
+```
+
+**Windows (PowerShell):**
+```powershell
+# 临时设置
+$env:HTTP_PROXY="http://127.0.0.1:7890"
+$env:HTTPS_PROXY="http://127.0.0.1:7890"
+
+# 启动 Claude Code
+claude
+```
+
+**Windows (CMD):**
+```cmd
+set HTTP_PROXY=http://127.0.0.1:7890
+set HTTPS_PROXY=http://127.0.0.1:7890
+claude
+```
+
+#### 方式二：写入配置文件（永久）
+
+**macOS/Linux:**
+```bash
+# 写入 ~/.zshrc (Zsh) 或 ~/.bashrc (Bash)
+echo 'export HTTP_PROXY="http://127.0.0.1:7890"' >> ~/.zshrc
+echo 'export HTTPS_PROXY="http://127.0.0.1:7890"' >> ~/.zshrc
+
+# 重新加载配置
+source ~/.zshrc
+```
+
+**Windows:**
+```powershell
+# 设置用户级环境变量（永久生效）
+[System.Environment]::SetEnvironmentVariable("HTTP_PROXY", "http://127.0.0.1:7890", "User")
+[System.Environment]::SetEnvironmentVariable("HTTPS_PROXY", "http://127.0.0.1:7890", "User")
+
+# 或通过系统设置：系统属性 -> 环境变量 -> 新建
+# 变量名: HTTP_PROXY / HTTPS_PROXY
+# 变量值: http://127.0.0.1:7890
+```
+
+#### 方式三：集成到启动命令
+
+**macOS/Linux (alias 方式):**
+```bash
+# 添加到 ~/.zshrc
+alias claude-proxy='HTTP_PROXY="http://127.0.0.1:7890" HTTPS_PROXY="http://127.0.0.1:7890" claude'
+
+# 使用
+claude-proxy
+```
+
+**Windows (PowerShell 函数):**
+```powershell
+# 添加到 $PROFILE
+function Start-ClaudeProxy {
+    $env:HTTP_PROXY = "http://127.0.0.1:7890"
+    $env:HTTPS_PROXY = "http://127.0.0.1:7890"
+    claude
+}
+
+# 使用
+Start-ClaudeProxy
+```
+
+#### 方式四：VS Code 插件配置
+
+在 VS Code 设置 (`settings.json`) 中：
+```json
+{
+  "claudeCode.environmentVariables": [
+    {
+      "name": "HTTP_PROXY",
+      "value": "http://127.0.0.1:7890"
+    },
+    {
+      "name": "HTTPS_PROXY",
+      "value": "http://127.0.0.1:7890"
+    }
+  ]
+}
+```
+
 ## 注意事项 ⚠️
 
 ### 常见错误
@@ -239,6 +337,26 @@ source .env
 # 永久设置
 echo 'export API_TOKEN="xxx"' >> ~/.bashrc
 ```
+
+**代理配置管理**：
+```bash
+# 临时设置代理
+export HTTP_PROXY="http://127.0.0.1:7890"
+export HTTPS_PROXY="http://127.0.0.1:7890"
+
+# 取消代理
+unset HTTP_PROXY HTTPS_PROXY
+
+# 验证代理是否生效
+echo $HTTP_PROXY
+```
+
+**常用代理端口**：
+| 软件 | 默认端口 |
+|------|---------|
+| Clash | 7890 |
+| V2Ray | 10808 |
+| Shadowsocks | 1080 |
 
 **安全建议**：
 ```bash
@@ -327,6 +445,37 @@ npx -y @modelcontextprotocol/server-filesystem /test/path
 
 > [!tip] Subagent 调试
 > 如果需要调试 Agent 相关问题，请参阅 [[Claude Subagent 使用指南]]
+
+**Q: Claude Code 无法连接网络怎么办？**
+
+A: 检查以下几点：
+1. 确认代理软件已启动，端口正确（如 7890、1080 等）
+2. 确认终端代理环境变量已设置：`echo $HTTP_PROXY`
+3. 测试终端网络：`curl -I https://www.google.com`
+4. 检查是否需要认证代理
+
+**Q: 只设置了系统代理，为什么终端还是连不上？**
+
+A: 系统代理通常只对浏览器生效，命令行程序需要单独设置 `HTTP_PROXY` 和 `HTTPS_PROXY` 环境变量。
+
+**Q: 如何临时取消代理？**
+
+A:
+```bash
+# macOS/Linux
+unset HTTP_PROXY HTTPS_PROXY
+
+# Windows PowerShell
+Remove-Item Env:HTTP_PROXY
+Remove-Item Env:HTTPS_PROXY
+```
+
+**Q: 代理配置后速度很慢怎么办？**
+
+A: 可能原因：
+1. 代理节点不稳定 - 尝试切换节点
+2. 网络质量差 - 检查网络连接
+3. 代理软件设置问题 - 调整代理规则
 
 ## 相关文档
 [[Claude Code 常用功能]] | [[Claude MCP 使用指南]] | [[Claude Code 会话管理]] | [[Skills 是什么]] | [[如何编写Skills]] | [[Claude Subagent 使用指南]] | [[Prompt, Agent, MCP 是什么]] | [[CLAUDE.md 使用指南]]
