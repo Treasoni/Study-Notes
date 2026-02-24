@@ -4,6 +4,9 @@ tags: [ai]
 
 # Claude Code 使用指南
 
+> [!info] 文档定位
+> **本文档是完整安装配置指南** - 包含安装、配置、代理设置、MCP/Skills 配置等完整流程。功能速查请参阅 [[Claude Code 常用功能]]
+
 > [!info] 概述
 > **Claude Code 是开发者的 CLI AI 助手** - 在终端中直接使用 Claude 进行软件工程任务。支持文件操作、代码编辑、Git 管理等功能，兼容多种 AI 平台。
 
