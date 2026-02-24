@@ -335,7 +335,11 @@
     },
     "AI学习": {
       "children": [
+        "AI学习/CLAUDE.md 使用指南.md",
+        "AI学习/Claude Code 会话管理.md",
+        "AI学习/00-学习路线图.md",
         "AI学习/assets",
+        "AI学习/Subagent 实战练习.md",
         "AI学习/Claude MCP 使用指南.md",
         "AI学习/Claude Subagent 使用指南.md",
         "AI学习/Skills 是什么.md",
@@ -537,6 +541,7 @@
     },
     "PVE的学习/安装和使用PVE教程": {
       "children": [
+        "PVE的学习/安装和使用PVE教程/PVE创建window.md",
         "PVE的学习/安装和使用PVE教程/assets",
         "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",
         "PVE的学习/安装和使用PVE教程/如何创建PVE虚拟机.md",
