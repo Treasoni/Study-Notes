@@ -1,0 +1,104 @@
+---
+tags: [ai, 学习指南, index]
+---
+
+# AI 学习
+
+> [!info] 项目简介
+> 本项目是 **Claude Code 相关学习资料合集**，涵盖从基础概念到高级应用的完整学习路径。适合想掌握 Claude Code、Skills、MCP、Subagent 等技术的开发者。
+
+## 快速开始
+
+### 新手入门
+
+1. **首次使用？** 从 [[00-学习路线图]] 开始，了解整体学习路径
+2. **想快速上手？** 直接阅读 [[如何使用Claude code]] 完成安装配置
+3. **需要速查？** 查看 [[Claude Code 常用功能]] 快速查找常用命令
+
+### 按主题学习
+
+| 主题 | 推荐文档 | 时间投入 |
+|------|----------|----------|
+| 基础概念 | [[Prompt, Agent, MCP 是什么]] | 1 天 |
+| 工具使用 | [[Claude Code 常用功能]], [[如何使用Claude code]] | 1-2 天 |
+| Skills | [[Skills 是什么]], [[如何编写Skills]] | 2-3 天 |
+| MCP | [[Claude MCP 使用指南]] | 1-2 天 |
+| Subagent | [[Claude Subagent 使用指南]], [[Subagent 实战练习]] | 1-2 天 |
+
+## 文档分类
+
+### 基础概念
+
+- [[Prompt, Agent, MCP 是什么]] - 核心概念详解
+- [[Skills 是什么]] - Skills 机制介绍
+
+### 工具使用
+
+- [[如何使用Claude code]] - 完整安装配置指南（540行）
+- [[Claude Code 常用功能]] - 功能速查手册（180行）
+- [[Claude Code 会话管理]] - 会话管理技巧
+
+### 进阶应用
+
+- [[如何编写Skills]] - Skills 编写实战指南
+- [[Claude MCP 使用指南]] - MCP 协议与配置
+- [[CLAUDE.md 使用指南]] - 项目级配置指南
+
+### 高级应用
+
+- [[Claude Subagent 使用指南]] - Subagent 完整指南（905行）
+- [[Subagent 实战练习]] - 5个渐进式练习（512行）
+
+## 学习路径
+
+```
+第一阶段：基础概念
+    ├─ Prompt, Agent, MCP 是什么
+    └─ Skills 是什么
+    ↓
+第二阶段：工具使用
+    ├─ 如何使用Claude code（安装配置）
+    ├─ Claude Code 常用功能（功能速查）
+    └─ Claude Code 会话管理
+    ↓
+第三阶段：进阶能力
+    ├─ 如何编写Skills
+    ├─ Claude MCP 使用指南
+    └─ CLAUDE.md 使用指南
+    ↓
+第四阶段：高级应用
+    ├─ Claude Subagent 使用指南
+    └─ Subagent 实战练习
+```
+
+> [!tip] 实用至上
+> 建议从 **第二阶段：工具使用** 开始，先安装配置好 Claude Code，边用边学概念。遇到不懂的概念再查阅基础文档。
+
+## 导航
+
+- [[MOC]] - 按主题分类的内容索引
+- [[00-学习路线图]] - 详细学习路径规划
+
+## 文档说明
+
+### 文档定位
+
+| 文档 | 定位 | 适用场景 |
+|------|------|----------|
+| [[Claude Code 常用功能]] | 功能速查 | 已安装，需要快速查找命令 |
+| [[如何使用Claude code]] | 完整指南 | 首次安装，需要详细配置说明 |
+| [[Claude Subagent 使用指南]] | 理论指南 | 理解 Subagent 原理和创建方法 |
+| [[Subagent 实战练习]] | 实战练习 | 通过练习巩固 Subagent 技能 |
+
+### 相关文档链接
+
+所有文档末尾都有"相关文档"链接，方便快速跳转。
+
+## 资源目录
+
+- `assets/` - 图片资源存放目录
+
+---
+
+> [!success] 开始学习
+> 推荐学习路径：[[如何使用Claude code]] → [[Claude Code 常用功能]] → [[Skills 是什么]] → [[如何编写Skills]] → [[Claude MCP 使用指南]] → [[Claude Subagent 使用指南]]

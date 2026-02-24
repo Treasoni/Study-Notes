@@ -4,6 +4,9 @@ tags: [claude, ai]
 
 # Claude Code 常用功能
 
+> [!info] 文档定位
+> **本文档是功能速查手册** - 快速查找常用命令和操作。完整安装配置指南请参阅 [[如何使用Claude code]]
+
 > [!info] 概述
 > **Claude Code 是开发者的智能助手 CLI** - 集成了文件操作、代码编辑、Git 管理、任务追踪等功能，让你在终端中直接使用 Claude 进行软件工程任务。
 
