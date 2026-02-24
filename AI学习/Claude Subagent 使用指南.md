@@ -680,5 +680,291 @@ claude --plugin-dir /path/to/my-plugin
 
 ---
 
+---
+
+## Plugin 组织策略和最佳实践 📁
+
+### 策略选择
+
+根据 [Claude Code 插件参考手册](https://www.runoob.com/claude-code/claude-code-plugin-ref.html)，Plugin 的组织方式有多种策略。
+
+**策略 A：全局通用插件（推荐）**
+
+将通用工具放在全局目录，所有项目共享：
+
+```bash
+~/.claude/plugins/
+├── code-review/          # 通用代码审查工具
+│   ├── .claude-plugin/
+│   │   └── plugin.json
+│   └── agents/
+│       ├── style-checker.md
+│       └── security-scanner.md
+├── documentation/        # 文档生成工具
+└── testing/              # 测试辅助工具
+```
+
+配置方式：
+```bash
+# 在 ~/.claude/config.json 中配置
+{
+  "pluginDir": "~/.claude/plugins"
+}
+```
+
+**适用场景**：
+- 跨项目通用的工具
+- 个人开发助手
+- 团队共享的标准工具
+
+---
+
+**策略 B：项目特定插件**
+
+为每个项目创建专属插件：
+
+```bash
+my-project/
+├── .claude-plugins/
+│   └── project-specific/
+│       ├── .claude-plugin/
+│       │   └── plugin.json
+│       └── agents/
+│           ├── business-rule-validator.md
+│           └── api-doc-generator.md
+├── src/
+└── package.json
+```
+
+启动方式：
+```bash
+cd my-project
+claude --plugin-dir .claude-plugins/project-specific
+```
+
+**适用场景**：
+- 业务特定的规则验证
+- 项目特定的文档生成
+- 团队内部专用工具
+
+---
+
+**策略 C：混合方式（最佳实践）**
+
+结合全局和项目插件：
+
+```bash
+# 全局插件 - 通用工具
+~/.claude/plugins/
+├── code-quality/
+├── testing/
+└── documentation/
+
+# 项目插件 - 项目特定
+my-project/.claude-plugins/
+└── e-commerce-validator/
+```
+
+配置方式：
+```bash
+# 配置文件设置全局插件
+# ~/.claude/config.json
+{
+  "pluginDir": "~/.claude/plugins"
+}
+
+# 命令行添加项目插件
+claude --plugin-dir ~/.claude/plugins --plugin-dir .claude-plugins
+```
+
+---
+
+### 多插件配置详解
+
+**方式 1：命令行指定多个目录**
+
+```bash
+# 指定两个插件目录
+claude --plugin-dir ~/.claude/plugins --plugin-dir ./project-plugins
+
+# 指定三个或更多
+claude \
+  --plugin-dir ~/.claude/global-tools \
+  --plugin-dir ./company-plugins \
+  --plugin-dir ./project-specific
+```
+
+**方式 2：使用统一的父目录**
+
+将所有插件放在一个父目录下，自动发现所有子目录：
+
+```bash
+~/.claude/plugins/
+├── code-review/      # 插件1
+├── testing/          # 插件2
+├── docs/             # 插件3
+└── project-specific/ # 插件4
+```
+
+配置：
+```bash
+# 只需配置一次父目录
+claude --plugin-dir ~/.claude/plugins
+
+# Claude 会自动扫描所有子插件
+```
+
+**方式 3：使用 Plugin 管理系统**
+
+```bash
+# 列出已安装插件
+claude plugin list
+
+# 安装插件（从 GitHub 或本地路径）
+claude plugin install username/repo
+claude plugin install /path/to/local/plugin
+
+# 启用/禁用插件
+claude plugin enable code-review
+claude plugin disable testing
+
+# 更新插件
+claude plugin update code-review
+
+# 删除插件
+claude plugin remove code-review
+```
+
+---
+
+### Plugin vs Project 关系
+
+| 维度 | Plugin | Project |
+|------|--------|---------|
+| **作用域** | 可跨项目复用 | 特定项目 |
+| **位置** | 独立目录或共享目录 | 项目内部 |
+| **内容** | Agent 定义、资源文件 | 业务代码 |
+| **版本控制** | 独立仓库或共享 | 跟随项目 |
+| **更新频率** | 较低（稳定后） | 持续更新 |
+| **配置方式** | --plugin-dir 参数 | 项目结构 |
+
+**最佳实践**：
+
+1. **通用能力放 Plugin**
+   - 代码风格检查
+   - 安全扫描
+   - 文档生成模板
+   - 测试生成模式
+
+2. **业务逻辑放 Project**
+   - 业务规则验证
+   - API 文档生成
+   - 领域特定工具
+
+3. **团队协作建议**
+   ```bash
+   # 团队共享插件仓库
+   company-plugins/
+   ├── frontend-standards/
+   ├── backend-standards/
+   └── documentation-templates/
+
+   # 个人插件仓库
+   ~/.claude/plugins/
+   ├── my-helpers/
+   └── personal-tools/
+   ```
+
+---
+
+### Plugin 版本管理
+
+**版本号规范**（语义化版本）：
+
+```json
+{
+  "version": "2.1.3"
+  //        │ │ │
+  //        │ │ └── 补丁版本（bug 修复）
+  //        │ └── 次版本（新功能，向后兼容）
+  //        └── 主版本（破坏性变更）
+}
+```
+
+**兼容性声明**：
+
+```json
+{
+  "claude": {
+    "minVersion": "1.0.0",
+    "maxVersion": "2.0.0"
+  }
+}
+```
+
+**更新策略**：
+
+```bash
+# 检查插件更新
+claude plugin check-update
+
+# 查看过期插件
+claude plugin outdated
+
+# 批量更新
+claude plugin update --all
+```
+
+---
+
+### 常见问题
+
+**Q: 如何避免插件冲突？**
+
+A: 使用独特的 Agent 名称和描述：
+
+```yaml
+# ❌ 容易冲突
+name: reviewer
+description: Review code
+
+# ✅ 明确独特
+name: security-focused-reviewer
+description: Use when user asks for "security review", "安全审查"
+```
+
+**Q: 如何调试插件加载问题？**
+
+A: 使用详细日志模式：
+
+```bash
+claude --plugin-dir /path/to/plugin --log-level debug
+```
+
+**Q: 插件可以依赖其他插件吗？**
+
+A: 目前不支持插件间依赖。每个插件应保持独立。
+
+**Q: 如何分享插件给团队？**
+
+A: 三种方式：
+
+1. **Git 仓库**
+   ```bash
+   git clone https://github.com/company/plugins.git ~/.claude/plugins
+   ```
+
+2. **npm 包**（如果打包为 node 模块）
+   ```bash
+   npm install -g @company/claude-plugins
+   ```
+
+3. **直接复制**
+   ```bash
+   cp -r /shared/plugins ~/.claude/
+   ```
+
+---
+
 ## 相关文档
 [[Prompt, Agent, MCP 是什么]] | [[Claude Code 常用功能]] | [[Claude MCP 使用指南]] | [[Subagent 实战练习]]

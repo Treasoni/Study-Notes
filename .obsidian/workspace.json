@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/如何使用Claude code.md",
+                "file": "AI学习/Claude Subagent 使用指南.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "如何使用Claude code"
+              "title": "Claude Subagent 使用指南"
             }
           }
         ],
@@ -213,13 +213,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/如何使用Claude code.md",
+                "file": "AI学习/Claude Subagent 使用指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "如何使用Claude code 的大纲"
+              "title": "Claude Subagent 使用指南 的大纲"
             }
           },
           {
@@ -265,15 +265,15 @@
   "active": "004624a81df7944d",
   "lastOpenFiles": [
     "AI学习/Subagent 实战练习.md",
-    "AI学习/Claude Code 常用功能.md",
     "AI学习/如何使用Claude code.md",
+    "AI学习/Claude MCP 使用指南.md",
+    "AI学习/Claude Code 会话管理.md",
+    "AI学习/Claude Code 常用功能.md",
     "AI学习/Claude Subagent 使用指南.md",
     "AI学习/Prompt, Agent, MCP 是什么.md",
     "AI学习/Skills 是什么.md",
     "AI学习/CLAUDE.md 使用指南.md",
-    "AI学习/Claude Code 会话管理.md",
     "AI学习/00-学习路线图.md",
-    "AI学习/Claude MCP 使用指南.md",
     "AI学习/如何编写Skills.md",
     "Git/git教程.md",
     "Git/Git MOC.md",
