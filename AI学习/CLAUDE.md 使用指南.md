@@ -1,5 +1,5 @@
 ---
-tags: [claude, ai, config]
+tags: [claude, ai, 进阶应用, 配置]
 ---
 
 # CLAUDE.md 使用指南

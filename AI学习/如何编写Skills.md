@@ -1,5 +1,5 @@
 ---
-tags: [ai]
+tags: [ai, 进阶应用]
 ---
 
 # Skills 编写实战指南

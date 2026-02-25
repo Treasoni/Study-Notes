@@ -1,5 +1,5 @@
 ---
-tags: [ai]
+tags: [ai, 基础概念]
 ---
 
 # Skills 技能系统
