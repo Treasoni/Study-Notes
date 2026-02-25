@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Git/git教程.md",
+                "file": "AI学习/openclaw/OpenClaw数字人商业调查.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "git教程"
+              "title": "OpenClaw数字人商业调查"
             }
           }
         ],
@@ -227,13 +227,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Git/git教程.md",
+                "file": "AI学习/openclaw/OpenClaw数字人商业调查.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "git教程 的大纲"
+              "title": "OpenClaw数字人商业调查 的大纲"
             }
           },
           {
@@ -268,6 +268,7 @@
   },
   "active": "3650d0c142718954",
   "lastOpenFiles": [
+    "Git/git教程.md",
     "AI学习/openclaw/~$enClaw数字人商业调查.docx",
     "Git/分支管理最佳实践.md",
     "Git/Git 常见错误解决方案.md",
@@ -277,7 +278,6 @@
     "AI学习/openclaw/OpenClaw学习笔记.docx",
     "AI学习/openclaw/convert_to_word.py",
     "AI学习/openclaw/OpenClaw安装教程.md",
-    "Git/git教程.md",
     "Git/Git MOC.md",
     "AI学习/MOC.md",
     "AI学习/README.md",
