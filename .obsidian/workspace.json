@@ -55,16 +55,44 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "PVE的学习/PVE学习笔记MOC.md",
+                "file": "AI学习/openclaw/OpenClaw安装教程.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "PVE学习笔记MOC"
+              "title": "OpenClaw安装教程"
+            }
+          },
+          {
+            "id": "8ebf6e4676540f31",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Git/git教程.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "git教程"
+            }
+          },
+          {
+            "id": "3650d0c142718954",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "AI学习/openclaw/OpenClaw安装教程.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "OpenClaw安装教程"
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -199,13 +227,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "PVE的学习/PVE学习笔记MOC.md",
+                "file": "AI学习/openclaw/OpenClaw安装教程.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "PVE学习笔记MOC 的大纲"
+              "title": "OpenClaw安装教程 的大纲"
             }
           },
           {
@@ -238,9 +266,18 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "436ac59904cce83d",
+  "active": "3650d0c142718954",
   "lastOpenFiles": [
+    "Git/分支管理最佳实践.md",
+    "Git/Git 常见错误解决方案.md",
+    "AI学习/MOC.md",
     "AI学习/openclaw/OpenClaw安装教程.md",
+    "Git/git教程.md",
+    "AI学习/README.md",
+    "conflict-files-obsidian-git.md",
+    "AI学习/如何使用Claude code.md",
+    "AI学习/Claude Code 会话管理.md",
+    "PVE的学习/PVE学习笔记MOC.md",
     "AI学习/openclaw",
     "PVE的学习/PVE学习笔记MOC.canvas",
     "PVE的学习/04-设备直通/IOMMU分组情况.md",
@@ -253,7 +290,6 @@
     "PVE的学习/01-安装配置/PVE的基础优化设置.md",
     "PVE的学习/00-准备工具/写盘工具.md",
     "PVE的学习/00-准备工具/WinPE.md",
-    "PVE的学习/PVE学习笔记MOC.md",
     "PVE的学习/assets/修改PVE的网络信息/file-20260203173647080.png",
     "PVE的学习/assets/修改PVE的网络信息",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-02-11 20.44.24.png",
@@ -276,16 +312,8 @@
     "PVE的学习/03-容器管理/PVE的CT.md",
     "PVE的学习/02-虚拟机管理/PVE创建window.md",
     "PVE的学习/02-虚拟机管理/如何创建PVE虚拟机.md",
-    "AI学习/README.md",
-    "AI学习/MOC.md",
     "AI学习/00-学习路线图.md",
     "Git/Git MOC.md",
-    "AI学习/Claude Code 会话管理.md",
-    "AI学习/Subagent 实战练习.md",
-    "AI学习/Skills 是什么.md",
-    "AI学习/Claude Subagent 使用指南.md",
-    "AI学习/CLAUDE.md 使用指南.md",
-    "AI学习/如何使用Claude code.md",
-    "AI学习/Claude MCP 使用指南.md"
+    "AI学习/Subagent 实战练习.md"
   ]
 }
