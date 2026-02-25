@@ -418,7 +418,7 @@ marker_single file.pdf --paginate_output       # 按页编号
 ## 相关资源
 
 - [Marker 官方文档](https://github.com/VikParuchuri/marker)
-- [OCR 概念笔记](./OCR概念笔记.md)
+- [OCR 概念笔记](./AI学习/OCR概念笔记.md)
 - [Marker 使用笔记](./marker使用笔记.md)
 
 ---
