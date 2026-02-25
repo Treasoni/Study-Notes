@@ -2,12 +2,12 @@
   "customOrder": {
     "/": {
       "children": [
+        "考研",
         "函数极限与连续",
         "环境变量使用指南.md",
         "硬件解码vs软件解码.md",
         "Marker PDF转换教学案例.md",
         "marker使用笔记.md",
-        "OCR概念笔记.md",
         "Strm流文件与302播放详解.md",
         "网络协议详解-WebDAV_Samba_FTP_iSCSI.md",
         "未命名.md",
@@ -333,9 +333,19 @@
       ],
       "sortOrder": "custom"
     },
+    "考研": {
+      "children": [
+        "考研/湖南大学控制科学与工程专硕考研指南.md",
+        "考研/湖南大学电子信息专业考研指南.md"
+      ],
+      "sortOrder": "custom"
+    },
     "AI学习": {
       "children": [
+        "AI学习/Claude Code 插件系统使用指南.md",
+        "AI学习/openclaw",
         "AI学习/README.md",
+        "AI学习/OCR概念笔记.md",
         "AI学习/MOC.md",
         "AI学习/CLAUDE.md 使用指南.md",
         "AI学习/Claude Code 会话管理.md",
@@ -386,6 +396,14 @@
         "AI学习/assets/Skills 是什么/file-20260205160852903.png",
         "AI学习/assets/Skills 是什么/file-20260205160852905.png",
         "AI学习/assets/Skills 是什么/file-20260205161420021.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/openclaw": {
+      "children": [
+        "AI学习/openclaw/convert_to_word.py",
+        "AI学习/openclaw/OpenClaw数字人商业调查.md",
+        "AI学习/openclaw/OpenClaw安装教程.md"
       ],
       "sortOrder": "custom"
     },
@@ -474,6 +492,8 @@
     },
     "Git": {
       "children": [
+        "Git/分支管理最佳实践.md",
+        "Git/Git 常见错误解决方案.md",
         "Git/Git MOC.md",
         "Git/assets",
         "Git/git教程.md"
@@ -532,121 +552,132 @@
     },
     "PVE的学习": {
       "children": [
+        "PVE的学习/assets",
+        "PVE的学习/04-设备直通",
+        "PVE的学习/03-容器管理",
+        "PVE的学习/02-虚拟机管理",
+        "PVE的学习/01-安装配置",
+        "PVE的学习/00-准备工具",
         "PVE的学习/PVE学习笔记MOC.canvas",
-        "PVE的学习/PVE学习笔记MOC.md",
-        "PVE的学习/PVE直通教程",
-        "PVE的学习/安装和使用PVE教程",
-        "PVE的学习/写盘工具.md",
-        "PVE的学习/WinPE.md"
+        "PVE的学习/PVE学习笔记MOC.md"
       ],
       "sortOrder": "custom"
     },
-    "PVE的学习/安装和使用PVE教程": {
+    "PVE的学习/00-准备工具": {
       "children": [
-        "PVE的学习/安装和使用PVE教程/PVE创建window.md",
-        "PVE的学习/安装和使用PVE教程/assets",
-        "PVE的学习/安装和使用PVE教程/安装和使用PVE.md",
-        "PVE的学习/安装和使用PVE教程/如何创建PVE虚拟机.md",
-        "PVE的学习/安装和使用PVE教程/修改PVE的网络信息.md",
-        "PVE的学习/安装和使用PVE教程/PVE的CT.md",
-        "PVE的学习/安装和使用PVE教程/PVE的网络逻辑讲解.md",
-        "PVE的学习/安装和使用PVE教程/PVE存储库.md",
-        "PVE的学习/安装和使用PVE教程/PVE的基础优化设置.md"
+        "PVE的学习/00-准备工具/WinPE.md",
+        "PVE的学习/00-准备工具/写盘工具.md"
       ],
       "sortOrder": "custom"
     },
-    "PVE的学习/安装和使用PVE教程/assets": {
+    "PVE的学习/01-安装配置": {
       "children": [
-        "PVE的学习/安装和使用PVE教程/assets/assets",
-        "PVE的学习/安装和使用PVE教程/assets/PVE创建window.md",
-        "PVE的学习/安装和使用PVE教程/assets/PVE的基础优化设置",
-        "PVE的学习/安装和使用PVE教程/assets/PVE存储库",
-        "PVE的学习/安装和使用PVE教程/assets/PVE的网络逻辑讲解",
-        "PVE的学习/安装和使用PVE教程/assets/PVE的CT",
-        "PVE的学习/安装和使用PVE教程/assets/修改PVE的网络信息",
-        "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机",
-        "PVE的学习/安装和使用PVE教程/assets/安装和使用PVE"
+        "PVE的学习/01-安装配置/PVE的基础优化设置.md",
+        "PVE的学习/01-安装配置/PVE存储库.md",
+        "PVE的学习/01-安装配置/修改PVE的网络信息.md",
+        "PVE的学习/01-安装配置/安装和使用PVE.md"
       ],
       "sortOrder": "custom"
     },
-    "PVE的学习/安装和使用PVE教程/assets/安装和使用PVE": {
+    "PVE的学习/02-虚拟机管理": {
       "children": [
-        "PVE的学习/安装和使用PVE教程/assets/安装和使用PVE/file-20260203173620214.png",
-        "PVE的学习/安装和使用PVE教程/assets/安装和使用PVE/file-20260203173620217.png",
-        "PVE的学习/安装和使用PVE教程/assets/安装和使用PVE/file-20260203173620217 1.png"
+        "PVE的学习/02-虚拟机管理/PVE的网络逻辑讲解.md",
+        "PVE的学习/02-虚拟机管理/PVE创建window.md",
+        "PVE的学习/02-虚拟机管理/如何创建PVE虚拟机.md"
       ],
       "sortOrder": "custom"
     },
-    "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机": {
+    "PVE的学习/03-容器管理": {
       "children": [
-        "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/截屏2026-02-11 20.44.24.png",
-        "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/file-20260203173628031.png",
-        "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/file-20260203173628032.png",
-        "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/file-20260203173628033.png",
-        "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/file-20260203173628033 1.png",
-        "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/file-20260203173628034.png",
-        "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/file-20260203173628034 1.png",
-        "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/file-20260203173628035.png",
-        "PVE的学习/安装和使用PVE教程/assets/如何创建PVE虚拟机/file-20260203173628035 1.png"
+        "PVE的学习/03-容器管理/PVE的CT.md"
       ],
       "sortOrder": "custom"
     },
-    "PVE的学习/安装和使用PVE教程/assets/修改PVE的网络信息": {
+    "PVE的学习/04-设备直通": {
       "children": [
-        "PVE的学习/安装和使用PVE教程/assets/修改PVE的网络信息/file-20260203173647080.png"
+        "PVE的学习/04-设备直通/绑定vfio驱动.md",
+        "PVE的学习/04-设备直通/PVE直通.md",
+        "PVE的学习/04-设备直通/IOMMU分组情况.md"
       ],
       "sortOrder": "custom"
     },
-    "PVE的学习/安装和使用PVE教程/assets/assets": {
+    "PVE的学习/assets": {
       "children": [
-        "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window"
+        "PVE的学习/assets/修改PVE的网络信息",
+        "PVE的学习/assets/如何创建PVE虚拟机",
+        "PVE的学习/assets/安装和使用PVE",
+        "PVE的学习/assets/PVE的网络逻辑讲解",
+        "PVE的学习/assets/PVE的基础优化设置",
+        "PVE的学习/assets/PVE的CT",
+        "PVE的学习/assets/PVE存储库",
+        "PVE的学习/assets/PVE创建window"
       ],
       "sortOrder": "custom"
     },
-    "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window": {
+    "PVE的学习/assets/安装和使用PVE": {
       "children": [
-        "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732140.png",
-        "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732142.png",
-        "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732143.png",
-        "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732144.png",
-        "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732144 1.png",
-        "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732145.png",
-        "PVE的学习/安装和使用PVE教程/assets/assets/PVE创建window/file-20260203212732145 1.png"
+        "PVE的学习/assets/安装和使用PVE/file-20260203173620217.png",
+        "PVE的学习/assets/安装和使用PVE/file-20260203173620217 1.png",
+        "PVE的学习/assets/安装和使用PVE/file-20260203173620214.png"
       ],
       "sortOrder": "custom"
     },
-    "PVE的学习/安装和使用PVE教程/assets/PVE存储库": {
+    "PVE的学习/assets/如何创建PVE虚拟机": {
       "children": [
-        "PVE的学习/安装和使用PVE教程/assets/PVE存储库/file-20260203173658581.png"
+        "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-02-11 20.44.24.png",
+        "PVE的学习/assets/如何创建PVE虚拟机/file-20260203173628035.png",
+        "PVE的学习/assets/如何创建PVE虚拟机/file-20260203173628035 1.png",
+        "PVE的学习/assets/如何创建PVE虚拟机/file-20260203173628034.png",
+        "PVE的学习/assets/如何创建PVE虚拟机/file-20260203173628034 1.png",
+        "PVE的学习/assets/如何创建PVE虚拟机/file-20260203173628033.png",
+        "PVE的学习/assets/如何创建PVE虚拟机/file-20260203173628033 1.png",
+        "PVE的学习/assets/如何创建PVE虚拟机/file-20260203173628032.png",
+        "PVE的学习/assets/如何创建PVE虚拟机/file-20260203173628031.png"
       ],
       "sortOrder": "custom"
     },
-    "PVE的学习/安装和使用PVE教程/assets/PVE的基础优化设置": {
+    "PVE的学习/assets/修改PVE的网络信息": {
       "children": [
-        "PVE的学习/安装和使用PVE教程/assets/PVE的基础优化设置/file-20260203173702427.png",
-        "PVE的学习/安装和使用PVE教程/assets/PVE的基础优化设置/file-20260203173702428.png"
+        "PVE的学习/assets/修改PVE的网络信息/file-20260203173647080.png"
       ],
       "sortOrder": "custom"
     },
-    "PVE的学习/安装和使用PVE教程/assets/PVE的网络逻辑讲解": {
+    "PVE的学习/assets/PVE创建window": {
       "children": [
-        "PVE的学习/安装和使用PVE教程/assets/PVE的网络逻辑讲解/file-20260203173655286.png",
-        "PVE的学习/安装和使用PVE教程/assets/PVE的网络逻辑讲解/file-20260203173655287.png"
+        "PVE的学习/assets/PVE创建window/file-20260203212732145.png",
+        "PVE的学习/assets/PVE创建window/file-20260203212732145 1.png",
+        "PVE的学习/assets/PVE创建window/file-20260203212732144.png",
+        "PVE的学习/assets/PVE创建window/file-20260203212732144 1.png",
+        "PVE的学习/assets/PVE创建window/file-20260203212732143.png",
+        "PVE的学习/assets/PVE创建window/file-20260203212732142.png",
+        "PVE的学习/assets/PVE创建window/file-20260203212732140.png"
       ],
       "sortOrder": "custom"
     },
-    "PVE的学习/安装和使用PVE教程/assets/PVE的CT": {
+    "PVE的学习/assets/PVE存储库": {
       "children": [
-        "PVE的学习/安装和使用PVE教程/assets/PVE的CT/file-20260203173652017.png",
-        "PVE的学习/安装和使用PVE教程/assets/PVE的CT/file-20260203173652018.png"
+        "PVE的学习/assets/PVE存储库/file-20260203173658581.png"
       ],
       "sortOrder": "custom"
     },
-    "PVE的学习/PVE直通教程": {
+    "PVE的学习/assets/PVE的基础优化设置": {
       "children": [
-        "PVE的学习/PVE直通教程/PVE直通.md",
-        "PVE的学习/PVE直通教程/IOMMU分组情况.md",
-        "PVE的学习/PVE直通教程/绑定vfio驱动.md"
+        "PVE的学习/assets/PVE的基础优化设置/file-20260203173702428.png",
+        "PVE的学习/assets/PVE的基础优化设置/file-20260203173702427.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/assets/PVE的网络逻辑讲解": {
+      "children": [
+        "PVE的学习/assets/PVE的网络逻辑讲解/file-20260203173655287.png",
+        "PVE的学习/assets/PVE的网络逻辑讲解/file-20260203173655286.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/assets/PVE的CT": {
+      "children": [
+        "PVE的学习/assets/PVE的CT/file-20260203173652018.png",
+        "PVE的学习/assets/PVE的CT/file-20260203173652017.png"
       ],
       "sortOrder": "custom"
     },
