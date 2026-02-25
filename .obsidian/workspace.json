@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/openclaw/OpenClaw数字人商业调查.md",
+                "file": "Git/git教程.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "OpenClaw数字人商业调查"
+              "title": "git教程"
             }
           }
         ],
@@ -227,13 +227,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/openclaw/OpenClaw数字人商业调查.md",
+                "file": "Git/git教程.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "OpenClaw数字人商业调查 的大纲"
+              "title": "git教程 的大纲"
             }
           },
           {
@@ -269,14 +269,14 @@
   "active": "3650d0c142718954",
   "lastOpenFiles": [
     "AI学习/openclaw/~$enClaw数字人商业调查.docx",
+    "Git/分支管理最佳实践.md",
+    "Git/Git 常见错误解决方案.md",
+    "AI学习/openclaw/OpenClaw数字人商业调查.md",
     "AI学习/openclaw/OpenClaw数字人商业调查.docx",
     "AI学习/openclaw/~$enClaw学习笔记.docx",
     "AI学习/openclaw/OpenClaw学习笔记.docx",
     "AI学习/openclaw/convert_to_word.py",
     "AI学习/openclaw/OpenClaw安装教程.md",
-    "AI学习/openclaw/OpenClaw数字人商业调查.md",
-    "Git/Git 常见错误解决方案.md",
-    "Git/分支管理最佳实践.md",
     "Git/git教程.md",
     "Git/Git MOC.md",
     "AI学习/MOC.md",
@@ -311,7 +311,6 @@
     "PVE的学习/assets/如何创建PVE虚拟机",
     "PVE的学习/assets/安装和使用PVE",
     "PVE的学习/assets/PVE的网络逻辑讲解",
-    "PVE的学习/assets/PVE的基础优化设置",
     "PVE的学习/03-容器管理/PVE的CT.md",
     "PVE的学习/02-虚拟机管理/PVE创建window.md",
     "PVE的学习/02-虚拟机管理/如何创建PVE虚拟机.md"
