@@ -83,7 +83,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Claude MCP 使用指南.md",
+                "file": "AI学习/Claude MCP 使用指南.md",
                 "mode": "source",
                 "source": false
               },
@@ -227,7 +227,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Claude MCP 使用指南.md",
+                "file": "AI学习/Claude MCP 使用指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
@@ -268,8 +268,8 @@
   },
   "active": "3650d0c142718954",
   "lastOpenFiles": [
-    "AI学习/Claude MCP 使用指南.md",
     "Claude MCP 使用指南.md",
+    "AI学习/Claude MCP 使用指南.md",
     "AI学习/Claude Subagent 使用指南.md",
     "AI学习/如何使用Claude code.md",
     "AI学习/Claude Code 常用功能.md",
