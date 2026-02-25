@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "考研/湖南大学电子信息专业考研指南.md",
+                "file": "考研/湖南大学控制科学与工程专硕考研指南.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "湖南大学电子信息专业考研指南"
+              "title": "湖南大学控制科学与工程专硕考研指南"
             }
           }
         ],
@@ -227,13 +227,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "考研/湖南大学电子信息专业考研指南.md",
+                "file": "考研/湖南大学控制科学与工程专硕考研指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "湖南大学电子信息专业考研指南 的大纲"
+              "title": "湖南大学控制科学与工程专硕考研指南 的大纲"
             }
           },
           {
@@ -268,8 +268,9 @@
   },
   "active": "3650d0c142718954",
   "lastOpenFiles": [
-    "AI学习/openclaw/OpenClaw数字人商业调查.md",
     "考研/湖南大学电子信息专业考研指南.md",
+    "考研/湖南大学控制科学与工程专硕考研指南.md",
+    "AI学习/openclaw/OpenClaw数字人商业调查.md",
     "考研",
     "AI学习/00-学习路线图.md",
     "Git/git教程.md",
@@ -313,7 +314,6 @@
     "PVE的学习/assets/如何创建PVE虚拟机/file-20260203173628031.png",
     "PVE的学习/assets/如何创建PVE虚拟机",
     "PVE的学习/assets/安装和使用PVE",
-    "PVE的学习/03-容器管理/PVE的CT.md",
-    "PVE的学习/02-虚拟机管理/PVE创建window.md"
+    "PVE的学习/03-容器管理/PVE的CT.md"
   ]
 }
