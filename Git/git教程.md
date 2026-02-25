@@ -496,6 +496,9 @@ git commit
 git merge --abort
 ```
 
+> [!tip] 更多问题解决方案
+> 遇到其他 Git 错误？查看 [[Git 常见错误解决方案]] 按错误信息快速定位解决方案。
+
 ## 其他常见错误
 
 | 错误信息 | 原因 | 解决方法 |
@@ -504,6 +507,9 @@ git merge --abort
 | `Updates were rejected` | 远程有新提交，本地落后 | `git pull --rebase` |
 | `Permission denied (publickey)` | SSH 配置有问题 | 检查 `ssh -T git@github.com` |
 | `fatal: refusing to merge unrelated histories` | 两个仓库没有共同祖先 | `git pull --allow-unrelated-histories` |
+
+> [!info] 完整错误解决方案
+> 查看 [[Git 常见错误解决方案]] 获取完整的错误排查指南。
 
 ---
 
@@ -566,6 +572,12 @@ git branch -d feature/new-task
 > 4. 学会解决冲突
 > 5. 进阶学习 rebase、reset 高级用法
 
+## 专题笔记
+
+> [!tip] 深入学习
+> - [[分支管理最佳实践]] - 团队协作中的分支策略和工作流程
+> - [[Git 常见错误解决方案]] - 按错误信息快速定位解决方案
+
 ## 推荐阅读
 
 - [Git 官方文档](https://git-scm.com/doc)
@@ -575,4 +587,4 @@ git branch -d feature/new-task
 
 ---
 
-**最后更新**：2026-02-05
+**最后更新**：2026-02-25
