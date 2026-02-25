@@ -19,11 +19,11 @@ tags: [ai]
 - 支持分布式部署
 
 **配置文件位置**：
-| 级别 | 位置 |
-|------|------|
-| 项目级 | `.mcp.json` |
-| 全局级 | `~/.claude/claude_desktop_config.json` |
-| 插件级 | `插件根目录/.mcp.json` |
+| 级别 | 位置 | 是否在 claude mcp list 显示 |
+|------|------|---------------------------|
+| 全局级 | `~/.claude-plugin/mcp.json` | ✅ 会显示 |
+| 项目级 | `项目根目录/.mcp.json` | ❌ 默认不显示 |
+| 插件级 | `插件根目录/.mcp.json` | - |
 
 ### MCP 服务器类型
 
@@ -58,14 +58,12 @@ npm install -g @modelcontextprotocol/server-filesystem
 }
 ```
 
-**全局配置** (`~/.claude/claude_desktop_config.json`)：
+**全局配置** (`~/.claude-plugin/mcp.json`)：
 ```json
 {
-  "mcpServers": {
-    "filesystem": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path"]
-    }
+  "filesystem": {
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path"]
   }
 }
 ```
@@ -89,12 +87,16 @@ claude
 ### 步骤 5：验证配置
 
 ```bash
-# 在 Claude Code 中输入
+# 在 Claude Code 中输入（显示所有可用的 MCP，包括项目级）
 /mcp
 
-# 或使用命令行
+# 使用命令行（仅显示全局 MCP servers）
 claude mcp list
 ```
+
+> [!warning] 重要区别
+> - `/mcp`：显示当前上下文中所有可用的 MCP servers（包括项目级配置）
+> - `claude mcp list`：仅显示全局 MCP servers，项目级 `.mcp.json` 配置不会出现在此列表中
 
 ## 注意事项 ⚠️
 
@@ -201,7 +203,14 @@ npx -y @modelcontextprotocol/server-filesystem /test/path
 
 **Q: 如何在多个项目间共享 MCP 配置？**
 
-A: 将配置放在全局配置文件 `~/.claude/claude_desktop_config.json` 中。
+A: 将配置放在全局配置文件 `~/.claude-plugin/mcp.json` 中。
+
+**Q: 为什么项目级 .mcp.json 中的配置不出现在 `claude mcp list` 中？**
+
+A: 这是正常行为。`claude mcp list` 仅显示全局 MCP servers。
+- 项目级配置（`.mcp.json`）只在项目上下文中生效
+- 要查看项目级 MCP，在 Claude Code 中输入 `/mcp`
+- 要让配置在所有项目中可用，将其添加到全局配置文件 `~/.claude-plugin/mcp.json`
 
 **Q: OAuth 服务需要做什么？**
 

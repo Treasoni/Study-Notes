@@ -1,0 +1,6 @@
+{
+  "test-server": {
+    "command": "echo",
+    "args": ["Hello from project MCP"]
+  }
+}
