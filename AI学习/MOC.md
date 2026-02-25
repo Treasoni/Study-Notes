@@ -26,9 +26,9 @@ Claude Code 的安装、配置和日常使用。
 
 | 文档 | 标签 | 摘要 | 行数 |
 |------|------|------|------|
-| [[如何使用Claude code]] | `ai` | 完整安装配置指南，包含多平台配置、代理设置、MCP/Skills 配置 | 540行 |
-| [[Claude Code 常用功能]] | `claude`, `ai` | 功能速查手册，快速查找常用命令和操作 | 180行 |
-| [[Claude Code 会话管理]] | `ai` | 会话创建、恢复、清除等管理技巧 | - |
+| [[如何使用Claude code]] | `ai`, `工具使用` | 完整安装配置指南，包含多平台配置、代理设置、MCP/Skills 配置 | 540行 |
+| [[Claude Code 常用功能]] | `claude`, `ai`, `工具使用` | 功能速查手册，快速查找常用命令和操作 | 180行 |
+| [[Claude Code 会话管理]] | `claude`, `ai`, `工具使用` | 会话创建、恢复、清除等管理技巧 | 480行 |
 
 > [!tip] 文档选择
 > - **首次安装** → 阅读 [[如何使用Claude code]]
@@ -42,9 +42,9 @@ Claude Code 的安装、配置和日常使用。
 
 | 文档 | 标签 | 摘要 |
 |------|------|------|
-| [[如何编写Skills]] | `ai` | Skills 编写实战指南，包含 metadata.json 和 skill.md 结构 |
-| [[Claude MCP 使用指南]] | `ai` | MCP 协议原理、配置文件管理、常用 MCP 服务器 |
-| [[CLAUDE.md 使用指南]] | `ai` | 项目级 CLAUDE.md 配置指南 |
+| [[如何编写Skills]] | `ai`, `进阶应用` | Skills 编写实战指南，包含 metadata.json 和 skill.md 结构 |
+| [[Claude MCP 使用指南]] | `ai`, `进阶应用` | MCP 协议原理、配置文件管理、常用 MCP 服务器 |
+| [[CLAUDE.md 使用指南]] | `claude`, `ai`, `进阶应用`, `配置` | 项目级 CLAUDE.md 配置指南 |
 
 ---
 
@@ -54,8 +54,8 @@ Subagent 的创建和使用。
 
 | 文档 | 标签 | 摘要 | 行数 |
 |------|------|------|------|
-| [[Claude Subagent 使用指南]] | `ai` | Subagent 完整指南，包含内置类型、自定义 Agent 创建、Plugin 系统架构 | 905行 |
-| [[Subagent 实战练习]] | `ai`, `exercise` | 5个渐进式练习，从简单到复杂掌握 Subagent | 512行 |
+| [[Claude Subagent 使用指南]] | `ai`, `高级应用` | Subagent 完整指南，包含内置类型、自定义 Agent 创建、Plugin 系统架构 | 905行 |
+| [[Subagent 实战练习]] | `ai`, `高级应用`, `练习` | 5个渐进式练习，从简单到复杂掌握 Subagent | 512行 |
 
 > [!tip] 文档选择
 > - **理论学习** → 阅读 [[Claude Subagent 使用指南]]
@@ -78,18 +78,57 @@ Subagent 的创建和使用。
 - [[Claude MCP 使用指南]]
 - [[CLAUDE.md 使用指南]]
 - [[Claude Subagent 使用指南]]
+- [[Subagent 实战练习]]
+
+### 基础概念
+
+核心概念理解文档。
+
+- [[Prompt, Agent, MCP 是什么]]
+- [[Skills 是什么]]
+
+### 工具使用
+
+Claude Code 工具使用相关文档。
+
+- [[如何使用Claude code]]
+- [[Claude Code 常用功能]]
+- [[Claude Code 会话管理]]
+
+### 进阶应用
+
+Skills、MCP、CLAUDE.md 配置等进阶内容。
+
+- [[如何编写Skills]]
+- [[Claude MCP 使用指南]]
+- [[CLAUDE.md 使用指南]]
+
+### 高级应用
+
+Subagent 相关高级内容。
+
+- [[Claude Subagent 使用指南]]
+- [[Subagent 实战练习]]
+
+### 练习
+
+练习和实战文档。
+
+- [[Subagent 实战练习]]
 
 ### claude
 
 与 Claude Code 工具直接相关的文档。
 
 - [[Claude Code 常用功能]]
+- [[Claude Code 会话管理]]
+- [[CLAUDE.md 使用指南]]
 
-### exercise
+### 配置
 
-练习和实战文档。
+配置相关文档。
 
-- [[Subagent 实战练习]]
+- [[CLAUDE.md 使用指南]]
 
 ---
 

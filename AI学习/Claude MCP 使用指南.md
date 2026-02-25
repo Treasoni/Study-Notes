@@ -1,5 +1,5 @@
 ---
-tags: [ai]
+tags: [ai, 进阶应用]
 ---
 
 # Claude MCP 使用指南

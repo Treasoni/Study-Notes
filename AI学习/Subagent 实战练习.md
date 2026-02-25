@@ -1,5 +1,5 @@
 ---
-tags: [ai, exercise]
+tags: [ai, 高级应用, 练习]
 difficulty: intermediate
 ---
 

@@ -1,5 +1,5 @@
 ---
-tags: [claude, ai]
+tags: [claude, ai, 工具使用]
 ---
 
 # Claude Code 会话管理
@@ -215,7 +215,7 @@ rsync -av ~/.claude/sessions/ user@remote:~/.claude/sessions/
 
 # 从 Git 仓库同步
 git clone https://github.com/yourname/claude-sessions.git
-cp Claude Code 会话管理.json ~/.claude/sessions/
+cp my-project.json ~/.claude/sessions/
 ```
 
 ### 会话恢复示例

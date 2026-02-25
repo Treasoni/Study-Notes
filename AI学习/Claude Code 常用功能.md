@@ -1,5 +1,5 @@
 ---
-tags: [claude, ai]
+tags: [claude, ai, 工具使用]
 ---
 
 # Claude Code 常用功能

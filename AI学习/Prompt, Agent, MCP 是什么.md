@@ -1,5 +1,5 @@
 ---
-tags: [ai]
+tags: [ai, 基础概念]
 ---
 
 # Prompt、Agent、MCP 核心概念
