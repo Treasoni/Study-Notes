@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/openclaw/OpenClaw安装教程.md",
+                "file": "AI学习/openclaw/OpenClaw数字人商业调查.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "OpenClaw安装教程"
+              "title": "OpenClaw数字人商业调查"
             }
           }
         ],
@@ -227,13 +227,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/openclaw/OpenClaw安装教程.md",
+                "file": "AI学习/openclaw/OpenClaw数字人商业调查.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "OpenClaw安装教程 的大纲"
+              "title": "OpenClaw数字人商业调查 的大纲"
             }
           },
           {
@@ -268,11 +268,13 @@
   },
   "active": "3650d0c142718954",
   "lastOpenFiles": [
-    "Git/分支管理最佳实践.md",
-    "Git/Git 常见错误解决方案.md",
-    "AI学习/MOC.md",
     "AI学习/openclaw/OpenClaw安装教程.md",
+    "AI学习/openclaw/OpenClaw数字人商业调查.md",
+    "Git/Git 常见错误解决方案.md",
+    "Git/分支管理最佳实践.md",
     "Git/git教程.md",
+    "Git/Git MOC.md",
+    "AI学习/MOC.md",
     "AI学习/README.md",
     "conflict-files-obsidian-git.md",
     "AI学习/如何使用Claude code.md",
@@ -312,8 +314,6 @@
     "PVE的学习/03-容器管理/PVE的CT.md",
     "PVE的学习/02-虚拟机管理/PVE创建window.md",
     "PVE的学习/02-虚拟机管理/如何创建PVE虚拟机.md",
-    "AI学习/00-学习路线图.md",
-    "Git/Git MOC.md",
-    "AI学习/Subagent 实战练习.md"
+    "AI学习/00-学习路线图.md"
   ]
 }
