@@ -1,0 +1,20 @@
+{
+  "id": "conv-1772075627325-66kg1pbbi",
+  "title": "### 步骤 1：安装",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1772075627326,
+  "updatedAt": 1772075629324,
+  "lastResponseAt": 1772075628580,
+  "sessionId": "28f6e3c0-be12-4dfc-8736-4ee124c5ff1e",
+  "sdkSessionId": "28f6e3c0-be12-4dfc-8736-4ee124c5ff1e",
+  "currentNote": "AI学习/如何使用Claude code.md",
+  "usage": {
+    "model": "\"glm-4.7\",",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}
