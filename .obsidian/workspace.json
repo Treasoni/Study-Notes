@@ -257,11 +257,11 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 484.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -276,7 +276,7 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "5e23b24f5e2a4b4a",
+  "active": "746e3216e1c18840",
   "lastOpenFiles": [
     "AI学习/Claude MCP 使用指南.md",
     "AI学习/Claude Code 会话管理.md",

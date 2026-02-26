@@ -35,17 +35,180 @@ tags: [ai, 工具使用]
 
 ### 步骤 1：安装
 
+#### 前置要求
+
+在安装 Claude Code 之前，请确保你的系统满足以下条件：
+
+| 要求          | 说明                                                |
+| ----------- | ------------------------------------------------- |
+| **Node.js** | 版本 18.0 或更高（推荐 LTS 版本）                            |
+| **npm**     | 随 Node.js 自动安装                                    |
+| **终端**      | macOS Terminal / Windows PowerShell / Linux Shell |
+|             |                                                   |
+
+> [!tip] 检查 Node.js 版本
+> ```bash
+> node --version  # 应显示 v18.x.x 或更高
+> npm --version   # 检查 npm 是否可用
+> ```
+
+#### 安装 Node.js 和 npm
+
+如果你还没有安装 Node.js，请根据你的操作系统选择以下方式：
+
+**macOS**
 
 ```bash
-# macOS (Homebrew)
+# 方式一：使用 Homebrew（推荐）
+brew install node
+
+# 方式二：使用 nvm（Node Version Manager，可管理多版本）
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+source ~/.zshrc  # 或 source ~/.bashrc
+nvm install --lts  # 安装 LTS 版本
+nvm use --lts
+
+# 验证安装
+node --version
+npm --version
+```
+
+**Windows**
+
+```bash
+# 方式一：使用 winget（推荐）
+winget install OpenJS.NodeJS.LTS
+
+# 方式二：使用 Chocolatey
+choco install nodejs-lts
+
+# 方式三：使用安装程序
+# 1. 访问 https://nodejs.org/
+# 2. 下载 LTS 版本安装程序
+# 3. 运行安装程序，按提示完成安装
+
+# 验证安装（PowerShell）
+node --version
+npm --version
+```
+
+**Linux（Ubuntu/Debian）**
+
+```bash
+# 方式一：使用 NodeSource 仓库（推荐）
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# 方式二：使用 nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+source ~/.bashrc
+nvm install --lts
+nvm use --lts
+
+# 验证安装
+node --version
+npm --version
+```
+
+**Linux（CentOS/RHEL/Fedora）**
+
+```bash
+# 使用 NodeSource 仓库
+curl -fsSL https://rpm.nodesource.com/setup_lts.x | sudo bash -
+sudo yum install -y nodejs  # CentOS/RHEL
+# 或
+sudo dnf install -y nodejs  # Fedora
+
+# 验证安装
+node --version
+npm --version
+```
+
+> [!tip] 推荐使用 nvm
+> nvm（Node Version Manager）允许你在同一台机器上安装和切换多个 Node.js 版本，非常适合开发者使用。
+
+#### 安装方式
+
+**方式一：Homebrew（macOS 推荐）**
+
+```bash
+# 1. 确保已安装 Homebrew
+# 如未安装，运行：
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# 2. 安装 Claude Code
 brew install claude-code
 
-# npm
+# 3. 验证安装
+claude --version
+```
+
+**方式二：npm（跨平台）**
+
+```bash
+# 全局安装
 npm install -g @anthropic-ai/claude-code
 
-# 首次启动
-claude
+# 验证安装
+claude --version
 ```
+
+**方式三：从源码安装**
+
+```bash
+# 克隆仓库
+git clone https://github.com/anthropics/claude-code.git
+cd claude-code
+
+# 安装依赖并构建
+npm install
+npm run build
+
+# 全局链接
+npm link
+```
+
+#### 首次启动与认证
+
+```bash
+# 启动 Claude Code
+claude
+
+# 首次启动会提示登录认证
+# 选择认证方式：
+#   1. 浏览器登录 - 自动打开浏览器完成授权
+#   2. API Key - 直接输入 Anthropic API Key
+```
+
+> [!warning] 认证注意
+> - 浏览器登录会在本地生成认证令牌
+> - API Key 方式需要有效的 Anthropic 账户和订阅
+
+#### 安装验证
+
+```bash
+# 检查版本
+claude --version
+
+# 查看帮助
+claude --help
+
+# 启动并测试
+claude
+> 你好，请告诉我你是什么
+```
+
+#### 常见安装问题
+
+| 问题 | 解决方案 |
+|------|---------|
+| `command not found: claude` | 确认 npm 全局路径在 PATH 中 |
+| `EACCES permission denied` | 使用 `sudo npm install -g` 或修复 npm 权限 |
+| Node.js 版本过低 | 升级到 Node.js 18+ |
+| Homebrew 安装慢 | 尝试切换镜像源或使用 npm 方式 |
+
+> [!tip] Windows 用户注意
+> 推荐使用 PowerShell 运行安装命令。如果遇到权限问题，可能需要以管理员身份运行。
 
 ### 步骤 2：配置
 
