@@ -35,6 +35,7 @@ tags: [ai, 工具使用]
 
 ### 步骤 1：安装
 
+
 ```bash
 # macOS (Homebrew)
 brew install claude-code
