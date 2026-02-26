@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "函数极限与连续/MinerU_markdown_202602161656970.md",
+                "file": "AI学习/如何使用Claude code.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "MinerU_markdown_202602161656970"
+              "title": "如何使用Claude code"
             }
           }
         ],
@@ -227,13 +227,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "函数极限与连续/MinerU_markdown_202602161656970.md",
+                "file": "AI学习/如何使用Claude code.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "MinerU_markdown_202602161656970 的大纲"
+              "title": "如何使用Claude code 的大纲"
             }
           },
           {
@@ -257,7 +257,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
@@ -276,15 +276,18 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "3650d0c142718954",
+  "active": "5e23b24f5e2a4b4a",
   "lastOpenFiles": [
+    "Marker PDF转换教学案例.md",
+    "Strm流文件与302播放详解.md",
     "考研/822 电子技术基础.pdf",
+    "考研/湖南大学控制科学与工程专硕考研指南.md",
+    "函数极限与连续/MinerU_markdown_202602161656970.md",
     "函数极限与连续/函数极限与连续.md",
     "函数极限与连续/full.md",
     "AI学习/Claude MCP 使用指南.md",
     "AI学习/openclaw/OpenClaw数字人商业调查.md",
     "AI学习/Claude Code 插件系统使用指南.md",
-    "考研/湖南大学控制科学与工程专硕考研指南.md",
     "AI学习/Claude Code 会话管理.md",
     "AI学习/如何使用Claude code.md",
     "AI学习/README.md",
@@ -304,12 +307,10 @@
     "Git/git教程.md",
     "AI学习/openclaw/~$enClaw数字人商业调查.docx",
     "Git/分支管理最佳实践.md",
-    "Git/Git 常见错误解决方案.md",
     "AI学习/openclaw/OpenClaw数字人商业调查.docx",
     "AI学习/openclaw/~$enClaw学习笔记.docx",
     "AI学习/openclaw/OpenClaw学习笔记.docx",
     "AI学习/openclaw/convert_to_word.py",
-    "AI学习/openclaw/OpenClaw安装教程.md",
     "AI学习/openclaw",
     "PVE的学习/PVE学习笔记MOC.canvas",
     "PVE的学习/assets/修改PVE的网络信息/file-20260203173647080.png",
@@ -323,7 +324,6 @@
     "PVE的学习/assets/如何创建PVE虚拟机/file-20260203173628033 1.png",
     "PVE的学习/assets/如何创建PVE虚拟机/file-20260203173628032.png",
     "PVE的学习/assets/如何创建PVE虚拟机/file-20260203173628031.png",
-    "PVE的学习/assets/如何创建PVE虚拟机",
-    "PVE的学习/assets/安装和使用PVE"
+    "PVE的学习/assets/如何创建PVE虚拟机"
   ]
 }

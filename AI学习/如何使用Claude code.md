@@ -244,13 +244,55 @@ claude
 
 ### 步骤 3：模型切换
 
-```bash
-# 启动时指定
-claude -m deepseek-chat
+#### 启动时指定模型
 
-# 会话中切换
-"使用 deepseek-chat 模型"
+```bash
+# 使用 --model 参数（推荐）
+claude --model claude-sonnet-4
+
+# 或使用 -m 简写
+claude -m claude-opus-4
+
+# 指定第三方平台模型（需先配置 provider）
+claude --model deepseek-chat
 ```
+
+#### 会话中切换模型
+
+```bash
+# 交互式切换（列出可用模型供选择）
+/model
+
+# 直接切换到指定模型
+/model claude-opus-4
+
+# 切换到第三方模型
+/model deepseek-chat
+
+# 查看当前使用的模型
+/status
+```
+
+#### 使用 cc-switch 工具（第三方）
+
+> [!tip] 推荐工具
+> [cc-switch](https://github.com/nicekate/cc-switch) 可以无缝切换到国产大模型
+
+```bash
+# 安装
+pip install cc-switch
+
+# 切换模型并启动
+cc_switch model
+
+# 列出所有可用模型
+cc_switch model -l
+
+# 交互式选择
+cc_switch model -i
+```
+
+**支持模型**：通义千问、DeepSeek、智谱 GLM、Moonshot 等
 
 ### 步骤 4：配置 MCP
 
