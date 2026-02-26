@@ -81,14 +81,23 @@ tags: [claude, ai, 工具使用]
 ### 管理历史会话
 
 ```bash
-# 列出所有会话
+# 列出所有会话（交互式选择）
 /resume
 
 # 恢复指定会话
 /resume my-project
 
-# 清除当前会话
+# 重命名当前会话
+/rename new-name
+
+# 清空当前会话（释放上下文）
 /clear
+
+# 压缩上下文（保留摘要，节省 Token）
+/compact
+
+# 导出当前对话
+/export
 ```
 
 ### 查看会话状态
@@ -97,8 +106,28 @@ tags: [claude, ai, 工具使用]
 # 查看当前会话信息
 /status
 
-# 显示 token 使用情况
+# 显示 Token/内存使用情况
 /context
+
+# 会话历史管理（v2.1.0+）
+/sessions
+```
+
+### CLI 启动恢复会话
+
+```bash
+# 恢复最近会话
+claude --continue
+claude -c              # 简写
+
+# 从历史列表选择恢复
+claude -r
+
+# 搜索并恢复会话
+claude -r "关键词"
+
+# 精确恢复指定会话
+claude --session-id <UUID>
 ```
 
 ## 会话存储与管理
