@@ -5,505 +5,682 @@ tags: [claude, ai, 工具使用]
 # Claude Code 会话管理
 
 > [!info] 概述
-> **会话管理让你灵活控制对话上下文** - 支持创建新会话、恢复历史会话、查看状态等功能，提高工作效率。
+> **Claude Code 使用 CLAUDE.md 文件管理跨会话记忆** - 通过项目级、用户级和本地级配置实现上下文持久化和记忆管理。
 
 ## 核心概念 💡
 
-### 什么是会话管理
+### 记忆系统架构
 
-**是什么**：Claude Code 的多会话管理功能
-
-**为什么需要**：
-- 隔离不同项目的上下文
-- 保存重要的对话历史
-- 管理 token 消耗
-- 快速切换工作状态
-
-**会话类型**：
-| 类型 | 说明 | 使用场景 |
-|------|------|----------|
-| 匿名会话 | 自动生成的临时会话 | 快速测试、一次性任务 |
-| 命名会话 | 用户指定名称的会话 | 特定项目、长期工作 |
-
-### 会话生命周期
+Claude Code 使用**文件系统**而非传统的会话文件来管理记忆：
 
 ```
-创建 → 使用 → 暂停 → 恢复 → 清理
-  ↓                            ↓
- 存储 ←←←←← 自动保存 ←←←←←←←←←←←←
+┌─────────────────────────────────────────────────────────┐
+│                    记忆优先级（高→低）                      │
+├─────────────────────────────────────────────────────────┤
+│  1. 本地记忆 (.claude/memory/)                           │
+│  2. 项目记忆 (./CLAUDE.md)                               │
+│  3. 用户记忆 (~/.claude/user_memory.md)                  │
+│  4. 全局设置 (~/.claude/settings.json)                   │
+└─────────────────────────────────────────────────────────┘
 ```
 
-**生命周期说明**：
-- **创建**：使用 `/new` 或 `/new <name>` 创建
-- **使用**：在会话中进行对话和操作
-- **暂停**：退出 Claude Code 时自动暂停
-- **恢复**：使用 `/resume <name>` 恢复历史会话
-- **清理**：使用 `/clear` 清除当前会话内容
+### 记忆类型对比
 
-### 会话数据结构
+| 类型 | 存储位置 | 作用域 | 典型内容 |
+|------|----------|--------|----------|
+| 本地记忆 | `.claude/memory/` | 当前会话 | 临时文件、会话特定数据 |
+| 项目记忆 | `./CLAUDE.md` | 当前项目 | 项目规范、架构决策 |
+| 用户记忆 | `~/.claude/user_memory.md` | 所有会话 | 编码偏好、常用模式 |
+| 全局设置 | `~/.claude/settings.json` | 全局配置 | 模型选择、权限设置 |
 
+### 会话 vs 记忆
+
+**重要区别**：
+- **会话**：当前的对话上下文，可通过 `/clear` 清理，通过 `/compact` 压缩
+- **记忆**：持久化的文件内容，跨会话保存，需手动编辑
+
+```
+会话（临时）                记忆（持久）
+┌─────────────┐           ┌─────────────┐
+│ 对话历史    │           │ CLAUDE.md   │
+│ 文件上下文  │  ←→       │ settings    │
+│ 临时状态    │           │ user_memory │
+└─────────────┘           └─────────────┘
+```
+
+## 配置系统详解
+
+### Settings 配置优先级
+
+```mermaid
+graph TD
+    A[合并后的最终配置] --> B[User Settings]
+    A --> C[Project Settings]
+    A --> D[Local Settings]
+    A --> E[Managed Settings]
+    E --> F[优先级最高]
+    B --> G[优先级最低]
+```
+
+**配置文件位置**：
+```bash
+# 用户级配置（所有会话）
+~/.claude/settings.json
+
+# 项目级配置（当前项目）
+./.claude/settings.json
+
+# 本地配置（当前目录）
+./.claude.local/settings.json
+
+# 托管配置（优先级最高）
+~/.claude/managed-settings.json
+```
+
+**示例配置结构**：
 ```json
 {
-  "id": "session-abc123def456",
-  "name": "my-project",
-  "messages": [
-    {
-      "role": "user",
-      "content": "帮我实现登录功能"
-    },
-    {
-      "role": "assistant",
-      "content": "好的，我来帮你..."
-    }
-  ],
-  "createdAt": "2024-02-23T10:00:00Z",
-  "updatedAt": "2024-02-23T15:30:00Z",
-  "metadata": {
-    "model": "deepseek-chat",
-    "provider": "deepseek"
+  "model": "claude-sonnet-4-6",
+  "permissions": {
+    "allowedTools": ["Edit", "Read", "Bash"],
+    "blockedTools": ["WebSearch"]
+  },
+  "env": {
+    "PROJECT_NAME": "my-app"
   }
 }
 ```
 
-## 操作步骤
+### CLAUDE.md 记忆文件
 
-### 创建新会话
+**项目记忆** - `./CLAUDE.md`：
+```markdown
+---
+tags: [project, backend]
+---
 
-```bash
-# 创建空白会话
-/new
+# 项目说明
 
-# 创建命名会话
-/new my-project
-/new feature-xyz
+## 技术栈
+- 后端: Node.js + Express
+- 数据库: PostgreSQL
+- 缓存: Redis
+
+## 编码规范
+- 使用 TypeScript
+- 遵循 ESLint 配置
+- API 遵循 RESTful 规范
 ```
 
-### 管理历史会话
+**用户记忆** - `~/.claude/user_memory.md`：
+```markdown
+# 我的编码偏好
+
+## 通用偏好
+- 使用驼峰命名法
+- 函数需要有 JSDoc 注释
+- 使用 async/await 而非 Promise
+
+## 常用模式
+- 错误处理使用统一格式
+- 日志使用 winston 库
+```
+
+## 内置斜杠命令
+
+### 会话管理命令
 
 ```bash
-# 列出所有会话（交互式选择）
-/resume
-
-# 恢复指定会话
-/resume my-project
-
-# 重命名当前会话
-/rename new-name
-
-# 清空当前会话（释放上下文）
+# 清理当前会话历史
 /clear
 
-# 压缩上下文（保留摘要，节省 Token）
+# 压缩当前会话（保留摘要）
 /compact
 
-# 导出当前对话
-/export
-```
-
-### 查看会话状态
-
-```bash
-# 查看当前会话信息
+# 查看当前会话状态
 /status
 
-# 显示 Token/内存使用情况
-/context
-
-# 会话历史管理（v2.1.0+）
-/sessions
+# 查看Token使用和成本
+/cost
 ```
 
-### CLI 启动恢复会话
+### 记忆管理命令
 
 ```bash
-# 恢复最近会话
+# 管理记忆文件
+/memory
+# 交互式编辑 CLAUDE.md 和 user_memory.md
+
+# 查看当前所有记忆
+/memory list
+```
+
+### 配置管理命令
+
+```bash
+# 编辑配置
+/config
+# 交互式编辑 settings.json
+
+# 模型选择
+/model
+# 切换使用的 Claude 模型
+```
+
+### 完整内置命令列表
+
+| 命令 | 功能 |
+|------|------|
+| `/add-dir` | 添加目录到上下文 |
+| `/bug` | 报告 Bug |
+| `/clear` | 清理会话历史 |
+| `/compact` | 压缩会话内容 |
+| `/config` | 编辑配置文件 |
+| `/cost` | 查看 Token 成本 |
+| `/doctor` | 诊断工具 |
+| `/help` | 显示帮助信息 |
+| `/init` | 初始化 Claude Code |
+| `/login` | 登录账户 |
+| `/logout` | 登出账户 |
+| `/mcp` | 管理 MCP 服务器 |
+| `/memory` | 管理记忆文件 |
+| `/model` | 选择模型 |
+| `/permissions` | 权限管理 |
+| `/pr_comments` | PR 评论 |
+| `/review` | 代码审查 |
+| `/status` | 会话状态 |
+| `/terminal-setup` | 终端设置 |
+| `/vim` | Vim 模式配置 |
+
+> [!warning] 重要说明
+> 以下命令**不是**官方内置命令，可能是自定义命令或过时信息：
+> - `/new` ❌
+> - `/resume` ❌
+> - `/export` ❌
+> - `/sessions` ❌
+> - `/context` ❌
+> - `/rename` ❌
+
+## CLI 启动选项
+
+```bash
+# 恢复上一次的会话
 claude --continue
 claude -c              # 简写
 
-# 从历史列表选择恢复
-claude -r
+# 从历史记录选择会话恢复
+claude --resume
 
-# 搜索并恢复会话
-claude -r "关键词"
+# 搜索包含特定内容的会话
+claude --search "关键词"
 
-# 精确恢复指定会话
-claude --session-id <UUID>
+# 指定工作目录启动
+claude --directory /path/to/project
+
+# 指定模型启动
+claude --model claude-opus-4-6
+
+# 静默模式（减少输出）
+claude --quiet
+
+# 详细模式（显示更多信息）
+claude --verbose
 ```
 
-## 会话存储与管理
+## 会话操作流程
 
-### 会话文件结构
-```
-~/.claude/sessions/
-├── session-abc123.json    # 匿名会话
-├── my-project.json        # 命名会话
-└── feature-login.json     # 功能会话
-```
+### 开始新项目工作流
 
-### 查看会话文件
 ```bash
-# 列出所有会话文件
-ls ~/.claude/sessions/
+# 1. 初始化项目
+cd /path/to/project
+claude
 
-# 查看特定会话内容
-cat ~/.claude/sessions/my-project.json | jq '.'
+# 2. 创建项目记忆
+/memory
+# 编辑 CLAUDE.md 添加项目信息
+
+# 3. 配置项目设置
+/config
+# 设置项目特定配置
+
+# 4. 开始工作
+# 对话和编码...
 ```
 
-### 会话数据格式
-```json
-{
-  "id": "session-xxx",
-  "name": "my-project",
-  "messages": [...],
-  "createdAt": "2024-02-23T10:00:00Z",
-  "updatedAt": "2024-02-23T15:30:00Z"
-}
+### 会话清理策略
+
+```bash
+# 策略 1: 清理历史但保留记忆
+/clear
+
+# 策略 2: 压缩会话为摘要
+/compact
+
+# 策略 3: 查看当前状态再决定
+/status
+/cost
+```
+
+### 记忆管理最佳实践
+
+**项目级记忆** (`./CLAUDE.md`)：
+```markdown
+---
+tags: [project, type]
+---
+
+# 项目名称
+
+## 架构
+- 描述项目架构...
+
+## 技术栈
+- 列出技术栈...
+
+## 规范
+- 编码规范...
+```
+
+**用户级记忆** (`~/.claude/user_memory.md`)：
+```markdown
+# 我的偏好
+
+## 编码风格
+- 个人风格偏好...
+
+## 常用库
+- 常用的库和工具...
 ```
 
 ## Token 管理策略
 
 ### Token 消耗分析
+
 | 操作 | 大约消耗 | 说明 |
 |------|----------|------|
-| 创建新会话 | ~100 tokens | 初始化系统提示 |
-| 恢复历史会话 | 取决于历史长度 | 每条消息约 50-500 tokens |
+| 启动新会话 | ~100-500 tokens | 系统提示 + 配置读取 |
+| 读取 CLAUDE.md | ~50-200 tokens | 取决于文件大小 |
+| 读取代码文件 | ~1-10 tokens/KB | 取决于文件大小 |
 | /clear 清理 | ~100 tokens | 重置为初始状态 |
-| 文件读取 | ~1-10 tokens/KB | 取决于文件大小 |
-| 代码生成 | ~100-1000 tokens/次 | 取决于生成代码长度 |
+| /compact 压缩 | 变量 | 保留摘要，大幅减少 |
 
 ### 优化建议
 
 **监控 Token 使用**：
 ```bash
-# 实时查看 token 消耗
-/context
+# 查看 Token 和成本
+/cost
 
-# 查看当前会话状态
+# 查看会话状态
 /status
 ```
 
-**定期清理**：
+**保持记忆文件精简**：
+```markdown
+# ✅ 好的 CLAUDE.md
+- 只包含稳定信息
+- 简洁的规范说明
+- 关键架构决策
+
+# ❌ 避免
+- 临时讨论内容
+- 过于详细的历史记录
+- 会变化的信息
+```
+
+**定期清理会话**：
 ```bash
-# 清理当前会话
+# 完成任务后清理
 /clear
 
-# 清理后重新开始
-/new fresh-session
+# 或压缩为摘要
+/compact
 ```
 
-**为不同任务创建独立会话**：
-```bash
-# 开发会话
-/new dev-auth
-/new dev-payment
+## 记忆文件管理
 
-# 学习会话
-/new learn-react
+### 文件结构
 
-# 调试会话
-/new debug-bug-123
+```
+~/.claude/
+├── settings.json              # 全局配置
+├── user_memory.md             # 用户记忆
+├── memory/                    # 本地记忆目录
+│   └── {session-id}/          # 会话特定记忆
+└── managed-settings.json      # 托管配置
+
+./
+├── .claude/
+│   └── settings.json          # 项目配置
+├── .claude.local/
+│   └── settings.json          # 本地配置（通常加入 .gitignore）
+└── CLAUDE.md                  # 项目记忆
 ```
 
-**会话合并策略**：
-- 短期任务：使用匿名会话，完成后 `/clear`
-- 长期项目：使用命名会话，定期清理
-- 学习记录：保留完整会话历史
+### 记忆文件操作
 
-## 会话备份与恢复
-
-### 手动备份
 ```bash
-# 备份单个会话
-cp ~/.claude/sessions/my-project.json ~/backup/sessions/
+# 编辑记忆
+/memory
+# 交互式选择和编辑记忆文件
 
-# 备份所有会话
-cp -r ~/.claude/sessions/ ~/backup/sessions-$(date +%Y%m%d)/
+# 直接编辑项目记忆
+vim ./CLAUDE.md
+
+# 直接编辑用户记忆
+vim ~/.claude/user_memory.md
+
+# 查看当前配置
+cat .claude/settings.json | jq '.'
 ```
 
-### 自动备份脚本
+### 跨项目共享记忆
+
 ```bash
-#!/bin/bash
-# backup-sessions.sh
+# 复制项目记忆到新项目
+cp /path/to/old-project/CLAUDE.md \
+   /path/to/new-project/CLAUDE.md
 
-BACKUP_DIR="$HOME/backups/claude-sessions"
-DATE=$(date +%Y%m%d_%H%M%S)
-
-mkdir -p "$BACKUP_DIR"
-cp -r ~/.claude/sessions/ "$BACKUP_DIR/sessions_$DATE/"
-
-echo "会话已备份至: $BACKUP_DIR/sessions_$DATE/"
-```
-
-### 跨设备同步
-```bash
-# 同步到其他机器
-scp ~/.claude/sessions/*.json user@remote:~/.claude/sessions/
-
-# 使用 rsync 同步
-rsync -av ~/.claude/sessions/ user@remote:~/.claude/sessions/
-
-# 从 Git 仓库同步
-git clone https://github.com/yourname/claude-sessions.git
-cp my-project.json ~/.claude/sessions/
-```
-
-### 会话恢复示例
-```bash
-# 查看备份的会话
-ls ~/backup/sessions/
-
-# 恢复指定会话
-cp ~/backup/sessions/my-project.json ~/.claude/sessions/
-
-# 在 Claude Code 中恢复
-/resume my-project
+# 复制配置
+cp /path/to/old-project/.claude/settings.json \
+   /path/to/new-project/.claude/settings.json
 ```
 
 ## 实用场景
 
-### 场景一：项目隔离
+### 场景一：新项目初始化
+
 ```bash
-# 为不同项目创建独立会话
-/new project-a     # 项目 A
-/new project-b     # 项目 B
-/resume project-a  # 切换回项目 A
+# 1. 创建项目目录
+mkdir my-new-project
+cd my-new-project
+
+# 2. 初始化 Claude Code
+claude
+> /init
+
+# 3. 创建项目记忆
+/memory
+> # 编辑 CLAUDE.md，添加：
+> - 项目描述
+> - 技术栈选择
+> - 架构决策
+
+# 4. 配置项目设置
+/config
+> # 设置项目特定配置
 ```
 
-### 场景二：功能开发
+### 场景二：多项目切换
+
 ```bash
-/new feature-login    # 登录功能开发
-/new feature-payment  # 支付功能开发
-/resume feature-login # 继续登录功能
+# 项目 A
+cd ~/projects/project-a
+claude
+# Claude 自动读取 ./CLAUDE.md
+# 工作完成后退出
+exit
+
+# 项目 B
+cd ~/projects/project-b
+claude
+# Claude 自动读取项目 B 的 CLAUDE.md
+# 完全不同的上下文
 ```
 
-### 场景三：问题排查
+### 场景三：团队协作记忆
+
 ```bash
-/new bug-investigation  # 专门用于排查问题
-/clear                  # 问题解决后清理
+# 1. 创建共享项目记忆
+cat > ./CLAUDE.md << 'EOF'
+# 团队项目
+
+## 团队规范
+- 代码风格：团队约定 A
+- 提交规范：Conventional Commits
+
+## 架构
+- 描述项目架构...
+EOF
+
+# 2. 提交到版本控制
+git add CLAUDE.md
+git commit -m "Add Claude Code memory"
+
+# 3. 团队成员克隆后自动获得上下文
 ```
 
-### 场景四：长期项目跟踪
+### 场景四：功能开发
+
 ```bash
-# 为长期项目创建专用会话
-/new project-crm-2024
+# 1. 开发前
+/memory
+> # 更新 CLAUDE.md，记录功能设计
 
-# 定期恢复以更新进度
-/resume project-crm-2024
+# 2. 开发中
+# 对话和编码...
 
-# 项目里程碑节点
-/new project-crm-v1.0    # 版本发布
-/new project-crm-v2.0    # 下一版本
+# 3. 完成后
+/compact
+> # 压缩为摘要
+
+# 4. 更新记忆
+/memory
+> # 记录关键决策和实现细节
 ```
 
-### 场景五：教学/演示会话
+### 场景五：调试专用会话
+
 ```bash
-# 教学专用会话
-/new teach-react-hooks
+# 1. 开始调试
+claude
 
-# 演示专用会话
-/new demo-cli-features
+# 2. 隔离上下文
+/clear
+> # 清理无关历史
 
-# 准备演示内容后，可以直接演示
-# 无需担心历史对话干扰
+# 3. 专注问题
+# 只加载相关文件...
+
+# 4. 问题解决后
+/compact
+> # 保留问题解决方案摘要
 ```
 
-### 场景六：A/B 测试不同方案
+## 高级技巧
+
+### 环境变量配置
+
+**在 settings.json 中设置**：
+```json
+{
+  "env": {
+    "PROJECT_ENV": "development",
+    "DEBUG": "true",
+    "API_KEY": "${API_KEY}"  // 引用系统环境变量
+  }
+}
+```
+
+### MCP 服务器集成
+
 ```bash
-# 方案 A 会话
-/new solution-a-rest-api
-# 讨论和开发 REST API 方案
+# 管理 MCP 服务器
+/mcp
 
-# 方案 B 会话
-/new solution-b-graphql
-# 讨论和开发 GraphQL 方案
+# 添加新的 MCP 服务器
+# 在 .claude/settings.json 中配置：
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/allowed"]
+    }
+  }
+}
+```
 
-# 对比两个方案的结果
-# 然后决定最终方案
+### 记忆模板
+
+**创建项目模板**：
+```bash
+# 1. 创建模板目录
+mkdir -p ~/.claude/templates
+cat > ~/.claude/templates/web-app.md << 'EOF'
+---
+tags: [template, web]
+---
+
+# Web 应用项目
+
+## 技术栈
+- 前端：待定
+- 后端：待定
+- 数据库：待定
+
+## 初始任务
+- [ ] 确定技术栈
+- [ ] 搭建基础架构
+- [ ] 配置开发环境
+EOF
+
+# 2. 新项目时复制模板
+cp ~/.claude/templates/web-app.md ./CLAUDE.md
+# 然后根据项目修改
+```
+
+### 权限管理
+
+```bash
+# 管理工具权限
+/permissions
+
+# 在 settings.json 中配置：
+{
+  "permissions": {
+    "allowedTools": ["Read", "Edit", "Write"],
+    "blockedTools": ["WebSearch", "Bash"],
+    "allowedDirectories": ["/path/to/project"],
+    "blockedDirectories": ["/etc", "~/secrets"]
+  }
+}
 ```
 
 ## 注意事项 ⚠️
 
 ### 常见错误
 
-**会话恢复失败**：
-- ❌ 会话名称拼写错误
-- ❌ 会话已被删除
+**记忆文件不生效**：
+- ❌ 文件格式错误（JSON 或 Markdown）
+- ❌ 文件位置不正确
+- ❌ 标签格式错误
 
-**Token 超限**：
+**Token 消耗过大**：
+- ❌ CLAUDE.md 文件过大
 - ❌ 会话历史过长
-- ❌ 未及时清理无用上下文
+- ❌ 读取了过多文件
 
 ### 最佳实践
 
-**命名规范**：
+**记忆文件维护**：
 ```bash
-# ✅ 推荐命名
-/new project-auth
-/new feature-api-v2
-/new bug-fix-2024-02-23
+# ✅ 推荐做法
+- CLAUDE.md 只包含稳定信息
+- 定期整理和更新
+- 使用标签分类
 
-# ❌ 不推荐
-/new test
-/new temp
-/new 123
+# ❌ 避免
+- 放置临时内容
+- 记录详细历史
+- 文件过大（>1KB）
 ```
 
-**定期清理**：
-- 使用 `/clear` 清理不需要的历史
-- 使用 `/context` 监控 token 使用
-
-**会话组织**：
-- 按项目分类创建会话
-- 按功能模块隔离上下文
-- 定期归档旧会话
-
-## 高级技巧
-
-### 会话模板创建
-
-**创建项目模板**：
+**会话管理**：
 ```bash
-# 创建模板会话
-/new template-web-app
+# ✅ 推荐做法
+- 任务完成后 /compact
+- 切换项目前 /clear
+- 定期检查 /cost
 
-# 配置初始上下文
-"这是一个 Web 应用项目，使用 React + TypeScript + Vite"
-"项目结构遵循 feature-first 模式"
+# ❌ 避免
+- 会话过长不清理
+- 混合多个项目讨论
+- 不检查成本
 ```
 
-**从模板创建新会话**：
+**配置管理**：
 ```bash
-# 复制模板会话
-cp ~/.claude/sessions/template-web-app.json \
-   ~/.claude/sessions/new-project.json
+# ✅ 推荐做法
+- 敏感信息用 .claude.local/
+- 项目配置提交版本控制
+- 用户配置跨项目共享
 
-# 恢复并重命名
-/resume new-project
-```
-
-### 环境变量与会话
-
-**会话特定的环境变量**：
-```bash
-# 在会话中设置临时环境
-export PROJECT_ENV=development
-export DEBUG=true
-
-# 这些设置会在会话中持续有效
-# 直到会话结束或被清除
-```
-
-**会话配置文件**：
-```bash
-# .claude-env 项目级配置
-echo "PROJECT_NAME=my-app" > .claude-env
-echo "USE_TYPESCRIPT=true" >> .claude-env
-
-# Claude Code 会自动读取项目级配置
-```
-
-### 与 Git 工作流结合
-
-**分支与会话对应**：
-```bash
-# 创建与分支对应的会话
-/new feature-user-auth
-
-# 切换到对应分支
-git checkout feature/user-auth
-
-# 在会话中开发功能
-# 完成后提交代码
-/commit
-
-# 功能完成后清理会话
-/clear
-```
-
-**Commit 后清理**：
-```bash
-# 开发功能
-/new feature-xyz
-# ... 开发过程 ...
-/commit "Add feature XYZ"
-
-# 提交后清理会话，准备下一个任务
-/clear
-```
-
-**Code Review 会话**：
-```bash
-# 为 PR 创建专用会话
-/new pr-review-123
-
-# 恢复 PR 上下文
-/resume pr-review-123
-/review-pr 123
-
-# Review 完成后清理
-/clear
-```
-
-### 会话搜索与过滤
-
-**搜索会话内容**：
-```bash
-# 搜索包含特定内容的会话
-grep -r "登录功能" ~/.claude/sessions/
-
-# 查找最近修改的会话
-ls -lt ~/.claude/sessions/ | head -10
-```
-
-**按日期过滤**：
-```bash
-# 查找今天的会话
-find ~/.claude/sessions/ -newermt "today" -ls
-
-# 查找本周的会话
-find ~/.claude/sessions/ -newermt "week ago" -ls
+# ❌ 避免
+- API 密钥放入项目配置
+- 重复配置相同内容
+- 配置层级混乱
 ```
 
 ## 常见问题 ❓
 
-**Q: 会话保存在哪里？**
+**Q: 记忆文件支持格式？**
 
-A: 会话数据存储在 `~/.claude/sessions/` 目录下。
+A: 记忆文件使用 Markdown 格式，支持：
+- 标准Markdown语法
+- YAML frontmatter（用于标签）
+- 代码块和表格
 
-**Q: 会话会自动保存吗？**
+**Q: settings.json 支持哪些字段？**
 
-A: 是的，所有对话都会自动保存到当前会话中。
+A: 主要字段包括：
+- `model`: 模型选择
+- `permissions`: 权限配置
+- `env`: 环境变量
+- `mcpServers`: MCP 服务器配置
+- `customCommands`: 自定义命令
 
-**Q: 如何删除旧会话？**
+**Q: 如何在团队间共享配置？**
 
-A: 直接删除 `~/.claude/sessions/` 下对应的会话文件。
-
-**Q: token 消耗太快怎么办？**
-
-A: 使用 `/clear` 清理历史，或创建新会话减少上下文长度。
-
-**Q: 会话可以共享吗？**
-
-A: 可以，通过复制会话文件来共享：
+A: 推荐做法：
 ```bash
-# 导出会话
-cp ~/.claude/sessions/my-project.json ./shared-session.json
+# 项目配置（共享）
+./.claude/settings.json      # 提交到 Git
+./CLAUDE.md                  # 提交到 Git
 
-# 导入会话
-cp ./shared-session.json ~/.claude/sessions/
+# 本地配置（不共享）
+./.claude.local/settings.json  # 加入 .gitignore
 ```
 
-**Q: 会话有大小限制吗？**
+**Q: Token 消耗太快怎么办？**
 
-A: 会话文件本身没有大小限制，但过长的历史会影响 token 消耗和响应速度。建议定期使用 `/clear` 清理。
+A: 优化方法：
+1. 定期使用 `/compact` 压缩会话
+2. 保持 CLAUDE.md 简洁
+3. 使用 `/cost` 监控消耗
+4. 考虑切换到更小的模型
 
-**Q: 如何在会话间复制内容？**
+**Q: 如何备份记忆和配置？**
 
-A: 可以使用 `/resume` 切换会话查看历史，然后手动复制需要的内容到新会话。
+A: 备份关键文件：
+```bash
+# 备份项目记忆
+cp CLAUDE.md backup/
 
-**Q: 会话文件可以编辑吗？**
+# 备份用户记忆
+cp ~/.claude/user_memory.md backup/
 
-A: 技术上可以编辑 JSON 文件，但不建议手动修改。格式错误可能导致会话无法加载。
+# 备份配置
+cp ~/.claude/settings.json backup/
+```
+
+**Q: 记忆会自动保存吗？**
+
+A: 会话期间的对话需要通过 `/memory` 手动保存到记忆文件。配置文件修改后自动保存。
 
 ## 相关文档
-[[如何使用Claude code]] | [[Claude Code 常用功能]] | [[Claude MCP 使用指南]]
+- [官方文档](https://docs.anthropic.com/zh-CN/docs/claude-code/overview)
+- [设置文档](https://docs.anthropic.com/zh-CN/docs/claude-code/settings)
+- [记忆系统](https://docs.anthropic.com/zh-CN/docs/claude-code/memory)
+- [斜杠命令](https://docs.anthropic.com/zh-CN/docs/claude-code/slash-commands)
+- [[如何使用Claude code]] | [[Claude MCP 使用指南]]
