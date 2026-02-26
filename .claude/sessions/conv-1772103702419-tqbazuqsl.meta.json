@@ -3,10 +3,16 @@
   "title": "步骤 3：模型切换",
   "titleGenerationStatus": "failed",
   "createdAt": 1772103702420,
-  "updatedAt": 1772103775929,
-  "lastResponseAt": 1772103775929,
-  "sessionId": "3ae18c86-2621-4e1f-a1bf-2a47b9e912e7",
-  "sdkSessionId": "3ae18c86-2621-4e1f-a1bf-2a47b9e912e7",
+  "updatedAt": 1772113570531,
+  "lastResponseAt": 1772113570531,
+  "sessionId": "58fe2602-b08c-4663-a5ce-f2519d77ad3d",
+  "sdkSessionId": "58fe2602-b08c-4663-a5ce-f2519d77ad3d",
+  "previousSdkSessionIds": [
+    "3ae18c86-2621-4e1f-a1bf-2a47b9e912e7",
+    "f1d72d51-acac-4727-89a9-6f1865807314",
+    "a30eb4cd-c723-4420-9d44-4ce1866f6599",
+    "c527340a-f6e7-46a3-9717-a9122615aef9"
+  ],
   "currentNote": "AI学习/如何使用Claude code.md",
   "usage": {
     "model": "glm-5",
