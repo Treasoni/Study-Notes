@@ -178,5 +178,18 @@ A:
 
 A: Skills 是预定义的任务模板，通过命令触发；Agent 是能自主决策的工具调用系统。Skills 更像"快捷键"，Agent 更像"智能助手"。
 
+**Q: Agent 和 SubAgent 有什么区别？什么时候该用 SubAgent？**
+
+A:
+- **Agent**：单兵作战，所有信息在共享上下文中处理，适合简单线性任务
+- **SubAgent**：老板派活给员工模式，拥有独立上下文，适合需要隔离中间过程的复杂任务
+
+**使用场景判断**：
+- 代码审查、简单分析 → 用 Agent
+- 探索大型代码库、重构模块 → 用 SubAgent
+- 需要多 AI 协作对话 → 用 Agent Teams（成本最高）
+
+**核心原则**：能用 Agent 就不用 SubAgent，避免不必要的资源消耗
+
 ## 相关文档
 [[Skills 是什么]] | [[Claude MCP 使用指南]] | [[Claude Subagent 使用指南]]

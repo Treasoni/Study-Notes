@@ -257,7 +257,7 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -276,7 +276,7 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "3650d0c142718954",
+  "active": "746e3216e1c18840",
   "lastOpenFiles": [
     "AI学习/如何使用Claude code.md",
     "AI学习/Claude Code 会话管理.md",
