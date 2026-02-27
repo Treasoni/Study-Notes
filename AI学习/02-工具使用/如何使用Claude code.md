@@ -238,7 +238,7 @@ claude
 ```
 
 > [!info] 配置级别
-> MCP 支持三种配置级别：项目级 `.mcp.json`、全局级 `~/.claude/claude_desktop_config.json`、插件级。详见 [[Claude MCP 使用指南]]
+> MCP 支持三种配置级别：项目级 `.mcp.json`、全局级 `~/.claude/claude_desktop_config.json`、插件级。详见 [[03-进阶应用/Claude MCP 使用指南]]
 
 **配置优先级**：环境变量 > 配置文件
 
@@ -308,7 +308,7 @@ claude mcp remove filesystem
 ```
 
 > [!tip] 详细说明
-> 完整的 MCP 配置和使用教程请参阅 [[Claude MCP 使用指南]]
+> 完整的 MCP 配置和使用教程请参阅 [[03-进阶应用/Claude MCP 使用指南]]
 
 ### 步骤 5：使用 Skills
 
@@ -325,8 +325,8 @@ claude mcp remove filesystem
 ```
 
 > [!tip] 详细说明
-> - 了解 Skills 概念：[[Skills 是什么]]
-> - 学习编写自定义 Skills：[[如何编写Skills]]
+> - 了解 Skills 概念：[[01-基础概念/Skills 是什么]]
+> - 学习编写自定义 Skills：[[03-进阶应用/如何编写Skills]]
 
 ### 步骤 6：会话管理
 
@@ -346,7 +346,7 @@ claude mcp remove filesystem
 ```
 
 > [!tip] 详细说明
-> 更多会话管理技巧请参阅 [[Claude Code 会话管理]]
+> 更多会话管理技巧请参阅 [[02-工具使用/Claude Code 会话管理]]
 
 ### 步骤 7：使用 CLAUDE.md
 
@@ -402,7 +402,7 @@ claude
 ```
 
 > [!tip] 详细说明
-> 完整的 CLAUDE.md 编写指南请参阅 [[CLAUDE.md 使用指南]]
+> 完整的 CLAUDE.md 编写指南请参阅 [[03-进阶应用/CLAUDE.md 使用指南]]
 
 ### 步骤 8：配置代理
 
@@ -680,7 +680,7 @@ A:
 - Skills 可以调用 MCP 提供的工具
 
 > [!info] 深入理解
-> 想了解 Prompt、Agent、MCP 的关系，请参阅 [[人工智能重要的六大概念体系]]
+> 想了解 Prompt、Agent、MCP 的关系，请参阅 [[01-基础概念/人工智能重要的六大概念体系]]
 
 **Q: 如何调试 MCP 配置？**
 
@@ -697,7 +697,7 @@ npx -y @modelcontextprotocol/server-filesystem /test/path
 ```
 
 > [!tip] Subagent 调试
-> 如果需要调试 Agent 相关问题，请参阅 [[Claude Subagent 使用指南]]
+> 如果需要调试 Agent 相关问题，请参阅 [[04-高级应用/Claude Subagent 使用指南]]
 
 **Q: Claude Code 无法连接网络怎么办？**
 
@@ -745,4 +745,4 @@ A:
 - **环境变量**：适合临时切换或需要频繁更改代理的场景
 
 ## 相关文档
-[[Claude Code 常用功能]] | [[Claude MCP 使用指南]] | [[Claude Code 会话管理]] | [[Skills 是什么]] | [[如何编写Skills]] | [[Claude Subagent 使用指南]] | [[人工智能重要的六大概念体系]] | [[CLAUDE.md 使用指南]]
+[[02-工具使用/Claude Code 常用功能]] | [[03-进阶应用/Claude MCP 使用指南]] | [[02-工具使用/Claude Code 会话管理]] | [[01-基础概念/Skills 是什么]] | [[03-进阶应用/如何编写Skills]] | [[04-高级应用/Claude Subagent 使用指南]] | [[01-基础概念/人工智能重要的六大概念体系]] | [[03-进阶应用/CLAUDE.md 使用指南]]

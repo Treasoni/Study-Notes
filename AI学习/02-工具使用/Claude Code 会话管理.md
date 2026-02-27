@@ -683,4 +683,4 @@ A: 会话期间的对话需要通过 `/memory` 手动保存到记忆文件。配
 - [设置文档](https://docs.anthropic.com/zh-CN/docs/claude-code/settings)
 - [记忆系统](https://docs.anthropic.com/zh-CN/docs/claude-code/memory)
 - [斜杠命令](https://docs.anthropic.com/zh-CN/docs/claude-code/slash-commands)
-- [[如何使用Claude code]] | [[Claude MCP 使用指南]]
+- [[02-工具使用/如何使用Claude code]] | [[03-进阶应用/Claude MCP 使用指南]]
