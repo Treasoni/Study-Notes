@@ -69,30 +69,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/02-工具使用/如何使用Claude code.md",
+                "file": "AI学习/03-进阶应用/CLAUDE.md 使用指南.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "如何使用Claude code"
-            }
-          },
-          {
-            "id": "f94f23265bc04821",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "AI学习/00-索引/00-学习路线图.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "00-学习路线图"
+              "title": "CLAUDE.md 使用指南"
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -124,7 +110,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#ai  ",
+                "query": "",
                 "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -165,7 +151,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "AI学习/如何使用Claude code.md",
+                "file": "AI学习/03-进阶应用/CLAUDE.md 使用指南.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -175,7 +161,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "如何使用Claude code 的反向链接列表"
+              "title": "CLAUDE.md 使用指南 的反向链接列表"
             }
           },
           {
@@ -184,12 +170,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "AI学习/如何使用Claude code.md",
+                "file": "AI学习/03-进阶应用/CLAUDE.md 使用指南.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "如何使用Claude code 的出链列表"
+              "title": "CLAUDE.md 使用指南 的出链列表"
             }
           },
           {
@@ -227,13 +213,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/00-索引/00-学习路线图.md",
+                "file": "AI学习/03-进阶应用/CLAUDE.md 使用指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "00-学习路线图 的大纲"
+              "title": "CLAUDE.md 使用指南 的大纲"
             }
           },
           {
@@ -276,35 +262,36 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "f94f23265bc04821",
+  "active": "52ff2f9fbef74052",
   "lastOpenFiles": [
+    "AI学习/CLAUDE.md",
+    "AI学习/02-工具使用/Claude Code 常用功能.md",
+    "AI学习/02-工具使用/如何使用Claude code.md",
+    "AI学习/01-基础概念/Agent Teams智能体团队.md",
+    "AI学习/05-其他主题/RAG技术入门指南.md",
+    "Git/git教程.md",
+    "Git/分支管理最佳实践.md",
     "AI学习/01-基础概念/人工智能重要的六大概念体系.md",
+    "AI学习/01-基础概念/Skills 是什么.md",
+    "AI学习/01-基础概念/Prompt提示词.md",
+    "AI学习/01-基础概念/Agent智能体.md",
+    "AI学习/01-基础概念/MCP协议.md",
+    "AI学习/01-基础概念/SubAgent子代理.md",
+    "AI学习/02-工具使用/Claude Code 会话管理.md",
+    "AI学习/00-索引/00-学习路线图.md",
     "AI学习/05-其他主题/openclaw/convert_to_word.py",
     "AI学习/05-其他主题/openclaw/OpenClaw数字人商业调查.md",
     "AI学习/05-其他主题/openclaw/OpenClaw安装教程.md",
     "AI学习/05-其他主题/openclaw",
-    "AI学习/01-基础概念/Agent智能体.md",
-    "AI学习/01-基础概念/Agent Teams智能体团队.md",
-    "AI学习/01-基础概念/SubAgent子代理.md",
-    "AI学习/01-基础概念/MCP协议.md",
-    "AI学习/01-基础概念/Prompt提示词.md",
-    "AI学习/01-基础概念/Skills 是什么.md",
-    "AI学习/02-工具使用/如何使用Claude code.md",
-    "AI学习/02-工具使用/Claude Code 常用功能.md",
-    "AI学习/02-工具使用/Claude Code 会话管理.md",
     "AI学习/02-工具使用/Claude Code 插件系统使用指南.md",
     "AI学习/03-进阶应用/如何编写Skills.md",
     "AI学习/03-进阶应用/Claude MCP 使用指南.md",
     "AI学习/03-进阶应用/CLAUDE.md 使用指南.md",
     "AI学习/04-高级应用/Claude Subagent 使用指南.md",
     "AI学习/04-高级应用/Subagent 实战练习.md",
-    "AI学习/05-其他主题/RAG技术入门指南.md",
     "AI学习/05-其他主题/OCR概念笔记.md",
     "AI学习/00-索引/README.md",
-    "AI学习/00-索引/00-学习路线图.md",
-    "Git/git教程.md",
     "AI学习/人工智能重要的六大概念体系.md",
-    "AI学习/00-索引/MOC.md",
     "AI学习/05-其他主题",
     "AI学习/04-高级应用",
     "AI学习/03-进阶应用",
