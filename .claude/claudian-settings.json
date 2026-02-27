@@ -42,7 +42,7 @@
   "model": "glm-5",
   "thinkingBudget": "low",
   "enableAutoTitleGeneration": true,
-  "titleGenerationModel": "",
+  "titleGenerationModel": "glm-4.7",
   "show1MModel": false,
   "enableChrome": false,
   "excludedTags": [],
