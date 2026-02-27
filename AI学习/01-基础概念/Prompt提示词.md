@@ -151,7 +151,7 @@ tags: [ai, 基础概念, prompt]
 |------|------------------|
 | [[Agent智能体]] | Prompt 定义 Agent 的角色和任务目标 |
 | [[MCP协议]] | Prompt 中可以指定使用哪些 MCP 工具 |
-| [[Skills是什么]] | Skills 本质是高质量的 Prompt 模块 |
+| [[Skills 是什么]] | Skills 本质是高质量的 Prompt 模块 |
 | [[SubAgent子代理]] | SubAgent 接收派发的 Prompt 任务 |
 
 ---
@@ -236,8 +236,14 @@ tags: [ai, 基础概念, prompt]
 
 ## 相关文档
 
+### 核心概念
 - [[01-基础概念/人工智能重要的六大概念体系]] - 六大概念总览
-- [[01-基础概念/Skills是什么]] - Prompt 的高级封装形式
+- [[01-基础概念/Agent智能体]] - Prompt 定义 Agent 的任务目标
+- [[01-基础概念/MCP协议]] - Prompt 中可指定 MCP 工具
+- [[01-基础概念/Skills 是什么]] - Skills 是高质量的 Prompt 模块
+- [[01-基础概念/SubAgent子代理]] - SubAgent 接收派发的 Prompt 任务
+
+### 实践指南
 - [[03-进阶应用/如何编写Skills]] - 将 Prompt 封装为 Skill
 
 ---

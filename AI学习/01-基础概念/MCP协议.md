@@ -240,7 +240,7 @@ MCP 使用 **JSON-RPC 2.0** 作为通信协议：
 | 概念 | 与 MCP 的关系 |
 |------|---------------|
 | [[Agent智能体]] | Agent 通过 MCP 调用外部工具 |
-| [[Skills是什么]] | Skills 可以调用 MCP 提供的工具 |
+| [[Skills 是什么]] | Skills 可以调用 MCP 提供的工具 |
 | [[SubAgent子代理]] | SubAgent 可配置专属的 MCP 工具集 |
 
 ---
@@ -329,9 +329,16 @@ MCP 正在成为 **AI 时代的 HTTP** —— 基础设施级别的标准。
 
 ## 相关文档
 
+### 核心概念
 - [[01-基础概念/人工智能重要的六大概念体系]] - 六大概念总览
-- [[01-基础概念/Agent智能体]] - MCP 的主要使用者
-- [[03-进阶应用/Claude MCP 使用指南]] - 实践配置指南
+- [[01-基础概念/Prompt提示词]] - Prompt 中可指定 MCP 工具
+- [[01-基础概念/Agent智能体]] - Agent 通过 MCP 调用外部工具
+- [[01-基础概念/Skills 是什么]] - Skills 可以调用 MCP 提供的工具
+- [[01-基础概念/SubAgent子代理]] - SubAgent 可配置专属的 MCP 工具集
+- [[01-基础概念/Agent Teams智能体团队]] - Agent Teams 中的 Agent 通过 MCP 访问工具
+
+### 实践指南
+- [[03-进阶应用/Claude MCP 使用指南]] - MCP 配置实战
 
 ---
 
