@@ -146,4 +146,4 @@ A:
 4. 根据输出质量优化 skill.md
 
 ## 相关文档
-[[Prompt, Agent, MCP 是什么]] | [[如何编写Skills]] | [[Claude Code 常用功能]]
+[[人工智能重要的六大概念体系]] | [[如何编写Skills]] | [[Claude Code 常用功能]]

@@ -15,7 +15,7 @@ tags: [ai, 学习指南, index]
 
 | 文档 | 标签 | 摘要 |
 |------|------|------|
-| [[Prompt, Agent, MCP 是什么]] | `ai`, `基础概念` | Prompt、Agent、Function Calling、MCP 的核心概念详解 |
+| [[人工智能重要的六大概念体系]] | `ai`, `基础概念` | Prompt、Agent、Function Calling、MCP 的核心概念详解 |
 | [[Skills 是什么]] | `ai`, `基础概念` | Skills 机制介绍，理解预定义任务模板的工作原理 |
 
 ---
@@ -69,7 +69,7 @@ Subagent 的创建和使用。
 
 所有与 AI 学习相关的文档。
 
-- [[Prompt, Agent, MCP 是什么]]
+- [[人工智能重要的六大概念体系]]
 - [[Skills 是什么]]
 - [[如何使用Claude code]]
 - [[Claude Code 常用功能]]
@@ -84,7 +84,7 @@ Subagent 的创建和使用。
 
 核心概念理解文档。
 
-- [[Prompt, Agent, MCP 是什么]]
+- [[人工智能重要的六大概念体系]]
 - [[Skills 是什么]]
 
 ### 工具使用
@@ -194,7 +194,7 @@ Subagent 相关高级内容。
 |------|----------|
 | 首次安装 Claude Code | [[如何使用Claude code]] |
 | 快速查找命令 | [[Claude Code 常用功能]] |
-| 理解核心概念 | [[Prompt, Agent, MCP 是什么]] |
+| 理解核心概念 | [[人工智能重要的六大概念体系]] |
 | 编写自定义 Skill | [[如何编写Skills]] |
 | 配置 MCP | [[Claude MCP 使用指南]] |
 | 创建自定义 Agent | [[Claude Subagent 使用指南]] |

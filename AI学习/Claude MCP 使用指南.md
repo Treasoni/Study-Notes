@@ -678,4 +678,4 @@ A: 添加 SSE 类型的 URL 配置，首次使用时 Claude Code 会自动打开
 
 ## 相关文档
 
-[[Prompt, Agent, MCP 是什么]] | [[Claude Subagent 使用指南]] | [[如何使用Claude code]]
+[[人工智能重要的六大概念体系]] | [[Claude Subagent 使用指南]] | [[如何使用Claude code]]

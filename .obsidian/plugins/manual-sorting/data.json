@@ -31,13 +31,13 @@
     },
     "函数极限与连续": {
       "children": [
+        "函数极限与连续/函数极限与连续.md",
         "函数极限与连续/images",
         "函数极限与连续/86cfa39e-f87f-4cd2-b00a-d0b48c4fefa6_content_list.json",
         "函数极限与连续/86cfa39e-f87f-4cd2-b00a-d0b48c4fefa6_model.json",
         "函数极限与连续/86cfa39e-f87f-4cd2-b00a-d0b48c4fefa6_origin.pdf",
         "函数极限与连续/block_list.json",
         "函数极限与连续/content_list_v2.json",
-        "函数极限与连续/full.md",
         "函数极限与连续/layout.json",
         "函数极限与连续/MinerU_markdown_202602161656970.md"
       ],
@@ -335,6 +335,7 @@
     },
     "考研": {
       "children": [
+        "考研/822 电子技术基础.pdf",
         "考研/湖南大学控制科学与工程专硕考研指南.md",
         "考研/湖南大学电子信息专业考研指南.md"
       ],
@@ -358,15 +359,15 @@
         "AI学习/Claude Code 常用功能.md",
         "AI学习/如何编写Skills.md",
         "AI学习/如何使用Claude code.md",
-        "AI学习/Prompt, Agent, MCP 是什么.md"
+        "AI学习/人工智能重要的六大概念体系.md"
       ],
       "sortOrder": "custom"
     },
     "AI学习/assets": {
       "children": [
+        "AI学习/assets/人工智能重要的",
         "AI学习/assets/如何使用Claude code",
-        "AI学习/assets/Skills 是什么",
-        "AI学习/assets/Prompt, Agent, MCP 是什么"
+        "AI学习/assets/Skills 是什么"
       ],
       "sortOrder": "custom"
     },
@@ -374,20 +375,6 @@
       "children": [
         "AI学习/assets/如何使用Claude code/file-20260205163233510.png",
         "AI学习/assets/如何使用Claude code/file-20260205163233511.png"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/assets/Prompt, Agent, MCP 是什么": {
-      "children": [
-        "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820077.png",
-        "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820093.png",
-        "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820094.png",
-        "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820095.png",
-        "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820096.png",
-        "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820096 1.png",
-        "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820096 2.png",
-        "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820097.png",
-        "AI学习/assets/Prompt, Agent, MCP 是什么/file-20260205160820097 1.png"
       ],
       "sortOrder": "custom"
     },
@@ -717,6 +704,10 @@
         "qBittorent/assets/qBittorrent的使用/file-20260202224515441 1.png",
         "qBittorent/assets/qBittorrent的使用/file-20260202224515442.png"
       ],
+      "sortOrder": "custom"
+    },
+    "AI学习/assets/人工智能重要的": {
+      "children": [],
       "sortOrder": "custom"
     }
   },

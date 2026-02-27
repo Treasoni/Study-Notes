@@ -214,4 +214,4 @@ A:
 A: metadata 是"简历"用于快速匹配，skill.md 是"详细指南"用于执行。AI 先看 metadata 决定是否用，再加载 skill.md 执行任务。
 
 ## 相关文档
-[[Skills 是什么]] | [[Prompt, Agent, MCP 是什么]] | [[Claude Code 常用功能]]
+[[Skills 是什么]] | [[人工智能重要的六大概念体系]] | [[Claude Code 常用功能]]
