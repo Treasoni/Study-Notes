@@ -1,0 +1,20 @@
+{
+  "id": "conv-1772165004820-hltqhtamy",
+  "title": "Review and clarify documentation gaps",
+  "titleGenerationStatus": "success",
+  "createdAt": 1772165004821,
+  "updatedAt": 1772165710462,
+  "lastResponseAt": 1772165710462,
+  "sessionId": "e7c8516c-4fed-48ed-8e25-92b94f97c34f",
+  "sdkSessionId": "e7c8516c-4fed-48ed-8e25-92b94f97c34f",
+  "currentNote": "AI学习/02-工具使用/Claude Code 常用功能.md",
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}
