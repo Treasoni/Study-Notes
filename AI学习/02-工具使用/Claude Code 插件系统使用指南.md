@@ -10,7 +10,7 @@ tags: [ai, 进阶应用, 插件]
 > - 创建自己的插件，定制专属开发助手
 > - 理解插件与 MCP 的关系（为什么有些 MCP 是"插件自带的"）
 
-**相关文档**：[[Claude MCP 使用指南]] | [[Claude Subagent 使用指南]] | [[如何使用Claude code]]
+**相关文档**：[[03-进阶应用/Claude MCP 使用指南]] | [[04-高级应用/Claude Subagent 使用指南]] | [[02-工具使用/如何使用Claude code]]
 
 ---
 
@@ -392,8 +392,8 @@ description: 部署应用到生产环境
 
 ### 相关文档
 
-- [[Claude MCP 使用指南]] - MCP 协议详解
-- [[Claude Subagent 使用指南]] - Agent 系统详解
+- [[03-进阶应用/Claude MCP 使用指南]] - MCP 协议详解
+- [[04-高级应用/Claude Subagent 使用指南]] - Agent 系统详解
 
 ---
 

@@ -506,6 +506,6 @@ tools: ["Read", "Grep", "Bash", "Glob"]
 
 ## 相关资源
 
-- [[Claude Subagent 使用指南]] - 理论知识
-- [[人工智能重要的六大概念体系]] - 概念理解
+- [[04-高级应用/Claude Subagent 使用指南]] - 理论知识
+- [[01-基础概念/人工智能重要的六大概念体系]] - 概念理解
 - [Claude Code 官方文档](https://github.com/anthropics/claude-code)

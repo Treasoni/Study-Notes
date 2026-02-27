@@ -678,4 +678,4 @@ A: 添加 SSE 类型的 URL 配置，首次使用时 Claude Code 会自动打开
 
 ## 相关文档
 
-[[人工智能重要的六大概念体系]] | [[Claude Subagent 使用指南]] | [[如何使用Claude code]]
+[[01-基础概念/人工智能重要的六大概念体系]] | [[04-高级应用/Claude Subagent 使用指南]] | [[02-工具使用/如何使用Claude code]]

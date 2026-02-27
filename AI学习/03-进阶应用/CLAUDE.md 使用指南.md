@@ -350,4 +350,4 @@ A: 可以，修改后重启 Claude Code 或使用 `/clear` 清理会话后重新
 A: CLAUDE.md 是项目级指导，影响所有操作。代码注释针对特定代码片段。
 
 ## 相关文档
-[[如何使用Claude code]] | [[Claude Code 会话管理]] | [[Claude Code 常用功能]]
+[[02-工具使用/如何使用Claude code]] | [[02-工具使用/Claude Code 会话管理]] | [[02-工具使用/Claude Code 常用功能]]
