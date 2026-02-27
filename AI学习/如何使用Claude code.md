@@ -680,7 +680,7 @@ A:
 - Skills 可以调用 MCP 提供的工具
 
 > [!info] 深入理解
-> 想了解 Prompt、Agent、MCP 的关系，请参阅 [[Prompt, Agent, MCP 是什么]]
+> 想了解 Prompt、Agent、MCP 的关系，请参阅 [[人工智能重要的六大概念体系]]
 
 **Q: 如何调试 MCP 配置？**
 
@@ -745,4 +745,4 @@ A:
 - **环境变量**：适合临时切换或需要频繁更改代理的场景
 
 ## 相关文档
-[[Claude Code 常用功能]] | [[Claude MCP 使用指南]] | [[Claude Code 会话管理]] | [[Skills 是什么]] | [[如何编写Skills]] | [[Claude Subagent 使用指南]] | [[Prompt, Agent, MCP 是什么]] | [[CLAUDE.md 使用指南]]
+[[Claude Code 常用功能]] | [[Claude MCP 使用指南]] | [[Claude Code 会话管理]] | [[Skills 是什么]] | [[如何编写Skills]] | [[Claude Subagent 使用指南]] | [[人工智能重要的六大概念体系]] | [[CLAUDE.md 使用指南]]

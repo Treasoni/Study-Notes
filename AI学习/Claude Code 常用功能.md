@@ -181,4 +181,4 @@ A: 可以。Claude 可以并行执行独立任务，比如同时搜索多个不�
 A: 按 `Ctrl+C` 停止当前操作。
 
 ## 相关文档
-[[如何使用Claude code]] | [[Skills 是什么]] | [[Prompt, Agent, MCP 是什么]]
+[[如何使用Claude code]] | [[Skills 是什么]] | [[人工智能重要的六大概念体系]]

@@ -901,4 +901,4 @@ A: 目前不支持插件间依赖。每个插件应保持独立。
 
 ## 相关文档
 
-[[Prompt, Agent, MCP 是什么]] | [[Claude Code 常用功能]] | [[Claude MCP 使用指南]] | [[Subagent 实战练习]]
+[[人工智能重要的六大概念体系]] | [[Claude Code 常用功能]] | [[Claude MCP 使用指南]] | [[Subagent 实战练习]]

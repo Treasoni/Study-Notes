@@ -507,5 +507,5 @@ tools: ["Read", "Grep", "Bash", "Glob"]
 ## 相关资源
 
 - [[Claude Subagent 使用指南]] - 理论知识
-- [[Prompt, Agent, MCP 是什么]] - 概念理解
+- [[人工智能重要的六大概念体系]] - 概念理解
 - [Claude Code 官方文档](https://github.com/anthropics/claude-code)
