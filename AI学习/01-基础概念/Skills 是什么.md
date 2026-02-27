@@ -284,9 +284,16 @@ A:
 
 ## 相关文档
 
+### 核心概念
 - [[01-基础概念/人工智能重要的六大概念体系]] - 六大概念总览
-- [[01-基础概念/SubAgent子代理]] - 与 Skills 的对比
-- [[03-进阶应用/如何编写Skills]] - 编写实战指南
+- [[01-基础概念/Prompt提示词]] - Skills 本质是高质量的 Prompt 模块
+- [[01-基础概念/Agent智能体]] - Skills 是 Agent 的"内化知识"
+- [[01-基础概念/MCP协议]] - Skills 可以调用 MCP 提供的工具
+- [[01-基础概念/SubAgent子代理]] - Skills 共享上下文，SubAgent 独立上下文
+- [[01-基础概念/Agent Teams智能体团队]] - Skills 可以给 Agent Teams 成员使用
+
+### 实践指南
+- [[03-进阶应用/如何编写Skills]] - Skills 编写实战
 
 ---
 

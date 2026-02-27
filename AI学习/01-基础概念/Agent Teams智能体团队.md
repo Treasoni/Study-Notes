@@ -318,9 +318,13 @@ Agent Teams 成本 = 5-20x（取决于团队规模）
 
 ## 相关文档
 
+### 核心概念
 - [[01-基础概念/人工智能重要的六大概念体系]] - 六大概念总览
-- [[01-基础概念/Agent智能体]] - Agent Teams 的组成单元
-- [[01-基础概念/SubAgent子代理.md]] - 与 Agent Teams 的对比
+- [[01-基础概念/Prompt提示词]] - Prompt 定义 Agent Teams 的任务目标
+- [[01-基础概念/Agent智能体]] - Agent Teams 由多个 Agent 组成
+- [[01-基础概念/MCP协议]] - Agent Teams 中的 Agent 通过 MCP 访问工具
+- [[01-基础概念/Skills 是什么]] - Skills 可以给 Agent Teams 成员使用
+- [[01-基础概念/SubAgent子代理]] - SubAgent 是单 Agent 内的扩展，Agent Teams 是多 Agent 协作
 
 ---
 

@@ -158,7 +158,7 @@ Level 5: 协作智能
 |------|-----------------|
 | [[Prompt提示词]] | Prompt 定义 Agent 的任务目标 |
 | [[MCP协议]] | MCP 是 Agent 调用外部工具的协议 |
-| [[Skills是什么]] | Skills 是 Agent 的"知识包" |
+| [[Skills 是什么]] | Skills 是 Agent 的"知识包" |
 | [[SubAgent子代理]] | SubAgent 是 Agent 派发的独立执行单元 |
 | [[Agent Teams智能体团队]] | 多个 Agent 组成的协作网络 |
 
@@ -231,10 +231,16 @@ Agent 是"执行者"，不是"决策者"。关键决策仍需人工确认。
 
 ## 相关文档
 
+### 核心概念
 - [[01-基础概念/人工智能重要的六大概念体系]] - 六大概念总览
-- [[01-基础概念/MCP协议]] - Agent 的工具调用协议
-- [[01-基础概念/SubAgent子代理]] - Agent 的扩展能力
-- [[04-高级应用/Claude Subagent 使用指南]] - 实践指南
+- [[01-基础概念/Prompt提示词]] - Prompt 定义 Agent 的任务目标
+- [[01-基础概念/MCP协议]] - Agent 通过 MCP 调用外部工具
+- [[01-基础概念/Skills 是什么]] - Skills 是 Agent 的"知识包"
+- [[01-基础概念/SubAgent子代理]] - SubAgent 是 Agent 派发的独立执行单元
+- [[01-基础概念/Agent Teams智能体团队]] - 多个 Agent 组成的协作网络
+
+### 实践指南
+- [[04-高级应用/Claude Subagent 使用指南]] - SubAgent 实战
 
 ---
 
