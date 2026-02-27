@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/openclaw/OpenClaw安装教程.md",
+                "file": "Git/git教程.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "OpenClaw安装教程"
+              "title": "git教程"
             }
           },
           {
@@ -257,7 +257,7 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -276,15 +276,19 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "5e23b24f5e2a4b4a",
+  "active": "f94f23265bc04821",
   "lastOpenFiles": [
+    "AI学习/05-其他主题/openclaw/convert_to_word.py",
+    "AI学习/05-其他主题/openclaw/OpenClaw数字人商业调查.md",
+    "AI学习/05-其他主题/openclaw/OpenClaw安装教程.md",
+    "AI学习/05-其他主题/openclaw",
+    "AI学习/01-基础概念/Agent智能体.md",
+    "AI学习/01-基础概念/人工智能重要的六大概念体系.md",
     "AI学习/01-基础概念/Agent Teams智能体团队.md",
     "AI学习/01-基础概念/SubAgent子代理.md",
     "AI学习/01-基础概念/MCP协议.md",
-    "AI学习/01-基础概念/Agent智能体.md",
     "AI学习/01-基础概念/Prompt提示词.md",
     "AI学习/01-基础概念/Skills 是什么.md",
-    "AI学习/01-基础概念/人工智能重要的六大概念体系.md",
     "AI学习/02-工具使用/如何使用Claude code.md",
     "AI学习/02-工具使用/Claude Code 常用功能.md",
     "AI学习/02-工具使用/Claude Code 会话管理.md",
@@ -309,11 +313,7 @@
     "AI学习/00-索引",
     "AI学习/assets/人工智能重要的六大概念体系",
     "AI学习/assets/人工智能重要的",
-    "AI学习/如何使用Claude code.md",
-    "AI学习/Claude Code 会话管理.md",
-    "如何使用obsidian做笔记.md",
     "考研/822 电子技术基础.pdf",
-    "考研",
     "PVE的学习/PVE学习笔记MOC.canvas",
     "PVE的学习/assets/修改PVE的网络信息/file-20260203173647080.png",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-02-11 20.44.24.png",
