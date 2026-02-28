@@ -43,105 +43,14 @@ tags: [ai, 工具使用]
 | ----------- | ------------------------------------------------- |
 | **Node.js** | 版本 18.0 或更高（推荐 LTS 版本）                            |
 | **npm**     | 随 Node.js 自动安装                                    |
-| **Git**     | 版本控制系统，Claude Code 的版本控制功能依赖于此                      |
 | **终端**      | macOS Terminal / Windows PowerShell / Linux Shell |
+|             |                                                   |
 
 > [!tip] 检查 Node.js 版本
 > ```bash
 > node --version  # 应显示 v18.x.x 或更高
 > npm --version   # 检查 npm 是否可用
 > ```
-
-#### 安装 Git 并配置环境变量
-
-Claude Code 的版本控制功能依赖 Git，请确保 Git 已安装并正确配置环境变量。
-
-> [!tip] 检查 Git 是否已安装
-> ```bash
-> git --version  # 应显示 git version x.x.x
-> ```
-
-**macOS**
-
-```bash
-# 方式一：使用 Homebrew（推荐）
-brew install git
-
-# 方式二：使用 Xcode Command Line Tools（会自动安装 Git）
-xcode-select --install
-
-# 验证安装
-git --version
-```
-
-**Windows**
-
-```bash
-# 方式一：使用 winget
-winget install Git.Git
-
-# 方式二：使用 Chocolatey
-choco install git
-
-# 方式三：使用安装程序
-# 1. 访问 https://git-scm.com/download/win
-# 2. 下载安装程序并运行
-# 3. 安装时勾选 "Git from the command line and also from 3rd-party software"
-
-# 验证安装（PowerShell）
-git --version
-```
-
-> [!warning] Windows 环境变量配置
-> 如果安装后 `git` 命令无法识别，需要手动添加 Git 到系统环境变量：
->
-> 1. 找到 Git 安装路径（默认 `C:\Program Files\Git\bin`）
-> 2. 右键"此电脑" → "属性" → "高级系统设置" → "环境变量"
-> 3. 在"系统变量"中找到 `Path`，点击"编辑"
-> 4. 添加 Git 的 `bin` 目录路径：`C:\Program Files\Git\bin`
-> 5. 添加 Git 的 `cmd` 目录路径：`C:\Program Files\Git\cmd`
-> 6. 保存并**重启终端**（PowerShell/CMD）
->
-> 或使用 PowerShell 命令（管理员权限）：
-> ```powershell
-> [System.Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\Program Files\Git\bin;C:\Program Files\Git\cmd", "Machine")
-> ```
-
-**Linux（Ubuntu/Debian）**
-
-```bash
-sudo apt-get update
-sudo apt-get install -y git
-
-# 验证安装
-git --version
-```
-
-**Linux（CentOS/RHEL/Fedora）**
-
-```bash
-sudo yum install -y git  # CentOS/RHEL
-# 或
-sudo dnf install -y git  # Fedora
-
-# 验证安装
-git --version
-```
-
-**配置 Git 用户信息（必需）**
-
-安装 Git 后，需要配置用户名和邮箱（用于提交记录）：
-
-```bash
-# 设置用户名
-git config --global user.name "你的名字"
-
-# 设置邮箱
-git config --global user.email "你的邮箱@example.com"
-
-# 验证配置
-git config --global --list
-```
 
 #### 安装 Node.js 和 npm
 
