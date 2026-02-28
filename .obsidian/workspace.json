@@ -243,7 +243,7 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -262,8 +262,11 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "5e23b24f5e2a4b4a",
+  "active": "746e3216e1c18840",
   "lastOpenFiles": [
+    "AI学习/04-高级应用/Subagent 实战练习.md",
+    "Git/git教程.md",
+    "AI学习/02-工具使用/如何使用Claude code.md",
     "AI学习/02-工具使用/Claude Code 自定义斜杠命令教程.md",
     "PVE的学习/04-设备直通/IOMMU分组情况.md",
     "PVE的学习/04-设备直通/绑定vfio驱动.md",
@@ -281,15 +284,12 @@
     "PVE的学习/02-虚拟机管理/如何创建PVE虚拟机.md",
     "PVE的学习/00-准备工具/写盘工具.md",
     "AI学习/00-索引/README.md",
-    "AI学习/02-工具使用/如何使用Claude code.md",
     "AI学习/00-索引/MOC.md",
     "AI学习/00-索引/00-学习路线图.md",
     "AI学习/05-其他主题/RAG技术入门指南.md",
     "AI学习/05-其他主题/OCR概念笔记.md",
     "AI学习/04-高级应用/Claude Subagent 使用指南.md",
     "AI学习/03-进阶应用/CLAUDE.md 使用指南.md",
-    "AI学习/03-进阶应用/Claude MCP 使用指南.md",
-    "AI学习/03-进阶应用/如何编写Skills.md",
     "AI学习/05-其他主题/openclaw/convert_to_word.py",
     "AI学习/05-其他主题/openclaw",
     "AI学习/05-其他主题",
