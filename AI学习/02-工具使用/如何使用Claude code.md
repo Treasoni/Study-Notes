@@ -55,19 +55,25 @@ tags: [ai, 工具使用]
 
 #### 安装 Git 并配置环境变量
 
-> [!info] Windows 用户必看 - Git 环境变量配置
+> [!tip] 安装时自动配置（推荐）
+> Windows 安装程序在 **"Adjusting your PATH environment"** 步骤中，选择：
+> **"Git from the command line and also from 3rd-party software"**（中间选项）
+>
+> 这样会自动将 Git 添加到 PATH，无需手动配置！
+
+> [!info] 手动配置环境变量（仅当安装时未选择正确选项）
 > **环境变量名**：`Path`（系统变量）
 >
 > **需要添加的路径**：
 > | 路径 | 说明 |
 > |------|------|
-> | `C:\Program Files\Git\bin` | Git 核心程序（git.exe） |
-> | `C:\Program Files\Git\cmd` | Git 命令包装器 |
+> | `C:\Program Files\Git\cmd` | Git 命令（主要，优先添加） |
+> | `C:\Program Files\Git\bin` | Git 核心程序（可选） |
 >
 > **配置方法**：
 > 1. 右键"此电脑" → 属性 → 高级系统设置 → 环境变量
 > 2. 在"系统变量"中找到 `Path`，点击编辑
-> 3. 新建，添加上述两个路径
+> 3. 新建，添加上述路径
 > 4. **重启终端**（关闭 PowerShell/CMD 重新打开）
 
 **各平台安装命令**：
@@ -95,6 +101,10 @@ sudo yum install -y git
 > git config --global user.name "你的名字"
 > git config --global user.email "你的邮箱@example.com"
 > ```
+
+> [!quote] 参考资料
+> - [Git 官方文档 - Installing on Windows](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+> - [Git for Windows 官网](https://gitforwindows.org/)
 
 #### 安装 Node.js 和 npm
 
