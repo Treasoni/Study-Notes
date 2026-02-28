@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/05-其他主题/openclaw/OpenClaw数字人商业调查.md",
+                "file": "AI学习/01-基础概念/Agent智能体.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "OpenClaw数字人商业调查"
+              "title": "Agent智能体"
             }
           }
         ],
@@ -213,13 +213,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/05-其他主题/openclaw/OpenClaw数字人商业调查.md",
+                "file": "AI学习/01-基础概念/Agent智能体.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "OpenClaw数字人商业调查 的大纲"
+              "title": "Agent智能体 的大纲"
             }
           },
           {
@@ -247,7 +247,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 247.5
+    "width": 213.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -262,34 +262,34 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "746e3216e1c18840",
+  "active": "8ebf6e4676540f31",
   "lastOpenFiles": [
-    "AI学习/05-其他主题/openclaw/OpenClaw安装教程.md",
-    "AI学习/02-工具使用/如何使用Claude code.md",
+    "AI学习/01-基础概念/Agent Teams智能体团队.md",
+    "AI学习/01-基础概念/Skills 是什么.md",
+    "AI学习/01-基础概念/MCP协议.md",
+    "AI学习/05-其他主题/openclaw/OpenClaw数字人商业调查.md",
+    "MySQL核心概念.md",
     "CLAUDE.md",
-    "AI学习/01-基础概念/Prompt提示词.md",
     "AI学习/00-索引/MOC.md",
+    "AI学习/01-基础概念/人工智能重要的六大概念体系.md",
     "AI学习/00-索引/00-学习路线图.md",
-    "AI学习/04-高级应用/Subagent 实战练习.md",
-    "Git/git教程.md",
-    "AI学习/02-工具使用/Claude Code 自定义斜杠命令教程.md",
     "PVE的学习/04-设备直通/IOMMU分组情况.md",
-    "PVE的学习/04-设备直通/绑定vfio驱动.md",
     "PVE的学习/03-容器管理/PVE的CT.md",
     "PVE的学习/02-虚拟机管理/PVE创建window.md",
     "PVE的学习/02-虚拟机管理/PVE的网络逻辑讲解.md",
     "PVE的学习/01-安装配置/安装和使用PVE.md",
     "PVE的学习/01-安装配置/修改PVE的网络信息.md",
-    "PVE的学习/01-安装配置/PVE存储库.md",
     "PVE的学习/01-安装配置/PVE的基础优化设置.md",
+    "PVE的学习/01-安装配置/PVE存储库.md",
     "PVE的学习/00-准备工具/WinPE.md",
-    "AI学习/01-基础概念/Skills 是什么.md",
-    "MySQL核心概念.md",
+    "AI学习/05-其他主题/openclaw/OpenClaw安装教程.md",
+    "AI学习/02-工具使用/如何使用Claude code.md",
+    "AI学习/01-基础概念/Prompt提示词.md",
+    "AI学习/04-高级应用/Subagent 实战练习.md",
+    "Git/git教程.md",
+    "AI学习/02-工具使用/Claude Code 自定义斜杠命令教程.md",
+    "PVE的学习/04-设备直通/绑定vfio驱动.md",
     "PVE的学习/02-虚拟机管理/如何创建PVE虚拟机.md",
-    "PVE的学习/00-准备工具/写盘工具.md",
-    "AI学习/00-索引/README.md",
-    "AI学习/05-其他主题/RAG技术入门指南.md",
-    "AI学习/05-其他主题/OCR概念笔记.md",
     "AI学习/05-其他主题/openclaw/convert_to_word.py",
     "AI学习/05-其他主题/openclaw",
     "AI学习/05-其他主题",
