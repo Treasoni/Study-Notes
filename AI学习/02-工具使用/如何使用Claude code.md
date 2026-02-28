@@ -43,13 +43,57 @@ tags: [ai, 工具使用]
 | ----------- | ------------------------------------------------- |
 | **Node.js** | 版本 18.0 或更高（推荐 LTS 版本）                            |
 | **npm**     | 随 Node.js 自动安装                                    |
+| **Git**     | 版本控制系统，Claude Code 的版本控制功能依赖于此                      |
 | **终端**      | macOS Terminal / Windows PowerShell / Linux Shell |
-|             |                                                   |
 
-> [!tip] 检查 Node.js 版本
+> [!tip] 检查版本
 > ```bash
 > node --version  # 应显示 v18.x.x 或更高
 > npm --version   # 检查 npm 是否可用
+> git --version   # 检查 Git 是否可用
+> ```
+
+#### 安装 Git 并配置环境变量
+
+> [!info] Windows 用户必看 - Git 环境变量配置
+> **环境变量名**：`Path`（系统变量）
+>
+> **需要添加的路径**：
+> | 路径 | 说明 |
+> |------|------|
+> | `C:\Program Files\Git\bin` | Git 核心程序（git.exe） |
+> | `C:\Program Files\Git\cmd` | Git 命令包装器 |
+>
+> **配置方法**：
+> 1. 右键"此电脑" → 属性 → 高级系统设置 → 环境变量
+> 2. 在"系统变量"中找到 `Path`，点击编辑
+> 3. 新建，添加上述两个路径
+> 4. **重启终端**（关闭 PowerShell/CMD 重新打开）
+
+**各平台安装命令**：
+
+```bash
+# macOS
+brew install git
+
+# Windows (winget)
+winget install Git.Git
+
+# Windows (Chocolatey)
+choco install git
+
+# Linux (Ubuntu/Debian)
+sudo apt-get install -y git
+
+# Linux (CentOS/RHEL)
+sudo yum install -y git
+```
+
+> [!warning] 安装后必做
+> 配置 Git 用户信息（用于提交记录）：
+> ```bash
+> git config --global user.name "你的名字"
+> git config --global user.email "你的邮箱@example.com"
 > ```
 
 #### 安装 Node.js 和 npm
