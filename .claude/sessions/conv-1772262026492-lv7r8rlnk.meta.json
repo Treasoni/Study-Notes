@@ -1,0 +1,20 @@
+{
+  "id": "conv-1772262026492-lv7r8rlnk",
+  "title": "Add Git environment variable setup to installat...",
+  "titleGenerationStatus": "success",
+  "createdAt": 1772262026497,
+  "updatedAt": 1772262084980,
+  "lastResponseAt": 1772262084980,
+  "sessionId": "9480faaf-d9df-440a-8190-7c9ad25ffce3",
+  "sdkSessionId": "9480faaf-d9df-440a-8190-7c9ad25ffce3",
+  "currentNote": "AI学习/02-工具使用/如何使用Claude code.md",
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}
