@@ -9,6 +9,11 @@ updated: 2026-02-28
 
 # MySQL 核心概念
 
+> [!info] 版本信息（2026）
+> - **MySQL 8.4 LTS**：当前推荐的生产版本（支持至 2030+）
+> - **MySQL 9.0 Innovation**：创新版，支持 AI/VECTOR 类型
+> - **MySQL 8.0**：将于 2026年4月 停止支持
+
 > [!info] 概述
 > **一句话定义**：MySQL 是一个关系型数据库管理系统（RDBMS），用于存储、管理和查询结构化数据。
 > **通俗比喻**：MySQL 就像一个**超级电子表格系统**，一个数据库 = 一个 Excel 文件，一张表 = 一个 Sheet，SQL = 操作指令。
@@ -186,6 +191,62 @@ ROLLBACK;           -- 回滚（撤销更改）
 
 ---
 
+## 7. 最新版本特性（2026）
+
+### MySQL 8.4 LTS 变化
+
+**安全增强**：
+- `mysql_native_password` 默认禁用，强制使用 `caching_sha2_password`
+- 新增 WebAuthn 认证插件（企业版）
+
+**InnoDB 默认参数调整**（提升性能）：
+```sql
+-- 以下参数默认值已变更
+innodb_io_capacity: 200 → 1000
+innodb_flush_method: fsync → O_DIRECT (Linux)
+innodb_adaptive_hash_index: ON → OFF
+innodb_log_buffer_size: 16MB → 64MB
+```
+
+**组复制（MGR）增强**：
+- 默认一致性级别：EVENTUAL → BEFORE_ON_PRIMARY_FAILOVER
+- 支持预判式垃圾回收
+
+### MySQL 9.0 Innovation 特性
+
+**VECTOR 数据类型**（AI/ML 支持）：
+```sql
+-- 创建向量列（最多 16383 个元素）
+CREATE TABLE embeddings (
+  id INT PRIMARY KEY,
+  embedding VECTOR(512)  -- 512维向量
+);
+
+-- 向量操作
+SELECT STRING_TO_VECTOR('[0.1, 0.2, 0.3]');
+SELECT VECTOR_DIM(embedding) FROM embeddings;
+```
+
+**完全移除 mysql_native_password**：
+- SHA-1 彻底弃用，强制使用 SHA-256
+
+**扩展 Prepared Statements**：
+- 现在支持 DDL 操作（CREATE EVENT、ALTER EVENT 等）
+
+**新特性**：
+- `EXPLAIN FOR SCHEMA` - schema 级别执行计划
+- `TABLESAMPLE` 子句 - 采样查询
+- JavaScript 存储过程（企业版）
+
+> [!tip] 版本选择建议
+> | 场景 | 推荐版本 |
+> |------|----------|
+> | 新项目生产环境 | MySQL 8.4 LTS |
+> | AI/ML 应用 | MySQL 9.0 Innovation |
+> | 遗留系统 | MySQL 8.0（直至 2026年4月） |
+
+---
+
 ## 6. 连接查询（JOIN）
 
 ### 是什么
@@ -302,5 +363,12 @@ graph TD
 
 ## 参考资料
 
-- [MySQL 官方文档](https://dev.mysql.com/doc/)
+### 官方文档
+- [MySQL 8.4 官方文档](https://dev.mysql.com/doc/refman/8.4/en/)
+- [MySQL 9.0 官方文档](https://dev.mysql.com/doc/refman/9.0/en/)
+- [MySQL 8.0 官方文档](https://dev.mysql.com/doc/refman/8.0/en/)
+
+### 学习资源
 - [MySQL 教程 - 菜鸟教程](https://www.runoob.com/mysql/mysql-tutorial.html)
+- [MySQL 8.4 LTS 发布说明](https://dev.mysql.com/doc/relnotes/mysql/8.4/en/)
+- [MySQL 9.0 Innovation 发布说明](https://dev.mysql.com/doc/relnotes/mysql/9.0/en/)
