@@ -243,7 +243,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
@@ -262,7 +262,7 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "746e3216e1c18840",
+  "active": "5e23b24f5e2a4b4a",
   "lastOpenFiles": [
     "AI学习/02-工具使用/Claude Code 自定义斜杠命令教程.md",
     "PVE的学习/04-设备直通/IOMMU分组情况.md",
