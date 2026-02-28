@@ -247,7 +247,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 357.5
+    "width": 357.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -262,7 +263,7 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "5e23b24f5e2a4b4a",
+  "active": "8ebf6e4676540f31",
   "lastOpenFiles": [
     "AI学习/03-进阶应用/CLAUDE.md 使用指南.md",
     "CLAUDE.md",
