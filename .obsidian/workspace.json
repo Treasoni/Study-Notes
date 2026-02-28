@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/02-工具使用/Claude Code 自定义斜杠命令教程.md",
+                "file": "MySQL核心概念.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Claude Code 自定义斜杠命令教程"
+              "title": "MySQL核心概念"
             }
           }
         ],
@@ -213,13 +213,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/02-工具使用/Claude Code 自定义斜杠命令教程.md",
+                "file": "MySQL核心概念.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Claude Code 自定义斜杠命令教程 的大纲"
+              "title": "MySQL核心概念 的大纲"
             }
           },
           {
@@ -262,7 +262,7 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "746e3216e1c18840",
+  "active": "8ebf6e4676540f31",
   "lastOpenFiles": [
     "CLAUDE.md",
     "AI学习/02-工具使用/Claude Code 自定义斜杠命令教程.md",
