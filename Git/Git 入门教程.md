@@ -3,49 +3,22 @@ tags:
   - git
   - 版本控制
   - 教程
+  - 入门
 cssclass: git-tutorial
-created: 2026-01-30
-updated: 2026-02-05
+created: 2026-03-02
+updated: 2026-03-02
 ---
 
-# Git 完整教程
+# Git 入门教程
 
 > Git 是一个「版本控制工具」，相当于给代码装了一个「无限撤销 + 时间机器 + 协作系统」
 
----
-
-# 📑 目录
-
-- [快速命令查阅](#快速命令查阅)
-- [1. Git 基础概念](#1-git-基础概念)
-- [2. Git 配置](#2-git-配置)
-- [3. 创建仓库](#3-创建仓库)
-- [4. Git 的区域与状态](#4-git-的区域与状态)
-- [5. 基础操作](#5-基础操作)
-- [6. 分支管理](#6-分支管理)
-- [7. 远程仓库与协作](#7-远程仓库与协作)
-- [8. 高级操作](#8-高级操作)
-- [9. 常见问题](#9-常见问题)
-- [10. 最佳实践](#10-最佳实践)
-
----
-
-# 快速命令查阅
-
-| 操作 | 命令 | 说明 |
-|------|------|------|
-| **初始化** | `git init` | 创建新仓库 |
-| **克隆** | `git clone <url>` | 克隆远程仓库 |
-| **状态** | `git status` | 查看当前状态 |
-| **添加** | `git add .` | 添加所有修改 |
-| **提交** | `git commit -m "msg"` | 提交更改 |
-| **推送** | `git push` | 推送到远程 |
-| **拉取** | `git pull --rebase` | 拉取并合并 |
-| **日志** | `git log --oneline` | 查看提交历史 |
-| **差异** | `git diff` | 查看未暂存差异 |
-| **分支** | `git branch` | 查看分支 |
-| **切换** | `git checkout -b <name>` | 创建并切换分支 |
-| **合并** | `git merge <branch>` | 合并分支 |
+> [!tip] 学习路径
+> 1. 理解 Git 是什么
+> 2. 安装和配置
+> 3. 掌握基础操作
+> 4. 学会分支管理
+> 5. 远程协作
 
 ---
 
@@ -102,6 +75,9 @@ git config --global color.ui true
 > [!tip] 建议
 > - 使用 `--global` 配置个人信息（90% 的配置都在这里）
 > - 使用 `--local` 为特定项目设置不同身份（如公司项目）
+
+> [!info] 安装 Git
+> 详细的安装和环境变量配置请参阅 [[../../AI学习/02-工具使用/如何使用Claude code#安装-git-并配置环境变量|Git 安装指南]]
 
 ---
 
@@ -374,7 +350,7 @@ git pull                           # Fetch + Merge
 git pull --rebase                  # Fetch + Rebase（推荐）
 ```
 
-> [!warning] git pull 失败？
+> [!warning] 常见错误处理
 > ```bash
 > # 错误：Updates were rejected
 > git pull --rebase  # 或 git pull
@@ -385,210 +361,20 @@ git pull --rebase                  # Fetch + Rebase（推荐）
 
 ---
 
-# 8. 高级操作
+# 下一步学习
 
-## Rebase 变基
+恭喜你完成了 Git 入门！接下来可以：
 
-### Rebase vs Merge
-
-| 场景 | 推荐使用 |
-|------|----------|
-| 个人整理提交记录 | `rebase` |
-| 拉取远程代码 | `rebase` |
-| 功能分支合并到 main | `merge` |
-| 团队协作已 push 的提交 | `merge` |
-
-### 常用 Rebase 操作
-
-```bash
-# 拉取时使用 rebase（保持历史线性）
-git pull --rebase
-
-# 分支合并前 rebase
-git checkout feature-login
-git rebase main
-
-# 交互式 rebase（整理提交）
-git rebase -i HEAD~3  # 打开编辑器，可以选择 pick/squash/drop
-```
-
-> [!danger] Rebase 禁忌
-> **绝对不要 rebase 已经 push 的公共提交！**
-> - rebase 会改写历史
-> - 别人基于旧历史的工作会出问题
-> - 只在"本地、个人、未 push"的提交上使用
-
-## Revert 反转提交
-
-```bash
-git revert <commit-id>  # 创建新提交来抵消旧提交
-```
-
-> [!info] 什么时候用 revert？
-> 当提交已经 push 到远程，不想改写历史时使用 revert。
-
-## .gitignore 忽略文件
-
-### 常用规则
-
-```
-# 注释
-*.log                  # 忽略所有 .log 文件
-node_modules/          # 忽略目录
-config.json            # 忽略具体文件
-temp-*.txt            # 忽略匹配的文件
-**/*.log              # 忽略多级目录中的文件
-
-# 反向规则（不忽略）
-!important.log
-```
-
-### 常见问题
-
-```bash
-# 文件已被跟踪，想忽略
-git rm --cached file.txt
-git commit -m "stop tracking file.txt"
-```
-
-## Stash 暂存
-
-```bash
-git stash                      # 暂存当前修改
-git stash save "message"        # 带消息的暂存
-git stash list                  # 查看暂存列表
-git stash pop                  # 恢复并删除
-git stash apply                # 恢复但不删除
-git stash drop                 # 删除暂存
-```
-
----
-
-# 9. 常见问题
-
-## 合并冲突
-
-### 冲突标记
-
-```text
-<<<<<<< HEAD
-main 分支的内容
-=======
-feature-login 分支的内容
->>>>>>> feature-login
-```
-
-### 解决步骤
-
-```bash
-# 1. 查看冲突文件
-git status
-
-# 2. 手动编辑冲突文件，删除标记
-
-# 3. 标记为已解决
-git add <conflict-file>
-
-# 4. 完成合并
-git commit
-
-# 或者放弃合并
-git merge --abort
-```
-
-> [!tip] 更多问题解决方案
-> 遇到其他 Git 错误？查看 [[Git 常见错误解决方案]] 按错误信息快速定位解决方案。
-
-## 其他常见错误
-
-| 错误信息 | 原因 | 解决方法 |
-|----------|------|----------|
-| `fatal: not a git repository` | 当前目录不是 Git 仓库 | `cd` 到项目目录或 `git init` |
-| `Updates were rejected` | 远程有新提交，本地落后 | `git pull --rebase` |
-| `Permission denied (publickey)` | SSH 配置有问题 | 检查 `ssh -T git@github.com` |
-| `fatal: refusing to merge unrelated histories` | 两个仓库没有共同祖先 | `git pull --allow-unrelated-histories` |
-
-> [!info] 完整错误解决方案
-> 查看 [[Git 常见错误解决方案]] 获取完整的错误排查指南。
-
----
-
-# 10. 最佳实践
-
-## 提交信息规范
-
-### 格式：类型(范围): 描述
-
-| 类型 | 说明 |
-|------|------|
-| `feat` | 新功能 |
-| `fix` | 修复 bug |
-| `docs` | 文档更改 |
-| `style` | 代码格式（不影响功能） |
-| `refactor` | 重构 |
-| `test` | 测试相关 |
-| `chore` | 构建/工具相关 |
-
-### 示例
-
-```bash
-git commit -m "feat(login): 添加用户登录功能"
-git commit -m "fix(api): 修复接口超时问题"
-git commit -m "docs(readme): 更新安装说明"
-git commit -m "refactor(auth): 简化认证逻辑"
-```
-
-## 每日工作流
-
-```bash
-# 1. 开始新任务
-git checkout main
-git pull
-git checkout -b feature/new-task
-
-# 2. 开发、提交
-git add .
-git commit -m "feat: 添加新功能"
-
-# 3. 同步最新代码
-git fetch
-git rebase origin/main
-
-# 4. 推送分支
-git push -u origin feature/new-task
-
-# 5. 合并到 main（PR/MR 审核通过后）
-git checkout main
-git pull
-git branch -d feature/new-task
-```
-
-## 学习建议
-
-> [!summary] 推荐学习路径
-> 1. 掌握基本操作：init, add, commit, push, pull
-> 2. 理解 4 个区域和 4 种状态
-> 3. 学会分支操作
-> 4. 学会解决冲突
-> 5. 进阶学习 rebase、reset 高级用法
-
-## 专题笔记
-
-> [!tip] 深入学习
-> - [[Git/Git MOC]] - Git 知识体系索引
-> - [[分支管理最佳实践]] - 团队协作中的分支策略和工作流程
-> - [[Git 常见错误解决方案]] - 按错误信息快速定位解决方案
-
-## 推荐阅读
-
-- [Git 官方文档](https://git-scm.com/doc)
-- [Pro Git 中文版](https://git-scm.com/book/zh/v2)
-- [GitHub 官方教程](https://docs.github.com/zh/get-started/getting-started-with-git)
-- [Git Cheat Sheet](https://education.github.com/git-cheat-sheet-education.pdf)
+> [!tip] 进阶学习
+> - [[Git 命令速查]] - 快速查找常用命令
+> - [[Git 高级技巧]] - Rebase、Stash、.gitignore 等
+> - [[分支管理最佳实践]] - 团队协作分支策略
+> - [[Git 常见错误解决方案]] - 按错误信息快速定位
 
 ## 相关文档
-- [[AI学习/02-工具使用/如何使用Claude code]] - Git 安装与环境变量配置
+- [[Git/Git MOC]] - Git 知识体系索引
+- [[../../AI学习/02-工具使用/如何使用Claude code]] - Git 安装与环境变量配置
 
 ---
 
-**最后更新**：2026-02-25
+**最后更新**：2026-03-02
