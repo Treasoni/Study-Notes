@@ -1,7 +1,7 @@
 # OpenClaw 安装教程
 
 > 更新时间：2026年3月
-> 本文档基于 OpenClaw 官方文档及社区最新资料整理
+> 来源：[OpenClaw 官方文档](https://docs.openclaw.ai)、[OpenClaw GitHub](https://github.com/openclaw/openclaw) 及社区资料
 
 ## 目录
 
@@ -744,17 +744,29 @@ sudo rm /etc/systemd/system/openclaw.service
 
 ### 官方资源
 
-- **官方网站**: https://openclaw.ai
-- **官方文档**: https://docs.openclaw.ai
-- **中文社区**: https://www.moltcn.com
-- **GitHub 仓库**: https://github.com/openclaw/openclaw
-- **Gitee 仓库**: https://gitee.com/openclaw/openclaw
+| 资源类型 | 链接 | 说明 |
+|---------|------|------|
+| **官方网站** | https://openclaw.ai | OpenClaw 官方主页 |
+| **官方文档** | https://docs.openclaw.ai | 完整的官方文档和 API 参考 |
+| **GitHub 仓库** | https://github.com/openclaw/openclaw | 源代码和 Issue 追踪 |
+| **Gitee 仓库** | https://gitee.com/openclaw/openclaw | 国内镜像仓库 |
+| **中文社区** | https://www.moltcn.com | 中文用户社区 |
+
+### 安装脚本来源
+
+| 安装方式 | 脚本来源 |
+|---------|----------|
+| **macOS/Linux 一键脚本** | https://openclaw.ai/install.sh |
+| **国内镜像脚本** | https://gitee.com/openclaw-mirror/install-script/raw/main/install.sh |
+| **Windows PowerShell** | https://openclaw.ai/install.ps1 |
 
 ### 社区资源
 
-- **官方论坛**: https://forum.openclaw.ai
-- **Discord 社区**: https://discord.gg/openclaw
-- **Twitter**: https://twitter.com/openclaw_ai
+| 资源 | 链接 |
+|------|------|
+| **官方论坛** | https://forum.openclaw.ai |
+| **Discord 社区** | https://discord.gg/openclaw |
+| **Twitter** | https://twitter.com/openclaw_ai |
 
 ### 相关教程
 
@@ -799,5 +811,9 @@ openclaw restart
 ---
 
 **最后更新**: 2026年3月
-**文档版本**: v1.0.0
+**文档版本**: v1.1.0
 **维护者**: OpenClaw 中文社区
+
+**主要来源**:
+- [OpenClaw 官方文档](https://docs.openclaw.ai)
+- [OpenClaw GitHub 仓库](https://github.com/openclaw/openclaw)
