@@ -45,7 +45,11 @@ updated: 2026-03-02
 
 ### 1.1 ClawHub 技能市场
 
-**官方技能市场地址**：https://clawhub.ai/skills
+**官方技能市场地址**：https://clawhub.ai.ai/skills
+
+> [!info] 来源
+> - [OpenClaw 官方文档](https://docs.openclaw.ai/zh-CN) - Skills 系统说明
+> - [Awesome OpenClaw Skills](https://github.com/VoltAgent/awesome-openclaw-skills) - 700+ 社区技能收录
 
 ### 1.2 安装方式
 
@@ -91,6 +95,10 @@ openclaw install skill-name
 ---
 
 ## 二、第三方 API 对接
+
+> [!info] 来源
+> - [OpenClaw 第三方 API 接入指南](https://blog.csdn.net/zhouzongxin94/article/details/158544866) - CSDN
+> - [OpenClaw 配置文档](https://docs.openclaw.ai/zh-CN/configuration) - 官方文档
 
 ### 2.1 配置大模型 API
 
