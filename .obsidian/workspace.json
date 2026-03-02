@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/05-其他主题/openclaw/OpenClaw对接第三方软件指南.md",
+                "file": "linux/Ubuntu Server 安装教程.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "OpenClaw对接第三方软件指南"
+              "title": "Ubuntu Server 安装教程"
             }
           }
         ],
@@ -213,13 +213,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/05-其他主题/openclaw/OpenClaw对接第三方软件指南.md",
+                "file": "linux/Ubuntu Server 安装教程.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "OpenClaw对接第三方软件指南 的大纲"
+              "title": "Ubuntu Server 安装教程 的大纲"
             }
           },
           {
@@ -264,10 +264,11 @@
   },
   "active": "8ebf6e4676540f31",
   "lastOpenFiles": [
+    "AI学习/05-其他主题/openclaw/OpenClaw对接第三方软件指南.md",
+    "AI学习/02-工具使用/Ubuntu Server SSH 配置指南.md",
     "linux/linux如何修改网络信息.md",
     "linux/cpu的线程和内核.md",
     "linux/Linux换源.md",
-    "AI学习/05-其他主题/openclaw/OpenClaw对接第三方软件指南.md",
     "linux/Ubuntu Server 安装教程.md",
     "linux/linux磁盘相关的知识.md",
     "linux/linux的文件权限.md",
@@ -289,7 +290,6 @@
     "AI学习/01-基础概念/人工智能重要的六大概念体系.md",
     "AI学习/01-基础概念/Agent Teams智能体团队.md",
     "AI学习/01-基础概念/SubAgent子代理.md",
-    "AI学习/01-基础概念/Agent智能体.md",
     "AI学习/05-其他主题/openclaw/convert_to_word.py",
     "AI学习/05-其他主题/openclaw",
     "AI学习/05-其他主题",
