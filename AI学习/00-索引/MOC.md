@@ -92,6 +92,7 @@ Subagent 的创建和使用。
 |------|------|------|
 | [[05-其他主题/openclaw/OpenClaw安装教程]] | `数字人`, `openclaw` | OpenClaw 数字人项目安装配置指南 |
 | [[05-其他主题/openclaw/OpenClaw数字人商业调查]] | `数字人`, `openclaw`, `商业调研` | 数字人行业商业调查报告 |
+| [[05-其他主题/openclaw/OpenClaw对接第三方软件指南]] | `数字人`, `openclaw`, `集成`, `plugins` | OpenClaw Skills 插件系统、第三方 API 对接、通讯软件集成 |
 
 ---
 
@@ -193,6 +194,7 @@ Subagent 相关高级内容。
 
 - [[05-其他主题/openclaw/OpenClaw安装教程]]
 - [[05-其他主题/openclaw/OpenClaw数字人商业调查]]
+- [[05-其他主题/openclaw/OpenClaw对接第三方软件指南]]
 
 ---
 
@@ -305,6 +307,7 @@ Subagent 相关高级内容。
 | 学习 RAG 技术 | [[05-其他主题/RAG技术入门指南]] |
 | 了解数字人项目 | [[05-其他主题/openclaw/OpenClaw安装教程]] |
 | 数字人商业调研 | [[05-其他主题/openclaw/OpenClaw数字人商业调查]] |
+| OpenClaw 对接第三方软件 | [[05-其他主题/openclaw/OpenClaw对接第三方软件指南]] |
 
 ---
 
