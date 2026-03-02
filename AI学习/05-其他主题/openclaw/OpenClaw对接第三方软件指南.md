@@ -154,6 +154,11 @@ openclaw config set llm.api_key sk-ant-xxxxxxxxxxxxxxxx
 
 ### 3.1 Telegram 集成
 
+> [!info] 来源
+> - [OpenClaw Telegram 集成教程](https://developer.aliyun.com/article/1712751) - 阿里云开发者社区
+> - [OpenClaw + Telegram 实操指南](https://www.cnblogs.com/weipo0105/p/19605771) - 博客园
+> - [Telegram Bot 官方文档](https://core.telegram.org/bots/api) - Telegram
+
 #### 创建 Telegram Bot
 
 ```bash
@@ -189,6 +194,11 @@ openclaw restart
 
 ### 3.2 飞书集成
 
+> [!info] 来源
+> - [OpenClaw 飞书集成完整指南](https://developer.aliyun.com/article/1710416) - 阿里云开发者社区
+> - [飞书开放平台文档](https://open.feishu.cn/document) - 飞书官方
+> - [OpenClaw + 飞书集成指南](https://openclawguide.org/zh/integrations/openclaw-feishu) - OpenClaw Guide
+
 #### 配置飞书机器人
 
 ```bash
@@ -221,6 +231,10 @@ openclaw config set beeper.account "your-account"
 ---
 
 ## 四、生产力工具集成
+
+> [!info] 来源
+> - [OpenClaw Skills 生态介绍](https://web-note.cn/article/Interesting-tools/1459.html) - Web Note
+> - [OpenClaw 办公自动化实战](https://developer.aliyun.com/article/1713896) - 阿里云开发者社区
 
 ### 4.1 邮件集成
 
@@ -279,6 +293,10 @@ openclaw config set notion.database_id "your-database-id"
 ---
 
 ## 五、开发工具集成
+
+> [!info] 来源
+> - [OpenClaw 开发者文档](https://docs.openclaw.ai/zh-CN/development) - 官方文档
+> - [GitHub Skills 集成示例](https://github.com/VoltAgent/awesome-openclaw-skills) - GitHub
 
 ### 5.1 GitHub 集成
 
@@ -412,11 +430,31 @@ tail -f ~/.openclaw/logs/current.log
 - [[AI学习/05-其他主题/openclaw/OpenClaw数字人商业调查]] - 数字人商业调研
 
 ## 参考资料
-- [OpenClaw 官方网站](https://openclaw.ai)
-- [ClawHub 技能市场](https://clawhub.ai/skills)
-- [OpenClaw GitHub](https://github.com/openclaw)
-- [Awesome OpenClaw Skills](https://github.com/VoltAgent/awesome-openclaw-skills)
-- [OpenClaw Discord 社区](https://discord.gg/openclaw)
+
+### 官方资源
+- [OpenClaw 官方网站](https://openclaw.ai) - 产品介绍与下载
+- [OpenClaw 官方文档](https://docs.openclaw.ai/zh-CN) - 完整技术文档
+- [ClawHub 技能市场](https://clawhub.ai/skills) - 官方插件市场
+- [OpenClaw GitHub 仓库](https://github.com/openclaw/openclaw) - 源代码
+- [OpenClaw 中文社区](https://www.moltcn.com) - 中文用户社区
+
+### 社区资源
+- [Awesome OpenClaw Skills](https://github.com/VoltAgent/awesome-openclaw-skills) - 700+ 社区技能收录
+- [OpenClaw Discord 社区](https://discord.gg/openclaw) - 官方 Discord
+
+### 教程参考
+- [OpenClaw 第三方 API 接入实战](https://blog.csdn.net/zhouzongxin94/article/details/158544866) - CSDN
+- [阿里云 OpenClaw 部署指南](https://developer.aliyun.com/article/1713896) - 阿里云开发者社区
+- [OpenClaw Telegram 集成教程](https://developer.aliyun.com/article/1712751) - 阿里云开发者社区
+- [OpenClaw 飞书集成指南](https://developer.aliyun.com/article/1710416) - 阿里云开发者社区
+- [OpenClaw 小白到大师完全教程](https://m.sohu.com/a/990999944_122611832) - 搜狐
+
+### 第三方服务文档
+- [Telegram Bot API](https://core.telegram.org/bots/api) - Telegram 官方
+- [飞书开放平台](https://open.feishu.cn/document) - 飞书官方
+- [Gmail API 文档](https://developers.google.com/gmail/api) - Google
+- [Google Calendar API](https://developers.google.com/calendar) - Google
+- [Notion API 文档](https://developers.notion.com/) - Notion 官方
 
 ---
 
