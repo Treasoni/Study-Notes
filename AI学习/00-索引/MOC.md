@@ -41,12 +41,10 @@ Claude Code 的安装、配置和日常使用。
 | [[02-工具使用/Claude Code 常用功能]] | `claude`, `ai`, `工具使用` | 功能速查手册，快速查找常用命令和操作 | 180行 |
 | [[02-工具使用/Claude Code 会话管理]] | `claude`, `ai`, `工具使用` | 会话创建、恢复、清除等管理技巧 | 480行 |
 | [[02-工具使用/Claude Code 插件系统使用指南]] | `ai`, `进阶应用`, `插件` | 插件系统架构、安装、创建自定义插件 | 430行 |
-| [[02-工具使用/Ubuntu Server SSH 配置指南]] | `linux`, `ssh`, `ubuntu-server`, `运维` | Ubuntu Server SSH 安装配置、安全设置、故障排除 | - |
 
 > [!tip] 文档选择
 > - **首次安装** → 阅读 [[02-工具使用/如何使用Claude code]]
 > - **快速查命令** → 查看 [[02-工具使用/Claude Code 常用功能]]
-> - **服务器运维** → 查看 [[02-工具使用/Ubuntu Server SSH 配置指南]]
 
 ---
 
@@ -118,7 +116,6 @@ Subagent 的创建和使用。
 - [[02-工具使用/Claude Code 常用功能]]
 - [[02-工具使用/Claude Code 会话管理]]
 - [[02-工具使用/Claude Code 插件系统使用指南]]
-- [[02-工具使用/Ubuntu Server SSH 配置指南]]
 
 #### 进阶应用
 - [[03-进阶应用/如何编写Skills]]
@@ -149,7 +146,6 @@ Claude Code 工具使用相关文档。
 - [[02-工具使用/Claude Code 常用功能]]
 - [[02-工具使用/Claude Code 会话管理]]
 - [[02-工具使用/Claude Code 插件系统使用指南]]
-- [[02-工具使用/Ubuntu Server SSH 配置指南]]
 
 ### 进阶应用
 
@@ -309,7 +305,6 @@ Subagent 相关高级内容。
 | 配置项目规则 | [[03-进阶应用/CLAUDE.md 使用指南]] |
 | 了解插件系统 | [[02-工具使用/Claude Code 插件系统使用指南]] |
 | 学习 RAG 技术 | [[05-其他主题/RAG技术入门指南]] |
-| 配置 Ubuntu Server SSH | [[02-工具使用/Ubuntu Server SSH 配置指南]] |
 | 了解数字人项目 | [[05-其他主题/openclaw/OpenClaw安装教程]] |
 | 数字人商业调研 | [[05-其他主题/openclaw/OpenClaw数字人商业调查]] |
 | OpenClaw 对接第三方软件 | [[05-其他主题/openclaw/OpenClaw对接第三方软件指南]] |
