@@ -575,6 +575,7 @@ git branch -d feature/new-task
 ## 专题笔记
 
 > [!tip] 深入学习
+> - [[Git/Git MOC]] - Git 知识体系索引
 > - [[分支管理最佳实践]] - 团队协作中的分支策略和工作流程
 > - [[Git 常见错误解决方案]] - 按错误信息快速定位解决方案
 
@@ -584,6 +585,9 @@ git branch -d feature/new-task
 - [Pro Git 中文版](https://git-scm.com/book/zh/v2)
 - [GitHub 官方教程](https://docs.github.com/zh/get-started/getting-started-with-git)
 - [Git Cheat Sheet](https://education.github.com/git-cheat-sheet-education.pdf)
+
+## 相关文档
+- [[AI学习/02-工具使用/如何使用Claude code]] - Git 安装与环境变量配置
 
 ---
 
