@@ -285,6 +285,158 @@ sudo tailscale up --exit-node=<exit-node-ip>
 
 在管理后台 DNS 设置中启用即可。
 
+#### 5. 启用 HTTPS（TLS 证书）
+
+Tailscale 可以为你的设备自动 provision TLS 证书，让你通过 HTTPS 访问服务。
+
+##### 5.1 在管理后台启用 HTTPS
+
+1. 打开管理后台的 **DNS** 页面
+2. 启用 **MagicDNS**（如果尚未启用）
+3. 在 **HTTPS Certificates** 下，选择 **Enable HTTPS**
+4. 确认机器名称将发布到公开账本（Certificate Transparency）
+5. 在每台需要证书的机器上运行 `tailscale cert`
+
+> [!warning] 注意
+> - TLS 证书会被记录在公开的 Certificate Transparency (CT) 账本中
+> - **不要在机器名中包含敏感信息**（如公司名、邮箱等）
+> - 证书有效期为 90 天，需要定期续期
+
+##### 5.2 生成 TLS 证书
+
+```bash
+# 在设备上生成证书
+tailscale cert hostname.tailnet-name.ts.net
+
+# 保存到指定文件
+tailscale cert --cert-file=cert.pem --key-file=key.pem hostname.tailnet-name.ts.net
+
+# 查看证书信息
+tailscale cert --help
+```
+
+**证书特点**：
+- 由 Let's Encrypt 自动签发
+- 私钥存储在本地，Tailscale 无法访问
+- 需要手动续期（使用文件方式时）
+
+> [!info] 来源
+> - [Enabling HTTPS](https://tailscale.com/kb/1153/enabling-https) - Tailscale 官方文档
+
+#### 6. Tailscale Serve（内网服务分享）
+
+`tailscale serve` 命令可以在 tailnet 内安全分享本地服务。
+
+##### 6.1 反向代理模式
+
+```bash
+# 将本地 3000 端口的服务通过 HTTPS 暴露
+tailscale serve localhost:3000
+
+# 使用 HTTP（不需要证书）
+tailscale serve --http=80 localhost:3000
+
+# 后台运行
+tailscale serve --bg localhost:3000
+```
+
+##### 6.2 文件服务器模式
+
+```bash
+# 分享单个文件
+tailscale serve /home/user/blog/index.html
+
+# 分享整个目录（会显示目录列表）
+tailscale serve /home/user/files
+```
+
+##### 6.3 静态文本模式
+
+```bash
+# 用于调试
+tailscale serve text:"Hello, world!"
+```
+
+##### 6.4 TCP 转发
+
+```bash
+# 转发原始 TCP 流量
+tailscale serve --tcp=2222 tcp://localhost:22
+
+# TLS 终止的 TCP 转发
+tailscale serve --tls-terminated-tcp=443 tcp://localhost:8443
+```
+
+##### 6.5 管理命令
+
+```bash
+# 查看状态
+tailscale serve status
+
+# JSON 格式输出
+tailscale serve status --json
+
+# 重置配置
+tailscale serve reset
+
+# 关闭服务
+tailscale serve --https=443 off
+```
+
+#### 7. Tailscale Funnel（公网暴露）
+
+Funnel 可以将本地服务暴露到**公网**，即使对方没有 Tailscale 也能访问。
+
+##### 7.1 工作原理
+
+```
+公网用户 → Funnel 中继服务器 → 加密隧道 → 你的设备
+              ↑
+        隐藏真实 IP
+```
+
+- 流量通过 Funnel 中继服务器转发
+- 中继服务器无法解密数据（端到端加密）
+- 你的真实 IP 地址被隐藏
+
+##### 7.2 使用方法
+
+```bash
+# 将本地 3000 端口暴露到公网
+tailscale funnel localhost:3000
+
+# 后台运行
+tailscale funnel --bg localhost:3000
+
+# 暴露目录
+tailscale funnel /home/user/public
+```
+
+##### 7.3 访问地址
+
+启用后，服务可通过以下地址访问：
+```
+https://machine-name.tailnet-name.ts.net
+```
+
+> [!warning] 安全警告
+> - 任何拥有 URL 的人都可以访问
+> - 不要暴露敏感服务，或添加认证层
+> - 官方文档警告："Never expose the Gateway"
+
+##### 7.4 Serve vs Funnel 对比
+
+| 功能 | Serve | Funnel |
+|------|-------|--------|
+| 访问范围 | 仅 tailnet 内 | 公网 |
+| 需要认证 | 需要 Tailscale 账号 | 无需认证 |
+| 安全性 | 高 | 需自行保护 |
+| 用途 | 团队内部访问 | 公开演示、分享 |
+
+> [!info] 来源
+> - [tailscale serve command](https://tailscale.com/kb/1242/tailscale-serve) - Tailscale 官方文档
+> - [Tailscale Funnel](https://tailscale.com/docs/features/tailscale-funnel) - Funnel 功能介绍
+
 ---
 
 ## 与其他概念的关系
@@ -365,6 +517,9 @@ A: 免费版支持：
 - [What is Tailscale?](https://tailscale.com/kb/1151/what-is-tailscale/) - 核心概念介绍
 - [Subnet routers](https://tailscale.com/kb/1019/subnets/) - 子网路由配置
 - [Custom DERP servers](https://tailscale.com/kb/1118/how-tailscale-works) - 工作原理详解
+- [Enabling HTTPS](https://tailscale.com/kb/1153/enabling-https) - HTTPS/TLS 证书配置
+- [tailscale serve command](https://tailscale.com/kb/1242/tailscale-serve) - Serve 命令详解
+- [Tailscale Funnel](https://tailscale.com/docs/features/tailscale-funnel) - Funnel 公网暴露功能
 
 ### 社区资源
 - [Tailscale 安装教程](https://wenku.csdn.net/answer/1mzgs9vikx) - CSDN 中文教程
