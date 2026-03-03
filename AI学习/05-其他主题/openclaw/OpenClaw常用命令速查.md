@@ -21,6 +21,7 @@ updated: 2026-03-04
 | 安装插件 | [[#六、技能管理]] |
 | 更新版本 | [[#七、系统维护]] |
 | 打开聊天界面 | [[#八、交互界面]] |
+| 高级功能 | [[#九、进阶命令]] |
 
 ---
 
@@ -279,6 +280,45 @@ openclaw dashboard
 
 ---
 
+## 九、进阶命令
+
+### 场景：高级功能
+
+| 命令 | 说明 | 使用时机 |
+|------|------|----------|
+| `openclaw agent` | 执行 Agent 任务 | 通过网关运行任务 |
+| `openclaw agents *` | 管理独立 Agent | 创建/管理多个 Agent |
+| `openclaw browser *` | 管理专用浏览器 | 浏览器自动化 |
+| `openclaw cron *` | 管理定时任务 | 设置周期性任务 |
+| `openclaw memory *` | 搜索/重建记忆索引 | 管理对话记忆 |
+| `openclaw message *` | 发送/管理消息 | 程序化发送消息 |
+| `openclaw nodes *` | 管理节点配对 | 多设备连接 |
+| `openclaw security *` | 安全工具/审计 | 安全检查 |
+
+### 场景：全局选项
+
+| 选项 | 说明 |
+|------|------|
+| `--dev` | 开发模式（隔离到 `~/.openclaw-dev`） |
+| `--profile <name>` | 使用独立配置（`~/.openclaw-<name>`） |
+| `--no-color` | 禁用彩色输出 |
+| `--json` | JSON 格式输出 |
+
+### 场景：OAuth 认证
+
+```bash
+# OAuth 登录模型提供商
+openclaw models auth login --provider anthropic
+
+# 粘贴 API Token
+openclaw models auth paste-token --provider openai
+```
+
+> [!info] 来源
+> - [OpenClaw 官方文档](https://docs.openclaw.ai) - CLI 命令参考
+
+---
+
 ## 命令速查表
 
 ### 高频命令 Top 10
@@ -374,18 +414,18 @@ openclaw config file
 ## 参考资料
 
 ### 官方资源
-- [OpenClaw 官方文档](https://docs.openclaw.ai) - 完整技术文档
-- [OpenClaw GitHub](https://github.com/openclaw/openclaw) - 源代码
+- [OpenClaw 官方文档](https://docs.openclaw.ai) - CLI 命令参考、完整技术文档
+- [OpenClaw GitHub](https://github.com/openclaw/openclaw) - 源代码、更新日志
 
-### 命令参考
+### 社区资源
 - [OpenClaw CLI命令详解](https://blog.csdn.net/sgr011215/article/details/158461994) - CSDN
 - [OpenClaw 最常用命令速查](https://m.blog.csdn.net/u011701632/article/details/158458451) - CSDN
 - [OpenClaw 命令速查手册](https://www.cnblogs.com/liuziyi1/p/19632738) - 博客园
 - [OpenClaw 常用操作命令完整速查手册](https://m.blog.csdn.net/qq_44866828/article/details/158266497) - CSDN
-
-### 实战教程
 - [阿里云部署指南+命令大全](https://developer.aliyun.com/article/1713532) - 阿里云开发者社区
 - [OpenClaw 从入门到进阶完整实战教程](https://m.blog.csdn.net/2301_81108348/article/details/158356909) - CSDN
+
+### 第三方文档
 - [OpenClaw v2026.3.1版发布](https://www.landiannews.com/archives/111965.html) - 蓝点网
 
 ---
