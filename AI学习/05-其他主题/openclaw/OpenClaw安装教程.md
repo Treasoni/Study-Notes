@@ -721,6 +721,31 @@ ipconfig
 http://192.168.1.100:18789/?token=你的Token
 ```
 
+**如何获取访问 Token？**
+
+首次访问 Web 控制台（`http://127.0.0.1:18789/`）时，系统会引导你创建管理员账户，完成后自动生成访问 Token。
+
+**如果需要重新获取或查看 Token**：
+
+```bash
+# 方法一：通过命令行查看
+openclaw config get gateway.auth.token
+
+# 方法二：打开 Dashboard 控制台
+openclaw dashboard
+
+# 方法三：生成新的 Token
+openclaw token generate
+
+# 方法四：查看配置文件
+cat ~/.openclaw/openclaw.json | grep token
+```
+
+> [!info] 来源
+> - [OpenClaw 命令速查手册](https://m.blog.csdn.net/qq_44866828/article/details/158266497) - CSDN
+> - [OpenClaw Dashboard 教程](https://blog.csdn.net/weixin_41905135/article/details/158346643) - CSDN
+> - [OpenClaw Token 配置教程](https://blog.csdn.net/Honmaple/article/details/158039114) - CSDN
+
 > [!warning] 安全提示
 > 局域网访问意味着同网络设备都能访问，建议：
 > - 设置强密码
