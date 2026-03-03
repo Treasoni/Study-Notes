@@ -99,7 +99,9 @@ Subagent 的创建和使用。
 | [[05-其他主题/openclaw/OpenClaw安装后配置指南]] | `数字人`, `openclaw`, `配置`, `终端` | OpenClaw 安装后终端配置全过程，包含配置向导、命令行配置、API 设置 |
 | [[05-其他主题/openclaw/OpenClaw Web控制台局域网访问配置]] | `数字人`, `openclaw`, `web`, `局域网`, `control-ui` | OpenClaw Web 控制台局域网访问完整指南，解决 CORS、安全上下文、设备配对问题 |
 | [[05-其他主题/openclaw/OpenClaw数字人商业调查]] | `数字人`, `openclaw`, `商业调研` | 数字人行业商业调查报告 |
-| [[05-其他主题/openclaw/OpenClaw对接第三方软件指南]] | `数字人`, `openclaw`, `集成`, `plugins` | OpenClaw Skills 插件系统、第三方 API 对接、通讯软件集成 |
+| [[05-其他主题/openclaw/OpenClaw对接第三方软件指南]] | `数字人`, `openclaw`, `集成`, `plugins`, `mcp` | OpenClaw Skills 插件系统、MCP 协议、第三方 API 对接 |
+| [[05-其他主题/openclaw/OpenClaw常用命令速查]] | `openclaw`, `cli`, `命令`, `速查` | 按使用场景整理的 CLI 命令速查表 |
+| [[05-其他主题/openclaw/OpenClaw网关开机自启与HTTPS配置]] | `openclaw`, `daemon`, `systemd`, `https` | 开机自启配置、Tailscale Serve HTTPS |
 
 ---
 
