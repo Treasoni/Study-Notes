@@ -767,6 +767,8 @@ openclaw config set gateway.controlUi.dangerouslyDisableDeviceAuth true
 > [!info] 来源
 > - [OpenClaw Control UI 官方文档](https://docs.openclaw.ai/web/control-ui) - 跨域配置说明
 > - [OpenClaw Remote Access 官方文档](https://docs.openclaw.ai/gateway/remote) - 远程访问安全
+>
+> 📖 **完整指南**：[[OpenClaw Web控制台局域网访问配置]] - 包含 CORS、安全上下文、设备配对的完整解决方案
 
 **如何获取访问 Token？**
 
