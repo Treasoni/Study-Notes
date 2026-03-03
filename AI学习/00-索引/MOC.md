@@ -194,6 +194,7 @@ Subagent 相关高级内容。
 数字人相关项目文档。
 
 - [[05-其他主题/openclaw/OpenClaw安装教程]]
+- [[05-其他主题/openclaw/OpenClaw安装后配置指南]]
 - [[05-其他主题/openclaw/OpenClaw数字人商业调查]]
 - [[05-其他主题/openclaw/OpenClaw对接第三方软件指南]]
 
@@ -307,6 +308,7 @@ Subagent 相关高级内容。
 | 了解插件系统 | [[02-工具使用/Claude Code 插件系统使用指南]] |
 | 学习 RAG 技术 | [[05-其他主题/RAG技术入门指南]] |
 | 了解数字人项目 | [[05-其他主题/openclaw/OpenClaw安装教程]] |
+| OpenClaw 安装后配置 | [[05-其他主题/openclaw/OpenClaw安装后配置指南]] |
 | 数字人商业调研 | [[05-其他主题/openclaw/OpenClaw数字人商业调查]] |
 | OpenClaw 对接第三方软件 | [[05-其他主题/openclaw/OpenClaw对接第三方软件指南]] |
 
