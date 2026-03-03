@@ -90,6 +90,7 @@ Subagent 的创建和使用。
 
 | 文档 | 标签 | 摘要 |
 |------|------|------|
+| [[05-其他主题/openclaw/OpenClaw核心概念]] | `数字人`, `openclaw`, `gateway`, `架构` | OpenClaw 核心概念：什么是网关、工作原理、Hub-and-Spoke 架构 |
 | [[05-其他主题/openclaw/OpenClaw安装教程]] | `数字人`, `openclaw` | OpenClaw 数字人项目安装配置指南 |
 | [[05-其他主题/openclaw/OpenClaw安装后配置指南]] | `数字人`, `openclaw`, `配置`, `终端` | OpenClaw 安装后终端配置全过程，包含配置向导、命令行配置、API 设置 |
 | [[05-其他主题/openclaw/OpenClaw Web控制台局域网访问配置]] | `数字人`, `openclaw`, `web`, `局域网`, `control-ui` | OpenClaw Web 控制台局域网访问完整指南，解决 CORS、安全上下文、设备配对问题 |
