@@ -41,6 +41,7 @@ Claude Code 的安装、配置和日常使用。
 | [[02-工具使用/Claude Code 常用功能]] | `claude`, `ai`, `工具使用` | 功能速查手册，快速查找常用命令和操作 | 180行 |
 | [[02-工具使用/Claude Code 会话管理]] | `claude`, `ai`, `工具使用` | 会话创建、恢复、清除等管理技巧 | 480行 |
 | [[02-工具使用/Claude Code 插件系统使用指南]] | `ai`, `进阶应用`, `插件` | 插件系统架构、安装、创建自定义插件 | 430行 |
+| [[02-工具使用/Tailscale使用指南]] | `tailscale`, `vpn`, `networking` | 基于 WireGuard 的零配置 VPN 组网工具，安装、工作原理、使用教程 | 300行 |
 
 > [!tip] 文档选择
 > - **首次安装** → 阅读 [[02-工具使用/如何使用Claude code]]
@@ -119,6 +120,7 @@ Subagent 的创建和使用。
 - [[02-工具使用/Claude Code 常用功能]]
 - [[02-工具使用/Claude Code 会话管理]]
 - [[02-工具使用/Claude Code 插件系统使用指南]]
+- [[02-工具使用/Tailscale使用指南]]
 
 #### 进阶应用
 - [[03-进阶应用/如何编写Skills]]
@@ -149,6 +151,13 @@ Claude Code 工具使用相关文档。
 - [[02-工具使用/Claude Code 常用功能]]
 - [[02-工具使用/Claude Code 会话管理]]
 - [[02-工具使用/Claude Code 插件系统使用指南]]
+- [[02-工具使用/Tailscale使用指南]]
+
+### vpn
+
+VPN 和网络组网相关文档。
+
+- [[02-工具使用/Tailscale使用指南]]
 
 ### 进阶应用
 
@@ -313,6 +322,7 @@ Subagent 相关高级内容。
 | OpenClaw 安装后配置 | [[05-其他主题/openclaw/OpenClaw安装后配置指南]] |
 | 数字人商业调研 | [[05-其他主题/openclaw/OpenClaw数字人商业调查]] |
 | OpenClaw 对接第三方软件 | [[05-其他主题/openclaw/OpenClaw对接第三方软件指南]] |
+| 学习 Tailscale 组网 | [[02-工具使用/Tailscale使用指南]] |
 
 ---
 
