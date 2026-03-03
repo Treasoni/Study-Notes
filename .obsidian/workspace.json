@@ -262,14 +262,15 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "746e3216e1c18840",
+  "active": "8ebf6e4676540f31",
   "lastOpenFiles": [
+    "AI学习/05-其他主题/openclaw/OpenClaw数字人商业调查.md",
+    "AI学习/05-其他主题/openclaw/OpenClaw安装教程.md",
     "AI学习/05-其他主题/openclaw/OpenClaw对接第三方软件指南.md",
     "AI学习/05-其他主题/openclaw/OpenClaw安装后配置指南.md",
     "AI学习/02-工具使用/如何使用Claude code.md",
     "AI学习/02-工具使用/Claude Code 常用功能.md",
     "AI学习/02-工具使用/Claude Code 插件系统使用指南.md",
-    "AI学习/05-其他主题/openclaw/OpenClaw安装教程.md",
     "linux/Linux换源.md",
     "linux/Ubuntu Server SSH 配置指南.md",
     "linux/linux如何修改网络信息.md",
@@ -289,7 +290,6 @@
     "PVE的学习/02-虚拟机管理/PVE创建window.md",
     "PVE的学习/02-虚拟机管理/PVE的网络逻辑讲解.md",
     "CLAUDE.md",
-    "README.md",
     "AI学习/05-其他主题/openclaw/convert_to_word.py",
     "AI学习/05-其他主题/openclaw",
     "AI学习/05-其他主题",

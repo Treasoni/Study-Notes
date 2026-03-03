@@ -725,26 +725,35 @@ http://192.168.1.100:18789/?token=你的Token
 
 首次访问 Web 控制台（`http://127.0.0.1:18789/`）时，系统会引导你创建管理员账户，完成后自动生成访问 Token。
 
-**如果需要重新获取或查看 Token**：
+**获取 Token 的正确方法**：
 
 ```bash
-# 方法一：通过命令行查看
-openclaw config get gateway.auth.token
+# 方法一：通过 dashboard 命令获取完整 URL（推荐）
+openclaw dashboard --no-open
+# 输出示例：
+# Dashboard running at: http://127.0.0.1:18789/?token=oc_xxxxxxxxxxxxx
+#                                                      ↑ 这是你的 Token
 
-# 方法二：打开 Dashboard 控制台
-openclaw dashboard
-
-# 方法三：生成新的 Token
+# 方法二：生成新的 Token
 openclaw token generate
+# 生成管理员 Token（30天有效期）
+openclaw token generate --admin --expire 30d
 
-# 方法四：查看配置文件
-cat ~/.openclaw/openclaw.json | grep token
+# 方法三：查看配置文件
+cat ~/.openclaw/openclaw.json | grep "gateway.auth.token"
+# 或使用 jq 格式化输出
+cat ~/.openclaw/openclaw.json | jq -r '.gateway.auth.token'
 ```
 
+> [!warning] 注意
+> `openclaw config get gateway.auth.token` 命令会显示 `__OPENCLAW_REDACTED__`，
+> 这是 OpenClaw 的安全特性，终端输出会自动脱敏敏感信息。请使用上述方法获取真实 Token。
+
 > [!info] 来源
+> - [OpenClaw 官方文档](https://docs.openclaw.ai/zh-CN) - Dashboard 认证
+> - [OpenClaw CLI 命令参考](https://docs.openclaw.ai/zh-CN/cli) - Token 命令
+> - [OpenClaw GitHub](https://github.com/openclaw/openclaw) - 源码参考
 > - [OpenClaw 命令速查手册](https://m.blog.csdn.net/qq_44866828/article/details/158266497) - CSDN
-> - [OpenClaw Dashboard 教程](https://blog.csdn.net/weixin_41905135/article/details/158346643) - CSDN
-> - [OpenClaw Token 配置教程](https://blog.csdn.net/Honmaple/article/details/158039114) - CSDN
 
 > [!warning] 安全提示
 > 局域网访问意味着同网络设备都能访问，建议：
