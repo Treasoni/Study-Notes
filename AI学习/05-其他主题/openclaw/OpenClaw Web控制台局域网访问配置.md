@@ -182,6 +182,34 @@ https://<your-tailscale-name>.ts.net/
 > - [OpenClaw Web 文档](https://docs.openclaw.ai/web) - Tailscale access
 > - [OpenClaw Control UI 文档](https://docs.openclaw.ai/web/control-ui) - Tailnet access
 
+#### 方案二补充：Tailscale HTTPS 域名的 CORS 配置
+
+如果使用 Tailscale Funnel/Serve 暴露服务，仍可能遇到 CORS 错误：
+
+```
+origin not allowed (open the Control UI from the gateway host
+or allow it in gateway.controlUi.allowedOrigins)
+```
+
+**原因**：Tailscale 提供的 HTTPS 域名（如 `https://openclaw.tail8a3e67.ts.net`）也需要添加到 CORS 白名单。
+
+**解决方法**：
+
+```bash
+# 1. 将 Tailscale 域名添加到允许列表
+# 注意：必须带 https:// 前缀，用单引号包裹 JSON 数组
+openclaw config set gateway.controlUi.allowedOrigins '["https://openclaw.tail8a3e67.ts.net"]'
+
+# 2. 重启网关
+openclaw gateway stop
+openclaw gateway --tailscale serve
+```
+
+> [!tip] 提示
+> - 这里的 `openclaw` 是你的 Tailscale 机器名（hostname）
+> - `tail8a3e67` 是你的 tailnet 名称
+> - 可以通过 `tailscale status` 查看完整的域名
+
 ### 方案三：危险模式（仅调试）
 
 **仅用于紧急故障排查**，会严重降低安全性：
