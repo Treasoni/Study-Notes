@@ -658,7 +658,114 @@ http://127.0.0.1:18789/
 2. 配置第一个 AI 模型
 3. 创建第一个 API 端点
 
-### 8.4 配置守护进程（开机自启）
+### 8.4 局域网访问配置
+
+> [!info] 来源
+> - [OpenClaw WebUI 外网访问配置](https://blog.csdn.net/qq_34068440/article/details/157697089) - CSDN
+> - [OpenClaw 局域网部署教程](https://sspai.com/post/106187) - 少数派
+> - [OpenClaw 局域网配置教程](https://m.blog.csdn.net/m0_63080775/article/details/157727175) - CSDN
+
+#### 修改绑定模式
+
+默认情况下，OpenClaw 只监听本地地址 (127.0.0.1)，需要修改为局域网模式才能让其他设备访问。
+
+**方法一：命令行配置（推荐）**
+
+```bash
+# 设置为局域网模式
+openclaw config set gateway.bind lan
+
+# 重启服务生效
+openclaw restart
+```
+
+**方法二：手动修改配置文件**
+
+编辑 `~/.openclaw/openclaw.json`（Windows: `C:\Users\你的用户名\.openclaw\openclaw.json`）：
+
+```json
+{
+  "gateway": {
+    "bind": "lan",
+    "port": 18789
+  }
+}
+```
+
+**bind 模式说明**：
+
+| 模式              | 说明    | 访问地址                     |
+| --------------- | ----- | ------------------------ |
+| `loopback` (默认) | 仅本机访问 | `http://127.0.0.1:18789` |
+| `lan`           | 局域网访问 | `http://[局域网IP]:18789`   |
+| `0.0.0.0`       | 所有接口  | `http://[IP]:18789`      |
+
+#### 获取局域网 IP
+
+```bash
+# Linux/macOS
+ip addr show | grep inet
+
+# 或
+ifconfig | grep inet
+
+# Windows
+ipconfig
+```
+
+#### 局域网访问地址
+
+在其他设备浏览器中访问（替换为你的实际 IP）：
+
+```
+http://192.168.1.100:18789/?token=你的Token
+```
+
+> [!warning] 安全提示
+> 局域网访问意味着同网络设备都能访问，建议：
+> - 设置强密码
+> - 不要暴露到公网
+> - 定期更换 Token
+> - 生产环境仅允许可信 IP 访问
+
+#### 防火墙配置
+
+**Linux (ufw)**：
+
+```bash
+sudo ufw allow 18789/tcp
+sudo ufw reload
+```
+
+**Linux (firewalld)**：
+
+```bash
+sudo firewall-cmd --add-port=18789/tcp --permanent
+sudo firewall-cmd --reload
+```
+
+**Windows 防火墙**：
+
+1. 控制面板 → Windows Defender 防火墙
+2. 高级设置 → 入站规则 → 新建规则
+3. 规则类型：端口
+4. 协议：TCP
+5. 端口：18789
+6. 操作：允许连接
+
+#### 云服务器安全组
+
+如果是阿里云/腾讯云等云服务器，需要在控制台配置安全组：
+
+- **规则方向**：入方向
+- **协议类型**：TCP
+- **端口**：18789
+- **授权对象**：
+  - 局域网 IP 段（如 `192.168.1.0/24`）
+  - 或固定 IP（更安全）
+  - 测试阶段可用 `0.0.0.0/0`（不推荐生产环境）
+
+### 8.5 配置守护进程（开机自启）
 
 #### Linux (systemd)
 
@@ -698,7 +805,7 @@ openclaw onboard --install-daemon
 # 打开「服务」管理工具，找到 OpenClaw Gateway 服务
 ```
 
-### 8.5 环境变量配置
+### 8.6 环境变量配置
 
 创建 `.env` 文件或设置环境变量：
 
