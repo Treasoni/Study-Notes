@@ -612,299 +612,37 @@ openclaw-cn gateway --port 18789
 
 ## 九、安装后配置
 
-### 8.1 运行配置向导
+安装完成后，需要进行以下配置：
 
-首次安装后，运行配置向导完成基本设置：
+> [!tip] 快速开始
+> 运行 `openclaw onboard` 启动配置向导，按提示完成设置。
 
-```bash
-# 运行配置向导并安装守护进程
-openclaw onboard --install-daemon
-```
+### 9.1 基本配置步骤
 
-配置向导会引导你完成：
+| 步骤 | 说明 | 详细指南 |
+|------|------|----------|
+| 1. 配置 AI 模型 | 设置 API Key、选择模型 | 📖 [[OpenClaw安装后配置指南]] |
+| 2. 启动网关 | `openclaw gateway` | - |
+| 3. 访问控制台 | `http://127.0.0.1:18789` | - |
+| 4. 局域网访问 | CORS、安全配置 | 📖 [[OpenClaw Web控制台局域网访问配置]] |
 
-1. 设置管理员账户
-2. 配置 API 密钥
-3. 设置网关端口（默认 18789）
-4. 配置数据存储路径
-5. 启用/禁用特定功能
-
-### 8.2 启动网关服务
+### 9.2 常用命令速查
 
 ```bash
-# 启动网关（默认端口 18789）
+# 启动网关
 openclaw gateway
-
-# 指定端口
-openclaw gateway --port 8080
 
 # 后台运行
 openclaw gateway --daemon
 
-# 使用自定义配置
-openclaw gateway --config /path/to/config.json
-```
-
-### 8.3 访问控制台
-
-安装完成并启动服务后，访问 Web 控制台：
-
-```
-http://127.0.0.1:18789/
-```
-
-首次访问会提示你：
-1. 创建管理员账户
-2. 配置第一个 AI 模型
-3. 创建第一个 API 端点
-
-### 8.4 局域网访问配置
-
-> [!info] 来源
-> - [OpenClaw WebUI 外网访问配置](https://blog.csdn.net/qq_34068440/article/details/157697089) - CSDN
-> - [OpenClaw 局域网部署教程](https://sspai.com/post/106187) - 少数派
-> - [OpenClaw 局域网配置教程](https://m.blog.csdn.net/m0_63080775/article/details/157727175) - CSDN
-
-#### 修改绑定模式
-
-默认情况下，OpenClaw 只监听本地地址 (127.0.0.1)，需要修改为局域网模式才能让其他设备访问。
-
-**方法一：命令行配置（推荐）**
-
-```bash
-# 设置为局域网模式
-openclaw config set gateway.bind lan
-
-# 重启服务生效
-openclaw restart
-```
-
-**方法二：手动修改配置文件**
-
-编辑 `~/.openclaw/openclaw.json`（Windows: `C:\Users\你的用户名\.openclaw\openclaw.json`）：
-
-```json
-{
-  "gateway": {
-    "bind": "lan",
-    "port": 18789
-  }
-}
-```
-
-**bind 模式说明**：
-
-| 模式              | 说明    | 访问地址                     |
-| --------------- | ----- | ------------------------ |
-| `loopback` (默认) | 仅本机访问 | `http://127.0.0.1:18789` |
-| `lan`           | 局域网访问 | `http://[局域网IP]:18789`   |
-| `0.0.0.0`       | 所有接口  | `http://[IP]:18789`      |
-
-#### 获取局域网 IP
-
-```bash
-# Linux/macOS
-ip addr show | grep inet
-
-# 或
-ifconfig | grep inet
-
-# Windows
-ipconfig
-```
-
-#### 局域网访问地址
-
-在其他设备浏览器中访问（替换为你的实际 IP）：
-
-```
-http://192.168.1.100:18789/?token=你的Token
-```
-
-#### 跨域访问控制（CORS）配置
-
-**问题现象**：
-
-从局域网其他设备访问时出现：
-```
-origin not allowed (open the Control UI from the gateway host or allow it in gateway.controlUi.allowedOrigins)
-```
-
-**原因**：OpenClaw 默认只允许本机访问，非 loopback 模式必须显式设置 allowedOrigins。
-
-> [!quote] 官方文档
-> "Non-loopback Control UI deployments must set `gateway.controlUi.allowedOrigins` explicitly (full origins)."
-
-**解决方案**：
-
-```bash
-# 方法一：设置允许特定来源（推荐）
-# 格式必须是 JSON 数组
-openclaw config set gateway.controlUi.allowedOrigins '["http://192.168.1.100:18789"]'
-
-# 方法二：允许多个来源（本机 + 局域网 IP）
-openclaw config set gateway.controlUi.allowedOrigins '["http://localhost:18789","http://127.0.0.1:18789","http://192.168.1.100:18789"]'
-
-# 重启服务生效
-openclaw restart
-```
-
-**其他配置选项**：
-
-```bash
-# 允许不安全的 HTTP 认证（仍需设备配对）
-openclaw config set gateway.controlUi.allowInsecureAuth true
-
-# 危险模式：禁用设备身份检查（紧急用完后立即恢复）
-openclaw config set gateway.controlUi.dangerouslyDisableDeviceAuth true
-```
-
-> [!warning] 安全提示
-> - `dangerouslyDisableDeviceAuth` 是严重安全降级，仅用于紧急故障排查
-> - 局域网访问建议配合 Token 认证使用
-> - 生产环境仅允许可信 IP 访问
-
-> [!info] 来源
-> - [OpenClaw Control UI 官方文档](https://docs.openclaw.ai/web/control-ui) - 跨域配置说明
-> - [OpenClaw Remote Access 官方文档](https://docs.openclaw.ai/gateway/remote) - 远程访问安全
->
-> 📖 **完整指南**：[[OpenClaw Web控制台局域网访问配置]] - 包含 CORS、安全上下文、设备配对的完整解决方案
-
-**如何获取访问 Token？**
-
-首次访问 Web 控制台（`http://127.0.0.1:18789/`）时，系统会引导你创建管理员账户，完成后自动生成访问 Token。
-
-**获取 Token 的正确方法**：
-
-```bash
-# 方法一：通过 dashboard 命令获取完整 URL（推荐）
-openclaw dashboard --no-open
-# 输出示例：
-# Dashboard running at: http://127.0.0.1:18789/?token=oc_xxxxxxxxxxxxx
-#                                                      ↑ 这是你的 Token
-
-# 方法二：生成新的 Token
-openclaw token generate
-# 生成管理员 Token（30天有效期）
-openclaw token generate --admin --expire 30d
-
-# 方法三：查看配置文件
-cat ~/.openclaw/openclaw.json | grep "gateway.auth.token"
-# 或使用 jq 格式化输出
-cat ~/.openclaw/openclaw.json | jq -r '.gateway.auth.token'
-```
-
-> [!warning] 注意
-> `openclaw config get gateway.auth.token` 命令会显示 `__OPENCLAW_REDACTED__`，
-> 这是 OpenClaw 的安全特性，终端输出会自动脱敏敏感信息。请使用上述方法获取真实 Token。
-
-> [!info] 来源
-> - [OpenClaw 官方文档](https://docs.openclaw.ai/zh-CN) - Dashboard 认证
-> - [OpenClaw CLI 命令参考](https://docs.openclaw.ai/zh-CN/cli) - Token 命令
-> - [OpenClaw GitHub](https://github.com/openclaw/openclaw) - 源码参考
-> - [OpenClaw 命令速查手册](https://m.blog.csdn.net/qq_44866828/article/details/158266497) - CSDN
-
-> [!warning] 安全提示
-> 局域网访问意味着同网络设备都能访问，建议：
-> - 设置强密码
-> - 不要暴露到公网
-> - 定期更换 Token
-> - 生产环境仅允许可信 IP 访问
-
-#### 防火墙配置
-
-**Linux (ufw)**：
-
-```bash
-sudo ufw allow 18789/tcp
-sudo ufw reload
-```
-
-**Linux (firewalld)**：
-
-```bash
-sudo firewall-cmd --add-port=18789/tcp --permanent
-sudo firewall-cmd --reload
-```
-
-**Windows 防火墙**：
-
-1. 控制面板 → Windows Defender 防火墙
-2. 高级设置 → 入站规则 → 新建规则
-3. 规则类型：端口
-4. 协议：TCP
-5. 端口：18789
-6. 操作：允许连接
-
-#### 云服务器安全组
-
-如果是阿里云/腾讯云等云服务器，需要在控制台配置安全组：
-
-- **规则方向**：入方向
-- **协议类型**：TCP
-- **端口**：18789
-- **授权对象**：
-  - 局域网 IP 段（如 `192.168.1.0/24`）
-  - 或固定 IP（更安全）
-  - 测试阶段可用 `0.0.0.0/0`（不推荐生产环境）
-
-### 8.5 配置守护进程（开机自启）
-
-#### Linux (systemd)
-
-```bash
-# 安装守护进程
-openclaw onboard --install-daemon
-
-# 启用服务
-sudo systemctl enable openclaw
-
-# 启动服务
-sudo systemctl start openclaw
-
 # 查看状态
-sudo systemctl status openclaw
+openclaw status
+
+# 重启服务
+openclaw restart
 
 # 查看日志
-sudo journalctl -u openclaw -f
-```
-
-#### macOS (launchd)
-
-```bash
-# 安装守护进程
-openclaw onboard --install-daemon
-
-# 服务会自动配置并启动
-```
-
-#### Windows (Windows Service)
-
-```powershell
-# 以管理员身份运行
-openclaw onboard --install-daemon
-
-# 管理服务
-# 打开「服务」管理工具，找到 OpenClaw Gateway 服务
-```
-
-### 8.6 环境变量配置
-
-创建 `.env` 文件或设置环境变量：
-
-```bash
-# OpenClaw 配置
-OPENCLAW_PORT=18789
-OPENCLAW_HOST=0.0.0.0
-OPENCLAW_DATA_DIR=/var/lib/openclaw
-OPENCLAW_LOG_LEVEL=info
-
-# API 密钥
-OPENAI_API_KEY=your_openai_key
-ANTHROPIC_API_KEY=your_anthropic_key
-
-# 数据库（可选）
-DATABASE_URL=postgresql://user:password@localhost:5432/openclaw
+openclaw logs
 ```
 
 ---
