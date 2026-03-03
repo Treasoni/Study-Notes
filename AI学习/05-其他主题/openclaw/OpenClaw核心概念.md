@@ -400,6 +400,10 @@ Telegram 消息 → Gateway → Node 工具调用：
 
 ## 相关文档
 
+- [[OpenClaw MOC]] - OpenClaw 文档索引
+- [[OpenClaw安装教程]] - 安装指南
+- [[OpenClaw安装后配置指南]] - 配置指南
+
 - [[AI学习/05-其他主题/openclaw/OpenClaw安装教程]] - 安装部署指南
 - [[AI学习/05-其他主题/openclaw/OpenClaw Web控制台局域网访问配置]] - 网络配置
 - [[AI学习/05-其他主题/openclaw/OpenClaw对接第三方软件指南]] - Skills 集成

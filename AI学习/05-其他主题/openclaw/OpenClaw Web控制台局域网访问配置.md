@@ -209,6 +209,7 @@ openclaw gateway --tailscale serve
 > - 这里的 `openclaw` 是你的 Tailscale 机器名（hostname）
 > - `tail8a3e67` 是你的 tailnet 名称
 > - 可以通过 `tailscale status` 查看完整的域名
+> - 必须开启tailscale的https功能
 
 ### 方案三：危险模式（仅调试）
 
@@ -425,9 +426,9 @@ openclaw config set gateway.controlUi.allowedOrigins '[]'
 
 ## 相关文档
 
-- [[AI学习/05-其他主题/openclaw/OpenClaw安装教程]] - 安装指南
-- [[AI学习/05-其他主题/openclaw/OpenClaw安装后配置指南]] - 配置指南
-- [[AI学习/05-其他主题/openclaw/OpenClaw对接第三方软件指南]] - 第三方集成
+- [[OpenClaw MOC]] - OpenClaw 文档索引
+- [[OpenClaw安装后配置指南]] - 配置指南
+- [[../../02-工具使用/Tailscale使用指南]] - Tailscale VPN 组网
 
 ---
 
