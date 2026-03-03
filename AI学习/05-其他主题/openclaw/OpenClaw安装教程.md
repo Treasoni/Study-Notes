@@ -721,6 +721,53 @@ ipconfig
 http://192.168.1.100:18789/?token=你的Token
 ```
 
+#### 跨域访问控制（CORS）配置
+
+**问题现象**：
+
+从局域网其他设备访问时出现：
+```
+origin not allowed (open the Control UI from the gateway host or allow it in gateway.controlUi.allowedOrigins)
+```
+
+**原因**：OpenClaw 默认只允许本机访问，非 loopback 模式必须显式设置 allowedOrigins。
+
+> [!quote] 官方文档
+> "Non-loopback Control UI deployments must set `gateway.controlUi.allowedOrigins` explicitly (full origins)."
+
+**解决方案**：
+
+```bash
+# 方法一：设置允许特定来源（推荐）
+# 格式必须是 JSON 数组
+openclaw config set gateway.controlUi.allowedOrigins '["http://192.168.1.100:18789"]'
+
+# 方法二：允许多个来源（本机 + 局域网 IP）
+openclaw config set gateway.controlUi.allowedOrigins '["http://localhost:18789","http://127.0.0.1:18789","http://192.168.1.100:18789"]'
+
+# 重启服务生效
+openclaw restart
+```
+
+**其他配置选项**：
+
+```bash
+# 允许不安全的 HTTP 认证（仍需设备配对）
+openclaw config set gateway.controlUi.allowInsecureAuth true
+
+# 危险模式：禁用设备身份检查（紧急用完后立即恢复）
+openclaw config set gateway.controlUi.dangerouslyDisableDeviceAuth true
+```
+
+> [!warning] 安全提示
+> - `dangerouslyDisableDeviceAuth` 是严重安全降级，仅用于紧急故障排查
+> - 局域网访问建议配合 Token 认证使用
+> - 生产环境仅允许可信 IP 访问
+
+> [!info] 来源
+> - [OpenClaw Control UI 官方文档](https://docs.openclaw.ai/web/control-ui) - 跨域配置说明
+> - [OpenClaw Remote Access 官方文档](https://docs.openclaw.ai/gateway/remote) - 远程访问安全
+
 **如何获取访问 Token？**
 
 首次访问 Web 控制台（`http://127.0.0.1:18789/`）时，系统会引导你创建管理员账户，完成后自动生成访问 Token。
