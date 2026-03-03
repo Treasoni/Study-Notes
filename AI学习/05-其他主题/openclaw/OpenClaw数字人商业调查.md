@@ -1190,6 +1190,14 @@ openclaw restore <backup-file>
 
 ---
 
+## 相关文档
+
+- [[OpenClaw MOC]] - OpenClaw 文档索引
+- [[OpenClaw核心概念]] - 核心概念
+- [[OpenClaw对接第三方软件指南]] - 第三方集成
+
+---
+
 ## 九、参考资源
 
 ### 9.1 官方资源

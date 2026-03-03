@@ -1074,6 +1074,15 @@ sudo rm /etc/systemd/system/openclaw.service
 
 ---
 
+## 相关文档
+
+- [[OpenClaw MOC]] - OpenClaw 文档索引
+- [[OpenClaw核心概念]] - 核心概念
+- [[OpenClaw安装后配置指南]] - 配置指南
+- [[OpenClaw安装后配置指南]] - 配置指南
+
+---
+
 ## 十一、参考链接
 
 ### 官方资源

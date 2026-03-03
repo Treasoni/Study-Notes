@@ -89,6 +89,9 @@ Subagent 的创建和使用。
 
 #### 数字人项目（OpenClaw）
 
+> [!tip] 索引导航
+> 📚 **[[05-其他主题/openclaw/OpenClaw MOC]]** - OpenClaw 完整文档索引与学习路径
+
 | 文档 | 标签 | 摘要 |
 |------|------|------|
 | [[05-其他主题/openclaw/OpenClaw核心概念]] | `数字人`, `openclaw`, `gateway`, `架构` | OpenClaw 核心概念：什么是网关、工作原理、Hub-and-Spoke 架构 |
