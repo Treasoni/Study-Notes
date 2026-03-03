@@ -17,6 +17,7 @@ updated: 2026-03-04
 | 安装 OpenClaw | [[OpenClaw安装教程]] |
 | 安装后配置 | [[OpenClaw安装后配置指南]] |
 | 局域网访问 Web 控制台 | [[OpenClaw Web控制台局域网访问配置]] |
+| 设置开机自启 + HTTPS | [[OpenClaw网关开机自启与HTTPS配置]] |
 | 对接第三方软件 | [[OpenClaw对接第三方软件指南]] |
 | 了解商业应用 | [[OpenClaw数字人商业调查]] |
 | 查常用命令 | [[OpenClaw常用命令速查]] |
@@ -38,6 +39,7 @@ updated: 2026-03-04
 | [[OpenClaw安装教程]] | `安装`, `部署` | 多平台安装指南（一键脚本、npm、Docker、源码编译） |
 | [[OpenClaw安装后配置指南]] | `配置`, `终端`, `API` | 配置向导、命令行配置、API 设置 |
 | [[OpenClaw Web控制台局域网访问配置]] | `web`, `局域网`, `cors`, `tailscale` | CORS、安全上下文、设备配对、Tailscale HTTPS |
+| [[OpenClaw网关开机自启与HTTPS配置]] | `daemon`, `systemd`, `tailscale`, `https` | 开机自启配置、Tailscale Serve HTTPS |
 
 ### 3. 集成与应用
 
@@ -89,7 +91,8 @@ OpenClaw 学习体系
 │
 ├── 配置层
 │   ├── OpenClaw安装后配置指南（基础配置）
-│   └── OpenClaw Web控制台局域网访问配置（网络配置）
+│   ├── OpenClaw Web控制台局域网访问配置（网络配置）
+│   └── OpenClaw网关开机自启与HTTPS配置（服务部署）
 │
 ├── 应用层
 │   ├── OpenClaw对接第三方软件指南（功能扩展）
