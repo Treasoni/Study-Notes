@@ -91,6 +91,7 @@ Subagent 的创建和使用。
 | 文档 | 标签 | 摘要 |
 |------|------|------|
 | [[05-其他主题/openclaw/OpenClaw安装教程]] | `数字人`, `openclaw` | OpenClaw 数字人项目安装配置指南 |
+| [[05-其他主题/openclaw/OpenClaw安装后配置指南]] | `数字人`, `openclaw`, `配置`, `终端` | OpenClaw 安装后终端配置全过程，包含配置向导、命令行配置、API 设置 |
 | [[05-其他主题/openclaw/OpenClaw数字人商业调查]] | `数字人`, `openclaw`, `商业调研` | 数字人行业商业调查报告 |
 | [[05-其他主题/openclaw/OpenClaw对接第三方软件指南]] | `数字人`, `openclaw`, `集成`, `plugins` | OpenClaw Skills 插件系统、第三方 API 对接、通讯软件集成 |
 
