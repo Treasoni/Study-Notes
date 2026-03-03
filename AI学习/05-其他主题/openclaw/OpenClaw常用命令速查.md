@@ -56,14 +56,14 @@ updated: 2026-03-04
 
 ### 场景：服务出问题时
 
-| 命令 | 说明 | 使用时机 |
-|------|------|----------|
-| `openclaw doctor` | 健康检查 | 服务异常、启动失败 |
-| `openclaw doctor --fix` | 自动修复 | 检测并自动修复问题 |
-| `openclaw status` | 查看运行状态 | 确认服务是否正常运行 |
-| `openclaw status --deep` | 深度状态检测 | 详细诊断各组件状态 |
-| `openclaw logs` | 查看日志 | 排查具体错误信息 |
-| `openclaw logs --follow` | 实时日志 | 监控运行情况 |
+| 命令                       | 说明     | 使用时机       |
+| ------------------------ | ------ | ---------- |
+| `openclaw doctor`        | 健康检查   | 服务异常、启动失败  |
+| `openclaw doctor --fix`  | 自动修复   | 检测并自动修复问题  |
+| `openclaw status`        | 查看运行状态 | 确认服务是否正常运行 |
+| `openclaw status --deep` | 深度状态检测 | 详细诊断各组件状态  |
+| `openclaw logs`          | 查看日志   | 排查具体错误信息   |
+| `openclaw logs --follow` | 实时日志   | 监控运行情况     |
 
 ### 场景：API 调用失败
 
