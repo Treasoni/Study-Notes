@@ -315,6 +315,17 @@ tailscale cert --cert-file=cert.pem --key-file=key.pem hostname.tailnet-name.ts.
 tailscale cert --help
 ```
 
+
+> [!warning]
+> ⚠️ hostname.tailnet-name.ts.net
+> - 这里的hostname是你自己命名的用来代替tailscale 给的ip
+> - tailnet-name.ts.net是主机分配易记名称。
+> ![](assets/Tailscale使用指南/截屏2026-03-04%2000.44.43.png)
+
+
+
+```
+
 **证书特点**：
 - 由 Let's Encrypt 自动签发
 - 私钥存储在本地，Tailscale 无法访问
