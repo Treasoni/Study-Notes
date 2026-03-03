@@ -154,6 +154,13 @@ openclaw gateway --tailscale serve
 https://<your-tailscale-name>.ts.net/
 ```
 
+
+> [!warning]
+> ⚠️  使用这个网址时，最好把翻墙软件和代理关闭，否则会访问失败
+
+
+```
+
 **优势**：
 - ✅ 自动 HTTPS（安全上下文）
 - ✅ 无需 CORS 配置
