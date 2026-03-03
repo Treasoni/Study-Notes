@@ -1,7 +1,7 @@
 ---
-tags: [openclaw, 集成, plugins, skills]
+tags: [openclaw, 集成, plugins, skills, mcp]
 created: 2026-03-02
-updated: 2026-03-02
+updated: 2026-03-04
 ---
 
 # OpenClaw 对接第三方软件指南
@@ -325,7 +325,138 @@ openclaw skills install code-review
 
 ---
 
-## 六、最佳实践
+## 六、MCP 协议集成
+
+> [!info] 概述
+> **MCP（Model Context Protocol）是 Anthropic 提出的标准化协议，让 AI 模型能通过统一接口连接外部工具和数据源**。OpenClaw 通过内置的 **mcporter** 插件原生支持 MCP 协议。
+
+### 6.1 什么是 MCP？
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    MCP 架构示意                              │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  AI 模型 (Claude/GPT)                                       │
+│         │                                                   │
+│         ▼                                                   │
+│  ┌─────────────┐                                           │
+│  │ MCP Client  │  ← 统一接口                                │
+│  │ (OpenClaw)  │                                           │
+│  └──────┬──────┘                                           │
+│         │                                                   │
+│    ┌────┼────┬────────┬────────┐                           │
+│    ▼    ▼    ▼        ▼        ▼                           │
+│ ┌────┐┌────┐┌────┐┌────────┐┌─────┐                       │
+│ │文件││数据库││GitHub││高德地图││Slack│  ← 各种 MCP Server   │
+│ └────┘└────┘└────┘└────────┘└─────┘                       │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### 6.2 mcporter 插件
+
+**mcporter** 是 OpenClaw 的官方内置 Skill，用于支持标准 MCP 协议适配：
+
+| 特性 | 说明 |
+|------|------|
+| **开箱即用** | 无需额外安装，OpenClaw 内置 |
+| **协议支持** | 支持 stdio 和 streamable-http |
+| **兼容性** | 兼容各类标准 MCP Server |
+
+> [!info] 来源
+> - [OpenClaw 阿里云+高德MCP配置](https://developer.aliyun.com/article/171) - 阿里云开发者社区
+> - [OpenClaw + Apify MCP 集成](https://developer.aliyun.com/article/1714190) - 阿里云开发者社区
+
+### 6.3 配置 MCP Server
+
+#### 安装 MCP Skill
+
+```bash
+# mcporter 已内置，直接配置即可
+# 查看当前 MCP 配置
+openclaw config get mcp
+
+# 添加 MCP Server
+openclaw config set mcp.servers.filesystem '{
+  "command": "npx",
+  "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/allowed/dir"]
+}'
+```
+
+#### 配置示例：文件系统 MCP
+
+```json
+// ~/.openclaw/config.json
+{
+  "mcp": {
+    "servers": {
+      "filesystem": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-filesystem", "/home/user/documents"]
+      }
+    }
+  }
+}
+```
+
+#### 配置示例：高德地图 MCP
+
+```bash
+# 配置高德地图 API Key
+openclaw config set mcp.servers.amap '{
+  "command": "npx",
+  "args": ["-y", "@anthropic/mcp-server-amap"],
+  "env": {
+    "AMAP_API_KEY": "your-amap-api-key"
+  }
+}'
+```
+
+### 6.4 常用 MCP Server 列表
+
+| MCP Server | 功能 | 安装命令 |
+|------------|------|----------|
+| `@modelcontextprotocol/server-filesystem` | 文件系统访问 | `npx -y @modelcontextprotocol/server-filesystem /path` |
+| `@modelcontextprotocol/server-github` | GitHub 操作 | `npx -y @modelcontextprotocol/server-github` |
+| `@modelcontextprotocol/server-postgres` | PostgreSQL 数据库 | `npx -y @modelcontextprotocol/server-postgres` |
+| `@anthropic/mcp-server-amap` | 高德地图 | `npx -y @anthropic/mcp-server-amap` |
+| `@anthropic/mcp-server-slack` | Slack 集成 | `npx -y @anthropic/mcp-server-slack` |
+
+### 6.5 验证 MCP 连接
+
+```bash
+# 重启服务使配置生效
+openclaw restart
+
+# 检查 MCP 状态
+openclaw mcp list
+
+# 测试 MCP 工具调用
+openclaw mcp test filesystem
+```
+
+### 6.6 MCP vs Skills 对比
+
+| 对比项 | MCP | Skills |
+|--------|-----|--------|
+| **协议** | 标准化协议 | OpenClaw 专有 |
+| **生态** | 跨平台通用 | OpenClaw 专属 |
+| **配置** | JSON 配置文件 | 安装即用 |
+| **适用场景** | 需要标准化的企业集成 | 快速功能扩展 |
+| **开发难度** | 需了解 MCP 协议 | 编写 Skill 模板 |
+
+> [!tip] 💡 选择建议
+> - 需要对接 **多个 AI 平台**？选择 **MCP**（一次配置，多平台通用）
+> - 只在 **OpenClaw 内使用**？选择 **Skills**（更简单快捷）
+
+> [!info] 来源
+> - [MCP 官方文档](https://modelcontextprotocol.io) - Anthropic
+> - [Awesome MCP Servers](https://github.com/modelcontextprotocol/servers) - GitHub
+
+---
+
+## 七、最佳实践
 
 ### 集成前准备
 
@@ -460,6 +591,12 @@ tail -f ~/.openclaw/logs/current.log
 - [Google Calendar API](https://developers.google.com/calendar) - Google
 - [Notion API 文档](https://developers.notion.com/) - Notion 官方
 
+### MCP 协议相关
+- [MCP 官方文档](https://modelcontextprotocol.io) - Anthropic 官方协议文档
+- [Awesome MCP Servers](https://github.com/modelcontextprotocol/servers) - 官方 MCP Server 合集
+- [OpenClaw 阿里云+高德MCP配置](https://developer.aliyun.com/article/171) - 阿里云开发者社区
+- [OpenClaw + Apify MCP 集成](https://developer.aliyun.com/article/1714190) - 阿里云开发者社区
+
 ---
 
-**最后更新**：2026-03-02
+**最后更新**：2026-03-04
