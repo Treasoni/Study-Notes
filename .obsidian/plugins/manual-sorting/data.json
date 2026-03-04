@@ -2,6 +2,7 @@
   "customOrder": {
     "/": {
       "children": [
+        "软路由",
         "CLAUDE.md",
         "环境变量使用指南.md",
         "硬件解码vs软件解码.md",
@@ -34,6 +35,13 @@
         "计算机网络/网口的作用.md",
         "计算机网络/网络宽带的上传和下载.md",
         "计算机网络/带宽和宽带.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "软路由": {
+      "children": [
+        "软路由/OpenClash插件使用指南.md",
+        "软路由/iStore爬梯配置指南.md"
       ],
       "sortOrder": "custom"
     },
@@ -71,10 +79,25 @@
     },
     "AI学习/02-工具使用": {
       "children": [
+        "AI学习/02-工具使用/assets",
+        "AI学习/02-工具使用/Tailscale使用指南.md",
+        "AI学习/02-工具使用/Claude Code 自定义斜杠命令教程.md",
         "AI学习/02-工具使用/如何使用Claude code.md",
         "AI学习/02-工具使用/Claude Code 插件系统使用指南.md",
         "AI学习/02-工具使用/Claude Code 常用功能.md",
         "AI学习/02-工具使用/Claude Code 会话管理.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/02-工具使用/assets": {
+      "children": [
+        "AI学习/02-工具使用/assets/Tailscale使用指南"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/02-工具使用/assets/Tailscale使用指南": {
+      "children": [
+        "AI学习/02-工具使用/assets/Tailscale使用指南/截屏2026-03-04 00.44.43.png"
       ],
       "sortOrder": "custom"
     },
@@ -103,7 +126,13 @@
     },
     "AI学习/05-其他主题/openclaw": {
       "children": [
-        "AI学习/05-其他主题/openclaw/convert_to_word.py",
+        "AI学习/05-其他主题/openclaw/OpenClaw网关开机自启与HTTPS配置.md",
+        "AI学习/05-其他主题/openclaw/OpenClaw常用命令速查.md",
+        "AI学习/05-其他主题/openclaw/OpenClaw MOC.md",
+        "AI学习/05-其他主题/openclaw/OpenClaw核心概念.md",
+        "AI学习/05-其他主题/openclaw/OpenClaw Web控制台局域网访问配置.md",
+        "AI学习/05-其他主题/openclaw/OpenClaw安装后配置指南.md",
+        "AI学习/05-其他主题/openclaw/OpenClaw对接第三方软件指南.md",
         "AI学习/05-其他主题/openclaw/OpenClaw安装教程.md",
         "AI学习/05-其他主题/openclaw/OpenClaw数字人商业调查.md"
       ],
@@ -231,11 +260,13 @@
     },
     "Git": {
       "children": [
+        "Git/Git 高级技巧.md",
+        "Git/Git 命令速查.md",
+        "Git/Git 入门教程.md",
         "Git/分支管理最佳实践.md",
         "Git/Git 常见错误解决方案.md",
         "Git/Git MOC.md",
-        "Git/assets",
-        "Git/git教程.md"
+        "Git/assets"
       ],
       "sortOrder": "custom"
     },
@@ -258,6 +289,8 @@
     },
     "linux": {
       "children": [
+        "linux/Ubuntu Server SSH 配置指南.md",
+        "linux/Ubuntu Server 安装教程.md",
         "linux/assets",
         "linux/linux的LVM管理.md",
         "linux/Linux换源.md",

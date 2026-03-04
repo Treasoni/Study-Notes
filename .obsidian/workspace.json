@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "iStore爬梯配置指南.md",
+                "file": "软路由/OpenClash插件使用指南.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "iStore爬梯配置指南"
+              "title": "OpenClash插件使用指南"
             }
           }
         ],
@@ -213,13 +213,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "iStore爬梯配置指南.md",
+                "file": "软路由/OpenClash插件使用指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "iStore爬梯配置指南 的大纲"
+              "title": "OpenClash插件使用指南 的大纲"
             }
           },
           {
@@ -262,11 +262,12 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "8ebf6e4676540f31",
+  "active": "52ff2f9fbef74052",
   "lastOpenFiles": [
-    "OpenClash插件使用指南.md",
+    "软路由",
+    "软路由/iStore爬梯配置指南.md",
+    "软路由/OpenClash插件使用指南.md",
     "AI学习/05-其他主题/openclaw/OpenClaw常用命令速查.md",
-    "iStore爬梯配置指南.md",
     "AI学习/05-其他主题/openclaw/OpenClaw网关开机自启与HTTPS配置.md",
     "AI学习/05-其他主题/openclaw/OpenClaw Web控制台局域网访问配置.md",
     "AI学习/05-其他主题/openclaw/OpenClaw核心概念.md",
@@ -292,7 +293,6 @@
     "linux/linux磁盘相关的知识.md",
     "linux/linux的文件权限.md",
     "iso和img.md",
-    "硬盘教程和NAS硬盘知识讲解.md",
     "AI学习/05-其他主题/openclaw/convert_to_word.py",
     "AI学习/05-其他主题/openclaw",
     "AI学习/05-其他主题",

@@ -13,11 +13,11 @@ updated: 2026-03-04
 
 | 我想... | 跳转章节 |
 |---------|----------|
-| 了解有哪些插件 | [[#二、代理插件选择]] |
-| 配置 Passwall2 | [[#三、Passwall2 配置教程]] |
-| 配置 HomeProxy | [[#四、HomeProxy 配置教程]] |
-| 安装 iStore | [[#五、iStore 安装方法]] |
-| 排查问题 | [[#六、常见问题]] |
+| 了解有哪些插件 | [[iStore爬梯配置指南#二、代理插件选择]] |
+| 配置 Passwall2 | [[iStore爬梯配置指南#三、Passwall2 配置教程]] |
+| 配置 HomeProxy | [[iStore爬梯配置指南#四、HomeProxy 配置教程]] |
+| 安装 iStore | [[iStore爬梯配置指南#五、iStore 安装方法]] |
+| 排查问题 | [[iStore爬梯配置指南#六、常见问题]] |
 
 ---
 
@@ -427,8 +427,8 @@ curl ip.sb
 ## 相关文档
 
 - [[OpenClash插件使用指南]] - OpenClash 详细配置教程
-- [[../../02-工具使用/Tailscale使用指南]] - Tailscale VPN 组网
-- [[../../00-索引/MOC]] - 知识库索引
+- [[../AI学习/02-工具使用/Tailscale使用指南]] - Tailscale VPN 组网
+- [[../AI学习/00-索引/MOC]] - 知识库索引
 
 ---
 
