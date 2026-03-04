@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "软路由/OpenClash插件使用指南.md",
+                "file": "WPF常用操作指南.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "OpenClash插件使用指南"
+              "title": "WPF常用操作指南"
             }
           }
         ],
@@ -213,13 +213,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "软路由/OpenClash插件使用指南.md",
+                "file": "WPF常用操作指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "OpenClash插件使用指南 的大纲"
+              "title": "WPF常用操作指南 的大纲"
             }
           },
           {
@@ -262,20 +262,22 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "52ff2f9fbef74052",
+  "active": "8ebf6e4676540f31",
   "lastOpenFiles": [
-    "软路由",
-    "软路由/iStore爬梯配置指南.md",
+    "AI学习/05-其他主题/openclaw/OpenClaw核心概念.md",
+    "WPF常用操作指南.md",
+    "AI学习/05-其他主题/openclaw/OpenClaw MOC.md",
+    "CLAUDE.md",
+    "AI学习/02-工具使用/Claude Code 自定义斜杠命令教程.md",
     "软路由/OpenClash插件使用指南.md",
+    "软路由/iStore爬梯配置指南.md",
+    "软路由",
     "AI学习/05-其他主题/openclaw/OpenClaw常用命令速查.md",
     "AI学习/05-其他主题/openclaw/OpenClaw网关开机自启与HTTPS配置.md",
     "AI学习/05-其他主题/openclaw/OpenClaw Web控制台局域网访问配置.md",
-    "AI学习/05-其他主题/openclaw/OpenClaw核心概念.md",
     "AI学习/05-其他主题/openclaw/OpenClaw安装后配置指南.md",
     "AI学习/05-其他主题/openclaw/OpenClaw对接第三方软件指南.md",
     "AI学习/05-其他主题/openclaw/OpenClaw安装教程.md",
-    "AI学习/05-其他主题/openclaw/OpenClaw MOC.md",
-    "CLAUDE.md",
     "AI学习/02-工具使用/Tailscale使用指南.md",
     "AI学习/05-其他主题/openclaw/OpenClaw数字人商业调查.md",
     "AI学习/02-工具使用/assets/Tailscale使用指南/截屏2026-03-04 00.44.43.png",
@@ -292,7 +294,6 @@
     "linux/cpu的线程和内核.md",
     "linux/linux磁盘相关的知识.md",
     "linux/linux的文件权限.md",
-    "iso和img.md",
     "AI学习/05-其他主题/openclaw/convert_to_word.py",
     "AI学习/05-其他主题/openclaw",
     "AI学习/05-其他主题",
@@ -300,7 +301,6 @@
     "AI学习/03-进阶应用",
     "AI学习/02-工具使用",
     "AI学习/01-基础概念",
-    "AI学习/00-索引",
     "PVE的学习/PVE学习笔记MOC.canvas",
     "PVE的学习/assets/修改PVE的网络信息/file-20260203173647080.png",
     "PVE的学习/assets/如何创建PVE虚拟机/截屏2026-02-11 20.44.24.png",
