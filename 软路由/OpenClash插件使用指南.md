@@ -13,13 +13,13 @@ updated: 2026-03-04
 
 | 我想... | 跳转章节 |
 |---------|----------|
-| 了解 OpenClash 特点 | [[#一、OpenClash 简介]] |
-| 与其他插件对比 | [[#二、OpenClash vs Passwall2]] |
-| 安装 OpenClash | [[#三、安装方法]] |
-| 配置订阅 | [[#四、订阅配置]] |
-| 设置分流规则 | [[#五、分流规则配置]] |
-| DNS 优化 | [[#六、DNS 优化配置]] |
-| 排查问题 | [[#七、常见问题]] |
+| 了解 OpenClash 特点 | [[OpenClash插件使用指南#一、OpenClash 简介]] |
+| 与其他插件对比 | [[OpenClash插件使用指南#二、OpenClash vs Passwall2]] |
+| 安装 OpenClash | [[OpenClash插件使用指南#三、安装方法]] |
+| 配置订阅 | [[OpenClash插件使用指南#四、订阅配置]] |
+| 设置分流规则 | [[OpenClash插件使用指南#五、分流规则配置]] |
+| DNS 优化 | [[OpenClash插件使用指南#六、DNS 优化配置]] |
+| 排查问题 | [[OpenClash插件使用指南#七、常见问题]] |
 
 ---
 
@@ -403,7 +403,7 @@ fake-ip-filter:
 ## 相关文档
 
 - [[iStore爬梯配置指南]] - iStore 代理配置
-- [[../../AI学习/02-工具使用/Tailscale使用指南]] - Tailscale VPN
+- [[../AI学习/02-工具使用/Tailscale使用指南]] - Tailscale VPN
 
 ---
 
