@@ -252,8 +252,10 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "8ebf6e4676540f31",
+  "active": "52ff2f9fbef74052",
   "lastOpenFiles": [
+    "AI学习/02-工具使用/assets/Tailscale使用指南/截屏2026-03-04 00.44.43.png",
+    "AI学习/02-工具使用/Tailscale使用指南.md",
     "docker/DockerDesktop镜像加速器配置.md",
     "docker/docker里的GID和UID.md",
     "docker/github文件直链方式.md",
@@ -274,16 +276,13 @@
     "AI学习/05-其他主题/openclaw/OpenClaw安装后配置指南.md",
     "AI学习/05-其他主题/openclaw/OpenClaw对接第三方软件指南.md",
     "AI学习/05-其他主题/openclaw/OpenClaw安装教程.md",
-    "AI学习/02-工具使用/Tailscale使用指南.md",
     "AI学习/05-其他主题/openclaw/OpenClaw数字人商业调查.md",
-    "AI学习/02-工具使用/assets/Tailscale使用指南/截屏2026-03-04 00.44.43.png",
     "AI学习/02-工具使用/assets/Tailscale使用指南",
     "AI学习/02-工具使用/assets",
     "AI学习/02-工具使用/如何使用Claude code.md",
     "AI学习/02-工具使用/Claude Code 常用功能.md",
     "AI学习/02-工具使用/Claude Code 插件系统使用指南.md",
     "linux/Linux换源.md",
-    "linux/Ubuntu Server SSH 配置指南.md",
     "AI学习/05-其他主题/openclaw/convert_to_word.py",
     "AI学习/05-其他主题/openclaw",
     "AI学习/05-其他主题",
