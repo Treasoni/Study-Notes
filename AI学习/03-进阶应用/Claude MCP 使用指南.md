@@ -327,6 +327,76 @@ Claude Code 支持 `.mcp.json` 文件中的环境变量扩展。
 
 ### 实际示例
 
+#### 添加文件系统 MCP 服务器（详细步骤）
+
+文件系统 MCP 服务器允许 Claude Code 访问您指定的目录，进行读取、写入、搜索等操作。
+
+**🎯 比喻**：就像给 Claude Code 配一把"钥匙"，让它能进入您指定的文件夹工作。
+
+**方法一：使用 CLI 命令添加（推荐）**
+
+```bash
+# 基本语法
+claude mcp add --transport stdio <名称> --scope <范围> -- npx -y @modelcontextprotocol/server-filesystem <目录1> <目录2> ...
+
+# 实际示例：添加用户范围的文件系统访问
+claude mcp add --transport stdio filesystem --scope user -- npx -y @modelcontextprotocol/server-filesystem ~/Desktop ~/Downloads
+
+# 项目范围示例：仅当前项目可用
+claude mcp add --transport stdio filesystem --scope project -- npx -y @modelcontextprotocol/server-filesystem ./src ./docs
+
+# 本地范围示例（默认，仅当前项目且私有）
+claude mcp add --transport stdio filesystem -- npx -y @modelcontextprotocol/server-filesystem /Users/username/Desktop /Users/username/Downloads
+```
+
+**命令解析**：
+
+| 部分 | 说明 |
+|------|------|
+| `--transport stdio` | 使用标准输入输出通信（本地服务器） |
+| `filesystem` | 服务器名称（可自定义） |
+| `--scope user` | 范围：user（全局）/ project（项目）/ local（本地） |
+| `--` | 分隔符，后面是实际的启动命令 |
+| `npx -y` | 使用 npx 运行，-y 自动确认 |
+| `@modelcontextprotocol/server-filesystem` | 官方文件系统 MCP 包 |
+| `~/Desktop ~/Downloads` | 允许访问的目录路径 |
+
+**方法二：使用 JSON 配置添加**
+
+如果您有现成的 JSON 配置，可以使用 `add-json` 命令：
+
+```bash
+# 使用 JSON 配置添加
+claude mcp add-json --scope user '{"mcpServers":{"filesystem":{"command":"npx","args":["-y","@modelcontextprotocol/server-filesystem","/Users/username/Desktop","/Users/username/Downloads"]}}}'
+```
+
+**验证安装**：
+
+```bash
+# 方法 1：CLI 查看
+claude mcp list
+
+# 方法 2：在 Claude Code 中查看
+/mcp
+
+# 方法 3：获取详细信息
+claude mcp get filesystem
+```
+
+**使用示例**：
+
+```bash
+# 在 Claude Code 中使用文件系统 MCP
+> "读取 Desktop 下的 README.md 文件"
+> "在 Downloads 文件夹中搜索包含 'report' 的文件"
+> "创建一个新文件 test.txt 在 Desktop 目录"
+```
+
+> [!warning] 安全提示
+> - 仅添加您信任的目录
+> - 避免添加包含敏感信息的目录（如 ~/.ssh, ~/.config 等）
+> - 使用最小权限原则，只添加必要的目录
+
 #### 使用 Sentry 监控错误
 
 ```bash
@@ -624,6 +694,9 @@ claude mcp add --transport http <name> <url>
 claude mcp add --transport sse <name> <url>
 claude mcp add --transport stdio <name> -- <command> [args...]
 
+# 从 JSON 配置添加
+claude mcp add-json --scope user|project|local '<json配置>'
+
 # 指定范围
 claude mcp add --transport http <name> --scope local|project|user <url>
 
@@ -673,6 +746,19 @@ A: 将配置放在用户范围（`~/.claude.json`）或使用项目范围（`.mc
 **Q: OAuth 服务需要做什么？**
 
 A: 添加 SSE 类型的 URL 配置，首次使用时 Claude Code 会自动打开浏览器完成 OAuth 授权。
+
+---
+
+## 参考资料
+
+### 官方资源
+- [Claude Code MCP 官方文档](https://docs.anthropic.com/en/docs/claude-code/mcp) - 完整技术文档
+- [MCP 协议规范](https://modelcontextprotocol.io) - 协议标准说明
+- [MCP GitHub 组织](https://github.com/modelcontextprotocol) - 官方服务器实现
+
+### 社区资源
+- [Claude Code 添加 MCP 服务器完整指南](https://www.tinyash.com/blog/claude-code-mcp/) - 中文教程
+- [开发者必看：三大 CLI 工具 MCP 配置详解](http://juejin.im/entry/7590593682584502335) - 掘金文章
 
 ---
 
