@@ -1,0 +1,20 @@
+{
+  "id": "conv-1772723791555-g08221r5l",
+  "title": "Fix MCP server JSON configuration command error",
+  "titleGenerationStatus": "success",
+  "createdAt": 1772723791556,
+  "updatedAt": 1772723902877,
+  "lastResponseAt": 1772723902875,
+  "sessionId": "fdc4a688-9119-401b-96c4-ab745f1e79ec",
+  "sdkSessionId": "fdc4a688-9119-401b-96c4-ab745f1e79ec",
+  "currentNote": "AI学习/03-进阶应用/Claude MCP 使用指南.md",
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}
