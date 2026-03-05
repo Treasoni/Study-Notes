@@ -236,6 +236,7 @@
     },
     "docker": {
       "children": [
+        "docker/DockerDesktop镜像加速器配置.md",
         "docker/assets",
         "docker/docker里的GID和UID.md",
         "docker/github文件直链方式.md",
