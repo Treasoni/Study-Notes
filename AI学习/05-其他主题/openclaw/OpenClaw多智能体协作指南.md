@@ -119,6 +119,35 @@ updated: 2026-03-06
 └─────────────────────────────────────────────────────────────┘
 ```
 
+### 目录结构
+
+```
+workspace/
+├── AGENTS.md           # 本工作区的代理总览与说明（可选）
+├── SOUL.md             # 主代理的"灵魂"——人格、原则、沟通风格
+├── IDENTITY.md         # 主代理的身份：名字、物种、表情符号、简介
+├── USER.md             # 主代理服务的用户信息
+├── MEMORY.md           # 主代理的长期记忆（仅主会话加载）
+├── memory/             # 每日记憶日志
+│   ├── 2026-03-06.md
+│   └── ...
+├── tools/              # 工具配置（如相机、SSH）
+├── .openclaw/          # OpenClaw 全局配置（网关、凭证等）
+├── skills/             # 已安装技能目录
+├── agents/             # 子代理目录（自动创建）
+│   ├── main/           # 主代理相关文件
+│   └── subagent-xxxx/  # spawned 的子代理实例
+├── dev-agent/          # 预置角色目录
+│   ├── SOUL.md
+│   ├── IDENTITY.md
+│   └── USER.md
+├── tester-agent/
+└── manager-agent/
+```
+
+> [!info] 📚 来源
+> - [OpenClaw 多 Agent 协作完整指南](https://blog.csdn.net/weixin_51035135/article/details/158659469) - CSDN 2026-03-05
+
 ### 配置示例
 
 ```json
@@ -155,7 +184,12 @@ updated: 2026-03-06
           "allow": ["tavily_search", "web_fetch", "read"]
         }
       }
-    ]
+    ],
+    "defaults": {
+      "subagents": {
+        "runTimeoutSeconds": 300
+      }
+    }
   }
 }
 ```
@@ -205,6 +239,42 @@ openclaw agents list --bindings
 }
 ```
 
+#### 通信方式详解
+
+**主代理 → 子代理**：使用 `sessions_send`
+
+```python
+sessions_send(
+    sessionKey="agent:main:subagent:xxxx",
+    message="请验收上述代码，运行测试后给我结果。"
+)
+```
+
+**子代理 → 主代理**：子代理只需正常输出，主代理通过 `sessions_history` 或自动事件接收其输出（当使用 `thread=True` 且主会话保持活跃时，通知会自动到达）。
+
+**子代理 ↔ 子代理**：需要主代理作为中继，或让它们共享一个 `workspace` 目录并通过文件交换数据。
+
+```python
+# 获取子代理 A 的输出
+output_a = sessions_history(sessionKey="agent:main:subagent:aaaa", limit=10)
+
+# 转发给子代理 B
+sessions_send(
+    sessionKey="agent:main:subagent:bbbb",
+    message=f"请基于以下内容继续工作：\n\n{output_a}"
+)
+```
+
+#### 查询历史记录
+
+```python
+# 获取子代理最近 20 条输出
+history = sessions_history(
+    sessionKey="agent:main:subagent:xxxx",
+    limit=20
+)
+```
+
 ### 3. 动态分身（Dynamic Spawning）
 
 按需创建子 Agent：
@@ -228,6 +298,69 @@ openclaw agents add reviewer \
   --workspace ~/projects/my-app \
   --description "Code reviewer"
 ```
+
+#### 会话模式详解
+
+使用 `sessions_spawn` 创建子 Agent 时，`mode` 参数决定会话类型：
+
+| mode | 说明 | 适用场景 |
+|------|------|----------|
+| `run` | 一次性执行，完成后自动结束 | 短任务（代码生成、数据分析） |
+| `session` | 持久会话，可多次交互 | 长期角色（如助手、测试员） |
+| `acp` | 接入 ACP 协议外部代理 | 高级集成 |
+
+**`thread` 参数**：
+- `True`：会话与当前线程绑定，可保持状态
+- `False`：独立运行，不绑定线程
+
+#### 两种创建方式
+
+**方式 A：静态创建（预配置角色目录）**
+
+在 `agents/` 目录下预置角色的 Soul 和 Identity：
+
+```
+agents/
+├── dev-agent/
+│   ├── SOUL.md      # 擅长代码，逻辑清晰
+│   └── IDENTITY.md  # 名字：DevMaster
+├── tester-agent/
+│   ├── SOUL.md      # 严格测试，关注边界
+│   └── IDENTITY.md  # 名字：TestGuard
+└── manager-agent/
+    ├── SOUL.md      # 项目协调，任务分配
+    └── IDENTITY.md  # 名字：ProjectLead
+```
+
+启动时通过 `cwd` 参数指定目录：
+
+```python
+sessions_spawn(
+    mode="session",
+    thread=True,
+    runtime="subagent",
+    task="你是一个 Python 开发工程师，请审查以下代码：...",
+    cwd="C:/Users/xxx/.openclaw/workspace/agents/dev-agent"
+)
+```
+
+**方式 B：动态创建（每次生成临时 Soul）**
+
+在 `task` 参数中直接描述角色，OpenClaw 会自动生成临时的 Soul 和 Identity：
+
+```python
+sessions_spawn(
+    mode="session",
+    runtime="subagent",
+    thread=True,
+    task="你扮演一个严格的代码审查员，重点关注安全漏洞和性能问题。使用简洁的技术语言，不要闲聊。",
+    label="code-reviewer"
+)
+```
+
+> [!tip] 💡 选择建议
+> - **静态创建**：适合长期使用的固定角色
+> - **动态创建**：适合一次性任务，无需预先创建目录
 
 ### 4. 异构模型协作
 
@@ -507,6 +640,7 @@ tail -f ~/.openclaw/agents/coder/logs/current.log
 - [OpenClaw GitHub](https://github.com/openclaw/openclaw) - 源代码
 
 ### 社区资源
+- [OpenClaw 多 Agent 协作完整指南](https://blog.csdn.net/weixin_51035135/article/details/158659469) - CSDN 2026-03-05（最新）
 - [OpenClaw 多智能体实战指南](https://developer.aliyun.com/article/1713822) - 阿里云开发者社区
 - [多智能体系统将成AI新趋势](https://blog.csdn.net/libaiup/article/details/158623689) - CSDN
 - [从单线程到多智能体协作](https://m.blog.csdn.net/Stitch2001/article/details/158624152) - CSDN
@@ -517,4 +651,4 @@ tail -f ~/.openclaw/agents/coder/logs/current.log
 
 ---
 
-**最后更新**：2026-03-06
+**最后更新**：2026-03-06（新增会话模式详解、Agent 间通信详解、两种创建方式）
