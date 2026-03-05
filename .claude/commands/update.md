@@ -1,7 +1,7 @@
 ---
 description: "更新现有笔记"
 argument-hint: "文件路径"
-allowed-tools: ["Read", "WebSearch", "Edit", "Grep"]
+allowed-tools: ["Read", "WebSearch", "Edit", "Grep", "mcp__browsermcp__browser_navigate", "mcp__browsermcp__browser_snapshot", "mcp__browsermcp__browser_screenshot", "mcp__browsermcp__browser_click", "mcp__browsermcp__browser_type", "mcp__browsermcp__browser_wait", "mcp__browsermcp__browser_go_back", "mcp__browsermcp__browser_go_forward"]
 ---
 
 # 更新笔记：$ARGUMENTS
@@ -22,6 +22,14 @@ allowed-tools: ["Read", "WebSearch", "Edit", "Grep"]
 
 ### 3. 获取最新信息
 识别笔记主题，使用 WebSearch 搜索官方最新文档
+
+**如果 WebSearch 无结果或结果不理想**，使用 browsermcp 直接浏览网页：
+
+1. 使用 `mcp__browsermcp__browser_navigate` 导航到已知的官方文档 URL
+2. 使用 `mcp__browsermcp__browser_snapshot` 获取页面结构
+3. 查找 Changelog、Release Notes 或更新日志
+4. 使用 `mcp__browsermcp__browser_click` 展开相关章节（如需要）
+5. 提取更新内容并记录来源
 
 ### 3.5. 优先使用官方资源
 当学习新知识点时，必须按以下顺序获取信息：
