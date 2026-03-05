@@ -104,6 +104,9 @@ claude mcp add --transport stdio --env DATABASE_URL=postgresql://user:pass@local
 > claude mcp add --transport stdio <name> -- <cmd> [...]
 > ```
 
+> [!info] 📚 来源
+> - [Claude Code 官方文档 - MCP 安装](https://docs.anthropic.com/en/docs/claude-code/mcp#installing-mcp-servers) - 传输方式说明
+
 ---
 
 ## 3. 管理服务器
@@ -279,6 +282,9 @@ claude mcp add --transport http hubspot --scope user https://mcp.hubspot.com/ant
 | 团队共享的服务器、项目特定工具 | Project |
 | 跨多个项目的个人实用工具 | User |
 
+> [!info] 📚 来源
+> - [Claude Code 官方文档 - MCP 安装范围](https://docs.anthropic.com/en/docs/claude-code/mcp#mcp-installation-scopes) - 范围层级与优先级
+
 ### 环境变量扩展
 
 Claude Code 支持 `.mcp.json` 文件中的环境变量扩展。
@@ -396,6 +402,10 @@ claude mcp get filesystem
 > - 仅添加您信任的目录
 > - 避免添加包含敏感信息的目录（如 ~/.ssh, ~/.config 等）
 > - 使用最小权限原则，只添加必要的目录
+
+> [!info] 📚 来源
+> - [Claude Code MCP 官方文档](https://docs.anthropic.com/en/docs/claude-code/mcp) - 安装与配置
+> - [MCP GitHub - server-filesystem](https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem) - 源码与文档
 
 #### 使用 Sentry 监控错误
 
