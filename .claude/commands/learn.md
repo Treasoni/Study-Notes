@@ -1,7 +1,7 @@
 ---
 description: "学习新知识点并创建笔记"
 argument-hint: "主题名称"
-allowed-tools: ["WebSearch", "Write", "Grep", "Read", "Glob"]
+allowed-tools: ["WebSearch", "Write", "Grep", "Read", "Glob", "mcp__browsermcp__browser_navigate", "mcp__browsermcp__browser_snapshot", "mcp__browsermcp__browser_screenshot", "mcp__browsermcp__browser_click", "mcp__browsermcp__browser_type", "mcp__browsermcp__browser_wait", "mcp__browsermcp__browser_go_back", "mcp__browsermcp__browser_go_forward"]
 ---
 
 # 学习新知识点：$ARGUMENTS
@@ -9,7 +9,16 @@ allowed-tools: ["WebSearch", "Write", "Grep", "Read", "Glob"]
 ## 执行步骤
 
 ### 1. 搜索官方资源
-使用 WebSearch 搜索 "$ARGUMENTS official documentation 2026"
+首先使用 WebSearch 搜索 "$ARGUMENTS official documentation 2026"
+
+**如果 WebSearch 无结果或结果不理想**，使用 browsermcp 直接浏览网页：
+
+1. 使用 `mcp__browsermcp__browser_navigate` 导航到已知的官方文档 URL
+2. 使用 `mcp__browsermcp__browser_snapshot` 获取页面可访问性快照
+3. 根据页面内容导航到相关章节
+4. 使用 `mcp__browsermcp__browser_click` 点击展开内容（如需要）
+5. 使用 `mcp__browsermcp__browser_wait` 等待动态内容加载（如需要）
+6. 提取所需信息后记录来源 URL
 
 ### 2. 创建笔记
 在合适的目录下创建笔记文件，使用以下标准模板：
