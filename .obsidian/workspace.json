@@ -231,13 +231,23 @@
               "icon": "git-pull-request",
               "title": "Source Control"
             }
+          },
+          {
+            "id": "34f9a07fa8b1d119",
+            "type": "leaf",
+            "state": {
+              "type": "claudian-view",
+              "state": {},
+              "icon": "bot",
+              "title": "Claudian"
+            }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
-    "width": 393.5
+    "width": 456.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -252,7 +262,7 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "8ebf6e4676540f31",
+  "active": "34f9a07fa8b1d119",
   "lastOpenFiles": [
     "AI学习/05-其他主题/openclaw/OpenClaw Web控制台局域网访问配置.md",
     "AI学习/02-工具使用/Tailscale使用指南.md",

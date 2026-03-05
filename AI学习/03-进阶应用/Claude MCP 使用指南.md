@@ -372,9 +372,23 @@ claude mcp add --transport stdio filesystem -- npx -y @modelcontextprotocol/serv
 如果您有现成的 JSON 配置，可以使用 `add-json` 命令：
 
 ```bash
-# 使用 JSON 配置添加
-claude mcp add-json --scope user '{"mcpServers":{"filesystem":{"command":"npx","args":["-y","@modelcontextprotocol/server-filesystem","/Users/username/Desktop","/Users/username/Downloads"]}}}'
+# 基本语法
+claude mcp add-json <名称> '<json配置>'
+
+# 添加 stdio 类型服务器（文件系统）
+claude mcp add-json filesystem --scope user '{"type":"stdio","command":"npx","args":["-y","@modelcontextprotocol/server-filesystem","/Users/username/Desktop","/Users/username/Downloads"]}'
+
+# 添加 HTTP 类型服务器
+claude mcp add-json weather-api --scope user '{"type":"http","url":"https://api.weather.com/mcp","headers":{"Authorization":"Bearer your-token"}}'
 ```
+
+> [!tip] JSON 格式说明
+> - `type`: 传输类型，可选 `stdio`、`http`、`sse`
+> - `command`: stdio 类型的可执行命令
+> - `args`: 命令行参数数组
+> - `url`: http/sse 类型的服务器地址
+> - `headers`: HTTP 请求头（可选）
+> - `env`: 环境变量（可选）
 
 **验证安装**：
 
@@ -705,7 +719,7 @@ claude mcp add --transport sse <name> <url>
 claude mcp add --transport stdio <name> -- <command> [args...]
 
 # 从 JSON 配置添加
-claude mcp add-json --scope user|project|local '<json配置>'
+claude mcp add-json <名称> --scope user|project|local '<json配置>'
 
 # 指定范围
 claude mcp add --transport http <name> --scope local|project|user <url>
