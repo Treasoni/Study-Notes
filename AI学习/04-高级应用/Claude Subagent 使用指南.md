@@ -1,11 +1,26 @@
 ---
-tags: [ai, 高级应用]
+tags: [ai, 高级应用, subagent, task-tool]
+created: 2025-01-15
+updated: 2026-03-06
 ---
 
 # Claude Subagent 使用指南
 
 > [!info] 概述
 > **Subagent 是 AI 专家助手**，每个专注于特定领域，在独立上下文中运行。就像雇佣不同的专家：代码审查专家、探索专家、规划专家，各司其职，提高效率。
+
+## 2026 年新特性
+
+| 特性 | 说明 |
+|------|------|
+| **影分身之术** | Claude 可分裂为多个并行运行的 agent，将复杂任务拆解为小任务 |
+| **独立上下文** | 每个 subagent 拥有全新的独立会话环境，不受主对话历史影响 |
+| **实时进度条** | 终端显示实时任务列表和执行进度 |
+| **并行执行** | 多个 subagent 同时工作，由主 agent 协调 |
+
+> [!info] 📚 来源
+> - [Claude Code Task Tool 完整指南](https://juejin.cn/post/7593292445299933203) - 掘金 2026
+> - [GitHub: Claude Code System Prompts](https://github.com/Piebald-AI/claude-code-system-prompts) - 2026-01-23 更新
 
 ---
 
@@ -34,6 +49,11 @@ tags: [ai, 高级应用]
 | **Explore** | 除 Task/Edit/Write | 代码库快速探索 | 侦探 |
 | **Plan** | 除 Task/Edit/Write | 架构规划、设计方案 | 架构师 |
 | **Claude Code Guide** | 搜索工具 | Claude Code 问题解答 | 技术支持 |
+| **ollama-code-analyzer** | 代码分析 | Bug 检测、性能分析、安全审查 | 代码医生 |
+| **ollama-architect** | 设计工具 | 技术选型、方案对比 | 技术顾问 |
+
+> [!info] 📚 来源
+> - [Subagent 使用教程](https://m.blog.csdn.net/elesos/article/details/157330789) - CSDN 2026
 
 ## 基础使用方法
 
@@ -164,6 +184,28 @@ Claude Code 加载流程
 - 它需要访问哪些工具？
 - 触发条件是什么？
 - 输出格式应该是什么样的？
+
+### Agent 配置位置
+
+Agent 可以定义在以下位置（自动合并到 Task tool 的 description payload）：
+
+| 位置 | 作用域 | 说明 |
+|------|--------|------|
+| `~/.claude/agents` | 用户级 | 所有项目共享的通用 Agent |
+| `project/.claude/agents` | 项目级 | 特定项目专用的 Agent |
+
+```
+~/.claude/agents/           # 用户级 Agent（全局共享）
+├── code-reviewer.md
+└── security-scanner.md
+
+project/.claude/agents/     # 项目级 Agent（仅当前项目）
+├── api-tester.md
+└── doc-generator.md
+```
+
+> [!tip] 💡 优先级
+> 项目级 Agent 会覆盖同名的用户级 Agent。
 
 ### 模型选择指南
 
