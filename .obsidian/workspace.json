@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/04-高级应用/Claude Subagent 使用指南.md",
+                "file": "AI学习/05-其他主题/openclaw/OpenClaw多智能体协作指南.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Claude Subagent 使用指南"
+              "title": "OpenClaw多智能体协作指南"
             }
           }
         ],
@@ -151,7 +151,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "AI学习/04-高级应用/Claude Subagent 使用指南.md",
+                "file": "AI学习/05-其他主题/openclaw/OpenClaw多智能体协作指南.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -161,7 +161,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Claude Subagent 使用指南 的反向链接列表"
+              "title": "OpenClaw多智能体协作指南 的反向链接列表"
             }
           },
           {
@@ -170,12 +170,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "AI学习/04-高级应用/Claude Subagent 使用指南.md",
+                "file": "AI学习/05-其他主题/openclaw/OpenClaw多智能体协作指南.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Claude Subagent 使用指南 的出链列表"
+              "title": "OpenClaw多智能体协作指南 的出链列表"
             }
           },
           {
@@ -213,13 +213,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/04-高级应用/Claude Subagent 使用指南.md",
+                "file": "AI学习/05-其他主题/openclaw/OpenClaw多智能体协作指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Claude Subagent 使用指南 的大纲"
+              "title": "OpenClaw多智能体协作指南 的大纲"
             }
           },
           {
@@ -243,7 +243,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
@@ -262,8 +262,10 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "8ebf6e4676540f31",
+  "active": "34f9a07fa8b1d119",
   "lastOpenFiles": [
+    "AI学习/02-工具使用/N8N定时抓取热点资讯指南.md",
+    "AI学习/04-高级应用/Claude Subagent 使用指南.md",
     "AI学习/05-其他主题/openclaw/OpenClaw多智能体协作指南.md",
     "Marker PDF转换教学案例.md",
     "环境变量使用指南.md",
@@ -290,10 +292,8 @@
     "AI学习/05-其他主题/openclaw/OpenClaw网关开机自启与HTTPS配置.md",
     "AI学习/05-其他主题/openclaw/OpenClaw对接第三方软件指南.md",
     "AI学习/05-其他主题/openclaw/OpenClaw安装教程.md",
-    "AI学习/05-其他主题/openclaw/OpenClaw数字人商业调查.md",
     "AI学习/02-工具使用/assets/Tailscale使用指南",
     "AI学习/02-工具使用/assets",
-    "AI学习/02-工具使用/如何使用Claude code.md",
     "AI学习/05-其他主题/openclaw/convert_to_word.py",
     "AI学习/05-其他主题/openclaw",
     "AI学习/05-其他主题",
