@@ -2,7 +2,7 @@
 tags: [rss, 信息聚合, 阅读器, RSSHub, 订阅]
 created: 2026-03-06
 updated: 2026-03-06
-version: 1.0
+version: 1.1
 ---
 
 # RSS 使用指南
@@ -148,9 +148,10 @@ Atom:
 
 | 阅读器 | 平台 | 特点 | 价格 |
 |--------|------|------|------|
-| **Feedly** | Web/全平台 | 界面简洁，多端同步 | 免费+付费 |
-| **Inoreader** | Web/全平台 | 功能强大，支持全文抓取 | 免费+付费 |
-| **NetNewsWire** | macOS/iOS | 开源免费，原生体验 | 完全免费 |
+| **Feedly** | Web/全平台 | 界面简洁，多端同步，最适合新手 | 免费(100源)+付费(~$6/月) |
+| **Inoreader** | Web/全平台 | 功能强大，支持全文抓取和高级搜索 | 免费(150源)+付费(~$7.5/月) |
+| **NewsBlur** | Web/全平台 | 智能过滤，可训练推荐算法 | 限时免费+付费 |
+| **NetNewsWire** | macOS/iOS | 开源免费，原生体验，流畅 | 完全免费 |
 | **FreshRSS** | 自托管 | 开源，数据完全掌控 | 免费 |
 | **Fluent Reader** | 桌面多平台 | 现代化界面，开源 | 免费 |
 
@@ -178,11 +179,16 @@ Atom:
 
 **方法二：使用 RSSHub 生成**
 
-> [!info] 来源
-> - [RSSHub 官方文档](https://docs.rsshub.app/)
-> - [RSSHub 实战教程](https://m.blog.csdn.net/rnn9storyteller/article/details/155008473) - CSDN
-
 **RSSHub** 是开源的 RSS 生成器，可以为不提供原生 RSS 的网站生成订阅源。
+
+**RSSHub 最新数据**（2026年）：
+- 🌐 **5000+** 个公共实例运行中，形成全球最大的 RSS 网络
+- 👥 **900+** 活跃贡献者和维护者
+- 🧩 **MIT 开源协议**，遵循开放标准和协议
+
+> [!info] 📚 来源
+> - [RSSHub 官方文档](https://docs.rsshub.app/) - 官方站点
+> - [RSSHub GitHub](https://github.com/DIYgod/RSSHub) - 源代码
 
 **使用方法**：
 ```
@@ -346,7 +352,7 @@ services:
 ## 常见问题
 
 **Q: 网站没有 RSS 怎么办？**
-A: 使用 RSSHub 为该网站生成订阅源，或使用浏览器插件如 RSSHub Radar
+A: 使用 RSSHub 为该网站生成订阅源，或使用浏览器插件 **RSSHub Radar**（[Chrome 商店](https://chromewebstore.google.com/detail/rsshub-radar/kefjpfngnndepjbopdmoebkipbgkggaa)）自动检测和生成 RSS
 
 **Q: RSS 更新不及时？**
 A: 检查 RSS 源的 `ttl` 设置，或使用支持主动推送的阅读器
@@ -386,6 +392,11 @@ A: 导出为 OPML 格式，大多数阅读器都支持导入导出
 ### 阅读器
 - [Feedly 官网](https://feedly.com/) - 最流行的在线阅读器
 - [Inoreader 官网](https://www.inoreader.com/) - 功能强大的阅读器
+- [NewsBlur 官网](https://newsblur.com/) - 智能过滤阅读器
 - [NetNewsWire GitHub](https://github.com/Ranchero-Software/NetNewsWire) - 开源免费阅读器
 - [FreshRSS GitHub](https://github.com/FreshRSS/FreshRSS) - 自托管阅读器
 - [Fluent Reader GitHub](https://github.com/yang991178/fluent-reader) - 跨平台阅读器
+
+### 阅读器评测
+- [Zapier - Best RSS Feed Reader Apps](https://zapier.com/blog/best-rss-feed-reader-apps/) - 主流阅读器对比
+- [Readless - Best Free RSS Readers 2026](https://www.readless.app/blog/best-free-rss-readers-2026) - 2026年免费阅读器推荐
