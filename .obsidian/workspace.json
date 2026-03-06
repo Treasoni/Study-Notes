@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "N8N定时抓取热点资讯指南.md",
+                "file": "RSS使用指南.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "N8N定时抓取热点资讯指南"
+              "title": "RSS使用指南"
             }
           }
         ],
@@ -151,7 +151,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "N8N定时抓取热点资讯指南.md",
+                "file": "RSS使用指南.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -161,7 +161,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "N8N定时抓取热点资讯指南 的反向链接列表"
+              "title": "RSS使用指南 的反向链接列表"
             }
           },
           {
@@ -170,12 +170,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "N8N定时抓取热点资讯指南.md",
+                "file": "RSS使用指南.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "N8N定时抓取热点资讯指南 的出链列表"
+              "title": "RSS使用指南 的出链列表"
             }
           },
           {
@@ -213,13 +213,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "N8N定时抓取热点资讯指南.md",
+                "file": "RSS使用指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "N8N定时抓取热点资讯指南 的大纲"
+              "title": "RSS使用指南 的大纲"
             }
           },
           {
@@ -264,9 +264,10 @@
   },
   "active": "8ebf6e4676540f31",
   "lastOpenFiles": [
+    "AI学习/00-索引/MOC.md",
     "RSS使用指南.md",
-    "AI学习/05-其他主题/openclaw/OpenClaw多智能体协作指南.md",
     "N8N定时抓取热点资讯指南.md",
+    "AI学习/05-其他主题/openclaw/OpenClaw多智能体协作指南.md",
     "AI学习/02-工具使用/N8N定时抓取热点资讯指南.md",
     "AI学习/04-高级应用/Claude Subagent 使用指南.md",
     "Marker PDF转换教学案例.md",
@@ -291,7 +292,6 @@
     "软路由/iStore爬梯配置指南.md",
     "软路由",
     "AI学习/05-其他主题/openclaw/OpenClaw常用命令速查.md",
-    "AI学习/05-其他主题/openclaw/OpenClaw网关开机自启与HTTPS配置.md",
     "AI学习/02-工具使用/assets/Tailscale使用指南",
     "AI学习/02-工具使用/assets",
     "AI学习/05-其他主题/openclaw/convert_to_word.py",
