@@ -454,12 +454,14 @@ Credentials → New → Header Auth
 
 ### 4. 成本优化
 - 对于简单任务使用 GLM-Flash 模型（更低成本）
-- 设置合理的 `max_tokens` 限制（推荐 1024-2048）
+- 设置合理的 `max_tokens` 限制（推荐 2048-65536）
 - 启用响应缓存，避免重复分析相同内容
 - 利用智谱AI 新用户 2000万 Tokens 免费额度
+- GLM-5 的 `thinking` 模式适合复杂任务，简单任务可关闭
 
 ### 5. 安全建议
-- **及时更新**：确保 n8n 版本 >= 1.123.17 或 >= 2.5.2
+- **及时更新**：确保 n8n 版本 >= 2.9.4（最新稳定版）
+- **安全漏洞修复**：>= 1.121.0 修复 CVE-2026-21858 远程代码执行漏洞
 - **限制表达式执行**：在可信环境中使用 Code 节点
 - **API Key 轮换**：定期更换 API 凭证
 - **访问控制**：配置 n8n 的用户认证和权限管理
@@ -490,8 +492,8 @@ A: 增加执行超时时间设置，或使用 `Split In Batches` 分批处理大
 **Q: 如何调试工作流？**
 A: 使用 `Manual Trigger` 手动执行，查看每个节点的输出结果
 
-**Q: n8n 表达式安全漏洞（CVE-2026-25049）？**
-A: 升级到 n8n 1.123.17+ 或 2.5.2+ 版本，避免在不可信输入中使用表达式
+**Q: n8n 安全漏洞如何处理？**
+A: 升级到 n8n >= 2.9.4 最新版本，>= 1.121.0 已修复 CVE-2026-21858 远程代码执行漏洞，避免在不可信输入中使用表达式
 
 **Q: GLM-5 模型调用失败？**
 A: 确认 API Key 已开通 GLM-5 权限，部分新模型需要单独申请
@@ -506,9 +508,10 @@ A: 检查汉化文件路径是否正确挂载，确保环境变量 `N8N_LANG=zh`
 
 ### 官方资源
 - [N8N 官方文档](https://docs.n8n.io/) - 完整技术文档
-- [N8N GitHub](https://github.com/n8n-io/n8n) - 源代码
+- [N8N GitHub Releases](https://github.com/n8n-io/n8n/releases) - 版本发布记录
 - [N8N 官网](https://n8n.io/) - 产品主页和模板库
 - [智谱AI 开放平台](https://docs.bigmodel.cn/cn/api/introduction) - API 文档
+- [GLM-5 官方文档](https://docs.bigmodel.cn/cn/guide/models/text/glm-5) - GLM-5 完整调用示例
 - [智谱AI HTTP调用指南](https://docs.bigmodel.cn/cn/guide/develop/http/introduction) - 完整调用说明
 - [智谱AI 特价专区](https://open.bigmodel.cn/special_area) - 优惠活动
 
