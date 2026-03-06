@@ -2,7 +2,7 @@
 tags: [n8n, 自动化, 工作流, 智谱AI, RSS, 定时任务]
 created: 2026-03-06
 updated: 2026-03-06
-version: 1.1
+version: 1.2
 ---
 
 # N8N定时抓取热点资讯指南
@@ -67,8 +67,9 @@ docker run -d \
 ```
 
 > [!warning] 安全提醒
-> - **重要更新**：n8n 1.123.17、2.5.2+ 修复了 **CVE-2026-25049** 表达式沙箱逃逸漏洞（高危）
-> - 建议升级到最新版本以确保安全
+> - **最新稳定版**：n8n@2.9.4（2026年2月25日）
+> - **安全更新**：CVE-2026-21858（远程代码执行）需升级到 >= 1.121.0
+> - **历史漏洞**：CVE-2026-25049（表达式沙箱逃逸）已在 1.123.17+、2.5.2+ 修复
 > - 定期检查 [n8n GitHub Releases](https://github.com/n8n-io/n8n/releases) 获取安全更新
 
 **其他部署方式**：
@@ -189,7 +190,7 @@ https://rsshub.app/toutiao/hot-news
 
 | 模型 | 发布时间 | 特点 | 适用场景 |
 |------|----------|------|----------|
-| **GLM-5** | 2026年2月 | 744B参数，40B激活，MoE架构 | 编程、Agent、复杂推理 |
+| **GLM-5** | 2026年2月 | 744B参数，40B激活，MoE架构，开源SOTA | 编程、Agent、复杂推理 |
 | **GLM-4.7** | 2025年12月 | 开源SOTA，编程能力强 | 通用对话、代码生成 |
 | **GLM-4.6V** | 2025年 | 视觉推理模型 | 图像理解 |
 | **GLM-Flash** | 持续更新 | 低成本快速响应 | 简单问答 |
@@ -198,6 +199,10 @@ https://rsshub.app/toutiao/hot-news
 > - **新用户注册**：2000万 Tokens 免费额度（永久有效）
 > - 适用于 GLM-4.7、4.6、4.5 等主流模型
 > - 注册地址：[智谱AI开放平台](https://open.bigmodel.cn/)
+
+> [!info] 📚 来源
+> - [GLM-5 官方文档](https://docs.bigmodel.cn/cn/guide/models/text/glm-5) - 完整调用示例
+> - [智谱AI开放平台](https://bigmodel.cn/) - 模型详情
 
 **N8N HTTP Request 节点配置**：
 
@@ -226,12 +231,16 @@ https://rsshub.app/toutiao/hot-news
         "value": "={{JSON.stringify([{\"role\": \"system\", \"content\": \"你是新闻分析助手，请总结以下热点资讯的关键信息\"}, {\"role\": \"user\", \"content\": $json.title + \"\\n\" + $json.content}])}}"
       },
       {
+        "name": "thinking",
+        "value": "={{JSON.stringify({\"type\": \"enabled\"})}}"
+      },
+      {
         "name": "temperature",
         "value": "0.7"
       },
       {
         "name": "max_tokens",
-        "value": "2048"
+        "value": "65536"
       }
     ]
   }
@@ -240,6 +249,8 @@ https://rsshub.app/toutiao/hot-news
 
 > [!info] 模型选择建议
 > - **GLM-5**：推荐用于复杂分析、深度推理场景（如新闻事件影响分析）
+>   - 支持 `thinking` 参数启用深度思考模式
+>   - `max_tokens` 可设置最高 65536
 > - **GLM-4.7**：适合通用对话和摘要任务
 > - **GLM-Flash**：适合快速响应、低成本场景
 
@@ -348,8 +359,11 @@ return processed;
         "content": "标题：{{ $json.title }}\n内容：{{ $json.summary }}"
       }
     ],
+    "thinking": {
+      "type": "enabled"
+    },
     "temperature": 0.7,
-    "max_tokens": 2048
+    "max_tokens": 65536
   }
 }
 ```
