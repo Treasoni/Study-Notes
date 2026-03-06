@@ -4,81 +4,24 @@
     "type": "split",
     "children": [
       {
-        "id": "42208a531b5ed4fb",
+        "id": "d7f69265b40b03f9",
         "type": "tabs",
         "children": [
           {
-            "id": "a1fadb878495b58e",
+            "id": "ad7a4315bf035961",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docker/docker容器搭建错误的知识讲解.md",
+                "file": "Shell脚本入门教程.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "docker容器搭建错误的知识讲解"
-            }
-          },
-          {
-            "id": "363bfe6d4474c702",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "AI学习/Skills 是什么.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Skills 是什么"
-            }
-          },
-          {
-            "id": "7c35df9d06705d5a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "linux/linux如何修改网络信息.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "linux如何修改网络信息"
-            }
-          },
-          {
-            "id": "436ac59904cce83d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Git/git教程.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "git教程"
-            }
-          },
-          {
-            "id": "8ebf6e4676540f31",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "N8N定时抓取热点资讯指南.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "N8N定时抓取热点资讯指南"
+              "title": "Shell脚本入门教程"
             }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "vertical"
@@ -151,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "N8N定时抓取热点资讯指南.md",
+                "file": "Shell脚本入门教程.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -161,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "N8N定时抓取热点资讯指南 的反向链接列表"
+              "title": "Shell脚本入门教程 的反向链接列表"
             }
           },
           {
@@ -170,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "N8N定时抓取热点资讯指南.md",
+                "file": "Shell脚本入门教程.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "N8N定时抓取热点资讯指南 的出链列表"
+              "title": "Shell脚本入门教程 的出链列表"
             }
           },
           {
@@ -213,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "N8N定时抓取热点资讯指南.md",
+                "file": "Shell脚本入门教程.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "N8N定时抓取热点资讯指南 的大纲"
+              "title": "Shell脚本入门教程 的大纲"
             }
           },
           {
@@ -262,11 +205,12 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "8ebf6e4676540f31",
+  "active": "ad7a4315bf035961",
   "lastOpenFiles": [
     "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
-    "RSS使用指南.md",
+    "Shell脚本入门教程.md",
     "N8N定时抓取热点资讯指南.md",
+    "RSS使用指南.md",
     "软路由/iStore爬梯配置指南.md",
     "软路由/OpenClash插件使用指南.md",
     "如何使用obsidian做笔记.md",
@@ -290,7 +234,6 @@
     "docker/docker进行代理.md",
     "AI学习/05-其他主题/openclaw/OpenClaw核心概念.md",
     "WPF常用操作指南.md",
-    "AI学习/05-其他主题/openclaw/OpenClaw MOC.md",
     "软路由",
     "AI学习/02-工具使用/assets/Tailscale使用指南",
     "AI学习/02-工具使用/assets",
