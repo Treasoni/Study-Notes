@@ -3,7 +3,7 @@
   "title": "Fix claude mcp add-json command syntax error",
   "titleGenerationStatus": "success",
   "createdAt": 1772723902898,
-  "updatedAt": 1772723975940,
+  "updatedAt": 1772853651065,
   "lastResponseAt": 1772723975940,
   "sessionId": "47084555-c8fb-4a79-94fb-f2140a87b2f6",
   "sdkSessionId": "47084555-c8fb-4a79-94fb-f2140a87b2f6",

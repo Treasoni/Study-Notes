@@ -1,0 +1,20 @@
+{
+  "id": "conv-1772853669778-3avsuhl7e",
+  "title": "Fix third-party software source issue",
+  "titleGenerationStatus": "success",
+  "createdAt": 1772853669779,
+  "updatedAt": 1772853784107,
+  "lastResponseAt": 1772853784107,
+  "sessionId": "7a42952a-d25d-41b4-b1f6-bad5deb26cc2",
+  "sdkSessionId": "7a42952a-d25d-41b4-b1f6-bad5deb26cc2",
+  "currentNote": "软路由/iStoreOS爬梯配置指南.md",
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}
