@@ -15,12 +15,10 @@ updated: 2026-03-07
 | --------------- | -------------------------- |
 | 了解 iStoreOS 是什么 | [[#一、iStoreOS 简介]]         |
 | 了解各插件区别         | [[#二、代理插件对比]]              |
-| 安装 Passwall 插件  | [[#三、Passwall 安装配置]]       |
-| 安装 OpenClash 插件 | [[#四、OpenClash 安装配置]]      |
-| 配置节点订阅          | [[#五、节点订阅配置]]              |
-| 设置分流规则          | [[#六、分流规则设置]]              |
-| 配置旁路由模式         | [[#七、旁路由网络配置]]             |
-| 排查问题            | [[#八、常见问题]]                |
+| 配置 Passwall    | [[#三、Passwall 完整配置]]         |
+| 配置 OpenClash   | [[#四、OpenClash 安装配置]]      |
+| 配置旁路由模式         | [[#五、旁路由网络配置]]             |
+| 排查问题            | [[#六、常见问题]]                |
 | 找不到任何插件         | [[#q1：istore-中找不到任何爬梯插件？]] |
 
 ---
@@ -203,9 +201,14 @@ updated: 2026-03-07
 
 ---
 
-## 三、Passwall 安装配置
+## 三、Passwall 完整配置
 
-### 3.1 什么是 Passwall
+> [!tip] 新手推荐
+> Passwall2 是新手的首选，配置简单、性能优秀、稳定性好。
+
+### 3.1 安装 Passwall
+
+#### 3.1.1 什么是 Passwall
 
 **Passwall** 是 OpenWrt 系统上最流行的代理插件，支持多种协议：
 
@@ -217,20 +220,20 @@ updated: 2026-03-07
 | Hysteria2 | 新一代UDP协议 |
 | Tuic | 协议 |
 
-### 3.2 通过 iStore 安装
+#### 3.1.2 通过 iStore 安装
 
-#### 步骤 1：进入 iStore
+**步骤 1：进入 iStore**
 
 1. 浏览器打开 iStoreOS 管理界面（默认 `192.168.100.1`）
 2. 登录后进入 **iStore** 软件中心
 
-#### 步骤 2：搜索安装
+**步骤 2：搜索安装**
 
 1. 在 iStore 中搜索 **Passwall** 或 **Passwall2**
 2. 点击「安装」按钮
 3. 等待安装完成
 
-#### 步骤 3：启动插件
+**步骤 3：启动插件**
 
 1. 安装完成后点击「打开」
 2. 进入 Passwall 配置界面
@@ -245,12 +248,12 @@ updated: 2026-03-07
 > - [iStoreOS 软路由Passwall/Passwall2 进阶教程](https://www.youtube.com/watch?v=ifhmuCG8aHs) - YouTube
 > - [iStoreOS 软路由使用Passwall2](https://www.youtube.com/watch?v=vBFZtvWPqzQ) - YouTube
 
-### 3.3 iStore 不可用时的备选安装方案
+#### 3.1.3 iStore 不可用时的备选安装方案
 
 > [!warning] 如果 iStore 中找不到插件
 > 以下是两种常用的备选安装方法：
 
-#### 方案 A：添加官方软件源（推荐）
+**方案 A：添加官方软件源（推荐）**
 
 > [!tip] ✅ 推荐首选
 > 这是 2026 年最新的官方安装方案，使用 SourceForge 官方源，稳定可靠。
@@ -273,10 +276,6 @@ done
 # 3. 更新索引
 opkg update
 
-# 你可以通过 `grep` 搜索关键字，比如查找 PassWall 相关包：
-
-opkg list | grep passwall
-
 # 4. 安装 PassWall 或 PassWall2
 opkg install luci-app-passwall      # PassWall
 opkg install luci-app-passwall2     # PassWall2（推荐）
@@ -287,50 +286,196 @@ opkg install luci-app-passwall2     # PassWall2（推荐）
 # 6. 安装汉化（可选）
 opkg install luci-i18n-passwall-zh-cn
 opkg install luci-i18n-passwall2-zh-cn
-
-# 7. 如果你想看哪些软件已经安装（相当于系统里已经"用掉"的安装包）：
-opkg list-installed
-
-opkg list-installed | grep passwall
-# 8. 删除安装包
-opkg remove 包名
-- 例如删除 PassWall：
-opkg remove luci-app-passwall
 ```
 
 > [!info] 📚 来源
 > - [2026年最新PassWall安装教程](https://naiyous.com/10535.html) - 奶油之家
 
-#### 方案 B：使用第三方固件
+**方案 B：手动下载 IPK 安装**
 
-如果官方源仍无法使用，可以考虑：
+如果官方源仍无法使用：
 
-1. **使用预装插件的第三方固件**
-   - 从 `https://github.com/AUK9527/Are-u-ok` 下载
-   - 某些社区版本预装了代理插件
+```bash
+# 1. 确认系统架构
+cat /etc/openwrt_release | grep ARCH
 
-2. **手动下载 IPK 包安装**
-   ```bash
-   # 1. 确认系统架构
-   cat /etc/openwrt_release | grep ARCH
+# 2. 下载 IPK 包（示例）
+cd /tmp
+wget https://github.com/xiaorouji/openwrt-passwall2/releases/download/v1.28/luci-app-passwall2_1.28_all.ipk
 
-   # 2. 下载 IPK 包（示例）
-   cd /tmp
-   wget https://github.com/xiaorouji/openwrt-passwall2/releases/download/v1.28/luci-app-passwall2_1.28_all.ipk
+# 3. 安装（忽略依赖）
+opkg install --force-depends luci-app-passwall2_*.ipk
 
-   # 3. 安装（忽略依赖）
-   opkg install --force-depends luci-app-passwall2_*.ipk
-
-   # 4. 如果提示缺少依赖，逐个安装
-   opkg install <缺失的依赖包名>
-   ```
+# 4. 如果提示缺少依赖，逐个安装
+opkg install <缺失的依赖包名>
+```
 
 > [!danger] 注意
 > 第三方固件可能存在安全风险，请从可信渠道获取。
 
 ---
 
+### 3.2 配置节点订阅
+
+#### 3.2.1 获取订阅地址
+
+从你的机场服务商获取订阅链接，格式通常为：
+```
+https://xxx.com/api/v1/client/subscribe?token=xxxxx
+```
+
+#### 3.2.2 添加订阅
+
+**步骤 1：进入订阅管理**
+
+1. 进入 **服务** → **PassWall2**
+2. 切换到 **节点订阅** 标签
+
+**步骤 2：配置订阅**
+
+```yaml
+# 订阅配置示例
+订阅名称: 我的机场
+订阅地址: https://your-subscription-url
+自动更新: 开启
+更新间隔: 24小时
+```
+
+**步骤 3：更新节点**
+
+1. 点击「保存并应用」
+2. 点击「手动更新」获取节点
+3. 切换到 **节点** 标签查看是否成功
+
+> [!warning] 订阅失败排查
+> - 检查订阅地址是否正确
+> - 检查路由器网络是否正常
+> - 尝试关闭代理后更新订阅
+
+#### 3.2.3 订阅链接安全
+
+> [!danger] 安全提醒
+> - 订阅链接包含你的账号信息，不要分享给他人
+> - 不要在公开场合截屏包含订阅链接的图片
+> - 定期更换订阅链接保障安全
+
+---
+
+### 3.3 配置分流规则
+
+#### 3.3.1 什么是分流规则
+
+分流规则决定了哪些流量走代理、哪些直连：
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    分流规则匹配流程                          │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  流量进入                                                   │
+│     │                                                       │
+│     ▼                                                       │
+│  ┌─────────┐    是     ┌─────────┐                         │
+│  │ 广告域名 │ ────────→ │ 拦截    │ → 广告被屏蔽             │
+│  └─────────┘           └─────────┘                         │
+│     │ 否                                                    │
+│     ▼                                                       │
+│  ┌─────────┐    是     ┌─────────┐                         │
+│  │ 国内IP/域名│ ──────→ │ 直连    │ → 直接访问（国内网站）   │
+│  └─────────┘           └─────────┘                         │
+│     │ 否                                                    │
+│     ▼                                                       │
+│  ┌─────────┐           ┌─────────┐                         │
+│  │ 其他流量 │ ────────→ │ 代理    │ → 通过代理（国外网站）   │
+│  └─────────┘           └─────────┘                         │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### 3.3.2 基本分流配置
+
+**步骤 1：启用规则管理**
+
+1. 进入 **基本设置** → **规则管理**
+2. 勾选以下选项：
+   - ☑ **geoip** - IP 地理位置规则
+   - ☑ **geosite** - 域名分类规则
+
+**步骤 2：配置分流规则**
+
+按以下顺序添加规则：
+
+```yaml
+# 规则1：拦截广告
+类型: Reject
+匹配条件: geosite:category-ads-all
+动作: 拦截
+
+# 规则2：国内直连
+类型: Direct
+匹配条件:
+  - geosite:cn (国内域名)
+  - geoip:cn (国内IP)
+  - geoip:private (局域网IP)
+动作: 直连
+
+# 规则3：国外代理
+类型: Proxy
+匹配条件: geosite:geolocation-!cn
+动作: 代理
+```
+
+**步骤 3：应用规则**
+
+1. 点击「保存并应用」
+2. 在 **状态** 页面查看规则是否生效
+
+#### 3.3.3 自定义规则
+
+你可以添加自定义规则来实现特定需求：
+
+```yaml
+# 示例：特定域名走代理
+类型: Proxy
+匹配条件: domain:github.com
+动作: 代理
+
+# 示例：特定域名直连
+类型: Direct
+匹配条件: domain:baidu.com
+动作: 直连
+```
+
+> [!info] 📚 来源
+> - [Passwall 配置和网络负载均衡设置](https://www.cnblogs.com/MaelDNM/p/18330958) - 博客园
+
+---
+
+### 3.4 启动代理
+
+**步骤 1：选择节点**
+
+1. 进入 **服务** → **PassWall2**
+2. 在 **节点** 列表中选择一个可用节点
+
+**步骤 2：启动代理**
+
+1. 点击主开关，启用代理
+2. 等待连接建立
+
+**步骤 3：验证**
+
+```bash
+# 测试代理是否生效
+curl ip.sb
+```
+
+---
+
 ## 四、OpenClash 安装配置
+
+> [!tip] 进阶用户选择
+> OpenClash 适合需要高度自定义规则和游戏加速优化的进阶用户。
 
 ### 4.1 什么是 OpenClash
 
@@ -366,10 +511,7 @@ opkg remove luci-app-passwall
 > [!warning] 如果 iStore 中找不到插件
 > 以下是两种常用的备选安装方法：
 
-#### 方案 A：添加官方软件源（推荐）
-
-> [!tip] ✅ 推荐首选
-> 这是 2026 年最新的官方安装方案，使用 SourceForge 官方源，稳定可靠。
+**方案 A：添加官方软件源（推荐）**
 
 ```bash
 # 1. 添加 opkg key
@@ -377,7 +519,7 @@ cd /tmp
 wget -O passwall.pub https://master.dl.sourceforge.net/project/openwrt-passwall-build/passwall.pub
 opkg-key add /tmp/passwall.pub
 
-# 2. 自动写入软件源（根据系统版本和架构自动配置）
+# 2. 自动写入软件源
 read release arch << EOF
 $(. /etc/openwrt_release ; echo ${DISTRIB_RELEASE%.*} $DISTRIB_ARCH)
 EOF
@@ -386,42 +528,27 @@ for feed in passwall_luci passwall_packages passwall2; do
   echo "src/gz $feed https://master.dl.sourceforge.net/project/openwrt-passwall-build/releases/packages-$release/$arch/$feed" >> /etc/opkg/customfeeds.conf
 done
 
-# 3. 更新索引
+# 3. 更新索引并安装
 opkg update
-
-# 4. 安装 OpenClash
 opkg install luci-app-openclash
 
-# 5. 刷新管理界面
+# 4. 刷新管理界面
 /etc/init.d/uhttpd restart
 ```
 
-> [!info] 📚 来源
-> - [2026年最新PassWall安装教程](https://naiyous.com/10535.html) - 奶油之家
+**方案 B：手动下载 IPK 安装**
 
-#### 方案 B：使用第三方固件
+```bash
+# 1. 确认系统架构
+cat /etc/openwrt_release | grep ARCH
 
-如果官方源仍无法使用，可以考虑：
+# 2. 下载 OpenClash IPK 包
+cd /tmp
+wget https://github.com/vernesong/OpenClash/releases/download/v0.46.033-beta/luci-app-openclash_0.46.033-beta_all.ipk
 
-1. **使用预装插件的第三方固件**
-   - 从 `https://github.com/AUK9527/Are-u-ok` 下载
-   - 某些社区版本预装了代理插件
-
-2. **手动下载 IPK 包安装**
-   ```bash
-   # 1. 确认系统架构
-   cat /etc/openwrt_release | grep ARCH
-
-   # 2. 下载 OpenClash IPK 包
-   cd /tmp
-   wget https://github.com/vernesong/OpenClash/releases/download/v0.46.033-beta/luci-app-openclash_0.46.033-beta_all.ipk
-
-   # 3. 安装（忽略依赖）
-   opkg install --force-depends luci-app-openclash_*.ipk
-
-   # 4. 如果提示缺少依赖，逐个安装
-   opkg install <缺失的依赖包名>
-   ```
+# 3. 安装
+opkg install --force-depends luci-app-openclash_*.ipk
+```
 
 > [!danger] 注意
 > 第三方固件可能存在安全风险，请从可信渠道获取。
@@ -451,7 +578,7 @@ opkg install luci-app-openclash
 
 > [!info] 📚 来源
 > - [OpenClash 付费节点教程](https://clash.guide/clients/router/openclash.html) - Clash Guide
-> - [GitHub 详细设置方案](https://github.com/Aethersailor/Custom_OpenClash_Rules/wiki/OpenClash-%25E8%25AE%25BE%25E7%25BD%25AE%25E6%2596%25B9%25E6%25A1%2588) - GitHub Wiki
+> - [GitHub 详细设置方案](https://github.com/Aethersailor/Custom_OpenClash_Rules/wiki) - GitHub Wiki
 
 ### 4.5 启动代理
 
@@ -515,145 +642,9 @@ OpenClash 的规则系统非常灵活：
 
 ---
 
-## 五、节点订阅配置
+## 五、旁路由网络配置
 
-### 5.1 获取订阅地址
-
-从你的机场服务商获取订阅链接，格式通常为：
-```
-https://xxx.com/api/v1/client/subscribe?token=xxxxx
-```
-
-### 5.2 添加订阅
-
-#### 步骤 1：进入订阅管理
-
-1. 进入 **服务** → **PassWall2**
-2. 切换到 **节点订阅** 标签
-
-#### 步骤 2：配置订阅
-
-```yaml
-# 订阅配置示例
-订阅名称: 我的机场
-订阅地址: https://your-subscription-url
-自动更新: 开启
-更新间隔: 24小时
-```
-
-#### 步骤 3：更新节点
-
-1. 点击「保存并应用」
-2. 点击「手动更新」获取节点
-3. 切换到 **节点** 标签查看是否成功
-
-> [!warning] 订阅失败排查
-> - 检查订阅地址是否正确
-> - 检查路由器网络是否正常
-> - 尝试关闭代理后更新订阅
-
-### 5.3 订阅链接安全
-
-> [!danger] 安全提醒
-> - 订阅链接包含你的账号信息，不要分享给他人
-> - 不要在公开场合截屏包含订阅链接的图片
-> - 定期更换订阅链接保障安全
-
----
-
-## 六、分流规则设置
-
-### 6.1 什么是分流规则
-
-分流规则决定了哪些流量走代理、哪些直连：
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    分流规则匹配流程                          │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  流量进入                                                   │
-│     │                                                       │
-│     ▼                                                       │
-│  ┌─────────┐    是     ┌─────────┐                         │
-│  │ 广告域名 │ ────────→ │ 拦截    │ → 广告被屏蔽             │
-│  └─────────┘           └─────────┘                         │
-│     │ 否                                                    │
-│     ▼                                                       │
-│  ┌─────────┐    是     ┌─────────┐                         │
-│  │ 国内IP/域名│ ──────→ │ 直连    │ → 直接访问（国内网站）   │
-│  └─────────┘           └─────────┘                         │
-│     │ 否                                                    │
-│     ▼                                                       │
-│  ┌─────────┐           ┌─────────┐                         │
-│  │ 其他流量 │ ────────→ │ 代理    │ → 通过代理（国外网站）   │
-│  └─────────┘           └─────────┘                         │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### 6.2 基本分流配置
-
-#### 步骤 1：启用规则管理
-
-1. 进入 **基本设置** → **规则管理**
-2. 勾选以下选项：
-   - ☑ **geoip** - IP 地理位置规则
-   - ☑ **geosite** - 域名分类规则
-
-#### 步骤 2：配置分流规则
-
-按以下顺序添加规则：
-
-```yaml
-# 规则1：拦截广告
-类型: Reject
-匹配条件: geosite:category-ads-all
-动作: 拦截
-
-# 规则2：国内直连
-类型: Direct
-匹配条件:
-  - geosite:cn (国内域名)
-  - geoip:cn (国内IP)
-  - geoip:private (局域网IP)
-动作: 直连
-
-# 规则3：国外代理
-类型: Proxy
-匹配条件: geosite:geolocation-!cn
-动作: 代理
-```
-
-#### 步骤 3：应用规则
-
-1. 点击「保存并应用」
-2. 在 **状态** 页面查看规则是否生效
-
-### 6.3 自定义规则
-
-你可以添加自定义规则来实现特定需求：
-
-```yaml
-# 示例：特定域名走代理
-类型: Proxy
-匹配条件: domain:github.com
-动作: 代理
-
-# 示例：特定域名直连
-类型: Direct
-匹配条件: domain:baidu.com
-动作: 直连
-```
-
-> [!info] 📚 来源
-> - [Passwall 配置和网络负载均衡设置](https://www.cnblogs.com/MaelDNM/p/18330958) - 博客园
-
----
-
-## 七、旁路由网络配置
-
-### 7.1 什么是旁路由
+### 5.1 什么是旁路由
 
 **旁路由**是指在现有主路由器之外，再添加一台路由器专门处理特定流量（如代理）。
 
@@ -682,7 +673,7 @@ https://xxx.com/api/v1/client/subscribe?token=xxxxx
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### 7.2 旁路由模式配置
+### 5.2 旁路由模式配置
 
 #### 方式一：网关指向（推荐）
 
@@ -705,7 +696,7 @@ https://xxx.com/api/v1/client/subscribe?token=xxxxx
 3. 网关：iStoreOS 的 IP 地址
 4. DNS：iStoreOS 的 IP 地址或公共 DNS
 
-### 7.3 验证配置
+### 5.3 验证配置
 
 ```bash
 # 在 SSH 中测试网络连接
@@ -723,7 +714,7 @@ curl ip.sb
 
 ---
 
-## 八、常见问题
+## 六、常见问题
 
 ### Q1：iStore 中找不到任何爬梯插件？
 
@@ -790,10 +781,6 @@ done
 # 3. 更新索引
 opkg update
 
-# 你可以通过 `grep` 搜索关键字，比如查找 PassWall 相关包：
-
-opkg list | grep passwall
-
 # 4. 安装 PassWall 或 PassWall2
 opkg install luci-app-passwall      # PassWall
 opkg install luci-app-passwall2     # PassWall2（推荐）
@@ -804,15 +791,6 @@ opkg install luci-app-passwall2     # PassWall2（推荐）
 # 6. 安装汉化（可选）
 opkg install luci-i18n-passwall-zh-cn
 opkg install luci-i18n-passwall2-zh-cn
-
-# 7. 如果你想看哪些软件已经安装（相当于系统里已经"用掉"的安装包）：
-opkg list-installed
-
-opkg list-installed | grep passwall
-# 8. 删除安装包
-opkg remove 包名
-- 例如删除 PassWall：
-opkg remove luci-app-passwall
 ```
 
 > [!info] 📚 来源
