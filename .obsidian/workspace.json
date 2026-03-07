@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Shell脚本入门教程.md",
+                "file": "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Shell脚本入门教程"
+              "title": "Claude Code 定时任务自动化指南"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Shell脚本入门教程.md",
+                "file": "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Shell脚本入门教程 的反向链接列表"
+              "title": "Claude Code 定时任务自动化指南 的反向链接列表"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Shell脚本入门教程.md",
+                "file": "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Shell脚本入门教程 的出链列表"
+              "title": "Claude Code 定时任务自动化指南 的出链列表"
             }
           },
           {
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Shell脚本入门教程.md",
+                "file": "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Shell脚本入门教程 的大纲"
+              "title": "Claude Code 定时任务自动化指南 的大纲"
             }
           },
           {
@@ -207,12 +207,16 @@
   },
   "active": "ad7a4315bf035961",
   "lastOpenFiles": [
-    "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
-    "Shell脚本入门教程.md",
-    "N8N定时抓取热点资讯指南.md",
-    "RSS使用指南.md",
+    "AI学习/02-工具使用/Claude Code 插件系统使用指南.md",
     "软路由/iStore爬梯配置指南.md",
     "软路由/OpenClash插件使用指南.md",
+    "Shell脚本入门教程.md",
+    "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
+    "AI学习/02-工具使用/Claude Code 自定义斜杠命令教程.md",
+    "AI学习/03-进阶应用/Claude MCP 使用指南.md",
+    "AI学习/02-工具使用/Claude Code 常用功能.md",
+    "N8N定时抓取热点资讯指南.md",
+    "RSS使用指南.md",
     "如何使用obsidian做笔记.md",
     "硬盘教程和NAS硬盘知识讲解.md",
     "AI学习/00-索引/MOC.md",
@@ -223,7 +227,6 @@
     "环境变量使用指南.md",
     "AI学习/05-其他主题/openclaw/OpenClaw Web控制台局域网访问配置.md",
     "AI学习/05-其他主题/openclaw/OpenClaw安装后配置指南.md",
-    "AI学习/03-进阶应用/Claude MCP 使用指南.md",
     "AI学习/02-工具使用/Tailscale使用指南.md",
     "AI学习/02-工具使用/assets/Tailscale使用指南/截屏2026-03-04 00.44.43.png",
     "docker/DockerDesktop镜像加速器配置.md",
@@ -231,9 +234,6 @@
     "docker/github文件直链方式.md",
     "docker/如何搭建漫画库.md",
     "docker/docker容器如何更新.md",
-    "docker/docker进行代理.md",
-    "AI学习/05-其他主题/openclaw/OpenClaw核心概念.md",
-    "WPF常用操作指南.md",
     "软路由",
     "AI学习/02-工具使用/assets/Tailscale使用指南",
     "AI学习/02-工具使用/assets",
