@@ -636,43 +636,44 @@ curl ip.sb
 > [!info] 📚 来源
 > - [iStoreOS GitHub Discussions](https://github.com/istoreos/istoreos/discussions) - 官方讨论区
 
-#### 解决方案三：添加第三方软件源（推荐）
+#### 解决方案三：添加官方软件源（2026年最新方案）
 
-如果官方源中没有插件，可以添加第三方源：
+> [!tip] ✅ 推荐首选
+> 这是 2026 年最新的官方安装方案，使用 SourceForge 官方源，稳定可靠。
 
 ```bash
-# 1. 编辑自定义软件源配置
-vi /etc/opkg/customfeeds.conf
+# 1. 添加 opkg key
+cd /tmp
+wget -O passwall.pub https://master.dl.sourceforge.net/project/openwrt-passwall-build/passwall.pub
+opkg-key add /tmp/passwall.pub
 
-# 2. 添加 kenzok8 第三方源（根据你的架构选择）
-# 查看你的架构
-uname -a
-# x86_64 架构：
-src/gz kenzo https://op.dllkids.xyz/packages/x86_64
+# 2. 自动写入软件源（根据系统版本和架构自动配置）
+read release arch << EOF
+$(. /etc/openwrt_release ; echo ${DISTRIB_RELEASE%.*} $DISTRIB_ARCH)
+EOF
 
-# aarch64 架构：
-# src/gz kenzo https://op.dllkids.xyz/packages/aarch64_cortex-a53
+for feed in passwall_luci passwall_packages passwall2; do
+  echo "src/gz $feed https://master.dl.sourceforge.net/project/openwrt-passwall-build/releases/packages-$release/$arch/$feed" >> /etc/opkg/customfeeds.conf
+done
 
-# 3. 保存后更新软件源
+# 3. 更新索引
 opkg update
 
-# 4. 搜索并安装
-opkg list | grep passwall
-opkg install luci-app-passwall2
+# 4. 安装 PassWall 或 PassWall2
+opkg install luci-app-passwall      # PassWall
+opkg install luci-app-passwall2     # PassWall2（推荐）
+
+# 5. 刷新管理界面
+/etc/init.d/uhttpd restart
+
+# 6. 安装汉化（可选）
+opkg install luci-i18n-passwall-zh-cn
+opkg install luci-i18n-passwall2-zh-cn
 ```
 
-**可用的第三方软件源**：
-
-| 源名称 | 地址 | 说明 |
-|--------|------|------|
-| kenzok8 | `op.dllkids.xyz` | 包含大量常用插件 |
-
-> [!danger] 注意
-> 第三方软件源可能存在安全风险，请谨慎使用。
-
 > [!info] 📚 来源
-> - [kenzok8 软件包仓库](https://github.com/kenzok8/openwrt-packages) - GitHub
-> - [OpenWrt 第三方软件源配置](https://cxorz.com/blog/openwrt-thirdparty) - Hanasaki 博客
+> - [2026年最新PassWall安装教程](https://naiyous.com/10535.html) - 奶油之家
+> - [kenzok8 软件包仓库](https://github.com/kenzok8/openwrt-packages) - GitHub（备用）
 
 #### 解决方案四：手动下载 IPK 安装
 
