@@ -205,10 +205,11 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "746e3216e1c18840",
+  "active": "ad7a4315bf035961",
   "lastOpenFiles": [
-    "AI学习/01-基础概念/Skills 是什么.md",
+    "Git/Git 常见错误解决方案.md",
     "软路由/iStoreOS爬梯配置指南.md",
+    "AI学习/01-基础概念/Skills 是什么.md",
     "Git/Git 入门教程.md",
     "Git/Git 命令速查.md",
     "AI学习/02-工具使用/Claude Code 常用功能.md",
@@ -233,7 +234,6 @@
     "AI学习/05-其他主题/openclaw/OpenClaw安装后配置指南.md",
     "AI学习/02-工具使用/Tailscale使用指南.md",
     "AI学习/02-工具使用/assets/Tailscale使用指南/截屏2026-03-04 00.44.43.png",
-    "docker/DockerDesktop镜像加速器配置.md",
     "软路由",
     "AI学习/02-工具使用/assets/Tailscale使用指南",
     "AI学习/02-工具使用/assets",
