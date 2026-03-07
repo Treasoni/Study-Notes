@@ -743,6 +743,8 @@ uci get firewall.@defaults[0].forward
 vi /etc/opkg/customfeeds.conf
 
 # 2. 添加 kenzok8 第三方源（根据你的架构选择）
+# 查看你的架构
+uname -a
 # x86_64 架构：
 src/gz kenzo https://op.dllkids.xyz/packages/x86_64
 
