@@ -136,9 +136,13 @@ done
 # 3. 更新索引
 opkg update
 
-# 4. 安装 Passwall 或 Passwall2
-opkg install luci-app-passwall      # Passwall
-opkg install luci-app-passwall2     # Passwall2（推荐）
+# 你可以通过 `grep` 搜索关键字，比如查找 PassWall 相关包： 
+
+opkg list | grep passwall
+
+# 4. 安装 PassWall 或 PassWall2
+opkg install luci-app-passwall      # PassWall
+opkg install luci-app-passwall2     # PassWall2（推荐）
 
 # 5. 刷新管理界面
 /etc/init.d/uhttpd restart
@@ -146,6 +150,15 @@ opkg install luci-app-passwall2     # Passwall2（推荐）
 # 6. 安装汉化（可选）
 opkg install luci-i18n-passwall-zh-cn
 opkg install luci-i18n-passwall2-zh-cn
+
+# 7. 如果你想看哪些软件已经安装（相当于系统里已经“用掉”的安装包）：
+opkg list-installed 
+
+opkg list-installed | grep passwall
+# 8. 删除安装包
+opkg remove 包名
+- 例如删除 PassWall： 
+opkg remove luci-app-passwall
 ```
 
 > [!info] 📚 来源
