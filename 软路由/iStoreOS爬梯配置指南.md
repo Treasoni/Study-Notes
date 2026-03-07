@@ -594,7 +594,7 @@ curl ip.sb
 
 ## 七、常见问题
 
-### Q0：iStore 中找不到任何爬梯插件？
+### Q1：iStore 中找不到任何爬梯插件？
 
 > [!warning] 重要提示
 > 如果你发现 iStore 商店中完全没有任何代理插件（Passwall、OpenClash 等），这可能是以下原因：
@@ -607,80 +607,24 @@ curl ip.sb
 
 ---
 
-#### 解决方案一：更新系统版本
-
-开发团队已发布新版本修复插件显示问题：
-
-1. 进入 **iStore** 软件中心
-2. 检查是否有系统更新
-3. 更新到 **v0.1.27-3** 或更高版本
-4. 更新后重启设备
-
-#### 解决方案二：更新软件源列表
-
-1. 进入 **系统** → **软件包**
-2. 点击 **「更新列表」**
-3. 等待更新完成后刷新 iStore 商店页面
-
-#### 解决方案三：海外用户网络解决
-
-如果你在海外，可能无法访问插件服务器：
-
-```bash
-# 修改 hosts 文件
-vi /etc/hosts
-
-# 添加以下内容（替换为实际 IP）
-127.0.0.1 istore.istoreos.com
-```
-
-或在网络设置中：
-- 选择联通线路访问
-- 使用代理服务
-
-#### 解决方案四：使用第三方固件
+#### 解决方案一：使用第三方固件
 
 如果官方固件确实不包含代理插件，可以考虑：
 
 1. **使用第三方定制的 iStoreOS 固件**
    - 某些社区版本预装了代理插件
    - 参考酷友社等社区的固件分享
-
-2. **手动安装 IPK 包**
+推荐用：`https://github.com/AUK9527/Are-u-ok.git` 中下载固件。
+1. **手动安装 IPK 包**
    - 从 GitHub 下载 IPK 包
    - 使用 `opkg install` 命令安装
 
 > [!danger] 注意
 > 第三方固件可能存在安全风险，请从可信渠道获取。
 
-#### 解决方案五：更换为标准 OpenWrt
-
-如果以上方法都无效，可以考虑：
-
-1. 刷入标准 OpenWrt 固件
-2. 手动安装代理插件
-3. 参考 OpenWrt 官方文档
-
-> [!info] 📚 来源
-> - [iStoreOS GitHub](https://github.com/istoreos/istoreos) - 官方仓库
-> - [酷友社 - iStoreOS 社区](https://www.koolcenter.com/) - 社区论坛
-
 ---
 
-### Q1：iStore 中找不到 Passwall 插件？
-
-> [!warning] 常见问题
-> 这是 iStoreOS 用户最常遇到的问题，请按以下步骤逐一排查解决。
-
-**原因分析**：
-- 系统版本过旧或软件源未更新
-- 防火墙类型不兼容（nftables vs iptables）
-- 软件包列表需要刷新
-- 插件依赖缺失
-
----
-
-#### 解决方案一：系统修复工具（推荐首选）
+#### 解决方案二：系统修复工具（推荐首选）
 
 这是官方推荐的最简单修复方法：
 
@@ -692,49 +636,7 @@ vi /etc/hosts
 > [!info] 📚 来源
 > - [iStoreOS GitHub Discussions](https://github.com/istoreos/istoreos/discussions) - 官方讨论区
 
-#### 解决方案二：检查防火墙类型
-
-防火墙类型不兼容是导致插件找不到的常见原因：
-
-```bash
-# SSH 登录后检查防火墙类型
-uci get firewall.@defaults[0].input
-uci get firewall.@defaults[0].forward
-
-# 如果显示 nftables，需要切换到 iptables
-```
-
-**切换防火墙类型**：
-
-1. 进入 **网络** → **防火墙**
-2. 查看当前使用的防火墙类型
-3. 如果是 nftables，切换到 iptables
-4. 重启路由器后重新搜索插件
-
-> [!info] 📚 来源
-> - [iStoreOS 防火墙兼容性讨论](https://github.com/istoreos/istoreos/discussions) - GitHub
-
-#### 解决方案三：更新软件包列表
-
-1. 进入 **系统** → **软件包**
-2. 点击 **「更新列表」**
-3. 等待更新完成后，在过滤器中输入 `passwall`
-4. 如果找到，点击安装
-
-#### 解决方案四：重新安装 Passwall2
-
-如果已安装但无法使用：
-
-1. 进入 **系统** → **软件包**
-2. 过滤器中输入 `passwall2`
-3. 移除旧版本
-4. 更新软件包列表
-5. 重新安装 Passwall2
-
-> [!info] 📚 来源
-> - [帅强来了博客：iStoreOS下直更新Passwall2](https://shuaiqiang.cc/istoreos%25E4%25B8%258B%25E6%259B%25B4%25E6%2596%25B0passwall2/)
-
-#### 解决方案五：添加第三方软件源
+#### 解决方案三：添加第三方软件源（推荐）
 
 如果官方源中没有插件，可以添加第三方源：
 
@@ -772,7 +674,7 @@ opkg install luci-app-passwall2
 > - [kenzok8 软件包仓库](https://github.com/kenzok8/openwrt-packages) - GitHub
 > - [OpenWrt 第三方软件源配置](https://cxorz.com/blog/openwrt-thirdparty) - Hanasaki 博客
 
-#### 解决方案六：手动下载 IPK 安装
+#### 解决方案四：手动下载 IPK 安装
 
 如果以上方法都无效，可以手动下载 IPK 包安装：
 
