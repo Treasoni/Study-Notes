@@ -335,15 +335,176 @@ curl ip.sb
 
 ### Q1：iStore 中找不到 Passwall 插件？
 
+> [!warning] 常见问题
+> 这是 iStoreOS 用户最常遇到的问题，请按以下步骤逐一排查解决。
+
 **原因分析**：
-- 系统版本过旧
-- 软件源配置问题
+- 系统版本过旧或软件源未更新
+- 防火墙类型不兼容（nftables vs iptables）
+- 软件包列表需要刷新
 - 插件依赖缺失
 
-**解决方案**：
-1. 更新系统到最新版本
-2. 尝试命令行安装
-3. 更换软件源镜像
+---
+
+#### 解决方案一：系统修复工具（推荐首选）
+
+这是官方推荐的最简单修复方法：
+
+1. 进入 **iStore** 软件中心
+2. 搜索并安装 **「系统便利工具」**
+3. 打开后选择 **「修复系统软件」**
+4. 等待修复完成，重启 iStore
+
+> [!info] 📚 来源
+> - [iStoreOS GitHub Discussions](https://github.com/istoreos/istoreos/discussions) - 官方讨论区
+
+#### 解决方案二：检查防火墙类型
+
+防火墙类型不兼容是导致插件找不到的常见原因：
+
+```bash
+# SSH 登录后检查防火墙类型
+uci get firewall.@defaults[0].input
+uci get firewall.@defaults[0].forward
+
+# 如果显示 nftables，需要切换到 iptables
+```
+
+**切换防火墙类型**：
+
+1. 进入 **网络** → **防火墙**
+2. 查看当前使用的防火墙类型
+3. 如果是 nftables，切换到 iptables
+4. 重启路由器后重新搜索插件
+
+> [!info] 📚 来源
+> - [iStoreOS 防火墙兼容性讨论](https://github.com/istoreos/istoreos/discussions) - GitHub
+
+#### 解决方案三：更新软件包列表
+
+1. 进入 **系统** → **软件包**
+2. 点击 **「更新列表」**
+3. 等待更新完成后，在过滤器中输入 `passwall`
+4. 如果找到，点击安装
+
+#### 解决方案四：重新安装 Passwall2
+
+如果已安装但无法使用：
+
+1. 进入 **系统** → **软件包**
+2. 过滤器中输入 `passwall2`
+3. 移除旧版本
+4. 更新软件包列表
+5. 重新安装 Passwall2
+
+> [!info] 📚 来源
+> - [帅强来了博客：iStoreOS下直更新Passwall2](https://shuaiqiang.cc/istoreos%25E4%25B8%258B%25E6%259B%25B4%25E6%2596%25B0passwall2/)
+
+#### 解决方案五：添加第三方软件源
+
+如果官方源中没有插件，可以添加第三方源：
+
+```bash
+# 1. 编辑自定义软件源配置
+vi /etc/opkg/customfeeds.conf
+
+# 2. 添加 kenzok8 第三方源（根据你的架构选择）
+# x86_64 架构：
+src/gz kenzo https://op.dllkids.xyz/packages/x86_64
+
+# aarch64 架构：
+# src/gz kenzo https://op.dllkids.xyz/packages/aarch64_cortex-a53
+
+# 3. 保存后更新软件源
+opkg update
+
+# 4. 搜索并安装
+opkg list | grep passwall
+opkg install luci-app-passwall2
+```
+
+**可用的第三方软件源**：
+
+| 源名称 | 地址 | 说明 |
+|--------|------|------|
+| kenzok8 | `op.dllkids.xyz` | 包含大量常用插件 |
+
+> [!danger] 注意
+> 第三方软件源可能存在安全风险，请谨慎使用。
+
+> [!info] 📚 来源
+> - [kenzok8 软件包仓库](https://github.com/kenzok8/openwrt-packages) - GitHub
+> - [OpenWrt 第三方软件源配置](https://cxorz.com/blog/openwrt-thirdparty) - Hanasaki 博客
+
+#### 解决方案六：手动下载 IPK 安装
+
+如果以上方法都无效，可以手动下载 IPK 包安装：
+
+```bash
+# 1. 确认系统架构
+cat /etc/openwrt_release | grep ARCH
+# 常见架构：x86_64, aarch64_cortex-a53, mipsel_24kc
+
+# 2. 下载 IPK 包（示例）
+cd /tmp
+wget https://github.com/xiaorouji/openwrt-passwall2/releases/download/v1.28/luci-app-passwall2_1.28_all.ipk
+
+# 3. 安装（忽略依赖）
+opkg install --force-depends luci-app-passwall2_*.ipk
+
+# 4. 如果提示缺少依赖，逐个安装
+opkg install <缺失的依赖包名>
+```
+
+**常用 IPK 下载地址**：
+- [Passwall2 Releases](https://github.com/xiaorouji/openwrt-passwall2/releases)
+- [kenzok8 Packages](https://github.com/kenzok8/openwrt-packages)
+
+---
+
+#### 完整排查流程
+
+```bash
+#!/bin/bash
+# 插件安装故障排查脚本 - 复制到路由器 SSH 执行
+
+echo "=== iStoreOS Passwall 插件安装故障排查 ==="
+echo ""
+
+echo "1. 系统信息："
+cat /etc/openwrt_release
+echo ""
+
+echo "2. 系统架构："
+cat /etc/openwrt_release | grep ARCH
+echo ""
+
+echo "3. 存储空间："
+df -h
+echo ""
+
+echo "4. 防火墙类型："
+uci get firewall.@defaults[0].input 2>/dev/null || echo "无法获取"
+echo ""
+
+echo "5. 尝试更新软件源："
+opkg update
+echo ""
+
+echo "6. 搜索 Passwall 插件："
+opkg list | grep -i passwall
+echo ""
+
+echo "7. 检查已安装的 Passwall："
+opkg list-installed | grep -i passwall
+echo ""
+
+echo "=== 排查完成 ==="
+```
+
+> [!tip] 建议操作顺序
+> 按优先级尝试以下解决方案：
+> 1. **系统修复工具** → 2. **检查防火墙类型** → 3. **更新软件包列表** → 4. **重新安装** → 5. **第三方源** → 6. **手动 IPK**
 
 ### Q2：订阅更新后没有节点？
 
@@ -449,6 +610,15 @@ curl ip.sb
 - [使用iStoreOS作为旁路由](https://wiki.wbuntu.com/linux/pve/6-istoreos-as-bypass-router/) - Atlantis Wiki
 - [可视化配置iStoreOS旁路由配置小记](https://luotianyi.vc/9170.html) - Luminous' Home
 - [Passwall 配置和网络负载均衡设置](https://www.cnblogs.com/MaelDNM/p/18330958) - 博客园
+
+### 故障排查资源
+- [iStoreOS GitHub Discussions](https://github.com/istoreos/istoreos/discussions) - 官方讨论区
+- [2026年最新PassWall插件更新和安装](https://naiyous.com/10535.html) - 奶油博客
+- [iStoreOS下直更新Passwall2](https://shuaiqiang.cc/istoreos%25E4%25B8%258B%25E6%259B%25B4%25E6%2596%25B0passwall2/) - 帅强来了博客
+- [科技老王博客：新版Passwall负载均衡](https://kejilaowang.com/openwrt-istoreos-passwall-haproxy-socks/) - 科技老王
+- [OpenWrt 第三方软件源配置](https://cxorz.com/blog/openwrt-thirdparty) - Hanasaki 博客
+- [kenzok8 软件包仓库](https://github.com/kenzok8/openwrt-packages) - GitHub
+- [Passwall2 Releases](https://github.com/xiaorouji/openwrt-passwall2/releases) - GitHub
 
 ### 硬件相关
 - [iStoreOS默认IP地址及网络配置管理指南](https://comate.baidu.com/zh/page/8zqve692bec) - 百度 Comate
