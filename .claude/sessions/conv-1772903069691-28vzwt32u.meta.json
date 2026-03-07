@@ -1,0 +1,20 @@
+{
+  "id": "conv-1772903069691-28vzwt32u",
+  "title": "Explain AI model configuration command",
+  "titleGenerationStatus": "success",
+  "createdAt": 1772903069697,
+  "updatedAt": 1772903099964,
+  "lastResponseAt": 1772903099964,
+  "sessionId": "973ecae2-6471-403e-96e0-33e2f224d36d",
+  "sdkSessionId": "973ecae2-6471-403e-96e0-33e2f224d36d",
+  "currentNote": "AI学习/02-工具使用/Claude Code 模型与推理设置.md",
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}
