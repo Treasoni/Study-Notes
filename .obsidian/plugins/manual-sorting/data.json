@@ -39,7 +39,9 @@
       "sortOrder": "custom"
     },
     "软路由": {
-      "children": [],
+      "children": [
+        "软路由/iStoreOS爬梯配置指南.md"
+      ],
       "sortOrder": "custom"
     },
     "AI学习": {
