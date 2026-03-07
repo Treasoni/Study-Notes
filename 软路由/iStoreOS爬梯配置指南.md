@@ -659,6 +659,10 @@ done
 # 3. 更新索引
 opkg update
 
+# 你可以通过 `grep` 搜索关键字，比如查找 PassWall 相关包： 
+
+opkg list | grep passwall
+
 # 4. 安装 PassWall 或 PassWall2
 opkg install luci-app-passwall      # PassWall
 opkg install luci-app-passwall2     # PassWall2（推荐）
