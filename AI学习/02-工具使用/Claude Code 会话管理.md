@@ -126,7 +126,11 @@ tags: [project, backend]
 - 日志使用 winston 库
 ```
 
-## 内置斜杠命令
+## 内置斜杠命令与 Skills
+
+> [!info] 重要更新 (2026)
+> **自定义命令已合并到 Skills 系统**。`.claude/commands/` 文件仍然有效，但推荐使用 `.claude/skills/` 目录。
+> Skills 遵循 Agent Skills 开放标准，并添加了额外功能如调用控制、子代理执行和动态上下文注入。
 
 ### 会话管理命令
 
@@ -167,7 +171,24 @@ tags: [project, backend]
 # 切换使用的 Claude 模型
 ```
 
-### 完整内置命令列表
+### Bundled Skills（内置技能）
+
+> [!tip] 什么是 Bundled Skills？
+> Bundled Skills 是 Claude Code 自带的技能，与内置命令不同，它们是**基于提示的**：Claude 会根据详细的工作流程来协调工作，可以并行生成代理、读取文件、适应代码库。
+
+| Skill | 功能 |
+|-------|------|
+| `/simplify [focus]` | 代码简化：审查最近更改的文件，修复代码重用、质量和效率问题。可指定关注点，如 `/simplify focus on memory efficiency` |
+| `/batch <instruction>` | 大规模代码更改：研究代码库，分解为5-30个独立单元，每个单元在独立的git worktree中实现并创建PR |
+| `/debug [description]` | 会话调试：读取会话调试日志来排查问题 |
+| `/loop [interval] <prompt>` | 定期运行提示：按间隔重复运行提示，如 `/loop 5m check if the deploy finished` |
+| `/claude-api` | 加载API参考：为项目语言加载 Claude API 参考 |
+
+> [!info] 📚 来源
+> - [Extend Claude with skills - Claude Code Docs](https://code.claude.com/docs/en/skills) - 官方技能文档
+> - [Claude Code Slash Commands | Complete Guide 2026](https://maxtechera.dev/en/guides/claude-code-slash-commands) - 2026完整指南
+
+### 内置命令列表
 
 | 命令 | 功能 |
 |------|------|
@@ -178,7 +199,7 @@ tags: [project, backend]
 | `/config` | 编辑配置文件 |
 | `/cost` | 查看 Token 成本 |
 | `/doctor` | 诊断工具 |
-| `/help` | 显示帮助信息 |
+| `/help` | 显示帮助信息（包括所有可用技能） |
 | `/init` | 初始化 Claude Code |
 | `/login` | 登录账户 |
 | `/logout` | 登出账户 |
@@ -187,19 +208,110 @@ tags: [project, backend]
 | `/model` | 选择模型 |
 | `/permissions` | 权限管理 |
 | `/pr_comments` | PR 评论 |
-| `/review` | 代码审查 |
 | `/status` | 会话状态 |
 | `/terminal-setup` | 终端设置 |
 | `/vim` | Vim 模式配置 |
 
-> [!warning] 重要说明
-> 以下命令**不是**官方内置命令，可能是自定义命令或过时信息：
-> - `/new` ❌
-> - `/resume` ❌
-> - `/export` ❌
-> - `/sessions` ❌
-> - `/context` ❌
-> - `/rename` ❌
+### 自定义 Skills
+
+#### Skills 存储位置
+
+| 位置 | 路径 | 作用范围 |
+|------|------|----------|
+| Enterprise | 见托管设置 | 组织内所有用户 |
+| Personal | `~/.claude/skills/<skill-name>/SKILL.md` | 所有项目 |
+| Project | `.claude/skills/<skill-name>/SKILL.md` | 当前项目 |
+| Plugin | `<plugin>/skills/<skill-name>/SKILL.md` | 插件启用处 |
+
+#### Skills 目录结构
+
+```
+my-skill/
+├── SKILL.md           # 主指令（必需）
+├── template.md        # Claude 填写的模板
+├── examples/
+│   └── sample.md      # 示例输出
+└── scripts/
+    └── validate.sh    # Claude 可执行的脚本
+```
+
+#### Skills Frontmatter 配置
+
+```yaml
+---
+name: my-skill                    # 技能名称（可选）
+description: 技能描述            # 推荐，Claude 用它决定何时使用
+argument-hint: [filename]        # 参数提示（可选）
+disable-model-invocation: true   # 禁止 Claude 自动触发
+user-invocable: false            # 对用户隐藏
+allowed-tools: Read, Grep        # 允许的工具
+model: claude-sonnet-4-6          # 使用的模型
+context: fork                    # 在子代理中运行
+agent: Explore                   # 子代理类型
+hooks:                           # 技能生命周期钩子
+---
+```
+
+#### 字符串替换变量
+
+| 变量 | 描述 |
+|------|------|
+| `$ARGUMENTS` | 所有传递的参数 |
+| `$ARGUMENTS[N]` / `$N` | 第 N 个参数（从 0 开始） |
+| `${CLAUDE_SESSION_ID}` | 当前会话 ID |
+| `${CLAUDE_SKILL_DIR}` | 技能目录路径 |
+
+#### 技能示例
+
+**简单技能**：
+```markdown
+---
+name: explain-code
+description: 用图表和类比解释代码
+---
+
+解释代码时，始终包含：
+1. **类比**：用日常生活中的事物比较代码
+2. **图表**：用 ASCII 艺术展示流程
+3. **逐步说明**：解释每一步发生了什么
+4. **注意点**：常见错误或误解
+```
+
+**带参数的技能**：
+```markdown
+---
+name: fix-issue
+description: 修复 GitHub issue
+disable-model-invocation: true
+---
+
+按照我们的编码标准修复 GitHub issue $ARGUMENTS：
+
+1. 阅读 issue 描述
+2. 理解需求
+3. 实现修复
+4. 编写测试
+5. 创建提交
+```
+
+**子代理技能**：
+```markdown
+---
+name: deep-research
+description: 深入研究主题
+context: fork
+agent: Explore
+---
+
+深入研究 $ARGUMENTS：
+
+1. 使用 Glob 和 Grep 查找相关文件
+2. 阅读并分析代码
+3. 用具体文件引用总结发现
+```
+
+> [!info] 📚 来源
+> - [Extend Claude with skills - Claude Code Docs](https://code.claude.com/docs/en/skills) - 官方技能文档
 
 ## CLI 启动选项
 
@@ -679,8 +791,21 @@ cp ~/.claude/settings.json backup/
 A: 会话期间的对话需要通过 `/memory` 手动保存到记忆文件。配置文件修改后自动保存。
 
 ## 相关文档
-- [官方文档](https://docs.anthropic.com/zh-CN/docs/claude-code/overview)
-- [设置文档](https://docs.anthropic.com/zh-CN/docs/claude-code/settings)
-- [记忆系统](https://docs.anthropic.com/zh-CN/docs/claude-code/memory)
-- [斜杠命令](https://docs.anthropic.com/zh-CN/docs/claude-code/slash-commands)
 - [[02-工具使用/如何使用Claude code]] | [[03-进阶应用/Claude MCP 使用指南]]
+
+## 参考资料
+
+### 官方资源
+- [Extend Claude with skills - Claude Code Docs](https://code.claude.com/docs/en/skills) - Skills 官方文档
+- [How Claude remembers your project - Claude Code Docs](https://code.claude.com/docs/en/memory) - 记忆系统文档
+- [Claude Code Overview](https://docs.anthropic.com/zh-CN/docs/claude-code/overview) - 官方概览
+- [Settings Documentation](https://docs.anthropic.com/zh-CN/docs/claude-code/settings) - 设置文档
+
+### 社区资源
+- [Claude Code Slash Commands | Complete Guide 2026](https://maxtechera.dev/en/guides/claude-code-slash-commands) - Max Techera 完整指南 2026
+- [Complete ClaudeCode Slash Command Reference](https://medium.com/@duke.pearson700/complete-claudecode-slash-command-reference-practical-usage-and-real-world-examples-02f434f73855) - Medium 完整参考
+- [Collection of useful slash commands for Claude Code CLI](https://github.com/artemgetmann/claude-slash-commands) - GitHub 命令集合
+- [Claude Code CLI Cheatsheet](https://shipyard.build/blog/claude-code-cheat-sheet/) - Shipyard 速查表
+
+### GitHub 资源
+- [GitHub Issue #14227 - Memory feature discussion](https://github.com/anthropics/claude-code/issues/14227) - 记忆功能讨论
