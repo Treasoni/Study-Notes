@@ -11,17 +11,17 @@ updated: 2026-03-07
 
 ## 快速导航
 
-| 我想... | 跳转章节 |
-|---------|----------|
-| 了解 iStoreOS 是什么 | [[#一、iStoreOS 简介]] |
-| 安装 Passwall 插件 | [[#二、Passwall 安装配置]] |
-| 安装 OpenClash 插件 | [[#三、OpenClash 安装配置]] |
-| 了解各插件区别 | [[#四、代理插件对比]] |
-| 配置节点订阅 | [[#五、节点订阅配置]] |
-| 设置分流规则 | [[#六、分流规则设置]] |
-| 配置旁路由模式 | [[#七、旁路由网络配置]] |
-| 排查问题 | [[#八、常见问题]] |
-| 找不到任何插件 | [[#q1：istore-中找不到任何爬梯插件？]] |
+| 我想...           | 跳转章节                       |
+| --------------- | -------------------------- |
+| 了解 iStoreOS 是什么 | [[#一、iStoreOS 简介]]         |
+| 了解各插件区别         | [[#二、代理插件对比]]              |
+| 安装 Passwall 插件  | [[#三、Passwall 安装配置]]       |
+| 安装 OpenClash 插件 | [[#四、OpenClash 安装配置]]      |
+| 配置节点订阅          | [[#五、节点订阅配置]]              |
+| 设置分流规则          | [[#六、分流规则设置]]              |
+| 配置旁路由模式         | [[#七、旁路由网络配置]]             |
+| 排查问题            | [[#八、常见问题]]                |
+| 找不到任何插件         | [[#q1：istore-中找不到任何爬梯插件？]] |
 
 ---
 
@@ -66,321 +66,12 @@ updated: 2026-03-07
 
 ---
 
-## 二、Passwall 安装配置
+## 二、代理插件对比
 
-### 2.1 什么是 Passwall
+> [!tip] 学习建议
+> 在安装插件之前，先了解各插件的特点和区别，选择最适合你需求的插件。
 
-**Passwall** 是 OpenWrt 系统上最流行的代理插件，支持多种协议：
-
-| 支持的协议 | 说明 |
-|-----------|------|
-| VMess/VLess | V2协议系列 |
-| Trojan | 木马协议 |
-| Shadowsocks | SS协议 |
-| Hysteria2 | 新一代UDP协议 |
-| Tuic | 协议 |
-
-### 2.2 通过 iStore 安装
-
-#### 步骤 1：进入 iStore
-
-1. 浏览器打开 iStoreOS 管理界面（默认 `192.168.100.1`）
-2. 登录后进入 **iStore** 软件中心
-
-#### 步骤 2：搜索安装
-
-1. 在 iStore 中搜索 **Passwall** 或 **Passwall2**
-2. 点击「安装」按钮
-3. 等待安装完成
-
-#### 步骤 3：启动插件
-
-1. 安装完成后点击「打开」
-2. 进入 Passwall 配置界面
-
-> [!tip] Passwall vs Passwall2
-> - **Passwall**：功能全面，支持更多协议
-> - **Passwall2**：精简版本，资源占用更低，稳定性更好
->
-> 新手推荐使用 **Passwall2**
-
-> [!info] 📚 来源
-> - [iStoreOS 软路由Passwall/Passwall2 进阶教程](https://www.youtube.com/watch?v=ifhmuCG8aHs) - YouTube
-> - [iStoreOS 软路由使用Passwall2](https://www.youtube.com/watch?v=vBFZtvWPqzQ) - YouTube
-
-### 2.3 iStore 不可用时的备选安装方案
-
-> [!warning] 如果 iStore 中找不到插件
-> 以下是两种常用的备选安装方法：
-
-#### 方案 A：添加官方软件源（推荐）
-
-> [!tip] ✅ 推荐首选
-> 这是 2026 年最新的官方安装方案，使用 SourceForge 官方源，稳定可靠。
-
-```bash
-# 1. 添加 opkg key
-cd /tmp
-wget -O passwall.pub https://master.dl.sourceforge.net/project/openwrt-passwall-build/passwall.pub
-opkg-key add /tmp/passwall.pub
-
-# 2. 自动写入软件源（根据系统版本和架构自动配置）
-read release arch << EOF
-$(. /etc/openwrt_release ; echo ${DISTRIB_RELEASE%.*} $DISTRIB_ARCH)
-EOF
-
-for feed in passwall_luci passwall_packages passwall2; do
-  echo "src/gz $feed https://master.dl.sourceforge.net/project/openwrt-passwall-build/releases/packages-$release/$arch/$feed" >> /etc/opkg/customfeeds.conf
-done
-
-# 3. 更新索引
-opkg update
-
-# 你可以通过 `grep` 搜索关键字，比如查找 PassWall 相关包： 
-
-opkg list | grep passwall
-
-# 4. 安装 PassWall 或 PassWall2
-opkg install luci-app-passwall      # PassWall
-opkg install luci-app-passwall2     # PassWall2（推荐）
-
-# 5. 刷新管理界面
-/etc/init.d/uhttpd restart
-
-# 6. 安装汉化（可选）
-opkg install luci-i18n-passwall-zh-cn
-opkg install luci-i18n-passwall2-zh-cn
-
-# 7. 如果你想看哪些软件已经安装（相当于系统里已经“用掉”的安装包）：
-opkg list-installed 
-
-opkg list-installed | grep passwall
-# 8. 删除安装包
-opkg remove 包名
-- 例如删除 PassWall： 
-opkg remove luci-app-passwall
-```
-
-> [!info] 📚 来源
-> - [2026年最新PassWall安装教程](https://naiyous.com/10535.html) - 奶油之家
-
-#### 方案 B：使用第三方固件
-
-如果官方源仍无法使用，可以考虑：
-
-1. **使用预装插件的第三方固件**
-   - 从 `https://github.com/AUK9527/Are-u-ok` 下载
-   - 某些社区版本预装了代理插件
-
-2. **手动下载 IPK 包安装**
-   ```bash
-   # 1. 确认系统架构
-   cat /etc/openwrt_release | grep ARCH
-
-   # 2. 下载 IPK 包（示例）
-   cd /tmp
-   wget https://github.com/xiaorouji/openwrt-passwall2/releases/download/v1.28/luci-app-passwall2_1.28_all.ipk
-
-   # 3. 安装（忽略依赖）
-   opkg install --force-depends luci-app-passwall2_*.ipk
-
-   # 4. 如果提示缺少依赖，逐个安装
-   opkg install <缺失的依赖包名>
-   ```
-
-> [!danger] 注意
-> 第三方固件可能存在安全风险，请从可信渠道获取。
-
----
-
-## 三、OpenClash 安装配置
-
-### 2.1 什么是 OpenClash
-
-**OpenClash** 是基于 Clash 内核的 OpenWrt 代理插件，功能强大且规则灵活：
-
-| 特性 | 说明 |
-|------|------|
-| **内核** | Clash Meta（支持更多协议） |
-| **规则系统** | 基于 YAML 的灵活规则 |
-| **游戏模式** | 专用游戏规则优化 |
-| **假链接过滤** | 内置广告拦截 |
-
-### 2.2 通过 iStore 安装
-
-#### 步骤 1：进入 iStore
-
-1. 浏览器打开 iStoreOS 管理界面
-2. 进入 **iStore** 软件中心
-3. 搜索 **OpenClash**
-
-#### 步骤 2：安装插件
-
-1. 点击「安装」
-2. 等待安装完成
-3. 安装后点击「打开」
-
-> [!info] 📚 来源
-> - [OpenClash 官方教程](https://openclash.org/) - 官方网站
-> - [OpenClash 安装指南](https://clashproxy.net/openclash) - 配置教程
-
-### 2.3 iStore 不可用时的备选安装方案
-
-> [!warning] 如果 iStore 中找不到插件
-> 以下是两种常用的备选安装方法：
-
-#### 方案 A：添加官方软件源（推荐）
-
-> [!tip] ✅ 推荐首选
-> 这是 2026 年最新的官方安装方案，使用 SourceForge 官方源，稳定可靠。
-
-```bash
-# 1. 添加 opkg key
-cd /tmp
-wget -O passwall.pub https://master.dl.sourceforge.net/project/openwrt-passwall-build/passwall.pub
-opkg-key add /tmp/passwall.pub
-
-# 2. 自动写入软件源（根据系统版本和架构自动配置）
-read release arch << EOF
-$(. /etc/openwrt_release ; echo ${DISTRIB_RELEASE%.*} $DISTRIB_ARCH)
-EOF
-
-for feed in passwall_luci passwall_packages passwall2; do
-  echo "src/gz $feed https://master.dl.sourceforge.net/project/openwrt-passwall-build/releases/packages-$release/$arch/$feed" >> /etc/opkg/customfeeds.conf
-done
-
-# 3. 更新索引
-opkg update
-
-# 4. 安装 OpenClash
-opkg install luci-app-openclash
-
-# 5. 刷新管理界面
-/etc/init.d/uhttpd restart
-```
-
-> [!info] 📚 来源
-> - [2026年最新PassWall安装教程](https://naiyous.com/10535.html) - 奶油之家
-
-#### 方案 B：使用第三方固件
-
-如果官方源仍无法使用，可以考虑：
-
-1. **使用预装插件的第三方固件**
-   - 从 `https://github.com/AUK9527/Are-u-ok` 下载
-   - 某些社区版本预装了代理插件
-
-2. **手动下载 IPK 包安装**
-   ```bash
-   # 1. 确认系统架构
-   cat /etc/openwrt_release | grep ARCH
-
-   # 2. 下载 OpenClash IPK 包
-   cd /tmp
-   wget https://github.com/vernesong/OpenClash/releases/download/v0.46.033-beta/luci-app-openclash_0.46.033-beta_all.ipk
-
-   # 3. 安装（忽略依赖）
-   opkg install --force-depends luci-app-openclash_*.ipk
-
-   # 4. 如果提示缺少依赖，逐个安装
-   opkg install <缺失的依赖包名>
-   ```
-
-> [!danger] 注意
-> 第三方固件可能存在安全风险，请从可信渠道获取。
-
-### 2.4 配置文件订阅
-
-#### 步骤 1：进入配置订阅
-
-1. 进入 **服务** → **OpenClash**
-2. 切换到 **配置文件订阅** 标签
-
-#### 步骤 2：添加订阅
-
-```yaml
-# 配置订阅信息
-配置名称: 我的机场
-订阅地址: https://your-subscription-url
-自动更新: 开启
-更新间隔: 24小时
-```
-
-#### 步骤 3：更新配置
-
-1. 点击「保存并应用」
-2. 点击「更新配置」
-3. 等待节点加载完成
-
-> [!info] 📚 来源
-> - [OpenClash 付费节点教程](https://clash.guide/clients/router/openclash.html) - Clash Guide
-> - [GitHub 详细设置方案](https://github.com/Aethersailor/Custom_OpenClash_Rules/wiki/OpenClash-%25E8%25AE%25BE%25E7%25BD%25AE%25E6%2596%25B9%25E6%25A1%2588) - GitHub Wiki
-
-### 2.5 启动代理
-
-#### 步骤 1：选择配置
-
-1. 在 **覆盖设置** 中选择配置文件
-2. 启用 **IPK 设置**
-
-#### 步骤 2：启动核心
-
-1. 切换到 **运行状态** 标签
-2. 选择核心模式（推荐：Fake-IP 模式）
-3. 点击「启动」
-
-#### 步骤 3：验证
-
-```bash
-# 测试代理是否生效
-curl ip.sb
-```
-
-### 2.6 规则设置
-
-OpenClash 的规则系统非常灵活：
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    OpenClash 规则流程                        │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  流量进入                                                   │
-│     │                                                       │
-│     ▼                                                       │
-│  ┌─────────┐    是     ┌─────────┐                         │
-│  │ 广告/追踪 │ ────────→ │ REJECT  │ → 拦截                 │
-│  └─────────┘           └─────────┘                         │
-│     │ 否                                                    │
-│     ▼                                                       │
-│  ┌─────────┐    是     ┌─────────┐                         │
-│  │ 国内IP/域名│ ──────→ │ DIRECT  │ → 直连                 │
-│  └─────────┘           └─────────┘                         │
-│     │ 否                                                    │
-│     ▼                                                       │
-│  ┌─────────┐           ┌─────────┐                         │
-│  │ 其他流量 │ ────────→ │ PROXY   │ → 代理                  │
-│  └─────────┘           └─────────┘                         │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### 2.7 核心模式选择
-
-| 模式 | 说明 | 推荐场景 |
-|------|------|----------|
-| **Fake-IP** | 假 IP 模式，性能最佳 | 日常使用 |
-| **Redir-Host** | 还原域名模式 | 需要真实域名的场景 |
-| **TUN 模式** | 虚拟网卡模式 | 支持所有协议 |
-
-> [!tip] 推荐选择
-> 新手推荐使用 **Fake-IP 模式**，性能最佳且兼容性好。
-
----
-
-## 四、代理插件对比
-
-### 3.1 四大主流插件对比
+### 2.1 四大主流插件对比
 
 | 特性 | OpenClash | Passwall | Passwall2 | HomeProxy |
 |------|-----------|----------|-----------|-----------|
@@ -393,7 +84,7 @@ OpenClash 的规则系统非常灵活：
 | **适配系统** | 通用 OpenWrt | 通用 OpenWrt | 通用 OpenWrt | **ImmortalWrt** |
 | **适合人群** | 进阶用户 | 功能党 | 稳定党/新手 | 追新党 |
 
-### 3.2 如何选择插件
+### 2.2 如何选择插件
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -415,7 +106,7 @@ OpenClash 的规则系统非常灵活：
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### 3.3 详细对比说明
+### 2.3 详细对比说明
 
 #### OpenClash
 
@@ -494,7 +185,7 @@ OpenClash 的规则系统非常灵活：
 > [!warning] 注意
 > HomeProxy 主要针对 **ImmortalWrt** 系统，标准 OpenWrt 可能需要额外确认兼容性。
 
-### 3.4 性能对比
+### 2.4 性能对比
 
 根据社区测试，各插件性能表现大致如下：
 
@@ -512,16 +203,328 @@ OpenClash 的规则系统非常灵活：
 
 ---
 
+## 三、Passwall 安装配置
+
+### 3.1 什么是 Passwall
+
+**Passwall** 是 OpenWrt 系统上最流行的代理插件，支持多种协议：
+
+| 支持的协议 | 说明 |
+|-----------|------|
+| VMess/VLess | V2协议系列 |
+| Trojan | 木马协议 |
+| Shadowsocks | SS协议 |
+| Hysteria2 | 新一代UDP协议 |
+| Tuic | 协议 |
+
+### 3.2 通过 iStore 安装
+
+#### 步骤 1：进入 iStore
+
+1. 浏览器打开 iStoreOS 管理界面（默认 `192.168.100.1`）
+2. 登录后进入 **iStore** 软件中心
+
+#### 步骤 2：搜索安装
+
+1. 在 iStore 中搜索 **Passwall** 或 **Passwall2**
+2. 点击「安装」按钮
+3. 等待安装完成
+
+#### 步骤 3：启动插件
+
+1. 安装完成后点击「打开」
+2. 进入 Passwall 配置界面
+
+> [!tip] Passwall vs Passwall2
+> - **Passwall**：功能全面，支持更多协议
+> - **Passwall2**：精简版本，资源占用更低，稳定性更好
+>
+> 新手推荐使用 **Passwall2**
+
+> [!info] 📚 来源
+> - [iStoreOS 软路由Passwall/Passwall2 进阶教程](https://www.youtube.com/watch?v=ifhmuCG8aHs) - YouTube
+> - [iStoreOS 软路由使用Passwall2](https://www.youtube.com/watch?v=vBFZtvWPqzQ) - YouTube
+
+### 3.3 iStore 不可用时的备选安装方案
+
+> [!warning] 如果 iStore 中找不到插件
+> 以下是两种常用的备选安装方法：
+
+#### 方案 A：添加官方软件源（推荐）
+
+> [!tip] ✅ 推荐首选
+> 这是 2026 年最新的官方安装方案，使用 SourceForge 官方源，稳定可靠。
+
+```bash
+# 1. 添加 opkg key
+cd /tmp
+wget -O passwall.pub https://master.dl.sourceforge.net/project/openwrt-passwall-build/passwall.pub
+opkg-key add /tmp/passwall.pub
+
+# 2. 自动写入软件源（根据系统版本和架构自动配置）
+read release arch << EOF
+$(. /etc/openwrt_release ; echo ${DISTRIB_RELEASE%.*} $DISTRIB_ARCH)
+EOF
+
+for feed in passwall_luci passwall_packages passwall2; do
+  echo "src/gz $feed https://master.dl.sourceforge.net/project/openwrt-passwall-build/releases/packages-$release/$arch/$feed" >> /etc/opkg/customfeeds.conf
+done
+
+# 3. 更新索引
+opkg update
+
+# 你可以通过 `grep` 搜索关键字，比如查找 PassWall 相关包：
+
+opkg list | grep passwall
+
+# 4. 安装 PassWall 或 PassWall2
+opkg install luci-app-passwall      # PassWall
+opkg install luci-app-passwall2     # PassWall2（推荐）
+
+# 5. 刷新管理界面
+/etc/init.d/uhttpd restart
+
+# 6. 安装汉化（可选）
+opkg install luci-i18n-passwall-zh-cn
+opkg install luci-i18n-passwall2-zh-cn
+
+# 7. 如果你想看哪些软件已经安装（相当于系统里已经"用掉"的安装包）：
+opkg list-installed
+
+opkg list-installed | grep passwall
+# 8. 删除安装包
+opkg remove 包名
+- 例如删除 PassWall：
+opkg remove luci-app-passwall
+```
+
+> [!info] 📚 来源
+> - [2026年最新PassWall安装教程](https://naiyous.com/10535.html) - 奶油之家
+
+#### 方案 B：使用第三方固件
+
+如果官方源仍无法使用，可以考虑：
+
+1. **使用预装插件的第三方固件**
+   - 从 `https://github.com/AUK9527/Are-u-ok` 下载
+   - 某些社区版本预装了代理插件
+
+2. **手动下载 IPK 包安装**
+   ```bash
+   # 1. 确认系统架构
+   cat /etc/openwrt_release | grep ARCH
+
+   # 2. 下载 IPK 包（示例）
+   cd /tmp
+   wget https://github.com/xiaorouji/openwrt-passwall2/releases/download/v1.28/luci-app-passwall2_1.28_all.ipk
+
+   # 3. 安装（忽略依赖）
+   opkg install --force-depends luci-app-passwall2_*.ipk
+
+   # 4. 如果提示缺少依赖，逐个安装
+   opkg install <缺失的依赖包名>
+   ```
+
+> [!danger] 注意
+> 第三方固件可能存在安全风险，请从可信渠道获取。
+
+---
+
+## 四、OpenClash 安装配置
+
+### 4.1 什么是 OpenClash
+
+**OpenClash** 是基于 Clash 内核的 OpenWrt 代理插件，功能强大且规则灵活：
+
+| 特性 | 说明 |
+|------|------|
+| **内核** | Clash Meta（支持更多协议） |
+| **规则系统** | 基于 YAML 的灵活规则 |
+| **游戏模式** | 专用游戏规则优化 |
+| **假链接过滤** | 内置广告拦截 |
+
+### 4.2 通过 iStore 安装
+
+#### 步骤 1：进入 iStore
+
+1. 浏览器打开 iStoreOS 管理界面
+2. 进入 **iStore** 软件中心
+3. 搜索 **OpenClash**
+
+#### 步骤 2：安装插件
+
+1. 点击「安装」
+2. 等待安装完成
+3. 安装后点击「打开」
+
+> [!info] 📚 来源
+> - [OpenClash 官方教程](https://openclash.org/) - 官方网站
+> - [OpenClash 安装指南](https://clashproxy.net/openclash) - 配置教程
+
+### 4.3 iStore 不可用时的备选安装方案
+
+> [!warning] 如果 iStore 中找不到插件
+> 以下是两种常用的备选安装方法：
+
+#### 方案 A：添加官方软件源（推荐）
+
+> [!tip] ✅ 推荐首选
+> 这是 2026 年最新的官方安装方案，使用 SourceForge 官方源，稳定可靠。
+
+```bash
+# 1. 添加 opkg key
+cd /tmp
+wget -O passwall.pub https://master.dl.sourceforge.net/project/openwrt-passwall-build/passwall.pub
+opkg-key add /tmp/passwall.pub
+
+# 2. 自动写入软件源（根据系统版本和架构自动配置）
+read release arch << EOF
+$(. /etc/openwrt_release ; echo ${DISTRIB_RELEASE%.*} $DISTRIB_ARCH)
+EOF
+
+for feed in passwall_luci passwall_packages passwall2; do
+  echo "src/gz $feed https://master.dl.sourceforge.net/project/openwrt-passwall-build/releases/packages-$release/$arch/$feed" >> /etc/opkg/customfeeds.conf
+done
+
+# 3. 更新索引
+opkg update
+
+# 4. 安装 OpenClash
+opkg install luci-app-openclash
+
+# 5. 刷新管理界面
+/etc/init.d/uhttpd restart
+```
+
+> [!info] 📚 来源
+> - [2026年最新PassWall安装教程](https://naiyous.com/10535.html) - 奶油之家
+
+#### 方案 B：使用第三方固件
+
+如果官方源仍无法使用，可以考虑：
+
+1. **使用预装插件的第三方固件**
+   - 从 `https://github.com/AUK9527/Are-u-ok` 下载
+   - 某些社区版本预装了代理插件
+
+2. **手动下载 IPK 包安装**
+   ```bash
+   # 1. 确认系统架构
+   cat /etc/openwrt_release | grep ARCH
+
+   # 2. 下载 OpenClash IPK 包
+   cd /tmp
+   wget https://github.com/vernesong/OpenClash/releases/download/v0.46.033-beta/luci-app-openclash_0.46.033-beta_all.ipk
+
+   # 3. 安装（忽略依赖）
+   opkg install --force-depends luci-app-openclash_*.ipk
+
+   # 4. 如果提示缺少依赖，逐个安装
+   opkg install <缺失的依赖包名>
+   ```
+
+> [!danger] 注意
+> 第三方固件可能存在安全风险，请从可信渠道获取。
+
+### 4.4 配置文件订阅
+
+#### 步骤 1：进入配置订阅
+
+1. 进入 **服务** → **OpenClash**
+2. 切换到 **配置文件订阅** 标签
+
+#### 步骤 2：添加订阅
+
+```yaml
+# 配置订阅信息
+配置名称: 我的机场
+订阅地址: https://your-subscription-url
+自动更新: 开启
+更新间隔: 24小时
+```
+
+#### 步骤 3：更新配置
+
+1. 点击「保存并应用」
+2. 点击「更新配置」
+3. 等待节点加载完成
+
+> [!info] 📚 来源
+> - [OpenClash 付费节点教程](https://clash.guide/clients/router/openclash.html) - Clash Guide
+> - [GitHub 详细设置方案](https://github.com/Aethersailor/Custom_OpenClash_Rules/wiki/OpenClash-%25E8%25AE%25BE%25E7%25BD%25AE%25E6%2596%25B9%25E6%25A1%2588) - GitHub Wiki
+
+### 4.5 启动代理
+
+#### 步骤 1：选择配置
+
+1. 在 **覆盖设置** 中选择配置文件
+2. 启用 **IPK 设置**
+
+#### 步骤 2：启动核心
+
+1. 切换到 **运行状态** 标签
+2. 选择核心模式（推荐：Fake-IP 模式）
+3. 点击「启动」
+
+#### 步骤 3：验证
+
+```bash
+# 测试代理是否生效
+curl ip.sb
+```
+
+### 4.6 规则设置
+
+OpenClash 的规则系统非常灵活：
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    OpenClash 规则流程                        │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  流量进入                                                   │
+│     │                                                       │
+│     ▼                                                       │
+│  ┌─────────┐    是     ┌─────────┐                         │
+│  │ 广告/追踪 │ ────────→ │ REJECT  │ → 拦截                 │
+│  └─────────┘           └─────────┘                         │
+│     │ 否                                                    │
+│     ▼                                                       │
+│  ┌─────────┐    是     ┌─────────┐                         │
+│  │ 国内IP/域名│ ──────→ │ DIRECT  │ → 直连                 │
+│  └─────────┘           └─────────┘                         │
+│     │ 否                                                    │
+│     ▼                                                       │
+│  ┌─────────┐           ┌─────────┐                         │
+│  │ 其他流量 │ ────────→ │ PROXY   │ → 代理                  │
+│  └─────────┘           └─────────┘                         │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### 4.7 核心模式选择
+
+| 模式 | 说明 | 推荐场景 |
+|------|------|----------|
+| **Fake-IP** | 假 IP 模式，性能最佳 | 日常使用 |
+| **Redir-Host** | 还原域名模式 | 需要真实域名的场景 |
+| **TUN 模式** | 虚拟网卡模式 | 支持所有协议 |
+
+> [!tip] 推荐选择
+> 新手推荐使用 **Fake-IP 模式**，性能最佳且兼容性好。
+
+---
+
 ## 五、节点订阅配置
 
-### 4.1 获取订阅地址
+### 5.1 获取订阅地址
 
 从你的机场服务商获取订阅链接，格式通常为：
 ```
 https://xxx.com/api/v1/client/subscribe?token=xxxxx
 ```
 
-### 4.2 添加订阅
+### 5.2 添加订阅
 
 #### 步骤 1：进入订阅管理
 
@@ -549,7 +552,7 @@ https://xxx.com/api/v1/client/subscribe?token=xxxxx
 > - 检查路由器网络是否正常
 > - 尝试关闭代理后更新订阅
 
-### 4.3 订阅链接安全
+### 5.3 订阅链接安全
 
 > [!danger] 安全提醒
 > - 订阅链接包含你的账号信息，不要分享给他人
@@ -560,7 +563,7 @@ https://xxx.com/api/v1/client/subscribe?token=xxxxx
 
 ## 六、分流规则设置
 
-### 5.1 什么是分流规则
+### 6.1 什么是分流规则
 
 分流规则决定了哪些流量走代理、哪些直连：
 
@@ -589,7 +592,7 @@ https://xxx.com/api/v1/client/subscribe?token=xxxxx
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### 5.2 基本分流配置
+### 6.2 基本分流配置
 
 #### 步骤 1：启用规则管理
 
@@ -627,7 +630,7 @@ https://xxx.com/api/v1/client/subscribe?token=xxxxx
 1. 点击「保存并应用」
 2. 在 **状态** 页面查看规则是否生效
 
-### 5.3 自定义规则
+### 6.3 自定义规则
 
 你可以添加自定义规则来实现特定需求：
 
@@ -650,7 +653,7 @@ https://xxx.com/api/v1/client/subscribe?token=xxxxx
 
 ## 七、旁路由网络配置
 
-### 6.1 什么是旁路由
+### 7.1 什么是旁路由
 
 **旁路由**是指在现有主路由器之外，再添加一台路由器专门处理特定流量（如代理）。
 
@@ -679,7 +682,7 @@ https://xxx.com/api/v1/client/subscribe?token=xxxxx
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### 6.2 旁路由模式配置
+### 7.2 旁路由模式配置
 
 #### 方式一：网关指向（推荐）
 
@@ -702,7 +705,7 @@ https://xxx.com/api/v1/client/subscribe?token=xxxxx
 3. 网关：iStoreOS 的 IP 地址
 4. DNS：iStoreOS 的 IP 地址或公共 DNS
 
-### 6.3 验证配置
+### 7.3 验证配置
 
 ```bash
 # 在 SSH 中测试网络连接
@@ -787,7 +790,7 @@ done
 # 3. 更新索引
 opkg update
 
-# 你可以通过 `grep` 搜索关键字，比如查找 PassWall 相关包： 
+# 你可以通过 `grep` 搜索关键字，比如查找 PassWall 相关包：
 
 opkg list | grep passwall
 
@@ -802,13 +805,13 @@ opkg install luci-app-passwall2     # PassWall2（推荐）
 opkg install luci-i18n-passwall-zh-cn
 opkg install luci-i18n-passwall2-zh-cn
 
-# 7. 如果你想看哪些软件已经安装（相当于系统里已经“用掉”的安装包）：
-opkg list-installed 
+# 7. 如果你想看哪些软件已经安装（相当于系统里已经"用掉"的安装包）：
+opkg list-installed
 
 opkg list-installed | grep passwall
 # 8. 删除安装包
 opkg remove 包名
-- 例如删除 PassWall： 
+- 例如删除 PassWall：
 opkg remove luci-app-passwall
 ```
 
