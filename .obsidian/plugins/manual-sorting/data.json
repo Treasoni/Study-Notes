@@ -39,10 +39,7 @@
       "sortOrder": "custom"
     },
     "软路由": {
-      "children": [
-        "软路由/OpenClash插件使用指南.md",
-        "软路由/iStore爬梯配置指南.md"
-      ],
+      "children": [],
       "sortOrder": "custom"
     },
     "AI学习": {
