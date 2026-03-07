@@ -673,6 +673,15 @@ opkg install luci-app-passwall2     # PassWall2（推荐）
 # 6. 安装汉化（可选）
 opkg install luci-i18n-passwall-zh-cn
 opkg install luci-i18n-passwall2-zh-cn
+
+# 7. 如果你想看哪些软件已经安装（相当于系统里已经“用掉”的安装包）：
+opkg list-installed 
+
+opkg list-installed | grep passwall
+# 8. 删除安装包
+opkg remove 包名
+- 例如删除 PassWall： 
+opkg remove luci-app-passwall
 ```
 
 > [!info] 📚 来源
