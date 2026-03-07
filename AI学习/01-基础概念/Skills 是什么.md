@@ -36,11 +36,11 @@ tags: [ai, 基础概念, skills]
 
 ### Skills 与其他概念的关系
 
-| 概念 | 与 Skills 的关系 |
-|------|------------------|
-| [[Prompt提示词]] | Skills 本质是高质量的 Prompt 模块 |
-| [[Agent智能体]] | Skills 是 Agent 的"内化知识" |
-| [[MCP协议]] | Skills 可以调用 MCP 提供的工具 |
+| 概念              | 与 Skills 的关系                |
+| --------------- | --------------------------- |
+| [[Prompt提示词]]   | Skills 本质是高质量的 Prompt 模块    |
+| [[Agent智能体]]    | Skills 是 Agent 的"内化知识"      |
+| [[MCP协议]]       | Skills 可以调用 MCP 提供的工具       |
 | [[SubAgent子代理]] | Skills 共享上下文，SubAgent 独立上下文 |
 
 ---
