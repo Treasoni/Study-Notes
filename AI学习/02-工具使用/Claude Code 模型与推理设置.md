@@ -326,47 +326,48 @@ VSCode 插件通过 VS Code 的 `settings.json` 进行配置，支持**用户级
 
 ### VSCode 插件特有配置项
 
-| 配置项 | 说明 | 示例值 |
-|--------|------|--------|
-| `claudeCode.enabled` | 启用/禁用插件 | `true` / `false` |
-| `claudeCode.model` | 默认模型选择 | `"sonnet"` / `"opus"` |
-| `claudeCode.environmentVariables` | 环境变量数组 | 见上方示例 |
-| `claudeCode.mcp.enabled` | 启用 MCP | `true` |
+根据官方文档，VSCode 插件的主要配置项：
+
+| 配置项 | 默认值 | 说明 |
+|--------|--------|------|
+| `selectedModel` | `default` | 新对话使用的模型 |
+| `useTerminal` | `false` | 使用终端模式而非图形面板 |
+| `initialPermissionMode` | `default` | 初始权限模式控制 |
+| `preferredLocation` | `panel` | Claude 面板打开位置 |
+| `environmentVariables` | `[]` | Claude 进程的环境变量 |
+
+> [!info] 📚 来源
+> - [Visual Studio Code - Claude Code Docs](https://code.claude.com/docs/en/vs-code) - 官方 VSCode 文档
 
 ### VSCode 插件操作步骤
 
+> [!warning] 注意
+> VSCode 插件提供图形界面，操作方式可能与 CLI 的终端界面不同。以下内容基于官方文档整理。
+
 #### 模型切换
 
-**方式一：通过 `/model` 命令（推荐）**
+**方式一：通过命令菜单 `/`**
 
-1. 在 Claude Code 对话框中输入 `/model`
-2. 使用 **左右箭头键** 选择模型
-3. 使用 **上下箭头键** 调整 Effort Level
-4. 按 **Enter** 确认选择
+1. 在 Claude Code 对话框中输入 `/`
+2. 在命令列表中找到 **Switch Models** 选项
+3. 选择想要使用的模型
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│              VSCode /model 界面示例                          │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  Model: ◀ default ▶  sonnet  opus  haiku  sonnet[1m]       │
-│                                                             │
-│  Effort Level: ◀ low ━ medium ━ high ▶                     │
-│                                                             │
-│  Extended Thinking: ☐ Enable                               │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
+**方式二：通过 `/model` 命令**
 
-**方式二：通过 settings.json 配置**
+在对话框中直接输入 `/model`，会打开模型选择界面。
 
-在 VSCode 设置中搜索 `claudeCode.model`，输入模型别名：
-- `default` - 账户默认
-- `sonnet` - Claude Sonnet 4.6
-- `opus` - Claude Opus 4.6
-- `haiku` - Claude Haiku 4.5
-- `sonnet[1m]` - Sonnet + 1M 上下文
-- `opusplan` - 智能混合模式
+**方式三：通过 settings.json 配置**
+
+在 VSCode 设置中搜索 `claudeCode.selectedModel`，输入模型别名：
+
+| 别名 | 说明 |
+|------|------|
+| `default` | 账户默认（根据订阅类型自动选择） |
+| `sonnet` | Claude Sonnet 4.6，日常编码任务 |
+| `opus` | Claude Opus 4.6，复杂推理任务 |
+| `haiku` | Claude Haiku 4.5，简单快速任务 |
+| `sonnet[1m]` | Sonnet + 1M 上下文，大型代码库 |
+| `opusplan` | 智能混合模式，规划用 Opus，执行用 Sonnet |
 
 #### Extended Thinking 切换
 
@@ -387,18 +388,22 @@ VSCode 插件通过 VS Code 的 `settings.json` 进行配置，支持**用户级
 
 #### Effort Level 调整
 
-**通过 /model 界面调整**：
+**设置方式**：
 
-1. 输入 `/model` 命令
-2. 使用 **左右箭头键** 移动 Effort Level 滑块
-3. 选择 `low` / `medium` / `high`
-4. 按 **Enter** 确认
+| 方式 | 说明 |
+|------|------|
+| **通过 `/model` 命令** | CLI 中使用左右箭头键调整 effort slider（VSCode 插件可能支持类似操作） |
+| **环境变量** | 设置 `CLAUDE_CODE_EFFORT_LEVEL=low\|medium\|high` |
+| **settings.json** | 在 Claude Code 设置中添加 `"effortLevel": "low\|medium\|high"` |
 
 | 级别 | 显示标识 | 适用场景 |
 |------|----------|----------|
-| `low` | ⚡ with low effort | 简单问答、快速响应 |
-| `medium` | 🔄 with medium effort | 日常开发（默认） |
-| `high` | 🧠 with high effort | 复杂推理、深度分析 |
+| `low` | with low effort | 简单问答、快速响应 |
+| `medium` | with medium effort | 日常开发（Opus 默认） |
+| `high` | with high effort | 复杂推理、深度分析 |
+
+> [!info] 注意
+> Effort Level 仅支持 Opus 4.6 和 Sonnet 4.6。当前设置会显示在 logo 和 spinner 旁边，方便确认。
 
 #### Permission Mode 切换
 
@@ -426,45 +431,48 @@ Claude Code VSCode 插件支持三种权限模式：
 
 #### VSCode 特有配置项
 
-在 `settings.json` 中可配置以下选项：
+根据官方文档，VSCode 插件的设置项（在 VS Code 设置中搜索 "Claude Code"）：
+
+| 设置项 | 默认值 | 说明 |
+|--------|--------|------|
+| `selectedModel` | `default` | 新对话使用的模型 |
+| `useTerminal` | `false` | 是否使用终端模式而非图形面板 |
+| `initialPermissionMode` | `default` | 初始权限模式：`default`/`plan`/`acceptEdits`/`bypassPermissions` |
+| `preferredLocation` | `panel` | Claude 打开位置：`sidebar`（右侧）或 `panel`（新标签） |
+| `autosave` | `true` | 读写文件前自动保存 |
+| `useCtrlEnterToSend` | `false` | 使用 Ctrl/Cmd+Enter 发送消息 |
+| `enableNewConversationShortcut` | `true` | 启用 Cmd/Ctrl+N 新建对话 |
+| `respectGitIgnore` | `true` | 文件搜索时排除 .gitignore 模式 |
+| `environmentVariables` | `[]` | 为 Claude 进程设置环境变量 |
+
+**配置示例** (VSCode `settings.json`):
 
 ```json
 {
-  // 模型选择
-  "claudeCode.model": "sonnet",
+  // 模型选择（注意：VSCode 插件使用 selectedModel，不是 model）
+  "claudeCode.selectedModel": "sonnet",
 
   // 初始权限模式
-  "claudeCode.initialPermissionMode": "normal",
+  "claudeCode.initialPermissionMode": "plan",
 
-  // 启用 MCP
-  "claudeCode.mcp.enabled": true,
+  // 面板位置
+  "claudeCode.preferredLocation": "sidebar",
 
-  // 环境变量
+  // 环境变量（用于设置 Effort Level 等）
   "claudeCode.environmentVariables": [
-    {
-      "name": "ANTHROPIC_MODEL",
-      "value": "sonnet"
-    },
     {
       "name": "CLAUDE_CODE_EFFORT_LEVEL",
       "value": "medium"
-    }
-  ],
-
-  // 禁用 1M 上下文（可选）
-  "claudeCode.environmentVariables": [
-    {
-      "name": "CLAUDE_CODE_DISABLE_1M_CONTEXT",
-      "value": "1"
     }
   ]
 }
 ```
 
-> [!tip] 提示
-> - VSCode 插件和 CLI 共享 `~/.claude/settings.json` 配置
-> - 工作区配置 (`.vscode/settings.json`) 会覆盖用户级配置
-> - 修改 settings.json 后需重启 VSCode 或重新加载窗口
+> [!warning] 重要区别
+> - **VSCode 插件设置**: `claudeCode.selectedModel`（仅 VSCode）
+> - **Claude Code 共享设置**: `~/.claude/settings.json` 中的 `model` 字段（CLI 和 VSCode 共享）
+>
+> 两者配置优先级：VSCode 工作区设置 > VSCode 用户设置 > `~/.claude/settings.json`
 
 ### 与 CLI 的配置共享
 
