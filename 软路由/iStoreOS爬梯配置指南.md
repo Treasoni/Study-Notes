@@ -624,7 +624,7 @@ curl ip.sb
 
 ---
 
-#### 解决方案二：系统修复工具（推荐首选）
+#### 解决方案二：系统修复工具
 
 这是官方推荐的最简单修复方法：
 
@@ -636,7 +636,7 @@ curl ip.sb
 > [!info] 📚 来源
 > - [iStoreOS GitHub Discussions](https://github.com/istoreos/istoreos/discussions) - 官方讨论区
 
-#### 解决方案三：添加官方软件源（2026年最新方案）
+#### 解决方案三：添加官方软件源（2026年最新方案，推荐）
 
 > [!tip] ✅ 推荐首选
 > 这是 2026 年最新的官方安装方案，使用 SourceForge 官方源，稳定可靠。
