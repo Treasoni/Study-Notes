@@ -4,6 +4,9 @@ created: 2026-03-07
 updated: 2026-03-07
 ---
 
+> [!tip] 更新说明
+> 新增 **Cron 权限确认问题** 专题章节，解决非交互模式下 Claude 请求权限导致任务卡住的核心问题。
+
 # Claude Code 定时任务自动化指南
 
 > [!info] 概述
@@ -442,6 +445,231 @@ find "$LOG_DIR" -name "*.log" -mtime +$RETENTION_DAYS -exec gzip {} \;
 - 记录执行指标（成功率、耗时）
 - 定期审查日志
 
+## Cron 中的权限确认问题（⚠️ 核心痛点）
+
+> [!info] 📚 来源
+> - [GitHub Issue #581 - Non-interactive mode permissions bug](https://github.com/anthropics/claude-code/issues/581) - 官方已知问题
+> - [Claude Code --dangerously-skip-permissions Guide](https://morphllm.com/claude-code-dangerously-skip-permissions) - 完整权限指南
+
+### 问题现象
+
+当通过 cron 执行 Claude Code 时，可能会遇到以下情况：
+
+```bash
+# cron 日志中的错误
+I need permission to use the Bash tool to run these commands.
+I need permission to read files in this directory.
+# 任务卡住，等待用户确认
+```
+
+这是因为 Claude Code 默认会请求工具使用权限，在非交互式环境中无法获得确认。
+
+### 解决方案
+
+#### 方案一：使用 `--dangerously-skip-permissions`（推荐用于 Cron）
+
+这是最直接的解决方案，跳过所有权限确认：
+
+```bash
+#!/bin/bash
+# daily-automation.sh
+
+claude code . --prompt "分析代码质量并生成报告" \
+  --dangerously-skip-permissions \
+  --output "$HOME/reports/daily-$(date +%Y%m%d).md" \
+  >> "$HOME/logs/cron-$(date +%Y%m%d).log" 2>&1
+```
+
+**Crontab 配置**：
+```bash
+# 每天 9:00 执行，跳过权限确认
+0 9 * * * /home/user/claude-automation/scripts/daily-review.sh --dangerously-skip-permissions
+```
+
+**安全建议**：
+- 结合 Docker 容器使用，隔离环境
+- 配置 `--max-turns` 限制执行轮次
+- 使用 Git 版本控制，便于回滚
+
+#### 方案二：使用 `--allowedTools` 限制工具范围
+
+```bash
+#!/bin/bash
+
+# 只允许特定的安全工具
+claude code . --prompt "分析代码" \
+  --allowedTools "Read,Edit,Write,Bash(npm test)" \
+  --output "$HOME/reports/report.md"
+```
+
+#### 方案三：配置 `settings.json` 预设权限
+
+在项目的 `.claude/settings.json` 中配置：
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm test)",
+      "Bash(npm run build)",
+      "Bash(git *)",
+      "Read(./src/**)",
+      "Edit(./src/**)",
+      "Write(./reports/**)"
+    ],
+    "deny": [
+      "Bash(rm *)",
+      "Bash(curl *)",
+      "Read(./.env*)",
+      "Read(**/secrets/**)"
+    ]
+  }
+}
+```
+
+**注意**：根据 GitHub Issue #581，非交互模式可能不完全尊重此配置，建议与方案一结合使用。
+
+#### 方案四：结合 Docker 容器隔离（最安全）
+
+```bash
+#!/bin/bash
+# docker-automation.sh
+
+docker run --rm -v "$PWD:/workspace" \
+  -w /workspace \
+  --user "$(id -u):$(id -g)" \
+  claude-code:latest \
+  claude code . --prompt "分析代码" \
+    --dangerously-skip-permissions \
+    --max-turns 50
+```
+
+**Dockerfile 示例**：
+```dockerfile
+FROM ubuntu:24.04
+
+# 安装 Claude Code
+RUN curl -fsSL https://code.claude.com/install.sh | sh
+
+# 创建非 root 用户
+RUN useradd -m -u 1000 claude
+USER claude
+WORKDIR /workspace
+
+ENTRYPOINT ["claude"]
+```
+
+### 完整的 Cron 自动化脚本模板
+
+```bash
+#!/bin/bash
+# claude-cron-template.sh
+# 安全的 Claude Code Cron 自动化脚本模板
+
+set -euo pipefail
+
+# === 配置区域 ===
+PROJECT_DIR="/home/user/projects/myapp"
+LOG_DIR="$HOME/claude-automation/logs"
+REPORT_DIR="$HOME/claude-automation/reports"
+MAX_TURNS=50  # 防止无限循环
+TIMEOUT_SEC=3600  # 1小时超时
+
+# === 环境设置 ===
+export PATH="/usr/local/bin:/usr/bin:/bin:$HOME/.local/bin"
+mkdir -p "$LOG_DIR" "$REPORT_DIR"
+
+TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+LOG_FILE="$LOG_DIR/cron-$TIMESTAMP.log"
+LOCK_FILE="/tmp/claude-cron.lock"
+
+# === 锁机制（防止重复执行） ===
+exec 200>"$LOCK_FILE"
+if ! flock -n 200; then
+    echo "[$(date)] 另一个实例正在运行，退出" >> "$LOG_FILE"
+    exit 0
+fi
+
+# === 主执行函数 ===
+main() {
+    echo "=== Claude Code Cron 执行开始: $(date) ===" | tee -a "$LOG_FILE"
+
+    cd "$PROJECT_DIR" || exit 1
+
+    # 使用超时和权限跳过执行
+    timeout "$TIMEOUT_SEC" claude code . \
+        --prompt "检查项目代码质量：
+        1. 代码规范问题
+        2. 潜在安全风险
+        3. 性能优化建议
+        4. 测试覆盖率评估
+
+        用中文输出 Markdown 格式报告。" \
+        --dangerously-skip-permissions \
+        --max-turns "$MAX_TURNS" \
+        --output "$REPORT_DIR/analysis-$TIMESTAMP.md" \
+        2>&1 | tee -a "$LOG_FILE"
+
+    EXIT_CODE=${PIPESTATUS[0]}
+
+    if [ $EXIT_CODE -eq 0 ]; then
+        echo "=== 执行成功: $(date) ===" | tee -a "$LOG_FILE"
+        # 可选：发送成功通知
+        # notify_send "✅ Claude Code 自动化完成"
+    else
+        echo "=== 执行失败 (退出码: $EXIT_CODE): $(date) ===" | tee -a "$LOG_FILE"
+        # 可选：发送失败通知
+        # notify_send "❌ Claude Code 自动化失败"
+    fi
+
+    return $EXIT_CODE
+}
+
+# === 执行并记录 ===
+main
+EXIT_CODE=$?
+
+flock -u 200
+exit $EXIT_CODE
+```
+
+### Crontab 配置示例
+
+```bash
+# 编辑 crontab
+crontab -e
+
+# 添加定时任务（带完整路径和环境变量）
+HOME=/home/user
+PATH=/usr/local/bin:/usr/bin:/bin:/home/user/.local/bin
+
+# 每天早上 9:00 执行代码审查
+0 9 * * * /home/user/claude-automation/scripts/daily-review.sh >> /home/user/claude-automation/logs/cron.log 2>&1
+
+# 每周一 10:00 执行依赖安全检查
+0 10 * * 1 /home/user/claude-automation/scripts/dependency-check.sh
+
+# 每小时执行轻量健康检查
+0 * * * * /home/user/claude-automation/scripts/health-check.sh
+```
+
+### 调试技巧
+
+```bash
+# 1. 手动测试脚本（模拟 cron 环境）
+env -i PATH="$PATH" HOME="$HOME" /home/user/claude-automation/scripts/test.sh
+
+# 2. 查看 cron 执行日志
+tail -f /var/log/syslog | grep CRON
+tail -f ~/claude-automation/logs/cron-*.log
+
+# 3. 测试权限跳过是否生效
+claude code . --prompt "echo test" --dangerously-skip-permissions --dry-run
+
+# 4. 检查 Claude 版本
+claude --version
+```
+
 ## 常见问题
 
 **Q: Cron 任务执行失败，提示找不到 claude 命令？**
@@ -490,12 +718,15 @@ A: 目前没有。根据 [GitHub Issue #30649](https://github.com/anthropics/cla
 - [Claude Code Hooks 官方文档](https://code.claude.com/docs/en/hooks) - Hooks 参考文档
 - [Claude Code Hooks 入门指南](https://code.claude.com/docs/en/hooks-guide) - 入门教程
 - [GitHub Issue #30649 - Scheduled/Cron Support](https://github.com/anthropics/claude-code/issues/30649) - 功能请求
+- [GitHub Issue #581 - Non-interactive permissions bug](https://github.com/anthropics/claude-code/issues/581) - 权限已知问题
 
 ### 社区资源
 - [Claude Code + Cron Automation Complete Guide](https://smartscope.blog/en/generative-ai/claude/claude-code-cron-schedule-automation-complete-guide-2025/) - SmartScope 完整教程
 - [Scheduled Tasks: How to Put Claude on Autopilot](https://atalupadhyay.wordpress.com/2026/03/02/scheduled-tasks-how-to-put-claude-on-autopilot/) - 自动化教程
+- [Claude Code --dangerously-skip-permissions Guide](https://morphllm.com/claude-code-dangerously-skip-permissions) - 权限系统完整指南
 - [Reddit: Claude now works my night shift](https://www.reddit.com/r/ClaudeAI/comments/1qflv3y/claude_now_works_my_night_shift_heres_how_i_set/) - 用户实践经验
 - [TheNeuron: Automate Recurring Tasks](https://www.theneuron.ai/explainer-articles/claude-code-recurring-automations-tutorial/) - 非技术用户教程
+- [Claude Code CLI Cheatsheet](https://shipyard.build/blog/claude-code-cheat-sheet/) - 命令速查表
 
 ### 视频教程
 - [The AI Agent Cron Job Inception Strategy](https://www.youtube.com/watch?v=0Y0jbaoREHc) - YouTube
