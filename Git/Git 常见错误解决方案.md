@@ -171,6 +171,210 @@ git pull origin main --allow-unrelated-histories
 
 ## 历史回退问题
 
+### Git reset 后与远程仓库冲突
+
+> [!warning] 常见问题
+> 使用 `git reset` 回退版本后，本地历史与远程分叉，推送时会被拒绝。
+
+#### 问题场景
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    历史分叉示意图                              │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  远程仓库:  A --- B --- C --- D --- E                      │
+│                                                             │
+│  本地 reset:  A --- B --- C                                    │
+│                   ↓                                       │
+│  本地落后:     A --- B --- C --- F --- G                      │
+│                                                             │
+│  推送时被拒绝！                                               │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### 错误信息
+
+```text
+! [rejected]        main -> main (fetch first)
+error: failed to push some refs to '...'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes before pushing again.
+```
+
+#### 原因分析
+
+| 操作 | 结果 |
+|------|------|
+| `git reset --hard` | 本地历史被改写 |
+| 远程仓库有新提交 | 本地落后远程 |
+| 直接推送 | Git 安全机制拒绝 |
+
+---
+
+#### 解决方案一：强制推送（个人项目）
+
+> [!danger] 警告
+> 此方法会**改写远程历史**，删除被回退的提交。仅适用于：
+> - 个人项目
+> - 确认没有其他人基于该分支工作
+> - 你完全理解后果
+
+```bash
+# 1. 本地回退到指定版本
+git reset --hard <commit-id>
+
+# 2. 强制推送到远程
+git push --force
+# 或使用更安全的 force-with-lease
+git push --force-with-lease origin main
+```
+
+**force vs force-with-lease 对比**：
+
+| 选项 | 安全性 | 说明 |
+|------|--------|------|
+| `--force` | 低 | 强制覆盖，不管远程是否有新提交 |
+| `--force-with-lease` | 高 | 仅在本地基于远程最新状态时才允许推送 |
+
+> [!tip] 推荐使用
+> 优先使用 `git push --force-with-lease`，更安全。
+
+---
+
+#### 解决方案二：Revert（团队协作推荐）
+
+> [!tip] 推荐方案
+> 适用于已推送的提交，创建新的提交来撤销，保留完整历史。
+
+```bash
+# 撤销指定的提交（创建新提交）
+git revert <commit-id>
+
+# 如果需要撤销多个提交
+git revert <commit-id-1>..<commit-id-2>
+
+# 推送（不需要 force）
+git push origin main
+```
+
+**Revert 的优势**：
+- 不改写历史记录
+- 保留所有原始提交
+- 团队协作安全
+
+---
+
+#### 解决方案三：Reset + Force（特定场景）
+
+> [!danger] 谨慎使用
+> 适用于本地未推送的提交，或确信需要删除远程提交的情况。
+
+```bash
+# 1. 确认本地状态
+git status
+git log --oneline -5
+
+# 2. 回退到指定版本
+git reset --hard <commit-id>
+
+# 3. 强制推送
+git push --force origin main
+```
+
+---
+
+#### 解决方案四：先同步再回退
+
+如果你想在回退的同时保留远程的新提交：
+
+```bash
+# 1. 先拉取远程更新
+git fetch origin
+
+# 2. 创建备份分支
+git branch backup-branch origin/main
+
+# 3. 回退到指定版本
+git reset --hard <commit-id>
+
+# 4. 如果需要合并远程的新提交
+git rebase origin/main
+
+# 5. 解决冲突后推送
+git push origin main --force-with-lease
+```
+
+---
+
+#### 完整操作流程（安全版）
+
+```bash
+#!/bin/bash
+# 安全回退流程脚本
+
+echo "=== Git Reset 安全流程 ==="
+echo ""
+
+# 1. 检查当前状态
+echo "1. 当前状态："
+git status
+echo ""
+
+# 2. 查看本地历史
+echo "2. 本地最近5次提交："
+git log --oneline -5
+echo ""
+
+# 3. 查看远程历史
+echo "3. 远程最近5次提交："
+git log origin/main --oneline -5
+echo ""
+
+# 4. 创建备份分支
+echo "4. 创建备份分支..."
+git branch backup-before-reset-$(date +%Y%m%d)
+echo "备份分支: backup-before-reset-$(date +%Y%m%d)"
+echo ""
+
+# 5. 执行回退
+echo "5. 执行回退到指定版本..."
+read -p "输入要回退到的 commit ID: " target_commit
+git reset --hard $target_commit
+echo ""
+
+# 6. 尝试推送（安全提示）
+echo "6. 准备强制推送..."
+echo "⚠️  此操作将改写远程历史！"
+read -p "确认推送? (yes/no): " confirm
+
+if [ "$confirm" = "yes" ]; then
+    # 使用 force-with-lease 更安全
+    git push --force-with-lease origin main
+    echo "✅ 推送成功！"
+else
+    echo "❌ 推送已取消"
+    echo "如需恢复，使用: git reset --hard backup-before-reset-$(date +%Y%m%d)"
+fi
+
+echo ""
+echo "=== 流程完成 ==="
+```
+
+---
+
+#### 场景对比表
+
+| 场景 | 推荐方案 | 命令 |
+|------|----------|------|
+| 本地未提交，个人项目 | Reset + Force | `git reset --hard` + `git push -f` |
+| 本地已推送，个人项目 | Reset + Force | `git reset --hard` + `git push -f` |
+| 本地已推送，团队协作 | Revert | `git revert` + `git push` |
+| 保留远程新提交 | Sync + Reset | `git fetch` + `git rebase` |
+
+---
+
 ### 误操作后恢复
 
 #### 使用 reflog 恢复
