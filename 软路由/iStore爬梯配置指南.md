@@ -1,7 +1,7 @@
 ---
 tags: [istore, openwrt, 代理, 爬梯, passwall, homeproxy]
 created: 2026-03-04
-updated: 2026-03-04
+updated: 2026-03-07
 ---
 
 # iStore 爬梯配置指南
@@ -357,9 +357,307 @@ opkg install luci-app-istore
 
 ---
 
-## 六、常见问题
+## 六、故障排查与高级安装方法
 
-### Q1：Passwall 和 Passwall2 有什么区别？
+> [!warning] 常见问题
+> 如果你在 iStore 软件中心找不到插件，或者命令行安装失败，请按照以下步骤排查和解决。
+
+### 6.1 问题诊断清单
+
+**第一步：检查系统信息**
+
+```bash
+# SSH 登录路由器后执行
+
+# 查看系统架构
+cat /etc/openwrt_release | grep ARCH
+
+# 查看系统版本
+cat /etc/openwrt_release | grep VERSION
+
+# 查看可用存储空间
+df -h
+
+# 检查系统时间（时间错误会导致 SSL 证书验证失败）
+date
+```
+
+**第二步：诊断安装失败原因**
+
+```bash
+# 更新软件源（查看错误信息）
+opkg update
+
+# 常见错误及原因：
+# - "Failed to download" → 网络问题或软件源失效
+# - "Signature check failed" → 系统时间错误或证书问题
+# - "Cannot install package" → 依赖缺失或架构不匹配
+# - "No space left" → 存储空间不足
+```
+
+### 6.2 解决方案
+
+#### 方案一：更换国内镜像源（推荐首选）
+
+> [!info] 📚 来源
+> - [OpenWrt opkg 安装失败排查](https://comate.baidu.com/zh/page/f8kkxs8i7e0) - 百度 Comate
+> - [OpenWrt 第三方软件源配置](https://cxorz.com/blog/openwrt-thirdparty) - Hanasaki 博客
+
+```bash
+# 备份原配置
+cp /etc/opkg/distfeeds.conf /etc/opkg/distfeeds.conf.bak
+
+# 编辑软件源配置
+vi /etc/opkg/distfeeds.conf
+
+# 将默认源替换为国内镜像（以清华源为例）
+# 原地址：downloads.openwrt.org
+# 替换为：mirrors.tuna.tsinghua.edu.cn/openwrt
+
+# 示例（根据你的系统版本调整路径）：
+# src/gz openwrt_core https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/23.05.4/targets/x86/64/packages
+# src/gz openwrt_base https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/23.05.4/packages/x86_64/base
+# src/gz openwrt_luci https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/23.05.4/packages/x86_64/luci
+
+# 保存后更新
+opkg update
+```
+
+**其他国内镜像源**：
+| 镜像源 | 地址 |
+|--------|------|
+| 清华大学 | `mirrors.tuna.tsinghua.edu.cn/openwrt` |
+| 中科大 | `mirrors.ustc.edu.cn/openwrt` |
+| 阿里云 | `mirrors.aliyun.com/openwrt` |
+| 腾讯云 | `mirrors.cloud.tencent.com/openwrt` |
+
+#### 方案二：添加第三方软件源
+
+> [!info] 📚 来源
+> - [kenzok8 软件包仓库](https://github.com/kenzok8/openwrt-packages) - GitHub
+
+如果你的系统软件源中没有需要的插件，可以添加第三方源：
+
+```bash
+# 编辑自定义软件源
+vi /etc/opkg/customfeeds.conf
+
+# 添加 kenzok8 第三方源（根据你的架构选择）
+# x86_64 架构：
+src/gz kenzo https://op.dllkids.xyz/packages/x86_64
+
+# aarch64 架构：
+# src/gz kenzo https://op.dllkids.xyz/packages/aarch64_cortex-a53
+
+# 保存后更新
+opkg update
+
+# 然后尝试安装
+opkg install luci-app-passwall2
+```
+
+**可用的第三方软件源**：
+| 源名称 | 适用场景 | 说明 |
+|--------|----------|------|
+| kenzok8 | 通用插件 | 包含大量常用插件 |
+| 小宝源 | Lean 固件 | 适配 Lean 编译的固件 |
+
+#### 方案三：手动下载 ipk 安装
+
+如果软件源都无法使用，可以手动下载 ipk 包安装：
+
+```bash
+# 1. 确认系统架构
+cat /etc/openwrt_release | grep ARCH
+# 常见架构：x86_64, aarch64_cortex-a53, mipsel_24kc
+
+# 2. 下载 ipk 包（示例）
+cd /tmp
+wget https://github.com/xiaorouji/openwrt-passwall2/releases/download/v1.28/luci-app-passwall2_1.28_all.ipk
+
+# 3. 安装（忽略依赖）
+opkg install --force-depends luci-app-passwall2_*.ipk
+
+# 4. 如果提示缺少依赖，逐个安装
+opkg install <缺失的依赖包名>
+```
+
+**常用 ipk 下载地址**：
+- [Passwall2 Releases](https://github.com/xiaorouji/openwrt-passwall2/releases)
+- [kenzok8 Packages](https://github.com/kenzok8/openwrt-packages)
+
+#### 方案四：通过 GitHub Raw 安装（iStoreOS 专用）
+
+```bash
+# iStoreOS 可以使用一键脚本
+# 进入 SSH 后执行：
+
+# 安装 iStore（如果未安装）
+wget -qO- https://raw.githubusercontent.com/linkease/istore/main/scripts/install.sh | sh
+
+# 或使用备用安装脚本
+cd /tmp
+wget https://github.com/linkease/openwrt-app-actions/raw/main/applications/luci-app-systools/root/usr/share/systools/istore-reinstall.run
+chmod +x istore-reinstall.run
+./istore-reinstall.run
+```
+
+### 6.3 常见错误解决
+
+#### 错误 1：Checksum mismatch
+
+```bash
+# 错误信息：Collected errors: * pkg_hash_check_checksum: ... Checksum mismatch
+
+# 解决方案：清除缓存后重试
+rm -rf /tmp/opkg-lists/*
+opkg update
+```
+
+#### 错误 2：SSL certificate problem
+
+```bash
+# 错误信息：SSL certificate problem: unable to get local issuer certificate
+
+# 原因：系统时间不正确
+# 解决方案：同步系统时间
+ntpd -n -q -p pool.ntp.org
+
+# 或手动设置时间
+date -s "2026-03-07 12:00:00"
+```
+
+#### 错误 3：依赖缺失
+
+```bash
+# 错误信息：Cannot install package ... required dependency ... is not available
+
+# 解决方案 1：先更新软件源
+opkg update
+
+# 解决方案 2：强制安装（可能不稳定）
+opkg install --force-depends <package>
+
+# 解决方案 3：手动下载依赖包安装
+# 到软件源网站搜索缺失的依赖包，下载后安装
+```
+
+#### 错误 4：存储空间不足
+
+```bash
+# 错误信息：No space left on device
+
+# 检查空间
+df -h
+
+# 清理缓存
+rm -rf /tmp/opkg-lists/*
+rm -rf /tmp/*
+
+# 卸载不用的插件
+opkg list-installed | grep luci-app
+opkg remove <不用的插件>
+```
+
+#### 错误 5：架构不匹配
+
+```bash
+# 错误信息：package architecture ... is incompatible
+
+# 检查当前架构
+cat /etc/openwrt_release | grep ARCH
+
+# 确保下载的 ipk 架构与系统匹配
+# 常见架构对应：
+# - x86_64：软路由、虚拟机
+# - aarch64_cortex-a53：树莓派4、NanoPi
+# - mipsel_24kc：路由器原厂
+```
+
+### 6.4 完整排查流程
+
+```bash
+#!/bin/bash
+# 故障排查脚本 - 复制到路由器 SSH 执行
+
+echo "=== iStoreOS 插件安装故障排查 ==="
+echo ""
+
+echo "1. 系统信息："
+cat /etc/openwrt_release
+echo ""
+
+echo "2. 存储空间："
+df -h
+echo ""
+
+echo "3. 系统时间："
+date
+echo ""
+
+echo "4. 网络连通性："
+ping -c 3 baidu.com
+echo ""
+
+echo "5. 软件源配置："
+cat /etc/opkg/distfeeds.conf
+echo ""
+
+echo "6. 尝试更新软件源："
+opkg update
+echo ""
+
+echo "7. 搜索目标插件："
+opkg list | grep -i passwall
+echo ""
+
+echo "=== 排查完成 ==="
+```
+
+> [!info] 📚 来源
+> - [OpenWrt 软件源与核心版本不兼容问题](https://blog.csdn.net/qq_45955249/article/details/145365082) - CSDN
+> - [恩山论坛：软件源失败问题讨论](https://www.right.com.cn/forum/thread-4066751-1-1.html) - 恩山无线
+
+---
+
+## 七、常见问题
+
+### Q1：软件中心找不到插件怎么办？
+
+> [!tip] 快速解决
+> 按顺序尝试以下方法，通常第一种就能解决问题。
+
+**解决步骤**：
+
+1. **检查软件源**：进入 **系统 → 软件包 → 配置**，   确保软件源地址正确
+
+2. **更新软件列表**：点击「更新列表」
+
+3. **更换镜像源**：如果更新失败，参考 [[#6.2 解决方案]] 更换国内镜像
+
+4. **手动安装**：使用 SSH 命令行安装
+   ```bash
+   opkg update
+   opkg install luci-app-passwall2
+   ```
+
+5. **离线安装**：下载 ipk 文件手动安装（参考 [[#6.3 高级安装方法]]）
+
+### Q2：命令行 opkg install 失败怎么办？
+
+**常见错误及解决**：
+
+| 错误信息 | 原因 | 解决方案 |
+|----------|------|----------|
+| `Failed to download` | 网络问题 | 检查网络、更换镜像源 |
+| `Signature check failed` | 时间错误 | 设置正确的系统时间 |
+| `Cannot install package` | 依赖缺失 | 添加第三方源或手动安装依赖 |
+| `No space left` | 存储不足 | 清理缓存、卸载不用的插件 |
+| `architecture incompatible` | 架构不匹配 | 下载正确架构的 ipk |
+
+**详细排查步骤**：参考 [[#6.1 问题诊断清单]]
+
+### Q3：Passwall 和 Passwall2 有什么区别？
 
 | 特性 | Passwall | Passwall2 |
 |------|----------|-----------|
@@ -368,7 +666,7 @@ opkg install luci-app-istore
 | 性能 | 中等 | 更好 |
 | 推荐场景 | 需要全部功能 | 追求稳定 |
 
-### Q2：订阅更新后没有节点？
+### Q4：订阅更新后没有节点？
 
 **排查步骤**：
 1. 检查订阅地址是否正确
@@ -376,20 +674,20 @@ opkg install luci-app-istore
 3. 尝试关闭代理后更新订阅
 4. 查看日志排查错误
 
-### Q3：代理后国内网站访问慢？
+### Q5：代理后国内网站访问慢？
 
 **解决方案**：
 1. 确保分流规则正确配置
 2. 检查国内域名/IP 是否在直连规则中
 3. 确保 geoip 和 geosite 规则已启用
 
-### Q4：如何在多台设备间同步配置？
+### Q6：如何在多台设备间同步配置？
 
 1. 导出配置文件（通常是 JSON 格式）
 2. 在新设备导入配置
 3. 或使用 iStoreOS 的云同步功能
 
-### Q5：如何查看代理是否生效？
+### Q7：如何查看代理是否生效？
 
 ```bash
 # 方法1：访问 IP 检测网站
@@ -438,6 +736,7 @@ curl ip.sb
 - [iStore 项目地址](https://gitcode.com/gh_mirrors/is/istore) - GitCode
 - [Passwall2 GitHub](https://github.com/xiaorouji/openwrt-passwall2) - xiaorouji
 - [ImmortalWrt 官网](https://immortalwrt.org) - 官方网站
+- [kenzok8 软件包仓库](https://github.com/kenzok8/openwrt-packages) - 第三方插件源
 
 ### 社区资源
 - [OpenWRT PassWall2 配置教程](https://blog.renfei.net/posts/1626402130325676130) - Renfei Blog
@@ -446,6 +745,12 @@ curl ip.sb
 - [iStore 配置NAS及https证书](https://cloud.tencent.com/developer/article/2548409) - 腾讯云
 - [OpenWRT应用商店iStore安装指南](https://m.blog.csdn.net/gitblog_00809/article/details/156035594) - CSDN
 
+### 故障排查资源
+- [OpenWrt opkg 安装失败排查](https://comate.baidu.com/zh/page/f8kkxs8i7e0) - 百度 Comate
+- [OpenWrt 第三方软件源配置](https://cxorz.com/blog/openwrt-thirdparty) - Hanasaki 博客
+- [OpenWrt 软件源与版本不兼容问题](https://blog.csdn.net/qq_45955249/article/details/145365082) - CSDN
+- [恩山论坛：软件源失败问题讨论](https://www.right.com.cn/forum/thread-4066751-1-1.html) - 恩山无线
+
 ### 第三方文档
 - [HomeProxy 使用教程](https://m.blog.csdn.net/gitblog_00739/article/details/146973499) - CSDN
 - [HomeProxy自动配置工具](https://m.blog.csdn.net/gitblog_00046/article/details/147387886) - CSDN
@@ -453,4 +758,4 @@ curl ip.sb
 
 ---
 
-**最后更新**：2026-03-04
+**最后更新**：2026-03-07
