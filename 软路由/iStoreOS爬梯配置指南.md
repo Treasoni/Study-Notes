@@ -108,21 +108,75 @@ updated: 2026-03-07
 > - [iStoreOS 软路由Passwall/Passwall2 进阶教程](https://www.youtube.com/watch?v=ifhmuCG8aHs) - YouTube
 > - [iStoreOS 软路由使用Passwall2](https://www.youtube.com/watch?v=vBFZtvWPqzQ) - YouTube
 
-### 2.3 命令行安装（备选）
+### 2.3 iStore 不可用时的备选安装方案
 
-如果 iStore 中找不到插件，可以使用命令行安装：
+> [!warning] 如果 iStore 中找不到插件
+> 以下是两种常用的备选安装方法：
+
+#### 方案 A：添加官方软件源（推荐）
+
+> [!tip] ✅ 推荐首选
+> 这是 2026 年最新的官方安装方案，使用 SourceForge 官方源，稳定可靠。
 
 ```bash
-# SSH 登录路由器后执行
+# 1. 添加 opkg key
+cd /tmp
+wget -O passwall.pub https://master.dl.sourceforge.net/project/openwrt-passwall-build/passwall.pub
+opkg-key add /tmp/passwall.pub
 
-# 更新软件包列表
+# 2. 自动写入软件源（根据系统版本和架构自动配置）
+read release arch << EOF
+$(. /etc/openwrt_release ; echo ${DISTRIB_RELEASE%.*} $DISTRIB_ARCH)
+EOF
+
+for feed in passwall_luci passwall_packages passwall2; do
+  echo "src/gz $feed https://master.dl.sourceforge.net/project/openwrt-passwall-build/releases/packages-$release/$arch/$feed" >> /etc/opkg/customfeeds.conf
+done
+
+# 3. 更新索引
 opkg update
 
-# 安装 Passwall2
-opkg install luci-app-passwall2
+# 4. 安装 Passwall 或 Passwall2
+opkg install luci-app-passwall      # Passwall
+opkg install luci-app-passwall2     # Passwall2（推荐）
 
-# 安装后刷新页面
+# 5. 刷新管理界面
+/etc/init.d/uhttpd restart
+
+# 6. 安装汉化（可选）
+opkg install luci-i18n-passwall-zh-cn
+opkg install luci-i18n-passwall2-zh-cn
 ```
+
+> [!info] 📚 来源
+> - [2026年最新PassWall安装教程](https://naiyous.com/10535.html) - 奶油之家
+
+#### 方案 B：使用第三方固件
+
+如果官方源仍无法使用，可以考虑：
+
+1. **使用预装插件的第三方固件**
+   - 从 `https://github.com/AUK9527/Are-u-ok` 下载
+   - 某些社区版本预装了代理插件
+
+2. **手动下载 IPK 包安装**
+   ```bash
+   # 1. 确认系统架构
+   cat /etc/openwrt_release | grep ARCH
+
+   # 2. 下载 IPK 包（示例）
+   cd /tmp
+   wget https://github.com/xiaorouji/openwrt-passwall2/releases/download/v1.28/luci-app-passwall2_1.28_all.ipk
+
+   # 3. 安装（忽略依赖）
+   opkg install --force-depends luci-app-passwall2_*.ipk
+
+   # 4. 如果提示缺少依赖，逐个安装
+   opkg install <缺失的依赖包名>
+   ```
+
+> [!danger] 注意
+> 第三方固件可能存在安全风险，请从可信渠道获取。
 
 ---
 
@@ -157,7 +211,72 @@ opkg install luci-app-passwall2
 > - [OpenClash 官方教程](https://openclash.org/) - 官方网站
 > - [OpenClash 安装指南](https://clashproxy.net/openclash) - 配置教程
 
-### 2.3 配置文件订阅
+### 2.3 iStore 不可用时的备选安装方案
+
+> [!warning] 如果 iStore 中找不到插件
+> 以下是两种常用的备选安装方法：
+
+#### 方案 A：添加官方软件源（推荐）
+
+> [!tip] ✅ 推荐首选
+> 这是 2026 年最新的官方安装方案，使用 SourceForge 官方源，稳定可靠。
+
+```bash
+# 1. 添加 opkg key
+cd /tmp
+wget -O passwall.pub https://master.dl.sourceforge.net/project/openwrt-passwall-build/passwall.pub
+opkg-key add /tmp/passwall.pub
+
+# 2. 自动写入软件源（根据系统版本和架构自动配置）
+read release arch << EOF
+$(. /etc/openwrt_release ; echo ${DISTRIB_RELEASE%.*} $DISTRIB_ARCH)
+EOF
+
+for feed in passwall_luci passwall_packages passwall2; do
+  echo "src/gz $feed https://master.dl.sourceforge.net/project/openwrt-passwall-build/releases/packages-$release/$arch/$feed" >> /etc/opkg/customfeeds.conf
+done
+
+# 3. 更新索引
+opkg update
+
+# 4. 安装 OpenClash
+opkg install luci-app-openclash
+
+# 5. 刷新管理界面
+/etc/init.d/uhttpd restart
+```
+
+> [!info] 📚 来源
+> - [2026年最新PassWall安装教程](https://naiyous.com/10535.html) - 奶油之家
+
+#### 方案 B：使用第三方固件
+
+如果官方源仍无法使用，可以考虑：
+
+1. **使用预装插件的第三方固件**
+   - 从 `https://github.com/AUK9527/Are-u-ok` 下载
+   - 某些社区版本预装了代理插件
+
+2. **手动下载 IPK 包安装**
+   ```bash
+   # 1. 确认系统架构
+   cat /etc/openwrt_release | grep ARCH
+
+   # 2. 下载 OpenClash IPK 包
+   cd /tmp
+   wget https://github.com/vernesong/OpenClash/releases/download/v0.46.033-beta/luci-app-openclash_0.46.033-beta_all.ipk
+
+   # 3. 安装（忽略依赖）
+   opkg install --force-depends luci-app-openclash_*.ipk
+
+   # 4. 如果提示缺少依赖，逐个安装
+   opkg install <缺失的依赖包名>
+   ```
+
+> [!danger] 注意
+> 第三方固件可能存在安全风险，请从可信渠道获取。
+
+### 2.4 配置文件订阅
 
 #### 步骤 1：进入配置订阅
 
@@ -184,7 +303,7 @@ opkg install luci-app-passwall2
 > - [OpenClash 付费节点教程](https://clash.guide/clients/router/openclash.html) - Clash Guide
 > - [GitHub 详细设置方案](https://github.com/Aethersailor/Custom_OpenClash_Rules/wiki/OpenClash-%25E8%25AE%25BE%25E7%25BD%25AE%25E6%2596%25B9%25E6%25A1%2588) - GitHub Wiki
 
-### 2.4 启动代理
+### 2.5 启动代理
 
 #### 步骤 1：选择配置
 
@@ -204,7 +323,7 @@ opkg install luci-app-passwall2
 curl ip.sb
 ```
 
-### 2.5 规则设置
+### 2.6 规则设置
 
 OpenClash 的规则系统非常灵活：
 
@@ -233,7 +352,7 @@ OpenClash 的规则系统非常灵活：
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### 2.6 核心模式选择
+### 2.7 核心模式选择
 
 | 模式 | 说明 | 推荐场景 |
 |------|------|----------|
