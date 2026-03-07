@@ -186,7 +186,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
@@ -205,7 +205,7 @@
       "claudian:Open Claudian": false
     }
   },
-  "active": "746e3216e1c18840",
+  "active": "34f9a07fa8b1d119",
   "lastOpenFiles": [
     "AI学习/00-索引/MOC.md",
     "软路由/iStoreOS爬梯配置指南.md",
