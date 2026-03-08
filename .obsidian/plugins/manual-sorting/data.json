@@ -2,7 +2,10 @@
   "customOrder": {
     "/": {
       "children": [
-        "软路由",
+        "软路由教程",
+        "N8N定时抓取热点资讯指南.md",
+        "RSS使用指南.md",
+        "Shell脚本入门教程.md",
         "CLAUDE.md",
         "环境变量使用指南.md",
         "硬件解码vs软件解码.md",
@@ -38,9 +41,11 @@
       ],
       "sortOrder": "custom"
     },
-    "软路由": {
+    "软路由教程": {
       "children": [
-        "软路由/iStoreOS爬梯配置指南.md"
+        "软路由教程/软路由教程MOC.md",
+        "软路由教程/主流软路由系统对比与选择指南.md",
+        "软路由教程/iStoreOS爬梯配置指南.md"
       ],
       "sortOrder": "custom"
     },
@@ -78,6 +83,8 @@
     },
     "AI学习/02-工具使用": {
       "children": [
+        "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
+        "AI学习/02-工具使用/Claude Code 模型与推理设置.md",
         "AI学习/02-工具使用/assets",
         "AI学习/02-工具使用/Tailscale使用指南.md",
         "AI学习/02-工具使用/Claude Code 自定义斜杠命令教程.md",
@@ -125,6 +132,7 @@
     },
     "AI学习/05-其他主题/openclaw": {
       "children": [
+        "AI学习/05-其他主题/openclaw/OpenClaw多智能体协作指南.md",
         "AI学习/05-其他主题/openclaw/OpenClaw网关开机自启与HTTPS配置.md",
         "AI学习/05-其他主题/openclaw/OpenClaw常用命令速查.md",
         "AI学习/05-其他主题/openclaw/OpenClaw MOC.md",
