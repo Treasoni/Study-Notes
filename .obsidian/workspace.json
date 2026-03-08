@@ -25,10 +25,14 @@
             "id": "ed2f902d0c58e84f",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "linux/linux的文件权限.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "linux的文件权限"
             }
           }
         ],
@@ -167,12 +171,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "linux/linux的文件权限.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "linux的文件权限 的大纲"
             }
           },
           {
@@ -196,7 +201,7 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -216,7 +221,7 @@
       "obsidian42-brat:BRAT": false
     }
   },
-  "active": "ed2f902d0c58e84f",
+  "active": "746e3216e1c18840",
   "lastOpenFiles": [
     "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
     "AI学习/02-工具使用/launchd-configs/install-ai-news-launchd.sh",
