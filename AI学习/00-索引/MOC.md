@@ -48,7 +48,7 @@ Claude Code 的安装、配置和日常使用。
 
 | 文档 | 标签 | 摘要 |
 |------|------|------|
-| [[02-工具使用/Claude Code 定时任务自动化指南]] | `claude-code`, `自动化`, `cron` | Claude Code + Cron 定时自动化，代码审查、依赖监控、自动重构 |
+| [[02-工具使用/Claude Code 定时任务自动化指南]] | `claude-code`, `自动化`, `launchd`, `cron` | Claude Code 定时自动化（macOS 用 launchd，Linux 用 cron），代码审查、依赖监控、自动重构 |
 | [[N8N定时抓取热点资讯指南]] | `n8n`, `自动化`, `智谱AI` | N8N工作流自动化工具，定时抓取RSS热点资讯并调用智谱AI分析 |
 | [[RSS使用指南]] | `rss`, `信息聚合`, `阅读器` | RSS订阅协议详解，包含概念、阅读器选择、RSSHub使用和自建方案 |
 
