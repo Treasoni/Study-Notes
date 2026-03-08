@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- 任务唯一标识符 -->
+    <key>Label</key>
+    <string>com.user.ai-news-daily</string>
+
+    <!-- 执行的命令：zsh + shell 脚本内容 -->
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/zsh</string>
+        <string>-c</string>
+        <string>cd /Users/zhqznc/Documents/新闻 && claude --dangerously-skip-permissions -p "收集今天的AI新闻总结成文档"</string>
+    </array>
+
+    <!-- 定时计划：每天早上 9:00 执行 -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>9</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <!-- 标准输出日志 -->
+    <key>StandardOutPath</key>
+    <string>/Users/zhqznc/Documents/新闻/logs/ai-news-stdout.log</string>
+
+    <!-- 错误日志 -->
+    <key>StandardErrorPath</key>
+    <string>/Users/zhqznc/Documents/新闻/logs/ai-news-error.log</string>
+
+    <!-- 防止子进程被终止 -->
+    <key>AbandonProcessGroup</key>
+    <true/>
+
+    <!-- 设置环境变量 -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
+</dict>
+</plist>
