@@ -1,0 +1,20 @@
+{
+  "id": "conv-1772934867385-58m7641tg",
+  "title": "Update existing content with official resources",
+  "titleGenerationStatus": "success",
+  "createdAt": 1772934867385,
+  "updatedAt": 1772935165533,
+  "lastResponseAt": 1772935165533,
+  "sessionId": "cc08bfb6-44c2-4188-98b3-d89bb7e7a947",
+  "sdkSessionId": "cc08bfb6-44c2-4188-98b3-d89bb7e7a947",
+  "currentNote": "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}
