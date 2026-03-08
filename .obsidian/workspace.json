@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux/linux的文件权限.md",
+                "file": "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "linux的文件权限"
+              "title": "Claude Code 定时任务自动化指南"
             }
           }
         ],
@@ -171,13 +171,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux/linux的文件权限.md",
+                "file": "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "linux的文件权限 的大纲"
+              "title": "Claude Code 定时任务自动化指南 的大纲"
             }
           },
           {
@@ -221,8 +221,9 @@
       "obsidian42-brat:BRAT": false
     }
   },
-  "active": "746e3216e1c18840",
+  "active": "ed2f902d0c58e84f",
   "lastOpenFiles": [
+    "linux/linux的文件权限.md",
     "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
     "AI学习/02-工具使用/launchd-configs/install-ai-news-launchd.sh",
     "AI学习/02-工具使用/launchd-configs/com.user.ai-news-daily.plist",
