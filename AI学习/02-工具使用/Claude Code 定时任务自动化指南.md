@@ -1,16 +1,16 @@
 ---
-tags: [claude-code, 自动化, 定时任务, cron, hooks, 调度]
+tags: [claude-code, 自动化, 定时任务, launchd, hooks, 调度, macos]
 created: 2026-03-07
-updated: 2026-03-07
+updated: 2026-03-08
 ---
 
 > [!tip] 更新说明
-> 新增 **Cron 权限确认问题** 专题章节，解决非交互模式下 Claude 请求权限导致任务卡住的核心问题。
+> **重要更新**：将定时任务调度从 Cron 迁移到 macOS 原生 **launchd**。Cron 在 Mac 上无法正确处理系统休眠状态，launchd 是苹果推荐的解决方案，支持休眠唤醒后自动补执行。
 
 # Claude Code 定时任务自动化指南
 
 > [!info] 概述
-> **一句话定义**：通过结合操作系统级定时任务（Cron）和 Claude Code 的命令行能力，实现代码审查、依赖监控、自动重构等任务的定时自动化执行。
+> **一句话定义**：通过结合操作系统级定时任务（macOS 使用 launchd，Linux 使用 Cron）和 Claude Code 的命令行能力，实现代码审查、依赖监控、自动重构等任务的定时自动化执行。
 >
 > **通俗比喻**：就像给 Claude Code 配了一个"智能闹钟"，每天固定时间自动醒来干活——晚上帮你检查代码、周末生成报告、周一早上推送分析结果。
 
@@ -18,10 +18,17 @@ updated: 2026-03-07
 
 ### 是什么
 
-**Claude Code 定时任务自动化** 是一种将 Claude Code CLI 与操作系统调度工具（如 Cron）结合的方案，实现：
+**Claude Code 定时任务自动化** 是一种将 Claude Code CLI 与操作系统调度工具结合的方案，实现：
 - **定时执行**：每天、每周、每月自动运行任务
 - **无人值守**：夜间自动处理代码分析、备份等工作
 - **持续改进**：定期代码审查、依赖更新检查
+
+> [!important] macOS 用户注意
+> **推荐使用 launchd 而非 cron**。Cron 在 Mac 上是"二等公民"，无法正确处理系统休眠状态：
+> - 要么在不该启动时因 Power Nap 唤醒执行
+> - 要么在睡眠期间直接错过任务
+>
+> **launchd 是苹果原生方案**，核心优势：如果任务计划执行时 Mac 正在休眠，它会在 Mac 醒来后**立即补执行**。详见 [[#6. macOS 定时任务：使用 launchd 替代 cron]]
 
 ### 为什么需要
 
@@ -34,7 +41,7 @@ updated: 2026-03-07
 
 ### 通俗理解
 
-**🎯 比喻**：Claude Code + Cron 就像一个"夜间值守的程序员"
+**🎯 比喻**：Claude Code + 定时调度器 就像一个"夜间值守的程序员"
 
 ```
 [你的工作日]          [夜间的 Claude Code]
@@ -49,7 +56,7 @@ updated: 2026-03-07
 
 ```mermaid
 graph LR
-    A[Cron 定时触发<br>每天9:00] --> B[Shell 脚本]
+    A[launchd/Cron 定时触发<br>每天9:00] --> B[Shell 脚本]
     B --> C[Claude Code CLI]
     C --> D[分析项目代码]
     D --> E[生成审查报告]
@@ -62,10 +69,14 @@ graph LR
 
 > [!info] 📚 来源
 > - [Claude Code + Cron Automation Complete Guide](https://smartscope.blog/en/generative-ai/claude/claude-code-cron-schedule-automation-complete-guide-2025/) - SmartScope
+> - [launchd.info](https://www.launchd.info/) - launchd 完整教程
 
 **环境检查**：
 ```bash
-# 检查 Cron 是否可用
+# macOS: 检查 launchd 是否正常（默认总是可用）
+launchctl version
+
+# Linux: 检查 Cron 是否可用
 crontab -l
 
 # 验证 Claude Code 安装
@@ -102,7 +113,172 @@ claude code . --prompt "检查项目整体代码质量，输出改进建议：
 echo "=== Review Completed: $(date) ===" >> "$LOG_FILE"
 ```
 
-### 3. Crontab 配置
+### 3. 定时任务配置
+
+#### macOS 用户：使用 launchd（推荐）
+
+> [!info] 📚 来源
+> - [Apple Developer - Creating Launch Daemons and Agents](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html) - 官方文档
+> - [launchd.plist(5) man page](https://www.manpagez.com/man/5/launchd.plist/) - 参数参考
+> - [launchd.info](https://www.launchd.info/) - 完整教程
+
+**第一步：停止现有的 Cron 任务（如果有）**
+
+```bash
+# 查看当前 cron 任务
+crontab -l
+
+# 编辑并注释掉相关任务
+crontab -e
+# 在行首添加 # 注释掉定时任务
+```
+
+**第二步：创建 Launchd 配置文件 (Plist)**
+
+launchd 使用 `.plist` 文件定义任务，存放位置：
+- **用户级任务**：`~/Library/LaunchAgents/`（推荐）
+- **系统级任务**：`/Library/LaunchDaemons/`（需要 root）
+
+```bash
+# 创建用户级 LaunchAgent 配置
+nano ~/Library/LaunchAgents/com.user.claude-daily-review.plist
+```
+
+**完整配置示例**：
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- 任务唯一标识符（必填） -->
+    <key>Label</key>
+    <string>com.user.claude-daily-review</string>
+
+    <!-- 要执行的程序及参数 -->
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/你的用户名/claude-automation/scripts/daily-code-review.sh</string>
+    </array>
+
+    <!-- 定时计划：每天凌晨 2:00 执行 -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>2</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <!-- 标准输出日志 -->
+    <key>StandardOutPath</key>
+    <string>/Users/你的用户名/claude-automation/logs/launchd-stdout.log</string>
+
+    <!-- 错误日志 -->
+    <key>StandardErrorPath</key>
+    <string>/Users/你的用户名/claude-automation/logs/launchd-stderr.log</string>
+
+    <!-- 防止子进程被终止 -->
+    <key>AbandonProcessGroup</key>
+    <true/>
+
+    <!-- 设置环境变量 -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
+</dict>
+</plist>
+```
+
+**关键参数说明**：
+
+| 参数 | 说明 |
+|------|------|
+| `Label` | 唯一标识符，建议使用反向域名格式如 `com.user.taskname` |
+| `ProgramArguments` | 要执行的命令，第一个是可执行文件路径，后续是参数 |
+| `StartCalendarInterval` | 类似 cron 的时间调度，支持 `Hour`、`Minute`、`Day`、`Weekday`、`Month` |
+| `StartInterval` | 间隔执行，如 `3600` 表示每 3600 秒执行一次 |
+| `StandardOutPath` | 标准输出日志路径 |
+| `StandardErrorPath` | 错误日志路径 |
+| `AbandonProcessGroup` | 设为 `true` 防止 launchd 在任务结束后杀死子进程 |
+
+**时间调度示例**：
+
+```xml
+<!-- 每天 9:00 执行 -->
+<key>StartCalendarInterval</key>
+<dict>
+    <key>Hour</key>
+    <integer>9</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+</dict>
+
+<!-- 每周一 10:00 执行 -->
+<key>StartCalendarInterval</key>
+<dict>
+    <key>Weekday</key>
+    <integer>1</integer>
+    <key>Hour</key>
+    <integer>10</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+</dict>
+
+<!-- 每月 1 号 8:00 执行 -->
+<key>StartCalendarInterval</key>
+<dict>
+    <key>Day</key>
+    <integer>1</integer>
+    <key>Hour</key>
+    <integer>8</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+</dict>
+
+<!-- 每小时执行一次 -->
+<key>StartInterval</key>
+<integer>3600</integer>
+```
+
+> [!tip] 休眠补偿机制
+> **launchd 的核心优势**：如果任务计划执行时 Mac 正在休眠，它会在 Mac 醒来后**立即补执行**。
+>
+> 例如：设置凌晨 2:00 执行，但你盖上了笔记本。当你早上 8:00 打开盖子时，launchd 会检测到错过了一次任务并立即补跑。
+>
+> *来源：官方文档 "Unlike cron which skips job invocations when the computer is asleep, launchd will start the job the next time the computer wakes up."*
+
+**第三步：加载并激活任务**
+
+```bash
+# 加载任务（使其生效）
+launchctl load ~/Library/LaunchAgents/com.user.claude-daily-review.plist
+
+# 验证任务已加载
+launchctl list | grep claude
+
+# 立即测试执行（不等待定时）
+launchctl start com.user.claude-daily-review
+
+# 卸载任务
+launchctl unload ~/Library/LaunchAgents/com.user.claude-daily-review.plist
+```
+
+**常用 launchctl 命令**：
+
+| 命令 | 说明 |
+|------|------|
+| `launchctl load <plist>` | 加载任务 |
+| `launchctl unload <plist>` | 卸载任务 |
+| `launchctl start <label>` | 立即执行一次 |
+| `launchctl stop <label>` | 停止运行中的任务 |
+| `launchctl list` | 列出所有已加载任务 |
+| `launchctl list | grep <label>` | 查找特定任务 |
+| `launchctl print gui/$(id -u)/<label>` | 查看任务详情（macOS 10.10+） |
+
+#### Linux 用户：使用 Cron
 
 ```bash
 # 编辑 crontab
@@ -315,7 +491,105 @@ wait
 flock -u 200
 ```
 
-### 6. 错误处理与通知
+### 6. macOS 定时任务：使用 launchd 替代 cron
+
+> [!info] 📚 来源
+> - [launchd.plist(5) - StartCalendarInterval](https://www.manpagez.com/man/5/launchd.plist/) - 官方 man page
+> - [launchd.info - Scheduling](https://www.launchd.info/) - 教程
+
+#### 为什么 Mac 上 cron 有问题？
+
+**核心问题**：Mac 的休眠机制导致 cron 执行异常：
+
+| 问题 | 表现 |
+|------|------|
+| Power Nap 唤醒 | Mac 在睡眠期间可能因 Power Nap 功能唤醒，导致 cron 在非预期时间执行 |
+| 睡眠期间错过 | 如果 Mac 在计划执行时间处于睡眠状态，cron 会直接跳过该次执行 |
+| 无补偿机制 | cron 不会在 Mac 唤醒后补执行错过的任务 |
+
+**结论**：cron 在 macOS 上是"二等公民"，它无法处理系统的休眠和唤醒状态。
+
+#### 为什么 launchd 是更好的选择？
+
+**launchd** 是苹果专门为 macOS 设计的守护进程管理器，核心优势：
+
+1. **休眠补偿**：如果任务计划执行时 Mac 正在休眠，它会在 Mac 醒来后立即补执行
+2. **事件合并**：如果多次触发时间都在睡眠期间，唤醒后只执行一次（避免重复）
+3. **原生集成**：与 macOS 深度集成，正确处理用户登录/注销、系统休眠/唤醒
+4. **更丰富的触发条件**：支持路径监控、网络状态、挂载事件等
+
+#### 迁移步骤：从 cron 到 launchd
+
+**第一步：停止现有的 Cron 任务**
+
+```bash
+# 在终端输入
+crontab -e
+
+# 注释掉或删除那行定时任务（在行首添加 #）
+# 0 9 * * * /home/user/scripts/daily-task.sh
+
+# 保存并退出
+```
+
+**第二步：创建 Launchd 配置文件**
+
+```bash
+# 创建用户级任务配置
+nano ~/Library/LaunchAgents/com.user.myscript.plist
+```
+
+粘贴以下内容（根据需求修改路径和时间）：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.user.myscript</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/你的用户名/claude-automation/scripts/daily-code-review.sh</string>
+    </array>
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>2</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+    <key>AbandonProcessGroup</key>
+    <true/>
+</dict>
+</plist>
+```
+
+**第三步：加载并激活任务**
+
+```bash
+# 加载任务
+launchctl load ~/Library/LaunchAgents/com.user.myscript.plist
+
+# 验证加载成功
+launchctl list | grep myscript
+
+# 立即测试执行
+launchctl start com.user.myscript
+```
+
+#### Cron 与 launchd 对照表
+
+| 需求 | Cron 语法 | launchd 配置 |
+|------|-----------|-------------|
+| 每天凌晨 2:00 | `0 2 * * *` | `StartCalendarInterval` + `Hour: 2, Minute: 0` |
+| 每周一 10:00 | `0 10 * * 1` | `StartCalendarInterval` + `Weekday: 1, Hour: 10, Minute: 0` |
+| 每月 1 号 8:00 | `0 8 1 * *` | `StartCalendarInterval` + `Day: 1, Hour: 8, Minute: 0` |
+| 每小时 | `0 * * * *` | `StartInterval: 3600` |
+| 每 5 分钟 | `*/5 * * * *` | 需要列出所有时间点或使用 `StartInterval: 300` |
+
+### 7. 错误处理与通知
 
 ```bash
 #!/bin/bash
@@ -362,7 +636,7 @@ trap 'error_handler ${LINENO} $?' ERR
 } 2>&1 | tee -a "$LOG_FILE"
 ```
 
-### 7. Claude Code Hooks 集成
+### 8. Claude Code Hooks 集成
 
 > [!info] 📚 来源
 > - [Hooks reference - Claude Code Docs](https://code.claude.com/docs/en/hooks) - 官方文档
@@ -445,11 +719,14 @@ find "$LOG_DIR" -name "*.log" -mtime +$RETENTION_DAYS -exec gzip {} \;
 - 记录执行指标（成功率、耗时）
 - 定期审查日志
 
-## Cron 中的权限确认问题（⚠️ 核心痛点）
+## 非交互模式下的权限确认问题（⚠️ 核心痛点）
 
 > [!info] 📚 来源
 > - [GitHub Issue #581 - Non-interactive mode permissions bug](https://github.com/anthropics/claude-code/issues/581) - 官方已知问题
 > - [Claude Code --dangerously-skip-permissions Guide](https://morphllm.com/claude-code-dangerously-skip-permissions) - 完整权限指南
+
+> [!note] 适用于所有调度方式
+> 无论是 launchd（macOS）还是 cron（Linux），在非交互式环境中都会遇到此问题。
 
 ### 问题现象
 
@@ -559,12 +836,13 @@ WORKDIR /workspace
 ENTRYPOINT ["claude"]
 ```
 
-### 完整的 Cron 自动化脚本模板
+### 完整的定时任务自动化脚本模板
 
 ```bash
 #!/bin/bash
-# claude-cron-template.sh
-# 安全的 Claude Code Cron 自动化脚本模板
+# claude-automation-template.sh
+# 安全的 Claude Code 定时任务自动化脚本模板
+# 适用于 launchd (macOS) 和 cron (Linux)
 
 set -euo pipefail
 
@@ -580,8 +858,8 @@ export PATH="/usr/local/bin:/usr/bin:/bin:$HOME/.local/bin"
 mkdir -p "$LOG_DIR" "$REPORT_DIR"
 
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
-LOG_FILE="$LOG_DIR/cron-$TIMESTAMP.log"
-LOCK_FILE="/tmp/claude-cron.lock"
+LOG_FILE="$LOG_DIR/automation-$TIMESTAMP.log"
+LOCK_FILE="/tmp/claude-automation.lock"
 
 # === 锁机制（防止重复执行） ===
 exec 200>"$LOCK_FILE"
@@ -592,7 +870,7 @@ fi
 
 # === 主执行函数 ===
 main() {
-    echo "=== Claude Code Cron 执行开始: $(date) ===" | tee -a "$LOG_FILE"
+    echo "=== Claude Code 定时任务执行开始: $(date) ===" | tee -a "$LOG_FILE"
 
     cd "$PROJECT_DIR" || exit 1
 
@@ -633,7 +911,49 @@ flock -u 200
 exit $EXIT_CODE
 ```
 
-### Crontab 配置示例
+### 定时任务配置示例
+
+#### macOS launchd 配置
+
+```xml
+<!-- ~/Library/LaunchAgents/com.user.claude-daily.plist -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.user.claude-daily</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/你的用户名/claude-automation/scripts/daily-review.sh</string>
+    </array>
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>9</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+    <key>StandardOutPath</key>
+    <string>/Users/你的用户名/claude-automation/logs/launchd.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/你的用户名/claude-automation/logs/launchd-error.log</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin</string>
+    </dict>
+</dict>
+</plist>
+```
+
+```bash
+# 加载任务
+launchctl load ~/Library/LaunchAgents/com.user.claude-daily.plist
+```
+
+#### Linux Crontab 配置
 
 ```bash
 # 编辑 crontab
@@ -656,26 +976,50 @@ PATH=/usr/local/bin:/usr/bin:/bin:/home/user/.local/bin
 ### 调试技巧
 
 ```bash
-# 1. 手动测试脚本（模拟 cron 环境）
+# 1. 手动测试脚本（模拟非交互环境）
 env -i PATH="$PATH" HOME="$HOME" /home/user/claude-automation/scripts/test.sh
 
-# 2. 查看 cron 执行日志
-tail -f /var/log/syslog | grep CRON
-tail -f ~/claude-automation/logs/cron-*.log
+# 2. macOS launchd 调试
+# 查看任务状态
+launchctl list | grep claude
+# 查看任务详情
+launchctl print gui/$(id -u)/com.user.claude-daily
+# 查看日志
+tail -f ~/claude-automation/logs/launchd-*.log
+# 查看系统日志中的 launchd 信息
+log show --predicate 'subsystem == "com.apple.launchd"' --last 1h
 
-# 3. 测试权限跳过是否生效
+# 3. Linux cron 调试
+# 查看 cron 执行日志
+tail -f /var/log/syslog | grep CRON
+tail -f ~/claude-automation/logs/automation-*.log
+
+# 4. 测试权限跳过是否生效
 claude code . --prompt "echo test" --dangerously-skip-permissions --dry-run
 
-# 4. 检查 Claude 版本
+# 5. 检查 Claude 版本
 claude --version
 ```
 
 ## 常见问题
 
-**Q: Cron 任务执行失败，提示找不到 claude 命令？**
-A: Cron 环境变量有限，需在脚本开头显式设置 `PATH`，或使用完整路径 `/usr/local/bin/claude`
+**Q: macOS 上应该用 cron 还是 launchd？**
+A: **强烈推荐使用 launchd**。cron 在 Mac 上无法正确处理系统休眠：
+- 可能在 Power Nap 唤醒时意外执行
+- 可能在睡眠期间错过任务
+- 不会在唤醒后补执行错过的任务
 
-**Q: 如何调试 Cron 脚本？**
+launchd 是苹果原生方案，支持休眠补偿机制。
+
+**Q: 任务执行失败，提示找不到 claude 命令？**
+A: 非交互环境变量有限，需在脚本开头显式设置 `PATH`：
+```bash
+export PATH="/usr/local/bin:/usr/bin:/bin:$HOME/.local/bin"
+# 或使用完整路径
+/usr/local/bin/claude --version
+```
+
+**Q: 如何调试定时任务脚本？**
 A:
 ```bash
 # 添加调试信息
@@ -686,6 +1030,12 @@ DEBUG_LOG="$HOME/claude-automation/debug-$(date +%Y%m%d-%H%M).log"
     echo "PATH: $PATH"
     which claude || echo "Claude not found"
 } >> "$DEBUG_LOG" 2>&1
+
+# macOS launchd: 查看任务日志
+tail -f ~/claude-automation/logs/launchd-stderr.log
+
+# Linux cron: 查看系统日志
+tail -f /var/log/syslog | grep CRON
 ```
 
 **Q: 定时任务执行时间过长怎么办？**
@@ -704,8 +1054,27 @@ touch "$LOCK_FILE"
 rm "$LOCK_FILE"
 ```
 
+**Q: launchd 任务加载后不执行？**
+A: 检查以下几点：
+```bash
+# 1. 验证 plist 语法
+plutil -lint ~/Library/LaunchAgents/com.user.claude.plist
+
+# 2. 检查任务是否已加载
+launchctl list | grep claude
+
+# 3. 查看错误日志
+cat ~/claude-automation/logs/launchd-stderr.log
+
+# 4. 手动触发测试
+launchctl start com.user.claude-daily
+
+# 5. 检查文件权限（plist 文件不应有 group/other 写权限）
+chmod 644 ~/Library/LaunchAgents/com.user.claude.plist
+```
+
 **Q: Claude Code 有原生定时任务支持吗？**
-A: 目前没有。根据 [GitHub Issue #30649](https://github.com/anthropics/claude-code/issues/30649)，需要结合系统级 Cron 实现。
+A: 目前没有。根据 [GitHub Issue #30649](https://github.com/anthropics/claude-code/issues/30649)，需要结合系统级调度工具（launchd/cron）实现。
 
 ## 相关文档
 - [[AI学习/00-索引/MOC|AI学习索引]]
@@ -719,6 +1088,11 @@ A: 目前没有。根据 [GitHub Issue #30649](https://github.com/anthropics/cla
 - [Claude Code Hooks 入门指南](https://code.claude.com/docs/en/hooks-guide) - 入门教程
 - [GitHub Issue #30649 - Scheduled/Cron Support](https://github.com/anthropics/claude-code/issues/30649) - 功能请求
 - [GitHub Issue #581 - Non-interactive permissions bug](https://github.com/anthropics/claude-code/issues/581) - 权限已知问题
+
+### macOS launchd 资源
+- [Apple Developer - Creating Launch Daemons and Agents](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html) - 官方文档
+- [launchd.plist(5) man page](https://www.manpagez.com/man/5/launchd.plist/) - 参数参考手册
+- [launchd.info](https://www.launchd.info/) - 完整教程与示例
 
 ### 社区资源
 - [Claude Code + Cron Automation Complete Guide](https://smartscope.blog/en/generative-ai/claude/claude-code-cron-schedule-automation-complete-guide-2025/) - SmartScope 完整教程
