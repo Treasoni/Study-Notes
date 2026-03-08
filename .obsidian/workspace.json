@@ -218,10 +218,46 @@
       "bases:新建数据库": false,
       "obsidian-git:Open Git source control": false,
       "claudian:Open Claudian": false,
-      "obsidian42-brat:BRAT": false
+      "obsidian42-brat:BRAT": false,
+      "i18n:I18N": false
     }
   },
-  "active": "ed2f902d0c58e84f",
+  "floating": {
+    "id": "bc70ee72f49a85ef",
+    "type": "floating",
+    "children": [
+      {
+        "id": "4588ce7920c32286",
+        "type": "window",
+        "children": [
+          {
+            "id": "9e7219609dec978f",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "5af3e87bdbefbc48",
+                "type": "leaf",
+                "state": {
+                  "type": "i18n-download-view",
+                  "state": {},
+                  "icon": "i18n_translate",
+                  "title": "下载视图"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "vertical",
+        "x": 0,
+        "y": 37,
+        "width": 1470,
+        "height": 919,
+        "maximize": false,
+        "zoom": 0
+      }
+    ]
+  },
+  "active": "5af3e87bdbefbc48",
   "lastOpenFiles": [
     "linux/linux的文件权限.md",
     "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
