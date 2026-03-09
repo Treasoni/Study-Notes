@@ -312,10 +312,10 @@ Telegram 消息 → Gateway → Node 工具调用：
 
 | 概念 | 关系 | 说明 |
 |------|------|------|
-| [[AI学习/05-其他主题/openclaw/OpenClaw安装教程]] | 安装部署 | 如何安装 OpenClaw |
-| [[AI学习/05-其他主题/openclaw/OpenClaw安装后配置指南]] | 配置使用 | 安装后的配置方法 |
-| [[AI学习/05-其他主题/openclaw/OpenClaw Web控制台局域网访问配置]] | 网络配置 | 如何让局域网设备访问 |
-| [[AI学习/05-其他主题/openclaw/OpenClaw对接第三方软件指南]] | 扩展集成 | Skills 和第三方集成 |
+| [[OpenClaw安装教程]] | 安装部署 | 如何安装 OpenClaw |
+| [[../配置层/OpenClaw安装后配置指南]] | 配置使用 | 安装后的配置方法 |
+| [[../配置层/OpenClaw Web控制台局域网访问配置]] | 网络配置 | 如何让局域网设备访问 |
+| [[../应用层/OpenClaw对接第三方软件指南]] | 扩展集成 | Skills 和第三方集成 |
 
 ---
 
@@ -400,11 +400,11 @@ Telegram 消息 → Gateway → Node 工具调用：
 
 ## 相关文档
 
-- [[OpenClaw MOC]] - OpenClaw 文档索引
+- [[../OpenClaw MOC]] - OpenClaw 文档索引
 - [[OpenClaw安装教程]] - 安装指南
-- [[OpenClaw安装后配置指南]] - 配置指南
-- [[OpenClaw Web控制台局域网访问配置]] - 网络配置
-- [[OpenClaw对接第三方软件指南]] - Skills 集成
+- [[../配置层/OpenClaw安装后配置指南]] - 配置指南
+- [[../配置层/OpenClaw Web控制台局域网访问配置]] - 网络配置
+- [[../应用层/OpenClaw对接第三方软件指南]] - Skills 集成
 
 ---
 

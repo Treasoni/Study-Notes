@@ -558,11 +558,11 @@ tail -f ~/.openclaw/logs/current.log
 
 ## 相关文档
 
-- [[OpenClaw MOC]] - OpenClaw 文档索引
-- [[OpenClaw核心概念]] - 核心概念
-- [[OpenClaw安装后配置指南]] - 配置指南
-- [[AI学习/05-其他主题/openclaw/OpenClaw安装教程]] - OpenClaw 安装指南
-- [[AI学习/05-其他主题/openclaw/OpenClaw数字人商业调查]] - 数字人商业调研
+- [[../OpenClaw MOC]] - OpenClaw 文档索引
+- [[../入门层/OpenClaw核心概念]] - 核心概念
+- [[../配置层/OpenClaw安装后配置指南]] - 配置指南
+- [[../入门层/OpenClaw安装教程]] - OpenClaw 安装指南
+- [[OpenClaw数字人商业调查]] - 数字人商业调研
 
 ## 参考资料
 

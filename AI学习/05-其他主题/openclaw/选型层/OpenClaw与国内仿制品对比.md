@@ -593,10 +593,10 @@ OpenClaw 已知的安全漏洞反而是商业机会：
 ## 相关文档
 
 ### OpenClaw 学习系列
-- [[OpenClaw核心概念]] - 理解什么是 AI 网关
-- [[OpenClaw安装教程]] - 安装部署指南
-- [[OpenClaw安装后配置指南]] - 配置大模型 API
-- [[OpenClaw MOC]] - 完整学习索引
+- [[../入门层/OpenClaw核心概念]] - 理解什么是 AI 网关
+- [[../入门层/OpenClaw安装教程]] - 安装部署指南
+- [[../配置层/OpenClaw安装后配置指南]] - 配置大模型 API
+- [[../OpenClaw MOC]] - 完整学习索引
 
 ### 相关技术
 - [[../../01-基础概念/Agent智能体]] - Agent 核心概念

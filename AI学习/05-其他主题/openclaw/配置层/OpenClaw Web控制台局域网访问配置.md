@@ -426,7 +426,7 @@ openclaw config set gateway.controlUi.allowedOrigins '[]'
 
 ## 相关文档
 
-- [[OpenClaw MOC]] - OpenClaw 文档索引
+- [[../OpenClaw MOC]] - OpenClaw 文档索引
 - [[OpenClaw安装后配置指南]] - 配置指南
 - [[../../02-工具使用/Tailscale使用指南]] - Tailscale VPN 组网
 

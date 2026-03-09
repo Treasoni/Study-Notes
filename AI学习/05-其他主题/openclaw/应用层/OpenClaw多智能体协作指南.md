@@ -624,8 +624,8 @@ tail -f ~/.openclaw/agents/coder/logs/current.log
 
 ## 相关文档
 
-- [[OpenClaw MOC]] - OpenClaw 文档索引
-- [[OpenClaw核心概念]] - 核心概念
+- [[../OpenClaw MOC]] - OpenClaw 文档索引
+- [[../入门层/OpenClaw核心概念]] - 核心概念
 - [[OpenClaw对接第三方软件指南]] - Skills 集成
 - [[../../01-基础概念/Agent智能体]] - Agent 基础理论
 - [[../../01-基础概念/Agent Teams智能体团队]] - 智能体团队理论

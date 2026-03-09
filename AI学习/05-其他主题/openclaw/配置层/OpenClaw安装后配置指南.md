@@ -385,9 +385,9 @@ openclaw config set gateway.port 8080
 ---
 
 ## 相关文档
-- [[AI学习/05-其他主题/openclaw/OpenClaw安装教程]] - OpenClaw 安装指南
-- [[AI学习/05-其他主题/openclaw/OpenClaw对接第三方软件指南]] - 第三方软件对接
-- [[AI学习/05-其他主题/openclaw/OpenClaw数字人商业调查]] - 商业应用调研
+- [[../入门层/OpenClaw安装教程]] - OpenClaw 安装指南
+- [[../应用层/OpenClaw对接第三方软件指南]] - 第三方软件对接
+- [[../应用层/OpenClaw数字人商业调查]] - 商业应用调研
 
 ---
 

@@ -444,10 +444,10 @@ openclaw devices approve <request-id>
 
 ## 相关文档
 
-- [[OpenClaw MOC]] - OpenClaw 文档索引
+- [[../OpenClaw MOC]] - OpenClaw 文档索引
 - [[OpenClaw安装后配置指南]] - 基础配置
 - [[OpenClaw Web控制台局域网访问配置]] - 局域网访问配置
-- [[OpenClaw常用命令速查]] - 命令速查表
+- [[../参考层/OpenClaw常用命令速查]] - 命令速查表
 - [[../../02-工具使用/Tailscale使用指南]] - Tailscale 完整指南
 
 ---

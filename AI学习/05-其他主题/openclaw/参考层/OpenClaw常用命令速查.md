@@ -404,10 +404,10 @@ openclaw config file
 
 ## 相关文档
 
-- [[OpenClaw MOC]] - OpenClaw 文档索引
-- [[OpenClaw核心概念]] - 理解 Gateway 架构
-- [[OpenClaw安装后配置指南]] - 详细配置说明
-- [[OpenClaw对接第三方软件指南]] - Skills 插件使用
+- [[../OpenClaw MOC]] - OpenClaw 文档索引
+- [[../入门层/OpenClaw核心概念]] - 理解 Gateway 架构
+- [[../配置层/OpenClaw安装后配置指南]] - 详细配置说明
+- [[../应用层/OpenClaw对接第三方软件指南]] - Skills 插件使用
 
 ---
 

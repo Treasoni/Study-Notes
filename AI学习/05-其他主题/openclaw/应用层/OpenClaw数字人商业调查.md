@@ -1192,8 +1192,8 @@ openclaw restore <backup-file>
 
 ## 相关文档
 
-- [[OpenClaw MOC]] - OpenClaw 文档索引
-- [[OpenClaw核心概念]] - 核心概念
+- [[../OpenClaw MOC]] - OpenClaw 文档索引
+- [[../入门层/OpenClaw核心概念]] - 核心概念
 - [[OpenClaw对接第三方软件指南]] - 第三方集成
 
 ---
