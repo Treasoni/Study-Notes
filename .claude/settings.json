@@ -2,7 +2,21 @@
   "permissions": {
     "allow": [
       "WebSearch",
-      "mcp__web-search-prime__web_search_prime"
+      "mcp__web-search-prime__web_search_prime",
+      "Bash(mv \"OpenClaw核心概念.md\" \"入门层/\")",
+      "Bash(mv \"OpenClaw安装教程.md\" \"入门层/\")",
+      "Bash(mv \"OpenClaw安装后配置指南.md\" \"配置层/\")",
+      "Bash(mv \"OpenClaw Web控制台局域网访问配置.md\" \"配置层/\")",
+      "Bash(mv \"OpenClaw网关开机自启与HTTPS配置.md\" \"配置层/\")",
+      "Bash(mv \"OpenClaw对接第三方软件指南.md\" \"应用层/\")",
+      "Bash(mv \"OpenClaw多智能体协作指南.md\" \"应用层/\")",
+      "Bash(mv \"OpenClaw数字人商业调查.md\" \"应用层/\")",
+      "Bash(mv \"OpenClaw本地智能助手搭建指南.md\" \"应用层/\")",
+      "Bash(mv \"OpenClaw与国内仿制品对比.md\" \"选型层/\")",
+      "Bash(mv \"OpenClaw常用命令速查.md\" \"参考层/\")"
+    ],
+    "additionalDirectories": [
+      "/Users/zhqznc/Documents/项目/AI学习/05-其他主题/openclaw"
     ]
   }
 }
