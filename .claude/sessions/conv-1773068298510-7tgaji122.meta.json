@@ -1,0 +1,20 @@
+{
+  "id": "conv-1773068298510-7tgaji122",
+  "title": "Compare OpenClaw local deployment options",
+  "titleGenerationStatus": "success",
+  "createdAt": 1773068298512,
+  "updatedAt": 1773068433363,
+  "lastResponseAt": 1773068433363,
+  "sessionId": "adfd4516-fb33-4619-95a4-692112b5d88a",
+  "sdkSessionId": "adfd4516-fb33-4619-95a4-692112b5d88a",
+  "currentNote": "AI学习/05-其他主题/openclaw/OpenClaw与国内仿制品对比.md",
+  "usage": {
+    "model": "glm-4.7",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}
