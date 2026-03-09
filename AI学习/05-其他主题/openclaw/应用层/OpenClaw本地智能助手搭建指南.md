@@ -974,11 +974,11 @@ pandoc input.pdf -o output.md
 ## 相关文档
 
 ### OpenClaw 学习系列
-- [[OpenClaw核心概念]] - 理解什么是 AI 网关
-- [[OpenClaw安装教程]] - 详细安装指南
-- [[OpenClaw安装后配置指南]] - 配置大模型 API
-- [[OpenClaw MOC]] - 完整学习索引
-- [[OpenClaw与国内仿制品对比]] - 企业选型参考
+- [[../入门层/OpenClaw核心概念]] - 理解什么是 AI 网关
+- [[../入门层/OpenClaw安装教程]] - 详细安装指南
+- [[../配置层/OpenClaw安装后配置指南]] - 配置大模型 API
+- [[../OpenClaw MOC]] - 完整学习索引
+- [[../选型层/OpenClaw与国内仿制品对比]] - 企业选型参考
 
 ### 相关技术
 - [[../RAG技术入门指南]] - RAG 技术原理
