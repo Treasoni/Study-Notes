@@ -1,13 +1,8 @@
 {
   "pluginList": [
-    "eondrcode/obsidian-i18n",
     "YishenTu/claudian"
   ],
   "pluginSubListFrozenVersion": [
-    {
-      "repo": "eondrcode/obsidian-i18n",
-      "version": ""
-    },
     {
       "repo": "YishenTu/claudian",
       "version": ""
