@@ -93,8 +93,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 320.5,
-    "collapsed": true
+    "width": 320.5
   },
   "right": {
     "id": "289642c072eefc79",
@@ -202,11 +201,11 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 412.5
+    "width": 344.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -222,10 +221,11 @@
       "obsidian42-brat:BRAT": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "ed2f902d0c58e84f",
   "lastOpenFiles": [
-    "AI学习/05-其他主题/openclaw/OpenClaw数字人商业调查.md",
+    "Git/Git 常见错误解决方案.md",
     "AI学习/05-其他主题/openclaw/OpenClaw与国内仿制品对比.md",
+    "AI学习/05-其他主题/openclaw/OpenClaw数字人商业调查.md",
     "linux/Ubuntu Server SSH 配置指南.md",
     "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
     "linux/linux的文件权限.md",
@@ -252,7 +252,6 @@
     "软路由教程/iStoreOS爬梯配置指南.md",
     "软路由/iStoreOS爬梯配置指南.md",
     "软路由教程",
-    "Git/Git 常见错误解决方案.md",
     "Git/Git 入门教程.md",
     "AI学习/02-工具使用/assets/Tailscale使用指南/截屏2026-03-04 00.44.43.png",
     "软路由",
