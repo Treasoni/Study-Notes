@@ -93,7 +93,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 320.5
+    "width": 320.5,
+    "collapsed": true
   },
   "right": {
     "id": "289642c072eefc79",
@@ -201,7 +202,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
@@ -221,7 +222,7 @@
       "obsidian42-brat:BRAT": false
     }
   },
-  "active": "ed2f902d0c58e84f",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
     "AI学习/05-其他主题/openclaw/OpenClaw数字人商业调查.md",
     "AI学习/05-其他主题/openclaw/OpenClaw与国内仿制品对比.md",
