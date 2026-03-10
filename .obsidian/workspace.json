@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
+                "file": "AI学习/01-基础概念/Skills 是什么.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Claude Code 定时任务自动化指南"
+              "title": "Skills 是什么"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
+                "file": "AI学习/01-基础概念/Skills 是什么.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Claude Code 定时任务自动化指南 的大纲"
+              "title": "Skills 是什么 的大纲"
             }
           },
           {
@@ -208,6 +208,7 @@
   },
   "active": "ad7a4315bf035961",
   "lastOpenFiles": [
+    "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
     "AI学习/05-其他主题/openclaw/OpenClaw本地智能助手搭建指南.md",
     "AI学习/05-其他主题/openclaw/参考层/OpenClaw常用命令速查.md",
     "AI学习/05-其他主题/openclaw/选型层/OpenClaw与国内仿制品对比.md",
@@ -229,7 +230,6 @@
     "Git/Git 常见错误解决方案.md",
     "AI学习/05-其他主题/openclaw/OpenClaw数字人商业调查.md",
     "linux/Ubuntu Server SSH 配置指南.md",
-    "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
     "linux/linux的文件权限.md",
     "AI学习/02-工具使用/launchd-configs/install-ai-news-launchd.sh",
     "AI学习/02-工具使用/launchd-configs/com.user.ai-news-daily.plist",

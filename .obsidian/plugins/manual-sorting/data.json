@@ -132,16 +132,48 @@
     },
     "AI学习/05-其他主题/openclaw": {
       "children": [
-        "AI学习/05-其他主题/openclaw/OpenClaw多智能体协作指南.md",
-        "AI学习/05-其他主题/openclaw/OpenClaw网关开机自启与HTTPS配置.md",
-        "AI学习/05-其他主题/openclaw/OpenClaw常用命令速查.md",
-        "AI学习/05-其他主题/openclaw/OpenClaw MOC.md",
-        "AI学习/05-其他主题/openclaw/OpenClaw核心概念.md",
-        "AI学习/05-其他主题/openclaw/OpenClaw Web控制台局域网访问配置.md",
-        "AI学习/05-其他主题/openclaw/OpenClaw安装后配置指南.md",
-        "AI学习/05-其他主题/openclaw/OpenClaw对接第三方软件指南.md",
-        "AI学习/05-其他主题/openclaw/OpenClaw安装教程.md",
-        "AI学习/05-其他主题/openclaw/OpenClaw数字人商业调查.md"
+        "AI学习/05-其他主题/openclaw/参考层",
+        "AI学习/05-其他主题/openclaw/配置层",
+        "AI学习/05-其他主题/openclaw/入门层",
+        "AI学习/05-其他主题/openclaw/选型层",
+        "AI学习/05-其他主题/openclaw/应用层",
+        "AI学习/05-其他主题/openclaw/OpenClaw MOC.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/05-其他主题/openclaw/参考层": {
+      "children": [
+        "AI学习/05-其他主题/openclaw/参考层/OpenClaw常用命令速查.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/05-其他主题/openclaw/配置层": {
+      "children": [
+        "AI学习/05-其他主题/openclaw/配置层/OpenClaw Web控制台局域网访问配置.md",
+        "AI学习/05-其他主题/openclaw/配置层/OpenClaw安装后配置指南.md",
+        "AI学习/05-其他主题/openclaw/配置层/OpenClaw网关开机自启与HTTPS配置.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/05-其他主题/openclaw/入门层": {
+      "children": [
+        "AI学习/05-其他主题/openclaw/入门层/OpenClaw安装教程.md",
+        "AI学习/05-其他主题/openclaw/入门层/OpenClaw核心概念.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/05-其他主题/openclaw/选型层": {
+      "children": [
+        "AI学习/05-其他主题/openclaw/选型层/OpenClaw与国内仿制品对比.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/05-其他主题/openclaw/应用层": {
+      "children": [
+        "AI学习/05-其他主题/openclaw/应用层/OpenClaw本地智能助手搭建指南.md",
+        "AI学习/05-其他主题/openclaw/应用层/OpenClaw对接第三方软件指南.md",
+        "AI学习/05-其他主题/openclaw/应用层/OpenClaw多智能体协作指南.md",
+        "AI学习/05-其他主题/openclaw/应用层/OpenClaw数字人商业调查.md"
       ],
       "sortOrder": "custom"
     },
