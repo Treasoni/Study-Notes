@@ -23,7 +23,7 @@ cd /你的项目目录
 ### 第一步：拉取最新镜像
 
 ```bash
-docker compose pull
+sudo docker compose pull
 ```
 
 这一步只是下载最新版本镜像，**不会影响正在运行的容器**。
@@ -32,7 +32,7 @@ docker compose pull
 ### 第二步：重建并启动
 
 ```bash
-docker compose up -d
+sudo docker compose up -d
 ```
 
 它会：
@@ -46,7 +46,7 @@ docker compose up -d
 ### 第三步（可选）：清理旧镜像
 
 ```bash
-docker image prune -f
+sudo docker image prune -f
 ```
 
 或者清理所有未使用的资源：
@@ -74,13 +74,13 @@ docker compose up -d --pull always
 如果需要强制重建容器（比如修改了环境变量）：
 
 ```bash
-docker compose up -d --force-recreate
+sudo docker compose up -d --force-recreate
 ```
 
 或者只更新特定服务：
 
 ```bash
-docker compose up -d 服务名
+sudo docker compose up -d 服务名
 ```
 
 
