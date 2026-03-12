@@ -1,0 +1,25 @@
+{
+  "id": "conv-1773337529864-ad1yqju6b",
+  "title": "Create AI girlfriend prompt for exam prep compa...",
+  "titleGenerationStatus": "success",
+  "createdAt": 1773337529865,
+  "updatedAt": 1773337808944,
+  "lastResponseAt": 1773337808944,
+  "sessionId": "2d3a59f5-3ac1-4324-8d64-6627d9ae7b95",
+  "sdkSessionId": "2d3a59f5-3ac1-4324-8d64-6627d9ae7b95",
+  "currentNote": "AI学习/05-其他主题/AI模型对比/GLM系列模型完整对比.md",
+  "enabledMcpServers": [
+    "web-search-prime",
+    "web-reader",
+    "zai-mcp-server"
+  ],
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}

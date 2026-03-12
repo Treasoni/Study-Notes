@@ -186,7 +186,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
@@ -206,8 +206,9 @@
       "obsidian42-brat:BRAT": false
     }
   },
-  "active": "746e3216e1c18840",
+  "active": "ad7a4315bf035961",
   "lastOpenFiles": [
+    "AI学习/05-其他主题/AI女友提示词.md",
     "AI学习/00-索引/MOC.md",
     "AI学习/05-其他主题/AI模型对比/GLM系列模型完整对比.md",
     "AI学习/05-其他主题/AI模型对比",
@@ -239,7 +240,6 @@
     "Git/Git 常见错误解决方案.md",
     "AI学习/05-其他主题/openclaw/OpenClaw数字人商业调查.md",
     "linux/Ubuntu Server SSH 配置指南.md",
-    "linux/linux的文件权限.md",
     "AI学习/02-工具使用/launchd-configs/install-ai-news-launchd.sh",
     "AI学习/02-工具使用/launchd-configs/com.user.ai-news-daily.plist",
     "AI学习/02-工具使用/launchd-configs",
