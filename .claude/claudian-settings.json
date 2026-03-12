@@ -38,13 +38,14 @@
       "Remove-Partition"
     ]
   },
-  "permissionMode": "normal",
+  "permissionMode": "yolo",
   "model": "glm-4.7",
   "thinkingBudget": "low",
   "enableAutoTitleGeneration": true,
   "titleGenerationModel": "glm-4.7",
   "show1MModel": false,
   "enableChrome": false,
+  "enableBangBash": false,
   "excludedTags": [],
   "mediaFolder": "",
   "systemPrompt": "",
