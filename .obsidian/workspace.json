@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/05-其他主题/AI模型对比/GLM系列模型完整对比.md",
+                "file": "ai-girlfriend-prompt.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "GLM系列模型完整对比"
+              "title": "ai-girlfriend-prompt"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/05-其他主题/AI模型对比/GLM系列模型完整对比.md",
+                "file": "ai-girlfriend-prompt.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "GLM系列模型完整对比 的大纲"
+              "title": "ai-girlfriend-prompt 的大纲"
             }
           },
           {
@@ -208,9 +208,10 @@
   },
   "active": "ad7a4315bf035961",
   "lastOpenFiles": [
-    "AI学习/05-其他主题/AI女友提示词.md",
-    "AI学习/00-索引/MOC.md",
     "AI学习/05-其他主题/AI模型对比/GLM系列模型完整对比.md",
+    "AI学习/05-其他主题/AI女友提示词.md",
+    "ai-girlfriend-prompt.md",
+    "AI学习/00-索引/MOC.md",
     "AI学习/05-其他主题/AI模型对比",
     "docker/docker容器如何更新.md",
     "AI学习/05-其他主题/openclaw/选型层/OpenClaw与国内仿制品对比.md",
@@ -239,7 +240,6 @@
     "AI学习/05-其他主题/openclaw/OpenClaw与国内仿制品对比.md",
     "Git/Git 常见错误解决方案.md",
     "AI学习/05-其他主题/openclaw/OpenClaw数字人商业调查.md",
-    "linux/Ubuntu Server SSH 配置指南.md",
     "AI学习/02-工具使用/launchd-configs/install-ai-news-launchd.sh",
     "AI学习/02-工具使用/launchd-configs/com.user.ai-news-daily.plist",
     "AI学习/02-工具使用/launchd-configs",
