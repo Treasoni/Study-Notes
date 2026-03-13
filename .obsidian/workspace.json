@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ai-girlfriend-prompt.md",
+                "file": "AI学习/05-其他主题/AI模型对比/GLM系列模型完整对比.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "ai-girlfriend-prompt"
+              "title": "GLM系列模型完整对比"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "ai-girlfriend-prompt.md",
+                "file": "AI学习/05-其他主题/AI模型对比/GLM系列模型完整对比.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "ai-girlfriend-prompt 的大纲"
+              "title": "GLM系列模型完整对比 的大纲"
             }
           },
           {
@@ -186,7 +186,7 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -206,11 +206,11 @@
       "obsidian42-brat:BRAT": false
     }
   },
-  "active": "ad7a4315bf035961",
+  "active": "746e3216e1c18840",
   "lastOpenFiles": [
+    "ai-girlfriend-prompt.md",
     "AI学习/05-其他主题/AI模型对比/GLM系列模型完整对比.md",
     "AI学习/05-其他主题/AI女友提示词.md",
-    "ai-girlfriend-prompt.md",
     "AI学习/00-索引/MOC.md",
     "AI学习/05-其他主题/AI模型对比",
     "docker/docker容器如何更新.md",
