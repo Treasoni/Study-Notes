@@ -298,5 +298,7 @@ A: Command Hook 在你的终端环境下执行，可以访问环境变量和 PAT
 
 ## 参考资料
 
-- [Hooks reference - Claude Code Docs](https://code.claude.com/docs/en/hooks)
-- [Automate workflows with hooks - Claude Code Docs](https://code.claude.com/docs/en/hooks-guide)
+- [Hooks reference - Claude Code Docs](https://code.claude.com/docs/en/hooks) - 完整技术参考
+- [Automate workflows with hooks - Claude Code Docs](https://code.claude.com/docs/en/hooks-guide) - 使用指南
+- [How to configure hooks - Claude Blog](https://claude.com/blog/how-to-configure-hooks) - 官方配置详解
+- [Claude Code settings.json: Complete config guide (2026)](https://www.eesel.ai/blog/settings-json-claude-code) - 配置层级详解

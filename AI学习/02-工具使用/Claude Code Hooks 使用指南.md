@@ -22,9 +22,268 @@ Hook 可以在多个层级配置，按优先级从低到高：
 |------|----------|--------|--------|
 | `~/.claude/settings.json` | 所有项目 | ❌ 个人 | 最低 |
 | `.claude/settings.json` | 单个项目 | ✅ 可提交 Git | 中 |
-| `.claude/settings.local.json` | 单个项目 | ❌ 不提交 | 高 |
-| Plugin `hooks/hooks.json` | 插件启用时 | ✅ | 高 |
+| `.claude/settings.local.json` | 单个项目 | ❌ 不提交 | 高（覆盖项目和用户设置）|
+| Managed settings | 组织级 | ✅ IT 管理 | 高 |
+| Plugin `hooks/hooks.json` | 插件启用时 | ✅ 可提交 Git | 高 |
 | Skill/Agent frontmatter | 组件活跃时 | ✅ | 最高 |
+
+> [!tip] 配置层级说明
+> - **项目级配置**（`.claude/settings.json`）优先级高于用户级配置
+> - **本地配置**（`.claude/settings.local.json`）会覆盖项目级和用户级设置
+> - 企业管理策略可由 IT 部门统一配置
+
+### CLI 配置方法详解
+
+#### 方法一：直接编辑 settings.json（推荐）
+
+最简单直接的方式是在项目根目录创建或编辑配置文件：
+
+```bash
+# 创建项目级配置（可提交到 Git，团队共享）
+mkdir -p .claude
+cat > .claude/settings.json << 'EOF'
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "prettier --write \"$CLAUDE_FILE_PATH\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}
+EOF
+```
+
+```bash
+# 创建本地配置（个人设置，不提交 Git）
+cat > .claude/settings.local.json << 'EOF'
+{
+  "env": {
+    "MY_API_KEY": "your-secret-key"
+  }
+}
+EOF
+```
+
+```bash
+# 创建全局用户配置（所有项目共享）
+mkdir -p ~/.claude
+cat > ~/.claude/settings.json << 'EOF'
+{
+  "hooks": {
+    "TaskCompleted": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "notify-send 'Claude Code' '✅ 任务完成！'"
+          }
+        ]
+      }
+    ]
+  }
+}
+EOF
+```
+
+#### 方法二：使用 `/hooks` 命令查看
+
+在 Claude Code 会话中使用斜杠命令查看当前配置：
+
+```
+/hooks
+```
+
+输出示例：
+```
+Configured Hooks:
+├── PreToolUse
+│   └── Bash → 阻止危险命令
+├── PostToolUse
+│   └── Edit|Write → 自动格式化
+└── TaskCompleted
+    └── * → 桌面通知
+```
+
+> [!tip] `/hooks` 命令用途
+> - 快速查看当前已配置的 Hook
+> - 验证配置是否正确加载
+> - 检查 Hook 的匹配规则
+
+#### 方法三：使用 `/config` 命令（交互式配置）
+
+在 Claude Code 会话中使用交互式配置界面：
+
+```
+/config
+```
+
+这会打开设置界面，可以：
+- 添加/编辑权限规则
+- 配置 MCP 服务器
+- 管理其他设置项
+
+#### 方法四：使用 `--debug` 参数启动调试模式
+
+启动 Claude Code 时添加调试参数查看详细信息：
+
+```bash
+claude --debug
+```
+
+输出示例：
+```
+debug mode enabled. Check JSON validity and verbose logging
+Loading settings from: /Users/you/.claude/settings.json
+Loading settings from: /Users/you/project/.claude/settings.json
+Hooks loaded: 3 matchers configured
+...
+```
+
+> [!tip] 调试模式用途
+> - 查看配置文件加载顺序
+> - 验证 JSON 语法是否正确
+> - 排查 Hook 不生效的原因
+
+#### 方法五：使用 `disableAllHooks` 临时禁用所有 Hook
+
+在 settings.json 中添加此字段可临时禁用所有 Hook：
+
+```json
+{
+  "disableAllHooks": true
+}
+```
+
+适用于：
+- 排查 Hook 是否导致问题
+- 临时绕过所有自动化规则
+- 测试原始行为
+
+#### 方法六：配置环境变量（`env` 字段）
+
+通过 `env` 字段配置环境变量，在 Hook 中通过 `$VAR_NAME` 访问：
+
+```json
+{
+  "env": {
+    "MY_PROJECT": "my-project",
+    "NOTIFICATION_SOUND": "default"
+  },
+  "hooks": {
+    "TaskCompleted": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "notify-send 'Claude Code' \"✅ $MY_PROJECT 任务完成！\""
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+> [!warning] 敏感信息处理
+> - API 密钥等敏感信息应放在 `settings.local.json` 中
+> - 确保 `.gitignore` 包含 `.claude/settings.local.json`
+
+#### 方法七：HTTP Hook 高级配置
+
+HTTP Hook 支持环境变量白名单和 URL 白名单：
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash|Edit|Write",
+        "hooks": [
+          {
+            "type": "http",
+            "url": "https://api.example.com/webhook",
+            "headers": {
+              "Authorization": "Bearer $MY_TOKEN",
+              "Content-Type": "application/json"
+            },
+            "timeout": 5000,
+            "allowedEnvVars": ["MY_TOKEN"]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+| 字段 | 说明 |
+|------|------|
+| `allowedEnvVars` | 允许在 headers 中使用的环境变量白名单 |
+| `timeout` | 请求超时时间（毫秒） |
+
+> [!note] 企业策略
+> URL 白名单（`allowedHttpHookUrls`）由企业管理员在组织级策略中设置
+
+#### 方法八：完整的 settings.json 示例
+
+包含 `$schema` 验证的完整配置示例：
+
+```json
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"$CLAUDE_TOOL_INPUT\" | grep -qiE 'rm\\s+-rf|sudo' && echo '❌ 危险命令已被阻止' && exit 2 || exit 0"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "prettier --write \"$CLAUDE_FILE_PATH\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Read(**)",
+      "Bash(npm run*)",
+      "Bash(git *)"
+    ],
+    "deny": [
+      "Read(.env)",
+      "Bash(rm -rf /*)"
+    ]
+  },
+  "env": {
+    "PROJECT_NAME": "my-awesome-project"
+  }
+}
+```
+
+> [!tip] 添加 `$schema` 的好处
+> - 在 VS Code、Cursor 等 IDE 中支持 JSON Schema 验证
+> - 自动补全配置字段
+> - 实时检测语法错误
 
 ### 基本结构
 
@@ -92,19 +351,45 @@ Hook 执行时可以访问以下环境变量：
 
 #### 输入 JSON（stdin）
 
-Hook 还可以通过 stdin 接收完整的 JSON 输入：
+Hook 通过 stdin 接收完整的 JSON 输入，包含以下关键字段：
+
+| 字段 | 说明 | 示例值 |
+|------|------|--------|
+| `session_id` | 当前会话 ID | `"abc123"` |
+| `cwd` | 当前工作目录 | `"/Users/sarah/myproject"` |
+| `hook_event_name` | 触发此事件的名称 | `"PreToolUse"` |
+| `tool_name` | 工具名称 | `"Bash"` |
+| `tool_input` | 工具输入参数 | `{"command": "npm test"}` |
+| `timestamp` | 事件时间戳 | `"2026-03-22T10:00:00Z"` |
+| `transcript_path` | 会话记录文件路径 | `"/path/to/transcript.jsonl"` |
+| `stop_hook_active` | Stop hook 是否激活 | `true`（防止无限循环） |
+| `permission_mode` | 当前权限模式 | `"ask"` / `"auto"` |
+
+**完整示例**：
 
 ```json
 {
-  "event": "PreToolUse",
+  "session_id": "sess_abc123xyz",
+  "cwd": "/Users/sarah/myproject",
+  "hook_event_name": "PreToolUse",
   "tool_name": "Bash",
   "tool_input": {
     "command": "rm -rf node_modules"
   },
-  "session_id": "abc123",
-  "timestamp": "2026-03-22T10:00:00Z"
+  "timestamp": "2026-03-22T10:00:00Z",
+  "transcript_path": "/Users/sarah/.claude/transcripts/sess_abc123xyz.jsonl",
+  "stop_hook_active": false,
+  "permission_mode": "ask"
 }
 ```
+
+> [!tip] 使用 jq 解析 JSON
+> ```bash
+> # 读取 stdin 并提取字段
+> INPUT=$(cat)
+> TOOL=$(echo "$INPUT" | jq -r '.tool_name')
+> CMD=$(echo "$INPUT" | jq -r '.tool_input.command')
+> ```
 
 #### 输出与退出码
 
@@ -563,3 +848,6 @@ A: 可以：
 
 - [Hooks reference - Claude Code Docs](https://code.claude.com/docs/en/hooks) - 完整技术参考
 - [Automate workflows with hooks - Claude Code Docs](https://code.claude.com/docs/en/hooks-guide) - 使用指南
+- [How to configure hooks - Claude Blog](https://claude.com/blog/how-to-configure-hooks) - 官方配置详解
+- [Claude Code settings.json: Complete config guide (2026)](https://www.eesel.ai/blog/settings-json-claude-code) - 配置层级详解
+- [anthropics/claude-code GitHub](https://github.com/anthropics/claude-code) - 官方仓库与示例

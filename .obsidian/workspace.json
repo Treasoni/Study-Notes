@@ -10,7 +10,7 @@
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 75.40805223068553,
+            "dimension": 78.23721436343853,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -31,7 +31,7 @@
           {
             "id": "47bbd2fd2223caff",
             "type": "tabs",
-            "dimension": 24.591947769314473,
+            "dimension": 21.76278563656148,
             "children": [
               {
                 "id": "4ed0cd235655b96e",
@@ -264,7 +264,7 @@
       "terminal:Open terminal": false
     }
   },
-  "active": "ad7a4315bf035961",
+  "active": "746e3216e1c18840",
   "lastOpenFiles": [
     "AI学习/02-工具使用/Claude Code Hooks 使用指南.md",
     "AI学习/01-基础概念/Hook钩子.md",
