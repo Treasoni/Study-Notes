@@ -24,6 +24,7 @@ tags: [ai, 学习指南, index]
 | [[01-基础概念/SubAgent子代理]] | `ai`, `基础概念`, `subagent` | 上下文隔离、并行处理、与Agent区别、适用场景 |
 | [[01-基础概念/Skills 是什么]] | `ai`, `基础概念`, `skills` | Skills机制、三层架构、渐进式加载、与SubAgent对比 |
 | [[01-基础概念/Agent Teams智能体团队]] | `ai`, `基础概念`, `agent-teams` | 多智能体协作、主流框架、协作模式、与SubAgent区别 |
+| [[01-基础概念/Hook钩子]] | `ai`, `基础概念`, `hook`, `自动化` | Hook事件驱动机制、4种类型、23种事件、与Skills/MCP区别 |
 
 > [!tip] 学习建议
 > - **入门** → 先读 [[01-基础概念/人工智能重要的六大概念体系]] 获得全局视角
@@ -41,6 +42,7 @@ Claude Code 的安装、配置和日常使用。
 | [[02-工具使用/Claude Code 常用功能]] | `claude`, `ai`, `工具使用` | 功能速查手册，快速查找常用命令和操作 | 180行 |
 | [[02-工具使用/Claude Code 会话管理]] | `claude`, `ai`, `工具使用` | 会话创建、恢复、清除等管理技巧 | 480行 |
 | [[02-工具使用/Claude Code 模型与推理设置]] | `claude`, `ai`, `工具使用` | CLI 和 VSCode 插件的模型配置、推理参数、第三方平台配置 | 新增 |
+| [[02-工具使用/Claude Code Hooks 使用指南]] | `claude`, `ai`, `工具使用`, `hook`, `自动化` | Hook配置详解、Matcher语法、实战示例、调试排错 | 新增 |
 | [[02-工具使用/Claude Code 插件系统使用指南]] | `ai`, `进阶应用`, `插件` | 插件系统架构、安装、创建自定义插件 | 430行 |
 | [[02-工具使用/Tailscale使用指南]] | `tailscale`, `vpn`, `networking` | 基于 WireGuard 的零配置 VPN 组网工具，安装、工作原理、使用教程 | 300行 |
 
@@ -132,12 +134,14 @@ Subagent 的创建和使用。
 - [[01-基础概念/SubAgent子代理]]
 - [[01-基础概念/Skills 是什么]]
 - [[01-基础概念/Agent Teams智能体团队]]
+- [[01-基础概念/Hook钩子]]
 
 #### 工具使用
 - [[02-工具使用/如何使用Claude code]]
 - [[02-工具使用/Claude Code 常用功能]]
 - [[02-工具使用/Claude Code 会话管理]]
 - [[02-工具使用/Claude Code 插件系统使用指南]]
+- [[02-工具使用/Claude Code Hooks 使用指南]]
 - [[02-工具使用/Tailscale使用指南]]
 
 #### 进阶应用
@@ -169,6 +173,7 @@ Claude Code 工具使用相关文档。
 - [[02-工具使用/Claude Code 常用功能]]
 - [[02-工具使用/Claude Code 会话管理]]
 - [[02-工具使用/Claude Code 插件系统使用指南]]
+- [[02-工具使用/Claude Code Hooks 使用指南]]
 - [[02-工具使用/Claude Code 定时任务自动化指南]]
 - [[02-工具使用/Tailscale使用指南]]
 
@@ -205,6 +210,7 @@ Subagent 相关高级内容。
 
 - [[02-工具使用/Claude Code 常用功能]]
 - [[02-工具使用/Claude Code 会话管理]]
+- [[02-工具使用/Claude Code Hooks 使用指南]]
 - [[03-进阶应用/CLAUDE.md 使用指南]]
 
 ### 配置
@@ -340,8 +346,10 @@ AI 模型对比与选型相关文档。
 | 理解 SubAgent 子代理 | [[01-基础概念/SubAgent子代理]] |
 | 学习 Skills 技能系统 | [[01-基础概念/Skills 是什么]] |
 | 了解多智能体协作 | [[01-基础概念/Agent Teams智能体团队]] |
+| 理解 Hook 钩子机制 | [[01-基础概念/Hook钩子]] |
 | 首次安装 Claude Code | [[02-工具使用/如何使用Claude code]] |
 | 快速查找命令 | [[02-工具使用/Claude Code 常用功能]] |
+| 配置 Hook 自动化 | [[02-工具使用/Claude Code Hooks 使用指南]] |
 | 编写自定义 Skill | [[03-进阶应用/如何编写Skills]] |
 | 配置 MCP | [[03-进阶应用/Claude MCP 使用指南]] |
 | 创建自定义 Agent | [[04-高级应用/Claude Subagent 使用指南]] |

@@ -1,0 +1,26 @@
+{
+  "id": "conv-1774186509846-8ytqlagkz",
+  "title": "Learn Claude Code hooks concept and usage",
+  "titleGenerationStatus": "success",
+  "createdAt": 1774186509847,
+  "updatedAt": 1774186696316,
+  "lastResponseAt": 1774186696316,
+  "sessionId": "e2e48494-70aa-4431-b171-1daaea47be7b",
+  "sdkSessionId": "e2e48494-70aa-4431-b171-1daaea47be7b",
+  "currentNote": "AI学习/01-基础概念/SubAgent子代理.md",
+  "enabledMcpServers": [
+    "zai-mcp-server",
+    "web-search-prime",
+    "web-reader",
+    "browsermcp"
+  ],
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}
