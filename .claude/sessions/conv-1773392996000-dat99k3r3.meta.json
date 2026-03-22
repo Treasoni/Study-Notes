@@ -1,0 +1,20 @@
+{
+  "id": "conv-1773392996000-dat99k3r3",
+  "title": "Greeting and introduction",
+  "titleGenerationStatus": "success",
+  "createdAt": 1773392996001,
+  "updatedAt": 1774186399233,
+  "lastResponseAt": 1773393004545,
+  "sessionId": null,
+  "sdkSessionId": "940b90b3-f9f0-4ab1-8344-25756cff225e",
+  "currentNote": "AI学习/05-其他主题/AI模型对比/GLM系列模型完整对比.md",
+  "usage": {
+    "model": "glm-4.5-air",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}

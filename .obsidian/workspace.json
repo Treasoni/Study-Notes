@@ -4,24 +4,81 @@
     "type": "split",
     "children": [
       {
-        "id": "d7f69265b40b03f9",
-        "type": "tabs",
+        "id": "137072dd201b481f",
+        "type": "split",
         "children": [
           {
-            "id": "ad7a4315bf035961",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "AI学习/05-其他主题/AI模型对比/GLM系列模型完整对比.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "GLM系列模型完整对比"
-            }
+            "id": "d7f69265b40b03f9",
+            "type": "tabs",
+            "dimension": 75.40805223068553,
+            "children": [
+              {
+                "id": "ad7a4315bf035961",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "AI学习/02-工具使用/Claude Code Hooks 使用指南.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "Claude Code Hooks 使用指南"
+                }
+              }
+            ]
+          },
+          {
+            "id": "47bbd2fd2223caff",
+            "type": "tabs",
+            "dimension": 24.591947769314473,
+            "children": [
+              {
+                "id": "4ed0cd235655b96e",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "terminal:terminal",
+                  "state": {
+                    "terminal:terminal": {
+                      "cwd": "/Users/zhqznc/Documents/项目",
+                      "focus": false,
+                      "profile": {
+                        "args": [
+                          "--login"
+                        ],
+                        "executable": "/bin/zsh",
+                        "followTheme": true,
+                        "name": "",
+                        "platforms": {
+                          "darwin": true
+                        },
+                        "pythonExecutable": "python3",
+                        "restoreHistory": false,
+                        "rightClickAction": "copyPaste",
+                        "successExitCodes": [
+                          "0",
+                          "SIGINT",
+                          "SIGTERM"
+                        ],
+                        "terminalOptions": {
+                          "documentOverride": null
+                        },
+                        "type": "integrated",
+                        "useWin32Conhost": true
+                      },
+                      "serial": null
+                    }
+                  },
+                  "pinned": true,
+                  "icon": "terminal",
+                  "title": "终端：✳ Claude Code Hooks"
+                }
+              }
+            ]
           }
-        ]
+        ],
+        "direction": "horizontal"
       }
     ],
     "direction": "vertical"
@@ -156,13 +213,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/05-其他主题/AI模型对比/GLM系列模型完整对比.md",
+                "file": "AI学习/02-工具使用/Claude Code Hooks 使用指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "GLM系列模型完整对比 的大纲"
+              "title": "Claude Code Hooks 使用指南 的大纲"
             }
           },
           {
@@ -203,13 +260,30 @@
       "bases:新建数据库": false,
       "obsidian-git:Open Git source control": false,
       "claudian:Open Claudian": false,
-      "obsidian42-brat:BRAT": false
+      "obsidian42-brat:BRAT": false,
+      "terminal:Open terminal": false
     }
   },
-  "active": "746e3216e1c18840",
+  "active": "ad7a4315bf035961",
   "lastOpenFiles": [
-    "ai-girlfriend-prompt.md",
+    "AI学习/02-工具使用/Claude Code Hooks 使用指南.md",
+    "AI学习/01-基础概念/Hook钩子.md",
+    "AI学习/01-基础概念/SubAgent子代理.md",
+    "AI学习/01-基础概念/Skills 是什么.md",
+    "AI学习/01-基础概念/MCP协议.md",
+    "AI学习/02-工具使用/Claude Code 常用功能.md",
+    "AI学习/02-工具使用/Claude Code 插件系统使用指南.md",
+    "AI学习/02-工具使用/如何使用Claude code.md",
+    "AI学习/02-工具使用/Claude Code 自定义斜杠命令教程.md",
+    "未命名.md",
+    "CLAUDE.md",
+    "Git/Git 入门教程.md",
+    "AI学习/02-工具使用/Claude Code 模型与推理设置.md",
+    "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
+    "AI学习/03-进阶应用/CLAUDE.md 使用指南.md",
+    "AI学习/02-工具使用/Claude Code 会话管理.md",
     "AI学习/05-其他主题/AI模型对比/GLM系列模型完整对比.md",
+    "ai-girlfriend-prompt.md",
     "AI学习/05-其他主题/AI女友提示词.md",
     "AI学习/00-索引/MOC.md",
     "AI学习/05-其他主题/AI模型对比",
@@ -219,27 +293,11 @@
     "软路由教程/iStoreOS爬梯配置指南.md",
     "README.md",
     "AI学习/03-进阶应用/Claude MCP 使用指南.md",
-    "AI学习/01-基础概念/Skills 是什么.md",
-    "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
-    "AI学习/05-其他主题/openclaw/OpenClaw本地智能助手搭建指南.md",
-    "AI学习/05-其他主题/openclaw/参考层/OpenClaw常用命令速查.md",
-    "AI学习/05-其他主题/openclaw/应用层/OpenClaw本地智能助手搭建指南.md",
-    "AI学习/05-其他主题/openclaw/应用层/OpenClaw数字人商业调查.md",
-    "AI学习/05-其他主题/openclaw/应用层/OpenClaw多智能体协作指南.md",
-    "AI学习/05-其他主题/openclaw/应用层/OpenClaw对接第三方软件指南.md",
-    "AI学习/05-其他主题/openclaw/配置层/OpenClaw网关开机自启与HTTPS配置.md",
-    "AI学习/05-其他主题/openclaw/配置层/OpenClaw Web控制台局域网访问配置.md",
-    "AI学习/05-其他主题/openclaw/配置层/OpenClaw安装后配置指南.md",
-    "AI学习/05-其他主题/openclaw/入门层/OpenClaw安装教程.md",
-    "AI学习/05-其他主题/openclaw/入门层/OpenClaw核心概念.md",
     "AI学习/05-其他主题/openclaw/参考层",
     "AI学习/05-其他主题/openclaw/选型层",
     "AI学习/05-其他主题/openclaw/应用层",
     "AI学习/05-其他主题/openclaw/配置层",
     "AI学习/05-其他主题/openclaw/入门层",
-    "AI学习/05-其他主题/openclaw/OpenClaw与国内仿制品对比.md",
-    "Git/Git 常见错误解决方案.md",
-    "AI学习/05-其他主题/openclaw/OpenClaw数字人商业调查.md",
     "AI学习/02-工具使用/launchd-configs/install-ai-news-launchd.sh",
     "AI学习/02-工具使用/launchd-configs/com.user.ai-news-daily.plist",
     "AI学习/02-工具使用/launchd-configs",
