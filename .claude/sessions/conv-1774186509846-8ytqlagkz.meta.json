@@ -3,15 +3,13 @@
   "title": "Learn Claude Code hooks concept and usage",
   "titleGenerationStatus": "success",
   "createdAt": 1774186509847,
-  "updatedAt": 1774186696316,
+  "updatedAt": 1774408423749,
   "lastResponseAt": 1774186696316,
-  "sessionId": "e2e48494-70aa-4431-b171-1daaea47be7b",
+  "sessionId": null,
   "sdkSessionId": "e2e48494-70aa-4431-b171-1daaea47be7b",
   "currentNote": "AI学习/01-基础概念/SubAgent子代理.md",
   "enabledMcpServers": [
-    "zai-mcp-server",
     "web-search-prime",
-    "web-reader",
     "browsermcp"
   ],
   "usage": {
