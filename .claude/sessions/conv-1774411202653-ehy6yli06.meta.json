@@ -1,0 +1,19 @@
+{
+  "id": "conv-1774411202653-ehy6yli06",
+  "title": "你好！欢迎来到 AI 学习知识库。我可以帮助你：\n\n📚 **学习新知识** - 使用 `/l...",
+  "titleGenerationStatus": "success",
+  "createdAt": 1774411202653,
+  "updatedAt": 1774411210139,
+  "lastResponseAt": 1774411210139,
+  "sessionId": "890013f3-0818-4ec1-9b43-1f89d588a56b",
+  "sdkSessionId": "890013f3-0818-4ec1-9b43-1f89d588a56b",
+  "usage": {
+    "model": "GLM-5-Turbo",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}

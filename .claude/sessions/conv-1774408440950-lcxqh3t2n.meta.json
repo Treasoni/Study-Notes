@@ -1,0 +1,24 @@
+{
+  "id": "conv-1774408440950-lcxqh3t2n",
+  "title": "Update Obsidian note with latest docs",
+  "titleGenerationStatus": "success",
+  "createdAt": 1774408440950,
+  "updatedAt": 1774411197138,
+  "lastResponseAt": 1774409271537,
+  "sessionId": null,
+  "sdkSessionId": "83b9f556-9eba-4e48-996b-a66cf7960cd8",
+  "enabledMcpServers": [
+    "web-reader",
+    "web-search-prime",
+    "zai-mcp-server"
+  ],
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}

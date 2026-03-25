@@ -71,6 +71,7 @@
     },
     "AI学习/01-基础概念": {
       "children": [
+        "AI学习/01-基础概念/Hook钩子.md",
         "AI学习/01-基础概念/人工智能重要的六大概念体系.md",
         "AI学习/01-基础概念/Agent Teams智能体团队.md",
         "AI学习/01-基础概念/Agent智能体.md",
@@ -83,6 +84,7 @@
     },
     "AI学习/02-工具使用": {
       "children": [
+        "AI学习/02-工具使用/Claude Code Hooks 使用指南.md",
         "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
         "AI学习/02-工具使用/Claude Code 模型与推理设置.md",
         "AI学习/02-工具使用/assets",
@@ -124,9 +126,16 @@
     },
     "AI学习/05-其他主题": {
       "children": [
+        "AI学习/05-其他主题/AI模型对比",
         "AI学习/05-其他主题/openclaw",
         "AI学习/05-其他主题/OCR概念笔记.md",
         "AI学习/05-其他主题/RAG技术入门指南.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/05-其他主题/AI模型对比": {
+      "children": [
+        "AI学习/05-其他主题/AI模型对比/GLM系列模型完整对比.md"
       ],
       "sortOrder": "custom"
     },
