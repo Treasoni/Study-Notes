@@ -2,6 +2,7 @@
   "customOrder": {
     "/": {
       "children": [
+        "obsidian的使用",
         "obsidain的使用",
         "软路由教程",
         "N8N定时抓取热点资讯指南.md",
@@ -84,7 +85,6 @@
     },
     "AI学习/02-工具使用": {
       "children": [
-        "AI学习/02-工具使用/Obsidian使用",
         "AI学习/02-工具使用/Claude Code Hooks 使用指南.md",
         "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
         "AI学习/02-工具使用/Claude Code 模型与推理设置.md",
@@ -107,12 +107,6 @@
     "AI学习/02-工具使用/assets/Tailscale使用指南": {
       "children": [
         "AI学习/02-工具使用/assets/Tailscale使用指南/截屏2026-03-04 00.44.43.png"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/02-工具使用/Obsidian使用": {
-      "children": [
-        "AI学习/02-工具使用/Obsidian使用/Obsidian Smart Connections 使用指南.md"
       ],
       "sortOrder": "custom"
     },
@@ -236,8 +230,7 @@
         "assets/如何安装window系统",
         "assets/qBittorent的Tracker",
         "assets/qBittorent配置代理",
-        "assets/硬盘教程和NAS硬盘知识讲解",
-        "assets/如何使用obsidian做笔记"
+        "assets/硬盘教程和NAS硬盘知识讲解"
       ],
       "sortOrder": "custom"
     },
@@ -246,18 +239,6 @@
         "assets/如何安装window系统/截屏2026-02-03 19.08.44.png",
         "assets/如何安装window系统/截屏2026-02-03 19.05.26.png",
         "assets/如何安装window系统/截屏2026-02-03 19.03.05.png"
-      ],
-      "sortOrder": "custom"
-    },
-    "assets/如何使用obsidian做笔记": {
-      "children": [
-        "assets/如何使用obsidian做笔记/截屏2026-02-05 17.36.08.png",
-        "assets/如何使用obsidian做笔记/截屏2026-01-30 17.29.55.png",
-        "assets/如何使用obsidian做笔记/截屏2026-01-30 17.38.34.png",
-        "assets/如何使用obsidian做笔记/截屏2026-01-30 17.41.45.png",
-        "assets/如何使用obsidian做笔记/截屏2026-01-30 17.42.17.png",
-        "assets/如何使用obsidian做笔记/截屏2026-01-30 17.45.06.png",
-        "assets/如何使用obsidian做笔记/截屏2026-01-30 17.52.33.png"
       ],
       "sortOrder": "custom"
     },
@@ -380,7 +361,32 @@
     },
     "obsidain的使用": {
       "children": [
-        "obsidain的使用/如何使用obsidian做笔记.md"
+        "obsidain的使用/assets"
+      ],
+      "sortOrder": "custom"
+    },
+    "obsidain的使用/assets": {
+      "children": [
+        "obsidain的使用/assets/如何使用obsidian做笔记"
+      ],
+      "sortOrder": "custom"
+    },
+    "obsidain的使用/assets/如何使用obsidian做笔记": {
+      "children": [
+        "obsidain的使用/assets/如何使用obsidian做笔记/file-20260327231719095.png",
+        "obsidain的使用/assets/如何使用obsidian做笔记/file-20260327231719098.png",
+        "obsidain的使用/assets/如何使用obsidian做笔记/file-20260327231719098 1.png",
+        "obsidain的使用/assets/如何使用obsidian做笔记/file-20260327231719099.png",
+        "obsidain的使用/assets/如何使用obsidian做笔记/file-20260327231719099 1.png",
+        "obsidain的使用/assets/如何使用obsidian做笔记/file-20260327231719099 2.png",
+        "obsidain的使用/assets/如何使用obsidian做笔记/file-20260327231719100.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "obsidian的使用": {
+      "children": [
+        "obsidian的使用/如何使用obsidian做笔记.md",
+        "obsidian的使用/Obsidian Smart Connections 使用指南.md"
       ],
       "sortOrder": "custom"
     },

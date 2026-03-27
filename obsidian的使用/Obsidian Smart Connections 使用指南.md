@@ -325,7 +325,7 @@ Smart Connections 采用**本地优先**设计：
 | 概念 | 关系 |
 |------|------|
 | [[05-其他主题/RAG技术入门指南]] | Smart Connections 使用了 RAG 的核心技术——嵌入向量检索 |
-| [[../../../obsidain的使用/如何使用obsidian做笔记]] | Smart Connections 是 Obsidian 笔记增强工具 |
+| [[如何使用obsidian做笔记]] | Smart Connections 是 Obsidian 笔记增强工具 |
 | [[01-基础概念/Agent智能体]] | Smart Connections 可以配合 AI Agent 使用（Smart Chat 功能） |
 
 ---
@@ -349,7 +349,7 @@ Smart Connections 采用**本地优先**设计：
 
 ## 相关文档
 
-- [[../../../obsidain的使用/如何使用obsidian做笔记]]
+- [[如何使用obsidian做笔记]]
 - [[05-其他主题/RAG技术入门指南]]
 - [[AI学习/00-索引/MOC]]
 
