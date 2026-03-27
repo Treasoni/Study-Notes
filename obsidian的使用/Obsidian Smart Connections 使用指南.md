@@ -146,10 +146,10 @@ flowchart LR
 
 ```mermaid
 flowchart TB
-    subgraph 关键词搜索
+    subgraph keyword [关键词搜索]
         A1[搜索: 机器学习] --> B1[必须包含"机器学习"这四个字]
     end
-    subgraph 语义搜索
+    subgraph semantic [语义搜索]
         A2[搜索: 如何让电脑自动学习] --> B2[理解含义，找到相关内容]
         B2 --> C2[可能返回: 深度学习、神经网络等]
     end
