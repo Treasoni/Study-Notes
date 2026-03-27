@@ -1,12 +1,11 @@
 {
-  "id": "conv-1774624935585-wq39ue25e",
-  "title": "Analyze Mermaid diagram syntax error",
+  "id": "conv-1774625204489-3zq2ns4tc",
+  "title": "Explain settings and optimization details",
   "titleGenerationStatus": "success",
-  "createdAt": 1774624935585,
-  "updatedAt": 1774625227084,
-  "lastResponseAt": 1774625227084,
-  "sessionId": "db8d2b0c-405c-4da0-81d1-8a106879b784",
-  "sdkSessionId": "db8d2b0c-405c-4da0-81d1-8a106879b784",
+  "createdAt": 1774625204489,
+  "updatedAt": 1774625218225,
+  "lastResponseAt": 1774625218225,
+  "sessionId": null,
   "currentNote": "obsidian的使用/Obsidian Smart Connections 使用指南.md",
   "usage": {
     "model": "glm-5",
