@@ -1,6 +1,7 @@
 {
   "userName": "",
   "enableBlocklist": true,
+  "allowExternalAccess": false,
   "blockedCommands": {
     "unix": [
       "rm -rf",
@@ -38,14 +39,16 @@
       "Remove-Partition"
     ]
   },
-  "permissionMode": "plan",
-  "model": "GLM-5-Turbo",
+  "permissionMode": "yolo",
+  "model": "glm-5",
   "thinkingBudget": "low",
+  "effortLevel": "high",
   "enableAutoTitleGeneration": true,
   "titleGenerationModel": "glm-4.7",
-  "show1MModel": false,
   "enableChrome": false,
   "enableBangBash": false,
+  "enableOpus1M": false,
+  "enableSonnet1M": false,
   "excludedTags": [],
   "mediaFolder": "",
   "systemPrompt": "",
