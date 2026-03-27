@@ -186,11 +186,11 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 347.5
+    "width": 336.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -207,7 +207,7 @@
       "terminal:Open terminal": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "746e3216e1c18840",
   "lastOpenFiles": [
     "obsidian的使用/如何使用obsidian做笔记.md",
     "obsidian的使用/assets/如何使用obsidian做笔记",
