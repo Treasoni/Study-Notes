@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "obsidain的使用/如何使用obsidian做笔记.md",
+                "file": "obsidian的使用/Obsidian Smart Connections 使用指南.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "如何使用obsidian做笔记"
+              "title": "Obsidian Smart Connections 使用指南"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "obsidain的使用/如何使用obsidian做笔记.md",
+                "file": "obsidian的使用/Obsidian Smart Connections 使用指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "如何使用obsidian做笔记 的大纲"
+              "title": "Obsidian Smart Connections 使用指南 的大纲"
             }
           },
           {
@@ -186,7 +186,7 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -207,8 +207,11 @@
       "terminal:Open terminal": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "746e3216e1c18840",
   "lastOpenFiles": [
+    "obsidian的使用/如何使用obsidian做笔记.md",
+    "obsidian的使用/assets/如何使用obsidian做笔记",
+    "obsidian的使用/assets",
     "obsidian的使用/Obsidian Smart Connections 使用指南.md",
     "obsidian的使用",
     "obsidain的使用/assets/如何使用obsidian做笔记",
@@ -240,11 +243,8 @@
     "AI学习/05-其他主题/AI女友提示词.md",
     "AI学习/00-索引/MOC.md",
     "AI学习/05-其他主题/AI模型对比",
-    "AI学习/05-其他主题/openclaw/选型层/OpenClaw与国内仿制品对比.md",
     "AI学习/05-其他主题/openclaw/参考层",
     "AI学习/05-其他主题/openclaw/选型层",
-    "AI学习/05-其他主题/openclaw/应用层",
-    "AI学习/05-其他主题/openclaw/配置层",
     "AI学习/02-工具使用/assets/Tailscale使用指南/截屏2026-03-04 00.44.43.png",
     "PVE的学习/PVE学习笔记MOC.canvas",
     "PVE的学习/assets/修改PVE的网络信息/file-20260203173647080.png",
