@@ -1,0 +1,20 @@
+{
+  "id": "conv-1774624935585-wq39ue25e",
+  "title": "Analyze Mermaid diagram syntax error",
+  "titleGenerationStatus": "success",
+  "createdAt": 1774624935585,
+  "updatedAt": 1774624987148,
+  "lastResponseAt": 1774624987148,
+  "sessionId": "db8d2b0c-405c-4da0-81d1-8a106879b784",
+  "sdkSessionId": "db8d2b0c-405c-4da0-81d1-8a106879b784",
+  "currentNote": "obsidian的使用/Obsidian Smart Connections 使用指南.md",
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}
