@@ -20,8 +20,21 @@
               "icon": "lucide-file",
               "title": "Obsidian Smart Connections 使用指南"
             }
+          },
+          {
+            "id": "26f21d873c86ac30",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.12.7"
+              },
+              "icon": "lucide-book-up",
+              "title": "版本说明 1.12.7"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -156,13 +169,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "obsidian的使用/Obsidian Smart Connections 使用指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Obsidian Smart Connections 使用指南 的大纲"
+              "title": "大纲"
             }
           },
           {
@@ -207,7 +219,7 @@
       "terminal:Open terminal": false
     }
   },
-  "active": "746e3216e1c18840",
+  "active": "26f21d873c86ac30",
   "lastOpenFiles": [
     "obsidian的使用/如何使用obsidian做笔记.md",
     "obsidian的使用/assets/如何使用obsidian做笔记",
