@@ -409,6 +409,7 @@ docker info | grep -A 10 "Registry Mirrors"
 
 ## 相关文档
 
+- [[镜像加速器vs代理-概念对比]] - 镜像加速器与代理概念对比
 - [[../AI学习/00-索引/MOC]] - 知识库索引
 
 ---
