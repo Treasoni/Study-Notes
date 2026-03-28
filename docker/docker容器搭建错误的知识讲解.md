@@ -55,8 +55,14 @@ Docker Compose 的行为是：
 Docker Compose 会自动：
 
 - 停掉错误配置的容器
-    
+
 - 用新配置重建
-    
+
 
 ---
+
+# 相关文档
+
+- [[docker容器如何更新]] - 容器更新和镜像版本切换的完整指南
+- [[docker里的GID和UID]] - Docker 用户权限配置
+- [[docker进行代理]] - Docker 代理配置
