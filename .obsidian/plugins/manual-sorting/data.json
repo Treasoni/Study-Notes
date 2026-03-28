@@ -3,7 +3,6 @@
     "/": {
       "children": [
         "obsidian的使用",
-        "obsidain的使用",
         "软路由教程",
         "N8N定时抓取热点资讯指南.md",
         "RSS使用指南.md",
@@ -359,34 +358,29 @@
       ],
       "sortOrder": "custom"
     },
-    "obsidain的使用": {
-      "children": [
-        "obsidain的使用/assets"
-      ],
-      "sortOrder": "custom"
-    },
-    "obsidain的使用/assets": {
-      "children": [
-        "obsidain的使用/assets/如何使用obsidian做笔记"
-      ],
-      "sortOrder": "custom"
-    },
-    "obsidain的使用/assets/如何使用obsidian做笔记": {
-      "children": [
-        "obsidain的使用/assets/如何使用obsidian做笔记/file-20260327231719095.png",
-        "obsidain的使用/assets/如何使用obsidian做笔记/file-20260327231719098.png",
-        "obsidain的使用/assets/如何使用obsidian做笔记/file-20260327231719098 1.png",
-        "obsidain的使用/assets/如何使用obsidian做笔记/file-20260327231719099.png",
-        "obsidain的使用/assets/如何使用obsidian做笔记/file-20260327231719099 1.png",
-        "obsidain的使用/assets/如何使用obsidian做笔记/file-20260327231719099 2.png",
-        "obsidain的使用/assets/如何使用obsidian做笔记/file-20260327231719100.png"
-      ],
-      "sortOrder": "custom"
-    },
     "obsidian的使用": {
       "children": [
+        "obsidian的使用/assets",
         "obsidian的使用/如何使用obsidian做笔记.md",
         "obsidian的使用/Obsidian Smart Connections 使用指南.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "obsidian的使用/assets": {
+      "children": [
+        "obsidian的使用/assets/如何使用obsidian做笔记"
+      ],
+      "sortOrder": "custom"
+    },
+    "obsidian的使用/assets/如何使用obsidian做笔记": {
+      "children": [
+        "obsidian的使用/assets/如何使用obsidian做笔记/file-20260327231933872.png",
+        "obsidian的使用/assets/如何使用obsidian做笔记/file-20260327231933873.png",
+        "obsidian的使用/assets/如何使用obsidian做笔记/file-20260327231933873 1.png",
+        "obsidian的使用/assets/如何使用obsidian做笔记/file-20260327231933874.png",
+        "obsidian的使用/assets/如何使用obsidian做笔记/file-20260327231933874 1.png",
+        "obsidian的使用/assets/如何使用obsidian做笔记/file-20260327231933875.png",
+        "obsidian的使用/assets/如何使用obsidian做笔记/file-20260327231933876.png"
       ],
       "sortOrder": "custom"
     },
