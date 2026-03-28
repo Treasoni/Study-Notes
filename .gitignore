@@ -1,2 +1,7 @@
 .obsidian/wgrkspace.json
 .obsidian/workspace-mobile.json
+
+
+
+# Ignore Smart Environment folder
+.smart-env
