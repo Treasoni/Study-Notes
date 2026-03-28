@@ -1,0 +1,22 @@
+{
+  "id": "conv-1774703215945-l8jpa81sl",
+  "title": "Learn Docker container image version updates",
+  "titleGenerationStatus": "success",
+  "createdAt": 1774703215945,
+  "updatedAt": 1774703313830,
+  "lastResponseAt": 1774703313830,
+  "sessionId": null,
+  "currentNote": "docker/docker容器如何更新.md",
+  "enabledMcpServers": [
+    "zai-mcp-server"
+  ],
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 7609,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 28224,
+    "contextWindow": 200000,
+    "contextTokens": 35833,
+    "percentage": 18
+  }
+}
