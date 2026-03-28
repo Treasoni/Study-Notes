@@ -1,0 +1,20 @@
+{
+  "id": "conv-1774703539510-uvaq5j88y",
+  "title": "Switch Docker container to different image version",
+  "titleGenerationStatus": "success",
+  "createdAt": 1774703539511,
+  "updatedAt": 1774704032493,
+  "lastResponseAt": 1774704032493,
+  "sessionId": "0a17d3ad-ed4a-48a1-9d4b-dfdc9d507051",
+  "sdkSessionId": "0a17d3ad-ed4a-48a1-9d4b-dfdc9d507051",
+  "currentNote": "docker/docker容器搭建错误的知识讲解.md",
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}
