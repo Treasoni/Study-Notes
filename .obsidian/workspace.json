@@ -13,28 +13,15 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "obsidian的使用/Obsidian Smart Connections 使用指南.md",
+                "file": "CLAUDE.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Obsidian Smart Connections 使用指南"
-            }
-          },
-          {
-            "id": "26f21d873c86ac30",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.12.7"
-              },
-              "icon": "lucide-book-up",
-              "title": "版本说明 1.12.7"
+              "title": "CLAUDE"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -169,12 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "CLAUDE.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "CLAUDE 的大纲"
             }
           },
           {
@@ -196,9 +184,19 @@
               "icon": "bot",
               "title": "Claudian"
             }
+          },
+          {
+            "id": "680ac12115217be4",
+            "type": "leaf",
+            "state": {
+              "type": "smart-connections-view",
+              "state": {},
+              "icon": "smart-connections",
+              "title": "Connections"
+            }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
@@ -216,15 +214,19 @@
       "obsidian-git:Open Git source control": false,
       "claudian:Open Claudian": false,
       "obsidian42-brat:BRAT": false,
-      "terminal:Open terminal": false
+      "terminal:Open terminal": false,
+      "smart-connections:Smart Connections: Open connections view": false,
+      "smart-connections:Smart Lookup: Open lookup view": false,
+      "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "26f21d873c86ac30",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "AI学习/03-进阶应用/Claude MCP 使用指南.md",
+    "obsidian的使用/Obsidian Smart Connections 使用指南.md",
     "obsidian的使用/如何使用obsidian做笔记.md",
     "obsidian的使用/assets/如何使用obsidian做笔记",
     "obsidian的使用/assets",
-    "obsidian的使用/Obsidian Smart Connections 使用指南.md",
     "obsidian的使用",
     "obsidain的使用/assets/如何使用obsidian做笔记",
     "obsidain的使用/assets",
@@ -233,7 +235,6 @@
     "AI学习/02-工具使用/Obsidian使用",
     "obsidain的使用",
     "AI学习/02-工具使用/Obsidian Smart Connections 使用指南.md",
-    "AI学习/03-进阶应用/Claude MCP 使用指南.md",
     "AI学习/01-基础概念/Skills 是什么.md",
     "AI学习/02-工具使用/Claude Code Hooks 使用指南.md",
     "AI学习/01-基础概念/Hook钩子.md",
