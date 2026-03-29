@@ -1,0 +1,20 @@
+{
+  "id": "conv-1774753936126-5lb9c3zfc",
+  "title": "Learn WSL concepts and usage basics",
+  "titleGenerationStatus": "success",
+  "createdAt": 1774753936126,
+  "updatedAt": 1774754217228,
+  "lastResponseAt": 1774754217228,
+  "sessionId": "cf328f99-b8bb-43fe-8294-e1bc2263912f",
+  "sdkSessionId": "cf328f99-b8bb-43fe-8294-e1bc2263912f",
+  "currentNote": "docker/Windows-DockerDesktop安装指南-国内网络版.md",
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}
