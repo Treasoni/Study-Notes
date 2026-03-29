@@ -639,6 +639,7 @@ Settings → Resources
 
 | 概念 | 关系 |
 |------|------|
+| [[../AI学习/02-工具使用/WSL-Windows子系统forLinux]] | WSL 是 Docker Desktop 的底层运行环境 |
 | [[镜像加速器vs代理-概念对比]] | 了解镜像加速器和代理的区别 |
 | [[DockerDesktop镜像加速器配置]] | Mac 版镜像加速器配置 |
 | [[Docker网络结构详解]] | Docker 网络原理和配置 |

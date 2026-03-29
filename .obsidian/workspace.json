@@ -230,7 +230,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       },
       {
         "id": "e5bdabb35f60c58d",
@@ -271,8 +271,9 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "3a0c8c15cd389166",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "AI学习/02-工具使用/WSL-Windows子系统forLinux.md",
     "linux/Ubuntu curl SSL连接问题排查.md",
     "docker/镜像加速器vs代理-概念对比.md",
     "docker/DockerDesktop镜像加速器配置.md",
@@ -305,7 +306,6 @@
     "AI学习/01-基础概念/SubAgent子代理.md",
     "AI学习/01-基础概念/MCP协议.md",
     "AI学习/02-工具使用/Claude Code 常用功能.md",
-    "AI学习/02-工具使用/Claude Code 插件系统使用指南.md",
     "AI学习/05-其他主题/AI模型对比",
     "AI学习/05-其他主题/openclaw/参考层",
     "AI学习/05-其他主题/openclaw/选型层",

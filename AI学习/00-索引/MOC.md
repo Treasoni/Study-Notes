@@ -45,6 +45,7 @@ Claude Code 的安装、配置和日常使用。
 | [[02-工具使用/Claude Code Hooks 使用指南]] | `claude`, `ai`, `工具使用`, `hook`, `自动化` | Hook配置详解、Matcher语法、实战示例、调试排错 | 新增 |
 | [[02-工具使用/Claude Code 插件系统使用指南]] | `ai`, `进阶应用`, `插件` | 插件系统架构、安装、创建自定义插件 | 430行 |
 | [[02-工具使用/Tailscale使用指南]] | `tailscale`, `vpn`, `networking` | 基于 WireGuard 的零配置 VPN 组网工具，安装、工作原理、使用教程 | 300行 |
+| [[02-工具使用/WSL-Windows子系统forLinux]] | `wsl`, `windows`, `linux`, `开发环境` | Windows 内置 Linux 子系统，概念原理、安装配置、常用命令、实战场景 | 新增 |
 | [[obsidian的使用/Obsidian Smart Connections 使用指南]] | `obsidian`, `smart-connections`, `语义搜索` | Obsidian 本地优先语义搜索插件，自动发现笔记关联、AI 嵌入技术 | 新增 |
 
 #### 自动化工具
@@ -378,6 +379,7 @@ AI 模型对比与选型相关文档。
 | 使用 Smart Connections 发现笔记关联 | [[obsidian的使用/Obsidian Smart Connections 使用指南]] |
 | Claude Code 定时自动化 | [[02-工具使用/Claude Code 定时任务自动化指南]] |
 | 了解 GLM 模型对比 | [[05-其他主题/AI模型对比/GLM系列模型完整对比]] |
+| 学习 WSL Linux 子系统 | [[02-工具使用/WSL-Windows子系统forLinux]] |
 
 ---
 
