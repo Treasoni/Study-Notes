@@ -27,12 +27,19 @@ updated: 2026-03-07
 | 主流系统对比 | OpenWrt/iStoreOS/OPNsense/pfSense/RouterOS对比 | [[主流软路由系统对比与选择指南]] |
 | 选择决策 | 如何根据需求选择合适的软路由系统 | [[主流软路由系统对比与选择指南##如何选择软路由系统]] |
 
+### 📖 基础原理
+理解软路由和旁路由的核心概念
+
+| 主题 | 说明 | 笔记 |
+|------|------|------|
+| 旁路由原理 | 旁路由工作原理、网关设置本质 | [[旁路由原理详解]] |
+| 代理插件对比 | Passwall/Passwall2/OpenClash/HomeProxy 对比 | [[iStoreOS爬梯配置指南##二、代理插件对比]] |
+
 ### 🚀 iStoreOS 配置指南
 iStoreOS 系统的代理配置和旁路由设置
 
 | 主题 | 说明 | 笔记 |
 |------|------|------|
-| 代理插件对比 | Passwall/Passwall2/OpenClash/HomeProxy 对比 | [[iStoreOS爬梯配置指南##二、代理插件对比]] |
 | Passwall 配置 | Passwall/Passwall2 完整配置教程 | [[iStoreOS爬梯配置指南##三、Passwall 完整配置]] |
 | OpenClash 配置 | OpenClash 安装和配置教程 | [[iStoreOS爬梯配置指南##四、OpenClash 安装配置]] |
 | 旁路由配置 | 旁路由网络模式配置指南 | [[iStoreOS爬梯配置指南##五、旁路由网络配置]] |
@@ -103,4 +110,4 @@ iStoreOS 系统的代理配置和旁路由设置
 
 ## 相关文档
 
-[[主流软路由系统对比与选择指南]] | [[iStoreOS爬梯配置指南]] | [[PVE的学习/PVE学习笔记MOC]] | [[PVE的学习/02-虚拟机管理/PVE的网络逻辑讲解]] | [[网络协议详解-WebDAV_Samba_FTP_iSCSI]]
+[[旁路由原理详解]] | [[主流软路由系统对比与选择指南]] | [[iStoreOS爬梯配置指南]] | [[PVE的学习/PVE学习笔记MOC]] | [[PVE的学习/02-虚拟机管理/PVE的网络逻辑讲解]] | [[网络协议详解-WebDAV_Samba_FTP_iSCSI]]
