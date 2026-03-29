@@ -230,7 +230,7 @@ docker run -d -p 8080:80 nginx
 ```
 
 > [!tip] 相关文档
-> 详细的 Docker 安装配置见 [[docker/Windows-DockerDesktop安装指南-国内网络版]]
+> 详细的 Docker 安装配置见 [[../docker/Windows-DockerDesktop安装指南-国内网络版]]
 
 ---
 
@@ -312,7 +312,7 @@ sudo apt update
 
 | 概念 | 关系 |
 |------|------|
-| [[docker/Windows-DockerDesktop安装指南-国内网络版]] | Docker Desktop 依赖 WSL 2 运行 Linux 容器 |
+| [[../docker/Windows-DockerDesktop安装指南-国内网络版]] | Docker Desktop 依赖 WSL 2 运行 Linux 容器 |
 | 虚拟机 (VM) | WSL 2 使用轻量级虚拟机，但比传统 VM 更轻量 |
 | Hyper-V | WSL 2 底层使用 Hyper-V 技术 |
 | Windows Terminal | 推荐的 WSL 终端工具 |
