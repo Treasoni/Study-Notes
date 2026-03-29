@@ -27,16 +27,44 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docker/docker容器如何更新.md",
+                "file": "docker/DockerDesktop镜像加速器配置.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "docker容器如何更新"
+              "title": "DockerDesktop镜像加速器配置"
+            }
+          },
+          {
+            "id": "56e2cd3ccb5946e3",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "docker/镜像加速器vs代理-概念对比.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "镜像加速器vs代理-概念对比"
+            }
+          },
+          {
+            "id": "3a0c8c15cd389166",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "docker/Windows-DockerDesktop安装指南-国内网络版.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Windows-DockerDesktop安装指南-国内网络版"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -102,6 +130,7 @@
       {
         "id": "33f860409e25f7cf",
         "type": "tabs",
+        "dimension": 70.1086956521739,
         "children": [
           {
             "id": "d31323bcb390357e",
@@ -171,13 +200,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker/docker容器如何更新.md",
+                "file": "docker/Windows-DockerDesktop安装指南-国内网络版.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "docker容器如何更新 的大纲"
+              "title": "Windows-DockerDesktop安装指南-国内网络版 的大纲"
             }
           },
           {
@@ -199,7 +228,15 @@
               "icon": "bot",
               "title": "Claudian"
             }
-          },
+          }
+        ],
+        "currentTab": 6
+      },
+      {
+        "id": "e5bdabb35f60c58d",
+        "type": "tabs",
+        "dimension": 29.891304347826086,
+        "children": [
           {
             "id": "680ac12115217be4",
             "type": "leaf",
@@ -210,12 +247,11 @@
               "title": "Connections"
             }
           }
-        ],
-        "currentTab": 6
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 473.5
+    "width": 371.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -235,15 +271,16 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "3a0c8c15cd389166",
   "lastOpenFiles": [
     "docker/镜像加速器vs代理-概念对比.md",
+    "docker/Windows-DockerDesktop安装指南-国内网络版.md",
+    "docker/DockerDesktop镜像加速器配置.md",
+    "docker/docker容器如何更新.md",
     "docker/docker容器搭建错误的知识讲解.md",
     "docker/github文件直链方式.md",
     "docker/docker里的GID和UID.md",
     "docker/docker进行代理.md",
-    "docker/docker容器如何更新.md",
-    "docker/DockerDesktop镜像加速器配置.md",
     "CLAUDE.md",
     "AI学习/03-进阶应用/Claude MCP 使用指南.md",
     "obsidian的使用/Obsidian Smart Connections 使用指南.md",
@@ -269,7 +306,6 @@
     "未命名.md",
     "Git/Git 入门教程.md",
     "AI学习/02-工具使用/Claude Code 模型与推理设置.md",
-    "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
     "AI学习/05-其他主题/AI模型对比",
     "AI学习/05-其他主题/openclaw/参考层",
     "AI学习/05-其他主题/openclaw/选型层",

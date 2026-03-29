@@ -360,7 +360,8 @@ docker exec -it app sh -c "curl -I https://www.google.com"
 ## 相关文档
 
 - [[docker进行代理]] - Docker 容器代理详细配置
-- [[DockerDesktop镜像加速器配置]] - Docker Desktop 镜像加速器配置详解
+- [[DockerDesktop镜像加���器配置]] - Docker Desktop 镜像加速器配置详解
+- [[Windows-DockerDesktop安装指南-国内网络版]] - Windows Docker Desktop 安装指南（国内网络版）
 - [[docker容器如何更新]] - Docker 容器更新方法
 
 ---
