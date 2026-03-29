@@ -3,6 +3,18 @@
   "title": "Learn bypass router gateway principles",
   "titleGenerationStatus": "success",
   "createdAt": 1774750802607,
-  "updatedAt": 1774750805456,
-  "sessionId": null
+  "updatedAt": 1774751211267,
+  "lastResponseAt": 1774751211267,
+  "sessionId": "31ef26fb-16a4-4c04-94bd-561caf557115",
+  "sdkSessionId": "31ef26fb-16a4-4c04-94bd-561caf557115",
+  "currentNote": "docker/Docker网络结构详解.md",
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
 }
