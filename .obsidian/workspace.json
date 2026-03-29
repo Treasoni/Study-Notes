@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docker/Windows-DockerDesktop安装指南-国内网络版.md",
+                "file": "docker/镜像加速器vs代理-概念对比.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Windows-DockerDesktop安装指南-国内网络版"
+              "title": "镜像加速器vs代理-概念对比"
             }
           }
         ],
@@ -200,13 +200,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker/Windows-DockerDesktop安装指南-国内网络版.md",
+                "file": "docker/镜像加速器vs代理-概念对比.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Windows-DockerDesktop安装指南-国内网络版 的大纲"
+              "title": "镜像加速器vs代理-概念对比 的大纲"
             }
           },
           {
@@ -271,16 +271,18 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "3a0c8c15cd389166",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
-    "docker/镜像加速器vs代理-概念对比.md",
-    "docker/Windows-DockerDesktop安装指南-国内网络版.md",
-    "docker/DockerDesktop镜像加速器配置.md",
+    "docker/Docker网络结构详解.md",
+    "linux/Linux换源.md",
     "docker/docker容器如何更新.md",
+    "docker/docker进行代理.md",
+    "docker/Windows-DockerDesktop安装指南-国内网络版.md",
+    "docker/镜像加速器vs代理-概念对比.md",
+    "docker/DockerDesktop镜像加速器配置.md",
     "docker/docker容器搭建错误的知识讲解.md",
     "docker/github文件直链方式.md",
     "docker/docker里的GID和UID.md",
-    "docker/docker进行代理.md",
     "CLAUDE.md",
     "AI学习/03-进阶应用/Claude MCP 使用指南.md",
     "obsidian的使用/Obsidian Smart Connections 使用指南.md",
@@ -304,8 +306,6 @@
     "AI学习/02-工具使用/如何使用Claude code.md",
     "AI学习/02-工具使用/Claude Code 自定义斜杠命令教程.md",
     "未命名.md",
-    "Git/Git 入门教程.md",
-    "AI学习/02-工具使用/Claude Code 模型与推理设置.md",
     "AI学习/05-其他主题/AI模型对比",
     "AI学习/05-其他主题/openclaw/参考层",
     "AI学习/05-其他主题/openclaw/选型层",
