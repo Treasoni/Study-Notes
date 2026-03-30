@@ -43,6 +43,7 @@
     },
     "软路由教程": {
       "children": [
+        "软路由教程/旁路由原理详解.md",
         "软路由教程/软路由教程MOC.md",
         "软路由教程/主流软路由系统对比与选择指南.md",
         "软路由教程/iStoreOS爬梯配置指南.md"
@@ -271,6 +272,9 @@
     },
     "docker": {
       "children": [
+        "docker/镜像加速器vs代理-概念对比.md",
+        "docker/Docker网络结构详解.md",
+        "docker/Windows-DockerDesktop安装指南-国内网络版.md",
         "docker/DockerDesktop镜像加速器配置.md",
         "docker/assets",
         "docker/docker里的GID和UID.md",
@@ -325,6 +329,8 @@
     },
     "linux": {
       "children": [
+        "linux/Ubuntu curl SSL连接问题排查.md",
+        "linux/WSL-Windows子系统forLinux.md",
         "linux/Ubuntu Server SSH 配置指南.md",
         "linux/Ubuntu Server 安装教程.md",
         "linux/assets",
