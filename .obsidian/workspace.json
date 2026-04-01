@@ -200,13 +200,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/02-工具使用/Tailscale使用指南.md",
+                "file": "CLAUDE.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Tailscale使用指南 的大纲"
+              "title": "CLAUDE 的大纲"
             }
           },
           {
@@ -273,6 +273,7 @@
   },
   "active": "746e3216e1c18840",
   "lastOpenFiles": [
+    "AI学习/02-工具使用/Tailscale使用指南.md",
     "linux/WSL-Windows子系统forLinux.md",
     "docker/Windows-DockerDesktop安装指南-国内网络版.md",
     "AI学习/02-工具使用/WSL-Windows子系统forLinux.md",
@@ -305,7 +306,6 @@
     "AI学习/02-工具使用/Claude Code Hooks 使用指南.md",
     "AI学习/01-基础概念/Hook钩子.md",
     "AI学习/01-基础概念/SubAgent子代理.md",
-    "AI学习/01-基础概念/MCP协议.md",
     "AI学习/05-其他主题/AI模型对比",
     "AI学习/05-其他主题/openclaw/参考层",
     "AI学习/05-其他主题/openclaw/选型层",
