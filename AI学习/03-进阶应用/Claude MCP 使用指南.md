@@ -1,5 +1,6 @@
 ---
 tags: [ai, 进阶应用]
+updated: 2026-04-04
 ---
 
 # Claude MCP 使用指南
