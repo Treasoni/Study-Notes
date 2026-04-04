@@ -870,12 +870,64 @@ A: 添加 SSE 类型的 URL 配置，首次使用时 Claude Code 会自动打开
 
 ---
 
+## 最佳实践
+
+### 安全考虑
+
+#### ✅ 应该做的
+
+- 使用环境变量存储所有凭据
+- 定期轮换令牌和 API 密钥（建议每月）
+- 尽可能使用只读令牌
+- 将 MCP 服务器访问范围限制为最低所需权限
+- 监控 MCP 服务器使用情况和访问日志
+- 可用时使用 OAuth ���行外部服务认证
+- 对 MCP 请求实施速率限制
+- 生产使用前测试 MCP 连接
+- 记录所有活动的 MCP 连接
+- 保持 MCP 服务器包更新
+
+#### ❌ 不应该做的
+
+- 不要在配置文件中硬编码凭据
+- 不要将令牌或密钥提交到 git
+- 不要在团队聊天或电子邮件中共享令牌
+- 不要在团队项目中使用个人令牌
+- 不要授予不必要的权限
+- 不要忽略身份验证错误
+- 不要公开暴露 MCP 端点
+- 不要以 root/管理员权限运行 MCP 服务器
+- 不要在日志中缓存敏感数据
+- 不要禁用身份验证机制
+
+### 配置最佳实践
+
+1. **版本控制**：将 `.mcp.json` 保留在 git 中，但使用环境变量存储密钥
+2. **最小权限**：为每个 MCP 服务器授予所需的最低权限
+3. **隔离**：尽可能在不同的进程中运行不同的 MCP 服务器
+4. **监控**：记录所有 MCP 请求和错误以进行审计跟踪
+5. **测试**：在部署到生产环境之前测试所有 MCP 配置
+
+### 性能技巧
+
+- 在应用层缓存频繁访问的数据
+- 使用特定的 MCP 查询以减少数据传输
+- 监控 MCP 操作的响应时间
+- 考虑对外部 API 进行速率限制
+- 执行多个操作时使用批处理
+
+> [!info] 📚 来源
+> - [Claude Code MCP 官方文档](https://docs.anthropic.com/en/docs/claude-code/mcp#best-practices) - 最佳实践指南
+
+---
+
 ## 参考资料
 
 ### 官方资源
 - [Claude Code MCP 官方文档](https://docs.anthropic.com/en/docs/claude-code/mcp) - 完整技术文档
 - [MCP 协议规范](https://modelcontextprotocol.io) - 协议标准说明
 - [MCP GitHub 组织](https://github.com/modelcontextprotocol) - 官方服务器实现
+- [claude-howto MCP 指南](https://github.com/luongnv89/claude-howto/blob/main/05-mcp/README.md) - 社区维护的详细指南
 
 ### 社区资源
 - [Claude Code 添加 MCP 服务器完整指南](https://www.tinyash.com/blog/claude-code-mcp/) - 中文教程
