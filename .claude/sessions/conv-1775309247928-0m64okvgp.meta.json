@@ -3,6 +3,18 @@
   "title": "Update Claude MCP guide with GitHub resources",
   "titleGenerationStatus": "success",
   "createdAt": 1775309247930,
-  "updatedAt": 1775309251750,
-  "sessionId": null
+  "updatedAt": 1775312850994,
+  "lastResponseAt": 1775312850994,
+  "sessionId": "5c453452-6445-4f5f-ad39-559495e48d9d",
+  "sdkSessionId": "5c453452-6445-4f5f-ad39-559495e48d9d",
+  "currentNote": "AI学习/03-进阶应用/Claude MCP 使用指南.md",
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
 }
