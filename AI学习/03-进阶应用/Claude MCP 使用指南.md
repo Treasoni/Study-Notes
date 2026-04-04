@@ -37,9 +37,12 @@ tags: [ai, 进阶应用]
 | 传输方式 | 适用场景 | 特点 |
 |----------|----------|------|
 | **stdio** | 本地工具、NPM 包 | 进程间通信，低延迟 |
-| **SSE** | 云端服务、OAuth | 自动授权，令牌刷新 |
-| **HTTP** | REST API | 请求/响应模式 |
+| **HTTP** | 云端服务、REST API | **推荐**，请求/响应模式，支持 OAuth |
+| **SSE** | 云端服务、OAuth | ⚠️ **已废弃**，请使用 HTTP 替代 |
 | **WebSocket** | 实时通信 | 持久连接，双向数据 |
+
+> [!warning] SSE 传输已废弃
+> Server-Sent Events (SSE) 传输已被废弃，推荐使用 HTTP 传输替代。HTTP 传输提供了更好的兼容性和功能支持。
 
 ---
 
@@ -93,6 +96,59 @@ claude mcp add --transport stdio --env AIRTABLE_API_KEY=YOUR_KEY airtable \
 claude mcp add --transport stdio --env DATABASE_URL=postgresql://user:pass@localhost/db db \
   -- npx -y @modelcontextprotocol/server-postgres
 ```
+
+> [!tip] Windows 特别注意事项
+> 在原生 Windows（非 WSL）上，使用 `cmd /c` 来执行 npx 命令：
+> ```bash
+> claude mcp add --transport stdio my-server -- cmd /c npx -y @some/package
+> ```
+
+### OAuth 2.0 认证
+
+Claude Code 支持 OAuth 2.0 进行 MCP 服务器认证。当连接到启用 OAuth 的服务器时，Claude Code 会自动处理整个认证流程。
+
+```bash
+# 连接到启用 OAuth 的 MCP 服务器（交互式流程）
+claude mcp add --transport http my-service https://my-service.example.com/mcp
+
+# 预配置 OAuth 凭据（非交互式设置）
+claude mcp add --transport http my-service https://my-service.example.com/mcp \
+  --client-id "your-client-id" \
+  --client-secret "your-client-secret" \
+  --callback-port 8080
+```
+
+**OAuth 功能表**：
+
+| 功能 | 描述 |
+|------|------|
+| **交互式 OAuth** | 使用 `/mcp` 触发浏览器 OAuth 流程 |
+| **预配置 OAuth 客户端** | 内置常用服务（Notion、Stripe 等）的 OAuth 客户端（v2.1.30+） |
+| **预配置凭据** | `--client-id`、`--client-secret`、`--callback-port` 标志用于自动设置 |
+| **令牌存储** | 令牌安全存储在系统密钥链中 |
+| **Step-up 认证** | 支持特权操作的升级认证 |
+| **发现缓存** | OAuth 发现元数据缓存以加快重连速度 |
+
+#### 覆盖 OAuth 元数据发现
+
+如果 MCP 服务器在标准 OAuth 元数据端点（`/.well-known/oauth-authorization-server`）返回错误，但暴露了可用的 OIDC 端点，可以指定 OAuth 元数据 URL：
+
+```json
+{
+  "mcpServers": {
+    "my-server": {
+      "type": "http",
+      "url": "https://mcp.example.com/mcp",
+      "oauth": {
+        "authServerMetadataUrl": "https://auth.example.com/.well-known/openid-configuration"
+      }
+    }
+  }
+}
+```
+
+> [!info] 📚 来源
+> - [Claude Code 官方文档 - OAuth](https://docs.anthropic.com/en/docs/claude-code/mcp#oauth-authentication) - OAuth 配置说明
 
 > [!tip] 旧命令格式
 > 如果您看到使用 `--command` 的旧示例，请使用新的 `--transport` 语法：

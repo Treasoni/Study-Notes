@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/02-工具使用/Tailscale使用指南.md",
+                "file": "AI学习/03-进阶应用/Claude MCP 使用指南.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Tailscale使用指南"
+              "title": "Claude MCP 使用指南"
             }
           }
         ],
@@ -200,13 +200,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CLAUDE.md",
+                "file": "AI学习/03-进阶应用/Claude MCP 使用指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "CLAUDE 的大纲"
+              "title": "Claude MCP 使用指南 的大纲"
             }
           },
           {
@@ -230,7 +230,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       },
       {
         "id": "e5bdabb35f60c58d",
@@ -271,8 +271,11 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "746e3216e1c18840",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "AI学习/02-工具使用/如何使用Claude code.md",
+    "AI学习/01-基础概念/MCP协议.md",
+    "CLAUDE.md",
     "AI学习/02-工具使用/Tailscale使用指南.md",
     "linux/WSL-Windows子系统forLinux.md",
     "docker/Windows-DockerDesktop安装指南-国内网络版.md",
@@ -289,7 +292,6 @@
     "docker/docker容器搭建错误的知识讲解.md",
     "docker/github文件直链方式.md",
     "docker/docker里的GID和UID.md",
-    "CLAUDE.md",
     "AI学习/03-进阶应用/Claude MCP 使用指南.md",
     "obsidian的使用/Obsidian Smart Connections 使用指南.md",
     "obsidian的使用/如何使用obsidian做笔记.md",
@@ -304,8 +306,6 @@
     "AI学习/02-工具使用/Obsidian Smart Connections 使用指南.md",
     "AI学习/01-基础概念/Skills 是什么.md",
     "AI学习/02-工具使用/Claude Code Hooks 使用指南.md",
-    "AI学习/01-基础概念/Hook钩子.md",
-    "AI学习/01-基础概念/SubAgent子代理.md",
     "AI学习/05-其他主题/AI模型对比",
     "AI学习/05-其他主题/openclaw/参考层",
     "AI学习/05-其他主题/openclaw/选型层",
