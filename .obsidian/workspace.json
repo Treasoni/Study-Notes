@@ -10,7 +10,7 @@
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 78.23721436343853,
+            "dimension": 46.13710554951034,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -74,7 +74,7 @@
           {
             "id": "28cba42a6237a322",
             "type": "tabs",
-            "dimension": 21.76278563656148,
+            "dimension": 53.86289445048966,
             "children": [
               {
                 "id": "6920bdf1334a965f",
@@ -115,7 +115,7 @@
                   },
                   "pinned": true,
                   "icon": "terminal",
-                  "title": "终端：✳ Claude Code"
+                  "title": "终端：✳ 文件排序"
                 }
               },
               {
@@ -160,8 +160,7 @@
                   "title": "终端：✳ Video Analysis"
                 }
               }
-            ],
-            "currentTab": 1
+            ]
           }
         ],
         "direction": "horizontal"
@@ -372,10 +371,11 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "746e3216e1c18840",
+  "active": "1fba13ed6f715185",
   "lastOpenFiles": [
-    "AI学习/01-基础概念/AI工程师学习路线图.md",
+    "Git/sortspec.md",
     "obsidian的使用/Obsidian-Custom-Sort-自定义排序插件.md",
+    "AI学习/01-基础概念/AI工程师学习路线图.md",
     "AI学习/02-工具使用/Obsidian-Sort-知识卡片.json",
     "AI学习/01-基础概念/AI学习路径与技能图谱.md",
     "AI学习/01-基础概念/2026-AI职业角色与路线图.md",
@@ -401,7 +401,6 @@
     "环境变量使用指南.md",
     "PVE的学习/01-安装配置/PVE存储库.md",
     "PVE的学习/03-容器管理/PVE的CT.md",
-    "AI学习/01-基础概念/AI工程范式演进-Prompt到Harness.md",
     "AI学习/05-其他主题/knowledge-cards.json",
     "obsidian的使用/assets/如何使用obsidian做笔记",
     "obsidian的使用/assets",
