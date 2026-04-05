@@ -75,11 +75,11 @@ Task(subagent_type="editor", prompt="美化以下笔记格式...", description="
 | `obsidian-cli` | 需要命令行操作 Obsidian 时 | 搜索/管理笔记/调试插件 |
 
 ### 开发与扩展类
-| Skill | 触发条件 | 用途 |
-|-------|---------|------|
-| `skill-creator` | 用户想创建/修改 skill 时 | 创建/优化 skill |
+| Skill              | 触发条件               | 用途             |
+| ------------------ | ------------------ | -------------- |
+| `skill-creator`    | 用户想创建/修改 skill 时   | 创建/优化 skill    |
 | `subagent-creator` | 用户想创建专用 subagent 时 | 创建隔离上下文的 agent |
-| `mcp-builder` | 用户想创建 MCP server 时 | 构建 MCP 集成 |
+| `mcp-builder`      | 用户想创建 MCP server 时 | 构建 MCP 集成      |
 
 ### 优先级规则
 - **Optional Skills 只能作为补充能力，不得替代主流程 Subagent**
@@ -128,13 +128,16 @@ research → curate → write → edit
 ### /update <文件路径> - 更新现有笔记
 **标准工作流：**
 ```
-read → research latest → merge → validate
+read → research latest → merge → editor → validate
 ```
 
 1. **Read** 读取现有内容，识别用户个人章节
 2. **Research Latest** 搜索最新信息（使用 2026）
 3. **Merge** 仅更新技术内容，保留个人笔记
-4. **Validate** 检查链接和引用有效性
+4. **Editor** 美化格式
+   - LaTeX 公式、代码块、Mermaid 图
+   - 输出：最终优化笔记
+1. **Validate** 检查链接和引用有效性
 
 ### /organize <文件夹路径> - 整理知识库
 **标准工作流：**

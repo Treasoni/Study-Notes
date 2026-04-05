@@ -143,6 +143,7 @@ Subagent 的创建和多 Agent 流程设计。
 - [[01-基础概念/Skills 是什么]]
 - [[01-基础概念/Agent Teams智能体团队]]
 - [[01-基础概念/Hook钩子]]
+- [[01-基础概念/AI工程范式演进-Prompt到Harness]] - 工程范式演进：Prompt → Context → Harness
 
 #### 工具使用
 - [[02-工具使用/如何使用Claude code]]

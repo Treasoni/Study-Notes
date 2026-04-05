@@ -1,0 +1,434 @@
+{
+  "folder": "05-其他主题",
+  "subfolders": {
+    "openclaw": [
+      "OpenClaw MOC.md",
+      "入门层/OpenClaw核心概念.md",
+      "入门层/OpenClaw安装教程.md",
+      "配置层/OpenClaw安装后配置指南.md",
+      "配置层/OpenClaw Web控制台局域网访问配置.md",
+      "配置层/OpenClaw网关开机自启与HTTPS配置.md",
+      "应用层/OpenClaw对接第三方软件指南.md",
+      "应用层/OpenClaw多智能体协作指南.md",
+      "应用层/OpenClaw数字人商业调查.md",
+      "应用层/OpenClaw本地智能助手搭建指南.md",
+      "选型层/OpenClaw与国内仿制品对比.md",
+      "参考层/OpenClaw常用命令速查.md"
+    ],
+    "AI模型对比": [
+      "GLM系列模型完整对比.md"
+    ]
+  },
+  "files_analyzed": 15,
+  "topics": [
+    "OCR (Optical Character Recognition)",
+    "RAG (Retrieval-Augmented Generation)",
+    "OpenClaw (AI Gateway)",
+    "GLM Series Models"
+  ],
+  "knowledge_cards": [
+    {
+      "file": "OCR概念笔记.md",
+      "title": "OCR 概念笔记",
+      "summary": "OCR（光学字符识别）是从图像中提取文字的技术，介绍了原理、工具（Tesseract、EasyOCR、PaddleOCR）、应用场景和在 Marker 中的使用",
+      "key_concepts": [
+        "OCR (Optical Character Recognition)",
+        "图像预处理",
+        "特征提取",
+        "字符识别",
+        "Tesseract OCR",
+        "EasyOCR",
+        "PaddleOCR"
+      ],
+      "links_to": [
+        "../marker使用笔记.md"
+      ],
+      "linked_from": [],
+      "tags": ["ocr", "图像识别", "文字提取", "tesseract", "marker"],
+      "is_island": true
+    },
+    {
+      "file": "RAG技术入门指南.md",
+      "title": "RAG 技术入门指南",
+      "summary": "RAG（检索增强生成）技术完整指南，从基础概念到进阶技术，包括 Embedding、向量数据库、分块策略、混合检索、GraphRAG、Agentic RAG 等",
+      "key_concepts": [
+        "RAG (Retrieval-Augmented Generation)",
+        "Embedding",
+        "向量数据库",
+        "Chunking",
+        "混合检索",
+        "GraphRAG",
+        "Agentic RAG",
+        "Reranking"
+      ],
+      "links_to": [
+        "../01-基础概念/人工智能重要的六大概念体系",
+        "../03-进阶应用/Claude MCP 使用指南"
+      ],
+      "linked_from": [
+        "../05-其他主题/openclaw/应用层/OpenClaw本地智能助手搭建指南.md"
+      ],
+      "tags": ["rag", "检索增强生成", "向量数据库", "embedding", "知识库", "ai"],
+      "is_island": false
+    },
+    {
+      "file": "openclaw/OpenClaw MOC.md",
+      "title": "OpenClaw 学习索引 (MOC)",
+      "summary": "OpenClaw 完整学习路径索引，包含入门层、配置层、应用层、选型层、参考层的所有文档导航和学习路径",
+      "key_concepts": [
+        "OpenClaw",
+        "MOC (Map of Content)",
+        "AI Gateway",
+        "学习路径"
+      ],
+      "links_to": [
+        "../RAG技术入门指南",
+        "../../02-工具使用/Tailscale使用指南"
+      ],
+      "linked_from": [
+        "入门层/OpenClaw核心概念.md",
+        "入门层/OpenClaw安装教程.md",
+        "配置层/OpenClaw安装后配置指南.md",
+        "配置层/OpenClaw Web控制台局域网访问配置.md",
+        "配置层/OpenClaw网关开机自启与HTTPS配置.md",
+        "应用层/OpenClaw对接第三方软件指南.md",
+        "应用层/OpenClaw多智能体协作指南.md",
+        "应用层/OpenClaw数字人商业调查.md",
+        "应用层/OpenClaw本地智能助手搭建指南.md",
+        "选型层/OpenClaw与国内仿制品对比.md",
+        "参考层/OpenClaw常用命令速查.md"
+      ],
+      "tags": ["openclaw", "moc", "索引", "学习路径"],
+      "is_island": false
+    },
+    {
+      "file": "openclaw/入门层/OpenClaw核心概念.md",
+      "title": "OpenClaw 核心概念",
+      "summary": "OpenClaw 是自托管 AI 网关，采用 Hub-and-Spoke 架构，连接聊天应用与 AI 智能体，介绍 Gateway、Node、四层架构、Hub-and-Spoke 架构",
+      "key_concepts": [
+        "OpenClaw",
+        "AI Gateway",
+        "Hub-and-Spoke 架构",
+        "Gateway",
+        "Node",
+        "WebSocket",
+        "会话管理",
+        "消息路由"
+      ],
+      "links_to": [
+        "../OpenClaw MOC",
+        "OpenClaw安装教程",
+        "../配置层/OpenClaw安装后配置指南",
+        "../配置层/OpenClaw Web控制台局域网访问配置",
+        "../应用层/OpenClaw对接第三方软件指南"
+      ],
+      "linked_from": [
+        "../OpenClaw MOC",
+        "../参考层/OpenClaw常用命令速查.md"
+      ],
+      "tags": ["openclaw", "gateway", "架构", "概念", "hub-and-spoke"],
+      "is_island": false
+    },
+    {
+      "file": "openclaw/入门层/OpenClaw安装教程.md",
+      "title": "OpenClaw 安装教程",
+      "summary": "OpenClaw 多平台安装指南，包括一键脚本、npm/pnpm、Docker、源码编译、阿里云部署、汉化版等多种安装方式",
+      "key_concepts": [
+        "OpenClaw",
+        "安装",
+        "npm",
+        "pnpm",
+        "Docker",
+        "一键脚本",
+        "源码编译"
+      ],
+      "links_to": [
+        "../OpenClaw MOC",
+        "OpenClaw核心概念",
+        "../配置层/OpenClaw安装后配置指南"
+      ],
+      "linked_from": [
+        "../OpenClaw MOC"
+      ],
+      "tags": ["openclaw", "安装", "部署", "npm", "docker"],
+      "is_island": false
+    },
+    {
+      "file": "openclaw/配置层/OpenClaw安装后配置指南.md",
+      "title": "OpenClaw 安装后配置指南",
+      "summary": "OpenClaw 安装后的配置步骤，包括配置向导、终端命令配置、大模型 API 配置（DeepSeek、阿里云百炼、Claude）、验证配置等",
+      "key_concepts": [
+        "OpenClaw",
+        "配置",
+        "API Key",
+        "DeepSeek",
+        "阿里云百炼",
+        "Claude",
+        "配置向导"
+      ],
+      "links_to": [
+        "../OpenClaw MOC",
+        "../入门层/OpenClaw核心概念",
+        "../入门层/OpenClaw安装教程",
+        "../应用层/OpenClaw对接第三方软件指南",
+        "../应用层/OpenClaw数字人商业调查"
+      ],
+      "linked_from": [
+        "../OpenClaw MOC",
+        "../入门层/OpenClaw核心概念"
+      ],
+      "tags": ["openclaw", "配置", "api", "deepseek", "模型"],
+      "is_island": false
+    },
+    {
+      "file": "openclaw/配置层/OpenClaw Web控制台局域网访问配置.md",
+      "title": "OpenClaw Web 控制台局域网访问配置",
+      "summary": "解决 OpenClaw Web 控制台局域网访问的三大安全障碍：CORS、安全上下文、设备配对，提供 HTTP 和 Tailscale HTTPS 两种方案",
+      "key_concepts": [
+        "OpenClaw",
+        "Control UI",
+        "CORS",
+        "安全上下文",
+        "设备配对",
+        "Tailscale",
+        "HTTPS",
+        "局域网访问"
+      ],
+      "links_to": [
+        "../OpenClaw MOC",
+        "OpenClaw安装后配置指南",
+        "../../02-工具使用/Tailscale使用指南"
+      ],
+      "linked_from": [
+        "../OpenClaw MOC",
+        "../入门层/OpenClaw核心概念",
+        "../配置层/OpenClaw网关开机自启与HTTPS配置"
+      ],
+      "tags": ["openclaw", "web", "局域网", "cors", "tailscale", "https"],
+      "is_island": false
+    },
+    {
+      "file": "openclaw/配置层/OpenClaw网关开机自启与HTTPS配置.md",
+      "title": "OpenClaw 网关开机自启与 HTTPS 配置",
+      "summary": "配置 OpenClaw 网关开机自启（macOS launchd、Linux systemd）和使用 Tailscale Serve 提供 HTTPS 安全访问",
+      "key_concepts": [
+        "OpenClaw",
+        "开机自启",
+        "systemd",
+        "launchd",
+        "Tailscale Serve",
+        "HTTPS",
+        "守护进程"
+      ],
+      "links_to": [
+        "../OpenClaw MOC",
+        "OpenClaw安装后配置指南",
+        "OpenClaw Web控制台局域网访问配置",
+        "../参考层/OpenClaw常用命令速查",
+        "../../02-工具使用/Tailscale使用指南"
+      ],
+      "linked_from": [
+        "../OpenClaw MOC"
+      ],
+      "tags": ["openclaw", "daemon", "systemd", "tailscale", "https", "开机自启"],
+      "is_island": false
+    },
+    {
+      "file": "openclaw/应用层/OpenClaw对接第三方软件指南.md",
+      "title": "OpenClaw 对接第三方软件指南",
+      "summary": "OpenClaw 集成第三方服务指南，包括官方 Skills、第三方 API、通讯平台（Telegram、飞书、WhatsApp）、生产力工具、MCP 协议集成",
+      "key_concepts": [
+        "OpenClaw",
+        "Skills",
+        "ClawHub",
+        "MCP 协议",
+        "Telegram",
+        "飞书",
+        "WhatsApp",
+        "集成"
+      ],
+      "links_to": [
+        "../OpenClaw MOC",
+        "../入门层/OpenClaw核心概念",
+        "OpenClaw安装后配置指南",
+        "../入门层/OpenClaw安装教程",
+        "OpenClaw数字人商业调查"
+      ],
+      "linked_from": [
+        "../OpenClaw MOC",
+        "../参考层/OpenClaw常用命令速查"
+      ],
+      "tags": ["openclaw", "集成", "plugins", "skills", "mcp", "telegram", "飞书"],
+      "is_island": false
+    },
+    {
+      "file": "openclaw/应用层/OpenClaw多智能体协作指南.md",
+      "title": "OpenClaw 多智能体协作指南",
+      "summary": "OpenClaw 多 Agent 协作完整指南，包括七种协作模式（Supervisor、Sequential、Parallel、Ensemble、Swarm、Debate、Mesh）、两层支持、四大协作机制、实战操作",
+      "key_concepts": [
+        "OpenClaw",
+        "Multi-Agent",
+        "协作",
+        "Supervisor",
+        "Sequential",
+        "Parallel",
+        "Ensemble",
+        "Agent 间通信",
+        "动态 Spawning"
+      ],
+      "links_to": [
+        "../OpenClaw MOC",
+        "../入门层/OpenClaw核心概念",
+        "OpenClaw对接第三方软件指南",
+        "../../01-基础概念/Agent智能体",
+        "../../01-基础概念/Agent Teams智能体团队"
+      ],
+      "linked_from": [
+        "../OpenClaw MOC"
+      ],
+      "tags": ["openclaw", "multi-agent", "协作", "团队", "编排"],
+      "is_island": false
+    },
+    {
+      "file": "openclaw/应用层/OpenClaw数字人商业调查.md",
+      "title": "OpenClaw 数字人商业调查",
+      "summary": "OpenClaw 数字人/数字员工商业应用调研，包括概念澄清、实现步骤、API vs 本地部署决策矩阵、98个真实应用场景、成本估算",
+      "key_concepts": [
+        "OpenClaw",
+        "数字人",
+        "数字员工",
+        "商业应用",
+        "API 调用",
+        "本地部署",
+        "成本估算",
+        "Ollama"
+      ],
+      "links_to": [
+        "../OpenClaw MOC",
+        "../入门层/OpenClaw核心概念",
+        "OpenClaw对接第三方软件指南"
+      ],
+      "linked_from": [
+        "../OpenClaw MOC"
+      ],
+      "tags": ["openclaw", "数字人", "商业调查", "企业应用", "成本分析"],
+      "is_island": false
+    },
+    {
+      "file": "openclaw/应用层/OpenClaw本地智能助手搭建指南.md",
+      "title": "OpenClaw 本地智能助手搭建指南",
+      "summary": "使用 OpenClaw + 本地知识库搭建企业文档智能助手，重点介绍企业文档智能助手场景，包括架构设计、memorySearch 配置、知识库规划、SOUL.md 配置",
+      "key_concepts": [
+        "OpenClaw",
+        "企业文档助手",
+        "知识库",
+        "RAG",
+        "memorySearch",
+        "飞书",
+        "培训新人"
+      ],
+      "links_to": [
+        "../OpenClaw MOC",
+        "../入门层/OpenClaw核心概念",
+        "../入门层/OpenClaw安装教程",
+        "../配置层/OpenClaw安装后配置指南",
+        "../选型层/OpenClaw与国内仿制品对比",
+        "../RAG技术入门指南"
+      ],
+      "linked_from": [
+        "../OpenClaw MOC"
+      ],
+      "tags": ["openclaw", "企业文档", "知识库", "rag", "智能助手", "飞书"],
+      "is_island": false
+    },
+    {
+      "file": "openclaw/选型层/OpenClaw与国内仿制品对比.md",
+      "title": "OpenClaw 与国内仿制品对比",
+      "summary": "OpenClaw 原版与国内仿制品（MaxClaw、KimiClaw、QClaw、PowerClaw）对比，包括企业选型指南、商业模式建议、安全风险与应对",
+      "key_concepts": [
+        "OpenClaw",
+        "MaxClaw",
+        "KimiClaw",
+        "QClaw",
+        "PowerClaw",
+        "企业选型",
+        "安全风险",
+        "商业模式"
+      ],
+      "links_to": [
+        "../OpenClaw MOC",
+        "../入门层/OpenClaw核心概念",
+        "../入门层/OpenClaw安装教程",
+        "../配置层/OpenClaw安装后配置指南"
+      ],
+      "linked_from": [],
+      "tags": ["openclaw", "企业选型", "工具对比", "国内替代品"],
+      "is_island": false
+    },
+    {
+      "file": "openclaw/参考层/OpenClaw常用命令速查.md",
+      "title": "OpenClaw 常用命令速查",
+      "summary": "按使用场景整理的 OpenClaw CLI 命令速查手册，包括日常启动、诊断排错、配置管理、模型管理、通道管理、技能管理、系统维护、交互界面、进阶命令",
+      "key_concepts": [
+        "OpenClaw",
+        "CLI",
+        "命令",
+        "gateway",
+        "config",
+        "skills",
+        "channels",
+        "诊断"
+      ],
+      "links_to": [
+        "../OpenClaw MOC",
+        "../入门层/OpenClaw核心概念",
+        "OpenClaw安装教程",
+        "OpenClaw安装后配置指南",
+        "OpenClaw对接第三方软件指南"
+      ],
+      "linked_from": [
+        "../OpenClaw MOC",
+        "../入门层/OpenClaw核心概念"
+      ],
+      "tags": ["openclaw", "命令", "速查", "cli"],
+      "is_island": false
+    },
+    {
+      "file": "AI模型对比/GLM系列模型完整对比.md",
+      "title": "GLM系列模型完整对比",
+      "summary": "GLM 系列模型（GLM-5、GLM-4.7、GLM-4.5、GLM-4.5V、GLM-4.5-Air）完整对比，包括参数规模、上下文窗口、核心特点、适用场景、性能基准测试、价格分析",
+      "key_concepts": [
+        "GLM",
+        "GLM-5",
+        "GLM-4.7",
+        "GLM-4.5",
+        "GLM-4.5V",
+        "GLM-4.5-Air",
+        "智谱AI",
+        "大模型对比"
+      ],
+      "links_to": [
+        "../../00-索引/MOC",
+        "../../01-基础概念/Agent智能体",
+        "../../02-工具使用/Claude Code 模型与推理设置",
+        "../openclaw/选型层/OpenClaw与国内仿制品对比"
+      ],
+      "linked_from": [],
+      "tags": ["glm", "ai模型", "模型对比", "智谱AI"],
+      "is_island": false
+    }
+  ],
+  "issues_found": [
+    "OCR概念笔记.md 是孤岛笔记（无入链），需要从相关笔记添加链接",
+    "AI模型对比/GLM系列模型完整对比.md 缺少入链，建议从模型选型相关笔记添加链接",
+    "OpenClaw 与国内仿制品对比.md 缺少入链，建议从企业应用相关笔记添加链接"
+  ],
+  "statistics": {
+    "total_files": 15,
+    "total_cards": 15,
+    "islands": 1,
+    "most_linked": "openclaw/OpenClaw MOC.md (11 入链)",
+    "topics": 4,
+    "primary_topics": ["OpenClaw", "AI 模型", "OCR", "RAG"]
+  }
+}
