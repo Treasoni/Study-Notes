@@ -376,8 +376,8 @@ curl -X GET "http://localhost:8080/api/v2/torrents/info" \
 ## 相关笔记
 
 - [[qBittorrent的使用]] - qBittorrent 使用指南
-- [[qBittorent的Tracker]] - Tracker 配置详解
-- [[qBittorent配置代理]] - 代理配置指南
+- [[qBittorrent的Tracker]] - Tracker 配置详解
+- [[qBittorrent配置代理]] - 代理配置指南
 
 ---
 

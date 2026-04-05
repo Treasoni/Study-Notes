@@ -51,7 +51,7 @@ tags:
 
 ## 3. 无法下载是为什么？
 
-![](assets/qBittorent的Tracker/截屏2026-02-05%2021.08.11.png)
+![](assets/qBittorrent的Tracker/截��2026-02-05%2021.08.11.png)
 
 结合截图里的信息：
 
@@ -122,7 +122,7 @@ tags:
 - 填入你的代理地址
 
 > [!tip] 详细配置
-> 参见 [[qBittorent配置代理]] 获取完整的代理配置指南
+> 参见 [[qBittorrent配置代理]] 获取完整的代理配置指南
 
 ---
 
@@ -173,8 +173,8 @@ tags:
 ## 相关笔记
 
 - [[qBittorrent的使用]] - qBittorrent 使用指南
-- [[qBittorent PT站点与分享率]] - PT 站点与分享率管理
-- [[qBittorent配置代理]] - 代理配置指南
+- [[qBittorrent PT站点与分享率]] - PT 站点与分享率管理
+- [[qBittorrent配置代理]] - 代理配置指南
 
 ---
 

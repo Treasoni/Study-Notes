@@ -318,9 +318,9 @@ qB 配置文件位置：
 
 # 相关笔记
 
-- [[qBittorent PT站点与分享率]] - PT 站点与分享率管理
-- [[qBittorent的Tracker]] - Tracker 配置详解
-- [[qBittorent配置代理]] - 代理配置指南
+- [[qBittorrent PT站点与分享率]] - PT 站点与分享率管理
+- [[qBittorrent的Tracker]] - Tracker 配置详解
+- [[qBittorrent配置代理]] - 代理配置指南
 
 ---
 

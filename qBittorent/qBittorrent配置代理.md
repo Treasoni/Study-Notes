@@ -23,7 +23,7 @@ tags:
 
 **设置 -> 连接**
 
-![](assets/qBittorent配置代理/file-20260202223705113.png)
+![](assets/qBittorrent配置代理/file-20260202223705113.png)
 
 ### 1.2 代理服务器设置
 
@@ -38,7 +38,7 @@ tags:
     - HTTP
     - SOCKS5
 
-![](assets/qBittorent配置代理/截屏2026-02-02%2022.35.34.png)
+![](assets/qBittorrent配置代理/截屏2026-02-02%2022.35.34.png)
 
 | 项目 | 值 |
 | --- | --- |
@@ -51,7 +51,7 @@ tags:
 > [!warning] 重点警告
 > qb -> iStoreOS 上的 Clash（局域网），这里是否需要密码看 [[docker进行代理#2.3 什么时候【需要】账号密码？]]
 
-![](assets/qBittorent配置代理/截屏2026-02-05%2021.17.18.png)
+![](assets/qBittorrent配置代理/截屏2026-02-05%2021.17.18.png)
 
 ### 1.3 测试代理是否生效
 
@@ -149,8 +149,8 @@ bind-address: "*"
 ## 相关笔记
 
 - [[qBittorrent的使用]] - qBittorrent 使用指南
-- [[qBittorent的Tracker]] - Tracker 配置详解
-- [[qBittorent PT站点与分享率]] - PT 站点与分享率管理
+- [[qBittorrent的Tracker]] - Tracker 配置详解
+- [[qBittorrent PT站点与分享率]] - PT 站点与分享率管理
 
 ---
 
