@@ -12,7 +12,7 @@
 
 | 阶段       | Subagent Type | 职责     | 输入          | 输出             |
 | -------- | ------------- | ------ | ----------- | -------------- |
-| Research | researcher    | 搜集资料   | 主题关键词       | 原始资料列表         |
+| Research | `researcher`  | 搜集资料   | 主题关键词       | 原始资料列表         |
 | Curate   | `curator`     | 整理知识卡片 | 原始资料        | 结构化知识卡片 (JSON) |
 | Write    | `writer`      | 撰写笔记   | 知识卡片        | Markdown 初稿    |
 | Edit     | `editor`      | 美化格式   | Markdown 初稿 | 最终优化笔记         |
@@ -21,11 +21,21 @@
 
 **以下规则具有最高优先级，必须严格遵守：**
 
-- 当任务进入 `research` 阶段时，主 Agent **不得**自行搜索，**必须**调用 `researcher` subagent。
-- 当任务进入 `curate` 阶段时，主 Agent **不得**自行整理，**必须**调用 `curator` subagent。
-- 当任务进入 `write` 阶段时，主 Agent **不得**自行撰写，**必须**调用 `writer` subagent。
-- 当任务进入 `edit` 阶段时，主 Agent **不得**自行优化，**必须**调用 `editor` subagent。
-- 只有当 subagent 调用失败或不可用时，主 Agent 才可降级处理，并必须输出 `[Decision] subagent 调用失败，降级处理`。
+- 当任务进入 `research` 阶段时，主 Agent **必须**调用 `researcher` subagent（**禁止**使用 `general-purpose` 或其他 agent）。
+- 当任务进入 `curate` 阶段时，主 Agent **必须**调用 `curator` subagent。
+- 当任务进入 `write` 阶段时，主 Agent **必须**调用 `writer` subagent。
+- 当任务进入 `edit` 阶段时，主 Agent **必须**调用 `editor` subagent。
+- 只有当专用 subagent 不存在或调用失败时，主 Agent 才可降级使用 `general-purpose`，并必须输出 `[Decision] {subagent_name} 不可用，降级使用 general-purpose`。
+
+**⚠️ 错误示例（禁止）：**
+```
+Task(subagent_type="general-purpose", prompt="搜集资料...")  # ❌ 错误！
+```
+
+**✅ 正确示例：**
+```
+Task(subagent_type="researcher", prompt="搜集关于 {主题} 的资料...", description="搜集资料")  # ✅ 正确
+```
 
 **调用示例：**
 ```
