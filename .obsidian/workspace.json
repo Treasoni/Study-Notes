@@ -157,7 +157,7 @@
                   },
                   "pinned": true,
                   "icon": "terminal",
-                  "title": "终端：✳ Video Analysis"
+                  "title": "终端：⠂ Video Analysis"
                 }
               }
             ],
@@ -372,6 +372,7 @@
   },
   "active": "4ed18974316477a3",
   "lastOpenFiles": [
+    "AI学习/01-基础概念/AI学习路径与技能图谱.md",
     "Git/分支管理最佳实践.md",
     "Git/Git 入门教程.md",
     "Git/Git 命令速查.md",
@@ -398,7 +399,6 @@
     "AI学习/01-基础概念/AI工程范式演进-Prompt到Harness.md",
     "PVE的学习/01-安装配置/安装和使用PVE.md",
     "PVE的学习/01-安装配置/修改PVE的网络信息.md",
-    "AI学习/00-索引/README.md",
     "AI学习/05-其他主题/knowledge-cards.json",
     "obsidian的使用/assets/如何使用obsidian做笔记",
     "obsidian的使用/assets",
