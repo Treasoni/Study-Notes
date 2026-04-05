@@ -20,6 +20,7 @@ tags: [ai, 学习指南, index]
 | [[01-基础概念/人工智能重要的六大概念体系]] | `ai`, `基础概念` | Prompt、Agent、MCP、SubAgent、Skills、Agent Teams 核心概念详解 |
 | [[01-基础概念/Prompt提示词]] | `ai`, `基础概念`, `prompt` | 提示词工程原理、System/User Prompt、2025趋势、最佳实践 |
 | [[01-基础概念/Agent智能体]] | `ai`, `基础概念`, `agent` | Agent架构、Agentic AI、工作模式、与普通AI区别 |
+| [[01-基础概念/AI-Agents]] | `ai`, `基础概念`, `agent` | AI Agents核心概念、LLM vs Agent区别、核心组件架构、主流框架（LangGraph/CrewAI/AutoGPT） |
 | [[01-基础概念/MCP协议]] | `ai`, `基础概念`, `mcp` | MCP原理、三层架构、2025生态发展、Tools/Resources/Prompts |
 | [[01-基础概念/SubAgent子代理]] | `ai`, `基础概念`, `subagent` | 上下文隔离、并行处理、与Agent区别、适用场景 |
 | [[01-基础概念/Skills 是什么]] | `ai`, `基础概念`, `skills` | Skills机制、三层架构、渐进式加载、与SubAgent对比 |
@@ -138,9 +139,10 @@ Subagent 的创建和多 Agent 流程设计。
 - [[01-基础概念/人工智能重要的六大概念体系]]
 - [[01-基础概念/Prompt提示词]]
 - [[01-基础概念/Agent智能体]]
+- [[01-基础概念/AI-Agents]]
 - [[01-基础概念/MCP协议]]
 - [[01-基础概念/SubAgent子代理]]
-- [[01-基础概念/Skills 是什么]]
+- [[01-基础概念/Skills 是��么]]
 - [[01-基础概念/Agent Teams智能体团队]]
 - [[01-基础概念/Hook钩子]]
 - [[01-基础概念/AI工程范式演进-Prompt到Harness]] - 工程范式演进：Prompt → Context → Harness
@@ -171,6 +173,7 @@ Subagent 的创建和多 Agent 流程设计。
 - [[01-基础概念/人工智能重要的六大概念体系]]
 - [[01-基础概念/Prompt提示词]]
 - [[01-基础概念/Agent智能体]]
+- [[01-基础概念/AI-Agents]] - AI Agents 深入解析：核心组件、架构设计、主流框架
 - [[01-基础概念/MCP协议]]
 - [[01-基础概念/SubAgent子代理]]
 - [[01-基础概念/Skills 是什么]]
@@ -369,6 +372,7 @@ AI 模型对比与选型相关文档。
 | 了解六大核心概念 | [[01-基础概念/人工智能重要的六大概念体系]] |
 | 学习提示词工程 | [[01-基础概念/Prompt提示词]] |
 | 理解 Agent 智能体 | [[01-基础概念/Agent智能体]] |
+| 深入学习 AI Agents | [[01-基础概念/AI-Agents]] |
 | 了解 MCP 协议 | [[01-基础概念/MCP协议]] |
 | 理解 SubAgent 子代理 | [[01-基础概念/SubAgent子代理]] |
 | 学习 Skills 技能系统 | [[01-基础概念/Skills 是什么]] |
