@@ -72,6 +72,9 @@
     },
     "AI学习/01-基础概念": {
       "children": [
+        "AI学习/01-基础概念/2026-AI职业角色与路线图.md",
+        "AI学习/01-基础概念/AI学习路径与技能图谱.md",
+        "AI学习/01-基础概念/AI工程师学习路线图.md",
         "AI学习/01-基础概念/AI-Agents.md",
         "AI学习/01-基础概念/AI工程范式演进-Prompt到Harness.md",
         "AI学习/01-基础概念/Hook钩子.md",
@@ -308,13 +311,14 @@
     },
     "Git": {
       "children": [
+        "Git/sortspec.md",
         "Git/Git 高级技巧.md",
         "Git/Git 命令速查.md",
         "Git/Git 入门教程.md",
-        "Git/分支管理最佳实践.md",
         "Git/Git 常见错误解决方案.md",
         "Git/Git MOC.md",
-        "Git/assets"
+        "Git/assets",
+        "Git/分支管理最佳实践.md"
       ],
       "sortOrder": "custom"
     },
@@ -332,6 +336,12 @@
         "Git/assets/git教程/file-20260130182825119.png",
         "Git/assets/git教程/file-20260130182825119 1.png",
         "Git/assets/git教程/file-20260130182825120.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "GitHub项目": {
+      "children": [
+        "GitHub项目/OpenCLI 使用指南.md"
       ],
       "sortOrder": "custom"
     },
@@ -374,6 +384,7 @@
     },
     "obsidian的使用": {
       "children": [
+        "obsidian的使用/Obsidian-Custom-Sort-自定义排序插件.md",
         "obsidian的使用/assets",
         "obsidian的使用/如何使用obsidian做笔记.md",
         "obsidian的使用/Obsidian Smart Connections 使用指南.md"
@@ -565,10 +576,6 @@
         "qBittorent/assets/qBittorrent的使用/file-20260202224515441 1.png",
         "qBittorent/assets/qBittorrent的使用/file-20260202224515442.png"
       ],
-      "sortOrder": "custom"
-    },
-    "GitHub项目": {
-      "children": [],
       "sortOrder": "custom"
     }
   },
