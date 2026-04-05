@@ -25,6 +25,7 @@
 - 当任务进入 `curate` 阶段时，主 Agent **必须**调用 `curator` subagent。
 - 当任务进入 `write` 阶段时，主 Agent **必须**调用 `writer` subagent。
 - 当任务进入 `edit` 阶段时，主 Agent **必须**调用 `editor` subagent。
+- 当执行 `/organize` 且文件数 >10 时，主 Agent **必须**调用 `curator` subagent 分批处理。
 - 只有当专用 subagent 不存在或调用失败时，主 Agent 才可降级使用 `general-purpose`，并必须输出 `[Decision] {subagent_name} 不可用，降级使用 general-purpose`。
 
 **⚠️ 错误示例（禁止）：**
@@ -138,13 +139,18 @@ read → research latest → merge → validate
 ### /organize <文件夹路径> - 整理知识库
 **标准工作流：**
 ```
-scan → detect islands → build MOC → relink
+scan → (curator batch) → detect islands → build MOC → relink
 ```
 
 1. **Scan** 扫描文件夹，识别文件类型
-2. **Detect Islands** 检测孤岛笔记（无入链）
-3. **Build MOC** 生成/更新索引文件
-4. **Relink** 为孤岛笔记添加 wikilink
+2. **Curator Batch** 当文件数 >10 时，**必须**调用 `curator` subagent 分批处理（见 Large Folder Handling 规则）
+3. **Detect Islands** 检测孤岛笔记（无入链）
+4. **Build MOC** 生成/更新索引文件
+5. **Relink** 为孤岛笔记添加 wikilink
+
+**⚠️ 强制规则：**
+- 文件数 ≤10：主 Agent 直接处理
+- 文件数 >10：**必须**调用 `curator` subagent 分批处理，禁止主 Agent 直接处理所有文件
 
 ## Validation Rules
 

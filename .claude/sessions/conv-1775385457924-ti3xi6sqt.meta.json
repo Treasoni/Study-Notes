@@ -1,0 +1,19 @@
+{
+  "id": "conv-1775385457924-ti3xi6sqt",
+  "title": "Organize AI learning knowledge base",
+  "titleGenerationStatus": "success",
+  "createdAt": 1775385457924,
+  "updatedAt": 1775385698378,
+  "lastResponseAt": 1775385685279,
+  "sessionId": "4cf57090-02e3-4373-8249-2eeac51106f7",
+  "sdkSessionId": "4cf57090-02e3-4373-8249-2eeac51106f7",
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 530,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 36992,
+    "contextWindow": 200000,
+    "contextTokens": 37522,
+    "percentage": 19
+  }
+}
