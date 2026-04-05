@@ -2,6 +2,7 @@
   "customOrder": {
     "/": {
       "children": [
+        "GitHub项目",
         "obsidian的使用",
         "软路由教程",
         "N8N定时抓取热点资讯指南.md",
@@ -71,6 +72,7 @@
     },
     "AI学习/01-基础概念": {
       "children": [
+        "AI学习/01-基础概念/AI-Agents.md",
         "AI学习/01-基础概念/AI工程范式演进-Prompt到Harness.md",
         "AI学习/01-基础概念/Hook钩子.md",
         "AI学习/01-基础概念/人工智能重要的六大概念体系.md",
@@ -132,6 +134,7 @@
     },
     "AI学习/05-其他主题": {
       "children": [
+        "AI学习/05-其他主题/knowledge-cards.json",
         "AI学习/05-其他主题/AI模型对比",
         "AI学习/05-其他主题/openclaw",
         "AI学习/05-其他主题/OCR概念笔记.md",
@@ -562,6 +565,10 @@
         "qBittorent/assets/qBittorrent的使用/file-20260202224515441 1.png",
         "qBittorent/assets/qBittorrent的使用/file-20260202224515442.png"
       ],
+      "sortOrder": "custom"
+    },
+    "GitHub项目": {
+      "children": [],
       "sortOrder": "custom"
     }
   },

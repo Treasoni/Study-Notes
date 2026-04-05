@@ -215,7 +215,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       },
       {
         "id": "e5bdabb35f60c58d",
@@ -256,8 +256,9 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "746e3216e1c18840",
+  "active": "52ff2f9fbef74052",
   "lastOpenFiles": [
+    "GitHub项目",
     "linux/WSL-Windows子系统forLinux.md",
     "AI学习/01-基础概念/AI-Agents.md",
     "qBittorent/qBittorent配置代理.md",
@@ -284,7 +285,6 @@
     "AI学习/02-工具使用/Claude Code Hooks 使用指南.md",
     "AI学习/02-工具使用/Claude Code Memory 完整指南.md",
     "AI学习/02-工具使用/Claude Code Slash Commands 完整参考.md",
-    "AI学习/02-工具使用/Claude Code 会话管理.md",
     "obsidian的使用/assets/如何使用obsidian做笔记",
     "obsidian的使用/assets",
     "obsidian的使用",
