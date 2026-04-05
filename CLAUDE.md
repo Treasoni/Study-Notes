@@ -204,7 +204,7 @@ scan → detect islands → build MOC → relink
 当需要处理的文件数量较多（>10）时：
 
 ### 分批策略
-1. 将文件分成多个 batch（每批 5-10 ��文件）
+1. 将文件分成多个 batch（每批 5-10 个文件）
 2. 对每个 batch：
    - 调用 curator subagent 进行局部整理
    - 输出中间知识卡片
