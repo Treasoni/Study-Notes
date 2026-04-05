@@ -162,11 +162,38 @@ scan → split batches → for each file: (read → research → merge → edit)
 
 #### Large Update Handling（大规模更新规则）
 
+**Subagent 职责边界：**
+| 步骤 | 执行者 | 说明 |
+|------|--------|------|
+| `read` | 主 Agent | 读取文件，识别保护区域 |
+| `research latest` | **researcher** subagent | **必须**调用 researcher 搜集最新信息 |
+| `merge` | **主 Agent** | 差异合并，**禁止**改为 curate → write |
+| `edit` | **editor** subagent | **必须**调用 editor 美化格式 |
+| `validate` | 主 Agent | 验证链接和引用 |
+
 **执行方式：**
-- 主 Agent 负责扫描、分批、调度
+- 主 Agent 负责扫描、分批、调度、merge
 - 每个文件独立执行 `/update` 完整流程
 - **禁止**跨文件共享上下文内容
 - **禁止**在单次上下文中处理多个文件
+
+**候选筛选（预筛选步骤）：**
+1. 批量更新前，先筛选候选文件
+2. 仅处理满足以下条件的文件：
+   - 与目标主题相关的文件
+   - 包含旧版本号、旧 API、旧日期标记的文件
+   - 用户明确指定的文件
+3. 无明确更新信号的文件默认跳过
+4. 输出候选文件列表供确认
+
+**预览模式（dry-run）：**
+- 批量更新默认支持预览模式
+- 先输出拟更新文件列表：
+  - 文件名
+  - 更新原因
+  - 风险等级（低/中/高）
+- 用户确认后再执行实际写入
+- 输出格式：`[Preview] {文件名} | 原因: {原因} | 风险: {等级}`
 
 **差异更新原则（关键）：**
 - ✅ **必须**执行差异更新（diff-based update）
@@ -211,7 +238,7 @@ scan → (curator batch) → detect islands → build MOC → relink
 - [ ] 至少 3 个来源
 - [ ] 至少 1 个官方来源
 - [ ] 所有 URL 有效
-- [ ] 公式已转为 LaTeX 格式
+- [ ] 数学公式与符号已完整保留
 - [ ] 专业术语保持原文
 
 ### Curate 阶段
