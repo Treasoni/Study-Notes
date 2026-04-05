@@ -122,9 +122,9 @@ apt update && apt dist-upgrade
 ## 相关资源
 
 - PVE 官方下载：https://www.proxmox.com/en/downloads（当前最新版本：Proxmox VE 9.1-1，2025年11月发布）
-- PVE VirtIO 驱动：https://pve.proxmox.com/wiki/Windows_VirtIO_Drivers（推荐版本：virtio-win 0.1.271）
+- PVE VirtIO 驱动：https://pve.proxmox.com/wiki/Windows_VirtIO_Drivers（推荐版本：virtio-win 0.1.271；最新版本：0.1.285，但有已知兼容性问题）
 - VirtIO 驱动下载：https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/
-- FirPE 下载：https://www.firpe.cn（当前版本：V2.0.3，2025年4月更新）
+- FirPE 下载：https://www.firpe.cn（当前版本：V2.1.1，2026年2月更新）
 - 中科大 PVE 源：https://mirrors.ustc.edu.cn/help/proxmox.html
 - 清华 PVE 源：https://mirrors.tuna.tsinghua.edu.cn/help/proxmox
 

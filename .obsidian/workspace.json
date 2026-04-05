@@ -4,12 +4,13 @@
     "type": "split",
     "children": [
       {
-        "id": "5a1c83c2f1bdedeb",
+        "id": "d2b69d6211ae2d65",
         "type": "split",
         "children": [
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
+            "dimension": 74.45652173913044,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -56,11 +57,12 @@
             ]
           },
           {
-            "id": "56867cbd2ec198d9",
+            "id": "4f13d566900ce7f4",
             "type": "tabs",
+            "dimension": 25.543478260869566,
             "children": [
               {
-                "id": "02e1f20101445785",
+                "id": "36e8d5efd7d79897",
                 "type": "leaf",
                 "pinned": true,
                 "state": {
@@ -269,7 +271,7 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       },
       {
         "id": "e5bdabb35f60c58d",
@@ -310,7 +312,7 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "02e1f20101445785",
+  "active": "746e3216e1c18840",
   "lastOpenFiles": [
     "CLAUDE.md",
     "AI学习/01-基础概念/AI工程范式演进-Prompt到Harness.md",
