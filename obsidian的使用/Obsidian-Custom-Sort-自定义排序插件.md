@@ -5,6 +5,9 @@ updated: 2026-04-05
 tags: [obsidian, 插件, 排序, 文件管理]
 ---
 
+> [!warning] 重要提醒
+> 本插件有两种配置模式（纯列表 vs 规则模式），**不能混用**。详见下方「关键概念」章节。
+
 # Obsidian Custom Sort 自定义排序插件
 
 > [!info] 概述
@@ -118,6 +121,54 @@ flowchart LR
 
 ## 高级功能
 
+### ⚠️ 关键概念：两种配置模式
+
+> [!warning] 重要：`<default>` 语法的使用条件
+> 这是新手最容易踩的坑！插件有两种配置模式，**不能混用**。
+
+#### 模式 1：纯列表模式
+
+```yaml
+---
+sorting-spec: |
+  文件A
+  文件B
+  文件C
+---
+```
+
+- ✅ 只能写文件名/文件夹名
+- ❌ **不能**写 `<default>: order-asc: a-z`
+- 适用场景：手动指定完整排序顺序
+
+#### 模式 2：规则模式
+
+```yaml
+---
+sorting-spec: |
+  /! 置顶文件A
+  /! 置顶文件B
+
+  <default>: order-asc: a-z
+---
+```
+
+- ✅ 可以使用 `<default>` 定义默认排序
+- ⚠️ **前提**：前面必须有规则语法（`/!`、`/+` 等）
+- 适用场景：部分置顶 + 其余自动排序
+
+> [!danger] 错误示例
+> ```yaml
+> ---
+> sorting-spec: |
+>   文件A
+>   文件B
+>   <default>: order-asc: a-z   ❌ 会报错！
+> ---
+> ```
+>
+> 这会导致 `NoSpaceBetweenAttributeAndValue` 错误，因为解析器把前面当成"纯列表"，后面突然出现带冒号的规则语法。
+
 ### 优先级前缀
 
 使用 `/!` `/!!` `/!!!` 为规则添加优先级：
@@ -189,24 +240,39 @@ sorting-spec: |
 
 ## 实战配置示例
 
-> [!success] 场景一：项目文件夹按重要性排序
+> [!success] 场景一：简单全局排序（最推荐 ✅）
 
 ```yaml
 ---
 sorting-spec: |
-  target-folder: Projects
-  /!!! README.md
-  /!! CHANGELOG.md
-  /! TODO.md
-  <default>: order-desc: modified
+  order-asc: a-z
 ---
 ```
 
-**效果**：README 始终在最前，其次是 CHANGELOG，然后是 TODO，其余按修改时间倒序。
+**效果**：整个文件夹按字母顺序排列。
+**适用**：大多数场景，简单可靠，不易出错。
 
 ---
 
-> [!success] 场景二：日记文件夹按日期倒序
+> [!success] 场景二：置顶特定文件 + 其余自动排序
+
+```yaml
+---
+sorting-spec: |
+  /! Git MOC
+  /! Git 入门教程
+  /! Git 命令速查
+
+  <default>: order-asc: a-z
+---
+```
+
+**效果**：三个文件置顶（按列表顺序），其余按字母排序。
+**注意**：必须用 `/!` 前缀才能使用 `<default>` 语法。
+
+---
+
+> [!success] 场景三：日记文件夹按日期倒序
 
 ```yaml
 ---
@@ -220,7 +286,7 @@ sorting-spec: |
 
 ---
 
-> [!success] 场景三：文件优先于文件夹
+> [!success] 场景四：文件优先于文件夹
 
 ```yaml
 ---
@@ -235,19 +301,21 @@ sorting-spec: |
 
 ---
 
-> [!success] 场景四：混合排序（置顶 + 默认排序）
+> [!success] 场景五：组合排序组（高级用法）
 
 ```yaml
 ---
 sorting-spec: |
-  target-folder: Notes
-  /+ pinned: index.md overview.md
-  /+ pinned: order-asc: a-z
+  /+ tutorials: Git MOC Git 入门教程 Git 命令速查
+  /+ tutorials: order-asc: a-z
+
   <default>: order-desc: modified
 ---
 ```
 
-**效果**：`index.md` 和 `overview.md` 置顶并按字母排序，其余文件按修改时间倒序。
+**效果**：
+- `tutorials` 组内的三个文件按字母排序并置顶
+- 其余文件按修改时间倒序
 
 ---
 
@@ -255,10 +323,17 @@ sorting-spec: |
 
 > [!question] Q: 配置后排序没有生效？
 > **A:** 检查以下几点：
-> 1. 确认 `sortspec` 文件名正确（全小写，无扩展名）
+> 1. 确认 `sortspec.md` 文件名正确（带 .md 后缀）
 > 2. 确认 YAML 格式正确（`sorting-spec:` 后有 `|` 符号）
 > 3. 确认插件已激活（功能区图标高亮）
 > 4. 尝试刷新文件列表（切换到其他文件夹再切回来）
+
+> [!question] Q: 报错 `NoSpaceBetweenAttributeAndValue`？
+> **A:** 你可能混用了"纯列表模式"和"规则模式"：
+> - ❌ 错误：直接写文件名后跟 `<default>: ...`
+> - ✅ 正确：使用 `/!` 前缀的规则语法，才能配合 `<default>`
+>
+> 详见上方「关键概念：两种配置模式」章节。
 
 > [!question] Q: 如何让排序规则应用到子文件夹？
 > **A:** 在父文件夹创建 `sortspec`，并使用 `target-folder` 指定子文件夹路径。或在子文件夹单独创建 `sortspec`。

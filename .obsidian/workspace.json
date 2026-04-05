@@ -4,13 +4,12 @@
     "type": "split",
     "children": [
       {
-        "id": "3d6cff6c982d0948",
+        "id": "98d488fbc162a14d",
         "type": "split",
         "children": [
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 60.17410228509249,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -32,12 +31,12 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "Git/sortspec.md",
-                    "mode": "source",
+                    "file": "AI学习/02-工具使用/Claude Code 常用功能.md",
+                    "mode": "preview",
                     "source": true
                   },
                   "icon": "lucide-file",
-                  "title": "sortspec"
+                  "title": "Claude Code 常用功能"
                 }
               },
               {
@@ -72,12 +71,11 @@
             "currentTab": 1
           },
           {
-            "id": "28cba42a6237a322",
+            "id": "f0096c30336b8b8b",
             "type": "tabs",
-            "dimension": 39.82589771490751,
             "children": [
               {
-                "id": "6920bdf1334a965f",
+                "id": "5bc8b4a0c0e635f2",
                 "type": "leaf",
                 "pinned": true,
                 "state": {
@@ -115,49 +113,7 @@
                   },
                   "pinned": true,
                   "icon": "terminal",
-                  "title": "终端：✳ Git 笔记"
-                }
-              },
-              {
-                "id": "4ed18974316477a3",
-                "type": "leaf",
-                "pinned": true,
-                "state": {
-                  "type": "terminal:terminal",
-                  "state": {
-                    "terminal:terminal": {
-                      "cwd": "/Users/zhqznc/Documents/项目",
-                      "focus": false,
-                      "profile": {
-                        "args": [
-                          "--login"
-                        ],
-                        "executable": "/bin/zsh",
-                        "followTheme": true,
-                        "name": "",
-                        "platforms": {
-                          "darwin": true
-                        },
-                        "pythonExecutable": "python3",
-                        "restoreHistory": false,
-                        "rightClickAction": "copyPaste",
-                        "successExitCodes": [
-                          "0",
-                          "SIGINT",
-                          "SIGTERM"
-                        ],
-                        "terminalOptions": {
-                          "documentOverride": null
-                        },
-                        "type": "integrated",
-                        "useWin32Conhost": true
-                      },
-                      "serial": null
-                    }
-                  },
-                  "pinned": true,
-                  "icon": "terminal",
-                  "title": "终端：✳ Video Analysis"
+                  "title": "终端：✳ Claude Code"
                 }
               }
             ]
@@ -299,13 +255,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Git/sortspec.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "sortspec 的大纲"
+              "title": "大纲"
             }
           },
           {
@@ -329,7 +284,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       },
       {
         "id": "e5bdabb35f60c58d",
@@ -371,12 +326,12 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "1fba13ed6f715185",
+  "active": "5bc8b4a0c0e635f2",
   "lastOpenFiles": [
-    "Git/sortspec",
     "obsidian的使用/Obsidian-Custom-Sort-自定义排序插件.md",
-    "Git/Git 命令速查.md",
     "Git/sortspec.md",
+    "Git/sortspec",
+    "Git/Git 命令速查.md",
     "obsidian的使用/Obsidian Smart Connections 使用指南.md",
     "AI学习/01-基础概念/AI工程师学习路线图.md",
     "AI学习/02-工具使用/Obsidian-Sort-知识卡片.json",
