@@ -636,7 +636,6 @@ cp 01-slash-commands/*.md ~/.claude/commands/
 ## 相关文档
 - [[01-基础概念/Skills 是什么]] - Skills 概念详解
 - [[02-工具使用/Claude Code Memory 完整指南]] - Memory 持久化上下文
-- [[02-工具使用/Claude Code 自定义斜杠命令教程]] - 自定义命令教程
 - [[03-进阶应用/如何编写Skills]] - Skills 编写实战
 - [[02-工具使用/Claude Code 常用功能]] - 常用功能速查
 - [[02-工具使用/Claude Code Hooks 使用指南]] - 事件驱动自动化

@@ -807,7 +807,7 @@ Claude Code 的 Hooks 功能可以在特定生命周期事件触发时执行自�
 | 概念 | 关系 |
 |------|------|
 | [[N8N定时抓取热点资讯指南]] | N8N 是可视化工作流工具，Claude Code + Cron 是命令行自动化方案，两者可互补 |
-| [[Claude Code 自定义斜杠命令教程]] | 斜杠命令可封装常用 prompt，在定时脚本中调用 |
+| [[Claude Code Slash Commands 完整参考]] | 斜杠命令可封装常用 prompt，在定时脚本中调用 |
 | [[Claude MCP 使用指南]] | MCP 扩展可增强 Claude Code 能力，在定时任务中使用 |
 | [[../01-基础概念/Agent智能体]] | 定时自动化可视为"固定逻辑的智能体" |
 
@@ -1243,7 +1243,7 @@ A: **不会**。`/loop` 是会话级的，关闭 Claude Code 后任务终止。�
 ## 相关文档
 - [[AI学习/00-索引/MOC|AI学习索引]]
 - [[如何使用Claude code|Claude Code 使用指南]]
-- [[Claude Code 自定义斜杠命令教程]]
+- [[Claude Code Slash Commands 完整参考]]
 
 ## 参考资料
 
