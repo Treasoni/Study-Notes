@@ -45,6 +45,24 @@ Task(subagent_type="writer", prompt="根据知识卡片撰写笔记...", descrip
 Task(subagent_type="editor", prompt="美化以下笔记格式...", description="优化格式")
 ```
 
+## Optional Skills（辅助型 Skill）
+
+以下 skills **不是每次都要用**，仅在满足特定条件时调用：
+
+| Skill | 触发条件 | 用途 |
+|-------|---------|------|
+| `excalidraw-diagram` | 内容存在复杂流程且适合可视化时 | 生成 Excalidraw 图表 |
+| `json-canvas` | 需要创建可视化画布/思维导图时 | 创建 .canvas 文件 |
+| `obsidian-bases` | 需要数据库式视图管理笔记时 | 创建 .base 文件 |
+| `summarize-pro-1.0.0` | 用户需要摘要长内容时 | 生成多格式摘要 |
+| `word-template-generator` | 需要处理 Word 模板时 | 提取占位符/生成文档 |
+| `skill-finder-cn-1.0.1` | 用户询问"有什么 skill 可以 X"时 | 搜索可用 skill |
+
+**调用原则：**
+- 这些 skill 不写进主工作流（research → curate → write → edit）
+- 主 Agent 根据实际需求**按需触发**
+- 触发时输出 `[Decision] 检测到 {条件}，调用 {skill_name}`
+
 ## Global Rules
 1. **优先使用官方资源**：官方文档 → 官方 GitHub → 权威博客 → 社区资源
 2. **不得编造事实**：信息必须有来源支撑
