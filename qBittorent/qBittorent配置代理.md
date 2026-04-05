@@ -1,26 +1,36 @@
 ---
-tags:
-  - qBittorent
-  - 代理
+title: qBittorrent 代理配置指南
 created: 2026-02-02
 updated: 2026-04-05
+tags:
+  - qBittorrent
+  - 代理
+  - 网络配置
 ---
 
-前提：我的qBittorent配置在pve中的linux中的docker里，我还在pve中搭建了istores旁路由。
+# qBittorrent 代理配置指南
 
-# 1. 给 qBittorrent 配代理（核心步骤）
+> [!info] 前提条件
+> 我的 qBittorrent 配置在 Pve 中的 Linux 中的 Docker 里，我还在 pve 中搭建了 iStoreOS 旁路由。
 
-## 1.1打开 qBittorrent WebUI
+---
+
+## 1. 给 qBittorrent 配代理（核心步骤）
+
+### 1.1 打开 qBittorrent WebUI
 
 进入：
 
-`设置 → 连接`
+**设置 -> 连接**
+
 ![](assets/qBittorent配置代理/file-20260202223705113.png)
 
-## 1.2 代理服务器设置这样填👇
+### 1.2 代理服务器设置
+
 **混合代理（重点）**
 
 `192.168.110.119:7893`
+
 这是：
 
 - Clash 的 **代理入口**
@@ -30,20 +40,20 @@ updated: 2026-04-05
 
 ![](assets/qBittorent配置代理/截屏2026-02-02%2022.35.34.png)
 
-| 项目  | 值                                    |
-| --- | ------------------------------------ |
-| 类型  | **HTTP**                             |
-| 主机  | **iStoreOS 的 IP**（如 192.168.110.119） |
-| 端口  | **7893**                             |
-| 用户名 | 设了鉴权就添                               |
-| 密码  | 设了鉴权就添                               |
+| 项目 | 值 |
+| --- | --- |
+| 类型 | **HTTP** |
+| 主机 | **iStoreOS 的 IP**（如 192.168.110.119） |
+| 端口 | **7893** |
+| 用户名 | 设了鉴权就填 |
+| 密码 | 设了鉴权就填 |
 
-> [!warning]
-> ⚠️ 这是重点警告
-> qb → iStoreOS 上的 Clash（局域网），这里是否需要密码看[2.3 什么时候【需要】账号密码？](../docker/docker进行代理.md#2.3%20什么时候【需要】账号密码？)
+> [!warning] 重点警告
+> qb -> iStoreOS 上的 Clash（局域网），这里是否需要密码看 [[docker进行代理#2.3 什么时候【需要】账号密码？]]
 
 ![](assets/qBittorent配置代理/截屏2026-02-05%2021.17.18.png)
-## 1.3 测试代理是否生效
+
+### 1.3 测试代理是否生效
 
 **方法 1：查看 Tracker 状态**
 
@@ -57,13 +67,15 @@ updated: 2026-04-05
 
 **方法 3：检查日志**
 
-**视图 → 日志**
+**视图 -> 日志**
 
 查看是否有关于代理连接的信息
 
-# 2. 代理常见问题
+---
 
-## 2.1 代理连接失败
+## 2. 代理常见问题
+
+### 2.1 代理连接失败
 
 **症状：**
 - Tracker 状态一直是「Not Working」
@@ -79,32 +91,34 @@ updated: 2026-04-05
 | 4 | 检查 Clash 日志是否有连接请求 |
 | 5 | 确认 Clash 允许局域网连接 |
 
-## 2.2 添加认证（如果需要）
+### 2.2 添加认证（如果需要）
 
 如果你的代理需要认证：
 
-| 项目  | 值  |
+| 项目 | 值 |
 | --- | --- |
 | 用户名 | 填入你的代理用户名 |
-| 密码  | 填入你的代理密码 |
+| 密码 | 填入你的代理密码 |
 
-## 2.3 需要代理的流量
+### 2.3 需要代理的流量
 
 qBittorrent 代理主要影响：
 
-- ✅ Tracker 连接
-- ✅ DHT 查询（部分情况）
-- ✅ WebUI 访问（如果外部访问）
+- **Tracker 连接**
+- **DHT 查询**（部分情况）
+- **WebUI 访问**（如果外部访问）
 
-> [!note]
-> **注意：** P2P 数据下载通常不经过代理（这是正常的）
-> 代理主要用于连接 Tracker 服务器，获取 Peers节点
+> [!note] 注意
+> **P2P 数据下载通常不经过代理**（这是正常的）
+> 代理主要用于连接 Tracker 服务器，获取 Peers 节点
 
-# 3. 仅对 Tracker 使用代理
+---
+
+## 3. 仅对 Tracker 使用代理
 
 如果你想**只让 Tracker 走代理**，而 P2P 直连：
 
-**设置 → 连接**
+**设置 -> 连接**
 
 - 代理服务器：填写你的代理
 - 勾选「仅对 Tracker 使用代理」
@@ -116,7 +130,9 @@ qBittorrent 代理主要影响：
 | 全局代理 | Tracker 和 DHT 都能访问 | 可能影响下载速度 |
 | 仅 Tracker | 下载不受代理影响 | DHT 可能无法正常工作 |
 
-# 4. Clash 配置参考
+---
+
+## 4. Clash 配置参考
 
 如果你需要配置 Clash 允许局域网代理，编辑 `config.yaml`：
 
@@ -127,3 +143,32 @@ bind-address: "*"
 ```
 
 重启 Clash 后生效。
+
+---
+
+## 相关笔记
+
+- [[qBittorrent的使用]] - qBittorrent 使用指南
+- [[qBittorent的Tracker]] - Tracker 配置详解
+- [[qBittorent PT站点与分享率]] - PT 站点与分享率管理
+
+---
+
+## 参考资料
+
+### 官方资源
+
+- [qBittorrent 官方网站](https://www.qbittorrent.org/) - 下载与文档
+- [qBittorrent GitHub](https://github.com/qbittorrent/qBittorrent) - 源代码与 Issues
+- [WebUI API 文档 (v5.0)](https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-5.0)) - API 参考
+
+### 代理相关
+
+- [Clash 官方文档](https://clash.wiki/) - Clash 配置指南
+
+### 社区教程
+
+- [Best qBittorrent Settings 2026](https://www.rapidseedbox.com/blog/qbittorrent-settings) - RapidSeedbox 优化指南
+
+---
+*最后更新: 2026-04-05*

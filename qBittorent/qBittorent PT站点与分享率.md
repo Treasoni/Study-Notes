@@ -1,9 +1,12 @@
 ---
+title: qBittorrent PT站点与分享率管理
+created: 2026-02-05
+updated: 2026-04-05
 tags:
   - qBittorrent
   - PT
-created: 2026-02-05
-updated: 2026-04-05
+  - 分享率
+  - 私种
 ---
 
 # qBittorrent PT站点与分享率管理
@@ -28,11 +31,11 @@ updated: 2026-04-05
 
 **特点：**
 
-- 🔒 **需要邀请码注册**
-- 📊 **强制考核分享率**
-- ⚡ **资源质量高**（有人压制/整理）
-- 🛡️ **社区氛围好**
-- ⚖️ **严格的规则**
+- 需要邀请码注册
+- 强制考核分享率
+- 资源质量高（有人压制/整理）
+- 社区氛围好
+- 严格的规则
 
 **示例：**
 - M-Team（馒头）
@@ -42,13 +45,13 @@ updated: 2026-04-05
 - OurBits
 - KeepFrds
 
+---
+
 ## 2. 分享率（Ratio）详解
 
 ### 2.1 什么是分享率？
 
-```
-分享率 = 上传量 / 下载量
-```
+$$\text{分享率} = \frac{\text{上传量}}{\text{下载量}}$$
 
 **举例：**
 
@@ -62,7 +65,7 @@ updated: 2026-04-05
 
 | 分享率 | 状态 | 后果 |
 |--------|------|------|
-| ≥ 2.0 | 优秀 | 无限下载 |
+| >= 2.0 | 优秀 | 无限下载 |
 | 1.0 - 2.0 | 良好 | 正常使用 |
 | 0.5 - 1.0 | 警告 | 可能被限速 |
 | < 0.5 | 危险 | 账号可能被封 |
@@ -73,24 +76,26 @@ updated: 2026-04-05
 
 | 站点 | 最低分享率 | 考核周期 |
 |------|------------|----------|
-| M-Team | ≥ 1.0 | 每月 |
-| HDSky | ≥ 1.0 | 长期 |
-| CHDBits | ≥ 0.5 | 长期 |
+| M-Team | >= 1.0 | 每月 |
+| HDSky | >= 1.0 | 长期 |
+| CHDBits | >= 0.5 | 长期 |
 | TTG | 免考核 | - |
+
+---
 
 ## 3. 如何维护良好的分享率
 
 ### 3.1 抓取热门资源（大法）
 
 **原理：**
-热门资源下载的人多 → 上传机会多 → 分享率快速增长
+热门资源下载的人多 -> 上传机会多 -> 分享率快速增长
 
 **识别热门资源：**
 
 在站点页面看：
-- 🔥 热门标签
-- 📥 下载人数多
-- 📤 做种人数少
+- 热门标签
+- 下载人数多
+- 做种人数少
 
 **时机：**
 - 新资源发布的前 24 小时
@@ -101,7 +106,7 @@ updated: 2026-04-05
 
 **设置持续做种：**
 
-**qB → 设置 → 下载 → 种子管理**
+**qB -> 设置 -> 下载 -> 种子管理**
 
 | 选项 | 设置 |
 |------|------|
@@ -138,11 +143,13 @@ updated: 2026-04-05
 - 购买邀请码
 - 兑换 VIP 状态
 
+---
+
 ## 4. 种子分类管理
 
 ### 4.1 按站点分类
 
-**qB → 分类 → 新建分类**
+**qB -> 分类 -> 新建分类**
 
 创建分类：
 - `M-Team`
@@ -162,13 +169,15 @@ updated: 2026-04-05
 
 ### 4.3 设置分类保存路径
 
-**分类 → 编辑 → 默认保存路径**
+**分类 -> 编辑 -> 默认保存路径**
+
+---
 
 ## 5. 自动化工具
 
 ### 5.1 RSS 自动下载
 
-**设置 → RSS**
+**设置 -> RSS**
 
 1. 添加站点 RSS 订阅
 2. 设置自动下载规则
@@ -196,6 +205,8 @@ curl -X GET "http://localhost:8080/api/v2/torrents/info" \
   --cookie "SID=your_session_id"
 ```
 
+---
+
 ## 6. 进阶技巧
 
 ### 6.1 合并下载
@@ -207,9 +218,8 @@ curl -X GET "http://localhost:8080/api/v2/torrents/info" \
 
 ### 6.2 多客户端做种
 
-**注意：⚠️ 违规行为**
-同一个种子不要用多个客户端做种
-会被检测为作弊
+> [!warning] 违规行为
+> 同一个种子不要用多个客户端做种，会被检测为作弊
 
 ### 6.3 盒子使用
 
@@ -222,6 +232,8 @@ curl -X GET "http://localhost:8080/api/v2/torrents/info" \
 - 搬瓦工
 - Vultr
 - Google Cloud
+
+---
 
 ## 7. 站点礼仪
 
@@ -248,6 +260,8 @@ curl -X GET "http://localhost:8080/api/v2/torrents/info" \
 - 下载后及时感谢发布者
 - 帮助新用户
 - 参与社区讨论
+
+---
 
 ## 8. 常见问题
 
@@ -296,9 +310,10 @@ curl -X GET "http://localhost:8080/api/v2/torrents/info" \
 - 参与站点活动
 - 论坛/社区求助
 
-> [!warning]
-> **严禁买卖邀请码！**
+> [!warning] 严禁买卖邀请码！
 > 一旦发现，买卖双方都会被封
+
+---
 
 ## 9. 安全建议
 
@@ -306,9 +321,9 @@ curl -X GET "http://localhost:8080/api/v2/torrents/info" \
 
 **qB 设置：**
 
-- 关闭 DHT（PT站点必须）
+- 关闭 DHT（PT 站点必须）
 - 关闭 Local Peer Discovery
-- 关闭 Peer Exchange（PT站点）
+- 关闭 Peer Exchange（PT 站点）
 
 ### 9.2 VPN 使用
 
@@ -317,7 +332,7 @@ curl -X GET "http://localhost:8080/api/v2/torrents/info" \
 - 提高连接质量
 
 **注意：**
-- ⚠️ 不要让 qB 全走 VPN
+- 不要让 qB 全走 VPN
 - 只用 VPN 访问站点页面
 - qB 下载直连（站点要求）
 
@@ -332,6 +347,8 @@ curl -X GET "http://localhost:8080/api/v2/torrents/info" \
 **备份频率：**
 - 重要配置：每月
 - 种子文件：每周
+
+---
 
 ## 10. 推荐阅读
 
@@ -349,18 +366,30 @@ curl -X GET "http://localhost:8080/api/v2/torrents/info" \
 
 ---
 
-> [!quote]
-> **PT 精神：分享即自由，奉献即快乐**
+> [!quote] PT 精神
+> **分享即自由，奉献即快乐**
 >
 > 保持良好的分享率不仅是为了账号安全，更是为了社区的健康发展。每个 PT 站点都依赖用户的分享才能存活。
+
+---
+
+## 相关笔记
+
+- [[qBittorrent的使用]] - qBittorrent 使用指南
+- [[qBittorent的Tracker]] - Tracker 配置详解
+- [[qBittorent配置代理]] - 代理配置指南
+
+---
 
 ## 参考资料
 
 ### 官方资源
+
 - [qBittorrent 官方网站](https://www.qbittorrent.org/) - 下载与文档
 - [qBittorrent GitHub](https://github.com/qbittorrent/qBittorrent) - 源代码与 Issues
 
 ### 社区资源
+
 - [Best qBittorrent Settings 2026](https://www.rapidseedbox.com/blog/qbittorrent-settings) - RapidSeedbox 优化指南
 - [XIU2/TrackersListCollection](https://github.com/XIU2/TrackersListCollection) - Tracker 列表（每日更新）
 
