@@ -80,11 +80,13 @@ Task(subagent_type="editor", prompt="美化以下笔记格式...", description="
 | `subagent-creator` | 用户想创建专用 subagent 时 | 创建隔离上下文的 agent |
 | `mcp-builder` | 用户想创建 MCP server 时 | 构建 MCP 集成 |
 
-### 其他
-| Skill | 触发条件 | 用途 |
-|-------|---------|------|
-| `skill-finder-cn-1.0.1` | 用户询问"有什么 skill 可以 X"时 | 搜索可用 skill |
-| `self-improving-agent-3.0.13` | 操作失败/用户纠正时 | 记录错误与改进点 |
+### 优先级规则
+- **Optional Skills 只能作为补充能力，不得替代主流程 Subagent**
+- 如果任务已被 `researcher / curator / writer / editor` 覆盖，**优先调用主流程 Subagent**
+- Optional Skills 仅用于：
+  1. 特定文件格式处理（pdf, xlsx, docx, pptx）
+  2. 特定可视化需求（excalidraw-diagram, json-canvas）
+  3. 主流程中某一步的辅助增强（defuddle 获取网页内容）
 
 **调用原则：**
 - 这些 skill 不写进主工作流（research → curate → write → edit）
