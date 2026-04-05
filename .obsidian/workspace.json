@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/02-工具使用/Claude Code Slash Commands 完整参考.md",
+                "file": "AI学习/02-工具使用/Claude Code Memory 完整指南.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Claude Code Slash Commands 完整参考"
+              "title": "Claude Code Memory 完整指南"
             }
           }
         ],
@@ -200,13 +200,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/02-工具使用/Claude Code Slash Commands 完整参考.md",
+                "file": "AI学习/02-工具使用/Claude Code Memory 完整指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Claude Code Slash Commands 完整参考 的大纲"
+              "title": "Claude Code Memory 完整指南 的大纲"
             }
           },
           {
@@ -230,7 +230,7 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       },
       {
         "id": "e5bdabb35f60c58d",
@@ -271,10 +271,12 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "746e3216e1c18840",
   "lastOpenFiles": [
-    "AI学习/02-工具使用/Claude Code Hooks 使用指南.md",
+    "AI学习/02-工具使用/Claude Code 会话管理.md",
+    "AI学习/02-工具使用/Claude Code Memory 完整指南.md",
     "AI学习/02-工具使用/Claude Code Slash Commands 完整参考.md",
+    "AI学习/02-工具使用/Claude Code Hooks 使用指南.md",
     "AI学习/02-工具使用/Claude Code 模型与推理设置.md",
     "AI学习/02-工具使用/如何使用Claude code.md",
     "AI学习/02-工具使用/Claude Code 常用功能.md",
@@ -297,8 +299,6 @@
     "linux/Linux换源.md",
     "docker/docker容器如何更新.md",
     "docker/docker进行代理.md",
-    "docker/docker容器搭建错误的知识讲解.md",
-    "docker/github文件直链方式.md",
     "obsidian的使用/assets/如何使用obsidian做笔记",
     "obsidian的使用/assets",
     "obsidian的使用",

@@ -44,6 +44,7 @@ Claude Code 的安装、配置和日常使用。
 | [[02-工具使用/Claude Code 模型与推理设置]] | `claude`, `ai`, `工具使用` | CLI 和 VSCode 插件的模型配置、推理参数、第三方平台配置 | 新增 |
 | [[02-工具使用/Claude Code Hooks 使用指南]] | `claude`, `ai`, `工具使用`, `hook`, `自动化` | Hook配置详解、Matcher语法、实战示例、调试排错 | 新增 |
 | [[02-工具使用/Claude Code Slash Commands 完整参考]] | `claude`, `ai`, `工具使用`, `斜杠命令` | 55+ 内置命令参考、Skills 迁移、命令生命周期 | 新增 |
+| [[02-工具使用/Claude Code Memory 完整指南]] | `claude`, `ai`, `工具使用`, `memory`, `claude-md` | Memory 系统详解、层级架构、Auto Memory、模块化规则 | 新增 |
 | [[02-工具使用/Claude Code 插件系统使用指南]] | `ai`, `进阶应用`, `插件` | 插件系统架构、安装、创建自定义插件 | 430行 |
 | [[02-工具使用/Tailscale使用指南]] | `tailscale`, `vpn`, `networking` | 基于 WireGuard 的零配置 VPN 组网工具，安装、工作原理、使用教程 | 300行 |
 | [[linux/WSL-Windows子系统forLinux]] | `wsl`, `windows`, `linux`, `开发环境` | Windows 内置 Linux 子系统，概念原理、安装配置、常用命令、实战场景 | 新增 |
@@ -366,6 +367,7 @@ AI 模型对比与选型相关文档。
 | 首次安装 Claude Code | [[02-工具使用/如何使用Claude code]] |
 | 快速查找命令 | [[02-工具使用/Claude Code 常用功能]] |
 | 查看内置斜杠命令 | [[02-工具使用/Claude Code Slash Commands 完整参考]] |
+| 配置 Memory 记忆系统 | [[02-工具使用/Claude Code Memory 完���指南]] |
 | 配置 Hook 自动化 | [[02-工具使用/Claude Code Hooks 使用指南]] |
 | 编写自定义 Skill | [[03-进阶应用/如何编写Skills]] |
 | 配置 MCP | [[03-进阶应用/Claude MCP 使用指南]] |
