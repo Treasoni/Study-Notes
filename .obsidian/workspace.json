@@ -4,52 +4,122 @@
     "type": "split",
     "children": [
       {
-        "id": "d7f69265b40b03f9",
-        "type": "tabs",
+        "id": "3d6cff6c982d0948",
+        "type": "split",
         "children": [
           {
-            "id": "ad7a4315bf035961",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "AI学习/01-基础概念/AI-Agents.md",
-                "mode": "source",
-                "source": false
+            "id": "d7f69265b40b03f9",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "ad7a4315bf035961",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "AI学习/01-基础概念/AI-Agents.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "AI-Agents"
+                }
               },
-              "icon": "lucide-file",
-              "title": "AI-Agents"
-            }
+              {
+                "id": "1fba13ed6f715185",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "AI学习/03-进阶应用/Claude MCP 使用指南.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "Claude MCP 使用指南"
+                }
+              },
+              {
+                "id": "56e2cd3ccb5946e3",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "docker/镜像加速器vs代理-概念对比.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "镜像加速器vs代理-概念对比"
+                }
+              },
+              {
+                "id": "3a0c8c15cd389166",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "AI学习/01-基础概念/AI工程范式演进-Prompt到Harness.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "AI工程范式演进-Prompt到Harness"
+                }
+              }
+            ],
+            "currentTab": 1
           },
           {
-            "id": "56e2cd3ccb5946e3",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docker/镜像加速器vs代理-概念对比.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "镜像加速器vs代理-概念对比"
-            }
-          },
-          {
-            "id": "3a0c8c15cd389166",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "AI学习/01-基础概念/AI工程范式演进-Prompt到Harness.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "AI工程范式演进-Prompt到Harness"
-            }
+            "id": "28cba42a6237a322",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "f79bb6971c191cd6",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "terminal:terminal",
+                  "state": {
+                    "terminal:terminal": {
+                      "cwd": "/Users/zhqznc/Documents/项目",
+                      "focus": false,
+                      "profile": {
+                        "args": [
+                          "--login"
+                        ],
+                        "executable": "/bin/zsh",
+                        "followTheme": true,
+                        "name": "",
+                        "platforms": {
+                          "darwin": true
+                        },
+                        "pythonExecutable": "python3",
+                        "restoreHistory": false,
+                        "rightClickAction": "copyPaste",
+                        "successExitCodes": [
+                          "0",
+                          "SIGINT",
+                          "SIGTERM"
+                        ],
+                        "terminalOptions": {
+                          "documentOverride": null
+                        },
+                        "type": "integrated",
+                        "useWin32Conhost": true
+                      },
+                      "serial": null
+                    }
+                  },
+                  "pinned": true,
+                  "icon": "terminal",
+                  "title": "终端：⠐ YouTube Video"
+                }
+              }
+            ]
           }
-        ]
+        ],
+        "direction": "horizontal"
       }
     ],
     "direction": "vertical"
@@ -185,13 +255,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/01-基础概念/AI-Agents.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "AI-Agents 的大纲"
+              "title": "大纲"
             }
           },
           {
@@ -215,7 +284,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       },
       {
         "id": "e5bdabb35f60c58d",
@@ -256,13 +325,15 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "ad7a4315bf035961",
+  "active": "f79bb6971c191cd6",
   "lastOpenFiles": [
+    "AI学习/01-基础概念/AI工程师学习路线图.md",
+    "AI学习/03-进阶应用/Claude MCP 使用指南.md",
+    "AI学习/01-基础概念/AI-Agents.md",
     "GitHub项目/OpenCLI 使用指南.md",
     "AI学习/02-工具使用/OpenCLI 使用指南.md",
     "GitHub项目",
     "linux/WSL-Windows子系统forLinux.md",
-    "AI学习/01-基础概念/AI-Agents.md",
     "qBittorent/qBittorent配置代理.md",
     "qBittorent/qBittorent的Tracker.md",
     "qBittorent/qBittorrent的使用.md",
@@ -284,8 +355,6 @@
     "AI学习/02-工具使用/Claude-Code-多Agent流程设计.md",
     "AI学习/02-工具使用/Claude Code CLI 完整参考.md",
     "AI学习/02-工具使用/Claude Code 插件系统使用指南.md",
-    "AI学习/02-工具使用/Claude Code Hooks 使用指南.md",
-    "AI学习/02-工具使用/Claude Code Memory 完整指南.md",
     "obsidian的使用/assets/如何使用obsidian做笔记",
     "obsidian的使用/assets",
     "obsidian的使用",
