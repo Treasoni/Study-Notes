@@ -203,21 +203,45 @@ scan → detect islands → build MOC → relink
 
 当需要处理的文件数量较多（>10）时：
 
+### 执行方式
+- **分批控制**：由主 Agent 执行（负责切分任务、调度批次）
+- **批次处理**：每个 batch **必须**调用 curator subagent
+- **结果存储**：中间结果**必须**存储在外部（文件或结构化数据），不得依赖上下文传递
+
 ### 分批策略
 1. 将文件分成多个 batch（每批 5-10 个文件）
 2. 对每个 batch：
    - 调用 curator subagent 进行局部整理
-   - 输出中间知识卡片
-3. 将中间结果存储为结构化数据（JSON）
+   - 输出中间知识卡片（按下方格式）
+3. 将中间结果写入临时文件
 
 ### 汇总策略
-1. 收集所有 batch 的结果
+1. 读取所有 batch 的中间结果文件
 2. 再次调用 curator 进行全局整理
 3. 生成统一知识结构
+
+### 中间结果格式（batch output）
+```json
+{
+  "batch_id": "batch_01",
+  "files_processed": ["file1.md", "file2.md"],
+  "topics": ["Transformer", "Attention"],
+  "knowledge_cards": [
+    {
+      "concept": "概念名称",
+      "definition": "简短定义",
+      "key_points": ["要点1", "要点2"],
+      "source_file": "来源文件"
+    }
+  ],
+  "summary": "该批次核心内容总结"
+}
+```
 
 ### 禁止行为
 - 不得一次性将所有文件加载到上下文
 - 不得尝试在单次调用中处理超过 10 个文件
+- 不得依赖上下文传递中间结果（必须持久化）
 
 ## Protected Content Rules
 以下内容在任何操作中都**必须完整保留**，不得修改或删除：
