@@ -1,0 +1,352 @@
+{
+  "topic": "Obsidian Sort 插件",
+  "processed_at": "2026-04-05T16:35:00Z",
+  "knowledge_cards": [
+    {
+      "id": "card_001",
+      "subtopic": "快速上手 - 基础配置",
+      "summary": "Obsidian Sort 的核心是通过创建 sortspec 笔记来定义排序规则，实现自动化文件排序",
+      "key_points": [
+        {
+          "point": "创建排序配置笔记",
+          "explanation": "在笔记库中创建任意名称的笔记（建议命名为 .sortspec），在 YAML front matter 中配置排序规则",
+          "source_ids": ["source_001"],
+          "code_example": "---\nobsidian-sort: enabled\nsort-groups:\n  - /! 重要\n  - /!! 非常重要\n---"
+        },
+        {
+          "point": "功能区图标状态",
+          "explanation": "插件在功能区显示四种状态：Inactive（未激活）、Active（已激活）、Error（配置错误）、Static（静态显示）",
+          "source_ids": ["source_001"]
+        }
+      ],
+      "definitions": [
+        {
+          "term": "sortspec",
+          "definition": "Sort Specification 的缩写，指包含排序配置规则的笔记文件",
+          "source_id": "source_001"
+        },
+        {
+          "term": "YAML front matter",
+          "definition": "Markdown 文件顶部的 YAML 元数据区域，用 --- 包裹",
+          "source_id": "source_001"
+        }
+      ],
+      "quick_start": [
+        "1. 安装 Obsidian Sort 插件",
+        "2. 创建新笔记，命名为 .sortspec",
+        "3. 在笔记顶部添加 YAML 配置",
+        "4. 保存后自动生效"
+      ],
+      "tags": ["Obsidian", "插件", "排序", "配置"],
+      "source_ids": ["source_001"],
+      "credibility_score": 0.95
+    },
+    {
+      "id": "card_002",
+      "subtopic": "排序组 - 文件分类组织",
+      "summary": "使用排序组前缀控制文件分组和优先级，支持简单通配符和正则表达式",
+      "key_points": [
+        {
+          "point": "优先级前缀",
+          "explanation": "使用 /! /!! /!!! 前缀控制排序组的显示优先级，感叹号越多优先级越高",
+          "source_ids": ["source_002"],
+          "code_example": "sort-groups:\n  - /!!! 紧急任务\n  - /!! 重要任务\n  - /! 普通任务\n  - 归档"
+        },
+        {
+          "point": "简单通配符",
+          "explanation": "支持 \\d 匹配单个数字，\\[0-9] 匹配数字范围，可用于文件名匹配",
+          "source_ids": ["source_002"],
+          "code_example": "# 匹配所有以数字开头的笔记\nsort-groups:\n  - /\\\\d* 数字笔记"
+        },
+        {
+          "point": "组合排序组",
+          "explanation": "使用 /+ 前缀将多个排序规则组合在一起，形成复合排序条件",
+          "source_ids": ["source_002"],
+          "code_example": "sort-groups:\n  - /+ 工作项目\n    - /!! 待办\n    - /! 进行中\n    - 已完成"
+        }
+      ],
+      "formulas": [
+        {
+          "description": "通配符匹配规则",
+          "code": "\\d → 匹配 0-9 任一数字\n\\[0-9] → 匹配数字范围\n* → 匹配任意字符",
+          "source_id": "source_002"
+        }
+      ],
+      "practical_examples": [
+        {
+          "scenario": "按项目状态分类",
+          "config": "sort-groups:\n  - /!!! 🔥 紧急\n  - /!! 📋 本周待办\n  - /! 📝 计划中\n  - ✅ 已完成\n  - 📦 归档"
+        },
+        {
+          "scenario": "按数字编号排序",
+          "config": "sort-groups:\n  - /\\\\d* 第1章\n  - /\\\\d* 第2章\n  - /\\\\d* 第3章"
+        }
+      ],
+      "tags": ["Obsidian", "排序组", "通配符", "优先级"],
+      "source_ids": ["source_002"],
+      "credibility_score": 0.90
+    },
+    {
+      "id": "card_003",
+      "subtopic": "排序方法 - 文件排序规则",
+      "summary": "提供多种排序方式，包括字母顺序、创建时间、修改时间、元数据等",
+      "key_points": [
+        {
+          "point": "基础排序方法",
+          "explanation": "order-asc/desc 配合 a-z, created, modified 实现升序或降序排列",
+          "source_ids": ["source_001"],
+          "code_example": "sort-order:\n  - order-asc: a-z        # 字母升序\n  - order-desc: created    # 按创建时间降序\n  - order-asc: modified    # 按修改时间升序"
+        },
+        {
+          "point": "高级排序选项",
+          "explanation": "by-bookmarks-order 按书签顺序，files-first 文件优先显示，by-metadata 按元数据排序",
+          "source_ids": ["source_001"],
+          "code_example": "sort-order:\n  - files-first: true\n  - by-bookmarks-order: true\n  - by-metadata: status"
+        }
+      ],
+      "sorting_methods_table": {
+        "columns": ["方法", "说明", "示例"],
+        "rows": [
+          ["order-asc: a-z", "按文件名字母升序", "A → Z"],
+          ["order-desc: a-z", "按文件名字母降序", "Z → A"],
+          ["order-asc: created", "按创建时间升序", "旧 → 新"],
+          ["order-desc: created", "按创建时间降序", "新 → 旧"],
+          ["order-asc: modified", "按修改时间升序", "早改 → 晚改"],
+          ["order-desc: modified", "按修改时间降序", "晚改 → 早改"],
+          ["by-bookmarks-order", "按书签插件顺序", "遵循书签排序"],
+          ["files-first", "文件夹排在文件前", "文件夹 → 文件"],
+          ["by-metadata", "按指定元数据排序", "按 status、priority 等"]
+        ]
+      },
+      "tags": ["Obsidian", "排序方法", "文件管理"],
+      "source_ids": ["source_001"],
+      "credibility_score": 0.95
+    },
+    {
+      "id": "card_004",
+      "subtopic": "书签集成 - 与 Bookmarks 插件联动",
+      "summary": "与 Obsidian 官方 Bookmarks 插件深度集成，支持拖拽排序和书签顺序同步",
+      "key_points": [
+        {
+          "point": "书签插件集成",
+          "explanation": "自动识别 Bookmarks 插件的分组和排序，支持拖拽调整顺序",
+          "source_ids": ["source_001", "source_002"]
+        },
+        {
+          "point": "拖拽排序",
+          "explanation": "在 Bookmarks 插件中拖拽调整项目顺序，Sort 插件会自动同步",
+          "source_ids": ["source_001"]
+        },
+        {
+          "point": "by-bookmarks-order",
+          "explanation": "使用此排序方法时，文件将按照 Bookmarks 插件中的顺序显示",
+          "source_ids": ["source_001", "source_002"]
+        }
+      ],
+      "setup_steps": [
+        "1. 确保已安装 Bookmarks 官方插件",
+        "2. 在 Bookmarks 中创建分组和项目",
+        "3. 在 sortspec 中添加 by-bookmarks-order",
+        "4. 保存配置，自动同步排序"
+      ],
+      "code_example": "---\nobsidian-sort: enabled\nsort-order:\n  - by-bookmarks-order: true\n---",
+      "tags": ["Obsidian", "书签", "集成", "拖拽"],
+      "source_ids": ["source_001", "source_002"],
+      "credibility_score": 0.90
+    },
+    {
+      "id": "card_005",
+      "subtopic": "目标文件夹 - 精确匹配控制",
+      "summary": "使用 target-folder 指定排序规则生效的范围，支持路径、名称、正则、通配符匹配",
+      "key_points": [
+        {
+          "point": "路径匹配",
+          "explanation": "指定完整的文件夹路径，精确控制排序规则应用的文件夹",
+          "source_ids": ["source_002"],
+          "code_example": "target-folder: \"项目/工作/2026\""
+        },
+        {
+          "point": "名称匹配",
+          "explanation": "只匹配文件夹名称，不关心完整路径",
+          "source_ids": ["source_002"],
+          "code_example": "target-folder: \"2026\"  # 匹配所有名为 2026 的文件夹"
+        },
+        {
+          "point": "正则表达式",
+          "explanation": "使用正则表达式进行复杂匹配",
+          "source_ids": ["source_002"],
+          "code_example": "target-folder: \"/项目/.*/工作/\""
+        },
+        {
+          "point": "通配符匹配",
+          "explanation": "使用 * 和 ? 等通配符进行模糊匹配",
+          "source_ids": ["source_002"],
+          "code_example": "target-folder: \"*/归档\""
+        }
+      ],
+      "matching_modes": {
+        "路径匹配": "完整路径，如 \"项目/工作/2026\"",
+        "名称匹配": "仅文件夹名，如 \"2026\"",
+        "正则匹配": "使用正则表达式，如 \"/项目/.*/工作/\"",
+        "通配符匹配": "使用 * 和 ?，如 \"*/归档\""
+      },
+      "tags": ["Obsidian", "目标文件夹", "匹配规则"],
+      "source_ids": ["source_002"],
+      "credibility_score": 0.85
+    },
+    {
+      "id": "card_006",
+      "subtopic": "排除文件夹 - 过滤不需要的内容",
+      "summary": "使用 exclude-folders 排除特定文件夹，避免它们出现在排序结果中",
+      "key_points": [
+        {
+          "point": "排除特定文件夹",
+          "explanation": "在配置中列出不需要排序的文件夹路径",
+          "source_ids": ["source_002"],
+          "code_example": "exclude-folders:\n  - \"模板\"\n  - \"附件\"\n  - \".trash\""
+        },
+        {
+          "point": "排除模式匹配",
+          "explanation": "支持使用通配符和正则表达式批量排除",
+          "source_ids": ["source_002"],
+          "code_example": "exclude-folders:\n  - \"*.archive\"\n  - \"/.*/hidden/\""
+        }
+      ],
+      "common_excludes": [
+        ".trash（回收站）",
+        ".obsidian（配置文件夹）",
+        "templates（模板文件夹）",
+        "attachments（附件文件夹）",
+        "archive（归档文件夹）"
+      ],
+      "tags": ["Obsidian", "排除文件夹", "过滤"],
+      "source_ids": ["source_002"],
+      "credibility_score": 0.85
+    },
+    {
+      "id": "card_007",
+      "subtopic": "实战配置示例",
+      "summary": "常见使用场景的完整配置示例",
+      "configurations": [
+        {
+          "scenario": "项目管理 - 按状态和优先级",
+          "description": "适合管理多个项目，按紧急程度和完成状态排序",
+          "config": "---\nobsidian-sort: enabled\ntarget-folder: \"项目\"\nsort-groups:\n  - /!!! 🔥 紧急\n  - /!! 📋 本周必做\n  - /! 📝 计划中\n  - ✅ 已完成\n  - 📦 归档\nsort-order:\n  - order-desc: created\nexclude-folders:\n  - \"模板\"\n  - \"附件\"\n---",
+          "source_ids": ["source_001", "source_002"]
+        },
+        {
+          "scenario": "学习笔记 - 按章节和主题",
+          "description": "适合学习资料整理，按章节顺序组织",
+          "config": "---\nobsidian-sort: enabled\ntarget-folder: \"学习笔记\"\nsort-groups:\n  - /+ 基础知识\n    - /\\d* 第1章\n    - /\\d* 第2章\n    - /\\d* 第3章\n  - /+ 进阶内容\n    - /\\d* 第4章\n    - /\\d* 第5章\nsort-order:\n  - order-asc: a-z\n  - files-first: true\n---",
+          "source_ids": ["source_002"]
+        },
+        {
+          "scenario": "日记归档 - 按时间倒序",
+          "description": "适合日记和日志，最新的显示在最前",
+          "config": "---\nobsidian-sort: enabled\ntarget-folder: \"日记\"\nsort-order:\n  - order-desc: created\n  - order-desc: modified\nexclude-folders:\n  - \"*.archive\"\n---",
+          "source_ids": ["source_001"]
+        },
+        {
+          "scenario": "书签集成 - 可视化排序",
+          "description": "使用书签插件的拖拽功能进行可视化排序",
+          "config": "---\nobsidian-sort: enabled\ntarget-folder: \"资源收藏\"\nsort-order:\n  - by-bookmarks-order: true\n---\n\n# 使用步骤：\n# 1. 在 Bookmarks 插件中创建分组\n# 2. 拖拽调整项目顺序\n# 3. Sort 插件自动同步",
+          "source_ids": ["source_001", "source_002"]
+        }
+      ],
+      "tags": ["Obsidian", "实战配置", "示例"],
+      "source_ids": ["source_001", "source_002"],
+      "credibility_score": 0.90
+    },
+    {
+      "id": "card_008",
+      "subtopic": "故障排查 - 常见问题解决",
+      "summary": "配置不生效时的排查步骤和解决方案",
+      "key_points": [
+        {
+          "point": "检查功能区图标",
+          "explanation": "如果图标显示 Error 状态，说明 YAML 配置有语法错误",
+          "source_ids": ["source_001"],
+          "troubleshooting": [
+            "检查 YAML 缩进是否正确（使用空格，不要用 Tab）",
+            "确认 front matter 被 --- 包裹",
+            "验证字段名称拼写正确"
+          ]
+        },
+        {
+          "point": "排序不生效",
+          "explanation": "检查 target-folder 是否匹配当前文件夹",
+          "source_ids": ["source_002"],
+          "troubleshooting": [
+            "确认 target-folder 路径正确",
+            "检查文件夹是否在 exclude-folders 中",
+            "尝试使用通配符匹配"
+          ]
+        },
+        {
+          "point": "通配符不工作",
+          "explanation": "转义字符可能导致匹配失败",
+          "source_ids": ["source_002"],
+          "troubleshooting": [
+            "在 YAML 中需要双重转义：\\\\d 而非 \\d",
+            "使用单引号包裹正则表达式",
+            "测试简单通配符：* 和 ?"
+          ]
+        }
+      ],
+      "yaml_syntax_tips": [
+        "使用空格缩进，不要用 Tab",
+        "列表项用 - 开头",
+        "字符串可以用引号包裹",
+        "正则中的特殊字符需要转义",
+        "注释用 # 开头"
+      ],
+      "tags": ["Obsidian", "故障排查", "YAML"],
+      "source_ids": ["source_001", "source_002"],
+      "credibility_score": 0.80
+    }
+  ],
+  "conflicts_detected": [],
+  "statistics": {
+    "total_sources_processed": 5,
+    "cards_generated": 8,
+    "duplicates_removed": 0,
+    "conflicts_found": 0
+  },
+  "source_reference": {
+    "source_001": {
+      "type": "官方 GitHub README",
+      "credibility": "高",
+      "topics": ["基础配置", "排序方法", "书签集成", "图标状态"]
+    },
+    "source_002": {
+      "type": "官方 manual.md",
+      "credibility": "高",
+      "topics": ["排序组", "通配符", "目标文件夹", "排除文件夹"]
+    },
+    "source_003": {
+      "type": "PKMer 中文文档",
+      "credibility": "中",
+      "topics": ["中文教程", "使用示例"]
+    },
+    "source_004": {
+      "type": "Obsidian 中文论坛",
+      "credibility": "中",
+      "topics": ["社区讨论", "问题解答"]
+    },
+    "source_005": {
+      "type": "YouTube 视频教程",
+      "credibility": "中",
+      "topics": ["视频演示", "操作步骤"]
+    }
+  },
+  "learning_path": [
+    "快速上手 - 基础配置",
+    "排序组 - 文件分类组织",
+    "排序方法 - 文件排序规则",
+    "目标文件夹 - 精确匹配控制",
+    "书签集成 - 与 Bookmarks 插件联动",
+    "排除文件夹 - 过滤不需要的内容",
+    "实战配置示例",
+    "故障排查 - 常见问题解决"
+  ]
+}
