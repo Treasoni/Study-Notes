@@ -3,9 +3,10 @@
   "title": "Update Claude hooks from GitHub repo",
   "titleGenerationStatus": "success",
   "createdAt": 1775368039647,
-  "updatedAt": 1775368077879,
-  "lastResponseAt": 1775368077879,
-  "sessionId": null,
+  "updatedAt": 1775368280643,
+  "lastResponseAt": 1775368280643,
+  "sessionId": "93d2dba2-aa12-45f8-b1d3-5fff595a5dbf",
+  "sdkSessionId": "93d2dba2-aa12-45f8-b1d3-5fff595a5dbf",
   "currentNote": "AI学习/02-工具使用/Claude Code Hooks 使用指南.md",
   "usage": {
     "model": "glm-5",

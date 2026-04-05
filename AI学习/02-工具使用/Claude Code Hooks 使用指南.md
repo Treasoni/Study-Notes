@@ -607,6 +607,152 @@ echo "$MODIFIED"
 exit 0
 ```
 
+## 组件级 Hooks（Component-Scoped Hooks）
+
+> [!tip] 新功能
+> Hooks 可以直接附加到特定组件（Skills、Agents、Commands）的 frontmatter 中。
+
+### 在组件 Frontmatter 中定义 Hooks
+
+在 `SKILL.md`、`agent.md` 或 `command.md` 文件中：
+
+```yaml
+---
+name: secure-operations
+description: 执行带有安全检查的操作
+hooks:
+  PreToolUse:
+    - matcher: "Bash"
+      hooks:
+        - type: command
+          command: "./scripts/check.sh"
+          once: true  # 每个会话只运行一次
+---
+```
+
+**支持的事件**：`PreToolUse`、`PostToolUse`、`Stop`
+
+### Subagent 中的 Stop Hook 自动转换
+
+当在 Subagent 的 frontmatter 中定义 `Stop` hook 时，它会自动转换为该 Subagent 专属的 `SubagentStop` hook：
+
+```yaml
+---
+name: code-review-agent
+description: 自动代码审查 Subagent
+hooks:
+  Stop:
+    - hooks:
+        - type: prompt
+          prompt: "验证代码审查是否全面完整。"
+  # 上述 Stop hook 自动转换为 SubagentStop，仅在此 subagent 完成时触发
+---
+```
+
+**工作原理**：
+- 组件级 Hook 只在该组件活跃时生效
+- 相关代码集中在一起，便于维护
+- 无需修改全局配置文件
+
+## HTTP Hooks（远程 Webhooks）
+
+> [!info] v2.1.63 新增
+> HTTP Hooks 允许将 Hook 事件发送到远程服务器处理。
+
+### 基本配置
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [{
+      "type": "http",
+      "url": "https://my-webhook.example.com/hook",
+      "matcher": "Write"
+    }]
+  }
+}
+```
+
+### 环境变量插值
+
+> [!warning] 安全要求
+> 在 URL 中使用环境变量需要显式声明 `allowedEnvVars` 列表：
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [{
+      "type": "http",
+      "url": "https://${API_HOST}/hooks/notify",
+      "allowedEnvVars": ["API_HOST"],
+      "matcher": "Write"
+    }]
+  }
+}
+```
+
+**关键特性**：
+- `"type": "http"` — 标识为 HTTP hook
+- `"url"` — Webhook 端点 URL
+- 启用沙箱时通过沙箱路由
+- 需要显式声明环境变量以防止敏感信息泄露
+
+## Prompt Hooks（LLM 评估）
+
+用于 `Stop` 和 `SubagentStop` 事件的智能任务完成检查。
+
+### 配置示例
+
+```json
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "评估 Claude 是否完成了所有请求的任务。检查：1) 所有文件是否已创建/修改？2) 是否有未解决的错误？",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### LLM 响应格式
+
+```json
+{
+  "decision": "approve",
+  "reason": "所有任务已成功完成",
+  "continue": false,
+  "stopReason": "任务完成"
+}
+```
+
+## Agent Hooks（Subagent 验证）
+
+> [!tip] 与 Prompt Hook 的区别
+> Agent Hooks 可以使用工具进行多步推理，而 Prompt Hooks 只能进行单次 LLM 评估。
+
+### 配置示例
+
+```json
+{
+  "type": "agent",
+  "prompt": "验证代码变更是否符合我们的架构指南。检查相关设计文档并进行比较。",
+  "timeout": 120
+}
+```
+
+**关键特性**：
+- `"type": "agent"` — 标识为 Agent hook
+- `"prompt"` — Subagent 的任务描述
+- Agent 可以使用工具（Read、Grep、Bash 等）进行评估
+- 返回与 Prompt Hooks 类似的结构化决策
+
 ## 实战示例
 
 ### 1. 桌面通知
