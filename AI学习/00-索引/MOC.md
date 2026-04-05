@@ -83,15 +83,17 @@ Claude Code 的安装、配置和日常使用。
 
 ### 高级应用
 
-Subagent 的创建和使用。
+Subagent 的创建和多 Agent 流程设计。
 
 | 文档 | 标签 | 摘要 | 行数 |
 |------|------|------|------|
 | [[02-工具使用/Claude Code Subagents 完整指南]] | `ai`, `工具使用`, `subagents` | Subagent 完整指南，包含内置类型、自定义 Agent 创建、Plugin 系统架构 | 980行 |
+| [[02-工具使用/Claude-Code-多Agent流程设计]] | `Claude-Code`, `多Agent`, `AI工作流` | 多 Agent 流程设计完整指南，包含 Task Tool 架构、4 种设计模式、工作流实践、大规模系统设计 | 605行 |
 | [[04-高级应用/Subagent 实战练习]] | `ai`, `高级应用`, `练习` | 5个渐进式练习，从简单到复杂掌握 Subagent | 512行 |
 
 > [!tip] 文档选择
 > - **理论学习** → 阅读 [[02-工具使用/Claude Code Subagents 完整指南]]
+> - **多 Agent 设计** → 阅读 [[02-工具使用/Claude-Code-多Agent流程设计]]
 > - **动手实践** → 完成 [[04-高级应用/Subagent 实战练习]]
 
 ---
@@ -216,6 +218,7 @@ Skills、MCP、CLAUDE.md 配置等进阶内容。
 Subagent 相关高级内容。
 
 - [[02-工具使用/Claude Code Subagents 完整指南]]
+- [[02-工具使用/Claude-Code-多Agent流程设计]]
 - [[04-高级应用/Subagent 实战练习]]
 
 ### 练习
@@ -377,6 +380,7 @@ AI 模型对比与选型相关文档。
 | 编写自定义 Skill | [[03-进阶应用/如何编写Skills]] |
 | 配置 MCP | [[03-进阶应用/Claude MCP 使用指南]] |
 | 创建自定义 Agent | [[02-工具使用/Claude Code Subagents 完整指南]] |
+| 设计多 Agent 流程 | [[02-工具使用/Claude-Code-多Agent流程设计]] |
 | 练习 Subagent | [[04-高级应用/Subagent 实战练习]] |
 | 配置项目规则 | [[03-进阶应用/CLAUDE.md 使用指南]] |
 | 了解插件系统 | [[02-工具使用/Claude Code 插件系统使用指南]] |
