@@ -32,12 +32,12 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "Git/Git 命令速查.md",
+                    "file": "obsidian的使用/Obsidian-Custom-Sort-自定义排序插件.md",
                     "mode": "source",
                     "source": false
                   },
                   "icon": "lucide-file",
-                  "title": "Git 命令速查"
+                  "title": "Obsidian-Custom-Sort-自定义排序插件"
                 }
               },
               {
@@ -115,7 +115,7 @@
                   },
                   "pinned": true,
                   "icon": "terminal",
-                  "title": "终端：✳ 文件排序"
+                  "title": "终端：⠐ Git 笔记"
                 }
               },
               {
@@ -372,10 +372,10 @@
   },
   "active": "6920bdf1334a965f",
   "lastOpenFiles": [
+    "obsidian的使用/Obsidian-Custom-Sort-自定义排序插件.md",
     "Git/Git 命令速查.md",
     "Git/sortspec.md",
     "Git/sortspec",
-    "obsidian的使用/Obsidian-Custom-Sort-自定义排序插件.md",
     "obsidian的使用/Obsidian Smart Connections 使用指南.md",
     "AI学习/01-基础概念/AI工程师学习路线图.md",
     "AI学习/02-工具使用/Obsidian-Sort-知识卡片.json",

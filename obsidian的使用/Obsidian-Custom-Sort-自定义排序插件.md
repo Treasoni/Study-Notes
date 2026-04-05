@@ -63,7 +63,7 @@ flowchart LR
 > 3. 安装并启用
 
 > [!example] 步骤二：创建排序配置文件
-> 在需要自定义排序的文件夹中，创建一个名为 `sortspec` 的笔记（无需后缀，Obsidian 会自动识别）。
+> 在需要自定义排序的文件夹中，创建一个名为 `sortspec` 的笔记（需.md后缀，Obsidian 会自动识别）。
 
 > [!example] 步骤三：添加排序规则
 > 在 `sortspec` 笔记的顶部添加 YAML front matter：
