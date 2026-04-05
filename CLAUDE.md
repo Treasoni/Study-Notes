@@ -8,7 +8,7 @@
 
 ## Subagent Configuration
 
-每个阶段由专门的 subagent 完成，使用 Task tool 调用对应的 subagent_type：
+每个阶���由专门的 subagent 完成，使用 Task tool 调用对应的 subagent_type：
 
 | 阶段 | Subagent Type | 职责 | 输入 | 输出 |
 |------|---------------|------|------|------|
@@ -17,21 +17,23 @@
 | Write | `writer` | 撰写笔记 | 知识卡片 | Markdown 初稿 |
 | Edit | `editor` | 美化格式 | Markdown 初稿 | 最终优化笔记 |
 
-### 调用方式
+## Subagent Invocation Policy（强制规则）
 
+**以下规则具有最高优先级，必须严格遵守：**
+
+- 当任务进入 `research` 阶段时，主 Agent **不得**自行搜索，**必须**调用 `general-purpose` subagent。
+- 当任务进入 `curate` 阶段时，主 Agent **不得**自行整理，**必须**调用 `curator` subagent。
+- 当任务进入 `write` 阶段时，主 Agent **不得**自行撰写，**必须**调用 `writer` subagent。
+- 当任务进入 `edit` 阶段时，主 Agent **不得**自行优化，**必须**调用 `editor` subagent。
+- 只有当 subagent 调用失败或不可用时，主 Agent 才可降级处理，并必须输出 `[Decision] subagent 调用失败，降级处理`。
+
+**调用示例：**
 ```
-Task(subagent_type="curator", prompt="整理以下资料...", description="整理知识卡片")
-Task(subagent_type="writer", prompt="根据卡片撰写笔记...", description="撰写笔记")
-Task(subagent_type="editor", prompt="美化格式...", description="优化格式")
+Task(subagent_type="general-purpose", prompt="搜集关于 {主题} 的资料，至少3个来源...", description="搜集资料")
+Task(subagent_type="curator", prompt="整理以下资料为知识卡片...", description="整理知识卡片")
+Task(subagent_type="writer", prompt="根据知识卡片撰写笔记...", description="撰写笔记")
+Task(subagent_type="editor", prompt="美化以下笔记格式...", description="优化格式")
 ```
-
-### Research 阶段
-- **优先使用 WebSearch** 直接搜索，无需启动 subagent
-- 仅在需要深度探索代码库时使用 `general-purpose` agent
-
-### Curator → Writer → Edit 阶段
-- **必须**使用对应的 subagent_type
-- 通过 Task tool 传递上下文和前一阶段输出
 
 ## Global Rules
 1. **优先使用官方资源**：官方文档 → 官方 GitHub → 权威博客 → 社区资源
