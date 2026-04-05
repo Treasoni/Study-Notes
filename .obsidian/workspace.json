@@ -10,7 +10,7 @@
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 21.76278563656148,
+            "dimension": 78.23721436343853,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -73,7 +73,7 @@
           {
             "id": "439a62ef1f10ee4d",
             "type": "tabs",
-            "dimension": 78.23721436343853,
+            "dimension": 21.76278563656148,
             "children": [
               {
                 "id": "51b38971ae886f26",
@@ -114,7 +114,7 @@
                   },
                   "pinned": true,
                   "icon": "terminal",
-                  "title": "终端：✳ Claude Code"
+                  "title": "终端：✳ Skills"
                 }
               }
             ]
