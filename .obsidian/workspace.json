@@ -4,13 +4,13 @@
     "type": "split",
     "children": [
       {
-        "id": "98d488fbc162a14d",
+        "id": "764705c095a7741d",
         "type": "split",
         "children": [
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 54.95103373231773,
+            "dimension": 31.120783460282915,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -32,12 +32,12 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "linux/sortspec.md",
-                    "mode": "source",
+                    "file": "CLAUDE.md",
+                    "mode": "preview",
                     "source": true
                   },
                   "icon": "lucide-file",
-                  "title": "sortspec"
+                  "title": "CLAUDE"
                 }
               },
               {
@@ -72,12 +72,12 @@
             "currentTab": 1
           },
           {
-            "id": "f0096c30336b8b8b",
+            "id": "ea7f27cb393fd96a",
             "type": "tabs",
-            "dimension": 45.04896626768226,
+            "dimension": 68.87921653971708,
             "children": [
               {
-                "id": "5bc8b4a0c0e635f2",
+                "id": "f99d72f9383898e8",
                 "type": "leaf",
                 "pinned": true,
                 "state": {
@@ -115,7 +115,49 @@
                   },
                   "pinned": true,
                   "icon": "terminal",
-                  "title": "终端：✳ 无效抱怨"
+                  "title": "终端：✳ Claude Code"
+                }
+              },
+              {
+                "id": "fc75828cec1bafda",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "terminal:terminal",
+                  "state": {
+                    "terminal:terminal": {
+                      "cwd": "/Users/zhqznc/Documents/项目",
+                      "focus": false,
+                      "profile": {
+                        "args": [
+                          "--login"
+                        ],
+                        "executable": "/bin/zsh",
+                        "followTheme": true,
+                        "name": "",
+                        "platforms": {
+                          "darwin": true
+                        },
+                        "pythonExecutable": "python3",
+                        "restoreHistory": false,
+                        "rightClickAction": "copyPaste",
+                        "successExitCodes": [
+                          "0",
+                          "SIGINT",
+                          "SIGTERM"
+                        ],
+                        "terminalOptions": {
+                          "documentOverride": null
+                        },
+                        "type": "integrated",
+                        "useWin32Conhost": true
+                      },
+                      "serial": null
+                    }
+                  },
+                  "pinned": true,
+                  "icon": "terminal",
+                  "title": "终端：⠂ Skill Improvement"
                 }
               }
             ]
@@ -328,8 +370,10 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "52ff2f9fbef74052",
+  "active": "f99d72f9383898e8",
   "lastOpenFiles": [
+    "CLAUDE.md",
+    "README.md",
     "linux/sortspec.md",
     "linux/linux MOC.md",
     "obsidian的使用/Obsidian-Custom-Sort-自定义排序插件.md",
@@ -357,8 +401,6 @@
     "qBittorent/qBittorrent的使用.md",
     "qBittorent/qBittorent PT站点与分享率.md",
     "AI学习/02-工具使用/Claude Code Subagents 完整指南.md",
-    "CLAUDE.md",
-    "README.md",
     "AI学习/05-其他主题/knowledge-cards.json",
     "obsidian的使用/assets/如何使用obsidian做笔记",
     "obsidian的使用/assets",

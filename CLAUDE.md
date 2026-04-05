@@ -106,7 +106,7 @@ Task(subagent_type="editor", prompt="美化以下笔记格式...", description="
 ### /learn <主题> - 学习新知识
 **标准工作流：**
 ```
-research → curate → write → edit
+research → curate → write → edit → sortspec
 ```
 
 1. **Researcher** 搜集资料
@@ -125,12 +125,17 @@ research → curate → write → edit
    - LaTeX 公式、代码块、Mermaid 图
    - 输出：最终优化笔记
 
+5. **Sortspec** 生成排序配置
+   - 调用 `sortspec-generator` skill
+   - 为笔记所在文件夹生成 sortspec.md
+   - 输出：排序配置文件
+
 ### /update <文件路径> - 更新现有笔记
 
 #### 单文件模式
 **标准工作流：**
 ```
-read → research latest → merge → editor → validate
+read → research latest → merge → editor → validate → sortspec
 ```
 
 1. **Read** 读取现有内容，识别用户个人章节
@@ -140,6 +145,9 @@ read → research latest → merge → editor → validate
    - LaTeX 公式、代码块、Mermaid 图
    - 输出：最终优化笔记
 5. **Validate** 检查链接和引用有效性
+6. **Sortspec** 更新排序配置
+   - 调用 `sortspec-generator` skill
+   - 更新文件所在文件夹的 sortspec.md
 
 #### 批量模式（>5 文件）
 **触发条件**：当用户指定多个文件或整个文件夹时
@@ -153,13 +161,16 @@ read → research latest → merge → editor → validate
 
 **标准工作流：**
 ```
-scan → split batches → for each file: (read → research → merge → edit) → validate
+scan → split batches → for each file: (read → research → merge → edit) → validate → sortspec
 ```
 
-1. **Scan** 扫描目标文件列表
-2. **Split Batches** 分批处理（每批 3-5 个文件）
+1. **scan** 扫描目标文件列表
+2. **split Batches** 分批处理（每批 3-5 个文件）
 3. **Per-File Pipeline** 每个文件独立执行完整更新流程
-4. **Validate** 批量验证所有更新
+4. **validate** 批量验证所有更新
+5. **sortspec** 更新排序配置
+   - 对每个涉及的文件夹调用 `sortspec-generator` skill
+   - 更新或创建 sortspec.md
 
 #### Large Update Handling（大规模更新规则）
 
@@ -221,7 +232,7 @@ scan → split batches → for each file: (read → research → merge → edit)
 ### /organize <文件夹路径> - 整理知识库
 **标准工作流：**
 ```
-scan → (curator batch) → detect islands → build MOC → relink
+scan → (curator batch) → detect islands → build MOC → relink → sortspec
 ```
 
 1. **Scan** 扫描文件夹，识别文件类型
@@ -229,6 +240,9 @@ scan → (curator batch) → detect islands → build MOC → relink
 3. **Detect Islands** 检测孤岛笔记（无入链）
 4. **Build MOC** 生成/更新索引文件
 5. **Relink** 为孤岛笔记添加 wikilink
+6. **Sortspec** 生成排序配置
+   - 调用 `sortspec-generator` skill
+   - 为整理后的文件夹生成 sortspec.md
 
 **⚠️ 强制规则：**
 - 文件数 ≤10：主 Agent 直接处理
