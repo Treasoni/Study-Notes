@@ -273,6 +273,7 @@
   },
   "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "AI学习/02-工具使用/Claude Code CLI 完整参考.md",
     "AI学习/03-进阶应用/Claude Code 高级功能.md",
     "AI学习/02-工具使用/Claude Code Checkpoints 使用指南.md",
     "AI学习/02-工具使用/Claude Code 常用功能.md",
@@ -298,7 +299,6 @@
     "linux/Ubuntu curl SSL连接问题排查.md",
     "docker/镜像加速器vs代理-概念对比.md",
     "docker/DockerDesktop镜像加速器配置.md",
-    "docker/Docker网络结构详解.md",
     "obsidian的使用/assets/如何使用obsidian做笔记",
     "obsidian的使用/assets",
     "obsidian的使用",

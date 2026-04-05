@@ -39,6 +39,7 @@ Claude Code 的安装、配置和日常使用。
 | 文档 | 标签 | 摘要 | 行数 |
 |------|------|------|------|
 | [[02-工具使用/如何使用Claude code]] | `ai`, `工具使用` | 完整安装配置指南，包含多平台配置、代理设置、MCP/Skills 配置 | 540行 |
+| [[02-工具使用/Claude Code CLI 完整参考]] | `ai`, `工具使用`, `cli` | CLI 完整命令参考，交互模式与 Print 模式、模型配置、权限管理、CI/CD 集成 | 新增 |
 | [[02-工具使用/Claude Code 常用功能]] | `claude`, `ai`, `工具使用` | 功能速查手册，快速查找常用命令和操作 | 180行 |
 | [[02-工具使用/Claude Code 会话管理]] | `claude`, `ai`, `工具使用` | 会话创建、恢复、清除等管理技巧 | 480行 |
 | [[02-工具使用/Claude Code 模型与推理设置]] | `claude`, `ai`, `工具使用` | CLI 和 VSCode 插件的模型配置、推理参数、第三方平台配置 | 新增 |
@@ -143,6 +144,7 @@ Subagent 的创建和使用。
 
 #### 工具使用
 - [[02-工具使用/如何使用Claude code]]
+- [[02-工具使用/Claude Code CLI 完整参考]]
 - [[02-工具使用/Claude Code 常用功能]]
 - [[02-工具使用/Claude Code 会话管理]]
 - [[02-工具使用/Claude Code 插件系统使用指南]]
@@ -367,6 +369,7 @@ AI 模型对比与选型相关文档。
 | 了解多智能体协作 | [[01-基础概念/Agent Teams智能体团队]] |
 | 理解 Hook 钩子机制 | [[01-基础概念/Hook钩子]] |
 | 首次安装 Claude Code | [[02-工具使用/如何使用Claude code]] |
+| CLI 完整命令参考 | [[02-工具使用/Claude Code CLI 完整参考]] |
 | 快速查找命令 | [[02-工具使用/Claude Code 常用功能]] |
 | 查看内置斜杠命令 | [[02-工具使用/Claude Code Slash Commands 完整参考]] |
 | 配置 Memory 记忆系统 | [[02-工具使用/Claude Code Memory 完���指南]] |
