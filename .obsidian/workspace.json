@@ -10,7 +10,7 @@
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 35.03808487486398,
+            "dimension": 47.442872687704025,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -74,7 +74,7 @@
           {
             "id": "10624e4886c4ba11",
             "type": "tabs",
-            "dimension": 64.96191512513602,
+            "dimension": 52.55712731229597,
             "children": [
               {
                 "id": "b0e4509585372817",
@@ -257,13 +257,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CLAUDE.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "CLAUDE 的大纲"
+              "title": "大纲"
             }
           },
           {
@@ -328,10 +327,10 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "52ff2f9fbef74052",
+  "active": "b0e4509585372817",
   "lastOpenFiles": [
-    "AI学习/02-工具使用/Claude Code Subagents 完整指南.md",
     "CLAUDE.md",
+    "AI学习/02-工具使用/Claude Code Subagents 完整指南.md",
     "AI学习/02-工具使用/Claude Code 插件系统使用指南.md",
     "AI学习/02-工具使用/Claude Code Hooks 使用指南.md",
     "AI学习/02-工具使用/Claude Code Memory 完整指南.md",

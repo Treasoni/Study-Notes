@@ -88,6 +88,72 @@ scan → detect islands → build MOC → relink
 - [ ] Wikilinks 格式正确
 - [ ] Obsidian 特性完整
 
+## Execution State（执行状态）
+
+在任务执行过程中，你必须隐式维护以下状态：
+
+```json
+{
+  "current_stage": "research | curate | write | edit",
+  "has_research": false,
+  "has_curated": false,
+  "has_draft": false,
+  "retry_count": {
+    "research": 0,
+    "curate": 0,
+    "write": 0,
+    "edit": 0
+  }
+}
+```
+
+**状态更新规则：**
+- 完成某阶段后，立即更新对应状态为 `true`
+- 进入下一阶段前，检查前置条件
+- 重试时增加 `retry_count`
+
+## Skip Rules（跳过规则）
+
+智能检测用户已提供的内容，避免重复工作：
+
+| 用户输入 | 跳过阶段 | 直接进入 |
+|---------|---------|---------|
+| 完整的原始资料（文章、网页内容） | `research` | `curate` |
+| 结构化知识卡片（JSON 格式） | `research`, `curate` | `write` |
+| Markdown 初稿 | `research`, `curate`, `write` | `edit` |
+| "帮我润色一下" / "优化格式" | 前三个阶段 | `edit` |
+
+**判断依据：**
+1. 用户明确说"我已经搜集了资料" → 跳过 research
+2. 用户提供 JSON 格式的结构化数据 → 跳过 research 和 curate
+3. 用户提供 Markdown 文本 → 跳过 research、curate、write
+4. 用户说"帮我润色一下" → 仅执行 edit
+
+## Decision Transparency（决策透明）
+
+在执行任务时，**必须**输出简短的决策说明：
+
+**必须输出的决策：**
+- ✅ 当前阶段变更
+- ✅ 是否重试及原因
+- ✅ 是否跳过某阶段
+- ✅ 检测到的问题（冲突、不足）
+- ✅ 需要人工介入的情况
+
+**输出格式：**
+```
+[Decision] {简要说明}
+```
+
+**示例：**
+```
+[Decision] 检测到用户已提供完整资料，跳过 research 阶段，直接进入 curate
+[Decision] 当前阶段：research | 资料不足，进行第 2 次重试
+[Decision] 检测到冲突：source_001 与 source_003 关于"位置编码"的描述不一致，需要用户确认
+[Decision] 进入 curate 阶段
+[Decision] 检测到用户已提供 Markdown 初稿，跳过 write 阶段，直接进入 edit
+```
+
 ## Retry / Failure Rules
 - **重试策略**：每个阶段最多重试 2 次
 - **证据不足**：明确说明不确定，不编造内容
