@@ -313,9 +313,11 @@ AI 模型对比与选型相关文档。
 ```
 1. [[01-基础概念/Agent Teams智能体团队]] - 理解多智能体协作
    ↓
-2. 探索主流框架（CrewAI、LangGraph、AutoGen）
+2. [[02-工具使用/Claude-Code-多Agent流程设计]] - 学习多 Agent 设计模式
    ↓
-3. 构建复杂的多智能体系统
+3. 探索主流框架（CrewAI、LangGraph、AutoGen）
+   ↓
+4. 构建复杂的多���能体系统
 ```
 
 ---
