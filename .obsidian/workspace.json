@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "环境变量使用指南.md",
+                "file": "qBittorent/qBittorrent的使用.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "环境变量使用指南"
+              "title": "qBittorrent的使用"
             }
           },
           {
@@ -185,13 +185,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "环境变量使用指南.md",
+                "file": "qBittorent/qBittorrent的使用.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "环境变量使用指南 的大纲"
+              "title": "qBittorrent的使用 的大纲"
             }
           },
           {
@@ -258,9 +258,16 @@
   },
   "active": "ad7a4315bf035961",
   "lastOpenFiles": [
+    "qBittorent/qBittorent PT站点与分享率.md",
+    "AI学习/02-工具使用/Claude Code Subagents 完整指南.md",
+    "CLAUDE.md",
+    "README.md",
+    "qBittorent/qBittorent的Tracker.md",
+    "qBittorent/qBittorent配置代理.md",
+    "qBittorent/qBittorrent的使用.md",
+    "环境变量使用指南.md",
     "PVE的学习/01-安装配置/PVE存储库.md",
     "PVE的学习/03-容器管理/PVE的CT.md",
-    "CLAUDE.md",
     "AI学习/01-基础概念/AI工程范式演进-Prompt到Harness.md",
     "PVE的学习/01-安装配置/安装和使用PVE.md",
     "PVE的学习/01-安装配置/修改PVE的网络信息.md",
@@ -271,7 +278,6 @@
     "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
     "AI学习/02-工具使用/Claude-Code-多Agent流程设计.md",
     "AI学习/02-工具使用/Claude Code CLI 完整参考.md",
-    "AI学习/02-工具使用/Claude Code Subagents 完整指南.md",
     "AI学习/02-工具使用/Claude Code 插件系统使用指南.md",
     "AI学习/02-工具使用/Claude Code Hooks 使用指南.md",
     "AI学习/02-工具使用/Claude Code Memory 完整指南.md",
@@ -279,12 +285,6 @@
     "AI学习/02-工具使用/Claude Code 会话管理.md",
     "AI学习/03-进阶应用/Claude Code 高级功能.md",
     "AI学习/02-工具使用/Claude Code Checkpoints 使用指南.md",
-    "AI学习/02-工具使用/Claude Code 常用功能.md",
-    "AI学习/02-工具使用/Claude Code 模型与推理设置.md",
-    "AI学习/02-工具使用/如何使用Claude code.md",
-    "AI学习/01-基础概念/Skills 是什么.md",
-    "AI学习/01-基础概念/Agent智能体.md",
-    "AI学习/01-基础概念/Hook钩子.md",
     "obsidian的使用/assets/如何使用obsidian做笔记",
     "obsidian的使用/assets",
     "obsidian的使用",

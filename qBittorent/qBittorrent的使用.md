@@ -1,5 +1,10 @@
 # 下**砸**qBittorrent
 
+> [!info] 2026 版本状态
+> - **官方稳定版**：v5.1.x 系列
+> - **官方测试版**：v5.2.0rc1（测试中，基于 Qt 6.11.0）
+> - **增强版**：v5.1.3.10（2025-11-15 发布）
+
 目前qB分为官方版和增强版。
 
 ## qBittorrent 官方版
@@ -85,12 +90,20 @@
 
 我们可以在下面找到相应的tracker：
 
-```
-公共 Tracker 列表合集：https://trackerslist.com/#/zh
+**推荐 Tracker 列表来源**（XIU2 项目，每日更新）：
 
-Tracker
-列表（GitHub）：https://github.com/XIU2/TrackersListCollection/blob/master/README-ZH.md
-```
+| 列表类型 | 地址 | 数量 |
+|---------|------|------|
+| BEST（推荐） | `https://cf.trackerslist.com/best.txt` | 81 个 |
+| ALL（完整） | `https://cf.trackerslist.com/all.txt` | 149 个 |
+
+**备用 CDN 地址**：
+- jsDelivr：`https://cdn.jsdelivr.net/gh/XIU2/TrackersListCollection/best.txt`
+- GitHub Raw：`https://raw.githubusercontent.com/XIU2/TrackersListCollection/master/best.txt`
+
+> [!info] 📚 来源
+> - [XIU2/TrackersListCollection](https://github.com/XIU2/TrackersListCollection) - GitHub 项目主页
+> - [trackerslist.com](https://trackerslist.com/#/zh) - 中文介绍页
 
 !![](assets/qBittorrent的使用/file-20260202224515441%201.png)
 
@@ -252,6 +265,18 @@ Tracker 汇报**
 - HTTP：`http://服务器IP:端口`
 - HTTPS：`https://服务器IP:端口`
 
+> [!warning] ⚠️ 安全警告（2026 更新）
+> - **CVE-2026-30924**：WebUI 存在 CSRF（跨站请求伪造）漏洞
+> - **强烈建议**：
+>   1. 设置强密码
+>   2. 启用 HTTPS
+>   3. 使用反向代理（Nginx/Caddy2）
+>   4. 配置 IP 白名单
+>   5. 不要直接将 WebUI 端口暴露到公网
+
+> [!info] 📚 来源
+> - [CVE-2026-30924 漏洞详情](https://www.sentinelone.com/vulnerability-database/cve-2026-30924/)
+
 # 备份和恢复
 
 ## 备份配置
@@ -284,3 +309,22 @@ qB 配置文件位置：
 | `Ctrl+P` | 暂停 |
 | `Ctrl+S` | 开始 |
 | `Delete` | 删除选中项 |
+
+# 参考资料
+
+## 官方资源
+- [qBittorrent 官方网站](https://www.qbittorrent.org/) - 下载与文档
+- [qBittorrent GitHub](https://github.com/qbittorrent/qBittorrent) - 源代码与 Issues
+- [WebUI API 文档 (v5.0)](https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-5.0)) - API 参考
+
+## 增强版
+- [qBittorrent Enhanced Edition](https://github.com/c0re100/qBittorrent-Enhanced-Edition) - 第三方增强版
+
+## Tracker 资源
+- [XIU2/TrackersListCollection](https://github.com/XIU2/TrackersListCollection) - Tracker 列表（每日更新）
+
+## 社区教程
+- [Best qBittorrent Settings 2026](https://www.rapidseedbox.com/blog/qbittorrent-settings) - RapidSeedbox 优化指南
+
+---
+*最后更新：2026-04-05*

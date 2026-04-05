@@ -1,3 +1,10 @@
+---
+tags:
+  - qBittorent
+  - Tracker
+created: 2026-02-05
+updated: 2026-04-05
+---
 
 # 1.  Tracker 是干嘛的？（一句话版）
 
@@ -60,13 +67,21 @@
 2. **复制 Tracker 列表**（从以下来源）
 3. **右键 → 手动添加 Tracker**
 
-推荐 Tracker 列表：
+推荐 Tracker 列表（XIU2 项目，每日更新）：
 
-| 来源 | 链接 |
-|------|------|
-| 中文合集 | https://trackerslist.com/ |
-| GitHub 项目 | https://github.com/XIU2/TrackersListCollection |
-| Nanodesu Int | https://ngosang.github.io/trackerslist/ |
+| 列表类型 | 地址 | 数量 |
+|---------|------|------|
+| BEST（推荐） | `https://cf.trackerslist.com/best.txt` | 81 个 |
+| ALL.txt（完整） | `https://cf.trackerslist.com/all.txt` | 149 个 |
+| http.txt | HTTP only | `https://cf.trackerslist.com/http.txt` | 72 个 |
+
+**备用 CDN 地址**：
+- jsDelivr： `https://cdn.jsdelivr.net/gh/XIU2/TrackersListCollection/best.txt`
+- Raw GitHub： `https://raw.githubusercontent.com/XIU2/TrackersListCollection/master/best.txt`
+
+> [!info] 📚 来源
+> - [XIU2/TrackersListCollection](https://github.com/XIU2/TrackersListCollection) - GitHub 项目主页（30.9k+ Stars）
+> - [trackerslist.com](https://trackerslist.com/#/zh) - 中文介绍页
 
 ## 4.2 启用 DHT 和 PEX
 
@@ -131,3 +146,17 @@
 - Tracker 状态是否正常
 - DHT 节点数（状态栏）
 - 连接的 Peers 数量
+# 参考资料
+
+## 官方资源
+- [qBittorrent 官方网站](https://www.qbittorrent.org/) - 下载与文档
+- [qBittorrent GitHub](https://github.com/qbittorrent/qBittorrent) - 源代码与 Issues
+- [WebUI API 文档 (v5.0)](https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-5.0)) - API 参考
+
+## Tracker 列表
+- [XIU2/TrackersListCollection](https://github.com/XIU2/TrackersListCollection) - Tracker 列表（每日更新）
+
+- [trackerslist.com](https://trackerslist.com/#/zh) - 中文介绍页
+## 社区教程
+- [Best qBittorrent Settings 2026](https://www.rapidseedbox.com/blog/qbittorrent-settings) - RapidSeedbox 优化指南
+

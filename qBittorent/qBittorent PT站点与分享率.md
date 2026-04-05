@@ -1,7 +1,9 @@
 ---
 tags:
-  - qBittorent
+  - qBittorrent
   - PT
+created: 2026-02-05
+updated: 2026-04-05
 ---
 
 # qBittorrent PT站点与分享率管理
@@ -351,3 +353,16 @@ curl -X GET "http://localhost:8080/api/v2/torrents/info" \
 > **PT 精神：分享即自由，奉献即快乐**
 >
 > 保持良好的分享率不仅是为了账号安全，更是为了社区的健康发展。每个 PT 站点都依赖用户的分享才能存活。
+
+## 参考资料
+
+### 官方资源
+- [qBittorrent 官方网站](https://www.qbittorrent.org/) - 下载与文档
+- [qBittorrent GitHub](https://github.com/qbittorrent/qBittorrent) - 源代码与 Issues
+
+### 社区资源
+- [Best qBittorrent Settings 2026](https://www.rapidseedbox.com/blog/qbittorrent-settings) - RapidSeedbox 优化指南
+- [XIU2/TrackersListCollection](https://github.com/XIU2/TrackersListCollection) - Tracker 列表（每日更新）
+
+---
+*最后更新：2026-04-05*

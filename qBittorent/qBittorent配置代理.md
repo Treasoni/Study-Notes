@@ -1,9 +1,13 @@
 ---
 tags:
   - qBittorent
+  - 代理
+created: 2026-02-02
+updated: 2026-04-05
 ---
 
 前提：我的qBittorent配置在pve中的linux中的docker里，我还在pve中搭建了istores旁路由。
+
 # 1. 给 qBittorrent 配代理（核心步骤）
 
 ## 1.1打开 qBittorrent WebUI
