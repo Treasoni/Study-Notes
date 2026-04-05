@@ -1,0 +1,20 @@
+{
+  "id": "conv-1775378174803-f181an1hn",
+  "title": "Analyze garbled text content",
+  "titleGenerationStatus": "success",
+  "createdAt": 1775378174804,
+  "updatedAt": 1775378195485,
+  "lastResponseAt": 1775378195485,
+  "sessionId": "b51aba91-ecec-4ede-a55d-32f3cf9b9608",
+  "sdkSessionId": "b51aba91-ecec-4ede-a55d-32f3cf9b9608",
+  "currentNote": "CLAUDE.md",
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}

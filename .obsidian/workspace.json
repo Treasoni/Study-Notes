@@ -251,7 +251,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 371.5
+    "width": 405.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -271,7 +271,7 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "52ff2f9fbef74052",
   "lastOpenFiles": [
     "CLAUDE.md",
     "AI学习/02-工具使用/Claude Code Subagents 完整指南.md",
