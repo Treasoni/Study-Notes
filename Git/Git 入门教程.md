@@ -6,19 +6,38 @@ tags:
   - 入门
 cssclass: git-tutorial
 created: 2026-03-02
-updated: 2026-03-02
+updated: 2026-04-05
 ---
 
 # Git 入门教程
 
-> Git 是一个「版本控制工具」，相当于给代码装了一个「无限撤销 + 时间机器 + 协作系统」
+> 🎯 **一句话定义**：Git 是一个「版本控制工具」，相当于给代码装了一个「无限撤销 + 时间机器 + 协作系统」
+>
+> 📦 **通俗比喻**：就像游戏的「存档系统」——你可以随时存档（commit）、回到任意存档点（reset）、创建平行世界（branch）来尝试不同玩法
 
-> [!tip] 学习路径
-> 1. 理解 Git 是什么
-> 2. 安装和配置
-> 3. 掌握基础操作
-> 4. 学会分支管理
-> 5. 远程协作
+---
+
+## 📚 学习路径
+
+```mermaid
+flowchart LR
+    A[基础概念] --> B[安装配置]
+    B --> C[创建仓库]
+    C --> D[区域与状态]
+    D --> E[基础操作]
+    E --> F[分支管理]
+    F --> G[远程协作]
+```
+
+| 阶段 | 内容 | 你将学会 |
+|------|------|----------|
+| 1️⃣ 基础概念 | Git 是什么 | 理解版本控制的意义 |
+| 2️⃣ 安装配置 | 设置用户信息 | 配置 Git 环境 |
+| 3️⃣ 创建仓库 | init / clone | 开始一个项目 |
+| 4️⃣ 区域与状态 | 4 区 4 状态 | 理解 Git 工作原理 |
+| 5️⃣ 基础操作 | add / commit / reset | 日常使用命令 |
+| 6️⃣ 分支管理 | branch / merge | 并行开发 |
+| 7️⃣ 远程协作 | push / pull / SSH | 团队协作 |
 
 ---
 
@@ -33,13 +52,13 @@ updated: 2026-03-02
 
 ## Git 的核心思想
 
-### 本地优先
+### 🏠 本地优先
 
 > [!summary] 与 SVN 最大的区别
 > - 所有历史记录都在你电脑上
 > - 不联网也能提交、回退、切换分支
 
-### Git 管理的是「快照」，不是「差异」
+### 📸 Git 管理的是「快照」，不是「差异」
 
 每次 commit 会记录**整个项目当时的状态**，内部会智能复用没变的文件（不浪费空间）。
 
@@ -55,7 +74,7 @@ updated: 2026-03-02
 | **global** | 当前用户 | `~/.gitconfig` | `git config --global` |
 | **local** | 当前项目 | `.git/config` | `git config` |
 
-## 常用配置命令
+## ⚡ 快速配置
 
 ```bash
 # 设置用户名和邮箱（必须）
@@ -85,7 +104,7 @@ git config --global color.ui true
 
 ## 创建仓库的三种方式
 
-### 方式一：从零开始
+### 方式一：从零开始 🆕
 
 ```bash
 mkdir my-project && cd my-project
@@ -95,14 +114,14 @@ git add README.md
 git commit -m "initial commit"
 ```
 
-### 方式二：克隆远程仓库
+### 方式二：克隆远程仓库 📥
 
 ```bash
 git clone https://github.com/user/repo.git
 cd repo
 ```
 
-### 方式三：已有代码转为 Git 仓库
+### 方式三：已有代码转为 Git 仓库 🔄
 
 ```bash
 cd existing-project
@@ -125,7 +144,7 @@ git commit -m "initial commit"
 
 # 4. Git 的区域与状态
 
-## 四个区域
+## 🗺️ 四个区域
 
 ```mermaid
 flowchart LR
@@ -142,7 +161,7 @@ flowchart LR
 | **本地仓库** | 你电脑上的 Git 历史库 | `git commit` |
 | **远程仓库** | GitHub/GitLab 上的仓库 | `git push` |
 
-## 四种文件状态
+## 🔄 四种文件状态
 
 | 状态 | 所在区域 | 说明 | 如何处理 |
 |------|----------|------|----------|
@@ -167,7 +186,7 @@ git commit            # → Committed
 
 # 5. 基础操作
 
-## 添加文件
+## 📝 添加文件
 
 ```bash
 git add main.py              # 添加单个文件
@@ -179,7 +198,7 @@ git add -u                  # 只添加已跟踪文件的修改
 > [!warning] 重要细节
 > `git add` 不会自动跟踪后续修改！如果你 add 后又改了文件，需要再次 add。
 
-## 提交文件
+## 💾 提交文件
 
 ```bash
 git commit -m "添加用户登录功能"      # 最常用方式
@@ -187,7 +206,7 @@ git commit -am "修复登录 bug"            # 跳过 add，直接提交已跟�
 git commit --amend -m "修改提交说明"     # 修改最后一次提交
 ```
 
-## 查看版本历史
+## 📜 查看版本历史
 
 ```bash
 git log                              # 完整日志
@@ -197,7 +216,7 @@ git log --graph --oneline --decorate  # 图形化显示分支
 git log README.md                    # 查看某个文件的历史
 ```
 
-## 查看差异
+## 🔍 查看差异
 
 ```bash
 git diff                    # 工作区 vs 暂存区
@@ -207,7 +226,7 @@ git diff app.js            # 只看某个文件
 git diff --name-only       # 只看改了哪些文件
 ```
 
-## 删除文件
+## 🗑️ 删除文件
 
 ```bash
 git rm file.txt           # 删除并暂存（推荐）
@@ -217,7 +236,7 @@ git rm --cached file.txt  # 从 Git 删除，但保留本地文件
 > [!tip] 普通删除方式
 > 如果用 `rm file.txt`，还需要运行 `git add file.txt` 来通知 Git。
 
-## 回退版本
+## ⏪ 回退版本
 
 | 模式 | HEAD | 暂存区 | 工作区 | 使用场景 |
 |------|------|--------|--------|----------|
@@ -243,7 +262,7 @@ git reset --hard b91e7a2      # 回退到指定提交
 
 # 6. 分支管理
 
-## 分支基本操作
+## 🌿 分支基本操作
 
 ```bash
 git branch                    # 查看本地分支（* 表示当前）
@@ -256,7 +275,7 @@ git branch -d feature-login    # 删除已合并的分支
 git branch -D feature-login    # 强制删除分支
 ```
 
-## 分支命名规范
+## 📋 分支命名规范
 
 | 类型 | 命名格式 | 示例 |
 |------|----------|------|
@@ -266,7 +285,7 @@ git branch -D feature-login    # 强制删除分支
 | 重构 | `refactor/模块名` | `refactor/api-module` |
 | 文档 | `docs/内容` | `docs/readme-update` |
 
-## 合并分支
+## 🔀 合并分支
 
 ```bash
 # 1. 切换到目标分支
@@ -296,7 +315,7 @@ git branch -d feature-login
 
 # 7. 远程仓库与协作
 
-## SSH 配置
+## 🔐 SSH 配置
 
 ### 检查现有 SSH Key
 
@@ -326,7 +345,7 @@ ssh -T git@github.com
 # 成功会看到：Hi username! You've successfully authenticated...
 ```
 
-## 远程仓库操作
+## 🌐 远程仓库操作
 
 ```bash
 git remote add origin git@github.com:user/repo.git  # 添加远程仓库
@@ -336,7 +355,7 @@ git remote set-url origin <new-url>                   # 修改远程仓库地址
 git remote remove origin                              # 删除远程仓库关联
 ```
 
-## 推送与拉取
+## 📤📤 推送与拉取
 
 ```bash
 # 推送
@@ -361,20 +380,22 @@ git pull --rebase                  # Fetch + Rebase（推荐）
 
 ---
 
-# 下一步学习
+# 🎯 下一步学习
 
 恭喜你完成了 Git 入门！接下来可以：
 
 > [!tip] 进阶学习
-> - [[Git 命令速查]] - 快速查找常用命令
-> - [[Git 高级技巧]] - Rebase、Stash、.gitignore 等
-> - [[分支管理最佳实践]] - 团队协作分支策略
-> - [[Git 常见错误解决方案]] - 按错误信息快速定位
+> | 想要... | 查看文档 |
+> |---------|----------|
+> | 快速查找命令 | [[Git 命令速查]] |
+> | 学习 Rebase、Stash 等 | [[Git 高级技巧]] |
+> | 团队协作分支策略 | [[分支管理最佳实践]] |
+> | 解决 Git 错误 | [[Git 常见错误解决方案]] |
 
-## 相关文档
+## 📎 相关文档
 - [[Git/Git MOC]] - Git 知识体系索引
 - [[../../AI学习/02-工具使用/如何使用Claude code]] - Git 安装与环境变量配置
 
 ---
 
-**最后更新**：2026-03-02
+**最后更新**：2026-04-05
