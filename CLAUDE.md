@@ -126,6 +126,8 @@ research → curate → write → edit
    - 输出：最终优化笔记
 
 ### /update <文件路径> - 更新现有笔记
+
+#### 单文件模式
 **标准工作流：**
 ```
 read → research latest → merge → editor → validate
@@ -137,7 +139,55 @@ read → research latest → merge → editor → validate
 4. **Editor** 美化格式
    - LaTeX 公式、代码块、Mermaid 图
    - 输出：最终优化笔记
-1. **Validate** 检查链接和引用有效性
+5. **Validate** 检查链接和引用有效性
+
+#### 批量模式（>5 文件）
+**触发条件**：当用户指定多个文件或整个文件夹时
+
+**⚠️ 关键区别：**
+| 模式 | 行为 | 风险等级 |
+|------|------|---------|
+| `/organize` | 不改内容，只改结构和链接 | 低 |
+| `/update` 批量 | 修改技术内容 | **高**（必须更保守） |
+
+**标准工作流：**
+```
+scan → split batches → for each file: (read → research → merge → edit) → validate
+```
+
+1. **Scan** 扫描目标文件列表
+2. **Split Batches** 分批处理（每批 3-5 个文件）
+3. **Per-File Pipeline** 每个文件独立执行完整更新流程
+4. **Validate** 批量验证所有更新
+
+#### Large Update Handling（大规模更新规则）
+
+**执行方式：**
+- 主 Agent 负责扫描、分批、调度
+- 每个文件独立执行 `/update` 完整流程
+- **禁止**跨文件共享上下文内容
+- **禁止**在单次上下文中处理多个文件
+
+**差异更新原则（关键）：**
+- ✅ **必须**执行差异更新（diff-based update）
+- ❌ **禁止**整篇重写
+- ❌ **禁止**覆盖用户个人笔记区域
+- 若无法判断更新位置 → 添加新章节而非覆盖
+
+**分批策略：**
+1. 每批 3-5 个文件
+2. 每处理完一个文件 → 立即写入结果
+3. 不得依赖上下文缓存
+
+**风险控制：**
+- 检测到高风险更新（大幅改动、严重冲突）→ 输出 `[Decision] 需要人工确认`
+- 同一批中失败 > 2 个文件 → 暂停批处理
+- 每个文件更新前必须确认 Protected Content Rules
+
+**禁止行为：**
+- 不得一次性加载所有文件到上下文
+- 不得让 curator 参与 update（update = merge，不是 curate → write）
+- 不得在未验证的情况下批量覆盖
 
 ### /organize <文件夹路径> - 整理知识库
 **标准工作流：**

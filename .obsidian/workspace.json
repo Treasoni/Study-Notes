@@ -4,52 +4,107 @@
     "type": "split",
     "children": [
       {
-        "id": "d7f69265b40b03f9",
-        "type": "tabs",
+        "id": "5a1c83c2f1bdedeb",
+        "type": "split",
         "children": [
           {
-            "id": "ad7a4315bf035961",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "CLAUDE.md",
-                "mode": "source",
-                "source": false
+            "id": "d7f69265b40b03f9",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "ad7a4315bf035961",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "CLAUDE.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "CLAUDE"
+                }
               },
-              "icon": "lucide-file",
-              "title": "CLAUDE"
-            }
+              {
+                "id": "56e2cd3ccb5946e3",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "docker/镜像加速器vs代理-概念对比.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "镜像加速器vs代理-概念对比"
+                }
+              },
+              {
+                "id": "3a0c8c15cd389166",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "AI学习/01-基础概念/AI工程范式演进-Prompt到Harness.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "AI工程范式演进-Prompt到Harness"
+                }
+              }
+            ]
           },
           {
-            "id": "56e2cd3ccb5946e3",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docker/镜像加速器vs代理-概念对比.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "镜像加速器vs代理-概念对比"
-            }
-          },
-          {
-            "id": "3a0c8c15cd389166",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "AI学习/01-基础概念/AI工程范式演进-Prompt到Harness.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "AI工程范式演进-Prompt到Harness"
-            }
+            "id": "56867cbd2ec198d9",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "02e1f20101445785",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "terminal:terminal",
+                  "state": {
+                    "terminal:terminal": {
+                      "cwd": "/Users/zhqznc/Documents/项目",
+                      "focus": false,
+                      "profile": {
+                        "args": [
+                          "--login"
+                        ],
+                        "executable": "/bin/zsh",
+                        "followTheme": true,
+                        "name": "",
+                        "platforms": {
+                          "darwin": true
+                        },
+                        "pythonExecutable": "python3",
+                        "restoreHistory": false,
+                        "rightClickAction": "copyPaste",
+                        "successExitCodes": [
+                          "0",
+                          "SIGINT",
+                          "SIGTERM"
+                        ],
+                        "terminalOptions": {
+                          "documentOverride": null
+                        },
+                        "type": "integrated",
+                        "useWin32Conhost": true
+                      },
+                      "serial": null
+                    }
+                  },
+                  "pinned": true,
+                  "icon": "terminal",
+                  "title": "终端：✳ Claude Code"
+                }
+              }
+            ]
           }
-        ]
+        ],
+        "direction": "horizontal"
       }
     ],
     "direction": "vertical"
@@ -185,13 +240,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CLAUDE.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "CLAUDE 的大纲"
+              "title": "大纲"
             }
           },
           {
@@ -256,20 +310,25 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "ad7a4315bf035961",
+  "active": "02e1f20101445785",
   "lastOpenFiles": [
+    "CLAUDE.md",
+    "AI学习/01-基础概念/AI工程范式演进-Prompt到Harness.md",
+    "PVE的学习/01-安装配置/安装和使用PVE.md",
+    "PVE的学习/01-安装配置/修改PVE的网络信息.md",
+    "PVE的学习/01-安装配置/PVE存储库.md",
+    "AI学习/00-索引/README.md",
+    "AI学习/00-索引/00-学习路线图.md",
+    "AI学习/00-索引/MOC.md",
     "AI学习/05-其他主题/knowledge-cards.json",
     "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
-    "CLAUDE.md",
     "AI学习/02-工具使用/Claude-Code-多Agent流程设计.md",
-    "AI学习/01-基础概念/AI工程范式演进-Prompt到Harness.md",
     "AI学习/02-工具使用/Claude Code CLI 完整参考.md",
     "AI学习/02-工具使用/Claude Code Subagents 完整指南.md",
     "AI学习/02-工具使用/Claude Code 插件系统使用指南.md",
     "AI学习/02-工具使用/Claude Code Hooks 使用指南.md",
     "AI学习/02-工具使用/Claude Code Memory 完整指南.md",
     "AI学习/02-工具使用/Claude Code Slash Commands 完整参考.md",
-    "AI学习/00-索引/MOC.md",
     "AI学习/02-工具使用/Claude Code 会话管理.md",
     "AI学习/03-进阶应用/Claude Code 高级功能.md",
     "AI学习/02-工具使用/Claude Code Checkpoints 使用指南.md",
@@ -280,10 +339,6 @@
     "AI学习/01-基础概念/Agent智能体.md",
     "AI学习/01-基础概念/Hook钩子.md",
     "AI学习/03-进阶应用/Claude MCP 使用指南.md",
-    "AI学习/01-基础概念/MCP协议.md",
-    "AI学习/02-工具使用/Tailscale使用指南.md",
-    "linux/WSL-Windows子系统forLinux.md",
-    "docker/Windows-DockerDesktop安装指南-国内网络版.md",
     "obsidian的使用/assets/如何使用obsidian做笔记",
     "obsidian的使用/assets",
     "obsidian的使用",
@@ -293,7 +348,6 @@
     "obsidain的使用",
     "AI学习/05-其他主题/AI模型对比",
     "AI学习/05-其他主题/openclaw/参考层",
-    "AI学习/05-其他主题/openclaw/选型层",
     "AI学习/02-工具使用/assets/Tailscale使用指南/截屏2026-03-04 00.44.43.png",
     "PVE的学习/PVE学习笔记MOC.canvas",
     "PVE的学习/assets/修改PVE的网络信息/file-20260203173647080.png",
