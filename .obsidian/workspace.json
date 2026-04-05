@@ -115,11 +115,11 @@
                   },
                   "pinned": true,
                   "icon": "terminal",
-                  "title": "终端：⠐ Claude Code"
+                  "title": "终端：⠂ Claude Code"
                 }
               },
               {
-                "id": "0318372ec5eb0981",
+                "id": "4ed18974316477a3",
                 "type": "leaf",
                 "pinned": true,
                 "state": {
@@ -129,8 +129,16 @@
                       "cwd": "/Users/zhqznc/Documents/项目",
                       "focus": false,
                       "profile": {
+                        "args": [
+                          "--login"
+                        ],
+                        "executable": "/bin/zsh",
                         "followTheme": true,
                         "name": "",
+                        "platforms": {
+                          "darwin": true
+                        },
+                        "pythonExecutable": "python3",
                         "restoreHistory": false,
                         "rightClickAction": "copyPaste",
                         "successExitCodes": [
@@ -141,14 +149,15 @@
                         "terminalOptions": {
                           "documentOverride": null
                         },
-                        "type": "developerConsole"
+                        "type": "integrated",
+                        "useWin32Conhost": true
                       },
                       "serial": null
                     }
                   },
                   "pinned": true,
                   "icon": "terminal",
-                  "title": "终端：开发者控制台"
+                  "title": "终端：✳ Video Analysis"
                 }
               }
             ],
@@ -361,7 +370,7 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "0318372ec5eb0981",
+  "active": "4ed18974316477a3",
   "lastOpenFiles": [
     "Git/分支管理最佳实践.md",
     "Git/Git 入门教程.md",
