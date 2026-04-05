@@ -4,13 +4,12 @@
     "type": "split",
     "children": [
       {
-        "id": "62c2da27461192f2",
+        "id": "e1fe2805308654f7",
         "type": "split",
         "children": [
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 78.23721436343853,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -72,12 +71,11 @@
             "currentTab": 3
           },
           {
-            "id": "d9c2869e3e3d0406",
+            "id": "8abc5f8d52083da0",
             "type": "tabs",
-            "dimension": 21.76278563656148,
             "children": [
               {
-                "id": "77120f9ae76eefd6",
+                "id": "4e30a23ebc811729",
                 "type": "leaf",
                 "pinned": true,
                 "state": {
@@ -328,7 +326,7 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "3a0c8c15cd389166",
+  "active": "4e30a23ebc811729",
   "lastOpenFiles": [
     "CLAUDE.md",
     "AI学习/02-工具使用/Claude Code Subagents 完整指南.md",
