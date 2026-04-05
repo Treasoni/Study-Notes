@@ -15,7 +15,6 @@
         "Strm流文件与302播放详解.md",
         "网络协议详解-WebDAV_Samba_FTP_iSCSI.md",
         "MySQL核心概念.md",
-        "未命名.md",
         "AI学习",
         "外网如何使用代理进行翻墙.md",
         "docker",
@@ -72,6 +71,7 @@
     },
     "AI学习/01-基础概念": {
       "children": [
+        "AI学习/01-基础概念/AI工程范式演进-Prompt到Harness.md",
         "AI学习/01-基础概念/Hook钩子.md",
         "AI学习/01-基础概念/人工智能重要的六大概念体系.md",
         "AI学习/01-基础概念/Agent Teams智能体团队.md",
