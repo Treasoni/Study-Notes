@@ -566,7 +566,7 @@ cp 01-slash-commands/*.md ~/.claude/commands/
 
 ### 命令执行不符合预期
 
-**解决方案**���
+**解决方案**：
 1. 添加更具体的指令
 2. 在 skill 文件中包含示例
 3. 检查 `allowed-tools` 是否正确配置
