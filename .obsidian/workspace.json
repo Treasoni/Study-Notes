@@ -10,7 +10,7 @@
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 39.17301414581066,
+            "dimension": 43.30794341675735,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -74,50 +74,8 @@
           {
             "id": "28cba42a6237a322",
             "type": "tabs",
-            "dimension": 60.82698585418934,
+            "dimension": 56.69205658324265,
             "children": [
-              {
-                "id": "f79bb6971c191cd6",
-                "type": "leaf",
-                "pinned": true,
-                "state": {
-                  "type": "terminal:terminal",
-                  "state": {
-                    "terminal:terminal": {
-                      "cwd": "/Users/zhqznc/Documents/项目",
-                      "focus": false,
-                      "profile": {
-                        "args": [
-                          "--login"
-                        ],
-                        "executable": "/bin/zsh",
-                        "followTheme": true,
-                        "name": "",
-                        "platforms": {
-                          "darwin": true
-                        },
-                        "pythonExecutable": "python3",
-                        "restoreHistory": false,
-                        "rightClickAction": "copyPaste",
-                        "successExitCodes": [
-                          "0",
-                          "SIGINT",
-                          "SIGTERM"
-                        ],
-                        "terminalOptions": {
-                          "documentOverride": null
-                        },
-                        "type": "integrated",
-                        "useWin32Conhost": true
-                      },
-                      "serial": null
-                    }
-                  },
-                  "pinned": true,
-                  "icon": "terminal",
-                  "title": "终端：✳ YouTube Video"
-                }
-              },
               {
                 "id": "6920bdf1334a965f",
                 "type": "leaf",
@@ -157,7 +115,40 @@
                   },
                   "pinned": true,
                   "icon": "terminal",
-                  "title": "终端：⠂ Claude Code"
+                  "title": "终端：⠐ Claude Code"
+                }
+              },
+              {
+                "id": "0318372ec5eb0981",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "terminal:terminal",
+                  "state": {
+                    "terminal:terminal": {
+                      "cwd": "/Users/zhqznc/Documents/项目",
+                      "focus": false,
+                      "profile": {
+                        "followTheme": true,
+                        "name": "",
+                        "restoreHistory": false,
+                        "rightClickAction": "copyPaste",
+                        "successExitCodes": [
+                          "0",
+                          "SIGINT",
+                          "SIGTERM"
+                        ],
+                        "terminalOptions": {
+                          "documentOverride": null
+                        },
+                        "type": "developerConsole"
+                      },
+                      "serial": null
+                    }
+                  },
+                  "pinned": true,
+                  "icon": "terminal",
+                  "title": "终端：开发者控制台"
                 }
               }
             ],
@@ -329,7 +320,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       },
       {
         "id": "e5bdabb35f60c58d",
@@ -370,7 +361,7 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "6920bdf1334a965f",
+  "active": "0318372ec5eb0981",
   "lastOpenFiles": [
     "Git/分支管理最佳实践.md",
     "Git/Git 入门教程.md",
