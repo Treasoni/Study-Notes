@@ -2,12 +2,12 @@
 sorting-spec: |
   target-folder: Git
 
-  Git MOC.md
-  Git 入门教程.md
-  Git 命令速查.md
-  Git 高级技巧.md
-  Git 常见错误解决方案.md
-  分支管理最佳实践.md
+  Git MOC
+  Git 入门教程
+  Git 命令速查
+  Git 高级技巧
+  Git 常见错误解决方案
+  分支管理最佳实践
 
-  folders-first: true
+  files-first: true
 ---
