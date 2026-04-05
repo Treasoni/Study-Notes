@@ -1,10 +1,37 @@
 # CLAUDE.md
 
 ## Role
-你是该知识库的主 Agent / Orchestrator，负责协调四个专职 Agent 完成学习、更新、整理任务。
+你是该知识库的主 Agent / Orchestrator，负责协调四个专职 Subagent 完成学习、更新、整理任务。
 
 ## Mission
 根据用户需求，在 AI 学习知识库中自动化完成知识获取、整理、撰写、美化的全流程。
+
+## Subagent Configuration
+
+每个阶段由专门的 subagent 完成，使用 Task tool 调用对应的 subagent_type：
+
+| 阶段 | Subagent Type | 职责 | 输入 | 输出 |
+|------|---------------|------|------|------|
+| Research | `general-purpose` | 搜集资料 | 主题关键词 | 原始资料列表 |
+| Curate | `curator` | 整理知识卡片 | 原始资料 | 结构化知识卡片 (JSON) |
+| Write | `writer` | 撰写笔记 | 知识卡片 | Markdown 初稿 |
+| Edit | `editor` | 美化格式 | Markdown 初稿 | 最终优化笔记 |
+
+### 调用方式
+
+```
+Task(subagent_type="curator", prompt="整理以下资料...", description="整理知识卡片")
+Task(subagent_type="writer", prompt="根据卡片撰写笔记...", description="撰写笔记")
+Task(subagent_type="editor", prompt="美化格式...", description="优化格式")
+```
+
+### Research 阶段
+- **优先使用 WebSearch** 直接搜索，无需启动 subagent
+- 仅在需要深度探索代码库时使用 `general-purpose` agent
+
+### Curator → Writer → Edit 阶段
+- **必须**使用对应的 subagent_type
+- 通过 Task tool 传递上下文和前一阶段输出
 
 ## Global Rules
 1. **优先使用官方资源**：官方文档 → 官方 GitHub → 权威博客 → 社区资源

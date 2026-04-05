@@ -1,0 +1,19 @@
+{
+  "id": "conv-1775378374765-78me0vlz8",
+  "title": "Learn Harness Engineering for Agent Reliability",
+  "titleGenerationStatus": "success",
+  "createdAt": 1775378374765,
+  "updatedAt": 1775378398315,
+  "lastResponseAt": 1775378398315,
+  "sessionId": "fbf95d20-cf73-4b0c-8e76-b05b8e643fb1",
+  "sdkSessionId": "fbf95d20-cf73-4b0c-8e76-b05b8e643fb1",
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}
