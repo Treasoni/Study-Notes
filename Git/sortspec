@@ -1,0 +1,10 @@
+---
+sorting-spec: |
+  Git MOC.md
+  Git 入门教程.md
+  Git 命令速查.md
+  Git 高级技巧.md
+  Git 常见错误解决方案.md
+  分支管理最佳实践.md
+  files-first: true
+---

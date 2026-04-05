@@ -10,7 +10,7 @@
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 43.74319912948857,
+            "dimension": 60.17410228509249,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -32,12 +32,12 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "obsidian的使用/Obsidian-Custom-Sort-自定义排序插件.md",
+                    "file": "Git/sortspec.md",
                     "mode": "source",
                     "source": false
                   },
                   "icon": "lucide-file",
-                  "title": "Obsidian-Custom-Sort-自定义排序插件"
+                  "title": "sortspec"
                 }
               },
               {
@@ -74,7 +74,7 @@
           {
             "id": "28cba42a6237a322",
             "type": "tabs",
-            "dimension": 56.25680087051143,
+            "dimension": 39.82589771490751,
             "children": [
               {
                 "id": "6920bdf1334a965f",
@@ -115,7 +115,7 @@
                   },
                   "pinned": true,
                   "icon": "terminal",
-                  "title": "终端：⠐ Git 笔记"
+                  "title": "终端：✳ Git 笔记"
                 }
               },
               {
@@ -299,12 +299,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "Git/sortspec.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "sortspec 的大纲"
             }
           },
           {
@@ -370,12 +371,12 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "6920bdf1334a965f",
+  "active": "1fba13ed6f715185",
   "lastOpenFiles": [
+    "Git/sortspec",
     "obsidian的使用/Obsidian-Custom-Sort-自定义排序插件.md",
     "Git/Git 命令速查.md",
     "Git/sortspec.md",
-    "Git/sortspec",
     "obsidian的使用/Obsidian Smart Connections 使用指南.md",
     "AI学习/01-基础概念/AI工程师学习路线图.md",
     "AI学习/02-工具使用/Obsidian-Sort-知识卡片.json",
