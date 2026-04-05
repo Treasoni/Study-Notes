@@ -593,6 +593,7 @@ Skill descriptions 限制为**上下文窗口的 2%**（备选：**16,000 字符
 
 ### 实践指南
 - [[03-进阶应用/如何编写Skills]] - Skills 编写实战
+- [[02-工具使用/Claude Code Slash Commands 完整参考]] - 内置命令完整参考
 
 ---
 

@@ -588,7 +588,8 @@ allowed-tools: ["Bash"]
 3. **保持命令简洁**：复杂逻辑考虑用 Agent
 
 ## 相关文档
-- [官方文档 - 斜杠命令](https://docs.anthropic.com/zh-CN/docs/claude-code/slash-commands)
+- [[Claude Code Slash Commands 完整参考]] - 内置命令完整参考
 - [Claude Code 使用指南](./如何使用Claude%20code.md)
 - [如何编写 Skills](../03-进阶应用/如何编写Skills.md)
 - [Claude Code 会话管理](./Claude%20Code%20会话管理.md)
+- [官方文档 - 斜杠命令](https://docs.anthropic.com/zh-CN/docs/claude-code/slash-commands)
