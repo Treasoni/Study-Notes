@@ -1,0 +1,20 @@
+{
+  "id": "conv-1775367822117-yihavbcmv",
+  "title": "Learn Claude Subagents from GitHub",
+  "titleGenerationStatus": "success",
+  "createdAt": 1775367822118,
+  "updatedAt": 1775368073914,
+  "lastResponseAt": 1775368073914,
+  "sessionId": "a3ea82f0-8392-4288-8211-7e1ceffb60dd",
+  "sdkSessionId": "a3ea82f0-8392-4288-8211-7e1ceffb60dd",
+  "currentNote": "AI学习/02-工具使用/Claude Code Memory 完整指南.md",
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}

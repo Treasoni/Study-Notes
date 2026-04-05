@@ -1,0 +1,19 @@
+{
+  "id": "conv-1775368039646-mdel5nkfg",
+  "title": "Update Claude hooks from GitHub repo",
+  "titleGenerationStatus": "success",
+  "createdAt": 1775368039647,
+  "updatedAt": 1775368077879,
+  "lastResponseAt": 1775368077879,
+  "sessionId": null,
+  "currentNote": "AI学习/02-工具使用/Claude Code Hooks 使用指南.md",
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}
