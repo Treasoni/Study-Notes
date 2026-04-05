@@ -157,13 +157,31 @@ def ace_rag(query, conversation_history):
 
 设计环境、约束和反馈回路，使 AI 编码智能体能够**可靠、大规模**工作的工程学科，关注**"如何持续可靠地工作"**的问题。
 
+### 术语来源
+
+这个词最早来自 **Mitchell Hashimoto**（HashiCorp 联合创始人、Terraform 缔造者）。他于 2026 年 2 月写了篇博客，把自己使用 AI 编程的进化拆成了六个阶段，第五个阶段叫 **Engineer the Harness**。
+
+> [!quote] 核心定义
+> "每当你发现 Agent 犯了一个错误，你就花时间去工程化一个解决方案，让它再也不会犯同样的错。"
+> — Mitchell Hashimoto
+
+他在 Ghostty 项目里实践了这个理念：**AGENTS.md 文件里的每一行规则，背后都对应一个 Agent 曾经犯过的错**。
+
+---
+
 ### OpenAI 实践案例（2026年2月）
 
 - **代码规模**：100万行代码
 - **人工代码**：0行
+- **团队规模**：3 → 7 个工程师
+- **开发周期**：5 个月
+- **PR 数量**：约 1500 个
 - **核心原则**：人类掌舵，智能体执行
 
-### 六大组件
+> [!tip] 效率对比
+> 平均每位工程师每天合并 3.5 个 PR。如果用传统方式手写，工期大概是现在的 10 倍。
+
+### 六大组件（OpenAI Codex 团队总结）
 
 | 组件 | 说明 |
 |------|------|
@@ -173,6 +191,10 @@ def ace_rag(query, conversation_history):
 | **4. 反馈回路** | 智能体对智能体的代码审查、自动测试 |
 | **5. 渐进式披露** | 从小而稳定的切入点开始 |
 | **6. 熵与垃圾收集** | 定期清理"AI 残渣" |
+
+> [!info] 📚 来源
+> - [OpenAI: Harness Engineering](https://openai.com/index/harness-engineering)
+> - [code秘密花园 - YouTube 视频](https://www.youtube.com/watch?v=3DlXq9nsQOE)
 
 ### 架构模式
 
