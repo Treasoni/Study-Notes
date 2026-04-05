@@ -158,7 +158,7 @@ Subagent 的创建和使用。
 - [[03-进阶应用/CLAUDE.md 使用指南]]
 
 #### 高级应用
-- [[04-高级应用/Claude Subagent 使用指南]]
+- [[02-工具使用/Claude Code Subagents 完整指南]]
 - [[04-高级应用/Subagent 实战练习]]
 
 ### 基础概念
@@ -215,7 +215,7 @@ Skills、MCP、CLAUDE.md 配置等进阶内容。
 
 Subagent 相关高级内容。
 
-- [[04-高级应用/Claude Subagent 使用指南]]
+- [[02-工具使用/Claude Code Subagents 完整指南]]
 - [[04-高级应用/Subagent 实战练习]]
 
 ### 练习
@@ -300,7 +300,7 @@ AI 模型对比与选型相关文档。
    ↓
 5. [[01-基础概念/SubAgent子代理]] - 理解 SubAgent
    ↓
-6. [[04-高级应用/Claude Subagent 使用指南]] - 创建自定义 Agent
+6. [[02-工具使用/Claude Code Subagents 完整指南]] - 创建自定义 Agent
    ↓
 7. [[04-高级应用/Subagent 实战练习]] - 实战巩固
 ```

@@ -505,4 +505,4 @@ A: 插件可以访问你允许的工具权限和环境变量。建议：
 
 ### 相关文档
 - [[03-进阶应用/Claude MCP 使用指南]] - MCP 协议详解
-- [[04-高级应用/Claude Subagent 使用指南]] - Agent 系统详解
+- [[02-工具使用/Claude Code Subagents 完整指南]] - Agent 系统详解
