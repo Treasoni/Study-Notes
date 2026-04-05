@@ -10,7 +10,7 @@
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 72.36126224156692,
+            "dimension": 78.23721436343853,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -32,12 +32,12 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "obsidian的使用/Obsidian-Custom-Sort-自定义排序插件.md",
+                    "file": "软路由教程/软路由教程MOC.md",
                     "mode": "preview",
                     "source": true
                   },
                   "icon": "lucide-file",
-                  "title": "Obsidian-Custom-Sort-自定义排序插件"
+                  "title": "软路由教程MOC"
                 }
               },
               {
@@ -74,7 +74,7 @@
           {
             "id": "ea7f27cb393fd96a",
             "type": "tabs",
-            "dimension": 27.63873775843308,
+            "dimension": 21.76278563656148,
             "children": [
               {
                 "id": "f972e4d3c19922e0",
@@ -342,13 +342,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "obsidian的使用/Obsidian-Custom-Sort-自定义排序插件.md",
+                "file": "软路由教程/软路由教程MOC.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Obsidian-Custom-Sort-自定义排序插件 的大纲"
+              "title": "软路由教程MOC 的大纲"
             }
           },
           {
@@ -372,7 +372,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       },
       {
         "id": "e5bdabb35f60c58d",
@@ -414,8 +414,10 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "746e3216e1c18840",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "软路由教程/sortspec.md",
+    "obsidian的使用/Obsidian-Custom-Sort-自定义排序插件.md",
     "README.md",
     "qBittorent/sortspec.md",
     "qBittorent/qBittorrent配置代理.md",
@@ -444,8 +446,6 @@
     "AI学习/05-其他主题/openclaw/入门层/sortspec.md",
     "AI学习/05-其他主题/openclaw/sortspec.md",
     "AI学习/01-基础概念/sortspec.md",
-    "linux/sortspec.md",
-    "linux/linux MOC.md",
     "Git/sortspec",
     "AI学习/02-工具使用/Obsidian-Sort-知识卡片.json",
     "GitHub项目",

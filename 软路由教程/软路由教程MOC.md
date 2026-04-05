@@ -1,7 +1,7 @@
 ---
 tags: [软路由, moc]
 created: 2026-03-07
-updated: 2026-03-07
+updated: 2026-04-06
 ---
 
 # 软路由教程 MOC
