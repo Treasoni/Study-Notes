@@ -32,7 +32,7 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "AI学习/00-索引/sortspec.md",
+                    "file": "docker/sortspec.md",
                     "mode": "preview",
                     "source": true
                   },
@@ -76,48 +76,6 @@
             "type": "tabs",
             "dimension": 63.98258977149075,
             "children": [
-              {
-                "id": "f99d72f9383898e8",
-                "type": "leaf",
-                "pinned": true,
-                "state": {
-                  "type": "terminal:terminal",
-                  "state": {
-                    "terminal:terminal": {
-                      "cwd": "/Users/zhqznc/Documents/项目",
-                      "focus": false,
-                      "profile": {
-                        "args": [
-                          "--login"
-                        ],
-                        "executable": "/bin/zsh",
-                        "followTheme": true,
-                        "name": "",
-                        "platforms": {
-                          "darwin": true
-                        },
-                        "pythonExecutable": "python3",
-                        "restoreHistory": false,
-                        "rightClickAction": "copyPaste",
-                        "successExitCodes": [
-                          "0",
-                          "SIGINT",
-                          "SIGTERM"
-                        ],
-                        "terminalOptions": {
-                          "documentOverride": null
-                        },
-                        "type": "integrated",
-                        "useWin32Conhost": true
-                      },
-                      "serial": null
-                    }
-                  },
-                  "pinned": true,
-                  "icon": "terminal",
-                  "title": "终端：✳ Claude Code"
-                }
-              },
               {
                 "id": "f972e4d3c19922e0",
                 "type": "leaf",
@@ -200,6 +158,48 @@
                   "pinned": true,
                   "icon": "terminal",
                   "title": "终端：✳ Claude Code"
+                }
+              },
+              {
+                "id": "d49f51139a73622f",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "terminal:terminal",
+                  "state": {
+                    "terminal:terminal": {
+                      "cwd": "/Users/zhqznc/Documents/项目",
+                      "focus": false,
+                      "profile": {
+                        "args": [
+                          "--login"
+                        ],
+                        "executable": "/bin/zsh",
+                        "followTheme": true,
+                        "name": "",
+                        "platforms": {
+                          "darwin": true
+                        },
+                        "pythonExecutable": "python3",
+                        "restoreHistory": false,
+                        "rightClickAction": "copyPaste",
+                        "successExitCodes": [
+                          "0",
+                          "SIGINT",
+                          "SIGTERM"
+                        ],
+                        "terminalOptions": {
+                          "documentOverride": null
+                        },
+                        "type": "integrated",
+                        "useWin32Conhost": true
+                      },
+                      "serial": null
+                    }
+                  },
+                  "pinned": true,
+                  "icon": "terminal",
+                  "title": "终端：⠐ Claude Code"
                 }
               }
             ],
@@ -413,7 +413,7 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "bc0d4bf107c0cf02",
+  "active": "d49f51139a73622f",
   "lastOpenFiles": [
     "docker/sortspec.md",
     "docker/Docker MOC.md",
