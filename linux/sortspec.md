@@ -1,15 +1,14 @@
 ---
-sorting-spec: |-
-  /! linux MOC
-
-  <default>: order-asc: a-z
+sorting-spec: |
+  linux MOC
+  Ubuntu Server 安装教程
+  Ubuntu Server SSH 配置指南
+  Linux换源
+  WSL-Windows子系统forLinux
+  linux磁盘相关的知识
+  linux的LVM管理
+  cpu的线程和内核
+  linux的文件权限
+  linux如何修改网络信息
+  Ubuntu curl SSL连接问题排查
 ---
-
-# Custom Sort 配置
-
-此文件为 Obsidian Custom Sort 插件的配置文件。
-
-## 排序规则
-
-1. **置顶**：`linux MOC.md`（索引文件始终在最前）
-2. **其余文件**：按字母顺序升序排列

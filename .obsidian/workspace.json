@@ -10,7 +10,7 @@
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 51.90424374319913,
+            "dimension": 54.95103373231773,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -74,7 +74,7 @@
           {
             "id": "f0096c30336b8b8b",
             "type": "tabs",
-            "dimension": 48.09575625680087,
+            "dimension": 45.04896626768226,
             "children": [
               {
                 "id": "5bc8b4a0c0e635f2",
@@ -115,7 +115,7 @@
                   },
                   "pinned": true,
                   "icon": "terminal",
-                  "title": "终端：⠂ Claude Code"
+                  "title": "终端：✳ 无效抱怨"
                 }
               }
             ]
@@ -328,7 +328,7 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5bc8b4a0c0e635f2",
+  "active": "52ff2f9fbef74052",
   "lastOpenFiles": [
     "linux/sortspec.md",
     "linux/linux MOC.md",
