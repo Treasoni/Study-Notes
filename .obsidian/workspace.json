@@ -10,7 +10,7 @@
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 75.51686615886834,
+            "dimension": 43.74319912948857,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -32,12 +32,12 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "obsidian的使用/Obsidian-Custom-Sort-自定义排序插件.md",
+                    "file": "Git/Git 命令速查.md",
                     "mode": "source",
                     "source": false
                   },
                   "icon": "lucide-file",
-                  "title": "Obsidian-Custom-Sort-自定义排序插件"
+                  "title": "Git 命令速查"
                 }
               },
               {
@@ -74,7 +74,7 @@
           {
             "id": "28cba42a6237a322",
             "type": "tabs",
-            "dimension": 24.483133841131664,
+            "dimension": 56.25680087051143,
             "children": [
               {
                 "id": "6920bdf1334a965f",
@@ -299,13 +299,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "obsidian的使用/Obsidian-Custom-Sort-自定义排序插件.md",
+                "file": "Git/Git 命令速查.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Obsidian-Custom-Sort-自定义排序插件 的大纲"
+              "title": "Git 命令速查 的大纲"
             }
           },
           {
@@ -371,11 +371,12 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "1fba13ed6f715185",
+  "active": "52ff2f9fbef74052",
   "lastOpenFiles": [
+    "Git/sortspec",
+    "obsidian的使用/Obsidian-Custom-Sort-自定义排序插件.md",
     "obsidian的使用/Obsidian Smart Connections 使用指南.md",
     "Git/sortspec.md",
-    "obsidian的使用/Obsidian-Custom-Sort-自定义排序插件.md",
     "AI学习/01-基础概念/AI工程师学习路线图.md",
     "AI学习/02-工具使用/Obsidian-Sort-知识卡片.json",
     "AI学习/01-基础概念/AI学习路径与技能图谱.md",
@@ -400,7 +401,6 @@
     "CLAUDE.md",
     "README.md",
     "环境变量使用指南.md",
-    "PVE的学习/01-安装配置/PVE存储库.md",
     "AI学习/05-其他主题/knowledge-cards.json",
     "obsidian的使用/assets/如何使用obsidian做笔记",
     "obsidian的使用/assets",
