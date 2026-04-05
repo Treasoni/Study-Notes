@@ -12,7 +12,7 @@ updated: 2026-04-05
 > - 创建自己的插件，定制专属开发助手
 > - 理解插件与 MCP 的关系（为什么有些 MCP 是"插件自带的"）
 
-**相关文档**：[[03-进阶应用/Claude MCP 使用指南]] | [[04-高级应用/Claude Subagent 使用指南]] | [[02-工具使用/如何使用Claude code]] | [[02-工具使用/Claude Code Checkpoints 使用指南]]
+**相关文档**：[[03-进阶应用/Claude MCP 使用指南]] | [[02-工具使用/Claude Code Subagents 完整指南]] | [[02-工具使用/如何使用Claude code]] | [[02-工具使用/Claude Code Checkpoints 使用指南]]
 
 ---
 

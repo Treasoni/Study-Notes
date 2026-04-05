@@ -23,7 +23,7 @@ tags: [ai, 学习指南, index]
 | 工具使用 | [[02-工具使用/Claude Code 常用功能]], [[02-工具使用/如何使用Claude code]] | 1-2 天 |
 | Skills | [[01-基础概念/Skills 是什么]], [[03-进阶应用/如何编写Skills]] | 2-3 天 |
 | MCP | [[03-进阶应用/Claude MCP 使用指南]] | 1-2 天 |
-| Subagent | [[04-高级应用/Claude Subagent 使用指南]], [[04-高级应用/Subagent 实战练习]] | 1-2 天 |
+| Subagent | [[02-工具使用/Claude Code Subagents 完���指南]], [[04-高级应用/Subagent 实战练习]] | 1-2 天 |
 
 ## 文档分类
 
@@ -47,7 +47,7 @@ tags: [ai, 学习指南, index]
 
 ### 高级应用
 
-- [[04-高级应用/Claude Subagent 使用指南]] - Subagent 完整指南（905行）
+- [[02-工具使用/Claude Code Subagents 完整指南]] - Subagent 完整指南（980行）
 - [[04-高级应用/Subagent 实战练习]] - 5个渐进式练习（512行）
 
 ### 其他主题
@@ -92,7 +92,7 @@ tags: [ai, 学习指南, index]
 |------|------|----------|
 | [[02-工具使用/Claude Code 常用功能]] | 功能速查 | 已安装，需要快速查找命令 |
 | [[02-工具使用/如何使用Claude code]] | 完整指南 | 首次安装，需要详细配置说明 |
-| [[04-高级应用/Claude Subagent 使用指南]] | 理论指南 | 理解 Subagent 原理和创建方法 |
+| [[02-工具使用/Claude Code Subagents 完整指南]] | 理论指南 | 理解 Subagent 原理和创建方法 |
 | [[04-高级应用/Subagent 实战练习]] | 实战练习 | 通过练习巩固 Subagent 技能 |
 
 ### 相关文档链接
@@ -106,4 +106,4 @@ tags: [ai, 学习指南, index]
 ---
 
 > [!success] 开始学习
-> 推荐学习路径：[[02-工具使用/如何使用Claude code]] → [[02-工具使用/Claude Code 常用功能]] → [[01-基础概念/Skills 是什么]] → [[03-进阶应用/如何编写Skills]] → [[03-进阶应用/Claude MCP 使用指南]] → [[04-高级应用/Claude Subagent 使用指南]]
+> 推荐学习路径：[[02-工具使用/如何使用Claude code]] → [[02-工具使用/Claude Code 常用功能]] → [[01-基础概念/Skills 是什么]] → [[03-进阶应用/如何编写Skills]] → [[03-进阶应用/Claude MCP 使用指南]] → [[02-工具使用/Claude Code Subagents 完整指南]]

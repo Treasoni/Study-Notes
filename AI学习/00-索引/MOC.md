@@ -87,11 +87,11 @@ Subagent 的创建和使用。
 
 | 文档 | 标签 | 摘要 | 行数 |
 |------|------|------|------|
-| [[04-高级应用/Claude Subagent 使用指南]] | `ai`, `高级应用` | Subagent 完整指南，包含内置类型、自定义 Agent 创建、Plugin 系统架构 | 905行 |
+| [[02-工具使用/Claude Code Subagents 完整指南]] | `ai`, `工具使用`, `subagents` | Subagent 完整指南，包含内置类型、自定义 Agent 创建、Plugin 系统架构 | 980行 |
 | [[04-高级应用/Subagent 实战练习]] | `ai`, `高级应用`, `练习` | 5个渐进式练习，从简单到复杂掌握 Subagent | 512行 |
 
 > [!tip] 文档选择
-> - **理论学习** → 阅读 [[04-高级应用/Claude Subagent 使用指南]]
+> - **理论学习** → 阅读 [[02-工具使用/Claude Code Subagents 完整指南]]
 > - **动手实践** → 完成 [[04-高级应用/Subagent 实战练习]]
 
 ---
@@ -376,7 +376,7 @@ AI 模型对比与选型相关文档。
 | 配置 Hook 自动化 | [[02-工具使用/Claude Code Hooks 使用指南]] |
 | 编写自定义 Skill | [[03-进阶应用/如何编写Skills]] |
 | 配置 MCP | [[03-进阶应用/Claude MCP 使用指南]] |
-| 创建自定义 Agent | [[04-高级应用/Claude Subagent 使用指南]] |
+| 创建自定义 Agent | [[02-工具使用/Claude Code Subagents 完整指南]] |
 | 练习 Subagent | [[04-高级应用/Subagent 实战练习]] |
 | 配置项目规则 | [[03-进阶应用/CLAUDE.md 使用指南]] |
 | 了解插件系统 | [[02-工具使用/Claude Code 插件系统使用指南]] |

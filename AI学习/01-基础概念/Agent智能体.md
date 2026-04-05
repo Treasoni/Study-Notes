@@ -240,7 +240,7 @@ Agent 是"执行者"，不是"决策者"。关键决策仍需人工确认。
 - [[01-基础概念/Agent Teams智能体团队]] - 多个 Agent 组成的协作网络
 
 ### 实践指南
-- [[04-高级应用/Claude Subagent 使用指南]] - SubAgent 实战
+- [[02-工具使用/Claude Code Subagents 完整指南]] - SubAgent 实战
 
 ---
 

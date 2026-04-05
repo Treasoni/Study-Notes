@@ -737,7 +737,7 @@ npx -y @modelcontextprotocol/server-filesystem /test/path
 ```
 
 > [!tip] Subagent 调试
-> 如果需要调试 Agent 相关问题，请参阅 [[04-高级应用/Claude Subagent 使用指南]]
+> 如果需要调试 Agent 相关问题，请参阅 [[02-工具使用/Claude Code Subagents 完整指南]]
 
 **Q: Claude Code 无法连接网络怎么办？**
 
@@ -785,4 +785,4 @@ A:
 - **环境变量**：适合临时切换或需要频繁更改代理的场景
 
 ## 相关文档
-[[02-工具使用/Claude Code 常用功能]] | [[03-进阶应用/Claude MCP 使用指南]] | [[02-工具使用/Claude Code 会话管理]] | [[02-工具使用/Claude Code 模型与推理设置]] | [[01-基础概念/Skills 是什么]] | [[03-进阶应用/如何编写Skills]] | [[04-高级应用/Claude Subagent 使用指南]] | [[01-基础概念/人工智能重要的六大概念体系]] | [[03-进阶应用/CLAUDE.md 使用指南]] | [[../../Git/Git 入门教程]] | [[../../Git/Git 命令速查]] | [[../../Git/Git 常见错误解决方案]]
+[[02-工具使用/Claude Code 常用功能]] | [[03-进阶应用/Claude MCP 使用指南]] | [[02-工具使用/Claude Code 会话管理]] | [[02-工具使用/Claude Code 模型与推理设置]] | [[01-基础概念/Skills 是什么]] | [[03-进阶应用/如何编写Skills]] | [[02-工具使用/Claude Code Subagents 完整指南]] | [[01-基础概念/人工智能重要的六大概念体系]] | [[03-进阶应用/CLAUDE.md 使用指南]] | [[../../Git/Git 入门教程]] | [[../../Git/Git 命令速查]] | [[../../Git/Git 常见错误解决方案]]

@@ -300,7 +300,7 @@ SubAgent 可以配置专属的工具白名单：
 - [[01-基础概念/Agent Teams智能体团队]] - Agent Teams 是多 Agent 协作，SubAgent 是单 Agent 内的子任务
 
 ### 实践指南
-- [[04-高级应用/Claude Subagent 使用指南]] - SubAgent 实战
+- [[02-工具使用/Claude Code Subagents 完整指南]] - SubAgent 实战
 
 ---
 
