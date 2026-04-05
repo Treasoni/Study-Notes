@@ -1,7 +1,7 @@
 ---
 tags: [claude, ai, 工具使用, hook, 自动化]
 created: 2026-03-22
-updated: 2026-03-22
+updated: 2026-04-05
 ---
 
 # Claude Code Hooks 使用指南
@@ -315,6 +315,8 @@ Matcher 用于筛选哪些工具/事件会触发 Hook：
 | 精确匹配 | `"Bash"` | 只匹配 Bash 工具 |
 | 多个匹配 | `"Bash\|Edit"` | 匹配 Bash 或 Edit（用 `\|` 分隔） |
 | 正则表达式 | `"Bash(rm\|sudo)"` | 使用正则表达式 |
+| 通配符 | `"*"` 或 `""` | 匹配所有工具 |
+| MCP 工具 | `"mcp__memory__.*"` | 匹配特定 MCP 服务器的工具 |
 
 **常用 Matcher 示例**：
 
@@ -334,7 +336,198 @@ Matcher 用于筛选哪些工具/事件会触发 Hook：
 // 匹配特定文件路径
 "matcher": "Edit",
 "pathMatcher": "\\.env$|credentials"
+
+// 匹配 MCP 工具
+"matcher": "mcp__memory__.*"
 ```
+
+## Hook 事件完整列表
+
+Claude Code 支持 **25 个 Hook 事件**，按功能分类如下：
+
+### 核心事件
+
+| 事件 | 触发时机 | Matcher 输入 | 可阻止 | 常见用途 |
+|------|----------|--------------|--------|----------|
+| **SessionStart** | 会话开始/恢复/压缩 | `startup`/`resume`/`clear`/`compact` | ❌ | 环境初始化 |
+| **SessionEnd** | 会话结束 | `clear`/`logout`/`prompt_input_exit`/`other` | ❌ | 清理、日志记录 |
+| **InstructionsLoaded** | CLAUDE.md 或规则文件加载后 | (无) | ❌ | 修改/过滤指令 |
+
+### 用户交互事件
+
+| 事件 | 触发时机 | Matcher 输入 | 可阻止 | 常见用途 |
+|------|----------|--------------|--------|----------|
+| **UserPromptSubmit** | 用户提交提示词 | (无) | ✅ | 验证提示词 |
+| **Notification** | 发送通知时 | `permission_prompt`/`idle_prompt`/`auth_success`/`elicitation_dialog` | ❌ | 自定义通知处理 |
+
+### 工具执行事件
+
+| 事件 | 触发时机 | Matcher 输入 | 可阻止 | 常见用途 |
+|------|----------|--------------|--------|----------|
+| **PreToolUse** | 工具执行前 | 工具名称 | ✅ | 验证、修改输入 |
+| **PostToolUse** | 工具执行成功后 | 工具名称 | ❌ | 添加上下文、反馈 |
+| **PostToolUseFailure** | 工具执行失败 | 工具名称 | ❌ | 错误处理、日志 |
+| **PermissionRequest** | 显示权限对话框 | 工具名称 | ✅ | 自动批准/拒绝 |
+
+### Subagent 事件
+
+| 事件 | 触发时机 | Matcher 输入 | 可阻止 | 常见用途 |
+|------|----------|--------------|--------|----------|
+| **SubagentStart** | Subagent 启动时 | Agent 类型名称 | ❌ | Subagent 初始化 |
+| **SubagentStop** | Subagent 完成时 | Agent 类型名称 | ✅ | Subagent 验证 |
+
+### 任务与工作流事件
+
+| 事件 | 触发时机 | Matcher 输入 | 可阻止 | 常见用途 |
+|------|----------|--------------|--------|----------|
+| **Stop** | Claude 完成响应 | (无) | ✅ | 任务完成检查 |
+| **StopFailure** | API 错误结束回合 | (无) | ❌ | 错误恢复、日志 |
+| **TaskCompleted** | 任务标记完成 | (无) | ✅ | 任务后操作 |
+| **TaskCreated** | 通过 TaskCreate 创建任务 | (无) | ❌ | 任务跟踪、日志 |
+| **TeammateIdle** | Agent 团队成员空闲 | (无) | ✅ | 团队协调 |
+
+### 配置与环境事件
+
+| 事件 | 触发时机 | Matcher 输入 | 可阻止 | 常见用途 |
+|------|----------|--------------|--------|----------|
+| **ConfigChange** | 配置文件变更 | (无) | ✅（策略除外） | 响应配置更新 |
+| **CwdChanged** | 工作目录变更 | (无) | ❌ | 目录特定初始化 |
+| **FileChanged** | 监视文件变更 | (无) | ❌ | 文件监控、重建 |
+
+### 上下文压缩事件
+
+| 事件 | 触发时机 | Matcher 输入 | 可阻止 | 常见用途 |
+|------|----------|--------------|--------|----------|
+| **PreCompact** | 上下文压缩前 | `manual`/`auto` | ❌ | 压缩前操作 |
+| **PostCompact** | 压缩完成后 | (无) | ❌ | 压缩后操作 |
+
+### Git Worktree 事件
+
+| 事件 | 触发时机 | Matcher 输入 | 可阻止 | 常见用途 |
+|------|----------|--------------|--------|----------|
+| **WorktreeCreate** | 创建 Worktree | (无) | ✅（返回路径） | Worktree 初始化 |
+| **WorktreeRemove** | 移除 Worktree | (无) | ❌ | Worktree 清理 |
+
+### MCP 交互事件
+
+| 事件 | 触发时机 | Matcher 输入 | 可阻止 | 常见用途 |
+|------|----------|--------------|--------|----------|
+| **Elicitation** | MCP 服务器请求用户输入 | (无) | ✅ | 输入验证 |
+| **ElicitationResult** | 用户响应 Elicitation | (无) | ✅ | 响应处理 |
+
+### 关键事件详解
+
+#### PreToolUse（工具执行前）
+
+最常用的 Hook 事件，用于验证和修改工具输入：
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/validate-bash.py\""
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**输出控制**：
+- `permissionDecision`: `"allow"`, `"deny"`, 或 `"ask"`
+- `permissionDecisionReason`: 决策原因说明
+- `updatedInput`: 修改后的工具输入参数
+
+#### PostToolUse（工具执行后）
+
+工具成功执行后触发，用于验证、日志或提供上下文：
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/security-scan.py"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+#### Stop 和 SubagentStop（智能任务完成检查）
+
+支持 **Prompt Hook** 进行 LLM 评估：
+
+> **注意**：`Stop` 和 `SubagentStop` 事件会收到 `last_assistant_message` 字段，包含 Claude 或 subagent 停止前的最后一条消息。
+
+```json
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "评估 Claude 是否完成了所有请求的任务。检查：1) 所有文件是否已创建/修改？2) 是否有未解决的错误？如果未完成，说明缺少什么。",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+#### SessionStart（环境变量持久化）
+
+使用 `CLAUDE_ENV_FILE` 持久化环境变量（`CwdChanged` 和 `FileChanged` 也支持）：
+
+```bash
+#!/bin/bash
+if [ -n "$CLAUDE_ENV_FILE" ]; then
+  echo 'export NODE_ENV=development' >> "$CLAUDE_ENV_FILE"
+fi
+exit 0
+```
+
+#### SessionEnd（会话结束清理）
+
+执行清理或最终日志记录，**无法阻止终止**：
+
+```json
+{
+  "hooks": {
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/session-cleanup.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**reason 字段值**：
+- `clear` - 用户清除了会话
+- `logout` - 用户登出
+- `prompt_input_exit` - 用户通过提示输入退出
+- `other` - 其他原因
 
 ### 输入输出格式
 
