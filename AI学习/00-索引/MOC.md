@@ -25,7 +25,10 @@ tags: [ai, 学习指南, index]
 | [[01-基础概念/SubAgent子代理]] | `ai`, `基础概念`, `subagent` | 上下文隔离、并行处理、与Agent区别、适用场景 |
 | [[01-基础概念/Skills 是什么]] | `ai`, `基础概念`, `skills` | Skills机制、三层架构、渐进式加载、与SubAgent对比 |
 | [[01-基础概念/Agent Teams智能体团队]] | `ai`, `基础概念`, `agent-teams` | 多智能体协作、主流框架、协作模式、与SubAgent区别 |
-| [[01-基础概念/Hook钩子]] | `ai`, `基础概念`, `hook`, `自动化` | Hook事件驱动机制、4种类型、23种事件、与Skills/MCP区别 |
+| [[01-基础概念/Hook钩子]] | `ai`, `基础概念`, `hook`, `自动化` | Hook事件驱��机制、4种类型、23种事件、与Skills/MCP区别 |
+| [[01-基础概念/2026-AI职业角色与路线图]] | `ai`, `基础概念`, `career`, `roadmap` | 2026年AI职业角色（Data Scientist/ML Engineer/AI Engineer）、核心技能、学习路径 |
+| [[01-基础概念/AI工程师学习路线图]] | `ai`, `career`, `roadmap` | AI工程师8个月学习计划、技能体系、薪资前景 |
+| [[01-基础概念/AI学习路径与技能图谱]] | `ai`, `learning-path`, `skills` | 14周快速学习路径、四阶段学习计划、框架对比 |
 
 > [!tip] 学习建议
 > - **入门** → 先读 [[01-基础概念/人工智能重要的六大概念体系]] 获得全局视角

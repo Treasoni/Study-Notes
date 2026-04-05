@@ -10,7 +10,7 @@
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 43.30794341675735,
+            "dimension": 47.442872687704025,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -32,12 +32,12 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "Git/分支管理最佳实践.md",
+                    "file": "Git/Git MOC.md",
                     "mode": "preview",
                     "source": false
                   },
                   "icon": "lucide-file",
-                  "title": "分支管理最佳实践"
+                  "title": "Git MOC"
                 }
               },
               {
@@ -74,7 +74,7 @@
           {
             "id": "28cba42a6237a322",
             "type": "tabs",
-            "dimension": 56.69205658324265,
+            "dimension": 52.55712731229597,
             "children": [
               {
                 "id": "6920bdf1334a965f",
@@ -157,11 +157,10 @@
                   },
                   "pinned": true,
                   "icon": "terminal",
-                  "title": "终端：⠂ Video Analysis"
+                  "title": "终端：✳ Video Analysis"
                 }
               }
-            ],
-            "currentTab": 1
+            ]
           }
         ],
         "direction": "horizontal"
@@ -300,12 +299,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "Git/Git MOC.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "Git MOC 的大纲"
             }
           },
           {
@@ -370,8 +370,9 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "4ed18974316477a3",
+  "active": "1fba13ed6f715185",
   "lastOpenFiles": [
+    "AI学习/01-基础概念/2026-AI职业角色与路线图.md",
     "AI学习/01-基础概念/AI学习路径与技能图谱.md",
     "Git/分支管理最佳实践.md",
     "Git/Git 入门教程.md",
@@ -398,7 +399,6 @@
     "PVE的学习/03-容器管理/PVE的CT.md",
     "AI学习/01-基础概念/AI工程范式演进-Prompt到Harness.md",
     "PVE的学习/01-安装配置/安装和使用PVE.md",
-    "PVE的学习/01-安装配置/修改PVE的网络信息.md",
     "AI学习/05-其他主题/knowledge-cards.json",
     "obsidian的使用/assets/如何使用obsidian做笔记",
     "obsidian的使用/assets",
