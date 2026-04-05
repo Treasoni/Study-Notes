@@ -46,6 +46,7 @@ Claude Code 的安装、配置和日常使用。
 | [[02-工具使用/Claude Code Slash Commands 完整参考]] | `claude`, `ai`, `工具使用`, `斜杠命令` | 55+ 内置命令参考、Skills 迁移、命令生命周期 | 新增 |
 | [[02-工具使用/Claude Code Memory 完整指南]] | `claude`, `ai`, `工具使用`, `memory`, `claude-md` | Memory 系统详解、层级架构、Auto Memory、模块化规则 | 新增 |
 | [[02-工具使用/Claude Code 插件系统使用指南]] | `ai`, `进阶应用`, `插件` | 插件系统架构、安装、创建自定义插件 | 430行 |
+| [[02-工具使用/Claude Code Checkpoints 使用指南]] | `ai`, `claude-code`, `checkpoints`, `会话管理` | Checkpoints 自动快照、Rewind 回滚、Summarize 压缩对话 | 新增 |
 | [[02-工具使用/Tailscale使用指南]] | `tailscale`, `vpn`, `networking` | 基于 WireGuard 的零配置 VPN 组网工具，安装、工作原理、使用教程 | 300行 |
 | [[linux/WSL-Windows子系统forLinux]] | `wsl`, `windows`, `linux`, `开发环境` | Windows 内置 Linux 子系统，概念原理、安装配置、常用命令、实战场景 | 新增 |
 | [[obsidian的使用/Obsidian Smart Connections 使用指南]] | `obsidian`, `smart-connections`, `语义搜索` | Obsidian 本地优先语义搜索插件，自动发现笔记关联、AI 嵌入技术 | 新增 |
@@ -145,6 +146,7 @@ Subagent 的创建和使用。
 - [[02-工具使用/Claude Code 常用功能]]
 - [[02-工具使用/Claude Code 会话管理]]
 - [[02-工具使用/Claude Code 插件系统使用指南]]
+- [[02-工具使用/Claude Code Checkpoints 使用指南]]
 - [[02-工具使用/Claude Code Hooks 使用指南]]
 - [[02-工具使用/Tailscale使用指南]]
 
@@ -375,6 +377,8 @@ AI 模型对比与选型相关文档。
 | 练习 Subagent | [[04-高级应用/Subagent 实战练习]] |
 | 配置项目规则 | [[03-进阶应用/CLAUDE.md 使用指南]] |
 | 了解插件系统 | [[02-工具使用/Claude Code 插件系统使用指南]] |
+| 回滚代码和对话 | [[02-工具使用/Claude Code Checkpoints 使用指南]] |
+| 使用 Checkpoints 回滚代码 | [[02-��具使用/Claude Code Checkpoints 使用指南]] |
 | 学习 RAG 技术 | [[05-其他主题/RAG技术入门指南]] |
 | 了解数字人项目 | [[05-其他主题/openclaw/OpenClaw安装教程]] |
 | OpenClaw 安装后配置 | [[05-其他主题/openclaw/OpenClaw安装后配置指南]] |

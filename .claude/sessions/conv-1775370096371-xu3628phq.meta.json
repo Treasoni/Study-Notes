@@ -3,17 +3,17 @@
   "title": "Learn Claude Checkpoint Management",
   "titleGenerationStatus": "success",
   "createdAt": 1775370096372,
-  "updatedAt": 1775370168491,
-  "lastResponseAt": 1775370168491,
+  "updatedAt": 1775370475842,
+  "lastResponseAt": 1775370475842,
   "sessionId": null,
   "currentNote": "AI学习/02-工具使用/Claude Code 插件系统使用指南.md",
   "usage": {
     "model": "glm-5",
-    "inputTokens": 145,
+    "inputTokens": 0,
     "cacheCreationInputTokens": 0,
-    "cacheReadInputTokens": 46016,
+    "cacheReadInputTokens": 0,
     "contextWindow": 200000,
-    "contextTokens": 46161,
-    "percentage": 23
+    "contextTokens": 0,
+    "percentage": 0
   }
 }
