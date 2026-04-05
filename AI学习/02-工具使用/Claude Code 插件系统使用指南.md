@@ -59,7 +59,81 @@ Claude Code 架构：
 | **自定义命令** | 添加新的 `/` 命令 | `/review`、`/test` |
 | **自带 MCP** | 捆绑 MCP 服务器 | 数据库插件自带查询 MCP |
 | **事件钩子** | 响应 Claude 操作 | 写完代码自动格式化 |
-| **LSP 集成** | 语言服务器协议 | 代码补全、诊断信息 |
+| **LSP ���成** | 语言服务器协议 | 代码补全、诊断信息 |
+
+### LSP 服务器配置详解
+
+插件可以包含 Language Server Protocol (LSP) 支持，提供实时代码智能。
+
+**配置位置**：
+- `.lsp.json` 文件在插件根目录
+- 或 `plugin.json` 中的内联 `lsp` 字段
+
+**字段说明**：
+
+| 字段 | 必需 | 说明 |
+|------|------|------|
+| `command` | ✅ | LSP 服务器二进制文件（必须在 PATH 中） |
+| `extensionToLanguage` | ✅ | 文件扩展名到语言 ID 的映射 |
+| `args` | ❌ | 服务器命令行参数 |
+| `transport` | ❌ | 通信方式：`stdio`（默认）或 `socket` |
+| `env` | ❌ | 服务器进程的环境变量 |
+| `initializationOptions` | ❌ | LSP 初始化时发送的选项 |
+| `settings` | ❌ | 传递给服务器的配置 |
+| `startupTimeout` | ❌ | 服务器启动最大等待时间（毫秒） |
+| `shutdownTimeout` | ❌ | 优雅关闭最大时间（毫秒） |
+| `restartOnCrash` | ❌ | 服务器崩溃时是否自动重启 |
+| `maxRestarts` | ❌ | 放弃前最大重启次数 |
+
+**常用语言配置示例**：
+
+```json
+// Python (pyright)
+{
+  "python": {
+    "command": "pyright-langserver",
+    "args": ["--stdio"],
+    "extensionToLanguage": {
+      ".py": "python",
+      ".pyi": "python"
+    }
+  }
+}
+
+// TypeScript
+{
+  "typescript": {
+    "command": "typescript-language-server",
+    "args": ["--stdio"],
+    "extensionToLanguage": {
+      ".ts": "typescript",
+      ".tsx": "typescriptreact",
+      ".js": "javascript",
+      ".jsx": "javascriptreact"
+    }
+  }
+}
+
+// Go (gopls)
+{
+  "go": {
+    "command": "gopls",
+    "args": ["serve"],
+    "extensionToLanguage": {
+      ".go": "go"
+    }
+  }
+}
+```
+
+**LSP 功能**：
+- **即时诊断** - 编辑后立即显示错误和警告
+- **代码导航** - 跳转到定义、查找引用、实现
+- **悬停信息** - 悬停时显示类型签名和文档
+- **符号列表** - 浏览当前文件或工作区的符号
+
+> [!info] 📚 来源
+> - [GitHub - Claude HowTo LSP 配置](https://github.com/luongnv89/claude-howto/tree/main/07-plugins) - LSP 配置参考
 
 ---
 
@@ -72,21 +146,33 @@ my-plugin/
 ├── .claude-plugin/               # 插件配置目录（必需）
 │   └── plugin.json              # 插件元数据（必需）
 ├── agents/                      # 专门化 Agent（可选）
-│   ├── code-reviewer.md
-│   └── test-generator.md
+│   ├── specialist-1.md
+│   └── configs/
 ├── commands/                    # 自定义命令（可选）
-│   └── hello.md
+│   ├── task-1.md
+│   └── workflows/
 ├── skills/                      # Agent 能力定义（可选）
-│   └── SKILL.md
+│   ├── skill-1.md
+│   └── skill-2.md
 ├── hooks/                       # 事件处理器（可选）
 │   └── hooks.json
 ├── .mcp.json                   # MCP 服务器配置（可选）
 ├── .lsp.json                   # LSP 服务器配置（可选）
-├── assets/                      # 资源文件（可选）
-│   ├── templates/
-│   └── examples/
-└── README.md                    # 文档（推荐）
+├── settings.json               # 默认设置（可选）
+├── templates/                   # 模板文件（可选）
+│   └── issue-template.md
+├── scripts/                     # 辅助脚本（可选）
+│   ├── helper.sh
+│   └── helper.py
+├── docs/                        # 文档（推荐）
+│   ├── README.md
+│   └── USAGE.md
+└── tests/                       # 测试（推荐）
+    └── plugin.test.js
 ```
+
+> [!info] 📚 来源
+> - [GitHub - Claude HowTo 插件示例](https://github.com/luongnv89/claude-howto/tree/main/07-plugins) - 官方插件结构参考
 
 ### plugin.json 格式
 
@@ -101,9 +187,8 @@ my-plugin/
   },
   "keywords": ["code-review", "testing"],
   "homepage": "https://github.com/user/my-plugin",
-  "claude": {
-    "minVersion": "1.0.0"
-  },
+  "repository": "https://github.com/user/my-plugin",
+  "license": "MIT",
   // 内联配置（可选）
   "mcpServers": {
     "plugin-api": {
@@ -122,6 +207,86 @@ my-plugin/
   }
 }
 ```
+
+### 用户可配置选项 (userConfig) (v2.1.83+)
+
+插件可以在 manifest 中声明用户可配置的选项，通过 `userConfig` 字段：
+
+```json
+{
+  "name": "my-plugin",
+  "version": "1.0.0",
+  "userConfig": {
+    "apiKey": {
+      "description": "API 密钥",
+      "sensitive": true
+    },
+    "region": {
+      "description": "部署区域",
+      "default": "us-east-1"
+    }
+  }
+}
+```
+
+**字段说明**：
+| 字段 | 说明 |
+|------|------|
+| `description` | 选项描述 |
+| `sensitive` | 设为 `true` 时，值存储在系统密钥链而非明文配置文件 |
+| `default` | 默认值 |
+
+### 持久化数据目录 (${CLAUDE_PLUGIN_DATA}) (v2.1.78+)
+
+插件可通过 `${CLAUDE_PLUGIN_DATA}` 环境变量访问持久化数据目录：
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [{
+      "command": "node ${CLAUDE_PLUGIN_DATA}/track-usage.js"
+    }]
+  }
+}
+```
+
+**特点**：
+- 目录在插件安装时自动创建
+- 每个插件有独立的数据目录
+- 数据在会话间持久保存
+- 插件卸载时数据会被删除
+
+### 内联插件定义 (source: 'settings') (v2.1.80+)
+
+可以在配置文件中直接定义插件，无需单独的仓库：
+
+```json
+{
+  "pluginMarketplaces": [{
+    "name": "inline-tools",
+    "source": "settings",
+    "plugins": [{
+      "name": "quick-lint",
+      "source": "./local-plugins/quick-lint"
+    }]
+  }]
+}
+```
+
+### 插件默认设置 (settings.json)
+
+插件可以提供 `settings.json` 文件设置默认配置：
+
+```json
+{
+  "agent": "agents/specialist-1.md"
+}
+```
+
+用户可在项目或用户配置中覆盖这些设置。
+
+> [!info] 📚 来源
+> - [GitHub - Claude HowTo 插件系统](https://github.com/luongnv89/claude-howto/tree/main/07-plugins) - 新功能参考
 
 ### Agent 文件格式
 
@@ -390,6 +555,47 @@ description: 部署应用到生产环境
 | **feature-dev** | 系统化功能开发 |
 | **plugin-dev** | 插件开发工具包 |
 
+### 企业管理设置
+
+管理员可以通过托管设置控制整个组织的插件行为：
+
+| 设置 | 说明 |
+|------|------|
+| `enabledPlugins` | 默认启用的插件白名单 |
+| `deniedPlugins` | 禁止安装的插件黑名单 |
+| `extraKnownMarketplaces` | 添加额外的市场源 |
+| `strictKnownMarketplaces` | 限制用户可添加的市场 |
+| `allowedChannelPlugins` | 按发布渠道控制允许的插件 |
+
+**市场限制示例**：
+
+```json
+{
+  "strictKnownMarketplaces": [
+    "my-org/*",
+    "github.com/trusted-vendor/*"
+  ]
+}
+```
+
+> [!warning] 企业限制
+> 在严格模式下，用户只能安装白名单市场中的插件。
+
+### 插件安全限制
+
+插件子 Agent 在受限沙箱中运行，以下 frontmatter 字段**不允许**在插件子 Agent 定义中使用：
+
+| 禁止字段 | 原因 |
+|----------|------|
+| `hooks` | 子 Agent 不能注册事件处理器 |
+| `mcpServers` | 子 Agent 不能配置 MCP 服务器 |
+| `permissionMode` | 子 Agent 不能覆盖权限模型 |
+
+这确保插件无法提升��限或修改超出其声明范围的主机环境。
+
+> [!info] 📚 来源
+> - [GitHub - Claude HowTo 插件安全](https://github.com/luongnv89/claude-howto/tree/main/07-plugins) - 安全限制参考
+
 ### 相关文档
 
 - [[03-进阶应用/Claude MCP 使用指南]] - MCP 协议详解
@@ -431,3 +637,59 @@ A: 插件可以访问：
 - 只安装可信来源的插件
 - 审查插件的 `plugin.json` 和 Agent 配置
 - 使用最小权限原则
+
+---
+
+## 7. 故障排除
+
+### 插件无法安装
+
+**检查项**：
+1. Claude Code 版本兼容性：`/version`
+2. 验证 `plugin.json` 语法（使用 JSON 验证器）
+3. 检查网络连接（远程插件）
+4. 检查权限：`ls -la plugin/`
+
+### 组件未加载
+
+**检查项**：
+1. 验证 `plugin.json` 中的路径与实际目录结构匹配
+2. 检查文件权限：`chmod +x scripts/`
+3. 检查组件文件语法
+4. 查看日志：`/plugin debug plugin-name`
+
+### MCP 连接失败
+
+**检查项**：
+1. 验证环境变量设置正确
+2. 检查 MCP 服务器安装和运行状态
+3. 独立测试 MCP 连接：`/mcp test`
+4. 检查 `mcp/` 目录中的配置
+
+### 安装后命令不可用
+
+**检查项**：
+1. 确认插件安装成功：`/plugin list --installed`
+2. 检查插件是否启用：`/plugin status plugin-name`
+3. 重启 Claude Code：`exit` 后重新打开
+4. 检查命名冲突（与现有命令重名）
+
+### 钩子执行问题
+
+**检查项**：
+1. 验证钩子文件有正确的执行权限
+2. 检查钩子语法和事件名称
+3. 查看钩子日志获取错误详情
+4. 尽可能手动测试钩子
+
+---
+
+## 参考资料
+
+### 官方资源
+- [Claude Code 官方文档](https://docs.anthropic.com/claude-code) - 完整技术文档
+- [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official) - 官方插件仓库
+
+### 社区资源
+- [Claude HowTo - 插件系统](https://github.com/luongnv89/claude-howto/tree/main/07-plugins) - 可视化教程和示例
+- [Claude HowTo 仓库](https://github.com/luongnv89/claude-howto) - 从基础到高级的完整指南
