@@ -466,6 +466,7 @@ sudo su -
 ---
 
 ## 相关文档
+- [[linux MOC]] - Linux 学习笔记索引
 - [[Linux换源]] - 国内镜像源配置
 - [[linux的LVM管理]] - LVM 逻辑卷管理
 - [[linux磁盘相关的知识]] - 磁盘和分区深入理解

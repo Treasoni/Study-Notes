@@ -202,7 +202,8 @@ hostname -I
 > （此处记录个人学习心得，更新时会被保留）
 
 ## 相关文档
-- [[00-索引/MOC|MOC 索引]]
+- [[linux MOC]] - Linux 学习笔记索引
+- [[Ubuntu Server 安装教程]] - Ubuntu Server 安装指南
 
 ## 参考资料
 - [Ubuntu Server OpenSSH 官方文档](https://ubuntu.com/server/docs/openssh-server)

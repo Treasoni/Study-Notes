@@ -101,4 +101,5 @@ A: 当 CPU 需要等待内存数据或 IO 操作时，可以切换到另一个�
 A: 在 Linux 中执行 `lscpu`，如果 "Thread(s) per core" 显示为 2，说明已开启超线程。
 
 ## 相关文档
-[[linux磁盘相关的知识]] | [[linux的LVM管理]]
+- [[linux MOC]] - Linux 学习笔记索引
+- [[linux磁盘相关的知识]] | [[linux的LVM管理]]

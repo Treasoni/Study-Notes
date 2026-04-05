@@ -390,4 +390,5 @@ sudo mount /dev/sdb1 /mnt
 ```
 
 ## 相关文档
-[[linux的LVM管理]] | [[linux的文件权限]]
+- [[linux MOC]] - Linux 学习笔记索引
+- [[linux的LVM管理]] | [[linux的文件权限]]

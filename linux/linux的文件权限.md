@@ -294,4 +294,5 @@ id alice
 ```
 
 ## 相关文档
-[[linux磁盘相关的知识]] | [[linux的LVM管理]]
+- [[linux MOC]] - Linux 学习笔记索引
+- [[linux磁盘相关的知识]] | [[linux的LVM管理]]

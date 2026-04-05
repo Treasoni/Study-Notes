@@ -284,4 +284,5 @@ sudo netselect-apt noble
 ```
 
 ## 相关文档
-[[linux如何修改网络信息]] | [[linux的文件权限]]
+- [[linux MOC]] - Linux 学习笔记索引
+- [[linux如何修改网络信息]] | [[linux的文件权限]]

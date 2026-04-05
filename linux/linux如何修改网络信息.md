@@ -239,5 +239,5 @@ A: 虚拟机网络模式选择：
 - **仅主机模式**：只能与宿主机通信
 
 ## 相关文档
-
-[[Linux换源]] | [[linux磁盘相关的知识]] | [[Ubuntu curl SSL连接问题排查]]
+- [[linux MOC]] - Linux 学习笔记索引
+- [[Linux换源]] | [[linux磁盘相关的知识]] | [[Ubuntu curl SSL连接问题排查]]

@@ -356,4 +356,5 @@ sudo pvcreate /dev/mapper/crypt_sdb
 ```
 
 ## 相关文档
-[[linux磁盘相关的知识]] | [[cpu的线程和内核]]
+- [[linux MOC]] - Linux 学习笔记索引
+- [[linux磁盘相关的知识]] | [[cpu的线程和内核]]

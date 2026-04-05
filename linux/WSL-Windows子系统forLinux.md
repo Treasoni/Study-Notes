@@ -349,6 +349,9 @@ sudo apt update
 
 ---
 
+## 相关文档
+- [[linux MOC]] - Linux 学习笔记索引
+
 ## 个人笔记
 
 > [!personal] 💡 我的理解与感悟
