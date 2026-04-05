@@ -3,6 +3,10 @@ tags:
   - docker
 ---
 
+> [!info] 相关文档
+> - [[Docker MOC]] - Docker 知识索引
+> - [[docker容器如何更新]] - 容器更新的完整指南
+
 # 1. 我改正了 docker-compose.yml，再执行 docker compose up -d 会发生什么？
 
  **🔑 结论先给你：**

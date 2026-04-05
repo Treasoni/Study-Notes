@@ -10,7 +10,7 @@
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 44.17845484221981,
+            "dimension": 76.6050054406964,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -32,7 +32,7 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "AI学习/00-索引/sortspec.md",
+                    "file": "docker/sortspec.md",
                     "mode": "preview",
                     "source": true
                   },
@@ -74,7 +74,7 @@
           {
             "id": "ea7f27cb393fd96a",
             "type": "tabs",
-            "dimension": 55.82154515778019,
+            "dimension": 23.39499455930359,
             "children": [
               {
                 "id": "f99d72f9383898e8",
@@ -119,48 +119,6 @@
                 }
               },
               {
-                "id": "fc75828cec1bafda",
-                "type": "leaf",
-                "pinned": true,
-                "state": {
-                  "type": "terminal:terminal",
-                  "state": {
-                    "terminal:terminal": {
-                      "cwd": "/Users/zhqznc/Documents/项目",
-                      "focus": false,
-                      "profile": {
-                        "args": [
-                          "--login"
-                        ],
-                        "executable": "/bin/zsh",
-                        "followTheme": true,
-                        "name": "",
-                        "platforms": {
-                          "darwin": true
-                        },
-                        "pythonExecutable": "python3",
-                        "restoreHistory": false,
-                        "rightClickAction": "copyPaste",
-                        "successExitCodes": [
-                          "0",
-                          "SIGINT",
-                          "SIGTERM"
-                        ],
-                        "terminalOptions": {
-                          "documentOverride": null
-                        },
-                        "type": "integrated",
-                        "useWin32Conhost": true
-                      },
-                      "serial": null
-                    }
-                  },
-                  "pinned": true,
-                  "icon": "terminal",
-                  "title": "终端：✳ 技能修改"
-                }
-              },
-              {
                 "id": "f972e4d3c19922e0",
                 "type": "leaf",
                 "pinned": true,
@@ -200,6 +158,48 @@
                   "pinned": true,
                   "icon": "terminal",
                   "title": "终端：✳ 继续操作"
+                }
+              },
+              {
+                "id": "bc0d4bf107c0cf02",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "terminal:terminal",
+                  "state": {
+                    "terminal:terminal": {
+                      "cwd": "/Users/zhqznc/Documents/项目",
+                      "focus": false,
+                      "profile": {
+                        "args": [
+                          "--login"
+                        ],
+                        "executable": "/bin/zsh",
+                        "followTheme": true,
+                        "name": "",
+                        "platforms": {
+                          "darwin": true
+                        },
+                        "pythonExecutable": "python3",
+                        "restoreHistory": false,
+                        "rightClickAction": "copyPaste",
+                        "successExitCodes": [
+                          "0",
+                          "SIGINT",
+                          "SIGTERM"
+                        ],
+                        "terminalOptions": {
+                          "documentOverride": null
+                        },
+                        "type": "integrated",
+                        "useWin32Conhost": true
+                      },
+                      "serial": null
+                    }
+                  },
+                  "pinned": true,
+                  "icon": "terminal",
+                  "title": "终端：✳ Claude Code"
                 }
               }
             ],
@@ -342,7 +342,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/00-索引/sortspec.md",
+                "file": "docker/sortspec.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
@@ -416,9 +416,12 @@
   },
   "active": "1fba13ed6f715185",
   "lastOpenFiles": [
+    "docker/sortspec.md",
+    "docker/Docker MOC.md",
+    "AI学习/00-索引/sortspec.md",
+    "AI学习/00-索引/MOC.md",
     "CLAUDE.md",
     "Git/sortspec.md",
-    "AI学习/00-索引/sortspec.md",
     "AI学习/02-工具使用/sortspec.md",
     "AI学习/05-其他主题/AI模型对比/sortspec.md",
     "AI学习/05-其他主题/sortspec.md",
@@ -441,9 +444,6 @@
     "obsidian的使用/Obsidian Smart Connections 使用指南.md",
     "AI学习/01-基础概念/AI工程师学习路线图.md",
     "AI学习/02-工具使用/Obsidian-Sort-知识卡片.json",
-    "AI学习/01-基础概念/AI学习路径与技能图谱.md",
-    "AI学习/01-基础概念/2026-AI职业角色与路线图.md",
-    "Git/Git MOC.md",
     "GitHub项目",
     "AI学习/05-其他主题/knowledge-cards.json",
     "obsidian的使用/assets/如何使用obsidian做笔记",
