@@ -100,12 +100,12 @@ apt --reinstall install proxmox-widget-toolkit && service pveproxy restart
 echo "deb https://mirrors.ustc.edu.cn/proxmox/debian/pve bookworm pve-no-subscription" > /etc/apt/sources.list.d/pve-no-subscription.list
 ```
 
-**DEB822 格式（PVE 9）**：
+**DEB822 格式（PVE 9 / Debian Trixie）**：
 ```bash
 cat > /etc/apt/sources.list.d/pve-no-subscription.sources <<EOF
 Types: deb
 URIs: https://mirrors.ustc.edu.cn/proxmox/debian/pve
-Suites: bookworm
+Suites: trixie
 Components: pve-no-subscription
 Signed-By: /usr/share/keyrings/proxmox-archive-keyring.gpg
 EOF
@@ -117,9 +117,20 @@ EOF
 
 地址：https://mirrors.tuna.tsinghua.edu.cn/help/proxmox
 
-**传统格式**：
+**传统格式（PVE 8）**：
 ```bash
 echo "deb https://mirrors.tuna.tsinghua.edu.cn/proxmox/debian/pve bookworm pve-no-subscription" > /etc/apt/sources.list.d/pve-no-subscription.list
+```
+
+**DEB822 格式（PVE 9 / Debian Trixie）**：
+```bash
+cat > /etc/apt/sources.list.d/pve-no-subscription.sources <<EOF
+Types: deb
+URIs: https://mirrors.tuna.tsinghua.edu.cn/proxmox/debian/pve
+Suites: trixie
+Components: pve-no-subscription
+Signed-By: /usr/share/keyrings/proxmox-archive-keyring.gpg
+EOF
 ```
 
 详细说明：https://mirrors.tuna.tsinghua.edu.cn/help/proxmox
@@ -269,6 +280,15 @@ A: 如果更新了内核，需要重启。其他更新通常不需要。
 **Q: 国内源和官方源选哪个？**
 A: 能访问官方源用官方源，访问慢或有问题用国内源。
 
+## 参考资料
+
+> [!info] 📚 来源
+> - [Package Repositories - Proxmox VE Wiki](https://pve.proxmox.com/wiki/Package_Repositories)
+> - [Proxmox VE 9.1 Press Release](https://www.proxmox.com/en/about/company-details/press-releases/proxmox-virtual-environment-9-1)
+
 ## 相关文档
 
 [[安装和使用PVE]] | [[PVE存储库]] | [[修改PVE的网络信息]] | [[PVE学习笔记MOC]]
+
+---
+*更新日期：2026-04-05*

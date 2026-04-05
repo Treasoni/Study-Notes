@@ -10,7 +10,7 @@
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 40.26115342763873,
+            "dimension": 36.6702937976061,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -59,7 +59,7 @@
           {
             "id": "4f13d566900ce7f4",
             "type": "tabs",
-            "dimension": 59.73884657236126,
+            "dimension": 63.32970620239391,
             "children": [
               {
                 "id": "36e8d5efd7d79897",
@@ -100,7 +100,7 @@
                   },
                   "pinned": true,
                   "icon": "terminal",
-                  "title": "终端：⠐ 继续操作"
+                  "title": "终端：✳ 继续操作"
                 }
               }
             ]
