@@ -6,5 +6,7 @@ sorting-spec: |
   Git 高级技巧
   Git 常见错误解决方案
   分支管理最佳实践
-  <default>: alphabetical
+
+  <default>
+  order-asc: a-z
 ---
