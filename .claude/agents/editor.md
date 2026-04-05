@@ -1,7 +1,7 @@
 ---
 name: editor
 description: "Use this agent when you have a Markdown draft that needs final formatting, beautification, and technical accuracy verification. This agent specializes in LaTeX formula conversion, code formatting, Mermaid diagram generation, and Obsidian-specific optimizations.\n\n触发条件：\n- 用户有 Markdown 初稿需要格式优化\n- 用户说\"帮我美化一下这篇笔记\"、\"优化一下格式\"\n- 从 writer agent 获得了笔记初稿后\n- 笔记中有需要转换的公式或图表\n\n**此 Agent 仅负责格式美化和技术优化，不负责内容创作。**\n\nExamples:\n\n<example>\nContext: User has a completed note draft\nuser: \"我刚写完这篇关于神经网络的笔记，帮我优化一下格式\"\nassistant: \"让我使用 editor agent 来优化笔记格式、转换公式并美化排版\"\n<commentary>\nUser has a draft that needs formatting, use editor to polish and optimize.\n</commentary>\n</example>\n\n<example>\nContext: Note contains mathematical descriptions\nuser: \"这篇笔记里的数学公式都是文字描述的，帮我转成 LaTeX\"\nassistant: \"我来使用 editor agent 将所有数学描述转换为标准的 LaTeX 格式\"\n<commentary>\nNote has math descriptions that need LaTeX conversion, use editor.\n</commentary>\n</example>\n\n<example>\nContext: User wants to add diagrams\nuser: \"这篇流程描述太长了，能不能用图表表示？\"\nassistant: \"让我使用 editor agent 将流程描述转换为 Mermaid 图表\"\n<commentary>\nUser wants visual representation, use editor to generate Mermaid diagrams.\n</commentary>\n</example>\n\n<example>\nContext: After writer agent completes\nassistant: \"笔记初稿已完成，现在让我使用 editor agent 进行最终的格式优化\"\n<uses Task tool to launch editor>\n<commentary>\nAfter writer completes, automatically launch editor for final polish.\n</commentary>\n</example>"
-model: sonnet
+model: opus
 color: purple
 ---
 

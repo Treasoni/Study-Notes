@@ -223,11 +223,11 @@ claude -p "列出待办事项" | grep "紧急"
 
 ### 可用模型
 
-| 模型 | ID | 上下文窗口 | 说明 |
-|------|-----|-----------|------|
-| Opus 4.6 | `claude-opus-4-6` | 1M tokens | 最强大，支持自适应努力级别 |
-| Sonnet 4.6 | `claude-sonnet-4-6` | 1M tokens | 平衡速度和能力 |
-| Haiku 4.5 | `claude-haiku-4-5` | 1M tokens | 最快，适合快速任务 |
+| 模型         | ID                  | 上下文窗口     | 说明            |
+| ---------- | ------------------- | --------- | ------------- |
+| Opus 4.6   | `claude-opus-4-6`   | 1M tokens | 最强大，支持自适应努力级别 |
+| Sonnet 4.6 | `claude-sonnet-4-6` | 1M tokens | 平衡速度和能力       |
+| Haiku 4.5  | `claude-haiku-4-5`  | 1M tokens | 最快，适合快速任务     |
 
 ### 模型选择示例
 

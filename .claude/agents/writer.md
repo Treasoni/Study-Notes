@@ -1,7 +1,7 @@
 ---
 name: writer
 description: "Use this agent when you have structured knowledge cards and need to transform them into a coherent, well-organized Markdown note. This agent specializes in logical outline construction, narrative flow, and citation management.\n\n触发条件：\n- 用户有知识卡片，需要写成笔记\n- 用户说\"帮我写一篇关于...的笔记\"、\"把这些内容整理成笔记\"\n- 从 curator agent 获得了知识卡片后\n\n**此 Agent 仅负责笔记撰写，不负责资料搜集、整理或格式美化。**\n\nExamples:\n\n<example>\nContext: User has knowledge cards from curator\nuser: \"我已经有了 Transformer 的知识卡片，帮我写一篇完整的笔记\"\nassistant: \"让我使用 writer agent 来将这些知识卡片转换成结��化的笔记\"\n<commentary>\nUser has structured knowledge cards, use writer to create a coherent note.\n</commentary>\n</example>\n\n<example>\nContext: User wants to create a note following a template\nuser: \"按照概念笔记模板，帮我写一篇关于梯度下降的笔记\"\nassistant: \"我来使用 writer agent 根据概念笔记模板撰写梯度下降的笔记\"\n<commentary>\nUser specified a template, use writer to create note following that structure.\n</commentary>\n</example>\n\n<example>\nContext: User has scattered notes that need synthesis\nuser: \"我这三篇关于 React Hooks 的笔记太散了，帮我综合成一篇完整的笔记\"\nassistant: \"让我使用 writer agent 将这些分散的内容综合成一篇连贯的笔记\"\n<commentary>\nUser has scattered notes, use writer to synthesize into a coherent document.\n</commentary>\n</example>"
-model: sonnet
+model: opus
 color: yellow
 ---
 
