@@ -620,7 +620,7 @@ cp 01-slash-commands/*.md ~/.claude/commands/
 | [[01-基础概念/Skills 是什么]] | Slash Commands 已合并到 Skills，Skills 是当前标准 |
 | [[02-工具使用/Claude Code Memory 完整指南]] | Memory 通过 `/init`、`/memory` 命令管理 |
 | [[02-工具使用/Claude Code Hooks 使用指南]] | Hooks 是事件驱动，Commands 是用户/主动触发 |
-| [[04-高级应用/Claude Subagent 使用指南]] | Subagent 独立上下文，Skill 共享上下文 |
+| [[02-工具使用/Claude Code Subagents 完整指南]] | Subagent 独立上下文，Skill 共享上下文 |
 | [[03-进阶应用/Claude MCP 使用指南]] | MCP 提供 prompts 作为斜杠命令 |
 | [[03-进阶应用/如何编写Skills]] | Skills 编写实战指南 |
 

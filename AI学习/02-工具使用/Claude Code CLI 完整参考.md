@@ -749,7 +749,7 @@ export ANTHROPIC_API_KEY=your-key
 | [[02-工具使用/Claude Code 会话管理]] | 会话管理详解 |
 | [[03-进阶应用/Claude MCP 使用指南]] | MCP 协议配置 |
 | [[01-基础概念/Skills 是什么]] | Skills 技能系统 |
-| [[04-高级应用/Claude Subagent 使用指南]] | 自定义代理创建 |
+| [[02-工具使用/Claude Code Subagents 完整指南]] | 自定义代理创建 |
 | [[03-进阶应用/CLAUDE.md 使用指南]] | 项目级配置 |
 
 ---

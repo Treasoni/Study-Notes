@@ -3,8 +3,17 @@
   "title": "Organize AI knowledge base and update MOC",
   "titleGenerationStatus": "success",
   "createdAt": 1775371336664,
-  "updatedAt": 1775371339324,
-  "lastResponseAt": 1775371337721,
+  "updatedAt": 1775371805439,
+  "lastResponseAt": 1775371805439,
   "sessionId": "af11c5df-1a72-49a0-bff1-48e09cc522b2",
-  "sdkSessionId": "af11c5df-1a72-49a0-bff1-48e09cc522b2"
+  "sdkSessionId": "af11c5df-1a72-49a0-bff1-48e09cc522b2",
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
 }
