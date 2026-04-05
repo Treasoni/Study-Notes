@@ -10,6 +10,7 @@
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
+            "dimension": 23.06855277475517,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -31,12 +32,12 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "AI学习/03-进阶应用/Claude MCP 使用指南.md",
+                    "file": "AI学习/01-基础概念/AI工程师学习路线图.md",
                     "mode": "source",
                     "source": false
                   },
                   "icon": "lucide-file",
-                  "title": "Claude MCP 使用指南"
+                  "title": "AI工程师学习路线图"
                 }
               },
               {
@@ -73,6 +74,7 @@
           {
             "id": "28cba42a6237a322",
             "type": "tabs",
+            "dimension": 76.93144722524482,
             "children": [
               {
                 "id": "f79bb6971c191cd6",
@@ -255,12 +257,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "AI学习/01-基础概念/AI工程师学习路线图.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "AI工程师学习路线图 的大纲"
             }
           },
           {
@@ -284,7 +287,7 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       },
       {
         "id": "e5bdabb35f60c58d",
@@ -325,7 +328,7 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "f79bb6971c191cd6",
+  "active": "746e3216e1c18840",
   "lastOpenFiles": [
     "AI学习/01-基础概念/AI工程师学习路线图.md",
     "AI学习/03-进阶应用/Claude MCP 使用指南.md",
