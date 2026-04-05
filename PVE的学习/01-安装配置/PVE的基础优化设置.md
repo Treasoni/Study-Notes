@@ -43,6 +43,9 @@ nano /etc/apt/sources.list.d/ceph.list
 
 免费个人用户需要添加官方提供的非订阅源：
 
+> [!warning] PVE 9 重要变化
+> PVE 9 基于 Debian 13 "Trixie"，**必须使用 DEB822 格式**（`.sources` 文件），旧的单行格式（`.list`）会触发 apt 警告。迁移命令：`apt modernize-sources`
+
 **传统格式（PVE 8 / Debian Bookworm）**：
 ```bash
 echo "deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription" > /etc/apt/sources.list.d/pve-no-subscription.list
@@ -53,11 +56,14 @@ echo "deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription" >
 cat > /etc/apt/sources.list.d/pve-no-subscription.sources <<EOF
 Types: deb
 URIs: http://download.proxmox.com/debian/pve
-Suites: bookworm
+Suites: trixie
 Components: pve-no-subscription
 Signed-By: /usr/share/keyrings/proxmox-archive-keyring.gpg
 EOF
 ```
+
+> [!info] 📚 来源
+> - [Package Repositories - Proxmox VE Wiki](https://pve.proxmox.com/wiki/Package_Repositories)
 
 ### 1.2 移除订阅提示
 

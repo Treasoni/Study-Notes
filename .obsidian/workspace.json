@@ -10,7 +10,7 @@
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 74.45652173913044,
+            "dimension": 40.26115342763873,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -59,7 +59,7 @@
           {
             "id": "4f13d566900ce7f4",
             "type": "tabs",
-            "dimension": 25.543478260869566,
+            "dimension": 59.73884657236126,
             "children": [
               {
                 "id": "36e8d5efd7d79897",
@@ -100,7 +100,7 @@
                   },
                   "pinned": true,
                   "icon": "terminal",
-                  "title": "终端：✳ Claude Code"
+                  "title": "终端：⠐ 继续操作"
                 }
               }
             ]
@@ -312,7 +312,7 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "746e3216e1c18840",
+  "active": "36e8d5efd7d79897",
   "lastOpenFiles": [
     "CLAUDE.md",
     "AI学习/01-基础概念/AI工程范式演进-Prompt到Harness.md",

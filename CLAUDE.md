@@ -145,6 +145,7 @@ read → research latest → merge → editor → validate
 **触发条件**：当用户指定多个文件或整个文件夹时
 
 **⚠️ 关键区别：**
+
 | 模式 | 行为 | 风险等级 |
 |------|------|---------|
 | `/organize` | 不改内容，只改结构和链接 | 低 |
@@ -163,6 +164,7 @@ scan → split batches → for each file: (read → research → merge → edit)
 #### Large Update Handling（大规模更新规则）
 
 **Subagent 职责边界：**
+
 | 步骤 | 执行者 | 说明 |
 |------|--------|------|
 | `read` | 主 Agent | 读取文件，识别保护区域 |
