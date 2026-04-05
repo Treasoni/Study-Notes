@@ -10,7 +10,7 @@
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 76.6050054406964,
+            "dimension": 36.01741022850925,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -32,7 +32,7 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "docker/sortspec.md",
+                    "file": "AI学习/00-索引/sortspec.md",
                     "mode": "preview",
                     "source": true
                   },
@@ -74,7 +74,7 @@
           {
             "id": "ea7f27cb393fd96a",
             "type": "tabs",
-            "dimension": 23.39499455930359,
+            "dimension": 63.98258977149075,
             "children": [
               {
                 "id": "f99d72f9383898e8",
@@ -342,13 +342,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker/sortspec.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "sortspec 的大纲"
+              "title": "大纲"
             }
           },
           {
@@ -414,7 +413,7 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "1fba13ed6f715185",
+  "active": "bc0d4bf107c0cf02",
   "lastOpenFiles": [
     "docker/sortspec.md",
     "docker/Docker MOC.md",
