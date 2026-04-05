@@ -3,18 +3,18 @@
   "title": "Update Obsidian plugins documentation from GitH...",
   "titleGenerationStatus": "success",
   "createdAt": 1775369668371,
-  "updatedAt": 1775369892280,
-  "lastResponseAt": 1775369892280,
+  "updatedAt": 1775370147824,
+  "lastResponseAt": 1775370147823,
   "sessionId": "7fc8e7a7-85e2-447c-899f-ef8f0bf80e58",
   "sdkSessionId": "7fc8e7a7-85e2-447c-899f-ef8f0bf80e58",
   "currentNote": "AI学习/02-工具使用/Claude Code 插件系统使用指南.md",
   "usage": {
     "model": "glm-5",
-    "inputTokens": 8219,
+    "inputTokens": 0,
     "cacheCreationInputTokens": 0,
-    "cacheReadInputTokens": 54336,
+    "cacheReadInputTokens": 0,
     "contextWindow": 200000,
-    "contextTokens": 62555,
-    "percentage": 31
+    "contextTokens": 0,
+    "percentage": 0
   }
 }
