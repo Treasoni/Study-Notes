@@ -1334,6 +1334,87 @@ A: 可以：
 
 ---
 
+## 环境变量完整列表
+
+| 变量 | 可用性 | 描述 |
+|------|--------|------|
+| `CLAUDE_PROJECT_DIR` | 所有 Hook | 项目根目录的绝对路径 |
+| `CLAUDE_ENV_FILE` | SessionStart, CwdChanged, FileChanged | 持久化环境变量的文件路径 |
+| `CLAUDE_CODE_REMOTE` | 所有 Hook | 在远程环境运行时为 `"true"` |
+| `${CLAUDE_PLUGIN_ROOT}` | 插件 Hook | 插件目录路径 |
+| `${CLAUDE_PLUGIN_DATA}` | 插件 Hook | 插件数据目录路径 |
+| `CLAUDE_CODE_SESSIONEND_HOOKS_TIMEOUT_MS` | SessionEnd Hook | SessionEnd Hook 的超时时间（毫秒）|
+
+### 使用示例
+
+**持久化环境变量**（SessionStart/CwdChanged/FileChanged）：
+
+```bash
+#!/bin/bash
+if [ -n "$CLAUDE_ENV_FILE" ]; then
+  echo 'export NODE_ENV=development' >> "$CLAUDE_ENV_FILE"
+  echo 'export MY_CUSTOM_VAR="value"' >> "$CLAUDE_ENV_FILE"
+fi
+exit 0
+```
+
+**插件 Hook 中使用插件路径**：
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/validate.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+## 安全注意事项
+
+> [!warning] 免责声明
+> **使用风险自负**：Hooks 执行任意 Shell 命令。您需要自行负责：
+> - 配置的命令
+> - 文件访问/修改权限
+> - 潜在的数据丢失或系统损坏
+> - 在生产环境使用前在安全环境中测试
+
+### 最佳实践对照表
+
+| ✅ 应该做 | ❌ 不应该做 |
+|-----------|-------------|
+| 验证和清理所有输入 | 盲目信任输入数据 |
+| 引用 Shell 变量：`"$VAR"` | 使用未引用：`$VAR` |
+| 阻止路径遍历（`..`） | 允许任意路径 |
+| 使用 `$CLAUDE_PROJECT_DIR` 绝对路径 | 硬编码路径 |
+| 跳过敏感文件（`.env`, `.git/`, 密钥）| 处理所有文件 |
+| 先在隔离环境测试 Hook | 部署未测试的 Hook |
+| HTTP Hook 使用显式 `allowedEnvVars` | 暴露所有环境变量给 Webhook |
+
+### 工作区信任
+
+- `statusLine` 和 `fileSuggestion` Hook 输出命令现在需要**工作区信任接受**后才会生效
+
+### HTTP Hook 安全
+
+- HTTP Hook 需要显式的 `allowedEnvVars` 列表才能在 URL 中使用环境变量插值
+- 这可以防止敏感环境变量意外泄露到远程端点
+
+### 托管设置层级
+
+- `disableAllHooks` 设置现在遵循托管设置层级
+- 这意味着组织级设置可以**强制禁用 Hook**，个人用户无法覆盖
+
+---
+
 ## 个人笔记
 
 > [!personal] 💡 我的理解与感悟
@@ -1355,3 +1436,4 @@ A: 可以：
 - [How to configure hooks - Claude Blog](https://claude.com/blog/how-to-configure-hooks) - 官方配置详解
 - [Claude Code settings.json: Complete config guide (2026)](https://www.eesel.ai/blog/settings-json-claude-code) - 配置层级详解
 - [anthropics/claude-code GitHub](https://github.com/anthropics/claude-code) - 官方仓库与示例
+- [claude-howto/06-hooks - GitHub](https://github.com/luongnv89/claude-howto/tree/main/06-hooks) - 社区维护的视觉化示例指南
