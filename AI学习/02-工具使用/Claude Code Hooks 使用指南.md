@@ -994,6 +994,171 @@ hooks:
 }
 ```
 
+### 上下文使用追踪器（Hook 配对）
+
+> [!tip] 高级示例
+> 使用 `UserPromptSubmit`（消息前）和 `Stop`（响应后）Hook 配对追踪 Token 消耗。
+
+**Python 脚本** (`.claude/hooks/context-tracker.py`)：
+
+```python
+#!/usr/bin/env python3
+"""
+上下文使用追踪器 - 追踪每次请求的 Token 消耗
+
+使用 UserPromptSubmit 作为"消息前" Hook，Stop 作为"响应后" Hook
+来计算每次请求的 Token 使用增量。
+
+Token 计数方法：
+1. 字符估算（默认）：约 4 字符 = 1 token，无依赖
+2. tiktoken（可选）：更准确（~90-95%），需要 pip install tiktoken
+"""
+import json
+import os
+import sys
+import tempfile
+
+# 配置
+CONTEXT_LIMIT = 128000  # Claude 上下文窗口（根据模型调整）
+USE_TIKTOKEN = False    # 设置 True 以获得更好准确性
+
+def get_state_file(session_id: str) -> str:
+    """获取存储消息前 Token 计数的临时文件路径"""
+    return os.path.join(tempfile.gettempdir(), f"claude-context-{session_id}.json")
+
+def count_tokens(text: str) -> int:
+    """计算文本中的 Token 数量"""
+    if USE_TIKTOKEN:
+        try:
+            import tiktoken
+            enc = tiktoken.get_encoding("p50k_base")
+            return len(enc.encode(text))
+        except ImportError:
+            pass  # 回退到估算
+
+    # 基于字符的估算：英文约 4 字符 = 1 token
+    return len(text) // 4
+
+def read_transcript(transcript_path: str) -> str:
+    """读取并合并 transcript 文件中的所有内容"""
+    if not transcript_path or not os.path.exists(transcript_path):
+        return ""
+
+    content = []
+    with open(transcript_path, "r") as f:
+        for line in f:
+            try:
+                entry = json.loads(line.strip())
+                if "message" in entry:
+                    msg = entry["message"]
+                    if isinstance(msg.get("content"), str):
+                        content.append(msg["content"])
+                    elif isinstance(msg.get("content"), list):
+                        for block in msg["content"]:
+                            if isinstance(block, dict) and block.get("type") == "text":
+                                content.append(block.get("text", ""))
+            except json.JSONDecodeError:
+                continue
+
+    return "\n".join(content)
+
+def handle_user_prompt_submit(data: dict) -> None:
+    """消息前 Hook：保存当前 Token 计数"""
+    session_id = data.get("session_id", "unknown")
+    transcript_path = data.get("transcript_path", "")
+
+    transcript_content = read_transcript(transcript_path)
+    current_tokens = count_tokens(transcript_content)
+
+    # 保存到临时文件供后续比较
+    state_file = get_state_file(session_id)
+    with open(state_file, "w") as f:
+        json.dump({"pre_tokens": current_tokens}, f)
+
+def handle_stop(data: dict) -> None:
+    """响应后 Hook：计算并报告 Token 增量"""
+    session_id = data.get("session_id", "unknown")
+    transcript_path = data.get("transcript_path", "")
+
+    transcript_content = read_transcript(transcript_path)
+    current_tokens = count_tokens(transcript_content)
+
+    # 加载消息前计数
+    state_file = get_state_file(session_id)
+    pre_tokens = 0
+    if os.path.exists(state_file):
+        try:
+            with open(state_file, "r") as f:
+                state = json.load(f)
+                pre_tokens = state.get("pre_tokens", 0)
+        except (json.JSONDecodeError, IOError):
+            pass
+
+    # 计算增量
+    delta_tokens = current_tokens - pre_tokens
+    remaining = CONTEXT_LIMIT - current_tokens
+    percentage = (current_tokens / CONTEXT_LIMIT) * 100
+
+    # 报告使用情况
+    method = "tiktoken" if USE_TIKTOKEN else "estimated"
+    print(f"Context ({method}): ~{current_tokens:,} tokens ({percentage:.1f}% used, ~{remaining:,} remaining)", file=sys.stderr)
+    if delta_tokens > 0:
+        print(f"This request: ~{delta_tokens:,} tokens", file=sys.stderr)
+
+def main():
+    data = json.load(sys.stdin)
+    event = data.get("hook_event_name", "")
+
+    if event == "UserPromptSubmit":
+        handle_user_prompt_submit(data)
+    elif event == "Stop":
+        handle_stop(data)
+
+    sys.exit(0)
+
+if __name__ == "__main__":
+    main()
+```
+
+**配置**：
+
+```json
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/context-tracker.py\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/context-tracker.py\""
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Token 计数方法比较**：
+
+| 方法 | 准确度 | 依赖 | 速度 |
+|------|--------|------|------|
+| 字符估算 | ~80-90% | 无 | <1ms |
+| tiktoken (p50k_base) | ~90-95% | `pip install tiktoken` | <10ms |
+
+> [!note] 注意
+> Anthropic 尚未发布官方离线 tokenizer。两种方法都是近似值。Transcript 包含用户提示、Claude 响应和工具输出，但不包括系统提示或内部上下文。
+
 ## 调试与排错
 
 ### /hooks 命令
