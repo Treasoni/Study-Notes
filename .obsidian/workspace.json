@@ -32,12 +32,12 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "软路由教程/软路由教程MOC.md",
-                    "mode": "preview",
-                    "source": true
+                    "file": "AI学习/02-工具使用/Claude Code 模型与推理设置.md",
+                    "mode": "source",
+                    "source": false
                   },
                   "icon": "lucide-file",
-                  "title": "软路由教程MOC"
+                  "title": "Claude Code 模型与推理设置"
                 }
               },
               {
@@ -342,13 +342,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "软路由教程/软路由教程MOC.md",
+                "file": "AI学习/02-工具使用/Claude Code 模型与推理设置.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "软路由教程MOC 的大纲"
+              "title": "Claude Code 模型与推理设置 的大纲"
             }
           },
           {
@@ -372,7 +372,7 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       },
       {
         "id": "e5bdabb35f60c58d",
@@ -393,7 +393,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 405.5
+    "width": 292.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -414,8 +414,22 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "1fba13ed6f715185",
   "lastOpenFiles": [
+    "AI学习/02-工具使用/如何使用Claude code.md",
+    "AI学习/02-工具使用/Claude Code 会话管理.md",
+    "AI学习/02-工具使用/Claude Code CLI 完整参考.md",
+    "AI学习/02-工具使用/Claude Code 模型与推理设置.md",
+    "AI学习/01-基础概念/AI学习路径与技能图谱.md",
+    "AI学习/00-索引/MOC.md",
+    "MySQL核心概念.md",
+    "N8N定时抓取热点资讯指南.md",
+    "GitHub项目/OpenCLI 使用指南.md",
+    "CLAUDE.md",
+    "软路由教程/旁路由原理详解.md",
+    "软路由教程/iStoreOS爬梯配置指南.md",
+    "软路由教程/主流软路由系统对比与选择指南.md",
+    "软路由教程/软路由教程MOC.md",
     "软路由教程/sortspec.md",
     "obsidian的使用/Obsidian-Custom-Sort-自定义排序插件.md",
     "README.md",
@@ -430,22 +444,8 @@
     "docker/sortspec.md",
     "docker/Docker MOC.md",
     "AI学习/00-索引/sortspec.md",
-    "AI学习/00-索引/MOC.md",
-    "CLAUDE.md",
     "Git/sortspec.md",
     "AI学习/02-工具使用/sortspec.md",
-    "AI学习/05-其他主题/AI模型对比/sortspec.md",
-    "AI学习/05-其他主题/sortspec.md",
-    "AI学习/04-高级应用/sortspec.md",
-    "AI学习/03-进阶应用/sortspec.md",
-    "AI学习/02-工具使用/Tailscale使用指南.md",
-    "AI学习/05-其他主题/openclaw/参考层/sortspec.md",
-    "AI学习/05-其他主题/openclaw/选型层/sortspec.md",
-    "AI学习/05-其他主题/openclaw/应用层/sortspec.md",
-    "AI学习/05-其他主题/openclaw/配置层/sortspec.md",
-    "AI学习/05-其他主题/openclaw/入门层/sortspec.md",
-    "AI学习/05-其他主题/openclaw/sortspec.md",
-    "AI学习/01-基础概念/sortspec.md",
     "Git/sortspec",
     "AI学习/02-工具使用/Obsidian-Sort-知识卡片.json",
     "GitHub项目",
