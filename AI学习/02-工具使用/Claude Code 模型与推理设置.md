@@ -1,7 +1,7 @@
 ---
 tags: [claude, ai, 工具使用, 模型配置]
 created: 2026-03-08
-updated: 2026-03-08
+updated: 2026-04-07
 ---
 
 # Claude Code 模型与推理设置
@@ -215,9 +215,77 @@ export CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING=1
 
 ### 第三方平台配置
 
-通过 `providers` 字段配置第三方 AI 平台：
+Claude Code 支持多种第三方平台配置方式，分为**官方支持的云平台**和**自定义 API 端点**两类。
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                 第三方平台配置架构                            │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  官方云平台                    自定义 API                    │
+│  ───────────                  ──────────                    │
+│  • Amazon Bedrock            • OpenRouter                   │
+│  • Google Vertex AI          • 国内大模型（阿里、智谱等）     │
+│  • Azure AI Foundry          • 本地模型（Ollama）            │
+│                              • LLM Gateway                  │
+│                                                             │
+│  配置方式：                   配置方式：                      │
+│  modelOverrides              ANTHROPIC_BASE_URL             │
+│  环境变量                     providers 字段                 │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### 官方云平台配置
+
+支持通过环境变量或 `modelOverrides` 将模型路由到云平台：
+
+**方式一：环境变量固定模型版本**
+
+```bash
+# Amazon Bedrock - 使用推理配置文件 ARN
+export ANTHROPIC_DEFAULT_OPUS_MODEL='us.anthropic.claude-opus-4-6-v1'
+export ANTHROPIC_DEFAULT_SONNET_MODEL='us.anthropic.claude-sonnet-4-6-v1'
+
+# Google Vertex AI - 使用版本名称
+export ANTHROPIC_DEFAULT_OPUS_MODEL='claude-opus-4-6'
+
+# Azure AI Foundry - 使用部署名称
+export ANTHROPIC_DEFAULT_OPUS_MODEL='claude-opus-4-6'
+
+# 启用 1M 上下文
+export ANTHROPIC_DEFAULT_OPUS_MODEL='claude-opus-4-6[1m]'
+```
+
+**方式二：modelOverrides 配置**
+
+在 `~/.claude/settings.json` 中配置模型覆盖：
+
+```json
+{
+  "modelOverrides": {
+    "claude-opus-4-6": "arn:aws:bedrock:us-east-2:123456789012:application-inference-profile/opus-prod",
+    "claude-sonnet-4-6": "arn:aws:bedrock:us-east-2:123456789012:application-inference-profile/sonnet-prod",
+    "claude-haiku-4-5": "arn:aws:bedrock:us-east-2:123456789012:application-inference-profile/haiku-prod"
+  }
+}
+```
+
+**方式三：AWS 高级凭据配置**
+
+```json
+{
+  "awsAuthRefresh": "aws sso login --profile myprofile",
+  "awsCredentialExport": "/bin/generate_aws_grant.sh"
+}
+```
+
+#### 自定义 API 端点配置
+
+通过 `providers` 字段配置第三方兼容 API：
 
 **配置示例** (`~/.claude/settings.json`)：
+
 ```json
 {
   "providers": {
@@ -245,6 +313,11 @@ export CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING=1
       "baseUrl": "http://localhost:11434/v1",
       "apiKey": "ollama",
       "defaultModel": "llama3.2"
+    },
+    "openrouter": {
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "apiKey": "sk-or-xxx",
+      "defaultModel": "anthropic/claude-sonnet-4"
     }
   },
   "defaultProvider": "deepseek"
@@ -258,10 +331,85 @@ claude --model deepseek-chat
 
 # 会话中切换
 /model deepseek-chat
+
+# 设置默认 provider 后，直接使用别名
+/model sonnet
 ```
+
+#### LLM Gateway / 自定义模型选项
+
+适用于企业内部 LLM 网关部署：
+
+```bash
+# 配置自定义模型选项
+export ANTHROPIC_CUSTOM_MODEL_OPTION="my-gateway/claude-opus-4-6"
+export ANTHROPIC_CUSTOM_MODEL_OPTION_NAME="Opus via Gateway"
+export ANTHROPIC_CUSTOM_MODEL_OPTION_DESCRIPTION="Custom deployment routed through the internal LLM gateway"
+```
+
+#### 自定义 API 端点（ANTHROPIC_BASE_URL）
+
+直接指定 API 端点，适用于代理或自定义服务：
+
+```bash
+# 环境变量方式
+export ANTHROPIC_BASE_URL="https://your-custom-endpoint.com"
+export ANTHROPIC_API_KEY="your-api-key"
+
+# 或在 settings.json 中配置
+```
+
+```json
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://your-custom-endpoint.com",
+    "ANTHROPIC_API_KEY": "your-api-key"
+  }
+}
+```
+
+#### 模型能力声明
+
+当使用自定义模型或云平台端点时，需要声明模型支持的能力：
+
+```bash
+export ANTHROPIC_DEFAULT_OPUS_MODEL='arn:aws:bedrock:us-east-1:123456789012:custom-model/abc'
+export ANTHROPIC_DEFAULT_OPUS_MODEL_NAME='Opus via Bedrock'
+export ANTHROPIC_DEFAULT_OPUS_MODEL_DESCRIPTION='Opus 4.6 routed through a Bedrock custom endpoint'
+export ANTHROPIC_DEFAULT_OPUS_MODEL_SUPPORTED_CAPABILITIES='effort,max_effort,thinking,adaptive_thinking,interleaved_thinking'
+```
+
+**支持的能力声明**：
+
+| 能力 | 说明 |
+|------|------|
+| `effort` | 启用努力级别和 `/effort` 命令 |
+| `max_effort` | 启用 `max` 努力级别 |
+| `thinking` | 启用扩展思考 |
+| `adaptive_thinking` | 启用自适应推理 |
+| `interleaved_thinking` | 启用工具调用之间的思考 |
+
+#### 自定义模型显示名称
+
+为自定义端点配置友好的显示名称：
+
+```bash
+export ANTHROPIC_DEFAULT_OPUS_MODEL_NAME='Opus via Bedrock'
+export ANTHROPIC_DEFAULT_OPUS_MODEL_DESCRIPTION='Opus 4.6 routed through a Bedrock custom endpoint'
+```
+
+> [!info] 📚 来源
+> - [Model configuration - Claude Code Docs](https://code.claude.com/docs/en/model-config) - 官方模型配置文档
+> - [Claude Code settings - Claude Code Docs](https://code.claude.com/docs/en/settings) - 官方设置文档
+> - [Cloud Providers - GitHub](https://github.com/anthropics/claude-code-action/blob/main/docs/cloud-providers.md) - 云平台集成指南
 
 > [!warning] 重要说明
 > 根据 [claude-task-master 文档](https://github.com/eyaltoledano/claude-task-master/blob/main/docs/examples/claude-code-usage.md)，**部分 AI SDK 参数（如 temperature、maxTokens）在 Claude Code CLI 中不被支持或会被忽略**。
+
+> [!tip] 配置验证
+> - 运行 `/status` 命令查看当前活动的配置来源
+> - 使用 `/model` 命令测试模型切换
+> - 检查环境变量：`echo $ANTHROPIC_DEFAULT_OPUS_MODEL`
 
 ### 扩展上下文（1M Tokens）
 

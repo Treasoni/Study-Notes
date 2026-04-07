@@ -372,7 +372,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       },
       {
         "id": "e5bdabb35f60c58d",
@@ -414,7 +414,7 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "1fba13ed6f715185",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
     "AI学习/02-工具使用/如何使用Claude code.md",
     "AI学习/02-工具使用/Claude Code 会话管理.md",
