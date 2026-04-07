@@ -393,7 +393,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 292.5
+    "width": 316.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -416,6 +416,7 @@
   },
   "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "AI学习/02-工具使用/Obsidian-Web-Clipper使用教程.md",
     "AI学习/02-工具使用/如何使用Claude code.md",
     "AI学习/02-工具使用/Claude Code 会话管理.md",
     "AI学习/02-工具使用/Claude Code CLI 完整参考.md",
@@ -445,7 +446,6 @@
     "docker/Docker MOC.md",
     "AI学习/00-索引/sortspec.md",
     "Git/sortspec.md",
-    "AI学习/02-工具使用/sortspec.md",
     "Git/sortspec",
     "AI学习/02-工具使用/Obsidian-Sort-知识卡片.json",
     "GitHub项目",
