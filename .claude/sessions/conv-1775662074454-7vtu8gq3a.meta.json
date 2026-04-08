@@ -1,0 +1,20 @@
+{
+  "id": "conv-1775662074454-7vtu8gq3a",
+  "title": "Enable Obsidian URI Support",
+  "titleGenerationStatus": "success",
+  "createdAt": 1775662074456,
+  "updatedAt": 1775662204046,
+  "lastResponseAt": 1775662204046,
+  "sessionId": "11871397-b424-41db-882f-fa6bf59d401c",
+  "sdkSessionId": "11871397-b424-41db-882f-fa6bf59d401c",
+  "currentNote": "obsidian的使用/Obsidian-Web-Clipper使用教程.md",
+  "usage": {
+    "model": "glm-5",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}
