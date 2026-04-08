@@ -39,18 +39,18 @@ tags: [Obsidian, 工具使用, 网页剪藏, 浏览器扩展]
 > - 保管库名称**大小写敏感**，必须与 Obsidian 中显示的名称完全一致
 > - 默认情况下，剪藏的笔记会保存到当前打开的保管库；只有在需要保存到其他保管库时才需要手动添加
 
-### 开启 Obsidian URI 支持
+### Obsidian URI 通信说明
 
-Clipper 通过 `obsidian://` 协议与 vault 通信，需要在 Obsidian 中开启：
+Clipper 通过 `obsidian://` 协议与 vault 通信。该协议是 Obsidian 的**内置功能**，默认可用，无需手动开启。
 
-1. 打开 Obsidian 设置
-2. 进入 **核心插件** (Core Plugins)
-3. 找到 **URI 支持** (URI Support) 并启用
-4. 移动端同样支持此功能
+> [!tip] 无需额外配置
+> - `obsidian://` URI 协议是 Obsidian 内置功能，**不是**核心插件，不存在"开启/关闭"开关
+> - 桌面端和移动端均默认支持
+> - 只需确保 Obsidian 处于运行状态即可
 
 > [!info] 📚 来源
-> - [Obsidian Help - Web Clipper](https://obsidian.md/help/web-clipper) - 官方帮助文档
-> - [GitHub - obsidian-clipper](https://github.com/obsidianmd/obsidian-clipper) - 官方仓库
+> - [Obsidian URI - Obsidian Help](https://obsidian.md/help/uri) - URI 协议官方文档
+> - [Obsidian Help - Web Clipper](https://obsidian.md/help/web-clipper) - Web Clipper 官方帮助文档
 
 ## 核心功能概览
 
@@ -527,9 +527,9 @@ tags: [文章]
 **解决方案：**
 
 1. 检查 Obsidian 是否正在运行
-2. 确认 URI 支持已开启（设置 → 核心插件 → URI 支持）
-3. 检查 vault 名称或路径是否正确
-4. 尝试重启 Obsidian 和浏览器
+2. 检查保管库名称是否正确（在 Web Clipper 设置 → 常规 → 保管库中确认）
+3. 尝试重启 Obsidian 和浏览器
+4. 如使用移动端，确保 Obsidian App 处于前台运行状态
 
 ### 内容提取不完整
 
