@@ -50,7 +50,7 @@ Clipper 通过 `obsidian://` 协议与 vault 通信，需要在 Obsidian 中开�
 
 ## 核心功能概览
 
-Web Clipper 提供四���核心功能：
+Web Clipper 提供四大核心功能：
 
 ```mermaid
 flowchart TB
@@ -265,7 +265,7 @@ Prompt 结果可用过滤器后处理：`{{"a summary of the page"|blockquote}}`
 
 #### 5. Schema.org 变量
 
-提取页面中 schema.org JSON-LD 结构化数据���
+提取页面中 schema.org JSON-LD 结构化数据：
 
 | 语法 | 说明 |
 |:----:|:------|
@@ -546,7 +546,7 @@ tags: [文章]
 1. 使用较小的模型（如 Claude Haiku、Gemini Flash）
 2. 在模板中设置 Context 字段，限制发送给 LLM 的内容范围：
 
-```
+```twig
 {{selectorHtml:#main}}
 ```
 
