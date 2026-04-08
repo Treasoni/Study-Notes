@@ -3,18 +3,18 @@
   "title": "Learn Obsidian Clipper Usage Guide",
   "titleGenerationStatus": "success",
   "createdAt": 1775574520738,
-  "updatedAt": 1775660530703,
-  "lastResponseAt": 1775660530703,
+  "updatedAt": 1775660804762,
+  "lastResponseAt": 1775660804762,
   "sessionId": "f8524b11-7587-4ea2-b89b-b905247f6709",
   "sdkSessionId": "f8524b11-7587-4ea2-b89b-b905247f6709",
   "usage": {
     "model": "glm-5",
-    "inputTokens": 119,
+    "inputTokens": 0,
     "cacheCreationInputTokens": 0,
-    "cacheReadInputTokens": 38656,
+    "cacheReadInputTokens": 0,
     "contextWindow": 200000,
-    "contextTokens": 38775,
-    "percentage": 19
+    "contextTokens": 0,
+    "percentage": 0
   },
   "subagentData": {
     "call_b4f7d882a62347859225b70a": {
