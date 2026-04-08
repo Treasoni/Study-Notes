@@ -43,6 +43,7 @@
     },
     "软路由教程": {
       "children": [
+        "软路由教程/sortspec.md",
         "软路由教程/旁路由原理详解.md",
         "软路由教程/软路由教程MOC.md",
         "软路由教程/主流软路由系统对比与选择指南.md",
@@ -64,6 +65,7 @@
     },
     "AI学习/00-索引": {
       "children": [
+        "AI学习/00-索引/sortspec.md",
         "AI学习/00-索引/00-学习路线图.md",
         "AI学习/00-索引/MOC.md",
         "AI学习/00-索引/README.md"
@@ -72,6 +74,7 @@
     },
     "AI学习/01-基础概念": {
       "children": [
+        "AI学习/01-基础概念/sortspec.md",
         "AI学习/01-基础概念/2026-AI职业角色与路线图.md",
         "AI学习/01-基础概念/AI学习路径与技能图谱.md",
         "AI学习/01-基础概念/AI工程师学习路线图.md",
@@ -90,6 +93,7 @@
     },
     "AI学习/02-工具使用": {
       "children": [
+        "AI学习/02-工具使用/sortspec.md",
         "AI学习/02-工具使用/Claude-Code-多Agent流程设计.md",
         "AI学习/02-工具使用/Claude Code Checkpoints 使用指南.md",
         "AI学习/02-工具使用/Claude Code CLI 完整参考.md",
@@ -122,6 +126,7 @@
     },
     "AI学习/03-进阶应用": {
       "children": [
+        "AI学习/03-进阶应用/sortspec.md",
         "AI学习/03-进阶应用/Claude Code 高级功能.md",
         "AI学习/03-进阶应用/如何编写Skills.md",
         "AI学习/03-进阶应用/Claude MCP 使用指南.md",
@@ -131,12 +136,14 @@
     },
     "AI学习/04-高级应用": {
       "children": [
+        "AI学习/04-高级应用/sortspec.md",
         "AI学习/04-高级应用/Subagent 实战练习.md"
       ],
       "sortOrder": "custom"
     },
     "AI学习/05-其他主题": {
       "children": [
+        "AI学习/05-其他主题/sortspec.md",
         "AI学习/05-其他主题/knowledge-cards.json",
         "AI学习/05-其他主题/AI模型对比",
         "AI学习/05-其他主题/openclaw",
@@ -147,12 +154,14 @@
     },
     "AI学习/05-其他主题/AI模型对比": {
       "children": [
+        "AI学习/05-其他主题/AI模型对比/sortspec.md",
         "AI学习/05-其他主题/AI模型对比/GLM系列模型完整对比.md"
       ],
       "sortOrder": "custom"
     },
     "AI学习/05-其他主题/openclaw": {
       "children": [
+        "AI学习/05-其他主题/openclaw/sortspec.md",
         "AI学习/05-其他主题/openclaw/参考层",
         "AI学习/05-其他主题/openclaw/配置层",
         "AI学习/05-其他主题/openclaw/入门层",
@@ -164,12 +173,14 @@
     },
     "AI学习/05-其他主题/openclaw/参考层": {
       "children": [
+        "AI学习/05-其他主题/openclaw/参考层/sortspec.md",
         "AI学习/05-其他主题/openclaw/参考层/OpenClaw常用命令速查.md"
       ],
       "sortOrder": "custom"
     },
     "AI学习/05-其他主题/openclaw/配置层": {
       "children": [
+        "AI学习/05-其他主题/openclaw/配置层/sortspec.md",
         "AI学习/05-其他主题/openclaw/配置层/OpenClaw Web控制台局域网访问配置.md",
         "AI学习/05-其他主题/openclaw/配置层/OpenClaw安装后配置指南.md",
         "AI学习/05-其他主题/openclaw/配置层/OpenClaw网关开机自启与HTTPS配置.md"
@@ -178,6 +189,7 @@
     },
     "AI学习/05-其他主题/openclaw/入门层": {
       "children": [
+        "AI学习/05-其他主题/openclaw/入门层/sortspec.md",
         "AI学习/05-其他主题/openclaw/入门层/OpenClaw安装教程.md",
         "AI学习/05-其他主题/openclaw/入门层/OpenClaw核心概念.md"
       ],
@@ -185,12 +197,14 @@
     },
     "AI学习/05-其他主题/openclaw/选型层": {
       "children": [
+        "AI学习/05-其他主题/openclaw/选型层/sortspec.md",
         "AI学习/05-其他主题/openclaw/选型层/OpenClaw与国内仿制品对比.md"
       ],
       "sortOrder": "custom"
     },
     "AI学习/05-其他主题/openclaw/应用层": {
       "children": [
+        "AI学习/05-其他主题/openclaw/应用层/sortspec.md",
         "AI学习/05-其他主题/openclaw/应用层/OpenClaw本地智能助手搭建指南.md",
         "AI学习/05-其他主题/openclaw/应用层/OpenClaw对接第三方软件指南.md",
         "AI学习/05-其他主题/openclaw/应用层/OpenClaw多智能体协作指南.md",
@@ -283,6 +297,8 @@
     },
     "docker": {
       "children": [
+        "docker/Docker MOC.md",
+        "docker/sortspec.md",
         "docker/镜像加速器vs代理-概念对比.md",
         "docker/Docker网络结构详解.md",
         "docker/Windows-DockerDesktop安装指南-国内网络版.md",
@@ -311,6 +327,7 @@
     },
     "Git": {
       "children": [
+        "Git/sortspec",
         "Git/sortspec.md",
         "Git/Git 高级技巧.md",
         "Git/Git 命令速查.md",
@@ -347,6 +364,8 @@
     },
     "linux": {
       "children": [
+        "linux/linux MOC.md",
+        "linux/sortspec.md",
         "linux/Ubuntu curl SSL连接问题排查.md",
         "linux/WSL-Windows子系统forLinux.md",
         "linux/Ubuntu Server SSH 配置指南.md",
@@ -384,6 +403,8 @@
     },
     "obsidian的使用": {
       "children": [
+        "obsidian的使用/Obsidian-Web-Clipper使用教程.md",
+        "obsidian的使用/sortspec.md",
         "obsidian的使用/Obsidian-Custom-Sort-自定义排序插件.md",
         "obsidian的使用/assets",
         "obsidian的使用/如何使用obsidian做笔记.md",
@@ -542,31 +563,20 @@
     },
     "qBittorent": {
       "children": [
-        "qBittorent/qBittorent PT站点与分享率.md",
+        "qBittorent/qBittorrent PT站点与分享率.md",
+        "qBittorent/qBittorrent的Tracker.md",
+        "qBittorent/qBittorrent配置代理.md",
+        "qBittorent/sortspec.md",
         "qBittorent/assets",
-        "qBittorent/qBittorrent的使用.md",
-        "qBittorent/qBittorent配置代理.md",
-        "qBittorent/qBittorent的Tracker.md"
+        "qBittorent/qBittorrent的使用.md"
       ],
       "sortOrder": "custom"
     },
     "qBittorent/assets": {
       "children": [
-        "qBittorent/assets/qBittorent配置代理",
-        "qBittorent/assets/qBittorent的Tracker",
+        "qBittorent/assets/qBittorrent的Tracker",
+        "qBittorent/assets/qBittorrent配置代理",
         "qBittorent/assets/qBittorrent的使用"
-      ],
-      "sortOrder": "custom"
-    },
-    "qBittorent/assets/qBittorent的Tracker": {
-      "children": [
-        "qBittorent/assets/qBittorent的Tracker/截屏2026-02-05 21.08.11.png"
-      ],
-      "sortOrder": "custom"
-    },
-    "qBittorent/assets/qBittorent配置代理": {
-      "children": [
-        "qBittorent/assets/qBittorent配置代理/截屏2026-02-05 21.17.18.png"
       ],
       "sortOrder": "custom"
     },
@@ -575,6 +585,18 @@
         "qBittorent/assets/qBittorrent的使用/file-20260202224515441.png",
         "qBittorent/assets/qBittorrent的使用/file-20260202224515441 1.png",
         "qBittorent/assets/qBittorrent的使用/file-20260202224515442.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "qBittorent/assets/qBittorrent的Tracker": {
+      "children": [
+        "qBittorent/assets/qBittorrent的Tracker/截屏2026-02-05 21.08.11.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "qBittorent/assets/qBittorrent配置代理": {
+      "children": [
+        "qBittorent/assets/qBittorrent配置代理/截屏2026-02-05 21.17.18.png"
       ],
       "sortOrder": "custom"
     }
