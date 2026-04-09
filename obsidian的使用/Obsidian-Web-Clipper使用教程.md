@@ -182,7 +182,7 @@ OLLAMA_ORIGINS=moz-extension://*,chrome-extension://*,safari-web-extension://* o
 > - [Interpret Web Pages - Obsidian Help](https://obsidian.md/help/web-clipper/interpreter) - Interpreter 文档
 
 ## 模板系统详解
-
+ 
 ### 什么是模板
 
 模板是预设的格式规则，控制剪藏后的 Markdown 结构。通过模板，你可以自定义保存内容的格式，让剪藏的笔记符合你的知识库规范。
