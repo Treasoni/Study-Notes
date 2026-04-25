@@ -207,7 +207,7 @@ Obsidian 笔记软件相关文档。
 
 - [[obsidian的使用/Obsidian Smart Connections 使用指南]]
 
-### 语义���索
+### 语义搜索
 
 语义搜索和 AI 嵌入相关文档。
 
