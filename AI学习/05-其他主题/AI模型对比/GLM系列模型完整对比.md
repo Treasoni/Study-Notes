@@ -1,7 +1,7 @@
 ---
 tags: [glm, ai模型, 模型对比, 智谱AI]
 created: 2026-03-12
-updated: 2026-03-12
+updated: 2026-04-25
 ---
 
 # GLM系列模型完整对比
@@ -15,14 +15,23 @@ updated: 2026-03-12
 
 ### GLM系列发展历程
 
+> [!info] 📚 来源
+> - [BigModel 开放平台 - 模型广场](https://open.bigmodel.cn/modelcenter) - 官方模型版本一览
+> - [Z.ai 官方站点](https://z.ai/) - 产品与发布信息
+> - [智谱 AI 官方资讯](https://zhipu.ai/news) - 版本发布日志
+
 ```
 GLM-4 (基础版) ─┐
                 ├─→ GLM-4.5 (全能均衡型) ─┐
-GLM-4V (视觉版)─┤                        ├─→ GLM-4.7 (高级开源)
+GLM-4V (视觉版)─┤                        ├─→ GLM-4.6 (迭代版)
                 └─→ GLM-4.5V (视觉专家) ─┤
+                                         ├─→ GLM-4.7 (高级开源)
+                                         ├─→ GLM-4.5-Air (轻量快手)
                                          └─→ GLM-5 (旗舰王者)
-                                         └─→ GLM-4.5-Air (轻量快手)
 ```
+
+> [!warning] 版本说明
+> GLM 系列型号持续迭代，具体可用型号以 [open.bigmodel.cn 模型广场](https://open.bigmodel.cn/modelcenter) 当日可见条目为准。以上演进关系为截至 2026-04 的梳理。
 
 ### 各模型定位
 
@@ -44,9 +53,15 @@ GLM-4V (视觉版)─┤                        ├─→ GLM-4.7 (高级开源)
 |------|----------|----------|------------|----------|------|----------|
 | **GLM-5** | 744B | 40B | 200K+ | 复杂系统、长期规划、DSA | 旗舰 | ⭐⭐⭐⭐⭐ |
 | **GLM-4.7** | 355B | 32B | 128K | 高级开源、Agentic Coding | 开源 | ⭐⭐⭐⭐⭐ |
+| **GLM-4.6** | 待确认 | 待确认 | 128K | GLM-4.5 迭代版 | 通用 | ⭐⭐⭐⭐ |
 | **GLM-4.5** | 355B | 32B | 128K | 推理、编码、智能体 | 通用 | ⭐⭐⭐⭐ |
 | **GLM-4.5V** | 106B | 12B | 65K | 视觉语言多模态 | 多模态 | ⭐⭐⭐⭐ |
 | **GLM-4.5-Air** | 106B | 120B | 128K | 轻量级、快速响应 | 轻量 | ⭐⭐⭐⭐ |
+| **GLM-Z1-AirX** | 待确认 | 待确认 | 待确认 | 轻量增强版 | 轻量 | ⭐⭐⭐⭐ |
+| **GLM-4-FlashX** | 待确认 | 待确认 | 待确认 | 超轻量快速 | 轻量 | ⭐⭐⭐ |
+
+> [!warning] 参数说明
+> 标注"待确认"的模型参数在公开资料中暂未找到官方明确数值，以 [open.bigmodel.cn 模型广场](https://open.bigmodel.cn/modelcenter) 官方页面为准。
 
 ---
 
@@ -315,17 +330,24 @@ GLM-4V (视觉版)─┤                        ├─→ GLM-4.7 (高级开源)
 
 ## 技术特性对比
 
-| 特性 | GLM-5 | GLM-4.7 | GLM-4.5 | GLM-4.5V | GLM-4.5-Air |
-|------|-------|----------|---------|----------|-------------|
-| **上下文窗口** | 200K+ | 128K | 128K | 65K | 128K |
-| **多模态能力** | ✗ | ✗ | ✗ | ✓ | ✗ |
-| **文档生成** | ✓ | ✓ | ✓ | ✓ | ✓ |
-| **本地部署** | ✓ | ✓ | ✓ | ✓ | ✓ |
-| **开源权重** | MIT License | MIT License | MIT License | MIT License | MIT License |
-| **免费额度** | 有限 | 有 | 有 | 有 | 有 |
-| **Claude Code 兼容** | ✓ | ✓ | ✓ | ✓ | ✓ |
-| **OpenClaw 兼容** | ✓ | ✓ | ✓ | ✓ | ✓ |
-| **DSA 支持** | ✓ | ✗ | ✗ | ✗ | ✗ |
+> [!info] 📚 来源
+> - [BigModel 开放平台 - API 文档](https://open.bigmodel.cn/dev/api) - 模型能力与接口说明
+> - [BigModel 模型广场](https://open.bigmodel.cn/modelcenter) - 型号与参数一览
+
+| 特性 | GLM-5 | GLM-4.7 | GLM-4.6 | GLM-4.5 | GLM-4.5V | GLM-4.5-Air | GLM-Z1-AirX | GLM-4-FlashX |
+|------|-------|----------|---------|---------|----------|-------------|-------------|-------------|
+| **上下文窗口** | 200K+ | 128K | 128K | 128K | 65K | 128K | 待确认 | 待确认 |
+| **多模态能力** | ✗ | ✗ | 待确认 | ✗ | ✓ | ✗ | 待确认 | ✗ |
+| **文档生成** | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 待确认 | 待确认 |
+| **本地部署** | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 待确认 | 待确认 |
+| **开源权重** | MIT License | MIT License | 待确认 | MIT License | MIT License | MIT License | 待确认 | 待确认 |
+| **免费额度** | 有限 | 有 | 有 | 有 | 有 | 有 | 有 | 有 |
+| **Claude Code 兼容** | ✓ | ✓ | 待确认 | ✓ | ✓ | ✓ | 待确认 | 待确认 |
+| **OpenClaw 兼容** | ✓ | ✓ | 待确认 | ✓ | ✓ | ✓ | 待确认 | 待确认 |
+| **DSA 支持** | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+
+> [!warning] 参数说明
+> 标注"待确认"的特性以 [open.bigmodel.cn 模型广场](https://open.bigmodel.cn/modelcenter) 官方页面为准。
 
 ---
 
@@ -337,10 +359,14 @@ GLM-4V (视觉版)─┤                        ├─→ GLM-4.7 (高级开源)
 
 ### 定价策略（概览）
 
+> [!warning] 定价时效性说明
+> 价格变动频繁，以下为定性级别描述。具体价格请以 [open.bigmodel.cn/pricing](https://open.bigmodel.cn/pricing) 官方实时页面为准（核验日期：2026-04-25）。
+
 | 模型 | 定位 | 价格级别 | 免费额度 | 性价比 |
 |------|------|----------|----------|--------|
 | GLM-5 | 旗舰 | 高 | 有限 | 企业级 |
 | GLM-4.7 | 高级开源 | 中高 | 有 | ⭐⭐⭐⭐⭐ |
+| GLM-4.6 | 通用迭代 | 中 | 有 | ⭐⭐⭐⭐ |
 | GLM-4.5 | 通用 | 中 | 有 | ⭐⭐⭐⭐ |
 | GLM-4.5V | 多模态 | 中+ | 有 | ⭐⭐⭐⭐ |
 | GLM-4.5-Air | 轻量 | 低 | 丰厚 | ⭐⭐⭐⭐⭐ |
@@ -389,8 +415,13 @@ GLM-4V (视觉版)─┤                        ├─→ GLM-4.7 (高级开源)
 - 特点：国内访问稳定、免费额度
 
 ### API 调用
+
+> [!info] 📚 来源
+> - [BigModel API 文档](https://open.bigmodel.cn/dev/api) - 官方接口说明与鉴权方式
+> - [ZhipuAI GitHub](https://github.com/zhipuai) - 官方 SDK 与示例代码
+
 ```bash
-# 示例：调用 GLM-4.5
+# 示例：调用 GLM-4.5（以官方 API 文档当前版本为准）
 curl https://open.bigmodel.cn/api/paas/v4/chat/completions \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
@@ -403,6 +434,7 @@ curl https://open.bigmodel.cn/api/paas/v4/chat/completions \
 ### 框架兼容性
 - **Claude Code**：完全兼容，通过 settings.json 配置
 - **OpenClaw**：原生支持，可设置为主要模型
+- **LangChain**：通过 [ChatZhipuAI](https://python.langchain.com/docs/integrations/chat/zhipuai/) 集成
 - **其他工具**：OpenAI API 兼容接口
 ```
 
@@ -415,6 +447,7 @@ curl https://open.bigmodel.cn/api/paas/v4/chat/completions \
 |------|----------|----------|------|
 | GLM-4.5-Air | RTX 3060 (12GB) | RTX 4070 | 16GB |
 | GLM-4.5 | RTX 4070 (12GB) | A100 (40GB) | 32GB |
+| GLM-4.6 | A100 (40GB) | A100 (40GB) | 32GB |
 | GLM-4.7 | A100 (40GB) | A100 x2 | 64GB |
 | GLM-5 | A100 x4 (80GB) | H100 x4 | 128GB |
 
@@ -535,6 +568,7 @@ python -m sglang.launch_server \
 - [[01-基础概念/Agent智能体]] - Agent 概念基础
 - [[02-工具使用/Claude Code 模型与推理设置]] - Claude Code 模型配置
 - [[05-其他主题/openclaw/选型层/OpenClaw与国内仿制品对比]] - 模型选型参考
+- [[02-工具使用/如何使用Claude code]] - 模型使用与配置实践
 
 ---
 
@@ -546,12 +580,17 @@ python -m sglang.launch_server \
 > - [GLM-5 官方发布 - Z.ai Blog](https://z.ai/blog/glm-5) - GLM-5 完整介绍与基准测试
 > - [GLM-4.5 官方文档 - Z.ai Blog](https://z.ai/blog/glm-4.5) - GLM-4.5 技术详解
 > - [智谱AI 开放平台 - BigModel.cn](https://open.bigmodel.cn/) - API 文档与定价
-> - [GLM-4.5V 官方文档](https://open.bigmodel.cn/dev/api#glm-4v) - 多模态模型文档
-> - [Hugging Face - THUDM](https://huggingface.co/THUDM) - 模型权重下载
+> - [BigModel 开放平台 - 模型广场](https://open.bigmodel.cn/modelcenter) - 官方型号一览（2026-04 核验）
+> - [BigModel API 文档](https://open.bigmodel.cn/dev/api) - 接口说明
+> - [智谱AI 开放平台定价页](https://open.bigmodel.cn/pricing) - 实时计费信息
+> - [ZhipuAI GitHub 组织](https://github.com/zhipuai) - 官方 SDK 与示例
+> - [THUDM GitHub](https://huggingface.co/THUDM) - 开源模型权重
+> - [智谱AI 官方资讯](https://zhipu.ai/news) - 版本发布与更新日志
 
-### 评测资源
+### 社区与评测资源
 
 > [!info] 📚 来源
 > - [Artificial Analysis - AI Models Comparison](https://artificialanalysis.ai/models) - 性能、价格对比
 > - [SiliconFlow - Best ZAI Models 2025](https://www.siliconflow.com/articles/en/the-best-zai-models-in-2025) - 年度评测
 > - [LLM Stats - AI Leaderboards](https://llm-stats.com/) - 实时排行榜
+> - [LangChain - ChatZhipuAI 集成](https://python.langchain.com/docs/integrations/chat/zhipuai/) - 工程实践参考
