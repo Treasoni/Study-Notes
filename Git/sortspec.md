@@ -1,5 +1,5 @@
 ---
-sorting-spec: |
+sorting-spec: |-
   Git MOC
   Git 入门教程
   Git 命令速查

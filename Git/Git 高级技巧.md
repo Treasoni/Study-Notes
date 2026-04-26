@@ -522,7 +522,7 @@ git clone --recursive https://github.com/user/repo.git
 | 学习 Git 基础 | [[Git 入门教程]] |
 | 快速查找命令 | [[Git 命令速查]] |
 | 团队协作策略 | [[分支管理最佳实践]] |
-| 解决 Git 错误 | [[Git 常见错误解决方案]] |
+| 解决 Git 错误 | ~~Git 常见错误解决方案~~ *(已删除)* |
 | 知识体系索引 | [[Git MOC]] |
 
 ---

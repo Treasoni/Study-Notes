@@ -10,7 +10,7 @@
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 46.13710554951034,
+            "dimension": 54.73340587595212,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -32,12 +32,12 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "AI学习/05-其他主题/AI模型对比/GLM系列模型完整对比.md",
+                    "file": "Git/Git MOC.md",
                     "mode": "source",
                     "source": false
                   },
                   "icon": "lucide-file",
-                  "title": "GLM系列模型完整对比"
+                  "title": "Git MOC"
                 }
               }
             ],
@@ -46,7 +46,7 @@
           {
             "id": "c14f978bcb072095",
             "type": "tabs",
-            "dimension": 53.86289445048966,
+            "dimension": 45.26659412404788,
             "children": [
               {
                 "id": "7fca42c1ae71394e",
@@ -87,7 +87,7 @@
                   },
                   "pinned": true,
                   "icon": "terminal",
-                  "title": "终端：✳ 新话题确认"
+                  "title": "终端：✳ Claude Code"
                 }
               }
             ]
@@ -229,12 +229,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "Git/Git MOC.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "Git MOC 的大纲"
             }
           },
           {
@@ -300,8 +301,15 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "7fca42c1ae71394e",
+  "active": "3a0c8c15cd389166",
   "lastOpenFiles": [
+    "Git/分支管理最佳实践.md",
+    "Git/sortspec.md",
+    "Git/Git 常见错误解决方案.md",
+    "Git/Git 高级技巧.md",
+    "Git/Git 命令速查.md",
+    "Git/Git MOC.md",
+    "CLAUDE.md",
     "AI学习/05-其他主题/AI模型对比/GLM系列模型完整对比.md",
     "AI学习/00-索引/MOC.md",
     "AI学习/05-其他主题/AI模型对比/DeepSeek-V4.md",
@@ -309,12 +317,7 @@
     "AI学习/03-进阶应用/Claude MCP 使用指南.md",
     "AI学习/00-索引/00-学习路线图.md",
     "AI学习/01-基础概念/人工智能重要的六大概念体系.md",
-    "CLAUDE.md",
     "AI学习/01-基础概念/AI-Agents.md",
-    "Git/分支管理最佳实践.md",
-    "Git/Git 常见错误解决方案.md",
-    "Git/Git 高级技巧.md",
-    "Git/Git 命令速查.md",
     "Git/Git 入门教程.md",
     "obsidian的使用/Obsidian-Web-Clipper使用教程.md",
     "obsidian的使用/如何使用obsidian做笔记.md",
@@ -330,8 +333,6 @@
     "obsidian的使用/Obsidian-Custom-Sort-自定义排序插件.md",
     "AI学习/02-工具使用/Claude Code 模型与推理设置.md",
     "AI学习/02-工具使用/Obsidian-Web-Clipper使用教程.md",
-    "AI学习/02-工具使用/如何使用Claude code.md",
-    "AI学习/02-工具使用/Claude Code 会话管理.md",
     "qBittorent/assets/qBittorrent配置代理/截屏2026-02-05 21.17.18.png",
     "qBittorent/assets/qBittorrent配置代理",
     "qBittorent/assets/qBittorrent的Tracker/截屏2026-02-05 21.08.11.png",
