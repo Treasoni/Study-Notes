@@ -10,7 +10,7 @@
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 26.22415669205658,
+            "dimension": 30.794341675734493,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -46,50 +46,8 @@
           {
             "id": "c14f978bcb072095",
             "type": "tabs",
-            "dimension": 73.77584330794342,
+            "dimension": 69.2056583242655,
             "children": [
-              {
-                "id": "306b5508a5a10baf",
-                "type": "leaf",
-                "pinned": true,
-                "state": {
-                  "type": "terminal:terminal",
-                  "state": {
-                    "terminal:terminal": {
-                      "cwd": "/Users/zhqznc/Documents/项目",
-                      "focus": false,
-                      "profile": {
-                        "args": [
-                          "--login"
-                        ],
-                        "executable": "/bin/zsh",
-                        "followTheme": true,
-                        "name": "",
-                        "platforms": {
-                          "darwin": true
-                        },
-                        "pythonExecutable": "python3",
-                        "restoreHistory": false,
-                        "rightClickAction": "copyPaste",
-                        "successExitCodes": [
-                          "0",
-                          "SIGINT",
-                          "SIGTERM"
-                        ],
-                        "terminalOptions": {
-                          "documentOverride": null
-                        },
-                        "type": "integrated",
-                        "useWin32Conhost": true
-                      },
-                      "serial": null
-                    }
-                  },
-                  "pinned": true,
-                  "icon": "terminal",
-                  "title": "终端：✳ Claude Code"
-                }
-              },
               {
                 "id": "e3e385e4f331f792",
                 "type": "leaf",
@@ -171,11 +129,11 @@
                   },
                   "pinned": true,
                   "icon": "terminal",
-                  "title": "终端：zsh"
+                  "title": "终端：⠂ Claude Code"
                 }
               }
             ],
-            "currentTab": 2
+            "currentTab": 1
           }
         ],
         "direction": "horizontal"

@@ -46,59 +46,7 @@ Task(subagent_type="writer", prompt="根据知识卡片撰写笔记...", descrip
 Task(subagent_type="editor", prompt="美化以下笔记格式...", description="优化格式")
 ```
 
-### OpenCLI 核心能力
 
-OpenCLI 提供两类浏览器控制命令，用于增强 research 和 update 阶段：
-
-#### 底层命令（13个）
-| 命令 | 功能 |
-|------|------|
-| `opencli init <url>` | 打开网页 |
-| `opencli click <selector>` | 点击元素 |
-| `opencli type <selector> "文本"` | 输入文本 |
-| `opencli select <selector> "选项"` | 选择下拉项 |
-| `opencli scroll up/down` | 滚动页面 |
-| `opencli screenshot <file>` | 截图 |
-| `opencli state` | 获取页面状态 |
-| `opencli get <selector>` | 获取元素内容 |
-| `opencli keys <key>` | 发送按键 |
-| `opencli wait <selector>` | 等待条件 |
-| `opencli eval <js>` | 执行 JavaScript |
-| `opencli network` | 监控网络请求 |
-| `opencli close` | 关闭浏览器 |
-
-#### 拥有的skills
-
-| Skill                    | 触发条件               | 用途           |
-| ------------------------ | ------------------ | ------------ |
-| `opencli-browser`        | 需要驱动真实浏览器时         | ad-hoc 浏览器操作 |
-| `opencli-usage`          | 需要了解 opencli 使用方式时 | 查看命令帮助       |
-| `opencli-adapter-author` | 需要编写新适配器时          | 创建适配器        |
-| `opencli-autofix`        | opencli 命令失败时      | 自动修复适配器      |
-#### 适配器命令（79+）
-- 中国平台：`xiaohongshu`, `bilibili`, `tieba`, `zhihu` 等
-- 国际平台：`twitter`, `reddit`, `amazon` 等
-- CLI Hub：`gh`, `obsidian`, `docker` 等
-
-### 优先级规则
-- **Optional Skills 只能作为补充能力，不得替代主流程 Subagent**
-- 如果任务已被 `researcher / curator / writer / editor` 覆盖，**优先调用主流程 Subagent**
-- Optional Skills 仅用于：
-  1. 特定文件格式处理（pdf, xlsx, docx, pptx）
-  2. 特定可视化需求（excalidraw-diagram, json-canvas）
-  3. 主流程中某一步的辅助增强（defuddle 获取网页内容）
-  4. 浏览器自动化操作（opencli-browser 获取登录/动态内容）
-
-**OpenCLI 触发条件：**
-- 需要获取需要登录才能访问的网页内容时
-- 当 defuddle/web-content-fetcher 被拦截时
-- 需要获取动态加载内容时
-- 需要验证网页内容是否更新时
-
-**调用原则：**
-- 这些 skill 不写进主工作流（research → curate → write → edit）
-- 主 Agent 根据实际需求**按需触发**
-- 触发时输出 `[Decision] 检测到 {条件}，调用 {skill_name}`
 
 ## Global Rules
 1. **优先使用官方资源**：官方文档 → 官方 GitHub → 权威博客 → 社区资源
