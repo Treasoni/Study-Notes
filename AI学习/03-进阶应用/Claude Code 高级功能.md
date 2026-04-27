@@ -1007,6 +1007,117 @@ export ENABLE_TOOL_SEARCH=true
 
 ---
 
+## Checkpoints 与 Rewind（回滚）
+
+> [!tip] 🎯 一句话定义
+> **Checkpoints 保存对话状态，Rewind 让你回到之前的检查点探索不同方案。**
+
+### 核心概念
+
+| 概念 | 说明 |
+|------|------|
+| **Checkpoint** | 对话状态的快照 |
+| **Rewind** | 返回到之前的检查点 |
+| **Branch Point** | 从同一检查点探索多种方案 |
+
+### 使用方法
+
+```bash
+# Checkpoints 每次用户提示后自动创建
+
+# 触发 Rewind
+/rewind
+# 或快捷键
+Esc + Esc  # 连按两下
+```
+
+### 回滚选项
+
+触发 Rewind 后，有 5 个选项：
+
+| 选项 | 效果 |
+|------|------|
+| **Restore code and conversation** | 恢复代码和对话 |
+| **Restore conversation** | 仅恢复对话，代码保留 |
+| **Restore code** | 仅恢复代码，对话保留 |
+| **Summarize from here** | 从当前位置总结 |
+| **Never mind** | 取消 |
+
+### 使用场景
+
+- 尝试不同的实现方案
+- 从错误中恢复
+- 安全实验新想法
+- 比较不同的解决方案
+- A/B 测试不同设计
+
+> [!info] 📚 来源
+> - [claude-howto - Checkpoints](https://github.com/luongnv89/claude-howto/tree/main/08-checkpoints)
+
+---
+
+## Plugins（插件）
+
+> [!tip] 🎯 一句话定义
+> **Plugins 是功能捆绑包，将 Commands、Agents、MCP 和 Hooks 打包成一个可安装的单元。**
+
+### 安装插件
+
+```bash
+/plugin install pr-review
+/plugin install devops-automation
+/plugin install documentation
+```
+
+### 可用插件
+
+| 插件 | 功能 |
+|------|------|
+| `pr-review` | 完整的 PR 审查工作流 |
+| `devops-automation` | 部署与监控 |
+| `documentation` | 文档生成 |
+
+### 插件结构
+
+```
+plugin-name/
+├── commands/       # Slash Commands
+├── agents/         # Subagents
+├── mcp.json        # MCP 配置
+├── hooks/          # Hooks 脚本
+└── README.md
+```
+
+> [!info] 📚 来源
+> - [claude-howto - Plugins](https://github.com/luongnv89/claude-howto/tree/main/07-plugins)
+
+---
+
+## 完整目录结构示例
+
+```
+project/
+├── .claude/
+│   ├── commands/           # Slash Commands
+│   │   ├── optimize.md
+│   │   └── pr.md
+│   ├── agents/             # Subagents
+│   │   ├── code-reviewer.md
+│   │   └── test-engineer.md
+│   ├── skills/             # Skills
+│   │   └── code-review/
+│   │       ├── SKILL.md
+│   │       └── scripts/
+│   ├── hooks/              # Hooks
+│   │   └── pre-commit.sh
+│   └── launch.json         # 桌面应用配置
+├── CLAUDE.md               # 项目 Memory
+├── CLAUDE.local.md         # 本地 Memory
+└── .mcp.json               # MCP 配置
+```
+
+---
+
 ## 相关文档
 
 - [[02-工具使用/Claude Code 会话管理]] - 会话和记忆管理
@@ -1021,5 +1132,9 @@ export ENABLE_TOOL_SEARCH=true
 - [How Claude remembers your project](https://code.claude.com/docs/en/memory)
 
 ### 社区资源
-- [claude-howto GitHub Repository](https://github.com/luongnv89/claude-howto) - 高级功能指南来源
+- [claude-howto GitHub Repository](https://github.com/luongnv89/claude-howto) - 21,800+ stars 完整学习指南
+  - [09-Advanced Features](https://github.com/luongnv89/claude-howto/tree/main/09-advanced-features) - 高级功能完整指南
+  - [08-Checkpoints](https://github.com/luongnv89/claude-howto/tree/main/08-checkpoints) - Checkpoints 详细说明
+  - [07-Plugins](https://github.com/luongnv89/claude-howto/tree/main/07-plugins) - Plugins 完整指南
+  - [config-examples.json](https://github.com/luongnv89/claude-howto/blob/main/09-advanced-features/config-examples.json) - 完整配置示例
 - [Claude Code Slash Commands | Complete Guide 2026](https://maxtechera.dev/en/guides/claude-code-slash-commands)
