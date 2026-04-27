@@ -43,6 +43,7 @@ tags: [ai, 工具使用]
 - 支持 MCP 和 Skills 扩展
 
 **平台支持**：
+
 | 平台 | baseUrl | defaultModel |
 |------|---------|--------------|
 | 火山引擎 | `https://ark.cn-beijing.volces.com/v1` | `ep-xxxxx` |
@@ -111,6 +112,7 @@ cp 02-memory/project-CLAUDE.md /path/to/your-project/CLAUDE.md
 > **环境变量名**：`Path`（系统变量）
 >
 > **需要添加的路径**：
+> 
 > | 路径 | 说明 |
 > |------|------|
 > | `C:\Program Files\Git\cmd` | Git 命令（主要，优先添加） |
