@@ -9,6 +9,26 @@ tags: [ai, 工具使用]
 
 > [!info] 概述
 > **Claude Code 是开发者的 CLI AI 助手** - 在终端中直接使用 Claude 进行软件工程任务。支持文件操作、代码编辑、Git 管理等功能，兼容多种 AI 平台。
+>
+> **学习路径**: [Claude How To - 完整学习指南](https://github.com/luongnv89/claude-howto) | [学习路线图](https://github.com/luongnv89/claude-howto/blob/main/LEARNING-ROADMAP.md)
+
+## 快速导航 - Claude Code 功能全景
+
+| 功能 | 描述 | 快速启动 | 难度 | 时间 |
+|------|------|----------|------|------|
+| **Slash Commands** | 用户调用的快捷命令 | `cp 01-slash-commands/*.md .claude/commands/` | 初级 | 30 min |
+| **Memory** | 持久化上下文 | `cp 02-memory/project-CLAUDE.md ./CLAUDE.md` | 初级+ | 45 min |
+| **Checkpoints** | 会话快照与回滚 | 自动启用，按 `Esc+Esc` 使用 | 中级 | 45 min |
+| **Skills** | 可复用的能力包 | `cp -r 03-skills/code-review ~/.claude/skills/` | 中级 | 1 hour |
+| **Hooks** | 事件驱动的自动化 | `cp 06-hooks/*.sh ~/.claude/hooks/` | 中级 | 1 hour |
+| **MCP** | 外部工具访问 | `claude mcp add github -- npx -y @modelcontextprotocol/server-github` | 中级+ | 1 hour |
+| **Subagents** | 专业化 AI 助手 | `cp 04-subagents/*.md .claude/agents/` | 中级+ | 1.5 hours |
+| **Advanced Features** | 规划模式、后台任务等 | 配置 `settings.json` | 高级 | 2-3 hours |
+| **Plugins** | 功能捆绑包 | `/plugin install pr-review` | 高级 | 2 hours |
+
+> [!info] 📚 来源
+> - [Claude How To - GitHub](https://github.com/luongnv89/claude-howto) - 21,800+ stars 的完整学习指南
+> - [Feature Catalog](https://github.com/luongnv89/claude-howto/blob/main/CATALOG.md) - 功能完整目录
 
 ## 核心概念 💡
 
@@ -34,6 +54,32 @@ tags: [ai, 工具使用]
 ## 操作步骤
 
 ### 步骤 1：安装
+
+> [!note] 版本信息
+> **当前版本**: v2.1.119 (2026-04-24) - 从 v2.1.113 开始，Claude Code 以原生二进制文件发布（macOS/Linux/Windows），支持 `npm install` 安装。
+
+#### 15 分钟快速开始
+
+```bash
+# 1. 克隆学习指南仓库（可选，推荐）
+git clone https://github.com/luongnv89/claude-howto.git
+cd claude-howto
+
+# 2. 安装 Claude Code
+npm install -g @anthropic-ai/claude-code
+
+# 3. 复制第一个 Slash Command
+mkdir -p /path/to/your-project/.claude/commands
+cp 01-slash-commands/optimize.md /path/to/your-project/.claude/commands/
+
+# 4. 启动并尝试
+cd /path/to/your-project
+claude
+# 然后输入: /optimize
+
+# 5. 设置项目记忆（推荐）
+cp 02-memory/project-CLAUDE.md /path/to/your-project/CLAUDE.md
+```
 
 #### 前置要求
 
