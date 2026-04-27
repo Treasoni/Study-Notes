@@ -765,6 +765,29 @@ export ANTHROPIC_API_KEY=your-key
 
 ---
 
+## 学习路线图
+
+### 10 模块完整学习路径
+
+| 顺序 | 模块 | 难度 | 时间 | 命令 |
+|------|------|------|------|------|
+| 1 | [Slash Commands](https://github.com/luongnv89/claude-howto/tree/main/01-slash-commands) | 初级 | 30 min | `cp 01-slash-commands/*.md .claude/commands/` |
+| 2 | [Memory](https://github.com/luongnv89/claude-howto/tree/main/02-memory) | 初级+ | 45 min | `cp 02-memory/project-CLAUDE.md ./CLAUDE.md` |
+| 3 | [Checkpoints](https://github.com/luongnv89/claude-howto/tree/main/08-checkpoints) | 中级 | 45 min | 自动启用 |
+| 4 | [CLI Basics](https://github.com/luongnv89/claude-howto/tree/main/10-cli) | 初级+ | 30 min | 本文档 |
+| 5 | [Skills](https://github.com/luongnv89/claude-howto/tree/main/03-skills) | 中级 | 1 hour | `cp -r 03-skills/code-review ~/.claude/skills/` |
+| 6 | [Hooks](https://github.com/luongnv89/claude-howto/tree/main/06-hooks) | 中级 | 1 hour | `cp 06-hooks/*.sh ~/.claude/hooks/` |
+| 7 | [MCP](https://github.com/luongnv89/claude-howto/tree/main/05-mcp) | 中级+ | 1 hour | `claude mcp add ...` |
+| 8 | [Subagents](https://github.com/luongnv89/claude-howto/tree/main/04-subagents) | 中级+ | 1.5 hours | `cp 04-subagents/*.md .claude/agents/` |
+| 9 | [Advanced Features](https://github.com/luongnv89/claude-howto/tree/main/09-advanced-features) | 高级 | 2-3 hours | 配置 `settings.json` |
+| 10 | [Plugins](https://github.com/luongnv89/claude-howto/tree/main/07-plugins) | 高级 | 2 hours | `/plugin install ...` |
+
+**总学习时间**: 11-13 小时
+
+> [!info] 📚 完整路线图
+> - [LEARNING-ROADMAP.md](https://github.com/luongnv89/claude-howto/blob/main/LEARNING-ROADMAP.md) - 详细学习路径
+> - [CATALOG.md](https://github.com/luongnv89/claude-howto/blob/main/CATALOG.md) - 功能完整目录
+
 ## 参考资料
 
 ### 官方资源
@@ -773,11 +796,14 @@ export ANTHROPIC_API_KEY=your-key
 - [anthropics/claude-code - GitHub](https://github.com/anthropics/claude-code) - 官方仓库
 
 ### 社区资源
-- [GitHub - claude-howto CLI Reference](https://github.com/luongnv89/claude-howto/tree/main/10-cli) - 详细 CLI 参考指南
+- [claude-howto GitHub](https://github.com/luongnv89/claude-howto) - 21,800+ stars 完整学习指南
+  - [10-CLI](https://github.com/luongnv89/claude-howto/tree/main/10-cli) - CLI 参考指南
+  - [LEARNING-ROADMAP.md](https://github.com/luongnv89/claude-howto/blob/main/LEARNING-ROADMAP.md) - 学习路线图
+  - [CATALOG.md](https://github.com/luongnv89/claude-howto/blob/main/CATALOG.md) - 功能目录
 - [Claude Code CLI: The Complete Guide](https://blakecrosley.com/guides/claude-code) - 社区完整指南
 
 ### 相关文档
 - [[02-工具使用/如何使用Claude code]]
 - [[02-工具使用/Claude Code 常用功能]]
-- [[02-工具使用/Claude Code 会话管理]]
+- [[02-工具使用/Claude Code 会��管理]]
 - [[03-进阶应用/Claude MCP 使用指南]]
