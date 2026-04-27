@@ -1,7 +1,7 @@
 ---
 tags: [ai, 工具使用, cli, claude-code]
 created: 2026-04-05
-updated: 2026-04-05
+updated: 2026-04-27
 ---
 
 # Claude Code CLI 完整参考
@@ -9,6 +9,7 @@ updated: 2026-04-05
 > [!info] 概述
 > **一句话定义**：Claude Code CLI 是在终端中与 Claude 交互的命令行工具，支持交互式会话和脚本化自动化两种模式。
 > **🎯 比喻**：就像一个住在终端里的 AI 编程助手，既能和你聊天对话，也能像 Unix 管道一样处理自动化任务。
+> **版本**：Claude Code v2.1.119（2026-04-24）
 
 ## 核心概念
 
@@ -225,8 +226,9 @@ claude -p "列出待办事项" | grep "紧急"
 
 | 模型         | ID                  | 上下文窗口     | 说明            |
 | ---------- | ------------------- | --------- | ------------- |
-| Opus 4.6   | `claude-opus-4-6`   | 1M tokens | 最强大，支持自适应努力级别 |
-| Sonnet 4.6 | `claude-sonnet-4-6` | 1M tokens | 平衡速度和能力       |
+| Opus 4.7   | `claude-opus-4-7`   | 1M tokens | 最强大，支持 xhigh/max 努力级别 |
+| Opus 4.6   | `claude-opus-4-6`   | 1M tokens | 支持 max 努力级别 |
+| Sonnet 4.6 | `claude-sonnet-4-6` | 1M tokens | 平衡速度和能力，支持 max  |
 | Haiku 4.5  | `claude-haiku-4-5`  | 1M tokens | 最快，适合快速任务     |
 
 ### 模型选择示例
@@ -247,7 +249,7 @@ claude --model claude-sonnet-4-6-20250929 "审查这段代码"
 claude -p --model opus --fallback-model sonnet "分析架构"
 ```
 
-### 努力级别（Opus 4.6 专属）
+### 努力级别
 
 ```bash
 # 通过 CLI 标志设置
@@ -257,11 +259,13 @@ claude --effort high "复杂审查"
 /effort high
 
 # 通过环境变量设置
-export CLAUDE_CODE_EFFORT_LEVEL=high   # low, medium, high, 或 max
+export CLAUDE_CODE_EFFORT_LEVEL=high   # low, medium, high, xhigh, max
 ```
 
-> [!tip] ultrathink 关键词
-> 在提示词中使用 "ultrathink" 可激活深度推理。`max` 努力级别仅 Opus 4.6 可用。
+> [!tip] 努力级别支持矩阵
+> - **Opus 4.7**：low, medium, high, **xhigh**, max（xhigh 仅此版本）
+> - **Opus 4.6 / Sonnet 4.6**：low, medium, high, max
+> - 在提示词中使用 "ultrathink" 可激活 max 级别深度推理
 
 > [!info] 📚 来源
 > - [Claude Code 官方文档](https://code.claude.com/docs/en/overview)
