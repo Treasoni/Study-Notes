@@ -54,6 +54,7 @@ Task(subagent_type="editor", prompt="美化以下笔记格式...", description="
 3. **保留用户个人内容**：严禁修改用户个人笔记区域
 4. **优先建立知识关联**：每个笔记至少有 1 个入链（wikilink）
 5. **年份敏感**：搜索时使用当前年份（2026）
+6. **网络失败 Fallback**：WebSearch/WebFetch API 不可用时，必须使用 `opencli-browser` 进行 ad-hoc 浏览器操作获取内容
 
 ## Task Routing Rules
 

@@ -10,7 +10,7 @@
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 30.794341675734493,
+            "dimension": 21.76278563656148,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -46,7 +46,7 @@
           {
             "id": "c14f978bcb072095",
             "type": "tabs",
-            "dimension": 69.2056583242655,
+            "dimension": 78.23721436343853,
             "children": [
               {
                 "id": "e3e385e4f331f792",
@@ -129,11 +129,52 @@
                   },
                   "pinned": true,
                   "icon": "terminal",
-                  "title": "终端：⠂ Claude Code"
+                  "title": "终端：✳ Claude Code"
+                }
+              },
+              {
+                "id": "85171a577eeaa4af",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "terminal:terminal",
+                  "state": {
+                    "terminal:terminal": {
+                      "cwd": "/Users/zhqznc/Documents/项目",
+                      "focus": false,
+                      "profile": {
+                        "args": [
+                          "--login"
+                        ],
+                        "executable": "/bin/zsh",
+                        "followTheme": true,
+                        "name": "",
+                        "platforms": {
+                          "darwin": true
+                        },
+                        "pythonExecutable": "python3",
+                        "restoreHistory": false,
+                        "rightClickAction": "copyPaste",
+                        "successExitCodes": [
+                          "0",
+                          "SIGINT",
+                          "SIGTERM"
+                        ],
+                        "terminalOptions": {
+                          "documentOverride": null
+                        },
+                        "type": "integrated",
+                        "useWin32Conhost": true
+                      },
+                      "serial": null
+                    }
+                  },
+                  "pinned": true,
+                  "icon": "terminal",
+                  "title": "终端：⠐ Claude Code"
                 }
               }
-            ],
-            "currentTab": 1
+            ]
           }
         ],
         "direction": "horizontal"
@@ -343,7 +384,7 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "62c417b929893f2a",
+  "active": "e3e385e4f331f792",
   "lastOpenFiles": [
     "CLAUDE.md",
     "GitHub项目/OpenCLI 使用指南.md",
