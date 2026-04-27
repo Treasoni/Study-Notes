@@ -174,8 +174,7 @@
                   "title": "终端：⠂ Claude Code"
                 }
               }
-            ],
-            "currentTab": 2
+            ]
           }
         ],
         "direction": "horizontal"
@@ -385,7 +384,7 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "85171a577eeaa4af",
+  "active": "e3e385e4f331f792",
   "lastOpenFiles": [
     "CLAUDE.md",
     "GitHub项目/OpenCLI 使用指南.md",

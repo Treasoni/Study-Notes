@@ -243,15 +243,21 @@ brew install claude-code
 claude --version
 ```
 
+> [!tip] 原生二进制文件
+> v2.1.113+ 版本使用原生二进制文件，`brew install` 会自动下载适合你平台的二进制文件。
+
 **方式二：npm（跨平台）**
 
 ```bash
-# 全局安装
+# 全局安装（npm 仍可用，会按需下载原生二进制文件作为可选依赖）
 npm install -g @anthropic-ai/claude-code
 
 # 验证安装
 claude --version
 ```
+
+> [!warning] 企业代理注意
+> v2.1.116+ 版本从 `https://downloads.claude.ai/claude-code-releases` 下载二进制文件，企业代理需要将此域名加入白名单。
 
 **方式三：从源码安装**
 
@@ -832,4 +838,17 @@ A:
 - **环境变量**：适合临时切换或需要频繁更改代理的场景
 
 ## 相关文档
-[[02-工具使用/Claude Code 常用功能]] | [[03-进阶应用/Claude MCP 使用指南]] | [[02-工具使用/Claude Code 会话管理]] | [[02-工具使用/Claude Code 模型与推理设置]] | [[01-基础概念/Skills 是什么]] | [[03-进阶应用/如何编写Skills]] | [[02-工具使用/Claude Code Subagents 完整指南]] | [[01-基础概念/人工智能重要的六大概念体系]] | [[03-进阶应用/CLAUDE.md 使用指南]] | [[../../Git/Git 入门教程]] | [[../../Git/Git 命令速查]] | ~~Git 常见错误解决方案~~ *(已删除)*
+[[02-工具使用/Claude Code 常用功能]] | [[03-进阶应用/Claude MCP 使用指南]] | [[02-工具使用/Claude Code 会话管理]] | [[02-工具使用/Claude Code 模型与推理设置]] | [[01-基础概念/Skills 是什么]] | [[03-进阶应用/如何编写Skills]] | [[02-工具使用/Claude Code Subagents 完整指南]] | [[01-基础概念/人工智能重要的六大概念体系]] | [[03-进阶应用/CLAUDE.md 使用指南]] | [[../../Git/Git 入门教程]] | [[../../Git/Git 命令速查]]
+
+## 参考资料
+
+### 官方资源
+- [Claude Code Official Documentation](https://code.claude.com/docs/en/overview) - 官方技术文档
+- [Anthropics Claude Code GitHub](https://github.com/anthropics/claude-code) - 官方仓库
+
+### 社区资源（强烈推荐）
+- [claude-howto GitHub Repository](https://github.com/luongnv89/claude-howto) - 21,800+ stars 完整学习指南
+  - [学习路线图](https://github.com/luongnv89/claude-howto/blob/main/LEARNING-ROADMAP.md) - 10 模块渐进式学习路径
+  - [功能目录](https://github.com/luongnv89/claude-howto/blob/main/CATALOG.md) - 所有功能快速参考
+  - [10 个教程模块](https://github.com/luongnv89/claude-howto) - 从入门到高级的完整教程
+- [Boris Cherny's Workflow](https://x.com/bcherny/status/2007179832300581177) - Claude Code 创建者分享的系统化工作流
