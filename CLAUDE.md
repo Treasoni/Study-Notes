@@ -81,6 +81,40 @@ Task(subagent_type="editor", prompt="美化以下笔记格式...", description="
 | `subagent-creator` | 用户想创建专用 subagent 时 | 创建隔离上下文的 agent |
 | `mcp-builder`      | 用户想创建 MCP server 时 | 构建 MCP 集成      |
 
+### 浏览器自动化类
+| Skill | 触发条件 | 用途 |
+|-------|---------|------|
+| `opencli-browser` | 需要驱动真实浏览器时 | ad-hoc 浏览器操作 |
+| `opencli-usage` | 需要了解 opencli 使用方式时 | 查看命令帮助 |
+| `opencli-adapter-author` | 需要编写新适配器时 | 创建适配器 |
+| `opencli-autofix` | opencli 命令失败时 | 自动修复适配器 |
+
+### OpenCLI 核心能力
+
+OpenCLI 提供两类浏览器控制命令，用于增强 research 和 update 阶段：
+
+#### 底层命令（13个）
+| 命令 | 功能 |
+|------|------|
+| `opencli init <url>` | 打开网页 |
+| `opencli click <selector>` | 点击元素 |
+| `opencli type <selector> "文本"` | 输入文本 |
+| `opencli select <selector> "选项"` | 选择下拉项 |
+| `opencli scroll up/down` | 滚动页面 |
+| `opencli screenshot <file>` | 截图 |
+| `opencli state` | 获取页面状态 |
+| `opencli get <selector>` | 获取元素内容 |
+| `opencli keys <key>` | 发送按键 |
+| `opencli wait <selector>` | 等待条件 |
+| `opencli eval <js>` | 执行 JavaScript |
+| `opencli network` | 监控网络请求 |
+| `opencli close` | 关闭浏览器 |
+
+#### 适配器命令（79+）
+- 中国平台：`xiaohongshu`, `bilibili`, `tieba`, `zhihu` 等
+- 国际平台：`twitter`, `reddit`, `amazon` 等
+- CLI Hub：`gh`, `obsidian`, `docker` 等
+
 ### 优先级规则
 - **Optional Skills 只能作为补充能力，不得替代主流程 Subagent**
 - 如果任务已被 `researcher / curator / writer / editor` 覆盖，**优先调用主流程 Subagent**
@@ -88,6 +122,13 @@ Task(subagent_type="editor", prompt="美化以下笔记格式...", description="
   1. 特定文件格式处理（pdf, xlsx, docx, pptx）
   2. 特定可视化需求（excalidraw-diagram, json-canvas）
   3. 主流程中某一步的辅助增强（defuddle 获取网页内容）
+  4. 浏览器自动化操作（opencli-browser 获取登录/动态内容）
+
+**OpenCLI 触发条件：**
+- 需要获取需要登录才能访问的网页内容时
+- 当 defuddle/web-content-fetcher 被拦截时
+- 需要获取动态加载内容时
+- 需要验证网页内容是否更新时
 
 **调用原则：**
 - 这些 skill 不写进主工作流（research → curate → write → edit）
@@ -112,6 +153,7 @@ research → curate → write → edit → sortspec
 1. **Researcher** 搜集资料
    - 至少 3 个来源，含 1 个官方来源
    - 输出：原始资料列表（JSON）
+   - **增强**：当需要获取需要登录/动态加载的内容时，调用 `opencli-browser` skill 进行 ad-hoc 浏览器操作
 
 2. **Curator** 整理知识卡片
    - 去重、分类、提取关键点
@@ -140,6 +182,7 @@ read → research latest → merge → editor → validate → sortspec
 
 1. **Read** 读取现有内容，识别用户个人章节
 2. **Research Latest** 搜索最新信息（使用 2026）
+   - **增强**：当需要验证网页内容是否更新、获取动态渲染的页面内容时，调用 `opencli-browser` skill
 3. **Merge** 仅更新技术内容，保留个人笔记
 4. **Editor** 美化格式
    - LaTeX 公式、代码块、Mermaid 图
@@ -341,6 +384,8 @@ scan → (curator batch) → detect islands → build MOC → relink → sortspe
 [Decision] 检测到冲突：source_001 与 source_003 关于"位置编码"的描述不一致，需要用户确认
 [Decision] 进入 curate 阶段
 [Decision] 检测到用户已提供 Markdown 初稿，跳过 write 阶段，直接进入 edit
+[Decision] 检测到需要登录/动态内容，调用 opencli-browser 进行浏览器操作
+[Decision] opencli 命令失败，调用 opencli-autofix 尝试修复
 ```
 
 ## Retry / Failure Rules
