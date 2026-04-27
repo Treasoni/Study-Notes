@@ -10,7 +10,7 @@
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 51.03373231773667,
+            "dimension": 41.34929270946681,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -32,12 +32,12 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "AI学习/01-基础概念/AI工程范式演进-Prompt到Harness.md",
+                    "file": "AI学习/02-工具使用/npm.md",
                     "mode": "source",
                     "source": false
                   },
                   "icon": "lucide-file",
-                  "title": "AI工程范式演进-Prompt到Harness"
+                  "title": "npm"
                 }
               }
             ],
@@ -46,7 +46,7 @@
           {
             "id": "c14f978bcb072095",
             "type": "tabs",
-            "dimension": 48.96626768226333,
+            "dimension": 58.65070729053319,
             "children": [
               {
                 "id": "e3e385e4f331f792",
@@ -133,7 +133,7 @@
                 }
               },
               {
-                "id": "2da5ca9bce12cee1",
+                "id": "ddd04f0de11dcec2",
                 "type": "leaf",
                 "pinned": true,
                 "state": {
@@ -171,7 +171,7 @@
                   },
                   "pinned": true,
                   "icon": "terminal",
-                  "title": "终端：⠂ Claude Code"
+                  "title": "终端：✳ Claude Code"
                 }
               }
             ],
@@ -314,12 +314,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "AI学习/02-工具使用/npm.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "npm 的大纲"
             }
           },
           {
@@ -385,8 +386,13 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "2da5ca9bce12cee1",
+  "active": "3a0c8c15cd389166",
   "lastOpenFiles": [
+    "AI学习/02-工具使用/npm.md.tmp.7537.1777274661147",
+    "AI学习/02-工具使用/npm.md.tmp.7537.1777274638133",
+    "AI学习/02-工具使用/npm.md.tmp.7537.1777274622485",
+    "AI学习/02-工具使用/npm.md",
+    "AI学习/02-工具使用/npm.md.tmp.7537.1777274600144",
     "npm-knowledge-cards.json",
     "AI学习/01-基础概念/AI工程范式演进-Prompt到Harness.md",
     "npm/npx命令运行器.md",
@@ -414,17 +420,12 @@
     "AI学习/03-进阶应用/Claude MCP 使用指南.md",
     "AI学习/00-索引/00-学习路线图.md",
     "AI学习/01-基础概念/人工智能重要的六大概念体系.md",
-    "AI学习/01-基础概念/AI-Agents.md",
     "Users/zhqznc/Documents/clipper",
     "Users/zhqznc/Documents",
     "Users/zhqznc",
     "Users",
     "qBittorent/assets/qBittorrent配置代理/截屏2026-02-05 21.17.18.png",
-    "qBittorent/assets/qBittorrent配置代理",
     "qBittorent/assets/qBittorrent的Tracker/截屏2026-02-05 21.08.11.png",
-    "qBittorent/assets/qBittorrent的Tracker",
-    "Git/sortspec",
-    "AI学习/02-工具使用/Obsidian-Sort-知识卡片.json",
     "AI学习/02-工具使用/assets/Tailscale使用指南/截屏2026-03-04 00.44.43.png",
     "PVE的学习/PVE学习笔记MOC.canvas",
     "PVE的学习/assets/修改PVE的网络信息/file-20260203173647080.png",
