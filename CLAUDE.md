@@ -46,49 +46,6 @@ Task(subagent_type="writer", prompt="根据知识卡片撰写笔记...", descrip
 Task(subagent_type="editor", prompt="美化以下笔记格式...", description="优化格式")
 ```
 
-## Optional Skills（辅助型 Skill）
-
-以下 skills **不是每次都要用**，仅在满足特定条件时调用：
-
-### 内容处理类
-| Skill | 触发条件 | 用途 |
-|-------|---------|------|
-| `defuddle` | 需要读取网页内容时 | 提取网页 Markdown，去除杂讯 |
-| `web-content-fetcher-1.0.1` | 常规爬虫被过滤/Cloudflare 拦截时 | 备用网页内容获取 |
-| `summarize-pro-1.0.0` | 用户需要摘要长内容时 | 生成多格式摘要 |
-
-### 文件处理类
-| Skill | 触发条件 | 用途 |
-|-------|---------|------|
-| `pdf` | 涉及 .pdf 文件操作时 | 读取/合并/拆分/OCR PDF |
-| `xlsx` | 涉及 .xlsx/.csv 文件操作时 | 读写/格式化电子表格 |
-| `docx` | 涉及 .docx 文件操作时 | 读写 Word 文档 |
-| `pptx` | 涉及 .pptx 文件操作时 | 读写演示文稿 |
-| `word-template-generator` | 需要处理 Word 模板时 | 提取占位符/生成文档 |
-
-### 可视化与结构类
-| Skill | 触发条件 | 用途 |
-|-------|---------|------|
-| `excalidraw-diagram` | 内容存在复杂流程且适合可视化时 | 生成 Excalidraw 图表 |
-| `json-canvas` | 需要创建可视化画布/思维导图时 | 创建 .canvas 文件 |
-| `obsidian-bases` | 需要数据库式视图管理笔记时 | 创建 .base 文件 |
-| `obsidian-cli` | 需要命令行操作 Obsidian 时 | 搜索/管理笔记/调试插件 |
-
-### 开发与扩展类
-| Skill              | 触发条件               | 用途             |
-| ------------------ | ------------------ | -------------- |
-| `skill-creator`    | 用户想创建/修改 skill 时   | 创建/优化 skill    |
-| `subagent-creator` | 用户想创建专用 subagent 时 | 创建隔离上下文的 agent |
-| `mcp-builder`      | 用户想创建 MCP server 时 | 构建 MCP 集成      |
-
-### 浏览器自动化类
-| Skill | 触发条件 | 用途 |
-|-------|---------|------|
-| `opencli-browser` | 需要驱动真实浏览器时 | ad-hoc 浏览器操作 |
-| `opencli-usage` | 需要了解 opencli 使用方式时 | 查看命令帮助 |
-| `opencli-adapter-author` | 需要编写新适配器时 | 创建适配器 |
-| `opencli-autofix` | opencli 命令失败时 | 自动修复适配器 |
-
 ### OpenCLI 核心能力
 
 OpenCLI 提供两类浏览器控制命令，用于增强 research 和 update 阶段：
@@ -110,6 +67,14 @@ OpenCLI 提供两类浏览器控制命令，用于增强 research 和 update 阶
 | `opencli network` | 监控网络请求 |
 | `opencli close` | 关闭浏览器 |
 
+#### 拥有的skills
+
+| Skill                    | 触发条件               | 用途           |
+| ------------------------ | ------------------ | ------------ |
+| `opencli-browser`        | 需要驱动真实浏览器时         | ad-hoc 浏览器操作 |
+| `opencli-usage`          | 需要了解 opencli 使用方式时 | 查看命令帮助       |
+| `opencli-adapter-author` | 需要编写新适配器时          | 创建适配器        |
+| `opencli-autofix`        | opencli 命令失败时      | 自动修复适配器      |
 #### 适配器命令（79+）
 - 中国平台：`xiaohongshu`, `bilibili`, `tieba`, `zhihu` 等
 - 国际平台：`twitter`, `reddit`, `amazon` 等

@@ -10,7 +10,7 @@
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 33.07943416757345,
+            "dimension": 37.21436343852013,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -46,7 +46,7 @@
           {
             "id": "c14f978bcb072095",
             "type": "tabs",
-            "dimension": 66.92056583242655,
+            "dimension": 62.785636561479876,
             "children": [
               {
                 "id": "7fca42c1ae71394e",
@@ -132,8 +132,7 @@
                   "title": "终端：✳ Claude Code"
                 }
               }
-            ],
-            "currentTab": 1
+            ]
           }
         ],
         "direction": "horizontal"
@@ -343,7 +342,7 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "41930cd114411ad2",
+  "active": "7fca42c1ae71394e",
   "lastOpenFiles": [
     "CLAUDE.md",
     "GitHub项目/OpenCLI 使用指南.md",
