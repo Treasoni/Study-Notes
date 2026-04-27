@@ -39,6 +39,41 @@ claude --model opus            # 指定模型
 claude --add-dir ../lib        # 添加额外目录
 ```
 
+### 安装快速参考
+
+```bash
+# Slash Commands - 15 分钟
+mkdir -p .claude/commands
+cp 01-slash-commands/*.md .claude/commands/
+
+# Memory - 15 分钟
+cp 02-memory/project-CLAUDE.md ./CLAUDE.md
+
+# Skills - 15 分钟
+cp -r 03-skills/code-review ~/.claude/skills/
+
+# Subagents - 15 分钟
+cp 04-subagents/*.md .claude/agents/
+
+# MCP - 需要配置环境变量
+export GITHUB_TOKEN="your_token"
+claude mcp add github -- npx -y @modelcontextprotocol/server-github
+
+# Hooks - 15 分钟
+mkdir -p ~/.claude/hooks
+cp 06-hooks/*.sh ~/.claude/hooks/
+chmod +x ~/.claude/hooks/*.sh
+
+# Plugins
+/plugin install pr-review
+
+# Checkpoints - 自动启用，配置见 08-checkpoints/
+# Advanced Features - 配置 settings.json，见 09-advanced-features/
+```
+
+> [!info] 📚 来源
+> - [claude-howto - Installation Quick Reference](https://github.com/luongnv89/claude-howto#installation-quick-reference)
+
 ## 快捷键速查 ⌨️
 
 | 快捷键 | 功能 |
@@ -53,6 +88,38 @@ claude --add-dir ../lib        # 添加额外目录
 | `Ctrl + V` | 粘贴图片给 AI 分析 |
 | `Ctrl + B` | 将任务移到后台 |
 | `↑ / ↓` | 浏览历史命令 |
+
+## 功能特性总览 📊
+
+### 功能对比表
+
+| 功能 | 调用方式 | 持久化 | 最佳适用场景 | 学习难度 |
+|------|----------|--------|--------------|----------|
+| **Slash Commands** | 手动 (`/cmd`) | 仅会话 | 快速快捷操作 | ⭐ 简单 |
+| **Memory** | 自动加载 | 跨会话 | 长期项目学习 | ⭐ 简单 |
+| **Skills** | 自动触发 | 文件系统 | 自动化工作流 | ⭐⭐ 中等 |
+| **Subagents** | 自动委托 | 独立上下文 | 任务分发 | ⭐⭐ 中等 |
+| **MCP Protocol** | 自动查询 | 实时 | 外部数据访问 | ⭐⭐⭐ 进阶 |
+| **Hooks** | 事件触发 | 配置 | 自动化与验证 | ⭐⭐⭐ 进阶 |
+| **Plugins** | 单条命令 | 全部功能 | 完整解决方案 | ⭐⭐⭐⭐ 高级 |
+| **Checkpoints** | 手动/自动 | 会话级 | 安全实验 | ⭐ 简单 |
+| **Planning Mode** | 手动/自动 | 规划阶段 | 复杂实现 | ⭐⭐ 中等 |
+| **Background Tasks** | 手动 | 任务期间 | 长时间操作 | ⭐⭐ 中等 |
+
+### 使用场景与功能组合
+
+| 使用场景 | 功能组合 | 说明 |
+|----------|----------|------|
+| **自动化代码审查** | Slash Commands + Subagents + Memory + MCP | `/review-pr` 触发代码审查工作流 |
+| **团队入职培训** | Memory + Slash Commands + Plugins | 共享项目规范，快速上手 |
+| **CI/CD 自动化** | CLI Reference + Hooks + Background Tasks | 集成到流水线自动执行 |
+| **文档生成** | Skills + Subagents + Plugins | 自动创建 API 文档 |
+| **安全审计** | Subagents + Skills + Hooks (只读模式) | 安全聚焦的代码审查 |
+| **DevOps 流水线** | Plugins + MCP + Hooks + Background Tasks | 部署与监控自动化 |
+| **复杂重构** | Checkpoints + Planning Mode + Hooks | 安全的多文件重构 |
+
+> [!info] 📚 来源
+> - [claude-howto - 功能对比](https://github.com/luongnv89/claude-howto#quick-navigation--all-features)
 
 ## 核心功能 💡
 
@@ -493,5 +560,51 @@ A: 按 `Ctrl+C` 停止当前操作。
 └─────────────────────────────────────────┘
 ```
 
+## 最佳实践
+
+### Do's（推荐做法）
+
+| 实践 | 说明 |
+|------|------|
+| 从简单开始 | 先用 Slash Commands，逐步添加其他功能 |
+| 增量添加 | 一次添加一个功能，测试后再继续 |
+| 团队共享 Memory | 使用 CLAUDE.md 存储团队编码标准 |
+| 本地测试配置 | 先在本地测试配置，再推广到团队 |
+| 文档化自定义实现 | 记录自定义配置和修改 |
+| 版本控制配置 | 将项目级配置提交到 git |
+| 共享 Plugins | 与团队分享有用的插件 |
+
+### Don'ts（避免做法）
+
+| 避免 | 原因 |
+|------|------|
+| 创建冗余功能 | 避免功能重复，保持简洁 |
+| 硬编码凭证 | 使用环境变量存储敏感信息 |
+| 跳过文档 | 文档帮助团队协作 |
+| 过度复杂化 | 简单任务不需要复杂配置 |
+| 忽视安全 | 遵循安全最佳实践 |
+| 提交敏感数据 | 不要提交 API 密钥、密码等到 git |
+
+> [!info] 📚 来源
+> - [claude-howto - Best Practices](https://github.com/luongnv89/claude-howto#best-practices)
+
 ## 相关文档
 [[02-工具使用/如何使用Claude code]] | [[01-基础概念/Skills 是什么]] | [[01-基础概念/人工智能重要的六大概念体系]]
+
+## 参考资料
+
+### 官方资源
+- [Claude Code Documentation](https://code.claude.com/docs/en/overview) - 官方文档
+
+### 社区资源
+- [claude-howto GitHub](https://github.com/luongnv89/claude-howto) - 21,800+ stars 完整学习指南
+  - [01-Slash Commands](https://github.com/luongnv89/claude-howto/tree/main/01-slash-commands)
+  - [02-Memory](https://github.com/luongnv89/claude-howto/tree/main/02-memory)
+  - [03-Skills](https://github.com/luongnv89/claude-howto/tree/main/03-skills)
+  - [04-Subagents](https://github.com/luongnv89/claude-howto/tree/main/04-subagents)
+  - [05-MCP](https://github.com/luongnv89/claude-howto/tree/main/05-mcp)
+  - [06-Hooks](https://github.com/luongnv89/claude-howto/tree/main/06-hooks)
+  - [07-Plugins](https://github.com/luongnv89/claude-howto/tree/main/07-plugins)
+  - [08-Checkpoints](https://github.com/luongnv89/claude-howto/tree/main/08-checkpoints)
+  - [09-Advanced Features](https://github.com/luongnv89/claude-howto/tree/main/09-advanced-features)
+  - [10-CLI](https://github.com/luongnv89/claude-howto/tree/main/10-cli)
