@@ -55,8 +55,6 @@ Claude Code 的安装、配置和日常使用。
 | [[02-工具使用/Tailscale使用指南]] | `tailscale`, `vpn`, `networking` | 基于 WireGuard 的零配置 VPN 组网工具，安装、工作原理、使用教程 | 300行 |
 | [[linux/WSL-Windows子系统forLinux]] | `wsl`, `windows`, `linux`, `开发环境` | Windows 内置 Linux 子系统，概念原理、安装配置、常用命令、实战场景 | 新增 |
 | [[obsidian的使用/Obsidian Smart Connections 使用指南]] | `obsidian`, `smart-connections`, `语义搜索` | Obsidian 本地优先语义搜索插件，自动发现笔记关联、AI 嵌入技术 | 新增 |
-| [[02-工具使用/Claude-创意软件连接器]] | `ai`, `工具使用`, `claude`, `mcp`, `创意工具` | Claude 创意软件连接器：9 个 MCP 连接器覆盖 Blender/Adobe/Ableton 等，增强专业创意工作流 | 新增 |
-
 #### 自动化工具
 
 | 文档 | 标签 | 摘要 |
@@ -161,7 +159,6 @@ Subagent 的创建和多 Agent 流程设计。
 - [[02-工具使用/Claude Code Checkpoints 使用指南]]
 - [[02-工具使用/Claude Code Hooks 使用指南]]
 - [[02-工具使用/Tailscale使用指南]]
-- [[02-工具使用/Claude-创意软件连接器]]
 
 #### 进阶应用
 - [[03-进阶应用/如何编写Skills]]
@@ -196,7 +193,6 @@ Claude Code 工具使用相关文档。
 - [[02-工具使用/Claude Code Hooks 使用指南]]
 - [[02-工具使用/Claude Code 定时任务自动化指南]]
 - [[02-工具使用/Tailscale使用指南]]
-- [[02-工具使用/Claude-创意软件连接器]]
 
 ### vpn
 
@@ -407,7 +403,6 @@ AI 模型对比与选型相关文档。
 | OpenClaw 对接第三方软件 | [[05-其他主题/openclaw/OpenClaw对接第三方软件指南]] |
 | 学习 Tailscale 组网 | [[02-工具使用/Tailscale使用指南]] |
 | 使用 Smart Connections 发现笔记关联 | [[obsidian的使用/Obsidian Smart Connections 使用指南]] |
-| 了解 Claude 创意软件连接器 | [[02-工具使用/Claude-创意软件连接器]] |
 | Claude Code 定时自动化 | [[02-工具使用/Claude Code 定时任务自动化指南]] |
 | 了解 GLM 模型对比 | [[05-其他主题/AI模型对比/GLM系列模型完整对比]] |
 | 学习 WSL Linux 子系统 | [[linux/WSL-Windows子系统forLinux]] |
