@@ -13,5 +13,6 @@ sorting-spec: |
   Claude Code 插件系统使用指南
   Claude Code 定时任务自动化指南
   Claude-Code-多Agent流程设计
+  Claude-创意软件连接器
   Tailscale使用指南
 ---
