@@ -64,24 +64,28 @@ Claude 创意软件连接器（Creative Software Connectors）是 Anthropic 于 
 
 **架构示意**：
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                   MCP 客户端                             │
-│                                                         │
-│   Claude Desktop / Claude Code / Cursor / VS Code ...   │
-│                                                         │
-└────────────────────────┬────────────────────────────────┘
-                         │
-                         │  MCP 协议（JSON-RPC 2.0）
-                         │
-        ┌───────────���────┼────────────────┐
-        v                v                v
-┌──────────────┐  ┌──────────────┐  ┌──────────────┐
-│   Blender    │  │    Adobe     │  │   Ableton    │
-│   连接器     │  │   连接器     │  │   连接器     │  ...
-│              │  │              │  │              │
-│ Python API   │  │ 50+ CC 工具  │  │ 官方文档     │
-└──────────────┘  └──────────────┘  └──────────────┘
+```mermaid
+graph TB
+    subgraph clients["MCP 客户端"]
+        CD["Claude Desktop"]
+        CC["Claude Code"]
+        CR["Cursor"]
+        VS["VS Code"]
+    end
+
+    subgraph protocol["MCP 协议 — JSON-RPC 2.0"]
+        MCP(("MCP"))
+    end
+
+    subgraph connectors["创意软件连接器"]
+        B["Blender 连接器<br/>Python API"]
+        A["Adobe 连接器<br/>50+ CC 工具"]
+        AB["Ableton 连接器<br/>官方文档"]
+        O["..."]
+    end
+
+    clients --> protocol
+    protocol --> connectors
 ```
 
 **关键特性**：
@@ -134,7 +138,7 @@ Blender 连接器是此次发布中最具代表性的合作案例。
 
 **设置步骤**：
 
-```
+```text
 1. 在 Claude Desktop 中添加 Blender 连接器
 2. 在 Blender 中安装 MCP 插件
 3. 每次新会话需要重新建立连接
@@ -272,28 +276,32 @@ Anthropic 同步推进与艺术院校的合作项目，在技能形成阶段培�
 
 **知识网络**：
 
-```
-┌──────────────────────────────────────────────────────┐
-│                   Claude 产品矩阵                     │
-│                                                      │
-│  Claude Code        Claude Design      Claude Cowork  │
-│  (开发工具)          (设计生成)         (协作平台)      │
-│                                                      │
-│           ┌─────────────────────────┐                │
-│           │   创意软件连接器          │                │
-│           │  (增强已有专业工具)       │                │
-│           └───────────┬─────────────┘                │
-│                       │                              │
-│                       v                              │
-│           ┌─────────────────────────┐                │
-│           │   MCP 协议层             │                │
-│           │  (统一通信标准)          │                │
-│           └───────────┬─────────────┘                │
-│                       │                              │
-│          ┌────────────┼────────────┐                 │
-│          v            v            v                 │
-│     Blender       Adobe        Autodesk ...          │
-└──────────────────────────────────────────────────────┘
+```mermaid
+graph TB
+    subgraph matrix["Claude 产品矩阵"]
+        CC["Claude Code<br/>开发工具"]
+        CD["Claude Design<br/>设计生成"]
+        CW["Claude Cowork<br/>协作平台"]
+    end
+
+    subgraph layer["创意软件连接器 — 增强已有专业工具"]
+        CONNECT["创意软件连接器"]
+    end
+
+    subgraph mcp_layer["MCP 协议层 — 统一通信标准"]
+        MCPS["MCP 协议"]
+    end
+
+    subgraph tools["创意工具"]
+        BL["Blender"]
+        AD["Adobe"]
+        AU["Autodesk"]
+        O["..."]
+    end
+
+    matrix --> layer
+    layer --> mcp_layer
+    mcp_layer --> tools
 ```
 
 ---
@@ -309,7 +317,7 @@ Anthropic 同步推进与艺术院校的合作项目，在技能形成阶段培�
 
 ### Blender 连接器配置步骤
 
-```
+```text
 步骤 1：在 Claude Desktop 设置中添加 Blender 连接器
 步骤 2：打开 Blender（4.2+），在偏好设置中安装 MCP 插件
 步骤 3：在 Claude Desktop 中开启新会话，连接器会自动建立连接
