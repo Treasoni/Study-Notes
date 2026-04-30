@@ -3,6 +3,7 @@ title: Quartz 4 使用指南
 tags: [obsidian/发布工具, 静态网站生成器, 数字花园]
 created: 2026-04-30
 updated: 2026-04-30
+lastChecked: 2026-04-30
 ---
 
 # Quartz 4 使用指南
@@ -29,6 +30,8 @@ Quartz 4 是由 jackyzha0 开发的开源静态网站生成器，专门设计用
 ```bash
 npx quartz sync
 ```
+
+💬 **社区**：有问题？加入 [Discord 社区](https://discord.gg/cRFFHYye7t)
 
 ## 快速开始
 
@@ -203,7 +206,12 @@ Quartz 支持多种分析工具：
 | Google Analytics | `{ provider: 'google', tagId: '<your-tag>' }` |
 | Plausible | `{ provider: 'plausible' }` |
 | Umami | `{ provider: 'umami', host: '<host>', websiteId: '<id>' }` |
-| Vercel | `{ provider: 'vercel' }` |
+| Vercel Analytics | `{ provider: 'vercel' }` |
+| Microsoft Clarity | `{ provider: 'clarity', projectId: '<your-id>' }` |
+| Matomo | `{ provider: 'matomo', siteId: '<your-id>', host: '<host>' }` |
+| Rybbit | `{ provider: 'rybbit', siteId: '<your-id>' }` |
+| Tinylytics | `{ provider: 'tinylytics', siteId: '<your-id>' }` |
+| Cabin | `{ provider: 'cabin' }` |
 
 ### 插件系统
 
@@ -306,6 +314,89 @@ jobs:
 | Build command | `npx quartz build` |
 | Publish directory | `public` |
 
+### GitLab Pages
+
+创建 `.gitlab-ci.yml`：
+
+```yaml
+stages:
+  - build
+  - deploy
+image: node:22
+cache:
+  key: $CI_COMMIT_REF_SLUG
+  paths:
+    - .npm/
+build:
+  stage: build
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "v4"'
+  before_script:
+    - hash -r
+    - npm ci --cache .npm --prefer-offline
+  script:
+    - npx quartz build
+  artifacts:
+    paths:
+      - public
+  tags:
+    - gitlab-org-docker
+pages:
+  stage: deploy
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "v4"'
+  script:
+    - echo "Deploying to GitLab Pages..."
+  artifacts:
+    paths:
+      - public
+```
+
+### 自托管
+
+#### Nginx
+
+```nginx
+server {
+    listen 80;
+    server_name example.com;
+    root /path/to/quartz/public;
+    index index.html;
+    error_page 404 /404.html;
+    location / {
+        try_files $uri $uri.html $uri/ =404;
+    }
+}
+```
+
+#### Apache (.htaccess)
+
+```apache
+RewriteEngine On
+ErrorDocument 404 /404.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_URI}.html -f
+RewriteRule ^(.*)$ $1.html [L]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.*)/$ $1/index.html [L]
+```
+
+#### Caddy (Caddyfile)
+
+```
+example.com {
+    root * /path/to/quartz/public
+    try_files {path} {path}.html {path}/ =404
+    file_server
+    encode gzip
+    handle_errors {
+        rewrite * /{err.status_code}.html
+        file_server
+    }
+}
+```
+
 > [!info] 📚 来源
 > - [Quartz 官方文档 - Hosting](https://quartz.jzhao.xyz/hosting)
 
@@ -406,6 +497,13 @@ Quartz 4 与 Obsidian 无缝集成：
 
 ### Q: RSS 订阅不工作？
 确保在配置中正确设置了 `baseUrl`（不包含 `https://` 前缀）。
+
+### Q: 遇到问题无法解决？
+
+- 搜索网站内置搜索功能查找问题
+- [升级](./upgrading)到最新版本
+- 提交 [GitHub Issue](https://github.com/jackyzha0/quartz/issues)
+- 加入 [Discord 社区](https://discord.gg/cRFFHYye7t) 寻求帮助
 
 ## 最佳实践
 
