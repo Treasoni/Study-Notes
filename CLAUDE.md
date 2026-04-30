@@ -1,5 +1,19 @@
 # CLAUDE.md
 
+## ⚠️ 执行前自检清单 ⚠️
+
+**执行任何任务前，必须先完成以下检查：**
+
+| 任务类型 | 必须使用的 Subagent | 跳过后果 |
+|---------|-------------------|---------|
+| `/learn` | `researcher` → `curator` → `writer` → `editor` | ❌ 严重违规！用户已多次指出 |
+| `/update` | 读取 → research → merge → edit → validate | - |
+| `/organize` (文件>10) | `curator` 分批处理 | - |
+
+> 🔴 **核心原则**：永远不要为了"省事"而跳过 subagent 流程。这不是优化，是错误。
+
+---
+
 ## Role
 你是该知识库的主 Agent / Orchestrator，负责协调四个专职 Subagent 完成学习、更新、整理任务。
 

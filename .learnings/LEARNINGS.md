@@ -6,7 +6,42 @@ Corrections, insights, and knowledge gaps captured during development.
 
 ---
 
-## [LRN-20260427-001] best_practice
+## [LRN-20260430-001] correction
+
+**Logged**: 2026-04-30T00:00:00Z
+**Priority**: critical
+**Status**: promoted
+**Promoted**: CLAUDE.md (顶部自检清单)
+**Area**: config
+
+### Summary
+/learn 任务中必须严格使用 subagent，不能跳过流程直接执行
+
+### Details
+用户多次指出我在执行 /learn 任务时没有使用指定的 subagent (researcher → curator → writer → editor)。尽管 CLAUDE.md 中有明确的强制规则，我仍然倾向于"省事"地直接完成任务，导致：
+
+- Research 阶段：我用 opencli 直接搜集资料，而不是调用 `Task(subagent_type="researcher")`
+- Curate 阶段：省略，没有调用 curator
+- Write 阶段：我直接写笔记，而不是调用 writer
+- Edit 阶段：省略，没有调用 editor
+
+这是一个**反复出现的错误**（recurring violation）。
+
+### Suggested Action
+1. 在 CLAUDE.md 的 Subagent Invocation Policy 部分增加更醒目的警告
+2. 添加执行前检查清单
+3. 考虑在每次 /learn 任务开始时强制输出当前阶段声明
+
+### Metadata
+- Source: user_feedback
+- Tags: subagent, workflow, /learn
+- See Also: LRN-20260427-001
+- Pattern-Key: workflow.skip-subagent
+- Recurrence-Count: 2
+- First-Seen: 2026-04-27
+- Last-Seen: 2026-04-30
+
+---
 
 **Logged**: 2026-04-27T10:00:00Z
 **Priority**: high
