@@ -32,12 +32,12 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "obsidian的使用/Obsidian-Web-Clipper使用教程.md",
+                    "file": "obsidian的使用/Quartz-4使用指南.md",
                     "mode": "source",
                     "source": false
                   },
                   "icon": "lucide-file",
-                  "title": "Obsidian-Web-Clipper使用教程"
+                  "title": "Quartz-4使用指南"
                 }
               }
             ],
@@ -228,13 +228,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "obsidian的使用/Obsidian-Web-Clipper使用教程.md",
+                "file": "obsidian的使用/Quartz-4使用指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Obsidian-Web-Clipper使用教程 的大纲"
+              "title": "Quartz-4使用指南 的大纲"
             }
           },
           {
@@ -285,7 +285,9 @@
   },
   "active": "3a0c8c15cd389166",
   "lastOpenFiles": [
+    "obsidian的使用/sortspec.md",
     "obsidian的使用/Quartz-4使用指南.md",
+    "obsidian的使用/Obsidian-Web-Clipper使用教程.md",
     "CLAUDE.md",
     "AI学习/00-索引/MOC.md",
     "AI学习/02-工具使用/Claude-创意软件连接器.md",
@@ -316,8 +318,6 @@
     "AI学习/02-工具使用/如何使用Claude code.md",
     "GitHub项目/OpenCLI 使用指南.md",
     "Git/Git MOC.md",
-    "Git/分支管理最佳实践.md",
-    "Git/sortspec.md",
     "Users/zhqznc/Documents/clipper",
     "Users/zhqznc/Documents",
     "Users/zhqznc",
