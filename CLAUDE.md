@@ -105,14 +105,16 @@ research → curate → write → edit → sortspec
 #### 单文件模式
 **标准工作流：**
 ```
-read → research latest → merge → editor → validate → sortspec
+read → researcher → merge → editor → validate → sortspec
 ```
 
 1. **Read** 读取现有内容，识别用户个人章节
-2. **Research Latest** 搜索最新信息（使用 2026）
+2. **Researcher** 搜集最新信息（使用 2026）
+   - **必须**调用 `Task(subagent_type="researcher", ...)`
    - **增强**：当需要验证网页内容是否更新、获取动态渲染的页面内容时，调用 `opencli-browser` skill
 3. **Merge** 仅更新技术内容，保留个人笔记
 4. **Editor** 美化格式
+   - **必须**调用 `Task(subagent_type="editor", ...)`
    - LaTeX 公式、代码块、Mermaid 图
    - 输出：最终优化笔记
 5. **Validate** 检查链接和引用有效性
@@ -132,12 +134,16 @@ read → research latest → merge → editor → validate → sortspec
 
 **标准工作流：**
 ```
-scan → split batches → for each file: (read → research → merge → edit) → validate → sortspec
+scan → split batches → for each file: (read → researcher → merge → editor) → validate → sortspec
 ```
 
 1. **scan** 扫描目标文件列表
 2. **split Batches** 分批处理（每批 3-5 个文件）
 3. **Per-File Pipeline** 每个文件独立执行完整更新流程
+   - **Read**：主 Agent 读取文件，识别保护区域
+   - **Researcher**：`Task(subagent_type="researcher", ...)` 搜集最新信息
+   - **Merge**：主 Agent 差异合并
+   - **Editor**：`Task(subagent_type="editor", ...)` 美化格式
 4. **validate** 批量验证所有更新
 5. **sortspec** 更新排序配置
    - 对每个涉及的文件夹调用 `sortspec-generator` skill

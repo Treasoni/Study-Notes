@@ -34,12 +34,52 @@ Corrections, insights, and knowledge gaps captured during development.
 
 ### Metadata
 - Source: user_feedback
-- Tags: subagent, workflow, /learn
+- Tags: subagent, workflow, /learn, /update
 - See Also: LRN-20260427-001
 - Pattern-Key: workflow.skip-subagent
-- Recurrence-Count: 2
+- Recurrence-Count: 3
 - First-Seen: 2026-04-27
 - Last-Seen: 2026-04-30
+- Occurrences: 2026-04-27 (/learn), 2026-04-30 (/learn), 2026-04-30 (/update)
+
+---
+
+## [LRN-20260430-002] correction
+
+**Logged**: 2026-04-30T00:00:00Z
+**Priority**: critical
+**Status**: promoted
+**Promoted**: CLAUDE.md (/update 流程明确标注)
+**Area**: config
+
+### Summary
+/update 任务也必须使用 researcher 和 editor subagent，不能直接搜集资料
+
+### Details
+用户在 /update 任务中再次指出我没有使用 subagent。这次我以为"更新笔记"可以自己完成，但实际上：
+
+| 步骤 | 正确做法 | 我做的 |
+|------|---------|--------|
+| read | 主 Agent ✅ | ✅ 正确 |
+| research latest | **researcher** subagent | ❌ 直接用 opencli |
+| merge | 主 Agent | - |
+| edit | **editor** subagent | - |
+| validate | 主 Agent | - |
+
+**根本原因**：我把"更新"误解为可以简化流程，但 CLAUDE.md 明确写了：
+- research latest 阶段必须调用 researcher
+- edit 阶段必须调用 editor
+
+### Suggested Action
+1. 明确 /update 流程中 subagent 的调用时机
+2. 添加执行时的阶段声明输出
+3. 考虑在 CLAUDE.md 中为 /update 添加更详细的步骤说明
+
+### Metadata
+- Source: user_feedback
+- Tags: subagent, workflow, /update
+- See Also: LRN-20260430-001
+- Pattern-Key: workflow.skip-subagent
 
 ---
 
