@@ -10,7 +10,7 @@
           {
             "id": "d7f69265b40b03f9",
             "type": "tabs",
-            "dimension": 78.23721436343853,
+            "dimension": 38.84657236126225,
             "children": [
               {
                 "id": "ad7a4315bf035961",
@@ -32,12 +32,12 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "AI学习/00-索引/MOC.md",
+                    "file": "obsidian的使用/Quartz-4使用指南.md",
                     "mode": "source",
                     "source": false
                   },
                   "icon": "lucide-file",
-                  "title": "MOC"
+                  "title": "Quartz-4使用指南"
                 }
               }
             ],
@@ -46,7 +46,7 @@
           {
             "id": "64aa34361d4fc3fc",
             "type": "tabs",
-            "dimension": 21.76278563656148,
+            "dimension": 61.15342763873775,
             "children": [
               {
                 "id": "31424fe7e3ec9717",
@@ -228,13 +228,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/00-索引/MOC.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "MOC 的大纲"
+              "title": "大纲"
             }
           },
           {
@@ -283,8 +282,10 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "3a0c8c15cd389166",
+  "active": "31424fe7e3ec9717",
   "lastOpenFiles": [
+    "obsidian的使用/Quartz-4使用指南.md",
+    "AI学习/00-索引/MOC.md",
     "AI学习/02-工具使用/Claude-创意软件连接器.md",
     "AI学习/03-进阶应用/CLAUDE.md 使用指南.md",
     "AI学习/02-工具使用/Claude-Code-多Agent流程设计.md",
@@ -316,8 +317,6 @@
     "Git/Git MOC.md",
     "Git/分支管理最佳实践.md",
     "Git/sortspec.md",
-    "Git/Git 常见错误解决方案.md",
-    "Git/Git 高级技巧.md",
     "Users/zhqznc/Documents/clipper",
     "Users/zhqznc/Documents",
     "Users/zhqznc",
