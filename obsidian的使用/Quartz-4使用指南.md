@@ -3,7 +3,6 @@ title: Quartz 4 使用指南
 tags: [obsidian/发布工具, 静态网站生成器, 数字花园]
 created: 2026-04-30
 updated: 2026-04-30
-lastChecked: 2026-04-30
 ---
 
 # Quartz 4 使用指南
@@ -89,12 +88,12 @@ Quartz 完全支持标准 Markdown 语法。
 
 在笔记顶部添加 YAML 元数据：
 
-```markdown
+```yaml
 ---
 title: 示例标题
 draft: false
 tags:
-  - 示例标���
+  - 示例标签
 aliases:
   - 别名1
   - 别名2
@@ -384,7 +383,7 @@ RewriteRule ^(.*)/$ $1/index.html [L]
 
 #### Caddy (Caddyfile)
 
-```
+```caddyfile
 example.com {
     root * /path/to/quartz/public
     try_files {path} {path}.html {path}/ =404
@@ -501,7 +500,7 @@ Quartz 4 与 Obsidian 无缝集成：
 ### Q: 遇到问题无法解决？
 
 - 搜索网站内置搜索功能查找问题
-- [升级](./upgrading)到最新版本
+- 升级到最新版本
 - 提交 [GitHub Issue](https://github.com/jackyzha0/quartz/issues)
 - 加入 [Discord 社区](https://discord.gg/cRFFHYye7t) 寻求帮助
 
