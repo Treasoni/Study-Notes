@@ -73,16 +73,49 @@ user_message = f"""
 
 ### 工作原理
 
-Transformer 的自注意力机制中，每个 token 都需要计算 Query、Key、Value 三个向量。KV Cache 的核心思想是：对于已经计算过的 tokens，将其 Key 和 Value 向量保存下来，后续新 token 只需计算自己的 Query，然后与缓存的 Key 和 Value 做注意力计算即可。
+Transformer 的自注意力机制中，每个 token 都需要计算 Query、Key、Value 三个向量。标准 Scaled Dot-Product Attention 公式为：
 
-从理论上看，这会将注意力计算的复杂度从 O(n²) 降为 O(n)。Promt Caching 在此基础上更进一步：如果多个请求之间共享相同的 Prompt 前缀，则共享同一份 KV Cache。
+$$
+\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+$$
+
+KV Cache 的核心思想是：对于已经计算过的 tokens $t_1, t_2, \ldots, t_n$，将其 Key 和 Value 向量缓存为 $(K_{1:n}, V_{1:n})$。后续新 token $t_{n+1}$ 只需计算自己的 Query $q_{n+1}$，然后与缓存的 $(K_{1:n}, V_{1:n})$ 做注意力计算即可。
+
+```mermaid
+graph TD
+    A[API 请求到达] --> B{缓存匹配?}
+    B -->|命中| C[直接读取缓存的 KV Cache]
+    B -->|未命中| D[完整计算 KV Cache]
+    C --> E[仅计算新增 tokens 的注意力]
+    D --> F[计算全部 tokens 的注意力]
+    E --> G[生成输出]
+    F --> G
+
+    style B fill:#FFC107,stroke:#333
+    style C fill:#4CAF50,stroke:#333
+    style D fill:#F44336,stroke:#333
+```
+
+从理论上看，KV Cache 将单次推理中注意力计算的复杂度从 $O(n^2)$ 降为 $O(n)$。Prompt Caching 在此基础上更进一步：如果多个请求之间共享相同的 Prompt 前缀，则跨请求共享同一份 KV Cache，从而大幅降低重复计算成本。
 
 ### 缓存系统架构
 
 大型 API 服务商通常采用分层缓存架构：
 
+```mermaid
+graph LR
+    L0["L0: GPU 显存"] -->|"秒级 TTL"| L1["L1: 主机内存"]
+    L1 -->|"分钟级 TTL"| L2["L2: NVMe SSD"]
+    L2 -->|"小时级 TTL"| L3["L3: 分布式全闪存储"]
+
+    style L0 fill:#E8F5E9,stroke:#4CAF50
+    style L1 fill:#FFF3E0,stroke:#FF9800
+    style L2 fill:#E3F2FD,stroke:#2196F3
+    style L3 fill:#F3E5F5,stroke:#9C27B0
+```
+
 | 层级 | 存储介质 | 特点 | 典型 TTL |
-|------|---------|------|---------|
+|:-----|:---------|:-----|:---------|
 | L0 | GPU 显存 | 极速访问，容量有限 | 秒级 |
 | L1 | 主机内存 | 快速，中等容量 | 分钟级 |
 | L2 | 本地磁盘（NVMe SSD） | 较慢，大容量 | 小时级 |
@@ -91,7 +124,7 @@ Transformer 的自注意力机制中，每个 token 都需要计算 Query、Key�
 ### 各厂商实现对比
 
 | 厂商 | 机制类型 | 最小缓存粒度 | 缓存方式 | TTL | 特殊规则 |
-|------|---------|------------|---------|-----|---------|
+|:-----|:---------|:------------|:---------|:----|:---------|
 | DeepSeek | 自动隐式 | 64 tokens | 零代码改动，自动匹配 | 数小时到数天 | 无额外配置成本 |
 | OpenAI | 自动隐式 | 1024 tokens | 可选参数控制 | 5-10 分钟 | 无需手动管理 |
 | Anthropic | 显式标记 | 1024 tokens | 通过 `cache_control` 标记手动设断点 | 5 分钟（重置）/ 1 小时（不重置） | 每次写入缓存收取 1.25x 费用 |
@@ -113,7 +146,7 @@ DeepSeek 在 Prompt Caching 领域的核心竞争力在于其**架构级优化**
 ### 中国大陆厂商
 
 | 厂商 | 模型 | 缓存命中 | 缓存未命中 | 价差倍数 |
-|------|------|---------|-----------|---------|
+|:-----|:-----|:---------|:----------|:---------|
 | DeepSeek | V4-Flash | **0.02元**/百万tokens | 1元/百万tokens | **50x** |
 | DeepSeek | V4-Pro | **0.025元**/百万tokens | 3元/百万tokens | **120x** |
 | 阿里云 | Qwen3-Max | 0.25元/百万tokens | 2.5元/百万tokens | 10x |
@@ -122,7 +155,7 @@ DeepSeek 在 Prompt Caching 领域的核心竞争力在于其**架构级优化**
 ### 国际厂商
 
 | 厂商 | 模型 | 缓存命中（输入） | 缓存未命中（输入） | 价差倍数 |
-|------|------|---------------|-----------------|---------|
+|:-----|:-----|:----------------|:------------------|:---------|
 | OpenAI | GPT-5.4 | $0.25/百万tokens | $2.50/百万tokens | 10x |
 | Anthropic | Claude Sonnet 4.6 | $0.30/百万tokens | $3.00/百万tokens | 10x |
 | Google | Gemini 2.5 Pro | $0.125/百万tokens | $1.25/百万tokens | 10x |
@@ -134,7 +167,7 @@ DeepSeek 在 Prompt Caching 领域的核心竞争力在于其**架构级优化**
 假设一个典型的 RAG 应用：每次请求包含 5000 tokens 的知识库上下文 + 200 tokens 的用户问题。
 
 | 方案 | 场景 | 每次调用成本 |
-|------|------|------------|
+|:-----|:-----|:------------|
 | DeepSeek V4-Pro 缓存命中 | 知识库前缀命中缓存 | 5000 x 0.025/100万 = **0.000125元** |
 | DeepSeek V4-Pro 缓存未命中 | 前缀均不命中 | 5000 x 3/100万 = **0.015元** |
 | OpenAI GPT-5.4 缓存命中 | 知识库前缀命中缓存 | 5000 x $0.25/100万 = **$0.00125** |
@@ -149,6 +182,18 @@ DeepSeek 在 Prompt Caching 领域的核心竞争力在于其**架构级优化**
 ### 1. 静态优先，动态置后
 
 将 Prompt 按"静态 -> 动态"的顺序组织。把系统指令、工具定义、知识库内容这些**固定不变**的部分放在最前面，用户问题、时间戳等**变化**的内容放在最后。
+
+```mermaid
+graph LR
+    A["系统指令<br/>(静态, 可缓存)"] --> B["工具定义<br/>(静态, 可缓存)"]
+    B --> C["知识库内容<br/>(半静态, 可缓存)"]
+    C --> D["用户问题<br/>(动态, 不可缓存)"]
+
+    style A fill:#4CAF50,stroke:#333,color:#fff
+    style B fill:#4CAF50,stroke:#333,color:#fff
+    style C fill:#FFC107,stroke:#333
+    style D fill:#F44336,stroke:#333,color:#fff
+```
 
 ```python
 # 正确的 Prompt 结构
@@ -188,7 +233,7 @@ prompt = "你是一个客服助手...\n\n本次请求ID：" + request_id
 不同厂商的最小缓存粒度不同：
 
 | 厂商 | 最小粒度 | 建议公共前缀长度 |
-|------|---------|---------------|
+|:-----|:---------|:----------------|
 | DeepSeek | 64 tokens | > 100 tokens |
 | OpenAI | 1024 tokens | > 1500 tokens |
 | Anthropic | 1024 tokens | > 1500 tokens |
@@ -317,7 +362,7 @@ print(f"消费金额: 缓存命中 {cache_hit_tokens} tokens × 命中单价 + "
 ### 5. TTL 过期
 
 | 厂商 | TTL | 风险 |
-|------|-----|------|
+|:-----|:----|:-----|
 | OpenAI | 5-10 分钟 | 低频请求几乎无法命中 |
 | Anthropic | 5 分钟（重置）/ 1 小时（不重置） | Claude Code TTL 变更曾导致部分用户账单增加 30-60% |
 | DeepSeek | 数小时到数天 | 对低频请求友好 |
@@ -328,8 +373,30 @@ print(f"消费金额: 缓存命中 {cache_hit_tokens} tokens × 命中单价 + "
 
 ## 与其他概念的关系
 
+```mermaid
+graph TD
+    PC["Prompt Caching"] --> KV["[[KV Cache]]"]
+    PC --> RAG["[[RAG-检索增强生成]]"]
+    PC --> TOK["[[Tokenization-分词]]"]
+    PC --> COST["[[LLM-API-成本优化]]"]
+    PC --> CW["[[上下文窗口-Context-Window]]"]
+
+    KV -->|底层技术| PC
+    RAG -->|最大受益者| PC
+    TOK -->|影响缓存效果| PC
+    COST -->|优化手段| PC
+    CW -->|决定上限| PC
+
+    style PC fill:#1565C0,stroke:#333,color:#fff
+    style KV fill:#E8F5E9,stroke:#4CAF50
+    style RAG fill:#FFF3E0,stroke:#FF9800
+    style TOK fill:#E3F2FD,stroke:#2196F3
+    style COST fill:#F3E5F5,stroke:#9C27B0
+    style CW fill:#FCE4EC,stroke:#E91E63
+```
+
 | 概念 | 关系 |
-|------|------|
+|:-----|:-----|
 | [[KV Cache]] | Prompt Caching 的核心底层技术，复用 KV Cache 实现跨请求缓存 |
 | [[RAG-检索增强生成]] | RAG 应用是 Prompt Caching 的最大受益者之一，知识库内容天然适合作为共享前缀 |
 | [[Tokenization-分词]] | 缓存匹配基于 tokens 而非字符，token 边界对齐影响缓存效果 |

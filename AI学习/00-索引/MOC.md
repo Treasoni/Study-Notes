@@ -81,6 +81,7 @@ Claude Code 的安装、配置和日常使用。
 | [[03-进阶应用/如何编写Skills]] | `ai`, `进阶应用` | Skills 编写实战指南，包含 metadata.json 和 skill.md 结构 |
 | [[03-进阶应用/Claude MCP 使用指南]] | `ai`, `进阶应用` | MCP 协议原理、配置文件管理、常用 MCP 服务器 |
 | [[03-进阶应用/CLAUDE.md 使用指南]] | `claude`, `ai`, `进阶应用`, `配置` | 项目级 CLAUDE.md 配置指南 |
+| [[03-进阶应用/LLM-Prompt-Caching-提示缓存]] | `llm`, `缓存`, `成本优化` | LLM API 提示缓存原理、各厂商定价对比、提高缓存命中率最佳实践 |
 
 ---
 
@@ -164,6 +165,7 @@ Subagent 的创建和多 Agent 流程设计。
 - [[03-进阶应用/如何编写Skills]]
 - [[03-进阶应用/Claude MCP 使用指南]]
 - [[03-进阶应用/CLAUDE.md 使用指南]]
+- [[03-进阶应用/LLM-Prompt-Caching-提示缓存]]
 
 #### 高级应用
 - [[02-工具使用/Claude Code Subagents 完整指南]]
@@ -219,6 +221,7 @@ Skills、MCP、CLAUDE.md 配置等进阶内容。
 - [[03-进阶应用/如何编写Skills]]
 - [[03-进阶应用/Claude MCP 使用指南]]
 - [[03-进阶应用/CLAUDE.md 使用指南]]
+- [[03-进阶应用/LLM-Prompt-Caching-提示缓存]]
 
 ### 高级应用
 
@@ -405,7 +408,7 @@ AI 模型对比与选型相关文档。
 | 使用 Smart Connections 发现笔记关联 | [[obsidian的使用/Obsidian Smart Connections 使用指南]] |
 | Claude Code 定时自动化 | [[02-工具使用/Claude Code 定时任务自动化指南]] |
 | 了解 GLM 模型对比 | [[05-其他主题/AI模型对比/GLM系列模型完整对比]] |
-| 学习 WSL Linux 子系统 | [[linux/WSL-Windows子系统forLinux]] |
+| 了解 LLM API 缓存定价与优化 | [[03-进阶应用/LLM-Prompt-Caching-提示缓存]] |
 
 ---
 
