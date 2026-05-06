@@ -178,7 +178,7 @@ npm --version
 
 **Windows**
 
-```bash
+```powershell
 # 方式一：使用 winget（推荐）
 winget install OpenJS.NodeJS.LTS
 
@@ -542,8 +542,6 @@ claude --model deepseek-chat
 # 查看当前使用的模型
 /status
 ```
-
-
 
 ### 步骤 4：配置 MCP
 
