@@ -2,6 +2,8 @@
   "customOrder": {
     "/": {
       "children": [
+        "npm",
+        "npm-knowledge-cards.json",
         "GitHub项目",
         "obsidian的使用",
         "软路由教程",
@@ -126,6 +128,7 @@
     },
     "AI学习/03-进阶应用": {
       "children": [
+        "AI学习/03-进阶应用/LLM-Prompt-Caching-提示缓存.md",
         "AI学习/03-进阶应用/sortspec.md",
         "AI学习/03-进阶应用/Claude Code 高级功能.md",
         "AI学习/03-进阶应用/如何编写Skills.md",
@@ -154,7 +157,6 @@
     },
     "AI学习/05-其他主题/AI模型对比": {
       "children": [
-        "AI学习/05-其他主题/AI模型对比/sortspec.md",
         "AI学习/05-其他主题/AI模型对比/GLM系列模型完整对比.md"
       ],
       "sortOrder": "custom"
@@ -332,7 +334,6 @@
         "Git/Git 高级技巧.md",
         "Git/Git 命令速查.md",
         "Git/Git 入门教程.md",
-        "Git/Git 常见错误解决方案.md",
         "Git/Git MOC.md",
         "Git/assets",
         "Git/分支管理最佳实践.md"
@@ -401,8 +402,17 @@
       ],
       "sortOrder": "custom"
     },
+    "npm": {
+      "children": [
+        "npm/npm.md",
+        "npm/npx命令运行器.md",
+        "npm/sortspec.md"
+      ],
+      "sortOrder": "custom"
+    },
     "obsidian的使用": {
       "children": [
+        "obsidian的使用/Quartz-4使用指南.md",
         "obsidian的使用/Obsidian-Web-Clipper使用教程.md",
         "obsidian的使用/sortspec.md",
         "obsidian的使用/Obsidian-Custom-Sort-自定义排序插件.md",
