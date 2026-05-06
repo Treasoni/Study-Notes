@@ -99,35 +99,72 @@ chmod +x ~/.claude/api-key-helper.sh
 > - `"acceptEdits"` — 仅自动批准文件编辑
 > - `"default"` — 每次操作都询问
 
-### 方式三：环境变量（走第三方 API）
+### 方式三：env 字段（走第三方 API，无需命令行）
 
-```bash
-# 使用 OpenRouter
-export ANTHROPIC_BASE_URL="https://openrouter.ai/api"
-export ANTHROPIC_AUTH_TOKEN="sk-or-v1-你的密钥"
-export ANTHROPIC_MODEL="anthropic/claude-3.5-sonnet"
-export ANTHROPIC_API_KEY=""  # 留空
-claude
+不用每次 export，直接在 `~/.claude/settings.json` 的 `env` 字段配好就行：
+
+**使用 OpenRouter：**
+
+```json
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://openrouter.ai/api",
+    "ANTHROPIC_AUTH_TOKEN": "sk-or-v1-你的密钥",
+    "ANTHROPIC_MODEL": "anthropic/claude-3.5-sonnet",
+    "ANTHROPIC_API_KEY": ""
+  }
+}
 ```
 
-```bash
-# 使用本地模型（LiteLLM + Ollama）
-ollama pull qwen2.5-coder:7b
-litellm --model ollama/qwen2.5-coder:7b --port 8000
-export ANTHROPIC_BASE_URL="http://localhost:8000/v1"
-export ANTHROPIC_AUTH_TOKEN="sk-123"
-export ANTHROPIC_API_KEY=""
-claude
+**使用本地模型（LiteLLM + Ollama）：**
+
+```json
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "http://localhost:8000/v1",
+    "ANTHROPIC_AUTH_TOKEN": "sk-123",
+    "ANTHROPIC_API_KEY": ""
+  }
+}
 ```
+
+先启动桥接：`ollama pull qwen2.5-coder:7b && litellm --model ollama/qwen2.5-coder:7b --port 8000`
 
 > [!warning] 协议兼容性
 > - Claude Code 使用 **Anthropic `/v1/messages`** 协议
 > - OpenRouter ✅ · LiteLLM ✅（自动转换） · **Ollama 直连 ❌**（必须通过 LiteLLM）
 > - 模型**必须支持 Tool Use / Function Calling**
 
-### 方式四：CC-Switch
+### 方式四：CC-Switch ⭐ 可视化方案
 
-直接在GitHub上搜索CC-Switch，然后现在对应的安装包。下载完后直接用CC-switch配置你有的第三方大模型平台，然后启用就可以了。
+> 跨平台桌面应用，**50K+ Star**，支持 Claude Code / Codex / Gemini CLI / OpenCode 等工具的供应商切换，内置 50+ 平台预设。
+
+**开发者**：[farion1231](https://github.com/farion1231/cc-switch) · **开源协议**：MIT
+
+#### 安装
+
+| 平台 | 命令 / 方式 |
+|------|-------------|
+| macOS | `brew tap farion1231/ccswitch && brew install --cask cc-switch` |
+| Windows | GitHub Releases 下载 `.msi` 安装包 |
+| Linux | DEB / RPM / AppImage 任选 |
+
+#### 配置步骤
+
+1. 打开 CC-Switch，选中 **Claude Code**
+2. 点击右上角 **+** 号，在预设中选择你的平台（如 SiliconFlow、DeepSeek、智谱等）
+3. 自动填入端点地址和模型映射，只需填写 **API Key**
+4. 在首页点击「启用」即可生效
+
+> [!tip] CC-Switch 优势
+> - **热切换**：切换供应商**无需重启终端**，即时生效
+> - **故障转移**：某家供应商宕机自动切到下一家
+> - **用量统计**：Token 消耗追踪、成本监控、趋势图表
+> - **MCP 统一管理**：一处编辑，同步到所有工具
+> - **云同步**：支持 WebDAV / Dropbox / OneDrive 多设备同步
+
+> [!warning] 注意
+> 如果同时配置了环境变量或 `settings.json`，可能会产生冲突。建议使用 CC-Switch 后，清空其他配置项，避免互相覆盖。
 
 ---
 
