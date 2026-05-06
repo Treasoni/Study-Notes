@@ -61,17 +61,7 @@ Claude Code **没有** `--no-auth` 参数，但有 4 种方式跳过 OAuth 登�
 
 ### 方式一：apiKeyHelper ⭐ 官方推荐
 
-```bash
-# 1. 创建 API Key 辅助脚本
-mkdir -p ~/.claude
-cat > ~/.claude/api-key-helper.sh << 'EOF'
-#!/bin/bash
-echo "sk-ant-你的API密钥"
-EOF
-chmod +x ~/.claude/api-key-helper.sh
-
-# 2. 配置 ~/.claude/settings.json
-```
+在 `~/.claude/settings.json` 中配置 API Key 辅助脚本路径：
 
 ```json
 {
@@ -79,9 +69,17 @@ chmod +x ~/.claude/api-key-helper.sh
 }
 ```
 
+该脚本内容只需输出你的 API Key：
+
+```bash
+#!/bin/bash
+echo "sk-ant-你的API密钥"
+```
+
 > [!warning] 注意
 > - **不要**同时设置 `ANTHROPIC_API_KEY` 环境变量（会冲突）
 > - 删除 `~/.claude.json` 中的 `oauthAccount` 条目
+> - 如果嫌创建脚本麻烦，直接用下面的 `primaryApiKey` 方式，纯 JSON 一步到位
 
 ### 方式二：primaryApiKey ⭐ 直接配置
 
@@ -203,15 +201,34 @@ chmod +x ~/.claude/api-key-helper.sh
 
 > **配置优先级**：环境变量 > settings.json > 默认值
 
-### 常用 alias（加到 `~/.zshrc`）
+### 多平台一键切换（纯配置）
 
-```bash
-# 一键切换不同平台
-alias claude-ds='ANTHROPIC_BASE_URL="https://api.deepseek.com" ANTHROPIC_API_KEY="sk-xxx" claude'
-alias claude-volc='ANTHROPIC_BASE_URL="https://ark.cn-beijing.volces.com/v1" ANTHROPIC_API_KEY="xxx" claude'
-alias claude-qwen='ANTHROPIC_BASE_URL="https://dashscope.aliyuncs.com/compatible-mode/v1" ANTHROPIC_API_KEY="xxx" claude'
-alias claude-proxy='HTTP_PROXY="http://127.0.0.1:7890" HTTPS_PROXY="http://127.0.0.1:7890" claude'
+在 `settings.json` 配好多个 provider，改 `defaultProvider` 就行：
+
+```json
+{
+  "providers": {
+    "deepseek": {
+      "baseUrl": "https://api.deepseek.com",
+      "apiKey": "sk-xxx",
+      "defaultModel": "deepseek-chat"
+    },
+    "volc": {
+      "baseUrl": "https://ark.cn-beijing.volces.com/v1",
+      "apiKey": "ep-xxxxx",
+      "defaultModel": "ep-xxxxx"
+    },
+    "qwen": {
+      "baseUrl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+      "apiKey": "sk-xxx",
+      "defaultModel": "qwen-max"
+    }
+  },
+  "defaultProvider": "deepseek"
+}
 ```
+
+想换平台？把 `defaultProvider` 改成 `"volc"` 或 `"qwen"` 就行，保存后重启 Claude Code 生效。
 
 ### 取消代理
 
@@ -227,38 +244,23 @@ alias claude-proxy='HTTP_PROXY="http://127.0.0.1:7890" HTTPS_PROXY="http://127.0
 
 ## 四、代理配置
 
-### 临时设置（当前终端）
+### 推荐：settings.json 配置（永久）
 
-```bash
-# macOS / Linux
-export HTTP_PROXY="http://127.0.0.1:7890"
-export HTTPS_PROXY="http://127.0.0.1:7890"
-claude
+在 `~/.claude/settings.json` 的 `env` 字段中配置：
 
-# Windows PowerShell
-$env:HTTP_PROXY="http://127.0.0.1:7890"
-$env:HTTPS_PROXY="http://127.0.0.1:7890"
-claude
-
-# Windows CMD
-set HTTP_PROXY=http://127.0.0.1:7890
-set HTTPS_PROXY=http://127.0.0.1:7890
-claude
+```json
+{
+  "env": {
+    "HTTP_PROXY": "http://127.0.0.1:7890",
+    "HTTPS_PROXY": "http://127.0.0.1:7890"
+  }
+}
 ```
 
-### 永久写入配置文件
+### 取消代理
 
-```bash
-# macOS / Linux
-echo 'export HTTP_PROXY="http://127.0.0.1:7890"' >> ~/.zshrc
-echo 'export HTTPS_PROXY="http://127.0.0.1:7890"' >> ~/.zshrc
-source ~/.zshrc
-```
-
-```powershell
-# Windows
-[System.Environment]::SetEnvironmentVariable("HTTP_PROXY", "http://127.0.0.1:7890", "User")
-[System.Environment]::SetEnvironmentVariable("HTTPS_PROXY", "http://127.0.0.1:7890", "User")
+```json
+{ "env": { "HTTP_PROXY": "", "HTTPS_PROXY": "" } }
 ```
 
 ### 常用代理端口
