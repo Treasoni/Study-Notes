@@ -125,14 +125,9 @@ claude
 > - OpenRouter ✅ · LiteLLM ✅（自动转换） · **Ollama 直连 ❌**（必须通过 LiteLLM）
 > - 模型**必须支持 Tool Use / Function Calling**
 
-### 方式四：Desktop Developer Mode（GUI）
+### 方式四：CC-Switch
 
-> 2026 年 4 月新增。菜单 → **HELP → Troubleshooting → Enable Developer Mode** → 重启 → **Developer → Configure Third-Party Inference** → 填写 Gateway URL + API Key
-
-> [!info] 📚 来源
-> - [apiKeyHelper - GitHub Issue](https://github.com/lbjlaq/Antigravity-Manager/issues/362)
-> - [Desktop Developer Mode](https://developer.aliyun.com/article/1731254) · [settings.json 详解](https://blog.csdn.net/tirestay/article/details/158808038)
-> - [第三方 API / 本地模型配置](https://www.xugj520.cn/archives/windows-claude-code-api-setup-no-login.html)
+直接在GitHub上搜索CC-Switch，然后现在对应的安装包。下载完后直接用CC-switch配置你有的第三方大模型平台，然后启用就可以了。
 
 ---
 
