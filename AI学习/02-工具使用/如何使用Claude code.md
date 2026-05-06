@@ -57,7 +57,7 @@ tags: [ai, 工具使用]
 ### 步骤 1：安装
 
 > [!note] 版本信息
-> **当前版本**: v2.1.119 (2026-04-24) - 从 v2.1.113 开始，Claude Code 以原生二进制文件发布（macOS/Linux/Windows），支持 `npm install` 安装。
+> **当前版本**: v2.1.131 (2026-05-06) - 从 v2.1.113 开始，Claude Code 以原生二进制文件发布（macOS/Linux/Windows）。**npm 安装方式已官方废弃**，推荐使用原生安装器。
 
 #### 15 分钟快速开始
 
@@ -88,9 +88,10 @@ cp 02-memory/project-CLAUDE.md /path/to/your-project/CLAUDE.md
 
 | 要求          | 说明                                                |
 | ----------- | ------------------------------------------------- |
-| **Node.js** | 版本 18.0 或更高（推荐 LTS 版本）                            |
-| **npm**     | 随 Node.js 自动安装                                    |
+| **Node.js** | 仅 `npm` 安装方式需要 v18+（原生安装器无需 Node.js）                 |
+| **npm**     | 仅 `npm` 安装方式需要（已废弃）                                   |
 | **Git**     | 版本控制系统，Claude Code 的版本控制功能依赖于此                      |
+| **RAM**     | 最低 4GB，推荐 8GB                                          |
 | **终端**      | macOS Terminal / Windows PowerShell / Linux Shell |
 
 > [!tip] 检查版本
@@ -231,7 +232,43 @@ npm --version
 
 #### 安装方式
 
-**方式一：Homebrew（macOS 推荐）**
+**方式一：原生安装器（推荐，跨平台）**
+
+macOS/Linux：
+
+```bash
+# 推荐方式：自动安装脚本
+curl -fsSL https://claude.ai/install.sh | bash
+
+# 验证安装
+claude --version
+```
+
+Windows（PowerShell，推荐）：
+
+```powershell
+# 推荐方式：自动安装脚本
+irm https://claude.ai/install.ps1 | iex
+
+# 验证安装
+claude --version
+```
+
+Windows（CMD）：
+
+```cmd
+curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
+```
+
+> [!tip] 原生安装器优势
+> - 自动更新（可通过 `DISABLE_AUTOUPDATER=1` 在 settings.json 中禁用）
+> - 无需 Node.js 环境
+> - 各平台独立二进制文件，体积约 60-80MB
+
+> [!info] 📚 来源
+> - [GitHub 官方仓库 - Installation](https://github.com/anthropics/claude-code)
+
+**方式二：Homebrew（macOS 推荐）**
 
 ```bash
 # 1. 确保已安装 Homebrew
@@ -239,29 +276,45 @@ npm --version
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # 2. 安装 Claude Code
-brew install claude-code
+brew install --cask claude-code
 
 # 3. 验证安装
 claude --version
 ```
 
-> [!tip] 原生二进制文件
-> v2.1.113+ 版本使用原生二进制文件，`brew install` 会自动下载适合你平台的二进制文件。
+> [!tip] Homebrew 注意
+> 需要手动更新：`brew upgrade claude-code`
 
-**方式二：npm（跨平台）**
+> [!info] 📚 来源
+> - [Homebrew 官方 Cask](https://github.com/Homebrew/homebrew-cask)
+
+**方式三：WinGet（Windows 推荐）**
+
+```powershell
+# 使用 WinGet 安装
+winget install Anthropic.ClaudeCode
+
+# 验证安装
+claude --version
+```
+
+> [!tip] WinGet 注意
+> 需要手动更新：`winget upgrade Anthropic.ClaudeCode`
+
+**方式四：npm（已废弃）**
 
 ```bash
-# 全局安装（npm 仍可用，会按需下载原生二进制文件作为可选依赖）
+# 全局安装（不推荐，官方已废弃此方式）
 npm install -g @anthropic-ai/claude-code
 
 # 验证安装
 claude --version
 ```
 
-> [!warning] 企业代理注意
-> v2.1.116+ 版本从 `https://downloads.claude.ai/claude-code-releases` 下载二进制文件，企业代理需要将此域名加入白名单。
+> [!warning] npm 方式已废弃
+> v2.1.113+ 开始，官方已逐步废弃 npm 安装方式。新用户请使用原生安装器。npm 安装不会自动更新。
 
-**方式三：从源码安装**
+**方式五：从源码安装**
 
 ```bash
 # 克隆仓库
@@ -291,6 +344,110 @@ claude
 > [!warning] 认证注意
 > - 浏览器登录会在本地生成认证令牌
 > - API Key 方式需要有效的 Anthropic 账户和订阅
+
+#### 跳过登录与无需认证
+
+Claude Code **没有** `--no-auth` 参数，但提供以下 4 种方式跳过 OAuth 登录：
+
+**方式一：apiKeyHelper（官方推荐）**
+
+创建一个脚本文件输出你的 API Key，然后在 settings.json 中引用：
+
+```bash
+# 1. 创建 API Key 辅助脚本
+cat > ~/.claude/api-key-helper.sh << 'EOF'
+#!/bin/bash
+echo "sk-ant-你的API密钥"
+EOF
+chmod +x ~/.claude/api-key-helper.sh
+
+# 2. 配置 settings.json
+```
+
+```json
+{
+  "apiKeyHelper": "/Users/你的用户名/.claude/api-key-helper.sh"
+}
+```
+
+> [!tip] 注意
+> - **不要**同时设置 `ANTHROPIC_API_KEY` 环境变量，否则会出现认证冲突警告
+> - 确保 `~/.claude.json` 中没有 `oauthAccount` 条目（如有则删除）
+
+**方式二：primaryApiKey（配置方式）**
+
+在 `~/.claude/settings.json` 中直接配置 API Key：
+
+```json
+{
+  "primaryApiKey": "sk-ant-你的API密钥",
+  "permissions": {
+    "defaultMode": "acceptEdits"
+  }
+}
+```
+
+> [!tip] permissions 可选值
+> - `"bypassPermissions"` — YOLO 模式，自动批准所有操作
+> - `"acceptEdits"` — 仅自动批准文件编辑
+> - `"default"` — 每次操作都询问（默认）
+
+**方式三：环境变量（第三方 API）**
+
+```bash
+# 使用第三方 API（如 OpenRouter、本地模型等）
+export ANTHROPIC_BASE_URL="https://openrouter.ai/api"
+export ANTHROPIC_AUTH_TOKEN="sk-or-v1-你的密钥"
+export ANTHROPIC_MODEL="anthropic/claude-3.5-sonnet"
+export ANTHROPIC_API_KEY=""  # 留空
+
+claude
+```
+
+离线使用本地模型（通过 LiteLLM 桥接 Ollama）：
+
+```bash
+# 1. 安装 Ollama 并拉取模型
+ollama pull qwen2.5-coder:7b
+
+# 2. 启动 LiteLLM 桥接
+litellm --model ollama/qwen2.5-coder:7b --port 8000
+
+# 3. 设置环境变量启动 Claude Code
+export ANTHROPIC_BASE_URL="http://localhost:8000/v1"
+export ANTHROPIC_AUTH_TOKEN="sk-123"
+export ANTHROPIC_API_KEY=""
+claude
+```
+
+> [!warning] 协议兼容性
+> - Claude Code 使用 Anthropic `/v1/messages` 协议（与 OpenAI `/v1/chat/completions` 不同）
+> - OpenRouter：原生支持 Anthropic 协议 ✅
+> - LiteLLM：自动协议转换 ✅
+> - Ollama 直连：不支持 ❌（必须通过 LiteLLM 桥接）
+> - 模型**必须支持 Tool Use / Function Calling**
+
+**方式四：Desktop Developer Mode（GUI 方式，2026 年 4 月新增）**
+
+如果使用 Claude Code Desktop：
+1. 菜单 → HELP → Troubleshooting → **Enable Developer Mode**
+2. 重启应用
+3. Developer → Configure Third-Party Inference
+4. 填写 Gateway URL + API Key
+
+> [!info] 特性
+> - 完全跳过 Claude 账户登录
+> - 可视化配置第三方推理端点
+> - 支持 Ollama、OpenRouter 等 OpenAI 兼容后端
+
+> [!info] 📚 来源
+> - [apiKeyHelper - GitHub Issue #362](https://github.com/lbjlaq/Antigravity-Manager/issues/362)
+> - [Desktop Developer Mode - 阿里云开发者](https://developer.aliyun.com/article/1731254)
+> - [settings.json 绕过登录 - CSDN](https://blog.csdn.net/tirestay/article/details/158808038)
+> - [第三方 API / 本地模型配置](https://www.xugj520.cn/archives/windows-claude-code-api-setup-no-login.html)
+
+> [!warning] 企业代理注意
+> v2.1.116+ 版本从 `https://downloads.claude.ai/claude-code-releases` 下载二进制文件，企业代理需要将此域名加入白名单。
 
 #### 安装验证
 
@@ -847,6 +1004,8 @@ A:
 ### 官方资源
 - [Claude Code Official Documentation](https://code.claude.com/docs/en/overview) - 官方技术文档
 - [Anthropics Claude Code GitHub](https://github.com/anthropics/claude-code) - 官方仓库
+  - [GitHub Releases](https://github.com/anthropics/claude-code/releases) - 版本发布与更新日志
+- [Claude Code Auto Mode - Anthropic Engineering Blog](https://www.anthropic.com/engineering/claude-code-auto-mode) - 自动权限模式官方说明
 
 ### 社区资源（强烈推荐）
 - [claude-howto GitHub Repository](https://github.com/luongnv89/claude-howto) - 21,800+ stars 完整学习指南
@@ -854,3 +1013,12 @@ A:
   - [功能目录](https://github.com/luongnv89/claude-howto/blob/main/CATALOG.md) - 所有功能快速参考
   - [10 个教程模块](https://github.com/luongnv89/claude-howto) - 从入门到高级的完整教程
 - [Boris Cherny's Workflow](https://x.com/bcherny/status/2007179832300581177) - Claude Code 创建者分享的系统化工作流
+
+### 安装与配置
+- [How to Install Claude Code (2026) - morphllm.com](https://www.morphllm.com/install-claude-code) - 全平台安装指南
+- [第三方 API / 本地模型配置指南](https://www.xugj520.cn/archives/windows-claude-code-api-setup-no-login.html) - 无需登录配置方法
+
+### 跳过认证
+- [apiKeyHelper - Antigravity-Manager Issue #362](https://github.com/lbjlaq/Antigravity-Manager/issues/362) - 官方 apiKeyHelper 使用方法
+- [Desktop Developer Mode 配置](https://developer.aliyun.com/article/1731254) - 绕过登录使用第三方模型
+- [Windows Claude Code API 免登录配置 - CSDN](https://blog.csdn.net/tirestay/article/details/158808038) - settings.json 配置详解
