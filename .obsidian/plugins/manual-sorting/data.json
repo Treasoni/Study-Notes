@@ -55,12 +55,13 @@
     },
     "AI学习": {
       "children": [
+        "AI学习/02-通用工具",
+        "AI学习/03-技术专题",
+        "AI学习/04-项目实践",
+        "AI学习/Claude Code 教程",
+        "AI学习/sortspec.md",
         "AI学习/00-索引",
         "AI学习/01-基础概念",
-        "AI学习/02-工具使用",
-        "AI学习/03-进阶应用",
-        "AI学习/04-高级应用",
-        "AI学习/05-其他主题",
         "AI学习/assets"
       ],
       "sortOrder": "custom"
@@ -93,124 +94,98 @@
       ],
       "sortOrder": "custom"
     },
-    "AI学习/02-工具使用": {
+    "AI学习/02-通用工具": {
       "children": [
-        "AI学习/02-工具使用/sortspec.md",
-        "AI学习/02-工具使用/Claude-Code-多Agent流程设计.md",
-        "AI学习/02-工具使用/Claude Code Checkpoints 使用指南.md",
-        "AI学习/02-工具使用/Claude Code CLI 完整参考.md",
-        "AI学习/02-工具使用/Claude Code Memory 完整指南.md",
-        "AI学习/02-工具使用/Claude Code Slash Commands 完整参考.md",
-        "AI学习/02-工具使用/Claude Code Subagents 完整指南.md",
-        "AI学习/02-工具使用/Claude Code Hooks 使用指南.md",
-        "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
-        "AI学习/02-工具使用/Claude Code 模型与推理设置.md",
-        "AI学习/02-工具使用/assets",
-        "AI学习/02-工具使用/Tailscale使用指南.md",
-        "AI学习/02-工具使用/如何使用Claude code.md",
-        "AI学习/02-工具使用/Claude Code 插件系统使用指南.md",
-        "AI学习/02-工具使用/Claude Code 常用功能.md",
-        "AI学习/02-工具使用/Claude Code 会话管理.md"
+        "AI学习/02-通用工具/assets",
+        "AI学习/02-通用工具/sortspec.md",
+        "AI学习/02-通用工具/Tailscale使用指南.md"
       ],
       "sortOrder": "custom"
     },
-    "AI学习/02-工具使用/assets": {
+    "AI学习/02-通用工具/assets": {
       "children": [
-        "AI学习/02-工具使用/assets/Tailscale使用指南"
+        "AI学习/02-通用工具/assets/Tailscale使用指南"
       ],
       "sortOrder": "custom"
     },
-    "AI学习/02-工具使用/assets/Tailscale使用指南": {
+    "AI学习/02-通用工具/assets/Tailscale使用指南": {
       "children": [
-        "AI学习/02-工具使用/assets/Tailscale使用指南/截屏2026-03-04 00.44.43.png"
+        "AI学习/02-通用工具/assets/Tailscale使用指南/截屏2026-03-04 00.44.43.png"
       ],
       "sortOrder": "custom"
     },
-    "AI学习/03-进阶应用": {
+    "AI学习/03-技术专题": {
       "children": [
-        "AI学习/03-进阶应用/LLM-Prompt-Caching-提示缓存.md",
-        "AI学习/03-进阶应用/sortspec.md",
-        "AI学习/03-进阶应用/Claude Code 高级功能.md",
-        "AI学习/03-进阶应用/如何编写Skills.md",
-        "AI学习/03-进阶应用/Claude MCP 使用指南.md",
-        "AI学习/03-进阶应用/CLAUDE.md 使用指南.md"
+        "AI学习/03-技术专题/AI模型对比",
+        "AI学习/03-技术专题/knowledge-cards.json",
+        "AI学习/03-技术专题/OCR概念笔记.md",
+        "AI学习/03-技术专题/RAG技术入门指南.md",
+        "AI学习/03-技术专题/sortspec.md"
       ],
       "sortOrder": "custom"
     },
-    "AI学习/04-高级应用": {
+    "AI学习/03-技术专题/AI模型对比": {
       "children": [
-        "AI学习/04-高级应用/sortspec.md",
-        "AI学习/04-高级应用/Subagent 实战练习.md"
+        "AI学习/03-技术专题/AI模型对比/GLM系列模型完整对比.md"
       ],
       "sortOrder": "custom"
     },
-    "AI学习/05-其他主题": {
+    "AI学习/04-项目实践": {
       "children": [
-        "AI学习/05-其他主题/sortspec.md",
-        "AI学习/05-其他主题/knowledge-cards.json",
-        "AI学习/05-其他主题/AI模型对比",
-        "AI学习/05-其他主题/openclaw",
-        "AI学习/05-其他主题/OCR概念笔记.md",
-        "AI学习/05-其他主题/RAG技术入门指南.md"
+        "AI学习/04-项目实践/openclaw"
       ],
       "sortOrder": "custom"
     },
-    "AI学习/05-其他主题/AI模型对比": {
+    "AI学习/04-项目实践/openclaw": {
       "children": [
-        "AI学习/05-其他主题/AI模型对比/GLM系列模型完整对比.md"
+        "AI学习/04-项目实践/openclaw/参考层",
+        "AI学习/04-项目实践/openclaw/配置层",
+        "AI学习/04-项目实践/openclaw/入门层",
+        "AI学习/04-项目实践/openclaw/选型层",
+        "AI学习/04-项目实践/openclaw/应用层",
+        "AI学习/04-项目实践/openclaw/OpenClaw MOC.md",
+        "AI学习/04-项目实践/openclaw/sortspec.md"
       ],
       "sortOrder": "custom"
     },
-    "AI学习/05-其他主题/openclaw": {
+    "AI学习/04-项目实践/openclaw/参考层": {
       "children": [
-        "AI学习/05-其他主题/openclaw/sortspec.md",
-        "AI学习/05-其他主题/openclaw/参考层",
-        "AI学习/05-其他主题/openclaw/配置层",
-        "AI学习/05-其他主题/openclaw/入门层",
-        "AI学习/05-其他主题/openclaw/选型层",
-        "AI学习/05-其他主题/openclaw/应用层",
-        "AI学习/05-其他主题/openclaw/OpenClaw MOC.md"
+        "AI学习/04-项目实践/openclaw/参考层/OpenClaw常用命令速查.md",
+        "AI学习/04-项目实践/openclaw/参考层/sortspec.md"
       ],
       "sortOrder": "custom"
     },
-    "AI学习/05-其他主题/openclaw/参考层": {
+    "AI学习/04-项目实践/openclaw/配置层": {
       "children": [
-        "AI学习/05-其他主题/openclaw/参考层/sortspec.md",
-        "AI学习/05-其他主题/openclaw/参考层/OpenClaw常用命令速查.md"
+        "AI学习/04-项目实践/openclaw/配置层/OpenClaw Web控制台局域网访问配置.md",
+        "AI学习/04-项目实践/openclaw/配置层/OpenClaw安装后配置指南.md",
+        "AI学习/04-项目实践/openclaw/配置层/OpenClaw网关开机自启与HTTPS配置.md",
+        "AI学习/04-项目实践/openclaw/配置层/sortspec.md"
       ],
       "sortOrder": "custom"
     },
-    "AI学习/05-其他主题/openclaw/配置层": {
+    "AI学习/04-项目实践/openclaw/入门层": {
       "children": [
-        "AI学习/05-其他主题/openclaw/配置层/sortspec.md",
-        "AI学习/05-其他主题/openclaw/配置层/OpenClaw Web控制台局域网访问配置.md",
-        "AI学习/05-其他主题/openclaw/配置层/OpenClaw安装后配置指南.md",
-        "AI学习/05-其他主题/openclaw/配置层/OpenClaw网关开机自启与HTTPS配置.md"
+        "AI学习/04-项目实践/openclaw/入门层/OpenClaw安装教程.md",
+        "AI学习/04-项目实践/openclaw/入门层/OpenClaw核心概念.md",
+        "AI学习/04-项目实践/openclaw/入门层/sortspec.md"
       ],
       "sortOrder": "custom"
     },
-    "AI学习/05-其他主题/openclaw/入门层": {
+    "AI学习/04-项目实践/openclaw/选型层": {
       "children": [
-        "AI学习/05-其他主题/openclaw/入门层/sortspec.md",
-        "AI学习/05-其他主题/openclaw/入门层/OpenClaw安装教程.md",
-        "AI学习/05-其他主题/openclaw/入门层/OpenClaw核心概念.md"
+        "AI学习/04-项目实践/openclaw/选型层/OpenClaw与国内仿制品对比.md",
+        "AI学习/04-项目实践/openclaw/选型层/sortspec.md"
       ],
       "sortOrder": "custom"
     },
-    "AI学习/05-其他主题/openclaw/选型层": {
+    "AI学习/04-项目实践/openclaw/应用层": {
       "children": [
-        "AI学习/05-其他主题/openclaw/选型层/sortspec.md",
-        "AI学习/05-其他主题/openclaw/选型层/OpenClaw与国内仿制品对比.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/05-其他主题/openclaw/应用层": {
-      "children": [
-        "AI学习/05-其他主题/openclaw/应用层/sortspec.md",
-        "AI学习/05-其他主题/openclaw/应用层/OpenClaw本地智能助手搭建指南.md",
-        "AI学习/05-其他主题/openclaw/应用层/OpenClaw对接第三方软件指南.md",
-        "AI学习/05-其他主题/openclaw/应用层/OpenClaw多智能体协作指南.md",
-        "AI学习/05-其他主题/openclaw/应用层/OpenClaw数字人商业调查.md"
+        "AI学习/04-项目实践/openclaw/应用层/OpenClaw本地智能助手搭建指南.md",
+        "AI学习/04-项目实践/openclaw/应用层/OpenClaw对接第三方软件指南.md",
+        "AI学习/04-项目实践/openclaw/应用层/OpenClaw多智能体协作指南.md",
+        "AI学习/04-项目实践/openclaw/应用层/OpenClaw数字人商业调查.md",
+        "AI学习/04-项目实践/openclaw/应用层/sortspec.md"
       ],
       "sortOrder": "custom"
     },
@@ -248,6 +223,37 @@
         "AI学习/assets/Skills 是什么/file-20260205160852903.png",
         "AI学习/assets/Skills 是什么/file-20260205160852905.png",
         "AI学习/assets/Skills 是什么/file-20260205161420021.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/Claude Code 教程": {
+      "children": [
+        "AI学习/Claude Code 教程/高级功能",
+        "AI学习/Claude Code 教程/如何使用Claude code.md",
+        "AI学习/Claude Code 教程/Claude Code 插件系统使用指南.md",
+        "AI学习/Claude Code 教程/Claude Code 常用功能.md",
+        "AI学习/Claude Code 教程/Claude Code 定时任务自动化指南.md",
+        "AI学习/Claude Code 教程/Claude Code 高级功能.md",
+        "AI学习/Claude Code 教程/Claude Code 会话管理.md",
+        "AI学习/Claude Code 教程/Claude Code 模型与推理设置.md",
+        "AI学习/Claude Code 教程/Claude Code Checkpoints 使用指南.md",
+        "AI学习/Claude Code 教程/Claude Code CLI 完整参考.md",
+        "AI学习/Claude Code 教程/Claude Code Hooks 使用指南.md",
+        "AI学习/Claude Code 教程/Claude Code Memory 完整指南.md",
+        "AI学习/Claude Code 教程/Claude Code Slash Commands 完整参考.md",
+        "AI学习/Claude Code 教程/Claude Code Subagents 完整指南.md",
+        "AI学习/Claude Code 教程/Claude MCP 使用指南.md",
+        "AI学习/Claude Code 教程/Claude-Code-多Agent流程设计.md",
+        "AI学习/Claude Code 教程/sortspec.md",
+        "AI学习/Claude Code 教程/Subagent 实战练习.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/Claude Code 教程/高级功能": {
+      "children": [
+        "AI学习/Claude Code 教程/高级功能/如何编写Skills.md",
+        "AI学习/Claude Code 教程/高级功能/CLAUDE.md 使用指南.md",
+        "AI学习/Claude Code 教程/高级功能/LLM-Prompt-Caching-提示缓存.md"
       ],
       "sortOrder": "custom"
     },
