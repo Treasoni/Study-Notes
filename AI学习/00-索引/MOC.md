@@ -36,37 +36,50 @@ tags: [ai, 学习指南, index]
 
 ---
 
+### Claude Code 教程
+
+Claude Code 系统的使用教程，从安装到高级应用。
+
+| 文档 | 标签 | 摘要 |
+|------|------|------|
+| [[Claude Code 教程/如何使用Claude code]] | `ai`, `工具使用` | 完整安装配置指南，包含多平台配置、代理设置、MCP/Skills 配置 |
+| [[Claude Code 教程/Claude Code CLI 完整参考]] | `ai`, `工具使用`, `cli` | CLI 完整命令参考，交互模式与 Print 模式、模型配置、权限管理、CI/CD 集成 |
+| [[Claude Code 教程/Claude Code 常用功能]] | `claude`, `ai`, `工具使用` | 功能速查手册，快速查找常用命令和操作 |
+| [[Claude Code 教程/Claude Code 会话管理]] | `claude`, `ai`, `工具使用` | 会话创建、恢复、清除等管理技巧 |
+| [[Claude Code 教程/Claude Code 模型与推理设置]] | `claude`, `ai`, `工具使用` | CLI 和 VSCode 插件的模型配置、推理参数、第三方平台配置 |
+| [[Claude Code 教程/Claude Code Hooks 使用指南]] | `claude`, `ai`, `工具使用`, `hook`, `自动化` | Hook配置详解、Matcher语法、实战示例、调试排错 |
+| [[Claude Code 教程/Claude Code Slash Commands 完整参考]] | `claude`, `ai`, `工具使用`, `斜杠命令` | 55+ 内置命令参考、Skills 迁移、命令生命周期 |
+| [[Claude Code 教程/Claude Code Memory 完整指南]] | `claude`, `ai`, `工具使用`, `memory`, `claude-md` | Memory 系统详解、层级架构、Auto Memory、模块化规则 |
+| [[Claude Code 教程/Claude Code 插件系统使用指南]] | `ai`, `进阶应用`, `插件` | 插件系统架构、安装、创建自定义插件 |
+| [[Claude Code 教程/Claude Code Checkpoints 使用指南]] | `ai`, `claude-code`, `checkpoints`, `会话管理` | Checkpoints 自动快照、Rewind 回滚、Summarize 压缩对话 |
+| [[Claude Code 教程/Claude Code 定时任务自动化指南]] | `claude-code`, `自动化`, `launchd`, `cron` | Claude Code 定时自动化（macOS 用 launchd，Linux 用 cron），代码审查、依赖监控、自动重构 |
+| [[Claude Code 教程/Claude-Code-多Agent流程设计]] | `Claude-Code`, `多Agent`, `AI工作流` | 多 Agent 流程设计完整指南，包含 Task Tool 架构、4 种设计模式、工作流实践 |
+| [[Claude Code 教程/Claude Code Subagents 完整指南]] | `ai`, `工具使用`, `subagents` | Subagent 完整指南，包含内置类型、自定义 Agent 创建、Plugin 系统架构 |
+| [[Claude Code 教程/Claude Code 高级功能]] | `ai`, `进阶应用` | Claude Code 高级功能详解 |
+| [[Claude Code 教程/Claude MCP 使用指南]] | `ai`, `进阶应用` | MCP 协议原理、配置文件管理、常用 MCP 服务器 |
+| [[Claude Code 教程/Subagent 实战练习]] | `ai`, `高级应用`, `练习` | 5个渐进式练习，从简单到复杂掌握 Subagent |
+
 ### 工具使用
 
 Claude Code 的安装、配置和日常使用。
 
-| 文档 | 标签 | 摘要 | 行数 |
-|------|------|------|------|
-| [[02-工具使用/如何使用Claude code]] | `ai`, `工具使用` | 完整安装配置指南，包含多平台配置、代理设置、MCP/Skills 配置 | 540行 |
-| [[02-工具使用/Claude Code CLI 完整参考]] | `ai`, `工具使用`, `cli` | CLI 完整命令参考，交互模式与 Print 模式、模型配置、权限管理、CI/CD 集成 | 新增 |
-| [[02-工具使用/Claude Code 常用功能]] | `claude`, `ai`, `工具使用` | 功能速查手册，快速查找常用命令和操作 | 180行 |
-| [[02-工具使用/Claude Code 会话管理]] | `claude`, `ai`, `工具使用` | 会话创建、恢复、清除等管理技巧 | 480行 |
-| [[02-工具使用/Claude Code 模型与推理设置]] | `claude`, `ai`, `工具使用` | CLI 和 VSCode 插件的模型配置、推理参数、第三方平台配置 | 新增 |
-| [[02-工具使用/Claude Code Hooks 使用指南]] | `claude`, `ai`, `工具使用`, `hook`, `自动化` | Hook配置详解、Matcher语法、实战示例、调试排错 | 新增 |
-| [[02-工具使用/Claude Code Slash Commands 完整参考]] | `claude`, `ai`, `工具使用`, `斜杠命令` | 55+ 内置命令参考、Skills 迁移、命令生命周期 | 新增 |
-| [[02-工具使用/Claude Code Memory 完整指南]] | `claude`, `ai`, `工具使用`, `memory`, `claude-md` | Memory 系统详解、层级架构、Auto Memory、模块化规则 | 新增 |
-| [[02-工具使用/Claude Code 插件系统使用指南]] | `ai`, `进阶应用`, `插件` | 插件系统架构、安装、创建自定义插件 | 430行 |
-| [[02-工具使用/Claude Code Checkpoints 使用指南]] | `ai`, `claude-code`, `checkpoints`, `会话管理` | Checkpoints 自动快照、Rewind 回滚、Summarize 压缩对话 | 新增 |
-| [[02-工具使用/Tailscale使用指南]] | `tailscale`, `vpn`, `networking` | 基于 WireGuard 的零配置 VPN 组网工具，安装、工作原理、使用教程 | 300行 |
-| [[linux/WSL-Windows子系统forLinux]] | `wsl`, `windows`, `linux`, `开发环境` | Windows 内置 Linux 子系统，概念原理、安装配置、常用命令、实战场景 | 新增 |
-| [[obsidian的使用/Obsidian Smart Connections 使用指南]] | `obsidian`, `smart-connections`, `语义搜索` | Obsidian 本地优先语义搜索插件，自动发现笔记关联、AI 嵌入技术 | 新增 |
+| 文档 | 标签 | 摘要 |
+|------|------|------|
+| [[02-工具使用/Tailscale使用指南]] | `tailscale`, `vpn`, `networking` | 基于 WireGuard 的零配置 VPN 组网工具，安装、工作原理、使用教程 |
+| [[linux/WSL-Windows子系统forLinux]] | `wsl`, `windows`, `linux`, `开发环境` | Windows 内置 Linux 子系统，概念原理、安装配置、常用命令、实战场景 |
+| [[obsidian的使用/Obsidian Smart Connections 使用指南]] | `obsidian`, `smart-connections`, `语义搜索` | Obsidian 本地优先语义搜索插件，自动发现笔记关联、AI 嵌入技术 |
+
 #### 自动化工具
 
 | 文档 | 标签 | 摘要 |
 |------|------|------|
-| [[02-工具使用/Claude Code 定时任务自动化指南]] | `claude-code`, `自动化`, `launchd`, `cron` | Claude Code 定时自动化（macOS 用 launchd，Linux 用 cron），代码审查、依赖监控、自动重构 |
 | [[N8N定时抓取热点资讯指南]] | `n8n`, `自动化`, `智谱AI` | N8N工作流自动化工具，定时抓取RSS热点资讯并调用智谱AI分析 |
 | [[RSS使用指南]] | `rss`, `信息聚合`, `阅读器` | RSS订阅协议详解，包含概念、阅读器选择、RSSHub使用和自建方案 |
 
 > [!tip] 文档选择
-> - **首次安装** → 阅读 [[02-工具使用/如何使用Claude code]]
-> - **快速查命令** → 查看 [[02-工具使用/Claude Code 常用功能]]
-> - **Claude Code 定时任务** → 阅读 [[02-工具使用/Claude Code 定时任务自动化指南]]
+> - **首次安装** → 阅读 [[Claude Code 教程/如何使用Claude code]]
+> - **快速查命令** → 查看 [[Claude Code 教程/Claude Code 常用功能]]
+> - **Claude Code 定时任务** → 阅读 [[Claude Code 教程/Claude Code 定时任务自动化指南]]
 > - **可视化工作流** → 阅读 [[N8N定时抓取热点资讯指南]]
 > - **RSS 入门** → 阅读 [[RSS使用指南]]
 
@@ -79,7 +92,6 @@ Claude Code 的安装、配置和日常使用。
 | 文档 | 标签 | 摘要 |
 |------|------|------|
 | [[03-进阶应用/如何编写Skills]] | `ai`, `进阶应用` | Skills 编写实战指南，包含 metadata.json 和 skill.md 结构 |
-| [[03-进阶应用/Claude MCP 使用指南]] | `ai`, `进阶应用` | MCP 协议原理、配置文件管理、常用 MCP 服务器 |
 | [[03-进阶应用/CLAUDE.md 使用指南]] | `claude`, `ai`, `进阶应用`, `配置` | 项目级 CLAUDE.md 配置指南 |
 | [[03-进阶应用/LLM-Prompt-Caching-提示缓存]] | `llm`, `缓存`, `成本优化` | LLM API 提示缓存原理、各厂商定价对比、提高缓存命中率最佳实践 |
 
@@ -89,16 +101,14 @@ Claude Code 的安装、配置和日常使用。
 
 Subagent 的创建和多 Agent 流程设计。
 
-| 文档 | 标签 | 摘要 | 行数 |
-|------|------|------|------|
-| [[02-工具使用/Claude Code Subagents 完整指南]] | `ai`, `工具使用`, `subagents` | Subagent 完整指南，包含内置类型、自定义 Agent 创建、Plugin 系统架构 | 980行 |
-| [[02-工具使用/Claude-Code-多Agent流程设计]] | `Claude-Code`, `多Agent`, `AI工作流` | 多 Agent 流程设计完整指南，包含 Task Tool 架构、4 种设计模式、工作流实践、大规模系统设计 | 605行 |
-| [[04-高级应用/Subagent 实战练习]] | `ai`, `高级应用`, `练习` | 5个渐进式练习，从简单到复杂掌握 Subagent | 512行 |
+| 文档 | 标签 | 摘要 |
+|------|------|------|
+| [[Claude Code 教程/Claude-Code-多Agent流程设计]] | `Claude-Code`, `多Agent`, `AI工作流` | 多 Agent 流程设计完整指南，包含 Task Tool 架构、4 种设计模式、工作流实践 |
+| [[Claude Code 教程/Subagent 实战练习]] | `ai`, `高级应用`, `练习` | 5个渐进式练习，从简单到复杂掌握 Subagent |
 
 > [!tip] 文档选择
-> - **理论学习** → 阅读 [[02-工具使用/Claude Code Subagents 完整指南]]
-> - **多 Agent 设计** → 阅读 [[02-工具使用/Claude-Code-多Agent流程设计]]
-> - **动手实践** → 完成 [[04-高级应用/Subagent 实战练习]]
+> - **理论学习** → 阅读 [[Claude Code 教程/Claude-Code-多Agent流程设计]]
+> - **动手实践** → 完成 [[Claude Code 教程/Subagent 实战练习]]
 
 ---
 
