@@ -368,19 +368,13 @@ claude
 
 ### 安装问题
 
-![](assets/如何使用Claude%20code/1d99099123f47f537884e6f82bee0997.png)
-
-| 问题 | 解决 |
-|------|------|
-| `command not found: claude` | 原生安装器默认在 PATH，检查安装是否成功 |
-| Homebrew 安装慢 | 切换镜像源或改用原生安装器 |
-| Windows 权限错误 | 以管理员身份运行 PowerShell |
-
 #### Windows 原生安装后找不到命令
 
-**问题现象**：安装成功但运行 `claude --help` 报错"无法识别为 cmdlet"
+> [!warning] 问题现象
+> 安装成功但运行 `claude --help` 报错"无法识别为 cmdlet"
 
-**原因**：原生安装器安装到了 `C:\Users\你的用户名\.local\bin`，但该路径未加入 PATH 环境变量
+> [!tip] 原因
+> 原生安装器安装到了 `C:\Users\你的用户名\.local\bin`，但该路径未加入 PATH 环境变量
 
 **解决方法**：
 
@@ -397,6 +391,39 @@ claude
    - 确认保存
 
 4. **重启 PowerShell**：关闭当前窗口，重新打开后即可使用
+
+---
+
+#### Windows 安装时报 ECONNREFUSED
+
+> [!warning] 问题现象
+> 安装失败，提示 `ECONNREFUSED`
+> ```
+> × Installation failed
+> Failed to fetch version from https://downloads.claude.ai/claude-code-releases/latest
+> ```
+
+> [!tip] 原因
+> 网络连接被拒绝，通常是代理软件未接管命令行流量
+
+**解决方法**：为 PowerShell 设置临时代理
+
+```powershell
+# 设置代理（将 7890 替换为你的代理端口）
+$env:HTTP_PROXY="http://127.0.0.1:7890"
+$env:HTTPS_PROXY="http://127.0.0.1:7890"
+
+# 重新运行安装
+irm https://claude.ai/install.ps1 | iex
+```
+
+> [!tip] 备选方案
+> 把代理软件切换为全局模式
+
+> [!info] 常用代理端口
+> - Clash：7890
+> - V2Ray：10809
+> - Shadowsocks：1080
 
 ### 代理问题
 
