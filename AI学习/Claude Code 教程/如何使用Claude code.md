@@ -368,6 +368,8 @@ claude
 
 ### 安装问题
 
+![](assets/如何使用Claude%20code/1d99099123f47f537884e6f82bee0997.png)
+
 | 问题 | 解决 |
 |------|------|
 | `command not found: claude` | 原生安装器默认在 PATH，检查安装是否成功 |
