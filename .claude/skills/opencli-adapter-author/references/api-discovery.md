@@ -57,7 +57,7 @@ opencli browser network
 - `shape` — response body 的路径→类型映射（不含原 body，省 token）
 - `status / url / method / ct / size`
 
-静态资源 / 埋点 / 追踪默认已过滤；需要全量看用 `--all`。
+静态资源 / 埋点 / 追踪默认已过滤。默认会保留 JSON / XML / plain text / `text/javascript` 这类 API 响应；如果你确定浏览器 DevTools 里有目标请求但这里缺失，用 `--all` 查一遍是否被 content-type 或 URL 噪音过滤挡掉。
 
 ### 按 shape 初筛
 
@@ -101,7 +101,7 @@ capture 会持久化到 `~/.opencli/cache/browser-network/<workspace>.json`（�
 |------|------|---------|
 | 只有 `Cookie` | 登录态靠 cookie | `Strategy.COOKIE` |
 | `Authorization: Bearer xxx` | token 鉴权 | 先找 token 来源（localStorage / cookie / bundle 硬编码） |
-| `X-Csrf-Token: xxx` 同时存在 cookie 里 | CSRF 防护 | `Strategy.HEADER`，从 cookie 读 ct0 类字段拼头 |
+| `X-Csrf-Token: xxx` 同时存在 cookie 里 | CSRF 防护 | `Strategy.COOKIE`，从 cookie 读 ct0 类字段拼头 |
 | `X-Workspace-Id / X-Tenant-Id` | 多租户业务头 | 先调 `/workspaces` 拿 ID，缓存下来 |
 | 啥自定义头都没有 | 匿名接口 | `Strategy.PUBLIC` |
 
