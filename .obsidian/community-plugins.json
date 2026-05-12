@@ -1,5 +1,4 @@
 [
-  "obsidian-git",
   "obsidian-custom-attachment-location",
   "obsidian-enhancing-export",
   "manual-sorting",
@@ -7,5 +6,6 @@
   "obsidian42-brat",
   "code-styler",
   "terminal",
-  "custom-sort"
+  "custom-sort",
+  "obsidian-git"
 ]
