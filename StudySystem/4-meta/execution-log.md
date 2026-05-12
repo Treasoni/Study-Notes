@@ -5,4 +5,5 @@
 - Depth: 入门 → 进阶
 - Note type: 概念笔记（含实战示例）
 - Output path: AI学习/01-基础概念/
-- Status: started
+- Status: beautified (2026-05-12)
+- Final file: AI学习/01-基础概念/Harness-Engineering-系统治理工程.md
