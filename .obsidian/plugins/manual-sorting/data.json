@@ -2,6 +2,7 @@
   "customOrder": {
     "/": {
       "children": [
+        "web-articles",
         "AI实战",
         "StudySystem",
         "templates",
@@ -103,6 +104,7 @@
     },
     "AI学习/01-基础概念": {
       "children": [
+        "AI学习/01-基础概念/Harness-Engineering-系统治理工程.md",
         "AI学习/01-基础概念/sortspec.md",
         "AI学习/01-基础概念/2026-AI职业角色与路线图.md",
         "AI学习/01-基础概念/AI学习路径与技能图谱.md",
@@ -962,6 +964,7 @@
     },
     "StudySystem/0-inbox": {
       "children": [
+        "StudySystem/0-inbox/Harness-Engineering",
         "StudySystem/0-inbox/动态技能发现机制",
         "StudySystem/0-inbox/Agent与Skills架构设计",
         "StudySystem/0-inbox/CLAUDE.md放置策略",
@@ -998,8 +1001,33 @@
       ],
       "sortOrder": "custom"
     },
+    "StudySystem/0-inbox/Harness-Engineering": {
+      "children": [
+        "StudySystem/0-inbox/Harness-Engineering/raw",
+        "StudySystem/0-inbox/Harness-Engineering/sources.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/Harness-Engineering/raw": {
+      "children": [
+        "StudySystem/0-inbox/Harness-Engineering/raw/doc-01-openai-official.md",
+        "StudySystem/0-inbox/Harness-Engineering/raw/doc-02-mitchell-hashimoto.md",
+        "StudySystem/0-inbox/Harness-Engineering/raw/doc-03-martin-fowler.md",
+        "StudySystem/0-inbox/Harness-Engineering/raw/doc-04-langchain.md",
+        "StudySystem/0-inbox/Harness-Engineering/raw/doc-05-fowler-memo.md",
+        "StudySystem/0-inbox/Harness-Engineering/raw/doc-06-humanlayer.md",
+        "StudySystem/0-inbox/Harness-Engineering/raw/doc-07-runoob.md",
+        "StudySystem/0-inbox/Harness-Engineering/raw/doc-08-github-guide.md",
+        "StudySystem/0-inbox/Harness-Engineering/raw/doc-09-sig.md",
+        "StudySystem/0-inbox/Harness-Engineering/raw/doc-12-tencent-cloud.md",
+        "StudySystem/0-inbox/Harness-Engineering/raw/doc-14-abmedia.md",
+        "StudySystem/0-inbox/Harness-Engineering/raw/doc-16-medium.md"
+      ],
+      "sortOrder": "custom"
+    },
     "StudySystem/1-curated": {
       "children": [
+        "StudySystem/1-curated/Harness-Engineering",
         "StudySystem/1-curated/Agent与Skills架构设计"
       ],
       "sortOrder": "custom"
@@ -1016,8 +1044,19 @@
       ],
       "sortOrder": "custom"
     },
+    "StudySystem/1-curated/Harness-Engineering": {
+      "children": [
+        "StudySystem/1-curated/Harness-Engineering/core-concepts.md",
+        "StudySystem/1-curated/Harness-Engineering/discarded.md",
+        "StudySystem/1-curated/Harness-Engineering/overview.md",
+        "StudySystem/1-curated/Harness-Engineering/practices.md",
+        "StudySystem/1-curated/Harness-Engineering/references.md"
+      ],
+      "sortOrder": "custom"
+    },
     "StudySystem/2-drafts": {
       "children": [
+        "StudySystem/2-drafts/Harness-Engineering",
         "StudySystem/2-drafts/Agent与Skills架构设计",
         "StudySystem/2-drafts/Claude Code自我学习机制",
         "StudySystem/2-drafts/CLAUDE.md放置策略",
@@ -1049,14 +1088,22 @@
       ],
       "sortOrder": "custom"
     },
+    "StudySystem/2-drafts/Harness-Engineering": {
+      "children": [
+        "StudySystem/2-drafts/Harness-Engineering/Harness-Engineering-笔记.md"
+      ],
+      "sortOrder": "custom"
+    },
     "StudySystem/4-meta": {
       "children": [
+        "StudySystem/4-meta/execution-log.md",
         "StudySystem/4-meta/evaluation"
       ],
       "sortOrder": "custom"
     },
     "StudySystem/4-meta/evaluation": {
       "children": [
+        "StudySystem/4-meta/evaluation/Harness-Engineering-eval.md",
         "StudySystem/4-meta/evaluation/动态技能发现机制-eval.md",
         "StudySystem/4-meta/evaluation/Agent与Skills架构设计-eval.md",
         "StudySystem/4-meta/evaluation/CLAUDE.md放置策略-eval.md"
@@ -1070,6 +1117,88 @@
         "templates/concept-template.md",
         "templates/experience-template.md",
         "templates/practice-template.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "web-articles": {
+      "children": [
+        "web-articles/工程技术：在智能体优先的世界中利用_Codex",
+        "web-articles/The_Anatomy_of_an_Agent_Harness",
+        "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems",
+        "web-articles/What_is_harness_engineering"
+      ],
+      "sortOrder": "custom"
+    },
+    "web-articles/工程技术：在智能体优先的世界中利用_Codex": {
+      "children": [
+        "web-articles/工程技术：在智能体优先的世界中利用_Codex/images",
+        "web-articles/工程技术：在智能体优先的世界中利用_Codex/工程技术：在智能体优先的世界中利用_Codex.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "web-articles/工程技术：在智能体优先的世界中利用_Codex/images": {
+      "children": [
+        "web-articles/工程技术：在智能体优先的世界中利用_Codex/images/img_001.png",
+        "web-articles/工程技术：在智能体优先的世界中利用_Codex/images/img_002.svg",
+        "web-articles/工程技术：在智能体优先的世界中利用_Codex/images/img_003.png",
+        "web-articles/工程技术：在智能体优先的世界中利用_Codex/images/img_004.png",
+        "web-articles/工程技术：在智能体优先的世界中利用_Codex/images/img_005.png",
+        "web-articles/工程技术：在智能体优先的世界中利用_Codex/images/img_006.png",
+        "web-articles/工程技术：在智能体优先的世界中利用_Codex/images/img_007.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "web-articles/The_Anatomy_of_an_Agent_Harness": {
+      "children": [
+        "web-articles/The_Anatomy_of_an_Agent_Harness/images",
+        "web-articles/The_Anatomy_of_an_Agent_Harness/The_Anatomy_of_an_Agent_Harness.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "web-articles/The_Anatomy_of_an_Agent_Harness/images": {
+      "children": [
+        "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_001.png",
+        "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_002.svg",
+        "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_003.png",
+        "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_004.png",
+        "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_005.png",
+        "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_006.png",
+        "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_007.png",
+        "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_008.png",
+        "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_009.svg",
+        "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_010.png",
+        "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_011.png",
+        "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_012.png",
+        "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_013.png",
+        "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_014.png",
+        "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_015.png",
+        "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_016.svg"
+      ],
+      "sortOrder": "custom"
+    },
+    "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems": {
+      "children": [
+        "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems/images",
+        "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems/images": {
+      "children": [],
+      "sortOrder": "custom"
+    },
+    "web-articles/What_is_harness_engineering": {
+      "children": [
+        "web-articles/What_is_harness_engineering/images",
+        "web-articles/What_is_harness_engineering/What_is_harness_engineering.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "web-articles/What_is_harness_engineering/images": {
+      "children": [
+        "web-articles/What_is_harness_engineering/images/img_001.jpg",
+        "web-articles/What_is_harness_engineering/images/img_002.png",
+        "web-articles/What_is_harness_engineering/images/img_003.png"
       ],
       "sortOrder": "custom"
     }
