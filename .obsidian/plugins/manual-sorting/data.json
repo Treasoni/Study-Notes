@@ -228,6 +228,7 @@
     },
     "AI学习/Claude Code 教程": {
       "children": [
+        "AI学习/Claude Code 教程/assets",
         "AI学习/Claude Code 教程/高级功能",
         "AI学习/Claude Code 教程/如何使用Claude code.md",
         "AI学习/Claude Code 教程/Claude Code 插件系统使用指南.md",
@@ -254,6 +255,18 @@
         "AI学习/Claude Code 教程/高级功能/如何编写Skills.md",
         "AI学习/Claude Code 教程/高级功能/CLAUDE.md 使用指南.md",
         "AI学习/Claude Code 教程/高级功能/LLM-Prompt-Caching-提示缓存.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/Claude Code 教程/assets": {
+      "children": [
+        "AI学习/Claude Code 教程/assets/如何使用Claude code"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/Claude Code 教程/assets/如何使用Claude code": {
+      "children": [
+        "AI学习/Claude Code 教程/assets/如何使用Claude code/1d99099123f47f537884e6f82bee0997.png"
       ],
       "sortOrder": "custom"
     },
