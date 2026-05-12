@@ -6,113 +6,83 @@ Corrections, insights, and knowledge gaps captured during development.
 
 ---
 
-## [LRN-20260430-001] correction
+## [LRN-20260512-001] best_practice
 
-**Logged**: 2026-04-30T00:00:00Z
-**Priority**: critical
-**Status**: promoted
-**Promoted**: CLAUDE.md (顶部自检清单)
+**Logged**: 2026-05-12T00:00:00Z
+**Priority**: medium
+**Status**: pending
 **Area**: config
 
 ### Summary
-/learn 任务中必须严格使用 subagent，不能跳过流程直接执行
+defuddle 对某些官方站点返回 403 时，opencli web read 是有效的替代方案
 
 ### Details
-用户多次指出我在执行 /learn 任务时没有使用指定的 subagent (researcher → curator → writer → editor)。尽管 CLAUDE.md 中有明确的强制规则，我仍然倾向于"省事"地直接完成任务，导致：
+在 Harness Engineering 的 collect 阶段：
+- defuddle parse 对 openai.com 返回 403
+- defuddle parse 对 zhuanlan.zhihu.com 返回 403
+- defuddle parse 对 langchain.com 和 softwareimprovementgroup.com 超时
+- 改用 `opencli web read --url <url>` 后成功获取了 OpenAI（~23KB）、LangChain（~19KB）、Medium（~19KB）、SIG（~25KB）的内容
 
-- Research 阶段：我用 opencli 直接搜集资料，而不是调用 `Task(subagent_type="researcher")`
-- Curate 阶段：省略，没有调用 curator
-- Write 阶段：我直接写笔记，而不是调用 writer
-- Edit 阶段：省略，没有调用 editor
-
-这是一个**反复出现的错误**（recurring violation）。
+结论：defuddle 和 opencli web read 可作为互补工具组合使用，搜索阶段先用 defuddle 尝试，失败后 fallback 到 web read。
 
 ### Suggested Action
-1. 在 CLAUDE.md 的 Subagent Invocation Policy 部分增加更醒目的警告
-2. 添加执行前检查清单
-3. 考虑在每次 /learn 任务开始时强制输出当前阶段声明
+在 Study System 的 collect 阶段说明中，将 opencli web read 列为 defuddle 的标准 fallback
 
 ### Metadata
-- Source: user_feedback
-- Tags: subagent, workflow, /learn, /update
-- See Also: LRN-20260427-001
-- Pattern-Key: workflow.skip-subagent
-- Recurrence-Count: 3
-- First-Seen: 2026-04-27
-- Last-Seen: 2026-04-30
-- Occurrences: 2026-04-27 (/learn), 2026-04-30 (/learn), 2026-04-30 (/update)
+- Source: experience
+- Tags: collect, defuddle, opencli, fallback
+- Pattern-Key: network-fallback.defuddle-webread
+- See Also: RULES.md (network-fallback.opencli)
 
 ---
 
-## [LRN-20260430-002] correction
+## [LRN-20260512-002] correction
 
-**Logged**: 2026-04-30T00:00:00Z
-**Priority**: critical
-**Status**: promoted
-**Promoted**: CLAUDE.md (/update 流程明确标注)
-**Area**: config
+**Logged**: 2026-05-12T00:00:00Z
+**Priority**: medium
+**Status**: pending
+**Area**: writing
 
 ### Summary
-/update 任务也必须使用 researcher 和 editor subagent，不能直接搜集资料
+笔记中 SDD 标题被笔误写成 CDD，需在 beautify 阶段增加标题核对步骤
 
 ### Details
-用户在 /update 任务中再次指出我没有使用 subagent。这次我以为"更新笔记"可以自己完成，但实际上：
+在 beautify 后的笔记中，"SDD vs Harness Engineering" 章节的标题被误写为 "CDD vs Harness Engineering"。虽然正文内容全部正确使用了 SDD，但标题一处笔误被 evaluate 阶段发现。
 
-| 步骤 | 正确做法 | 我做的 |
-|------|---------|--------|
-| read | 主 Agent ✅ | ✅ 正确 |
-| research latest | **researcher** subagent | ❌ 直接用 opencli |
-| merge | 主 Agent | - |
-| edit | **editor** subagent | - |
-| validate | 主 Agent | - |
-
-**根本原因**：我把"更新"误解为可以简化流程，但 CLAUDE.md 明确写了：
-- research latest 阶段必须调用 researcher
-- edit 阶段必须调用 editor
+原因：书写 draft 和 beautify 两个阶段都未对标题做专门的准确性核查。
 
 ### Suggested Action
-1. 明确 /update 流程中 subagent 的调用时机
-2. 添加执行时的阶段声明输出
-3. 考虑在 CLAUDE.md 中为 /update 添加更详细的步骤说明
+在 beautify 阶段的自检清单中加入一条：检查所有小标题与正文内容的一致性，确保无笔误
 
 ### Metadata
-- Source: user_feedback
-- Tags: subagent, workflow, /update
-- See Also: LRN-20260430-001
-- Pattern-Key: workflow.skip-subagent
+- Source: self_review
+- Tags: beautify, writing, quality
+- Pattern-Key: writing.title-typo
 
 ---
 
-**Logged**: 2026-04-27T10:00:00Z
-**Priority**: high
-**Status**: promoted
-**Promoted**: CLAUDE.md (Global Rules 第6条)
-**Area**: config
+## [LRN-20260512-003] insight
+
+**Logged**: 2026-05-12T00:00:00Z
+**Priority**: low
+**Status**: pending
+**Area**: workflow
 
 ### Summary
-网络搜索失败时，应使用 opencli 替代 WebSearch/WebFetch
+首次完整运行 Study System 六阶段管线（collect→curate→write→beautify→evaluate→digest）成功
 
 ### Details
-在 /learn 任务中，researcher subagent 使用 WebSearch 和 WebFetch 获取资料失败时返回 "API 错误"。用户指出此时应该使用 opencli 工具进行浏览器操作来获取网页内容。
-
-具体场景：
-- WebSearch 返回 "服务不可用 (API 错误)" 时
-- WebFetch 无法获取需要动态加载的内容时
-- 需要登录或交互式操作的页面时
-
-应该使用的工具：
-- `mcp__browsermcp__browser_navigate` - 导航到目标 URL
-- `mcp__browsermcp__browser_snapshot` - 获取页面快照
-- `mcp__browsermcp__browser_click` - 点击展开内容
-- `mcp__browsermcp__browser_wait` - 等待动态内容加载
+本次 Harness Engineering 学习任务是第一次完整经历 Study System 全部六个阶段。关键发现：
+1. Phase 0 的路径配置检查成功拦截了错误的 vault 路径
+2. collect 阶段的 source diversity 策略（中英文、官方/社区、文章/视频）效果好
+3. beautify 阶段新增的 Mermaid 图和 Callout 设置标准可复用到未来笔记
+4. evaluate 阶段发现了一处 beautify 未能捕获的笔误
+5. 整体流程顺畅，但 defuddle 的 fallback 机制需要标准化
 
 ### Suggested Action
-更新 CLAUDE.md 中 /learn 流程的 research 阶段说明，添加当 WebSearch/WebFetch 失败时的 fallback 策略：调用 opencli-browser 进行 ad-hoc 浏览器操作
+保持当前流程不变，将 defuddle fallback 流程标准化
 
 ### Metadata
-- Source: user_feedback
-- Tags: network-fallback, opencli, browser-tool
-- See Also: LRN-20250115-001 (if related to existing entry)
-- Pattern-Key: network-fallback.opencli
-
+- Source: experience
+- Tags: workflow, study-system, pipeline
 ---
