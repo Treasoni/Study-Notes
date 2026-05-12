@@ -57,7 +57,26 @@
       "sortOrder": "custom"
     },
     "AI实战": {
-      "children": [],
+      "children": [
+        "AI实战/工程实践",
+        "AI实战/架构设计",
+        "AI实战/AI实战 MOC.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI实战/工程实践": {
+      "children": [
+        "AI实战/工程实践/Claude Code自我学习机制.md",
+        "AI实战/工程实践/CLAUDE.md放置策略.md",
+        "AI实战/工程实践/ClaudeCode工作流遵守问题.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI实战/架构设计": {
+      "children": [
+        "AI实战/架构设计/Agent与Skills架构设计.md",
+        "AI实战/架构设计/Claude Code项目动态技能发现机制.md"
+      ],
       "sortOrder": "custom"
     },
     "AI学习": {
@@ -430,9 +449,157 @@
     },
     "npm": {
       "children": [
+        "npm/AI实战",
+        "npm/StudySystem",
+        "npm/templates",
         "npm/npm.md",
         "npm/npx命令运行器.md",
         "npm/sortspec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "npm/AI实战": {
+      "children": [
+        "npm/AI实战/工程实践",
+        "npm/AI实战/架构设计",
+        "npm/AI实战/AI实战 MOC.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "npm/AI实战/工程实践": {
+      "children": [
+        "npm/AI实战/工程实践/Claude Code自我学习机制.md",
+        "npm/AI实战/工程实践/CLAUDE.md放置策略.md",
+        "npm/AI实战/工程实践/ClaudeCode工作流遵守问题.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "npm/AI实战/架构设计": {
+      "children": [
+        "npm/AI实战/架构设计/Agent与Skills架构设计.md",
+        "npm/AI实战/架构设计/Claude Code项目动态技能发现机制.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "npm/StudySystem": {
+      "children": [
+        "npm/StudySystem/0-inbox",
+        "npm/StudySystem/1-curated",
+        "npm/StudySystem/2-drafts",
+        "npm/StudySystem/4-meta"
+      ],
+      "sortOrder": "custom"
+    },
+    "npm/StudySystem/0-inbox": {
+      "children": [
+        "npm/StudySystem/0-inbox/动态技能发现机制",
+        "npm/StudySystem/0-inbox/Agent与Skills架构设计",
+        "npm/StudySystem/0-inbox/CLAUDE.md放置策略",
+        "npm/StudySystem/0-inbox/ClaudeCode工作流遵守问题"
+      ],
+      "sortOrder": "custom"
+    },
+    "npm/StudySystem/0-inbox/动态技能发现机制": {
+      "children": [
+        "npm/StudySystem/0-inbox/动态技能发现机制/raw-input.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "npm/StudySystem/0-inbox/Agent与Skills架构设计": {
+      "children": [
+        "npm/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为",
+        "npm/StudySystem/0-inbox/Agent与Skills架构设计/raw-input.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "npm/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为": {
+      "children": [],
+      "sortOrder": "custom"
+    },
+    "npm/StudySystem/0-inbox/CLAUDE.md放置策略": {
+      "children": [
+        "npm/StudySystem/0-inbox/CLAUDE.md放置策略/raw-input.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "npm/StudySystem/0-inbox/ClaudeCode工作流遵守问题": {
+      "children": [
+        "npm/StudySystem/0-inbox/ClaudeCode工作流遵守问题/raw-input.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "npm/StudySystem/1-curated": {
+      "children": [
+        "npm/StudySystem/1-curated/Agent与Skills架构设计"
+      ],
+      "sortOrder": "custom"
+    },
+    "npm/StudySystem/1-curated/Agent与Skills架构设计": {
+      "children": [
+        "npm/StudySystem/1-curated/Agent与Skills架构设计/LLM路由行为"
+      ],
+      "sortOrder": "custom"
+    },
+    "npm/StudySystem/1-curated/Agent与Skills架构设计/LLM路由行为": {
+      "children": [
+        "npm/StudySystem/1-curated/Agent与Skills架构设计/LLM路由行为/overview.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "npm/StudySystem/2-drafts": {
+      "children": [
+        "npm/StudySystem/2-drafts/Agent与Skills架构设计",
+        "npm/StudySystem/2-drafts/Claude Code自我学习机制",
+        "npm/StudySystem/2-drafts/CLAUDE.md放置策略",
+        "npm/StudySystem/2-drafts/ClaudeCode工作流遵守问题"
+      ],
+      "sortOrder": "custom"
+    },
+    "npm/StudySystem/2-drafts/Agent与Skills架构设计": {
+      "children": [
+        "npm/StudySystem/2-drafts/Agent与Skills架构设计/Agent与Skills架构设计-笔记.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "npm/StudySystem/2-drafts/Claude Code自我学习机制": {
+      "children": [
+        "npm/StudySystem/2-drafts/Claude Code自我学习机制/Claude Code自我学习机制-笔记.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "npm/StudySystem/2-drafts/CLAUDE.md放置策略": {
+      "children": [
+        "npm/StudySystem/2-drafts/CLAUDE.md放置策略/CLAUDE.md放置策略-笔记.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "npm/StudySystem/2-drafts/ClaudeCode工作流遵守问题": {
+      "children": [
+        "npm/StudySystem/2-drafts/ClaudeCode工作流遵守问题/ClaudeCode工作流遵守问题.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "npm/StudySystem/4-meta": {
+      "children": [
+        "npm/StudySystem/4-meta/evaluation"
+      ],
+      "sortOrder": "custom"
+    },
+    "npm/StudySystem/4-meta/evaluation": {
+      "children": [
+        "npm/StudySystem/4-meta/evaluation/动态技能发现机制-eval.md",
+        "npm/StudySystem/4-meta/evaluation/Agent与Skills架构设计-eval.md",
+        "npm/StudySystem/4-meta/evaluation/CLAUDE.md放置策略-eval.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "npm/templates": {
+      "children": [
+        "npm/templates/cheat-sheet-template.md",
+        "npm/templates/compare-template.md",
+        "npm/templates/concept-template.md",
+        "npm/templates/experience-template.md",
+        "npm/templates/practice-template.md"
       ],
       "sortOrder": "custom"
     },
@@ -468,6 +635,9 @@
     },
     "PVE的学习": {
       "children": [
+        "PVE的学习/AI实战",
+        "PVE的学习/StudySystem",
+        "PVE的学习/templates",
         "PVE的学习/assets",
         "PVE的学习/04-设备直通",
         "PVE的学习/03-容器管理",
@@ -514,6 +684,29 @@
         "PVE的学习/04-设备直通/绑定vfio驱动.md",
         "PVE的学习/04-设备直通/PVE直通.md",
         "PVE的学习/04-设备直通/IOMMU分组情况.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/AI实战": {
+      "children": [
+        "PVE的学习/AI实战/工程实践",
+        "PVE的学习/AI实战/架构设计",
+        "PVE的学习/AI实战/AI实战 MOC.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/AI实战/工程实践": {
+      "children": [
+        "PVE的学习/AI实战/工程实践/Claude Code自我学习机制.md",
+        "PVE的学习/AI实战/工程实践/CLAUDE.md放置策略.md",
+        "PVE的学习/AI实战/工程实践/ClaudeCode工作流遵守问题.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/AI实战/架构设计": {
+      "children": [
+        "PVE的学习/AI实战/架构设计/Agent与Skills架构设计.md",
+        "PVE的学习/AI实战/架构设计/Claude Code项目动态技能发现机制.md"
       ],
       "sortOrder": "custom"
     },
@@ -597,6 +790,128 @@
       ],
       "sortOrder": "custom"
     },
+    "PVE的学习/StudySystem": {
+      "children": [
+        "PVE的学习/StudySystem/0-inbox",
+        "PVE的学习/StudySystem/1-curated",
+        "PVE的学习/StudySystem/2-drafts",
+        "PVE的学习/StudySystem/4-meta"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/StudySystem/0-inbox": {
+      "children": [
+        "PVE的学习/StudySystem/0-inbox/动态技能发现机制",
+        "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计",
+        "PVE的学习/StudySystem/0-inbox/CLAUDE.md放置策略",
+        "PVE的学习/StudySystem/0-inbox/ClaudeCode工作流遵守问题"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/StudySystem/0-inbox/动态技能发现机制": {
+      "children": [
+        "PVE的学习/StudySystem/0-inbox/动态技能发现机制/raw-input.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计": {
+      "children": [
+        "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为",
+        "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计/raw-input.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为": {
+      "children": [],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/StudySystem/0-inbox/CLAUDE.md放置策略": {
+      "children": [
+        "PVE的学习/StudySystem/0-inbox/CLAUDE.md放置策略/raw-input.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/StudySystem/0-inbox/ClaudeCode工作流遵守问题": {
+      "children": [
+        "PVE的学习/StudySystem/0-inbox/ClaudeCode工作流遵守问题/raw-input.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/StudySystem/1-curated": {
+      "children": [
+        "PVE的学习/StudySystem/1-curated/Agent与Skills架构设计"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/StudySystem/1-curated/Agent与Skills架构设计": {
+      "children": [
+        "PVE的学习/StudySystem/1-curated/Agent与Skills架构设计/LLM路由行为"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/StudySystem/1-curated/Agent与Skills架构设计/LLM路由行为": {
+      "children": [
+        "PVE的学习/StudySystem/1-curated/Agent与Skills架构设计/LLM路由行为/overview.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/StudySystem/2-drafts": {
+      "children": [
+        "PVE的学习/StudySystem/2-drafts/Agent与Skills架构设计",
+        "PVE的学习/StudySystem/2-drafts/Claude Code自我学习机制",
+        "PVE的学习/StudySystem/2-drafts/CLAUDE.md放置策略",
+        "PVE的学习/StudySystem/2-drafts/ClaudeCode工作流遵守问题"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/StudySystem/2-drafts/Agent与Skills架构设计": {
+      "children": [
+        "PVE的学习/StudySystem/2-drafts/Agent与Skills架构设计/Agent与Skills架构设计-笔记.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/StudySystem/2-drafts/Claude Code自我学习机制": {
+      "children": [
+        "PVE的学习/StudySystem/2-drafts/Claude Code自我学习机制/Claude Code自我学习机制-笔记.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/StudySystem/2-drafts/CLAUDE.md放置策略": {
+      "children": [
+        "PVE的学习/StudySystem/2-drafts/CLAUDE.md放置策略/CLAUDE.md放置策略-笔记.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/StudySystem/2-drafts/ClaudeCode工作流遵守问题": {
+      "children": [
+        "PVE的学习/StudySystem/2-drafts/ClaudeCode工作流遵守问题/ClaudeCode工作流遵守问题.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/StudySystem/4-meta": {
+      "children": [
+        "PVE的学习/StudySystem/4-meta/evaluation"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/StudySystem/4-meta/evaluation": {
+      "children": [
+        "PVE的学习/StudySystem/4-meta/evaluation/动态技能发现机制-eval.md",
+        "PVE的学习/StudySystem/4-meta/evaluation/Agent与Skills架构设计-eval.md",
+        "PVE的学习/StudySystem/4-meta/evaluation/CLAUDE.md放置策略-eval.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/templates": {
+      "children": [
+        "PVE的学习/templates/cheat-sheet-template.md",
+        "PVE的学习/templates/compare-template.md",
+        "PVE的学习/templates/concept-template.md",
+        "PVE的学习/templates/experience-template.md",
+        "PVE的学习/templates/practice-template.md"
+      ],
+      "sortOrder": "custom"
+    },
     "qBittorent": {
       "children": [
         "qBittorent/qBittorrent PT站点与分享率.md",
@@ -637,11 +952,125 @@
       "sortOrder": "custom"
     },
     "StudySystem": {
+      "children": [
+        "StudySystem/0-inbox",
+        "StudySystem/1-curated",
+        "StudySystem/2-drafts",
+        "StudySystem/4-meta"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox": {
+      "children": [
+        "StudySystem/0-inbox/动态技能发现机制",
+        "StudySystem/0-inbox/Agent与Skills架构设计",
+        "StudySystem/0-inbox/CLAUDE.md放置策略",
+        "StudySystem/0-inbox/ClaudeCode工作流遵守问题"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/动态技能发现机制": {
+      "children": [
+        "StudySystem/0-inbox/动态技能发现机制/raw-input.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/Agent与Skills架构设计": {
+      "children": [
+        "StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为",
+        "StudySystem/0-inbox/Agent与Skills架构设计/raw-input.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为": {
       "children": [],
       "sortOrder": "custom"
     },
+    "StudySystem/0-inbox/CLAUDE.md放置策略": {
+      "children": [
+        "StudySystem/0-inbox/CLAUDE.md放置策略/raw-input.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/ClaudeCode工作流遵守问题": {
+      "children": [
+        "StudySystem/0-inbox/ClaudeCode工作流遵守问题/raw-input.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/1-curated": {
+      "children": [
+        "StudySystem/1-curated/Agent与Skills架构设计"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/1-curated/Agent与Skills架构设计": {
+      "children": [
+        "StudySystem/1-curated/Agent与Skills架构设计/LLM路由行为"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/1-curated/Agent与Skills架构设计/LLM路由行为": {
+      "children": [
+        "StudySystem/1-curated/Agent与Skills架构设计/LLM路由行为/overview.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/2-drafts": {
+      "children": [
+        "StudySystem/2-drafts/Agent与Skills架构设计",
+        "StudySystem/2-drafts/Claude Code自我学习机制",
+        "StudySystem/2-drafts/CLAUDE.md放置策略",
+        "StudySystem/2-drafts/ClaudeCode工作流遵守问题"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/2-drafts/Agent与Skills架构设计": {
+      "children": [
+        "StudySystem/2-drafts/Agent与Skills架构设计/Agent与Skills架构设计-笔记.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/2-drafts/Claude Code自我学习机制": {
+      "children": [
+        "StudySystem/2-drafts/Claude Code自我学习机制/Claude Code自我学习机制-笔记.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/2-drafts/CLAUDE.md放置策略": {
+      "children": [
+        "StudySystem/2-drafts/CLAUDE.md放置策略/CLAUDE.md放置策略-笔记.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/2-drafts/ClaudeCode工作流遵守问题": {
+      "children": [
+        "StudySystem/2-drafts/ClaudeCode工作流遵守问题/ClaudeCode工作流遵守问题.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/4-meta": {
+      "children": [
+        "StudySystem/4-meta/evaluation"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/4-meta/evaluation": {
+      "children": [
+        "StudySystem/4-meta/evaluation/动态技能发现机制-eval.md",
+        "StudySystem/4-meta/evaluation/Agent与Skills架构设计-eval.md",
+        "StudySystem/4-meta/evaluation/CLAUDE.md放置策略-eval.md"
+      ],
+      "sortOrder": "custom"
+    },
     "templates": {
-      "children": [],
+      "children": [
+        "templates/cheat-sheet-template.md",
+        "templates/compare-template.md",
+        "templates/concept-template.md",
+        "templates/experience-template.md",
+        "templates/practice-template.md"
+      ],
       "sortOrder": "custom"
     }
   },
