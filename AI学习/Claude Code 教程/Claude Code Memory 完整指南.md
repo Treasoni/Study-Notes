@@ -664,6 +664,7 @@ ls -la ~/.claude/CLAUDE.md
 - [[AI学习/03-进阶应用/Claude MCP 使用指南]] - MCP 集成指南
 - [[AI学习/01-基础概念/Skills 是什么]] - Skills 概念详解
 - [[AI学习/02-工具使用/Claude Code Hooks 使用指南]] - 事件驱动自动化
+- [[Claude Code Checkpoints 使用指南]] - 会话快照与回滚（Memory 与 Checkpoints 都是会话持久化机制）
 
 ---
 

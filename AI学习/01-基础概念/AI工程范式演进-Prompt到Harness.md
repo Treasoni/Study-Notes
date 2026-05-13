@@ -313,6 +313,9 @@ graph LR
 
 **A**: 不是。虽然 OpenAI 的案例是编程，但 Harness Engineering 的原则（结构化文档、反馈回路、熵控制）适用于任何需要大规模、高可靠性的 AI 系统。
 
+> [!tip] 延伸阅读
+> 想深入了解 Harness Engineering 的核心概念、实践路径和进阶内容？详见 [[Harness-Engineering-系统治理工程]]（姐妹篇，深度展开第三层）
+
 ---
 
 ## 参考资料
