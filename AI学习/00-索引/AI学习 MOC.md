@@ -15,37 +15,38 @@ updated: 2026-05-14
 ## 目录结构
 
 ```mermaid
-graph TD
-    Root[{AI学习}]
-    Root --> Index[00-索引]
-    Root --> Basics[01-基础概念]
-    Root --> Tools[02-通用工具]
-    Root --> Topics[03-技术专题]
-    Root --> Projects[04-项目实践]
-    Root --> Claude[Claude Code 教程]
+graph TB
+    subgraph AI学习
+        Index[📁 00-索引]
+        Basics[📁 01-基础概念]
+        Tools[📁 02-通用工具]
+        Topics[📁 03-技术专题]
+        Projects[📁 04-项目实践]
+        Claude[📁 Claude Code 教程]
+    end
 
-    Basics --> Agent[AI Agents/Agent 智能体]
-    Basics --> MCP[MCP 协议]
-    Basics --> Skills[Skills 技能系统]
-    Basics --> SubAgent[SubAgent 子代理]
-    Basics --> Hook[Hook 钩子]
-    Basics --> Prompt[Prompt 提示词]
-    Basics --> Harness[Harness Engineering]
-    Basics --> Path[AI学习路径/职业路线图]
+    Basics --> A1[AI Agents]
+    Basics --> A2[Agent 智能体]
+    Basics --> A3[MCP 协议]
+    Basics --> A4[Skills]
+    Basics --> A5[SubAgent]
+    Basics --> A6[Hook]
+    Basics --> A7[Prompt]
+    Basics --> A8[Harness]
+    Basics --> A9[学习路径]
 
-    Topics --> ModelComparison[AI模型对比]
-    Topics --> RAG[RAG 技术]
-    Topics --> OCR[OCR 概念]
+    Topics --> T1[模型对比]
+    Topics --> T2[RAG 技术]
+    Topics --> T3[OCR 概念]
 
-    Projects --> OpenClaw[openclaw]
-    OpenClaw --> OpenClawLayers[5个子层次]
-    OpenClawLayers --> Entry[入门层]
-    OpenClawLayers --> Config[配置层]
-    OpenClawLayers --> Ref[参考层]
-    OpenClawLayers --> App[应用层]
-    OpenClawLayers --> Selection[选型层]
+    Projects --> OC[openclaw]
+    OC --> OC1[入门层]
+    OC --> OC2[配置层]
+    OC --> OC3[参考层]
+    OC --> OC4[应用层]
+    OC --> OC5[选型层]
 
-    Claude --> ClaudeAdvanced[高级功能]
+    Claude --> C1[高级功能]
 ```
 
 ---
