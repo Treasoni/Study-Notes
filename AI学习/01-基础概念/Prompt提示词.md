@@ -246,8 +246,7 @@ tags: [ai, 基础概念, prompt]
 ### 进阶阅读
 - [[01-基础概念/AI工程范式演进-Prompt到Harness]] - AI 工程范式的演进：从 Prompt 到 Context 再到 Harness
 
-### 实践指南
-- [[03-进阶应用/如何编写Skills]] - 将 Prompt 封装为 Skill
+
 
 ---
 
