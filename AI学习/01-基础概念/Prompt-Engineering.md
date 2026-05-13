@@ -17,10 +17,10 @@ sources:
   - "[R4] Chain-of-Thought - https://www.promptingguide.ai/zh/techniques/cot"
   - "[R5] 设计提示的通用技巧 - https://www.promptingguide.ai/zh/introduction/tips"
 concepts:
-  - "[[零样本提示]]"
-  - "[[少样本提示]]"
-  - "[[链式思考]]"
-  - "[[迭代优化]]"
+  - 零样本提示
+  - 少样本提示
+  - 链式思考
+  - 迭代优化
 aliases:
   - Prompt Engineering
   - Prompt技巧
@@ -31,7 +31,7 @@ aliases:
 ## 一句话解释
 
 > [!tip] 一句话理解
-> 提示词工程是**与 AI 对话的艺术**——通过精心设计输入，让 [[大语言模型]] 准确理解你的意图，输出你想要的结果。
+> 提示词工程是**与 AI 对话的艺术**——通过精心设计输入，让大语言模型（LLM）准确理解你的意图，输出你想要的结果。
 
 **牛津词典定义**：为人工智能程序制定和优化提示的动作和过程，以优化其输出或实现预期结果。
 
