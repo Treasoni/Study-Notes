@@ -228,7 +228,7 @@ Agent Teams 成本 = 5-20x（取决于团队规模）
 |------|----------------------|
 | [[Agent智能体]] | Agent Teams 由多个 Agent 组成 |
 | [[SubAgent子代理]] | SubAgent 是单 Agent 内的扩展，Agent Teams 是多 Agent 协作 |
-| [[Skills是什么]] | Skills 可以给团队成员使用 |
+| [[Skills 是什么]] | Skills 可以给团队成员使用 |
 | [[MCP协议]] | Agent Teams 中的 Agent 通过 MCP 访问工具 |
 
 ---

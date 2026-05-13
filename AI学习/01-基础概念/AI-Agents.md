@@ -293,12 +293,6 @@ crew.kickoff()
 
 | 概念 | 关系 |
 |:------|:------|
-| [[LLM]] | AI Agent 的"大脑"，提供推理和语言理解能力 |
-| [[Prompt-Engineering]] | 设计 Agent 的指令和提示词 |
-| [[RAG]] | 为 Agent 提供外部知识检索能力 |
-| [[Function-Calling]] | Agent 调用工具的技术基础 |
-| [[Vector-Database]] | Agent 长期记忆的存储方案 |
-| [[Multi-Agent-System]] | 多个 Agent 协作的系统架构 |
 
 ---
 
