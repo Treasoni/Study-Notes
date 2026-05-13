@@ -9,6 +9,10 @@
 | doc-03 | Chain-of-Thought | 5 | 5 | 4 | 5 | **19** |
 | doc-04 | 设计提示的通用技巧 | 5 | 5 | 5 | 5 | **20** |
 | doc-05 | Wikipedia | 5 | 5 | 3 | 4 | **17** |
+| doc-06 | 主流LLM比较 | 5 | 5 | 4 | 4 | **18** |
+| doc-07 | GPT-4特点 | 5 | 5 | 4 | 5 | **19** |
+| doc-08 | Claude模型 | 5 | 5 | 4 | 4 | **18** |
+| doc-09 | 迭代优化方法 | 5 | 5 | 4 | 5 | **19** |
 
 ## 评分标准说明
 
@@ -50,3 +54,27 @@
 - **作者**: Wikipedia
 - **类型**: 百科
 - **内容**: 定义、历史背景、关键技术概览
+
+### doc-06 - 主流LLM比较
+- **URL**: https://en.wikipedia.org/wiki/List_of_large_language_models
+- **作者**: Wikipedia
+- **类型**: 百科
+- **内容**: GPT-4/Claude/Gemini/Llama等模型能力对比
+
+### doc-07 - GPT-4特点
+- **URL**: https://www.promptingguide.ai/zh/models/gpt-4
+- **作者**: dair-ai
+- **类型**: 官方教程
+- **内容**: GPT-4能力表现和提示词设置
+
+### doc-08 - Claude模型
+- **URL**: https://docs.anthropic.com
+- **作者**: Anthropic
+- **类型**: 官方文档
+- **内容**: Claude系列特点和使用技巧
+
+### doc-09 - 迭代优化方法
+- **URL**: https://www.promptingguide.ai/zh
+- **作者**: dair-ai
+- **类型**: 官方教程
+- **内容**: 提示词迭代测试和优化流程
