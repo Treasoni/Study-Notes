@@ -1120,9 +1120,9 @@ project/
 
 ## 相关文档
 
-- [[02-工具使用/Claude Code 会话管理]] - 会话和记忆管理
-- [[02-工具使用/如何使用Claude code]] - 基础使用指南
-- [[03-进阶应用/Claude MCP 使用指南]] - MCP 集成
+- [[Claude Code 会话管理]] - 会话和记忆管理
+- [[如何使用Claude code]] - 基础使用指南
+- [[Claude MCP 使用指南]] - MCP 集成
 
 ## 参考资料
 

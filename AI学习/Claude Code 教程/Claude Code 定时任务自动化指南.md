@@ -808,8 +808,7 @@ Claude Code 的 Hooks 功能可以在特定生命周期事件触发时执行自�
 |:-----|:-----|
 | [[Claude Code Slash Commands 完整参考]] | 斜杠命令可封装常用 prompt，在定时脚本中调用 |
 | [[Claude MCP 使用指南]] | MCP 扩展可增强 Claude Code 能力，在定时任务中使用 |
-| [[../01-基础概念/Agent智能体]] | 定时自动化可视为"固定逻辑的智能体" |
-| [[../01-基础概念/Agent智能体]] | 定时自动化可视为"固定逻辑的智能体" |
+| [[Agent智能体]] | 定时自动化可视为"固定逻辑的智能体" |
 
 ## 最佳实践
 
@@ -1241,7 +1240,6 @@ A:
 A: **不会**。`/loop` 是会话级的，关闭 Claude Code 后任务终止。需要长期运行的任务应使用 launchd（macOS）或 cron（Linux）。
 
 ## 相关文档
-- [[AI学习/00-索引/MOC|AI学习索引]]
 - [[如何使用Claude code|Claude Code 使用指南]]
 - [[Claude Code Slash Commands 完整参考]]
 

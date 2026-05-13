@@ -747,14 +747,14 @@ export ANTHROPIC_API_KEY=your-key
 ## 与其他概念的关系
 
 | 概念 | 关系 |
-|------|------|
-| [[02-工具使用/如何使用Claude code]] | CLI 的安装配置基础 |
-| [[02-工具使用/Claude Code 常用功能]] | 功能速查手册 |
-| [[02-工具使用/Claude Code 会话管理]] | 会话管理详解 |
-| [[03-进阶应用/Claude MCP 使用指南]] | MCP 协议配置 |
-| [[01-基础概念/Skills 是什么]] | Skills 技能系统 |
-| [[02-工具使用/Claude Code Subagents 完整指南]] | 自定义代理创建 |
-| [[03-进阶应用/CLAUDE.md 使用指南]] | 项目级配置 |
+|:-----|:-----|
+| [[如何使用Claude code]] | CLI 的安装配置基础 |
+| [[Claude Code 常用功能]] | 功能速查手册 |
+| [[Claude Code 会话管理]] | 会话管理详解 |
+| [[Claude MCP 使用指南]] | MCP 协议配置 |
+| [[Skills 是什么]] | Skills 技能系统 |
+| [[Claude Code Subagents 完整指南]] | 自定义代理创建 |
+| [[CLAUDE.md 使用指南]] | 项目级配置 |
 
 ---
 
@@ -803,7 +803,7 @@ export ANTHROPIC_API_KEY=your-key
 - [Claude Code CLI: The Complete Guide](https://blakecrosley.com/guides/claude-code) - 社区完整指南
 
 ### 相关文档
-- [[02-工具使用/如何使用Claude code]]
-- [[02-工具使用/Claude Code 常用功能]]
-- [[02-工具使用/Claude Code 会��管理]]
-- [[03-进阶应用/Claude MCP 使用指南]]
+- [[如何使用Claude code]]
+- [[Claude Code 常用功能]]
+- [[Claude Code 会话管理]]
+- [[Claude MCP 使用指南]]
