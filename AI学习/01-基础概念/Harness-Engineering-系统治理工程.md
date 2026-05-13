@@ -47,7 +47,7 @@ aliases:
 
 2023~2025 年，使用 AI 编码的主要方式经历了两次范式演进：
 
-1. **[[Prompt Engineering]]（提示词工程）**：纠结于怎么把指令写清楚
+1. [Prompt-Engineering](Prompt-Engineering.md)**（提示词工程）**：纠结于怎么把指令写清楚
 2. **[[Context Engineering]]（上下文工程）**：纠结于给模型喂什么信息
 
 这两层都假设"模型变强，问题自然消失"。但现实并非如此：
