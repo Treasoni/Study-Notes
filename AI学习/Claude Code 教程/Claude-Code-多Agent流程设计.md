@@ -486,10 +486,8 @@ graph TB
 |:-----|:-----|:-----|
 | [[Claude-Code]] | 基础平台 | 多 Agent 流程运行在 Claude Code 之上 |
 | [[Task-Tool]] | 底层引擎 | Task Tool 是 Subagents 的并行处理基础 |
-| [[Prompt-Engineering]] | 配置基础 | Subagent 的系统提示需要精心设计 |
 | [[Git-Worktree]] | 隔离工具 | 用于多 Agent 并行开发时的文件隔离 |
 | [[Agentic-Workflow]] | 工作流范式 | 多 Agent 是 Agentic Workflow 的一种实现 |
-| [[MCP-Model-Context-Protocol]] | 扩展协议 | 可用于 Agent 间的上下文共享 |
 
 ## 最佳实践
 
@@ -599,6 +597,4 @@ def select_model(task):
 > - [ ] 探索如何为特定领域定制 Subagent
 
 > [!personal] 相关笔记
-> - [[Claude-Code-基础使用]]
-> - [[Agentic-Workflow-设计原则]]
 > - [[AI-Agent-协作模式对比]]
