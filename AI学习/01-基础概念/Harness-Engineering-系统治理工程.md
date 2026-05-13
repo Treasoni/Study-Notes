@@ -365,16 +365,16 @@ graph LR
     style CE fill:#fff3e0
 ```
 
-| 概念 | 关系 |
-|------|------|
-| [[Prompt Engineering]] | Harness 的最内层。解决"如何说"。三者中最基础。 |
-| [[Context Engineering]] | Harness 的中间层。解决"给什么"。2025 年的主流范式。 |
-| [[AI工程范式演进-Prompt到Harness]] | 本文是对该笔记中"第三层"的深度展开。 |
-| [[MCP协议]] | MCP 是 Agent Tool Management（Harness 组件之一）的具体协议实现。 |
-| [[Agent智能体]] | Harness Engineering 的服务对象。Agent = Model + Harness。 |
-| [[SubAgent子代理]] | SubAgent 充当"上下文防火墙"，是 Harness 的关键杠杆。 |
-| [[Hook钩子]] | Hook 提供确定性控制流，是 Harness 中反馈回路的技术实现。 |
-| [[Skills 是什么]] | Skills 是实现 Feedforward Guides 的一种形式（渐进式知识披露）。 |
+| 概念                                          | 关系                                                 |
+| ------------------------------------------- | -------------------------------------------------- |
+| [Prompt-Engineering](Prompt-Engineering.md) | Harness 的最内层。解决"如何说"。三者中最基础。                       |
+| [[Context Engineering]]                     | Harness 的中间层。解决"给什么"。2025 年的主流范式。                  |
+| [[AI工程范式演进-Prompt到Harness]]                 | 本文是对该笔记中"第三层"的深度展开。                                |
+| [[MCP协议]]                                   | MCP 是 Agent Tool Management（Harness 组件之一）的具体协议实现。  |
+| [[Agent智能体]]                                | Harness Engineering 的服务对象。Agent = Model + Harness。 |
+| [[SubAgent子代理]]                             | SubAgent 充当"上下文防火墙"，是 Harness 的关键杠杆。               |
+| [[Hook钩子]]                                  | Hook 提供确定性控制流，是 Harness 中反馈回路的技术实现。                |
+| [[Skills 是什么]]                              | Skills 是实现 Feedforward Guides 的一种形式（渐进式知识披露）。      |
 
 ---
 

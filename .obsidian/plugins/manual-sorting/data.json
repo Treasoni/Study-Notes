@@ -107,6 +107,7 @@
     },
     "AI学习/01-基础概念": {
       "children": [
+        "AI学习/01-基础概念/Prompt-Engineering.md",
         "AI学习/01-基础概念/AI缓存命中与未命中.md",
         "AI学习/01-基础概念/Harness-Engineering-系统治理工程.md",
         "AI学习/01-基础概念/sortspec.md",
@@ -989,6 +990,7 @@
     },
     "StudySystem/0-inbox": {
       "children": [
+        "StudySystem/0-inbox/Prompt-Engineering",
         "StudySystem/0-inbox/AI缓存命中与未命中",
         "StudySystem/0-inbox/Harness-Engineering",
         "StudySystem/0-inbox/动态技能发现机制",
@@ -1061,8 +1063,30 @@
       ],
       "sortOrder": "custom"
     },
+    "StudySystem/0-inbox/Prompt-Engineering": {
+      "children": [
+        "StudySystem/0-inbox/Prompt-Engineering/raw",
+        "StudySystem/0-inbox/Prompt-Engineering/sources.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/Prompt-Engineering/raw": {
+      "children": [
+        "StudySystem/0-inbox/Prompt-Engineering/raw/doc-01.md",
+        "StudySystem/0-inbox/Prompt-Engineering/raw/doc-02.md",
+        "StudySystem/0-inbox/Prompt-Engineering/raw/doc-03.md",
+        "StudySystem/0-inbox/Prompt-Engineering/raw/doc-04.md",
+        "StudySystem/0-inbox/Prompt-Engineering/raw/doc-05.md",
+        "StudySystem/0-inbox/Prompt-Engineering/raw/doc-06.md",
+        "StudySystem/0-inbox/Prompt-Engineering/raw/doc-07.md",
+        "StudySystem/0-inbox/Prompt-Engineering/raw/doc-08.md",
+        "StudySystem/0-inbox/Prompt-Engineering/raw/doc-09.md"
+      ],
+      "sortOrder": "custom"
+    },
     "StudySystem/1-curated": {
       "children": [
+        "StudySystem/1-curated/Prompt-Engineering",
         "StudySystem/1-curated/AI缓存命中与未命中",
         "StudySystem/1-curated/Harness-Engineering",
         "StudySystem/1-curated/Agent与Skills架构设计"
@@ -1101,8 +1125,19 @@
       ],
       "sortOrder": "custom"
     },
+    "StudySystem/1-curated/Prompt-Engineering": {
+      "children": [
+        "StudySystem/1-curated/Prompt-Engineering/core-concepts.md",
+        "StudySystem/1-curated/Prompt-Engineering/discarded.md",
+        "StudySystem/1-curated/Prompt-Engineering/overview.md",
+        "StudySystem/1-curated/Prompt-Engineering/practices.md",
+        "StudySystem/1-curated/Prompt-Engineering/references.md"
+      ],
+      "sortOrder": "custom"
+    },
     "StudySystem/2-drafts": {
       "children": [
+        "StudySystem/2-drafts/Prompt-Engineering",
         "StudySystem/2-drafts/AI缓存命中与未命中",
         "StudySystem/2-drafts/Harness-Engineering",
         "StudySystem/2-drafts/Agent与Skills架构设计",
@@ -1148,6 +1183,12 @@
       ],
       "sortOrder": "custom"
     },
+    "StudySystem/2-drafts/Prompt-Engineering": {
+      "children": [
+        "StudySystem/2-drafts/Prompt-Engineering/Prompt-Engineering-笔记.md"
+      ],
+      "sortOrder": "custom"
+    },
     "StudySystem/4-meta": {
       "children": [
         "StudySystem/4-meta/execution-log.md",
@@ -1157,6 +1198,7 @@
     },
     "StudySystem/4-meta/evaluation": {
       "children": [
+        "StudySystem/4-meta/evaluation/Prompt-Engineering-eval.md",
         "StudySystem/4-meta/evaluation/AI缓存命中与未命中-eval.md",
         "StudySystem/4-meta/evaluation/Harness-Engineering-eval.md",
         "StudySystem/4-meta/evaluation/动态技能发现机制-eval.md",
