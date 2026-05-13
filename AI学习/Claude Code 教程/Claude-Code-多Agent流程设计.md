@@ -484,10 +484,6 @@ graph TB
 
 | 概念 | 关系 | 说明 |
 |:-----|:-----|:-----|
-| [[Claude-Code]] | 基础平台 | 多 Agent 流程运行在 Claude Code 之上 |
-| [[Task-Tool]] | 底层引擎 | Task Tool 是 Subagents 的并行处理基础 |
-| [[Git-Worktree]] | 隔离工具 | 用于多 Agent 并行开发时的文件隔离 |
-| [[Agentic-Workflow]] | 工作流范式 | 多 Agent 是 Agentic Workflow 的一种实现 |
 
 ## 最佳实践
 

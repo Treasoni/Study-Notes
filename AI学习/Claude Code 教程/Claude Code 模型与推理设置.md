@@ -774,10 +774,10 @@ A: 配置优先级为：VSCode 工作区设置 > VSCode 用户设置 > `~/.claud
 
 ## 相关文档
 
-- [[02-工具使用/如何使用Claude code]] - 完整安装配置指南
-- [[02-工具使用/Claude Code 常用功能]] - 功能速查手册
-- [[02-工具使用/Claude Code 会话管理]] - 会话管理技巧
-- [[03-进阶应用/Claude MCP 使用指南]] - MCP 配置教程
+- [[如何使用Claude code]] - 完整安装配置指南
+- [[Claude Code 常用功能]] - 功能速查手册
+- [[Claude Code 会话管理]] - 会话管理技巧
+- [[Claude MCP 使用指南]] - MCP 配置教程
 
 ---
 

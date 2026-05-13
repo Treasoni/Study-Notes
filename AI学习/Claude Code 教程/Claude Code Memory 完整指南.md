@@ -613,11 +613,11 @@ ls -la ~/.claude/CLAUDE.md
 ## 与其他概念的关系
 
 | 概念 | 关系 |
-|------|------|
-| [[AI学习/02-工具使用/Claude Code Slash Commands 完整参考]] | Memory 通过 `/init`、`/memory` 命令管理 |
-| [[AI学习/03-进阶应用/Claude MCP 使用指南]] | MCP 提供实时数据访问，Memory 提供静态上下文 |
-| [[AI学习/01-基础概念/Skills 是什么]] | Skills 可利用 Memory 中的项目上下文 |
-| [[AI学习/02-工具使用/Claude Code Hooks 使用指南]] | Hooks 是事件驱动，Memory 是静态持久化 |
+|:-----|:-----|
+| [[Claude Code Slash Commands 完整参考]] | Memory 通过 `/init`、`/memory` 命令管理 |
+| [[Claude MCP 使用指南]] | MCP 提供实时数据访问，Memory 提供静态上下文 |
+| [[Skills 是什么]] | Skills 可利用 Memory 中的项目上下文 |
+| [[Claude Code Hooks 使用指南]] | Hooks 是事件驱动，Memory 是静态持久化 |
 
 ---
 
@@ -660,10 +660,10 @@ ls -la ~/.claude/CLAUDE.md
 
 ## 相关文档
 
-- [[AI学习/02-工具使用/Claude Code Slash Commands 完整参考]] - 斜杠命令完整参考
-- [[AI学习/03-进阶应用/Claude MCP 使用指南]] - MCP 集成指南
-- [[AI学习/01-基础概念/Skills 是什么]] - Skills 概念详解
-- [[AI学习/02-工具使用/Claude Code Hooks 使用指南]] - 事件驱动自动化
+- [[Claude Code Slash Commands 完整参考]] - 斜杠命令完整参考
+- [[Claude MCP 使用指南]] - MCP 集成指南
+- [[Skills 是什么]] - Skills 概念详解
+- [[Claude Code Hooks 使用指南]] - 事件驱动自动化
 - [[Claude Code Checkpoints 使用指南]] - 会话快照与回滚（Memory 与 Checkpoints 都是会话持久化机制）
 
 ---

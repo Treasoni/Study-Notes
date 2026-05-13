@@ -440,7 +440,7 @@ ultrathink         # ~16,000 tokens，30-60秒
 > - 保护敏感文件
 > - 发送桌面通知
 >
-> 详细配置请参阅 [[02-工具使用/Claude Code Hooks 使用指南]]
+> 详细配置请参阅 [[Claude Code Hooks 使用指南]]
 
 ## 注意事项 ⚠️
 
@@ -589,7 +589,7 @@ A: 按 `Ctrl+C` 停止当前操作。
 > - [claude-howto - Best Practices](https://github.com/luongnv89/claude-howto#best-practices)
 
 ## 相关文档
-[[02-工具使用/如何使用Claude code]] | [[01-基础概念/Skills 是什么]] | [[01-基础概念/人工智能重要的六大概念体系]]
+[[如何使用Claude code]] | [[Skills 是什么]] | [[人工智能重要的六大概念体系]]
 
 ## 参考资料
 
