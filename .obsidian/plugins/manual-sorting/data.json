@@ -2,6 +2,8 @@
   "customOrder": {
     "/": {
       "children": [
+        "docs",
+        "scripts",
         "web-articles",
         "AI实战",
         "StudySystem",
@@ -371,6 +373,19 @@
     "docker/assets/如何搭建漫画库": {
       "children": [
         "docker/assets/如何搭建漫画库/file-20260209175749354.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "docs": {
+      "children": [
+        "docs/architecture.md",
+        "docs/changelog.md",
+        "docs/error-handling.md",
+        "docs/experience-notes.md",
+        "docs/learnings-digest.md",
+        "docs/phases.md",
+        "docs/pre-task-init.md",
+        "docs/updating-notes.md"
       ],
       "sortOrder": "custom"
     },
@@ -940,6 +955,12 @@
     "qBittorent/assets/qBittorrent配置代理": {
       "children": [
         "qBittorent/assets/qBittorrent配置代理/截屏2026-02-05 21.17.18.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "scripts": {
+      "children": [
+        "scripts/validate-structure.sh"
       ],
       "sortOrder": "custom"
     },
