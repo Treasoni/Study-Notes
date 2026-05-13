@@ -463,7 +463,7 @@ settings.json
 
 ## 八、关联文档
 
-[[Claude Code 常用功能]] · [[Claude Code CLI 完整参考]] · [[Claude Code 会话管理]] · [[Claude Code 模型与推理设置]] · [[Claude MCP 使用指南]] · [[CLAUDE.md 使用指南]] · [[Subagents 完整指南]] · [[如何编写Skills]] · [[Skills 是什么]] · [[人工智能重要的六大概念体系]] · [[Git 入门教程]] · [[Git 命令速查]]
+[[Agent智能体]] · [[Claude Code 常用功能]] · [[Claude Code CLI 完整参考]] · [[Claude Code 会话管理]] · [[Claude Code 模型与推理设置]] · [[Claude MCP 使用指南]] · [[CLAUDE.md 使用指南]] · [[Subagents 完整指南]] · [[如何编写Skills]] · [[Skills 是什么]] · [[人工智能重要的六大概念体系]] · [[Git 入门教程]] · [[Git 命令速查]]
 
 ---
 

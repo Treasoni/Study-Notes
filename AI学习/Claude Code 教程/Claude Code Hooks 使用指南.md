@@ -681,7 +681,7 @@ A: 运行一次性脚本种子 `~/.claude/settings.json`，添加约 67 条安�
 ## 相关文档
 
 - [[01-基础概念/Hook钩子]] - Hook 概念详解
-- [[02-工具使用/Claude Code 常用功能]] - /hooks 命令速查
+- [[Claude Code 常用功能]] - /hooks 命令速查
 - [[03-进阶应用/CLAUDE.md 使用指南]] - 项目级指令配置
 - [[01-基础概念/Skills 是什么]] - 用户主动调用的技能系统
 
