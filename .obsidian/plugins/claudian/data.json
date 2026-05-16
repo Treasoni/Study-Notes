@@ -6,8 +6,9 @@
         "conversationId": "conv-1778700273641-h81irsmh3"
       },
       {
+        "draftModel": "MiniMax-M2.7-highspeed",
         "tabId": "tab-1772901259345-4qw39yh",
-        "conversationId": "conv-1778701566350-04hef6m00"
+        "conversationId": null
       },
       {
         "tabId": "tab-1775367937205-etjsh2g",
