@@ -2,6 +2,13 @@
 
 <!-- New entries are appended below. Compress when this file exceeds 100 lines. -->
 
+<!-- Latest session: 2026-05-16 - VMware 获取虚拟机所有权失败 -->
+<!-- Learnings: -->
+<!-- 1. 用户提供完整内容时可跳过 collect/curate，直接 write -->
+<!-- 2. AskUserQuestion 工具对简单输入（主题名称）不够高效，可改用纯文字提问 -->
+<!-- 3. 实战笔记无 curated 资料时，评估的交叉验证步骤自动跳过 -->
+<!-- 4. LEARNINGS.md 压缩阈值为 100 行，接近时应提前触发压缩 -->
+
 <!-- Latest session: 2026-05-14 - AI缓存命中与未命中 - No significant learnings to record (workflow completed smoothly) -->
 
 <!-- Latest session: 2026-05-14 - AI学习 MOC 更新 -->
