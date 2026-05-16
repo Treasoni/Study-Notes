@@ -107,6 +107,7 @@
     },
     "AI学习/01-基础概念": {
       "children": [
+        "AI学习/01-基础概念/上下文工程",
         "AI学习/01-基础概念/Prompt-Engineering.md",
         "AI学习/01-基础概念/AI缓存命中与未命中.md",
         "AI学习/01-基础概念/Harness-Engineering-系统治理工程.md",
@@ -124,6 +125,12 @@
         "AI学习/01-基础概念/Prompt提示词.md",
         "AI学习/01-基础概念/Skills 是什么.md",
         "AI学习/01-基础概念/SubAgent子代理.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/01-基础概念/上下文工程": {
+      "children": [
+        "AI学习/01-基础概念/上下文工程/AI上下文工程.md"
       ],
       "sortOrder": "custom"
     },
@@ -990,6 +997,7 @@
     },
     "StudySystem/0-inbox": {
       "children": [
+        "StudySystem/0-inbox/上下文工程",
         "StudySystem/0-inbox/Prompt-Engineering",
         "StudySystem/0-inbox/AI缓存命中与未命中",
         "StudySystem/0-inbox/Harness-Engineering",
@@ -1003,6 +1011,26 @@
     "StudySystem/0-inbox/动态技能发现机制": {
       "children": [
         "StudySystem/0-inbox/动态技能发现机制/raw-input.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/上下文工程": {
+      "children": [
+        "StudySystem/0-inbox/上下文工程/raw",
+        "StudySystem/0-inbox/上下文工程/sources.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/上下文工程/raw": {
+      "children": [
+        "StudySystem/0-inbox/上下文工程/raw/doc-01-wikipedia.md",
+        "StudySystem/0-inbox/上下文工程/raw/doc-02-cot.md",
+        "StudySystem/0-inbox/上下文工程/raw/doc-03-few-shot.md",
+        "StudySystem/0-inbox/上下文工程/raw/doc-04-tot.md",
+        "StudySystem/0-inbox/上下文工程/raw/doc-05-zero-shot.md",
+        "StudySystem/0-inbox/上下文工程/raw/doc-06-role-prompting.md",
+        "StudySystem/0-inbox/上下文工程/raw/doc-07-context-engineering-agents.md",
+        "StudySystem/0-inbox/上下文工程/raw/doc-08-context-engineering-guide.md"
       ],
       "sortOrder": "custom"
     },
@@ -1086,10 +1114,22 @@
     },
     "StudySystem/1-curated": {
       "children": [
+        "StudySystem/1-curated/上下文工程",
         "StudySystem/1-curated/Prompt-Engineering",
         "StudySystem/1-curated/AI缓存命中与未命中",
         "StudySystem/1-curated/Harness-Engineering",
         "StudySystem/1-curated/Agent与Skills架构设计"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/1-curated/上下文工程": {
+      "children": [
+        "StudySystem/1-curated/上下文工程/core-concepts.md",
+        "StudySystem/1-curated/上下文工程/discarded.md",
+        "StudySystem/1-curated/上下文工程/gaps.md",
+        "StudySystem/1-curated/上下文工程/overview.md",
+        "StudySystem/1-curated/上下文工程/practices.md",
+        "StudySystem/1-curated/上下文工程/references.md"
       ],
       "sortOrder": "custom"
     },
@@ -1137,6 +1177,7 @@
     },
     "StudySystem/2-drafts": {
       "children": [
+        "StudySystem/2-drafts/上下文工程",
         "StudySystem/2-drafts/Prompt-Engineering",
         "StudySystem/2-drafts/AI缓存命中与未命中",
         "StudySystem/2-drafts/Harness-Engineering",
@@ -1144,6 +1185,12 @@
         "StudySystem/2-drafts/Claude Code自我学习机制",
         "StudySystem/2-drafts/CLAUDE.md放置策略",
         "StudySystem/2-drafts/ClaudeCode工作流遵守问题"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/2-drafts/上下文工程": {
+      "children": [
+        "StudySystem/2-drafts/上下文工程/上下文工程-笔记.md"
       ],
       "sortOrder": "custom"
     },
@@ -1198,6 +1245,7 @@
     },
     "StudySystem/4-meta/evaluation": {
       "children": [
+        "StudySystem/4-meta/evaluation/上下文工程-eval.md",
         "StudySystem/4-meta/evaluation/Prompt-Engineering-eval.md",
         "StudySystem/4-meta/evaluation/AI缓存命中与未命中-eval.md",
         "StudySystem/4-meta/evaluation/Harness-Engineering-eval.md",

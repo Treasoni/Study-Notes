@@ -10,6 +10,7 @@
 <!-- 2. 扫描时用 find + grep 排除 sortspec.md 和 MOC.md -->
 <!-- 3. Mermaid 图表特殊字符（如 { } 和深层嵌套）可能导致渲染问题 -->
 <!-- 4. subgraph 分组 + 扁平结构可改善 Obsidian 渲染效果 -->
+<!-- 5. 已有 MOC 文件先 Read 再 Write/Merge，避免覆盖用户自定义内容 -->
 
 <!-- Latest session: 2026-05-14 - AI上下文工程学习 -->
 <!-- Learnings: -->
