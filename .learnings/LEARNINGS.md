@@ -104,3 +104,22 @@
 在 beautify 后添加双链验证步骤
 
 ---
+
+## [LRN-20260516-001] best_practice
+
+**Logged**: 2026-05-16T
+**Priority**: medium
+**Status**: pending
+**Area**: docs
+
+### Summary
+用户直接提供完整内容时，可跳过 collect/curate 直接 write
+
+### Details
+本次会话中用户已提供了完整的笔记内容（VMware 报错解决步骤），直接进入 Phase 3 write → Phase 4 beautify 即可。AskUserQuestion 工具在获取简单文本输入时不够高效，多次选择"其他"后无法输入自定义内容，最终通过纯文字对话确认主题和路径。
+
+### Suggested Action
+- 当用户主动提供内容时，Phase 0 中确认"用户已提供内容，跳过 collect/curate"
+- 对需要自由文本输入的场景，直接用文字对话而非 AskUserQuestion 工具
+
+---
