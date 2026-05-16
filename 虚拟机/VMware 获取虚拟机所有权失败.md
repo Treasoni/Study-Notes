@@ -10,6 +10,7 @@ created: 2026-05-16
 # VMware 获取虚拟机所有权失败
 
 ## 问题描述
+![500](assets/VMware%20获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png)
 
 VMware Workstation 启动虚拟机时弹窗报错：
 
