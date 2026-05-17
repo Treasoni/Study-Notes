@@ -2,6 +2,7 @@
   "customOrder": {
     "/": {
       "children": [
+        "虚拟机",
         "docs",
         "scripts",
         "web-articles",
@@ -1360,6 +1361,10 @@
         "web-articles/What_is_harness_engineering/images/img_002.png",
         "web-articles/What_is_harness_engineering/images/img_003.png"
       ],
+      "sortOrder": "custom"
+    },
+    "虚拟机": {
+      "children": [],
       "sortOrder": "custom"
     }
   },
