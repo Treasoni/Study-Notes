@@ -47,3 +47,5 @@ grade: Excellent
 - 内置 Subagent 类型补充完整
 
 笔记已达到 Excellent 等级，可以投入使用。
+
+**最终位置**：`AI实战/工程实践/Claude Code Subagent与Skill调度机制.md`
