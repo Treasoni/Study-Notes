@@ -171,11 +171,26 @@ tools: Read, Grep, Glob  # 不给 Write/Edit，防止误删改
 
 ---
 
+## 内置 Subagent 类型
+
+Claude Code 内置了三个开箱即用的 Subagent：
+
+| 类型 | 模型 | 工具权限 | 适用场景 |
+|------|------|---------|---------|
+| **Explore** | Haiku | 只读（无 Write/Edit） | 代码搜索、文件发现、快速探索 |
+| **Plan** | 继承主 Agent | 只读 | Plan Mode 下的代码研究 |
+| **General-purpose** | 继承主 Agent | 全部工具 | 复杂多步骤任务 |
+
+> [!tip] 使用建议
+> 对于简单的代码探索任务，优先使用内置的 Explore subagent，而不是拉起临时 subagent。
+
+---
+
 ## 相关资源
 
 - [[Subagent 实战练习]] - 动手实践 Subagent 的配置与调用
 - [[Claude Code Slash Commands 完整参考]] - `/agents` 等命令详细用法
-- [[Claude Code 会话管理]] - 会话管理最佳实践
+- [[Claude Code 会话管理]] - 会话与 Subagent 上下文隔离的协同管理
 
 ---
 
