@@ -47,3 +47,46 @@ Pre-Task Init 中的强制读取不能跳过
 在 Agent 的 system prompt 或 CLAUDE.md 中明确：Pre-Task Init 是硬性要求，任何 Study System 任务开始时必须执行。
 
 ---
+
+## [LRN-20260524-003] best_practice
+
+**Logged**: 2026-05-24T15:30:00+08:00
+**Priority**: medium
+**Status**: pending
+**Area**: workflow
+
+### Summary
+心得笔记的 evaluate 阶段可给出具体改进建议并自动应用
+
+### Details
+本次评估发现 Practicality 8/10（场景示例抽象）和 Readability 8/10（Mermaid 图缺图注）。改进建议具体且可操作：
+- 添加 Skill 编排的具体代码示例
+- 为 Mermaid 图表添加图注
+
+评估后用户选择"改进"，我直接应用了建议，笔记质量得到提升。
+
+### Suggested Action
+评估阶段的改进建议应该是具体的、可执行的代码/文本片段，而不是模糊的方向性描述。
+
+---
+
+## [LRN-20260524-004] knowledge_gap
+
+**Logged**: 2026-05-24T15:35:00+08:00
+**Priority**: medium
+**Status**: pending
+**Area**: research
+
+### Summary
+`.claude/agents/` 的 `tools` 字段支持细粒度权限控制（已验证）
+
+### Details
+原始内容提到 "物理级权限隔离" 时被标记为 `[待验证]`。通过 Agent 工具探索验证：
+- `tools: Read, Grep, Glob` = 只读 Agent
+- 支持逗号分隔格式
+- 可结合 `permissionMode` 控制确认行为
+
+### Suggested Action
+在引用官方功能时，如果不确定，标记 `[待验证]` 并在 review 阶段使用 Agent/搜索进行核实。
+
+---
