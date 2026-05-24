@@ -16,9 +16,11 @@ graph TD
     Eng --> N2[Claude Code自我学习机制]
     Eng --> N3[ClaudeCode工作流遵守问题]
     Eng --> N4[Claude Code Subagent与Skill调度机制]
+    Eng --> N6[Subagent调度策略]
+    Eng --> N7[Claude Code 防遗忘策略]
     Arch --> N5[Agent与Skills架构设计]
-    Arch --> N6[Claude Code项目动态技能发现机制]
-    class N1,N2,N3,N4,N5,N6 internal-link;
+    Arch --> N8[Claude Code项目动态技能发现机制]
+    class N1,N2,N3,N4,N5,N6,N7,N8 internal-link;
 ```
 
 ## 笔记索引
@@ -28,6 +30,8 @@ graph TD
 - [[Claude Code自我学习机制]] #Claude-Code
 - [[ClaudeCode工作流遵守问题]] #AI工程
 - [[Claude Code Subagent与Skill调度机制]] #claude-code
+- [[工程实践/Subagent调度策略]] #Claude-Code #Subagent #Skill
+- [[Claude Code 防遗忘策略]] #AI工程 #ClaudeCode #工作流
 
 ### 架构设计
 - [[Agent与Skills架构设计]] #Agent
@@ -36,7 +40,7 @@ graph TD
 ## 概览
 
 - 📂 目录：`AI实战`
-- 📝 笔记总数：6
+- 📝 笔记总数：8
 - 📁 子目录数：2
 - 📅 生成日期：2026-05-12
 - 📅 更新日期：2026-05-24
