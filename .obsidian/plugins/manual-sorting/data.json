@@ -60,8 +60,28 @@
       ],
       "sortOrder": "custom"
     },
+    "虚拟机": {
+      "children": [
+        "虚拟机/assets",
+        "虚拟机/VMware 获取虚拟机所有权失败.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "虚拟机/assets": {
+      "children": [
+        "虚拟机/assets/VMware 获取虚拟机所有权失败"
+      ],
+      "sortOrder": "custom"
+    },
+    "虚拟机/assets/VMware 获取虚拟机所有权失败": {
+      "children": [
+        "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png"
+      ],
+      "sortOrder": "custom"
+    },
     "AI实战": {
       "children": [
+        "AI实战/Claude Code 防遗忘策略.md",
         "AI实战/sortspec.md",
         "AI实战/工程实践",
         "AI实战/架构设计",
@@ -71,6 +91,7 @@
     },
     "AI实战/工程实践": {
       "children": [
+        "AI实战/工程实践/Claude Code Subagent与Skill调度机制.md",
         "AI实战/工程实践/Claude Code自我学习机制.md",
         "AI实战/工程实践/CLAUDE.md放置策略.md",
         "AI实战/工程实践/ClaudeCode工作流遵守问题.md"
@@ -444,6 +465,7 @@
     },
     "GitHub项目": {
       "children": [
+        "GitHub项目/CodeGraph实战笔记.md",
         "GitHub项目/OpenCLI 使用指南.md"
       ],
       "sortOrder": "custom"
@@ -547,13 +569,8 @@
     },
     "npm/StudySystem/0-inbox/Agent与Skills架构设计": {
       "children": [
-        "npm/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为",
         "npm/StudySystem/0-inbox/Agent与Skills架构设计/raw-input.md"
       ],
-      "sortOrder": "custom"
-    },
-    "npm/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为": {
-      "children": [],
       "sortOrder": "custom"
     },
     "npm/StudySystem/0-inbox/CLAUDE.md放置策略": {
@@ -856,13 +873,8 @@
     },
     "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计": {
       "children": [
-        "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为",
         "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计/raw-input.md"
       ],
-      "sortOrder": "custom"
-    },
-    "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为": {
-      "children": [],
       "sortOrder": "custom"
     },
     "PVE的学习/StudySystem/0-inbox/CLAUDE.md放置策略": {
@@ -1008,6 +1020,10 @@
     },
     "StudySystem/0-inbox": {
       "children": [
+        "StudySystem/0-inbox/claude-code-subagent-skill",
+        "StudySystem/0-inbox/Claude-Code-Subagent-Skill调度",
+        "StudySystem/0-inbox/ClaudeCode防遗忘策略",
+        "StudySystem/0-inbox/CodeGraph",
         "StudySystem/0-inbox/上下文工程",
         "StudySystem/0-inbox/Prompt-Engineering",
         "StudySystem/0-inbox/AI缓存命中与未命中",
@@ -1047,13 +1063,8 @@
     },
     "StudySystem/0-inbox/Agent与Skills架构设计": {
       "children": [
-        "StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为",
         "StudySystem/0-inbox/Agent与Skills架构设计/raw-input.md"
       ],
-      "sortOrder": "custom"
-    },
-    "StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为": {
-      "children": [],
       "sortOrder": "custom"
     },
     "StudySystem/0-inbox/AI缓存命中与未命中": {
@@ -1071,15 +1082,50 @@
       ],
       "sortOrder": "custom"
     },
+    "StudySystem/0-inbox/claude-code-subagent-skill": {
+      "children": [
+        "StudySystem/0-inbox/claude-code-subagent-skill/raw-input.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/Claude-Code-Subagent-Skill调度": {
+      "children": [
+        "StudySystem/0-inbox/Claude-Code-Subagent-Skill调度/raw-input.md"
+      ],
+      "sortOrder": "custom"
+    },
     "StudySystem/0-inbox/CLAUDE.md放置策略": {
       "children": [
         "StudySystem/0-inbox/CLAUDE.md放置策略/raw-input.md"
       ],
       "sortOrder": "custom"
     },
+    "StudySystem/0-inbox/ClaudeCode防遗忘策略": {
+      "children": [
+        "StudySystem/0-inbox/ClaudeCode防遗忘策略/raw-input.md"
+      ],
+      "sortOrder": "custom"
+    },
     "StudySystem/0-inbox/ClaudeCode工作流遵守问题": {
       "children": [
         "StudySystem/0-inbox/ClaudeCode工作流遵守问题/raw-input.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/CodeGraph": {
+      "children": [
+        "StudySystem/0-inbox/CodeGraph/raw",
+        "StudySystem/0-inbox/CodeGraph/sources.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/CodeGraph/raw": {
+      "children": [
+        "StudySystem/0-inbox/CodeGraph/raw/doc-01.md",
+        "StudySystem/0-inbox/CodeGraph/raw/doc-03.md",
+        "StudySystem/0-inbox/CodeGraph/raw/doc-04.md",
+        "StudySystem/0-inbox/CodeGraph/raw/doc-05.md",
+        "StudySystem/0-inbox/CodeGraph/raw/doc-06.md"
       ],
       "sortOrder": "custom"
     },
@@ -1130,6 +1176,7 @@
     },
     "StudySystem/1-curated": {
       "children": [
+        "StudySystem/1-curated/CodeGraph",
         "StudySystem/1-curated/上下文工程",
         "StudySystem/1-curated/Prompt-Engineering",
         "StudySystem/1-curated/AI缓存命中与未命中",
@@ -1171,6 +1218,16 @@
       ],
       "sortOrder": "custom"
     },
+    "StudySystem/1-curated/CodeGraph": {
+      "children": [
+        "StudySystem/1-curated/CodeGraph/core-concepts.md",
+        "StudySystem/1-curated/CodeGraph/discarded.md",
+        "StudySystem/1-curated/CodeGraph/overview.md",
+        "StudySystem/1-curated/CodeGraph/practices.md",
+        "StudySystem/1-curated/CodeGraph/references.md"
+      ],
+      "sortOrder": "custom"
+    },
     "StudySystem/1-curated/Harness-Engineering": {
       "children": [
         "StudySystem/1-curated/Harness-Engineering/core-concepts.md",
@@ -1193,6 +1250,9 @@
     },
     "StudySystem/2-drafts": {
       "children": [
+        "StudySystem/2-drafts/claude-code-subagent-skill",
+        "StudySystem/2-drafts/ClaudeCode防遗忘策略",
+        "StudySystem/2-drafts/CodeGraph",
         "StudySystem/2-drafts/上下文工程",
         "StudySystem/2-drafts/Prompt-Engineering",
         "StudySystem/2-drafts/AI缓存命中与未命中",
@@ -1228,15 +1288,33 @@
       ],
       "sortOrder": "custom"
     },
+    "StudySystem/2-drafts/claude-code-subagent-skill": {
+      "children": [
+        "StudySystem/2-drafts/claude-code-subagent-skill/claude-code-subagent-skill-笔记.md"
+      ],
+      "sortOrder": "custom"
+    },
     "StudySystem/2-drafts/CLAUDE.md放置策略": {
       "children": [
         "StudySystem/2-drafts/CLAUDE.md放置策略/CLAUDE.md放置策略-笔记.md"
       ],
       "sortOrder": "custom"
     },
+    "StudySystem/2-drafts/ClaudeCode防遗忘策略": {
+      "children": [
+        "StudySystem/2-drafts/ClaudeCode防遗忘策略/ClaudeCode防遗忘策略-笔记.md"
+      ],
+      "sortOrder": "custom"
+    },
     "StudySystem/2-drafts/ClaudeCode工作流遵守问题": {
       "children": [
         "StudySystem/2-drafts/ClaudeCode工作流遵守问题/ClaudeCode工作流遵守问题.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/2-drafts/CodeGraph": {
+      "children": [
+        "StudySystem/2-drafts/CodeGraph/CodeGraph实战笔记.md"
       ],
       "sortOrder": "custom"
     },
@@ -1261,6 +1339,10 @@
     },
     "StudySystem/4-meta/evaluation": {
       "children": [
+        "StudySystem/4-meta/evaluation/claude-code-subagent-skill-eval.md",
+        "StudySystem/4-meta/evaluation/ClaudeCode防遗忘策略-eval.md",
+        "StudySystem/4-meta/evaluation/CodeGraph-eval.md",
+        "StudySystem/4-meta/evaluation/VMware 获取虚拟机所有权失败-eval.md",
         "StudySystem/4-meta/evaluation/上下文工程-eval.md",
         "StudySystem/4-meta/evaluation/Prompt-Engineering-eval.md",
         "StudySystem/4-meta/evaluation/AI缓存命中与未命中-eval.md",
@@ -1339,13 +1421,8 @@
     },
     "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems": {
       "children": [
-        "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems/images",
         "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems.md"
       ],
-      "sortOrder": "custom"
-    },
-    "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems/images": {
-      "children": [],
       "sortOrder": "custom"
     },
     "web-articles/What_is_harness_engineering": {
@@ -1361,10 +1438,6 @@
         "web-articles/What_is_harness_engineering/images/img_002.png",
         "web-articles/What_is_harness_engineering/images/img_003.png"
       ],
-      "sortOrder": "custom"
-    },
-    "虚拟机": {
-      "children": [],
       "sortOrder": "custom"
     }
   },
