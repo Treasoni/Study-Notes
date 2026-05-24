@@ -4,11 +4,10 @@ This repository contains the **Study System** — a semi-automated technical lea
 
 ## Overview
 
-1. User says "I want to learn X" or "I want to write about my experience with X" — use [Resource Discovery](#resource-discovery规则寻址) glob patterns to locate the right skill
-2. For research-driven notes: Main Claude orchestrates 6 phases: collect → curate → write → beautify → evaluate → [digest]
-3. For experience notes (心得笔记): user provides content → review → optional research → write → beautify → evaluate → [digest]
-4. Each phase reads/writes files under `{VAULT_PATH}/StudySystem/`
-5. User reviews and approves at each phase boundary
+1. User says "I want to learn X" or "I want to write about my experience with X" — discover skills/agents/templates via glob patterns
+2. Research-driven: 6 phases (collect → curate → write → beautify → evaluate → [digest])
+3. Experience notes (心得笔记): user content → review → optional research → write → beautify → [evaluate] → [digest]
+4. All system files live under `{SYSTEM_ROOT}` — user reviews every phase boundary
 
 ## Critical Rules
 
@@ -19,6 +18,19 @@ Present results to the user and WAIT for explicit confirmation (e.g. "继续", "
 
 NEVER chain phases together. NEVER skip a phase. NEVER assume user approval.
 
+### TODO.md State Machine (CRITICAL)
+
+The TODO.md file is a physical state tracker — it converts abstract "rules" into concrete tool calls the orchestrator MUST execute. Use explicit tool names (Read/Write/Bash) — NEVER use natural-language verbs like "check" or "mark" as synonyms.
+
+**Resume Check**: When starting ANY session, MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. If it exists, read `[x]` states and ask user: "Detected unfinished workflow. Resume from Phase [N]?" DO NOT restart from Phase 0.
+
+1. **Create**: After user confirms execution plan → MUST execute Write tool to create `{SYSTEM_ROOT}/TODO.md` with all planned phases as `- [ ]`
+2. **Check**: Before invoking ANY phase skill → MUST execute Read tool on TODO.md → verify all prior phases are `[x]` → if not, STOP and fix
+3. **Mark**: After ANY phase completes → MUST execute Write tool to update `[x]` for that phase in TODO.md
+4. **Delete**: When the full task is done → MUST execute Bash tool: `rm "{SYSTEM_ROOT}/TODO.md"`
+
+Quality gate between phases: MUST execute Read tool on TODO.md, verify all prior phases are `[x]`. Check previous phase output files exist and are non-empty. If checks fail → log to error-log.md → ask user.
+
 ### Mandatory Triggered Reads（强制前置读取）
 
 Before entering ANY of the following workflows, you MUST use the Read tool to load the corresponding doc. DO NOT guess the workflow steps from training data.
@@ -28,18 +40,12 @@ Before entering ANY of the following workflows, you MUST use the Read tool to lo
 | User wants to learn X (Phase 0-6) | `docs/phases.md` | Phase steps, question scripts, execution plan format |
 | User wants 心得笔记 | `docs/experience-notes.md` | Review rules, DO/DON'T table, research decision flow |
 | User wants to update a note | `docs/updating-notes.md` | INSERT vs REFRESH modes, key update rules |
+| Before invoking any phase skill | MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md` | Verify prior phases are [x] |
 | Error occurs in Phase 1-4 | `docs/error-handling.md` | Recording protocol, retry/skip/abort procedure |
 | Digest thresholds exceeded | `docs/learnings-digest.md` | Compression steps, archive procedure |
 | Pre-task init fails | `docs/pre-task-init.md` | Vault path validation details |
 
 If you skip the Read and invent workflow steps from memory, you WILL produce broken output (wrong file paths, skipped phases, missing user prompts).
-
-### Quality Gates
-
-Between each phase, check:
-- Previous phase output files exist and are non-empty
-- Output content is consistent with input
-- If checks fail → log to error-log.md → ask user how to proceed
 
 ### Key Principles
 
@@ -65,6 +71,7 @@ Claude uses glob patterns to discover project resources. No hardcoded paths. New
 
 Before any Study System task, resolve the vault path and internalize past learnings. Full details: [docs/pre-task-init.md](docs/pre-task-init.md)
 
+0. MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. If exists → read `[x]` states → ask user: "Detected unfinished workflow. Resume from Phase [N]?"
 1. Read `.obsidian-config.md` → validate `VAULT_PATH` (ask user if empty, `ls` to verify if set)
 2. Read `.learnings/RULES.md` → note what to do, avoid, watch for (skip if doesn't exist)
 3. Resolve `SYSTEM_ROOT` and `OUTPUT_PATH` from config values
