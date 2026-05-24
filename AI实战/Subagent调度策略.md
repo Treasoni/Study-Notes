@@ -70,6 +70,29 @@ seealso:
 - **代码提交流程**：编码 → linter → test
 - **架构解析**：多只读 Agent 分区收集 → 汇总输出
 
+#### Skill 强制编排示例
+
+在 Skill 中定义分支逻辑和调用规则：
+
+```markdown
+## 自动化重构与审查工作流
+
+执行代码重构时，请按以下步骤执行：
+
+1. 你（主 Agent）负责分析架构，执行代码重写
+2. 完成后，调用 `code-reviewer` Subagent，把代码路径和修改意图传给它
+3. 如果测试失败 → 调用 `test-runner` 尝试修复
+4. **最多重试 3 次**，仍失败则返回错误报告
+```
+
+> [!example] 权限隔离配置
+> ```yaml
+> # .claude/agents/code-reviewer.md
+> name: code-reviewer
+> description: 代码审查专家
+> tools: Read, Grep, Glob  # 只读，无法 Write/Edit
+> ```
+
 ---
 
 ### 游击战模式：主 Agent 自由发挥
@@ -113,7 +136,13 @@ flowchart TB
     class A decision
     class B,E,G skill-node
     class C,F agent-node
+
+%% 图注：实线箭头 = 直接调用，虚线 = 结果返回
 ```
+
+> [!note] 图注
+> - 左侧节点为调度入口，根据任务类型分流
+> - Skill 节点（蓝）= 固化流程，Agent 节点（绿）= 动态决策
 
 | 场景 | 策略 | 示例 |
 |:-----|:-----|:-----|
