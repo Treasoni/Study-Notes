@@ -15,6 +15,7 @@ sources:
   - https://code.claude.com/docs/en/how-claude-code-works
   - https://code.claude.com/docs/en/best-practices
   - https://x.com/affaan/status/2014040193557471352
+  - https://x.com/affaan/status/2014040193557471352 (长篇指南)
   - https://agenticcoding.substack.com/p/32-claude-code-tips-from-basics-to
 concepts:
   - Agentic Loop
@@ -271,3 +272,202 @@ claude-dev
 4. **Continuous Learning（Stop Hook 自动提取知识）和手动写 Skills，哪种方式更适合你目前的工作流？为什么？**
 
 5. **探索-计划-实现模式（Explore-Plan-Implement）什么时候值得用，什么时候是过度工程？**
+
+---
+
+## 进阶实战技巧（来源：The Longform Guide）
+
+### Continuous Learning / Memory
+
+通过 Stop Hook 自动从错误中学习，避免重复踩坑。
+
+**核心问题：** 重复发送相同提示、Claude 遇到同样问题、浪费 tokens 和时间
+
+**解决方案：** 发现非平凡的调试技术、workaround、项目特定模式 → 保存为 Skill，下次自动加载
+
+```bash
+# 安装
+git clone https://github.com/affaan-m/everything-claude-code.git ~/.claude/skills/everything-claude-code
+```
+
+**为什么用 Stop Hook 而不是 UserPromptSubmit？**
+- UserPromptSubmit 每次消息都触发 → 延迟 +  overhead
+- Stop 只在会话结束时触发 → 轻量 + 评估完整会话
+
+```json
+{
+  "hooks": {
+    "Stop": [{
+      "matcher": "*",
+      "hooks": [{
+        "type": "command",
+        "command": "~/.claude/skills/continuous-learning/evaluate-session.sh"
+      }]
+    }]
+  }
+}
+```
+
+**Session Log 模式：** `~/.claude/sessions/YYYY-MM-DD-topic.tmp` — 每次会话一个文件
+
+---
+
+### Verification Loops and Evals
+
+#### Checkpoint-Based vs Continuous
+
+```
+CHECKPOINT-BASED                    CONTINUOUS
+─────────────────                   ──────────
+  [Task 1]                             [Work]
+     │                                    │
+     ▼                                    ▼
+  ┌─────────┐                        ┌─────────┐
+  │Checkpoint│◄── verify             │ Timer/  │
+  │   #1    │    criteria             │ Change  │
+  └────┬────┘                        └────┬────┘
+       │ pass?                              │
+   ┌───┴───┐                              ▼
+   │       │                          ┌──────────┐
+  yes     no ──► fix ──┐              │Run Tests │
+   │              │    │              │  + Lint  │
+   ▼              └────┘              └────┬─────┘
+  [Task 2]                               │
+     ▼                               ┌────┴────┐
+  ...                                 pass     fail
+                                      │         │
+                                    ▼         ▼
+                               [Continue] [Stop & Fix]
+
+适用：线性流程                   适用：长会话探索
+```
+
+**pass@k vs pass^k：**
+- `pass@k`：k 次中至少一次成功（高成功率）
+- `pass^k`：k 次全部成功（高一致性要求）
+
+#### Grader Types
+
+| 类型 | 优点 | 缺点 |
+|------|------|------|
+| Code-Based | 快速、便宜、客观 |  brittle |
+| Model-Based | 灵活、处理 nuance | 非确定性、贵 |
+| Human | 金标准质量 | 慢、贵 |
+
+---
+
+### Parallelization
+
+**正交原则：** 分支作用域要明确，最小化代码重叠，选择正交任务防止干扰
+
+**推荐模式：**
+- 主聊天：代码改动
+- 分支：代码库问题研究、外部服务文档、GitHub 搜索
+
+**Cascade Method（级联法）：**
+- 新任务开新 tab 在右侧
+- 从左到右扫，最旧到最新
+- 最多同时关注 3-4 个任务
+
+**Git Worktrees 避免冲突：**
+
+```bash
+git worktree add ../project-feature-a feature-a
+git worktree add ../project-feature-b feature-b
+cd ../project-feature-a && claude
+```
+
+**何时扩展实例：**
+- 多实例重叠代码 → 必须用 git worktrees
+- 用 `/rename` 命名所有聊天避免混淆
+
+---
+
+### Groundwork
+
+**双实例启动模式：**
+
+| 实例 | 职责 |
+|------|------|
+| **实例 1：脚手架 Agent** | 搭建项目结构、配置 CLAUDE.md/rules/agents、确立规范 |
+| **实例 2：深度研究 Agent** | 连接服务/搜索、创建 PRD、架构 Mermaid 图、编译参考文档 |
+
+**llms.txt Pattern：**
+- 很多文档站有 `llms.txt` 优化版本
+- Claude 文档页面输入 `/llms.txt` 获取
+
+**Philosophy：构建可复用模式**
+
+投资优先级：
+1. Subagents
+2. Skills
+3. Commands
+4. Planning patterns
+5. MCP tools
+6. Context engineering patterns
+
+> "这些 workflow 可以转移到其他 agent 如 Codex。" — [@omarsar0](https://x.com/@omarsar0)
+
+---
+
+### Best Practices for Agents & Sub-Agents
+
+**Sub-Agent 上下文问题：**
+
+Orchestrator 有语义上下文，Sub-agent 只有字面 query。Summaries 经常遗漏关键细节。
+
+**Iterative Retrieval Pattern：**
+
+```
+┌─────────────────┐
+│  ORCHESTRATOR   │
+│  (has context)  │
+└────────┬────────┘
+         │ dispatch with query + objective
+         ▼
+┌─────────────────┐
+│   SUB-AGENT     │
+│ (lacks context) │
+└────────┬────────┘
+         │ returns summary
+         ▼
+┌─────────────────┐      ┌─────────────┐
+│   EVALUATE      │─no──►│  FOLLOW-UP  │
+│   Sufficient?   │      │  QUESTIONS  │
+└────────┬────────┘      └──────┬──────┘
+         │ yes                   │
+         ▼                       │ sub-agent
+    [ACCEPT]              fetches answers
+                                │
+         ◄──────────────────────┘
+              (max 3 cycles)
+```
+
+**关键规则：**
+1. 每个 agent 一个明确输入 → 一个明确输出
+2. 输出成为下一阶段输入
+3. 不跳阶段
+4. agent 间用 `/clear` 保持上下文新鲜
+5. 中间输出存文件
+
+**Agent Abstraction Tierlist：**
+
+| Tier | 模式 | 难度 |
+|------|------|------|
+| **Tier 1** | Subagents、Metaprompting | 易 |
+| **Tier 2** | Long-running agents、Parallel multi-agent、Computer use | 难 |
+
+---
+
+### Tips and Tricks
+
+**MCP 替代方案：**
+
+MCP（如 GitHub、Supabase、Vercel）本质是 CLI 的包装，有 context 成本。
+
+**替代方案：CLI + Skills**
+- 不长期加载 MCP
+- 用 Skills 包装 CLI 功能（如 `/gh-pr` 包装 `gh pr create`）
+- 功能相同，context 自由
+
+> 随着 Claude Code lazy loading MCP，context 问题已大部分解决。但 CLI + Skills 仍是 token 优化方法。
