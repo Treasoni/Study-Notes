@@ -57,6 +57,21 @@ Claude Code 是一个终端中的 Agentic 编程助手，通过 Agentic Loop（�
 
 **类比**：就像一个高级工程师，你先告诉他目标（gather context），他制定计划并执行（take action），完成后自我检查（verify results）。不对就重来。
 
+### 动态系统提示注入
+
+使用 CLI 标志动态注入上下文，高于用户消息和工具结果的指令层级。
+
+```bash
+# 场景化上下文
+alias claude-dev='claude --system-prompt "$(cat ~/.claude/contexts/dev.md)"'
+alias claude-review='claude --system-prompt "$(cat ~/.claude/contexts/review.md)"'
+alias claude-research='claude --system-prompt "$(cat ~/.claude/contexts/research.md)"'
+```
+
+**与 @ 文件引用的区别**：`[@memory.md](https://x.com/@memory.md)` 或 `.claude/rules/` 通过 Read 工具读取（工具输出），而 `--system-prompt` 注入到实际系统提示（更高指令层级）。
+
+**适用场景**：严格行为规则、项目级约束、需要 Claude 优先处理的上下文。
+
 ### 上下文窗口管理
 
 Claude 的上下文窗口 = 对话历史 + 文件内容 + 命令输出 + CLAUDE.md + skills + 系统指令
