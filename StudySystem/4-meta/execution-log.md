@@ -14,4 +14,5 @@
 - Depth: 入门
 - Note type: 概念笔记
 - Output path: /Users/zhqznc/Documents/项目/GitHub项目/ECC/
-- Status: started
+- Status: completed (2026-05-27)
+- Final file: GitHub项目/ECC/Claude-Code-Advanced-Notes.md
