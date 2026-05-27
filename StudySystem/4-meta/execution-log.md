@@ -9,9 +9,9 @@
 - Evaluation: 43/50 Excellent
 - Final file: AI学习/01-基础概念/Harness-Engineering-系统治理工程.md
 
-## [2026-05-14] AI缓存命中与未命中
+## [2026-05-27] Claude Code 高级使用技巧
 - Direction: 概念理解
 - Depth: 入门
 - Note type: 概念笔记
-- Output path: AI学习/01-基础概念/AI缓存命中与未命中
+- Output path: /Users/zhqznc/Documents/项目/GitHub项目/ECC/
 - Status: started
