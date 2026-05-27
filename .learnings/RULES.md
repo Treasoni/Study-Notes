@@ -7,7 +7,6 @@ Read before starting any new Study System task.
 
 - 资料收集时 defuddle 失败则回退到 WebFetch
 - beautify 阶段用 Glob 验证双链目标是否存在，避免悬空链接 (3x)
-- 用户直接提供完整内容时跳过 collect/curate，直接 write
 - 入门级笔记增加渐进式示例提升实用性
 - 心得笔记 beautify 前必须询问用户输出路径
 - Pre-Task Init（读 RULES.md、验证 VAULT_PATH）是强制要求，不可跳过
