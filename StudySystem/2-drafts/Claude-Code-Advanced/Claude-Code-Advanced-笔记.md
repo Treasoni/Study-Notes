@@ -24,6 +24,11 @@ concepts:
   - Memory Persistence
   - Subagent Architecture
   - Verification Patterns
+  - Continuous Learning
+  - Verification Loops
+  - Evals
+  - Parallelization
+  - Git Worktrees
 ---
 
 # Claude Code 高级使用技巧
