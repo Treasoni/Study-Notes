@@ -466,8 +466,15 @@
     },
     "GitHub项目": {
       "children": [
+        "GitHub项目/ECC",
         "GitHub项目/CodeGraph实战笔记.md",
         "GitHub项目/OpenCLI 使用指南.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "GitHub项目/ECC": {
+      "children": [
+        "GitHub项目/ECC/Claude-Code-速记指南.md"
       ],
       "sortOrder": "custom"
     },
@@ -570,8 +577,13 @@
     },
     "npm/StudySystem/0-inbox/Agent与Skills架构设计": {
       "children": [
+        "npm/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为",
         "npm/StudySystem/0-inbox/Agent与Skills架构设计/raw-input.md"
       ],
+      "sortOrder": "custom"
+    },
+    "npm/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为": {
+      "children": [],
       "sortOrder": "custom"
     },
     "npm/StudySystem/0-inbox/CLAUDE.md放置策略": {
@@ -874,8 +886,13 @@
     },
     "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计": {
       "children": [
+        "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为",
         "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计/raw-input.md"
       ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为": {
+      "children": [],
       "sortOrder": "custom"
     },
     "PVE的学习/StudySystem/0-inbox/CLAUDE.md放置策略": {
@@ -1065,8 +1082,13 @@
     },
     "StudySystem/0-inbox/Agent与Skills架构设计": {
       "children": [
+        "StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为",
         "StudySystem/0-inbox/Agent与Skills架构设计/raw-input.md"
       ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为": {
+      "children": [],
       "sortOrder": "custom"
     },
     "StudySystem/0-inbox/AI缓存命中与未命中": {
@@ -1437,8 +1459,13 @@
     },
     "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems": {
       "children": [
+        "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems/images",
         "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems.md"
       ],
+      "sortOrder": "custom"
+    },
+    "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems/images": {
+      "children": [],
       "sortOrder": "custom"
     },
     "web-articles/What_is_harness_engineering": {
