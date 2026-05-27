@@ -9,7 +9,7 @@ tags:
   - Token优化
   - 记忆持久化
 created: 2026-05-27
-updated:
+updated: 2026-05-27
 sources:
   - https://code.claude.com/docs/en/overview
   - https://code.claude.com/docs/en/how-claude-code-works
@@ -87,7 +87,37 @@ Claude 的上下文窗口 = 对话历史 + 文件内容 + 命令输出 + CLAUDE.
 - `/rewind` - 回溯到之前状态
 - `/btw` - 快速提问，不进入历史
 
-### 4. 给 Claude 验证标准
+### 4. Strategic Compact（手动压缩策略）
+
+Auto-compact 在任意时刻触发（经常在任务中途），而 Strategic Compact 在逻辑边界点手动执行，保留关键上下文。
+
+**核心思路**：在探索阶段完成后、执行阶段开始前 compact；在完成里程碑后、开始下一个前 compact。
+
+```bash
+#!/bin/bash
+# Strategic Compact Suggester
+# 在 PreToolUse 时触发，建议在逻辑边界点手动 compact
+
+COUNTER_FILE="/tmp/claude-tool-count-$$"
+THRESHOLD=${COMPACT_THRESHOLD:-50}
+
+if [ -f "$COUNTER_FILE" ]; then
+  count=$(cat "$COUNTER_FILE")
+  count=$((count + 1))
+  echo "$count" > "$COUNTER_FILE"
+else
+  echo "1" > "$COUNTER_FILE"
+  count=1
+fi
+
+if [ "$count" -eq "$THRESHOLD" ]; then
+  echo "[StrategicCompact] $THRESHOLD tool calls reached - consider /compact if transitioning phases" >&2
+fi
+```
+
+**适用场景**：积累了大量探索上下文但不再适用于执行阶段时。
+
+### 5. 给 Claude 验证标准
 
 **单条最高杠杆的操作**：提供测试用例、截图、预期输出，让 Claude 自我验证。
 
