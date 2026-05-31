@@ -7,14 +7,16 @@
         "conversationId": null
       },
       {
+        "draftModel": "MiniMax-M2.7-highspeed",
         "tabId": "tab-1775367937205-etjsh2g",
-        "conversationId": "conv-1779862830795-g5kjvpsgd"
+        "conversationId": null
       },
       {
+        "draftModel": "MiniMax-M2.7-highspeed",
         "tabId": "tab-1778942721027-uxgz60y",
-        "conversationId": "conv-1779866747350-1t4quktco"
+        "conversationId": null
       }
     ],
-    "activeTabId": "tab-1778942721027-uxgz60y"
+    "activeTabId": "tab-1775367937205-etjsh2g"
   }
 }
