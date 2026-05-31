@@ -16,3 +16,11 @@
 - Output path: /Users/zhqznc/Documents/项目/GitHub项目/ECC/
 - Status: completed (2026-05-27)
 - Final file: GitHub项目/ECC/Claude-Code-Advanced-Notes.md
+
+## [2026-05-31] Superpowers
+- Direction: 概念理解 + 实战上手
+- Depth: 入门
+- Note type: 概念笔记
+- Output path: GitHub项目/Superpowers/
+- Source: https://github.com/obra/superpowers
+- Status: started
