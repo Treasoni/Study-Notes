@@ -11,14 +11,10 @@
             "id": "e36d73967f5c48ba",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "OpenSpec-使用入门与速查"
+              "title": "新标签页"
             }
           }
         ]
@@ -156,13 +152,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "OpenSpec-使用入门与速查 的大纲"
+              "title": "大纲"
             }
           },
           {

@@ -593,13 +593,8 @@
     },
     "npm/StudySystem/0-inbox/Agent与Skills架构设计": {
       "children": [
-        "npm/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为",
         "npm/StudySystem/0-inbox/Agent与Skills架构设计/raw-input.md"
       ],
-      "sortOrder": "custom"
-    },
-    "npm/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为": {
-      "children": [],
       "sortOrder": "custom"
     },
     "npm/StudySystem/0-inbox/CLAUDE.md放置策略": {
@@ -902,13 +897,8 @@
     },
     "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计": {
       "children": [
-        "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为",
         "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计/raw-input.md"
       ],
-      "sortOrder": "custom"
-    },
-    "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为": {
-      "children": [],
       "sortOrder": "custom"
     },
     "PVE的学习/StudySystem/0-inbox/CLAUDE.md放置策略": {
@@ -1054,9 +1044,8 @@
     },
     "StudySystem/0-inbox": {
       "children": [
-        "StudySystem/0-inbox/comet",
-        "StudySystem/0-inbox/Comet双星工作流",
         "StudySystem/0-inbox/Claude-Code-Advanced",
+        "StudySystem/0-inbox/comet",
         "StudySystem/0-inbox/Superpowers",
         "StudySystem/0-inbox/subagent调度策略",
         "StudySystem/0-inbox/claude-code-subagent-skill",
@@ -1102,13 +1091,8 @@
     },
     "StudySystem/0-inbox/Agent与Skills架构设计": {
       "children": [
-        "StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为",
         "StudySystem/0-inbox/Agent与Skills架构设计/raw-input.md"
       ],
-      "sortOrder": "custom"
-    },
-    "StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为": {
-      "children": [],
       "sortOrder": "custom"
     },
     "StudySystem/0-inbox/AI缓存命中与未命中": {
@@ -1209,16 +1193,6 @@
       ],
       "sortOrder": "custom"
     },
-    "StudySystem/0-inbox/Comet双星工作流": {
-      "children": [
-        "StudySystem/0-inbox/Comet双星工作流/raw"
-      ],
-      "sortOrder": "custom"
-    },
-    "StudySystem/0-inbox/Comet双星工作流/raw": {
-      "children": [],
-      "sortOrder": "custom"
-    },
     "StudySystem/0-inbox/Harness-Engineering": {
       "children": [
         "StudySystem/0-inbox/Harness-Engineering/raw",
@@ -1272,14 +1246,19 @@
     },
     "StudySystem/0-inbox/Superpowers": {
       "children": [
+        "StudySystem/0-inbox/Superpowers/raw",
         "StudySystem/0-inbox/Superpowers/sources.md"
       ],
       "sortOrder": "custom"
     },
+    "StudySystem/0-inbox/Superpowers/raw": {
+      "children": [],
+      "sortOrder": "custom"
+    },
     "StudySystem/1-curated": {
       "children": [
-        "StudySystem/1-curated/comet",
         "StudySystem/1-curated/Claude-Code-Advanced",
+        "StudySystem/1-curated/comet",
         "StudySystem/1-curated/Superpowers",
         "StudySystem/1-curated/CodeGraph",
         "StudySystem/1-curated/上下文工程",
@@ -1386,8 +1365,8 @@
     },
     "StudySystem/2-drafts": {
       "children": [
-        "StudySystem/2-drafts/comet",
         "StudySystem/2-drafts/Claude-Code-Advanced",
+        "StudySystem/2-drafts/comet",
         "StudySystem/2-drafts/Superpowers",
         "StudySystem/2-drafts/Subagent调度策略",
         "StudySystem/2-drafts/claude-code-subagent-skill",
@@ -1587,13 +1566,8 @@
     },
     "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems": {
       "children": [
-        "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems/images",
         "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems.md"
       ],
-      "sortOrder": "custom"
-    },
-    "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems/images": {
-      "children": [],
       "sortOrder": "custom"
     },
     "web-articles/What_is_harness_engineering": {
