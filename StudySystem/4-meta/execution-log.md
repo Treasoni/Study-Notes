@@ -23,4 +23,5 @@
 - Note type: 概念笔记
 - Output path: GitHub项目/Superpowers/
 - Source: https://github.com/obra/superpowers
-- Status: started
+- Status: completed (2026-05-31)
+- Final file: GitHub项目/Superpowers/Superpowers.md
