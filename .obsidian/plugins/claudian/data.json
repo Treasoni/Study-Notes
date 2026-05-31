@@ -2,20 +2,21 @@
   "tabManagerState": {
     "openTabs": [
       {
-        "draftModel": "MiniMax-M2.7-highspeed",
+        "draftModel": "mimo-v2-pro",
         "tabId": "tab-1770284357179-a7rd289",
         "conversationId": null
       },
       {
-        "tabId": "tab-1775367937205-etjsh2g",
-        "conversationId": "conv-1780240063564-jhj8o09iq"
+        "draftModel": "mimo-v2-pro",
+        "tabId": "tab-1778942721027-uxgz60y",
+        "conversationId": null
       },
       {
-        "draftModel": "MiniMax-M2.7-highspeed",
-        "tabId": "tab-1778942721027-uxgz60y",
+        "draftModel": "mimo-v2-pro",
+        "tabId": "tab-1780240242279-94cci51",
         "conversationId": null
       }
     ],
-    "activeTabId": "tab-1775367937205-etjsh2g"
+    "activeTabId": "tab-1780240242279-94cci51"
   }
 }
