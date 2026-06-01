@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/CLAUDE.md",
+                "file": "StudySystem/2-drafts/Git-资产管理实战/Git与资产管理实战-笔记.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "CLAUDE"
+              "title": "Git与资产管理实战-笔记"
             }
           }
         ],
@@ -171,13 +171,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/CLAUDE.md",
+                "file": "StudySystem/2-drafts/Git-资产管理实战/Git与资产管理实战-笔记.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "CLAUDE 的大纲"
+              "title": "Git与资产管理实战-笔记 的大纲"
             }
           },
           {
@@ -223,8 +223,9 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "c1fcc564902d4ddd",
   "lastOpenFiles": [
+    "AI学习/CLAUDE.md",
     "StudySystem/2-drafts/Git-资产管理实战/Git与资产管理实战-笔记.md",
     "StudySystem/2-drafts/Git-资产管理实战",
     "StudySystem/TODO.md",
@@ -260,7 +261,6 @@
     "openspec/changes/archive/2026-06-01-study-system-refactor/specs/hybrid-note-types/spec.md",
     "openspec/changes/archive/2026-06-01-study-system-refactor/tasks.md",
     "openspec/changes/archive/2026-06-01-study-system-refactor/proposal.md",
-    "openspec/changes/archive/2026-06-01-study-system-refactor/design.md",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
     "web-articles/What_is_harness_engineering/images/img_002.png",
