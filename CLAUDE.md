@@ -32,6 +32,8 @@ Quality gate: verify prior phases `[x]`, check output files exist and non-empty.
 
 ### Mandatory Triggered Reads（强制前置读取）
 
+> **⚠️ MAIN AGENT ONLY** — 此表仅约束主 Agent。Subagent 由主 Agent 传入精确的输入路径，不需要按此表触发读取。
+
 | Trigger | Must Read |
 |---------|-----------|
 | User wants to learn X | `docs/phases.md` |
@@ -55,6 +57,8 @@ DO NOT guess workflow steps from memory — you WILL produce broken output.
 
 ## Resource Discovery
 
+> **⚠️ MAIN AGENT ONLY** — 以下搜索指令仅适用于主 Agent。Subagent 不应执行这些 Glob 搜索，它们已由主 Agent 提供所需上下文。
+
 Claude uses glob patterns — no hardcoded paths.
 
 - **Skills**: `Glob .claude/skills/*/SKILL.md` → match YAML frontmatter → `Skill(skill="{name}")`
@@ -63,6 +67,8 @@ Claude uses glob patterns — no hardcoded paths.
 - **Config**: `Glob .obsidian-config.md` → Read for vault path
 
 ## Pre-Task Initialization
+
+> **⚠️ MAIN AGENT ONLY** — 以下初始化步骤仅适用于主 Agent。Subagent 由主 Agent 直接传入所需上下文，无需执行这些读取。
 
 Before any Study System task. Full details: [docs/pre-task-init.md](docs/pre-task-init.md)
 

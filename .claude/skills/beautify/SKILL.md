@@ -49,12 +49,14 @@ description: 美化排版阶段。调度 beautifier subagent 套用 Obsidian Mar
 
 ### Step 2: Dispatch Beautifier Subagent
 
+> **路径传递**：主 Agent 应从 TODO.md 读取上一个 phase 记录的 output 路径，作为本 phase 的 input 路径传给 subagent。
+
 ```typescript
 Agent({
   subagent_type: "beautifier",
   prompt: `
 Topic: {topic}
-Draft: {SYSTEM_ROOT}/2-drafts/{topic}/{topic}-笔记.md
+Draft: {SYSTEM_ROOT}/2-drafts/{topic}/{topic}-笔记.md  # 从 TODO.md Phase 3 output 获取
 Output Path: {OUTPUT_PATH}/{topic}.md
 Generate Canvas: {true|false}
 Generate Base: {true|false}

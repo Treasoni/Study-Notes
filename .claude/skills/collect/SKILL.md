@@ -127,6 +127,8 @@ if (Test-Path $regPath) {
 
 ### Step 4: 调度 Collector Subagent
 
+> **路径传递**：collect 是第一个 phase，无上游路径。完成后应在 TODO.md 中记录 output 路径供后续 phase 使用。
+
 使用 Agent 工具调度 collector subagent，传入结构化信息：
 
 ```typescript
