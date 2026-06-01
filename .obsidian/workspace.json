@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "StudySystem/TODO.md",
+                "file": "StudySystem/2-drafts/claude-code-skill-filtering/Claude Code 技能过滤机制设计.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "TODO"
+              "title": "Claude Code 技能过滤机制设计"
             }
           }
         ],
@@ -185,13 +185,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "StudySystem/TODO.md",
+                "file": "StudySystem/2-drafts/claude-code-skill-filtering/Claude Code 技能过滤机制设计.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "TODO 的大纲"
+              "title": "Claude Code 技能过滤机制设计 的大纲"
             }
           },
           {
@@ -239,6 +239,9 @@
   },
   "active": "a3b2bc421b126509",
   "lastOpenFiles": [
+    "StudySystem/3-published/claude-code-skill-filtering/Claude Code 技能过滤机制设计.md",
+    "StudySystem/TODO.md",
+    "StudySystem/3-published/claude-code-skill-filtering",
     "StudySystem/0-inbox/claude-code-skill-filtering/raw-input.md",
     "StudySystem/2-drafts/claude-code-skill-filtering/Claude Code 技能过滤机制设计.md",
     "StudySystem/2-drafts/claude-code-skill-filtering",
@@ -246,7 +249,6 @@
     "StudySystem/2-drafts/Subagent资料搜集的Token失控",
     "StudySystem/0-inbox/Subagent资料搜集的Token失控",
     "项目实战/AI实战/Subagent Token吞噬与缓存失效分析.md",
-    "StudySystem/TODO.md",
     "StudySystem/0-inbox/claude-code-skill-filtering",
     "openspec/changes/archive/2026-06-02-token-cost-optimization/tasks.md",
     "openspec/changes/archive/2026-06-02-token-cost-optimization/proposal.md",
@@ -259,7 +261,6 @@
     "scripts/__pycache__/test_batch_fetch.cpython-313-pytest-9.0.3.pyc",
     "scripts/__pycache__/merge_sources.cpython-313.pyc",
     "scripts/__pycache__/batch_fetch.cpython-313.pyc",
-    "scripts/__pycache__",
     "项目实战/AI实战/sortspec.md",
     "项目实战/AI实战/Claude Code 防遗忘策略.md",
     "项目实战/AI实战/工程实践/CLAUDE.md放置策略.md",
@@ -274,7 +275,6 @@
     "StudySystem/1-curated/OpenSpec/references.md",
     "StudySystem/1-curated/OpenSpec/knowledge-map.md",
     "StudySystem/1-curated/OpenSpec/gaps-report.md",
-    "StudySystem/1-curated/OpenSpec/core-concepts.md",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
