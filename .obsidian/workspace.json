@@ -190,7 +190,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 338.5
+    "width": 663.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -208,7 +208,7 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "52ff2f9fbef74052",
   "lastOpenFiles": [
     "GitHub项目/comet/comet.md",
     "StudySystem/2-drafts/comet/comet-笔记.md",
