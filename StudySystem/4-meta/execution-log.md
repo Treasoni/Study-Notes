@@ -36,3 +36,12 @@
 - Source: https://github.com/obra/superpowers
 - Status: completed (2026-05-31)
 - Final file: GitHub项目/Superpowers/Superpowers.md
+
+## [2026-06-01] OpenSpec — AI 编程助手的规范驱动开发框架
+- Purpose: 工作需要（项目中实际使用）
+- Audience: 自己 + 社区
+- Depth: 入门 + 进阶
+- Note type: concept + cheat_sheet（含实战示例）
+- Source: https://github.com/Fission-AI/OpenSpec
+- Output path: /Users/zhqznc/Documents/项目/GitHub项目/OpenSpec/
+- Status: started
