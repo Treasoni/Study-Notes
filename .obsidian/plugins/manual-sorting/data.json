@@ -1049,6 +1049,7 @@
     },
     "StudySystem": {
       "children": [
+        "StudySystem/TODO.md",
         "StudySystem/0-inbox",
         "StudySystem/1-curated",
         "StudySystem/2-drafts",
@@ -1058,6 +1059,7 @@
     },
     "StudySystem/0-inbox": {
       "children": [
+        "StudySystem/0-inbox/Comet双星工作流",
         "StudySystem/0-inbox/Claude-Code-Advanced",
         "StudySystem/0-inbox/Superpowers",
         "StudySystem/0-inbox/subagent调度策略",
@@ -1189,6 +1191,16 @@
         "StudySystem/0-inbox/CodeGraph/raw/doc-05.md",
         "StudySystem/0-inbox/CodeGraph/raw/doc-06.md"
       ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/Comet双星工作流": {
+      "children": [
+        "StudySystem/0-inbox/Comet双星工作流/raw"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/Comet双星工作流/raw": {
+      "children": [],
       "sortOrder": "custom"
     },
     "StudySystem/0-inbox/Harness-Engineering": {
