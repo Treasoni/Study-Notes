@@ -2,9 +2,8 @@
   "tabManagerState": {
     "openTabs": [
       {
-        "draftModel": "mimo-v2.5",
         "tabId": "tab-1770284357179-a7rd289",
-        "conversationId": null
+        "conversationId": "conv-1780331240772-41f6w66qd"
       },
       {
         "draftModel": "mimo-v2.5",
@@ -16,6 +15,6 @@
         "conversationId": "conv-1780332384825-a4hyzc5qj"
       }
     ],
-    "activeTabId": "tab-1780240242279-94cci51"
+    "activeTabId": "tab-1770284357179-a7rd289"
   }
 }
