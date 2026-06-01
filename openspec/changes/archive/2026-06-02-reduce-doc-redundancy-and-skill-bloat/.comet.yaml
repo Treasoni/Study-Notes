@@ -1,0 +1,17 @@
+workflow: full
+phase: archive
+build_mode: subagent-driven-development
+isolation: branch
+verify_mode: light
+base_ref: 4ecf1b9c1ebdb7412d5d86c50c1b8d6d8a8c6f77
+design_doc: docs/superpowers/specs/2026-06-02-reduce-doc-redundancy-design.md
+plan: docs/superpowers/plans/2026-06-02-reduce-doc-redundancy.md
+verify_result: pass
+verification_report: docs/superpowers/reports/2026-06-02-reduce-doc-redundancy-verify.md
+branch_status: handled
+created_at: 2026-06-02
+verified_at: 2026-06-02
+archived: true
+handoff_context: openspec/changes/reduce-doc-redundancy-and-skill-bloat/.comet/handoff/design-context.json
+handoff_hash: abbac4121f724b6a697ae5066ca7f515ef789e24a98db50b5cb903668ec53b28
+build_command: echo

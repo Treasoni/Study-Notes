@@ -1,0 +1,16 @@
+{
+  "change": "reduce-doc-redundancy-and-skill-bloat",
+  "phase": "design",
+  "mode": "compact",
+  "canonical_spec": "openspec",
+  "generated_by": "comet-handoff.sh",
+  "context_hash": "abbac4121f724b6a697ae5066ca7f515ef789e24a98db50b5cb903668ec53b28",
+  "files": [
+    { "path": "openspec/changes/reduce-doc-redundancy-and-skill-bloat/proposal.md", "sha256": "ddae3fb33abe22843c3422ba43fc4be1f5071a31e68d5f5259273e43cd350d69" },
+    { "path": "openspec/changes/reduce-doc-redundancy-and-skill-bloat/design.md", "sha256": "20f39950151d58abc62ba31304e3673758c7d9b3859d09d86e9c682385b4c597" },
+    { "path": "openspec/changes/reduce-doc-redundancy-and-skill-bloat/tasks.md", "sha256": "9c7ab63ad7116414f4e545bfcdfe48edab1f32415793a50d3086ad52fc1f8d83" },
+    { "path": "openspec/changes/reduce-doc-redundancy-and-skill-bloat/specs/note-update-workflow/spec.md", "sha256": "5a41429f2662b98d3a0382fa72601b5a09c9a10eb77b8d1f4f8947135cd956a6" },
+    { "path": "openspec/changes/reduce-doc-redundancy-and-skill-bloat/specs/skill-filtering/spec.md", "sha256": "929b5cc33e27b2af5d02426849e5eca2f64cf2def9e17b00f6917ae86e1fe6d4" },
+    { "path": "openspec/changes/reduce-doc-redundancy-and-skill-bloat/specs/subagent-orchestration/spec.md", "sha256": "2da91c67b16eb8221d4c3866e510087932c0427cc48c7c9cc69451e0c0097304" }
+  ]
+}
