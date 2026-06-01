@@ -1,6 +1,6 @@
 ---
 name: curate
-description: 整理学习资料阶段。遍历所有原始资料，按权威性/时效性/完整性/可读性打分，去重，分类归入核心概念/实战示例/进阶原理，标记信息缺口。触发时机：用户审核通过 collect 产出后，Phase 2。
+description: 整理学习资料阶段。调度 curator subagent 遍历所有原始资料，按权威性/时效性/完整性/可读性打分，去重，分类归入核心概念/实战示例/进阶原理，标记信息缺口。触发时机：用户审核通过 collect 产出后，Phase 2。
 ---
 
 # Skill: curate（整理资料）
@@ -11,51 +11,63 @@ description: 整理学习资料阶段。遍历所有原始资料，按权威性/
 ## 输入
 `{SYSTEM_ROOT}/0-inbox/{topic}/` 中的所有原始资料。
 
+## 执行模型
+
+本 skill 采用 **Operator Pattern**：主 Agent 作为调度员，curator subagent 作为执行者。
+
+```
+主 Agent (PM)                    Curator Subagent (专员)
+    │                                  │
+    ├─ 确认输入目录 ────────────────►│
+    │                                  ├─ 遍历 raw/ 所有文件
+    │                                  ├─ 四维度打分
+    │                                  ├─ 去重 & 分类
+    │                                  ├─ 标记信息缺口
+    │                                  ├─ 写入 5 个 curated 文件
+    │◄──── 整理结果摘要 ──────────────┤
+    │                                  │
+    ├─ 展示给用户                      │ (销毁)
+```
+
+**核心原则**：主 Agent 不直接读取 raw 文件内容，避免上下文污染。
+
 ## 执行步骤
 
-### Step 1: 遍历所有原始资料
-- 读取 `raw/` 目录下每个文件
-- 读取 `sources.md` 获取元数据
+### Step 1: 确认输入目录
 
-### Step 2: 四维度打分（1-5）
-| 维度 | 标准 |
-|------|------|
-| 权威性 | 官方文档(5) > 知名作者(4) > 社区(2-3) > 未知(1) |
-| 时效性 | 半年内(5) > 1年(4) > 2年(3) > 3年+(2) |
-| 完整性 | 全面覆盖(5) > 覆盖要点(3-4) > 部分覆盖(1-2) |
-| 可读性 | 清晰易读(5) > 基本清晰(3-4) > 难以理解(1-2) |
+验证 `{SYSTEM_ROOT}/0-inbox/{topic}/raw/` 存在且有文件。
 
-### Step 3: 去重
-- 同一内容多个来源 → 保留最高分，其余记入 `discarded.md`
+### Step 2: Dispatch Curator Subagent
 
-### Step 4: 分类
-- 核心概念：定义、原理、关键思想
-- 实战示例：真实案例、代码片段、操作指南
-- 进阶原理：深入剖析、内部机制、边界情况
-- 争议观点：不同意见、取舍讨论
+使用 Agent 工具调度 curator subagent：
 
-### Step 5: 标记信息缺口
-- 列出覆盖不足的子话题
-- 标记只有单一来源的领域
+```typescript
+Agent({
+  subagent_type: "curator",
+  prompt: `
+Topic: {topic}
+Input Dir: {SYSTEM_ROOT}/0-inbox/{topic}/raw/
+Sources File: {SYSTEM_ROOT}/0-inbox/{topic}/sources.md
+Output Dir: {SYSTEM_ROOT}/1-curated/{topic}/
+  `,
+  label: `curate:${topic}`,
+  phase: "Phase 2: Curate"
+})
+```
 
-## 产出
-写入 `{SYSTEM_ROOT}/1-curated/{topic}/`：
+### Step 3: 展示结果
 
-- `overview.md`：知识地图（主题 → 子主题 → 关键点）
-- `core-concepts.md`：核心概念及出处
-- `practices.md`：实战示例汇总
-- `references.md`：参考资料速查表（含评分）
-- `discarded.md`：被舍弃的资料及舍弃原因
+curator subagent 返回摘要后，向用户展示：
+- 知识地图概览
+- 舍弃的资料及原因
+- 信息缺口
 
-## 禁止行为
-- 不要开始写笔记（write 的事）
-- 不要改变原始资料的含义
-- 不要添加自己的理解或观点
-- 不要跳过缺口分析
-
-## 硬停止 (Hard Stop)
-
-本阶段任务完成。向用户展示整理结果（知识地图概览、舍弃的资料及原因、信息缺口）。
+### Step 4: 硬停止
 
 **严禁调用 `/write`。严禁进入 Phase 3。**
 必须等待用户明确确认后才能进入 write。
+
+## 禁止行为
+
+- 主 Agent 不要直接读取 raw/ 目录下的文件内容（交给 curator）
+- 不要跳过 subagent 调度手动整理

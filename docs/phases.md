@@ -127,7 +127,7 @@ For experience notes, adjust phases to match the 7-step workflow.
 
 **Phase Gate**: MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. Verify all prior phases are `[x]` (Phase 0 has no checkbox).
 
-1. Invoke `/collect` — it will search for official docs and community content, fetch and save raw materials to `0-inbox/{topic}/`
+1. Invoke `/collect` — it dispatches a collector subagent to search for official docs and community content, fetch and save raw materials to `0-inbox/{topic}/`（主 Agent 不直接搜索，避免上下文污染）
 2. Present summary to user:
    - How many sources collected
    - Which sub-topics are covered
@@ -139,7 +139,7 @@ For experience notes, adjust phases to match the 7-step workflow.
 
 **Phase Gate**: MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. Verify all prior phases are `[x]`. If any prior phase is still `[ ]`, STOP — do not proceed.
 
-1. Invoke `/curate` — it will score, deduplicate, and categorize all sources, write curated files to `1-curated/{topic}/`
+1. Invoke `/curate` — it dispatches a curator subagent to score, deduplicate, and categorize all sources, write curated files to `1-curated/{topic}/`（主 Agent 不直接读取 raw 文件，避免上下文污染）
 2. Present summary to user:
    - Knowledge map overview
    - Which sources were discarded and why
@@ -152,7 +152,7 @@ For experience notes, adjust phases to match the 7-step workflow.
 **Phase Gate**: MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. Verify all prior phases are `[x]`. If any prior phase is still `[ ]`, STOP — do not proceed.
 
 1. Confirm note type preference (skip if already set in Phase 0)
-2. Invoke `/write` — it will select template from `templates/`, extract info from curated materials, write draft to `2-drafts/{topic}/`
+2. Invoke `/write` — it dispatches a writer subagent to select template, extract info from curated materials, write draft to `2-drafts/{topic}/`（主 Agent 不直接读取 curated 文件，避免上下文污染）
 3. Present draft to user:
    - Structure review
    - Accuracy check
@@ -164,7 +164,7 @@ For experience notes, adjust phases to match the 7-step workflow.
 
 **Phase Gate**: MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. Verify all prior phases are `[x]`. If any prior phase is still `[ ]`, STOP — do not proceed.
 
-1. Invoke `/beautify` — it will apply Obsidian Markdown formatting, add wikilinks, tags, callouts, Mermaid diagrams, write final note to the user-specified output path
+1. Invoke `/beautify` — it dispatches a beautifier subagent to apply Obsidian Markdown formatting, add wikilinks, tags, callouts, Mermaid diagrams, write final note to the user-specified output path（主 Agent 不加载 Obsidian 语法规范，避免上下文污染）
 2. **STOP. DO NOT invoke `/evaluate`. DO NOT proceed to Phase 5.** Present final result and ask: "Any changes needed?" Wait for user to explicitly confirm before proceeding.
 3. User reviews and may request modifications
 4. When user gives feedback: **implement minimal, targeted fixes only** — do NOT regenerate the entire note. Fix just what was flagged, keeping other content untouched

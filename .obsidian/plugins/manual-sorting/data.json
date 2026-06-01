@@ -2,8 +2,6 @@
   "customOrder": {
     "/": {
       "children": [
-        "lib",
-        "tests",
         "package.json",
         "虚拟机",
         "docs",
@@ -469,10 +467,17 @@
     },
     "GitHub项目": {
       "children": [
+        "GitHub项目/comet",
         "GitHub项目/Superpowers",
         "GitHub项目/ECC",
         "GitHub项目/CodeGraph实战笔记.md",
         "GitHub项目/OpenCLI 使用指南.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "GitHub项目/comet": {
+      "children": [
+        "GitHub项目/comet/comet.md"
       ],
       "sortOrder": "custom"
     },
@@ -486,15 +491,6 @@
     "GitHub项目/Superpowers": {
       "children": [
         "GitHub项目/Superpowers/Superpowers.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "lib": {
-      "children": [
-        "lib/autonomy-manager.js",
-        "lib/config-loader.js",
-        "lib/note-type-inferrer.js",
-        "lib/subagent-dispatcher.js"
       ],
       "sortOrder": "custom"
     },
@@ -1049,7 +1045,6 @@
     },
     "StudySystem": {
       "children": [
-        "StudySystem/TODO.md",
         "StudySystem/0-inbox",
         "StudySystem/1-curated",
         "StudySystem/2-drafts",
@@ -1059,6 +1054,7 @@
     },
     "StudySystem/0-inbox": {
       "children": [
+        "StudySystem/0-inbox/comet",
         "StudySystem/0-inbox/Comet双星工作流",
         "StudySystem/0-inbox/Claude-Code-Advanced",
         "StudySystem/0-inbox/Superpowers",
@@ -1193,6 +1189,26 @@
       ],
       "sortOrder": "custom"
     },
+    "StudySystem/0-inbox/comet": {
+      "children": [
+        "StudySystem/0-inbox/comet/raw",
+        "StudySystem/0-inbox/comet/sources.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/comet/raw": {
+      "children": [
+        "StudySystem/0-inbox/comet/raw/doc-01-en-readme.md",
+        "StudySystem/0-inbox/comet/raw/doc-02-zh-readme.md",
+        "StudySystem/0-inbox/comet/raw/doc-03-tencent-article.md",
+        "StudySystem/0-inbox/comet/raw/doc-04-sdd-comparison.md",
+        "StudySystem/0-inbox/comet/raw/doc-05-practice-guide.md",
+        "StudySystem/0-inbox/comet/raw/doc-08-openspec-intro.md",
+        "StudySystem/0-inbox/comet/raw/doc-09-openspec-repo.md",
+        "StudySystem/0-inbox/comet/raw/doc-10-superpowers-repo.md"
+      ],
+      "sortOrder": "custom"
+    },
     "StudySystem/0-inbox/Comet双星工作流": {
       "children": [
         "StudySystem/0-inbox/Comet双星工作流/raw"
@@ -1262,6 +1278,7 @@
     },
     "StudySystem/1-curated": {
       "children": [
+        "StudySystem/1-curated/comet",
         "StudySystem/1-curated/Claude-Code-Advanced",
         "StudySystem/1-curated/Superpowers",
         "StudySystem/1-curated/CodeGraph",
@@ -1326,6 +1343,16 @@
       ],
       "sortOrder": "custom"
     },
+    "StudySystem/1-curated/comet": {
+      "children": [
+        "StudySystem/1-curated/comet/core-concepts.md",
+        "StudySystem/1-curated/comet/discarded.md",
+        "StudySystem/1-curated/comet/overview.md",
+        "StudySystem/1-curated/comet/practices.md",
+        "StudySystem/1-curated/comet/references.md"
+      ],
+      "sortOrder": "custom"
+    },
     "StudySystem/1-curated/Harness-Engineering": {
       "children": [
         "StudySystem/1-curated/Harness-Engineering/core-concepts.md",
@@ -1359,6 +1386,7 @@
     },
     "StudySystem/2-drafts": {
       "children": [
+        "StudySystem/2-drafts/comet",
         "StudySystem/2-drafts/Claude-Code-Advanced",
         "StudySystem/2-drafts/Superpowers",
         "StudySystem/2-drafts/Subagent调度策略",
@@ -1436,6 +1464,12 @@
       ],
       "sortOrder": "custom"
     },
+    "StudySystem/2-drafts/comet": {
+      "children": [
+        "StudySystem/2-drafts/comet/comet-笔记.md"
+      ],
+      "sortOrder": "custom"
+    },
     "StudySystem/2-drafts/Harness-Engineering": {
       "children": [
         "StudySystem/2-drafts/Harness-Engineering/Harness-Engineering-笔记.md"
@@ -1492,16 +1526,6 @@
         "templates/concept-template.md",
         "templates/experience-template.md",
         "templates/practice-template.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "tests": {
-      "children": [
-        "tests/autonomy-manager.test.js",
-        "tests/config-loader.test.js",
-        "tests/integration.test.js",
-        "tests/note-type-inferrer.test.js",
-        "tests/subagent-dispatcher.test.js"
       ],
       "sortOrder": "custom"
     },
