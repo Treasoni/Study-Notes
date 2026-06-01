@@ -2,18 +2,18 @@
   "tabManagerState": {
     "openTabs": [
       {
-        "draftModel": "mimo-v2.5",
+        "draftModel": "deepseek-v4-flash",
         "tabId": "tab-1770284357179-a7rd289",
         "conversationId": null
       },
       {
-        "draftModel": "mimo-v2.5",
+        "draftModel": "deepseek-v4-flash",
         "tabId": "tab-1778942721027-uxgz60y",
         "conversationId": null
       },
       {
         "tabId": "tab-1780240242279-94cci51",
-        "conversationId": "conv-1780294041440-zmosl1he1"
+        "conversationId": "conv-1780294118853-mhs2kw8cv"
       }
     ],
     "activeTabId": "tab-1780240242279-94cci51"
