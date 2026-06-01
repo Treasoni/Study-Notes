@@ -583,9 +583,9 @@ function getDeviceSettingsStorage() {
 function createOpaqueDeviceSettingsKey() {
   var _a3;
   const cryptoApi = typeof window === "undefined" ? null : window.crypto;
-  const randomUUID2 = (_a3 = cryptoApi == null ? void 0 : cryptoApi.randomUUID) == null ? void 0 : _a3.call(cryptoApi);
-  if (randomUUID2) {
-    return `device:${randomUUID2}`;
+  const randomUUID3 = (_a3 = cryptoApi == null ? void 0 : cryptoApi.randomUUID) == null ? void 0 : _a3.call(cryptoApi);
+  if (randomUUID3) {
+    return `device:${randomUUID3}`;
   }
   if (cryptoApi == null ? void 0 : cryptoApi.getRandomValues) {
     const randomBytes = new Uint8Array(16);
@@ -797,7 +797,7 @@ __export(util_exports, {
   getSizableOrigin: () => getSizableOrigin,
   hexToUint8Array: () => hexToUint8Array,
   isObject: () => isObject,
-  isPlainObject: () => isPlainObject,
+  isPlainObject: () => isPlainObject2,
   issue: () => issue,
   joinValues: () => joinValues,
   jsonStringifyReplacer: () => jsonStringifyReplacer,
@@ -933,10 +933,10 @@ function mergeDefs(...defs) {
 function cloneDef(schema) {
   return mergeDefs(schema._zod.def);
 }
-function getElementAtPath(obj, path24) {
-  if (!path24)
+function getElementAtPath(obj, path27) {
+  if (!path27)
     return obj;
-  return path24.reduce((acc, key) => acc == null ? void 0 : acc[key], obj);
+  return path27.reduce((acc, key) => acc == null ? void 0 : acc[key], obj);
 }
 function promiseAllObject(promisesObj) {
   const keys = Object.keys(promisesObj);
@@ -966,7 +966,7 @@ function slugify(input) {
 function isObject(data) {
   return typeof data === "object" && data !== null && !Array.isArray(data);
 }
-function isPlainObject(o2) {
+function isPlainObject2(o2) {
   if (isObject(o2) === false)
     return false;
   const ctor = o2.constructor;
@@ -983,7 +983,7 @@ function isPlainObject(o2) {
   return true;
 }
 function shallowClone(o2) {
-  if (isPlainObject(o2))
+  if (isPlainObject2(o2))
     return { ...o2 };
   if (Array.isArray(o2))
     return [...o2];
@@ -1119,7 +1119,7 @@ function omit(schema, mask) {
   return clone(schema, def);
 }
 function extend(schema, shape) {
-  if (!isPlainObject(shape)) {
+  if (!isPlainObject2(shape)) {
     throw new Error("Invalid input to extend: expected a plain object");
   }
   const checks = schema._zod.def.checks;
@@ -1142,7 +1142,7 @@ function extend(schema, shape) {
   return clone(schema, def);
 }
 function safeExtend(schema, shape) {
-  if (!isPlainObject(shape)) {
+  if (!isPlainObject2(shape)) {
     throw new Error("Invalid input to safeExtend: expected a plain object");
   }
   const def = mergeDefs(schema._zod.def, {
@@ -1249,12 +1249,12 @@ function aborted(x, startIndex = 0) {
   }
   return false;
 }
-function prefixIssues(path24, issues) {
+function prefixIssues(path27, issues) {
   return issues.map((iss) => {
     var _a4;
     var _a3;
     (_a4 = (_a3 = iss).path) != null ? _a4 : _a3.path = [];
-    iss.path.unshift(path24);
+    iss.path.unshift(path27);
     return iss;
   });
 }
@@ -1498,7 +1498,7 @@ function formatError(error48, mapper = (issue2) => issue2.message) {
 }
 function treeifyError(error48, mapper = (issue2) => issue2.message) {
   const result = { errors: [] };
-  const processError = (error49, path24 = []) => {
+  const processError = (error49, path27 = []) => {
     var _a4, _b3, _c, _d2;
     var _a3, _b2;
     for (const issue2 of error49.issues) {
@@ -1509,7 +1509,7 @@ function treeifyError(error48, mapper = (issue2) => issue2.message) {
       } else if (issue2.code === "invalid_element") {
         processError({ issues: issue2.issues }, issue2.path);
       } else {
-        const fullpath = [...path24, ...issue2.path];
+        const fullpath = [...path27, ...issue2.path];
         if (fullpath.length === 0) {
           result.errors.push(mapper(issue2));
           continue;
@@ -1541,8 +1541,8 @@ function treeifyError(error48, mapper = (issue2) => issue2.message) {
 }
 function toDotPath(_path) {
   const segs = [];
-  const path24 = _path.map((seg) => typeof seg === "object" ? seg.key : seg);
-  for (const seg of path24) {
+  const path27 = _path.map((seg) => typeof seg === "object" ? seg.key : seg);
+  for (const seg of path27) {
     if (typeof seg === "number")
       segs.push(`[${seg}]`);
     else if (typeof seg === "symbol")
@@ -2656,7 +2656,7 @@ function mergeValues2(a2, b10) {
   if (a2 instanceof Date && b10 instanceof Date && +a2 === +b10) {
     return { valid: true, data: a2 };
   }
-  if (isPlainObject(a2) && isPlainObject(b10)) {
+  if (isPlainObject2(a2) && isPlainObject2(b10)) {
     const bKeys = Object.keys(b10);
     const sharedKeys = Object.keys(a2).filter((key) => bKeys.indexOf(key) !== -1);
     const newObj = { ...a2, ...b10 };
@@ -3883,7 +3883,7 @@ var init_schemas = __esm({
       $ZodType.init(inst, def);
       inst._zod.parse = (payload, ctx) => {
         const input = payload.value;
-        if (!isPlainObject(input)) {
+        if (!isPlainObject2(input)) {
           payload.issues.push({
             expected: "record",
             code: "invalid_type",
@@ -19218,8 +19218,8 @@ var require_utils = __commonJS({
       }
       return ind;
     }
-    function removeDotSegments(path24) {
-      let input = path24;
+    function removeDotSegments(path27) {
+      let input = path27;
       const output = [];
       let nextSlash = -1;
       let len = 0;
@@ -19418,8 +19418,8 @@ var require_schemes = __commonJS({
         wsComponent.secure = void 0;
       }
       if (wsComponent.resourceName) {
-        const [path24, query] = wsComponent.resourceName.split("?");
-        wsComponent.path = path24 && path24 !== "/" ? path24 : void 0;
+        const [path27, query] = wsComponent.resourceName.split("?");
+        wsComponent.path = path27 && path27 !== "/" ? path27 : void 0;
         wsComponent.query = query;
         wsComponent.resourceName = void 0;
       }
@@ -22781,12 +22781,12 @@ var require_dist = __commonJS({
         throw new Error(`Unknown format "${name}"`);
       return f2;
     };
-    function addFormats(ajv, list, fs27, exportName) {
+    function addFormats(ajv, list, fs29, exportName) {
       var _a3;
       var _b2;
       (_a3 = (_b2 = ajv.opts.code).formats) !== null && _a3 !== void 0 ? _a3 : _b2.formats = (0, codegen_1._)`require("ajv-formats/dist/formats").${exportName}`;
       for (const f2 of list)
-        ajv.addFormat(f2, fs27[f2]);
+        ajv.addFormat(f2, fs29[f2]);
     }
     module2.exports = exports = formatsPlugin;
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -22799,8 +22799,8 @@ var require_windows = __commonJS({
   "node_modules/isexe/windows.js"(exports, module2) {
     module2.exports = isexe;
     isexe.sync = sync;
-    var fs27 = require("fs");
-    function checkPathExt(path24, options) {
+    var fs29 = require("fs");
+    function checkPathExt(path27, options) {
       var pathext = options.pathExt !== void 0 ? options.pathExt : process.env.PATHEXT;
       if (!pathext) {
         return true;
@@ -22811,25 +22811,25 @@ var require_windows = __commonJS({
       }
       for (var i2 = 0; i2 < pathext.length; i2++) {
         var p = pathext[i2].toLowerCase();
-        if (p && path24.substr(-p.length).toLowerCase() === p) {
+        if (p && path27.substr(-p.length).toLowerCase() === p) {
           return true;
         }
       }
       return false;
     }
-    function checkStat(stat, path24, options) {
+    function checkStat(stat, path27, options) {
       if (!stat.isSymbolicLink() && !stat.isFile()) {
         return false;
       }
-      return checkPathExt(path24, options);
+      return checkPathExt(path27, options);
     }
-    function isexe(path24, options, cb) {
-      fs27.stat(path24, function(er, stat) {
-        cb(er, er ? false : checkStat(stat, path24, options));
+    function isexe(path27, options, cb) {
+      fs29.stat(path27, function(er, stat) {
+        cb(er, er ? false : checkStat(stat, path27, options));
       });
     }
-    function sync(path24, options) {
-      return checkStat(fs27.statSync(path24), path24, options);
+    function sync(path27, options) {
+      return checkStat(fs29.statSync(path27), path27, options);
     }
   }
 });
@@ -22839,14 +22839,14 @@ var require_mode = __commonJS({
   "node_modules/isexe/mode.js"(exports, module2) {
     module2.exports = isexe;
     isexe.sync = sync;
-    var fs27 = require("fs");
-    function isexe(path24, options, cb) {
-      fs27.stat(path24, function(er, stat) {
+    var fs29 = require("fs");
+    function isexe(path27, options, cb) {
+      fs29.stat(path27, function(er, stat) {
         cb(er, er ? false : checkStat(stat, options));
       });
     }
-    function sync(path24, options) {
-      return checkStat(fs27.statSync(path24), options);
+    function sync(path27, options) {
+      return checkStat(fs29.statSync(path27), options);
     }
     function checkStat(stat, options) {
       return stat.isFile() && checkMode(stat, options);
@@ -22870,7 +22870,7 @@ var require_mode = __commonJS({
 // node_modules/isexe/index.js
 var require_isexe = __commonJS({
   "node_modules/isexe/index.js"(exports, module2) {
-    var fs27 = require("fs");
+    var fs29 = require("fs");
     var core;
     if (process.platform === "win32" || global.TESTING_WINDOWS) {
       core = require_windows();
@@ -22879,7 +22879,7 @@ var require_isexe = __commonJS({
     }
     module2.exports = isexe;
     isexe.sync = sync;
-    function isexe(path24, options, cb) {
+    function isexe(path27, options, cb) {
       if (typeof options === "function") {
         cb = options;
         options = {};
@@ -22889,7 +22889,7 @@ var require_isexe = __commonJS({
           throw new TypeError("callback not provided");
         }
         return new Promise(function(resolve8, reject) {
-          isexe(path24, options || {}, function(er, is) {
+          isexe(path27, options || {}, function(er, is) {
             if (er) {
               reject(er);
             } else {
@@ -22898,7 +22898,7 @@ var require_isexe = __commonJS({
           });
         });
       }
-      core(path24, options || {}, function(er, is) {
+      core(path27, options || {}, function(er, is) {
         if (er) {
           if (er.code === "EACCES" || options && options.ignoreErrors) {
             er = null;
@@ -22908,9 +22908,9 @@ var require_isexe = __commonJS({
         cb(er, is);
       });
     }
-    function sync(path24, options) {
+    function sync(path27, options) {
       try {
-        return core.sync(path24, options || {});
+        return core.sync(path27, options || {});
       } catch (er) {
         if (options && options.ignoreErrors || er.code === "EACCES") {
           return false;
@@ -22926,7 +22926,7 @@ var require_isexe = __commonJS({
 var require_which = __commonJS({
   "node_modules/which/which.js"(exports, module2) {
     var isWindows2 = process.platform === "win32" || process.env.OSTYPE === "cygwin" || process.env.OSTYPE === "msys";
-    var path24 = require("path");
+    var path27 = require("path");
     var COLON = isWindows2 ? ";" : ":";
     var isexe = require_isexe();
     var getNotFoundError = (cmd) => Object.assign(new Error(`not found: ${cmd}`), { code: "ENOENT" });
@@ -22964,7 +22964,7 @@ var require_which = __commonJS({
           return opt.all && found.length ? resolve8(found) : reject(getNotFoundError(cmd));
         const ppRaw = pathEnv[i2];
         const pathPart = /^".*"$/.test(ppRaw) ? ppRaw.slice(1, -1) : ppRaw;
-        const pCmd = path24.join(pathPart, cmd);
+        const pCmd = path27.join(pathPart, cmd);
         const p = !pathPart && /^\.[\\\/]/.test(cmd) ? cmd.slice(0, 2) + pCmd : pCmd;
         resolve8(subStep(p, i2, 0));
       });
@@ -22991,7 +22991,7 @@ var require_which = __commonJS({
       for (let i2 = 0; i2 < pathEnv.length; i2++) {
         const ppRaw = pathEnv[i2];
         const pathPart = /^".*"$/.test(ppRaw) ? ppRaw.slice(1, -1) : ppRaw;
-        const pCmd = path24.join(pathPart, cmd);
+        const pCmd = path27.join(pathPart, cmd);
         const p = !pathPart && /^\.[\\\/]/.test(cmd) ? cmd.slice(0, 2) + pCmd : pCmd;
         for (let j = 0; j < pathExt.length; j++) {
           const cur = p + pathExt[j];
@@ -23039,7 +23039,7 @@ var require_path_key = __commonJS({
 var require_resolveCommand = __commonJS({
   "node_modules/cross-spawn/lib/util/resolveCommand.js"(exports, module2) {
     "use strict";
-    var path24 = require("path");
+    var path27 = require("path");
     var which = require_which();
     var getPathKey = require_path_key();
     function resolveCommandAttempt(parsed, withoutPathExt) {
@@ -23057,7 +23057,7 @@ var require_resolveCommand = __commonJS({
       try {
         resolved = which.sync(parsed.command, {
           path: env[getPathKey({ env })],
-          pathExt: withoutPathExt ? path24.delimiter : void 0
+          pathExt: withoutPathExt ? path27.delimiter : void 0
         });
       } catch (e2) {
       } finally {
@@ -23066,7 +23066,7 @@ var require_resolveCommand = __commonJS({
         }
       }
       if (resolved) {
-        resolved = path24.resolve(hasCustomCwd ? parsed.options.cwd : "", resolved);
+        resolved = path27.resolve(hasCustomCwd ? parsed.options.cwd : "", resolved);
       }
       return resolved;
     }
@@ -23120,8 +23120,8 @@ var require_shebang_command = __commonJS({
       if (!match) {
         return null;
       }
-      const [path24, argument] = match[0].replace(/#! ?/, "").split(" ");
-      const binary = path24.split("/").pop();
+      const [path27, argument] = match[0].replace(/#! ?/, "").split(" ");
+      const binary = path27.split("/").pop();
       if (binary === "env") {
         return argument;
       }
@@ -23134,16 +23134,16 @@ var require_shebang_command = __commonJS({
 var require_readShebang = __commonJS({
   "node_modules/cross-spawn/lib/util/readShebang.js"(exports, module2) {
     "use strict";
-    var fs27 = require("fs");
+    var fs29 = require("fs");
     var shebangCommand = require_shebang_command();
     function readShebang(command) {
       const size = 150;
       const buffer = Buffer.alloc(size);
       let fd2;
       try {
-        fd2 = fs27.openSync(command, "r");
-        fs27.readSync(fd2, buffer, 0, size, 0);
-        fs27.closeSync(fd2);
+        fd2 = fs29.openSync(command, "r");
+        fs29.readSync(fd2, buffer, 0, size, 0);
+        fs29.closeSync(fd2);
       } catch (e2) {
       }
       return shebangCommand(buffer.toString());
@@ -23156,7 +23156,7 @@ var require_readShebang = __commonJS({
 var require_parse = __commonJS({
   "node_modules/cross-spawn/lib/parse.js"(exports, module2) {
     "use strict";
-    var path24 = require("path");
+    var path27 = require("path");
     var resolveCommand = require_resolveCommand();
     var escape2 = require_escape();
     var readShebang = require_readShebang();
@@ -23181,7 +23181,7 @@ var require_parse = __commonJS({
       const needsShell = !isExecutableRegExp.test(commandFile);
       if (parsed.options.forceShell || needsShell) {
         const needsDoubleEscapeMetaChars = isCmdShimRegExp.test(commandFile);
-        parsed.command = path24.normalize(parsed.command);
+        parsed.command = path27.normalize(parsed.command);
         parsed.command = escape2.command(parsed.command);
         parsed.args = parsed.args.map((arg) => escape2.argument(arg, needsDoubleEscapeMetaChars));
         const shellCommand = [parsed.command].concat(parsed.args).join(" ");
@@ -23271,7 +23271,7 @@ var require_cross_spawn = __commonJS({
     var cp = require("child_process");
     var parse4 = require_parse();
     var enoent = require_enoent();
-    function spawn5(command, args, options) {
+    function spawn6(command, args, options) {
       const parsed = parse4(command, args, options);
       const spawned = cp.spawn(parsed.command, parsed.args, parsed.options);
       enoent.hookChildProcess(spawned, parsed);
@@ -23283,8 +23283,8 @@ var require_cross_spawn = __commonJS({
       result.error = result.error || enoent.verifyENOENTSync(result.status, parsed);
       return result;
     }
-    module2.exports = spawn5;
-    module2.exports.spawn = spawn5;
+    module2.exports = spawn6;
+    module2.exports.spawn = spawn6;
     module2.exports.sync = spawnSync2;
     module2.exports._parse = parse4;
     module2.exports._enoent = enoent;
@@ -41803,6 +41803,60 @@ init_path();
 // src/providers/claude/runtime/customSpawn.ts
 var import_child_process4 = require("child_process");
 init_env();
+
+// src/utils/windowsCmdShim.ts
+var WINDOWS_CMD_ARGUMENT_CHARS = /[\s"&<>|{}^=;!'+,`~()%@]/u;
+function resolveWindowsCmdShimSpawnSpec(spec) {
+  const command = spec.command.trim();
+  if (!command || process.platform !== "win32" || !command.toLowerCase().endsWith(".cmd")) {
+    return {
+      args: spec.args,
+      command: spec.command
+    };
+  }
+  const shellCommand = [command, ...spec.args].map((value) => quoteWindowsShellArgument(value)).join(" ");
+  return {
+    args: ["/d", "/s", "/c", `"${shellCommand}"`],
+    command: process.env.ComSpec || process.env.comspec || "cmd.exe",
+    killProcessTree: true,
+    windowsVerbatimArguments: true
+  };
+}
+function terminateSpawnedProcess(proc, signal, spawnProcess, spawnSpec) {
+  if (process.platform !== "win32" || !(spawnSpec == null ? void 0 : spawnSpec.killProcessTree) || typeof proc.pid !== "number") {
+    return proc.kill(signal);
+  }
+  try {
+    const taskkill = spawnProcess("taskkill.exe", ["/pid", String(proc.pid), "/t", "/f"], {
+      stdio: "ignore",
+      windowsHide: true
+    });
+    if (isErrorEmitterLike(taskkill)) {
+      taskkill.on("error", () => {
+      });
+    }
+    return true;
+  } catch (e2) {
+    return proc.kill(signal);
+  }
+}
+function isErrorEmitterLike(value) {
+  return value !== null && typeof value === "object" && typeof value.on === "function";
+}
+function requiresWindowsShellQuoting(value) {
+  return WINDOWS_CMD_ARGUMENT_CHARS.test(value) || value.includes("[") || value.includes("]");
+}
+function quoteWindowsShellArgument(value) {
+  if (!value.length) {
+    return '""';
+  }
+  if (!requiresWindowsShellQuoting(value)) {
+    return value;
+  }
+  return `"${value.replace(/"/g, '""')}"`;
+}
+
+// src/providers/claude/runtime/customSpawn.ts
 function createCustomSpawnFunction(enhancedPath) {
   return (options) => {
     let { command } = options;
@@ -41820,17 +41874,23 @@ function createCustomSpawnFunction(enhancedPath) {
         command = nodeFullPath != null ? nodeFullPath : "node";
       }
     }
-    const child = (0, import_child_process4.spawn)(command, args, {
+    const resolvedSpawnSpec = resolveWindowsCmdShimSpawnSpec({ args, command });
+    const child = (0, import_child_process4.spawn)(resolvedSpawnSpec.command, resolvedSpawnSpec.args, {
       cwd,
       env,
       stdio: ["pipe", "pipe", shouldPipeStderr ? "pipe" : "ignore"],
-      windowsHide: true
+      windowsHide: true,
+      ...resolvedSpawnSpec.windowsVerbatimArguments ? { windowsVerbatimArguments: true } : {}
     });
+    installTreeAwareKill(child, resolvedSpawnSpec);
     if (signal) {
+      const killChild = () => {
+        child.kill("SIGTERM");
+      };
       if (signal.aborted) {
-        child.kill();
+        killChild();
       } else {
-        signal.addEventListener("abort", () => child.kill(), { once: true });
+        signal.addEventListener("abort", killChild, { once: true });
       }
     }
     if (shouldPipeStderr && child.stderr && typeof child.stderr.on === "function") {
@@ -41842,6 +41902,19 @@ function createCustomSpawnFunction(enhancedPath) {
     }
     return child;
   };
+}
+function installTreeAwareKill(child, spawnSpec) {
+  if (!spawnSpec.killProcessTree) {
+    return;
+  }
+  const originalKill = child.kill.bind(child);
+  const killableChild = {
+    get pid() {
+      return child.pid;
+    },
+    kill: originalKill
+  };
+  child.kill = ((signal) => terminateSpawnedProcess(killableChild, signal, import_child_process4.spawn, spawnSpec));
 }
 
 // src/core/providers/providerConfig.ts
@@ -43675,12 +43748,528 @@ function retargetRemovedOpencodeSelections(settings11, next) {
   }
 }
 
+// src/providers/pi/settings.ts
+init_env();
+
+// src/providers/pi/internal/providerProjection.ts
+function ensureProviderProjectionMap2(settings11, key) {
+  const current = settings11[key];
+  if (current && typeof current === "object" && !Array.isArray(current)) {
+    return current;
+  }
+  const next = {};
+  settings11[key] = next;
+  return next;
+}
+
+// src/providers/pi/models.ts
+var PI_SYNTHETIC_MODEL_ID = "pi";
+var PI_MODEL_PREFIX = "pi:";
+var PI_DEFAULT_THINKING_LEVEL = "medium";
+var VALID_THINKING_LEVELS = /* @__PURE__ */ new Set([
+  "off",
+  "minimal",
+  "low",
+  "medium",
+  "high",
+  "xhigh"
+]);
+var DEFAULT_REASONING_LEVELS = [
+  "off",
+  "minimal",
+  "low",
+  "medium",
+  "high"
+];
+function isPiModelSelectionId(model) {
+  return model === PI_SYNTHETIC_MODEL_ID || model.startsWith(PI_MODEL_PREFIX);
+}
+function encodePiModelId(provider, modelId) {
+  const normalizedProvider = provider.trim();
+  const normalizedModelId = modelId.trim();
+  if (!normalizedProvider || !normalizedModelId) {
+    return PI_SYNTHETIC_MODEL_ID;
+  }
+  return `${PI_MODEL_PREFIX}${normalizedProvider}/${normalizedModelId}`;
+}
+function decodePiModelId(model) {
+  if (!model.startsWith(PI_MODEL_PREFIX)) {
+    return null;
+  }
+  const raw = model.slice(PI_MODEL_PREFIX.length).trim();
+  const slashIndex = raw.indexOf("/");
+  if (slashIndex <= 0 || slashIndex >= raw.length - 1) {
+    return null;
+  }
+  const provider = raw.slice(0, slashIndex).trim();
+  const modelId = raw.slice(slashIndex + 1).trim();
+  return provider && modelId ? { provider, modelId } : null;
+}
+function normalizePiThinkingLevel(value) {
+  if (typeof value !== "string") {
+    return null;
+  }
+  const normalized = value.trim().toLowerCase();
+  return VALID_THINKING_LEVELS.has(normalized) ? normalized : null;
+}
+function getPiSupportedThinkingLevels(value) {
+  const record2 = isPlainObject(value) ? value : {};
+  const explicitLevels = collectExplicitThinkingLevels(record2);
+  const mappedLevels = collectThinkingLevelMapLevels(record2);
+  const reasoning = record2.reasoning === true || record2.supportsReasoning === true || record2.thinking === true || record2.canReason === true || explicitLevels.length > 0 || mappedLevels.levels.length > 0;
+  if (!reasoning) {
+    return ["off"];
+  }
+  if (explicitLevels.length === 0 && mappedLevels.levels.length === 0) {
+    return [...DEFAULT_REASONING_LEVELS];
+  }
+  const result = [];
+  const seen = /* @__PURE__ */ new Set();
+  for (const level of [...explicitLevels, ...mappedLevels.levels]) {
+    if (level === null || mappedLevels.disabledLevels.has(level)) {
+      continue;
+    }
+    if (!seen.has(level)) {
+      seen.add(level);
+      result.push(level);
+    }
+  }
+  return result.length > 0 ? sortThinkingLevels(result) : [...DEFAULT_REASONING_LEVELS];
+}
+function normalizePiDiscoveredModels(value) {
+  var _a3, _b2, _c, _d2, _e, _f, _g, _h, _i;
+  if (!Array.isArray(value)) {
+    return [];
+  }
+  const normalized = [];
+  const seen = /* @__PURE__ */ new Set();
+  for (const entry of value) {
+    if (!isPlainObject(entry)) {
+      continue;
+    }
+    const provider = (_b2 = (_a3 = firstString(entry.provider, entry.providerId, entry.api)) == null ? void 0 : _a3.trim()) != null ? _b2 : "";
+    const id = (_d2 = (_c = firstString(entry.id, entry.modelId, entry.model, entry.name)) == null ? void 0 : _c.trim()) != null ? _d2 : "";
+    if (!provider || !id) {
+      continue;
+    }
+    const key = `${provider}\0${id}`;
+    if (seen.has(key)) {
+      continue;
+    }
+    seen.add(key);
+    const label = ((_e = firstString(entry.label, entry.displayName, entry.name)) == null ? void 0 : _e.trim()) || `${provider}/${id}`;
+    const api = (_f = firstString(entry.api)) == null ? void 0 : _f.trim();
+    const contextWindow = firstFinitePositiveNumber(
+      entry.contextWindow,
+      entry.context_window,
+      entry.context,
+      entry.maxContextTokens,
+      entry.max_context_tokens
+    );
+    const maxTokens = firstFinitePositiveNumber(
+      entry.maxTokens,
+      entry.max_tokens,
+      entry.outputTokens,
+      entry.output_tokens
+    );
+    const input = normalizeModelInputs(
+      (_i = (_h = (_g = entry.input) != null ? _g : entry.inputs) != null ? _h : entry.modalities) != null ? _i : entry.supportedInputs
+    );
+    const thinkingLevels = getPiSupportedThinkingLevels(entry);
+    const reasoning = thinkingLevels.some((level) => level !== "off");
+    normalized.push({
+      ...api ? { api } : {},
+      ...contextWindow !== void 0 ? { contextWindow } : {},
+      encodedId: encodePiModelId(provider, id),
+      id,
+      input,
+      label,
+      ...maxTokens !== void 0 ? { maxTokens } : {},
+      provider,
+      reasoning,
+      thinkingLevels
+    });
+  }
+  return normalized;
+}
+function findPiModel(settings11, encodedId) {
+  var _a3;
+  return (_a3 = settings11.discoveredModels.find((model) => model.encodedId === encodedId)) != null ? _a3 : null;
+}
+function clampPiThinkingLevel(level, supportedLevels) {
+  var _a3;
+  const normalized = normalizePiThinkingLevel(level);
+  if (normalized && supportedLevels.includes(normalized)) {
+    return normalized;
+  }
+  if (supportedLevels.includes(PI_DEFAULT_THINKING_LEVEL)) {
+    return PI_DEFAULT_THINKING_LEVEL;
+  }
+  return (_a3 = supportedLevels[0]) != null ? _a3 : "off";
+}
+function collectExplicitThinkingLevels(record2) {
+  const rawLevels = [
+    record2.thinkingLevels,
+    record2.thinking_levels,
+    record2.reasoningLevels,
+    record2.reasoning_levels,
+    isPlainObject(record2.thinking) ? record2.thinking.levels : void 0,
+    isPlainObject(record2.reasoning) ? record2.reasoning.levels : void 0
+  ].find(Array.isArray);
+  if (!Array.isArray(rawLevels)) {
+    return [];
+  }
+  return rawLevels.map((level) => {
+    var _a3;
+    if (level === null) {
+      return null;
+    }
+    return (_a3 = normalizePiThinkingLevel(level)) != null ? _a3 : void 0;
+  }).filter((level) => level !== void 0);
+}
+function collectThinkingLevelMapLevels(record2) {
+  const rawMap = isPlainObject(record2.thinkingLevelMap) ? record2.thinkingLevelMap : isPlainObject(record2.thinking_level_map) ? record2.thinking_level_map : null;
+  if (!rawMap) {
+    return { disabledLevels: /* @__PURE__ */ new Set(), levels: [] };
+  }
+  const disabledLevels = /* @__PURE__ */ new Set();
+  const levels = [...DEFAULT_REASONING_LEVELS];
+  for (const [rawLevel, mappedLevel] of Object.entries(rawMap)) {
+    const level = normalizePiThinkingLevel(rawLevel);
+    if (!level) {
+      continue;
+    }
+    if (mappedLevel === null) {
+      disabledLevels.add(level);
+    } else {
+      levels.push(level);
+    }
+  }
+  return { disabledLevels, levels };
+}
+function sortThinkingLevels(levels) {
+  const rank = new Map(DEFAULT_REASONING_LEVELS.concat("xhigh").map((level, index) => [level, index]));
+  return [...levels].sort((left, right) => {
+    var _a3, _b2;
+    return ((_a3 = rank.get(left)) != null ? _a3 : 99) - ((_b2 = rank.get(right)) != null ? _b2 : 99);
+  });
+}
+function normalizeModelInputs(value) {
+  const rawInputs = Array.isArray(value) ? value : ["text"];
+  const inputs = [];
+  const seen = /* @__PURE__ */ new Set();
+  for (const entry of rawInputs) {
+    const normalized = typeof entry === "string" ? entry.trim().toLowerCase() : "";
+    const input = normalized === "image" || normalized === "images" ? "image" : normalized === "text" ? "text" : null;
+    if (input && !seen.has(input)) {
+      seen.add(input);
+      inputs.push(input);
+    }
+  }
+  return inputs.length > 0 ? inputs : ["text"];
+}
+function firstString(...values) {
+  for (const value of values) {
+    if (typeof value === "string") {
+      return value;
+    }
+  }
+  return void 0;
+}
+function firstFinitePositiveNumber(...values) {
+  for (const value of values) {
+    if (typeof value === "number" && Number.isFinite(value) && value > 0) {
+      return value;
+    }
+  }
+  return void 0;
+}
+function isPlainObject(value) {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+// src/providers/pi/settings.ts
+var DEFAULT_PI_PROVIDER_SETTINGS = Object.freeze({
+  cliPath: "",
+  cliPathsByHost: {},
+  discoveredModels: [],
+  enabled: false,
+  environmentHash: "",
+  environmentVariables: "",
+  modelAliases: {},
+  preferredThinkingByModel: {},
+  toolMode: "all",
+  visibleModels: []
+});
+function normalizeHostnameCliPaths4(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return {};
+  }
+  const result = {};
+  for (const [key, entry] of Object.entries(value)) {
+    if (typeof entry === "string" && entry.trim()) {
+      result[key] = entry.trim();
+    }
+  }
+  return result;
+}
+function normalizePiVisibleModels(value, discoveredModels = []) {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+  const knownIds = new Set(discoveredModels.map((model) => model.encodedId));
+  const normalized = [];
+  const seen = /* @__PURE__ */ new Set();
+  for (const entry of value) {
+    if (typeof entry !== "string") {
+      continue;
+    }
+    const trimmed = entry.trim();
+    if (!trimmed || !decodePiModelId(trimmed)) {
+      continue;
+    }
+    if (knownIds.size > 0 && !knownIds.has(trimmed)) {
+      continue;
+    }
+    if (seen.has(trimmed)) {
+      continue;
+    }
+    seen.add(trimmed);
+    normalized.push(trimmed);
+  }
+  return normalized;
+}
+function getPiProviderSettings(settings11) {
+  var _a3, _b2, _c, _d2, _e;
+  const config2 = getProviderConfig(settings11, "pi");
+  const normalizedCliPathsByHost = normalizeHostnameCliPaths4(config2.cliPathsByHost);
+  const cliPathsByHost = Object.keys(normalizedCliPathsByHost).length > 0 ? migrateLegacyHostnameKeyedMap(
+    normalizedCliPathsByHost,
+    getHostnameKey(),
+    getLegacyHostnameKey()
+  ) : normalizedCliPathsByHost;
+  const discoveredModels = normalizePiDiscoveredModels(config2.discoveredModels);
+  const visibleModels = normalizePiVisibleModels(config2.visibleModels, discoveredModels);
+  const persistableIds = getPersistablePiModelIds(settings11, visibleModels);
+  return {
+    cliPath: (_a3 = config2.cliPath) != null ? _a3 : DEFAULT_PI_PROVIDER_SETTINGS.cliPath,
+    cliPathsByHost,
+    discoveredModels,
+    enabled: (_b2 = config2.enabled) != null ? _b2 : DEFAULT_PI_PROVIDER_SETTINGS.enabled,
+    environmentHash: (_c = config2.environmentHash) != null ? _c : DEFAULT_PI_PROVIDER_SETTINGS.environmentHash,
+    environmentVariables: (_e = (_d2 = config2.environmentVariables) != null ? _d2 : getProviderEnvironmentVariables(settings11, "pi")) != null ? _e : DEFAULT_PI_PROVIDER_SETTINGS.environmentVariables,
+    modelAliases: normalizePiModelAliasesForPersistableIds(
+      config2.modelAliases,
+      discoveredModels,
+      persistableIds
+    ),
+    preferredThinkingByModel: normalizePiPreferredThinkingForPersistableIds(
+      config2.preferredThinkingByModel,
+      discoveredModels,
+      persistableIds
+    ),
+    toolMode: normalizePiToolMode(config2.toolMode),
+    visibleModels
+  };
+}
+function updatePiProviderSettings(settings11, updates) {
+  var _a3, _b2, _c, _d2, _e;
+  const current = getPiProviderSettings(settings11);
+  const hostnameKey = getHostnameKey();
+  const nextDiscoveredModels = normalizePiDiscoveredModels(
+    (_a3 = updates.discoveredModels) != null ? _a3 : current.discoveredModels
+  );
+  const nextVisibleModels = normalizePiVisibleModels(
+    (_b2 = updates.visibleModels) != null ? _b2 : current.visibleModels,
+    nextDiscoveredModels
+  );
+  const persistableIds = getPersistablePiModelIds(settings11, nextVisibleModels);
+  const nextModelAliases = pruneMapToPersistableIds(
+    normalizePiModelAliasesForPersistableIds(
+      (_c = updates.modelAliases) != null ? _c : current.modelAliases,
+      nextDiscoveredModels,
+      persistableIds
+    ),
+    persistableIds
+  );
+  const nextPreferredThinkingByModel = pruneMapToPersistableIds(
+    normalizePiPreferredThinkingForPersistableIds(
+      (_d2 = updates.preferredThinkingByModel) != null ? _d2 : current.preferredThinkingByModel,
+      nextDiscoveredModels,
+      persistableIds
+    ),
+    persistableIds
+  );
+  const nextCliPathsByHost = "cliPathsByHost" in updates ? normalizeHostnameCliPaths4(updates.cliPathsByHost) : { ...current.cliPathsByHost };
+  let nextCliPath = "cliPathsByHost" in updates ? typeof updates.cliPath === "string" ? updates.cliPath.trim() : DEFAULT_PI_PROVIDER_SETTINGS.cliPath : current.cliPath.trim();
+  if ("cliPath" in updates && !("cliPathsByHost" in updates)) {
+    const trimmedCliPath = typeof updates.cliPath === "string" ? updates.cliPath.trim() : "";
+    if (trimmedCliPath) {
+      nextCliPathsByHost[hostnameKey] = trimmedCliPath;
+    } else {
+      delete nextCliPathsByHost[hostnameKey];
+    }
+    nextCliPath = DEFAULT_PI_PROVIDER_SETTINGS.cliPath;
+  }
+  const next = {
+    ...current,
+    ...updates,
+    cliPath: nextCliPath,
+    cliPathsByHost: nextCliPathsByHost,
+    discoveredModels: nextDiscoveredModels,
+    modelAliases: nextModelAliases,
+    preferredThinkingByModel: nextPreferredThinkingByModel,
+    toolMode: normalizePiToolMode((_e = updates.toolMode) != null ? _e : current.toolMode),
+    visibleModels: nextVisibleModels
+  };
+  if (updates.visibleModels !== void 0) {
+    retargetRemovedPiSelections(settings11, next);
+    const retargetedPersistableIds = getPersistablePiModelIds(settings11, next.visibleModels);
+    next.modelAliases = pruneMapToPersistableIds(next.modelAliases, retargetedPersistableIds);
+    next.preferredThinkingByModel = pruneMapToPersistableIds(
+      next.preferredThinkingByModel,
+      retargetedPersistableIds
+    );
+  }
+  setProviderConfig(settings11, "pi", {
+    cliPath: next.cliPath,
+    cliPathsByHost: next.cliPathsByHost,
+    discoveredModels: next.discoveredModels,
+    enabled: next.enabled,
+    environmentHash: next.environmentHash,
+    environmentVariables: next.environmentVariables,
+    modelAliases: next.modelAliases,
+    preferredThinkingByModel: next.preferredThinkingByModel,
+    toolMode: next.toolMode,
+    visibleModels: next.visibleModels
+  });
+  return next;
+}
+function normalizePiModelAliasesForPersistableIds(value, discoveredModels, persistableIds) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return {};
+  }
+  const normalized = {};
+  for (const [encodedId, alias] of Object.entries(value)) {
+    if (typeof alias !== "string") {
+      continue;
+    }
+    const normalizedEncodedId = normalizePiPersistableEncodedId(
+      encodedId,
+      discoveredModels,
+      persistableIds
+    );
+    const normalizedAlias = alias.trim();
+    if (!normalizedEncodedId || !normalizedAlias) {
+      continue;
+    }
+    normalized[normalizedEncodedId] = normalizedAlias;
+  }
+  return normalized;
+}
+function normalizePiPreferredThinkingForPersistableIds(value, discoveredModels, persistableIds) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return {};
+  }
+  const normalized = {};
+  for (const [encodedId, thinkingLevel] of Object.entries(value)) {
+    const normalizedEncodedId = normalizePiPersistableEncodedId(
+      encodedId,
+      discoveredModels,
+      persistableIds
+    );
+    const normalizedThinkingLevel = normalizePiThinkingLevel(thinkingLevel);
+    if (!normalizedEncodedId || !normalizedThinkingLevel) {
+      continue;
+    }
+    const discoveredModel = discoveredModels.find((model) => model.encodedId === normalizedEncodedId);
+    if (discoveredModel && !discoveredModel.thinkingLevels.includes(normalizedThinkingLevel)) {
+      continue;
+    }
+    normalized[normalizedEncodedId] = normalizedThinkingLevel;
+  }
+  return normalized;
+}
+function normalizePiToolMode(value) {
+  return value === "readonly" ? "readonly" : "all";
+}
+function normalizePiPersistableEncodedId(value, discoveredModels, persistableIds) {
+  const trimmed = value.trim();
+  const decoded = decodePiModelId(trimmed);
+  if (!decoded) {
+    return "";
+  }
+  const discoveredModel = findPiModel({ discoveredModels }, trimmed);
+  if (discoveredModel) {
+    return discoveredModel.encodedId;
+  }
+  return persistableIds.has(trimmed) ? trimmed : "";
+}
+function getPersistablePiModelIds(settings11, visibleModels) {
+  const persistableIds = new Set(visibleModels);
+  addPersistableSelection2(persistableIds, settings11.model);
+  addPersistableSelection2(persistableIds, settings11.titleGenerationModel);
+  const savedProviderModel = settings11.savedProviderModel;
+  if (savedProviderModel && typeof savedProviderModel === "object" && !Array.isArray(savedProviderModel)) {
+    addPersistableSelection2(persistableIds, savedProviderModel.pi);
+  }
+  return persistableIds;
+}
+function addPersistableSelection2(target, value) {
+  if (typeof value === "string" && decodePiModelId(value)) {
+    target.add(value);
+  }
+}
+function pruneMapToPersistableIds(value, persistableIds) {
+  const pruned = {};
+  for (const [encodedId, entry] of Object.entries(value)) {
+    if (persistableIds.has(encodedId)) {
+      pruned[encodedId] = entry;
+    }
+  }
+  return pruned;
+}
+function retargetRemovedPiSelections(settings11, next) {
+  var _a3;
+  if (next.visibleModels.length === 0) {
+    if (typeof settings11.titleGenerationModel === "string" && isPiModelSelectionId(settings11.titleGenerationModel)) {
+      settings11.titleGenerationModel = "";
+    }
+    return;
+  }
+  const visibleSet = new Set(next.visibleModels);
+  const fallbackModelId = next.visibleModels[0];
+  const fallbackEffort = (_a3 = next.preferredThinkingByModel[fallbackModelId]) != null ? _a3 : PI_DEFAULT_THINKING_LEVEL;
+  const maybeRetargetModel = (value) => {
+    if (typeof value !== "string" || !isPiModelSelectionId(value) || value === "pi") {
+      return null;
+    }
+    return visibleSet.has(value) ? null : fallbackModelId;
+  };
+  const savedProviderModel = ensureProviderProjectionMap2(settings11, "savedProviderModel");
+  const nextSavedModel = maybeRetargetModel(savedProviderModel.pi);
+  if (nextSavedModel) {
+    savedProviderModel.pi = nextSavedModel;
+    ensureProviderProjectionMap2(settings11, "savedProviderEffort").pi = fallbackEffort;
+  }
+  const nextTopLevelModel = maybeRetargetModel(settings11.model);
+  if (nextTopLevelModel) {
+    settings11.model = nextTopLevelModel;
+    settings11.effortLevel = fallbackEffort;
+  }
+  const nextTitleGenerationModel = maybeRetargetModel(settings11.titleGenerationModel);
+  if (nextTitleGenerationModel) {
+    settings11.titleGenerationModel = nextTitleGenerationModel;
+  }
+}
+
 // src/providers/defaultProviderConfigs.ts
 function getBuiltInProviderDefaultConfigs() {
   return {
     claude: { ...DEFAULT_CLAUDE_PROVIDER_SETTINGS },
     codex: { ...DEFAULT_CODEX_PROVIDER_SETTINGS },
-    opencode: { ...DEFAULT_OPENCODE_PROVIDER_SETTINGS }
+    opencode: { ...DEFAULT_OPENCODE_PROVIDER_SETTINGS },
+    pi: { ...DEFAULT_PI_PROVIDER_SETTINGS }
   };
 }
 
@@ -43701,6 +44290,7 @@ var DEFAULT_CLAUDIAN_SETTINGS = {
   sharedEnvironmentVariables: "",
   envSnippets: [],
   customContextLimits: {},
+  customModelAliases: {},
   keyboardNavigation: {
     scrollUpKey: "w",
     scrollDownKey: "s",
@@ -43793,7 +44383,8 @@ function normalizeProviderConfigs(value) {
 var HOST_SCOPED_PROVIDER_CONFIG_FIELDS = {
   claude: ["cliPathsByHost"],
   codex: ["cliPathsByHost", "installationMethodsByHost", "wslDistroOverridesByHost"],
-  opencode: ["cliPathsByHost"]
+  opencode: ["cliPathsByHost"],
+  pi: ["cliPathsByHost"]
 };
 function hasHostScopedProviderConfigNormalization(original, normalized) {
   if (!normalized || typeof normalized !== "object" || Array.isArray(normalized)) {
@@ -43829,6 +44420,23 @@ function normalizeContextLimits(value) {
   }
   return Object.keys(result).length > 0 ? result : void 0;
 }
+function normalizeModelAliases(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return {};
+  }
+  const result = {};
+  for (const [key, alias] of Object.entries(value)) {
+    if (typeof alias !== "string") {
+      continue;
+    }
+    const modelId = key.trim();
+    const normalizedAlias = alias.trim();
+    if (modelId && normalizedAlias) {
+      result[modelId] = normalizedAlias;
+    }
+  }
+  return result;
+}
 function normalizeEnvSnippets(value) {
   if (!Array.isArray(value)) {
     return [];
@@ -43842,6 +44450,7 @@ function normalizeEnvSnippets(value) {
     if (typeof candidate.id !== "string" || typeof candidate.name !== "string" || typeof candidate.description !== "string" || typeof candidate.envVars !== "string") {
       continue;
     }
+    const modelAliases = "modelAliases" in candidate ? normalizeModelAliases(candidate.modelAliases) : void 0;
     snippets.push({
       id: candidate.id,
       name: candidate.name,
@@ -43851,7 +44460,8 @@ function normalizeEnvSnippets(value) {
         candidate.envVars,
         isEnvironmentScope(candidate.scope) ? candidate.scope : inferEnvironmentSnippetScope(candidate.envVars)
       ),
-      contextLimits: normalizeContextLimits(candidate.contextLimits)
+      contextLimits: normalizeContextLimits(candidate.contextLimits),
+      modelAliases
     });
   }
   return snippets;
@@ -43874,7 +44484,7 @@ var ClaudianSettingsStorage = class {
     this.adapter = adapter;
   }
   async load() {
-    var _a3;
+    var _a3, _b2;
     const settingsPath = await this.getLoadPath();
     if (!settingsPath) {
       return this.getDefaults();
@@ -43886,6 +44496,7 @@ var ClaudianSettingsStorage = class {
       stored.hiddenSlashCommands
     );
     const envSnippets = normalizeEnvSnippets(stored.envSnippets);
+    const customModelAliases = normalizeModelAliases(stored.customModelAliases);
     const providerConfigs = normalizeProviderConfigs(stored.providerConfigs);
     const chatViewPlacement = normalizeChatViewPlacement(
       stored.chatViewPlacement,
@@ -43903,6 +44514,7 @@ var ClaudianSettingsStorage = class {
       ...storedWithoutLegacy,
       sharedEnvironmentVariables: getSharedEnvironmentVariables(legacyProviderSettings),
       envSnippets,
+      customModelAliases,
       hiddenProviderCommands,
       providerConfigs,
       chatViewPlacement
@@ -43923,11 +44535,15 @@ var ClaudianSettingsStorage = class {
       merged,
       getOpencodeProviderSettings(legacyProviderSettings)
     );
+    updatePiProviderSettings(
+      merged,
+      getPiProviderSettings(legacyProviderSettings)
+    );
     const didNormalizeHostScopedProviderConfigs = hasHostScopedProviderConfigNormalization(
       providerConfigs,
       merged.providerConfigs
     );
-    if (settingsPath !== CLAUDIAN_SETTINGS_PATH || (hasLegacyTopLevelProviderFields(stored) || "show1MModel" in stored || "slashCommands" in stored || "hiddenSlashCommands" in stored || "activeConversationId" in stored || "allowExternalAccess" in stored || "allowedExportPaths" in stored || "enableBlocklist" in stored || "blockedCommands" in stored || shouldPersistChatViewPlacementMigration(stored, chatViewPlacement) || JSON.stringify(envSnippets) !== JSON.stringify((_a3 = stored.envSnippets) != null ? _a3 : []) || didNormalizeHostScopedProviderConfigs)) {
+    if (settingsPath !== CLAUDIAN_SETTINGS_PATH || (hasLegacyTopLevelProviderFields(stored) || "show1MModel" in stored || "slashCommands" in stored || "hiddenSlashCommands" in stored || "activeConversationId" in stored || "allowExternalAccess" in stored || "allowedExportPaths" in stored || "enableBlocklist" in stored || "blockedCommands" in stored || shouldPersistChatViewPlacementMigration(stored, chatViewPlacement) || JSON.stringify(envSnippets) !== JSON.stringify((_a3 = stored.envSnippets) != null ? _a3 : []) || "customModelAliases" in stored && JSON.stringify(customModelAliases) !== JSON.stringify((_b2 = stored.customModelAliases) != null ? _b2 : {}) || didNormalizeHostScopedProviderConfigs)) {
       await this.save(merged);
     }
     return merged;
@@ -44139,39 +44755,39 @@ var VaultFileAdapter = class {
     this.app = app;
     this.writeQueue = Promise.resolve();
   }
-  async exists(path24) {
-    return this.app.vault.adapter.exists(path24);
+  async exists(path27) {
+    return this.app.vault.adapter.exists(path27);
   }
-  async read(path24) {
-    return this.app.vault.adapter.read(path24);
+  async read(path27) {
+    return this.app.vault.adapter.read(path27);
   }
-  async write(path24, content) {
-    await this.ensureParentFolder(path24);
-    await this.app.vault.adapter.write(path24, content);
+  async write(path27, content) {
+    await this.ensureParentFolder(path27);
+    await this.app.vault.adapter.write(path27, content);
   }
-  async append(path24, content) {
-    await this.ensureParentFolder(path24);
+  async append(path27, content) {
+    await this.ensureParentFolder(path27);
     this.writeQueue = this.writeQueue.then(async () => {
-      if (await this.exists(path24)) {
-        const existing = await this.read(path24);
-        await this.app.vault.adapter.write(path24, existing + content);
+      if (await this.exists(path27)) {
+        const existing = await this.read(path27);
+        await this.app.vault.adapter.write(path27, existing + content);
       } else {
-        await this.app.vault.adapter.write(path24, content);
+        await this.app.vault.adapter.write(path27, content);
       }
     }).catch(() => {
     });
     await this.writeQueue;
   }
-  async delete(path24) {
-    if (await this.exists(path24)) {
-      await this.app.vault.adapter.remove(path24);
+  async delete(path27) {
+    if (await this.exists(path27)) {
+      await this.app.vault.adapter.remove(path27);
     }
   }
   /** Fails silently if non-empty or missing. */
-  async deleteFolder(path24) {
+  async deleteFolder(path27) {
     try {
-      if (await this.exists(path24)) {
-        await this.app.vault.adapter.rmdir(path24, false);
+      if (await this.exists(path27)) {
+        await this.app.vault.adapter.rmdir(path27, false);
       }
     } catch (e2) {
     }
@@ -44212,9 +44828,9 @@ var VaultFileAdapter = class {
     }
   }
   /** Ensure a folder exists, creating it and parent folders if needed. */
-  async ensureFolder(path24) {
-    if (await this.exists(path24)) return;
-    const parts = path24.split("/").filter(Boolean);
+  async ensureFolder(path27) {
+    if (await this.exists(path27)) return;
+    const parts = path27.split("/").filter(Boolean);
     let current = "";
     for (const part of parts) {
       current = current ? `${current}/${part}` : part;
@@ -44227,9 +44843,9 @@ var VaultFileAdapter = class {
   async rename(oldPath, newPath) {
     await this.app.vault.adapter.rename(oldPath, newPath);
   }
-  async stat(path24) {
+  async stat(path27) {
     try {
-      const stat = await this.app.vault.adapter.stat(path24);
+      const stat = await this.app.vault.adapter.stat(path27);
       if (!stat) return null;
       return { mtime: stat.mtime, size: stat.size };
     } catch (e2) {
@@ -44988,8 +45604,11 @@ var ProviderSettingsCoordinator = class {
     if (serviceTierToggle && typeof settings11.serviceTier === "string") {
       savedServiceTier[providerId] = settings11.serviceTier;
     }
-    if (typeof settings11.thinkingBudget === "string") {
+    const usesBudget = normalizedModel !== void 0 && !uiConfig.isAdaptiveReasoningModel(normalizedModel, projectedSettings);
+    if (usesBudget && typeof settings11.thinkingBudget === "string") {
       savedBudget[providerId] = settings11.thinkingBudget;
+    } else {
+      delete savedBudget[providerId];
     }
     if (typeof settings11.permissionMode === "string" && ((_c = uiConfig.getPermissionModeToggle) == null ? void 0 : _c.call(uiConfig))) {
       savedPermissionMode[providerId] = settings11.permissionMode;
@@ -45044,14 +45663,14 @@ var ProviderSettingsCoordinator = class {
       settings11.serviceTier = (_g = serviceTierToggle == null ? void 0 : serviceTierToggle.inactiveValue) != null ? _g : "default";
     }
     const usesBudget = Boolean(model) && !isAdaptive;
-    if ((savedBudget == null ? void 0 : savedBudget[providerId]) !== void 0) {
-      settings11.thinkingBudget = savedBudget[providerId];
-    } else if (canReuseCurrentProjection && currentBudget !== void 0) {
-      settings11.thinkingBudget = currentBudget;
-    } else if (usesBudget) {
-      settings11.thinkingBudget = uiConfig.getDefaultReasoningValue(model, settings11);
-    }
     if (usesBudget) {
+      if ((savedBudget == null ? void 0 : savedBudget[providerId]) !== void 0) {
+        settings11.thinkingBudget = savedBudget[providerId];
+      } else if (canReuseCurrentProjection && currentBudget !== void 0) {
+        settings11.thinkingBudget = currentBudget;
+      } else {
+        settings11.thinkingBudget = uiConfig.getDefaultReasoningValue(model, settings11);
+      }
       settings11.thinkingBudget = normalizeReasoningValue(uiConfig, settings11, model, settings11.thinkingBudget);
     }
     const permissionToggle = (_i = (_h = uiConfig.getPermissionModeToggle) == null ? void 0 : _h.call(uiConfig)) != null ? _i : null;
@@ -45405,6 +46024,13 @@ var settings = {
       cancel: "Abbrechen"
     }
   },
+  customModelOverrides: {
+    name: "Benutzerdefinierte Modell\xFCberschreibungen",
+    desc: "Legen Sie Aliasnamen in der Modellauswahl und Kontextfenstergr\xF6\xDFen f\xFCr benutzerdefinierte Modelle fest."
+  },
+  customModelAliases: {
+    placeholder: "Alias"
+  },
   customContextLimits: {
     name: "Benutzerdefinierte Kontextlimits",
     desc: "Legen Sie die Kontextfenstergr\xF6\xDFen f\xFCr Ihre benutzerdefinierten Modelle fest. Leer lassen f\xFCr den Standardwert (200k Token).",
@@ -45733,6 +46359,13 @@ var settings2 = {
       update: "Update",
       cancel: "Cancel"
     }
+  },
+  customModelOverrides: {
+    name: "Custom model overrides",
+    desc: "Set model selector aliases and context window sizes for custom models."
+  },
+  customModelAliases: {
+    placeholder: "Alias"
   },
   customContextLimits: {
     name: "Custom Context Limits",
@@ -46063,6 +46696,13 @@ var settings3 = {
       cancel: "Cancelar"
     }
   },
+  customModelOverrides: {
+    name: "Anulaciones de modelos personalizados",
+    desc: "Configure alias en el selector de modelos y tama\xF1os de ventana de contexto para modelos personalizados."
+  },
+  customModelAliases: {
+    placeholder: "Alias"
+  },
   customContextLimits: {
     name: "L\xEDmites de contexto personalizados",
     desc: "Establezca tama\xF1os de ventana de contexto para sus modelos personalizados. Deje vac\xEDo para usar el valor predeterminado (200k tokens).",
@@ -46391,6 +47031,13 @@ var settings4 = {
       update: "Mettre \xE0 jour",
       cancel: "Annuler"
     }
+  },
+  customModelOverrides: {
+    name: "Remplacements de mod\xE8les personnalis\xE9s",
+    desc: "D\xE9finissez les alias dans le s\xE9lecteur de mod\xE8le et les tailles de fen\xEAtre de contexte pour les mod\xE8les personnalis\xE9s."
+  },
+  customModelAliases: {
+    placeholder: "Alias"
   },
   customContextLimits: {
     name: "Limites de contexte personnalis\xE9es",
@@ -46721,6 +47368,13 @@ var settings5 = {
       cancel: "\u30AD\u30E3\u30F3\u30BB\u30EB"
     }
   },
+  customModelOverrides: {
+    name: "\u30AB\u30B9\u30BF\u30E0\u30E2\u30C7\u30EB\u306E\u4E0A\u66F8\u304D",
+    desc: "\u30AB\u30B9\u30BF\u30E0\u30E2\u30C7\u30EB\u306E\u30E2\u30C7\u30EB\u30BB\u30EC\u30AF\u30BF\u30FC\u8868\u793A\u540D\u3068\u30B3\u30F3\u30C6\u30AD\u30B9\u30C8\u30A6\u30A3\u30F3\u30C9\u30A6\u30B5\u30A4\u30BA\u3092\u8A2D\u5B9A\u3057\u307E\u3059\u3002"
+  },
+  customModelAliases: {
+    placeholder: "\u30A8\u30A4\u30EA\u30A2\u30B9"
+  },
   customContextLimits: {
     name: "\u30AB\u30B9\u30BF\u30E0\u30B3\u30F3\u30C6\u30AD\u30B9\u30C8\u5236\u9650",
     desc: "\u30AB\u30B9\u30BF\u30E0\u30E2\u30C7\u30EB\u306E\u30B3\u30F3\u30C6\u30AD\u30B9\u30C8\u30A6\u30A3\u30F3\u30C9\u30A6\u30B5\u30A4\u30BA\u3092\u8A2D\u5B9A\u3057\u307E\u3059\u3002\u30C7\u30D5\u30A9\u30EB\u30C8\uFF08200k\u30C8\u30FC\u30AF\u30F3\uFF09\u3092\u4F7F\u7528\u3059\u308B\u5834\u5408\u306F\u7A7A\u6B04\u306E\u307E\u307E\u306B\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
@@ -47049,6 +47703,13 @@ var settings6 = {
       update: "\uC5C5\uB370\uC774\uD2B8",
       cancel: "\uCDE8\uC18C"
     }
+  },
+  customModelOverrides: {
+    name: "\uC0AC\uC6A9\uC790 \uC815\uC758 \uBAA8\uB378 \uC7AC\uC815\uC758",
+    desc: "\uC0AC\uC6A9\uC790 \uC815\uC758 \uBAA8\uB378\uC758 \uBAA8\uB378 \uC120\uD0DD\uAE30 \uBCC4\uCE6D\uACFC \uCEE8\uD14D\uC2A4\uD2B8 \uCC3D \uD06C\uAE30\uB97C \uC124\uC815\uD569\uB2C8\uB2E4."
+  },
+  customModelAliases: {
+    placeholder: "\uBCC4\uCE6D"
   },
   customContextLimits: {
     name: "\uC0AC\uC6A9\uC790 \uC815\uC758 \uCEE8\uD14D\uC2A4\uD2B8 \uC81C\uD55C",
@@ -47379,6 +48040,13 @@ var settings7 = {
       cancel: "Cancelar"
     }
   },
+  customModelOverrides: {
+    name: "Substitui\xE7\xF5es de modelos personalizados",
+    desc: "Defina aliases no seletor de modelos e tamanhos de janela de contexto para modelos personalizados."
+  },
+  customModelAliases: {
+    placeholder: "Alias"
+  },
   customContextLimits: {
     name: "Limites de contexto personalizados",
     desc: "Defina tamanhos de janela de contexto para seus modelos personalizados. Deixe vazio para usar o padr\xE3o (200k tokens).",
@@ -47707,6 +48375,13 @@ var settings8 = {
       update: "\u041E\u0431\u043D\u043E\u0432\u0438\u0442\u044C",
       cancel: "\u041E\u0442\u043C\u0435\u043D\u0430"
     }
+  },
+  customModelOverrides: {
+    name: "\u041F\u0435\u0440\u0435\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u044F \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C\u0441\u043A\u0438\u0445 \u043C\u043E\u0434\u0435\u043B\u0435\u0439",
+    desc: "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u0442\u0435 \u043F\u0441\u0435\u0432\u0434\u043E\u043D\u0438\u043C\u044B \u0432 \u0441\u0435\u043B\u0435\u043A\u0442\u043E\u0440\u0435 \u043C\u043E\u0434\u0435\u043B\u0435\u0439 \u0438 \u0440\u0430\u0437\u043C\u0435\u0440\u044B \u043E\u043A\u043D\u0430 \u043A\u043E\u043D\u0442\u0435\u043A\u0441\u0442\u0430 \u0434\u043B\u044F \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C\u0441\u043A\u0438\u0445 \u043C\u043E\u0434\u0435\u043B\u0435\u0439."
+  },
+  customModelAliases: {
+    placeholder: "\u041F\u0441\u0435\u0432\u0434\u043E\u043D\u0438\u043C"
   },
   customContextLimits: {
     name: "\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C\u0441\u043A\u0438\u0435 \u043B\u0438\u043C\u0438\u0442\u044B \u043A\u043E\u043D\u0442\u0435\u043A\u0441\u0442\u0430",
@@ -48037,6 +48712,13 @@ var settings9 = {
       cancel: "\u53D6\u6D88"
     }
   },
+  customModelOverrides: {
+    name: "\u81EA\u5B9A\u4E49\u6A21\u578B\u8986\u76D6",
+    desc: "\u4E3A\u81EA\u5B9A\u4E49\u6A21\u578B\u8BBE\u7F6E\u6A21\u578B\u9009\u62E9\u5668\u522B\u540D\u548C\u4E0A\u4E0B\u6587\u7A97\u53E3\u5927\u5C0F\u3002"
+  },
+  customModelAliases: {
+    placeholder: "\u522B\u540D"
+  },
   customContextLimits: {
     name: "\u81EA\u5B9A\u4E49\u4E0A\u4E0B\u6587\u9650\u5236",
     desc: "\u4E3A\u60A8\u7684\u81EA\u5B9A\u4E49\u6A21\u578B\u8BBE\u7F6E\u4E0A\u4E0B\u6587\u7A97\u53E3\u5927\u5C0F\u3002\u7559\u7A7A\u4F7F\u7528\u9ED8\u8BA4\u503C\uFF08200k \u4EE4\u724C\uFF09\u3002",
@@ -48366,6 +49048,13 @@ var settings10 = {
       cancel: "\u53D6\u6D88"
     }
   },
+  customModelOverrides: {
+    name: "\u81EA\u8A02\u6A21\u578B\u8986\u5BEB",
+    desc: "\u70BA\u81EA\u8A02\u6A21\u578B\u8A2D\u5B9A\u6A21\u578B\u9078\u64C7\u5668\u5225\u540D\u548C\u4E0A\u4E0B\u6587\u8996\u7A97\u5927\u5C0F\u3002"
+  },
+  customModelAliases: {
+    placeholder: "\u5225\u540D"
+  },
   customContextLimits: {
     name: "\u81EA\u8A02\u4E0A\u4E0B\u6587\u9650\u5236",
     desc: "\u70BA\u60A8\u7684\u81EA\u8A02\u6A21\u578B\u8A2D\u5B9A\u4E0A\u4E0B\u6587\u8996\u7A97\u5927\u5C0F\u3002\u7559\u7A7A\u4F7F\u7528\u9810\u8A2D\u503C\uFF08200k \u6B0A\u6756\uFF09\u3002",
@@ -48590,6 +49279,7 @@ var EnvSnippetModal = class extends import_obsidian5.Modal {
     let descEl;
     let envVarsEl;
     const contextLimitInputs = /* @__PURE__ */ new Map();
+    const modelAliasInputs = /* @__PURE__ */ new Map();
     let contextLimitsContainer = null;
     const handleKeyDown = (e2) => {
       if (e2.key === "Enter" && !e2.isComposing) {
@@ -48617,6 +49307,13 @@ var EnvSnippetModal = class extends import_obsidian5.Modal {
           }
         }
       }
+      const modelAliases = {};
+      for (const [modelId, input] of modelAliasInputs) {
+        const value = input.value.trim();
+        if (value) {
+          modelAliases[modelId] = value;
+        }
+      }
       const snippet = {
         id: ((_a3 = this.snippet) == null ? void 0 : _a3.id) || `snippet-${Date.now()}`,
         name,
@@ -48626,16 +49323,18 @@ var EnvSnippetModal = class extends import_obsidian5.Modal {
           envVarsEl.value,
           (_c = (_b2 = this.snippet) == null ? void 0 : _b2.scope) != null ? _c : this.snippetScope
         ),
-        contextLimits: Object.keys(contextLimits).length > 0 ? contextLimits : void 0
+        contextLimits: Object.keys(contextLimits).length > 0 ? contextLimits : void 0,
+        modelAliases: modelAliasInputs.size > 0 ? modelAliases : void 0
       };
       this.onSave(snippet);
       this.close();
     };
     const renderContextLimitFields = () => {
-      var _a3, _b2, _c;
+      var _a3, _b2, _c, _d2, _e, _f, _g;
       if (!contextLimitsContainer) return;
       contextLimitsContainer.empty();
       contextLimitInputs.clear();
+      modelAliasInputs.clear();
       const envVars = parseEnvironmentVariables(envVarsEl.value);
       const uniqueModelIds = ProviderRegistry.getCustomModelIds(envVars);
       if (uniqueModelIds.size === 0) {
@@ -48644,24 +49343,35 @@ var EnvSnippetModal = class extends import_obsidian5.Modal {
       }
       contextLimitsContainer.removeClass("claudian-hidden");
       const existingLimits = (_c = (_b2 = (_a3 = this.snippet) == null ? void 0 : _a3.contextLimits) != null ? _b2 : this.plugin.settings.customContextLimits) != null ? _c : {};
+      const existingAliases = (_f = (_e = (_d2 = this.snippet) == null ? void 0 : _d2.modelAliases) != null ? _e : this.plugin.settings.customModelAliases) != null ? _f : {};
       contextLimitsContainer.createEl("div", {
-        text: t("settings.customContextLimits.name"),
+        text: t("settings.customModelOverrides.name"),
         cls: "setting-item-name"
       });
       contextLimitsContainer.createEl("div", {
-        text: t("settings.customContextLimits.desc"),
+        text: t("settings.customModelOverrides.desc"),
         cls: "setting-item-description"
       });
       for (const modelId of uniqueModelIds) {
         const row = contextLimitsContainer.createDiv({ cls: "claudian-snippet-limit-row" });
         row.createSpan({ text: modelId, cls: "claudian-snippet-limit-model" });
         row.createSpan({ cls: "claudian-snippet-limit-spacer" });
+        const aliasInput = row.createEl("input", {
+          type: "text",
+          placeholder: t("settings.customModelAliases.placeholder"),
+          cls: "claudian-snippet-alias-input"
+        });
+        aliasInput.value = (_g = existingAliases[modelId]) != null ? _g : "";
+        aliasInput.setAttribute("aria-label", `Alias for ${modelId}`);
+        aliasInput.title = "Custom label shown in the model selector. Leave empty to use the default.";
+        modelAliasInputs.set(modelId, aliasInput);
         const input = row.createEl("input", {
           type: "text",
           placeholder: "200k",
           cls: "claudian-snippet-limit-input"
         });
         input.value = existingLimits[modelId] ? formatContextLimit(existingLimits[modelId]) : "";
+        input.setAttribute("aria-label", `Context window for ${modelId}`);
         contextLimitInputs.set(modelId, input);
       }
     };
@@ -48802,7 +49512,7 @@ var EnvSnippetManager = class {
     modal.open();
   }
   async insertSnippet(snippet) {
-    var _a3, _b2, _c;
+    var _a3, _b2, _c, _d2, _e;
     const snippetContent = snippet.envVars.trim();
     const updates = getEnvironmentScopeUpdates(
       snippetContent,
@@ -48824,9 +49534,22 @@ var EnvSnippetManager = class {
         ...snippet.contextLimits
       };
     }
+    if (snippet.modelAliases) {
+      const modelIds = ProviderRegistry.getCustomModelIds(parseEnvironmentVariables(snippet.envVars));
+      const nextAliases = { ...(_b2 = this.plugin.settings.customModelAliases) != null ? _b2 : {} };
+      for (const modelId of modelIds) {
+        const alias = (_c = snippet.modelAliases[modelId]) == null ? void 0 : _c.trim();
+        if (alias) {
+          nextAliases[modelId] = alias;
+        } else {
+          delete nextAliases[modelId];
+        }
+      }
+      this.plugin.settings.customModelAliases = nextAliases;
+    }
     await this.plugin.saveSettings();
-    (_b2 = this.onContextLimitsChange) == null ? void 0 : _b2.call(this);
-    const view = (_c = this.plugin.app.workspace.getLeavesOfType("claudian-view")[0]) == null ? void 0 : _c.view;
+    (_d2 = this.onContextLimitsChange) == null ? void 0 : _d2.call(this);
+    const view = (_e = this.plugin.app.workspace.getLeavesOfType("claudian-view")[0]) == null ? void 0 : _e.view;
     view == null ? void 0 : view.refreshModelSelector();
   }
   editSnippet(snippet) {
@@ -49358,8 +50081,8 @@ function getErrorMap() {
 
 // node_modules/zod/v3/helpers/parseUtil.js
 var makeIssue = (params) => {
-  const { data, path: path24, errorMaps, issueData } = params;
-  const fullPath = [...path24, ...issueData.path || []];
+  const { data, path: path27, errorMaps, issueData } = params;
+  const fullPath = [...path27, ...issueData.path || []];
   const fullIssue = {
     ...issueData,
     path: fullPath
@@ -49474,11 +50197,11 @@ var errorUtil;
 
 // node_modules/zod/v3/types.js
 var ParseInputLazyPath = class {
-  constructor(parent, value, path24, key) {
+  constructor(parent, value, path27, key) {
     this._cachedPath = [];
     this.parent = parent;
     this.data = value;
-    this._path = path24;
+    this._path = path27;
     this._key = key;
   }
   get path() {
@@ -54080,7 +54803,7 @@ var Protocol = class {
     };
   }
 };
-function isPlainObject2(value) {
+function isPlainObject3(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 function mergeCapabilities(base, additional) {
@@ -54091,7 +54814,7 @@ function mergeCapabilities(base, additional) {
     if (addValue === void 0)
       continue;
     const baseValue = result[k10];
-    if (isPlainObject2(baseValue) && isPlainObject2(addValue)) {
+    if (isPlainObject3(baseValue) && isPlainObject3(addValue)) {
       result[k10] = { ...baseValue, ...addValue };
     } else {
       result[k10] = addValue;
@@ -56060,12 +56783,12 @@ function appendSpinnerSvg(container) {
   svg.setAttribute("fill", "none");
   svg.setAttribute("stroke", "currentColor");
   svg.setAttribute("stroke-width", "2");
-  const path24 = container.ownerDocument.createElementNS(SVG_NS, "path");
-  path24.setAttribute(
+  const path27 = container.ownerDocument.createElementNS(SVG_NS, "path");
+  path27.setAttribute(
     "d",
     "M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"
   );
-  svg.appendChild(path24);
+  svg.appendChild(path27);
   container.appendChild(svg);
 }
 var McpTestModal = class extends import_obsidian8.Modal {
@@ -56703,13 +57426,14 @@ function getModelTypeFromEnvKey(envKey) {
   const match = envKey.match(/ANTHROPIC_DEFAULT_(\w+)_MODEL/);
   return match ? match[1].toLowerCase() : envKey;
 }
-function getModelsFromEnvironment(envVars) {
+function getModelsFromEnvironment(envVars, modelAliases = {}) {
+  var _a3;
   const modelMap = /* @__PURE__ */ new Map();
   for (const envKey of CUSTOM_MODEL_ENV_KEYS) {
     const type = getModelTypeFromEnvKey(envKey);
     const modelValue = envVars[envKey];
     if (modelValue) {
-      const label = formatCustomModelLabel(modelValue);
+      const label = (_a3 = modelAliases[modelValue]) != null ? _a3 : formatCustomModelLabel(modelValue);
       if (!modelMap.has(modelValue)) {
         modelMap.set(modelValue, { types: [type], label });
       } else {
@@ -56755,13 +57479,6 @@ var DEFAULT_CLAUDE_MODELS = [
   { value: "opus", label: "Opus", description: "Most capable" },
   { value: "opus[1m]", label: "Opus 1M", description: "Most capable (1M context window)" }
 ];
-var THINKING_BUDGETS = [
-  { value: "off", label: "Off", tokens: 0 },
-  { value: "low", label: "Low", tokens: 4e3 },
-  { value: "medium", label: "Med", tokens: 8e3 },
-  { value: "high", label: "High", tokens: 16e3 },
-  { value: "xhigh", label: "Ultra", tokens: 32e3 }
-];
 var EFFORT_LEVELS = [
   { value: "low", label: "Low" },
   { value: "medium", label: "Med" },
@@ -56775,13 +57492,6 @@ var DEFAULT_EFFORT_LEVEL = {
   "sonnet[1m]": "high",
   "opus": "high",
   "opus[1m]": "high"
-};
-var DEFAULT_THINKING_BUDGET = {
-  "haiku": "off",
-  "sonnet": "low",
-  "sonnet[1m]": "low",
-  "opus": "medium",
-  "opus[1m]": "medium"
 };
 var ONE_M_SUFFIX = "[1m]";
 var DEFAULT_MODEL_VALUES = new Set(DEFAULT_CLAUDE_MODELS.map((m2) => m2.value.toLowerCase()));
@@ -56810,11 +57520,6 @@ function resolveCustomContextLimit(model, customLimits) {
   const matchingLimits = Object.entries(customLimits).filter(([key, limit]) => key !== model && normalizeModelId(key) === normalizedModel && isValidContextLimit(limit)).map(([, limit]) => limit);
   return matchingLimits.length === 1 ? matchingLimits[0] : null;
 }
-function isAdaptiveThinkingModel(model) {
-  const normalized = normalizeModelId(model);
-  if (DEFAULT_MODEL_VALUES.has(normalized)) return true;
-  return /claude-(haiku|sonnet|opus)-/.test(normalized);
-}
 function isDefaultClaudeModel(model) {
   return DEFAULT_MODEL_VALUES.has(normalizeModelId(model));
 }
@@ -56834,19 +57539,7 @@ function normalizeEffortLevel(model, effortLevel) {
   }
   return (_a3 = DEFAULT_EFFORT_LEVEL[normalizeModelId(model)]) != null ? _a3 : "high";
 }
-function resolveThinkingTokens(model, thinkingBudget) {
-  var _a3;
-  if (isAdaptiveThinkingModel(model)) {
-    return null;
-  }
-  const budgetConfig = THINKING_BUDGETS.find((budget) => budget.value === thinkingBudget);
-  const thinkingTokens = (_a3 = budgetConfig == null ? void 0 : budgetConfig.tokens) != null ? _a3 : null;
-  return thinkingTokens && thinkingTokens > 0 ? thinkingTokens : null;
-}
-function resolveAdaptiveEffortLevel(model, effortLevel) {
-  if (!isAdaptiveThinkingModel(model)) {
-    return null;
-  }
+function resolveEffortLevel(model, effortLevel) {
   return normalizeEffortLevel(model, effortLevel);
 }
 var CONTEXT_WINDOW_STANDARD = 2e5;
@@ -56896,9 +57589,29 @@ function parseConfiguredCustomModelIds(value) {
   }
   return modelIds;
 }
+function normalizeCustomModelAliases(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return {};
+  }
+  const aliases = {};
+  for (const [rawModelId, rawAlias] of Object.entries(value)) {
+    if (typeof rawAlias !== "string") {
+      continue;
+    }
+    const modelId = rawModelId.trim();
+    const alias = rawAlias.trim();
+    if (modelId && alias) {
+      aliases[modelId] = alias;
+    }
+  }
+  return aliases;
+}
 function getClaudeModelOptions(settings11) {
+  var _a3;
+  const customModelAliases = normalizeCustomModelAliases(settings11.customModelAliases);
   const customModels = getModelsFromEnvironment(
-    getRuntimeEnvironmentVariables(settings11, "claude")
+    getRuntimeEnvironmentVariables(settings11, "claude"),
+    customModelAliases
   );
   if (customModels.length > 0) {
     return customModels;
@@ -56917,7 +57630,7 @@ function getClaudeModelOptions(settings11) {
     seenValues.add(modelId);
     models.push({
       value: modelId,
-      label: formatCustomModelLabel(modelId),
+      label: (_a3 = customModelAliases[modelId]) != null ? _a3 : formatCustomModelLabel(modelId),
       description: "Custom model"
     });
   }
@@ -57252,9 +57965,9 @@ function appendMcpIcon(container) {
   title.textContent = "MCP";
   svg.appendChild(title);
   for (const pathData of MCP_ICON_PATHS) {
-    const path24 = createSvgElement(container.ownerDocument, "path");
-    path24.setAttribute("d", pathData);
-    svg.appendChild(path24);
+    const path27 = createSvgElement(container.ownerDocument, "path");
+    path27.setAttribute("d", pathData);
+    svg.appendChild(path27);
   }
   container.appendChild(svg);
 }
@@ -57310,6 +58023,27 @@ var OPENCODE_PROVIDER_ICON = {
     }
   ]
 };
+var PI_PROVIDER_ICON = {
+  kind: "composite",
+  viewBox: "0 0 800 800",
+  children: [
+    {
+      tag: "path",
+      attributes: {
+        d: "M165.29 165.29H517.36V400H400V517.36H282.65V634.72H165.29ZM282.65 282.65V400H400V282.65Z",
+        fill: "currentColor",
+        "fill-rule": "evenodd"
+      }
+    },
+    {
+      tag: "path",
+      attributes: {
+        d: "M517.36 400H634.72V634.72H517.36Z",
+        fill: "currentColor"
+      }
+    }
+  ]
+};
 function createProviderIconSvg(icon, options = {}) {
   var _a3;
   const ownerDocument = (_a3 = options.ownerDocument) != null ? _a3 : window.document;
@@ -57336,10 +58070,10 @@ function createProviderIconSvg(icon, options = {}) {
     }
     return svg;
   }
-  const path24 = ownerDocument.createElementNS(SVG_NS2, "path");
-  path24.setAttribute("d", icon.path);
-  path24.setAttribute("fill", "currentColor");
-  svg.appendChild(path24);
+  const path27 = ownerDocument.createElementNS(SVG_NS2, "path");
+  path27.setAttribute("d", icon.path);
+  path27.setAttribute("fill", "currentColor");
+  svg.appendChild(path27);
   return svg;
 }
 function createProviderSvgChild(child, ownerDocument) {
@@ -57371,22 +58105,16 @@ var claudeChatUIConfig = {
   ownsModel(model, settings11) {
     return getClaudeModelOptions(settings11).some((option) => option.value === model);
   },
-  isAdaptiveReasoningModel(model, _settings) {
-    return isAdaptiveThinkingModel(model);
+  isAdaptiveReasoningModel(_model, _settings) {
+    return true;
   },
   getReasoningOptions(model, _settings) {
-    if (isAdaptiveThinkingModel(model)) {
-      const levels = supportsXHighEffort(model) ? EFFORT_LEVELS : EFFORT_LEVELS.filter((e2) => e2.value !== "xhigh");
-      return levels.map((e2) => ({ value: e2.value, label: e2.label }));
-    }
-    return THINKING_BUDGETS.map((b10) => ({ value: b10.value, label: b10.label, tokens: b10.tokens }));
+    const levels = supportsXHighEffort(model) ? EFFORT_LEVELS : EFFORT_LEVELS.filter((e2) => e2.value !== "xhigh");
+    return levels.map((e2) => ({ value: e2.value, label: e2.label }));
   },
   getDefaultReasoningValue(model, _settings) {
-    var _a3, _b2;
-    if (isAdaptiveThinkingModel(model)) {
-      return (_a3 = DEFAULT_EFFORT_LEVEL[model]) != null ? _a3 : "high";
-    }
-    return (_b2 = DEFAULT_THINKING_BUDGET[model]) != null ? _b2 : "off";
+    var _a3;
+    return (_a3 = DEFAULT_EFFORT_LEVEL[model]) != null ? _a3 : "high";
   },
   getContextWindowSize(model, customLimits) {
     return getContextWindowSize(model, customLimits);
@@ -57398,16 +58126,11 @@ var claudeChatUIConfig = {
     var _a3;
     const target = settings11;
     if (DEFAULT_CLAUDE_MODELS.some((m2) => m2.value === model)) {
-      target.thinkingBudget = DEFAULT_THINKING_BUDGET[model];
-      if (isAdaptiveThinkingModel(model)) {
-        target.effortLevel = (_a3 = DEFAULT_EFFORT_LEVEL[model]) != null ? _a3 : "high";
-      }
+      target.effortLevel = (_a3 = DEFAULT_EFFORT_LEVEL[model]) != null ? _a3 : "high";
       updateClaudeProviderSettings(target, { lastModel: model });
     } else {
       target.lastCustomModel = model;
-      if (isAdaptiveThinkingModel(model)) {
-        target.effortLevel = normalizeEffortLevel(model, target.effortLevel);
-      }
+      target.effortLevel = normalizeEffortLevel(model, target.effortLevel);
     }
   },
   normalizeModelVariant(model, settings11) {
@@ -58708,16 +59431,9 @@ async function runColdStartQuery(config2, prompt) {
     options.extraArgs = { ...options.extraArgs, "enable-auto-mode": null };
   }
   if (!((_c = config2.thinking) == null ? void 0 : _c.disabled)) {
-    const effortLevel = resolveAdaptiveEffortLevel(selectedModel, settings11.effortLevel);
-    if (effortLevel !== null) {
-      options.thinking = { type: "adaptive" };
-      options.effort = effortLevel;
-    } else {
-      const thinkingTokens = resolveThinkingTokens(selectedModel, settings11.thinkingBudget);
-      if (thinkingTokens !== null) {
-        options.thinking = { type: "enabled", budgetTokens: thinkingTokens };
-      }
-    }
+    const effortLevel = resolveEffortLevel(selectedModel, settings11.effortLevel);
+    options.thinking = { type: "adaptive" };
+    options.effort = effortLevel;
   }
   const response = E$$({ prompt, options });
   let responseText = "";
@@ -59640,7 +60356,8 @@ function parseFileUpdateChangeDiffs(changes) {
   return changes.map(parseFileUpdateChangeDiff).filter((diff) => diff !== null);
 }
 function extractDiffData(toolUseResult, toolCall) {
-  const filePath = toolCall.input.file_path || "file";
+  var _a3, _b2;
+  const filePath = (_b2 = (_a3 = getNonEmptyStringValue(toolCall.input.file_path)) != null ? _a3 : getNonEmptyStringValue(toolCall.input.path)) != null ? _b2 : "file";
   if (toolUseResult && typeof toolUseResult === "object") {
     const result = toolUseResult;
     if (Array.isArray(result.structuredPatch) && result.structuredPatch.length > 0) {
@@ -59650,6 +60367,14 @@ function extractDiffData(toolUseResult, toolCall) {
       const stats = countLineChanges(diffLines);
       return { filePath: resultFilePath, diffLines, stats };
     }
+    const unifiedDiff = getUnifiedDiffText(result);
+    if (unifiedDiff) {
+      const diffLines = parseUnifiedDiffLines(unifiedDiff);
+      if (diffLines.length > 0) {
+        const resultFilePath = (typeof result.filePath === "string" ? result.filePath : null) || (typeof result.path === "string" ? result.path : null) || filePath;
+        return { filePath: resultFilePath, diffLines, stats: countLineChanges(diffLines) };
+      }
+    }
   }
   return diffFromToolInput(toolCall, filePath);
 }
@@ -59658,17 +60383,12 @@ function diffFromToolInput(toolCall, filePath) {
     const oldStr = toolCall.input.old_string;
     const newStr = toolCall.input.new_string;
     if (typeof oldStr === "string" && typeof newStr === "string") {
-      const diffLines = [];
-      const oldLines = oldStr.split("\n");
-      const newLines = newStr.split("\n");
-      let oldLineNum = 1;
-      for (const line of oldLines) {
-        diffLines.push({ type: "delete", text: line, oldLineNum: oldLineNum++ });
-      }
-      let newLineNum = 1;
-      for (const line of newLines) {
-        diffLines.push({ type: "insert", text: line, newLineNum: newLineNum++ });
-      }
+      const diffLines = buildReplacementDiffLines([{ oldText: oldStr, newText: newStr }]);
+      return { filePath, diffLines, stats: countLineChanges(diffLines) };
+    }
+    const editPairs = getEditPairs(toolCall.input);
+    if (editPairs.length > 0) {
+      const diffLines = buildReplacementDiffLines(editPairs);
       return { filePath, diffLines, stats: countLineChanges(diffLines) };
     }
   }
@@ -59685,6 +60405,60 @@ function diffFromToolInput(toolCall, filePath) {
     }
   }
   return void 0;
+}
+function getUnifiedDiffText(result) {
+  if (typeof result.diff === "string" && result.diff.trim()) {
+    return result.diff;
+  }
+  const details = result.details;
+  if (details && typeof details === "object" && !Array.isArray(details)) {
+    const diff = details.diff;
+    if (typeof diff === "string" && diff.trim()) {
+      return diff;
+    }
+  }
+  return null;
+}
+function getEditPairs(input) {
+  const topLevelPair = getReplacementPair(input);
+  if (topLevelPair) {
+    return [topLevelPair];
+  }
+  const edits = input.edits;
+  if (!Array.isArray(edits)) {
+    return [];
+  }
+  return edits.map(getReplacementPair).filter((pair) => pair !== null);
+}
+function getReplacementPair(value) {
+  var _a3, _b2, _c, _d2;
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return null;
+  }
+  const record2 = value;
+  const oldText = getStringValue((_b2 = (_a3 = record2.oldText) != null ? _a3 : record2.old_text) != null ? _b2 : record2.old_string);
+  const newText = getStringValue((_d2 = (_c = record2.newText) != null ? _c : record2.new_text) != null ? _d2 : record2.new_string);
+  return oldText !== null && newText !== null ? { oldText, newText } : null;
+}
+function getStringValue(value) {
+  return typeof value === "string" ? value : null;
+}
+function getNonEmptyStringValue(value) {
+  return typeof value === "string" && value.trim() ? value : null;
+}
+function buildReplacementDiffLines(pairs) {
+  const diffLines = [];
+  let oldLineNum = 1;
+  let newLineNum = 1;
+  for (const pair of pairs) {
+    for (const line of pair.oldText.split("\n")) {
+      diffLines.push({ type: "delete", text: line, oldLineNum: oldLineNum++ });
+    }
+    for (const line of pair.newText.split("\n")) {
+      diffLines.push({ type: "insert", text: line, newLineNum: newLineNum++ });
+    }
+  }
+  return diffLines;
 }
 function buildApplyPatchFileDiff(current) {
   const diffLines = [];
@@ -62073,23 +62847,17 @@ async function applyClaudeDynamicUpdates(deps, queryOptions, restartOptions, all
       deps.notifyFailure("Failed to update model");
     }
   }
-  const effortLevel = resolveAdaptiveEffortLevel(selectedModel, settings11.effortLevel);
-  if (effortLevel !== null) {
-    const currentEffort = (_b2 = (_a3 = deps.getCurrentConfig()) == null ? void 0 : _a3.effortLevel) != null ? _b2 : null;
-    if (effortLevel !== currentEffort) {
-      try {
-        await persistentQuery.applyFlagSettings({ effortLevel });
-        deps.mutateCurrentConfig((config2) => {
-          config2.effortLevel = effortLevel;
-        });
-      } catch (e2) {
-        deps.notifyFailure("Failed to update effort level");
-      }
+  const effortLevel = resolveEffortLevel(selectedModel, settings11.effortLevel);
+  const currentEffort = (_b2 = (_a3 = deps.getCurrentConfig()) == null ? void 0 : _a3.effortLevel) != null ? _b2 : null;
+  if (effortLevel !== currentEffort) {
+    try {
+      await persistentQuery.applyFlagSettings({ effortLevel });
+      deps.mutateCurrentConfig((config2) => {
+        config2.effortLevel = effortLevel;
+      });
+    } catch (e2) {
+      deps.notifyFailure("Failed to update effort level");
     }
-  } else {
-    deps.mutateCurrentConfig((config2) => {
-      config2.effortLevel = null;
-    });
   }
   const configBeforePermissionUpdate = deps.getCurrentConfig();
   if (configBeforePermissionUpdate) {
@@ -62546,7 +63314,6 @@ var QueryOptionsBuilder = class _QueryOptionsBuilder {
     if (currentConfig.pluginsKey !== newConfig.pluginsKey) return true;
     if (currentConfig.settingSources !== newConfig.settingSources) return true;
     if (currentConfig.claudeCliPath !== newConfig.claudeCliPath) return true;
-    if (currentConfig.thinkingTokens !== newConfig.thinkingTokens) return true;
     if (currentConfig.enableChrome !== newConfig.enableChrome) return true;
     if (currentConfig.enableAutoMode !== newConfig.enableAutoMode) return true;
     if (_QueryOptionsBuilder.pathsChanged(currentConfig.externalContextPaths, newConfig.externalContextPaths)) {
@@ -62571,8 +63338,7 @@ var QueryOptionsBuilder = class _QueryOptionsBuilder {
     const settingSources = resolveClaudeSettingSources(claudeSettings.loadUserSettings);
     return {
       model: ctx.settings.model,
-      thinkingTokens: resolveThinkingTokens(ctx.settings.model, ctx.settings.thinkingBudget),
-      effortLevel: resolveAdaptiveEffortLevel(ctx.settings.model, ctx.settings.effortLevel),
+      effortLevel: resolveEffortLevel(ctx.settings.model, ctx.settings.effortLevel),
       permissionMode: ctx.settings.permissionMode,
       sdkPermissionMode,
       systemPromptKey: computeSystemPromptKey(systemPromptSettings),
@@ -62711,16 +63477,9 @@ var QueryOptionsBuilder = class _QueryOptionsBuilder {
     return { options, claudeSettings };
   }
   static applyThinking(options, settings11, model) {
-    const effortLevel = resolveAdaptiveEffortLevel(model, settings11.effortLevel);
-    if (effortLevel !== null) {
-      options.thinking = { type: "adaptive" };
-      options.effort = effortLevel;
-      return;
-    }
-    const thinkingTokens = resolveThinkingTokens(model, settings11.thinkingBudget);
-    if (thinkingTokens !== null) {
-      options.thinking = { type: "enabled", budgetTokens: thinkingTokens };
-    }
+    const effortLevel = resolveEffortLevel(model, settings11.effortLevel);
+    options.thinking = { type: "adaptive" };
+    options.effort = effortLevel;
   }
   static pathsChanged(a2, b10) {
     const aKey = [...a2 || []].sort().join("|");
@@ -64468,57 +65227,21 @@ var CodexAgentMentionProvider = class {
 // src/providers/codex/runtime/CodexAppServerProcess.ts
 var import_child_process5 = require("child_process");
 var SIGKILL_TIMEOUT_MS = 3e3;
-var WINDOWS_CMD_ARGUMENT_CHARS = /[\s"&<>|{}^=;!'+,`~()%@]/u;
-function requiresWindowsShellQuoting(value) {
-  return WINDOWS_CMD_ARGUMENT_CHARS.test(value) || value.includes("[") || value.includes("]");
-}
-function quoteWindowsShellArgument(value) {
-  if (!value.length) {
-    return '""';
-  }
-  if (!requiresWindowsShellQuoting(value)) {
-    return value;
-  }
-  return `"${value.replace(/"/g, '""')}"`;
-}
-function resolveWindowsSpawnSpec(launchSpec) {
-  const command = launchSpec.command.trim();
-  const lowerCommand = command.toLowerCase();
-  if (!command || process.platform !== "win32") {
-    return {
-      command: launchSpec.command,
-      args: launchSpec.args,
-      env: launchSpec.env
-    };
-  }
-  if (lowerCommand.endsWith(".cmd")) {
-    const shellCommand = [command, ...launchSpec.args].map((value) => quoteWindowsShellArgument(value)).join(" ");
-    return {
-      command: process.env.ComSpec || process.env.comspec || "cmd.exe",
-      args: ["/d", "/s", "/c", `"${shellCommand}"`],
-      env: launchSpec.env,
-      windowsVerbatimArguments: true
-    };
-  }
-  return {
-    command: launchSpec.command,
-    args: launchSpec.args,
-    env: launchSpec.env
-  };
-}
 var CodexAppServerProcess = class {
   constructor(launchSpec) {
     this.launchSpec = launchSpec;
     this.proc = null;
     this.alive = false;
     this.exitCallbacks = [];
+    this.resolvedSpawnSpec = null;
   }
   start() {
-    const resolvedSpawnSpec = resolveWindowsSpawnSpec(this.launchSpec);
+    const resolvedSpawnSpec = resolveWindowsCmdShimSpawnSpec(this.launchSpec);
+    this.resolvedSpawnSpec = resolvedSpawnSpec;
     this.proc = (0, import_child_process5.spawn)(resolvedSpawnSpec.command, resolvedSpawnSpec.args, {
       stdio: ["pipe", "pipe", "pipe"],
       cwd: this.launchSpec.spawnCwd,
-      env: resolvedSpawnSpec.env,
+      env: this.launchSpec.env,
       windowsHide: true,
       ...resolvedSpawnSpec.windowsVerbatimArguments ? { windowsVerbatimArguments: true } : {}
     });
@@ -64566,13 +65289,19 @@ var CodexAppServerProcess = class {
         resolve8();
       };
       this.proc.once("exit", onExit);
-      this.proc.kill("SIGTERM");
+      this.killProc("SIGTERM");
       const killTimer = window.setTimeout(() => {
         if (this.alive) {
-          this.proc.kill("SIGKILL");
+          this.killProc("SIGKILL");
         }
       }, SIGKILL_TIMEOUT_MS);
     });
+  }
+  killProc(signal) {
+    if (!this.proc) {
+      return false;
+    }
+    return terminateSpawnedProcess(this.proc, signal, import_child_process5.spawn, this.resolvedSpawnSpec);
   }
 };
 
@@ -65466,7 +66195,7 @@ var CodexSkillCatalog = class {
 // src/providers/codex/runtime/CodexCliResolver.ts
 init_env();
 
-// src/providers/codex/runtime/CodexBinaryLocator.ts
+// src/utils/cliBinaryLocator.ts
 var fs12 = __toESM(require("fs"));
 var path13 = __toESM(require("path"));
 init_env();
@@ -65478,7 +66207,7 @@ function isExistingFile2(filePath) {
     return false;
   }
 }
-function resolveConfiguredPath2(configuredPath) {
+function resolveConfiguredCliPath(configuredPath) {
   const trimmed = (configuredPath != null ? configuredPath : "").trim();
   if (!trimmed) {
     return null;
@@ -65490,6 +66219,53 @@ function resolveConfiguredPath2(configuredPath) {
     return null;
   }
 }
+function findCliBinaryPath(binaryName, additionalPath, platform = process.platform) {
+  const binaryNames = platform === "win32" ? [`${binaryName}.exe`, `${binaryName}.cmd`, binaryName] : [binaryName];
+  const searchEntries = platform === process.platform ? parsePathEntries(getEnhancedPath(additionalPath)) : parsePathEntriesForPlatform(additionalPath, platform);
+  for (const dir of searchEntries) {
+    if (!dir) continue;
+    for (const candidateName of binaryNames) {
+      const candidate = path13.join(dir, candidateName);
+      if (isExistingFile2(candidate)) {
+        return candidate;
+      }
+    }
+  }
+  return null;
+}
+function parsePathEntriesForPlatform(pathValue, platform) {
+  if (!pathValue) {
+    return [];
+  }
+  const delimiter = platform === "win32" ? ";" : ":";
+  return pathValue.split(delimiter).map((segment) => stripSurroundingQuotes2(segment.trim())).filter((segment) => {
+    if (!segment) return false;
+    const upper = segment.toUpperCase();
+    return upper !== "$PATH" && upper !== "${PATH}" && upper !== "%PATH%";
+  }).map((segment) => translateMsysPathForPlatform(expandHomePath(segment), platform));
+}
+function stripSurroundingQuotes2(value) {
+  if (value.startsWith('"') && value.endsWith('"') || value.startsWith("'") && value.endsWith("'")) {
+    return value.slice(1, -1);
+  }
+  return value;
+}
+function translateMsysPathForPlatform(value, platform) {
+  var _a3;
+  if (platform !== "win32") {
+    return value;
+  }
+  const msysMatch = value.match(/^\/([a-zA-Z])(?:\/(.*))?$/);
+  if (!msysMatch) {
+    return value;
+  }
+  const driveLetter = msysMatch[1].toUpperCase();
+  const restOfPath = (_a3 = msysMatch[2]) != null ? _a3 : "";
+  return restOfPath ? `${driveLetter}:\\${restOfPath.replace(/\//g, "\\")}` : `${driveLetter}:`;
+}
+
+// src/providers/codex/runtime/CodexBinaryLocator.ts
+init_env();
 function isWindowsStyleCliReference(value) {
   const trimmed = (value != null ? value : "").trim();
   if (!trimmed) {
@@ -65498,18 +66274,7 @@ function isWindowsStyleCliReference(value) {
   return /^[A-Za-z]:[\\/]/.test(trimmed) || trimmed.startsWith("\\\\") || /\.(?:exe|cmd|bat|ps1)$/i.test(trimmed);
 }
 function findCodexBinaryPath(additionalPath, platform = process.platform) {
-  const binaryNames = platform === "win32" ? ["codex.exe", "codex.cmd", "codex"] : ["codex"];
-  const searchEntries = parsePathEntries(getEnhancedPath(additionalPath));
-  for (const dir of searchEntries) {
-    if (!dir) continue;
-    for (const binaryName of binaryNames) {
-      const candidate = path13.join(dir, binaryName);
-      if (isExistingFile2(candidate)) {
-        return candidate;
-      }
-    }
-  }
-  return null;
+  return findCliBinaryPath("codex", additionalPath, platform);
 }
 function resolveCodexCliPath(hostnamePath, legacyPath, envText, options = {}) {
   var _a3;
@@ -65518,11 +66283,11 @@ function resolveCodexCliPath(hostnamePath, legacyPath, envText, options = {}) {
     const configuredCommand = [hostnamePath, legacyPath].map((value) => (value != null ? value : "").trim()).find((value) => value.length > 0 && !isWindowsStyleCliReference(value));
     return configuredCommand || "codex";
   }
-  const configuredHostnamePath = resolveConfiguredPath2(hostnamePath);
+  const configuredHostnamePath = resolveConfiguredCliPath(hostnamePath);
   if (configuredHostnamePath) {
     return configuredHostnamePath;
   }
-  const configuredLegacyPath = resolveConfiguredPath2(legacyPath);
+  const configuredLegacyPath = resolveConfiguredCliPath(legacyPath);
   if (configuredLegacyPath) {
     return configuredLegacyPath;
   }
@@ -70006,11 +70771,11 @@ var CodexNotificationRouter = class {
     if (payloadType !== "agent_message") {
       return;
     }
-    const text = firstString(payload.text, payload.message);
+    const text = firstString2(payload.text, payload.message);
     this.emitMissingAssistantTurnText(text);
   }
   handleRawFunctionCall(item) {
-    const rawName = firstString(item.name, item.type);
+    const rawName = firstString2(item.name, item.type);
     const callId = readRawCallId(item);
     if (!callId) {
       return;
@@ -70023,7 +70788,7 @@ var CodexNotificationRouter = class {
     this.emitRawToolUse(callId, rawName, item, rawArguments);
   }
   handleRawCustomToolCall(item) {
-    const rawName = firstString(item.name, item.type);
+    const rawName = firstString2(item.name, item.type);
     const callId = readRawCallId(item);
     if (!callId) {
       return;
@@ -70080,7 +70845,7 @@ var CodexNotificationRouter = class {
     });
   }
   emitMissingRawAgentMessageText(item) {
-    const text = item.type === "message" ? readAssistantMessageText(item) : firstString(item.text, item.message);
+    const text = item.type === "message" ? readAssistantMessageText(item) : firstString2(item.text, item.message);
     this.emitMissingAssistantSegmentText(text);
   }
   emitMissingAssistantSegmentText(text, itemId) {
@@ -70170,7 +70935,7 @@ var CodexNotificationRouter = class {
   }
   onFileChangePatchUpdated(params) {
     var _a3;
-    const itemId = firstString(params.itemId);
+    const itemId = firstString2(params.itemId);
     if (!itemId) {
       return;
     }
@@ -70385,7 +71150,7 @@ var CodexNotificationRouter = class {
 function asRecord(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value) ? value : null;
 }
-function firstString(...values) {
+function firstString2(...values) {
   for (const value of values) {
     if (typeof value === "string") {
       return value;
@@ -70397,7 +71162,7 @@ function getItemId(item) {
   return typeof item.id === "string" ? item.id : void 0;
 }
 function readRawCallId(item) {
-  return firstString(item.call_id, item.id);
+  return firstString2(item.call_id, item.id);
 }
 function parseRawArguments(item) {
   const rawArgs = typeof item.arguments === "string" ? item.arguments : typeof item.input === "string" ? item.input : void 0;
@@ -70408,7 +71173,7 @@ function isSilentWriteStdinInput2(input) {
 }
 function normalizeRawToolOutput(normalizedName, rawOutput, input) {
   if (Array.isArray(rawOutput) && normalizedName === "Read") {
-    const filePath = firstString(input == null ? void 0 : input.file_path, input == null ? void 0 : input.path);
+    const filePath = firstString2(input == null ? void 0 : input.file_path, input == null ? void 0 : input.path);
     if (filePath) {
       return filePath;
     }
@@ -70454,15 +71219,15 @@ function normalizeFileChanges(changes) {
 function normalizeFileChange(change) {
   var _a3;
   const record2 = asRecord(change);
-  const path24 = firstString(record2 == null ? void 0 : record2.path);
-  if (!record2 || !path24) {
+  const path27 = firstString2(record2 == null ? void 0 : record2.path);
+  if (!record2 || !path27) {
     return null;
   }
   const kindInfo = normalizeFileChangeKind((_a3 = record2.kind) != null ? _a3 : record2.type);
-  const diff = firstString(record2.diff);
+  const diff = firstString2(record2.diff);
   return {
     ...record2,
-    path: path24,
+    path: path27,
     kind: kindInfo.kind,
     type: kindInfo.kind,
     ...kindInfo.movePath ? { movePath: kindInfo.movePath } : {},
@@ -70474,8 +71239,8 @@ function normalizeFileChangeKind(value) {
     return { kind: value };
   }
   const record2 = asRecord(value);
-  const kind = firstString(record2 == null ? void 0 : record2.type) || "change";
-  const movePath = firstString(record2 == null ? void 0 : record2.move_path);
+  const kind = firstString2(record2 == null ? void 0 : record2.type) || "change";
+  const movePath = firstString2(record2 == null ? void 0 : record2.move_path);
   return {
     kind,
     ...movePath ? { movePath } : {}
@@ -70505,16 +71270,16 @@ function mergeFileChange(previous, next) {
   };
 }
 function fileChangeKey(change) {
-  return `${firstString(change.path)}\0${firstString(change.movePath)}`;
+  return `${firstString2(change.path)}\0${firstString2(change.movePath)}`;
 }
 function formatFileChangeSummary(change) {
   const record2 = asRecord(change);
-  const path24 = firstString(record2 == null ? void 0 : record2.path);
-  if (!record2 || !path24) {
+  const path27 = firstString2(record2 == null ? void 0 : record2.path);
+  if (!record2 || !path27) {
     return "";
   }
-  const kind = firstString(record2.kind, record2.type) || "change";
-  return `${kind}: ${path24}`;
+  const kind = firstString2(record2.kind, record2.type) || "change";
+  return `${kind}: ${path27}`;
 }
 function readContentText(value) {
   if (!Array.isArray(value)) {
@@ -70522,11 +71287,11 @@ function readContentText(value) {
   }
   return value.map((entry) => {
     var _a3;
-    return firstString((_a3 = asRecord(entry)) == null ? void 0 : _a3.text);
+    return firstString2((_a3 = asRecord(entry)) == null ? void 0 : _a3.text);
   }).join("");
 }
 function readAssistantMessageText(item) {
-  if (firstString(item.role) !== "assistant") {
+  if (firstString2(item.role) !== "assistant") {
     return "";
   }
   return readContentText(item.content);
@@ -71878,9 +72643,7 @@ var OpencodeCommandCatalog = class {
 };
 
 // src/providers/opencode/runtime/OpencodeCliResolver.ts
-var fs17 = __toESM(require("node:fs"));
 init_env();
-init_path();
 var OpencodeCliResolver = class {
   constructor() {
     this.cachedHostname = getHostnameKey();
@@ -71908,10 +72671,11 @@ var OpencodeCliResolver = class {
     );
     return this.resolvedPath;
   }
-  resolve(hostnamePaths, legacyPath, _envText) {
-    var _a3, _b2;
+  resolve(hostnamePaths, legacyPath, envText) {
+    var _a3, _b2, _c;
     const hostnamePath = ((_a3 = hostnamePaths == null ? void 0 : hostnamePaths[this.cachedHostname]) != null ? _a3 : "").trim();
-    return (_b2 = resolveConfiguredCliPath(hostnamePath)) != null ? _b2 : resolveConfiguredCliPath(legacyPath.trim());
+    const customEnv = parseEnvironmentVariables(envText || "");
+    return (_c = (_b2 = resolveConfiguredCliPath(hostnamePath)) != null ? _b2 : resolveConfiguredCliPath(legacyPath.trim())) != null ? _c : findCliBinaryPath("opencode", customEnv.PATH);
   }
   reset() {
     this.lastCliPath = "";
@@ -71920,20 +72684,6 @@ var OpencodeCliResolver = class {
     this.resolvedPath = null;
   }
 };
-function resolveConfiguredCliPath(cliPath) {
-  if (!cliPath) {
-    return null;
-  }
-  try {
-    const expanded = expandHomePath(cliPath);
-    if (fs17.existsSync(expanded) && fs17.statSync(expanded).isFile()) {
-      return expanded;
-    }
-  } catch (e2) {
-    return null;
-  }
-  return null;
-}
 
 // src/providers/opencode/storage/OpencodeAgentStorage.ts
 var path16 = __toESM(require("node:path"));
@@ -72224,13 +72974,13 @@ function isSupportedAgentFilePath(filePath) {
 }
 
 // src/providers/opencode/ui/OpencodeSettingsTab.ts
-var fs21 = __toESM(require("fs"));
+var fs20 = __toESM(require("fs"));
 var import_obsidian19 = require("obsidian");
 init_env();
 init_path();
 
 // src/providers/opencode/runtime/OpencodeChatRuntime.ts
-var fs20 = __toESM(require("node:fs/promises"));
+var fs19 = __toESM(require("node:fs/promises"));
 var path19 = __toESM(require("node:path"));
 init_env();
 init_path();
@@ -73052,7 +73802,7 @@ function normalizeToolName(title, kind) {
   return (title == null ? void 0 : title.trim()) || (kind == null ? void 0 : kind.trim()) || "tool";
 }
 function normalizeToolInput2(rawInput) {
-  if (isPlainObject3(rawInput)) {
+  if (isPlainObject4(rawInput)) {
     return rawInput;
   }
   if (rawInput === void 0) {
@@ -73122,7 +73872,7 @@ function formatUnknownValue(value) {
     return "[unserializable]";
   }
 }
-function isPlainObject3(value) {
+function isPlainObject4(value) {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
 }
 function parseIsoDate(value) {
@@ -73147,6 +73897,7 @@ var AcpSubprocess = class {
     this.closeListeners = /* @__PURE__ */ new Set();
     this.notifiedClose = false;
     this.proc = null;
+    this.resolvedSpawnSpec = null;
     this.stderrBuffer = "";
   }
   get stdin() {
@@ -73168,11 +73919,14 @@ var AcpSubprocess = class {
     if (this.proc) {
       return;
     }
-    const proc = (0, import_node_child_process.spawn)(this.launchSpec.command, this.launchSpec.args, {
+    const resolvedSpawnSpec = resolveWindowsCmdShimSpawnSpec(this.launchSpec);
+    this.resolvedSpawnSpec = resolvedSpawnSpec;
+    const proc = (0, import_node_child_process.spawn)(resolvedSpawnSpec.command, resolvedSpawnSpec.args, {
       cwd: this.launchSpec.cwd,
       env: this.launchSpec.env,
       stdio: "pipe",
-      windowsHide: true
+      windowsHide: true,
+      ...resolvedSpawnSpec.windowsVerbatimArguments ? { windowsVerbatimArguments: true } : {}
     });
     proc.stderr.on("data", (chunk) => {
       const text = typeof chunk === "string" ? chunk : chunk.toString("utf-8");
@@ -73212,15 +73966,18 @@ var AcpSubprocess = class {
         resolve8();
       };
       const killTimer = window.setTimeout(() => {
-        proc.kill("SIGKILL");
+        this.killProc(proc, "SIGKILL");
       }, SIGKILL_TIMEOUT_MS2);
       const cleanup = () => {
         window.clearTimeout(killTimer);
         proc.off("exit", onClose);
       };
       proc.once("exit", onClose);
-      proc.kill("SIGTERM");
+      this.killProc(proc, "SIGTERM");
     });
+  }
+  killProc(proc, signal) {
+    return terminateSpawnedProcess(proc, signal, import_node_child_process.spawn, this.resolvedSpawnSpec);
   }
   notifyClose(error48) {
     if (this.notifiedClose) {
@@ -73386,7 +74143,7 @@ var TOOL_NAME_MAP2 = {
   websearch: TOOL_WEB_SEARCH,
   write: TOOL_WRITE
 };
-function isPlainObject4(value) {
+function isPlainObject5(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 function isKnownToolName(value) {
@@ -73402,7 +74159,7 @@ function toKnownToolName(value) {
   const normalized = value.trim().toLowerCase();
   return isKnownToolName(normalized) ? normalized : null;
 }
-function firstString2(...values) {
+function firstString3(...values) {
   for (const value of values) {
     if (typeof value === "string") {
       return value;
@@ -73452,7 +74209,7 @@ function normalizeQuestionOptions(value) {
       const label2 = option.trim();
       return label2 ? [{ description: "", label: label2 }] : [];
     }
-    if (!isPlainObject4(option)) {
+    if (!isPlainObject5(option)) {
       return [];
     }
     const label = typeof option.label === "string" ? option.label.trim() : "";
@@ -73471,7 +74228,7 @@ function normalizeQuestionItems(value) {
   }
   return value.map((item, index) => {
     var _a3, _b2;
-    const record2 = isPlainObject4(item) ? item : {};
+    const record2 = isPlainObject5(item) ? item : {};
     const question = (_a3 = firstTrimmedString(record2.question)) != null ? _a3 : `Question ${index + 1}`;
     const header = (_b2 = firstTrimmedString(record2.header)) != null ? _b2 : `Q${index + 1}`;
     return {
@@ -73500,7 +74257,7 @@ function normalizeTodos(value) {
   }
   return value.flatMap((item) => {
     var _a3;
-    if (!isPlainObject4(item)) {
+    if (!isPlainObject5(item)) {
       return [];
     }
     const content = firstTrimmedString(item.content, item.title, item.description);
@@ -73539,10 +74296,10 @@ function normalizeQuestionAnswers(rawAnswers, questions) {
   return Object.keys(answers).length > 0 ? answers : void 0;
 }
 function extractToolMetadata(rawOutput) {
-  if (!isPlainObject4(rawOutput)) {
+  if (!isPlainObject5(rawOutput)) {
     return null;
   }
-  return isPlainObject4(rawOutput.metadata) ? rawOutput.metadata : null;
+  return isPlainObject5(rawOutput.metadata) ? rawOutput.metadata : null;
 }
 function resolveOpencodeRawToolName(currentRawName, update) {
   const titleName = firstTrimmedString(update.title);
@@ -73566,7 +74323,7 @@ function resolveOpencodeRawToolName(currentRawName, update) {
 }
 function normalizeWebSearchInput2(input) {
   var _a3;
-  const action = isPlainObject4(input.action) ? input.action : {};
+  const action = isPlainObject5(input.action) ? input.action : {};
   const queries = normalizeStringArray3((_a3 = action.queries) != null ? _a3 : input.queries);
   const query = firstNonEmptyString2(action.query, input.query, queries[0]);
   const url2 = firstNonEmptyString2(action.url, input.url);
@@ -73605,20 +74362,20 @@ function normalizeOpencodeToolInput(rawName, input) {
       return { questions: normalizeQuestionItems(input.questions) };
     case "read":
       return {
-        ...firstString2(input.file_path, input.filePath) ? { file_path: firstString2(input.file_path, input.filePath) } : {},
+        ...firstString3(input.file_path, input.filePath) ? { file_path: firstString3(input.file_path, input.filePath) } : {},
         ...typeof input.limit === "number" ? { limit: input.limit } : {},
         ...typeof input.offset === "number" ? { offset: input.offset } : {}
       };
     case "write":
       return {
         ...typeof input.content === "string" ? { content: input.content } : {},
-        ...firstString2(input.file_path, input.filePath) ? { file_path: firstString2(input.file_path, input.filePath) } : {}
+        ...firstString3(input.file_path, input.filePath) ? { file_path: firstString3(input.file_path, input.filePath) } : {}
       };
     case "edit":
       return {
-        ...firstString2(input.file_path, input.filePath) ? { file_path: firstString2(input.file_path, input.filePath) } : {},
-        ...firstString2(input.old_string, input.oldString) ? { old_string: firstString2(input.old_string, input.oldString) } : {},
-        ...firstString2(input.new_string, input.newString) ? { new_string: firstString2(input.new_string, input.newString) } : {},
+        ...firstString3(input.file_path, input.filePath) ? { file_path: firstString3(input.file_path, input.filePath) } : {},
+        ...firstString3(input.old_string, input.oldString) ? { old_string: firstString3(input.old_string, input.oldString) } : {},
+        ...firstString3(input.new_string, input.newString) ? { new_string: firstString3(input.new_string, input.newString) } : {},
         ...typeof input.replace_all === "boolean" ? { replace_all: input.replace_all } : typeof input.replaceAll === "boolean" ? { replace_all: input.replaceAll } : {}
       };
     case "task":
@@ -73644,8 +74401,8 @@ function normalizeOpencodeToolUseResult(rawName, input, rawOutput) {
   const knownName = toKnownToolName(rawName);
   const metadata = extractToolMetadata(rawOutput);
   const normalized = {};
-  if ((knownName === "write" || knownName === "edit") && firstString2(input.file_path, input.filePath, metadata == null ? void 0 : metadata.filepath, metadata == null ? void 0 : metadata.filePath)) {
-    normalized.filePath = firstString2(input.file_path, input.filePath, metadata == null ? void 0 : metadata.filepath, metadata == null ? void 0 : metadata.filePath);
+  if ((knownName === "write" || knownName === "edit") && firstString3(input.file_path, input.filePath, metadata == null ? void 0 : metadata.filepath, metadata == null ? void 0 : metadata.filePath)) {
+    normalized.filePath = firstString3(input.file_path, input.filePath, metadata == null ? void 0 : metadata.filepath, metadata == null ? void 0 : metadata.filePath);
   }
   if (knownName === "question") {
     const questions = Array.isArray(input.questions) ? input.questions : [];
@@ -73715,12 +74472,12 @@ function buildOpencodePromptBlocks(request, conversationHistory = []) {
 }
 
 // src/providers/opencode/runtime/OpencodeLaunchArtifacts.ts
-var fs19 = __toESM(require("node:fs/promises"));
+var fs18 = __toESM(require("node:fs/promises"));
 var path18 = __toESM(require("node:path"));
 init_path();
 
 // src/providers/opencode/runtime/OpencodePaths.ts
-var fs18 = __toESM(require("node:fs"));
+var fs17 = __toESM(require("node:fs"));
 var os11 = __toESM(require("node:os"));
 var path17 = __toESM(require("node:path"));
 var OPENCODE_APP_NAME = "opencode";
@@ -73750,7 +74507,7 @@ function resolveOpencodeDatabasePath(env = process.env) {
   }
   const candidates = getOpencodeDatabasePathCandidates(env);
   for (const candidate of candidates) {
-    if (fs18.existsSync(candidate)) {
+    if (fs17.existsSync(candidate)) {
       return candidate;
     }
   }
@@ -73762,12 +74519,12 @@ function resolveExistingOpencodeDatabasePath(preferredPath, env = process.env) {
     if (preferred === ":memory:") {
       return preferred;
     }
-    if (fs18.existsSync(preferred)) {
+    if (fs17.existsSync(preferred)) {
       return preferred;
     }
   }
   const resolved = resolveOpencodeDatabasePath(env);
-  if (resolved && (resolved === ":memory:" || fs18.existsSync(resolved))) {
+  if (resolved && (resolved === ":memory:" || fs17.existsSync(resolved))) {
     return resolved;
   }
   return preferred != null ? preferred : resolved;
@@ -73783,7 +74540,7 @@ function getOpencodeDatabasePathCandidates(env) {
   for (const dataDir of dataDirs) {
     pushCandidate(candidates, seen, path17.join(dataDir, DEFAULT_DATABASE_NAME));
     try {
-      const matches = fs18.readdirSync(dataDir).filter((entry) => DATABASE_NAME_PATTERN.test(entry)).sort((left, right) => {
+      const matches = fs17.readdirSync(dataDir).filter((entry) => DATABASE_NAME_PATTERN.test(entry)).sort((left, right) => {
         if (left === DEFAULT_DATABASE_NAME) return -1;
         if (right === DEFAULT_DATABASE_NAME) return 1;
         return left.localeCompare(right);
@@ -73861,7 +74618,7 @@ async function prepareOpencodeLaunchArtifacts(params) {
   )}
 `;
   const databasePath = resolveOpencodeDatabasePath(params.runtimeEnv);
-  await fs19.mkdir(artifactsDir, { recursive: true });
+  await fs18.mkdir(artifactsDir, { recursive: true });
   await ensureOpencodeDatabaseDirectory(databasePath);
   await writeIfChanged(systemPromptPath, systemPrompt);
   await writeIfChanged(configPath, configContent);
@@ -73882,22 +74639,22 @@ async function ensureOpencodeDatabaseDirectory(databasePath) {
   if (!databasePath || databasePath === ":memory:") {
     return;
   }
-  await fs19.mkdir(path18.dirname(databasePath), { recursive: true });
+  await fs18.mkdir(path18.dirname(databasePath), { recursive: true });
 }
 function buildOpencodeManagedConfig(baseConfig, systemPromptPath, userName, managedAgents = DEFAULT_OPENCODE_MANAGED_AGENT_CONFIGS, defaultAgentId) {
   const config2 = {
     ...baseConfig,
     $schema: typeof baseConfig.$schema === "string" ? baseConfig.$schema : "https://opencode.ai/config.json"
   };
-  const existingAgents = isPlainObject5(baseConfig.agent) ? { ...baseConfig.agent } : {};
+  const existingAgents = isPlainObject6(baseConfig.agent) ? { ...baseConfig.agent } : {};
   const nextAgents = { ...existingAgents };
   const agentConfigs = managedAgents.length > 0 ? managedAgents : DEFAULT_OPENCODE_MANAGED_AGENT_CONFIGS;
   for (const agentConfig of agentConfigs) {
     const existingAgentValue = existingAgents[agentConfig.id];
-    const existingAgent = isPlainObject5(existingAgentValue) ? { ...existingAgentValue } : {};
+    const existingAgent = isPlainObject6(existingAgentValue) ? { ...existingAgentValue } : {};
     nextAgents[agentConfig.id] = {
       ...existingAgent,
-      ...isPlainObject5(agentConfig.definition) ? agentConfig.definition : {},
+      ...isPlainObject6(agentConfig.definition) ? agentConfig.definition : {},
       prompt: `{file:${systemPromptPath}}`
     };
   }
@@ -73914,13 +74671,13 @@ function buildOpencodeManagedConfig(baseConfig, systemPromptPath, userName, mana
 }
 async function writeIfChanged(filePath, content) {
   try {
-    const existing = await fs19.readFile(filePath, "utf-8");
+    const existing = await fs18.readFile(filePath, "utf-8");
     if (existing === content) {
       return;
     }
   } catch (e2) {
   }
-  await fs19.writeFile(filePath, content, "utf-8");
+  await fs18.writeFile(filePath, content, "utf-8");
 }
 async function loadOpencodeBaseConfig(configuredPath, workspaceRoot) {
   const trimmedPath = configuredPath == null ? void 0 : configuredPath.trim();
@@ -73930,14 +74687,14 @@ async function loadOpencodeBaseConfig(configuredPath, workspaceRoot) {
   const expandedPath = expandHomePath(trimmedPath);
   const resolvedPath = path18.isAbsolute(expandedPath) ? expandedPath : path18.resolve(workspaceRoot, expandedPath);
   try {
-    const rawConfig = await fs19.readFile(resolvedPath, "utf8");
+    const rawConfig = await fs18.readFile(resolvedPath, "utf8");
     const parsedConfig = JSON.parse(rawConfig);
-    return isPlainObject5(parsedConfig) ? parsedConfig : {};
+    return isPlainObject6(parsedConfig) ? parsedConfig : {};
   } catch (e2) {
     return {};
   }
 }
-function isPlainObject5(value) {
+function isPlainObject6(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 function normalizeSystemPrompt(systemPrompt) {
@@ -74910,7 +75667,7 @@ var OpencodeChatRuntime = class {
   async readTextFile(request) {
     var _a3;
     const resolvedPath = this.resolveSessionPath(request.sessionId, request.path);
-    const content = await fs20.readFile(resolvedPath, "utf-8");
+    const content = await fs19.readFile(resolvedPath, "utf-8");
     if (request.line === void 0 && request.limit === void 0) {
       return { content };
     }
@@ -74923,8 +75680,8 @@ var OpencodeChatRuntime = class {
   }
   async writeTextFile(request) {
     const resolvedPath = this.resolveSessionPath(request.sessionId, request.path);
-    await fs20.mkdir(path19.dirname(resolvedPath), { recursive: true });
-    await fs20.writeFile(resolvedPath, request.content, "utf-8");
+    await fs19.mkdir(path19.dirname(resolvedPath), { recursive: true });
+    await fs19.writeFile(resolvedPath, request.content, "utf-8");
     return {};
   }
   resolveSessionPath(sessionId, rawPath) {
@@ -75597,10 +76354,10 @@ var opencodeSettingsTabRenderer = {
         return null;
       }
       const expandedPath = expandHomePath(trimmed);
-      if (!fs21.existsSync(expandedPath)) {
+      if (!fs20.existsSync(expandedPath)) {
         return "Path does not exist";
       }
-      const stat = fs21.statSync(expandedPath);
+      const stat = fs20.statSync(expandedPath);
       if (!stat.isFile()) {
         return "Path must point to a file";
       }
@@ -76178,7 +76935,7 @@ function maybeGetOpencodeWorkspaceServices() {
 }
 
 // src/providers/opencode/runtime/OpencodeAuxQueryRunner.ts
-var fs22 = __toESM(require("node:fs/promises"));
+var fs21 = __toESM(require("node:fs/promises"));
 var path20 = __toESM(require("node:path"));
 init_path();
 
@@ -76641,7 +77398,7 @@ ${stderr}` : message,
   async readTextFile(request) {
     var _a3;
     const resolvedPath = this.resolveSessionPath(request.sessionId, request.path);
-    const content = await fs22.readFile(resolvedPath, "utf-8");
+    const content = await fs21.readFile(resolvedPath, "utf-8");
     if (request.line === void 0 && request.limit === void 0) {
       return { content };
     }
@@ -76925,22 +77682,46 @@ var opencodeSettingsReconciler = {
 
 // src/providers/opencode/history/OpencodeHistoryStore.ts
 var import_node_child_process2 = require("node:child_process");
-var fs23 = __toESM(require("node:fs"));
+var fs22 = __toESM(require("node:fs"));
+var OPENCODE_MESSAGE_ROW_SQL = buildOpencodeMessageRowsSql("?");
+var OPENCODE_PART_ROW_SQL = buildOpencodePartRowsSql("?");
+var OPENCODE_HYDRATION_DIAGNOSTIC_ID_PREFIX = "opencode-hydration-error";
 async function loadOpencodeSessionMessages(sessionId, providerState) {
   const databasePath = resolveExistingOpencodeDatabasePath(providerState == null ? void 0 : providerState.databasePath);
-  if (!databasePath || databasePath === ":memory:" || !fs23.existsSync(databasePath)) {
+  if (!databasePath || databasePath === ":memory:" || !fs22.existsSync(databasePath)) {
     return [];
   }
   const rows = await loadOpencodeSessionRows(databasePath, sessionId);
   if (!rows) {
-    return [];
+    return [createOpencodeHydrationDiagnosticMessage({
+      databasePath,
+      reason: "Could not read OpenCode session rows from SQLite.",
+      sessionId
+    })];
   }
   return mapOpencodeMessages(
-    hydrateStoredMessages(rows.messageRows, rows.partRows)
+    hydrateStoredMessages(rows.messageRows, rows.partRows),
+    { databasePath, sessionId }
   );
 }
-function mapOpencodeMessages(messages) {
-  return mergeAdjacentAssistantMessages(messages.map((message) => mapStoredMessage(message)).filter((message) => message !== null));
+function mapOpencodeMessages(messages, context = {}) {
+  var _a3;
+  const mappedMessages = [];
+  for (const message of messages) {
+    try {
+      const mappedMessage = mapStoredMessage(message, context);
+      if (mappedMessage) {
+        mappedMessages.push(mappedMessage);
+      }
+    } catch (error48) {
+      mappedMessages.push(createOpencodeHydrationDiagnosticMessage({
+        ...context,
+        messageId: (_a3 = getString(message.info.id)) != null ? _a3 : void 0,
+        reason: formatUnknownError(error48)
+      }));
+    }
+  }
+  return mergeAdjacentAssistantMessages(mappedMessages);
 }
 function hydrateStoredMessages(messageRows, partRows) {
   var _a3;
@@ -76959,24 +77740,41 @@ function hydrateStoredMessages(messageRows, partRows) {
   return messageRows.flatMap((row) => {
     var _a4;
     const id = getString(row.id);
-    const data = parseJsonObject2(row.data);
-    if (!id || !data) {
+    if (!id) {
       return [];
     }
+    const data = parseJsonObject2(row.data);
     return [{
-      info: { ...data, id, time_created: row.time_created },
+      info: data ? { ...data, id, time_created: row.time_created } : {
+        data_time_completed: row.data_time_completed,
+        data_time_created: row.data_time_created,
+        data_valid: row.data_valid,
+        id,
+        role: row.role,
+        time_created: row.time_created
+      },
       parts: (_a4 = partsByMessage.get(id)) != null ? _a4 : []
     }];
   });
 }
-function mapStoredMessage(message) {
-  var _a3, _b2;
+function mapStoredMessage(message, context) {
+  var _a3;
   const role = getString(message.info.role);
   const id = getString(message.info.id);
-  if (!id || role !== "user" && role !== "assistant") {
+  if (!id) {
     return null;
   }
-  const createdAt = (_b2 = (_a3 = getNestedNumber(message.info, ["time", "created"])) != null ? _a3 : getNumber(message.info.time_created)) != null ? _b2 : Date.now();
+  if (isInvalidStoredMessageData(message.info)) {
+    return createOpencodeHydrationDiagnosticMessage({
+      ...context,
+      messageId: id,
+      reason: "OpenCode message metadata is not valid JSON."
+    });
+  }
+  if (role !== "user" && role !== "assistant") {
+    return null;
+  }
+  const createdAt = (_a3 = getMessageCreatedAt(message.info)) != null ? _a3 : Date.now();
   if (role === "user") {
     const promptText = extractUserQuery(getJoinedTextParts(message.parts));
     return {
@@ -76990,7 +77788,7 @@ function mapStoredMessage(message) {
   }
   const contentBlocks = buildAssistantContentBlocks(message.parts);
   const toolCalls = buildAssistantToolCalls(message.parts);
-  const completedAt = getNestedNumber(message.info, ["time", "completed"]);
+  const completedAt = getMessageCompletedAt(message.info);
   const durationSeconds = completedAt && completedAt >= createdAt ? Math.max(0, (completedAt - createdAt) / 1e3) : void 0;
   return {
     assistantMessageId: id,
@@ -77008,7 +77806,7 @@ function mergeAdjacentAssistantMessages(messages) {
   const merged = [];
   for (const message of messages) {
     const previous = merged[merged.length - 1];
-    if (message.role === "assistant" && (previous == null ? void 0 : previous.role) === "assistant" && !message.isInterrupt && !previous.isInterrupt) {
+    if (message.role === "assistant" && (previous == null ? void 0 : previous.role) === "assistant" && !message.isInterrupt && !previous.isInterrupt && !isOpencodeHydrationDiagnosticMessage(message) && !isOpencodeHydrationDiagnosticMessage(previous)) {
       previous.content += message.content;
       previous.assistantMessageId = (_a3 = message.assistantMessageId) != null ? _a3 : previous.assistantMessageId;
       previous.durationFlavorWord = (_b2 = message.durationFlavorWord) != null ? _b2 : previous.durationFlavorWord;
@@ -77044,6 +77842,52 @@ function getMessageCompletionTime(message) {
     return null;
   }
   return message.timestamp + message.durationSeconds * 1e3;
+}
+function getMessageCreatedAt(info) {
+  var _a3, _b2;
+  return (_b2 = (_a3 = getNestedNumber(info, ["time", "created"])) != null ? _a3 : getNumber(info.data_time_created)) != null ? _b2 : getNumber(info.time_created);
+}
+function getMessageCompletedAt(info) {
+  var _a3;
+  return (_a3 = getNestedNumber(info, ["time", "completed"])) != null ? _a3 : getNumber(info.data_time_completed);
+}
+function isInvalidStoredMessageData(info) {
+  return getNumber(info.data_valid) === 0;
+}
+function createOpencodeHydrationDiagnosticMessage(params) {
+  const detailLines = [
+    "Failed to hydrate OpenCode session.",
+    "provider: OpenCode",
+    ...params.sessionId ? [`sessionId: ${params.sessionId}`] : [],
+    ...params.databasePath ? [`databasePath: ${params.databasePath}`] : [],
+    ...params.messageId ? [`messageId: ${params.messageId}`] : [],
+    `reason: ${params.reason}`
+  ];
+  const content = detailLines.join("\n");
+  return {
+    assistantMessageId: void 0,
+    content,
+    contentBlocks: [{ content, type: "text" }],
+    id: buildOpencodeHydrationDiagnosticId(params),
+    role: "assistant",
+    timestamp: Date.now()
+  };
+}
+function buildOpencodeHydrationDiagnosticId(params) {
+  var _a3, _b2;
+  const scope = params.messageId ? "message" : "session";
+  const rawId = (_b2 = (_a3 = params.messageId) != null ? _a3 : params.sessionId) != null ? _b2 : String(Date.now());
+  const safeId = rawId.replace(/[^a-zA-Z0-9._-]/g, "-").slice(0, 120) || String(Date.now());
+  return `${OPENCODE_HYDRATION_DIAGNOSTIC_ID_PREFIX}-${scope}-${safeId}`;
+}
+function isOpencodeSessionHydrationDiagnosticMessage(message) {
+  return message.id.startsWith(`${OPENCODE_HYDRATION_DIAGNOSTIC_ID_PREFIX}-session-`);
+}
+function isOpencodeHydrationDiagnosticMessage(message) {
+  return message.id.startsWith(OPENCODE_HYDRATION_DIAGNOSTIC_ID_PREFIX);
+}
+function formatUnknownError(error48) {
+  return error48 instanceof Error ? error48.message : String(error48);
 }
 function buildAssistantContentBlocks(parts) {
   var _a3;
@@ -77160,19 +78004,19 @@ function parseJsonObject2(value) {
   }
   try {
     const parsed = JSON.parse(value);
-    return isPlainObject6(parsed) ? parsed : null;
+    return isPlainObject7(parsed) ? parsed : null;
   } catch (e2) {
     return null;
   }
 }
-function isPlainObject6(value) {
+function isPlainObject7(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 function getBoolean(value) {
   return value === true;
 }
 function getObject(value) {
-  return isPlainObject6(value) ? value : null;
+  return isPlainObject7(value) ? value : null;
 }
 function getString(value) {
   return typeof value === "string" ? value : null;
@@ -77183,7 +78027,7 @@ function getNumber(value) {
 function getNestedNumber(value, keys) {
   let current = value;
   for (const key of keys) {
-    if (!isPlainObject6(current)) {
+    if (!isPlainObject7(current)) {
       return null;
     }
     current = current[key];
@@ -77212,12 +78056,8 @@ async function loadSessionRowsWithNodeSqlite(databasePath, sessionId) {
   let db2 = null;
   try {
     db2 = new sqlite.DatabaseSync(databasePath, { readonly: true });
-    const messageRows = db2.prepare(
-      "select id, time_created, data from message where session_id = ? order by time_created asc, id asc"
-    ).all(sessionId);
-    const partRows = db2.prepare(
-      "select id, message_id, data from part where session_id = ? order by message_id asc, id asc"
-    ).all(sessionId);
+    const messageRows = db2.prepare(OPENCODE_MESSAGE_ROW_SQL).all(sessionId);
+    const partRows = db2.prepare(OPENCODE_PART_ROW_SQL).all(sessionId);
     return { messageRows, partRows };
   } catch (e2) {
     return null;
@@ -77229,11 +78069,11 @@ function loadSessionRowsWithSqliteCli(databasePath, sessionId) {
   const escapedSessionId = escapeSqlLiteral(sessionId);
   const messageRows = runSqlite3JsonQuery(
     databasePath,
-    `select id, time_created, data from message where session_id = '${escapedSessionId}' order by time_created asc, id asc;`
+    buildOpencodeMessageRowsSql(`'${escapedSessionId}'`)
   );
   const partRows = runSqlite3JsonQuery(
     databasePath,
-    `select id, message_id, data from part where session_id = '${escapedSessionId}' order by message_id asc, id asc;`
+    buildOpencodePartRowsSql(`'${escapedSessionId}'`)
   );
   if (!messageRows || !partRows) {
     return null;
@@ -77253,13 +78093,41 @@ function runSqlite3JsonQuery(databasePath, sql) {
   }
   try {
     const parsed = JSON.parse(result.stdout || "[]");
-    return Array.isArray(parsed) ? parsed.filter((row) => isPlainObject6(row)) : null;
+    return Array.isArray(parsed) ? parsed.filter((row) => isPlainObject7(row)) : null;
   } catch (e2) {
     return null;
   }
 }
 function escapeSqlLiteral(value) {
   return value.replaceAll("'", "''");
+}
+function buildOpencodeMessageRowsSql(sessionIdExpression) {
+  return `
+with message_json as (
+  select
+    id,
+    time_created,
+    data,
+    json_valid(data) as data_valid
+  from message
+  where session_id = ${sessionIdExpression}
+)
+select
+  id,
+  time_created,
+  data_valid,
+  case when data_valid then json_extract(data, '$.role') end as role,
+  case when data_valid then json_extract(data, '$.time.created') end as data_time_created,
+  case when data_valid then json_extract(data, '$.time.completed') end as data_time_completed
+from message_json
+order by time_created asc, id asc;`.trim();
+}
+function buildOpencodePartRowsSql(sessionIdExpression) {
+  return `
+select id, message_id, data
+from part
+where session_id = ${sessionIdExpression}
+order by message_id asc, id asc;`.trim();
 }
 
 // src/providers/opencode/history/OpencodeConversationHistoryService.ts
@@ -77285,6 +78153,10 @@ var OpencodeConversationHistoryService = class {
       return;
     }
     conversation.messages = messages;
+    if (messages.length === 1 && isOpencodeSessionHydrationDiagnosticMessage(messages[0])) {
+      this.hydratedKeys.delete(conversation.id);
+      return;
+    }
     this.hydratedKeys.set(conversation.id, hydrationKey);
   }
   async deleteConversationSession(_conversation, _vaultPath) {
@@ -77325,6 +78197,3422 @@ var opencodeProviderRegistration = {
   taskResultInterpreter: new OpencodeTaskResultInterpreter()
 };
 
+// src/providers/pi/commands/PiCommandCatalog.ts
+function slashCommandToEntry3(command) {
+  var _a3, _b2;
+  return {
+    agent: command.agent,
+    allowedTools: command.allowedTools,
+    argumentHint: command.argumentHint,
+    content: command.content,
+    context: command.context,
+    description: command.description,
+    disableModelInvocation: command.disableModelInvocation,
+    displayPrefix: "/",
+    hooks: command.hooks,
+    id: command.id,
+    insertPrefix: "/",
+    isDeletable: false,
+    isEditable: false,
+    kind: (_a3 = command.kind) != null ? _a3 : "command",
+    model: command.model,
+    name: command.name,
+    providerId: "pi",
+    scope: "runtime",
+    source: (_b2 = command.source) != null ? _b2 : "sdk",
+    userInvocable: command.userInvocable
+  };
+}
+function dedupeRuntimeCommands2(commands) {
+  const deduped = [];
+  const seen = /* @__PURE__ */ new Set();
+  for (const command of commands) {
+    const normalizedName = command.name.trim().replace(/^\/+/, "");
+    if (!normalizedName) {
+      continue;
+    }
+    const key = normalizedName.toLowerCase();
+    if (seen.has(key)) {
+      continue;
+    }
+    seen.add(key);
+    deduped.push({
+      ...command,
+      name: normalizedName
+    });
+  }
+  return deduped;
+}
+var PiCommandCatalog = class {
+  constructor() {
+    this.runtimeCommands = [];
+  }
+  setRuntimeCommands(commands) {
+    this.runtimeCommands = dedupeRuntimeCommands2(commands);
+  }
+  async listDropdownEntries(_context) {
+    return this.runtimeCommands.map(slashCommandToEntry3);
+  }
+  async listVaultEntries() {
+    return [];
+  }
+  async saveVaultEntry(_entry) {
+    throw new Error("Pi runtime commands are not editable from Claudian.");
+  }
+  async deleteVaultEntry(_entry) {
+    throw new Error("Pi runtime commands are not deletable from Claudian.");
+  }
+  getDropdownConfig() {
+    return {
+      builtInPrefix: "/",
+      commandPrefix: "/",
+      providerId: "pi",
+      skillPrefix: "/",
+      triggerChars: ["/"]
+    };
+  }
+  async refresh() {
+  }
+};
+
+// src/providers/pi/runtime/PiCliResolver.ts
+init_env();
+var PiCliResolver = class {
+  constructor() {
+    this.cachedHostname = getHostnameKey();
+    this.lastCliPath = "";
+    this.lastEnvText = "";
+    this.lastHostnamePath = "";
+    this.resolvedPath = null;
+  }
+  resolveFromSettings(settings11) {
+    var _a3;
+    const piSettings = getPiProviderSettings(settings11);
+    const cliPath = piSettings.cliPath.trim();
+    const hostnamePath = ((_a3 = piSettings.cliPathsByHost[this.cachedHostname]) != null ? _a3 : "").trim();
+    const envText = getRuntimeEnvironmentText(settings11, "pi");
+    if (this.resolvedPath !== null && cliPath === this.lastCliPath && hostnamePath === this.lastHostnamePath && envText === this.lastEnvText) {
+      return this.resolvedPath;
+    }
+    this.lastCliPath = cliPath;
+    this.lastHostnamePath = hostnamePath;
+    this.lastEnvText = envText;
+    this.resolvedPath = this.resolve(piSettings.cliPathsByHost, cliPath, envText);
+    return this.resolvedPath;
+  }
+  resolve(hostnamePaths, legacyPath, envText = "") {
+    var _a3, _b2, _c;
+    const hostnamePath = ((_a3 = hostnamePaths == null ? void 0 : hostnamePaths[this.cachedHostname]) != null ? _a3 : "").trim();
+    const customEnv = parseEnvironmentVariables(envText || "");
+    return (_c = (_b2 = resolveConfiguredCliPath(hostnamePath)) != null ? _b2 : resolveConfiguredCliPath(legacyPath.trim())) != null ? _c : findCliBinaryPath("pi", customEnv.PATH);
+  }
+  reset() {
+    this.lastCliPath = "";
+    this.lastHostnamePath = "";
+    this.lastEnvText = "";
+    this.resolvedPath = null;
+  }
+};
+
+// src/providers/pi/ui/PiSettingsTab.ts
+var fs23 = __toESM(require("node:fs"));
+var import_obsidian20 = require("obsidian");
+init_env();
+init_path();
+
+// src/providers/pi/internal/compareCollections.ts
+function sameStringList2(left, right) {
+  return left.length === right.length && left.every((value, index) => value === right[index]);
+}
+
+// src/providers/pi/runtime/PiModelDiscoveryService.ts
+init_env();
+init_path();
+
+// src/providers/pi/runtime/PiLaunchSpec.ts
+var READONLY_TOOLS = "read,grep,find,ls";
+function buildPiLaunchSpec(params) {
+  var _a3, _b2, _c, _d2, _e, _f;
+  const args = ["--mode", "rpc"];
+  const systemPrompt = (_a3 = params.systemPrompt) == null ? void 0 : _a3.trim();
+  if (systemPrompt) {
+    args.push("--system-prompt", systemPrompt);
+  }
+  if (params.noSession) {
+    args.push("--no-session");
+  } else if (((_b2 = params.providerState) == null ? void 0 : _b2.sessionFile) || ((_c = params.providerState) == null ? void 0 : _c.sessionId)) {
+    args.push("--session", (_d2 = params.providerState.sessionFile) != null ? _d2 : params.providerState.sessionId);
+  }
+  if (params.noTools) {
+    args.push("--no-tools");
+  } else if (params.settings.toolMode === "readonly") {
+    args.push("--tools", READONLY_TOOLS);
+  }
+  const decodedModel = typeof params.model === "string" ? decodePiModelId(params.model) : null;
+  if (decodedModel) {
+    args.push("--provider", decodedModel.provider, "--model", decodedModel.modelId);
+  }
+  const thinkingLevel = normalizePiThinkingLevel(params.thinkingLevel);
+  if (thinkingLevel && thinkingLevel !== "off") {
+    args.push("--thinking", thinkingLevel);
+  }
+  return {
+    args,
+    command: params.command,
+    cwd: params.cwd,
+    env: (_e = params.env) != null ? _e : process.env,
+    launchKey: JSON.stringify({
+      args,
+      command: params.command,
+      cwd: params.cwd,
+      envText: (_f = params.envText) != null ? _f : params.settings.environmentVariables
+    })
+  };
+}
+
+// src/providers/pi/runtime/PiJsonl.ts
+function subscribePiJsonlLines(input, onLine, onEnd, onError) {
+  let buffer = "";
+  const handleData = (chunk) => {
+    buffer += typeof chunk === "string" ? chunk : chunk.toString("utf8");
+    while (true) {
+      const newlineIndex = buffer.indexOf("\n");
+      if (newlineIndex < 0) {
+        break;
+      }
+      const line = stripTrailingCarriageReturn(buffer.slice(0, newlineIndex));
+      buffer = buffer.slice(newlineIndex + 1);
+      onLine(line);
+    }
+  };
+  const handleEnd = () => {
+    if (buffer.length > 0) {
+      onLine(stripTrailingCarriageReturn(buffer));
+      buffer = "";
+    }
+    onEnd == null ? void 0 : onEnd();
+  };
+  const handleError = (error48) => {
+    onError == null ? void 0 : onError(error48 instanceof Error ? error48 : new Error(String(error48)));
+  };
+  input.on("data", handleData);
+  input.on("end", handleEnd);
+  input.on("close", handleEnd);
+  input.on("error", handleError);
+  return () => {
+    input.off("data", handleData);
+    input.off("end", handleEnd);
+    input.off("close", handleEnd);
+    input.off("error", handleError);
+  };
+}
+function writePiJsonl(output, record2) {
+  output.write(`${JSON.stringify(record2)}
+`);
+}
+function stripTrailingCarriageReturn(value) {
+  return value.endsWith("\r") ? value.slice(0, -1) : value;
+}
+
+// src/providers/pi/runtime/PiRpcTransport.ts
+var DEFAULT_TIMEOUT_MS3 = 3e4;
+var PiRpcTransportClosedError = class extends Error {
+  constructor(message = "Pi RPC transport closed") {
+    super(message);
+    this.name = "PiRpcTransportClosedError";
+  }
+};
+var PiRpcResponseError = class extends Error {
+  constructor(commandType, message) {
+    super(message);
+    this.commandType = commandType;
+    this.name = "PiRpcResponseError";
+  }
+};
+var PiRpcTransport = class {
+  constructor(streams, defaultTimeoutMs = DEFAULT_TIMEOUT_MS3) {
+    this.streams = streams;
+    this.defaultTimeoutMs = defaultTimeoutMs;
+    this.closeListeners = /* @__PURE__ */ new Set();
+    this.disposed = false;
+    this.eventHandlers = /* @__PURE__ */ new Set();
+    this.nextId = 1;
+    this.pending = /* @__PURE__ */ new Map();
+  }
+  get isClosed() {
+    return this.disposed;
+  }
+  start() {
+    var _a3, _b2;
+    if (this.unsubscribeLines || this.disposed) {
+      return;
+    }
+    this.unsubscribeLines = subscribePiJsonlLines(
+      this.streams.input,
+      (line) => this.handleLine(line),
+      () => {
+        if (!this.disposed) {
+          this.dispose(new PiRpcTransportClosedError("Pi RPC input closed"));
+        }
+      },
+      (error48) => {
+        if (!this.disposed) {
+          this.dispose(error48);
+        }
+      }
+    );
+    this.unregisterClose = (_b2 = (_a3 = this.streams).onClose) == null ? void 0 : _b2.call(_a3, (error48) => {
+      if (!this.disposed) {
+        this.dispose(error48 != null ? error48 : new PiRpcTransportClosedError());
+      }
+    });
+  }
+  onEvent(handler) {
+    this.eventHandlers.add(handler);
+    return () => {
+      this.eventHandlers.delete(handler);
+    };
+  }
+  onClose(listener) {
+    this.closeListeners.add(listener);
+    return () => {
+      this.closeListeners.delete(listener);
+    };
+  }
+  request(commandType, payload = {}, timeoutMs = this.defaultTimeoutMs) {
+    this.start();
+    if (this.disposed) {
+      return Promise.reject(new PiRpcTransportClosedError());
+    }
+    const id = `req_${this.nextId++}`;
+    return new Promise((resolve8, reject) => {
+      let timer;
+      const cleanup = () => {
+        if (timer !== void 0) {
+          window.clearTimeout(timer);
+        }
+      };
+      if (timeoutMs > 0) {
+        timer = window.setTimeout(() => {
+          this.pending.delete(id);
+          cleanup();
+          reject(new Error(`Request timeout: ${commandType} (${timeoutMs}ms)`));
+        }, timeoutMs);
+      }
+      this.pending.set(id, {
+        cleanup,
+        reject,
+        resolve: (response) => resolve8(response),
+        type: commandType
+      });
+      try {
+        this.sendRaw({ id, type: commandType, ...payload });
+      } catch (error48) {
+        this.pending.delete(id);
+        cleanup();
+        const transportError = error48 instanceof Error ? error48 : new Error(String(error48));
+        this.dispose(transportError);
+        reject(transportError);
+      }
+    });
+  }
+  send(record2) {
+    this.start();
+    if (this.disposed) {
+      return;
+    }
+    this.sendRaw(record2);
+  }
+  dispose(error48 = new PiRpcTransportClosedError("Pi RPC transport disposed")) {
+    var _a3, _b2;
+    if (this.disposed) {
+      return;
+    }
+    this.disposed = true;
+    (_a3 = this.unsubscribeLines) == null ? void 0 : _a3.call(this);
+    this.unsubscribeLines = void 0;
+    (_b2 = this.unregisterClose) == null ? void 0 : _b2.call(this);
+    this.unregisterClose = void 0;
+    this.rejectAllPending(error48);
+    for (const listener of this.closeListeners) {
+      try {
+        listener(error48);
+      } catch (e2) {
+      }
+    }
+    this.closeListeners.clear();
+    this.eventHandlers.clear();
+  }
+  sendRaw(record2) {
+    writePiJsonl(this.streams.output, record2);
+  }
+  handleLine(line) {
+    if (!line.trim()) {
+      return;
+    }
+    let record2;
+    try {
+      const parsed = JSON.parse(line);
+      if (!isPlainObject8(parsed)) {
+        return;
+      }
+      record2 = parsed;
+    } catch (e2) {
+      return;
+    }
+    if (record2.type === "response" && typeof record2.id === "string") {
+      this.handleResponse(record2.id, record2);
+      return;
+    }
+    for (const handler of this.eventHandlers) {
+      handler(record2);
+    }
+  }
+  handleResponse(id, record2) {
+    const pending = this.pending.get(id);
+    if (!pending) {
+      return;
+    }
+    this.pending.delete(id);
+    pending.cleanup();
+    if (record2.success === false) {
+      const errorText = typeof record2.error === "string" ? record2.error : `Pi RPC command failed: ${pending.type}`;
+      pending.reject(new PiRpcResponseError(pending.type, errorText));
+      return;
+    }
+    if ("result" in record2) {
+      pending.resolve(record2.result);
+      return;
+    }
+    if ("data" in record2) {
+      pending.resolve(record2.data);
+      return;
+    }
+    pending.resolve(record2);
+  }
+  rejectAllPending(error48) {
+    for (const pending of this.pending.values()) {
+      pending.cleanup();
+      pending.reject(error48);
+    }
+    this.pending.clear();
+  }
+};
+function isPlainObject8(value) {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+// src/providers/pi/runtime/PiSubprocess.ts
+var import_node_child_process3 = require("node:child_process");
+var path21 = __toESM(require("node:path"));
+init_env();
+var SIGKILL_TIMEOUT_MS3 = 3e3;
+var STDERR_BUFFER_LIMIT2 = 8e3;
+var PiSubprocess = class {
+  constructor(launchSpec) {
+    this.launchSpec = launchSpec;
+    this.closeError = null;
+    this.closeListeners = /* @__PURE__ */ new Set();
+    this.notifiedClose = false;
+    this.proc = null;
+    this.resolvedSpawnSpec = null;
+    this.stderrBuffer = "";
+  }
+  get stdin() {
+    return this.requireProc().stdin;
+  }
+  get stdout() {
+    return this.requireProc().stdout;
+  }
+  requireProc() {
+    if (!this.proc) {
+      throw new Error("Pi subprocess is not started");
+    }
+    return this.proc;
+  }
+  start() {
+    if (this.proc) {
+      return;
+    }
+    const resolvedSpawnSpec = resolveWindowsCmdShimSpawnSpec(this.launchSpec);
+    this.resolvedSpawnSpec = resolvedSpawnSpec;
+    const proc = (0, import_node_child_process3.spawn)(resolvedSpawnSpec.command, resolvedSpawnSpec.args, {
+      cwd: this.launchSpec.cwd,
+      env: {
+        ...this.launchSpec.env,
+        PATH: getEnhancedPath(
+          this.launchSpec.env.PATH,
+          path21.isAbsolute(this.launchSpec.command) ? this.launchSpec.command : void 0
+        )
+      },
+      stdio: "pipe",
+      windowsHide: true,
+      ...resolvedSpawnSpec.windowsVerbatimArguments ? { windowsVerbatimArguments: true } : {}
+    });
+    proc.stderr.on("data", (chunk) => {
+      const text = typeof chunk === "string" ? chunk : chunk.toString("utf-8");
+      this.stderrBuffer = `${this.stderrBuffer}${text}`.slice(-STDERR_BUFFER_LIMIT2);
+    });
+    proc.on("error", (error48) => {
+      this.closeError = error48;
+      this.notifyClose(error48);
+    });
+    proc.on("exit", (code, signal) => {
+      var _a3;
+      const exitError = (_a3 = this.closeError) != null ? _a3 : code === 0 && signal === null ? void 0 : new Error(`Pi subprocess exited (${formatExit2(code, signal)})`);
+      this.notifyClose(exitError);
+    });
+    this.proc = proc;
+  }
+  isAlive() {
+    return this.proc !== null && this.proc.exitCode === null && !this.proc.killed;
+  }
+  getStderrSnapshot() {
+    return this.stderrBuffer.trim();
+  }
+  onClose(listener) {
+    this.closeListeners.add(listener);
+    return () => {
+      this.closeListeners.delete(listener);
+    };
+  }
+  async shutdown() {
+    if (!this.proc || this.proc.exitCode !== null) {
+      return;
+    }
+    await new Promise((resolve8) => {
+      const proc = this.proc;
+      const onClose = () => {
+        cleanup();
+        resolve8();
+      };
+      const killTimer = window.setTimeout(() => {
+        this.killProc(proc, "SIGKILL");
+      }, SIGKILL_TIMEOUT_MS3);
+      const cleanup = () => {
+        window.clearTimeout(killTimer);
+        proc.off("exit", onClose);
+      };
+      proc.once("exit", onClose);
+      this.killProc(proc, "SIGTERM");
+    });
+  }
+  killProc(proc, signal) {
+    return terminateSpawnedProcess(proc, signal, import_node_child_process3.spawn, this.resolvedSpawnSpec);
+  }
+  notifyClose(error48) {
+    if (this.notifiedClose) {
+      return;
+    }
+    this.notifiedClose = true;
+    for (const listener of this.closeListeners) {
+      try {
+        listener(error48);
+      } catch (e2) {
+      }
+    }
+  }
+};
+function formatExit2(code, signal) {
+  if (signal) {
+    return `signal ${signal}`;
+  }
+  if (code === null) {
+    return "unknown";
+  }
+  return `code ${code}`;
+}
+
+// src/providers/pi/runtime/PiModelDiscoveryService.ts
+var PiModelDiscoveryService = class {
+  constructor(plugin) {
+    this.plugin = plugin;
+  }
+  async discoverModels() {
+    var _a3, _b2;
+    const settings11 = getPiProviderSettings(this.plugin.settings);
+    const cwd = (_a3 = getVaultPath(this.plugin.app)) != null ? _a3 : process.cwd();
+    const command = (_b2 = this.plugin.getResolvedProviderCliPath("pi")) != null ? _b2 : "pi";
+    const envText = getRuntimeEnvironmentText(this.plugin.settings, "pi");
+    const env = {
+      ...process.env,
+      ...parseEnvironmentVariables(envText)
+    };
+    const launchSpec = buildPiLaunchSpec({
+      command,
+      cwd,
+      env,
+      envText,
+      noSession: true,
+      settings: settings11
+    });
+    const subprocess = new PiSubprocess(launchSpec);
+    let transport = null;
+    let removeEventListener = null;
+    try {
+      subprocess.start();
+      transport = new PiRpcTransport({
+        input: subprocess.stdout,
+        onClose: (listener) => subprocess.onClose(listener),
+        output: subprocess.stdin
+      });
+      transport.start();
+      removeEventListener = transport.onEvent((event) => {
+        if (event.type !== "extension_ui_request") {
+          return;
+        }
+        const id = typeof event.id === "string" && event.id.trim() ? event.id.trim() : "";
+        if (id) {
+          transport == null ? void 0 : transport.send({
+            cancelled: true,
+            id,
+            type: "extension_ui_response"
+          });
+        }
+      });
+      const response = await transport.request("get_available_models", {}, 2e4);
+      const models = normalizePiDiscoveredModels(extractModels(response));
+      return { models };
+    } catch (error48) {
+      const message = error48 instanceof Error ? error48.message : "Pi model discovery failed";
+      const stderr = subprocess.getStderrSnapshot();
+      return {
+        diagnostics: stderr ? `${message}
+
+${stderr}` : message,
+        models: []
+      };
+    } finally {
+      removeEventListener == null ? void 0 : removeEventListener();
+      transport == null ? void 0 : transport.dispose();
+      await subprocess.shutdown().catch(() => {
+      });
+    }
+  }
+};
+function extractModels(response) {
+  var _a3, _b2, _c;
+  if (Array.isArray(response)) {
+    return response;
+  }
+  if (response && typeof response === "object" && !Array.isArray(response)) {
+    const record2 = response;
+    return (_c = (_b2 = (_a3 = record2.models) != null ? _a3 : record2.availableModels) != null ? _b2 : record2.available_models) != null ? _c : [];
+  }
+  return [];
+}
+
+// src/providers/pi/ui/PiSettingsTab.ts
+var piSettingsTabRenderer = {
+  render(container, context) {
+    const settingsBag = context.plugin.settings;
+    const piSettings = getPiProviderSettings(settingsBag);
+    const hostnameKey = getHostnameKey();
+    const workspace = maybeGetPiWorkspaceServices();
+    new import_obsidian20.Setting(container).setName("Setup").setHeading();
+    new import_obsidian20.Setting(container).setName("Enable Pi").setDesc("Launch `pi --mode rpc` as a provider.").addToggle(
+      (toggle) => toggle.setValue(piSettings.enabled).onChange(async (value) => {
+        updatePiProviderSettings(settingsBag, { enabled: value });
+        await context.plugin.saveSettings();
+        context.refreshModelSelectors();
+      })
+    );
+    const validationEl = container.createDiv({
+      cls: "claudian-cli-path-validation claudian-setting-validation claudian-setting-validation-error claudian-hidden"
+    });
+    const cliPathsByHost = { ...piSettings.cliPathsByHost };
+    let cliPathInputEl = null;
+    const updateCliPathValidation = (value, inputEl) => {
+      const error48 = validateCliPath(value);
+      if (error48) {
+        validationEl.setText(error48);
+        validationEl.toggleClass("claudian-hidden", false);
+        inputEl == null ? void 0 : inputEl.toggleClass("claudian-input-error", true);
+        return false;
+      }
+      validationEl.toggleClass("claudian-hidden", true);
+      inputEl == null ? void 0 : inputEl.toggleClass("claudian-input-error", false);
+      return true;
+    };
+    const persistCliPath = async (value) => {
+      var _a3;
+      if (!updateCliPathValidation(value, cliPathInputEl != null ? cliPathInputEl : void 0)) {
+        return;
+      }
+      const trimmed = value.trim();
+      if (trimmed) {
+        cliPathsByHost[hostnameKey] = trimmed;
+      } else {
+        delete cliPathsByHost[hostnameKey];
+      }
+      updatePiProviderSettings(settingsBag, {
+        cliPathsByHost: { ...cliPathsByHost },
+        discoveredModels: []
+      });
+      (_a3 = workspace == null ? void 0 : workspace.cliResolver) == null ? void 0 : _a3.reset();
+      await context.plugin.saveSettings();
+      context.refreshModelSelectors();
+    };
+    new import_obsidian20.Setting(container).setName("CLI path").setDesc("Optional absolute path to the Pi CLI for this computer. Leave empty to use `pi` from PATH.").addText((text) => {
+      const currentValue = piSettings.cliPathsByHost[hostnameKey] || "";
+      text.setPlaceholder(process.platform === "win32" ? "C:\\Users\\you\\AppData\\Roaming\\npm\\pi.cmd" : "/usr/local/bin/pi").setValue(currentValue).onChange((value) => {
+        void persistCliPath(value);
+      });
+      cliPathInputEl = text.inputEl;
+      updateCliPathValidation(currentValue, text.inputEl);
+    });
+    new import_obsidian20.Setting(container).setName("Models").setHeading();
+    const modelContainer = container.createDiv({ cls: "claudian-pi-models" });
+    const renderModels = () => {
+      modelContainer.empty();
+      const current = getPiProviderSettings(settingsBag);
+      new import_obsidian20.Setting(modelContainer).setName("Discover models").setDesc(current.discoveredModels.length > 0 ? `${current.discoveredModels.length} Pi models cached.` : "Fetch models from `pi --mode rpc --no-session`.").addButton((button) => {
+        button.setButtonText("Discover").onClick(async () => {
+          button.setDisabled(true);
+          const result = await new PiModelDiscoveryService(context.plugin).discoverModels();
+          if (result.diagnostics) {
+            new import_obsidian20.Notice(`Pi discovery failed: ${result.diagnostics}`);
+            button.setDisabled(false);
+            return;
+          }
+          updatePiProviderSettings(settingsBag, {
+            discoveredModels: result.models,
+            visibleModels: normalizePiVisibleModels(
+              current.visibleModels,
+              result.models
+            )
+          });
+          await context.plugin.saveSettings();
+          renderModels();
+          context.refreshModelSelectors();
+        });
+      });
+      if (current.discoveredModels.length === 0) {
+        modelContainer.createDiv({
+          cls: "setting-item-description",
+          text: "No Pi models discovered yet."
+        });
+        return;
+      }
+      for (const model of current.discoveredModels) {
+        new import_obsidian20.Setting(modelContainer).setName(current.modelAliases[model.encodedId] || model.label).setDesc(model.encodedId).addToggle((toggle) => {
+          toggle.setValue(current.visibleModels.includes(model.encodedId)).onChange(async (value) => {
+            const visibleModels = value ? [...current.visibleModels, model.encodedId] : current.visibleModels.filter((id) => id !== model.encodedId);
+            const normalized = normalizePiVisibleModels(visibleModels, current.discoveredModels);
+            if (!sameStringList2(current.visibleModels, normalized)) {
+              updatePiProviderSettings(settingsBag, { visibleModels: normalized });
+              await context.plugin.saveSettings();
+              renderModels();
+              context.refreshModelSelectors();
+            }
+          });
+        }).addText((text) => {
+          var _a3;
+          text.setPlaceholder("Alias").setValue((_a3 = current.modelAliases[model.encodedId]) != null ? _a3 : "").onChange(async (value) => {
+            updatePiProviderSettings(settingsBag, {
+              modelAliases: {
+                ...getPiProviderSettings(settingsBag).modelAliases,
+                [model.encodedId]: value
+              }
+            });
+            await context.plugin.saveSettings();
+            context.refreshModelSelectors();
+          });
+        });
+      }
+    };
+    renderModels();
+    renderEnvironmentSettingsSection({
+      container,
+      desc: "Environment variables passed only to Pi.",
+      heading: "Environment",
+      name: "Pi environment variables",
+      placeholder: "PI_CODING_AGENT_SESSION_DIR=/path/to/sessions",
+      plugin: context.plugin,
+      scope: "provider:pi"
+    });
+  }
+};
+function validateCliPath(value) {
+  const trimmed = value.trim();
+  if (!trimmed) {
+    return null;
+  }
+  const expandedPath = expandHomePath(trimmed);
+  if (!fs23.existsSync(expandedPath)) {
+    return "Path does not exist";
+  }
+  if (!fs23.statSync(expandedPath).isFile()) {
+    return "Path must point to a file";
+  }
+  return null;
+}
+
+// src/providers/pi/runtime/PiChatRuntime.ts
+var fsp2 = __toESM(require("node:fs/promises"));
+var path23 = __toESM(require("node:path"));
+init_env();
+init_path();
+
+// src/providers/pi/capabilities.ts
+var PI_PROVIDER_CAPABILITIES = Object.freeze({
+  providerId: "pi",
+  supportsPersistentRuntime: true,
+  supportsNativeHistory: true,
+  supportsPlanMode: false,
+  supportsRewind: false,
+  supportsFork: true,
+  supportsProviderCommands: true,
+  supportsImageAttachments: true,
+  supportsInstructionMode: true,
+  supportsMcpTools: false,
+  supportsTurnSteer: true,
+  reasoningControl: "effort"
+});
+
+// src/providers/pi/history/PiHistoryStore.ts
+var import_node_crypto = require("node:crypto");
+var fs24 = __toESM(require("node:fs"));
+var fsp = __toESM(require("node:fs/promises"));
+var os12 = __toESM(require("node:os"));
+var path22 = __toESM(require("node:path"));
+
+// src/providers/pi/normalizations/piToolNormalization.ts
+var PI_BUILT_IN_TOOL_NAMES = {
+  bash: TOOL_BASH,
+  edit: TOOL_EDIT,
+  find: TOOL_GLOB,
+  grep: TOOL_GREP,
+  ls: TOOL_LS,
+  read: TOOL_READ,
+  write: TOOL_WRITE
+};
+function extractPiToolTextContent(value) {
+  var _a3;
+  if (typeof value === "string") {
+    return value;
+  }
+  if (Array.isArray(value)) {
+    return value.map(extractPiToolTextContent).filter(Boolean).join("\n");
+  }
+  if (!isPlainObject9(value)) {
+    return "";
+  }
+  if (typeof value.text === "string") {
+    return value.text;
+  }
+  if (typeof value.content === "string") {
+    return value.content;
+  }
+  if (Array.isArray(value.content)) {
+    return extractPiToolTextContent(value.content);
+  }
+  if (isPlainObject9(value.partialResult)) {
+    return extractPiToolTextContent(value.partialResult.content);
+  }
+  if (isPlainObject9(value.result)) {
+    return extractPiToolTextContent((_a3 = value.result.content) != null ? _a3 : value.result);
+  }
+  return "";
+}
+function normalizePiToolInput(value, toolName) {
+  const input = isPlainObject9(value) ? { ...value } : {};
+  const normalizedToolName = toolName ? normalizePiToolName(toolName) : "";
+  if ((normalizedToolName === TOOL_READ || normalizedToolName === TOOL_WRITE || normalizedToolName === TOOL_EDIT) && typeof input.path === "string" && typeof input.file_path !== "string") {
+    input.file_path = input.path;
+  }
+  return input;
+}
+function getPiToolId(value) {
+  var _a3;
+  return (_a3 = firstString4(value.id, value.toolCallId, value.callId, value.call_id)) != null ? _a3 : "";
+}
+function getPiToolName(value) {
+  var _a3;
+  return normalizePiToolName((_a3 = firstString4(value.name, value.tool, value.toolName, value.tool_name)) != null ? _a3 : "tool");
+}
+function normalizePiToolName(name) {
+  var _a3;
+  return (_a3 = PI_BUILT_IN_TOOL_NAMES[name.trim().toLowerCase()]) != null ? _a3 : name;
+}
+function firstString4(...values) {
+  for (const value of values) {
+    if (typeof value === "string") {
+      const trimmed = value.trim();
+      if (trimmed) {
+        return trimmed;
+      }
+    }
+  }
+  return void 0;
+}
+function isPlainObject9(value) {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+// src/providers/pi/history/PiHistoryStore.ts
+function parsePiSessionContent(content, options = {}) {
+  var _a3;
+  const parsed = parsePiSessionEntries(content);
+  const leafEntryId = (_a3 = options.leafEntryId) == null ? void 0 : _a3.trim();
+  if (options.requireLeafEntryId && (!leafEntryId || !parsed.entries.some((entry) => entry.id === leafEntryId))) {
+    return [];
+  }
+  return mapPiSessionEntries(resolvePiActivePath(
+    parsed.entries,
+    leafEntryId
+  ));
+}
+function parsePiSessionEntries(content) {
+  var _a3, _b2, _c, _d2, _e, _f;
+  const entries = [];
+  let header = null;
+  for (const line of content.split(/\r?\n/)) {
+    if (!line.trim()) {
+      continue;
+    }
+    let record2;
+    try {
+      const parsed = JSON.parse(line);
+      if (!isPlainObject10(parsed)) {
+        continue;
+      }
+      record2 = parsed;
+    } catch (e2) {
+      continue;
+    }
+    const type = (_b2 = (_a3 = getString2(record2.type)) != null ? _a3 : getString2(record2.kind)) != null ? _b2 : "";
+    if (type === "session") {
+      header = record2;
+      continue;
+    }
+    const message = (_d2 = (_c = getRecord(record2.message)) != null ? _c : getRecord(record2.data)) != null ? _d2 : inferMessageRecord(record2);
+    entries.push({
+      ...getString2(record2.id) ? { id: getString2(record2.id) } : {},
+      ...message ? { message } : {},
+      ...((_e = getString2(record2.parentId)) != null ? _e : getString2(record2.parent_id)) ? { parentId: (_f = getString2(record2.parentId)) != null ? _f : getString2(record2.parent_id) } : {},
+      raw: record2,
+      type
+    });
+  }
+  return { entries, header };
+}
+function resolvePiActivePath(entries, leafId) {
+  var _a3;
+  const entriesWithIds = entries.filter((entry) => !!entry.id);
+  if (entriesWithIds.length === 0) {
+    return entries;
+  }
+  const hasBranchGraph = hasPiBranchGraph(entriesWithIds);
+  if (!leafId && !hasBranchGraph) {
+    return entries;
+  }
+  const byId = new Map(entriesWithIds.map((entry) => [entry.id, entry]));
+  const targetLeafId = leafId && byId.has(leafId) ? leafId : (_a3 = entriesWithIds[entriesWithIds.length - 1]) == null ? void 0 : _a3.id;
+  if (!targetLeafId) {
+    return entries;
+  }
+  const activePath = hasBranchGraph ? resolvePiGraphEntryPath(byId, targetLeafId) : resolvePiLinearEntryPath(entries, targetLeafId);
+  if (activePath.length === 0) {
+    return entries;
+  }
+  return hasBranchGraph ? includePiGraphPathEntries(entries, activePath) : includePiLinearPathEntries(entries, activePath);
+}
+function resolvePiEntryPath(entries, leafId) {
+  const entriesWithIds = entries.filter((entry) => !!entry.id);
+  const byId = new Map(entriesWithIds.map((entry) => [entry.id, entry]));
+  if (!byId.has(leafId)) {
+    return [];
+  }
+  const hasBranchGraph = hasPiBranchGraph(entriesWithIds);
+  const activePath = hasBranchGraph ? resolvePiGraphEntryPath(byId, leafId) : resolvePiLinearEntryPath(entries, leafId);
+  if (activePath.length === 0) {
+    return [];
+  }
+  return hasBranchGraph ? includePiGraphPathEntries(entries, activePath) : includePiLinearPathEntries(entries, activePath);
+}
+function hasPiBranchGraph(entriesWithIds) {
+  return entriesWithIds.some((entry) => !!entry.parentId && !isToolResultEntry(entry));
+}
+function resolvePiGraphEntryPath(byId, targetLeafId) {
+  const activePath = [];
+  const seen = /* @__PURE__ */ new Set();
+  let current = byId.get(targetLeafId);
+  while (current) {
+    if (!current.id || seen.has(current.id)) {
+      break;
+    }
+    seen.add(current.id);
+    activePath.push(current);
+    current = current.parentId ? byId.get(current.parentId) : void 0;
+  }
+  return activePath;
+}
+function resolvePiLinearEntryPath(entries, targetLeafId) {
+  const leafIndex = entries.findIndex((entry) => entry.id === targetLeafId);
+  if (leafIndex < 0) {
+    return [];
+  }
+  return entries.slice(0, leafIndex + 1);
+}
+function includePiGraphPathEntries(entries, activePath) {
+  const activeIds = new Set(activePath.map((entry) => entry.id).filter((id) => !!id));
+  const activeToolCallIds = collectToolCallIds(activePath);
+  return entries.filter((entry) => {
+    if (isToolResultEntry(entry)) {
+      const toolCallId = getToolResultCallId(entry);
+      return !!toolCallId && activeToolCallIds.has(toolCallId) || !!entry.id && activeIds.has(entry.id) || !!entry.parentId && activeIds.has(entry.parentId);
+    }
+    if (entry.id) {
+      return activeIds.has(entry.id);
+    }
+    if (entry.parentId && activeIds.has(entry.parentId)) {
+      return true;
+    }
+    return false;
+  });
+}
+function includePiLinearPathEntries(entries, activePath) {
+  const activeEntries = new Set(activePath);
+  const activeToolCallIds = collectToolCallIds(activePath);
+  return entries.filter((entry) => {
+    if (activeEntries.has(entry)) {
+      return true;
+    }
+    if (!isToolResultEntry(entry)) {
+      return false;
+    }
+    const toolCallId = getToolResultCallId(entry);
+    return !!toolCallId && activeToolCallIds.has(toolCallId);
+  });
+}
+async function createPiForkSessionFile(sourceSessionFile, resumeAt, options = {}) {
+  var _a3, _b2, _c, _d2, _e;
+  const sourceContent = await fsp.readFile(sourceSessionFile, "utf-8");
+  const parsed = parsePiSessionEntries(sourceContent);
+  const branchEntries = resolvePiEntryPath(parsed.entries, resumeAt);
+  if (branchEntries.length === 0) {
+    throw new Error(`Pi fork checkpoint not found: ${resumeAt}`);
+  }
+  const timestamp = (_a3 = options.now) != null ? _a3 : /* @__PURE__ */ new Date();
+  const timestampText = timestamp.toISOString();
+  const sessionId = (_b2 = options.sessionId) != null ? _b2 : (0, import_node_crypto.randomUUID)();
+  const sessionDir = (_c = options.sessionDir) != null ? _c : path22.dirname(sourceSessionFile);
+  const sessionFile = path22.join(
+    sessionDir,
+    `${timestampText.replace(/[:.]/g, "-")}_${sessionId}.jsonl`
+  );
+  const sourceCwd = typeof ((_d2 = parsed.header) == null ? void 0 : _d2.cwd) === "string" && parsed.header.cwd.trim() ? parsed.header.cwd.trim() : process.cwd();
+  const header = {
+    type: "session",
+    version: 3,
+    id: sessionId,
+    timestamp: timestampText,
+    cwd: (_e = options.targetCwd) != null ? _e : sourceCwd,
+    parentSession: sourceSessionFile
+  };
+  const lines = [
+    JSON.stringify(header),
+    ...branchEntries.map((entry) => JSON.stringify(entry.raw))
+  ];
+  await fsp.mkdir(sessionDir, { recursive: true });
+  await fsp.writeFile(sessionFile, `${lines.join("\n")}
+`, { flag: "wx" });
+  return {
+    leafEntryId: resumeAt,
+    parentSession: sourceSessionFile,
+    sessionFile,
+    sessionId
+  };
+}
+function findPiSessionFile(sessionIdOrFile, cwd, sessionDir) {
+  const trimmed = sessionIdOrFile.trim();
+  if (!trimmed) {
+    return null;
+  }
+  if (path22.isAbsolute(trimmed) && fileExists(trimmed)) {
+    return trimmed;
+  }
+  const roots = [
+    sessionDir,
+    cwd ? path22.join(cwd, ".pi", "agent", "sessions") : null,
+    path22.join(os12.homedir(), ".pi", "agent", "sessions")
+  ].filter((root) => !!root);
+  for (const root of roots) {
+    const direct = path22.join(root, trimmed.endsWith(".jsonl") ? trimmed : `${trimmed}.jsonl`);
+    if (fileExists(direct)) {
+      return direct;
+    }
+    const found = findSessionFileInRoot(root, trimmed);
+    if (found) {
+      return found;
+    }
+  }
+  return null;
+}
+function mapPiSessionEntries(entries) {
+  const messages = [];
+  for (const entry of entries) {
+    const mapped = mapPiSessionEntry(entry, messages);
+    if (mapped) {
+      const previous = messages[messages.length - 1];
+      if (isAssistantMessageEntry(entry) && canMergeAssistantContinuation(previous, mapped)) {
+        mergeAssistantContinuation(previous, mapped);
+      } else {
+        messages.push(mapped);
+      }
+    }
+  }
+  return messages;
+}
+function isAssistantMessageEntry(entry) {
+  var _a3, _b2;
+  const message = (_a3 = entry.message) != null ? _a3 : entry.raw;
+  return ((_b2 = getString2(message.role)) != null ? _b2 : inferRole(entry.type)) === "assistant";
+}
+function isBoundaryMessage(message) {
+  var _a3;
+  return ((_a3 = message.contentBlocks) == null ? void 0 : _a3.some((block) => block.type === "context_compacted")) === true;
+}
+function canMergeAssistantContinuation(previous, next) {
+  return (previous == null ? void 0 : previous.role) === "assistant" && next.role === "assistant" && !isBoundaryMessage(previous) && !isBoundaryMessage(next);
+}
+function mergeAssistantContinuation(target, source) {
+  var _a3, _b2, _c, _d2, _e;
+  target.content += source.content;
+  target.assistantMessageId = (_a3 = source.assistantMessageId) != null ? _a3 : target.assistantMessageId;
+  if (source.contentBlocks && source.contentBlocks.length > 0) {
+    target.contentBlocks = [
+      ...(_b2 = target.contentBlocks) != null ? _b2 : [],
+      ...source.contentBlocks
+    ];
+  }
+  if (source.toolCalls && source.toolCalls.length > 0) {
+    const existingToolIds = new Set((_d2 = (_c = target.toolCalls) == null ? void 0 : _c.map((toolCall) => toolCall.id)) != null ? _d2 : []);
+    const newToolCalls = source.toolCalls.filter((toolCall) => !existingToolIds.has(toolCall.id));
+    if (newToolCalls.length > 0) {
+      target.toolCalls = [
+        ...(_e = target.toolCalls) != null ? _e : [],
+        ...newToolCalls
+      ];
+    }
+  }
+}
+function mapPiSessionEntry(entry, messages) {
+  var _a3, _b2, _c, _d2, _e, _f, _g, _h, _i, _j2, _k, _l, _m, _n, _o;
+  const message = (_a3 = entry.message) != null ? _a3 : entry.raw;
+  const role = (_b2 = getString2(message.role)) != null ? _b2 : inferRole(entry.type);
+  const timestamp = getTimestamp((_c = message.timestamp) != null ? _c : entry.raw.timestamp);
+  if (role === "user") {
+    return {
+      content: extractTextContent2((_e = (_d2 = message.content) != null ? _d2 : message.text) != null ? _e : message.message),
+      id: (_f = entry.id) != null ? _f : `pi-user-${messages.length}`,
+      role: "user",
+      timestamp,
+      userMessageId: entry.id
+    };
+  }
+  if (role === "assistant") {
+    const contentBlocks = extractAssistantContentBlocks((_h = (_g = message.content) != null ? _g : message.parts) != null ? _h : message.blocks);
+    const toolCalls = extractAssistantToolCalls((_j2 = (_i = message.content) != null ? _i : message.parts) != null ? _j2 : message.blocks);
+    const text = contentBlocks.filter((block) => block.type === "text").map((block) => block.content).join("");
+    return {
+      assistantMessageId: entry.id,
+      content: text,
+      ...contentBlocks.length > 0 ? { contentBlocks } : {},
+      id: (_k = entry.id) != null ? _k : `pi-assistant-${messages.length}`,
+      role: "assistant",
+      timestamp,
+      ...toolCalls.length > 0 ? { toolCalls } : {}
+    };
+  }
+  if (isToolResultEntry(entry)) {
+    applyToolResult(messages, entry);
+    return null;
+  }
+  if (entry.type === "compaction") {
+    return {
+      content: "",
+      contentBlocks: [{ type: "context_compacted" }],
+      id: (_l = entry.id) != null ? _l : `pi-compaction-${messages.length}`,
+      role: "assistant",
+      timestamp
+    };
+  }
+  if ((entry.type === "branch_summary" || entry.type === "compactionSummary" || entry.type === "custom_message") && entry.raw.display !== false) {
+    const content = extractTextContent2((_n = (_m = entry.raw.content) != null ? _m : entry.raw.summary) != null ? _n : entry.raw.message);
+    if (!content) {
+      return null;
+    }
+    return {
+      content,
+      contentBlocks: [{ type: "text", content }],
+      id: (_o = entry.id) != null ? _o : `pi-notice-${messages.length}`,
+      role: "assistant",
+      timestamp
+    };
+  }
+  return null;
+}
+function extractAssistantContentBlocks(value) {
+  var _a3, _b2, _c, _d2, _e;
+  const blocks = [];
+  const parts = Array.isArray(value) ? value : [{ type: "text", text: extractTextContent2(value) }];
+  for (const part of parts) {
+    if (!isPlainObject10(part)) {
+      continue;
+    }
+    const type = getString2(part.type);
+    if (type === "thinking" || type === "reasoning") {
+      const content2 = extractTextContent2((_b2 = (_a3 = part.thinking) != null ? _a3 : part.text) != null ? _b2 : part.content);
+      if (content2) {
+        blocks.push({ type: "thinking", content: content2 });
+      }
+      continue;
+    }
+    if (type === "toolCall" || type === "tool_call" || type === "toolUse" || type === "tool_use") {
+      const toolId = (_d2 = (_c = getString2(part.id)) != null ? _c : getString2(part.toolCallId)) != null ? _d2 : getString2(part.callId);
+      if (toolId) {
+        blocks.push({ type: "tool_use", toolId });
+      }
+      continue;
+    }
+    const content = extractTextContent2((_e = part.text) != null ? _e : part.content);
+    if (content) {
+      blocks.push({ type: "text", content });
+    }
+  }
+  return blocks;
+}
+function extractAssistantToolCalls(value) {
+  const parts = Array.isArray(value) ? value : [];
+  return parts.flatMap((part) => {
+    var _a3, _b2, _c, _d2, _e, _f;
+    if (!isPlainObject10(part)) {
+      return [];
+    }
+    const type = getString2(part.type);
+    if (type !== "toolCall" && type !== "tool_call" && type !== "toolUse" && type !== "tool_use") {
+      return [];
+    }
+    const id = (_b2 = (_a3 = getString2(part.id)) != null ? _a3 : getString2(part.toolCallId)) != null ? _b2 : getString2(part.callId);
+    const rawName = (_d2 = (_c = getString2(part.name)) != null ? _c : getString2(part.tool)) != null ? _d2 : getString2(part.toolName);
+    if (!id || !rawName) {
+      return [];
+    }
+    const name = normalizePiToolName(rawName);
+    return [{
+      id,
+      input: normalizePiToolInput((_f = (_e = part.input) != null ? _e : part.arguments) != null ? _f : part.args, name),
+      name,
+      status: "running"
+    }];
+  });
+}
+function collectToolCallIds(entries) {
+  var _a3, _b2, _c;
+  const ids = /* @__PURE__ */ new Set();
+  for (const entry of entries) {
+    const message = (_a3 = entry.message) != null ? _a3 : entry.raw;
+    const parts = (_c = (_b2 = message.content) != null ? _b2 : message.parts) != null ? _c : message.blocks;
+    for (const toolCall of extractAssistantToolCalls(parts)) {
+      ids.add(toolCall.id);
+    }
+  }
+  return ids;
+}
+function isToolResultEntry(entry) {
+  var _a3;
+  const message = (_a3 = entry.message) != null ? _a3 : entry.raw;
+  return entry.type === "toolResult" || entry.type === "tool_result" || getString2(message.role) === "toolResult" || getString2(message.role) === "tool_result";
+}
+function getToolResultCallId(entry) {
+  var _a3, _b2, _c, _d2, _e, _f;
+  const message = (_a3 = entry.message) != null ? _a3 : entry.raw;
+  return (_f = (_e = (_d2 = (_c = (_b2 = getString2(message.toolCallId)) != null ? _b2 : getString2(message.tool_call_id)) != null ? _c : getString2(message.id)) != null ? _d2 : getString2(entry.raw.toolCallId)) != null ? _e : getString2(entry.raw.tool_call_id)) != null ? _f : getString2(entry.raw.id);
+}
+function applyToolResult(messages, entry) {
+  var _a3, _b2, _c, _d2;
+  const toolCallId = getToolResultCallId(entry);
+  if (!toolCallId) {
+    return;
+  }
+  for (let index = messages.length - 1; index >= 0; index--) {
+    const chatMessage = messages[index];
+    const toolCall = (_a3 = chatMessage.toolCalls) == null ? void 0 : _a3.find((call) => call.id === toolCallId);
+    if (!toolCall) {
+      continue;
+    }
+    const resultMessage = (_b2 = entry.message) != null ? _b2 : entry.raw;
+    toolCall.status = resultMessage.error === true || resultMessage.isError === true ? "error" : "completed";
+    toolCall.result = extractPiToolTextContent((_d2 = (_c = resultMessage.result) != null ? _c : resultMessage.content) != null ? _d2 : resultMessage.output);
+    if (toolCall.status === "completed" && isWriteEditTool(toolCall.name)) {
+      const diffData = extractDiffData(resultMessage, toolCall);
+      if (diffData) {
+        toolCall.diffData = diffData;
+      }
+    }
+    return;
+  }
+}
+function inferMessageRecord(record2) {
+  return getString2(record2.role) ? record2 : void 0;
+}
+function inferRole(type) {
+  if (type === "user" || type === "assistant") {
+    return type;
+  }
+  return null;
+}
+function extractTextContent2(value) {
+  if (typeof value === "string") {
+    return value;
+  }
+  if (Array.isArray(value)) {
+    return value.map(extractTextContent2).filter(Boolean).join("");
+  }
+  if (!isPlainObject10(value)) {
+    return "";
+  }
+  if (typeof value.text === "string") {
+    return value.text;
+  }
+  if (typeof value.content === "string") {
+    return value.content;
+  }
+  return "";
+}
+function findSessionFileInRoot(root, sessionId) {
+  try {
+    const entries = fs24.readdirSync(root, { withFileTypes: true });
+    for (const entry of entries) {
+      const candidate = path22.join(root, entry.name);
+      if (entry.isDirectory()) {
+        const nested = findSessionFileInRoot(candidate, sessionId);
+        if (nested) {
+          return nested;
+        }
+      } else if (entry.isFile() && entry.name.endsWith(".jsonl") && entry.name.includes(sessionId)) {
+        return candidate;
+      }
+    }
+  } catch (e2) {
+    return null;
+  }
+  return null;
+}
+function fileExists(filePath) {
+  try {
+    return fs24.existsSync(filePath) && fs24.statSync(filePath).isFile();
+  } catch (e2) {
+    return false;
+  }
+}
+function getTimestamp(value) {
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return value;
+  }
+  if (typeof value === "string") {
+    const parsed = Date.parse(value);
+    if (!Number.isNaN(parsed)) {
+      return parsed;
+    }
+  }
+  return Date.now();
+}
+function getRecord(value) {
+  return isPlainObject10(value) ? value : null;
+}
+function getString2(value) {
+  return typeof value === "string" && value.trim() ? value.trim() : null;
+}
+function isPlainObject10(value) {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+// src/providers/pi/normalizations/piEventNormalization.ts
+function createPiEventNormalizationState() {
+  return {
+    emittedToolIds: /* @__PURE__ */ new Set(),
+    toolOutputs: /* @__PURE__ */ new Map()
+  };
+}
+function normalizePiRpcEvent(event, state) {
+  var _a3, _b2, _c;
+  switch (event.type) {
+    case "agent_start":
+      return [];
+    case "message_update":
+      return normalizeMessageUpdate(event);
+    case "toolcall_end":
+      return normalizeToolUse((_a3 = getNestedRecord(event, "toolCall")) != null ? _a3 : event, state);
+    case "tool_execution_start":
+      return normalizeToolUse((_b2 = getNestedRecord(event, "toolCall")) != null ? _b2 : event, state);
+    case "tool_execution_update":
+      return normalizeToolOutput(event, state);
+    case "tool_execution_end":
+      return normalizeToolResult(event, state);
+    case "message_end":
+    case "turn_end":
+      return normalizeTerminalError(event);
+    case "compaction_end":
+      return [{ type: "context_compacted" }];
+    case "auto_retry_start":
+      return [{ type: "notice", content: "Pi is retrying the turn.", level: "warning" }];
+    case "auto_retry_end":
+      return [{ type: "notice", content: "Pi retry finished.", level: "info" }];
+    case "extension_error":
+      return [{ type: "notice", content: (_c = getString3(event.error)) != null ? _c : "Pi extension error.", level: "warning" }];
+    default:
+      return [];
+  }
+}
+function getPiTerminalErrorMessage(event) {
+  var _a3, _b2, _c, _d2;
+  if (event.type !== "message_end" && event.type !== "turn_end") {
+    return null;
+  }
+  const terminalEvent = (_b2 = (_a3 = getNestedRecord(event, "assistantMessageEvent")) != null ? _a3 : getNestedRecord(event, "assistant_message_event")) != null ? _b2 : event;
+  const records = terminalEvent === event ? [event] : [terminalEvent, event];
+  const stopReason = getStringField(records, ["stopReason", "stop_reason"]);
+  if ((stopReason == null ? void 0 : stopReason.toLowerCase()) !== "error") {
+    return null;
+  }
+  return (_d2 = (_c = getStringField(records, ["errorMessage", "error_message", "error", "message"])) != null ? _c : getNestedStringField(records, "error", ["message"])) != null ? _d2 : "Pi turn failed.";
+}
+function normalizeMessageUpdate(event) {
+  var _a3, _b2, _c, _d2, _e, _f;
+  const assistantEvent = (_b2 = (_a3 = getNestedRecord(event, "assistantMessageEvent")) != null ? _a3 : getNestedRecord(event, "assistant_message_event")) != null ? _b2 : event;
+  const textDelta = (_d2 = (_c = getString3(assistantEvent.text_delta)) != null ? _c : getString3(assistantEvent.textDelta)) != null ? _d2 : assistantEvent.type === "text_delta" ? getString3(assistantEvent.delta) : null;
+  if (textDelta) {
+    return [{ type: "text", content: textDelta }];
+  }
+  const thinkingDelta = (_f = (_e = getString3(assistantEvent.thinking_delta)) != null ? _e : getString3(assistantEvent.thinkingDelta)) != null ? _f : assistantEvent.type === "thinking_delta" ? getString3(assistantEvent.delta) : null;
+  if (thinkingDelta) {
+    return [{ type: "thinking", content: thinkingDelta }];
+  }
+  return [];
+}
+function normalizeTerminalError(event) {
+  const message = getPiTerminalErrorMessage(event);
+  return message ? [{ type: "error", content: message }] : [];
+}
+function normalizeToolUse(event, state) {
+  var _a3, _b2;
+  const id = getPiToolId(event);
+  if (!id || state.emittedToolIds.has(id)) {
+    return [];
+  }
+  state.emittedToolIds.add(id);
+  const name = getPiToolName(event);
+  return [{
+    type: "tool_use",
+    id,
+    input: normalizePiToolInput((_b2 = (_a3 = event.input) != null ? _a3 : event.arguments) != null ? _b2 : event.args, name),
+    name
+  }];
+}
+function normalizeToolOutput(event, state) {
+  var _a3, _b2, _c;
+  const id = getPiToolId(event);
+  if (!id) {
+    return [];
+  }
+  const content = extractPiToolTextContent((_c = (_b2 = (_a3 = event.partialResult) != null ? _a3 : event.output) != null ? _b2 : event.result) != null ? _c : event.content);
+  if (!content) {
+    return [];
+  }
+  state.toolOutputs.set(id, content);
+  return [{ type: "tool_output", id, content }];
+}
+function normalizeToolResult(event, state) {
+  var _a3, _b2;
+  const id = getPiToolId(event);
+  if (!id) {
+    return [];
+  }
+  const content = extractPiToolTextContent((_b2 = (_a3 = event.result) != null ? _a3 : event.output) != null ? _b2 : event.content) || state.toolOutputs.get(id) || "";
+  const toolUseResult = getNestedRecord(event, "result");
+  return [{
+    type: "tool_result",
+    content,
+    id,
+    isError: event.isError === true || event.error === true || event.success === false,
+    ...toolUseResult ? { toolUseResult } : {}
+  }];
+}
+function getNestedRecord(event, key) {
+  const value = event[key];
+  return value !== null && typeof value === "object" && !Array.isArray(value) ? value : null;
+}
+function getString3(value) {
+  return typeof value === "string" ? value : null;
+}
+function getStringField(records, keys) {
+  for (const record2 of records) {
+    for (const key of keys) {
+      const value = getString3(record2[key]);
+      if (value) {
+        return value;
+      }
+    }
+  }
+  return null;
+}
+function getNestedStringField(records, parentKey, keys) {
+  for (const record2 of records) {
+    const nested = getNestedRecord(record2, parentKey);
+    if (!nested) {
+      continue;
+    }
+    const value = getStringField([nested], keys);
+    if (value) {
+      return value;
+    }
+  }
+  return null;
+}
+
+// src/providers/pi/types.ts
+function getPiState(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return {};
+  }
+  const record2 = value;
+  const forkSource = getPiForkSource(record2.forkSource);
+  return {
+    ...forkSource ? { forkSource } : {},
+    ...typeof record2.forkSourceSessionFile === "string" && record2.forkSourceSessionFile.trim() ? { forkSourceSessionFile: record2.forkSourceSessionFile.trim() } : {},
+    ...typeof record2.leafEntryId === "string" && record2.leafEntryId.trim() ? { leafEntryId: record2.leafEntryId.trim() } : {},
+    ...typeof record2.parentSession === "string" && record2.parentSession.trim() ? { parentSession: record2.parentSession.trim() } : {},
+    ...typeof record2.sessionFile === "string" && record2.sessionFile.trim() ? { sessionFile: record2.sessionFile.trim() } : {},
+    ...typeof record2.sessionId === "string" && record2.sessionId.trim() ? { sessionId: record2.sessionId.trim() } : {}
+  };
+}
+function buildPersistedPiState(state) {
+  const persisted = {
+    ...state.forkSource ? { forkSource: state.forkSource } : {},
+    ...state.forkSourceSessionFile ? { forkSourceSessionFile: state.forkSourceSessionFile } : {},
+    ...state.leafEntryId ? { leafEntryId: state.leafEntryId } : {},
+    ...state.parentSession ? { parentSession: state.parentSession } : {},
+    ...state.sessionFile ? { sessionFile: state.sessionFile } : {},
+    ...state.sessionId ? { sessionId: state.sessionId } : {}
+  };
+  return Object.keys(persisted).length > 0 ? persisted : void 0;
+}
+function getPiForkSource(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return void 0;
+  }
+  const record2 = value;
+  const sessionId = typeof record2.sessionId === "string" ? record2.sessionId.trim() : "";
+  const resumeAt = typeof record2.resumeAt === "string" ? record2.resumeAt.trim() : "";
+  return sessionId && resumeAt ? { resumeAt, sessionId } : void 0;
+}
+
+// src/providers/pi/runtime/buildPiPrompt.ts
+function buildPiPromptText(request, conversationHistory = []) {
+  let prompt = request.text;
+  if (request.currentNotePath) {
+    prompt = appendCurrentNote(prompt, request.currentNotePath);
+  }
+  if (request.editorSelection && request.editorSelection.mode !== "none") {
+    prompt = appendEditorContext(prompt, request.editorSelection);
+  }
+  if (request.browserSelection) {
+    prompt = appendBrowserContext(prompt, request.browserSelection);
+  }
+  if (request.canvasSelection) {
+    prompt = appendCanvasContext(prompt, request.canvasSelection);
+  }
+  if (conversationHistory.length > 0) {
+    const historyContext = buildContextFromHistory(conversationHistory);
+    prompt = buildPromptWithHistoryContext(
+      historyContext,
+      prompt,
+      prompt,
+      conversationHistory
+    );
+  }
+  return prompt;
+}
+function buildPiPromptImages(images) {
+  return (images != null ? images : []).flatMap((image) => {
+    if (!image.data) {
+      return [];
+    }
+    return [{
+      data: image.data,
+      mimeType: image.mediaType,
+      type: "image"
+    }];
+  });
+}
+
+// src/providers/pi/runtime/buildPiUsageInfo.ts
+function buildPiUsageInfo(response, model, fallbackContextWindow = 2e5) {
+  var _a3, _b2, _c, _d2, _e, _f, _g, _h, _i, _j2, _k, _l, _m, _n;
+  const stats = getRecord2(response);
+  const contextUsage = getRecord2((_b2 = (_a3 = stats.contextUsage) != null ? _a3 : stats.context_usage) != null ? _b2 : stats);
+  const providerContextWindow = (_d2 = (_c = getNumber2(contextUsage.contextWindow)) != null ? _c : getNumber2(contextUsage.context_window)) != null ? _d2 : getNumber2(contextUsage.window);
+  const contextWindow = providerContextWindow != null ? providerContextWindow : fallbackContextWindow;
+  const contextTokens = (_h = (_g = (_f = (_e = getNumber2(contextUsage.contextTokens)) != null ? _e : getNumber2(contextUsage.context_tokens)) != null ? _f : getNumber2(contextUsage.tokens)) != null ? _g : getNumber2(contextUsage.used)) != null ? _h : 0;
+  const inputTokens = (_j2 = (_i = getNumber2(contextUsage.inputTokens)) != null ? _i : getNumber2(contextUsage.input_tokens)) != null ? _j2 : contextTokens;
+  if (contextTokens === 0 && inputTokens === 0) {
+    return null;
+  }
+  return {
+    cacheCreationInputTokens: (_l = (_k = getNumber2(contextUsage.cacheCreationInputTokens)) != null ? _k : getNumber2(contextUsage.cache_creation_input_tokens)) != null ? _l : 0,
+    cacheReadInputTokens: (_n = (_m = getNumber2(contextUsage.cacheReadInputTokens)) != null ? _m : getNumber2(contextUsage.cache_read_input_tokens)) != null ? _n : 0,
+    contextTokens,
+    contextWindow,
+    contextWindowIsAuthoritative: providerContextWindow !== null,
+    inputTokens,
+    ...model ? { model } : {},
+    percentage: normalizePiUsagePercentage(
+      getNumber2(contextUsage.percentage),
+      contextTokens,
+      contextWindow
+    )
+  };
+}
+function normalizePiUsagePercentage(providerPercentage, contextTokens, contextWindow) {
+  const rawPercentage = providerPercentage != null ? providerPercentage : contextWindow > 0 ? contextTokens / contextWindow * 100 : 0;
+  const wholePercentage = providerPercentage !== null && rawPercentage >= 0 && rawPercentage <= 1 ? rawPercentage * 100 : rawPercentage;
+  return Math.min(100, Math.max(0, Math.round(wholePercentage)));
+}
+function getRecord2(value) {
+  return value !== null && typeof value === "object" && !Array.isArray(value) ? value : {};
+}
+function getNumber2(value) {
+  return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+
+// src/providers/pi/runtime/PiExtensionUiBridge.ts
+var PiExtensionUiBridge = class {
+  constructor(transport, renderer, emit) {
+    this.transport = transport;
+    this.renderer = renderer;
+    this.emit = emit;
+    this.pending = /* @__PURE__ */ new Map();
+  }
+  handleRequest(request) {
+    var _a3, _b2, _c, _d2, _e, _f, _g, _h, _i, _j2;
+    if (request.type !== "extension_ui_request") {
+      return false;
+    }
+    const method = (_b2 = (_a3 = getString4(request.method)) != null ? _a3 : getString4(request.action)) != null ? _b2 : getString4(request.uiType);
+    switch (method) {
+      case "select":
+        this.handleDialog(request, (renderer, signal) => renderer.select(requireDialogRequest(request), signal));
+        return true;
+      case "confirm":
+        this.handleDialog(request, (renderer, signal) => renderer.confirm(requireDialogRequest(request), signal));
+        return true;
+      case "input":
+        this.handleDialog(request, (renderer, signal) => renderer.input(requireDialogRequest(request), signal));
+        return true;
+      case "editor":
+        this.handleDialog(request, (renderer, signal) => renderer.editor(requireDialogRequest(request), signal));
+        return true;
+      case "notify":
+        (_c = this.renderer) == null ? void 0 : _c.notify(request);
+        (_f = this.emit) == null ? void 0 : _f.call(this, {
+          type: "notice",
+          content: (_e = (_d2 = getString4(request.message)) != null ? _d2 : getString4(request.title)) != null ? _e : "Pi extension notification.",
+          level: "info"
+        });
+        return true;
+      case "setStatus":
+      case "set_status":
+        (_g = this.renderer) == null ? void 0 : _g.setStatus(request);
+        return true;
+      case "setWidget":
+      case "set_widget":
+        (_h = this.renderer) == null ? void 0 : _h.setWidget(request);
+        return true;
+      case "setTitle":
+      case "set_title":
+        (_i = this.renderer) == null ? void 0 : _i.setTitle(request);
+        return true;
+      case "setEditorText":
+      case "set_editor_text":
+        (_j2 = this.renderer) == null ? void 0 : _j2.setEditorText(request);
+        return true;
+      default:
+        this.sendCancellation(request);
+        return true;
+    }
+  }
+  cleanup() {
+    for (const [id, controller] of this.pending) {
+      controller.abort();
+      this.sendResponse(id, { cancelled: true });
+    }
+    this.pending.clear();
+  }
+  handleDialog(request, render) {
+    const id = getString4(request.id);
+    if (!id || !this.renderer) {
+      this.sendCancellation(request);
+      return;
+    }
+    const controller = new AbortController();
+    this.pending.set(id, controller);
+    render(this.renderer, controller.signal).then((response) => {
+      if (!controller.signal.aborted) {
+        this.sendResponse(id, response.cancelled ? { cancelled: true } : response);
+      }
+    }).catch(() => {
+      if (!controller.signal.aborted) {
+        this.sendResponse(id, { cancelled: true });
+      }
+    }).finally(() => {
+      this.pending.delete(id);
+    });
+  }
+  sendCancellation(request) {
+    const id = getString4(request.id);
+    if (id) {
+      this.sendResponse(id, { cancelled: true });
+    }
+  }
+  sendResponse(id, response) {
+    this.transport.send({
+      id,
+      type: "extension_ui_response",
+      ...response
+    });
+  }
+};
+function requireDialogRequest(request) {
+  return request;
+}
+function getString4(value) {
+  return typeof value === "string" && value.trim() ? value.trim() : null;
+}
+
+// src/providers/pi/runtime/PiRpcPayloads.ts
+function buildPiSetModelPayload(model) {
+  const decoded = decodePiModelId(model);
+  if (!decoded) {
+    return null;
+  }
+  return {
+    modelId: decoded.modelId,
+    provider: decoded.provider
+  };
+}
+
+// src/providers/pi/runtime/PiChatRuntime.ts
+var StreamChunkQueue2 = class {
+  constructor() {
+    this.closed = false;
+    this.items = [];
+    this.waiters = [];
+  }
+  push(chunk) {
+    if (this.closed) {
+      return;
+    }
+    const waiter = this.waiters.shift();
+    if (waiter) {
+      waiter(chunk);
+      return;
+    }
+    this.items.push(chunk);
+  }
+  close() {
+    var _a3;
+    if (this.closed) {
+      return;
+    }
+    this.closed = true;
+    while (this.waiters.length > 0) {
+      (_a3 = this.waiters.shift()) == null ? void 0 : _a3(null);
+    }
+  }
+  async next() {
+    var _a3;
+    if (this.items.length > 0) {
+      return (_a3 = this.items.shift()) != null ? _a3 : null;
+    }
+    if (this.closed) {
+      return null;
+    }
+    return new Promise((resolve8) => {
+      this.waiters.push(resolve8);
+    });
+  }
+};
+var PiChatRuntime = class {
+  constructor(plugin, options = {}) {
+    this.plugin = plugin;
+    this.options = options;
+    this.providerId = "pi";
+    this.activeTurn = null;
+    this.currentLaunchKey = null;
+    this.currentModel = null;
+    this.currentSessionTarget = null;
+    this.currentThinkingLevel = null;
+    this.currentTurnMetadata = {};
+    this.extensionBridge = null;
+    this.leafEntryId = null;
+    this.parentSession = null;
+    this.pendingFork = null;
+    this.pendingForkSourceSessionFile = null;
+    this.process = null;
+    this.ready = false;
+    this.readyListeners = /* @__PURE__ */ new Set();
+    this.sessionFile = null;
+    this.sessionId = null;
+    this.sessionInvalidated = false;
+    this.supportedCommands = [];
+    this.shutdownPromise = null;
+    this.transport = null;
+    this.unregisterTransportClose = null;
+    this.normalizationState = createPiEventNormalizationState();
+  }
+  getCapabilities() {
+    return PI_PROVIDER_CAPABILITIES;
+  }
+  prepareTurn(request) {
+    var _a3;
+    const isCompact = isCompactCommand3(request.text);
+    return {
+      isCompact,
+      mcpMentions: (_a3 = request.enabledMcpServers) != null ? _a3 : /* @__PURE__ */ new Set(),
+      persistedContent: "",
+      prompt: buildPiPromptText(request),
+      request
+    };
+  }
+  onReadyStateChange(listener) {
+    this.readyListeners.add(listener);
+    return () => {
+      this.readyListeners.delete(listener);
+    };
+  }
+  setResumeCheckpoint(_checkpointId) {
+  }
+  syncConversationState(conversation) {
+    var _a3, _b2, _c, _d2, _e, _f;
+    if (!conversation) {
+      this.sessionId = null;
+      this.sessionFile = null;
+      this.leafEntryId = null;
+      this.parentSession = null;
+      this.pendingFork = null;
+      this.pendingForkSourceSessionFile = null;
+      this.sessionInvalidated = false;
+      return;
+    }
+    const state = getPiState(conversation.providerState);
+    if (state.forkSource && !state.sessionId && !state.sessionFile && !conversation.sessionId) {
+      this.sessionId = null;
+      this.sessionFile = null;
+      this.leafEntryId = null;
+      this.parentSession = null;
+      this.pendingFork = state.forkSource;
+      this.pendingForkSourceSessionFile = (_a3 = state.forkSourceSessionFile) != null ? _a3 : null;
+      this.sessionInvalidated = false;
+      return;
+    }
+    this.sessionId = (_c = (_b2 = state.sessionId) != null ? _b2 : conversation.sessionId) != null ? _c : null;
+    this.sessionFile = (_d2 = state.sessionFile) != null ? _d2 : null;
+    this.leafEntryId = (_e = state.leafEntryId) != null ? _e : null;
+    this.parentSession = (_f = state.parentSession) != null ? _f : null;
+    this.pendingFork = null;
+    this.pendingForkSourceSessionFile = null;
+    this.sessionInvalidated = false;
+  }
+  async reloadMcpServers() {
+  }
+  async ensureReady(options) {
+    var _a3, _b2, _c, _d2;
+    const settings11 = getPiProviderSettings(this.plugin.settings);
+    if (!settings11.enabled) {
+      this.setReady(false);
+      return false;
+    }
+    const allowSessionCreation = (options == null ? void 0 : options.allowSessionCreation) !== false;
+    const cwd = (_a3 = getVaultPath(this.plugin.app)) != null ? _a3 : process.cwd();
+    const resolvedCliPath = (_b2 = this.plugin.getResolvedProviderCliPath("pi")) != null ? _b2 : "pi";
+    const runtimeEnvText = getRuntimeEnvironmentText(this.plugin.settings, "pi");
+    if (allowSessionCreation) {
+      await this.materializePendingFork(cwd, runtimeEnvText);
+    }
+    const hasSessionTarget = Boolean(this.sessionId || this.sessionFile);
+    const promptSettings = this.getSystemPromptSettings(cwd);
+    const systemPrompt = buildSystemPrompt(promptSettings);
+    const noSession = !allowSessionCreation && !hasSessionTarget;
+    const launchSpec = buildPiLaunchSpec({
+      command: resolvedCliPath,
+      cwd,
+      env: this.buildRuntimeEnv(runtimeEnvText),
+      envText: runtimeEnvText,
+      noSession,
+      providerState: this.getCurrentProviderState(),
+      settings: settings11,
+      systemPrompt
+    });
+    const sessionTarget = (_d2 = (_c = this.sessionFile) != null ? _c : this.sessionId) != null ? _d2 : null;
+    const nextLaunchKey = JSON.stringify({
+      command: resolvedCliPath,
+      cwd,
+      envText: runtimeEnvText,
+      noSession,
+      promptKey: computeSystemPromptKey(promptSettings),
+      systemPrompt,
+      toolMode: settings11.toolMode
+    });
+    const sessionTargetChanged = sessionTarget !== this.currentSessionTarget;
+    const canSwitchSessionTarget = sessionTargetChanged && this.isSwitchableSessionFile(this.sessionFile);
+    const unSwitchableSessionTargetChanged = sessionTargetChanged && !canSwitchSessionTarget;
+    const shouldRestart = !this.process || !this.transport || !this.process.isAlive() || this.transport.isClosed || (options == null ? void 0 : options.force) === true || this.currentLaunchKey !== nextLaunchKey || unSwitchableSessionTargetChanged;
+    if (shouldRestart) {
+      await this.shutdownProcess();
+      await this.startProcess(launchSpec);
+      this.currentLaunchKey = nextLaunchKey;
+      this.currentSessionTarget = sessionTarget;
+    } else if (canSwitchSessionTarget && this.sessionFile) {
+      await this.switchSession(this.sessionFile, launchSpec, nextLaunchKey);
+    }
+    if (allowSessionCreation || hasSessionTarget) {
+      await this.refreshStateAndSessionTarget();
+    }
+    this.setReady(true);
+    return true;
+  }
+  async *query(turn, conversationHistory, queryOptions) {
+    var _a3, _b2;
+    this.currentTurnMetadata = {};
+    let isReady;
+    try {
+      isReady = await this.ensureReady();
+    } catch (error48) {
+      yield { type: "error", content: this.formatRuntimeError(error48) };
+      yield { type: "done" };
+      return;
+    }
+    if (!isReady) {
+      yield { type: "error", content: "Failed to start Pi. Check the CLI path and login state." };
+      yield { type: "done" };
+      return;
+    }
+    if (!this.transport) {
+      yield { type: "error", content: "Pi runtime is not ready." };
+      yield { type: "done" };
+      return;
+    }
+    const activeTurn = this.createActiveTurn();
+    this.activeTurn = activeTurn;
+    this.normalizationState = createPiEventNormalizationState();
+    const shouldBootstrapHistory = ((_a3 = conversationHistory == null ? void 0 : conversationHistory.length) != null ? _a3 : 0) > 0 && !this.sessionId && !this.sessionFile;
+    const promptText = buildPiPromptText(
+      turn.request,
+      shouldBootstrapHistory ? conversationHistory : []
+    );
+    const images = buildPiPromptImages(turn.request.images);
+    const runTurn = this.runTurn(
+      activeTurn,
+      turn,
+      promptText,
+      images,
+      queryOptions
+    );
+    try {
+      while (true) {
+        const chunk = await activeTurn.queue.next();
+        if (!chunk) {
+          break;
+        }
+        yield chunk;
+      }
+      await runTurn;
+    } finally {
+      if (this.activeTurn === activeTurn) {
+        (_b2 = this.transport) == null ? void 0 : _b2.send({ type: "abort" });
+        activeTurn.cancel(new Error("Pi turn cancelled"));
+        activeTurn.queue.close();
+        this.activeTurn = null;
+        void this.shutdownProcess();
+      }
+    }
+  }
+  async steer(turn) {
+    var _a3;
+    if (!this.transport || this.transport.isClosed) {
+      return false;
+    }
+    try {
+      const images = buildPiPromptImages(turn.request.images);
+      await this.transport.request("steer", {
+        ...images.length > 0 ? { images } : {},
+        message: buildPiPromptText(turn.request)
+      });
+      (_a3 = this.activeTurn) == null ? void 0 : _a3.queue.push({
+        type: "user_message_start",
+        content: turn.request.text
+      });
+      return true;
+    } catch (e2) {
+      return false;
+    }
+  }
+  cancel() {
+    var _a3;
+    (_a3 = this.transport) == null ? void 0 : _a3.send({ type: "abort" });
+  }
+  resetSession() {
+    this.sessionInvalidated = true;
+    this.sessionId = null;
+    this.sessionFile = null;
+    this.leafEntryId = null;
+    this.parentSession = null;
+    this.pendingFork = null;
+    this.pendingForkSourceSessionFile = null;
+    this.currentSessionTarget = null;
+    if (this.transport && !this.transport.isClosed) {
+      void this.transport.request("new_session").then((response) => {
+        var _a3, _b2;
+        this.applyStateResponse(response);
+        this.currentSessionTarget = (_b2 = (_a3 = this.sessionFile) != null ? _a3 : this.sessionId) != null ? _b2 : null;
+      }).catch(() => {
+      });
+    }
+  }
+  getSessionId() {
+    return this.sessionId;
+  }
+  consumeSessionInvalidation() {
+    const invalidated = this.sessionInvalidated;
+    this.sessionInvalidated = false;
+    return invalidated;
+  }
+  isReady() {
+    return this.ready;
+  }
+  async getSupportedCommands() {
+    if (this.supportedCommands.length > 0) {
+      return [...this.supportedCommands];
+    }
+    if (!this.transport || this.transport.isClosed) {
+      return [];
+    }
+    try {
+      const response = await this.transport.request("get_commands", {}, 1e4);
+      this.supportedCommands = normalizePiRuntimeCommands(response);
+      return [...this.supportedCommands];
+    } catch (e2) {
+      return [];
+    }
+  }
+  getAuxiliaryModel() {
+    return this.currentModel;
+  }
+  cleanup() {
+    var _a3, _b2;
+    (_a3 = this.activeTurn) == null ? void 0 : _a3.queue.close();
+    (_b2 = this.extensionBridge) == null ? void 0 : _b2.cleanup();
+    void this.shutdownProcess();
+  }
+  async rewind(_userMessageId, _assistantMessageId, _mode) {
+    return { canRewind: false };
+  }
+  setApprovalCallback(_callback) {
+  }
+  setApprovalDismisser(_dismisser) {
+  }
+  setAskUserQuestionCallback(_callback) {
+  }
+  setExitPlanModeCallback(_callback) {
+  }
+  setPermissionModeSyncCallback(_callback) {
+  }
+  setSubagentHookProvider(_getState) {
+  }
+  setAutoTurnCallback(_callback) {
+  }
+  consumeTurnMetadata() {
+    const metadata = this.currentTurnMetadata;
+    this.currentTurnMetadata = {};
+    return metadata;
+  }
+  buildSessionUpdates(params) {
+    const providerState = buildPersistedPiState(this.getCurrentProviderState());
+    const updates = {
+      providerState,
+      sessionId: this.sessionId
+    };
+    if (params.sessionInvalidated && !this.sessionId) {
+      updates.providerState = void 0;
+      updates.sessionId = null;
+    }
+    return { updates };
+  }
+  resolveSessionIdForFork(conversation) {
+    var _a3, _b2, _c, _d2, _e, _f, _g;
+    const state = getPiState(conversation == null ? void 0 : conversation.providerState);
+    return (_g = (_f = (_d2 = (_c = (_b2 = (_a3 = this.sessionFile) != null ? _a3 : this.sessionId) != null ? _b2 : state.sessionFile) != null ? _c : state.sessionId) != null ? _d2 : conversation == null ? void 0 : conversation.sessionId) != null ? _f : (_e = state.forkSource) == null ? void 0 : _e.sessionId) != null ? _g : null;
+  }
+  async loadSubagentToolCalls(_agentId) {
+    return [];
+  }
+  async loadSubagentFinalResult(_agentId) {
+    return null;
+  }
+  createActiveTurn() {
+    let terminalSettled = false;
+    let resolveTerminal;
+    let rejectTerminal;
+    const terminalPromise = new Promise((resolve8, reject) => {
+      resolveTerminal = () => {
+        if (terminalSettled) {
+          return;
+        }
+        terminalSettled = true;
+        resolve8();
+      };
+      rejectTerminal = (error48) => {
+        if (terminalSettled) {
+          return;
+        }
+        terminalSettled = true;
+        reject(error48);
+      };
+    });
+    terminalPromise.catch(() => {
+    });
+    const activeTurn = {
+      cancel: (error48) => {
+        activeTurn.cancelled = true;
+        rejectTerminal(error48);
+      },
+      cancelled: false,
+      queue: new StreamChunkQueue2(),
+      rejectTerminal,
+      resolveTerminal,
+      terminalPromise
+    };
+    return activeTurn;
+  }
+  async runTurn(activeTurn, turn, promptText, images, queryOptions) {
+    try {
+      const turnStartLeafId = await this.resolveCurrentLeafEntryId();
+      await this.applySelectedModel(queryOptions);
+      await this.applySelectedThinkingLevel(queryOptions);
+      if (activeTurn.cancelled) {
+        throw new Error("Pi turn cancelled");
+      }
+      if (turn.isCompact) {
+        await this.transport.request("compact", {
+          customInstructions: stripCompactCommand(turn.request.text)
+        });
+        this.currentTurnMetadata.wasSent = true;
+        activeTurn.queue.push({ type: "context_compacted" });
+      } else {
+        activeTurn.queue.push({
+          type: "user_message_start",
+          content: turn.request.text
+        });
+        await this.transport.request("prompt", {
+          ...images.length > 0 ? { images } : {},
+          message: promptText
+        });
+        this.currentTurnMetadata.wasSent = true;
+        await activeTurn.terminalPromise;
+      }
+      await this.refreshStateAndSessionTarget();
+      await this.updateTurnMetadataFromSessionFile(turnStartLeafId);
+      const usage = await this.fetchUsage(queryOptions).catch(() => null);
+      if (usage) {
+        activeTurn.queue.push({ sessionId: this.sessionId, type: "usage", usage });
+      }
+      activeTurn.queue.push({ type: "done" });
+    } catch (error48) {
+      activeTurn.queue.push({
+        type: "error",
+        content: this.formatRuntimeError(error48)
+      });
+      activeTurn.queue.push({ type: "done" });
+    } finally {
+      activeTurn.queue.close();
+      if (this.activeTurn === activeTurn) {
+        this.activeTurn = null;
+      }
+    }
+  }
+  async startProcess(launchSpec) {
+    var _a3;
+    this.process = new PiSubprocess(launchSpec);
+    this.process.start();
+    this.transport = new PiRpcTransport({
+      input: this.process.stdout,
+      onClose: (listener) => this.process.onClose(listener),
+      output: this.process.stdin
+    });
+    this.transport.start();
+    this.extensionBridge = new PiExtensionUiBridge(
+      this.transport,
+      (_a3 = this.options.extensionUiRenderer) != null ? _a3 : null,
+      (chunk) => {
+        var _a4;
+        return (_a4 = this.activeTurn) == null ? void 0 : _a4.queue.push(chunk);
+      }
+    );
+    this.transport.onEvent((event) => this.handleRpcEvent(event));
+    this.unregisterTransportClose = this.transport.onClose((error48) => {
+      var _a4, _b2;
+      this.setReady(false);
+      (_a4 = this.extensionBridge) == null ? void 0 : _a4.cleanup();
+      (_b2 = this.activeTurn) == null ? void 0 : _b2.rejectTerminal(error48 != null ? error48 : new Error("Pi runtime closed"));
+    });
+    this.setReady(true);
+  }
+  async shutdownProcess() {
+    if (this.shutdownPromise) {
+      return this.shutdownPromise;
+    }
+    this.shutdownPromise = this.doShutdownProcess().finally(() => {
+      this.shutdownPromise = null;
+    });
+    return this.shutdownPromise;
+  }
+  async doShutdownProcess() {
+    var _a3, _b2, _c, _d2, _e;
+    this.setReady(false);
+    (_a3 = this.activeTurn) == null ? void 0 : _a3.cancel(new Error("Pi runtime stopped"));
+    (_b2 = this.activeTurn) == null ? void 0 : _b2.queue.close();
+    this.activeTurn = null;
+    (_c = this.extensionBridge) == null ? void 0 : _c.cleanup();
+    this.extensionBridge = null;
+    (_d2 = this.unregisterTransportClose) == null ? void 0 : _d2.call(this);
+    this.unregisterTransportClose = null;
+    (_e = this.transport) == null ? void 0 : _e.dispose();
+    this.transport = null;
+    const process4 = this.process;
+    this.process = null;
+    this.currentModel = null;
+    this.currentSessionTarget = null;
+    this.currentThinkingLevel = null;
+    if (process4) {
+      await process4.shutdown().catch(() => {
+      });
+    }
+    this.supportedCommands = [];
+  }
+  handleRpcEvent(event) {
+    var _a3, _b2, _c, _d2, _e, _f;
+    if ((_a3 = this.extensionBridge) == null ? void 0 : _a3.handleRequest(event)) {
+      return;
+    }
+    if (event.type === "agent_end") {
+      (_b2 = this.activeTurn) == null ? void 0 : _b2.resolveTerminal();
+      return;
+    }
+    if (event.type === "error") {
+      (_c = this.activeTurn) == null ? void 0 : _c.queue.push({
+        type: "error",
+        content: typeof event.error === "string" ? event.error : "Pi runtime error."
+      });
+      (_d2 = this.activeTurn) == null ? void 0 : _d2.resolveTerminal();
+      return;
+    }
+    const state = this.getNormalizationState();
+    const chunks = normalizePiRpcEvent(event, state);
+    for (const chunk of chunks) {
+      (_e = this.activeTurn) == null ? void 0 : _e.queue.push(chunk);
+    }
+    if (getPiTerminalErrorMessage(event)) {
+      (_f = this.activeTurn) == null ? void 0 : _f.resolveTerminal();
+    }
+  }
+  getNormalizationState() {
+    if (!this.activeTurn) {
+      this.normalizationState = createPiEventNormalizationState();
+      return this.normalizationState;
+    }
+    return this.normalizationState;
+  }
+  async applySelectedModel(queryOptions) {
+    if (!this.transport) {
+      return;
+    }
+    const selectedModel = this.resolveSelectedModel(this.getProviderSettings(), queryOptions);
+    const payload = selectedModel ? buildPiSetModelPayload(selectedModel) : null;
+    if (!payload || this.currentModel === selectedModel) {
+      return;
+    }
+    await this.transport.request("set_model", payload);
+    this.currentModel = selectedModel;
+    this.currentThinkingLevel = null;
+  }
+  async applySelectedThinkingLevel(queryOptions) {
+    if (!this.transport) {
+      return;
+    }
+    const providerSettings = this.getProviderSettings();
+    const selectedThinkingLevel = this.resolveSelectedThinkingLevel(providerSettings, queryOptions);
+    if (!selectedThinkingLevel || this.currentThinkingLevel === selectedThinkingLevel) {
+      return;
+    }
+    await this.transport.request("set_thinking_level", {
+      level: selectedThinkingLevel
+    });
+    this.currentThinkingLevel = selectedThinkingLevel;
+  }
+  async refreshState() {
+    if (!this.transport || this.transport.isClosed) {
+      return;
+    }
+    const response = await this.transport.request("get_state", {}, 1e4);
+    this.applyStateResponse(response);
+  }
+  async refreshStateAndSessionTarget() {
+    var _a3, _b2;
+    try {
+      await this.refreshState();
+      this.currentSessionTarget = (_b2 = (_a3 = this.sessionFile) != null ? _a3 : this.sessionId) != null ? _b2 : null;
+    } catch (e2) {
+    }
+  }
+  applyStateResponse(response) {
+    var _a3, _b2, _c, _d2, _e, _f, _g, _h, _i, _j2, _k, _l, _m;
+    const state = extractStateRecord(response);
+    this.sessionId = (_d2 = (_c = (_a3 = getString5(state.sessionId)) != null ? _a3 : getString5(state.session_id)) != null ? _c : getString5((_b2 = getRecord3(state.session)) == null ? void 0 : _b2.id)) != null ? _d2 : this.sessionId;
+    this.sessionFile = (_i = (_h = (_g = (_f = (_e = getString5(state.sessionFile)) != null ? _e : getString5(state.session_file)) != null ? _f : getString5(state.sessionPath)) != null ? _g : getString5(state.session_path)) != null ? _h : getString5(state.path)) != null ? _i : this.sessionFile;
+    this.leafEntryId = (_k = (_j2 = getString5(state.leafEntryId)) != null ? _j2 : getString5(state.leaf_entry_id)) != null ? _k : this.leafEntryId;
+    this.parentSession = (_m = (_l = getString5(state.parentSession)) != null ? _l : getString5(state.parent_session)) != null ? _m : this.parentSession;
+  }
+  async fetchUsage(queryOptions) {
+    var _a3;
+    if (!this.transport || this.transport.isClosed) {
+      return null;
+    }
+    const providerSettings = this.getProviderSettings();
+    const selectedModel = this.resolveSelectedModel(providerSettings, queryOptions);
+    const fallbackContextWindow = selectedModel ? (_a3 = findPiModel(getPiProviderSettings(providerSettings), selectedModel)) == null ? void 0 : _a3.contextWindow : void 0;
+    const response = await this.transport.request("get_session_stats", {}, 1e4);
+    return buildPiUsageInfo(response, selectedModel, fallbackContextWindow);
+  }
+  async materializePendingFork(cwd, runtimeEnvText) {
+    var _a3;
+    if (!this.pendingFork) {
+      return;
+    }
+    const env = parseEnvironmentVariables(runtimeEnvText);
+    const sourceSessionFile = (_a3 = this.pendingForkSourceSessionFile) != null ? _a3 : findPiSessionFile(
+      this.pendingFork.sessionId,
+      cwd,
+      typeof env.PI_CODING_AGENT_SESSION_DIR === "string" ? env.PI_CODING_AGENT_SESSION_DIR : null
+    );
+    if (!sourceSessionFile) {
+      throw new Error(`Pi fork source session not found: ${this.pendingFork.sessionId}`);
+    }
+    const forkedSession = await createPiForkSessionFile(
+      sourceSessionFile,
+      this.pendingFork.resumeAt,
+      { targetCwd: cwd }
+    );
+    this.sessionId = forkedSession.sessionId;
+    this.sessionFile = forkedSession.sessionFile;
+    this.leafEntryId = forkedSession.leafEntryId;
+    this.parentSession = forkedSession.parentSession;
+    this.pendingFork = null;
+    this.pendingForkSourceSessionFile = null;
+    this.sessionInvalidated = false;
+    this.currentSessionTarget = null;
+  }
+  async resolveCurrentLeafEntryId() {
+    if (this.leafEntryId) {
+      return this.leafEntryId;
+    }
+    if (!this.sessionFile) {
+      return null;
+    }
+    try {
+      const content = await fsp2.readFile(this.sessionFile, "utf-8");
+      const entries = parsePiSessionEntries(content).entries;
+      const activePath = resolvePiActivePath(entries);
+      const leafEntryId = getLastPiEntryId(activePath);
+      this.leafEntryId = leafEntryId;
+      return leafEntryId;
+    } catch (e2) {
+      return null;
+    }
+  }
+  async updateTurnMetadataFromSessionFile(previousLeafEntryId) {
+    var _a3;
+    if (!this.sessionFile) {
+      return;
+    }
+    try {
+      const content = await fsp2.readFile(this.sessionFile, "utf-8");
+      const entries = parsePiSessionEntries(content).entries;
+      const activePath = resolvePiActivePath(entries);
+      if (activePath.length === 0) {
+        return;
+      }
+      this.leafEntryId = (_a3 = getLastPiEntryId(activePath)) != null ? _a3 : this.leafEntryId;
+      const previousLeafIndex = previousLeafEntryId ? activePath.findIndex((entry) => entry.id === previousLeafEntryId) : -1;
+      const newEntries = previousLeafIndex >= 0 ? activePath.slice(previousLeafIndex + 1) : activePath;
+      const userEntry = previousLeafIndex >= 0 ? newEntries.find((entry) => getPiEntryRole(entry) === "user") : findLastPiEntryByRole(newEntries, "user");
+      const assistantEntry = findLastPiEntryByRole(newEntries, "assistant");
+      if (userEntry == null ? void 0 : userEntry.id) {
+        this.currentTurnMetadata.userMessageId = userEntry.id;
+      }
+      if (assistantEntry == null ? void 0 : assistantEntry.id) {
+        this.currentTurnMetadata.assistantMessageId = assistantEntry.id;
+      }
+    } catch (e2) {
+    }
+  }
+  getSystemPromptSettings(vaultPath) {
+    return {
+      customPrompt: this.plugin.settings.systemPrompt,
+      mediaFolder: this.plugin.settings.mediaFolder,
+      userName: this.plugin.settings.userName,
+      vaultPath
+    };
+  }
+  getProviderSettings() {
+    return ProviderSettingsCoordinator.getProviderSettingsSnapshot(
+      this.plugin.settings,
+      this.providerId
+    );
+  }
+  resolveSelectedModel(providerSettings, queryOptions) {
+    const selectedModel = typeof (queryOptions == null ? void 0 : queryOptions.model) === "string" ? queryOptions.model : typeof providerSettings.model === "string" ? providerSettings.model : "";
+    if (!selectedModel || selectedModel === PI_SYNTHETIC_MODEL_ID || !decodePiModelId(selectedModel)) {
+      return null;
+    }
+    return selectedModel;
+  }
+  resolveSelectedThinkingLevel(providerSettings, queryOptions) {
+    const selectedModel = this.resolveSelectedModel(providerSettings, queryOptions);
+    if (!selectedModel) {
+      return null;
+    }
+    const piSettings = getPiProviderSettings(providerSettings);
+    const selectedThinkingLevel = typeof providerSettings.effortLevel === "string" && providerSettings.effortLevel.trim() ? providerSettings.effortLevel.trim() : piSettings.preferredThinkingByModel[selectedModel];
+    const selectedPiModel = findPiModel(piSettings, selectedModel);
+    if (selectedPiModel) {
+      return clampPiThinkingLevel(selectedThinkingLevel, selectedPiModel.thinkingLevels);
+    }
+    return selectedThinkingLevel != null ? selectedThinkingLevel : null;
+  }
+  buildRuntimeEnv(runtimeEnvText) {
+    return {
+      ...process.env,
+      ...parseEnvironmentVariables(runtimeEnvText)
+    };
+  }
+  getCurrentProviderState() {
+    if (this.pendingFork) {
+      return {
+        forkSource: this.pendingFork,
+        ...this.pendingForkSourceSessionFile ? { forkSourceSessionFile: this.pendingForkSourceSessionFile } : {}
+      };
+    }
+    return {
+      ...this.leafEntryId ? { leafEntryId: this.leafEntryId } : {},
+      ...this.parentSession ? { parentSession: this.parentSession } : {},
+      ...this.sessionFile ? { sessionFile: this.sessionFile } : {},
+      ...this.sessionId ? { sessionId: this.sessionId } : {}
+    };
+  }
+  setReady(ready) {
+    if (this.ready === ready) {
+      return;
+    }
+    this.ready = ready;
+    for (const listener of this.readyListeners) {
+      listener(ready);
+    }
+  }
+  formatRuntimeError(error48) {
+    var _a3;
+    const message = error48 instanceof Error ? error48.message : "Pi request failed";
+    const stderr = (_a3 = this.process) == null ? void 0 : _a3.getStderrSnapshot();
+    return stderr ? `${message}
+
+${stderr}` : message;
+  }
+  isSwitchableSessionFile(sessionFile) {
+    return typeof sessionFile === "string" && sessionFile.trim().length > 0 && path23.isAbsolute(sessionFile);
+  }
+  async switchSession(sessionFile, launchSpec, nextLaunchKey) {
+    var _a3, _b2;
+    try {
+      await this.transport.request("switch_session", { sessionPath: sessionFile });
+      this.currentLaunchKey = nextLaunchKey;
+      this.currentSessionTarget = sessionFile;
+      this.sessionInvalidated = false;
+    } catch (e2) {
+      await this.shutdownProcess();
+      await this.startProcess(launchSpec);
+      this.currentLaunchKey = nextLaunchKey;
+      this.currentSessionTarget = (_b2 = (_a3 = this.sessionFile) != null ? _a3 : this.sessionId) != null ? _b2 : null;
+    }
+  }
+};
+function stripCompactCommand(text) {
+  return text.trim().replace(/^\/compact(?:\s|$)/i, "").trim();
+}
+function isCompactCommand3(text) {
+  return /^\/compact(\s|$)/i.test(text);
+}
+function normalizePiRuntimeCommands(response) {
+  var _a3, _b2;
+  const records = Array.isArray(response) ? response : Array.isArray(getRecord3(response).commands) ? getRecord3(response).commands : [];
+  const commands = [];
+  const seen = /* @__PURE__ */ new Set();
+  for (const record2 of records) {
+    const entry = getRecord3(record2);
+    const name = (_a3 = getString5(entry.name)) == null ? void 0 : _a3.replace(/^\/+/, "");
+    if (!name || seen.has(name.toLowerCase())) {
+      continue;
+    }
+    seen.add(name.toLowerCase());
+    const source = getString5(entry.source);
+    commands.push({
+      content: "",
+      description: (_b2 = getString5(entry.description)) != null ? _b2 : void 0,
+      id: `pi:${source != null ? source : "runtime"}:${name}`,
+      kind: source === "skill" ? "skill" : "command",
+      name,
+      source: "sdk"
+    });
+  }
+  return commands;
+}
+function extractStateRecord(response) {
+  var _a3, _b2;
+  const record2 = getRecord3(response);
+  return getRecord3((_b2 = (_a3 = record2.state) != null ? _a3 : record2.session) != null ? _b2 : response);
+}
+function getPiEntryRole(entry) {
+  var _a3;
+  const message = (_a3 = entry.message) != null ? _a3 : {};
+  const role = getString5(message.role);
+  if (role) {
+    return role;
+  }
+  if (entry.type === "toolResult") {
+    return "toolResult";
+  }
+  return null;
+}
+function getLastPiEntryId(entries) {
+  for (let i2 = entries.length - 1; i2 >= 0; i2--) {
+    const id = entries[i2].id;
+    if (id) {
+      return id;
+    }
+  }
+  return null;
+}
+function findLastPiEntryByRole(entries, role) {
+  for (let i2 = entries.length - 1; i2 >= 0; i2--) {
+    if (getPiEntryRole(entries[i2]) === role) {
+      return entries[i2];
+    }
+  }
+  return void 0;
+}
+function getRecord3(value) {
+  return value !== null && typeof value === "object" && !Array.isArray(value) ? value : {};
+}
+function getString5(value) {
+  return typeof value === "string" && value.trim() ? value.trim() : null;
+}
+
+// src/providers/pi/app/PiRuntimeCommandLoader.ts
+var PiRuntimeCommandLoader = class {
+  isAvailable(settings11) {
+    return getPiProviderSettings(settings11).enabled;
+  }
+  async loadCommands(context) {
+    var _a3, _b2, _c;
+    const persistedState = getPiState((_a3 = context.conversation) == null ? void 0 : _a3.providerState);
+    const hasPersistedSession = Boolean(
+      ((_b2 = context.conversation) == null ? void 0 : _b2.sessionId) || persistedState.sessionId || persistedState.sessionFile
+    );
+    const shouldWarmBlankSession = context.allowSessionCreation === true && !context.conversation;
+    const shouldWarmPreSessionConversation = context.allowSessionCreation === true && !!context.conversation && !hasPersistedSession && context.conversation.messages.length > 0;
+    if (!hasPersistedSession && !shouldWarmBlankSession && !shouldWarmPreSessionConversation) {
+      return [];
+    }
+    const canReuseRuntime = ((_c = context.runtime) == null ? void 0 : _c.providerId) === "pi" && context.runtime.isReady();
+    const runtime = canReuseRuntime ? context.runtime : new PiChatRuntime(context.plugin);
+    try {
+      if (canReuseRuntime && context.conversation) {
+        runtime.syncConversationState(context.conversation, context.externalContextPaths);
+      }
+      const ready = await runtime.ensureReady({
+        allowSessionCreation: false
+      });
+      if (!ready) {
+        return [];
+      }
+      return await runtime.getSupportedCommands();
+    } finally {
+      if (runtime !== context.runtime) {
+        runtime.cleanup();
+      }
+    }
+  }
+};
+
+// src/providers/pi/app/PiWorkspaceServices.ts
+var piTabWarmupPolicy = {
+  resolveMode() {
+    return "commands";
+  }
+};
+async function createPiWorkspaceServices() {
+  return {
+    cliResolver: new PiCliResolver(),
+    commandCatalog: new PiCommandCatalog(),
+    runtimeCommandLoader: new PiRuntimeCommandLoader(),
+    settingsTabRenderer: piSettingsTabRenderer,
+    tabWarmupPolicy: piTabWarmupPolicy
+  };
+}
+var piWorkspaceRegistration = {
+  initialize: async () => createPiWorkspaceServices()
+};
+function maybeGetPiWorkspaceServices() {
+  return ProviderWorkspaceRegistry.getServices("pi");
+}
+
+// src/providers/pi/runtime/PiAuxQueryRunner.ts
+init_env();
+init_path();
+var PiAuxQueryRunner = class {
+  constructor(plugin, options) {
+    this.plugin = plugin;
+    this.options = options;
+    this.currentLaunchKey = null;
+    this.process = null;
+    this.transport = null;
+  }
+  async query(config2, prompt) {
+    var _a3, _b2, _c, _d2, _e, _f;
+    await this.ensureReady(config2.systemPrompt);
+    const transport = this.transport;
+    if (!transport) {
+      throw new Error("Pi auxiliary runtime is not ready.");
+    }
+    const model = this.resolveSelectedModel(config2.model);
+    if (model) {
+      const payload = buildPiSetModelPayload(model);
+      if (payload) {
+        await transport.request("set_model", payload);
+      }
+    }
+    let accumulatedText = "";
+    const normalizationState = createPiEventNormalizationState();
+    let terminalSettled = false;
+    let resolveTerminal;
+    let rejectTerminal;
+    const terminalPromise = new Promise((resolve8, reject) => {
+      resolveTerminal = () => {
+        if (terminalSettled) {
+          return;
+        }
+        terminalSettled = true;
+        resolve8();
+      };
+      rejectTerminal = (error48) => {
+        if (terminalSettled) {
+          return;
+        }
+        terminalSettled = true;
+        reject(error48);
+      };
+    });
+    terminalPromise.catch(() => {
+    });
+    const removeListener = transport.onEvent((event) => {
+      var _a4;
+      if (event.type === "extension_ui_request") {
+        const id = typeof event.id === "string" && event.id.trim() ? event.id.trim() : "";
+        if (id) {
+          transport.send({
+            cancelled: true,
+            id,
+            type: "extension_ui_response"
+          });
+        }
+        return;
+      }
+      if (event.type === "agent_end") {
+        resolveTerminal();
+        return;
+      }
+      if (event.type === "error") {
+        rejectTerminal(new Error(
+          typeof event.error === "string" ? event.error : "Pi auxiliary request failed"
+        ));
+        return;
+      }
+      for (const chunk of normalizePiRpcEvent(event, normalizationState)) {
+        if (chunk.type === "error") {
+          rejectTerminal(new Error(chunk.content));
+          continue;
+        }
+        if (chunk.type !== "text") {
+          continue;
+        }
+        accumulatedText += chunk.content;
+        (_a4 = config2.onTextChunk) == null ? void 0 : _a4.call(config2, accumulatedText);
+      }
+    });
+    const removeCloseListener = transport.onClose((error48) => {
+      rejectTerminal(error48 != null ? error48 : new Error("Pi auxiliary runtime closed before completion."));
+    });
+    const abortHandler = () => {
+      transport.send({ type: "abort" });
+      rejectTerminal(new Error("Cancelled"));
+    };
+    (_a3 = config2.abortController) == null ? void 0 : _a3.signal.addEventListener("abort", abortHandler, { once: true });
+    try {
+      if ((_b2 = config2.abortController) == null ? void 0 : _b2.signal.aborted) {
+        throw new Error("Cancelled");
+      }
+      const promptRequest = transport.request("prompt", { message: prompt });
+      promptRequest.catch(() => {
+      });
+      await Promise.race([promptRequest, terminalPromise]);
+      await terminalPromise;
+      if ((_c = config2.abortController) == null ? void 0 : _c.signal.aborted) {
+        throw new Error("Cancelled");
+      }
+      return accumulatedText;
+    } catch (error48) {
+      const message = error48 instanceof Error ? error48.message : "Pi request failed";
+      const stderr = (_d2 = this.process) == null ? void 0 : _d2.getStderrSnapshot();
+      if ((_e = config2.abortController) == null ? void 0 : _e.signal.aborted) {
+        this.reset();
+      }
+      throw new Error(
+        stderr ? `${message}
+
+${stderr}` : message,
+        error48 instanceof Error ? { cause: error48 } : void 0
+      );
+    } finally {
+      (_f = config2.abortController) == null ? void 0 : _f.signal.removeEventListener("abort", abortHandler);
+      removeCloseListener();
+      removeListener();
+    }
+  }
+  reset() {
+    var _a3;
+    this.currentLaunchKey = null;
+    (_a3 = this.transport) == null ? void 0 : _a3.dispose();
+    this.transport = null;
+    if (this.process) {
+      void this.process.shutdown().catch(() => {
+      });
+      this.process = null;
+    }
+  }
+  async ensureReady(systemPrompt) {
+    var _a3, _b2;
+    const settingsBag = this.plugin.settings;
+    const settings11 = getPiProviderSettings(settingsBag);
+    const command = (_a3 = this.plugin.getResolvedProviderCliPath("pi")) != null ? _a3 : "pi";
+    const cwd = (_b2 = getVaultPath(this.plugin.app)) != null ? _b2 : process.cwd();
+    const envText = getRuntimeEnvironmentText(settingsBag, "pi");
+    const env = {
+      ...process.env,
+      ...parseEnvironmentVariables(envText)
+    };
+    const launchSpec = buildPiLaunchSpec({
+      command,
+      cwd,
+      env,
+      envText,
+      noSession: true,
+      noTools: this.options.profile === "passive",
+      settings: {
+        ...settings11,
+        toolMode: this.options.profile === "readonly" ? "readonly" : settings11.toolMode
+      },
+      systemPrompt
+    });
+    if (this.process && this.transport && this.process.isAlive() && !this.transport.isClosed && this.currentLaunchKey === launchSpec.launchKey) {
+      return;
+    }
+    this.reset();
+    this.process = new PiSubprocess(launchSpec);
+    this.process.start();
+    this.transport = new PiRpcTransport({
+      input: this.process.stdout,
+      onClose: (listener) => this.process.onClose(listener),
+      output: this.process.stdin
+    });
+    this.transport.start();
+    this.currentLaunchKey = launchSpec.launchKey;
+  }
+  resolveSelectedModel(explicitModel) {
+    if (explicitModel && decodePiModelId(explicitModel)) {
+      return explicitModel;
+    }
+    const projectedSettings = ProviderSettingsCoordinator.getProviderSettingsSnapshot(
+      this.plugin.settings,
+      "pi"
+    );
+    const selectedModel = typeof projectedSettings.model === "string" ? projectedSettings.model : "";
+    return decodePiModelId(selectedModel) ? selectedModel : void 0;
+  }
+};
+
+// src/providers/pi/auxiliary/PiInlineEditService.ts
+var PiInlineEditService = class extends QueryBackedInlineEditService {
+  constructor(plugin) {
+    super(new PiAuxQueryRunner(plugin, { profile: "readonly" }));
+  }
+};
+
+// src/providers/pi/auxiliary/PiInstructionRefineService.ts
+var PiInstructionRefineService = class extends QueryBackedInstructionRefineService {
+  constructor(plugin) {
+    super(new PiAuxQueryRunner(plugin, { profile: "passive" }));
+  }
+};
+
+// src/providers/pi/auxiliary/PiTaskResultInterpreter.ts
+var PiTaskResultInterpreter = class {
+  hasAsyncLaunchMarker(_toolUseResult) {
+    return false;
+  }
+  extractAgentId(_toolUseResult) {
+    return null;
+  }
+  extractStructuredResult(_toolUseResult) {
+    return null;
+  }
+  resolveTerminalStatus(_toolUseResult, fallbackStatus) {
+    return fallbackStatus;
+  }
+  extractTagValue(_payload, _tagName) {
+    return null;
+  }
+};
+
+// src/providers/pi/ui/PiChatUIConfig.ts
+var PI_MODELS = [
+  { value: PI_SYNTHETIC_MODEL_ID, label: "Pi", description: "Configure models in settings" }
+];
+var DEFAULT_PI_REASONING_LEVELS = getPiSupportedThinkingLevels({ reasoning: true });
+var DEFAULT_CONTEXT_WINDOW3 = 2e5;
+var PI_PERMISSION_MODE_TOGGLE = {
+  inactiveValue: "normal",
+  inactiveLabel: "Read-only",
+  activeValue: "yolo",
+  activeLabel: "All tools"
+};
+var piChatUIConfig = {
+  getModelOptions(settings11) {
+    var _a3, _b2, _c, _d2;
+    const piSettings = getPiProviderSettings(settings11);
+    const discoveredModels = new Map(piSettings.discoveredModels.map((model) => [
+      model.encodedId,
+      buildModelOption(model, piSettings.modelAliases[model.encodedId])
+    ]));
+    const savedProviderModel = settings11.savedProviderModel && typeof settings11.savedProviderModel === "object" && !Array.isArray(settings11.savedProviderModel) ? settings11.savedProviderModel : null;
+    const options = [];
+    const seen = /* @__PURE__ */ new Set();
+    for (const encodedId of piSettings.visibleModels) {
+      pushOption2(
+        options,
+        seen,
+        encodedId,
+        (_b2 = discoveredModels.get(encodedId)) != null ? _b2 : {
+          description: "Configured model",
+          label: (_a3 = piSettings.modelAliases[encodedId]) != null ? _a3 : formatFallbackLabel(encodedId),
+          value: encodedId
+        }
+      );
+    }
+    const selectedModelValues = [
+      typeof settings11.model === "string" ? settings11.model : "",
+      typeof (savedProviderModel == null ? void 0 : savedProviderModel.pi) === "string" ? savedProviderModel.pi : ""
+    ];
+    for (const model of selectedModelValues) {
+      if (!model || model === PI_SYNTHETIC_MODEL_ID || !decodePiModelId(model)) {
+        continue;
+      }
+      pushOption2(
+        options,
+        seen,
+        model,
+        (_d2 = discoveredModels.get(model)) != null ? _d2 : {
+          description: "Selected in an existing session",
+          label: (_c = piSettings.modelAliases[model]) != null ? _c : formatFallbackLabel(model),
+          value: model
+        }
+      );
+    }
+    return options.length > 0 ? options : [...PI_MODELS];
+  },
+  ownsModel(model) {
+    return model === PI_SYNTHETIC_MODEL_ID || decodePiModelId(model) !== null;
+  },
+  isAdaptiveReasoningModel(model, settings11) {
+    const piModel = getCachedModel(model, settings11);
+    if (piModel) {
+      return piModel.thinkingLevels.some((level) => level !== "off");
+    }
+    return !!decodePiModelId(model);
+  },
+  getReasoningOptions(model, settings11) {
+    var _a3;
+    const piModel = getCachedModel(model, settings11);
+    const levels = (_a3 = piModel == null ? void 0 : piModel.thinkingLevels) != null ? _a3 : decodePiModelId(model) ? DEFAULT_PI_REASONING_LEVELS : ["off"];
+    return levels.map((level) => ({
+      label: formatThinkingLevelLabel(level),
+      value: level
+    }));
+  },
+  getDefaultReasoningValue(model, settings11) {
+    const piModel = getCachedModel(model, settings11);
+    if (!piModel) {
+      return decodePiModelId(model) ? PI_DEFAULT_THINKING_LEVEL : "off";
+    }
+    const piSettings = getPiProviderSettings(settings11);
+    return clampPiThinkingLevel(
+      piSettings.preferredThinkingByModel[piModel.encodedId],
+      piModel.thinkingLevels
+    );
+  },
+  getContextWindowSize(model, customLimits, settings11) {
+    var _a3, _b2;
+    const metadataContextWindow = settings11 ? (_a3 = getCachedModel(model, settings11)) == null ? void 0 : _a3.contextWindow : void 0;
+    return (_b2 = metadataContextWindow != null ? metadataContextWindow : customLimits == null ? void 0 : customLimits[model]) != null ? _b2 : DEFAULT_CONTEXT_WINDOW3;
+  },
+  isDefaultModel(model) {
+    return isPiModelSelectionId(model);
+  },
+  applyModelDefaults(model, settings11) {
+    if (!settings11 || typeof settings11 !== "object" || Array.isArray(settings11)) {
+      return;
+    }
+    const settingsBag = settings11;
+    if (!decodePiModelId(model)) {
+      settingsBag.effortLevel = "off";
+      return;
+    }
+    settingsBag.model = model;
+    settingsBag.effortLevel = this.getDefaultReasoningValue(model, settingsBag);
+  },
+  applyReasoningSelection(model, value, settings11) {
+    var _a3, _b2;
+    if (!settings11 || typeof settings11 !== "object" || Array.isArray(settings11)) {
+      return;
+    }
+    const settingsBag = settings11;
+    const piModel = getCachedModel(model, settingsBag);
+    const encodedId = (_a3 = piModel == null ? void 0 : piModel.encodedId) != null ? _a3 : decodePiModelId(model) ? model : "";
+    if (!encodedId) {
+      return;
+    }
+    const supportedLevels = (_b2 = piModel == null ? void 0 : piModel.thinkingLevels) != null ? _b2 : DEFAULT_PI_REASONING_LEVELS;
+    const nextPreferredThinkingByModel = {
+      ...getPiProviderSettings(settingsBag).preferredThinkingByModel
+    };
+    const normalizedValue = value;
+    if (!supportedLevels.includes(normalizedValue)) {
+      delete nextPreferredThinkingByModel[encodedId];
+    } else {
+      nextPreferredThinkingByModel[encodedId] = normalizedValue;
+    }
+    updatePiProviderSettings(settingsBag, {
+      preferredThinkingByModel: nextPreferredThinkingByModel
+    });
+  },
+  normalizeModelVariant(model) {
+    return decodePiModelId(model) ? model : model;
+  },
+  getCustomModelIds() {
+    return /* @__PURE__ */ new Set();
+  },
+  getModeSelector() {
+    return null;
+  },
+  getPermissionModeToggle() {
+    return PI_PERMISSION_MODE_TOGGLE;
+  },
+  resolvePermissionMode(settings11) {
+    return getPiProviderSettings(settings11).toolMode === "readonly" ? "normal" : "yolo";
+  },
+  applyPermissionMode(value, settings11) {
+    if (!settings11 || typeof settings11 !== "object" || Array.isArray(settings11)) {
+      return;
+    }
+    const settingsBag = settings11;
+    settingsBag.permissionMode = value;
+    updatePiProviderSettings(settingsBag, {
+      toolMode: value === "normal" ? "readonly" : "all"
+    });
+  },
+  getProviderIcon() {
+    return PI_PROVIDER_ICON;
+  }
+};
+function getCachedModel(model, settings11) {
+  var _a3;
+  if (!decodePiModelId(model)) {
+    return null;
+  }
+  return (_a3 = getPiProviderSettings(settings11).discoveredModels.find((entry) => entry.encodedId === model)) != null ? _a3 : null;
+}
+function buildModelOption(model, alias) {
+  return {
+    description: `${model.provider} runtime`,
+    group: model.provider,
+    label: alias != null ? alias : model.label,
+    value: model.encodedId
+  };
+}
+function formatFallbackLabel(encodedId) {
+  const decoded = decodePiModelId(encodedId);
+  return decoded ? `${decoded.provider}/${decoded.modelId}` : "Pi";
+}
+function formatThinkingLevelLabel(value) {
+  return value === "xhigh" ? "XHigh" : value.charAt(0).toUpperCase() + value.slice(1);
+}
+function pushOption2(target, seenValues, value, option) {
+  if (seenValues.has(value)) {
+    return;
+  }
+  seenValues.add(value);
+  target.push(option);
+}
+
+// src/providers/pi/auxiliary/PiTitleGenerationService.ts
+var PiTitleGenerationService = class extends QueryBackedTitleGenerationService {
+  constructor(plugin) {
+    super({
+      createRunner: () => new PiAuxQueryRunner(plugin, { profile: "passive" }),
+      resolveModel: () => {
+        const settings11 = plugin.settings;
+        const titleModel = typeof settings11.titleGenerationModel === "string" ? settings11.titleGenerationModel : "";
+        return piChatUIConfig.ownsModel(titleModel, settings11) ? titleModel : void 0;
+      }
+    });
+  }
+};
+
+// src/providers/pi/env/PiSettingsReconciler.ts
+init_env();
+var PI_ENV_HASH_KEYS = [
+  "PI_CODING_AGENT_DIR",
+  "PI_CODING_AGENT_SESSION_DIR",
+  "PI_PACKAGE_DIR",
+  "PI_OFFLINE",
+  "PI_SKIP_VERSION_CHECK",
+  "PI_TELEMETRY",
+  "PI_CACHE_RETENTION"
+];
+function computePiEnvHash(envText) {
+  const envVars = parseEnvironmentVariables(envText || "");
+  return PI_ENV_HASH_KEYS.filter((key) => envVars[key]).map((key) => `${key}=${envVars[key]}`).sort().join("|");
+}
+var piSettingsReconciler = {
+  handleEnvironmentChange(settings11) {
+    const current = getPiProviderSettings(settings11);
+    if (current.discoveredModels.length === 0) {
+      return false;
+    }
+    updatePiProviderSettings(settings11, {
+      discoveredModels: []
+    });
+    return true;
+  },
+  reconcileModelWithEnvironment(settings11, conversations) {
+    const envText = getRuntimeEnvironmentText(settings11, "pi");
+    const currentHash = computePiEnvHash(envText);
+    const savedHash = getPiProviderSettings(settings11).environmentHash;
+    if (currentHash === savedHash) {
+      return { changed: false, invalidatedConversations: [] };
+    }
+    const invalidatedConversations = [];
+    for (const conversation of conversations) {
+      if (conversation.providerId !== "pi") {
+        continue;
+      }
+      const state = getPiState(conversation.providerState);
+      if (!conversation.sessionId && !state.sessionId && !state.sessionFile) {
+        continue;
+      }
+      conversation.sessionId = null;
+      conversation.providerState = void 0;
+      invalidatedConversations.push(conversation);
+    }
+    updatePiProviderSettings(settings11, { environmentHash: currentHash });
+    return { changed: true, invalidatedConversations };
+  },
+  normalizeModelVariantSettings(settings11) {
+    const piSettings = getPiProviderSettings(settings11);
+    let changed = false;
+    const normalizeSelection = (value, fallback) => {
+      if (typeof value !== "string" || !isPiModelSelectionId(value)) {
+        return null;
+      }
+      if (value === "pi") {
+        return value;
+      }
+      const decoded = decodePiModelId(value);
+      if (decoded) {
+        return encodePiModelId(decoded.provider, decoded.modelId);
+      }
+      return fallback === "synthetic" ? "pi" : "";
+    };
+    const modelSelection = normalizeSelection(settings11.model, "synthetic");
+    if (typeof settings11.model === "string" && modelSelection && settings11.model !== modelSelection) {
+      settings11.model = modelSelection;
+      changed = true;
+    }
+    const titleModelSelection = normalizeSelection(settings11.titleGenerationModel, "clear");
+    if (typeof settings11.titleGenerationModel === "string" && titleModelSelection !== null && settings11.titleGenerationModel !== titleModelSelection) {
+      settings11.titleGenerationModel = titleModelSelection;
+      changed = true;
+    }
+    const savedProviderModelRaw = settings11.savedProviderModel;
+    if (savedProviderModelRaw && typeof savedProviderModelRaw === "object" && !Array.isArray(savedProviderModelRaw)) {
+      const savedProviderModel = savedProviderModelRaw;
+      const savedSelection = normalizeSelection(savedProviderModel.pi, "clear");
+      if (typeof savedProviderModel.pi === "string" && savedSelection !== null && savedProviderModel.pi !== savedSelection) {
+        if (savedSelection) {
+          savedProviderModel.pi = savedSelection;
+        } else {
+          delete savedProviderModel.pi;
+        }
+        changed = true;
+      }
+    }
+    const normalizedVisibleModels = normalizePiVisibleModels(
+      piSettings.visibleModels,
+      piSettings.discoveredModels
+    );
+    const shouldUpdateProviderSettings = !sameStringList2(normalizedVisibleModels, piSettings.visibleModels);
+    if (shouldUpdateProviderSettings) {
+      updatePiProviderSettings(settings11, {
+        visibleModels: normalizedVisibleModels
+      });
+      changed = true;
+    }
+    if (typeof settings11.effortLevel === "string" && !settings11.effortLevel.trim()) {
+      settings11.effortLevel = getDefaultPiEffortForSelection(settings11.model, piSettings);
+      changed = true;
+    }
+    return changed;
+  }
+};
+function getDefaultPiEffortForSelection(selection, piSettings) {
+  if (typeof selection !== "string") {
+    return "off";
+  }
+  const decoded = decodePiModelId(selection);
+  if (!decoded) {
+    return "off";
+  }
+  const model = findPiModel(piSettings, encodePiModelId(decoded.provider, decoded.modelId));
+  return model ? clampPiThinkingLevel(PI_DEFAULT_THINKING_LEVEL, model.thinkingLevels) : PI_DEFAULT_THINKING_LEVEL;
+}
+
+// src/providers/pi/history/PiConversationHistoryService.ts
+var fs25 = __toESM(require("node:fs/promises"));
+var PiConversationHistoryService = class {
+  constructor() {
+    this.hydratedKeys = /* @__PURE__ */ new Map();
+  }
+  async hydrateConversationHistory(conversation, vaultPath) {
+    var _a3, _b2, _c, _d2, _e;
+    const state = getPiState(conversation.providerState);
+    if (this.isPendingForkConversation(conversation)) {
+      if (conversation.messages.length > 0) {
+        return;
+      }
+      const sourceSessionFile = (_a3 = state.forkSourceSessionFile) != null ? _a3 : findPiSessionFile(state.forkSource.sessionId, vaultPath);
+      if (!sourceSessionFile) {
+        this.hydratedKeys.delete(conversation.id);
+        return;
+      }
+      try {
+        const content = await fs25.readFile(sourceSessionFile, "utf-8");
+        const messages = parsePiSessionContent(content, {
+          leafEntryId: state.forkSource.resumeAt,
+          requireLeafEntryId: true
+        });
+        if (messages.length === 0) {
+          this.hydratedKeys.delete(conversation.id);
+          return;
+        }
+        conversation.messages = messages;
+        this.hydratedKeys.set(conversation.id, `fork::${sourceSessionFile}::${state.forkSource.resumeAt}`);
+      } catch (e2) {
+        this.hydratedKeys.delete(conversation.id);
+      }
+      return;
+    }
+    const sessionTarget = (_c = (_b2 = state.sessionFile) != null ? _b2 : state.sessionId) != null ? _c : conversation.sessionId;
+    if (!sessionTarget) {
+      this.hydratedKeys.delete(conversation.id);
+      return;
+    }
+    const sessionFile = (_d2 = state.sessionFile) != null ? _d2 : findPiSessionFile(sessionTarget, vaultPath);
+    if (!sessionFile) {
+      this.hydratedKeys.delete(conversation.id);
+      return;
+    }
+    const hydrationKey = `${sessionFile}::${(_e = state.leafEntryId) != null ? _e : ""}`;
+    if (conversation.messages.length > 0 && this.hydratedKeys.get(conversation.id) === hydrationKey) {
+      return;
+    }
+    try {
+      const content = await fs25.readFile(sessionFile, "utf-8");
+      const messages = parsePiSessionContent(content, {
+        leafEntryId: state.leafEntryId
+      });
+      if (messages.length === 0) {
+        this.hydratedKeys.delete(conversation.id);
+        return;
+      }
+      conversation.messages = messages;
+      this.hydratedKeys.set(conversation.id, hydrationKey);
+    } catch (e2) {
+      this.hydratedKeys.delete(conversation.id);
+    }
+  }
+  async deleteConversationSession(_conversation, _vaultPath) {
+  }
+  resolveSessionIdForConversation(conversation) {
+    var _a3, _b2, _c, _d2, _e;
+    const state = getPiState(conversation == null ? void 0 : conversation.providerState);
+    return (_e = (_d2 = (_b2 = (_a3 = state.sessionFile) != null ? _a3 : state.sessionId) != null ? _b2 : conversation == null ? void 0 : conversation.sessionId) != null ? _d2 : (_c = state.forkSource) == null ? void 0 : _c.sessionId) != null ? _e : null;
+  }
+  isPendingForkConversation(_conversation) {
+    const state = getPiState(_conversation.providerState);
+    return !!state.forkSource && !state.sessionId && !state.sessionFile && !_conversation.sessionId;
+  }
+  buildForkProviderState(sourceSessionId, resumeAt, sourceProviderState) {
+    var _a3;
+    const sourceState = getPiState(sourceProviderState);
+    const sourceSessionFile = (_a3 = sourceState.sessionFile) != null ? _a3 : sourceState.forkSourceSessionFile;
+    return buildPersistedPiState({
+      forkSource: { sessionId: sourceSessionId, resumeAt },
+      ...sourceSessionFile ? { forkSourceSessionFile: sourceSessionFile } : {}
+    });
+  }
+  buildPersistedProviderState(conversation) {
+    return buildPersistedPiState(getPiState(conversation.providerState));
+  }
+};
+
+// src/providers/pi/ui/ObsidianPiExtensionUiRenderer.ts
+var import_obsidian21 = require("obsidian");
+var ObsidianPiExtensionUiRenderer = class {
+  constructor(app) {
+    this.app = app;
+  }
+  async select(request, signal) {
+    return new PiSelectModal(this.app, request, signal).openAndWait();
+  }
+  async confirm(request, signal) {
+    return new PiConfirmModal(this.app, request, signal).openAndWait();
+  }
+  async input(request, signal) {
+    return new PiTextModal(this.app, request, signal, false).openAndWait();
+  }
+  async editor(request, signal) {
+    return new PiTextModal(this.app, request, signal, true).openAndWait();
+  }
+  notify(request) {
+    new import_obsidian21.Notice(getDisplayText(request));
+  }
+  setStatus(_request) {
+  }
+  setWidget(_request) {
+  }
+  setTitle(_request) {
+  }
+  setEditorText(_request) {
+  }
+};
+function getDisplayText(request) {
+  const message = typeof request.message === "string" ? request.message.trim() : "";
+  const title = typeof request.title === "string" ? request.title.trim() : "";
+  return message || title || "Pi extension notification.";
+}
+function getTitle(request, fallback) {
+  return typeof request.title === "string" && request.title.trim() ? request.title.trim() : fallback;
+}
+function getMessage(request) {
+  return typeof request.message === "string" ? request.message.trim() : "";
+}
+function getSelectOptions(request) {
+  const rawOptions = Array.isArray(request.options) ? request.options : [];
+  return rawOptions.flatMap((option) => {
+    if (typeof option === "string" && option.trim()) {
+      return [{ label: option.trim(), value: option.trim() }];
+    }
+    if (!option || typeof option !== "object" || Array.isArray(option)) {
+      return [];
+    }
+    const record2 = option;
+    const value = typeof record2.value === "string" ? record2.value.trim() : "";
+    const label = typeof record2.label === "string" && record2.label.trim() ? record2.label.trim() : value;
+    return value ? [{ label, value }] : [];
+  });
+}
+var PiExtensionModal = class extends import_obsidian21.Modal {
+  constructor(app, request, signal) {
+    super(app);
+    this.request = request;
+    this.signal = signal;
+    this.done = false;
+    this.resultPromise = new Promise((resolve8) => {
+      this.resolve = resolve8;
+    });
+  }
+  openAndWait() {
+    if (this.signal.aborted) {
+      return Promise.resolve(this.cancelledResult());
+    }
+    const abortHandler = () => {
+      this.finish(this.cancelledResult());
+      this.close();
+    };
+    this.signal.addEventListener("abort", abortHandler, { once: true });
+    this.resultPromise.finally(() => {
+      this.signal.removeEventListener("abort", abortHandler);
+    });
+    this.open();
+    return this.resultPromise;
+  }
+  onOpen() {
+    this.contentEl.empty();
+    this.contentEl.addClass("claudian-pi-extension-modal");
+    this.render();
+  }
+  onClose() {
+    this.finish(this.cancelledResult());
+  }
+  finish(result) {
+    if (this.done) {
+      return;
+    }
+    this.done = true;
+    this.resolve(result);
+  }
+  renderHeader(fallbackTitle) {
+    this.contentEl.createEl("h2", { text: getTitle(this.request, fallbackTitle) });
+    const message = getMessage(this.request);
+    if (message) {
+      this.contentEl.createEl("p", { text: message });
+    }
+  }
+};
+var PiSelectModal = class extends PiExtensionModal {
+  cancelledResult() {
+    return { cancelled: true };
+  }
+  render() {
+    this.renderHeader("Pi extension");
+    const options = getSelectOptions(this.request);
+    const listEl = this.contentEl.createDiv({ cls: "claudian-pi-extension-options" });
+    for (const option of options) {
+      const button = listEl.createEl("button", { text: option.label });
+      button.addEventListener("click", () => {
+        this.finish({ value: option.value });
+        this.close();
+      });
+    }
+    this.renderCancelButton();
+  }
+  renderCancelButton() {
+    const cancelButton = this.contentEl.createEl("button", { text: "Cancel" });
+    cancelButton.addEventListener("click", () => {
+      this.finish({ cancelled: true });
+      this.close();
+    });
+  }
+};
+var PiConfirmModal = class extends PiExtensionModal {
+  cancelledResult() {
+    return { cancelled: true };
+  }
+  render() {
+    this.renderHeader("Pi extension");
+    const actionsEl = this.contentEl.createDiv({ cls: "claudian-pi-extension-actions" });
+    const confirmButton = actionsEl.createEl("button", { text: "Confirm" });
+    confirmButton.addEventListener("click", () => {
+      this.finish({ confirmed: true });
+      this.close();
+    });
+    const cancelButton = actionsEl.createEl("button", { text: "Cancel" });
+    cancelButton.addEventListener("click", () => {
+      this.finish({ confirmed: false });
+      this.close();
+    });
+  }
+};
+var PiTextModal = class extends PiExtensionModal {
+  constructor(app, request, signal, multiline) {
+    super(app, request, signal);
+    this.multiline = multiline;
+  }
+  cancelledResult() {
+    return { cancelled: true };
+  }
+  render() {
+    this.renderHeader("Pi extension");
+    const initialValue = typeof this.request.value === "string" ? this.request.value : typeof this.request.defaultValue === "string" ? this.request.defaultValue : "";
+    const input = this.multiline ? this.contentEl.createEl("textarea") : this.contentEl.createEl("input", { type: "text" });
+    input.value = initialValue;
+    if (this.multiline) {
+      input.rows = 8;
+    }
+    const actionsEl = this.contentEl.createDiv({ cls: "claudian-pi-extension-actions" });
+    const submitButton = actionsEl.createEl("button", { text: "Submit" });
+    submitButton.addEventListener("click", () => {
+      this.finish({ value: input.value });
+      this.close();
+    });
+    const cancelButton = actionsEl.createEl("button", { text: "Cancel" });
+    cancelButton.addEventListener("click", () => {
+      this.finish({ cancelled: true });
+      this.close();
+    });
+    window.setTimeout(() => input.focus(), 0);
+  }
+};
+
+// src/providers/pi/registration.ts
+var piProviderRegistration = {
+  blankTabOrder: 11,
+  capabilities: PI_PROVIDER_CAPABILITIES,
+  chatUIConfig: piChatUIConfig,
+  createInlineEditService: (plugin) => new PiInlineEditService(plugin),
+  createInstructionRefineService: (plugin) => new PiInstructionRefineService(plugin),
+  createRuntime: ({ plugin }) => new PiChatRuntime(plugin, {
+    extensionUiRenderer: new ObsidianPiExtensionUiRenderer(plugin.app)
+  }),
+  createTitleGenerationService: (plugin) => new PiTitleGenerationService(plugin),
+  displayName: "Pi",
+  environmentKeyPatterns: [/^PI_/i],
+  historyService: new PiConversationHistoryService(),
+  isEnabled: (settings11) => getPiProviderSettings(settings11).enabled,
+  settingsReconciler: piSettingsReconciler,
+  taskResultInterpreter: new PiTaskResultInterpreter()
+};
+
 // src/providers/index.ts
 var builtInProvidersRegistered = false;
 function registerBuiltInProviders() {
@@ -77334,18 +81622,20 @@ function registerBuiltInProviders() {
   ProviderRegistry.register("claude", claudeProviderRegistration);
   ProviderRegistry.register("codex", codexProviderRegistration);
   ProviderRegistry.register("opencode", opencodeProviderRegistration);
+  ProviderRegistry.register("pi", piProviderRegistration);
   ProviderWorkspaceRegistry.register("claude", claudeWorkspaceRegistration);
   ProviderWorkspaceRegistry.register("codex", codexWorkspaceRegistration);
   ProviderWorkspaceRegistry.register("opencode", opencodeWorkspaceRegistration);
+  ProviderWorkspaceRegistry.register("pi", piWorkspaceRegistration);
   builtInProvidersRegistered = true;
 }
 registerBuiltInProviders();
 
 // src/main.ts
-var import_obsidian47 = require("obsidian");
+var import_obsidian50 = require("obsidian");
 
 // src/app/storage/SharedStorageService.ts
-var import_obsidian20 = require("obsidian");
+var import_obsidian22 = require("obsidian");
 function isRecord6(value) {
   return !!value && typeof value === "object" && !Array.isArray(value);
 }
@@ -77371,7 +81661,7 @@ var SharedStorageService = class {
       data.tabManagerState = state;
       await this.plugin.saveData(data);
     } catch (e2) {
-      new import_obsidian20.Notice("Failed to save tab layout");
+      new import_obsidian22.Notice("Failed to save tab layout");
     }
   }
   async getTabManagerState() {
@@ -77423,7 +81713,7 @@ var SharedStorageService = class {
 };
 
 // src/features/chat/ClaudianView.ts
-var import_obsidian44 = require("obsidian");
+var import_obsidian46 = require("obsidian");
 
 // src/utils/animationFrame.ts
 function getRendererWindow() {
@@ -77460,7 +81750,7 @@ function cancelScheduledAnimationFrame(frame) {
 }
 
 // src/features/chat/tabs/Tab.ts
-var import_obsidian41 = require("obsidian");
+var import_obsidian43 = require("obsidian");
 
 // src/core/providers/modelRouting.ts
 function getProviderForModel(model, settings11) {
@@ -78210,7 +82500,7 @@ var CanvasSelectionController = class {
 };
 
 // src/features/chat/controllers/ConversationController.ts
-var import_obsidian21 = require("obsidian");
+var import_obsidian23 = require("obsidian");
 
 // src/features/chat/rendering/collapsible.ts
 function setupCollapsible(wrapperEl, headerEl, contentEl, state, options = {}) {
@@ -78347,7 +82637,7 @@ function findRewindContext(messages, userIndex) {
 // src/features/chat/controllers/ConversationController.ts
 function runConversationAction(action, failureMessage) {
   void action().catch(() => {
-    new import_obsidian21.Notice(failureMessage);
+    new import_obsidian23.Notice(failureMessage);
   });
 }
 var ConversationController = class {
@@ -78510,27 +82800,27 @@ var ConversationController = class {
     const { plugin, state, renderer } = this.deps;
     const agentServiceForCheck = this.getAgentService();
     if (agentServiceForCheck && !agentServiceForCheck.getCapabilities().supportsRewind) {
-      new import_obsidian21.Notice(t("chat.rewind.failed", { error: "Rewind is not supported by this provider." }));
+      new import_obsidian23.Notice(t("chat.rewind.failed", { error: "Rewind is not supported by this provider." }));
       return;
     }
     if (state.isStreaming) {
-      new import_obsidian21.Notice(t("chat.rewind.unavailableStreaming"));
+      new import_obsidian23.Notice(t("chat.rewind.unavailableStreaming"));
       return;
     }
     const msgs = state.messages;
     const userIdx = msgs.findIndex((m2) => m2.id === userMessageId);
     if (userIdx === -1) {
-      new import_obsidian21.Notice(t("chat.rewind.failed", { error: "Message not found" }));
+      new import_obsidian23.Notice(t("chat.rewind.failed", { error: "Message not found" }));
       return;
     }
     const userMsg = msgs[userIdx];
     if (!userMsg.userMessageId) {
-      new import_obsidian21.Notice(t("chat.rewind.unavailableNoUuid"));
+      new import_obsidian23.Notice(t("chat.rewind.unavailableNoUuid"));
       return;
     }
     const rewindCtx = findRewindContext(msgs, userIdx);
     if (!rewindCtx.hasResponse || !rewindCtx.prevAssistantUuid) {
-      new import_obsidian21.Notice(t("chat.rewind.unavailableNoUuid"));
+      new import_obsidian23.Notice(t("chat.rewind.unavailableNoUuid"));
       return;
     }
     const prevAssistantUuid = rewindCtx.prevAssistantUuid;
@@ -78541,23 +82831,23 @@ var ConversationController = class {
     );
     if (!confirmed) return;
     if (state.isStreaming) {
-      new import_obsidian21.Notice(t("chat.rewind.unavailableStreaming"));
+      new import_obsidian23.Notice(t("chat.rewind.unavailableStreaming"));
       return;
     }
     const agentService = this.getAgentService();
     if (!agentService) {
-      new import_obsidian21.Notice(t("chat.rewind.failed", { error: "Agent service not available" }));
+      new import_obsidian23.Notice(t("chat.rewind.failed", { error: "Agent service not available" }));
       return;
     }
     let result;
     try {
       result = await agentService.rewind(userMsg.userMessageId, prevAssistantUuid, mode);
     } catch (e2) {
-      new import_obsidian21.Notice(t("chat.rewind.failed", { error: e2 instanceof Error ? e2.message : "Unknown error" }));
+      new import_obsidian23.Notice(t("chat.rewind.failed", { error: e2 instanceof Error ? e2.message : "Unknown error" }));
       return;
     }
     if (!result.canRewind) {
-      new import_obsidian21.Notice(t("chat.rewind.cannot", { error: (_a3 = result.error) != null ? _a3 : "Unknown error" }));
+      new import_obsidian23.Notice(t("chat.rewind.cannot", { error: (_a3 = result.error) != null ? _a3 : "Unknown error" }));
       return;
     }
     state.truncateAt(userMessageId);
@@ -78575,12 +82865,12 @@ var ConversationController = class {
       saveError = e2 instanceof Error ? e2.message : "Failed to save";
     }
     if (saveError) {
-      new import_obsidian21.Notice(
+      new import_obsidian23.Notice(
         mode === "conversation" ? t("chat.rewind.noticeConversationOnlySaveFailed", { error: saveError }) : t("chat.rewind.noticeSaveFailed", { count: String(filesChanged), error: saveError })
       );
       return;
     }
-    new import_obsidian21.Notice(
+    new import_obsidian23.Notice(
       mode === "conversation" ? t("chat.rewind.noticeConversationOnly") : t("chat.rewind.notice", { count: String(filesChanged) })
     );
   }
@@ -78737,7 +83027,7 @@ var ConversationController = class {
         cls: `claudian-history-item${isCurrent ? " active" : ""}`
       });
       const iconEl = item.createDiv({ cls: "claudian-history-item-icon" });
-      (0, import_obsidian21.setIcon)(iconEl, isCurrent ? "message-square-dot" : "message-square");
+      (0, import_obsidian23.setIcon)(iconEl, isCurrent ? "message-square-dot" : "message-square");
       const content = item.createDiv({ cls: "claudian-history-item-content" });
       const titleEl = content.createDiv({ cls: "claudian-history-item-title", text: conv.title });
       titleEl.setAttribute("title", conv.title);
@@ -78796,11 +83086,11 @@ var ConversationController = class {
       const actions = item.createDiv({ cls: "claudian-history-item-actions" });
       if (conv.titleGenerationStatus === "pending") {
         const loadingEl = actions.createEl("span", { cls: "claudian-action-btn claudian-action-loading" });
-        (0, import_obsidian21.setIcon)(loadingEl, "loader-2");
+        (0, import_obsidian23.setIcon)(loadingEl, "loader-2");
         loadingEl.setAttribute("aria-label", "Generating title...");
       } else if (conv.titleGenerationStatus === "failed") {
         const regenerateBtn = actions.createEl("button", { cls: "claudian-action-btn" });
-        (0, import_obsidian21.setIcon)(regenerateBtn, "refresh-cw");
+        (0, import_obsidian23.setIcon)(regenerateBtn, "refresh-cw");
         regenerateBtn.setAttribute("aria-label", "Regenerate title");
         regenerateBtn.addEventListener("click", (e2) => {
           e2.stopPropagation();
@@ -78811,14 +83101,14 @@ var ConversationController = class {
         });
       }
       const renameBtn = actions.createEl("button", { cls: "claudian-action-btn" });
-      (0, import_obsidian21.setIcon)(renameBtn, "pencil");
+      (0, import_obsidian23.setIcon)(renameBtn, "pencil");
       renameBtn.setAttribute("aria-label", "Rename");
       renameBtn.addEventListener("click", (e2) => {
         e2.stopPropagation();
         this.showRenameInput(item, conv.id, conv.title);
       });
       const deleteBtn = actions.createEl("button", { cls: "claudian-action-btn claudian-delete-btn" });
-      (0, import_obsidian21.setIcon)(deleteBtn, "trash-2");
+      (0, import_obsidian23.setIcon)(deleteBtn, "trash-2");
       deleteBtn.setAttribute("aria-label", "Delete");
       deleteBtn.addEventListener("click", (e2) => {
         e2.stopPropagation();
@@ -78839,12 +83129,12 @@ var ConversationController = class {
     try {
       await action();
     } catch (e2) {
-      new import_obsidian21.Notice(errorMessage);
+      new import_obsidian23.Notice(errorMessage);
     }
   }
   showHistoryContextMenu(item, conversationId, title, isCurrent, options, event) {
     var _a3, _b2;
-    const menu = new import_obsidian21.Menu();
+    const menu = new import_obsidian23.Menu();
     const openState = (_b2 = (_a3 = options.getConversationOpenState) == null ? void 0 : _a3.call(options, conversationId)) != null ? _b2 : isCurrent ? "current" : "closed";
     if (!isCurrent) {
       if (openState === "closed" && options.onOpenConversationInNewTab) {
@@ -78913,7 +83203,7 @@ var ConversationController = class {
         await this.deps.plugin.renameConversation(convId, newTitle);
         this.updateHistoryDropdown();
       } catch (e2) {
-        new import_obsidian21.Notice("Failed to rename conversation");
+        new import_obsidian23.Notice("Failed to rename conversation");
       }
     };
     input.addEventListener("blur", () => {
@@ -79068,7 +83358,7 @@ var ConversationController = class {
 };
 
 // src/features/chat/controllers/InputController.ts
-var import_obsidian26 = require("obsidian");
+var import_obsidian28 = require("obsidian");
 
 // src/core/runtime/QueuedTurn.ts
 function cloneChatTurnRequest(request) {
@@ -79130,7 +83420,7 @@ function mergeSets(first, second) {
 }
 
 // src/shared/components/ResumeSessionDropdown.ts
-var import_obsidian22 = require("obsidian");
+var import_obsidian24 = require("obsidian");
 var ResumeSessionDropdown = class {
   constructor(containerEl, inputEl, conversations, currentConversationId, callbacks) {
     this.selectedIndex = 0;
@@ -79233,7 +83523,7 @@ var ResumeSessionDropdown = class {
       if (isCurrent) item.addClass("current");
       if (i2 === this.selectedIndex) item.addClass("selected");
       const iconEl = item.createDiv({ cls: "claudian-resume-item-icon" });
-      (0, import_obsidian22.setIcon)(iconEl, isCurrent ? "message-square-dot" : "message-square");
+      (0, import_obsidian24.setIcon)(iconEl, isCurrent ? "message-square-dot" : "message-square");
       const content = item.createDiv({ cls: "claudian-resume-item-content" });
       const titleEl = content.createDiv({ cls: "claudian-resume-item-title", text: conv.title });
       titleEl.setAttribute("title", conv.title);
@@ -79265,8 +83555,8 @@ var ResumeSessionDropdown = class {
 };
 
 // src/shared/modals/InstructionConfirmModal.ts
-var import_obsidian23 = require("obsidian");
-var InstructionModal = class extends import_obsidian23.Modal {
+var import_obsidian25 = require("obsidian");
+var InstructionModal = class extends import_obsidian25.Modal {
   constructor(app, rawInstruction, callbacks) {
     super(app);
     this.state = "loading";
@@ -79310,7 +83600,7 @@ var InstructionModal = class extends import_obsidian23.Modal {
     const responseSection = this.clarificationEl.createDiv({ cls: "claudian-instruction-section" });
     const responseLabel = responseSection.createDiv({ cls: "claudian-instruction-label" });
     responseLabel.setText("Your response:");
-    this.responseTextarea = new import_obsidian23.TextAreaComponent(responseSection);
+    this.responseTextarea = new import_obsidian25.TextAreaComponent(responseSection);
     this.responseTextarea.inputEl.addClass("claudian-instruction-response-textarea");
     this.responseTextarea.inputEl.rows = 3;
     this.responseTextarea.inputEl.placeholder = "Provide more details...";
@@ -79328,7 +83618,7 @@ var InstructionModal = class extends import_obsidian23.Modal {
     this.refinedDisplayEl = refinedSection.createDiv({ cls: "claudian-instruction-refined" });
     this.editContainerEl = refinedSection.createDiv({ cls: "claudian-instruction-edit-container" });
     this.editContainerEl.addClass("claudian-hidden");
-    this.editTextarea = new import_obsidian23.TextAreaComponent(this.editContainerEl);
+    this.editTextarea = new import_obsidian25.TextAreaComponent(this.editContainerEl);
     this.editTextarea.inputEl.addClass("claudian-instruction-edit-textarea");
     this.editTextarea.inputEl.rows = 4;
     this.buttonsEl = contentEl.createDiv({ cls: "claudian-instruction-buttons" });
@@ -80180,7 +84470,7 @@ var InlineAskUserQuestion = class {
 };
 
 // src/features/chat/rendering/InlineExitPlanMode.ts
-var fs24 = __toESM(require("fs"));
+var fs26 = __toESM(require("fs"));
 var nodePath = __toESM(require("path"));
 var HINTS_TEXT2 = "Arrow keys to navigate \xB7 Enter to select \xB7 Esc to cancel";
 var InlineExitPlanMode = class {
@@ -80295,7 +84585,7 @@ var InlineExitPlanMode = class {
       return null;
     }
     try {
-      const content = fs24.readFileSync(planFilePath, "utf-8");
+      const content = fs26.readFileSync(planFilePath, "utf-8");
       return content.trim() || null;
     } catch (err) {
       this.planReadError = err instanceof Error ? err.message : "unknown error";
@@ -80561,7 +84851,7 @@ var InlinePlanApproval = class {
 };
 
 // src/features/chat/rendering/ToolCallRenderer.ts
-var import_obsidian25 = require("obsidian");
+var import_obsidian27 = require("obsidian");
 
 // src/core/tools/toolIcons.ts
 var TOOL_ICONS = {
@@ -80696,7 +84986,7 @@ function renderDiffContent(containerEl, diffLines, contextLines = 3) {
 }
 
 // src/features/chat/rendering/todoUtils.ts
-var import_obsidian24 = require("obsidian");
+var import_obsidian26 = require("obsidian");
 function getTodoStatusIcon(status) {
   return status === "completed" ? "check" : "dot";
 }
@@ -80709,7 +84999,7 @@ function renderTodoItems(container, todos) {
     const item = container.createDiv({ cls: `claudian-todo-item claudian-todo-${todo.status}` });
     const icon = item.createSpan({ cls: "claudian-todo-status-icon" });
     icon.setAttribute("aria-hidden", "true");
-    (0, import_obsidian24.setIcon)(icon, getTodoStatusIcon(todo.status));
+    (0, import_obsidian26.setIcon)(icon, getTodoStatusIcon(todo.status));
     const text = item.createSpan({ cls: "claudian-todo-text" });
     text.setText(getTodoDisplayText(todo));
   }
@@ -80721,7 +85011,7 @@ function setToolIcon(el, name) {
   if (icon === MCP_ICON_MARKER) {
     appendMcpIcon(el);
   } else {
-    (0, import_obsidian25.setIcon)(el, icon);
+    (0, import_obsidian27.setIcon)(el, icon);
   }
 }
 function stringifyToolValue(value) {
@@ -80961,7 +85251,7 @@ function appendToolLink(parent, title, url2) {
   linkEl.setAttribute("target", "_blank");
   linkEl.setAttribute("rel", "noopener noreferrer");
   const iconEl = linkEl.createSpan({ cls: "claudian-tool-link-icon" });
-  (0, import_obsidian25.setIcon)(iconEl, "external-link");
+  (0, import_obsidian27.setIcon)(iconEl, "external-link");
   linkEl.createSpan({ cls: "claudian-tool-link-title", text: title });
 }
 function isPlaceholderWebSearchResult(result) {
@@ -81137,10 +85427,10 @@ function renderApplyPatchExpanded(container, input, result) {
     for (const change of changes) {
       if (!change || typeof change !== "object" || Array.isArray(change)) continue;
       const changeRecord = change;
-      const path24 = typeof changeRecord.path === "string" ? changeRecord.path : "";
-      if (!path24) continue;
+      const path27 = typeof changeRecord.path === "string" ? changeRecord.path : "";
+      if (!path27) continue;
       const movedTo = readMoveTarget(changeRecord.kind);
-      const pathText = movedTo ? `${path24} -> ${movedTo}` : path24;
+      const pathText = movedTo ? `${path27} -> ${movedTo}` : path27;
       linesEl.createDiv({ cls: "claudian-tool-line", text: pathText });
     }
     return;
@@ -81310,12 +85600,12 @@ function setTodoWriteStatus(statusEl, input) {
   const status = isComplete ? "completed" : "running";
   const ariaLabel = isComplete ? "Status: completed" : "Status: in progress";
   resetStatusElement(statusEl, `status-${status}`, ariaLabel);
-  if (isComplete) (0, import_obsidian25.setIcon)(statusEl, "check");
+  if (isComplete) (0, import_obsidian27.setIcon)(statusEl, "check");
 }
 function setToolStatus(statusEl, status) {
   resetStatusElement(statusEl, `status-${status}`, `Status: ${status}`);
   const icon = STATUS_ICONS[status];
-  if (icon) (0, import_obsidian25.setIcon)(statusEl, icon);
+  if (icon) (0, import_obsidian27.setIcon)(statusEl, icon);
 }
 function setApplyPatchHeaderRight(statusEl, toolCall) {
   const isError = toolCall.status === "error" || toolCall.status === "blocked";
@@ -81801,7 +86091,7 @@ var InputController = class {
     if (this.deps.ensureServiceInitialized) {
       const ready = await this.deps.ensureServiceInitialized();
       if (!ready) {
-        new import_obsidian26.Notice("Failed to initialize agent service. Please try again.");
+        new import_obsidian28.Notice("Failed to initialize agent service. Please try again.");
         streamController.hideThinkingIndicator();
         state.isStreaming = false;
         this.activeStreamingAssistantMessage = null;
@@ -81811,7 +86101,7 @@ var InputController = class {
     }
     const agentService = this.getAgentService();
     if (!agentService) {
-      new import_obsidian26.Notice("Agent service not available. Please reload the plugin.");
+      new import_obsidian28.Notice("Agent service not available. Please reload the plugin.");
       this.activeStreamingAssistantMessage = null;
       this.resetProviderMessageBoundaryState();
       return;
@@ -82126,7 +86416,7 @@ var InputController = class {
         type: "button"
       }
     });
-    (0, import_obsidian26.setIcon)(button, icon);
+    (0, import_obsidian28.setIcon)(button, icon);
     return button;
   }
   canSteerQueuedMessage() {
@@ -82242,7 +86532,7 @@ var InputController = class {
       });
     } catch (e2) {
       this.restoreQueuedMessageAfterSteerFailure(queuedMessage);
-      new import_obsidian26.Notice("Failed to steer the queued Codex message. It is still available.");
+      new import_obsidian28.Notice("Failed to steer the queued Codex message. It is still available.");
     }
   }
   restoreQueuedMessageAfterSteerFailure(message) {
@@ -82484,7 +86774,7 @@ var InputController = class {
               const currentPrompt = plugin.settings.systemPrompt;
               plugin.settings.systemPrompt = appendMarkdownSnippet(currentPrompt, finalInstruction);
               await plugin.saveSettings();
-              new import_obsidian26.Notice("Instruction added to custom system prompt");
+              new import_obsidian28.Notice("Instruction added to custom system prompt");
               instructionModeManager == null ? void 0 : instructionModeManager.clear();
             })();
           },
@@ -82503,7 +86793,7 @@ var InputController = class {
               if (result2.error === "Cancelled") {
                 return;
               }
-              new import_obsidian26.Notice(result2.error || "Failed to process response");
+              new import_obsidian28.Notice(result2.error || "Failed to process response");
               modal == null ? void 0 : modal.showError(result2.error || "Failed to process response");
               return;
             }
@@ -82530,7 +86820,7 @@ var InputController = class {
           instructionModeManager == null ? void 0 : instructionModeManager.clear();
           return;
         }
-        new import_obsidian26.Notice(result.error || "Failed to refine instruction");
+        new import_obsidian28.Notice(result.error || "Failed to refine instruction");
         modal.showError(result.error || "Failed to refine instruction");
         instructionModeManager == null ? void 0 : instructionModeManager.clear();
         return;
@@ -82540,13 +86830,13 @@ var InputController = class {
       } else if (result.refinedInstruction) {
         modal.showConfirmation(result.refinedInstruction);
       } else {
-        new import_obsidian26.Notice("No instruction received");
+        new import_obsidian28.Notice("No instruction received");
         modal.showError("No instruction received");
         instructionModeManager == null ? void 0 : instructionModeManager.clear();
       }
     } catch (error48) {
       const errorMsg = error48 instanceof Error ? error48.message : "Unknown error";
-      new import_obsidian26.Notice(`Error: ${errorMsg}`);
+      new import_obsidian28.Notice(`Error: ${errorMsg}`);
       modal == null ? void 0 : modal.showError(errorMsg);
       instructionModeManager == null ? void 0 : instructionModeManager.clear();
     }
@@ -82614,7 +86904,7 @@ var InputController = class {
     const selected = Object.values(result)[0];
     const selectedValue = Array.isArray(selected) ? selected[0] : selected;
     if (typeof selectedValue !== "string") {
-      new import_obsidian26.Notice(`Unexpected approval selection: "${String(selectedValue)}"`);
+      new import_obsidian28.Notice(`Unexpected approval selection: "${String(selectedValue)}"`);
       return "cancel";
     }
     const decision = optionDecisionMap.get(selectedValue);
@@ -82785,7 +87075,7 @@ var InputController = class {
     const { conversationController } = this.deps;
     const capabilities = this.getActiveCapabilities();
     if (!isBuiltInCommandSupported(command, capabilities)) {
-      new import_obsidian26.Notice(`/${command.name} is not supported by this provider.`);
+      new import_obsidian28.Notice(`/${command.name} is not supported by this provider.`);
       return;
     }
     switch (command.action) {
@@ -82795,14 +87085,14 @@ var InputController = class {
       case "add-dir": {
         const externalContextSelector = this.deps.getExternalContextSelector();
         if (!externalContextSelector) {
-          new import_obsidian26.Notice("External context selector not available.");
+          new import_obsidian28.Notice("External context selector not available.");
           return;
         }
         const result = externalContextSelector.addExternalContext(args);
         if (result.success) {
-          new import_obsidian26.Notice(`Added external context: ${result.normalizedPath}`);
+          new import_obsidian28.Notice(`Added external context: ${result.normalizedPath}`);
         } else {
-          new import_obsidian26.Notice(result.error);
+          new import_obsidian28.Notice(result.error);
         }
         break;
       }
@@ -82811,11 +87101,11 @@ var InputController = class {
         break;
       case "fork": {
         if (!this.getActiveCapabilities().supportsFork) {
-          new import_obsidian26.Notice("Fork is not supported by this provider.");
+          new import_obsidian28.Notice("Fork is not supported by this provider.");
           return;
         }
         if (!this.deps.onForkAll) {
-          new import_obsidian26.Notice("Fork not available.");
+          new import_obsidian28.Notice("Fork not available.");
           return;
         }
         await this.deps.onForkAll();
@@ -82823,7 +87113,7 @@ var InputController = class {
       }
       default: {
         const unknownAction = typeof command.action === "string" ? command.action : "unknown";
-        new import_obsidian26.Notice(`Unknown command: ${unknownAction}`);
+        new import_obsidian28.Notice(`Unknown command: ${unknownAction}`);
         break;
       }
     }
@@ -82852,7 +87142,7 @@ var InputController = class {
     this.destroyResumeDropdown();
     const conversations = plugin.getConversationList();
     if (conversations.length === 0) {
-      new import_obsidian26.Notice("No conversations to resume");
+      new import_obsidian28.Notice("No conversations to resume");
       return;
     }
     const openConversation = (_a3 = this.deps.openConversation) != null ? _a3 : ((id) => conversationController.switchTo(id));
@@ -82866,7 +87156,7 @@ var InputController = class {
           this.destroyResumeDropdown();
           openConversation(id).catch((err) => {
             const msg = err instanceof Error ? err.message : String(err);
-            new import_obsidian26.Notice(`Failed to open conversation: ${msg}`);
+            new import_obsidian28.Notice(`Failed to open conversation: ${msg}`);
           });
         },
         onDismiss: () => {
@@ -83012,7 +87302,7 @@ var NavigationController = class {
 };
 
 // src/features/chat/controllers/SelectionController.ts
-var import_obsidian27 = require("obsidian");
+var import_obsidian29 = require("obsidian");
 
 // src/shared/components/SelectionHighlight.ts
 var import_state = require("@codemirror/state");
@@ -83117,7 +87407,7 @@ var SelectionController = class {
   // ============================================
   poll() {
     var _a3;
-    const view = this.app.workspace.getActiveViewOfType(import_obsidian27.MarkdownView);
+    const view = this.app.workspace.getActiveViewOfType(import_obsidian29.MarkdownView);
     if (!view) {
       this.clearWhenMarkdownContextIsUnavailable();
       return;
@@ -83365,7 +87655,7 @@ var SelectionController = class {
 };
 
 // src/features/chat/controllers/StreamController.ts
-var import_obsidian30 = require("obsidian");
+var import_obsidian32 = require("obsidian");
 
 // src/core/tools/todo.ts
 function isValidTodoItem(item) {
@@ -83505,7 +87795,7 @@ function adapterOwnsTool(adapter, toolName) {
 }
 
 // src/features/chat/rendering/SubagentRenderer.ts
-var import_obsidian28 = require("obsidian");
+var import_obsidian30 = require("obsidian");
 var SUBAGENT_TOOL_STATUS_ICONS = {
   completed: "check",
   error: "x",
@@ -83564,7 +87854,7 @@ function setSubagentToolStatus(view, status) {
   view.statusEl.setAttribute("aria-label", `Status: ${status}`);
   const statusIcon = SUBAGENT_TOOL_STATUS_ICONS[status];
   if (statusIcon) {
-    (0, import_obsidian28.setIcon)(view.statusEl, statusIcon);
+    (0, import_obsidian30.setIcon)(view.statusEl, statusIcon);
   }
 }
 function updateSubagentToolView(view, toolCall) {
@@ -83669,7 +87959,7 @@ function createSubagentBlock(parentEl, taskToolId, taskInput) {
   headerEl.setAttribute("role", "button");
   const iconEl = headerEl.createDiv({ cls: "claudian-subagent-icon" });
   iconEl.setAttribute("aria-hidden", "true");
-  (0, import_obsidian28.setIcon)(iconEl, getToolIcon(TOOL_TASK));
+  (0, import_obsidian30.setIcon)(iconEl, getToolIcon(TOOL_TASK));
   const labelEl = headerEl.createDiv({ cls: "claudian-subagent-label" });
   labelEl.setText(truncateDescription(description));
   const statusEl = headerEl.createDiv({ cls: "claudian-subagent-status status-running" });
@@ -83744,11 +88034,11 @@ function finalizeSubagentBlock(state, result, isError) {
   state.statusEl.addClass(`status-${state.info.status}`);
   state.statusEl.empty();
   if (state.info.status === "completed") {
-    (0, import_obsidian28.setIcon)(state.statusEl, "check");
+    (0, import_obsidian30.setIcon)(state.statusEl, "check");
     state.wrapperEl.removeClass("error");
     state.wrapperEl.addClass("done");
   } else {
-    (0, import_obsidian28.setIcon)(state.statusEl, "x");
+    (0, import_obsidian30.setIcon)(state.statusEl, "x");
     state.wrapperEl.removeClass("done");
     state.wrapperEl.addClass("error");
   }
@@ -83870,7 +88160,7 @@ function createAsyncSubagentBlock(parentEl, taskToolId, taskInput) {
   headerEl.setAttribute("aria-label", `Background task: ${description} - Initializing - click to expand`);
   const iconEl = headerEl.createDiv({ cls: "claudian-subagent-icon" });
   iconEl.setAttribute("aria-hidden", "true");
-  (0, import_obsidian28.setIcon)(iconEl, getToolIcon(TOOL_TASK));
+  (0, import_obsidian30.setIcon)(iconEl, getToolIcon(TOOL_TASK));
   const labelEl = headerEl.createDiv({ cls: "claudian-subagent-label" });
   labelEl.setText(truncateDescription(description));
   const statusTextEl = headerEl.createDiv({ cls: "claudian-subagent-status-text" });
@@ -83909,9 +88199,9 @@ function finalizeAsyncSubagent(state, result, isError) {
   state.statusEl.addClass(`status-${isError ? "error" : "completed"}`);
   state.statusEl.empty();
   if (isError) {
-    (0, import_obsidian28.setIcon)(state.statusEl, "x");
+    (0, import_obsidian30.setIcon)(state.statusEl, "x");
   } else {
-    (0, import_obsidian28.setIcon)(state.statusEl, "check");
+    (0, import_obsidian30.setIcon)(state.statusEl, "check");
   }
   if (isError) {
     state.wrapperEl.addClass("error");
@@ -83929,7 +88219,7 @@ function markAsyncSubagentOrphaned(state) {
   state.statusTextEl.setText("Orphaned");
   state.statusEl.className = "claudian-subagent-status status-error";
   state.statusEl.empty();
-  (0, import_obsidian28.setIcon)(state.statusEl, "alert-circle");
+  (0, import_obsidian30.setIcon)(state.statusEl, "alert-circle");
   state.wrapperEl.addClass("error");
   state.wrapperEl.addClass("orphaned");
   renderAsyncContentLikeSync(state.contentEl, state.info, "orphaned");
@@ -83956,7 +88246,7 @@ function renderStoredAsyncSubagent(parentEl, subagent) {
   );
   const iconEl = headerEl.createDiv({ cls: "claudian-subagent-icon" });
   iconEl.setAttribute("aria-hidden", "true");
-  (0, import_obsidian28.setIcon)(iconEl, getToolIcon(TOOL_TASK));
+  (0, import_obsidian30.setIcon)(iconEl, getToolIcon(TOOL_TASK));
   const labelEl = headerEl.createDiv({ cls: "claudian-subagent-label" });
   labelEl.setText(truncateDescription(subagent.description));
   const statusTextEl = headerEl.createDiv({ cls: "claudian-subagent-status-text" });
@@ -83977,13 +88267,13 @@ function renderStoredAsyncSubagent(parentEl, subagent) {
   statusEl.setAttribute("aria-label", `Status: ${statusAriaLabel}`);
   switch (displayStatus) {
     case "completed":
-      (0, import_obsidian28.setIcon)(statusEl, "check");
+      (0, import_obsidian30.setIcon)(statusEl, "check");
       break;
     case "error":
-      (0, import_obsidian28.setIcon)(statusEl, "x");
+      (0, import_obsidian30.setIcon)(statusEl, "x");
       break;
     case "orphaned":
-      (0, import_obsidian28.setIcon)(statusEl, "alert-circle");
+      (0, import_obsidian30.setIcon)(statusEl, "alert-circle");
       break;
   }
   const contentEl = wrapperEl.createDiv({ cls: "claudian-subagent-content" });
@@ -83994,7 +88284,7 @@ function renderStoredAsyncSubagent(parentEl, subagent) {
 }
 
 // src/features/chat/rendering/WriteEditRenderer.ts
-var import_obsidian29 = require("obsidian");
+var import_obsidian31 = require("obsidian");
 function shortenPath2(filePath, maxLength = 40) {
   if (!filePath) return "file";
   const normalized = filePath.replace(/\\/g, "/");
@@ -84022,7 +88312,7 @@ function createWriteEditBlock(parentEl, toolCall) {
   headerEl.setAttribute("aria-label", `${toolName}: ${shortenPath2(filePath)} - click to expand`);
   const iconEl = headerEl.createDiv({ cls: "claudian-write-edit-icon" });
   iconEl.setAttribute("aria-hidden", "true");
-  (0, import_obsidian29.setIcon)(iconEl, getToolIcon(toolName));
+  (0, import_obsidian31.setIcon)(iconEl, getToolIcon(toolName));
   const nameEl = headerEl.createDiv({ cls: "claudian-write-edit-name" });
   nameEl.setText(toolName);
   const summaryEl = headerEl.createDiv({ cls: "claudian-write-edit-summary" });
@@ -84063,7 +88353,7 @@ function finalizeWriteEditBlock(state, isError) {
   state.statusEl.empty();
   if (isError) {
     state.statusEl.addClass("status-error");
-    (0, import_obsidian29.setIcon)(state.statusEl, "x");
+    (0, import_obsidian31.setIcon)(state.statusEl, "x");
     state.statusEl.setAttribute("aria-label", "Status: error");
     if (!state.diffLines) {
       state.contentEl.empty();
@@ -84099,7 +88389,7 @@ function renderStoredWriteEdit(parentEl, toolCall) {
   headerEl.setAttribute("role", "button");
   const iconEl = headerEl.createDiv({ cls: "claudian-write-edit-icon" });
   iconEl.setAttribute("aria-hidden", "true");
-  (0, import_obsidian29.setIcon)(iconEl, getToolIcon(toolName));
+  (0, import_obsidian31.setIcon)(iconEl, getToolIcon(toolName));
   const nameEl = headerEl.createDiv({ cls: "claudian-write-edit-name" });
   nameEl.setText(toolName);
   const summaryEl = headerEl.createDiv({ cls: "claudian-write-edit-summary" });
@@ -84111,7 +88401,7 @@ function renderStoredWriteEdit(parentEl, toolCall) {
   const statusEl = headerEl.createDiv({ cls: "claudian-write-edit-status" });
   if (isError) {
     statusEl.addClass("status-error");
-    (0, import_obsidian29.setIcon)(statusEl, "x");
+    (0, import_obsidian31.setIcon)(statusEl, "x");
   }
   const contentEl = wrapperEl.createDiv({ cls: "claudian-write-edit-content" });
   const row = contentEl.createDiv({ cls: "claudian-write-edit-diff-row" });
@@ -85189,7 +89479,7 @@ var _StreamController = class _StreamController {
     window.setTimeout(() => {
       const { vault } = this.deps.plugin.app;
       const file2 = vault.getAbstractFileByPath(relativePath);
-      if (file2 instanceof import_obsidian30.TFile) {
+      if (file2 instanceof import_obsidian32.TFile) {
         vault.trigger("modify", file2);
       } else {
         const parentDir = relativePath.includes("/") ? relativePath.substring(0, relativePath.lastIndexOf("/")) : "";
@@ -85284,7 +89574,7 @@ _StreamController.THINKING_INDICATOR_DELAY = 400;
 var StreamController = _StreamController;
 
 // src/features/chat/rendering/MessageRenderer.ts
-var import_obsidian31 = require("obsidian");
+var import_obsidian33 = require("obsidian");
 
 // src/utils/obsidianCompat.ts
 function getVaultFileByPath(app, filePath) {
@@ -85486,20 +89776,20 @@ var IMAGE_EXTENSIONS = /* @__PURE__ */ new Set([
   "ico"
 ]);
 var IMAGE_EMBED_PATTERN = /!\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g;
-function isImagePath(path24) {
+function isImagePath(path27) {
   var _a3;
-  const ext = (_a3 = path24.split(".").pop()) == null ? void 0 : _a3.toLowerCase();
+  const ext = (_a3 = path27.split(".").pop()) == null ? void 0 : _a3.toLowerCase();
   return ext ? IMAGE_EXTENSIONS.has(ext) : false;
 }
-function resolveImageFile(app, imagePath, mediaFolder) {
+function resolveImageFile(app, imagePath, options) {
   let file2 = getVaultFileByPath(app, imagePath);
   if (file2) return file2;
-  if (mediaFolder) {
-    const withFolder = `${mediaFolder}/${imagePath}`;
+  if (options.mediaFolder) {
+    const withFolder = `${options.mediaFolder}/${imagePath}`;
     file2 = getVaultFileByPath(app, withFolder);
     if (file2) return file2;
   }
-  const resolved = app.metadataCache.getFirstLinkpathDest(imagePath, "");
+  const resolved = app.metadataCache.getFirstLinkpathDest(imagePath, options.sourcePath);
   if (resolved) return resolved;
   return null;
 }
@@ -85523,10 +89813,21 @@ function createImageHtml(app, file2, altText) {
 function createFallbackHtml(wikilink) {
   return `<span class="claudian-embedded-image-fallback">${escapeHtml(wikilink)}</span>`;
 }
-function replaceImageEmbedsWithHtml(markdown, app, mediaFolder = "") {
+function normalizeOptions(options) {
+  var _a3, _b2;
+  if (typeof options === "string") {
+    return { mediaFolder: options, sourcePath: "" };
+  }
+  return {
+    mediaFolder: (_a3 = options == null ? void 0 : options.mediaFolder) != null ? _a3 : "",
+    sourcePath: (_b2 = options == null ? void 0 : options.sourcePath) != null ? _b2 : ""
+  };
+}
+function replaceImageEmbedsWithHtml(markdown, app, options) {
   if (!(app == null ? void 0 : app.vault) || !(app == null ? void 0 : app.metadataCache)) {
     return markdown;
   }
+  const normalizedOptions = normalizeOptions(options);
   IMAGE_EMBED_PATTERN.lastIndex = 0;
   return markdown.replace(
     IMAGE_EMBED_PATTERN,
@@ -85535,7 +89836,7 @@ function replaceImageEmbedsWithHtml(markdown, app, mediaFolder = "") {
         if (!isImagePath(imagePath)) {
           return match;
         }
-        const file2 = resolveImageFile(app, imagePath, mediaFolder);
+        const file2 = resolveImageFile(app, imagePath, normalizedOptions);
         if (!file2) {
           return createFallbackHtml(match);
         }
@@ -86023,9 +90324,9 @@ var MessageRenderer = class {
       const processedMarkdown = replaceImageEmbedsWithHtml(
         renderMarkdown,
         this.app,
-        this.plugin.settings.mediaFolder
+        { mediaFolder: this.plugin.settings.mediaFolder }
       );
-      await import_obsidian31.MarkdownRenderer.render(
+      await import_obsidian33.MarkdownRenderer.render(
         this.app,
         processedMarkdown,
         el,
@@ -86088,7 +90389,7 @@ var MessageRenderer = class {
    */
   addTextCopyButton(textEl, markdown) {
     const copyBtn = textEl.createSpan({ cls: "claudian-text-copy-btn" });
-    (0, import_obsidian31.setIcon)(copyBtn, "copy");
+    (0, import_obsidian33.setIcon)(copyBtn, "copy");
     let feedbackTimeout = null;
     copyBtn.addEventListener("click", (e2) => {
       e2.stopPropagation();
@@ -86106,7 +90407,7 @@ var MessageRenderer = class {
         copyBtn.classList.add("copied");
         feedbackTimeout = window.setTimeout(() => {
           copyBtn.empty();
-          (0, import_obsidian31.setIcon)(copyBtn, "copy");
+          (0, import_obsidian33.setIcon)(copyBtn, "copy");
           copyBtn.classList.remove("copied");
           feedbackTimeout = null;
         }, 1500);
@@ -86141,7 +90442,7 @@ var MessageRenderer = class {
   addUserCopyButton(msgEl, content) {
     const toolbar = this.getOrCreateActionsToolbar(msgEl);
     const copyBtn = toolbar.createSpan({ cls: "claudian-user-msg-copy-btn" });
-    (0, import_obsidian31.setIcon)(copyBtn, "copy");
+    (0, import_obsidian33.setIcon)(copyBtn, "copy");
     copyBtn.setAttribute("aria-label", "Copy message");
     let feedbackTimeout = null;
     copyBtn.addEventListener("click", (e2) => {
@@ -86158,7 +90459,7 @@ var MessageRenderer = class {
         copyBtn.classList.add("copied");
         feedbackTimeout = window.setTimeout(() => {
           copyBtn.empty();
-          (0, import_obsidian31.setIcon)(copyBtn, "copy");
+          (0, import_obsidian33.setIcon)(copyBtn, "copy");
           copyBtn.classList.remove("copied");
           feedbackTimeout = null;
         }, 1500);
@@ -86170,7 +90471,7 @@ var MessageRenderer = class {
     const toolbar = this.getOrCreateActionsToolbar(msgEl);
     const btn = toolbar.createSpan({ cls: "claudian-message-rewind-btn" });
     if (toolbar.firstChild !== btn) toolbar.insertBefore(btn, toolbar.firstChild);
-    (0, import_obsidian31.setIcon)(btn, "rotate-ccw");
+    (0, import_obsidian33.setIcon)(btn, "rotate-ccw");
     btn.setAttribute("aria-label", t("chat.rewind.ariaLabel"));
     btn.addEventListener("click", (e2) => {
       e2.stopPropagation();
@@ -86178,7 +90479,7 @@ var MessageRenderer = class {
     });
   }
   showRewindMenu(event, messageId) {
-    const menu = new import_obsidian31.Menu();
+    const menu = new import_obsidian33.Menu();
     this.addRewindMenuItem(menu, messageId, "conversation");
     this.addRewindMenuItem(menu, messageId, "code-and-conversation");
     menu.showAtMouseEvent(event);
@@ -86193,7 +90494,7 @@ var MessageRenderer = class {
           try {
             await ((_a3 = this.rewindCallback) == null ? void 0 : _a3.call(this, messageId, mode));
           } catch (err) {
-            new import_obsidian31.Notice(t("chat.rewind.failed", { error: err instanceof Error ? err.message : "Unknown error" }));
+            new import_obsidian33.Notice(t("chat.rewind.failed", { error: err instanceof Error ? err.message : "Unknown error" }));
           }
         });
       });
@@ -86204,7 +90505,7 @@ var MessageRenderer = class {
     const toolbar = this.getOrCreateActionsToolbar(msgEl);
     const btn = toolbar.createSpan({ cls: "claudian-message-fork-btn" });
     if (toolbar.firstChild !== btn) toolbar.insertBefore(btn, toolbar.firstChild);
-    (0, import_obsidian31.setIcon)(btn, "git-fork");
+    (0, import_obsidian33.setIcon)(btn, "git-fork");
     btn.setAttribute("aria-label", t("chat.fork.ariaLabel"));
     btn.addEventListener("click", (e2) => {
       e2.stopPropagation();
@@ -86213,7 +90514,7 @@ var MessageRenderer = class {
         try {
           await ((_a3 = this.forkCallback) == null ? void 0 : _a3.call(this, messageId));
         } catch (err) {
-          new import_obsidian31.Notice(t("chat.fork.failed", { error: err instanceof Error ? err.message : "Unknown error" }));
+          new import_obsidian33.Notice(t("chat.fork.failed", { error: err instanceof Error ? err.message : "Unknown error" }));
         }
       });
     });
@@ -86280,7 +90581,7 @@ var BangBashService = class {
 // src/features/chat/services/SubagentManager.ts
 var import_fs6 = require("fs");
 var import_os4 = require("os");
-var import_path29 = require("path");
+var import_path32 = require("path");
 function isRecord7(value) {
   return !!value && typeof value === "object" && !Array.isArray(value);
 }
@@ -87084,7 +91385,7 @@ var _SubagentManager = class _SubagentManager {
     return Array.from(roots);
   }
   isTrustedOutputPath(fullOutputPath) {
-    if (!(0, import_path29.isAbsolute)(fullOutputPath)) {
+    if (!(0, import_path32.isAbsolute)(fullOutputPath)) {
       return false;
     }
     if (!fullOutputPath.toLowerCase().endsWith(_SubagentManager.TRUSTED_OUTPUT_EXT)) {
@@ -87097,7 +91398,7 @@ var _SubagentManager = class _SubagentManager {
       return false;
     }
     return _SubagentManager.TRUSTED_TMP_ROOTS.some(
-      (root) => resolvedPath === root || resolvedPath.startsWith(`${root}${import_path29.sep}`)
+      (root) => resolvedPath === root || resolvedPath.startsWith(`${root}${import_path32.sep}`)
     );
   }
 };
@@ -87454,7 +91755,7 @@ var ChatState = class {
 };
 
 // src/features/chat/ui/BangBashModeManager.ts
-var import_obsidian32 = require("obsidian");
+var import_obsidian34 = require("obsidian");
 var BangBashModeManager = class {
   constructor(inputEl, callbacks) {
     this.state = { active: false, rawCommand: "" };
@@ -87524,7 +91825,7 @@ var BangBashModeManager = class {
       this.clear();
       await this.callbacks.onSubmit(rawCommand);
     } catch (e2) {
-      new import_obsidian32.Notice(`Command failed: ${e2 instanceof Error ? e2.message : String(e2)}`);
+      new import_obsidian34.Notice(`Command failed: ${e2 instanceof Error ? e2.message : String(e2)}`);
     } finally {
       this.isSubmitting = false;
     }
@@ -87541,13 +91842,13 @@ var BangBashModeManager = class {
 };
 
 // src/features/chat/ui/FileContext.ts
-var import_obsidian36 = require("obsidian");
+var import_obsidian38 = require("obsidian");
 
 // src/shared/mention/MentionDropdownController.ts
-var import_obsidian33 = require("obsidian");
+var import_obsidian35 = require("obsidian");
 
 // src/utils/externalContext.ts
-var fs25 = __toESM(require("fs"));
+var fs27 = __toESM(require("fs"));
 init_path();
 function normalizePathForComparison3(p) {
   return normalizePathForComparison(p);
@@ -87607,7 +91908,7 @@ function buildExternalContextDisplayEntries(externalContexts) {
 }
 function validateDirectoryPath(p) {
   try {
-    const stats = fs25.statSync(p);
+    const stats = fs27.statSync(p);
     if (!stats.isDirectory()) {
       return { valid: false, error: "Path exists but is not a directory" };
     }
@@ -87635,8 +91936,8 @@ function isDuplicatePath(newPath, existingPaths) {
 }
 
 // src/utils/externalContextScanner.ts
-var fs26 = __toESM(require("fs"));
-var path21 = __toESM(require("path"));
+var fs28 = __toESM(require("fs"));
+var path24 = __toESM(require("path"));
 init_path();
 var CACHE_TTL_MS = 3e4;
 var MAX_FILES_PER_PATH = 1e3;
@@ -87682,25 +91983,25 @@ var ExternalContextScanner = class {
     if (depth > MAX_DEPTH) return [];
     const files = [];
     try {
-      if (!fs26.existsSync(dir)) return [];
-      const stat = fs26.statSync(dir);
+      if (!fs28.existsSync(dir)) return [];
+      const stat = fs28.statSync(dir);
       if (!stat.isDirectory()) return [];
-      const entries = fs26.readdirSync(dir, { withFileTypes: true });
+      const entries = fs28.readdirSync(dir, { withFileTypes: true });
       for (const entry of entries) {
         if (entry.name.startsWith(".")) continue;
         if (SKIP_DIRECTORIES.has(entry.name)) continue;
         if (entry.isSymbolicLink()) continue;
-        const fullPath = path21.join(dir, entry.name);
+        const fullPath = path24.join(dir, entry.name);
         if (entry.isDirectory()) {
           const subFiles = this.scanDirectory(fullPath, contextRoot, depth + 1);
           files.push(...subFiles);
         } else if (entry.isFile()) {
           try {
-            const fileStat = fs26.statSync(fullPath);
+            const fileStat = fs28.statSync(fullPath);
             files.push({
               path: fullPath,
               name: entry.name,
-              relativePath: path21.relative(contextRoot, fullPath),
+              relativePath: path24.relative(contextRoot, fullPath),
               contextRoot,
               mtime: fileStat.mtimeMs
             });
@@ -88158,17 +92459,17 @@ var MentionDropdownController = class {
             break;
           case "agent":
           case "agent-folder":
-            (0, import_obsidian33.setIcon)(iconEl, "bot");
+            (0, import_obsidian35.setIcon)(iconEl, "bot");
             break;
           case "context-file":
-            (0, import_obsidian33.setIcon)(iconEl, "folder-open");
+            (0, import_obsidian35.setIcon)(iconEl, "folder-open");
             break;
           case "folder":
           case "context-folder":
-            (0, import_obsidian33.setIcon)(iconEl, "folder");
+            (0, import_obsidian35.setIcon)(iconEl, "folder");
             break;
           default:
-            (0, import_obsidian33.setIcon)(iconEl, "file-text");
+            (0, import_obsidian35.setIcon)(iconEl, "file-text");
         }
         const textEl = itemEl.createSpan({ cls: "claudian-mention-text" });
         switch (item.type) {
@@ -88314,7 +92615,7 @@ var MentionDropdownController = class {
 };
 
 // src/shared/mention/VaultMentionCache.ts
-var import_obsidian34 = require("obsidian");
+var import_obsidian36 = require("obsidian");
 var VaultFileCache = class {
   constructor(app, options = {}) {
     this.app = app;
@@ -88393,7 +92694,7 @@ var VaultFolderCache = class {
     }
   }
   loadFolders() {
-    return this.app.vault.getAllLoadedFiles().filter((file2) => file2 instanceof import_obsidian34.TFolder && isVisibleFolder(file2));
+    return this.app.vault.getAllLoadedFiles().filter((file2) => file2 instanceof import_obsidian36.TFolder && isVisibleFolder(file2));
   }
 };
 
@@ -88578,11 +92879,11 @@ var FileContextState = class {
       this.attachedFiles.add(file2);
     }
   }
-  attachFile(path24) {
-    this.attachedFiles.add(path24);
+  attachFile(path27) {
+    this.attachedFiles.add(path27);
   }
-  detachFile(path24) {
-    this.attachedFiles.delete(path24);
+  detachFile(path27) {
+    this.attachedFiles.delete(path27);
   }
   clearAttachments() {
     this.attachedFiles.clear();
@@ -88606,7 +92907,7 @@ var FileContextState = class {
 };
 
 // src/features/chat/ui/file-context/view/FileChipsView.ts
-var import_obsidian35 = require("obsidian");
+var import_obsidian37 = require("obsidian");
 var FileChipsView = class {
   constructor(containerEl, callbacks) {
     this.containerEl = containerEl;
@@ -88636,7 +92937,7 @@ var FileChipsView = class {
   renderFileChip(filePath, onRemove) {
     const chipEl = this.fileIndicatorEl.createDiv({ cls: "claudian-file-chip" });
     const iconEl = chipEl.createSpan({ cls: "claudian-file-chip-icon" });
-    (0, import_obsidian35.setIcon)(iconEl, "file-text");
+    (0, import_obsidian37.setIcon)(iconEl, "file-text");
     const normalizedPath = filePath.replace(/\\/g, "/");
     const filename = normalizedPath.split("/").pop() || filePath;
     const nameEl = chipEl.createSpan({ cls: "claudian-file-chip-name" });
@@ -88684,14 +92985,14 @@ var FileContextManager = class {
       onOpenFile: (filePath) => {
         void (async () => {
           const file2 = this.app.vault.getAbstractFileByPath(filePath);
-          if (!(file2 instanceof import_obsidian36.TFile)) {
-            new import_obsidian36.Notice(`Could not open file: ${filePath}`);
+          if (!(file2 instanceof import_obsidian38.TFile)) {
+            new import_obsidian38.Notice(`Could not open file: ${filePath}`);
             return;
           }
           try {
             await this.app.workspace.getLeaf().openFile(file2);
           } catch (error48) {
-            new import_obsidian36.Notice(`Failed to open file: ${error48 instanceof Error ? error48.message : String(error48)}`);
+            new import_obsidian38.Notice(`Failed to open file: ${error48 instanceof Error ? error48.message : String(error48)}`);
           }
         })();
       }
@@ -88722,10 +93023,10 @@ var FileContextManager = class {
       }
     );
     this.deleteEventRef = this.app.vault.on("delete", (file2) => {
-      if (file2 instanceof import_obsidian36.TFile) this.handleFileDeleted(file2.path);
+      if (file2 instanceof import_obsidian38.TFile) this.handleFileDeleted(file2.path);
     });
     this.renameEventRef = this.app.vault.on("rename", (file2, oldPath) => {
-      if (file2 instanceof import_obsidian36.TFile) this.handleFileRenamed(oldPath, file2.path);
+      if (file2 instanceof import_obsidian38.TFile) this.handleFileRenamed(oldPath, file2.path);
     });
   }
   /** Returns the current note path (shown as chip). */
@@ -88949,8 +93250,8 @@ var FileContextManager = class {
 };
 
 // src/features/chat/ui/ImageContext.ts
-var import_obsidian37 = require("obsidian");
-var path22 = __toESM(require("path"));
+var import_obsidian39 = require("obsidian");
+var path25 = __toESM(require("path"));
 var MAX_IMAGE_SIZE = 5 * 1024 * 1024;
 var IMAGE_EXTENSIONS2 = {
   ".jpg": "image/jpeg",
@@ -89102,12 +93403,12 @@ var ImageContextManager = class {
     return file2.type.startsWith("image/") && this.getMediaType(file2.name) !== null;
   }
   getMediaType(filename) {
-    const ext = path22.extname(filename).toLowerCase();
+    const ext = path25.extname(filename).toLowerCase();
     return IMAGE_EXTENSIONS2[ext] || null;
   }
   async addImageFromFile(file2, source) {
     if (!this.enabled) {
-      new import_obsidian37.Notice("Image attachments are not supported by this provider.");
+      new import_obsidian39.Notice("Image attachments are not supported by this provider.");
       return false;
     }
     if (file2.size > MAX_IMAGE_SIZE) {
@@ -89220,7 +93521,7 @@ var ImageContextManager = class {
   }
   truncateName(name, maxLen) {
     if (name.length <= maxLen) return name;
-    const ext = path22.extname(name);
+    const ext = path25.extname(name);
     const base = name.slice(0, name.length - ext.length);
     const truncatedBase = base.slice(0, maxLen - ext.length - 3);
     return `${truncatedBase}...${ext}`;
@@ -89239,18 +93540,18 @@ var ImageContextManager = class {
         userMessage = `${message} (Permission denied)`;
       }
     }
-    new import_obsidian37.Notice(userMessage);
+    new import_obsidian39.Notice(userMessage);
   }
 };
 
 // src/features/chat/ui/InputToolbar.ts
-var import_obsidian38 = require("obsidian");
-var os12 = __toESM(require("os"));
-var path23 = __toESM(require("path"));
+var import_obsidian40 = require("obsidian");
+var os13 = __toESM(require("os"));
+var path26 = __toESM(require("path"));
 init_path();
 function runToolbarAction(action, failureMessage) {
   void action().catch(() => {
-    new import_obsidian38.Notice(failureMessage);
+    new import_obsidian40.Notice(failureMessage);
   });
 }
 var ModelSelector = class {
@@ -89590,7 +93891,7 @@ var ServiceTierToggle = class {
     this.container.empty();
     this.buttonEl = this.container.createDiv({ cls: "claudian-service-tier-button" });
     this.iconEl = this.buttonEl.createSpan({ cls: "claudian-service-tier-icon" });
-    (0, import_obsidian38.setIcon)(this.iconEl, "zap");
+    (0, import_obsidian40.setIcon)(this.iconEl, "zap");
     this.updateDisplay();
     this.buttonEl.addEventListener("click", () => {
       runToolbarAction(() => this.toggle(), "Failed to change service tier");
@@ -89669,28 +93970,28 @@ var ExternalContextSelector = class {
     this.renderDropdown();
     if (invalidPaths.length > 0) {
       const pathNames = invalidPaths.map((p) => this.shortenPath(p)).join(", ");
-      new import_obsidian38.Notice(`Removed ${invalidPaths.length} invalid external context path(s): ${pathNames}`, 5e3);
+      new import_obsidian40.Notice(`Removed ${invalidPaths.length} invalid external context path(s): ${pathNames}`, 5e3);
       (_a3 = this.onPersistenceChangeCallback) == null ? void 0 : _a3.call(this, [...this.persistentPaths]);
     }
   }
-  togglePersistence(path24) {
+  togglePersistence(path27) {
     var _a3;
-    if (this.persistentPaths.has(path24)) {
-      this.persistentPaths.delete(path24);
+    if (this.persistentPaths.has(path27)) {
+      this.persistentPaths.delete(path27);
     } else {
-      if (!isValidDirectoryPath(path24)) {
-        new import_obsidian38.Notice(`Cannot persist "${this.shortenPath(path24)}" - directory no longer exists`, 4e3);
+      if (!isValidDirectoryPath(path27)) {
+        new import_obsidian40.Notice(`Cannot persist "${this.shortenPath(path27)}" - directory no longer exists`, 4e3);
         return;
       }
-      this.persistentPaths.add(path24);
+      this.persistentPaths.add(path27);
     }
     (_a3 = this.onPersistenceChangeCallback) == null ? void 0 : _a3.call(this, [...this.persistentPaths]);
     this.renderDropdown();
   }
   mergePersistentPaths() {
     const pathSet = new Set(this.externalContextPaths);
-    for (const path24 of this.persistentPaths) {
-      pathSet.add(path24);
+    for (const path27 of this.persistentPaths) {
+      pathSet.add(path27);
     }
     this.externalContextPaths = [...pathSet];
   }
@@ -89737,7 +94038,7 @@ var ExternalContextSelector = class {
     }
     const expandedPath = expandHomePath(cleanPath);
     const normalizedPath = normalizePathForFilesystem(expandedPath);
-    if (!path23.isAbsolute(normalizedPath)) {
+    if (!path26.isAbsolute(normalizedPath)) {
       return { success: false, error: "Path must be absolute. Usage: /add-dir /absolute/path" };
     }
     const validation = validateDirectoryPath(normalizedPath);
@@ -89775,7 +94076,7 @@ var ExternalContextSelector = class {
     this.container.empty();
     const iconWrapper = this.container.createDiv({ cls: "claudian-external-context-icon-wrapper" });
     this.iconEl = iconWrapper.createDiv({ cls: "claudian-external-context-icon" });
-    (0, import_obsidian38.setIcon)(this.iconEl, "folder");
+    (0, import_obsidian40.setIcon)(this.iconEl, "folder");
     this.badgeEl = iconWrapper.createDiv({ cls: "claudian-external-context-badge" });
     this.updateDisplay();
     iconWrapper.addEventListener("click", (e2) => {
@@ -89799,12 +94100,12 @@ var ExternalContextSelector = class {
       if (!result.canceled && result.filePaths.length > 0) {
         const selectedPath = result.filePaths[0];
         if (isDuplicatePath(selectedPath, this.externalContextPaths)) {
-          new import_obsidian38.Notice("This folder is already added as an external context.", 3e3);
+          new import_obsidian40.Notice("This folder is already added as an external context.", 3e3);
           return;
         }
         const conflict = findConflictingPath(selectedPath, this.externalContextPaths);
         if (conflict) {
-          new import_obsidian38.Notice(this.formatConflictMessage(selectedPath, conflict), 5e3);
+          new import_obsidian40.Notice(this.formatConflictMessage(selectedPath, conflict), 5e3);
           return;
         }
         this.externalContextPaths = [...this.externalContextPaths, selectedPath];
@@ -89813,7 +94114,7 @@ var ExternalContextSelector = class {
         this.renderDropdown();
       }
     } catch (e2) {
-      new import_obsidian38.Notice("Unable to open folder picker.", 5e3);
+      new import_obsidian40.Notice("Unable to open folder picker.", 5e3);
     }
   }
   /** Formats a conflict error message for display. */
@@ -89843,14 +94144,14 @@ var ExternalContextSelector = class {
         if (isPersistent) {
           lockBtn.addClass("locked");
         }
-        (0, import_obsidian38.setIcon)(lockBtn, isPersistent ? "lock" : "unlock");
+        (0, import_obsidian40.setIcon)(lockBtn, isPersistent ? "lock" : "unlock");
         lockBtn.setAttribute("title", isPersistent ? "Persistent (click to make session-only)" : "Session-only (click to persist)");
         lockBtn.addEventListener("click", (e2) => {
           e2.stopPropagation();
           this.togglePersistence(pathStr);
         });
         const removeBtn = itemEl.createSpan({ cls: "claudian-external-context-remove" });
-        (0, import_obsidian38.setIcon)(removeBtn, "x");
+        (0, import_obsidian40.setIcon)(removeBtn, "x");
         removeBtn.setAttribute("title", "Remove path");
         removeBtn.addEventListener("click", (e2) => {
           e2.stopPropagation();
@@ -89862,7 +94163,7 @@ var ExternalContextSelector = class {
   /** Shorten path for display (replace home dir with ~) */
   shortenPath(fullPath) {
     try {
-      const homeDir = os12.homedir();
+      const homeDir = os13.homedir();
       const normalize3 = (value) => value.replace(/\\/g, "/");
       const normalizedFull = normalize3(fullPath);
       const normalizedHome = normalize3(homeDir);
@@ -90300,7 +94601,7 @@ var InstructionModeManager = class {
 };
 
 // src/features/chat/ui/NavigationSidebar.ts
-var import_obsidian39 = require("obsidian");
+var import_obsidian41 = require("obsidian");
 var NavigationSidebar = class {
   constructor(parentEl, messagesEl) {
     this.parentEl = parentEl;
@@ -90319,7 +94620,7 @@ var NavigationSidebar = class {
   }
   createButton(cls, icon, label) {
     const btn = this.container.createDiv({ cls: `claudian-nav-btn ${cls}` });
-    (0, import_obsidian39.setIcon)(btn, icon);
+    (0, import_obsidian41.setIcon)(btn, icon);
     btn.setAttribute("aria-label", label);
     return btn;
   }
@@ -90391,7 +94692,7 @@ var NavigationSidebar = class {
 };
 
 // src/features/chat/ui/StatusPanel.ts
-var import_obsidian40 = require("obsidian");
+var import_obsidian42 = require("obsidian");
 var MAX_BASH_OUTPUTS = 50;
 var StatusPanel = class {
   constructor() {
@@ -90556,7 +94857,7 @@ var StatusPanel = class {
     const ownerDocument = (_a3 = this.todoHeaderEl.ownerDocument) != null ? _a3 : window.document;
     const icon = ownerDocument.createElement("span");
     icon.className = "claudian-status-panel-icon";
-    (0, import_obsidian40.setIcon)(icon, getToolIcon(TOOL_TODO_WRITE));
+    (0, import_obsidian42.setIcon)(icon, getToolIcon(TOOL_TODO_WRITE));
     this.todoHeaderEl.appendChild(icon);
     const label = ownerDocument.createElement("span");
     label.className = "claudian-status-panel-label";
@@ -90566,7 +94867,7 @@ var StatusPanel = class {
       if (completedCount === totalCount && totalCount > 0) {
         const status = ownerDocument.createElement("span");
         status.className = "claudian-status-panel-status status-completed";
-        (0, import_obsidian40.setIcon)(status, "check");
+        (0, import_obsidian42.setIcon)(status, "check");
         this.todoHeaderEl.appendChild(status);
       }
       if (currentTask) {
@@ -90669,7 +94970,7 @@ var StatusPanel = class {
     const headerIconEl = ownerDocument.createElement("span");
     headerIconEl.className = "claudian-tool-icon";
     headerIconEl.setAttribute("aria-hidden", "true");
-    (0, import_obsidian40.setIcon)(headerIconEl, "terminal");
+    (0, import_obsidian42.setIcon)(headerIconEl, "terminal");
     this.bashHeaderEl.appendChild(headerIconEl);
     const latest = Array.from(this.currentBashOutputs.values()).at(-1);
     const headerLabelEl = ownerDocument.createElement("span");
@@ -90689,8 +94990,8 @@ var StatusPanel = class {
     if (!this.isBashExpanded && latest) {
       summaryStatusEl.classList.add(`status-${latest.status}`);
       summaryStatusEl.setAttribute("aria-label", t("chat.bangBash.statusLabel", { status: latest.status }));
-      if (latest.status === "completed") (0, import_obsidian40.setIcon)(summaryStatusEl, "check");
-      if (latest.status === "error") (0, import_obsidian40.setIcon)(summaryStatusEl, "x");
+      if (latest.status === "completed") (0, import_obsidian42.setIcon)(summaryStatusEl, "check");
+      if (latest.status === "error") (0, import_obsidian42.setIcon)(summaryStatusEl, "x");
     } else {
       summaryStatusEl.classList.add("claudian-hidden");
     }
@@ -90728,7 +95029,7 @@ var StatusPanel = class {
     const entryIconEl = ownerDocument.createElement("span");
     entryIconEl.className = "claudian-tool-icon";
     entryIconEl.setAttribute("aria-hidden", "true");
-    (0, import_obsidian40.setIcon)(entryIconEl, "dollar-sign");
+    (0, import_obsidian42.setIcon)(entryIconEl, "dollar-sign");
     entryHeaderEl.appendChild(entryIconEl);
     const entryLabelEl = ownerDocument.createElement("span");
     entryLabelEl.className = "claudian-tool-label";
@@ -90738,8 +95039,8 @@ var StatusPanel = class {
     entryStatusEl.className = "claudian-tool-status";
     entryStatusEl.classList.add(`status-${info.status}`);
     entryStatusEl.setAttribute("aria-label", t("chat.bangBash.statusLabel", { status: info.status }));
-    if (info.status === "completed") (0, import_obsidian40.setIcon)(entryStatusEl, "check");
-    if (info.status === "error") (0, import_obsidian40.setIcon)(entryStatusEl, "x");
+    if (info.status === "completed") (0, import_obsidian42.setIcon)(entryStatusEl, "check");
+    if (info.status === "error") (0, import_obsidian42.setIcon)(entryStatusEl, "x");
     entryHeaderEl.appendChild(entryStatusEl);
     entryEl.appendChild(entryHeaderEl);
     const contentEl = ownerDocument.createElement("div");
@@ -90783,7 +95084,7 @@ ${output}` : `$ ${latest.command}`;
     try {
       await navigator.clipboard.writeText(text);
     } catch (e2) {
-      new import_obsidian40.Notice(t("chat.bangBash.copyFailed"));
+      new import_obsidian42.Notice(t("chat.bangBash.copyFailed"));
     }
   }
   appendActionButton(parent, name, ariaLabel, icon, action) {
@@ -90793,7 +95094,7 @@ ${output}` : `$ ${latest.command}`;
     el.setAttribute("role", "button");
     el.setAttribute("tabindex", "0");
     el.setAttribute("aria-label", ariaLabel);
-    (0, import_obsidian40.setIcon)(el, icon);
+    (0, import_obsidian42.setIcon)(el, icon);
     el.addEventListener("click", (e2) => {
       e2.stopPropagation();
       action();
@@ -90976,17 +95277,56 @@ function getTabHiddenCommands(tab, plugin, conversation) {
     getTabProviderId(tab, plugin, conversation)
   );
 }
-function shouldSendMessageFromEnterKey(e2, settings11) {
+function isEnterWithoutShiftOrComposition(e2) {
   if (e2.key !== "Enter" || e2.shiftKey || e2.isComposing) {
     return false;
   }
-  if (settings11.requireCommandOrControlEnterToSend !== true) {
-    return true;
-  }
-  if (import_obsidian41.Platform.isMacOS) {
+  return true;
+}
+function hasPlatformSendModifier(e2) {
+  if (import_obsidian43.Platform.isMacOS) {
     return e2.metaKey === true && !e2.ctrlKey && !e2.altKey;
   }
   return e2.ctrlKey === true && !e2.metaKey && !e2.altKey;
+}
+function shouldSendMessageFromExplicitEnterShortcut(e2) {
+  return isEnterWithoutShiftOrComposition(e2) && hasPlatformSendModifier(e2);
+}
+function shouldSendMessageFromEnterKey(e2, settings11) {
+  if (!isEnterWithoutShiftOrComposition(e2)) {
+    return false;
+  }
+  if (settings11.requireCommandOrControlEnterToSend === true) {
+    return hasPlatformSendModifier(e2);
+  }
+  return true;
+}
+function isTabInputFocused(tab) {
+  return tab.dom.inputEl.ownerDocument.activeElement === tab.dom.inputEl;
+}
+function sendTabInputMessage(tab, e2, options) {
+  if ((options == null ? void 0 : options.requireInputFocus) && !isTabInputFocused(tab)) {
+    return false;
+  }
+  const inputController = tab.controllers.inputController;
+  if (!inputController) {
+    return false;
+  }
+  e2.preventDefault();
+  void inputController.sendMessage();
+  return true;
+}
+function sendTabInputMessageFromExplicitEnterShortcut(tab, e2, options) {
+  if (!shouldSendMessageFromExplicitEnterShortcut(e2)) {
+    return false;
+  }
+  return sendTabInputMessage(tab, e2, options);
+}
+function sendTabInputMessageFromEnterKey(tab, settings11, e2) {
+  if (!shouldSendMessageFromEnterKey(e2, settings11)) {
+    return false;
+  }
+  return sendTabInputMessage(tab, e2);
 }
 function getRegistryProviderCatalogInfo(providerId) {
   const catalog = ProviderWorkspaceRegistry.getCommandCatalog(providerId);
@@ -91439,7 +95779,7 @@ function initializeInputToolbar(tab, plugin, getProviderCatalogConfig, onProvide
       const boundProvider = tab.providerId;
       const modelProvider = getProviderForModel(model, plugin.settings);
       if (modelProvider !== boundProvider) {
-        new import_obsidian41.Notice("Cannot switch provider on a bound session. Start a new tab instead.");
+        new import_obsidian43.Notice("Cannot switch provider on a bound session. Start a new tab instead.");
         (_h = tab.ui.modelSelector) == null ? void 0 : _h.updateDisplay();
         return;
       }
@@ -91457,7 +95797,8 @@ function initializeInputToolbar(tab, plugin, getProviderCatalogConfig, onProvide
       if (currentUsage) {
         const newContextWindow = uiConfig.getContextWindowSize(
           model,
-          providerSettings.customContextLimits
+          providerSettings.customContextLimits,
+          providerSettings
         );
         tab.state.usage = recalculateUsageForModel(currentUsage, model, newContextWindow);
       }
@@ -91596,7 +95937,7 @@ function resolveForkSource(tab, plugin) {
   const conversation = tab.conversationId ? plugin.getConversationSync(tab.conversationId) : null;
   const sourceSessionId = tab.service ? tab.service.resolveSessionIdForFork(conversation != null ? conversation : null) : ProviderRegistry.getConversationHistoryService((_a3 = conversation == null ? void 0 : conversation.providerId) != null ? _a3 : tab.providerId).resolveSessionIdForConversation(conversation);
   if (!sourceSessionId) {
-    new import_obsidian41.Notice(t("chat.fork.failed", { error: t("chat.fork.errorNoSession") }));
+    new import_obsidian43.Notice(t("chat.fork.failed", { error: t("chat.fork.errorNoSession") }));
     return null;
   }
   return {
@@ -91610,26 +95951,26 @@ function resolveForkSource(tab, plugin) {
 async function handleForkRequest(tab, plugin, userMessageId, forkRequestCallback) {
   const { state } = tab;
   if (!getTabCapabilities(tab, plugin).supportsFork) {
-    new import_obsidian41.Notice("Fork is not supported by this provider.");
+    new import_obsidian43.Notice("Fork is not supported by this provider.");
     return;
   }
   if (state.isStreaming) {
-    new import_obsidian41.Notice(t("chat.fork.unavailableStreaming"));
+    new import_obsidian43.Notice(t("chat.fork.unavailableStreaming"));
     return;
   }
   const msgs = state.messages;
   const userIdx = msgs.findIndex((m2) => m2.id === userMessageId);
   if (userIdx === -1) {
-    new import_obsidian41.Notice(t("chat.fork.failed", { error: t("chat.fork.errorMessageNotFound") }));
+    new import_obsidian43.Notice(t("chat.fork.failed", { error: t("chat.fork.errorMessageNotFound") }));
     return;
   }
   if (!msgs[userIdx].userMessageId) {
-    new import_obsidian41.Notice(t("chat.fork.unavailableNoUuid"));
+    new import_obsidian43.Notice(t("chat.fork.unavailableNoUuid"));
     return;
   }
   const rewindCtx = findRewindContext(msgs, userIdx);
   if (!rewindCtx.hasResponse || !rewindCtx.prevAssistantUuid) {
-    new import_obsidian41.Notice(t("chat.fork.unavailableNoResponse"));
+    new import_obsidian43.Notice(t("chat.fork.unavailableNoResponse"));
     return;
   }
   const source = resolveForkSource(tab, plugin);
@@ -91648,16 +95989,16 @@ async function handleForkRequest(tab, plugin, userMessageId, forkRequestCallback
 async function handleForkAll(tab, plugin, forkRequestCallback) {
   const { state } = tab;
   if (!getTabCapabilities(tab, plugin).supportsFork) {
-    new import_obsidian41.Notice("Fork is not supported by this provider.");
+    new import_obsidian43.Notice("Fork is not supported by this provider.");
     return;
   }
   if (state.isStreaming) {
-    new import_obsidian41.Notice(t("chat.fork.unavailableStreaming"));
+    new import_obsidian43.Notice(t("chat.fork.unavailableStreaming"));
     return;
   }
   const msgs = state.messages;
   if (msgs.length === 0) {
-    new import_obsidian41.Notice(t("chat.fork.commandNoMessages"));
+    new import_obsidian43.Notice(t("chat.fork.commandNoMessages"));
     return;
   }
   let lastAssistantUuid;
@@ -91668,7 +96009,7 @@ async function handleForkAll(tab, plugin, forkRequestCallback) {
     }
   }
   if (!lastAssistantUuid) {
-    new import_obsidian41.Notice(t("chat.fork.commandNoAssistantUuid"));
+    new import_obsidian43.Notice(t("chat.fork.commandNoAssistantUuid"));
     return;
   }
   const source = resolveForkSource(tab, plugin);
@@ -91868,7 +96209,7 @@ function initializeTabControllers(tab, plugin, component, arg4, arg5, arg6, arg7
         applyProviderUIGating(tab, plugin);
         return true;
       } catch (error48) {
-        new import_obsidian41.Notice(error48 instanceof Error ? error48.message : "Failed to initialize chat service");
+        new import_obsidian43.Notice(error48 instanceof Error ? error48.message : "Failed to initialize chat service");
         return false;
       }
     },
@@ -91915,7 +96256,7 @@ function wireTabInputEvents(tab, plugin) {
     }
   };
   const keydownHandler = (e2) => {
-    var _a4, _b3, _c, _d2, _e, _f, _g, _h, _i;
+    var _a4, _b3, _c, _d2, _e, _f, _g, _h;
     if ((_a4 = ui.bangBashModeManager) == null ? void 0 : _a4.isActive()) {
       ui.bangBashModeManager.handleKeydown(e2);
       syncBangBashSuppression();
@@ -91929,6 +96270,9 @@ function wireTabInputEvents(tab, plugin) {
       return;
     }
     if (getTabCapabilities(tab, plugin).supportsInstructionMode && ((_d2 = ui.instructionModeManager) == null ? void 0 : _d2.handleKeydown(e2))) {
+      return;
+    }
+    if (sendTabInputMessageFromExplicitEnterShortcut(tab, e2)) {
       return;
     }
     if ((_e = controllers.inputController) == null ? void 0 : _e.handleResumeKeydown(e2)) {
@@ -91945,9 +96289,8 @@ function wireTabInputEvents(tab, plugin) {
       (_h = controllers.inputController) == null ? void 0 : _h.cancelStreaming();
       return;
     }
-    if (shouldSendMessageFromEnterKey(e2, plugin.settings)) {
-      e2.preventDefault();
-      void ((_i = controllers.inputController) == null ? void 0 : _i.sendMessage());
+    if (sendTabInputMessageFromEnterKey(tab, plugin.settings, e2)) {
+      return;
     }
   };
   dom.inputEl.addEventListener("keydown", keydownHandler);
@@ -92307,16 +96650,16 @@ var TabBar = class {
 };
 
 // src/features/chat/tabs/TabManager.ts
-var import_obsidian43 = require("obsidian");
+var import_obsidian45 = require("obsidian");
 
 // src/shared/modals/ForkTargetModal.ts
-var import_obsidian42 = require("obsidian");
+var import_obsidian44 = require("obsidian");
 function chooseForkTarget(app) {
   return new Promise((resolve8) => {
     new ForkTargetModal(app, resolve8).open();
   });
 }
-var ForkTargetModal = class extends import_obsidian42.Modal {
+var ForkTargetModal = class extends import_obsidian44.Modal {
   constructor(app, resolve8) {
     super(app);
     this.resolved = false;
@@ -92662,17 +97005,17 @@ var TabManager = class {
       const tab = await this.forkToNewTab(context);
       if (!tab) {
         const maxTabs = this.getMaxTabs();
-        new import_obsidian43.Notice(t("chat.fork.maxTabsReached", { count: String(maxTabs) }));
+        new import_obsidian45.Notice(t("chat.fork.maxTabsReached", { count: String(maxTabs) }));
         return;
       }
-      new import_obsidian43.Notice(t("chat.fork.notice"));
+      new import_obsidian45.Notice(t("chat.fork.notice"));
     } else {
       const success2 = await this.forkInCurrentTab(context);
       if (!success2) {
-        new import_obsidian43.Notice(t("chat.fork.failed", { error: t("chat.fork.errorNoActiveTab") }));
+        new import_obsidian45.Notice(t("chat.fork.failed", { error: t("chat.fork.errorNoActiveTab") }));
         return;
       }
-      new import_obsidian43.Notice(t("chat.fork.noticeCurrentTab"));
+      new import_obsidian45.Notice(t("chat.fork.noticeCurrentTab"));
     }
   }
   async forkToNewTab(context) {
@@ -93053,7 +97396,7 @@ var TabManager = class {
 };
 
 // src/features/chat/ClaudianView.ts
-var ClaudianView = class extends import_obsidian44.ItemView {
+var ClaudianView = class extends import_obsidian46.ItemView {
   constructor(leaf, plugin) {
     super(leaf);
     // Tab management
@@ -93120,7 +97463,8 @@ var ClaudianView = class extends import_obsidian44.ItemView {
       const capabilities = ProviderRegistry.getCapabilities(providerId);
       const contextWindow = uiConfig.getContextWindowSize(
         model,
-        providerSettings.customContextLimits
+        providerSettings.customContextLimits,
+        providerSettings
       );
       if (tab.state.usage) {
         tab.state.usage = recalculateUsageForModel(tab.state.usage, model, contextWindow);
@@ -93253,31 +97597,31 @@ var ClaudianView = class extends import_obsidian44.ItemView {
         void this.handleTabClose(tabId);
       },
       onNewTab: () => {
-        void this.createNewTab().catch(() => new import_obsidian44.Notice("Failed to create tab"));
+        void this.createNewTab().catch(() => new import_obsidian46.Notice("Failed to create tab"));
       }
     });
     fragment.appendChild(this.tabBarContainerEl);
     this.headerActionsContent = activeDocument.createElement("div");
     this.headerActionsContent.className = "claudian-header-actions";
     this.newTabButtonEl = this.headerActionsContent.createDiv({ cls: "claudian-header-btn claudian-new-tab-btn" });
-    (0, import_obsidian44.setIcon)(this.newTabButtonEl, "square-plus");
+    (0, import_obsidian46.setIcon)(this.newTabButtonEl, "square-plus");
     this.newTabButtonEl.setAttribute("aria-label", "New tab");
     this.newTabButtonEl.addEventListener("click", () => {
-      void this.createNewTab().catch(() => new import_obsidian44.Notice("Failed to create tab"));
+      void this.createNewTab().catch(() => new import_obsidian46.Notice("Failed to create tab"));
     });
     const newBtn = this.headerActionsContent.createDiv({ cls: "claudian-header-btn" });
-    (0, import_obsidian44.setIcon)(newBtn, "square-pen");
+    (0, import_obsidian46.setIcon)(newBtn, "square-pen");
     newBtn.setAttribute("aria-label", "New conversation");
     newBtn.addEventListener("click", () => {
       void (async () => {
         var _a3;
         await ((_a3 = this.tabManager) == null ? void 0 : _a3.createNewConversation());
         this.updateHistoryDropdown();
-      })().catch(() => new import_obsidian44.Notice("Failed to create conversation"));
+      })().catch(() => new import_obsidian46.Notice("Failed to create conversation"));
     });
     const historyContainer = this.headerActionsContent.createDiv({ cls: "claudian-history-container" });
     const historyBtn = historyContainer.createDiv({ cls: "claudian-header-btn" });
-    (0, import_obsidian44.setIcon)(historyBtn, "history");
+    (0, import_obsidian46.setIcon)(historyBtn, "history");
     historyBtn.setAttribute("aria-label", "Chat history");
     this.historyDropdown = historyContainer.createDiv({ cls: "claudian-history-menu" });
     historyBtn.addEventListener("click", (e2) => {
@@ -93341,7 +97685,7 @@ var ClaudianView = class extends import_obsidian44.ItemView {
     var _a3;
     const switched = (_a3 = this.tabManager) == null ? void 0 : _a3.switchToTab(tabId);
     if (switched) {
-      void switched.catch(() => new import_obsidian44.Notice("Failed to switch tab"));
+      void switched.catch(() => new import_obsidian46.Notice("Failed to switch tab"));
     }
   }
   async handleTabClose(tabId) {
@@ -93352,7 +97696,7 @@ var ClaudianView = class extends import_obsidian44.ItemView {
       await ((_c = this.tabManager) == null ? void 0 : _c.closeTab(tabId, force));
       this.updateTabBarVisibility();
     } catch (e2) {
-      new import_obsidian44.Notice("Failed to close tab");
+      new import_obsidian46.Notice("Failed to close tab");
     }
   }
   async createNewTab() {
@@ -93360,7 +97704,7 @@ var ClaudianView = class extends import_obsidian44.ItemView {
     const tab = await ((_a3 = this.tabManager) == null ? void 0 : _a3.createTab());
     if (!tab) {
       const maxTabs = (_b2 = this.plugin.settings.maxTabs) != null ? _b2 : 3;
-      new import_obsidian44.Notice(`Maximum ${maxTabs} tabs allowed`);
+      new import_obsidian46.Notice(`Maximum ${maxTabs} tabs allowed`);
       this.updateTabBarVisibility();
       return;
     }
@@ -93524,7 +97868,7 @@ var ClaudianView = class extends import_obsidian44.ItemView {
         }
       }
     });
-    this.scope = new import_obsidian44.Scope(this.app.scope);
+    this.scope = new import_obsidian46.Scope(this.app.scope);
     this.scope.register([], "Escape", (e2) => {
       var _a3, _b2;
       if (e2.isComposing) return;
@@ -93535,6 +97879,15 @@ var ClaudianView = class extends import_obsidian44.ItemView {
         }
       }
       return false;
+    });
+    this.scope.register(["Mod"], "Enter", (e2) => {
+      var _a3;
+      if (e2.isComposing || e2.defaultPrevented) return;
+      const activeTab = (_a3 = this.tabManager) == null ? void 0 : _a3.getActiveTab();
+      if (!activeTab) return;
+      if (sendTabInputMessageFromExplicitEnterShortcut(activeTab, e2, { requireInputFocus: true })) {
+        return false;
+      }
     });
     const markCacheDirty = (includesFolders) => {
       var _a3, _b2;
@@ -93619,8 +97972,49 @@ var ClaudianView = class extends import_obsidian44.ItemView {
 // src/features/inline-edit/ui/InlineEditModal.ts
 var import_state2 = require("@codemirror/state");
 var import_view2 = require("@codemirror/view");
-var import_obsidian45 = require("obsidian");
+var import_obsidian48 = require("obsidian");
 init_path();
+
+// src/features/inline-edit/ui/inlineEditMarkdownPreview.ts
+var import_obsidian47 = require("obsidian");
+function emptyElement(container) {
+  if (typeof container.empty === "function") {
+    container.empty();
+    return;
+  }
+  container.replaceChildren();
+}
+function appendFallback(container, markdown) {
+  const fallback = container.ownerDocument.createElement("div");
+  fallback.className = "claudian-inline-markdown-fallback";
+  fallback.textContent = markdown;
+  container.appendChild(fallback);
+}
+async function renderInlineEditMarkdownPreview({
+  app,
+  component,
+  container,
+  markdown,
+  sourcePath,
+  mediaFolder = ""
+}) {
+  emptyElement(container);
+  try {
+    const processedMarkdown = replaceImageEmbedsWithHtml(markdown, app, {
+      mediaFolder,
+      sourcePath
+    });
+    await import_obsidian47.MarkdownRenderer.render(app, processedMarkdown, container, sourcePath, component);
+    if (processedMarkdown.includes("[[") && app.metadataCache) {
+      processFileLinks(app, container);
+    }
+  } catch (e2) {
+    emptyElement(container);
+    appendFallback(container, markdown);
+  }
+}
+
+// src/features/inline-edit/ui/InlineEditModal.ts
 var showInlineEdit = import_state2.StateEffect.define();
 var showDiff = import_state2.StateEffect.define();
 var showInsertion = import_state2.StateEffect.define();
@@ -93676,6 +98070,22 @@ var InputWidget = class extends import_view2.WidgetType {
     return true;
   }
 };
+var PreviewWidget = class extends import_view2.WidgetType {
+  constructor(markdown, controller) {
+    super();
+    this.markdown = markdown;
+    this.controller = controller;
+  }
+  toDOM() {
+    return this.controller.createPreviewDOM(this.markdown);
+  }
+  eq(other) {
+    return this.markdown === other.markdown;
+  }
+  ignoreEvent() {
+    return true;
+  }
+};
 function buildInlineEditInputDecorations(options) {
   var _a3;
   const isInbetween = (_a3 = options.isInbetween) != null ? _a3 : false;
@@ -93704,19 +98114,29 @@ var inlineEditField = import_state2.StateField.define({
           widget: new InputWidget(e2.value.widget)
         });
       } else if (e2.is(showDiff)) {
-        const builder = new import_state2.RangeSetBuilder();
-        builder.add(e2.value.from, e2.value.to, import_view2.Decoration.replace({
-          widget: new DiffWidget(e2.value.diffOps, e2.value.widget)
-        }));
-        deco = builder.finish();
+        deco = import_view2.Decoration.set([
+          import_view2.Decoration.widget({
+            widget: new PreviewWidget(e2.value.previewText, e2.value.widget),
+            block: true,
+            side: -1
+          }).range(e2.value.previewPos),
+          import_view2.Decoration.replace({
+            widget: new DiffWidget(e2.value.diffOps, e2.value.widget)
+          }).range(e2.value.from, e2.value.to)
+        ], true);
       } else if (e2.is(showInsertion)) {
-        const builder = new import_state2.RangeSetBuilder();
-        builder.add(e2.value.pos, e2.value.pos, import_view2.Decoration.widget({
-          widget: new DiffWidget(e2.value.diffOps, e2.value.widget),
-          side: 1
-          // After the position
-        }));
-        deco = builder.finish();
+        deco = import_view2.Decoration.set([
+          import_view2.Decoration.widget({
+            widget: new PreviewWidget(e2.value.previewText, e2.value.widget),
+            block: true,
+            side: -1
+          }).range(e2.value.previewPos),
+          import_view2.Decoration.widget({
+            widget: new DiffWidget(e2.value.diffOps, e2.value.widget),
+            side: 1
+            // After the position
+          }).range(e2.value.pos)
+        ], true);
       } else if (e2.is(hideInlineEdit)) {
         deco = import_view2.Decoration.none;
       }
@@ -93806,7 +98226,7 @@ var InlineEditModal = class {
       editorView = getEditorView(editor);
     }
     if (!editorView) {
-      new import_obsidian45.Notice("Inline edit unavailable: could not access the active editor. Try reopening the note.");
+      new import_obsidian48.Notice("Inline edit unavailable: could not access the active editor. Try reopening the note.");
       return { decision: "reject" };
     }
     return new Promise((resolve8) => {
@@ -93849,6 +98269,7 @@ var InlineEditController = class {
     this.isConversing = false;
     this.slashCommandDropdown = null;
     this.mentionDropdown = null;
+    this.agentReplyRenderVersion = 0;
     var _a3, _b2, _c, _d2, _e, _f, _g, _h, _i;
     const activeView = typeof plugin.getView === "function" ? plugin.getView() : null;
     const activeTab = activeView == null ? void 0 : activeView.getActiveTab();
@@ -93860,7 +98281,7 @@ var InlineEditController = class {
     this.resolvedProviderId = providerId;
     this.mentionDataProvider = new VaultMentionDataProvider(this.app, {
       onFileLoadError: () => {
-        new import_obsidian45.Notice("Failed to load vault files. Vault @-mentions may be unavailable.");
+        new import_obsidian48.Notice("Failed to load vault files. Vault @-mentions may be unavailable.");
       }
     });
     this.mentionDataProvider.initializeInBackground();
@@ -94026,6 +98447,39 @@ var InlineEditController = class {
     }, 50);
     return container;
   }
+  createPreviewDOM(markdown) {
+    const ownerDocument = this.getOwnerDocument();
+    const previewEl = ownerDocument.createElement("div");
+    previewEl.className = "claudian-inline-markdown-preview";
+    const bodyEl = ownerDocument.createElement("div");
+    bodyEl.className = "claudian-inline-markdown-preview-body markdown-rendered";
+    previewEl.appendChild(bodyEl);
+    void this.renderMarkdownPreview(bodyEl, markdown);
+    return previewEl;
+  }
+  async renderMarkdownPreview(container, markdown) {
+    var _a3, _b2;
+    await renderInlineEditMarkdownPreview({
+      app: this.app,
+      component: this.plugin,
+      container,
+      markdown,
+      sourcePath: this.notePath,
+      mediaFolder: (_b2 = (_a3 = this.plugin.settings) == null ? void 0 : _a3.mediaFolder) != null ? _b2 : ""
+    });
+  }
+  replaceRenderedPreview(target, rendered) {
+    target.empty();
+    if (rendered.childNodes) {
+      for (const child of Array.from(rendered.childNodes)) {
+        target.appendChild(child);
+      }
+      return;
+    }
+    for (const child of Array.from(rendered.children)) {
+      target.appendChild(child);
+    }
+  }
   async generate() {
     if (!this.inputEl || !this.spinnerEl) return;
     const userMessage = this.inputEl.value.trim();
@@ -94083,8 +98537,17 @@ var InlineEditController = class {
   }
   showAgentReply(message) {
     if (!this.agentReplyEl || !this.containerEl) return;
-    this.agentReplyEl.removeClass("claudian-hidden");
-    this.agentReplyEl.textContent = message;
+    const replyEl = this.agentReplyEl;
+    const renderVersion = ++this.agentReplyRenderVersion;
+    const renderedEl = this.getOwnerDocument().createElement("div");
+    replyEl.removeClass("claudian-hidden");
+    replyEl.empty();
+    void this.renderMarkdownPreview(renderedEl, message).then(() => {
+      if (renderVersion !== this.agentReplyRenderVersion || replyEl !== this.agentReplyEl) {
+        return;
+      }
+      this.replaceRenderedPreview(replyEl, renderedEl);
+    });
     this.containerEl.classList.add("has-agent-reply");
   }
   handleError(errorMessage) {
@@ -94100,11 +98563,14 @@ var InlineEditController = class {
     if (this.editedText === null) return;
     hideSelectionHighlight(this.editorView);
     const diffOps = computeDiff(this.selectedText, this.editedText);
+    const previewPos = this.editorView.state.doc.lineAt(this.selFrom).from;
     this.editorView.dispatch({
       effects: showDiff.of({
         from: this.selFrom,
         to: this.selTo,
         diffOps,
+        previewPos,
+        previewText: this.editedText,
         widget: this
       })
     });
@@ -94116,10 +98582,13 @@ var InlineEditController = class {
     const trimmedText = normalizeInsertionText(this.insertedText);
     this.insertedText = trimmedText;
     const diffOps = [{ type: "insert", text: trimmedText }];
+    const previewPos = this.editorView.state.doc.lineAt(this.selFrom).from;
     this.editorView.dispatch({
       effects: showInsertion.of({
         pos: this.selFrom,
         diffOps,
+        previewPos,
+        previewText: trimmedText,
         widget: this
       })
     });
@@ -94214,7 +98683,7 @@ var InlineEditController = class {
       const vaultPath = getVaultPath(this.app);
       return normalizePathForVault(rawPath, vaultPath);
     } catch (e2) {
-      new import_obsidian45.Notice("Failed to attach file: invalid path");
+      new import_obsidian48.Notice("Failed to attach file: invalid path");
       return null;
     }
   }
@@ -94265,7 +98734,7 @@ var InlineEditController = class {
 };
 
 // src/features/settings/ClaudianSettings.ts
-var import_obsidian46 = require("obsidian");
+var import_obsidian49 = require("obsidian");
 init_env();
 
 // src/features/settings/keyboardNavigation.ts
@@ -94315,7 +98784,7 @@ var parseNavMappings = (value) => {
 
 // src/features/settings/ClaudianSettings.ts
 function formatHotkey(hotkey) {
-  const isMac = import_obsidian46.Platform.isMacOS;
+  const isMac = import_obsidian49.Platform.isMacOS;
   const modMap = isMac ? { Mod: "\u2318", Ctrl: "\u2303", Alt: "\u2325", Shift: "\u21E7", Meta: "\u2318" } : { Mod: "Ctrl", Ctrl: "Ctrl", Alt: "Alt", Shift: "Shift", Meta: "Win" };
   const mods = hotkey.modifiers.map((modifier) => modMap[modifier] || modifier);
   const key = hotkey.key.length === 1 ? hotkey.key.toUpperCase() : hotkey.key;
@@ -94364,7 +98833,7 @@ function addHotkeySettingRow(containerEl, app, commandId, translationPrefix) {
   }
   item.addEventListener("click", () => openHotkeySettings(app));
 }
-var ClaudianSettingTab = class extends import_obsidian46.PluginSettingTab {
+var ClaudianSettingTab = class extends import_obsidian49.PluginSettingTab {
   constructor(app, plugin) {
     super(app, plugin);
     this.activeTab = "general";
@@ -94425,7 +98894,7 @@ var ClaudianSettingTab = class extends import_obsidian46.PluginSettingTab {
     }
   }
   renderGeneralTab(container) {
-    new import_obsidian46.Setting(container).setName(t("settings.language.name")).setDesc(t("settings.language.desc")).addDropdown((dropdown) => {
+    new import_obsidian49.Setting(container).setName(t("settings.language.name")).setDesc(t("settings.language.desc")).addDropdown((dropdown) => {
       const locales = getAvailableLocales();
       for (const locale of locales) {
         dropdown.addOption(locale, getLocaleDisplayName(locale));
@@ -94441,8 +98910,8 @@ var ClaudianSettingTab = class extends import_obsidian46.PluginSettingTab {
         this.display();
       });
     });
-    new import_obsidian46.Setting(container).setName(t("settings.display")).setHeading();
-    new import_obsidian46.Setting(container).setName(t("settings.tabBarPosition.name")).setDesc(t("settings.tabBarPosition.desc")).addDropdown((dropdown) => {
+    new import_obsidian49.Setting(container).setName(t("settings.display")).setHeading();
+    new import_obsidian49.Setting(container).setName(t("settings.tabBarPosition.name")).setDesc(t("settings.tabBarPosition.desc")).addDropdown((dropdown) => {
       var _a3;
       dropdown.addOption("input", t("settings.tabBarPosition.input")).addOption("header", t("settings.tabBarPosition.header")).setValue((_a3 = this.plugin.settings.tabBarPosition) != null ? _a3 : "input").onChange(async (value) => {
         this.plugin.settings.tabBarPosition = value;
@@ -94452,7 +98921,7 @@ var ClaudianSettingTab = class extends import_obsidian46.PluginSettingTab {
         }
       });
     });
-    const maxTabsSetting = new import_obsidian46.Setting(container).setName(t("settings.maxTabs.name")).setDesc(t("settings.maxTabs.desc"));
+    const maxTabsSetting = new import_obsidian49.Setting(container).setName(t("settings.maxTabs.name")).setDesc(t("settings.maxTabs.desc"));
     const maxTabsWarningEl = container.createDiv({
       cls: "claudian-max-tabs-warning claudian-setting-validation claudian-setting-validation-warning claudian-hidden"
     });
@@ -94472,13 +98941,13 @@ var ClaudianSettingTab = class extends import_obsidian46.PluginSettingTab {
       });
       updateMaxTabsWarning((_b2 = this.plugin.settings.maxTabs) != null ? _b2 : 3);
     });
-    new import_obsidian46.Setting(container).setName(t("settings.chatViewPlacement.name")).setDesc(t("settings.chatViewPlacement.desc")).addDropdown((dropdown) => {
+    new import_obsidian49.Setting(container).setName(t("settings.chatViewPlacement.name")).setDesc(t("settings.chatViewPlacement.desc")).addDropdown((dropdown) => {
       dropdown.addOption("right-sidebar", t("settings.chatViewPlacement.rightSidebar")).addOption("left-sidebar", t("settings.chatViewPlacement.leftSidebar")).addOption("main-tab", t("settings.chatViewPlacement.mainTab")).setValue(this.plugin.settings.chatViewPlacement).onChange(async (value) => {
         this.plugin.settings.chatViewPlacement = value;
         await this.plugin.saveSettings();
       });
     });
-    new import_obsidian46.Setting(container).setName(t("settings.enableAutoScroll.name")).setDesc(t("settings.enableAutoScroll.desc")).addToggle(
+    new import_obsidian49.Setting(container).setName(t("settings.enableAutoScroll.name")).setDesc(t("settings.enableAutoScroll.desc")).addToggle(
       (toggle) => {
         var _a3;
         return toggle.setValue((_a3 = this.plugin.settings.enableAutoScroll) != null ? _a3 : true).onChange(async (value) => {
@@ -94487,7 +98956,7 @@ var ClaudianSettingTab = class extends import_obsidian46.PluginSettingTab {
         });
       }
     );
-    new import_obsidian46.Setting(container).setName(t("settings.deferMathRenderingDuringStreaming.name")).setDesc(t("settings.deferMathRenderingDuringStreaming.desc")).addToggle(
+    new import_obsidian49.Setting(container).setName(t("settings.deferMathRenderingDuringStreaming.name")).setDesc(t("settings.deferMathRenderingDuringStreaming.desc")).addToggle(
       (toggle) => {
         var _a3;
         return toggle.setValue((_a3 = this.plugin.settings.deferMathRenderingDuringStreaming) != null ? _a3 : true).onChange(async (value) => {
@@ -94496,8 +98965,8 @@ var ClaudianSettingTab = class extends import_obsidian46.PluginSettingTab {
         });
       }
     );
-    new import_obsidian46.Setting(container).setName(t("settings.conversations")).setHeading();
-    new import_obsidian46.Setting(container).setName(t("settings.autoTitle.name")).setDesc(t("settings.autoTitle.desc")).addToggle(
+    new import_obsidian49.Setting(container).setName(t("settings.conversations")).setHeading();
+    new import_obsidian49.Setting(container).setName(t("settings.autoTitle.name")).setDesc(t("settings.autoTitle.desc")).addToggle(
       (toggle) => toggle.setValue(this.plugin.settings.enableAutoTitleGeneration).onChange(async (value) => {
         this.plugin.settings.enableAutoTitleGeneration = value;
         await this.plugin.saveSettings();
@@ -94505,7 +98974,7 @@ var ClaudianSettingTab = class extends import_obsidian46.PluginSettingTab {
       })
     );
     if (this.plugin.settings.enableAutoTitleGeneration) {
-      new import_obsidian46.Setting(container).setName(t("settings.titleModel.name")).setDesc(t("settings.titleModel.desc")).addDropdown((dropdown) => {
+      new import_obsidian49.Setting(container).setName(t("settings.titleModel.name")).setDesc(t("settings.titleModel.desc")).addDropdown((dropdown) => {
         dropdown.addOption("", t("settings.titleModel.auto"));
         const settingsBag = this.plugin.settings;
         const seenValues = /* @__PURE__ */ new Set();
@@ -94524,8 +98993,8 @@ var ClaudianSettingTab = class extends import_obsidian46.PluginSettingTab {
         });
       });
     }
-    new import_obsidian46.Setting(container).setName(t("settings.content")).setHeading();
-    new import_obsidian46.Setting(container).setName(t("settings.userName.name")).setDesc(t("settings.userName.desc")).addText((text) => {
+    new import_obsidian49.Setting(container).setName(t("settings.content")).setHeading();
+    new import_obsidian49.Setting(container).setName(t("settings.userName.name")).setDesc(t("settings.userName.desc")).addText((text) => {
       text.setPlaceholder(t("settings.userName.name")).setValue(this.plugin.settings.userName).onChange(async (value) => {
         this.plugin.settings.userName = value;
         await this.plugin.saveSettings();
@@ -94534,7 +99003,7 @@ var ClaudianSettingTab = class extends import_obsidian46.PluginSettingTab {
         void this.restartServiceForPromptChange();
       });
     });
-    new import_obsidian46.Setting(container).setName(t("settings.systemPrompt.name")).setDesc(t("settings.systemPrompt.desc")).addTextArea((text) => {
+    new import_obsidian49.Setting(container).setName(t("settings.systemPrompt.name")).setDesc(t("settings.systemPrompt.desc")).addTextArea((text) => {
       text.setPlaceholder(t("settings.systemPrompt.name")).setValue(this.plugin.settings.systemPrompt).onChange(async (value) => {
         this.plugin.settings.systemPrompt = value;
         await this.plugin.saveSettings();
@@ -94545,7 +99014,7 @@ var ClaudianSettingTab = class extends import_obsidian46.PluginSettingTab {
         void this.restartServiceForPromptChange();
       });
     });
-    new import_obsidian46.Setting(container).setName(t("settings.excludedTags.name")).setDesc(t("settings.excludedTags.desc")).addTextArea((text) => {
+    new import_obsidian49.Setting(container).setName(t("settings.excludedTags.name")).setDesc(t("settings.excludedTags.desc")).addTextArea((text) => {
       text.setPlaceholder("System\nprivate\ndraft").setValue(this.plugin.settings.excludedTags.join("\n")).onChange(async (value) => {
         this.plugin.settings.excludedTags = value.split(/\r?\n/).map((entry) => entry.trim().replace(/^#/, "")).filter((entry) => entry.length > 0);
         await this.plugin.saveSettings();
@@ -94553,7 +99022,7 @@ var ClaudianSettingTab = class extends import_obsidian46.PluginSettingTab {
       text.inputEl.rows = 4;
       text.inputEl.cols = 30;
     });
-    new import_obsidian46.Setting(container).setName(t("settings.mediaFolder.name")).setDesc(t("settings.mediaFolder.desc")).addText((text) => {
+    new import_obsidian49.Setting(container).setName(t("settings.mediaFolder.name")).setDesc(t("settings.mediaFolder.desc")).addText((text) => {
       text.setPlaceholder("Attachments").setValue(this.plugin.settings.mediaFolder).onChange(async (value) => {
         this.plugin.settings.mediaFolder = value.trim();
         await this.plugin.saveSettings();
@@ -94563,15 +99032,15 @@ var ClaudianSettingTab = class extends import_obsidian46.PluginSettingTab {
         void this.restartServiceForPromptChange();
       });
     });
-    new import_obsidian46.Setting(container).setName(t("settings.input")).setHeading();
-    new import_obsidian46.Setting(container).setName(t("settings.requireCommandOrControlEnterToSend.name")).setDesc(t("settings.requireCommandOrControlEnterToSend.desc")).addToggle((toggle) => {
+    new import_obsidian49.Setting(container).setName(t("settings.input")).setHeading();
+    new import_obsidian49.Setting(container).setName(t("settings.requireCommandOrControlEnterToSend.name")).setDesc(t("settings.requireCommandOrControlEnterToSend.desc")).addToggle((toggle) => {
       var _a3;
       toggle.setValue((_a3 = this.plugin.settings.requireCommandOrControlEnterToSend) != null ? _a3 : false).onChange(async (value) => {
         this.plugin.settings.requireCommandOrControlEnterToSend = value;
         await this.plugin.saveSettings();
       });
     });
-    new import_obsidian46.Setting(container).setName(t("settings.navMappings.name")).setDesc(t("settings.navMappings.desc")).addTextArea((text) => {
+    new import_obsidian49.Setting(container).setName(t("settings.navMappings.name")).setDesc(t("settings.navMappings.desc")).addTextArea((text) => {
       let pendingValue = buildNavMappingText(this.plugin.settings.keyboardNavigation);
       let saveTimeout = null;
       const commitValue = async (showError) => {
@@ -94582,7 +99051,7 @@ var ClaudianSettingTab = class extends import_obsidian46.PluginSettingTab {
         const result = parseNavMappings(pendingValue);
         if (!result.settings) {
           if (showError) {
-            new import_obsidian46.Notice(`${t("common.error")}: ${result.error}`);
+            new import_obsidian49.Notice(`${t("common.error")}: ${result.error}`);
             pendingValue = buildNavMappingText(this.plugin.settings.keyboardNavigation);
             text.setValue(pendingValue);
           }
@@ -94612,7 +99081,7 @@ var ClaudianSettingTab = class extends import_obsidian46.PluginSettingTab {
         void commitValue(true);
       });
     });
-    new import_obsidian46.Setting(container).setName(t("settings.hotkeys")).setHeading();
+    new import_obsidian49.Setting(container).setName(t("settings.hotkeys")).setHeading();
     const hotkeyGrid = container.createDiv({ cls: "claudian-hotkey-grid" });
     addHotkeySettingRow(hotkeyGrid, this.app, "claudian:inline-edit", "settings.inlineEditHotkey");
     addHotkeySettingRow(hotkeyGrid, this.app, "claudian:open-view", "settings.openChatHotkey");
@@ -94631,7 +99100,7 @@ var ClaudianSettingTab = class extends import_obsidian46.PluginSettingTab {
     });
   }
   renderHiddenProviderCommandSetting(container, providerId, copy) {
-    new import_obsidian46.Setting(container).setName(copy.name).setDesc(copy.desc).addTextArea((text) => {
+    new import_obsidian49.Setting(container).setName(copy.name).setDesc(copy.desc).addTextArea((text) => {
       text.setPlaceholder(copy.placeholder).setValue(getHiddenProviderCommands(this.plugin.settings, providerId).join("\n")).onChange(async (value) => {
         var _a3;
         this.plugin.settings.hiddenProviderCommands = {
@@ -94646,7 +99115,7 @@ var ClaudianSettingTab = class extends import_obsidian46.PluginSettingTab {
     });
   }
   renderCustomContextLimits(container, providerId) {
-    var _a3;
+    var _a3, _b2, _c;
     container.empty();
     const uniqueModelIds = /* @__PURE__ */ new Set();
     const providerIds = providerId ? [providerId] : ProviderRegistry.getRegisteredProviderIds();
@@ -94663,25 +99132,56 @@ var ClaudianSettingTab = class extends import_obsidian46.PluginSettingTab {
     }
     const headerEl = container.createDiv({ cls: "claudian-context-limits-header" });
     headerEl.createSpan({
-      text: t("settings.customContextLimits.name"),
+      text: t("settings.customModelOverrides.name"),
       cls: "claudian-context-limits-label"
     });
     const descEl = container.createDiv({ cls: "claudian-context-limits-desc" });
-    descEl.setText(t("settings.customContextLimits.desc"));
+    descEl.setText(t("settings.customModelOverrides.desc"));
     const listEl = container.createDiv({ cls: "claudian-context-limits-list" });
     for (const modelId of uniqueModelIds) {
       const currentValue = (_a3 = this.plugin.settings.customContextLimits) == null ? void 0 : _a3[modelId];
+      const currentAlias = (_c = (_b2 = this.plugin.settings.customModelAliases) == null ? void 0 : _b2[modelId]) != null ? _c : "";
       const itemEl = listEl.createDiv({ cls: "claudian-context-limits-item" });
       const nameEl = itemEl.createDiv({ cls: "claudian-context-limits-model" });
       nameEl.setText(modelId);
       const inputWrapper = itemEl.createDiv({ cls: "claudian-context-limits-input-wrapper" });
+      const aliasInputEl = inputWrapper.createEl("input", {
+        type: "text",
+        placeholder: t("settings.customModelAliases.placeholder"),
+        cls: "claudian-context-alias-input",
+        value: currentAlias
+      });
+      aliasInputEl.setAttribute("aria-label", `Alias for ${modelId}`);
+      aliasInputEl.title = "Custom label shown in the model selector. Leave empty to use the default.";
       const inputEl = inputWrapper.createEl("input", {
         type: "text",
         placeholder: "200k",
         cls: "claudian-context-limits-input",
         value: currentValue ? formatContextLimit(currentValue) : ""
       });
+      inputEl.setAttribute("aria-label", `Context window for ${modelId}`);
       const validationEl = inputWrapper.createDiv({ cls: "claudian-context-limit-validation claudian-hidden" });
+      const saveAlias = async () => {
+        var _a4;
+        if (!this.plugin.settings.customModelAliases) {
+          this.plugin.settings.customModelAliases = {};
+        }
+        const existing = (_a4 = this.plugin.settings.customModelAliases[modelId]) != null ? _a4 : "";
+        const trimmed = aliasInputEl.value.trim();
+        if (trimmed === existing) {
+          aliasInputEl.value = existing;
+          return;
+        }
+        if (trimmed) {
+          this.plugin.settings.customModelAliases[modelId] = trimmed;
+        } else {
+          delete this.plugin.settings.customModelAliases[modelId];
+        }
+        await this.plugin.saveSettings();
+        for (const view of this.plugin.getAllViews()) {
+          view.refreshModelSelector();
+        }
+      };
       const saveContextLimit = async () => {
         const trimmed = inputEl.value.trim();
         if (!this.plugin.settings.customContextLimits) {
@@ -94708,6 +99208,20 @@ var ClaudianSettingTab = class extends import_obsidian46.PluginSettingTab {
       inputEl.addEventListener("input", () => {
         void saveContextLimit();
       });
+      aliasInputEl.addEventListener("blur", () => {
+        void saveAlias();
+      });
+      aliasInputEl.addEventListener("keydown", (event) => {
+        var _a4, _b3;
+        if (event.key === "Enter") {
+          event.preventDefault();
+          aliasInputEl.blur();
+        } else if (event.key === "Escape") {
+          event.preventDefault();
+          aliasInputEl.value = (_b3 = (_a4 = this.plugin.settings.customModelAliases) == null ? void 0 : _a4[modelId]) != null ? _b3 : "";
+          aliasInputEl.blur();
+        }
+      });
     }
   }
   async restartServiceForPromptChange() {
@@ -94731,7 +99245,7 @@ patchSetMaxListenersForElectron();
 function isClaudianView(value) {
   return !!value && typeof value === "object" && typeof value.getTabManager === "function";
 }
-var ClaudianPlugin = class extends import_obsidian47.Plugin {
+var ClaudianPlugin = class extends import_obsidian50.Plugin {
   constructor() {
     super(...arguments);
     this.conversations = [];
@@ -94759,9 +99273,9 @@ var ClaudianPlugin = class extends import_obsidian47.Plugin {
       name: "Inline edit",
       editorCallback: async (editor, ctx) => {
         var _a3;
-        const view = ctx instanceof import_obsidian47.MarkdownView ? ctx : this.app.workspace.getActiveViewOfType(import_obsidian47.MarkdownView);
+        const view = ctx instanceof import_obsidian50.MarkdownView ? ctx : this.app.workspace.getActiveViewOfType(import_obsidian50.MarkdownView);
         if (!view) {
-          new import_obsidian47.Notice("Inline edit unavailable: could not access the active Markdown view.");
+          new import_obsidian50.Notice("Inline edit unavailable: could not access the active Markdown view.");
           return;
         }
         const selectedText = editor.getSelection();
@@ -94793,7 +99307,7 @@ var ClaudianPlugin = class extends import_obsidian47.Plugin {
         );
         const result = await modal.openAndWait();
         if (result.decision === "accept" && result.editedText !== void 0) {
-          new import_obsidian47.Notice(editContext.mode === "cursor" ? "Inserted" : "Edit applied");
+          new import_obsidian50.Notice(editContext.mode === "cursor" ? "Inserted" : "Edit applied");
         }
       }
     });
@@ -95104,7 +99618,7 @@ var ClaudianPlugin = class extends import_obsidian47.Plugin {
         }
       }
       if (failedTabs > 0) {
-        new import_obsidian47.Notice(`Environment changes applied, but ${failedTabs} affected tab(s) failed to restart.`);
+        new import_obsidian50.Notice(`Environment changes applied, but ${failedTabs} affected tab(s) failed to restart.`);
       }
     }
     for (const openView of this.getAllViews()) {
@@ -95112,7 +99626,7 @@ var ClaudianPlugin = class extends import_obsidian47.Plugin {
       openView.refreshModelSelector();
     }
     const noticeText = changed ? "Environment variables applied. Sessions will be rebuilt on next message." : "Environment variables applied.";
-    new import_obsidian47.Notice(noticeText);
+    new import_obsidian50.Notice(noticeText);
   }
   /** Returns the runtime environment variables (fixed at plugin load). */
   getActiveEnvironmentVariables(providerId = ProviderRegistry.resolveSettingsProviderId(
