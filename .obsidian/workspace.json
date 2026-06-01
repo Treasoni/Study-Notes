@@ -186,11 +186,11 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 531.5
+    "width": 251.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -208,7 +208,7 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "746e3216e1c18840",
   "lastOpenFiles": [
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "StudySystem/1-curated/OpenSpec/practice-examples.md",
