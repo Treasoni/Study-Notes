@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "StudySystem/2-drafts/comet/comet-笔记.md",
+                "file": "AI实战/工程实践/Claude Code Subagent与Skill调度机制.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "comet-笔记"
+              "title": "Claude Code Subagent与Skill调度机制"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "StudySystem/TODO.md",
+                "file": "AI实战/工程实践/Claude Code Subagent与Skill调度机制.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "TODO 的大纲"
+              "title": "Claude Code Subagent与Skill调度机制 的大纲"
             }
           },
           {
@@ -186,7 +186,7 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -208,13 +208,13 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "e36d73967f5c48ba",
+  "active": "52ff2f9fbef74052",
   "lastOpenFiles": [
     "GitHub项目/comet/comet.md",
+    "StudySystem/2-drafts/comet/comet-笔记.md",
     "GitHub项目/comet",
     "StudySystem/TODO.md",
     "GitHub项目/ECC/Claude-Code-速记指南.md",
-    "StudySystem/2-drafts/comet/comet-笔记.md",
     "StudySystem/2-drafts/comet",
     "StudySystem/1-curated/comet/discarded.md",
     "StudySystem/1-curated/comet/references.md",
