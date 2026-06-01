@@ -1,11 +1,11 @@
 # Execution Log
 
-## [2026-06-01] Comet 双星工作流
-- Purpose: 工作需要 — 在项目中引入 comet 工作流
+## [2026-06-01] Comet — OpenSpec + Superpowers 双星开发工作流
+- Purpose: 工作需要（应用到实际项目）
 - Audience: 自己
 - Depth: 入门 → 进阶
-- Note type: 概念 + 实战
-- Output path: /Users/zhqznc/Documents/项目/GitHub项目/Comet 双星工作流使用指南.md
+- Note type: concept + practice
+- Output path: /Users/zhqznc/Documents/项目/GitHub项目/comet/
 - Source: https://github.com/rpamis/comet
 - Status: started
 
