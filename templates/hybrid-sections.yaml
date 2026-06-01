@@ -1,0 +1,120 @@
+# templates/hybrid-sections.yaml
+# Hybrid note type section ordering and merging rules
+
+combinations:
+  concept + practice:
+    name: "概念实战型"
+    sections:
+      - id: core_concept
+        title: "核心概念"
+        source: concept
+        priority: 1
+      - id: practical_examples
+        title: "实战示例"
+        source: practice
+        priority: 2
+      - id: common_patterns
+        title: "常见模式"
+        source: merged
+        priority: 3
+      - id: thinking_questions
+        title: "思考题"
+        source: merged
+        priority: 4
+
+  compare + cheat_sheet:
+    name: "对比速查型"
+    sections:
+      - id: comparison_table
+        title: "对比分析"
+        source: compare
+        priority: 1
+      - id: quick_reference
+        title: "速查清单"
+        source: cheat_sheet
+        priority: 2
+      - id: decision_framework
+        title: "决策框架"
+        source: merged
+        priority: 3
+      - id: references
+        title: "参考资料"
+        source: merged
+        priority: 4
+
+  experience + concept:
+    name: "心得概念型"
+    sections:
+      - id: background
+        title: "背景上下文"
+        source: experience
+        priority: 1
+      - id: core_concept
+        title: "核心概念"
+        source: concept
+        priority: 2
+      - id: insights
+        title: "学习心得"
+        source: experience
+        priority: 3
+      - id: further_reading
+        title: "延伸阅读"
+        source: merged
+        priority: 4
+
+  concept + cheat_sheet:
+    name: "概念速查型"
+    sections:
+      - id: core_concept
+        title: "核心概念"
+        source: concept
+        priority: 1
+      - id: key_points
+        title: "关键要点"
+        source: merged
+        priority: 2
+      - id: quick_reference
+        title: "速查清单"
+        source: cheat_sheet
+        priority: 3
+      - id: thinking_questions
+        title: "思考题"
+        source: merged
+        priority: 4
+
+single_types:
+  concept:
+    sections:
+      - core_definition
+      - key_principles
+      - common_misconceptions
+      - related_concepts
+
+  practice:
+    sections:
+      - real_world_examples
+      - code_snippets
+      - step_by_step_guide
+      - common_pitfalls
+
+  compare:
+    sections:
+      - comparison_table
+      - when_to_use
+      - trade_offs
+      - decision_framework
+
+  cheat_sheet:
+    sections:
+      - quick_reference_commands
+      - common_patterns
+      - troubleshooting
+      - one_liner_examples
+
+  experience:
+    sections:
+      - background_context
+      - learning_process
+      - key_insights
+      - lessons_learned
+      - future_directions

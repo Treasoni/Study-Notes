@@ -1,0 +1,275 @@
+{
+  "main": {
+    "id": "915f505bc30ed847",
+    "type": "split",
+    "children": [
+      {
+        "id": "5084bf07f86dd942",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9dbfe1eadee10522",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "GitHub项目/ECC/Claude-Code-速记指南.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Claude-Code-速记指南"
+            }
+          },
+          {
+            "id": "e36d73967f5c48ba",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "GitHub项目/ECC/Claude-Code-速记指南.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Claude-Code-速记指南"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "e913d4969ee68022",
+    "type": "split",
+    "children": [
+      {
+        "id": "2d44c7554fda1e49",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "52ff2f9fbef74052",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "custom",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "7d377134be457d37",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "缓存",
+                "matchingCase": true,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "0e09717bb82edceb",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 320.5
+  },
+  "right": {
+    "id": "289642c072eefc79",
+    "type": "split",
+    "children": [
+      {
+        "id": "33f860409e25f7cf",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d31323bcb390357e",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Claude Code 定时任务自动化指南 的反向链接列表"
+            }
+          },
+          {
+            "id": "e2ae22ac9dcbc71f",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Claude Code 定时任务自动化指南 的出链列表"
+            }
+          },
+          {
+            "id": "457b98ba71acf99a",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": true,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "8ab5af66fe6cf14d",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "746e3216e1c18840",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "GitHub项目/ECC/Claude-Code-速记指南.md",
+                "followCursor": false,
+                "showSearch": true,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Claude-Code-速记指南 的大纲"
+            }
+          },
+          {
+            "id": "8f0ed8ba9067d029",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          },
+          {
+            "id": "5d4ad13713ff5068",
+            "type": "leaf",
+            "state": {
+              "type": "claudian-view",
+              "state": {},
+              "icon": "bot",
+              "title": "Claudian"
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 338.5
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false,
+      "obsidian-git:Open Git source control": false,
+      "claudian:Open Claudian": false,
+      "obsidian42-brat:BRAT": false,
+      "terminal:Open terminal": false,
+      "custom-sort:Toggle custom sorting": false
+    }
+  },
+  "active": "9dbfe1eadee10522",
+  "lastOpenFiles": [
+    "tests/note-type-inferrer.test.js",
+    "tests/autonomy-manager.test.js",
+    "tests/subagent-dispatcher.test.js",
+    "tests/integration.test.js",
+    "tests/config-loader.test.js",
+    "templates/hybrid-sections.yaml",
+    "lib/note-type-inferrer.js",
+    "lib/autonomy-manager.js",
+    "lib/config-loader.js",
+    "lib/subagent-dispatcher.js",
+    "tests",
+    "StudySystem/2-drafts/Superpowers/Superpowers-笔记.md",
+    "StudySystem/1-curated/Superpowers/references.md",
+    "StudySystem/1-curated/Superpowers/practices.md",
+    "StudySystem/1-curated/Superpowers/overview.md",
+    "StudySystem/1-curated/Superpowers/gaps.md",
+    "StudySystem/1-curated/Superpowers/discarded.md",
+    "StudySystem/1-curated/Superpowers/core-concepts.md",
+    "StudySystem/0-inbox/Superpowers/sources.md",
+    "GitHub项目/Superpowers/Superpowers.md",
+    "GitHub项目/ECC/Claude-Code-Advanced-Notes.md",
+    "StudySystem/2-drafts/Claude-Code-Advanced/Claude-Code-Advanced-笔记.md",
+    "GitHub项目/ECC/Claude-Code-速记指南.md",
+    "StudySystem/1-curated/Claude-Code-Advanced/overview.md",
+    "StudySystem/1-curated/Claude-Code-Advanced/core-concepts.md",
+    "StudySystem/1-curated/Claude-Code-Advanced/practices.md",
+    "StudySystem/1-curated/Claude-Code-Advanced/references.md",
+    "StudySystem/1-curated/Claude-Code-Advanced/discarded.md",
+    "StudySystem/0-inbox/Claude-Code-Advanced/raw/doc-01-overview.md",
+    "StudySystem/0-inbox/Claude-Code-Advanced/raw/doc-02-how-it-works.md",
+    "StudySystem/0-inbox/Claude-Code-Advanced/raw/doc-03-best-practices.md",
+    "StudySystem/0-inbox/Claude-Code-Advanced/raw/doc-04-longform-guide.md",
+    "StudySystem/TODO.md",
+    "StudySystem/0-inbox/Claude-Code-Advanced/sources.md",
+    "CLAUDE.md",
+    "虚拟机/VMware 获取虚拟机所有权失败.md",
+    "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
+    "web-articles/What_is_harness_engineering/images/img_002.png",
+    "web-articles/What_is_harness_engineering/images/img_001.jpg",
+    "web-articles/What_is_harness_engineering/images/img_003.png",
+    "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_016.svg",
+    "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_012.png",
+    "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_015.png",
+    "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_011.png",
+    "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_013.png",
+    "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_014.png",
+    "PVE的学习/PVE学习笔记MOC.canvas"
+  ]
+}

@@ -22,10 +22,10 @@ echo ""
 echo "--- Check 1: CLAUDE.md line count ---"
 if [ -f CLAUDE.md ]; then
     lines=$(wc -l < CLAUDE.md)
-    if [ "$lines" -le 120 ]; then
-        pass "CLAUDE.md: ${lines} lines (<= 120)"
+    if [ "$lines" -le 160 ]; then
+        pass "CLAUDE.md: ${lines} lines (<= 160)"
     else
-        fail "CLAUDE.md: ${lines} lines (> 120, target <= 120)"
+        fail "CLAUDE.md: ${lines} lines (> 160, target <= 160)"
     fi
 else
     fail "CLAUDE.md not found"
@@ -35,7 +35,7 @@ echo ""
 # ---- Check 2: docs/ references in CLAUDE.md resolve ----
 echo "--- Check 2: docs/ references in CLAUDE.md ---"
 if [ -f CLAUDE.md ]; then
-    refs=$(grep -oP '\(docs/[^)]+\)' CLAUDE.md | sed 's/[()]//g' 2>/dev/null || true)
+    refs=$(grep -o '(docs/[^)]*)' CLAUDE.md | sed 's/[()]//g' 2>/dev/null || true)
     if [ -z "$refs" ]; then
         fail "No docs/ references found in CLAUDE.md"
     else

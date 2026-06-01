@@ -4,89 +4,85 @@ This repository contains the **Study System** — a semi-automated technical lea
 
 ## Overview
 
-1. User says "I want to learn X" or "I want to write about my experience with X" — discover skills/agents/templates via glob patterns
-2. Research-driven: 6 phases (collect → curate → write → beautify → evaluate → [digest])
-3. Experience notes (心得笔记): user content → review → optional research → write → beautify → [evaluate] → [digest]
-4. All system files live under `{SYSTEM_ROOT}` — user reviews every phase boundary
+1. User says "I want to learn X" — **requirement discovery** clarifies intent, generates execution plan
+2. Research-driven: 6 phases (discover → collect → curate → write → beautify → evaluate → [digest])
+3. Experience notes: user content → review → optional research → write → beautify → [evaluate] → [digest]
+4. **Autonomy levels** (0-3) control confirmation frequency per `.study-config.yaml`
+5. **Hybrid note types** — combine multiple types (e.g., concept + practice)
+6. All system files under `{SYSTEM_ROOT}` — user reviews every phase boundary
 
 ## Critical Rules
 
 ### Phase Boundary Rules (CRITICAL)
 
-After completing ANY phase, you MUST STOP. DO NOT invoke the next phase's skill.
-Present results to the user and WAIT for explicit confirmation (e.g. "继续", "proceed", "进入下一阶段").
-
-NEVER chain phases together. NEVER skip a phase. NEVER assume user approval.
+After completing ANY phase, you MUST STOP. WAIT for explicit confirmation ("继续", "proceed", "进入下一阶段").
+NEVER chain phases. NEVER skip a phase. NEVER assume user approval.
 
 ### TODO.md State Machine (CRITICAL)
 
-The TODO.md file is a physical state tracker — it converts abstract "rules" into concrete tool calls the orchestrator MUST execute. Use explicit tool names (Read/Write/Bash) — NEVER use natural-language verbs like "check" or "mark" as synonyms.
+Use explicit tool names (Read/Write/Bash) — NEVER natural-language verbs like "check" or "mark".
 
-**Resume Check**: When starting ANY session, MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. If it exists, read `[x]` states and ask user: "Detected unfinished workflow. Resume from Phase [N]?" DO NOT restart from Phase 0.
+- **Resume Check**: MUST Read tool on `{SYSTEM_ROOT}/TODO.md` at session start. If exists → read `[x]` → ask: "Resume from Phase [N]?"
+- **Create**: After user confirms plan → Write tool: create `{SYSTEM_ROOT}/TODO.md` with phases as `- [ ]`
+- **Check**: Before ANY phase skill → Read tool on TODO.md → verify prior phases `[x]` → if not, STOP
+- **Mark**: After ANY phase completes → Write tool: update `[x]` for that phase
+- **Delete**: When done → Bash tool: `rm "{SYSTEM_ROOT}/TODO.md"`
 
-1. **Create**: After user confirms execution plan → MUST execute Write tool to create `{SYSTEM_ROOT}/TODO.md` with all planned phases as `- [ ]`
-2. **Check**: Before invoking ANY phase skill → MUST execute Read tool on TODO.md → verify all prior phases are `[x]` → if not, STOP and fix
-3. **Mark**: After ANY phase completes → MUST execute Write tool to update `[x]` for that phase in TODO.md
-4. **Delete**: When the full task is done → MUST execute Bash tool: `rm "{SYSTEM_ROOT}/TODO.md"`
-
-Quality gate between phases: MUST execute Read tool on TODO.md, verify all prior phases are `[x]`. Check previous phase output files exist and are non-empty. If checks fail → log to error-log.md → ask user.
+Quality gate: verify prior phases `[x]`, check output files exist and non-empty. If fail → log to error-log.md → ask user.
 
 ### Mandatory Triggered Reads（强制前置读取）
 
-Before entering ANY of the following workflows, you MUST use the Read tool to load the corresponding doc. DO NOT guess the workflow steps from training data.
+| Trigger | Must Read |
+|---------|-----------|
+| User wants to learn X | `docs/phases.md` |
+| User wants 心得笔记 | `docs/experience-notes.md` |
+| User wants to update a note | `docs/updating-notes.md` |
+| Before any phase skill | `{SYSTEM_ROOT}/TODO.md` |
+| Session start | `.study-config.yaml` |
+| Error in Phase 1-4 | `docs/error-handling.md` |
 
-| Trigger | Must Read | Reason |
-|---------|-----------|--------|
-| User wants to learn X (Phase 0-6) | `docs/phases.md` | Phase steps, question scripts, execution plan format |
-| User wants 心得笔记 | `docs/experience-notes.md` | Review rules, DO/DON'T table, research decision flow |
-| User wants to update a note | `docs/updating-notes.md` | INSERT vs REFRESH modes, key update rules |
-| Before invoking any phase skill | MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md` | Verify prior phases are [x] |
-| Error occurs in Phase 1-4 | `docs/error-handling.md` | Recording protocol, retry/skip/abort procedure |
-| Digest thresholds exceeded | `docs/learnings-digest.md` | Compression steps, archive procedure |
-| Pre-task init fails | `docs/pre-task-init.md` | Vault path validation details |
-
-If you skip the Read and invent workflow steps from memory, you WILL produce broken output (wrong file paths, skipped phases, missing user prompts).
+DO NOT guess workflow steps from memory — you WILL produce broken output.
 
 ### Key Principles
 
-1. All system files live under `StudySystem/` — don't pollute the vault root
-2. Output path is set by user in Phase 0 — never hardcoded
-3. Each skill only handles its own phase — no crossing boundaries
-4. Data passes through files, not memory — each phase's output is the next phase's input
-5. User reviews after every phase — no full automation
-6. Prefer official docs and primary sources
-7. Every claim must be traceable to its source
+1. System files under `StudySystem/` — no vault root pollution
+2. Output path set by user in Phase 0 — never hardcoded
+3. Each skill handles its own phase only
+4. Data passes through files, not memory
+5. Respect autonomy level (0-3) at every phase boundary
+6. Every claim traceable to its source
+7. Hybrid notes reuse templates via `templates/hybrid-sections.yaml`
 
-## Resource Discovery（规则寻址）
+## Resource Discovery
 
-Claude uses glob patterns to discover project resources. No hardcoded paths. New resources are auto-discoverable when placed in the right directory with proper frontmatter `description`.
+Claude uses glob patterns — no hardcoded paths.
 
-- **Skills**: `Glob .claude/skills/*/SKILL.md` → match YAML frontmatter `description` → invoke via `Skill(skill="{name}")`
-- **Agents**: `Glob .claude/agents/*.md` → match frontmatter `name`, `description`, `tools` → invoke via `Agent(subagent_type="{name}")`
-- **Templates**: `Glob templates/*.md` → match frontmatter `type` (concept / practice / compare / cheat-sheet / experience)
-- **Learnings**: `Glob .learnings/RULES.md` → Read before each new task, internalize Do / Don't / Watch For
+- **Skills**: `Glob .claude/skills/*/SKILL.md` → match YAML frontmatter → `Skill(skill="{name}")`
+- **Agents**: `Glob .claude/agents/*.md` → match frontmatter → `Agent(subagent_type="{name}")`
+- **Templates**: `Glob templates/*.md` → match frontmatter `type` (concept/practice/compare/cheat-sheet/experience)
 - **Config**: `Glob .obsidian-config.md` → Read for vault path
 
 ## Pre-Task Initialization
 
-Before any Study System task, resolve the vault path and internalize past learnings. Full details: [docs/pre-task-init.md](docs/pre-task-init.md)
+Before any Study System task. Full details: [docs/pre-task-init.md](docs/pre-task-init.md)
 
-0. MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. If exists → read `[x]` states → ask user: "Detected unfinished workflow. Resume from Phase [N]?"
-1. Read `.obsidian-config.md` → validate `VAULT_PATH` (ask user if empty, `ls` to verify if set)
-2. Read `.learnings/RULES.md` → note what to do, avoid, watch for (skip if doesn't exist)
-3. Resolve `SYSTEM_ROOT` and `OUTPUT_PATH` from config values
+0. MUST Read tool on `{SYSTEM_ROOT}/TODO.md`. If exists → ask: "Detected unfinished workflow. Resume from Phase [N]?"
+1. Read `.obsidian-config.md` → validate `VAULT_PATH`
+2. Read `.study-config.yaml` → autonomy level, discovery settings, hybrid limits
+3. Read `.learnings/RULES.md` → internalize Do/Don't/Watch For (skip if missing)
+4. Resolve `SYSTEM_ROOT` and `OUTPUT_PATH`
 
 ## Docs Map
 
 | Doc | Content |
 |-----|---------|
-| [docs/phases.md](docs/phases.md) | Full Phase 0-6 details: requirement clarification, collect, curate, write, beautify, evaluate, digest |
-| [docs/experience-notes.md](docs/experience-notes.md) | 心得笔记 7-step workflow: user-input-first, review rules, optional research |
+| [docs/phases.md](docs/phases.md) | Phase 0-6: requirement discovery, collect, curate, write, beautify, evaluate, digest |
+| [docs/experience-notes.md](docs/experience-notes.md) | 心得笔记 7-step workflow: user-input-first, review rules |
 | [docs/updating-notes.md](docs/updating-notes.md) | INSERT and REFRESH modes for existing notes |
-| [docs/error-handling.md](docs/error-handling.md) | Error recording protocol (Phase 1-4), plain-text format |
-| [docs/learnings-digest.md](docs/learnings-digest.md) | Digest thresholds, compression process, RULES.md format |
-| [docs/pre-task-init.md](docs/pre-task-init.md) | Detailed vault path validation for first-run and subsequent sessions |
-| [docs/architecture.md](docs/architecture.md) | Design rationale, file layout, skill isolation principle |
+| [docs/error-handling.md](docs/error-handling.md) | Error recording protocol (Phase 1-4) |
+| [docs/learnings-digest.md](docs/learnings-digest.md) | Digest thresholds, compression process |
+| [docs/pre-task-init.md](docs/pre-task-init.md) | Vault path validation |
+| [docs/architecture.md](docs/architecture.md) | Design rationale, file layout, skill isolation |
 | [docs/changelog.md](docs/changelog.md) | System-level change history |
 
 ## Directory Convention
@@ -104,13 +100,42 @@ Before any Study System task, resolve the vault path and internalize past learni
 ## Configuration
 
 - `.obsidian-config.md` — vault path, system root, default output path
+- `.study-config.yaml` — autonomy level (0-3), subagent settings, requirement discovery, hybrid limits
 - `.learnings/RULES.md` — compressed action rules from past sessions
-- `.claude/settings.local.json` — permission allowlists
+
+## Autonomy Levels
+
+| Level | Behavior | Confirmation Points |
+|-------|----------|-------------------|
+| 0 | Full confirmation | Every step |
+| 1 | Phase confirmation (default) | Phase boundaries only |
+| 2 | Key point confirmation | Note type, execution plan, final result |
+| 3 | Full auto | Final result review only |
+
+Set via `autonomy.level` or `autonomy.overrides` in `.study-config.yaml`.
+
+## Requirement Discovery
+
+Before note generation, system asks 4-6 structured questions. Triggered by "I want to learn X".
+
+**Questions:** 1) Purpose (exam/work/interest) 2) Audience (self/team/community) 3) Depth (beginner/advanced/expert) 4) Usage (review/learning/sharing) 5) *(optional)* Focus areas 6) *(optional)* Knowledge level
+
+System recommends hybrid note type combination. User can accept or override. See [docs/phases.md](docs/phases.md) for Phase 0 details. Can be skipped (defaults: concept, level 1, intermediate).
+
+## Hybrid Note Types
+
+Combine multiple types (max 2 per config). Section ordering in `templates/hybrid-sections.yaml`.
+
+| Combination | Key Sections |
+|-------------|-------------|
+| concept + practice | Core Concept → Practical Examples → Patterns |
+| compare + cheat_sheet | Comparison → Quick Reference → Decision Framework |
+| experience + concept | Background → Core Concept → Insights |
+| concept + cheat_sheet | Core Concept → Key Points → Quick Reference |
+
+Single-type notes fully supported. Hybrid notes require `[来源: R1]` attribution per section.
 
 ## Structure Integrity
 
 Run `bash scripts/validate-structure.sh` after structural changes to verify:
-- CLAUDE.md ≤ 120 lines
-- All docs/ references resolve to existing files
-- All skills and templates have valid frontmatter
-- Config file has required fields
+- CLAUDE.md ≤ 160 lines, all docs/ references resolve, valid frontmatter, required config fields

@@ -14,64 +14,102 @@ When starting ANY new session, before entering any phase:
 
 ## Orchestration Flow
 
-### Phase 0: Requirement Clarification + Path Confirmation
+### Phase 0: Requirement Discovery (需求发现)
 
-When user expresses intent to learn something, ask in two rounds:
+When user expresses intent to learn something ("I want to learn X"), enter requirement discovery.
 
-**Round 1: Learning goals**
-Ask the user:
-1. "Which direction?"
-   - a) 概念理解 (Understand concepts and principles)
-   - b) 实战上手 (Hands-on practice)
-   - c) 体系梳理 (Build complete knowledge system)
-   - d) 问题排查 (Solve a specific problem)
-2. "What depth?" → 入门 / 进阶 / 深入源码
-3. "What note type?" → 概念笔记 / 实战笔记 / 对比笔记 / 速查表 / 心得笔记
+**If `.study-config.yaml` has `requirement_discovery.enabled: false` → skip to Step 5 (Path Configuration) with defaults.**
 
-**Round 2: Path configuration**
-Ask the user:
-1. "Where to save the final note?"
-   - Default: `{SYSTEM_ROOT}/3-published/{topic}/`
-   - Can specify any path within the vault, e.g. `Notes/前端/React/`
-2. "Topic name for folder?" (default: sanitized topic name)
+#### Step 1: Assess Topic Complexity
 
-**After user answers → Generate and present execution plan:**
+Based on topic length and keywords, determine question count:
+- Simple (1-2 words) → 4 questions
+- Medium (3-4 words) → 5 questions
+- Complex (phrase/sentence) → 6 questions
 
-For research-driven notes (概念/实战/对比/速查):
+#### Step 2: Structured Questions (4-6)
+
+Ask all questions in a single prompt. Each question has 2-4 preset options + "Other":
+
+1. **Learning purpose** → influences note type
+   - 考试准备 (Exam preparation)
+   - 工作需要 (Work requirement)
+   - 兴趣探索 (Interest exploration)
+
+2. **Target audience** → influences depth and style
+   - 自己 (Personal learning)
+   - 团队 (Team sharing)
+   - 社区 (Public publishing)
+
+3. **Depth requirement**
+   - 入门 (Beginner: basic concepts + simple examples)
+   - 进阶 (Advanced: principles + best practices)
+   - 专家 (Expert: deep mechanics + edge cases)
+
+4. **Note usage**
+   - 快速回顾 (Quick review → cheat sheet)
+   - 深度学习 (Deep learning → concept + practice)
+   - 分享传播 (Sharing → complete + diagrams)
+
+5. *(optional, for complex topics)* **Specific focus areas** (open-ended)
+   > "Which aspect do you most want to understand deeply?"
+
+6. *(optional)* **Current knowledge level**
+   - 完全新手 (Complete beginner)
+   - 有一些基础 (Some foundation)
+   - 已有经验，想深入 (Experienced, want depth)
+
+#### Step 3: Recommend Note Type
+
+Based on answers, recommend hybrid note type combination:
+- Exam → concept + cheat_sheet
+- Work → practice + compare
+- Interest → concept (or experience + concept)
+- Sharing → add practice to primary type
+
+Present recommendation with rationale. User can accept or override.
+
+#### Step 4: Generate Execution Plan
+
+Present customized plan:
+
 ```
 ## Execution Plan
 - Topic: {topic}
-- Direction: {direction}
-- Depth: {depth}
-- Note type: {note_type}
+- Recommended type: {primary} + {secondary}
+- Autonomy level: {level from .study-config.yaml}
 - Output path: {output_path}
 - Phases: collect → curate → write → beautify → [evaluate] → [digest]
 
 Proceed?
 ```
 
-For experience notes (心得笔记):
-```
-## Execution Plan
-- Topic: {topic}
-- Note type: 心得笔记
-- Output path: {output_path}
-- Phases: user input → review → [optional research] → write → beautify → [evaluate] → [digest]
+For experience notes, adjust phases to match the 7-step workflow.
 
-Proceed?
-```
+**Skip option**: User can say "skip" or "use defaults" to bypass discovery. Defaults: concept type, autonomy level 1, intermediate depth, default output path.
+
+#### Step 5: Path Configuration
+
+Ask the user:
+1. "Where to save the final note?"
+   - Default: `{SYSTEM_ROOT}/3-published/{topic}/`
+   - Can specify any path within the vault, e.g. `Notes/前端/React/`
+2. "Topic name for folder?" (default: sanitized topic name)
+
+#### Step 6: Finalize
 
 Write plan to `{SYSTEM_ROOT}/4-meta/execution-log.md`:
 ```markdown
 ## [{date}] {topic}
-- Direction: {direction}
+- Purpose: {purpose}
+- Audience: {audience}
 - Depth: {depth}
 - Note type: {note_type}
 - Output path: {output_path}
 - Status: started
 ```
 
-After user confirms "Proceed" → MUST execute Write tool to create `{SYSTEM_ROOT}/TODO.md` with all planned phases as `- [ ]` checkboxes. For research-driven notes:
+After user confirms → MUST execute Write tool to create `{SYSTEM_ROOT}/TODO.md` with all planned phases as `- [ ]` checkboxes:
 
 ```markdown
 # TODO - {topic}
