@@ -200,7 +200,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
@@ -222,7 +222,7 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "9dbfe1eadee10522",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
     "tests/note-type-inferrer.test.js",
     "tests/autonomy-manager.test.js",
