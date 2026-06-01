@@ -210,6 +210,9 @@
   },
   "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "StudySystem/0-inbox/comet/raw/doc-01-en-readme.md",
+    "StudySystem/0-inbox/comet/raw",
+    "StudySystem/0-inbox/comet",
     "StudySystem/TODO.md",
     "StudySystem/0-inbox/Comet双星工作流/raw",
     "StudySystem/0-inbox/Comet双星工作流",
@@ -220,8 +223,6 @@
     "tests/integration.test.js",
     "tests/config-loader.test.js",
     "templates/hybrid-sections.yaml",
-    "lib/note-type-inferrer.js",
-    "lib/autonomy-manager.js",
     "StudySystem/2-drafts/Superpowers/Superpowers-笔记.md",
     "StudySystem/1-curated/Superpowers/references.md",
     "StudySystem/1-curated/Superpowers/practices.md",
