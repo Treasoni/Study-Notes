@@ -72,21 +72,22 @@
     "项目实战/AI实战": {
       "children": [
         "项目实战/AI实战/AI实战笔记库.base",
-        "项目实战/AI实战/Subagent Token吞噬与缓存失效分析.md",
         "项目实战/AI实战/工程实践",
         "项目实战/AI实战/架构设计",
         "项目实战/AI实战/AI实战 MOC.md",
-        "项目实战/AI实战/Claude Code 防遗忘策略.md",
         "项目实战/AI实战/sortspec.md"
       ],
       "sortOrder": "custom"
     },
     "项目实战/AI实战/工程实践": {
       "children": [
+        "项目实战/AI实战/工程实践/Subagent Token吞噬与缓存失效分析.md",
+        "项目实战/AI实战/工程实践/Claude Code 技能过滤机制设计.md",
         "项目实战/AI实战/工程实践/Claude Code Subagent与Skill调度机制.md",
         "项目实战/AI实战/工程实践/Claude Code自我学习机制.md",
         "项目实战/AI实战/工程实践/CLAUDE.md放置策略.md",
         "项目实战/AI实战/工程实践/ClaudeCode工作流遵守问题.md",
+        "项目实战/AI实战/工程实践/Claude Code 防遗忘策略.md",
         "项目实战/AI实战/工程实践/Subagent调度策略.md"
       ],
       "sortOrder": "custom"
@@ -147,6 +148,8 @@
     },
     "AI学习/01-基础概念": {
       "children": [
+        "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
+        "AI学习/01-基础概念/AI-Agent-状态机工作流.md",
         "AI学习/01-基础概念/上下文工程",
         "AI学习/01-基础概念/Prompt-Engineering.md",
         "AI学习/01-基础概念/AI缓存命中与未命中.md",
@@ -194,118 +197,6 @@
       ],
       "sortOrder": "custom"
     },
-    "AI学习/03-技术专题": {
-      "children": [
-        "AI学习/03-技术专题/AI模型对比",
-        "AI学习/03-技术专题/knowledge-cards.json",
-        "AI学习/03-技术专题/OCR概念笔记.md",
-        "AI学习/03-技术专题/RAG技术入门指南.md",
-        "AI学习/03-技术专题/sortspec.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/03-技术专题/AI模型对比": {
-      "children": [
-        "AI学习/03-技术专题/AI模型对比/GLM系列模型完整对比.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/04-项目实践": {
-      "children": [
-        "AI学习/04-项目实践/openclaw"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/04-项目实践/openclaw": {
-      "children": [
-        "AI学习/04-项目实践/openclaw/参考层",
-        "AI学习/04-项目实践/openclaw/配置层",
-        "AI学习/04-项目实践/openclaw/入门层",
-        "AI学习/04-项目实践/openclaw/选型层",
-        "AI学习/04-项目实践/openclaw/应用层",
-        "AI学习/04-项目实践/openclaw/OpenClaw MOC.md",
-        "AI学习/04-项目实践/openclaw/sortspec.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/04-项目实践/openclaw/参考层": {
-      "children": [
-        "AI学习/04-项目实践/openclaw/参考层/OpenClaw常用命令速查.md",
-        "AI学习/04-项目实践/openclaw/参考层/sortspec.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/04-项目实践/openclaw/配置层": {
-      "children": [
-        "AI学习/04-项目实践/openclaw/配置层/OpenClaw Web控制台局域网访问配置.md",
-        "AI学习/04-项目实践/openclaw/配置层/OpenClaw安装后配置指南.md",
-        "AI学习/04-项目实践/openclaw/配置层/OpenClaw网关开机自启与HTTPS配置.md",
-        "AI学习/04-项目实践/openclaw/配置层/sortspec.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/04-项目实践/openclaw/入门层": {
-      "children": [
-        "AI学习/04-项目实践/openclaw/入门层/OpenClaw安装教程.md",
-        "AI学习/04-项目实践/openclaw/入门层/OpenClaw核心概念.md",
-        "AI学习/04-项目实践/openclaw/入门层/sortspec.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/04-项目实践/openclaw/选型层": {
-      "children": [
-        "AI学习/04-项目实践/openclaw/选型层/OpenClaw与国内仿制品对比.md",
-        "AI学习/04-项目实践/openclaw/选型层/sortspec.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/04-项目实践/openclaw/应用层": {
-      "children": [
-        "AI学习/04-项目实践/openclaw/应用层/OpenClaw本地智能助手搭建指南.md",
-        "AI学习/04-项目实践/openclaw/应用层/OpenClaw对接第三方软件指南.md",
-        "AI学习/04-项目实践/openclaw/应用层/OpenClaw多智能体协作指南.md",
-        "AI学习/04-项目实践/openclaw/应用层/OpenClaw数字人商业调查.md",
-        "AI学习/04-项目实践/openclaw/应用层/sortspec.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/assets": {
-      "children": [
-        "AI学习/assets/人工智能重要的六大概念体系",
-        "AI学习/assets/如何使用Claude code",
-        "AI学习/assets/Skills 是什么"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/assets/人工智能重要的六大概念体系": {
-      "children": [
-        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604579.png",
-        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604580.png",
-        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604582.png",
-        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604582 1.png",
-        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604583.png",
-        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604583 1.png",
-        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604584.png",
-        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604584 1.png",
-        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604585.png"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/assets/如何使用Claude code": {
-      "children": [
-        "AI学习/assets/如何使用Claude code/file-20260205163233510.png",
-        "AI学习/assets/如何使用Claude code/file-20260205163233511.png"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/assets/Skills 是什么": {
-      "children": [
-        "AI学习/assets/Skills 是什么/file-20260205160852903.png",
-        "AI学习/assets/Skills 是什么/file-20260205160852905.png",
-        "AI学习/assets/Skills 是什么/file-20260205161420021.png"
-      ],
-      "sortOrder": "custom"
-    },
     "AI学习/Claude Code 教程": {
       "children": [
         "AI学习/Claude Code 教程/assets",
@@ -346,6 +237,118 @@
     "AI学习/Claude Code 教程/assets/如何使用Claude code": {
       "children": [
         "AI学习/Claude Code 教程/assets/如何使用Claude code/1d99099123f47f537884e6f82bee0997.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/03-技术专题": {
+      "children": [
+        "AI学习/03-技术专题/AI模型对比",
+        "AI学习/03-技术专题/knowledge-cards.json",
+        "AI学习/03-技术专题/OCR概念笔记.md",
+        "AI学习/03-技术专题/RAG技术入门指南.md",
+        "AI学习/03-技术专题/sortspec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/03-技术专题/AI模型对比": {
+      "children": [
+        "AI学习/03-技术专题/AI模型对比/GLM系列模型完整对比.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/04-项目实践": {
+      "children": [
+        "AI学习/04-项目实践/openclaw"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/04-项目实践/openclaw": {
+      "children": [
+        "AI学习/04-项目实践/openclaw/参考层",
+        "AI学习/04-项目实践/openclaw/配置层",
+        "AI学习/04-项目实践/openclaw/入门层",
+        "AI学习/04-项目实践/openclaw/选型层",
+        "AI学习/04-项目实践/openclaw/应用层",
+        "AI学习/04-项目实践/openclaw/OpenClaw MOC.md",
+        "AI学习/04-项目实践/openclaw/sortspec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/04-项目实践/openclaw/入门层": {
+      "children": [
+        "AI学习/04-项目实践/openclaw/入门层/OpenClaw安装教程.md",
+        "AI学习/04-项目实践/openclaw/入门层/OpenClaw核心概念.md",
+        "AI学习/04-项目实践/openclaw/入门层/sortspec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/04-项目实践/openclaw/配置层": {
+      "children": [
+        "AI学习/04-项目实践/openclaw/配置层/OpenClaw Web控制台局域网访问配置.md",
+        "AI学习/04-项目实践/openclaw/配置层/OpenClaw安装后配置指南.md",
+        "AI学习/04-项目实践/openclaw/配置层/OpenClaw网关开机自启与HTTPS配置.md",
+        "AI学习/04-项目实践/openclaw/配置层/sortspec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/04-项目实践/openclaw/选型层": {
+      "children": [
+        "AI学习/04-项目实践/openclaw/选型层/OpenClaw与国内仿制品对比.md",
+        "AI学习/04-项目实践/openclaw/选型层/sortspec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/04-项目实践/openclaw/应用层": {
+      "children": [
+        "AI学习/04-项目实践/openclaw/应用层/OpenClaw本地智能助手搭建指南.md",
+        "AI学习/04-项目实践/openclaw/应用层/OpenClaw对接第三方软件指南.md",
+        "AI学习/04-项目实践/openclaw/应用层/OpenClaw多智能体协作指南.md",
+        "AI学习/04-项目实践/openclaw/应用层/OpenClaw数字人商业调查.md",
+        "AI学习/04-项目实践/openclaw/应用层/sortspec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/04-项目实践/openclaw/参考层": {
+      "children": [
+        "AI学习/04-项目实践/openclaw/参考层/OpenClaw常用命令速查.md",
+        "AI学习/04-项目实践/openclaw/参考层/sortspec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/assets": {
+      "children": [
+        "AI学习/assets/人工智能重要的六大概念体系",
+        "AI学习/assets/如何使用Claude code",
+        "AI学习/assets/Skills 是什么"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/assets/人工智能重要的六大概念体系": {
+      "children": [
+        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604579.png",
+        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604580.png",
+        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604582.png",
+        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604582 1.png",
+        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604583.png",
+        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604583 1.png",
+        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604584.png",
+        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604584 1.png",
+        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604585.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/assets/如何使用Claude code": {
+      "children": [
+        "AI学习/assets/如何使用Claude code/file-20260205163233510.png",
+        "AI学习/assets/如何使用Claude code/file-20260205163233511.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/assets/Skills 是什么": {
+      "children": [
+        "AI学习/assets/Skills 是什么/file-20260205160852903.png",
+        "AI学习/assets/Skills 是什么/file-20260205160852905.png",
+        "AI学习/assets/Skills 是什么/file-20260205161420021.png"
       ],
       "sortOrder": "custom"
     },
@@ -463,6 +466,7 @@
     },
     "docs/superpowers/plans": {
       "children": [
+        "docs/superpowers/plans/2026-06-02-token-cost-optimization.md",
         "docs/superpowers/plans/2026-06-02-reduce-doc-redundancy.md",
         "docs/superpowers/plans/2026-06-02-fix-subagent-init-overhead.md",
         "docs/superpowers/plans/2026-06-01-study-system-refactor.md",
@@ -473,6 +477,7 @@
     },
     "docs/superpowers/reports": {
       "children": [
+        "docs/superpowers/reports/2026-06-02-token-cost-optimization-verify.md",
         "docs/superpowers/reports/2026-06-02-reduce-doc-redundancy-verify.md",
         "docs/superpowers/reports/2026-06-02-fix-subagent-init-overhead-verify.md",
         "docs/superpowers/reports/2026-06-01-study-system-refactor-verify.md",
@@ -483,6 +488,7 @@
     },
     "docs/superpowers/specs": {
       "children": [
+        "docs/superpowers/specs/2026-06-02-token-cost-optimization-design.md",
         "docs/superpowers/specs/2026-06-02-reduce-doc-redundancy-design.md",
         "docs/superpowers/specs/2026-06-01-study-system-refactor-design.md",
         "docs/superpowers/specs/2026-06-01-tool-registry-collect-design.md",
@@ -656,13 +662,8 @@
     },
     "npm/StudySystem/0-inbox/Agent与Skills架构设计": {
       "children": [
-        "npm/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为",
         "npm/StudySystem/0-inbox/Agent与Skills架构设计/raw-input.md"
       ],
-      "sortOrder": "custom"
-    },
-    "npm/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为": {
-      "children": [],
       "sortOrder": "custom"
     },
     "npm/StudySystem/0-inbox/CLAUDE.md放置策略": {
@@ -806,6 +807,7 @@
     },
     "openspec/changes/archive": {
       "children": [
+        "openspec/changes/archive/2026-06-02-token-cost-optimization",
         "openspec/changes/archive/2026-06-02-reduce-doc-redundancy-and-skill-bloat",
         "openspec/changes/archive/2026-06-02-fix-subagent-init-overhead",
         "openspec/changes/archive/2026-06-01-study-system-refactor",
@@ -904,6 +906,14 @@
     "openspec/changes/archive/2026-06-02-reduce-doc-redundancy-and-skill-bloat/specs/subagent-orchestration": {
       "children": [
         "openspec/changes/archive/2026-06-02-reduce-doc-redundancy-and-skill-bloat/specs/subagent-orchestration/spec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "openspec/changes/archive/2026-06-02-token-cost-optimization": {
+      "children": [
+        "openspec/changes/archive/2026-06-02-token-cost-optimization/tasks.md",
+        "openspec/changes/archive/2026-06-02-token-cost-optimization/proposal.md",
+        "openspec/changes/archive/2026-06-02-token-cost-optimization/design.md"
       ],
       "sortOrder": "custom"
     },
@@ -1158,13 +1168,8 @@
     },
     "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计": {
       "children": [
-        "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为",
         "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计/raw-input.md"
       ],
-      "sortOrder": "custom"
-    },
-    "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为": {
-      "children": [],
       "sortOrder": "custom"
     },
     "PVE的学习/StudySystem/0-inbox/CLAUDE.md放置策略": {
@@ -1295,7 +1300,22 @@
     },
     "scripts": {
       "children": [
+        "scripts/__pycache__",
+        "scripts/test_merge_sources.py",
+        "scripts/test_batch_fetch.py",
+        "scripts/requirements.txt",
+        "scripts/merge_sources.py",
+        "scripts/batch_fetch.py",
         "scripts/validate-structure.sh"
+      ],
+      "sortOrder": "custom"
+    },
+    "scripts/__pycache__": {
+      "children": [
+        "scripts/__pycache__/test_merge_sources.cpython-313-pytest-9.0.3.pyc",
+        "scripts/__pycache__/test_batch_fetch.cpython-313-pytest-9.0.3.pyc",
+        "scripts/__pycache__/merge_sources.cpython-313.pyc",
+        "scripts/__pycache__/batch_fetch.cpython-313.pyc"
       ],
       "sortOrder": "custom"
     },
@@ -1311,7 +1331,9 @@
     },
     "StudySystem/0-inbox": {
       "children": [
-        "StudySystem/0-inbox/Comet双星工作流",
+        "StudySystem/0-inbox/AI-Agent状态机工作流",
+        "StudySystem/0-inbox/Subagent资料搜集的Token失控",
+        "StudySystem/0-inbox/claude-code-skill-filtering",
         "StudySystem/0-inbox/OpenSpec",
         "StudySystem/0-inbox/Git-资产管理实战",
         "StudySystem/0-inbox/Claude-Code-Advanced",
@@ -1361,13 +1383,46 @@
     },
     "StudySystem/0-inbox/Agent与Skills架构设计": {
       "children": [
-        "StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为",
         "StudySystem/0-inbox/Agent与Skills架构设计/raw-input.md"
       ],
       "sortOrder": "custom"
     },
-    "StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为": {
-      "children": [],
+    "StudySystem/0-inbox/AI-Agent状态机工作流": {
+      "children": [
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/metadata.yaml",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/sources.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/AI-Agent状态机工作流/raw": {
+      "children": [
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-01.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-02.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-03.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-04.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-05.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-06.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-07.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-08.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-09.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-10.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-11.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-12.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-13.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-14.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-15.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-16.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-17.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-18.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-19.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-20.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-21.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-22.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-23.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/video-01.md",
+        "StudySystem/0-inbox/AI-Agent状态机工作流/raw/video-02.md"
+      ],
       "sortOrder": "custom"
     },
     "StudySystem/0-inbox/AI缓存命中与未命中": {
@@ -1398,6 +1453,12 @@
         "StudySystem/0-inbox/Claude-Code-Advanced/raw/doc-02-how-it-works.md",
         "StudySystem/0-inbox/Claude-Code-Advanced/raw/doc-03-best-practices.md",
         "StudySystem/0-inbox/Claude-Code-Advanced/raw/doc-04-longform-guide.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/claude-code-skill-filtering": {
+      "children": [
+        "StudySystem/0-inbox/claude-code-skill-filtering/raw-input.md"
       ],
       "sortOrder": "custom"
     },
@@ -1466,16 +1527,6 @@
         "StudySystem/0-inbox/comet/raw/doc-09-openspec-repo.md",
         "StudySystem/0-inbox/comet/raw/doc-10-superpowers-repo.md"
       ],
-      "sortOrder": "custom"
-    },
-    "StudySystem/0-inbox/Comet双星工作流": {
-      "children": [
-        "StudySystem/0-inbox/Comet双星工作流/raw"
-      ],
-      "sortOrder": "custom"
-    },
-    "StudySystem/0-inbox/Comet双星工作流/raw": {
-      "children": [],
       "sortOrder": "custom"
     },
     "StudySystem/0-inbox/Git-资产管理实战": {
@@ -1560,6 +1611,12 @@
     "StudySystem/0-inbox/subagent调度策略": {
       "children": [
         "StudySystem/0-inbox/subagent调度策略/raw-input.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/Subagent资料搜集的Token失控": {
+      "children": [
+        "StudySystem/0-inbox/Subagent资料搜集的Token失控/raw-input.md"
       ],
       "sortOrder": "custom"
     },
@@ -1692,6 +1749,9 @@
     },
     "StudySystem/2-drafts": {
       "children": [
+        "StudySystem/2-drafts/AI-Agent状态机工作流",
+        "StudySystem/2-drafts/claude-code-skill-filtering",
+        "StudySystem/2-drafts/Subagent资料搜集的Token失控",
         "StudySystem/2-drafts/OpenSpec",
         "StudySystem/2-drafts/Git-资产管理实战",
         "StudySystem/2-drafts/Claude-Code-Advanced",
@@ -1724,6 +1784,12 @@
       ],
       "sortOrder": "custom"
     },
+    "StudySystem/2-drafts/AI-Agent状态机工作流": {
+      "children": [
+        "StudySystem/2-drafts/AI-Agent状态机工作流/AI-Agent-状态机工作流.md"
+      ],
+      "sortOrder": "custom"
+    },
     "StudySystem/2-drafts/AI缓存命中与未命中": {
       "children": [
         "StudySystem/2-drafts/AI缓存命中与未命中/AI缓存命中与未命中-笔记.md"
@@ -1739,6 +1805,12 @@
     "StudySystem/2-drafts/Claude-Code-Advanced": {
       "children": [
         "StudySystem/2-drafts/Claude-Code-Advanced/Claude-Code-Advanced-笔记.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/2-drafts/claude-code-skill-filtering": {
+      "children": [
+        "StudySystem/2-drafts/claude-code-skill-filtering/Claude Code 技能过滤机制设计.md"
       ],
       "sortOrder": "custom"
     },
@@ -1808,6 +1880,10 @@
       ],
       "sortOrder": "custom"
     },
+    "StudySystem/2-drafts/Subagent资料搜集的Token失控": {
+      "children": [],
+      "sortOrder": "custom"
+    },
     "StudySystem/2-drafts/Superpowers": {
       "children": [
         "StudySystem/2-drafts/Superpowers/Superpowers-笔记.md"
@@ -1816,7 +1892,14 @@
     },
     "StudySystem/3-published": {
       "children": [
+        "StudySystem/3-published/claude-code-skill-filtering",
         "StudySystem/3-published/Git与资产管理实战"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/3-published/claude-code-skill-filtering": {
+      "children": [
+        "StudySystem/3-published/claude-code-skill-filtering/Claude Code 技能过滤机制设计.md"
       ],
       "sortOrder": "custom"
     },
@@ -1842,6 +1925,7 @@
     },
     "StudySystem/4-meta/evaluation": {
       "children": [
+        "StudySystem/4-meta/evaluation/AI-Agent状态机工作流-eval.md",
         "StudySystem/4-meta/evaluation/Subagent Token吞噬与缓存失效分析-eval.md",
         "StudySystem/4-meta/evaluation/Subagent调度策略-eval.md",
         "StudySystem/4-meta/evaluation/claude-code-subagent-skill-eval.md",
@@ -1927,13 +2011,8 @@
     },
     "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems": {
       "children": [
-        "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems/images",
         "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems.md"
       ],
-      "sortOrder": "custom"
-    },
-    "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems/images": {
-      "children": [],
       "sortOrder": "custom"
     },
     "web-articles/What_is_harness_engineering": {

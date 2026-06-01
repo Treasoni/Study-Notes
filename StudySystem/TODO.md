@@ -1,0 +1,9 @@
+# TODO - Subagent资料搜集的Token失控
+
+- [x] Step 1: user input - 已保存到 `0-inbox/Subagent资料搜集的Token失控/raw-input.md`
+- [ ] Step 2: review - 内容审核
+- [ ] Step 3: research - 可选研究
+- [ ] Step 4: write - 生成笔记
+- [ ] Step 5: beautify - 美化排版
+- [ ] Step 6: evaluate - 质量评估
+- [ ] Step 7: digest - 自我学习

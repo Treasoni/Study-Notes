@@ -31,7 +31,7 @@ graph TD
 - [[../../npm/AI实战/工程实践/ClaudeCode工作流遵守问题]] #AI工程
 - [[工程实践/Claude Code Subagent与Skill调度机制]] #claude-code
 - [[工程实践/Subagent调度策略]] #Claude-Code #Subagent #Skill
-- [[Claude Code 防遗忘策略]] #AI工程 #ClaudeCode #工作流
+- [[工程实践/Claude Code 防遗忘策略]] #AI工程 #ClaudeCode #工作流
 
 ### 架构设计
 - [[../../npm/AI实战/架构设计/Agent与Skills架构设计]] #Agent

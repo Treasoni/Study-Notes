@@ -256,7 +256,7 @@ flowchart LR
 
 ### Wikilink 验证范围优化
 
-Subagent 在验证文件链接时，也常做不必要的全盘搜索（参见 [[Agent与Skills架构设计]]）：
+Subagent 在验证文件链接时，也常做不必要的全盘搜索（参见 [[../架构设计/Agent与Skills架构设计]]）：
 
 > [!danger] 旧行为
 > Glob **/目标名.md → 扫描整个 vault，返回大量无关结果
@@ -289,8 +289,8 @@ Subagent 在验证文件链接时，也常做不必要的全盘搜索（参见 [
 ## 参考资料
 
 - [[Claude Code 防遗忘策略]] — 相关的 Subagent 行为规范
-- [[CodeGraph实战笔记]] — Agent 架构上下文感知的实践
-- [[sortspec]] — 排序与规范化相关经验
+- [[../../../GitHub项目/CodeGraph实战笔记]] — Agent 架构上下文感知的实践
+- [[../sortspec]] — 排序与规范化相关经验
 - [[Subagent调度策略]] — Subagent 调度与路由机制
-- [[Agent与Skills架构设计]] — Agent 系统架构设计参考
+- [[../架构设计/Agent与Skills架构设计]] — Agent 系统架构设计参考
 - [[CLAUDE.md放置策略]] — CLAUDE.md 指令隔离策略
