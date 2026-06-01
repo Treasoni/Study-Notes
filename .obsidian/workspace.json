@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "GitHub项目/ECC/Claude-Code-速记指南.md",
+                "file": "StudySystem/TODO.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Claude-Code-速记指南"
+              "title": "TODO"
             }
           },
           {
@@ -170,13 +170,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "GitHub项目/ECC/Claude-Code-速记指南.md",
+                "file": "StudySystem/TODO.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Claude-Code-速记指南 的大纲"
+              "title": "TODO 的大纲"
             }
           },
           {
@@ -222,8 +222,12 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "9dbfe1eadee10522",
   "lastOpenFiles": [
+    "StudySystem/0-inbox/Comet双星工作流/raw",
+    "StudySystem/0-inbox/Comet双星工作流",
+    "GitHub项目/ECC/Claude-Code-速记指南.md",
+    "StudySystem/TODO.md",
     "tests/note-type-inferrer.test.js",
     "tests/autonomy-manager.test.js",
     "tests/subagent-dispatcher.test.js",
@@ -233,8 +237,6 @@
     "lib/note-type-inferrer.js",
     "lib/autonomy-manager.js",
     "lib/config-loader.js",
-    "lib/subagent-dispatcher.js",
-    "tests",
     "StudySystem/2-drafts/Superpowers/Superpowers-笔记.md",
     "StudySystem/1-curated/Superpowers/references.md",
     "StudySystem/1-curated/Superpowers/practices.md",
@@ -246,7 +248,6 @@
     "GitHub项目/Superpowers/Superpowers.md",
     "GitHub项目/ECC/Claude-Code-Advanced-Notes.md",
     "StudySystem/2-drafts/Claude-Code-Advanced/Claude-Code-Advanced-笔记.md",
-    "GitHub项目/ECC/Claude-Code-速记指南.md",
     "StudySystem/1-curated/Claude-Code-Advanced/overview.md",
     "StudySystem/1-curated/Claude-Code-Advanced/core-concepts.md",
     "StudySystem/1-curated/Claude-Code-Advanced/practices.md",
@@ -256,7 +257,6 @@
     "StudySystem/0-inbox/Claude-Code-Advanced/raw/doc-02-how-it-works.md",
     "StudySystem/0-inbox/Claude-Code-Advanced/raw/doc-03-best-practices.md",
     "StudySystem/0-inbox/Claude-Code-Advanced/raw/doc-04-longform-guide.md",
-    "StudySystem/TODO.md",
     "StudySystem/0-inbox/Claude-Code-Advanced/sources.md",
     "CLAUDE.md",
     "虚拟机/VMware 获取虚拟机所有权失败.md",
