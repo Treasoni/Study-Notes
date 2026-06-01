@@ -7,7 +7,9 @@
 - Note type: concept + practice
 - Output path: /Users/zhqznc/Documents/项目/GitHub项目/comet/
 - Source: https://github.com/rpamis/comet
-- Status: started
+- Status: completed (2026-06-01)
+- Final file: GitHub项目/comet/comet.md
+- Phases completed: 1-4 (skipped 5-6 per user request)
 
 ## [2026-05-12] Harness Engineering（系统治理工程）
 - Direction: 概念理解 + 实战上手

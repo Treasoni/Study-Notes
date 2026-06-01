@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "GitHub项目/ECC/Claude-Code-速记指南.md",
+                "file": "StudySystem/2-drafts/comet/comet-笔记.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Claude-Code-速记指南"
+              "title": "comet-笔记"
             }
           }
         ]
@@ -208,8 +208,12 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "e36d73967f5c48ba",
   "lastOpenFiles": [
+    "GitHub项目/comet/comet.md",
+    "GitHub项目/comet",
+    "StudySystem/TODO.md",
+    "GitHub项目/ECC/Claude-Code-速记指南.md",
     "StudySystem/2-drafts/comet/comet-笔记.md",
     "StudySystem/2-drafts/comet",
     "StudySystem/1-curated/comet/discarded.md",
@@ -229,14 +233,11 @@
     "StudySystem/0-inbox/comet/raw/doc-01-en-readme.md",
     "StudySystem/0-inbox/comet/raw",
     "StudySystem/0-inbox/comet",
-    "StudySystem/TODO.md",
     "StudySystem/0-inbox/Comet双星工作流/raw",
     "StudySystem/0-inbox/Comet双星工作流",
-    "GitHub项目/ECC/Claude-Code-速记指南.md",
     "tests/note-type-inferrer.test.js",
     "tests/autonomy-manager.test.js",
     "tests/subagent-dispatcher.test.js",
-    "tests/integration.test.js",
     "StudySystem/2-drafts/Superpowers/Superpowers-笔记.md",
     "StudySystem/1-curated/Superpowers/references.md",
     "StudySystem/1-curated/Superpowers/practices.md",
@@ -245,7 +246,6 @@
     "StudySystem/1-curated/Superpowers/discarded.md",
     "StudySystem/1-curated/Superpowers/core-concepts.md",
     "StudySystem/0-inbox/Superpowers/sources.md",
-    "GitHub项目/Superpowers/Superpowers.md",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
     "web-articles/What_is_harness_engineering/images/img_002.png",
     "web-articles/What_is_harness_engineering/images/img_001.jpg",
