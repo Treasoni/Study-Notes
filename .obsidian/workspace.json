@@ -222,13 +222,13 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "c1fcc564902d4ddd",
   "lastOpenFiles": [
+    "StudySystem/TODO.md",
     "项目实战/AI实战/AI实战笔记库.base",
     "StudySystem/4-meta/evaluation/Subagent Token吞噬与缓存失效分析-eval.md",
     "项目实战/AI实战/Claude Code 防遗忘策略.md",
     "项目实战/AI实战/Subagent Token吞噬与缓存失效分析.md",
-    "StudySystem/TODO.md",
     "项目实战/AI实战/架构设计/Claude Code项目动态技能发现机制.md",
     "StudySystem/3-published/Git与资产管理实战/Git与资产管理实战.md",
     "openspec/changes/archive/2026-06-02-fix-subagent-init-overhead/tasks.md",
