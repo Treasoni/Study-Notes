@@ -1,0 +1,13 @@
+{
+  "change": "token-cost-optimization",
+  "phase": "design",
+  "mode": "compact",
+  "canonical_spec": "openspec",
+  "generated_by": "comet-handoff.sh",
+  "context_hash": "c312c233f3be160c957bc2d4264043433580732f157a5b806cddb1ba1ec5d2d4",
+  "files": [
+    { "path": "openspec/changes/token-cost-optimization/proposal.md", "sha256": "8c0f20661c0bad01be55daf7686cafcf6d8a433ad3e1e7dcb30154f3cf7894d1" },
+    { "path": "openspec/changes/token-cost-optimization/design.md", "sha256": "bc898fccddf1ac40729ba9e9301c41fbcedc0d5827c04c7fc8bd78f6f7a2e87a" },
+    { "path": "openspec/changes/token-cost-optimization/tasks.md", "sha256": "c3849c60446fa18f3d6c0ab43abf47cab82869116c3882a99e2214b6855748ed" }
+  ]
+}

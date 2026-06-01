@@ -145,6 +145,10 @@ Source Scope:
   Types: {technical_docs|blog_posts|videos|forum_discussions}
   Research Depth: {quick|standard|deep}
 Output Dir: {SYSTEM_ROOT}/0-inbox/{topic}/
+Script Context:
+  Batch Fetch: scripts/batch_fetch.py
+  Merge Sources: scripts/merge_sources.py
+  Requirements: scripts/requirements.txt
   `,
   label: `collect:${topic}`,
   phase: "Phase 1: Collect + Curate"

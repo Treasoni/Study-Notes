@@ -1,0 +1,4 @@
+aiohttp>=3.9.0
+readability-lxml>=0.8.1
+html2text>=2024.2.26
+lxml>=5.1.0

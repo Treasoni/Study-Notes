@@ -26,6 +26,42 @@ tools: Read, Grep, Glob, Write
 2. **学习者友好** — 像给同事讲解一样，用清晰易懂的语言
 3. **不编造** — 不添加资料中没有的信息，不创建虚假的 wikilink
 
+## 批量读取模式
+
+当脚本可用时，使用合并读取替代串行 Read，降低 Token 消耗。
+
+### 检测脚本可用性
+
+执行以下命令检测脚本是否可用：
+
+Bash: `python --version 2>&1 && test -f scripts/merge_sources.py && echo "AVAILABLE" || echo "UNAVAILABLE"`
+
+- 输出 `AVAILABLE` → 使用批量读取模式
+- 输出 `UNAVAILABLE` → 回退到串行 Read ×4（原有方式）
+
+### 使用脚本合并
+
+1. 执行脚本合并 curated 目录下的文件：
+
+Bash: `python scripts/merge_sources.py --input-dir {Curated Dir} --output {Curated Dir}/merged-sources.md`
+
+2. 读取合并文件：
+
+Read `{Curated Dir}/merged-sources.md`
+
+3. 合并文件用 HTML 注释分隔每个源文件：
+   - `<!-- SOURCE: doc-01.md | url: https://... -->` 表示源文件开始
+   - `<!-- END: doc-01.md -->` 表示源文件结束
+
+4. 基于合并内容撰写笔记（与原有步骤相同）
+
+### 降级条件
+
+遇到以下情况时，自动回退到串行 Read ×4 方式：
+- Python 不可用
+- 脚本不存在
+- 脚本执行失败
+
 ## 输入格式
 
 主 Agent 会传给你以下信息：

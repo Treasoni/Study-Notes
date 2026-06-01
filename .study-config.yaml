@@ -1,6 +1,6 @@
 # .study-config.yaml
 autonomy:
-  level: 2  # 0-3: 0=every step, 1=phase boundary, 2=key points, 3=auto
+  level: 1  # 0-3: 0=every step, 1=phase boundary, 2=key points, 3=auto
   overrides: []
   # Example override:
   # - phase: write

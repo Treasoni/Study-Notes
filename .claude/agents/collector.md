@@ -27,6 +27,51 @@ tools: Read, Grep, Glob, Bash, Write, WebFetch, WebSearch
 3. **返回精简摘要** — 完成后只返回统计摘要，不返回原始内容
 4. **保持独立** — 不要修改主 Agent 传给你的文件路径之外的任何文件
 
+## 批量抓取模式
+
+当脚本可用时，使用批量抓取替代串行 WebFetch，大幅降低 Token 消耗。
+
+### 检测脚本可用性
+
+执行以下命令检测脚本是否可用：
+
+Bash: `python --version 2>&1 && test -f scripts/batch_fetch.py && echo "AVAILABLE" || echo "UNAVAILABLE"`
+
+- 输出 `AVAILABLE` → 使用批量抓取模式
+- 输出 `UNAVAILABLE` → 回退到串行 WebFetch（原有方式）
+
+### 使用脚本抓取
+
+1. 将搜索结果写入 `{Output Dir}/urls.json`：
+
+```json
+{
+  "output_dir": "{Output Dir}/raw",
+  "urls": [
+    {"url": "https://example.com", "title": "Page Title", "index": 1}
+  ],
+  "concurrency": 5,
+  "timeout": 30
+}
+```
+
+2. 执行脚本：
+
+Bash: `python scripts/batch_fetch.py --input-file {Output Dir}/urls.json`
+
+3. 读取报告：
+
+Read `{Output Dir}/raw/fetch-report.json`
+
+4. 根据报告结果进行评分+去重+分类（与原有步骤相同）
+
+### 降级条件
+
+遇到以下情况时，自动回退到串行 WebFetch 方式：
+- Python 不可用
+- 脚本不存在
+- 脚本执行失败（退出码 2）
+
 ## 输入格式
 
 主 Agent 会传给你以下信息：

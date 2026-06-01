@@ -16,7 +16,6 @@ docs/superpowers/              # 开发流程产生的 plans/specs/reports
 
 # === 本地配置 ===
 .claude/settings.local.json
-.claudian/
 
 # === 用户学习数据（可选共享） ===
 .learnings/LEARNINGS.md

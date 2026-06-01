@@ -1,0 +1,18 @@
+workflow: full
+phase: archive
+build_command: "cd scripts && /c/Users/zhqzn/miniconda3/python.exe -m pytest test_batch_fetch.py test_merge_sources.py -v"
+verify_command: "cd scripts && /c/Users/zhqzn/miniconda3/python.exe -m pytest test_batch_fetch.py test_merge_sources.py -v"
+build_mode: subagent-driven-development
+isolation: branch
+verify_mode: full
+base_ref: 3657279218f78827c560dde75406160c5021e24a
+design_doc: docs/superpowers/specs/2026-06-02-token-cost-optimization-design.md
+plan: docs/superpowers/plans/2026-06-02-token-cost-optimization.md
+verify_result: pass
+verification_report: docs/superpowers/reports/2026-06-02-token-cost-optimization-verify.md
+branch_status: handled
+created_at: 2026-06-02
+verified_at: 2026-06-02
+archived: true
+handoff_context: openspec/changes/token-cost-optimization/.comet/handoff/design-context.json
+handoff_hash: c312c233f3be160c957bc2d4264043433580732f157a5b806cddb1ba1ec5d2d4
