@@ -4,13 +4,7 @@
 
 ## Resume Check (NEW SESSION)
 
-When starting ANY new session, before entering any phase:
-
-1. MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`
-2. If it exists → read `[x]` states → ask user: "Detected unfinished workflow ({topic}). Resume from Phase [N]?"
-3. If user says yes → jump to that phase (still enforce Check/Mark for that phase)
-4. If user says no → ask whether to archive or delete TODO.md and start fresh
-5. If TODO.md does NOT exist → proceed to Phase 0 normally
+See [todo-state-machine.md](todo-state-machine.md) — Resume Check section for complete rules.
 
 ## Orchestration Flow
 
@@ -124,7 +118,7 @@ For experience notes, adjust phases to match the 7-step workflow.
 
 ### Phase 1: Collect (资料收集与整理)
 
-**Phase Gate**: MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. Verify all prior phases are `[x]` (Phase 0 has no checkbox).
+**Phase Gate**: See [todo-state-machine.md](todo-state-machine.md) — Phase Gate Rule. (Phase 0 has no checkbox.)
 
 1. Invoke `/collect` — it dispatches a collector subagent to discuss scope with user, search for official docs and community content, fetch, score, deduplicate, and classify sources. Saves curated files to `0-inbox/{topic}/`（主 Agent 不直接搜索，避免上下文污染）
 2. Present summary to user:
@@ -136,7 +130,7 @@ For experience notes, adjust phases to match the 7-step workflow.
 
 ### Phase 2: Write (生成笔记)
 
-**Phase Gate**: MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. Verify all prior phases are `[x]`. If any prior phase is still `[ ]`, STOP — do not proceed.
+**Phase Gate**: See [todo-state-machine.md](todo-state-machine.md) — Phase Gate Rule.
 
 1. Confirm note type preference (skip if already set in Phase 0)
 2. Invoke `/write` — it dispatches a writer subagent to select template, extract info from curated materials, write draft to `2-drafts/{topic}/`（主 Agent 不直接读取 curated 文件，避免上下文污染）
@@ -149,7 +143,7 @@ For experience notes, adjust phases to match the 7-step workflow.
 
 ### Phase 3: Beautify (美化排版)
 
-**Phase Gate**: MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. Verify all prior phases are `[x]`. If any prior phase is still `[ ]`, STOP — do not proceed.
+**Phase Gate**: See [todo-state-machine.md](todo-state-machine.md) — Phase Gate Rule.
 
 1. Invoke `/beautify` — it dispatches a beautifier subagent to apply Obsidian Markdown formatting, add wikilinks, tags, callouts, Mermaid diagrams, write final note to the user-specified output path（主 Agent 不加载 Obsidian 语法规范，避免上下文污染）
 2. **STOP. DO NOT invoke `/evaluate`. DO NOT proceed to Phase 4.** Present final result and ask: "Any changes needed?" Wait for user to explicitly confirm before proceeding.
@@ -157,15 +151,15 @@ For experience notes, adjust phases to match the 7-step workflow.
 4. When user gives feedback: **implement minimal, targeted fixes only** — do NOT regenerate the entire note. Fix just what was flagged, keeping other content untouched
 5. Repeat 2-4 until user approves
 6. When user approves: MUST execute Write tool to mark Phase 3 `[x]` in `{SYSTEM_ROOT}/TODO.md`.
-7. User: confirm → proceed to Phase 4 (if desired). If user says "done" (no more phases) → MUST execute Bash tool: `rm "{SYSTEM_ROOT}/TODO.md"`.
+7. User: confirm → proceed to Phase 4 (if desired). If user says "done" (no more phases) → See [todo-state-machine.md](todo-state-machine.md) — Early Termination section.
 
 ### Early Termination
 
-If user decides to stop at any point (e.g., after Phase 3, skipping Phase 4-5), MUST execute Bash tool: `rm "{SYSTEM_ROOT}/TODO.md"` after confirming "task complete" with the user. The TODO.md must not be left behind.
+If user decides to stop at any point (e.g., after Phase 3, skipping Phase 4-5), see [todo-state-machine.md](todo-state-machine.md) — Early Termination section. The TODO.md must not be left behind.
 
 ### Phase 4 (Optional): Evaluate (质量评估)
 
-**Phase Gate**: MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. Verify all prior phases are `[x]`. If any prior phase is still `[ ]`, STOP — do not proceed.
+**Phase Gate**: See [todo-state-machine.md](todo-state-machine.md) — Phase Gate Rule.
 
 1. DO NOT auto-evaluate. Ask the user: "Evaluate this note's quality?" Only invoke evaluate skill if user explicitly says yes.
 2. If yes, invoke the `evaluate` skill — it will:
@@ -177,7 +171,7 @@ If user decides to stop at any point (e.g., after Phase 3, skipping Phase 4-5), 
 
 ### Phase 5 (Optional): Digest (自我学习)
 
-**Phase Gate**: MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. Verify all prior phases are `[x]`. If any prior phase is still `[ ]`, STOP — do not proceed.
+**Phase Gate**: See [todo-state-machine.md](todo-state-machine.md) — Phase Gate Rule.
 
 1. DO NOT auto-digest. Ask the user: "Capture session learnings for continuous improvement?" Only invoke digest skill if user explicitly says yes.
 2. If yes, invoke the `digest` skill — it will:
@@ -185,4 +179,4 @@ If user decides to stop at any point (e.g., after Phase 3, skipping Phase 4-5), 
    - Log entries to `.learnings/LEARNINGS.md` and `.learnings/ERRORS.md`
    - Run digest compression if thresholds exceeded
 3. Present captured learnings summary
-4. All phases complete → MUST execute Bash tool: `rm "{SYSTEM_ROOT}/TODO.md"`.
+4. All phases complete → See [todo-state-machine.md](todo-state-machine.md) — Early Termination section.

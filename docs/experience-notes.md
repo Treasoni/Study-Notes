@@ -6,7 +6,7 @@ When the user selects "心得笔记" in Phase 0, the workflow is **user-input-fi
 
 ## Resume Check (NEW SESSION)
 
-Same as [phases.md Resume Check](phases.md): MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md` before entering any step. If exists, ask user to resume.
+See [todo-state-machine.md](todo-state-machine.md) — Resume Check section for complete rules.
 
 ## Workflow
 
@@ -30,7 +30,7 @@ Mark Step 1 as `[x]` immediately in TODO.md.
 
 **Step 2: Review for accuracy**
 
-**Gate**: MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. Verify Step 1 is `[x]`.
+**Gate**: See [todo-state-machine.md](todo-state-machine.md) — Phase Gate Rule.
 
 Review the user's content with these rules:
 
@@ -50,7 +50,7 @@ After review complete → MUST execute Write tool to mark Step 2 `[x]` in `{SYST
 
 **Step 3: User decides on research**
 
-**Gate**: MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. Verify Steps 1-2 are `[x]`.
+**Gate**: See [todo-state-machine.md](todo-state-machine.md) — Phase Gate Rule.
 
 For each flagged item, ask the user:
 - "This needs verification" → run mini collect→curate for that specific point
@@ -63,7 +63,7 @@ After research decisions are resolved → MUST execute Write tool to mark Step 3
 
 **Step 4: Write draft**
 
-**Gate**: MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. Verify Steps 1-3 are `[x]`.
+**Gate**: See [todo-state-machine.md](todo-state-machine.md) — Phase Gate Rule.
 
 Invoke `/write` with note type `experience`. The write skill uses `experience-template.md` and marks sources as `[来源: 个人经验]`. Draft goes to `2-drafts/{topic}/`.
 
@@ -71,7 +71,7 @@ After draft complete → MUST execute Write tool to mark Step 4 `[x]` in `{SYSTE
 
 **Step 5: Beautify**
 
-**Gate**: MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. Verify Steps 1-4 are `[x]`.
+**Gate**: See [todo-state-machine.md](todo-state-machine.md) — Phase Gate Rule.
 
 Same as Phase 3 — apply Obsidian formatting, write to user-specified output path. User reviews and approves.
 
@@ -79,7 +79,7 @@ After user approves → MUST execute Write tool to mark Step 5 `[x]` in `{SYSTEM
 
 **Step 6: Optional evaluate**
 
-**Gate**: MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. Verify Steps 1-5 are `[x]`.
+**Gate**: See [todo-state-machine.md](todo-state-machine.md) — Phase Gate Rule.
 
 Same as Phase 4 — score quality, cross-validate.
 
@@ -87,15 +87,15 @@ After evaluate complete → MUST execute Write tool to mark Step 6 `[x]` in `{SY
 
 **Step 7: Optional digest**
 
-**Gate**: MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. Verify Steps 1-6 are `[x]`.
+**Gate**: See [todo-state-machine.md](todo-state-machine.md) — Phase Gate Rule.
 
 Same as Phase 5 — log session learnings.
 
-After digest complete → MUST execute Bash tool: `rm "{SYSTEM_ROOT}/TODO.md"`.
+After digest complete → See [todo-state-machine.md](todo-state-machine.md) — Early Termination section.
 
 ### Early Termination
 
-If user stops before Step 7 (e.g., after beautify, skipping evaluate/digest), MUST execute Bash tool: `rm "{SYSTEM_ROOT}/TODO.md"` after confirming "task complete".
+If user stops before Step 7 (e.g., after beautify, skipping evaluate/digest), see [todo-state-machine.md](todo-state-machine.md) — Early Termination section.
 
 ## When the User is Unsure About Research
 

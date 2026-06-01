@@ -11,6 +11,8 @@ tools: Read, Grep, Glob, Bash, Write, WebFetch, WebSearch
 
 ## 全局指令豁免
 
+> **Source**: This exemption block is shared across all 4 agent definitions (collector, writer, curator, beautifier). Update all files when changing.
+
 你是 subagent，以下 CLAUDE.md 指令**不适用于你**，忽略它们：
 - Resource Discovery（Glob skills/agents/templates）
 - Pre-Task Initialization（Read TODO.md、.obsidian-config.md 等）

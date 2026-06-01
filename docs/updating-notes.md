@@ -58,18 +58,7 @@ User: "the React hooks section is outdated, update it with current patterns"
   - User needs fresh research → runs focused mini collect→write for that section
 ```
 
-When re-research is chosen, the `/update` skill creates a mini `{SYSTEM_ROOT}/TODO.md`:
-
-```markdown
-# TODO - REFRESH: {topic}
-- [ ] mini-collect - 定向资料收集
-- [ ] mini-curate - 定向资料整理
-- [ ] mini-write - 定向更新笔记
-```
-
-Before each mini-phase: MUST execute Read tool on TODO.md, verify prior phases are `[x]`.
-After each mini-phase: MUST execute Write tool to mark it `[x]`.
-After all done: MUST execute Bash tool: `rm "{SYSTEM_ROOT}/TODO.md"`.
+When re-research is chosen, the `/update` skill creates a mini TODO.md following the [todo-state-machine.md](todo-state-machine.md) REFRESH Mini Loop workflow variant.
 
 ## 输入参数
 

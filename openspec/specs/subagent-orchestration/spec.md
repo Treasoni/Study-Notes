@@ -1,4 +1,4 @@
-## ADDED Requirements
+## MODIFIED Requirements
 
 ### Requirement: Main Agent SHALL coordinate subagents without executing heavy computation
 
@@ -13,7 +13,7 @@ The system SHALL use a Hub-and-Spoke architecture where Main Agent acts as coord
 #### Scenario: Curate phase delegation
 - **WHEN** user confirms curate phase start
 - **THEN** Main Agent SHALL spawn a Curate Subagent with the inbox path
-- **AND** Curate Subagent SHALL score sources on 4 dimensions, deduplicate, classify, and write to `{SYSTEM_ROOT}/1-curated/{topic}/`
+- **AND** Curate Subagent SHALL score sources on 4 dimensions (authority, freshness, completeness, readability), deduplicate, classify, and write to `{SYSTEM_ROOT}/1-curated/{topic}/`
 - **AND** Main Agent SHALL NOT perform scoring or classification directly
 
 ### Requirement: Subagents SHALL operate in isolated context windows
@@ -26,35 +26,16 @@ Each subagent SHALL have its own context window, receiving only the necessary in
 - **AND** subagent SHALL NOT have access to Main Agent's conversation history
 - **AND** subagent's context usage SHALL NOT exceed 8k tokens
 
-### Requirement: Main Agent SHALL handle subagent errors gracefully
+### Requirement: Subagent definitions SHALL include global instruction exemptions
 
-The system SHALL handle subagent failures without losing user progress.
+Each subagent definition file SHALL include a 全局指令豁免 section that explicitly exempts the subagent from Main Agent initialization steps (Resource Discovery, Pre-Task Initialization, Mandatory Triggered Reads). This section SHALL reference a shared source to avoid duplication across 4 agent files.
 
-#### Scenario: Subagent timeout
-- **WHEN** a subagent does not complete within 5 minutes
-- **THEN** Main Agent SHALL terminate the subagent
-- **AND** Main Agent SHALL inform user of timeout
-- **AND** Main Agent SHALL offer retry or manual execution options
+#### Scenario: Subagent skips global init
+- **WHEN** a subagent is spawned by Main Agent
+- **THEN** subagent SHALL NOT execute Glob for skills/agents/templates
+- **AND** subagent SHALL NOT Read TODO.md or .obsidian-config.md
+- **AND** subagent SHALL NOT follow Mandatory Triggered Reads table
 
-#### Scenario: Subagent output validation
-- **WHEN** a subagent completes execution
-- **THEN** Main Agent SHALL verify output files exist and are non-empty
-- **AND** if validation fails, Main Agent SHALL inform user and offer retry
-
-### Requirement: Subagents SHALL produce structured outputs
-
-Subagents SHALL return results in a consistent format that Main Agent can parse.
-
-#### Scenario: Successful subagent output
-- **WHEN** a subagent completes successfully
-- **THEN** subagent SHALL write a status file `{output_path}/.status.json` with:
-  - `status`: "success" | "partial" | "failed"
-  - `summary`: brief description of what was done
-  - `artifacts`: list of created files
-  - `context_usage`: estimated token count used
-
-#### Scenario: Partial completion
-- **WHEN** a subagent completes some but not all tasks
-- **THEN** subagent SHALL set status to "partial"
-- **AND** subagent SHALL list completed and pending items in summary
-- **AND** Main Agent SHALL offer to continue from last checkpoint
+#### Scenario: Exemption block is maintainable
+- **WHEN** the exemption list needs to be updated
+- **THEN** all 4 agent definition files SHALL contain a comment referencing the shared source (`docs/todo-state-machine.md` or agent definition template) to facilitate synchronized updates
