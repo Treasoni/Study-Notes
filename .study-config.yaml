@@ -1,0 +1,20 @@
+# .study-config.yaml
+autonomy:
+  level: 1  # 0-3: 0=every step, 1=phase boundary, 2=key points, 3=auto
+  overrides: []
+  # Example override:
+  # - phase: write
+  #   level: 0
+
+subagent:
+  timeout: 300000  # 5 minutes in ms
+  retry_count: 1
+
+requirement_discovery:
+  enabled: true
+  min_questions: 4
+  max_questions: 6
+  allow_skip: true
+
+hybrid_notes:
+  max_types: 2
