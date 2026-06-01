@@ -7,9 +7,12 @@ tags:
   - Token优化
   - 架构设计
 type: experience
+source: 个人经验
 ---
 
 # Claude Code 技能过滤机制设计
+
+> 来源：本文内容均来自 [来源: 个人经验] —— 围绕 `StudySystem` 在 Resource Discovery 阶段面临的 Token 浪费问题，所做的一次机制设计记录。
 
 ## 背景
 
@@ -97,7 +100,7 @@ skills:
   - 公共池是否也支持通配符？还是只允许显式列文件？
 - 下一步计划：
   - 在 [[CLAUDE.md]] 的 Resource Discovery 章节里把"读取 .skill.yaml → 过滤 → 读文件"流程补完整。
-  - 参考 [docs/todo-state-machine.md](docs/todo-state-machine.md) 的 Phase Gate 思路，给 skill 加载也设计一个"未通过过滤就不进入 Resource Discovery"的硬性 Gate。
+  - 参考 [[docs/todo-state-machine.md]] 的 Phase Gate 思路，给 skill 加载也设计一个"未通过过滤就不进入 Resource Discovery"的硬性 Gate。
   - 跑一轮对比实验：开启过滤前后，Resource Discovery 阶段实际消耗的 token 数与 LLM 行为偏差率。
 - 相关笔记：
   - [[.study-config.yaml]]（现有 `skills.mode` 配置）

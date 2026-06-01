@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "StudySystem/0-inbox/claude-code-skill-filtering/raw-input.md",
+                "file": "StudySystem/TODO.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "raw-input"
+              "title": "TODO"
             }
           }
         ],
@@ -185,13 +185,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "StudySystem/0-inbox/claude-code-skill-filtering/raw-input.md",
+                "file": "StudySystem/TODO.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "raw-input 的大纲"
+              "title": "TODO 的大纲"
             }
           },
           {
@@ -237,8 +237,9 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "a3b2bc421b126509",
   "lastOpenFiles": [
+    "StudySystem/0-inbox/claude-code-skill-filtering/raw-input.md",
     "StudySystem/2-drafts/claude-code-skill-filtering/Claude Code 技能过滤机制设计.md",
     "StudySystem/2-drafts/claude-code-skill-filtering",
     "StudySystem/0-inbox/Subagent资料搜集的Token失控/raw-input.md",
@@ -246,7 +247,6 @@
     "StudySystem/0-inbox/Subagent资料搜集的Token失控",
     "项目实战/AI实战/Subagent Token吞噬与缓存失效分析.md",
     "StudySystem/TODO.md",
-    "StudySystem/0-inbox/claude-code-skill-filtering/raw-input.md",
     "StudySystem/0-inbox/claude-code-skill-filtering",
     "openspec/changes/archive/2026-06-02-token-cost-optimization/tasks.md",
     "openspec/changes/archive/2026-06-02-token-cost-optimization/proposal.md",
