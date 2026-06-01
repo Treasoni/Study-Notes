@@ -6,13 +6,34 @@ node_modules/
 # OpenSpec working directory
 openspec/
 
-# Generated skills and commands
-.claude/commands/
-.claude/skills/
-
 # Generated design docs and plans
 docs/superpowers/
 
 # Lock files
 package-lock.json
 skills-lock.json
+
+# User-specific learning data (optional, can be shared)
+.learnings/LEARNINGS.md
+.learnings/ERRORS.md
+.learnings/archive/
+
+# Third-party skills (not needed for study system)
+.claude/skills/defuddle/
+.claude/skills/delete-file/
+.claude/skills/digest/
+.claude/skills/fix-broken-links/
+.claude/skills/generate-links/
+.claude/skills/json-canvas/
+.claude/skills/moc/
+.claude/skills/obsidian-bases/
+.claude/skills/obsidian-cli/
+.claude/skills/obsidian-markdown/
+.claude/skills/opencli-adapter-author/
+.claude/skills/opencli-autofix/
+.claude/skills/opencli-browser/
+.claude/skills/opencli-usage/
+.claude/skills/smart-search/
+.claude/skills/sortspec-generator/
+.claude/commands/
+.claude/settings.local.json
