@@ -1,39 +1,23 @@
+# === 系统文件 ===
 .DS_Store
+*.log
 
-# Dependencies
+# === 依赖 ===
 node_modules/
-
-# OpenSpec working directory
-openspec/
-
-# Generated design docs and plans
-docs/superpowers/
-
-# Lock files
 package-lock.json
 skills-lock.json
 
-# User-specific learning data (optional, can be shared)
+# === 开发流程产物（用户不需要） ===
+openspec/changes/              # 进行中的 change 提案
+openspec/changes/archive/      # 已归档的 change 历史
+.comet/                        # Comet 运行时状态
+.codegraph/                    # CodeGraph 自动生成的索引数据库
+docs/superpowers/              # 开发流程产生的 plans/specs/reports
+
+# === 本地配置 ===
+.claude/settings.local.json
+
+# === 用户学习数据（可选共享） ===
 .learnings/LEARNINGS.md
 .learnings/ERRORS.md
 .learnings/archive/
-
-# Third-party skills (not needed for study system)
-.claude/skills/defuddle/
-.claude/skills/delete-file/
-.claude/skills/digest/
-.claude/skills/fix-broken-links/
-.claude/skills/generate-links/
-.claude/skills/json-canvas/
-.claude/skills/moc/
-.claude/skills/obsidian-bases/
-.claude/skills/obsidian-cli/
-.claude/skills/obsidian-markdown/
-.claude/skills/opencli-adapter-author/
-.claude/skills/opencli-autofix/
-.claude/skills/opencli-browser/
-.claude/skills/opencli-usage/
-.claude/skills/smart-search/
-.claude/skills/sortspec-generator/
-.claude/commands/
-.claude/settings.local.json

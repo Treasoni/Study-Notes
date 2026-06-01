@@ -20,8 +20,23 @@
               "icon": "lucide-file",
               "title": "Claude Code项目动态技能发现机制"
             }
+          },
+          {
+            "id": "c1fcc564902d4ddd",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "AI学习/CLAUDE.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "CLAUDE"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -156,13 +171,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI实战/架构设计/Claude Code项目动态技能发现机制.md",
+                "file": "AI学习/CLAUDE.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Claude Code项目动态技能发现机制 的大纲"
+              "title": "CLAUDE 的大纲"
             }
           },
           {
@@ -186,7 +201,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
@@ -208,45 +223,45 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "e36d73967f5c48ba",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
-    "AI实战/架构设计/Agent与Skills架构设计.md",
-    "AI实战/工程实践/ClaudeCode工作流遵守问题.md",
-    "GitHub项目/ECC/Claude-Code-Advanced-Notes.md",
-    "GitHub项目/ECC/Claude-Code-速记指南.md",
-    "GitHub项目/CodeGraph实战笔记.md",
+    "docs/learnings-digest.md",
+    "docs/error-handling.md",
+    "openspec/changes/2026-06-02-gitignore-readme-cleanup/design.md",
+    "AI实战/架构设计/Claude Code项目动态技能发现机制.md",
+    "openspec/specs/subagent-orchestration/spec.md",
+    "openspec/specs/subagent-orchestration",
+    "openspec/specs/requirement-discovery/spec.md",
+    "openspec/specs/requirement-discovery",
+    "openspec/specs/note-update-workflow/spec.md",
+    "openspec/specs/note-update-workflow",
+    "openspec/specs/hybrid-note-types/spec.md",
+    "openspec/specs/hybrid-note-types",
+    "openspec/specs/autonomy-levels/spec.md",
+    "openspec/specs/autonomy-levels",
+    "openspec/specs",
+    "openspec/changes/archive/2026-06-02-update-note-workflow/specs/note-update-workflow/spec.md",
+    "openspec/changes/archive/2026-06-02-update-note-workflow/specs/note-update-workflow",
+    "openspec/changes/archive/2026-06-02-update-note-workflow/specs",
+    "openspec/changes/archive/2026-06-02-update-note-workflow/tasks.md",
+    "openspec/changes/archive/2026-06-02-update-note-workflow/proposal.md",
+    "openspec/changes/archive/2026-06-02-update-note-workflow/design.md",
+    "openspec/changes/archive/2026-06-02-update-note-workflow",
+    "openspec/changes/archive/2026-06-01-tool-registry-collect-refactor/tasks.md",
+    "openspec/changes/archive/2026-06-01-tool-registry-collect-refactor/proposal.md",
+    "openspec/changes/archive/2026-06-01-tool-registry-collect-refactor/design.md",
+    "openspec/changes/archive/2026-06-01-tool-registry-collect-refactor",
+    "openspec/changes/archive/2026-06-01-study-system-refactor/specs/subagent-orchestration/spec.md",
+    "openspec/changes/archive/2026-06-01-study-system-refactor/specs/requirement-discovery/spec.md",
+    "openspec/changes/archive/2026-06-01-study-system-refactor/specs/autonomy-levels/spec.md",
+    "openspec/changes/archive/2026-06-01-study-system-refactor/specs/hybrid-note-types/spec.md",
+    "openspec/changes/archive/2026-06-01-study-system-refactor/tasks.md",
+    "openspec/changes/archive/2026-06-01-study-system-refactor/proposal.md",
+    "openspec/changes/archive/2026-06-01-study-system-refactor/design.md",
+    "openspec/changes/2026-06-02-gitignore-readme-cleanup/tasks.md",
+    "openspec/changes/2026-06-02-gitignore-readme-cleanup/proposal.md",
+    "docs/superpowers/reports/2026-06-01-update-note-workflow-verify.md",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
-    "StudySystem/1-curated/OpenSpec/practice-examples.md",
-    "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.md",
-    "GitHub项目/OpenSpec",
-    "StudySystem/2-drafts/OpenSpec/OpenSpec-使用入门与速查.md",
-    "StudySystem/2-drafts/OpenSpec",
-    "StudySystem/1-curated/OpenSpec/core-concepts.md",
-    "StudySystem/0-inbox/OpenSpec/raw/13-blog-openspec-sdd-guide-tc.md",
-    "StudySystem/1-curated/OpenSpec/discarded.md",
-    "StudySystem/1-curated/OpenSpec/references.md",
-    "StudySystem/1-curated/OpenSpec/gaps-report.md",
-    "StudySystem/1-curated/OpenSpec/knowledge-map.md",
-    "StudySystem/1-curated/OpenSpec/advanced-principles.md",
-    "StudySystem/1-curated/OpenSpec",
-    "StudySystem/0-inbox/OpenSpec/raw/09-supported-tools.md",
-    "StudySystem/0-inbox/OpenSpec/raw/07-customization.md",
-    "StudySystem/0-inbox/OpenSpec/raw/04-commands.md",
-    "StudySystem/0-inbox/OpenSpec/raw/02-getting-started.md",
-    "StudySystem/0-inbox/OpenSpec/raw/01-README.md",
-    "StudySystem/TODO.md",
-    "StudySystem/0-inbox/OpenSpec/sources.md",
-    "StudySystem/0-inbox/OpenSpec/raw/16-blog-sdd-comparison-openspec-superpowers.md",
-    "StudySystem/0-inbox/OpenSpec/raw/15-reddit-openspec-beads-experience.md",
-    "StudySystem/0-inbox/OpenSpec/raw/14-blog-openspec-initial-guide-cn.md",
-    "StudySystem/0-inbox/OpenSpec/raw/12-blog-gigazine-walkthrough.md",
-    "StudySystem/0-inbox/OpenSpec/raw",
-    "StudySystem/0-inbox/OpenSpec",
-    "GitHub项目/comet",
-    "StudySystem/2-drafts/comet",
-    "StudySystem/1-curated/comet",
-    "StudySystem/0-inbox/comet/raw",
-    "StudySystem/0-inbox/comet",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
     "web-articles/What_is_harness_engineering/images/img_002.png",
     "web-articles/What_is_harness_engineering/images/img_001.jpg",

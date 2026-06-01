@@ -73,7 +73,7 @@ After draft complete → MUST execute Write tool to mark Step 4 `[x]` in `{SYSTE
 
 **Gate**: MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. Verify Steps 1-4 are `[x]`.
 
-Same as Phase 4 — apply Obsidian formatting, write to user-specified output path. User reviews and approves.
+Same as Phase 3 — apply Obsidian formatting, write to user-specified output path. User reviews and approves.
 
 After user approves → MUST execute Write tool to mark Step 5 `[x]` in `{SYSTEM_ROOT}/TODO.md`.
 
@@ -81,7 +81,7 @@ After user approves → MUST execute Write tool to mark Step 5 `[x]` in `{SYSTEM
 
 **Gate**: MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. Verify Steps 1-5 are `[x]`.
 
-Same as Phase 5 — score quality, cross-validate.
+Same as Phase 4 — score quality, cross-validate.
 
 After evaluate complete → MUST execute Write tool to mark Step 6 `[x]` in `{SYSTEM_ROOT}/TODO.md`.
 
@@ -89,7 +89,7 @@ After evaluate complete → MUST execute Write tool to mark Step 6 `[x]` in `{SY
 
 **Gate**: MUST execute Read tool on `{SYSTEM_ROOT}/TODO.md`. Verify Steps 1-6 are `[x]`.
 
-Same as Phase 6 — log session learnings.
+Same as Phase 5 — log session learnings.
 
 After digest complete → MUST execute Bash tool: `rm "{SYSTEM_ROOT}/TODO.md"`.
 

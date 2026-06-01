@@ -1,0 +1,13 @@
+{
+  "change": "tool-registry-collect-refactor",
+  "phase": "design",
+  "canonical_spec": "openspec",
+  "source_paths": [
+    "openspec/changes/tool-registry-collect-refactor/proposal.md",
+    "openspec/changes/tool-registry-collect-refactor/design.md",
+    "openspec/changes/tool-registry-collect-refactor/tasks.md"
+  ],
+  "mode": "compact",
+  "generated_by": "manual (Windows, no bash)",
+  "timestamp": "2026-06-01"
+}

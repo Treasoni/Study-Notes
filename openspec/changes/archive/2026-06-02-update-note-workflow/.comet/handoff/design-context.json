@@ -1,0 +1,14 @@
+{
+  "change": "update-note-workflow",
+  "phase": "design",
+  "mode": "compact",
+  "canonical_spec": "openspec",
+  "generated_by": "comet-handoff.sh",
+  "context_hash": "8543dc7fe7f6cbf2acbaaed79f5c2d6339e4a4a885744948beddb69659058a74",
+  "files": [
+    { "path": "openspec/changes/update-note-workflow/proposal.md", "sha256": "884705e10fa17b135e72f8ddebf4a76b831842f038d0c4c07567238f9c639eef" },
+    { "path": "openspec/changes/update-note-workflow/design.md", "sha256": "2868fd52106ff61780176139df86136d16b9ce5e0c8bf65929b560f17ca6a71a" },
+    { "path": "openspec/changes/update-note-workflow/tasks.md", "sha256": "056d71c01d5ff37c8380ae6b62fed4487bf3ad32b06895418582f8f2c9eca504" },
+    { "path": "openspec/changes/update-note-workflow/specs/note-update-workflow/spec.md", "sha256": "e00d30e0c39d9e2fe5c3265116fac2476e785ca6956d88008bdac1e528498038" }
+  ]
+}

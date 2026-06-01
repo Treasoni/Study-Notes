@@ -5,7 +5,7 @@ This repository contains the **Study System** — a semi-automated technical lea
 ## Overview
 
 1. User says "I want to learn X" — **requirement discovery** clarifies intent, generates execution plan
-2. Research-driven: 6 phases (discover → collect → curate → write → beautify → evaluate → [digest])
+2. Research-driven: 5 phases (discover → collect → write → beautify → [evaluate] → [digest])
 3. Experience notes: user content → review → optional research → write → beautify → [evaluate] → [digest]
 4. **Autonomy levels** (0-3) control confirmation frequency per `.study-config.yaml`
 5. **Hybrid note types** — combine multiple types (e.g., concept + practice)
@@ -39,7 +39,7 @@ Quality gate: verify prior phases `[x]`, check output files exist and non-empty.
 | User wants to update a note | `docs/updating-notes.md` |
 | Before any phase skill | `{SYSTEM_ROOT}/TODO.md` |
 | Session start | `.study-config.yaml` |
-| Error in Phase 1-4 | `docs/error-handling.md` |
+| Error in Phase 1-3 | `docs/error-handling.md` |
 
 DO NOT guess workflow steps from memory — you WILL produce broken output.
 
@@ -76,10 +76,10 @@ Before any Study System task. Full details: [docs/pre-task-init.md](docs/pre-tas
 
 | Doc | Content |
 |-----|---------|
-| [docs/phases.md](docs/phases.md) | Phase 0-6: requirement discovery, collect, curate, write, beautify, evaluate, digest |
+| [docs/phases.md](docs/phases.md) | Phase 0-5: requirement discovery, collect+curate, write, beautify, evaluate, digest |
 | [docs/experience-notes.md](docs/experience-notes.md) | 心得笔记 7-step workflow: user-input-first, review rules |
 | [docs/updating-notes.md](docs/updating-notes.md) | INSERT and REFRESH modes for existing notes |
-| [docs/error-handling.md](docs/error-handling.md) | Error recording protocol (Phase 1-4) |
+| [docs/error-handling.md](docs/error-handling.md) | Error recording protocol (Phase 1-3) |
 | [docs/learnings-digest.md](docs/learnings-digest.md) | Digest thresholds, compression process |
 | [docs/pre-task-init.md](docs/pre-task-init.md) | Vault path validation |
 | [docs/architecture.md](docs/architecture.md) | Design rationale, file layout, skill isolation |
@@ -90,10 +90,9 @@ Before any Study System task. Full details: [docs/pre-task-init.md](docs/pre-tas
 ```
 {VAULT_PATH}/StudySystem/
 ├── templates/       # Note templates (5 types)
-├── 0-inbox/         # Phase 1: raw collected materials
-├── 1-curated/       # Phase 2: organized and scored materials
-├── 2-drafts/        # Phase 3: draft notes
-├── 3-published/     # Phase 4: final beautified notes (default output)
+├── 0-inbox/         # Phase 1: collected and curated materials
+├── 2-drafts/        # Phase 2: draft notes
+├── 3-published/     # Phase 3: final beautified notes (default output)
 └── 4-meta/          # Logs, errors, evaluations
 ```
 

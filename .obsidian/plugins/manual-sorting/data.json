@@ -2,6 +2,7 @@
   "customOrder": {
     "/": {
       "children": [
+        "openspec",
         "package.json",
         "虚拟机",
         "docs",
@@ -424,6 +425,7 @@
     },
     "docs": {
       "children": [
+        "docs/superpowers",
         "docs/architecture.md",
         "docs/changelog.md",
         "docs/error-handling.md",
@@ -432,6 +434,38 @@
         "docs/phases.md",
         "docs/pre-task-init.md",
         "docs/updating-notes.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "docs/superpowers": {
+      "children": [
+        "docs/superpowers/plans",
+        "docs/superpowers/reports",
+        "docs/superpowers/specs"
+      ],
+      "sortOrder": "custom"
+    },
+    "docs/superpowers/plans": {
+      "children": [
+        "docs/superpowers/plans/2026-06-01-study-system-refactor.md",
+        "docs/superpowers/plans/2026-06-01-tool-registry-collect.md",
+        "docs/superpowers/plans/2026-06-01-update-note-workflow.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "docs/superpowers/reports": {
+      "children": [
+        "docs/superpowers/reports/2026-06-01-study-system-refactor-verify.md",
+        "docs/superpowers/reports/2026-06-01-tool-registry-collect-verify.md",
+        "docs/superpowers/reports/2026-06-01-update-note-workflow-verify.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "docs/superpowers/specs": {
+      "children": [
+        "docs/superpowers/specs/2026-06-01-study-system-refactor-design.md",
+        "docs/superpowers/specs/2026-06-01-tool-registry-collect-design.md",
+        "docs/superpowers/specs/2026-06-01-update-note-workflow-design.md"
       ],
       "sortOrder": "custom"
     },
@@ -711,6 +745,147 @@
         "obsidian的使用/assets/如何使用obsidian做笔记/file-20260327231933874 1.png",
         "obsidian的使用/assets/如何使用obsidian做笔记/file-20260327231933875.png",
         "obsidian的使用/assets/如何使用obsidian做笔记/file-20260327231933876.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "openspec": {
+      "children": [
+        "openspec/changes",
+        "openspec/specs"
+      ],
+      "sortOrder": "custom"
+    },
+    "openspec/changes": {
+      "children": [
+        "openspec/changes/2026-06-02-gitignore-readme-cleanup",
+        "openspec/changes/archive"
+      ],
+      "sortOrder": "custom"
+    },
+    "openspec/changes/2026-06-02-gitignore-readme-cleanup": {
+      "children": [
+        "openspec/changes/2026-06-02-gitignore-readme-cleanup/design.md",
+        "openspec/changes/2026-06-02-gitignore-readme-cleanup/proposal.md",
+        "openspec/changes/2026-06-02-gitignore-readme-cleanup/tasks.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "openspec/changes/archive": {
+      "children": [
+        "openspec/changes/archive/2026-06-01-study-system-refactor",
+        "openspec/changes/archive/2026-06-01-tool-registry-collect-refactor",
+        "openspec/changes/archive/2026-06-02-update-note-workflow"
+      ],
+      "sortOrder": "custom"
+    },
+    "openspec/changes/archive/2026-06-01-study-system-refactor": {
+      "children": [
+        "openspec/changes/archive/2026-06-01-study-system-refactor/specs",
+        "openspec/changes/archive/2026-06-01-study-system-refactor/design.md",
+        "openspec/changes/archive/2026-06-01-study-system-refactor/proposal.md",
+        "openspec/changes/archive/2026-06-01-study-system-refactor/tasks.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "openspec/changes/archive/2026-06-01-study-system-refactor/specs": {
+      "children": [
+        "openspec/changes/archive/2026-06-01-study-system-refactor/specs/autonomy-levels",
+        "openspec/changes/archive/2026-06-01-study-system-refactor/specs/hybrid-note-types",
+        "openspec/changes/archive/2026-06-01-study-system-refactor/specs/requirement-discovery",
+        "openspec/changes/archive/2026-06-01-study-system-refactor/specs/subagent-orchestration"
+      ],
+      "sortOrder": "custom"
+    },
+    "openspec/changes/archive/2026-06-01-study-system-refactor/specs/autonomy-levels": {
+      "children": [
+        "openspec/changes/archive/2026-06-01-study-system-refactor/specs/autonomy-levels/spec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "openspec/changes/archive/2026-06-01-study-system-refactor/specs/hybrid-note-types": {
+      "children": [
+        "openspec/changes/archive/2026-06-01-study-system-refactor/specs/hybrid-note-types/spec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "openspec/changes/archive/2026-06-01-study-system-refactor/specs/requirement-discovery": {
+      "children": [
+        "openspec/changes/archive/2026-06-01-study-system-refactor/specs/requirement-discovery/spec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "openspec/changes/archive/2026-06-01-study-system-refactor/specs/subagent-orchestration": {
+      "children": [
+        "openspec/changes/archive/2026-06-01-study-system-refactor/specs/subagent-orchestration/spec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "openspec/changes/archive/2026-06-01-tool-registry-collect-refactor": {
+      "children": [
+        "openspec/changes/archive/2026-06-01-tool-registry-collect-refactor/design.md",
+        "openspec/changes/archive/2026-06-01-tool-registry-collect-refactor/proposal.md",
+        "openspec/changes/archive/2026-06-01-tool-registry-collect-refactor/tasks.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "openspec/changes/archive/2026-06-02-update-note-workflow": {
+      "children": [
+        "openspec/changes/archive/2026-06-02-update-note-workflow/specs",
+        "openspec/changes/archive/2026-06-02-update-note-workflow/design.md",
+        "openspec/changes/archive/2026-06-02-update-note-workflow/proposal.md",
+        "openspec/changes/archive/2026-06-02-update-note-workflow/tasks.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "openspec/changes/archive/2026-06-02-update-note-workflow/specs": {
+      "children": [
+        "openspec/changes/archive/2026-06-02-update-note-workflow/specs/note-update-workflow"
+      ],
+      "sortOrder": "custom"
+    },
+    "openspec/changes/archive/2026-06-02-update-note-workflow/specs/note-update-workflow": {
+      "children": [
+        "openspec/changes/archive/2026-06-02-update-note-workflow/specs/note-update-workflow/spec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "openspec/specs": {
+      "children": [
+        "openspec/specs/autonomy-levels",
+        "openspec/specs/hybrid-note-types",
+        "openspec/specs/note-update-workflow",
+        "openspec/specs/requirement-discovery",
+        "openspec/specs/subagent-orchestration"
+      ],
+      "sortOrder": "custom"
+    },
+    "openspec/specs/autonomy-levels": {
+      "children": [
+        "openspec/specs/autonomy-levels/spec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "openspec/specs/hybrid-note-types": {
+      "children": [
+        "openspec/specs/hybrid-note-types/spec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "openspec/specs/note-update-workflow": {
+      "children": [
+        "openspec/specs/note-update-workflow/spec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "openspec/specs/requirement-discovery": {
+      "children": [
+        "openspec/specs/requirement-discovery/spec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "openspec/specs/subagent-orchestration": {
+      "children": [
+        "openspec/specs/subagent-orchestration/spec.md"
       ],
       "sortOrder": "custom"
     },

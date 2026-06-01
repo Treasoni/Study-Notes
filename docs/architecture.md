@@ -19,7 +19,7 @@ study-system/
 ├── .obsidian-config.md           # Vault path, system root config
 │
 ├── docs/                         # Extracted reference documentation
-│   ├── phases.md                 # Phase 0-6 detailed steps
+│   ├── phases.md                 # Phase 0-5 detailed steps
 │   ├── pre-task-init.md          # Vault path validation details
 │   ├── experience-notes.md       # 心得笔记 workflow
 │   ├── updating-notes.md         # INSERT / REFRESH modes

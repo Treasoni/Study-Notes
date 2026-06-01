@@ -1,0 +1,4 @@
+schema: v1
+name: tool-registry-collect-refactor
+description: "创建工具自动发现层，解耦 collect 技能与 opencli 的硬依赖，支持多工具优先级选择"
+created: 2026-06-01
