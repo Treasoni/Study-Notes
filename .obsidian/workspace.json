@@ -11,16 +11,13 @@
             "id": "e36d73967f5c48ba",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
-                "viewState": {
-                  "x": 910.3675815349571,
-                  "y": 650.8089033008894,
-                  "zoom": -0.8299959785213705
-                }
+                "file": "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
+              "icon": "lucide-file",
               "title": "OpenSpec-使用入门与速查"
             }
           }
@@ -159,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI实战/工程实践/Claude Code Subagent与Skill调度机制.md",
+                "file": "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Claude Code Subagent与Skill调度机制 的大纲"
+              "title": "OpenSpec-使用入门与速查 的大纲"
             }
           },
           {
@@ -211,10 +208,10 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "e36d73967f5c48ba",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
-    "StudySystem/1-curated/OpenSpec/practice-examples.md",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
+    "StudySystem/1-curated/OpenSpec/practice-examples.md",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.md",
     "GitHub项目/OpenSpec",
     "StudySystem/2-drafts/OpenSpec/OpenSpec-使用入门与速查.md",

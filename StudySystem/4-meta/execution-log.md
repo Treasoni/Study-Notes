@@ -44,4 +44,7 @@
 - Note type: concept + cheat_sheet（含实战示例）
 - Source: https://github.com/Fission-AI/OpenSpec
 - Output path: /Users/zhqznc/Documents/项目/GitHub项目/OpenSpec/
-- Status: started
+- Status: completed (2026-06-01)
+- Final file: GitHub项目/OpenSpec/OpenSpec-使用入门与速查.md
+- Canvas: GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas
+- Phases completed: 1-4, 6 (skipped 5 per user request)
