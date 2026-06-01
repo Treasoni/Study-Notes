@@ -1,13 +1,28 @@
 ---
 title: Subagent Token 吞噬与缓存失效分析
 type: experience
+difficulty: intermediate
 tags:
   - claude-code
   - subagent
   - token-optimization
   - prompt-caching
   - architecture
+  - performance
+  - best-practice
 created: 2026-06-02
+updated: 2026-06-02
+aliases:
+  - Subagent Token 吞噬分析
+concepts:
+  - Token 消耗雪崩
+  - Prompt Caching 缓存失效
+  - System Prompt 乘数效应
+  - 上下文雪崩
+  - 反思内耗
+  - 缓存友好型 Prompt
+sources:
+  - 实际工程观测
 ---
 
 # Subagent Token 吞噬与缓存失效分析
@@ -22,11 +37,11 @@ created: 2026-06-02
 
 ### Token 消耗雪崩
 
-Subagent 架构的直观好处是分工明确、各司其职，但在实践中极易陷入 **Token 暴涨黑洞**。一个简单的"美化笔记"任务，可能消耗数万甚至数十万 Token，远超预期。
+Subagent 架构的直观好处是分工明确、各司其职，但在实践中极易陷入 ==Token 暴涨黑洞==。一个简单的"美化笔记"任务，可能消耗数万甚至数十万 Token，远超预期。
 
 ### 缓存命中率极低（Cache Miss）
 
-大模型 API 的 Prompt Caching 依赖**前缀完全匹配**。动态状态和多 Agent 轮询切换频繁破坏前缀一致性，导致缓存命中率极低，每次调用都按全价计费。
+大模型 API 的 Prompt Caching 依赖 ==前缀完全匹配==。动态状态和多 Agent 轮询切换频繁破坏前缀一致性，导致缓存命中率极低，每次调用都按全价计费。
 
 ---
 
@@ -36,7 +51,10 @@ Subagent 架构的直观好处是分工明确、各司其职，但在实践中�
 
 每个 Subagent 都携带独立的系统提示词（角色定义、工具列表、SOP 流程）。当主路由在多个 Subagent 之间频繁切换时，这些**长文本 System Prompt 被反复计费**。
 
-> **典型场景**：一个工作流涉及 4 个 Subagent（collector / curator / writer / beautifier），每次切换都要重新加载一套完整的 System Prompt。假设每个 Prompt ~1500 tokens，4 次切换光 Prompt 就消耗 6000 tokens，而这还不算实际任务内容。
+> [!example] 典型场景
+> 一个工作流涉及 4 个 Subagent（collector / curator / writer / beautifier），每次切换都要重新加载一套完整的 System Prompt。假设每个 Prompt ~1500 tokens，4 次切换光 Prompt 就消耗 6000 tokens，而这还不算实际任务内容。
+
+相关 Subagent 路由机制可参考 [[Subagent调度策略]]。
 
 ### 2. 上下文雪崩（Context Carrying）
 
@@ -45,8 +63,7 @@ Subagent 架构的直观好处是分工明确、各司其职，但在实践中�
 - Agent A 输出 2000 tokens
 - Agent B 收到 A 的输出 + 自己的历史 ≈ 5000 tokens
 - Agent C 收到 A+B 的输出 + 自己的历史 ≈ 9000 tokens
-- ...
-- 上下文像滚雪球般膨胀，**最终 Agent 的输入远超实际需要**
+- ...上下文像滚雪球般膨胀，**最终 Agent 的输入远超实际需要**
 
 ### 3. 反思内耗（Reasoning Loop）
 
@@ -60,7 +77,8 @@ Subagent 架构的直观好处是分工明确、各司其职，但在实践中�
 | 隐式反思循环（每轮） | 1000–3000 | Agent 内部"想一下再干" |
 | 复杂任务总隐性消耗 | 3000–15000 | 3–5 轮反思循环后，最终输出可能仅 100 字 |
 
-> **真实案例**：某次 Beautify 任务中，Subagent 最终产出的笔记正文约 3000 tokens，但**中间反思和重试消耗了超过 2 万 tokens**，占比高达 87%。
+> [!bug] 真实案例代价
+> 某次 Beautify 任务中，Subagent 最终产出的笔记正文约 3000 tokens，但**中间反思和重试消耗了超过 2 万 tokens**，占比高达 ==87%==。
 
 ---
 
@@ -103,28 +121,29 @@ Subagent 在执行过程中频繁调用本地命令（`ls`、`mkdir` 等），�
 
 大模型 Prompt Caching 的匹配规则是**自上而下、前缀完全一致**。因此 Prompt 内部的结构排列直接影响缓存命中率。
 
-#### ❌ 糟糕结构（极易 Miss）
+#### 糟糕结构（极易 Miss）
 
 ```
 [固定角色定义]          ← 这部分匹配缓存
-[动态 TODO / 上次结果]  ← 动态内容打破了前缀一致性 → Cache Miss ❌
+[动态 TODO / 上次结果]  ← 动态内容打破了前缀一致性 → Cache Miss
 [庞大工具列表]          ← 重新加载，全价计费
 [静态 Skill 定义]
 ```
 
-#### ✅ 优化结构（高 Hit 率）
+#### 优化结构（高 Hit 率）
 
 ```
-[固定角色定义]          ← 匹配缓存 ✅
-[庞大工具列表]          ← 匹配缓存 ✅
-[静态 Skill 定义]       ← 匹配缓存 ✅
-[⚠️ 显式缓存截断点]     ← 标记：此处之前可缓存
+[固定角色定义]          ← 匹配缓存
+[庞大工具列表]          ← 匹配缓存
+[静态 Skill 定义]       ← 匹配缓存
+[缓存截断点]           ← 标记：此处之前可缓存
 ───────────────────────
 [当前动态输入]          ← 仅这部分按新内容计费
 [TODO 状态]
 ```
 
-**关键原则**：把**所有静态内容**（角色、工具列表、Skill 定义）前置排列，把**动态内容**（TODO 状态、文件路径、上一步结果）统一后置，让静态前缀尽可能长。
+> [!tip] 关键原则
+> 把所有**静态内容**（角色、工具列表、Skill 定义）前置排列，把**动态内容**（TODO 状态、文件路径、上一步结果）统一后置，让静态前缀尽可能长。
 
 ### 策略 2：限制工具权限，实施"精准喂食"
 
@@ -143,10 +162,11 @@ Subagent 在执行过程中频繁调用本地命令（`ls`、`mkdir` 等），�
 
 由主路由先进行低成本检索，**只把当前步骤绝对必需**的知识切片喂给 Subagent：
 
-```
-❌ 错误做法: Subagent 自行 Glob 搜索 → 读取多个大文件
-✅ 正确做法: 主路由预先检索 → 裁剪出关键段落 → 传递给 Subagent
-```
+> [!danger] 错误做法
+> Subagent 自行 Glob 搜索 → 读取多个大文件
+
+> [!success] 正确做法
+> 主路由预先检索 → 裁剪出关键段落 → 传递给 Subagent
 
 **主路由自身也有成本**，但实测对比显示：
 
@@ -154,7 +174,7 @@ Subagent 在执行过程中频繁调用本地命令（`ls`、`mkdir` 等），�
 |------|--------------|------|
 | Subagent 自行搜索 | 8000–25000 | 含多次 Glob + 全量读取大文件 |
 | 主路由裁剪后投喂 | 2000–5000 | 主路由裁剪消耗 ~500 tokens，投喂内容 ~2000 tokens |
-| **节省比例** | **60–75%** | 裁剪策略净节省显著 |
+| **节省比例** | ==60–75%== | 裁剪策略净节省显著 |
 
 ### 策略 3：使用"单向快照"代替"全量历史"
 
@@ -164,13 +184,11 @@ Subagent 之间通信时，**禁止传递全量思考过程**（Thought Process�
 
 #### 轻量化交付（Handover）
 
-```
-❌ 错误做法:
-  Agent A 的全部对话历史 (5000 tokens) → Agent B
+> [!danger] 错误做法
+> Agent A 的全部对话历史（5000 tokens）→ Agent B
 
-✅ 正确做法:
-  Agent A 的输出成果/交付物 (500 tokens) → Agent B
-```
+> [!success] 正确做法
+> Agent A 的输出成果/交付物（500 tokens）→ Agent B
 
 Agent A 结束工作时，仅总结提炼出一份精简的 **Artifact（交付物）** 传给 Agent B，切断无意义的 Token 累积。
 
@@ -180,7 +198,7 @@ Agent A 结束工作时，仅总结提炼出一份精简的 **Artifact（交付�
 
 ### 根因诊断：CLAUDE.md 的全局继承问题
 
-当前 `CLAUDE.md` 中的三段指令设计时**只考虑了主 Agent**，但没有明确排除 Subagent：
+当前 `CLAUDE.md` 中的三段指令设计时**只考虑了主 Agent**，但没有明确排除 Subagent（参见 [[CLAUDE.md放置策略]]）：
 
 | 指令段 | 对 Subagent 的影响 |
 |--------|-------------------|
@@ -189,6 +207,24 @@ Agent A 结束工作时，仅总结提炼出一份精简的 **Artifact（交付�
 | Mandatory Triggered Reads | Subagent 读取不需要的大文件 |
 
 由于 Claude Code 的系统提示注入机制，所有 Subagent 都会**继承这些全局指令**，导致启动时先做 5–10 次无意义的搜索和读取，然后才开始真正的任务。
+
+### 架构变更示意
+
+```mermaid
+flowchart LR
+    subgraph BEFORE["修改前（指令全量继承）"]
+        direction TB
+        CM["CLAUDE.md<br/>全局指令"] -->|继承全部指令| SUB1["Subagent"]
+        SUB1 --> GLOB["5-10 次 Glob/Read<br/>引发 Cache Miss"]
+        GLOB --> W1["再开始实际任务"]
+    end
+
+    subgraph AFTER["修改后（skip 阻断）"]
+        direction TB
+        CM2["CLAUDE.md<br/>MAIN ONLY"] -. "被 skip 指令阻断" .-> SUB2["Subagent"]
+        SUB2 --> W2["直接执行任务<br/>零额外消耗"]
+    end
+```
 
 ### 方案对比
 
@@ -202,33 +238,6 @@ Agent A 结束工作时，仅总结提炼出一份精简的 **Artifact（交付�
 - **方案 A** 解决全局继承问题（根源）
 - **方案 C** 解决 Subagent 内部的低效搜索（症状）
 
-### 架构变更示意
-
-```
-修改前:
-┌──────────────┐     继承 CLAUDE.md     ┌──────────────┐
-│   CLAUDE.md  │ ──────────────────────▶│  Subagent    │
-│  (全局指令)   │     Resource Discovery │  (执行任务)   │
-│              │     Pre-Task Init      │              │
-│              │     Mandatory Reads    │  → 先做 5-10  │
-│              │                        │    次 Glob/Read│
-│              │                        │  → 再干活     │
-└──────────────┘                        └──────────────┘
-
-修改后:
-┌──────────────┐    被 skip 指令阻断    ┌──────────────┐
-│   CLAUDE.md  │ ──✗───────────────────▶│  Subagent    │
-│  (全局指令)   │                        │  (执行任务)   │
-│  MAIN ONLY   │                        │              │
-│              │                        │  → 直接干活   │
-└──────────────┘                        └──────────────┘
-       │                                       │
-       │  TODO.md 中记录                        │
-       │  每个 phase 的                         │
-       │  输入/输出路径                          │
-       └───────────────────────────────────────┘
-```
-
 ### 跨阶段路径传递改进
 
 扩展 TODO.md 格式，为每个 Phase 记录输入/输出路径，让后续 Subagent **精确获取所需内容，无需自己搜索**：
@@ -236,7 +245,7 @@ Agent A 结束工作时，仅总结提炼出一份精简的 **Artifact（交付�
 ```markdown
 ## Phase 1: Collect
 - [x] 完成收集
-  - input: N/A (用户输入)
+  - input: N/A（用户输入）
   - output: {SYSTEM_ROOT}/0-inbox/{topic}/raw/
 
 ## Phase 2: Curate
@@ -247,17 +256,13 @@ Agent A 结束工作时，仅总结提炼出一份精简的 **Artifact（交付�
 
 ### Wikilink 验证范围优化
 
-Subagent 在验证文件链接时，也常做不必要的全盘搜索：
+Subagent 在验证文件链接时，也常做不必要的全盘搜索（参见 [[Agent与Skills架构设计]]）：
 
-```
-❌ 旧行为: Glob **/目标名.md  
-   → 扫描整个 vault，返回大量无关结果
+> [!danger] 旧行为
+> Glob **/目标名.md → 扫描整个 vault，返回大量无关结果
 
-✅ 新行为: Glob {OUTPUT_PATH}/目标名.md  
-   → 只在目标目录搜索
-   Glob {SYSTEM_ROOT}/**/目标名.md  
-   → 只在系统目录搜索
-```
+> [!success] 新行为
+> Glob {OUTPUT_PATH}/目标名.md → 只在目标目录搜索<br/>Glob {SYSTEM_ROOT}/**/目标名.md → 只在系统目录搜索
 
 搜索范围从整个 Vault 缩小到 1–2 个目录，**减少 80%+ 的 Glob 结果**。
 
@@ -265,11 +270,10 @@ Subagent 在验证文件链接时，也常做不必要的全盘搜索：
 
 ## 六、总结与行动清单
 
-### 关键认知
-
-1. **Subagent 的自动不等于高效** — 自动化程度越高，越需要约束机制
-2. **Cache Miss 比 Token 消耗更隐蔽** — 不仅浪费 Token，还降低响应速度
-3. **优化是系统工程** — 需要 Prompt 结构、工具权限、通信协议三管齐下
+> [!quote] 关键认知
+> 1. **Subagent 的自动不等于高效** — 自动化程度越高，越需要约束机制
+> 2. **Cache Miss 比 Token 消耗更隐蔽** — 不仅浪费 Token，还降低响应速度
+> 3. **优化是系统工程** — 需要 Prompt 结构、工具权限、通信协议三管齐下
 
 ### 可立即实施的优化项
 
@@ -287,3 +291,6 @@ Subagent 在验证文件链接时，也常做不必要的全盘搜索：
 - [[Claude Code 防遗忘策略]] — 相关的 Subagent 行为规范
 - [[CodeGraph实战笔记]] — Agent 架构上下文感知的实践
 - [[sortspec]] — 排序与规范化相关经验
+- [[Subagent调度策略]] — Subagent 调度与路由机制
+- [[Agent与Skills架构设计]] — Agent 系统架构设计参考
+- [[CLAUDE.md放置策略]] — CLAUDE.md 指令隔离策略
