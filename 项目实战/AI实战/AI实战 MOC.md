@@ -26,16 +26,16 @@ graph TD
 ## 笔记索引
 
 ### 工程实践
-- [[CLAUDE.md放置策略]] #claude-code
-- [[Claude Code自我学习机制]] #Claude-Code
-- [[ClaudeCode工作流遵守问题]] #AI工程
-- [[Claude Code Subagent与Skill调度机制]] #claude-code
+- [[../../npm/AI实战/工程实践/CLAUDE.md放置策略]] #claude-code
+- [[../../npm/AI实战/工程实践/Claude Code自我学习机制]] #Claude-Code
+- [[../../npm/AI实战/工程实践/ClaudeCode工作流遵守问题]] #AI工程
+- [[工程实践/Claude Code Subagent与Skill调度机制]] #claude-code
 - [[工程实践/Subagent调度策略]] #Claude-Code #Subagent #Skill
 - [[Claude Code 防遗忘策略]] #AI工程 #ClaudeCode #工作流
 
 ### 架构设计
-- [[Agent与Skills架构设计]] #Agent
-- [[Claude Code项目动态技能发现机制]] #claude-code
+- [[../../npm/AI实战/架构设计/Agent与Skills架构设计]] #Agent
+- [[../../npm/AI实战/架构设计/Claude Code项目动态技能发现机制]] #claude-code
 
 ## 概览
 

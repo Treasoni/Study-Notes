@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI实战/架构设计/Claude Code项目动态技能发现机制.md",
+                "file": "项目实战/AI实战/架构设计/Claude Code项目动态技能发现机制.md",
                 "mode": "source",
                 "source": false
               },
@@ -223,12 +223,14 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "52ff2f9fbef74052",
   "lastOpenFiles": [
+    "项目实战/git实战",
+    "项目实战",
     "docs/learnings-digest.md",
     "docs/error-handling.md",
     "openspec/changes/2026-06-02-gitignore-readme-cleanup/design.md",
-    "AI实战/架构设计/Claude Code项目动态技能发现机制.md",
+    "项目实战/AI实战/架构设计/Claude Code项目动态技能发现机制.md",
     "openspec/specs/subagent-orchestration/spec.md",
     "openspec/specs/subagent-orchestration",
     "openspec/specs/requirement-discovery/spec.md",
@@ -250,7 +252,6 @@
     "openspec/changes/archive/2026-06-01-tool-registry-collect-refactor/tasks.md",
     "openspec/changes/archive/2026-06-01-tool-registry-collect-refactor/proposal.md",
     "openspec/changes/archive/2026-06-01-tool-registry-collect-refactor/design.md",
-    "openspec/changes/archive/2026-06-01-tool-registry-collect-refactor",
     "openspec/changes/archive/2026-06-01-study-system-refactor/specs/subagent-orchestration/spec.md",
     "openspec/changes/archive/2026-06-01-study-system-refactor/specs/requirement-discovery/spec.md",
     "openspec/changes/archive/2026-06-01-study-system-refactor/specs/autonomy-levels/spec.md",
@@ -260,7 +261,6 @@
     "openspec/changes/archive/2026-06-01-study-system-refactor/design.md",
     "openspec/changes/2026-06-02-gitignore-readme-cleanup/tasks.md",
     "openspec/changes/2026-06-02-gitignore-readme-cleanup/proposal.md",
-    "docs/superpowers/reports/2026-06-01-update-note-workflow-verify.md",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
     "web-articles/What_is_harness_engineering/images/img_002.png",

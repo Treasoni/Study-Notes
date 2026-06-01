@@ -219,6 +219,6 @@ my-project/
 ### 相关笔记
 
 - [[ClaudeCode工作流遵守问题]]
-- [[Agent与Skills架构设计]]
-- [[Claude Code项目动态技能发现机制]]
+- [[../../../项目实战/AI实战/架构设计/Agent与Skills架构设计]]
+- [[../../../项目实战/AI实战/架构设计/Claude Code项目动态技能发现机制]]
 - [[Claude Code自我学习机制]]

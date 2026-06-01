@@ -188,9 +188,9 @@ Claude Code 内置了三个开箱即用的 Subagent：
 
 ## 相关资源
 
-- [[Subagent 实战练习]] - 动手实践 Subagent 的配置与调用
-- [[Claude Code Slash Commands 完整参考]] - `/agents` 等命令详细用法
-- [[Claude Code 会话管理]] - 会话与 Subagent 上下文隔离的协同管理
+- [[../../../AI学习/Claude Code 教程/Subagent 实战练习]] - 动手实践 Subagent 的配置与调用
+- [[../../../AI学习/Claude Code 教程/Claude Code Slash Commands 完整参考]] - `/agents` 等命令详细用法
+- [[../../../AI学习/Claude Code 教程/Claude Code 会话管理]] - 会话与 Subagent 上下文隔离的协同管理
 
 ---
 

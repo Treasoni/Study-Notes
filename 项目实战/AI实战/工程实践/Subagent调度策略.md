@@ -195,4 +195,4 @@ flowchart TB
 ## 相关笔记
 
 - [[Claude Code Subagent与Skill调度机制]] — 更详细的调度机制说明
-- [[../../AI学习/Claude Code 教程/Subagent 实战练习]] — 动手实践 Subagent 的配置与调用
+- [[../../../AI学习/Claude Code 教程/Subagent 实战练习]] — 动手实践 Subagent 的配置与调用
