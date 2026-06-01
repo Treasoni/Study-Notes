@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "StudySystem/0-inbox/OpenSpec/raw/13-blog-openspec-sdd-guide-tc.md",
+                "file": "StudySystem/1-curated/OpenSpec/practice-examples.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "13-blog-openspec-sdd-guide-tc"
+              "title": "practice-examples"
             }
           }
         ]
@@ -208,12 +208,16 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "e36d73967f5c48ba",
   "lastOpenFiles": [
+    "StudySystem/1-curated/OpenSpec/core-concepts.md",
+    "StudySystem/0-inbox/OpenSpec/raw/13-blog-openspec-sdd-guide-tc.md",
+    "StudySystem/1-curated/OpenSpec/discarded.md",
+    "StudySystem/1-curated/OpenSpec/references.md",
+    "StudySystem/1-curated/OpenSpec/gaps-report.md",
     "StudySystem/1-curated/OpenSpec/knowledge-map.md",
     "StudySystem/1-curated/OpenSpec/advanced-principles.md",
     "StudySystem/1-curated/OpenSpec/practice-examples.md",
-    "StudySystem/1-curated/OpenSpec/core-concepts.md",
     "StudySystem/1-curated/OpenSpec",
     "StudySystem/0-inbox/OpenSpec/raw/09-supported-tools.md",
     "StudySystem/0-inbox/OpenSpec/raw/07-customization.md",
@@ -225,7 +229,6 @@
     "StudySystem/0-inbox/OpenSpec/raw/16-blog-sdd-comparison-openspec-superpowers.md",
     "StudySystem/0-inbox/OpenSpec/raw/15-reddit-openspec-beads-experience.md",
     "StudySystem/0-inbox/OpenSpec/raw/14-blog-openspec-initial-guide-cn.md",
-    "StudySystem/0-inbox/OpenSpec/raw/13-blog-openspec-sdd-guide-tc.md",
     "StudySystem/0-inbox/OpenSpec/raw/12-blog-gigazine-walkthrough.md",
     "StudySystem/0-inbox/OpenSpec/raw/11-release-notes.md",
     "StudySystem/0-inbox/OpenSpec/raw/10-multi-language.md",
@@ -236,10 +239,7 @@
     "AI实战/工程实践/Claude Code Subagent与Skill调度机制.md",
     "StudySystem/0-inbox/OpenSpec/raw",
     "StudySystem/0-inbox/OpenSpec",
-    "GitHub项目/comet/comet.md",
-    "StudySystem/2-drafts/comet/comet-笔记.md",
     "GitHub项目/comet",
-    "GitHub项目/ECC/Claude-Code-速记指南.md",
     "StudySystem/2-drafts/comet",
     "StudySystem/1-curated/comet",
     "StudySystem/0-inbox/comet/raw",
