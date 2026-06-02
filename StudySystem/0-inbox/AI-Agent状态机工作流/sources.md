@@ -25,3 +25,5 @@
 | 21 | Testing LangGraph Agents | https://docs.langchain.com/oss/python/langgraph/test | LangChain | 2025 | technical_docs | pytest、partial execution |
 | 22 | LangGraph Multi-Agent Workflows (Blog) | https://www.langchain.com/blog/langgraph | LangChain | 2024 | blog_posts | 早期多 agent 介绍，内容较薄 |
 | 23 | LangGraph GitHub README Overview | https://github.com/langchain-ai/langgraph | LangChain | 2025 | technical_docs | 项目主页、生态定位 |
+| 24 | Building Multi agent Systems with FSM (AI Engineer) | https://www.youtube.com/watch?v=OD13PiXw60o | Adam Terlson | 2025-02-22 | videos | 直接讲 FSM+Actor Model 构建 agent，Chartering 新概念 |
+| 25 | Building Effective Agents with LangGraph (LangChain 官方) | https://www.youtube.com/watch?v=aHCDrAbH_go | Lance Martin | 2025-01-27 | videos | LangGraph 设计哲学最权威视频，覆盖所有 workflow+agent 模式 |
