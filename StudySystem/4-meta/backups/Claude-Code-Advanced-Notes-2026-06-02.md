@@ -9,7 +9,7 @@ tags:
   - #token优化
   - #记忆持久化
 created: 2026-05-27
-updated: 2026-06-02
+updated: 2026-05-27
 sources:
   - https://code.claude.com/docs/en/overview
   - https://code.claude.com/docs/en/how-claude-code-works
@@ -71,10 +71,6 @@ Claude 的上下文窗口 = 对话历史 + 文件内容 + 命令输出 + CLAUDE.
 
 ### 1. Token 优化是关键
 
-#### 核心策略：Subagent 架构
-
-Token 优化的首要手段是合理使用 Subagent 架构，将任务委托给最便宜的够用模型：
-
 | 优化手段 | 效果 |
 |----------|------|
 | 系统提示精简 | 18k → 10k tokens（节省 41%）|
@@ -82,63 +78,14 @@ Token 优化的首要手段是合理使用 Subagent 架构，将任务委托给�
 | 后台进程外执行 | 减少输入 tokens |
 | 模型按需选择 | 成本优化 |
 
-在 Agent 定义中显式指定 model 字段：
+**模型选择参考**：
 
-```yaml
----
-name: quick-search
-description: Fast file search
-tools: Glob, Grep
-model: haiku # 便宜且够用
----
-```
-
-#### 模型选择参考
-
-| 场景 | 推荐模型 | 理由 |
-|------|----------|------|
-| 重复性任务、明确指令、Worker 角色 | **Haiku** | 最便宜，够用 |
-| 90% 的日常编码任务 | **Sonnet** | 性价比最高 |
-| 首次失败、5+ 文件、架构决策、安全关键代码 | **Opus** | 最强推理 |
+- **Haiku**：重复性任务、明确指令、Worker 角色
+- **Sonnet**：90% 的日常编码任务
+- **Opus**：首次失败、5+ 文件任务、架构决策、安全关键代码
 
 > [!tip] 价格参考
 > Haiku vs Opus = **5 倍**价格差，Sonnet vs Opus = **1.67 倍**。日常任务用 Sonnet 即可。
-
-#### Benchmarking 方法（进阶）
-
-如果你想知道哪种模型最适合你的项目，可以设置 Benchmark：
-
-1. 准备一个有明确定义任务和计划的仓库
-2. 在每个 git worktree 中，让 Subagent 使用不同模型
-3. 日志记录任务完成情况
-4. 对比 diff、运行统一测试套件，量化结果
-
-如果所有模型都通过测试，说明需要增加测试复杂度或边缘用例。
-
-#### 后台进程优化
-
-在 Claude 之外运行后台进程（如用 tmux），避免 Claude 处理完整输出流。终端输出只取摘要或所需部分即可，**输入 Token 才是主要成本来源**（Opus 4.5 输入 $5/百万 tokens vs 输出 $25/百万 tokens）。
-
-#### 模块化代码库
-
-代码库越模块化（每个文件几百行而不是几千行），Claude 越容易一次性正确完成任务。长文件需要多次工具调用才能读完，中途可能丢失信息，且反复读取消耗额外 Token。
-
-```
-root/
-├── src/
-│   ├── modules/
-│   │   ├── ordering/      # 自包含模块
-│   │   │   ├── domain/
-│   │   │   ├── use-cases/
-│   │   │   └── tests/
-│   │   └── catalog/
-│   └── shared/
-├── scripts/
-└── docs/
-```
-
-> [!tip] 清理死代码
-> 用 Skills 持续清理死代码和重复代码。代码库越精简，Token 成本越低。
 
 ### 2. 记忆持久化三层体系
 
@@ -146,79 +93,7 @@ root/
 |------|------|----------|
 | 每次会话 | [[Claude Code Memory 完整指南\|CLAUDE.md]] | 会话开始 |
 | 按需 | Skills | 使用时加载 |
-| 自动 | Auto Memory / Hooks | 会话生命周期事件 |
-
-#### Session Log 模式
-
-跨会话记忆的最佳实践是用 Skill 或命令在 `.tmp` 文件中保存会话状态。每天创建新文件，避免旧上下文污染新工作：
-
-```
-~/.claude/sessions/YYYY-MM-DD-topic.tmp
-```
-
-文件中应包含：
-- **什么方法可行**（附可验证的证据）
-- **尝试过但不奏效的方法**
-- **尚未尝试的方法和剩余任务**
-
-新会话开始时提供文件路径即可继续。
-
-#### 持久化 Hooks 配置
-
-利用 Claude Code 的 Hook 系统实现自动记忆持久化：
-
-```json
-{
-  "hooks": {
-    "PreCompact": [{
-      "matcher": "*",
-      "hooks": [{
-        "type": "command",
-        "command": "~/.claude/hooks/memory-persistence/pre-compact.sh"
-      }]
-    }],
-    "SessionStart": [{
-      "matcher": "*",
-      "hooks": [{
-        "type": "command",
-        "command": "~/.claude/hooks/memory-persistence/session-start.sh"
-      }]
-    }],
-    "Stop": [{
-      "matcher": "*",
-      "hooks": [{
-        "type": "command",
-        "command": "~/.claude/hooks/memory-persistence/session-end.sh"
-      }]
-    }]
-  }
-}
-```
-
-各 Hook 职责：
-- **PreCompact**：压缩前保存重要状态、记录压缩时间戳
-- **SessionStart**：检查最近会话文件（7 天内），通知可用上下文
-- **Stop**：会话结束时创建/更新每日会话文件，记录起止时间
-
-#### Continuous Learning（持续学习）
-
-**Stop Hook 自动提取**：在 Stop Hook 上绑定 evaluate-session 脚本，会话结束时自动分析会话中值得提取的模式（错误解决方案、调试技巧、项目特定模式等），保存为可复用的 Skill。
-
-```bash
-# 安装 continuous-learning skill
-mkdir -p ~/.claude/skills/continuous-learning
-curl -sL https://raw.githubusercontent.com/affaan-m/everything-claude-code/main/skills/continuous-learning/evaluate-session.sh > ~/.claude/skills/continuous-learning/evaluate-session.sh
-chmod +x ~/.claude/skills/continuous-learning/evaluate-session.sh
-```
-
-> [!info] 为什么用 Stop Hook 而不是 UserPromptSubmit
-> UserPromptSubmit 每条消息都触发——开销大、延迟高。Stop 只在会话结束时运行一次——轻量、不中断工作流，且评估完整会话。
-
-**`/learn` 手动提取**：不等到会话结束，刚解决一个非平凡问题时可以运行 `/learn` 命令，立即提取模式并草拟 Skill 文件，确认后保存。
-
-**其他自我改进模式**：
-- **[@RLanceMartin](https://x.com/@RLanceMartin) 的会话反思**：每个会话后用反射 Agent 提取"什么做得好、什么失败、你纠正了什么"，更新记忆文件供后续会话加载
-- **[@alexhillman](https://x.com/@alexhillman) 的主动建议**：系统每 15 分钟主动建议记忆更新，你批准或拒绝，长期学习你的审批模式
+| 自动 | Auto Memory | 自动保存学习 |
 
 ### 3. 会话管理命令
 
@@ -228,44 +103,11 @@ chmod +x ~/.claude/skills/continuous-learning/evaluate-session.sh
 | `/compact` | 手动压缩上下文 |
 | `/rewind` | 回溯到之前状态 |
 | `/btw` | 快速提问，不进入历史 |
-| `/rename` | 命名当前会话（多会话时区分用途）|
 
 > [!tip] 实践建议
 > 在不同任务之间用 `/clear` 重置上下文，保持会话轻量。
 
-#### 战略 Compact（进阶）
-
-自动 Compact 可能在任务中途的任意时间点触发，打乱工作流。禁用自动 Compact，改为在逻辑间隔手动触发：
-
-- **探索完成后、执行开始前** — 清理探索上下文
-- **完成一个里程碑后、开始下一个之前**
-- 或创建一个 Skill 根据预定条件建议 Compact
-
-**战略 Compact Hook 示例**（绑定到 PreToolUse，在 Edit/Write 操作达阈值时提醒）：
-
-```bash
-#!/bin/bash
-# Strategic Compact Suggester
-# 阈值后建议 /compact
-
-COUNTER_FILE="/tmp/claude-tool-count-$$"
-THRESHOLD=${COMPACT_THRESHOLD:-50}
-
-if [ -f "$COUNTER_FILE" ]; then
-  count=$(cat "$COUNTER_FILE")
-  count=$((count + 1))
-  echo "$count" > "$COUNTER_FILE"
-else
-  echo "1" > "$COUNTER_FILE"
-  count=1
-fi
-
-if [ "$count" -eq "$THRESHOLD" ]; then
-  echo "[StrategicCompact] $THRESHOLD tool calls reached — 考虑 /compact" >&2
-fi
-```
-
-### 4. Evals 与验证循环
+### 4. 给 Claude 验证标准
 
 > [!important] 单条最高杠杆的操作
 > 提供测试用例、截图、预期输出，让 Claude 自我验证。
@@ -275,58 +117,6 @@ fi
 ✅ "实现 validateEmail。测试用例：user@example.com → true, invalid → false,
     user@.com → false。实现后运行测试。"
 ```
-
-#### Eval 模式类型
-
-```mermaid
-flowchart TB
-    subgraph CHECKPOINT["Checkpoint-Based Evals"]
-        CT1[Task 1] --> CP1{Checkpoint #1}
-        CP1 -->|pass| CT2[Task 2]
-        CP1 -->|fail| FIX1[Fix]
-        FIX1 --> CP1
-        CT2 --> CP2{Checkpoint #2}
-        CP2 -->|pass| CT3[...]
-    end
-
-    subgraph CONTINUOUS["Continuous Evals"]
-        W[Work] --> T[Timer/Change]
-        T --> RUN[Run Tests + Lint]
-        RUN -->|pass| WC[Continue]
-        RUN -->|fail| WF[Stop & Fix]
-        WF --> W
-    end
-```
-
-- **Checkpoint-Based**：在工作流中设置显式检查点，在每个检查点验证标准，未通过则修复后才继续。适合有清晰阶段的线性工作流
-- **Continuous**：每 N 分钟或重大变更后运行完整测试+ lint，立即报告回归问题。适合探索性重构或维护
-
-#### Grader 类型
-
-| 类型 | 优点 | 缺点 |
-|------|------|------|
-| **Code-Based**（字符串匹配、二进制测试、静态分析） | 快速、便宜、客观 | 对有效变体脆性 |
-| **Model-Based**（评分标准、自然语言断言、成对比较） | 灵活、处理细微差别 | 非确定性、更贵 |
-| **Human**（专家评审、众包判断、抽样检查） | 黄金标准质量 | 昂贵、慢 |
-
-#### 关键指标
-
-```
-pass@k: 至少一次成功         pass^k: 全部必须成功
-k=1: 70%  k=3: 91%  k=5: 97%   k=1: 70%  k=3: 34%  k=5: 17%
-只需一次成功 → pass@k          需确定一致性 → pass^k
-```
-
-#### 构建 Eval Roadmap
-
-1. **尽早开始** — 从真实失败的 20-50 个简单任务开始
-2. **用户汇报的失败 → 测试用例**
-3. **写 unambiguous 任务** — 两个专家应得出相同结论
-4. **平衡问题集** — 测试应发生和不应发生的行为
-5. **健壮测试环境** — 每次试验从干净环境开始
-6. **评估产出，而非路径**
-7. **多个试验后阅读 transcripts**
-8. **监控饱和** — 100% 通过率意味着需要加更多测试
 
 ### 5. Subagent 是并行化的关键
 
