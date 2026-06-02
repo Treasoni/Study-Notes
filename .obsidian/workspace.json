@@ -11,17 +11,14 @@
             "id": "e36d73967f5c48ba",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
-                "viewState": {
-                  "x": 311.1963170360571,
-                  "y": 404.3694991372757,
-                  "zoom": -0.22878439003175544
-                }
+                "file": "StudySystem/0-inbox/AI-Agent状态机工作流/raw/video-01.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "AI-Agent-状态机工作流"
+              "icon": "lucide-file",
+              "title": "video-01"
             }
           }
         ]
@@ -213,9 +210,10 @@
   },
   "active": "e36d73967f5c48ba",
   "lastOpenFiles": [
-    "AI学习/01-基础概念/AI-Agent-状态机工作流.base",
-    "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
+    "StudySystem/0-inbox/AI-Agent状态机工作流/sources.md",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.md",
+    "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
+    "AI学习/01-基础概念/AI-Agent-状态机工作流.base",
     "AI学习/01-基础概念/上下文工程/AI上下文工程.md",
     "StudySystem/2-drafts/AI-Agent状态机工作流/AI-Agent-状态机工作流.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-07.md",
@@ -223,7 +221,6 @@
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/video-02.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/video-01.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/metadata.yaml",
-    "StudySystem/0-inbox/AI-Agent状态机工作流/sources.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-10.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-12.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-15.md",
