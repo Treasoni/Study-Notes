@@ -1,13 +1,14 @@
 topic: "AI Agent 状态机工作流"
-collected_at: "2026-06-02T20:30:00Z"
+collected_at: "2026-06-02T20:35:00Z"
 scope:
   count: medium
-  types: [technical_docs, blog_posts]
+  types: [technical_docs, blog_posts, videos]
   research_depth: standard
 tools_used:
-  search: "WebSearch (fallback: WebFetch on known URLs)"
-  fetch: "WebFetch"
+  search: "WebSearch (fallback), opencli youtube search, mcp__MiniMax__web_search"
+  fetch: "WebFetch, defuddle, opencli youtube transcript"
   fallback_used: true
+  video_supplementation: true
 
 files:
   - filename: "doc-01.md"
@@ -286,19 +287,47 @@ files:
     duplicate_of: null
     removed: false
 
+  - filename: "video-01.md"
+    title: "Building Multi agent Systems with Finite State Machines"
+    url: "https://www.youtube.com/watch?v=OD13PiXw60o"
+    channel: "AI Engineer"
+    speaker: "Adam Terlson"
+    authority: 5
+    freshness: 5
+    completeness: 5
+    readability: 4
+    score: 4.8
+    classification: core_concepts
+    duplicate_of: null
+    removed: false
+
+  - filename: "video-02.md"
+    title: "Building Effective Agents with LangGraph"
+    url: "https://www.youtube.com/watch?v=aHCDrAbH_go"
+    channel: "LangChain"
+    speaker: "Lance Martin"
+    authority: 5
+    freshness: 5
+    completeness: 5
+    readability: 5
+    score: 5.0
+    classification: practical_examples
+    duplicate_of: null
+    removed: false
+
 summary:
-  total_collected: 23
-  total_kept: 23
+  total_collected: 25
+  total_kept: 25
   total_removed: 0
   by_classification:
-    core_concepts: 8
-    practical_examples: 8
+    core_concepts: 9
+    practical_examples: 9
     advanced: 7
   by_authority:
     official_docs: 21
     tech_blogs: 1
     community: 0
-    videos: 0
+    videos: 2
   by_source:
     langchain_official: 15
     langchain_blog: 4
@@ -306,11 +335,15 @@ summary:
     crewai: 2
     microsoft_autogen: 1
     lilian_weng_personal_blog: 1
+    youtube_videos: 2
   duplicates:
     - {filename: "doc-04.md", duplicate_of: "doc-01.md", reason: "Same URL, doc-01 is more comprehensive"}
   gaps:
-    - "未找到视频教程（YouTube 工具不可用）"
     - "缺少自研 FSM 框架的实战案例（除了 LangGraph 之外的轻量级实现）"
     - "缺少 FSM vs ReAct vs Plan-Execute 的系统性 benchmark 对比"
     - "缺少使用 Temporal/Inngest 等通用 durable execution 引擎做 agent 的对比"
     - "缺少 FSM 防跑偏的具体 prompt 模板示例"
+  video_supplementation_note: |
+    主 Agent 在 Phase 1+2 完成后用 opencli youtube search + transcript 补充 2 个高质量视频：
+    - video-01: Adam Terlson FSM 演讲（直接主题，4.8 分）
+    - video-02: LangChain 官方 Lance Martin 实现（5.0 分）
