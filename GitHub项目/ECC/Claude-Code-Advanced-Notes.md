@@ -331,11 +331,53 @@ k=1: 70%  k=3: 91%  k=5: 97%   k=1: 70%  k=3: 34%  k=5: 17%
 ### 5. Subagent 是并行化的关键
 
 - Subagent 有独立上下文，不污染主会话
-- Tier 1（易用）：Subagents、Metaprompting
-- Tier 2（难用）：Long-running agents、Parallel multi-agent
+- **关键规则**：每个 Agent 一个清晰输入 → 一个清晰输出，输出成为下一阶段的输入
+- 中间产物存入文件（而非仅内存），用 `/clear` 保持上下文新鲜
 
-> [!tip] 何时用 Subagent
-> 当你需要研究代码库但不想污染主会话上下文时，使用 Subagent。
+#### Sub-Agent Context Problem
+
+Subagent 通过返回摘要来节省上下文，但 Orchestrator 拥有 Subagent 缺乏的语义上下文（目的/推理）。Subagent 只知道字面查询，不知道背后的**为什么**。
+
+> [!tip] 传递目标上下文，而非仅查询
+> 派遣 Subagent 时，同时提供具体查询和更广泛的目标。帮助 Subagent 优先考虑摘要中应包含的内容。
+
+**解法：迭代检索模式**
+
+```mermaid
+flowchart TD
+    O[ORCHESTRATOR<br/>has context] -->|dispatch with query + objective| S[SUB-AGENT<br/>lacks context]
+    S -->|returns summary| E{EVALUATE<br/>Sufficient?}
+    E -->|yes| A[ACCEPT]
+    E -->|no| F[FOLLOW-UP QUESTIONS]
+    F -->|sub-agent fetches answers| S
+```
+
+Orchestrator 应评估每次 Subagent 返回，如不够就追问（最多 3 轮循环）。
+
+#### Orchestrator 顺序阶段模式
+
+```markdown
+Phase 1: RESEARCH   → research-summary.md
+Phase 2: PLAN       → plan.md
+Phase 3: IMPLEMENT  → code changes
+Phase 4: REVIEW     → review-comments.md
+Phase 5: VERIFY     → done or loop back
+```
+
+#### Agent 抽象层级 Tierlist
+
+| 层级 | 模式 | 说明 |
+|------|------|------|
+| **Tier 1（易用）** | Subagents | 防止上下文腐烂的直接增益 |
+| | Metaprompting | "花 3 分钟提示 20 分钟任务" |
+| | 前期多问用户 | Plan 模式中的前期提问 |
+| **Tier 2（难用）** | Long-running agents | 需理解任务形状和权衡 |
+| | Parallel multi-agent | 仅在高度复杂或可良好分割的任务中有用 |
+| | Role-based multi-agent | 模型进化太快，硬编码启发式难以保持 |
+| | Computer use agents | 非常早期的范式，需要大量调教 |
+
+> [!tip] 从 Tier 1 开始
+> 先掌握 Tier 1 模式，有真正需求后再升级到 Tier 2。
 
 详见：[[Claude Code Subagents 完整指南]]
 
@@ -349,6 +391,75 @@ git worktree add ../project-feature-b feature-b
 # 在每个工作树中启动独立 Claude
 cd ../project-feature-a && claude
 ```
+
+#### Cascade Method（级联模式）
+
+运行多个 Claude Code 实例时，用级联模式组织：
+
+- 新任务在右侧新标签页打开
+- 从左到右扫描，从旧到新
+- 维护一致的方向流
+- **每次专注 3-4 个任务** — 超过这个数量，认知负担超过收益
+
+> [!warning] 不要设置任意终端数目
+> 每增加一个终端/实例应出于真实需求。如果能用脚本完成，就用脚本。大多数情况下，2-3 个 Claude 实例就足够了。
+
+#### 多实例最佳实践
+
+- 复用会话的 **Scope 必须明确定义**，尽量减少代码变更的重叠
+- 选择**正交的任务**以防止干扰可能
+- 推荐模式：主会话做代码变更，分叉会话用于研究和问答
+- 用 `/rename` 命名所有会话，以免混淆每个 Git Worktree 的用途
+
+### 7. 项目初始化 Groundwork
+
+#### Two-Instance Kickoff Pattern
+
+启动新项目时，同时开 2 个 Claude 实例：
+
+**Instance 1: Scaffolding Agent**
+- 铺设项目脚手架和基础结构
+- 创建项目结构，设置配置（CLAUDE.md、rules、agents）
+- 建立约定，搭好骨架
+
+**Instance 2: Deep Research Agent**
+- 连接服务、网页搜索
+- 创建详细 PRD
+- 绘制架构 Mermaid 图
+- 编译参考资料（含实际文档片段）
+
+#### llms.txt 模式
+
+很多文档站点在 `/llms.txt` 提供 LLM 优化版本文档，可直接喂给 Claude：
+
+```
+https://example.com/docs/llms.txt
+```
+
+#### 构建可复用模式（Compound Effects）
+
+> "早期花时间构建可复用工作流/模式。构建过程繁琐，但随着模型和 Agent 工具的改进，这产生了惊人的复利效应。" — [@omarsar0](https://x.com/@omarsar0)
+
+**值得投入的领域：** Subagents、Skills、Commands、规划模式、MCP 工具、上下文工程模式
+
+> [!note] 模式的复利
+> 这些工作流可迁移到其他 Agent（如 Codex）。投资在模式上 > 投资在特定模型技巧上。模式随模型升级而持续有效。
+
+### 8. MCP 优化策略
+
+#### CLI/Skills 替代 MCP
+
+对 GitHub、Supabase、Vercel 等服务，这些平台已有健壮的 CLI。MCP 是方便但消耗上下文窗口的包装层。
+
+**策略**：将 MCP 暴露的功能打包成 Skill 和 Command，直接用 CLI 操作：
+
+```
+/gh-pr   → 包装 gh pr create（替代 GitHub MCP）
+/db-query → 直接使用 Supabase CLI（替代 Supabase MCP）
+```
+
+> [!info] Lazy Loading 更新
+> Claude Code 团队已实现 MCP **Lazy Loading**，MCP 不再在启动时就吃掉上下文窗口。但 Token 消耗问题未同步解决。CLI + Skills 方案仍然是有效的 Token 优化方法，特别适合数据库查询或部署等重型 MCP 操作。
 
 ---
 
@@ -442,9 +553,24 @@ Fix the GitHub issue: $ARGUMENTS.
 # 场景化上下文
 alias claude-dev='claude --system-prompt "$(cat ~/.claude/contexts/dev.md)"'
 alias claude-review='claude --system-prompt "$(cat ~/.claude/contexts/review.md)"'
+alias claude-research='claude --system-prompt "$(cat ~/.claude/contexts/research.md)"'
 
 # 使用
 claude-dev
+```
+
+> [!info] System Prompt Injection vs @file 引用
+> 用 `@memory.md` 或 `.claude/rules/` 时，Claude 通过 Read 工具在对话中读取——作为工具输出进入上下文。用 `--system-prompt` 时，内容注入到实际的系统提示中，在对话开始前就已就位。
+>
+> 区别在于**指令层级**：系统提示 > 用户消息 > 工具结果。对于严格行为规则、项目特定约束或必须优先处理的上下文——System Prompt Injection 确保被适当加权。
+
+**实用设置**：用 `.claude/rules/` 存放基线项目规则，用 CLI alias 切换场景特定上下文。
+
+```
+~/.claude/contexts/
+├── dev.md       # 侧重实现
+├── review.md    # 侧重代码质量/安全
+└── research.md  # 侧重先探索再行动
 ```
 
 ### 记忆持久化 Hooks
@@ -495,6 +621,8 @@ claude-dev
 3. **Haiku 和 Opus 的价格差是 5 倍，但实际使用中你如何判断任务是否值得用 Opus？有什么具体的判断标准？**
 4. **Continuous Learning（Stop Hook 自动提取知识）和手动写 Skills，哪种方式更适合你目前的工作流？为什么？**
 5. **探索-计划-实现模式（Explore-Plan-Implement）什么时候值得用，什么时候是过度工程？**
+6. **Checkpoint-Based Evals 和 Continuous Evals 分别适合什么类型的项目？你的项目适合哪一种？**
+7. **如果 MCP 已经支持 Lazy Loading，用 CLI/Skills 替代 MCP 还有必要吗？Token 优化和便利性如何权衡？**
 
 ---
 
@@ -503,6 +631,24 @@ claude-dev
 - [[Anthropic - Claude Code Official Docs]]
 - [[@affaan - The Longform Guide to Everything Claude Code]]
 - [[YK - 32 Claude Code Tips]]
+
+### 参考链接
+
+- [Claude Code Best Practices](https://code.claude.com/docs/en/best-practices)
+- [@affaan - The Longform Guide](https://x.com/affaan/status/2014040193557471352)
+- [YK - 32 Claude Code Tips](https://agenticcoding.substack.com/p/32-claude-code-tips-from-basics-to)
+- [Anthropic: Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
+- [everything-claude-code (GitHub)](https://github.com/affaan-m/everything-claude-code)
+- [mgrep - Mixedbread AI](https://github.com/mixedbread-ai/mgrep)
+
+### 参考人物/资源
+
+- [@affaan](https://x.com/affaan) — Claude Code 长篇指南原作者
+- [@bcherny](https://x.com/@bcherny) — Claude Code 创建者
+- [@omarsar0](https://x.com/@omarsar0) — 可复用模式复利效应
+- [@menhguin](https://x.com/@menhguin) — Agent 抽象层级 Tierlist
+- [@RLanceMartin](https://x.com/@RLanceMartin) — 会话反思模式
+- [@alexhillman](https://x.com/@alexhillman) — 自我改进记忆系统
 
 [R1]: https://code.claude.com/docs/en/how-claude-code-works
 [R2]: https://x.com/affaan/status/2014040193557471352

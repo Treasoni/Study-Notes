@@ -186,11 +186,11 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 441.5
+    "width": 281.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -208,7 +208,7 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "e36d73967f5c48ba",
   "lastOpenFiles": [
     "StudySystem/4-meta/backups/Claude-Code-Advanced-Notes-2026-06-02.md",
     "StudySystem/4-meta/backups",
