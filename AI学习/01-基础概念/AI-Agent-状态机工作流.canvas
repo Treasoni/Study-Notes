@@ -1,0 +1,344 @@
+{
+  "nodes": [
+    {
+      "id": "a0a0a0a0a0a0a0a0",
+      "type": "text",
+      "x": -400,
+      "y": -40,
+      "width": 400,
+      "height": 80,
+      "color": "6",
+      "text": "# AI Agent 状态机工作流\n\n核心：用工程化结构把 Agent 拉回正轨\n来源：25 篇文档"
+    },
+    {
+      "id": "b1b1b1b1b1b1b1b1",
+      "type": "group",
+      "label": "Part A 核心概念",
+      "x": -1100,
+      "y": -300,
+      "width": 500,
+      "height": 600,
+      "color": "5"
+    },
+    {
+      "id": "c1c1c1c1c1c1c1c1",
+      "type": "text",
+      "x": -1080,
+      "y": -260,
+      "width": 220,
+      "height": 100,
+      "color": "5",
+      "text": "**1. 为什么需要状态机**\n\nLLM 不可控 vs 生产可预测性"
+    },
+    {
+      "id": "c2c2c2c2c2c2c2c2",
+      "type": "text",
+      "x": -830,
+      "y": -260,
+      "width": 220,
+      "height": 100,
+      "color": "5",
+      "text": "**2. FSM 基础**\n\n五元组: 状态/事件/转移/守卫/动作"
+    },
+    {
+      "id": "c3c3c3c3c3c3c3c3",
+      "type": "text",
+      "x": -1080,
+      "y": -130,
+      "width": 220,
+      "height": 100,
+      "color": "5",
+      "text": "**3. 范式对比**\n\nFSM / ReAct / Plan-and-Execute"
+    },
+    {
+      "id": "c4c4c4c4c4c4c4c4",
+      "type": "text",
+      "x": -830,
+      "y": -130,
+      "width": 220,
+      "height": 100,
+      "color": "5",
+      "text": "**4. 主流实现**\n\nLangGraph / CrewAI / AutoGen"
+    },
+    {
+      "id": "c5c5c5c5c5c5c5c5",
+      "type": "text",
+      "x": -955,
+      "y": 0,
+      "width": 220,
+      "height": 100,
+      "color": "5",
+      "text": "**5. 核心机制**\n\nState / Node / Edge / Command / Send"
+    },
+    {
+      "id": "b2b2b2b2b2b2b2b2",
+      "type": "group",
+      "label": "Part B 实战示例",
+      "x": -1100,
+      "y": 320,
+      "width": 500,
+      "height": 500,
+      "color": "4"
+    },
+    {
+      "id": "d1d1d1d1d1d1d1d1",
+      "type": "text",
+      "x": -1080,
+      "y": 360,
+      "width": 220,
+      "height": 100,
+      "color": "4",
+      "text": "**6. 基础工作流模式**\n\nchaining/parallel/routing/worker/eval"
+    },
+    {
+      "id": "d2d2d2d2d2d2d2d2",
+      "type": "text",
+      "x": -830,
+      "y": 360,
+      "width": 220,
+      "height": 100,
+      "color": "4",
+      "text": "**7. 完整代码示例**\n\nStateGraph + Send + Loop"
+    },
+    {
+      "id": "d3d3d3d3d3d3d3d3",
+      "type": "text",
+      "x": -955,
+      "y": 490,
+      "width": 220,
+      "height": 100,
+      "color": "4",
+      "text": "**8. 多 Agent 协作**\n\nSubgraphs 父子图通信"
+    },
+    {
+      "id": "b3b3b3b3b3b3b3b3",
+      "type": "group",
+      "label": "Part C 工程实战",
+      "x": 100,
+      "y": -300,
+      "width": 500,
+      "height": 500,
+      "color": "2"
+    },
+    {
+      "id": "e1e1e1e1e1e1e1e1",
+      "type": "text",
+      "x": 120,
+      "y": -260,
+      "width": 220,
+      "height": 100,
+      "color": "2",
+      "text": "**9. 防跑偏机制**\n\n6 层防御栈"
+    },
+    {
+      "id": "e2e2e2e2e2e2e2e2",
+      "type": "text",
+      "x": 370,
+      "y": -260,
+      "width": 220,
+      "height": 100,
+      "color": "2",
+      "text": "**10. 持久化与恢复**\n\nPostgres + Time Travel"
+    },
+    {
+      "id": "e3e3e3e3e3e3e3e3",
+      "type": "text",
+      "x": 245,
+      "y": -130,
+      "width": 220,
+      "height": 100,
+      "color": "2",
+      "text": "**11. 可观测与调试**\n\nLangSmith + PagerDuty"
+    },
+    {
+      "id": "b4b4b4b4b4b4b4b4",
+      "type": "group",
+      "label": "Part D 选型速查",
+      "x": 100,
+      "y": 320,
+      "width": 500,
+      "height": 500,
+      "color": "6"
+    },
+    {
+      "id": "f1f1f1f1f1f1f1f1",
+      "type": "text",
+      "x": 120,
+      "y": 360,
+      "width": 220,
+      "height": 100,
+      "color": "6",
+      "text": "**12. 框架对比表**\n\nLangGraph / CrewAI / AutoGen"
+    },
+    {
+      "id": "f2f2f2f2f2f2f2f2",
+      "type": "text",
+      "x": 370,
+      "y": 360,
+      "width": 220,
+      "height": 100,
+      "color": "6",
+      "text": "**13. 决策树**\n\n按步骤/工具/性能选型"
+    },
+    {
+      "id": "f3f3f3f3f3f3f3f3",
+      "type": "text",
+      "x": 245,
+      "y": 490,
+      "width": 220,
+      "height": 100,
+      "color": "6",
+      "text": "**14-15. 坑点 & 趋势**\n\n10 个坑 + Chartering"
+    }
+  ],
+  "edges": [
+    {
+      "id": "ec00000000000001",
+      "fromNode": "a0a0a0a0a0a0a0a0",
+      "fromSide": "left",
+      "toNode": "b1b1b1b1b1b1b1b1",
+      "toSide": "right",
+      "toEnd": "arrow",
+      "label": "Part A"
+    },
+    {
+      "id": "ec00000000000002",
+      "fromNode": "a0a0a0a0a0a0a0a0",
+      "fromSide": "left",
+      "toNode": "b2b2b2b2b2b2b2b2",
+      "toSide": "right",
+      "toEnd": "arrow",
+      "label": "Part B"
+    },
+    {
+      "id": "ec00000000000003",
+      "fromNode": "a0a0a0a0a0a0a0a0",
+      "fromSide": "right",
+      "toNode": "b3b3b3b3b3b3b3b3",
+      "toSide": "left",
+      "toEnd": "arrow",
+      "label": "Part C"
+    },
+    {
+      "id": "ec00000000000004",
+      "fromNode": "a0a0a0a0a0a0a0a0",
+      "fromSide": "right",
+      "toNode": "b4b4b4b4b4b4b4b4",
+      "toSide": "left",
+      "toEnd": "arrow",
+      "label": "Part D"
+    },
+    {
+      "id": "ec00000000000005",
+      "fromNode": "b1b1b1b1b1b1b1b1",
+      "fromSide": "bottom",
+      "toNode": "c1c1c1c1c1c1c1c1",
+      "toSide": "top",
+      "toEnd": "arrow"
+    },
+    {
+      "id": "ec00000000000006",
+      "fromNode": "b1b1b1b1b1b1b1b1",
+      "fromSide": "bottom",
+      "toNode": "c2c2c2c2c2c2c2c2",
+      "toSide": "top",
+      "toEnd": "arrow"
+    },
+    {
+      "id": "ec00000000000007",
+      "fromNode": "b1b1b1b1b1b1b1b1",
+      "fromSide": "bottom",
+      "toNode": "c3c3c3c3c3c3c3c3",
+      "toSide": "top",
+      "toEnd": "arrow"
+    },
+    {
+      "id": "ec00000000000008",
+      "fromNode": "b1b1b1b1b1b1b1b1",
+      "fromSide": "bottom",
+      "toNode": "c4c4c4c4c4c4c4c4",
+      "toSide": "top",
+      "toEnd": "arrow"
+    },
+    {
+      "id": "ec00000000000009",
+      "fromNode": "b1b1b1b1b1b1b1b1",
+      "fromSide": "bottom",
+      "toNode": "c5c5c5c5c5c5c5c5",
+      "toSide": "top",
+      "toEnd": "arrow"
+    },
+    {
+      "id": "ec00000000000010",
+      "fromNode": "b2b2b2b2b2b2b2b2",
+      "fromSide": "bottom",
+      "toNode": "d1d1d1d1d1d1d1d1",
+      "toSide": "top",
+      "toEnd": "arrow"
+    },
+    {
+      "id": "ec00000000000011",
+      "fromNode": "b2b2b2b2b2b2b2b2",
+      "fromSide": "bottom",
+      "toNode": "d2d2d2d2d2d2d2d2",
+      "toSide": "top",
+      "toEnd": "arrow"
+    },
+    {
+      "id": "ec00000000000012",
+      "fromNode": "b2b2b2b2b2b2b2b2",
+      "fromSide": "bottom",
+      "toNode": "d3d3d3d3d3d3d3d3",
+      "toSide": "top",
+      "toEnd": "arrow"
+    },
+    {
+      "id": "ec00000000000013",
+      "fromNode": "b3b3b3b3b3b3b3b3",
+      "fromSide": "bottom",
+      "toNode": "e1e1e1e1e1e1e1e1",
+      "toSide": "top",
+      "toEnd": "arrow"
+    },
+    {
+      "id": "ec00000000000014",
+      "fromNode": "b3b3b3b3b3b3b3b3",
+      "fromSide": "bottom",
+      "toNode": "e2e2e2e2e2e2e2e2",
+      "toSide": "top",
+      "toEnd": "arrow"
+    },
+    {
+      "id": "ec00000000000015",
+      "fromNode": "b3b3b3b3b3b3b3b3",
+      "fromSide": "bottom",
+      "toNode": "e3e3e3e3e3e3e3e3",
+      "toSide": "top",
+      "toEnd": "arrow"
+    },
+    {
+      "id": "ec00000000000016",
+      "fromNode": "b4b4b4b4b4b4b4b4",
+      "fromSide": "bottom",
+      "toNode": "f1f1f1f1f1f1f1f1",
+      "toSide": "top",
+      "toEnd": "arrow"
+    },
+    {
+      "id": "ec00000000000017",
+      "fromNode": "b4b4b4b4b4b4b4b4",
+      "fromSide": "bottom",
+      "toNode": "f2f2f2f2f2f2f2f2",
+      "toSide": "top",
+      "toEnd": "arrow"
+    },
+    {
+      "id": "ec00000000000018",
+      "fromNode": "b4b4b4b4b4b4b4b4",
+      "fromSide": "bottom",
+      "toNode": "f3f3f3f3f3f3f3f3",
+      "toSide": "top",
+      "toEnd": "arrow"
+    }
+  ]
+}
