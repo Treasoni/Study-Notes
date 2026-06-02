@@ -208,8 +208,12 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "e36d73967f5c48ba",
   "lastOpenFiles": [
+    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-04.md",
+    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-03.md",
+    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-02.md",
+    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-01.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw",
     "StudySystem/0-inbox/AI-Agent状态机工作流",
     "GitHub项目/ECC/Claude-Code-Advanced-Notes.md",
@@ -241,11 +245,7 @@
     "openspec/changes/archive/2026-06-02-reduce-doc-redundancy-and-skill-bloat/specs/note-update-workflow/spec.md",
     "openspec/changes/archive/2026-06-01-study-system-refactor/specs/subagent-orchestration/spec.md",
     "openspec/changes/archive/2026-06-01-study-system-refactor/specs/requirement-discovery/spec.md",
-    "openspec/changes/archive/2026-06-01-study-system-refactor/specs/hybrid-note-types/spec.md",
-    "openspec/changes/archive/2026-06-01-study-system-refactor/specs/autonomy-levels/spec.md",
     "openspec/changes/archive/2026-06-02-update-note-workflow/specs/note-update-workflow",
-    "openspec/changes/archive/2026-06-02-reduce-doc-redundancy-and-skill-bloat/specs/subagent-orchestration",
-    "openspec/changes/archive/2026-06-02-update-note-workflow/tasks.md",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
     "web-articles/What_is_harness_engineering/images/img_002.png",
