@@ -447,7 +447,7 @@ flowchart TD
 
 **Layer 1：递归限制（Recursion Limit）**
 
-LangGraph 默认 recursion_limit=25 步（在 graph API 中可配），超过会抛 `GraphRecursionError` [来源: doc-20.md]。这是兜底——正常设计不应触发。
+LangGraph 默认 `recursion_limit=1000` 步（graph API 可配），超过会抛 `GraphRecursionError` [来源: doc-20.md]。这是兜底——正常设计单次任务应 < 25 步，触发了 9 成是逻辑问题（如循环守卫缺失）而非真实需求。
 
 **Layer 2：RemainingSteps 主动感知**
 
@@ -781,7 +781,7 @@ flowchart TD
 
 | 坑点 | 表现 | 修复 |
 |------|------|------|
-| **Recursion limit 触发** | 任务跑到一半抛 `GraphRecursionError` | 用 `RemainingSteps` 提前 fallback；或调大 limit（治标）|
+| **Recursion limit 触发** | 任务跑到一半抛 `GraphRecursionError`（默认 1000 步）| 用 `RemainingSteps` 提前 fallback；触发了 9 成是逻辑问题，调大 limit 只治标 |
 | **InMemorySaver 用在生产** | 重启后状态全丢 | 换 PostgresSaver 或自实现 `BaseCheckpointSaver` |
 | **Side effect 写在 interrupt 前** | 重试时副作用重复执行 | 把副作用放进 `@task` 函数，或确保 idempotent [来源: doc-05.md] |
 | **interrupt 包了 try/except** | 异常被吞，pause 失效 | 永远不要包 `interrupt()`，让异常正常传播 [来源: doc-03.md] |
@@ -832,7 +832,7 @@ LangGraph 团队明确表态："the biggest competitor to any framework is no fr
 > 你的团队要做一个"长篇研报自动生成"agent，应该选 LangGraph 的哪个模式（chaining / parallelization / orchestrator-worker / evaluator-optimizer）？为什么？如果要加入"质量不达标重写"的兜底，应该怎么改？
 
 > [!question] 思考题 3 - 边界情况思考
-> 当 `recursion_limit=25` 真的触发了，应该如何**优雅降级**？是把已完成的中间结果回给用户，还是抛错让人介入？两种策略各适合什么业务？
+> 当 `recursion_limit=1000` 真的触发了，应该如何**优雅降级**？是把已完成的中间结果回给用户，还是抛错让人介入？两种策略各适合什么业务？
 
 > [!question] 思考题 4 - 工程取舍
 > HITL 的 `interrupt()` 加在哪里最有效？太少 → 风险大；太多 → 体验差。你会用什么原则决定"哪些节点必须人工审批"？

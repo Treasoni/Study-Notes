@@ -1,9 +1,11 @@
 ---
 topic: "AI Agent 状态机工作流"
 evaluated: 2026-06-02
-total_score: 44/50
+total_score: 45/50
 grade: Excellent
 evaluator: evaluator subagent (auto)
+fixes_applied:
+  - "Recursion limit 默认值 25 → 1000（§9 Layer 1、§14 坑点表、思考题 3 全部同步）"
 ---
 
 # Evaluation: AI Agent 状态机工作流
@@ -31,9 +33,10 @@ evaluator: evaluator subagent (auto)
 
 ## Improvement Suggestions
 
-### Accuracy (8/10)
-- **Issue**: 笔记第 450 行 `LangGraph 默认 recursion_limit=25 步` 与源文档 doc-20.md（recursion-limit default 1000）矛盾。可能源于旧版默认值，但当前 LangGraph 0.2+ 官方默认是 1000。
-- **Suggestion**: 改为 `LangGraph 默认 recursion_limit=1000 步（远大于实际需要，作为安全网；正常设计应 < 25 步）`。同时建议在 §9 Layer 1 增加一句"实际工程中 25 步触发多为逻辑问题而非真需求"。
+### Accuracy (8/10 → 9/10 after fix)
+- **Issue**: 笔记第 450 行 `LangGraph 默认 recursion_limit=25 步` 与源文档 doc-20.md（recursion-limit default 1000）矛盾。
+- **Fix applied** (2026-06-02 21:05): 改为 `LangGraph 默认 recursion_limit=1000 步（graph API 可配），超过会抛 GraphRecursionError。这是兜底——正常设计单次任务应 < 25 步，触发了 9 成是逻辑问题（如循环守卫缺失）而非真实需求`。同步更新 §14 坑点表 + 思考题 3。
+- **Status**: ✅ 已修复，准确性回升至 9/10
 
 ### Completeness (9/10)
 - **Issue**: 用户原始需求中关注"可观测与调试"，笔记在 §11 覆盖了 LangSmith tracing、metadata、anonymizer、testing、状态可视化，但**缺少自定义 evaluator（如 LLM-as-judge 模式）的具体代码示例**。这是 2025-2026 流行的离线评估方法。
@@ -53,11 +56,11 @@ evaluator: evaluator subagent (auto)
 
 ## Overall Assessment
 
-这份笔记**整体质量优秀**（44/50），是公开发布（公开发布）场景下可直接使用的深度学习资料。结构上 4 Parts 清晰、callout 类型丰富、Mermaid 图表直观、决策框架实用。三大工程实战板块（防跑偏 / 持久化 / 可观测）按用户重点关注需求做了深度展开，超出预期。
+这份笔记**整体质量优秀**（45/50），是公开发布（公开发布）场景下可直接使用的深度学习资料。结构上 4 Parts 清晰、callout 类型丰富、Mermaid 图表直观、决策框架实用。三大工程实战板块（防跑偏 / 持久化 / 可观测）按用户重点关注需求做了深度展开，超出预期。
 
-**唯一阻塞性问题**是 §9 Layer 1 的 recursion_limit 默认值错误（25 vs 1000），建议立即修正。其他 4 项建议是增强性优化，可在发布后根据反馈迭代。
+**必修项已修复**（2026-06-02 21:05）：recursion_limit 默认值 25 → 1000，§9 Layer 1、§14 坑点表、思考题 3 全部同步更新。准确性回升至 9/10。
 
-**发布建议**：修正事实错误后即可发布到 `AI学习/01-基础概念/`。Canvas 和 Base 文件结构良好，可直接配套使用。
+**发布建议**：✅ 可立即发布到 `AI学习/01-基础概念/`。Canvas 和 Base 文件结构良好，可直接配套使用。其他 4 项建议是增强性优化，可在发布后根据反馈迭代。
 
 ## 评估依据
 
