@@ -1,0 +1,39 @@
+{
+	"nodes":[
+		{"id":"center-openspec","type":"text","text":"# OpenSpec\n\n**Spec-Driven Development 框架**\n\n先写规范，再写代码。\n在 AI 动手之前达成共识。","x":400,"y":300,"width":280,"height":160,"color":"4"},
+		{"id":"concept-specs","type":"text","text":"## Specs (规范)\n\n系统**当前**行为的契约\n\n- 描述可观察行为\n- 输入/输出/错误条件\n- 可测试场景\n- 按领域组织\n\n存储路径: `openspec/specs/`","x":-300,"y":-200,"width":260,"height":240,"color":"1"},
+		{"id":"concept-changes","type":"text","text":"## Changes (变更)\n\n对系统的一个提议修改\n\n- 独立文件夹\n- 包含 proposal / design / tasks\n- 增量规范\n- 完成后归档\n\n存储路径: `openspec/changes/`","x":-300,"y":120,"width":260,"height":240,"color":"1"},
+		{"id":"concept-delta-specs","type":"text","text":"## Delta Specs (增量规范)\n\n只描述\"什么变了\"\n\n- ADDED: 新增行为\n- MODIFIED: 变更行为\n- REMOVED: 废弃行为\n\n棕地优先的核心设计","x":-300,"y":440,"width":260,"height":200,"color":"1"},
+		{"id":"concept-artifacts","type":"text","text":"## Artifacts (工件)\n\n变更中的文档产物\n\n- proposal.md: 为什么做\n- design.md: 怎么做\n- tasks.md: 检查清单\n- specs/: 增量规范","x":-300,"y":700,"width":260,"height":200,"color":"1"},
+		{"id":"concept-archive","type":"text","text":"## Archive (归档)\n\n变更完成后的收尾\n\n1. 增量规范合并到主 specs/\n2. 变更文件夹移至 archive/\n3. 历史完整保留","x":100,"y":700,"width":240,"height":200,"color":"1"},
+		{"id":"concept-workspace","type":"text","text":"## Workspace (工作区)\n\n跨仓库协调视图 (Beta)\n\n- 机器本地视图\n- 链接多个仓库\n- context store / initiative\n- 生成 AGENTS.md","x":500,"y":700,"width":240,"height":200,"color":"1"},
+		{"id":"workflow-flow","type":"text","text":"## OPSX 工作流\n\n**Propose** -> **Review** -> **Apply** -> **Verify** -> **Archive**\n\n1. 提议: /opsx:propose\n2. 审查: 阅读 proposal + design\n3. 实现: /opsx:apply\n4. 验证: /opsx:verify\n5. 归档: /opsx:archive","x":100,"y":200,"width":280,"height":240,"color":"3"},
+		{"id":"commands-slash","type":"text","text":"## 斜杠命令\n\n在 AI 工具聊天中使用\n\n- /opsx:propose\n- /opsx:explore\n- /opsx:apply\n- /opsx:sync\n- /opsx:archive\n- /opsx:verify\n- /opsx:continue\n- /opsx:ff","x":900,"y":-100,"width":260,"height":280,"color":"6"},
+		{"id":"commands-cli","type":"text","text":"## CLI 命令\n\n在终端中使用\n\n- openspec init\n- openspec list\n- openspec show\n- openspec validate\n- openspec status\n- openspec view\n- openspec config\n- openspec schema\n- openspec workspace","x":900,"y":280,"width":260,"height":320,"color":"6"},
+		{"id":"tools-supported","type":"text","text":"## 支持的工具\n\n| 工具 | 语法 |\n|------|------|\n| Claude Code | /opsx:propose |\n| Cursor | /opsx-propose |\n| Windsurf | /opsx-propose |\n| GitHub Copilot | /opsx-propose |\n| Gemini CLI | /opsx:propose |\n| Cline | /opsx:propose |\n| Kimi CLI | /skill:openspec |\n\n支持 29+ 种工具","x":900,"y":700,"width":280,"height":340,"color":"2"},
+		{"id":"features-custom-schema","type":"text","text":"## 自定义 Schema\n\n三级定制:\n\n1. **项目配置**: config.yaml\n   - context + rules\n2. **自定义 Schema**:\n   - fork / init\n   - 自定义 template\n3. **全局覆盖**:\n   - ~/.config/openspec/schemas/","x":500,"y":-300,"width":260,"height":280,"color":"5"},
+		{"id":"features-multi-lang","type":"text","text":"## 多语言支持\n\nInstruction Enrichment\nPipeline\n\n在 config.yaml 的 context 中\n设置语言指令即可\n\n支持: 中文 / 日语 /\n西班牙语 / 法语 等","x":900,"y":-500,"width":240,"height":200,"color":"5"},
+		{"id":"philosophy","type":"text","text":"## 设计哲学\n\n1. Fluid not rigid\n   (流动而非僵化)\n\n2. Iterative not waterfall\n   (迭代而非瀑布)\n\n3. Easy not complex\n   (简单而非复杂)\n\n4. Brownfield-first\n   (棕地优先)","x":-600,"y":300,"width":220,"height":280,"color":"5"},
+		{"id":"workflow-state-machine","type":"text","text":"## 工件状态机\n\n三个状态:\n\n- **BLOCKED**: 依赖未满足\n- **READY**: 可创建\n- **DONE**: 文件已存在\n\n`openspec status` 查看状态","x":180,"y":-220,"width":260,"height":200,"color":"3"}
+	],
+	"edges":[
+		{"id":"edge-center-specs","fromNode":"center-openspec","fromSide":"left","toNode":"concept-specs","toSide":"right"},
+		{"id":"edge-center-changes","fromNode":"center-openspec","fromSide":"left","toNode":"concept-changes","toSide":"right"},
+		{"id":"edge-center-delta","fromNode":"center-openspec","fromSide":"left","toNode":"concept-delta-specs","toSide":"right"},
+		{"id":"edge-center-artifacts","fromNode":"center-openspec","fromSide":"bottom","toNode":"concept-artifacts","toSide":"top"},
+		{"id":"edge-center-workflow","fromNode":"center-openspec","fromSide":"right","toNode":"workflow-flow","toSide":"left"},
+		{"id":"edge-center-slash","fromNode":"center-openspec","fromSide":"right","toNode":"commands-slash","toSide":"left"},
+		{"id":"edge-center-cli","fromNode":"center-openspec","fromSide":"right","toNode":"commands-cli","toSide":"left"},
+		{"id":"edge-center-philosophy","fromNode":"center-openspec","fromSide":"left","toNode":"philosophy","toSide":"right"},
+		{"id":"edge-center-custom-schema","fromNode":"center-openspec","fromSide":"top","toNode":"features-custom-schema","toSide":"bottom"},
+		{"id":"edge-changes-delta","fromNode":"concept-changes","fromSide":"bottom","toNode":"concept-delta-specs","toSide":"top"},
+		{"id":"edge-changes-artifacts","fromNode":"concept-changes","fromSide":"right","toNode":"concept-artifacts","toSide":"left"},
+		{"id":"edge-artifacts-archive","fromNode":"concept-artifacts","fromSide":"right","toNode":"concept-archive","toSide":"left"},
+		{"id":"edge-workflow-state","fromNode":"workflow-flow","fromSide":"right","toNode":"workflow-state-machine","toSide":"left"},
+		{"id":"edge-workflow-archive","fromNode":"workflow-flow","fromSide":"bottom","toNode":"concept-archive","toSide":"top"},
+		{"id":"edge-archive-workspace","fromNode":"concept-archive","fromSide":"right","toNode":"concept-workspace","toSide":"left"},
+		{"id":"edge-slash-cli","fromNode":"commands-slash","fromSide":"bottom","toNode":"commands-cli","toSide":"top"},
+		{"id":"edge-cli-tools","fromNode":"commands-cli","fromSide":"bottom","toNode":"tools-supported","toSide":"top"},
+		{"id":"edge-slash-tools","fromNode":"commands-slash","fromSide":"right","toNode":"tools-supported","toSide":"left"}
+	]
+}
