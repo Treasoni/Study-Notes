@@ -15,11 +15,11 @@ fixes_applied:
 | Dimension | Score | Notes |
 |-----------|-------|-------|
 | Completeness | 9/10 | 5 大子主题全覆盖；15 章节 + 决策框架 + 10 坑点；缺 Temporal/Inngest 对比（已知缺口）|
-| Accuracy | 8/10 | 5 项核心论断抽查 4 通过、**1 项错误**（recursion_limit 默认值：笔记写 25，源文档为 1000）|
+| Accuracy | 9/10 | 5 项核心论断抽查 4 通过、1 项错误已修正（recursion_limit 25 → 1000）|
 | Readability | 9/10 | 33 callouts + 5 Mermaid + 多表格；结构清晰；偶有代码块密度高 |
 | Practicality | 9/10 | 13 个 Python 代码块 + Lyft 案例 + 决策树 + 10 坑点修复；可操作性强 |
 | Connectivity | 9/10 | 19 wikilinks 全部有效、Canvas 19 节点、Base 4 视图；vault 联动充分 |
-| **Total** | **44/50** | **Excellent** — 建议先修一处事实错误即可发布 |
+| **Total** | **45/50** | **Excellent** — 必修项已修复，可发布 |
 
 ## Verified Claims (5 项抽查)
 
