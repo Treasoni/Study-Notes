@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "GitHub项目/ECC/Claude-Code-Advanced-Notes.md",
+                "file": "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-07.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Claude-Code-Advanced-Notes"
+              "title": "doc-07"
             }
           }
         ]
@@ -208,22 +208,25 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "e36d73967f5c48ba",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
-    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-23.md",
-    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-22.md",
-    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-21.md",
-    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-20.md",
+    "StudySystem/0-inbox/AI-Agent状态机工作流/metadata.yaml",
+    "StudySystem/0-inbox/AI-Agent状态机工作流/sources.md",
+    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-10.md",
+    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-12.md",
+    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-15.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-19.md",
+    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-21.md",
+    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-22.md",
+    "GitHub项目/ECC/Claude-Code-Advanced-Notes.md",
+    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-23.md",
+    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-20.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-18.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-17.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-16.md",
-    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-15.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-14.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-13.md",
-    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-12.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-11.md",
-    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-10.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-09.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-08.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-07.md",
@@ -235,10 +238,7 @@
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-01.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw",
     "StudySystem/0-inbox/AI-Agent状态机工作流",
-    "GitHub项目/ECC/Claude-Code-Advanced-Notes.md",
-    "StudySystem/4-meta/backups/Claude-Code-Advanced-Notes-2026-06-02.md",
     "StudySystem/4-meta/backups",
-    "GitHub项目/ECC/Claude-Code-速记指南.md",
     "项目实战/AI实战/架构设计",
     "项目实战/AI实战/工程实践",
     "项目实战/AI实战/AI实战笔记库.base",

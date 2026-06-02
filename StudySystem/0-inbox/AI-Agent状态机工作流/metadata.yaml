@@ -1,0 +1,316 @@
+topic: "AI Agent 状态机工作流"
+collected_at: "2026-06-02T20:30:00Z"
+scope:
+  count: medium
+  types: [technical_docs, blog_posts]
+  research_depth: standard
+tools_used:
+  search: "WebSearch (fallback: WebFetch on known URLs)"
+  fetch: "WebFetch"
+  fallback_used: true
+
+files:
+  - filename: "doc-01.md"
+    title: "LangGraph Overview"
+    url: "https://docs.langchain.com/oss/python/langgraph/overview"
+    authority: 5
+    freshness: 5
+    completeness: 4
+    readability: 5
+    score: 4.8
+    classification: core_concepts
+    duplicate_of: null
+    removed: false
+
+  - filename: "doc-02.md"
+    title: "LangGraph Persistence, Checkpointing, and State Management"
+    url: "https://docs.langchain.com/oss/python/langgraph/persistence"
+    authority: 5
+    freshness: 5
+    completeness: 5
+    readability: 5
+    score: 5.0
+    classification: advanced
+    duplicate_of: null
+    removed: false
+
+  - filename: "doc-03.md"
+    title: "Human-in-the-Loop and Interrupts in LangGraph"
+    url: "https://docs.langchain.com/oss/python/langgraph/interrupts"
+    authority: 5
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.5
+    classification: practical_examples
+    duplicate_of: null
+    removed: false
+
+  - filename: "doc-04.md"
+    title: "LangGraph Concepts (State, Nodes, Edges)"
+    url: "https://docs.langchain.com/oss/python/langgraph/overview"
+    authority: 5
+    freshness: 5
+    completeness: 3
+    readability: 4
+    score: 4.3
+    classification: core_concepts
+    duplicate_of: "doc-01.md"
+    removed: false
+
+  - filename: "doc-05.md"
+    title: "LangGraph Functional API"
+    url: "https://docs.langchain.com/oss/python/langgraph/functional-api"
+    authority: 5
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.5
+    classification: practical_examples
+    duplicate_of: null
+    removed: false
+
+  - filename: "doc-06.md"
+    title: "LangGraph Observability with LangSmith"
+    url: "https://docs.langchain.com/oss/python/langgraph/observability"
+    authority: 5
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.5
+    classification: advanced
+    duplicate_of: null
+    removed: false
+
+  - filename: "doc-07.md"
+    title: "LangGraph Graph API Overview"
+    url: "https://docs.langchain.com/oss/python/langgraph/graph-api"
+    authority: 5
+    freshness: 5
+    completeness: 4
+    readability: 5
+    score: 4.8
+    classification: core_concepts
+    duplicate_of: null
+    removed: false
+
+  - filename: "doc-08.md"
+    title: "Building Effective AI Agents"
+    url: "https://www.anthropic.com/research/building-effective-agents"
+    authority: 5
+    freshness: 4
+    completeness: 4
+    readability: 5
+    score: 4.5
+    classification: core_concepts
+    duplicate_of: null
+    removed: false
+
+  - filename: "doc-09.md"
+    title: "CrewAI Multi-Agent Framework Overview"
+    url: "https://docs.crewai.com/concepts/crews"
+    authority: 5
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.5
+    classification: practical_examples
+    duplicate_of: null
+    removed: false
+
+  - filename: "doc-10.md"
+    title: "Microsoft AutoGen Agent Framework"
+    url: "https://microsoft.github.io/autogen/dev/user-guide/core-user-guide/framework/agent-and-agent-runtime.html"
+    authority: 5
+    freshness: 5
+    completeness: 3
+    readability: 3
+    score: 4.0
+    classification: practical_examples
+    duplicate_of: null
+    removed: false
+
+  - filename: "doc-11.md"
+    title: "LLM Agent Design Patterns (Lilian Weng)"
+    url: "https://lilianweng.github.io/posts/2023-06-23-agent/"
+    authority: 5
+    freshness: 3
+    completeness: 4
+    readability: 4
+    score: 4.0
+    classification: core_concepts
+    duplicate_of: null
+    removed: false
+
+  - filename: "doc-12.md"
+    title: "Building LangGraph: Design Principles"
+    url: "https://www.langchain.com/blog/building-langgraph"
+    authority: 5
+    freshness: 5
+    completeness: 5
+    readability: 5
+    score: 5.0
+    classification: advanced
+    duplicate_of: null
+    removed: false
+
+  - filename: "doc-13.md"
+    title: "LangGraph Workflow & Agent Patterns"
+    url: "https://docs.langchain.com/oss/python/langgraph/workflows-agents"
+    authority: 5
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.5
+    classification: core_concepts
+    duplicate_of: null
+    removed: false
+
+  - filename: "doc-14.md"
+    title: "Lyft's Self-Serve AI Agent Platform (LangGraph Case Study)"
+    url: "https://www.langchain.com/blog/lyft-built-a-self-serve-ai-agent-platform-for-customer-support-with-langgraph-and-langsmith"
+    authority: 4
+    freshness: 5
+    completeness: 5
+    readability: 5
+    score: 4.8
+    classification: practical_examples
+    duplicate_of: null
+    removed: false
+
+  - filename: "doc-15.md"
+    title: "LangSmith Observability Overview"
+    url: "https://www.langchain.com/langsmith"
+    authority: 4
+    freshness: 5
+    completeness: 3
+    readability: 4
+    score: 4.0
+    classification: advanced
+    duplicate_of: null
+    removed: false
+
+  - filename: "doc-16.md"
+    title: "LangGraph v0.2 Features (Checkpointer Ecosystem)"
+    url: "https://www.langchain.com/blog/langgraph-v0-2"
+    authority: 5
+    freshness: 5
+    completeness: 3
+    readability: 3
+    score: 4.0
+    classification: advanced
+    duplicate_of: null
+    removed: false
+
+  - filename: "doc-17.md"
+    title: "LangGraph Subgraphs: Parent/Child Graph Composition"
+    url: "https://docs.langchain.com/oss/python/langgraph/use-subgraphs"
+    authority: 5
+    freshness: 5
+    completeness: 4
+    readability: 5
+    score: 4.8
+    classification: practical_examples
+    duplicate_of: null
+    removed: false
+
+  - filename: "doc-18.md"
+    title: "CrewAI Memory System"
+    url: "https://docs.crewai.com/concepts/memory"
+    authority: 5
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.5
+    classification: advanced
+    duplicate_of: null
+    removed: false
+
+  - filename: "doc-19.md"
+    title: "LangGraph Time Travel"
+    url: "https://docs.langchain.com/oss/python/langgraph/use-time-travel"
+    authority: 5
+    freshness: 5
+    completeness: 3
+    readability: 4
+    score: 4.3
+    classification: advanced
+    duplicate_of: null
+    removed: false
+
+  - filename: "doc-20.md"
+    title: "State Machine Patterns in LangGraph (Guardrails & Routing)"
+    url: "https://docs.langchain.com/oss/python/langgraph/graph-api"
+    authority: 5
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.5
+    classification: core_concepts
+    duplicate_of: null
+    removed: false
+
+  - filename: "doc-21.md"
+    title: "Testing LangGraph Agents"
+    url: "https://docs.langchain.com/oss/python/langgraph/test"
+    authority: 5
+    freshness: 5
+    completeness: 3
+    readability: 3
+    score: 4.0
+    classification: practical_examples
+    duplicate_of: null
+    removed: false
+
+  - filename: "doc-22.md"
+    title: "LangGraph Multi-Agent Workflows (Blog Post)"
+    url: "https://www.langchain.com/blog/langgraph"
+    authority: 5
+    freshness: 4
+    completeness: 1
+    readability: 3
+    score: 3.3
+    classification: practical_examples
+    duplicate_of: null
+    removed: false
+
+  - filename: "doc-23.md"
+    title: "LangGraph GitHub README Overview"
+    url: "https://github.com/langchain-ai/langgraph"
+    authority: 5
+    freshness: 5
+    completeness: 3
+    readability: 4
+    score: 4.3
+    classification: core_concepts
+    duplicate_of: null
+    removed: false
+
+summary:
+  total_collected: 23
+  total_kept: 23
+  total_removed: 0
+  by_classification:
+    core_concepts: 8
+    practical_examples: 8
+    advanced: 7
+  by_authority:
+    official_docs: 21
+    tech_blogs: 1
+    community: 0
+    videos: 0
+  by_source:
+    langchain_official: 15
+    langchain_blog: 4
+    anthropic: 1
+    crewai: 2
+    microsoft_autogen: 1
+    lilian_weng_personal_blog: 1
+  duplicates:
+    - {filename: "doc-04.md", duplicate_of: "doc-01.md", reason: "Same URL, doc-01 is more comprehensive"}
+  gaps:
+    - "未找到视频教程（YouTube 工具不可用）"
+    - "缺少自研 FSM 框架的实战案例（除了 LangGraph 之外的轻量级实现）"
+    - "缺少 FSM vs ReAct vs Plan-Execute 的系统性 benchmark 对比"
+    - "缺少使用 Temporal/Inngest 等通用 durable execution 引擎做 agent 的对比"
+    - "缺少 FSM 防跑偏的具体 prompt 模板示例"
