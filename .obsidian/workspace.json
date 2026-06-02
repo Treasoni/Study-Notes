@@ -11,13 +11,16 @@
             "id": "e36d73967f5c48ba",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "StudySystem/2-drafts/AI-Agent状态机工作流/AI-Agent-状态机工作流.md",
-                "mode": "source",
-                "source": false
+                "file": "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
+                "viewState": {
+                  "x": 311.1963170360571,
+                  "y": 404.3694991372757,
+                  "zoom": -0.22878439003175544
+                }
               },
-              "icon": "lucide-file",
+              "icon": "lucide-layout-dashboard",
               "title": "AI-Agent-状态机工作流"
             }
           }
@@ -208,13 +211,14 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "e36d73967f5c48ba",
   "lastOpenFiles": [
     "AI学习/01-基础概念/AI-Agent-状态机工作流.base",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.md",
-    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-07.md",
+    "AI学习/01-基础概念/上下文工程/AI上下文工程.md",
     "StudySystem/2-drafts/AI-Agent状态机工作流/AI-Agent-状态机工作流.md",
+    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-07.md",
     "StudySystem/2-drafts/AI-Agent状态机工作流",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/video-02.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/video-01.md",
@@ -238,7 +242,6 @@
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-09.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-08.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-06.md",
-    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-05.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw",
     "StudySystem/0-inbox/AI-Agent状态机工作流",
     "StudySystem/4-meta/backups",
@@ -246,7 +249,6 @@
     "项目实战/AI实战/工程实践",
     "项目实战/AI实战/AI实战笔记库.base",
     "项目实战/git实战",
-    "项目实战/AI实战",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
     "web-articles/What_is_harness_engineering/images/img_002.png",
