@@ -71,7 +71,6 @@
     },
     "项目实战/AI实战": {
       "children": [
-        "项目实战/AI实战/AI实战笔记库.base",
         "项目实战/AI实战/工程实践",
         "项目实战/AI实战/架构设计",
         "项目实战/AI实战/AI实战 MOC.md",
@@ -87,6 +86,7 @@
         "项目实战/AI实战/工程实践/Claude Code自我学习机制.md",
         "项目实战/AI实战/工程实践/CLAUDE.md放置策略.md",
         "项目实战/AI实战/工程实践/ClaudeCode工作流遵守问题.md",
+        "项目实战/AI实战/工程实践/Subagent资料搜集的Token失控-笔记.md",
         "项目实战/AI实战/工程实践/Claude Code 防遗忘策略.md",
         "项目实战/AI实战/工程实践/Subagent调度策略.md"
       ],
@@ -662,8 +662,13 @@
     },
     "npm/StudySystem/0-inbox/Agent与Skills架构设计": {
       "children": [
+        "npm/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为",
         "npm/StudySystem/0-inbox/Agent与Skills架构设计/raw-input.md"
       ],
+      "sortOrder": "custom"
+    },
+    "npm/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为": {
+      "children": [],
       "sortOrder": "custom"
     },
     "npm/StudySystem/0-inbox/CLAUDE.md放置策略": {
@@ -1168,8 +1173,13 @@
     },
     "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计": {
       "children": [
+        "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为",
         "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计/raw-input.md"
       ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为": {
+      "children": [],
       "sortOrder": "custom"
     },
     "PVE的学习/StudySystem/0-inbox/CLAUDE.md放置策略": {
@@ -1321,6 +1331,7 @@
     },
     "StudySystem": {
       "children": [
+        "StudySystem/TODO.md",
         "StudySystem/3-published",
         "StudySystem/0-inbox",
         "StudySystem/1-curated",
@@ -1331,6 +1342,7 @@
     },
     "StudySystem/0-inbox": {
       "children": [
+        "StudySystem/0-inbox/Comet双星工作流",
         "StudySystem/0-inbox/AI-Agent状态机工作流",
         "StudySystem/0-inbox/Subagent资料搜集的Token失控",
         "StudySystem/0-inbox/claude-code-skill-filtering",
@@ -1383,8 +1395,13 @@
     },
     "StudySystem/0-inbox/Agent与Skills架构设计": {
       "children": [
+        "StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为",
         "StudySystem/0-inbox/Agent与Skills架构设计/raw-input.md"
       ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/Agent与Skills架构设计/LLM路由行为": {
+      "children": [],
       "sortOrder": "custom"
     },
     "StudySystem/0-inbox/AI-Agent状态机工作流": {
@@ -1527,6 +1544,16 @@
         "StudySystem/0-inbox/comet/raw/doc-09-openspec-repo.md",
         "StudySystem/0-inbox/comet/raw/doc-10-superpowers-repo.md"
       ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/Comet双星工作流": {
+      "children": [
+        "StudySystem/0-inbox/Comet双星工作流/raw"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/Comet双星工作流/raw": {
+      "children": [],
       "sortOrder": "custom"
     },
     "StudySystem/0-inbox/Git-资产管理实战": {
@@ -1881,7 +1908,9 @@
       "sortOrder": "custom"
     },
     "StudySystem/2-drafts/Subagent资料搜集的Token失控": {
-      "children": [],
+      "children": [
+        "StudySystem/2-drafts/Subagent资料搜集的Token失控/Subagent资料搜集的Token失控-笔记.md"
+      ],
       "sortOrder": "custom"
     },
     "StudySystem/2-drafts/Superpowers": {
@@ -1892,6 +1921,7 @@
     },
     "StudySystem/3-published": {
       "children": [
+        "StudySystem/3-published/Subagent资料搜集的Token失控",
         "StudySystem/3-published/claude-code-skill-filtering",
         "StudySystem/3-published/Git与资产管理实战"
       ],
@@ -1909,8 +1939,15 @@
       ],
       "sortOrder": "custom"
     },
+    "StudySystem/3-published/Subagent资料搜集的Token失控": {
+      "children": [
+        "StudySystem/3-published/Subagent资料搜集的Token失控/Subagent资料搜集的Token失控-笔记.md"
+      ],
+      "sortOrder": "custom"
+    },
     "StudySystem/4-meta": {
       "children": [
+        "StudySystem/4-meta/TODO-archived-claude-code-skill-filtering-2026-06-02.md",
         "StudySystem/4-meta/backups",
         "StudySystem/4-meta/execution-log.md",
         "StudySystem/4-meta/evaluation"
@@ -2011,8 +2048,13 @@
     },
     "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems": {
       "children": [
+        "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems/images",
         "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems.md"
       ],
+      "sortOrder": "custom"
+    },
+    "web-articles/What_is_AI_Harness_Engineering_Your_Guide_to_Controlling_Autonomous_Systems/images": {
+      "children": [],
       "sortOrder": "custom"
     },
     "web-articles/What_is_harness_engineering": {
