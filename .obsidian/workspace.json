@@ -186,7 +186,7 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -208,10 +208,12 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "e36d73967f5c48ba",
   "lastOpenFiles": [
-    "项目实战/AI实战/工程实践/Subagent Token吞噬与缓存失效分析.md",
+    "StudySystem/2-drafts/Subagent资料搜集的Token失控/Subagent资料搜集的Token失控-笔记.md",
+    "StudySystem/0-inbox/Subagent资料搜集的Token失控/raw-input.md",
     "项目实战/AI实战/工程实践/Subagent资料搜集的Token失控-笔记.md",
+    "项目实战/AI实战/工程实践/Subagent Token吞噬与缓存失效分析.md",
     "StudySystem/3-published/Subagent资料搜集的Token失控/Subagent资料搜集的Token失控-笔记.md",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.md",
     "StudySystem/3-published/Subagent资料搜集的Token失控",
@@ -236,9 +238,7 @@
     "StudySystem/4-meta/TODO-archived-claude-code-skill-filtering-2026-06-02.md",
     "StudySystem/3-published/claude-code-skill-filtering/Claude Code 技能过滤机制设计.md",
     "StudySystem/2-drafts/claude-code-skill-filtering/Claude Code 技能过滤机制设计.md",
-    "StudySystem/2-drafts/Subagent资料搜集的Token失控/Subagent资料搜集的Token失控-笔记.md",
     "StudySystem/0-inbox/claude-code-skill-filtering/raw-input.md",
-    "StudySystem/0-inbox/Subagent资料搜集的Token失控/raw-input.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/raw/video-01.md",
     "StudySystem/4-meta/evaluation/AI-Agent状态机工作流-eval.md",
     "StudySystem/0-inbox/AI-Agent状态机工作流/sources.md",
