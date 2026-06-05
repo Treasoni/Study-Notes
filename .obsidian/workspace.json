@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "项目实战/AI实战/工程实践/Claude Code 技能过滤机制设计.md",
+                "file": "GitHub项目/ECC/Claude-Code-速记指南.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Claude Code 技能过滤机制设计"
+              "title": "Claude-Code-速记指南"
             }
           },
           {
@@ -185,13 +185,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "项目实战/AI实战/工程实践/Claude Code 技能过滤机制设计.md",
+                "file": "GitHub项目/ECC/Claude-Code-速记指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Claude Code 技能过滤机制设计 的大纲"
+              "title": "Claude-Code-速记指南 的大纲"
             }
           },
           {
@@ -239,6 +239,8 @@
   },
   "active": "c1fcc564902d4ddd",
   "lastOpenFiles": [
+    "项目实战/AI实战/工程实践/Claude Code 技能过滤机制设计.md",
+    "GitHub项目/ECC/Claude-Code-Advanced-Notes.md",
     "项目实战/AI实战/工程实践/Claude Code Subagent与Skill调度机制.md",
     "项目实战/AI实战/架构设计/Claude Code项目动态技能发现机制.md",
     "项目实战/AI实战/工程实践/Subagent Token吞噬与缓存失效分析.md",
@@ -250,9 +252,7 @@
     "项目实战/AI实战/工程实践/ClaudeCode工作流遵守问题.md",
     "项目实战/AI实战/工程实践/CLAUDE.md放置策略.md",
     "项目实战/AI实战/工程实践/Claude Code自我学习机制.md",
-    "项目实战/AI实战/工程实践/Claude Code 技能过滤机制设计.md",
     "项目实战/AI实战/AI实战 MOC.md",
-    "GitHub项目/ECC/Claude-Code-Advanced-Notes.md",
     "StudySystem/3-published/Subagent资料搜集的Token失控/Subagent资料搜集的Token失控-笔记.md",
     "StudySystem/3-published/Subagent资料搜集的Token失控",
     "StudySystem/2-drafts/Subagent资料搜集的Token失控/Subagent资料搜集的Token失控-笔记.md",
