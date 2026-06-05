@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "项目实战/AI实战/工程实践/Subagent Token吞噬与缓存失效分析.md",
+                "file": "GitHub项目/ECC/Claude-Code-速记指南.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Subagent Token吞噬与缓存失效分析"
+              "title": "Claude-Code-速记指南"
             }
           },
           {
@@ -41,16 +41,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "项目实战/AI实战/AI实战 MOC.md",
+                "file": "GitHub项目/ECC/Claude-Code-Advanced-Notes.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "AI实战 MOC"
+              "title": "Claude-Code-Advanced-Notes"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -185,13 +185,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "项目实战/AI实战/AI实战 MOC.md",
+                "file": "GitHub项目/ECC/Claude-Code-速记指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "AI实战 MOC 的大纲"
+              "title": "Claude-Code-速记指南 的大纲"
             }
           },
           {
@@ -215,7 +215,7 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -237,8 +237,11 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "c1fcc564902d4ddd",
   "lastOpenFiles": [
+    "项目实战/AI实战/工程实践/Subagent Token吞噬与缓存失效分析.md",
+    "GitHub项目/ECC/Claude-Code-Advanced-Notes.md",
+    "项目实战/AI实战/AI实战 MOC.md",
     "项目实战/AI实战/工程实践/Subagent资料搜集的Token失控-笔记.md",
     "StudySystem/3-published/Subagent资料搜集的Token失控/Subagent资料搜集的Token失控-笔记.md",
     "StudySystem/3-published/Subagent资料搜集的Token失控",
@@ -254,7 +257,6 @@
     "StudySystem/0-inbox/Subagent资料搜集的Token失控/raw-input.md",
     "StudySystem/2-drafts/Subagent资料搜集的Token失控",
     "StudySystem/0-inbox/Subagent资料搜集的Token失控",
-    "项目实战/AI实战/工程实践/Subagent Token吞噬与缓存失效分析.md",
     "StudySystem/0-inbox/claude-code-skill-filtering",
     "openspec/changes/archive/2026-06-02-token-cost-optimization/tasks.md",
     "openspec/changes/archive/2026-06-02-token-cost-optimization/proposal.md",
@@ -273,8 +275,6 @@
     "conflict-files-obsidian-git.md",
     "StudySystem/4-meta/evaluation/AI-Agent状态机工作流-eval.md",
     "StudySystem/4-meta/backups/Claude-Code-Advanced-Notes-2026-06-02.md",
-    "StudySystem/2-drafts/OpenSpec/OpenSpec-使用入门与速查.md",
-    "StudySystem/2-drafts/AI-Agent状态机工作流/AI-Agent-状态机工作流.md",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
