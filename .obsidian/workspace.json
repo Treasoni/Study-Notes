@@ -215,7 +215,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
@@ -237,7 +237,7 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "c1fcc564902d4ddd",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
     "项目实战/AI实战/架构设计/Agent与Skills架构设计.md",
     "项目实战/AI实战/工程实践/Subagent调度策略.md",
