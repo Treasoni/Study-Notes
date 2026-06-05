@@ -4,81 +4,53 @@
     "type": "split",
     "children": [
       {
-        "id": "c13f40ae4b999b37",
-        "type": "split",
+        "id": "5084bf07f86dd942",
+        "type": "tabs",
         "children": [
           {
-            "id": "5084bf07f86dd942",
-            "type": "tabs",
-            "children": [
-              {
-                "id": "e36d73967f5c48ba",
-                "type": "leaf",
-                "state": {
-                  "type": "markdown",
-                  "state": {
-                    "file": "项目实战/AI实战/工程实践/Subagent资料搜集的Token失控-笔记.md",
-                    "mode": "source",
-                    "source": false
-                  },
-                  "icon": "lucide-file",
-                  "title": "Subagent资料搜集的Token失控-笔记"
-                }
-              }
-            ]
+            "id": "e36d73967f5c48ba",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "项目实战/AI实战/架构设计/Claude Code项目动态技能发现机制.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Claude Code项目动态技能发现机制"
+            }
           },
           {
-            "id": "5ae1ae4f7e424771",
-            "type": "tabs",
-            "children": [
-              {
-                "id": "47d6976e93350994",
-                "type": "leaf",
-                "pinned": true,
-                "state": {
-                  "type": "terminal:terminal",
-                  "state": {
-                    "terminal:terminal": {
-                      "cwd": "/Users/zhqznc/Documents/项目",
-                      "focus": false,
-                      "profile": {
-                        "args": [
-                          "--login"
-                        ],
-                        "executable": "/bin/zsh",
-                        "followTheme": true,
-                        "name": "",
-                        "platforms": {
-                          "darwin": true
-                        },
-                        "pythonExecutable": "python3",
-                        "restoreHistory": false,
-                        "rightClickAction": "copyPaste",
-                        "successExitCodes": [
-                          "0",
-                          "SIGINT",
-                          "SIGTERM"
-                        ],
-                        "terminalOptions": {
-                          "documentOverride": null
-                        },
-                        "type": "integrated",
-                        "useWin32Conhost": true
-                      },
-                      "profileSourceId": "darwinIntegratedDefault",
-                      "serial": null,
-                      "userTitle": ""
-                    }
-                  },
-                  "pinned": true,
-                  "icon": "terminal",
-                  "title": "终端：✳ Claude Code"
-                }
-              }
-            ]
+            "id": "c1fcc564902d4ddd",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "项目实战/AI实战/工程实践/Subagent Token吞噬与缓存失效分析.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Subagent Token吞噬与缓存失效分析"
+            }
+          },
+          {
+            "id": "a3b2bc421b126509",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "项目实战/AI实战/AI实战 MOC.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "AI实战 MOC"
+            }
           }
         ],
-        "direction": "horizontal"
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -213,12 +185,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "项目实战/AI实战/AI实战 MOC.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "AI实战 MOC 的大纲"
             }
           },
           {
@@ -246,7 +219,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 350.5
+    "width": 401.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -264,46 +237,46 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "47d6976e93350994",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
     "项目实战/AI实战/工程实践/Subagent资料搜集的Token失控-笔记.md",
-    "StudySystem/2-drafts/Subagent资料搜集的Token失控/Subagent资料搜集的Token失控-笔记.md",
-    "StudySystem/0-inbox/Subagent资料搜集的Token失控/raw-input.md",
-    "项目实战/AI实战/工程实践/Subagent Token吞噬与缓存失效分析.md",
     "StudySystem/3-published/Subagent资料搜集的Token失控/Subagent资料搜集的Token失控-笔记.md",
-    "AI学习/01-基础概念/AI-Agent-状态机工作流.md",
     "StudySystem/3-published/Subagent资料搜集的Token失控",
-    "项目实战/AI实战/工程实践/Claude Code 防遗忘策略.md",
     "项目实战/AI实战/工程实践/Claude Code 技能过滤机制设计.md",
-    "scripts/test_merge_sources.py",
-    "scripts/test_batch_fetch.py",
-    "scripts/requirements.txt",
-    "scripts/merge_sources.py",
-    "scripts/batch_fetch.py",
-    "scripts/__pycache__/test_merge_sources.cpython-313-pytest-9.0.3.pyc",
-    "scripts/__pycache__/batch_fetch.cpython-313.pyc",
-    "scripts/__pycache__/test_batch_fetch.cpython-313-pytest-9.0.3.pyc",
-    "scripts/__pycache__/merge_sources.cpython-313.pyc",
+    "StudySystem/2-drafts/Subagent资料搜集的Token失控/Subagent资料搜集的Token失控-笔记.md",
+    "StudySystem/TODO.md",
+    "StudySystem/4-meta/TODO-archived-claude-code-skill-filtering-2026-06-02.md",
+    "StudySystem/2-drafts/claude-code-skill-filtering/Claude Code 技能过滤机制设计.md",
+    "StudySystem/3-published/claude-code-skill-filtering/Claude Code 技能过滤机制设计.md",
+    "StudySystem/3-published/claude-code-skill-filtering",
+    "StudySystem/0-inbox/claude-code-skill-filtering/raw-input.md",
+    "StudySystem/2-drafts/claude-code-skill-filtering",
+    "StudySystem/0-inbox/Subagent资料搜集的Token失控/raw-input.md",
+    "StudySystem/2-drafts/Subagent资料搜集的Token失控",
+    "StudySystem/0-inbox/Subagent资料搜集的Token失控",
+    "项目实战/AI实战/工程实践/Subagent Token吞噬与缓存失效分析.md",
+    "StudySystem/0-inbox/claude-code-skill-filtering",
     "openspec/changes/archive/2026-06-02-token-cost-optimization/tasks.md",
     "openspec/changes/archive/2026-06-02-token-cost-optimization/proposal.md",
     "openspec/changes/archive/2026-06-02-token-cost-optimization/design.md",
+    "openspec/changes/archive/2026-06-02-token-cost-optimization",
     "docs/superpowers/specs/2026-06-02-token-cost-optimization-design.md",
     "docs/superpowers/reports/2026-06-02-token-cost-optimization-verify.md",
     "docs/superpowers/plans/2026-06-02-token-cost-optimization.md",
-    "StudySystem/TODO.md",
-    "StudySystem/4-meta/TODO-archived-claude-code-skill-filtering-2026-06-02.md",
-    "StudySystem/3-published/claude-code-skill-filtering/Claude Code 技能过滤机制设计.md",
-    "StudySystem/2-drafts/claude-code-skill-filtering/Claude Code 技能过滤机制设计.md",
-    "StudySystem/0-inbox/claude-code-skill-filtering/raw-input.md",
-    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/video-01.md",
+    "scripts/__pycache__/test_merge_sources.cpython-313-pytest-9.0.3.pyc",
+    "scripts/__pycache__/test_batch_fetch.cpython-313-pytest-9.0.3.pyc",
+    "scripts/__pycache__/merge_sources.cpython-313.pyc",
+    "项目实战/AI实战/sortspec.md",
+    "项目实战/AI实战/工程实践/Claude Code 防遗忘策略.md",
+    "项目实战/AI实战/工程实践/CLAUDE.md放置策略.md",
+    "GitHub项目/ECC/Claude-Code-速记指南.md",
+    "conflict-files-obsidian-git.md",
     "StudySystem/4-meta/evaluation/AI-Agent状态机工作流-eval.md",
-    "StudySystem/0-inbox/AI-Agent状态机工作流/sources.md",
-    "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
-    "AI学习/01-基础概念/上下文工程/AI上下文工程.md",
+    "StudySystem/4-meta/backups/Claude-Code-Advanced-Notes-2026-06-02.md",
+    "StudySystem/2-drafts/OpenSpec/OpenSpec-使用入门与速查.md",
     "StudySystem/2-drafts/AI-Agent状态机工作流/AI-Agent-状态机工作流.md",
-    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/doc-07.md",
-    "StudySystem/0-inbox/AI-Agent状态机工作流/raw/video-02.md",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
+    "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
     "web-articles/What_is_harness_engineering/images/img_002.png",
     "web-articles/What_is_harness_engineering/images/img_001.jpg",
