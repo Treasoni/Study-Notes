@@ -17,6 +17,46 @@ docs/superpowers/              # 开发流程产生的 plans/specs/reports
 # === 本地配置 ===
 .claude/settings.local.json
 
+# === 密钥与私密文件（禁止上传） ===
+*.pem
+*.key
+*.p12
+*.pfx
+*.cert
+*.crt
+*.jks
+*.keystore
+.env
+.env.*
+!.env.example
+secrets/
+**/secrets/
+*secret*
+!*secret*.md
+*.credentials
+credentials.json
+service-account*.json
+*-key.json
+*-credentials.json
+.kube/config
+.ssh/
+id_rsa*
+id_ed25519*
+*.gpg
+*.asc
+*.kdbx
+*.keychain-db
+**/vault-password*
+**/.vault-secrets*
+*.key.json
+*.pem.json
+**/config.local.*
+**/config.private.*
+**/*.local.md
+**/*.private.md
+*.bak.private
+**/.env.local
+
 # === 用户学习数据（可选共享） ===
 .learnings/LEARNINGS.md
 .learnings/ERRORS.md
