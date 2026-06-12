@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/01-基础概念/Harness-Engineering-系统治理工程.md",
+                "file": "AI学习/01-基础概念/2026-AI职业角色与路线图.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Harness-Engineering-系统治理工程"
+              "title": "2026-AI职业角色与路线图"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/01-基础概念/Harness-Engineering-系统治理工程.md",
+                "file": "AI学习/01-基础概念/2026-AI职业角色与路线图.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Harness-Engineering-系统治理工程 的大纲"
+              "title": "2026-AI职业角色与路线图 的大纲"
             }
           },
           {
@@ -210,6 +210,8 @@
   },
   "active": "e36d73967f5c48ba",
   "lastOpenFiles": [
+    "AI学习/01-基础概念/人工智能重要的六大概念体系.md",
+    "AI学习/01-基础概念/Harness-Engineering-系统治理工程.md",
     "GitHub项目/ECC/Claude-Code-Advanced-Notes.md",
     "GitHub项目/ECC/Claude-Code-速记指南.md",
     "AI学习/01-基础概念/Prompt提示词.md",
@@ -217,7 +219,6 @@
     "AI学习/01-基础概念/AI-Agent-状态机工作流.md",
     "AI学习/01-基础概念/AI缓存命中与未命中.md",
     "AI学习/01-基础概念/Prompt-Engineering.md",
-    "AI学习/01-基础概念/Harness-Engineering-系统治理工程.md",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "linux/WSL-Windows子系统forLinux.md",
     "linux/linux MOC.md",
@@ -246,7 +247,6 @@
     "scripts/__pycache__/test_batch_fetch.cpython-313-pytest-9.0.3.pyc",
     "scripts/__pycache__/merge_sources.cpython-313.pyc",
     "openspec/changes/archive/2026-06-02-token-cost-optimization/tasks.md",
-    "openspec/changes/archive/2026-06-02-token-cost-optimization/proposal.md",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
     "web-articles/What_is_harness_engineering/images/img_002.png",
