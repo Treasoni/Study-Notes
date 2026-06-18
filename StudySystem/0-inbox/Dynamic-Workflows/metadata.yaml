@@ -1,0 +1,129 @@
+topic: "Claude Code Dynamic Workflows"
+collected_at: "2026-06-18T00:00:00Z"
+scope:
+  count: medium
+  types: [technical_docs, blog_posts]
+  research_depth: standard
+tools_used:
+  search: "WebSearch (fallback to direct documentation URLs)"
+  fetch: "WebFetch"
+  fallback_used: true
+
+files:
+  - filename: "doc-01.md"
+    title: "Orchestrate subagents at scale with dynamic workflows"
+    url: "https://code.claude.com/docs/en/workflows.md"
+    authority: 5
+    freshness: 5
+    completeness: 5
+    readability: 5
+    score: 5.0
+    classification: core_concepts
+    duplicate_of: null
+
+  - filename: "doc-02.md"
+    title: "Run agents in parallel"
+    url: "https://code.claude.com/docs/en/agents.md"
+    authority: 5
+    freshness: 5
+    completeness: 4
+    readability: 5
+    score: 4.8
+    classification: core_concepts
+    duplicate_of: null
+
+  - filename: "doc-03.md"
+    title: "Create custom subagents"
+    url: "https://code.claude.com/docs/en/sub-agents.md"
+    authority: 5
+    freshness: 5
+    completeness: 5
+    readability: 4
+    score: 4.8
+    classification: core_concepts
+    duplicate_of: null
+
+  - filename: "doc-04.md"
+    title: "Extend Claude with skills"
+    url: "https://code.claude.com/docs/en/skills.md"
+    authority: 5
+    freshness: 5
+    completeness: 5
+    readability: 4
+    score: 4.8
+    classification: core_concepts
+    duplicate_of: null
+
+  - filename: "doc-05.md"
+    title: "Claude Code changelog (Dynamic Workflows section)"
+    url: "https://code.claude.com/docs/en/changelog.md"
+    authority: 5
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.5
+    classification: core_concepts
+    duplicate_of: null
+
+  - filename: "doc-06.md"
+    title: "Automate actions with hooks"
+    url: "https://code.claude.com/docs/en/hooks-guide.md"
+    authority: 5
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.5
+    classification: core_concepts
+    duplicate_of: null
+
+  - filename: "doc-07.md"
+    title: "Dynamic Workflows Community Issues & Feedback"
+    url: "https://github.com/anthropics/claude-code/issues?q=is%3Aissue+ultracode+workflow"
+    authority: 4
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.3
+    classification: practical_examples
+    duplicate_of: null
+
+  - filename: "doc-08.md"
+    title: "Claude Code Overview"
+    url: "https://code.claude.com/docs/en/overview.md"
+    authority: 5
+    freshness: 5
+    completeness: 3
+    readability: 5
+    score: 4.5
+    classification: core_concepts
+    duplicate_of: null
+
+  - filename: "doc-09.md"
+    title: "Commands reference (workflow-relevant commands)"
+    url: "https://code.claude.com/docs/en/commands.md"
+    authority: 5
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.5
+    classification: practical_examples
+    duplicate_of: null
+
+summary:
+  total_collected: 9
+  total_kept: 9
+  total_removed: 0
+  by_classification:
+    core_concepts: 7
+    practical_examples: 2
+    advanced: 0
+  by_authority:
+    official_docs: 8
+    tech_blogs: 0
+    community: 1
+    videos: 0
+  gaps:
+    - "External third-party blog posts and tutorials are scarce - the feature is too new (released May 28, 2026) for major coverage to have developed"
+    - "No video tutorials found on the new ultracode keyword and workflow orchestration"
+    - "No advanced/internals deep-dive material - feature is at v2.1.178, still iterating"
+    - "No source code examples of complete JavaScript workflow scripts beyond what /deep-research uses"
