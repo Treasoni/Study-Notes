@@ -210,6 +210,7 @@
   },
   "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "StudySystem/TODO.md",
     "AI学习/01-基础概念/2026-AI职业角色与路线图.md",
     "AI学习/01-基础概念/人工智能重要的六大概念体系.md",
     "AI学习/01-基础概念/Harness-Engineering-系统治理工程.md",
@@ -237,7 +238,6 @@
     "StudySystem/3-published/Subagent资料搜集的Token失控/Subagent资料搜集的Token失控-笔记.md",
     "StudySystem/3-published/Subagent资料搜集的Token失控",
     "项目实战/AI实战/工程实践/Claude Code 防遗忘策略.md",
-    "项目实战/AI实战/工程实践/Claude Code 技能过滤机制设计.md",
     "scripts/test_merge_sources.py",
     "scripts/test_batch_fetch.py",
     "scripts/requirements.txt",

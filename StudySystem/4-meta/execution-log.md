@@ -48,3 +48,12 @@
 - Final file: GitHub项目/OpenSpec/OpenSpec-使用入门与速查.md
 - Canvas: GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas
 - Phases completed: 1-4, 6 (skipped 5 per user request)
+
+## [2026-06-18] Claude Code Dynamic Workflows
+- Purpose: 兴趣探索
+- Audience: 自己
+- Depth: 入门
+- Note type: concept + cheat_sheet
+- Output path: /Users/zhqznc/Documents/项目/AI学习/Claude Code 教程/高级功能/
+- Status: started
+- Final file: AI学习/Claude Code 教程/高级功能/Claude Code Dynamic Workflows 使用指南.md
