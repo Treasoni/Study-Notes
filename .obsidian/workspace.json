@@ -210,6 +210,7 @@
   },
   "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "AI学习/Claude Code 教程/高级功能/Claude Code Dynamic Workflows 使用指南.md",
     "StudySystem/2-drafts/Dynamic-Workflows/Claude Code Dynamic Workflows 使用指南.md",
     "StudySystem/2-drafts/Dynamic-Workflows",
     "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-02.md",
@@ -240,7 +241,6 @@
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "linux/WSL-Windows子系统forLinux.md",
     "linux/linux MOC.md",
-    "linux/Ubuntu curl SSL连接问题排查.md",
     "StudySystem/3-published/Subagent资料搜集的Token失控",
     "scripts/test_merge_sources.py",
     "scripts/test_batch_fetch.py",
