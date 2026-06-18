@@ -208,8 +208,11 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "e36d73967f5c48ba",
+  "active": "52ff2f9fbef74052",
   "lastOpenFiles": [
+    "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-05.md",
+    "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-04.md",
+    "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-03.md",
     "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-01.md",
     "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-02.md",
     "StudySystem/TODO.md",
@@ -236,9 +239,6 @@
     "linux/Ubuntu Server 安装教程.md",
     "虚拟机/VMware 获取虚拟机所有权失败.md",
     "AI学习/02-通用工具/Tailscale使用指南.md",
-    "项目实战/AI实战/工程实践/Subagent资料搜集的Token失控-笔记.md",
-    "StudySystem/2-drafts/Subagent资料搜集的Token失控/Subagent资料搜集的Token失控-笔记.md",
-    "StudySystem/0-inbox/Subagent资料搜集的Token失控/raw-input.md",
     "StudySystem/3-published/Subagent资料搜集的Token失控",
     "scripts/test_merge_sources.py",
     "scripts/test_batch_fetch.py",
