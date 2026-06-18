@@ -210,6 +210,7 @@
   },
   "active": "52ff2f9fbef74052",
   "lastOpenFiles": [
+    "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-06.md",
     "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-05.md",
     "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-04.md",
     "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-03.md",
@@ -238,7 +239,6 @@
     "linux/linux磁盘相关的知识.md",
     "linux/Ubuntu Server 安装教程.md",
     "虚拟机/VMware 获取虚拟机所有权失败.md",
-    "AI学习/02-通用工具/Tailscale使用指南.md",
     "StudySystem/3-published/Subagent资料搜集的Token失控",
     "scripts/test_merge_sources.py",
     "scripts/test_batch_fetch.py",
