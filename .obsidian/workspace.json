@@ -208,8 +208,10 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "e36d73967f5c48ba",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "StudySystem/2-drafts/Dynamic-Workflows/Claude Code Dynamic Workflows 使用指南.md",
+    "StudySystem/2-drafts/Dynamic-Workflows",
     "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-02.md",
     "StudySystem/0-inbox/Dynamic-Workflows/metadata.yaml",
     "StudySystem/0-inbox/Dynamic-Workflows/sources.md",
@@ -245,7 +247,6 @@
     "scripts/requirements.txt",
     "scripts/merge_sources.py",
     "scripts/batch_fetch.py",
-    "scripts/__pycache__/test_merge_sources.cpython-313-pytest-9.0.3.pyc",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
     "web-articles/What_is_harness_engineering/images/img_002.png",
