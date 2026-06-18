@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-02.md",
+                "file": "StudySystem/TODO.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "doc-02"
+              "title": "TODO"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-02.md",
+                "file": "StudySystem/TODO.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "doc-02 的大纲"
+              "title": "TODO 的大纲"
             }
           },
           {
@@ -208,8 +208,9 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "e36d73967f5c48ba",
   "lastOpenFiles": [
+    "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-02.md",
     "StudySystem/0-inbox/Dynamic-Workflows/metadata.yaml",
     "StudySystem/0-inbox/Dynamic-Workflows/sources.md",
     "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-09.md",
@@ -220,7 +221,6 @@
     "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-04.md",
     "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-03.md",
     "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-01.md",
-    "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-02.md",
     "StudySystem/TODO.md",
     "StudySystem/0-inbox/Dynamic-Workflows/raw",
     "StudySystem/0-inbox/Dynamic-Workflows",
@@ -246,7 +246,6 @@
     "scripts/merge_sources.py",
     "scripts/batch_fetch.py",
     "scripts/__pycache__/test_merge_sources.cpython-313-pytest-9.0.3.pyc",
-    "scripts/__pycache__/batch_fetch.cpython-313.pyc",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
     "web-articles/What_is_harness_engineering/images/img_002.png",
