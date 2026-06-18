@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/00-索引/AI学习 MOC.md",
+                "file": "StudySystem/TODO.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "AI学习 MOC"
+              "title": "TODO"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/00-索引/AI学习 MOC.md",
+                "file": "StudySystem/TODO.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "AI学习 MOC 的大纲"
+              "title": "TODO 的大纲"
             }
           },
           {
@@ -208,8 +208,9 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "e36d73967f5c48ba",
   "lastOpenFiles": [
+    "AI学习/00-索引/AI学习 MOC.md",
     "StudySystem/TODO.md",
     "AI学习/01-基础概念/2026-AI职业角色与路线图.md",
     "AI学习/01-基础概念/人工智能重要的六大概念体系.md",
@@ -237,7 +238,6 @@
     "项目实战/AI实战/工程实践/Subagent Token吞噬与缓存失效分析.md",
     "StudySystem/3-published/Subagent资料搜集的Token失控/Subagent资料搜集的Token失控-笔记.md",
     "StudySystem/3-published/Subagent资料搜集的Token失控",
-    "项目实战/AI实战/工程实践/Claude Code 防遗忘策略.md",
     "scripts/test_merge_sources.py",
     "scripts/test_batch_fetch.py",
     "scripts/requirements.txt",
