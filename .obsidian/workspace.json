@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "StudySystem/TODO.md",
+                "file": "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-02.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "TODO"
+              "title": "doc-02"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "StudySystem/TODO.md",
+                "file": "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-02.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "TODO 的大纲"
+              "title": "doc-02 的大纲"
             }
           },
           {
@@ -208,12 +208,14 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "e36d73967f5c48ba",
   "lastOpenFiles": [
+    "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-01.md",
+    "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-02.md",
+    "StudySystem/TODO.md",
     "StudySystem/0-inbox/Dynamic-Workflows/raw",
     "StudySystem/0-inbox/Dynamic-Workflows",
     "AI学习/00-索引/AI学习 MOC.md",
-    "StudySystem/TODO.md",
     "AI学习/01-基础概念/2026-AI职业角色与路线图.md",
     "AI学习/01-基础概念/人工智能重要的六大概念体系.md",
     "AI学习/01-基础概念/Harness-Engineering-系统治理工程.md",
@@ -237,7 +239,6 @@
     "项目实战/AI实战/工程实践/Subagent资料搜集的Token失控-笔记.md",
     "StudySystem/2-drafts/Subagent资料搜集的Token失控/Subagent资料搜集的Token失控-笔记.md",
     "StudySystem/0-inbox/Subagent资料搜集的Token失控/raw-input.md",
-    "项目实战/AI实战/工程实践/Subagent Token吞噬与缓存失效分析.md",
     "StudySystem/3-published/Subagent资料搜集的Token失控",
     "scripts/test_merge_sources.py",
     "scripts/test_batch_fetch.py",
@@ -246,7 +247,6 @@
     "scripts/batch_fetch.py",
     "scripts/__pycache__/test_merge_sources.cpython-313-pytest-9.0.3.pyc",
     "scripts/__pycache__/batch_fetch.cpython-313.pyc",
-    "scripts/__pycache__/test_batch_fetch.cpython-313-pytest-9.0.3.pyc",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
     "web-articles/What_is_harness_engineering/images/img_002.png",
