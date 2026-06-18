@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "5084bf07f86dd942",
+        "id": "6d24be96495c9ac0",
         "type": "tabs",
         "children": [
           {
-            "id": "e36d73967f5c48ba",
+            "id": "6297f5a251c00ff7",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "StudySystem/TODO.md",
+                "file": "AI学习/Claude Code 教程/高级功能/Claude Code Dynamic Workflows 使用指南.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "TODO"
+              "title": "Claude Code Dynamic Workflows 使用指南"
             }
           }
         ]
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 274.5
+    "width": 371.5
   },
   "right": {
     "id": "289642c072eefc79",
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "StudySystem/TODO.md",
+                "file": "AI学习/Claude Code 教程/高级功能/Claude Code Dynamic Workflows 使用指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "TODO 的大纲"
+              "title": "Claude Code Dynamic Workflows 使用指南 的大纲"
             }
           },
           {
@@ -186,7 +186,7 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -208,12 +208,13 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "746e3216e1c18840",
   "lastOpenFiles": [
+    "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-02.md",
+    "StudySystem/TODO.md",
     "AI学习/Claude Code 教程/高级功能/Claude Code Dynamic Workflows 使用指南.md",
     "StudySystem/2-drafts/Dynamic-Workflows/Claude Code Dynamic Workflows 使用指南.md",
     "StudySystem/2-drafts/Dynamic-Workflows",
-    "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-02.md",
     "StudySystem/0-inbox/Dynamic-Workflows/metadata.yaml",
     "StudySystem/0-inbox/Dynamic-Workflows/sources.md",
     "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-09.md",
@@ -224,7 +225,6 @@
     "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-04.md",
     "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-03.md",
     "StudySystem/0-inbox/Dynamic-Workflows/raw/doc-01.md",
-    "StudySystem/TODO.md",
     "StudySystem/0-inbox/Dynamic-Workflows/raw",
     "StudySystem/0-inbox/Dynamic-Workflows",
     "AI学习/00-索引/AI学习 MOC.md",
