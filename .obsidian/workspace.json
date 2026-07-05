@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/01-基础概念/人工智能重要的六大概念体系.md",
+                "file": "AI学习/01-基础概念/2026-AI职业角色与路线图.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "人工智能重要的六大概念体系"
+              "title": "2026-AI职业角色与路线图"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/01-基础概念/人工智能重要的六大概念体系.md",
+                "file": "AI学习/01-基础概念/2026-AI职业角色与路线图.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "人工智能重要的六大概念体系 的大纲"
+              "title": "2026-AI职业角色与路线图 的大纲"
             }
           },
           {
@@ -210,6 +210,8 @@
   },
   "active": "6297f5a251c00ff7",
   "lastOpenFiles": [
+    "AI学习/01-基础概念/Skills 是什么.md",
+    "AI学习/01-基础概念/人工智能重要的六大概念体系.md",
     "AI学习/00-索引/AI学习 MOC.md",
     "GitHub项目/ECC/Claude-Code-速记指南.md",
     "GitHub项目/ECC/Claude-Code-Advanced-Notes.md",
@@ -231,7 +233,6 @@
     "StudySystem/0-inbox/Dynamic-Workflows/raw",
     "StudySystem/0-inbox/Dynamic-Workflows",
     "AI学习/01-基础概念/2026-AI职业角色与路线图.md",
-    "AI学习/01-基础概念/人工智能重要的六大概念体系.md",
     "AI学习/01-基础概念/Harness-Engineering-系统治理工程.md",
     "AI学习/01-基础概念/Prompt提示词.md",
     "AI学习/01-基础概念/AI工程范式演进-Prompt到Harness.md",
@@ -240,7 +241,6 @@
     "AI学习/01-基础概念/Prompt-Engineering.md",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "linux/WSL-Windows子系统forLinux.md",
-    "linux/linux MOC.md",
     "StudySystem/3-published/Subagent资料搜集的Token失控",
     "scripts/test_merge_sources.py",
     "scripts/test_batch_fetch.py",
