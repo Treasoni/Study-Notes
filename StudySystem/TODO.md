@@ -8,4 +8,4 @@
 ## Remaining Phases
 - [x] Phase 1: collect - 资料收集与整理
 - [x] Phase 2: write - 生成笔记
-- [ ] Phase 3: beautify - 美化排版
+- [x] Phase 3: beautify - 美化排版
