@@ -186,7 +186,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
@@ -208,7 +208,7 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "6297f5a251c00ff7",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
     "AI学习/01-基础概念/SubAgent子代理.md",
     "AI学习/01-基础概念/Agent智能体.md",
