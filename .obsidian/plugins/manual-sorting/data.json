@@ -64,8 +64,15 @@
     },
     "项目实战": {
       "children": [
+        "项目实战/数字员工智能体",
         "项目实战/AI实战",
         "项目实战/git实战"
+      ],
+      "sortOrder": "custom"
+    },
+    "项目实战/数字员工智能体": {
+      "children": [
+        "项目实战/数字员工智能体/数字员工智能体-开源平台选型与实现.md"
       ],
       "sortOrder": "custom"
     },
@@ -88,7 +95,8 @@
         "项目实战/AI实战/工程实践/ClaudeCode工作流遵守问题.md",
         "项目实战/AI实战/工程实践/Subagent资料搜集的Token失控-笔记.md",
         "项目实战/AI实战/工程实践/Claude Code 防遗忘策略.md",
-        "项目实战/AI实战/工程实践/Subagent调度策略.md"
+        "项目实战/AI实战/工程实践/Subagent调度策略.md",
+        "项目实战/AI实战/工程实践/Subagent的两种启动模式.md"
       ],
       "sortOrder": "custom"
     },
@@ -197,118 +205,6 @@
       ],
       "sortOrder": "custom"
     },
-    "AI学习/03-技术专题": {
-      "children": [
-        "AI学习/03-技术专题/AI模型对比",
-        "AI学习/03-技术专题/knowledge-cards.json",
-        "AI学习/03-技术专题/OCR概念笔记.md",
-        "AI学习/03-技术专题/RAG技术入门指南.md",
-        "AI学习/03-技术专题/sortspec.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/03-技术专题/AI模型对比": {
-      "children": [
-        "AI学习/03-技术专题/AI模型对比/GLM系列模型完整对比.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/04-项目实践": {
-      "children": [
-        "AI学习/04-项目实践/openclaw"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/04-项目实践/openclaw": {
-      "children": [
-        "AI学习/04-项目实践/openclaw/参考层",
-        "AI学习/04-项目实践/openclaw/配置层",
-        "AI学习/04-项目实践/openclaw/入门层",
-        "AI学习/04-项目实践/openclaw/选型层",
-        "AI学习/04-项目实践/openclaw/应用层",
-        "AI学习/04-项目实践/openclaw/OpenClaw MOC.md",
-        "AI学习/04-项目实践/openclaw/sortspec.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/04-项目实践/openclaw/参考层": {
-      "children": [
-        "AI学习/04-项目实践/openclaw/参考层/OpenClaw常用命令速查.md",
-        "AI学习/04-项目实践/openclaw/参考层/sortspec.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/04-项目实践/openclaw/配置层": {
-      "children": [
-        "AI学习/04-项目实践/openclaw/配置层/OpenClaw Web控制台局域网访问配置.md",
-        "AI学习/04-项目实践/openclaw/配置层/OpenClaw安装后配置指南.md",
-        "AI学习/04-项目实践/openclaw/配置层/OpenClaw网关开机自启与HTTPS配置.md",
-        "AI学习/04-项目实践/openclaw/配置层/sortspec.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/04-项目实践/openclaw/入门层": {
-      "children": [
-        "AI学习/04-项目实践/openclaw/入门层/OpenClaw安装教程.md",
-        "AI学习/04-项目实践/openclaw/入门层/OpenClaw核心概念.md",
-        "AI学习/04-项目实践/openclaw/入门层/sortspec.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/04-项目实践/openclaw/选型层": {
-      "children": [
-        "AI学习/04-项目实践/openclaw/选型层/OpenClaw与国内仿制品对比.md",
-        "AI学习/04-项目实践/openclaw/选型层/sortspec.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/04-项目实践/openclaw/应用层": {
-      "children": [
-        "AI学习/04-项目实践/openclaw/应用层/OpenClaw本地智能助手搭建指南.md",
-        "AI学习/04-项目实践/openclaw/应用层/OpenClaw对接第三方软件指南.md",
-        "AI学习/04-项目实践/openclaw/应用层/OpenClaw多智能体协作指南.md",
-        "AI学习/04-项目实践/openclaw/应用层/OpenClaw数字人商业调查.md",
-        "AI学习/04-项目实践/openclaw/应用层/sortspec.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/assets": {
-      "children": [
-        "AI学习/assets/人工智能重要的六大概念体系",
-        "AI学习/assets/如何使用Claude code",
-        "AI学习/assets/Skills 是什么"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/assets/人工智能重要的六大概念体系": {
-      "children": [
-        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604579.png",
-        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604580.png",
-        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604582.png",
-        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604582 1.png",
-        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604583.png",
-        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604583 1.png",
-        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604584.png",
-        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604584 1.png",
-        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604585.png"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/assets/如何使用Claude code": {
-      "children": [
-        "AI学习/assets/如何使用Claude code/file-20260205163233510.png",
-        "AI学习/assets/如何使用Claude code/file-20260205163233511.png"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/assets/Skills 是什么": {
-      "children": [
-        "AI学习/assets/Skills 是什么/file-20260205160852903.png",
-        "AI学习/assets/Skills 是什么/file-20260205160852905.png",
-        "AI学习/assets/Skills 是什么/file-20260205161420021.png"
-      ],
-      "sortOrder": "custom"
-    },
     "AI学习/Claude Code 教程": {
       "children": [
         "AI学习/Claude Code 教程/assets",
@@ -350,6 +246,118 @@
     "AI学习/Claude Code 教程/assets/如何使用Claude code": {
       "children": [
         "AI学习/Claude Code 教程/assets/如何使用Claude code/1d99099123f47f537884e6f82bee0997.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/03-技术专题": {
+      "children": [
+        "AI学习/03-技术专题/AI模型对比",
+        "AI学习/03-技术专题/knowledge-cards.json",
+        "AI学习/03-技术专题/OCR概念笔记.md",
+        "AI学习/03-技术专题/RAG技术入门指南.md",
+        "AI学习/03-技术专题/sortspec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/03-技术专题/AI模型对比": {
+      "children": [
+        "AI学习/03-技术专题/AI模型对比/GLM系列模型完整对比.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/04-项目实践": {
+      "children": [
+        "AI学习/04-项目实践/openclaw"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/04-项目实践/openclaw": {
+      "children": [
+        "AI学习/04-项目实践/openclaw/参考层",
+        "AI学习/04-项目实践/openclaw/配置层",
+        "AI学习/04-项目实践/openclaw/入门层",
+        "AI学习/04-项目实践/openclaw/选型层",
+        "AI学习/04-项目实践/openclaw/应用层",
+        "AI学习/04-项目实践/openclaw/OpenClaw MOC.md",
+        "AI学习/04-项目实践/openclaw/sortspec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/04-项目实践/openclaw/入门层": {
+      "children": [
+        "AI学习/04-项目实践/openclaw/入门层/OpenClaw安装教程.md",
+        "AI学习/04-项目实践/openclaw/入门层/OpenClaw核心概念.md",
+        "AI学习/04-项目实践/openclaw/入门层/sortspec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/04-项目实践/openclaw/配置层": {
+      "children": [
+        "AI学习/04-项目实践/openclaw/配置层/OpenClaw Web控制台局域网访问配置.md",
+        "AI学习/04-项目实践/openclaw/配置层/OpenClaw安装后配置指南.md",
+        "AI学习/04-项目实践/openclaw/配置层/OpenClaw网关开机自启与HTTPS配置.md",
+        "AI学习/04-项目实践/openclaw/配置层/sortspec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/04-项目实践/openclaw/选型层": {
+      "children": [
+        "AI学习/04-项目实践/openclaw/选型层/OpenClaw与国内仿制品对比.md",
+        "AI学习/04-项目实践/openclaw/选型层/sortspec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/04-项目实践/openclaw/应用层": {
+      "children": [
+        "AI学习/04-项目实践/openclaw/应用层/OpenClaw本地智能助手搭建指南.md",
+        "AI学习/04-项目实践/openclaw/应用层/OpenClaw对接第三方软件指南.md",
+        "AI学习/04-项目实践/openclaw/应用层/OpenClaw多智能体协作指南.md",
+        "AI学习/04-项目实践/openclaw/应用层/OpenClaw数字人商业调查.md",
+        "AI学习/04-项目实践/openclaw/应用层/sortspec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/04-项目实践/openclaw/参考层": {
+      "children": [
+        "AI学习/04-项目实践/openclaw/参考层/OpenClaw常用命令速查.md",
+        "AI学习/04-项目实践/openclaw/参考层/sortspec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/assets": {
+      "children": [
+        "AI学习/assets/人工智能重要的六大概念体系",
+        "AI学习/assets/如何使用Claude code",
+        "AI学习/assets/Skills 是什么"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/assets/人工智能重要的六大概念体系": {
+      "children": [
+        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604579.png",
+        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604580.png",
+        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604582.png",
+        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604582 1.png",
+        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604583.png",
+        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604583 1.png",
+        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604584.png",
+        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604584 1.png",
+        "AI学习/assets/人工智能重要的六大概念体系/file-20260227114604585.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/assets/如何使用Claude code": {
+      "children": [
+        "AI学习/assets/如何使用Claude code/file-20260205163233510.png",
+        "AI学习/assets/如何使用Claude code/file-20260205163233511.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/assets/Skills 是什么": {
+      "children": [
+        "AI学习/assets/Skills 是什么/file-20260205160852903.png",
+        "AI学习/assets/Skills 是什么/file-20260205160852905.png",
+        "AI学习/assets/Skills 是什么/file-20260205161420021.png"
       ],
       "sortOrder": "custom"
     },
@@ -1342,6 +1350,8 @@
     },
     "StudySystem/0-inbox": {
       "children": [
+        "StudySystem/0-inbox/Subagent启动模式",
+        "StudySystem/0-inbox/数字员工智能体",
         "StudySystem/0-inbox/Dynamic-Workflows",
         "StudySystem/0-inbox/Comet双星工作流",
         "StudySystem/0-inbox/AI-Agent状态机工作流",
@@ -1391,6 +1401,31 @@
         "StudySystem/0-inbox/上下文工程/raw/doc-06-role-prompting.md",
         "StudySystem/0-inbox/上下文工程/raw/doc-07-context-engineering-agents.md",
         "StudySystem/0-inbox/上下文工程/raw/doc-08-context-engineering-guide.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/数字员工智能体": {
+      "children": [
+        "StudySystem/0-inbox/数字员工智能体/metadata.yaml",
+        "StudySystem/0-inbox/数字员工智能体/sources.md",
+        "StudySystem/0-inbox/数字员工智能体/raw"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/0-inbox/数字员工智能体/raw": {
+      "children": [
+        "StudySystem/0-inbox/数字员工智能体/raw/doc-12.md",
+        "StudySystem/0-inbox/数字员工智能体/raw/doc-11.md",
+        "StudySystem/0-inbox/数字员工智能体/raw/doc-10.md",
+        "StudySystem/0-inbox/数字员工智能体/raw/doc-09.md",
+        "StudySystem/0-inbox/数字员工智能体/raw/doc-08.md",
+        "StudySystem/0-inbox/数字员工智能体/raw/doc-07.md",
+        "StudySystem/0-inbox/数字员工智能体/raw/doc-06.md",
+        "StudySystem/0-inbox/数字员工智能体/raw/doc-05.md",
+        "StudySystem/0-inbox/数字员工智能体/raw/doc-04.md",
+        "StudySystem/0-inbox/数字员工智能体/raw/doc-03.md",
+        "StudySystem/0-inbox/数字员工智能体/raw/doc-02.md",
+        "StudySystem/0-inbox/数字员工智能体/raw/doc-01.md"
       ],
       "sortOrder": "custom"
     },
@@ -1664,6 +1699,12 @@
       ],
       "sortOrder": "custom"
     },
+    "StudySystem/0-inbox/Subagent启动模式": {
+      "children": [
+        "StudySystem/0-inbox/Subagent启动模式/raw-input.md"
+      ],
+      "sortOrder": "custom"
+    },
     "StudySystem/0-inbox/Subagent资料搜集的Token失控": {
       "children": [
         "StudySystem/0-inbox/Subagent资料搜集的Token失控/raw-input.md"
@@ -1799,6 +1840,8 @@
     },
     "StudySystem/2-drafts": {
       "children": [
+        "StudySystem/2-drafts/Subagent启动模式",
+        "StudySystem/2-drafts/数字员工智能体",
         "StudySystem/2-drafts/Dynamic-Workflows",
         "StudySystem/2-drafts/AI-Agent状态机工作流",
         "StudySystem/2-drafts/claude-code-skill-filtering",
@@ -1826,6 +1869,12 @@
     "StudySystem/2-drafts/上下文工程": {
       "children": [
         "StudySystem/2-drafts/上下文工程/上下文工程-笔记.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/2-drafts/数字员工智能体": {
+      "children": [
+        "StudySystem/2-drafts/数字员工智能体/数字员工智能体-开源平台选型与实现.md"
       ],
       "sortOrder": "custom"
     },
@@ -1934,6 +1983,12 @@
     "StudySystem/2-drafts/Subagent调度策略": {
       "children": [
         "StudySystem/2-drafts/Subagent调度策略/笔记.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "StudySystem/2-drafts/Subagent启动模式": {
+      "children": [
+        "StudySystem/2-drafts/Subagent启动模式/Subagent启动模式-笔记.md"
       ],
       "sortOrder": "custom"
     },

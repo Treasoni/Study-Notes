@@ -11,10 +11,14 @@
             "id": "59c567064a2384f7",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "项目实战/AI实战/工程实践/Subagent的两种启动模式.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "Subagent的两种启动模式"
             }
           }
         ]
@@ -152,12 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "项目实战/AI实战/工程实践/Subagent的两种启动模式.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "Subagent的两种启动模式 的大纲"
             }
           },
           {
@@ -203,9 +208,9 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "59c567064a2384f7",
   "lastOpenFiles": [
-    "项目实战/AI实战/Subagent的两种启动模式.md",
+    "项目实战/AI实战/工程实践/Subagent的两种启动模式.md",
     "项目实战/数字员工智能体/数字员工智能体-开源平台选型与实现.md",
     "StudySystem/2-drafts/Subagent启动模式/Subagent启动模式-笔记.md",
     "StudySystem/2-drafts/Subagent启动模式",
