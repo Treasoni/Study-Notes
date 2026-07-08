@@ -186,11 +186,11 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
-    "width": 384.5
+    "width": 433.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -208,7 +208,7 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "746e3216e1c18840",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
     "AI学习/01-基础概念/Skills 是什么.md",
     "项目实战/数字员工智能体/数字员工智能体-开源平台选型与实现.md",
