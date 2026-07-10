@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "0f208a7144e4201e",
+        "id": "397e28f7a46b1bee",
         "type": "tabs",
         "children": [
           {
-            "id": "59c567064a2384f7",
+            "id": "30b0ade23c460f17",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "项目实战/AI实战/工程实践/Subagent的两种启动模式.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Subagent的两种启动模式"
+              "title": "新标签页"
             }
           }
         ]
@@ -156,13 +152,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "项目实战/AI实战/工程实践/Subagent的两种启动模式.md",
+                "file": "StudySystem/2-drafts/codex-config-guide/Codex手动配置指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Subagent的两种启动模式 的大纲"
+              "title": "Codex手动配置指南 的大纲"
             }
           },
           {
@@ -208,8 +204,9 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "52ff2f9fbef74052",
   "lastOpenFiles": [
+    "项目实战/AI实战/工程实践/Subagent的两种启动模式.md",
     "StudySystem/2-drafts/codex-config-guide/Codex手动配置指南.md",
     "StudySystem/2-drafts/codex-config-guide",
     "StudySystem/0-inbox/codex-config-guide/metadata.yaml",
@@ -230,7 +227,6 @@
     "StudySystem/0-inbox/codex-config-guide/raw",
     "StudySystem/0-inbox/codex-config-guide",
     "StudySystem/TODO.md",
-    "项目实战/AI实战/工程实践/Subagent的两种启动模式.md",
     "项目实战/数字员工智能体/数字员工智能体-开源平台选型与实现.md",
     "StudySystem/2-drafts/Subagent启动模式/Subagent启动模式-笔记.md",
     "StudySystem/2-drafts/Subagent启动模式",
