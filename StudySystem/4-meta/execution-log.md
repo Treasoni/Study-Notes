@@ -68,3 +68,11 @@
 - Status: completed (2026-07-06)
 - Final file: 项目实战/数字员工智能体/数字员工智能体-开源平台选型与实现.md
 - Phases completed: 1-3 (skipped 4-5 per user request, early termination)
+
+## [2026-07-11] Codex 手动配置指南
+- Purpose: 工作需要
+- Audience: 自己
+- Depth: 进阶
+- Note type: practice + compare
+- Output path: /Users/zhqznc/Documents/项目/AI学习/03-技术专题/Codex手动配置指南.md
+- Status: started
