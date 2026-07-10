@@ -22,17 +22,17 @@ tags:
 created: 2026-07-11
 updated: 2026-07-11
 sources:
-  - R1: "Advanced Codex CLI Configuration (config.toml)" [来源: doc-02]
-  - R2: "Codex CLI Skills Configuration" [来源: doc-03]
-  - R3: "Codex CLI Slash Commands & Developer Commands Reference" [来源: doc-04]
-  - R4: "Codex CLI Hooks Configuration" [来源: doc-05]
-  - R5: "Codex CLI MCP Configuration" [来源: doc-06]
-  - R6: "Codex CLI Project Instructions (AGENTS.md / Rules Configuration)" [来源: doc-07]
-  - R7: "Codex CLI Custom Prompts and Commands Configuration" [来源: doc-08]
-  - R8: "Codex vs Claude Code Configuration Differences" [来源: doc-09]
-  - R9: "Codex CLI Comprehensive Configuration Guide" [来源: doc-10]
-  - R10: "Codex CLI Best Practices Guide" [来源: doc-11]
-  - R11: "Codex CLI Hooks & Plugin Marketplace" [来源: doc-13]
+  - "R1: Advanced Codex CLI Configuration (config.toml) [doc-02]"
+  - "R2: Codex CLI Skills Configuration [doc-03]"
+  - "R3: Codex CLI Slash Commands & Developer Commands Reference [doc-04]"
+  - "R4: Codex CLI Hooks Configuration [doc-05]"
+  - "R5: Codex CLI MCP Configuration [doc-06]"
+  - "R6: Codex CLI Project Instructions (AGENTS.md / Rules Configuration) [doc-07]"
+  - "R7: Codex CLI Custom Prompts and Commands Configuration [doc-08]"
+  - "R8: Codex vs Claude Code Configuration Differences [doc-09]"
+  - "R9: Codex CLI Comprehensive Configuration Guide [doc-10]"
+  - "R10: Codex CLI Best Practices Guide [doc-11]"
+  - "R11: Codex CLI Hooks & Plugin Marketplace [doc-13]"
 concepts:
   - skills
   - mcp
