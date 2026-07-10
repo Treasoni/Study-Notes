@@ -1,0 +1,176 @@
+topic: "Codex 手动配置指南"
+collected_at: "2026-07-11T12:00:00+08:00"
+scope:
+  count: medium
+  types:
+    - technical_docs
+    - blog_posts
+  research_depth: standard
+tools_used:
+  search: "mcp__MiniMax__web_search (via WebSearch)"
+  fetch: "WebFetch"
+  fallback_used: true
+
+files:
+  - filename: "doc-01.md"
+    title: "Codex CLI Overview and Setup"
+    url: "https://learn.chatgpt.com/docs/codex/cli"
+    authority: 5
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.5
+    classification: core_concepts
+    duplicate_of: null
+
+  - filename: "doc-02.md"
+    title: "Advanced Codex CLI Configuration (config.toml)"
+    url: "https://learn.chatgpt.com/docs/config-file/config-advanced"
+    authority: 5
+    freshness: 5
+    completeness: 5
+    readability: 5
+    score: 5.0
+    classification: advanced
+    duplicate_of: null
+
+  - filename: "doc-03.md"
+    title: "Codex CLI Skills Configuration"
+    url: "https://learn.chatgpt.com/docs/build-skills"
+    authority: 5
+    freshness: 5
+    completeness: 5
+    readability: 5
+    score: 5.0
+    classification: practical_examples
+    duplicate_of: null
+
+  - filename: "doc-04.md"
+    title: "Codex CLI Slash Commands & Developer Commands Reference"
+    url: "https://learn.chatgpt.com/docs/developer-commands?surface=cli"
+    authority: 5
+    freshness: 5
+    completeness: 5
+    readability: 5
+    score: 5.0
+    classification: core_concepts
+    duplicate_of: null
+
+  - filename: "doc-05.md"
+    title: "Codex CLI Hooks Configuration"
+    url: "https://github.com/liewcf/codex-notify-macos, https://github.com/justrach/codedb/blob/main/docs/hooks-labs.md"
+    authority: 3
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.0
+    classification: practical_examples
+    duplicate_of: null
+
+  - filename: "doc-06.md"
+    title: "Codex CLI MCP Configuration"
+    url: "Community resources + Official documentation"
+    authority: 3
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.0
+    classification: practical_examples
+    duplicate_of: null
+
+  - filename: "doc-07.md"
+    title: "Codex CLI Project Instructions (AGENTS.md / Rules Configuration)"
+    url: "Official and community resources"
+    authority: 4
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.3
+    classification: core_concepts
+    duplicate_of: null
+
+  - filename: "doc-08.md"
+    title: "Codex CLI Custom Prompts and Commands Configuration"
+    url: "https://learn.chatgpt.com/docs/custom-prompts"
+    authority: 5
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.5
+    classification: core_concepts
+    duplicate_of: null
+
+  - filename: "doc-09.md"
+    title: "Codex vs Claude Code Configuration Differences"
+    url: "https://developer.aliyun.com/article/1714675"
+    authority: 3
+    freshness: 5
+    completeness: 4
+    readability: 5
+    score: 4.3
+    classification: advanced
+    duplicate_of: null
+
+  - filename: "doc-10.md"
+    title: "Codex CLI Comprehensive Configuration Guide (everything-openai-codex)"
+    url: "https://github.com/mturac/everything-openai-codex/blob/main/the-shortform-guide.md"
+    authority: 3
+    freshness: 5
+    completeness: 5
+    readability: 4
+    score: 4.3
+    classification: advanced
+    duplicate_of: null
+
+  - filename: "doc-11.md"
+    title: "Codex CLI Best Practices Guide"
+    url: "https://github.com/shanraisshan/codex-cli-best-practice"
+    authority: 3
+    freshness: 5
+    completeness: 4
+    readability: 5
+    score: 4.3
+    classification: practical_examples
+    duplicate_of: null
+
+  - filename: "doc-12.md"
+    title: "Codex CLI Configuration: feiskyer/codex-settings Community Collection"
+    url: "https://github.com/feiskyer/codex-settings"
+    authority: 3
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.0
+    classification: practical_examples
+    duplicate_of: null
+
+  - filename: "doc-13.md"
+    title: "Codex CLI Hooks & Plugin Marketplace (from Community Resources)"
+    url: "https://github.com/justrach/codedb/blob/main/docs/hooks-labs.md, fcakyon/claude-codex-settings"
+    authority: 3
+    freshness: 5
+    completeness: 3
+    readability: 4
+    score: 3.8
+    classification: advanced
+    duplicate_of: null
+
+summary:
+  total_collected: 13
+  total_kept: 13
+  total_removed: 0
+  by_classification:
+    core_concepts: 4
+    practical_examples: 5
+    advanced: 4
+  by_authority:
+    official_docs: 5
+    tech_blogs: 1
+    community: 7
+    videos: 0
+  gaps:
+    - "Hooks: No official OpenAI hooks documentation page found (only community resources available)"
+    - "MCP: Official config reference page redirected; community sources used instead"
+    - "Rules: The `.codex/rules/` directory convention is documented mainly by community, not official OpenAI docs"
+    - "Subagents configuration format not found in official documentation — community sources describe `.codex/agents/<name>.toml` but official docs reference a separate subagents page"
+    - "Custom commands: Official docs confirm Codex does NOT support custom slash commands; this is a known limitation but worth documenting explicitly"
