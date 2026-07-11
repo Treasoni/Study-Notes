@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/03-技术专题/Codex手动配置指南.md",
+                "file": "项目实战/AI实战/工程实践/多AI-Agent配置文件共享方案.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Codex手动配置指南"
+              "title": "多AI-Agent配置文件共享方案"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/03-技术专题/Codex手动配置指南.md",
+                "file": "项目实战/AI实战/工程实践/多AI-Agent配置文件共享方案.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Codex手动配置指南 的大纲"
+              "title": "多AI-Agent配置文件共享方案 的大纲"
             }
           },
           {
@@ -186,7 +186,7 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -208,8 +208,9 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "746e3216e1c18840",
   "lastOpenFiles": [
+    "AI学习/03-技术专题/Codex手动配置指南.md",
     "StudySystem/4-meta/evaluation/多AI-Agent配置文件共享方案-eval.md",
     "项目实战/AI实战/工程实践/多AI-Agent配置文件共享方案.md",
     "StudySystem/2-drafts/多AI-Agent配置文件共享方案/多AI-Agent配置文件共享方案-笔记.md",
@@ -233,7 +234,6 @@
     "StudySystem/TODO.md",
     "StudySystem/4-meta/evaluation/codex-config-guide-eval.md",
     "StudySystem/2-drafts/codex-config-guide/Codex手动配置指南.md",
-    "AI学习/03-技术专题/Codex手动配置指南.md",
     "项目实战/AI实战/工程实践/Subagent的两种启动模式.md",
     "StudySystem/2-drafts/codex-config-guide",
     "StudySystem/0-inbox/codex-config-guide/metadata.yaml",
