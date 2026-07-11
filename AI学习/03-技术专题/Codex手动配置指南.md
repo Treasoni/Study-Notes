@@ -21,6 +21,7 @@ tags:
   - advanced
 created: 2026-07-11
 updated: 2026-07-11
+last_updated_section: Subagents（第 5 节大幅扩展）
 sources:
   - "R1: Advanced Codex CLI Configuration (config.toml) [doc-02]"
   - "R2: Codex CLI Skills Configuration [doc-03]"
@@ -33,6 +34,10 @@ sources:
   - "R9: Codex CLI Comprehensive Configuration Guide [doc-10]"
   - "R10: Codex CLI Best Practices Guide [doc-11]"
   - "R11: Codex CLI Hooks & Plugin Marketplace [doc-13]"
+  - "R12: Simon Willison — Use subagents and custom agents in Codex (simonwillison.net, 2026-03-16)"
+  - "R13: Codex Multi-Agent Feature — Official Launch (2026-03)"
+  - "R14: codex-subagent-pack (npm)"
+  - "R15: awesome-codex-subagents (GitHub)"
 concepts:
   - skills
   - mcp
@@ -41,6 +46,8 @@ concepts:
   - commands
   - AGENTS.md
   - config.toml
+  - subagents
+  - multi-agent
 ---
 
 # Codex 手动配置指南
@@ -800,17 +807,183 @@ argument-hint: FILES=<paths> PR_TITLE=<title>
 
 ### Subagents 命令（`/agent`）
 
-Codex 的 `/agent` 命令用于管理子 agent 线程。子 agent 的配置以 TOML 文件形式放在 `.codex/agents/<name>.toml`：
+#### 概述
 
-```toml
-# .codex/agents/qa-agent.toml
-[agents.qa-agent]
-role = "QA Engineer"
-allowed_tools = ["Bash", "Edit", "Read"]
-max_threads = 2
+Subagents（子代理）是 Codex 的多 agent 并行执行机制。自 **CLI v0.115.0**（2026 年 3 月）起正式 GA，默认启用。每个子 agent 运行在独立线程中，拥有自己的上下文、模型、指令和 sandbox 权限，只向主线程返回摘要，避免中间产物（日志、堆栈追踪、测试输出等）污染主会话上下文。[来源: R13]
+
+```mermaid
+graph LR
+    A[主会话] -->|委派任务| B[Subagent 1]
+    A -->|委派任务| C[Subagent 2]
+    A -->|委派任务| D[Subagent 3]
+    B -->|返回摘要| A
+    C -->|返回摘要| A
+    D -->|返回摘要| A
+    style A fill:#4a6fa5,color:#fff
+    style B fill:#6a9fb5,color:#fff
+    style C fill:#6a9fb5,color:#fff
+    style D fill:#6a9fb5,color:#fff
 ```
 
-内置 agent：`default`, `worker`, `explorer`。[来源: R10]
+#### 内置 Agent 类型
+
+Codex 内置 4 种 agent 角色：
+
+| 角色 | 定位 | 关键行为 |
+|------|------|---------|
+| **`default`** | 通用回退 | 完整读写权限，标准模型设置。未指定角色时使用 |
+| **`worker`** | 执行导向 | 专为实现任务和修复设计，适合批量并行小任务（如 CSV 逐文件审计） |
+| **`explorer`** | 只读探索 | 追踪执行路径、搜索模式、收集证据，**不提出变更**，避免探索日志污染上下文 |
+| **`monitor`** | 长任务监控 | 优化用于等待、轮询、重复状态检查，支持长达 1 小时的轮询窗口 |
+
+> [!note] 自定义覆盖
+> 如果自定义角色与内置角色同名（如 `explorer`），你的定义优先。[来源: R13]
+
+#### 自定义 Agent 配置
+
+自定义 agent 以 TOML 文件形式定义，可放在两个位置：
+
+| 位置 | 作用域 | 优先级 |
+|------|--------|-------|
+| `.codex/agents/<name>.toml` | 当前项目 | **高** — 同名时覆盖全局 |
+| `~/.codex/agents/<name>.toml` | 所有项目 | 低 |
+
+##### 配置字段
+
+| 字段 | 必需 | 用途 |
+|------|------|------|
+| `name` | **是** | Codex 引用此 agent 使用的名称 |
+| `description` | **是** | 可读描述，说明何时使用此 agent |
+| `developer_instructions` | **是** | 核心行为指令 / system prompt |
+| `model` | 否 | 模型覆盖（如 `gpt-5.4`, `gpt-5.3-codex-spark`, `gpt-5.6-terra`） |
+| `model_reasoning_effort` | 否 | 推理强度：`none`, `minimal`, `low`, `medium`, `high`, `xhigh`, `max`, `ultra` |
+| `sandbox_mode` | 否 | `"read-only"`, `"workspace-write"`, 或继承父会话 |
+| `nickname_candidates` | 否 | 昵称候选池（UI 中区分多个实例的显示名） |
+| `mcp_servers` | 否 | 该角色专用的 MCP 服务器定义 |
+
+> [!important] 继承规则
+> 任何未在角色配置文件中显式设置的字段，均**继承自主会话**的配置。[来源: R14]
+
+##### 示例：只读探索 Agent
+
+```toml
+# ~/.codex/agents/explorer.toml
+name = "pr_explorer"
+description = "Read-only codebase explorer for gathering evidence before changes."
+model = "gpt-5.4-mini"
+model_reasoning_effort = "medium"
+sandbox_mode = "read-only"
+developer_instructions = """
+Stay in exploration mode.
+Trace the real execution path, cite files and symbols.
+Avoid proposing fixes unless asked.
+"""
+```
+
+##### 示例：高推理强度 Reviewer
+
+```toml
+# ~/.codex/agents/reviewer.toml
+name = "reviewer"
+description = "PR reviewer focused on correctness, security, and missing tests."
+model = "gpt-5.4"
+model_reasoning_effort = "high"
+sandbox_mode = "read-only"
+developer_instructions = """
+Review code like an owner.
+Prioritize correctness, security, behavior regressions, missing tests.
+Lead with concrete findings. Include reproduction steps.
+"""
+```
+
+##### 示例：带 MCP 的文档研究员
+
+```toml
+# ~/.codex/agents/docs-researcher.toml
+name = "docs_researcher"
+description = "Documentation specialist using docs MCP server."
+model = "gpt-5.3-codex-spark"
+model_reasoning_effort = "medium"
+sandbox_mode = "read-only"
+developer_instructions = """
+Use the docs MCP server to confirm APIs and version-specific behavior.
+Return concise answers with links or exact references.
+Do not make code changes.
+"""
+[mcp_servers.openaiDeveloperDocs]
+url = "https://developers.openai.com/mcp"
+```
+
+[来源: R14]
+
+#### 项目级并发限制
+
+在 `.codex/config.toml` 中控制全局并发：
+
+```toml
+[agents]
+max_threads = 6                # 最大并发 agent 线程数（默认 6）
+max_depth = 1                  # 最大嵌套深度（root=0，建议保持 1）
+job_max_runtime_seconds = 1800 # CSV 批处理任务超时
+```
+
+> [!warning] 嵌套深度警告
+> 增加 `max_depth` 会导致级联 fan-out，token 消耗、延迟和资源消耗呈指数级增长。**强烈建议保持 `max_depth = 1`**。[来源: R14]
+
+#### 调用方式
+
+1. **自然语言触发**：描述可并行化的任务时，Codex 自动判断并派生子 agent。例如："分析项目结构并同时实现 X 和 Y"
+2. **`/agent` 命令**：在主会话中管理 agent 线程，查看和切换活跃子 agent
+3. **命名 Agent 调度**：在 Skills/工作流中通过 `spawn_agent(agent_type="worker", message=...)` 显式调度
+4. **`/review` 命令**：让另一个 Codex agent 审查代码（使用 reviewer 角色）
+
+#### CSV 批处理（实验性）
+
+对于需要逐文件重复处理的任务（如逐文件审计），可以使用 `spawn_agents_on_csv` 工具对 CSV 中的每一行派生一个 worker agent。[来源: R14]
+
+#### 最佳实践
+
+> [!tip] 模型分配策略
+> "Fast for scouts, strong for reviewers" — 探索/综合用轻量快速模型（`gpt-5.4-mini`, `gpt-5.3-codex-spark`），深度推理和审查用强模型（`gpt-5.4`, `gpt-5.5`, `gpt-5.6-terra`）。[来源: R14]
+
+> [!tip] 明确的任务边界
+> 每个子 agent 聚焦一个子任务。不要在一个 agent 中塞多个不相关的目标。developer_instructions 要明确职责边界和输出格式。
+
+> [!tip] 只读 Agent 用于安全探索
+> 对不熟悉的大型代码库，先用 `explorer` 风格的只读 agent 探索，再派 `worker` 执行变更。这既安全又能避免上下文污染。
+
+> [!note] 运行时覆盖优先
+> 会话中的运行时覆盖（如 `/permissions`, `--yolo`）在派生子 agent 时**优先于**静态 agent 文件中的默认值。[来源: R14]
+
+#### 社区工具生态
+
+| 工具 | 用途 |
+|------|------|
+| `codex-subagent-pack` (npm) | 配置工具包，打包专业辅助 agent，含模型推荐和路由规则 |
+| `subagentmaxxing` (GitHub) | 统一 CLI 驱动 Codex、Cursor 和 Claude 作为子 agent |
+| `codex-claude-subagents` (GitHub) | 在 Codex 中使用 Claude 作为子 agent |
+| `awesome-codex-subagents` (GitHub) | 171+ 个 Codex 子 agent 精选集合，覆盖 13 个类别 |
+
+[来源: R15][来源: R15]
+
+#### 对比：Codex Subagents vs Claude Code Subagents
+
+| 维度 | Codex CLI | Claude Code |
+|------|-----------|-------------|
+| 正式 GA | v0.115.0（2026 年 3 月） | 较早 GA |
+| 内置 agent 类型 | default, worker, explorer, monitor | 不同分类体系 |
+| 自定义配置格式 | TOML（`.codex/agents/<name>.toml`） | 特定配置格式 |
+| 模型选择 | 每个 agent 可指定不同模型 + 推理强度 | 类似支持 |
+| sandbox_mode | 支持 per-agent sandbox 模式设置 | 类似 |
+| per-agent MCP | 支持为单个 agent 配置专用 MCP | 类似 |
+| 最大并发 | 默认 6 线程，可配置 | 可配置 |
+| 嵌套深度 | 可配置（建议 1） | 类似限制 |
+| CSV 批处理 | 实验性支持 | 不支持 |
+| 上下文污染防护 | 子 agent 只返回摘要，隔离中间输出 | 类似机制 |
+| `/review` 代码审查 | 内置，可对指定文件或 diff 审查 | 内置 |
+| 社区 agent 数量 | 171+（`awesome-codex-subagents`） | 也有社区生态 |
+
+[来源: R13][来源: R14]
 
 ### 对比：Codex Commands vs Claude Code Commands
 
