@@ -78,3 +78,11 @@
 - Status: completed (2026-07-11)
 - Final file: AI学习/03-技术专题/Codex手动配置指南.md
 - Phases completed: 1-4 (skipped 5 per user request, early termination)
+
+## [2026-07-11] 多 AI Agent 配置文件共享方案
+- Purpose: 工作需要 + 深度学习
+- Audience: 自己
+- Depth: 进阶
+- Note type: practice + concept（混合笔记）
+- Output path: /Users/zhqznc/Documents/项目/项目实战/AI实战/工程实践/
+- Status: started
