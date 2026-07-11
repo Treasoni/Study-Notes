@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/00-索引/AI学习 MOC.md",
+                "file": "项目实战/AI实战/AI实战 MOC.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "AI学习 MOC"
+              "title": "AI实战 MOC"
             }
           },
           {
@@ -170,13 +170,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/00-索引/AI学习 MOC.md",
+                "file": "项目实战/AI实战/AI实战 MOC.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "AI学习 MOC 的大纲"
+              "title": "AI实战 MOC 的大纲"
             }
           },
           {
@@ -224,6 +224,7 @@
   },
   "active": "30b0ade23c460f17",
   "lastOpenFiles": [
+    "AI学习/00-索引/AI学习 MOC.md",
     "项目实战/AI实战/工程实践/多AI-Agent配置文件共享方案.md",
     "AI学习/03-技术专题/Codex手动配置指南.md",
     "StudySystem/4-meta/evaluation/多AI-Agent配置文件共享方案-eval.md",
@@ -255,7 +256,6 @@
     "StudySystem/0-inbox/codex-config-guide/raw/doc-13.md",
     "StudySystem/0-inbox/codex-config-guide/raw/doc-12.md",
     "StudySystem/0-inbox/codex-config-guide/raw/doc-11.md",
-    "StudySystem/0-inbox/codex-config-guide/raw/doc-10.md",
     "StudySystem/0-inbox/codex-config-guide/raw",
     "StudySystem/0-inbox/codex-config-guide",
     "StudySystem/2-drafts/Subagent启动模式",
