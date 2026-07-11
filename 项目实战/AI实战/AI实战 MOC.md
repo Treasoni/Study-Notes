@@ -2,7 +2,7 @@
 title: AI实战 MOC
 tags: [moc]
 created: 2026-05-12
-updated: 2026-06-02
+updated: 2026-07-11
 ---
 
 ## 目录结构
@@ -21,10 +21,13 @@ graph TD
     Eng --> N6[Claude Code 防遗忘策略]
     Eng --> N7[Claude Code 技能过滤机制设计]
     Eng --> N8[Subagent Token吞噬与缓存失效分析]
+    Eng --> N12[Subagent的两种启动模式]
+    Eng --> N13[Subagent资料搜集的Token失控-笔记]
+    Eng --> N14[多AI-Agent配置文件共享方案]
     Arch --> N9[Agent与Skills架构设计]
     Arch --> N10[Claude Code项目动态技能发现机制]
     RootDir --> N11[sortspec]
-    class N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11 internal-link;
+    class N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14 internal-link;
 ```
 
 ## 笔记索引
@@ -38,6 +41,9 @@ graph TD
 - [[工程实践/Claude Code 防遗忘策略]] #AI工程 #ClaudeCode #工作流
 - [[工程实践/Claude Code 技能过滤机制设计]] #AI工作流 #ClaudeCode #Token优化 #架构设计
 - [[工程实践/Subagent Token吞噬与缓存失效分析]] #claude-code #subagent #token-optimization #prompt-caching #architecture #performance #best-practice
+- [[工程实践/Subagent的两种启动模式]] #subagent #Claude-Code
+- [[工程实践/Subagent资料搜集的Token失控-笔记]] #claude-code #subagent #token-optimization
+- [[工程实践/多AI-Agent配置文件共享方案]] #ai/编码助手/配置管理
 
 ### 架构设计
 - [[架构设计/Agent与Skills架构设计]] #Agent
@@ -49,7 +55,7 @@ graph TD
 ## 概览
 
 - 📂 目录：`AI实战`
-- 📝 笔记总数：11
+- 📝 笔记总数：14
 - 📁 子目录数：2
 - 📅 生成日期：2026-05-12
 - 📅 更新日期：2026-06-02
