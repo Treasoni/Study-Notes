@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "软路由教程/iStoreOS爬梯配置指南.md",
+                "file": "软路由教程/update_report_iStoreOS爬梯配置指南.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "iStoreOS爬梯配置指南"
+              "title": "update_report_iStoreOS爬梯配置指南"
             }
           },
           {
@@ -170,13 +170,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "软路由教程/iStoreOS爬梯配置指南.md",
+                "file": "软路由教程/update_report_iStoreOS爬梯配置指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "iStoreOS爬梯配置指南 的大纲"
+              "title": "update_report_iStoreOS爬梯配置指南 的大纲"
             }
           },
           {
@@ -224,8 +224,10 @@
   },
   "active": "30b0ade23c460f17",
   "lastOpenFiles": [
-    "软路由教程/update_report_iStoreOS爬梯配置指南.md",
+    "软路由教程/旁路由原理详解.md",
     "软路由教程/主流软路由系统对比与选择指南.md",
+    "软路由教程/iStoreOS爬梯配置指南.md",
+    "软路由教程/update_report_iStoreOS爬梯配置指南.md",
     "项目实战/AI实战/AI实战 MOC.md",
     "AI学习/00-索引/AI学习 MOC.md",
     "项目实战/AI实战/工程实践/多AI-Agent配置文件共享方案.md",
@@ -252,10 +254,8 @@
     "StudySystem/TODO.md",
     "StudySystem/4-meta/evaluation/codex-config-guide-eval.md",
     "StudySystem/2-drafts/codex-config-guide/Codex手动配置指南.md",
-    "项目实战/AI实战/工程实践/Subagent的两种启动模式.md",
     "StudySystem/2-drafts/codex-config-guide",
     "StudySystem/0-inbox/codex-config-guide/metadata.yaml",
-    "StudySystem/0-inbox/codex-config-guide/sources.md",
     "StudySystem/0-inbox/codex-config-guide/raw",
     "StudySystem/0-inbox/codex-config-guide",
     "StudySystem/2-drafts/Subagent启动模式",
