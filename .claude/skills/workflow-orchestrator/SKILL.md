@@ -53,6 +53,7 @@ workflow-orchestrator (本技能)
 |-------|--------|----------|------|--------|
 | learning-note-flow | learning-note-flow.md | learning-note-todo.md | 完整学习笔记生产 + Obsidian 发布 + MOC 同步 | 8 (阶段 0-7) |
 | legacy-note-import-flow | legacy-note-import-flow.md | legacy-note-import-todo.md | 已有旧笔记批量导入、规范化、可选更新与 MOC 同步 | 6 (阶段 0-5) |
+| batch-note-update-flow | batch-note-update-flow.md | batch-note-update-todo.md | 多篇既有笔记批量更新、逐篇局部 patch 与 MOC 同步 | 6 (阶段 0-5) |
 
 **说明书格式要求**:
 - 必须包含: 工作流名称、描述、各阶段定义
@@ -107,6 +108,7 @@ FLOW_DOC=".claude/skills/workflow-orchestrator/templates/${WORKFLOW}.md"
 case "$WORKFLOW" in
   learning-note-flow) TODO_TEMPLATE=".claude/skills/workflow-orchestrator/templates/learning-note-todo.md" ;;
   legacy-note-import-flow) TODO_TEMPLATE=".claude/skills/workflow-orchestrator/templates/legacy-note-import-todo.md" ;;
+  batch-note-update-flow) TODO_TEMPLATE=".claude/skills/workflow-orchestrator/templates/batch-note-update-todo.md" ;;
   *) TODO_TEMPLATE=".claude/skills/workflow-orchestrator/templates/${WORKFLOW}-todo.md" ;;
 esac
 
@@ -170,6 +172,7 @@ FLOW_DOC=".claude/skills/workflow-orchestrator/templates/${WORKFLOW}.md"
 case "$WORKFLOW" in
   learning-note-flow) TODO_TEMPLATE=".claude/skills/workflow-orchestrator/templates/learning-note-todo.md" ;;
   legacy-note-import-flow) TODO_TEMPLATE=".claude/skills/workflow-orchestrator/templates/legacy-note-import-todo.md" ;;
+  batch-note-update-flow) TODO_TEMPLATE=".claude/skills/workflow-orchestrator/templates/batch-note-update-todo.md" ;;
   *) TODO_TEMPLATE=".claude/skills/workflow-orchestrator/templates/${WORKFLOW}-todo.md" ;;
 esac
 
@@ -268,6 +271,7 @@ ${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}/
     │
     │  research-planner ──→ workflow="learning-note-flow"
     │  legacy-note-importer ──→ workflow="legacy-note-import-flow"
+    │  batch-note-updater ──→ workflow="batch-note-update-flow"
     │  project-planner  ──→ workflow="project-flow" (未来)
     │
     ▼
@@ -282,6 +286,7 @@ workflow-orchestrator (本技能)
 按 todo.md 各阶段执行:
 research-collector → outline-generator → chapter-writer → note-assembler → note-beautifier
 legacy-note-importer → note-beautifier → note-updater（可选） → moc-organizer
+batch-note-updater → note-updater → moc-organizer（可选）
 ```
 
 ## 调用示例
@@ -317,6 +322,8 @@ orchestrator:
     learning-note-todo.md       ← todo 模板
     legacy-note-import-flow.md  ← 说明书
     legacy-note-import-todo.md  ← todo 模板
+    batch-note-update-flow.md   ← 说明书
+    batch-note-update-todo.md   ← todo 模板
 
 每个工作流一对文件。规划添加新工作流时，同时创建这俩文件 + 对应的 planner 或入口 skill。
 ```
@@ -351,4 +358,5 @@ orchestrator:
 5. **用户确认**: 关键阶段需要用户确认后才继续
 6. **输出位置**: 最终笔记发布位置由用户指定；未指定时只写项目 `output/`
 7. **旧笔记导入**: 用户已有一批笔记要接入项目时调用 `legacy-note-importer`
-8. **旧笔记更新**: 用户要更新已有笔记内容时调用 `note-updater`，不要从阶段 0 重跑
+8. **多篇旧笔记更新**: 用户要批量更新多篇笔记时调用 `batch-note-updater`
+9. **单篇旧笔记更新**: 用户要更新一篇已有笔记内容时调用 `note-updater`，不要从阶段 0 重跑

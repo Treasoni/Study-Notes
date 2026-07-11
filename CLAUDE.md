@@ -2,7 +2,17 @@
 
 学习笔记自动化生产系统。
 
+## Codex / Claude Code 同步
 
+本项目同时维护 `.codex/` 与 `.claude/` 两套配置。当前约定是：
+
+1. 新增或修改工作流能力时，优先改 `.codex/`。
+2. 改完后运行：
+   ```bash
+   .codex/scripts/sync-codex-to-claude.sh
+   ```
+3. 同步脚本会把可迁移的 skills、agents、rules、scripts 复制到 `.claude/`，并把路径从 `.codex` 转成 `.claude`。
+4. Claude Code 专属 hooks 不由 Codex hooks 覆盖；详见 `.claude/rules/common/hooks.md`。
 
 ## 可用工作流
 
@@ -12,6 +22,7 @@
 |-------|-------------|-----------|------|
 | learning-note-flow | `/research-planner` | learning-note-flow.md / learning-note-todo.md | 完整学习笔记生产 + Obsidian 发布 + MOC 同步 |
 | legacy-note-import-flow | `/legacy-note-importer` | legacy-note-import-flow.md / legacy-note-import-todo.md | 已有旧笔记批量导入、规范化、可选更新与 MOC 同步 |
+| batch-note-update-flow | `/batch-note-updater` | batch-note-update-flow.md / batch-note-update-todo.md | 多篇既有笔记批量更新、逐篇局部 patch 与 MOC 同步 |
 
 > 新增工作流：在 `.claude/skills/workflow-orchestrator/templates/` 创建说明书 + todo 模板文件对，并新建对应 planner 或入口 skill。
 > orchestrator 通常不直接面向用户，由各 planner 或入口 skill 调用。上游负责领域特定的意图澄清，orchestrator 负责生成 todo.md。
@@ -88,4 +99,5 @@ research-planner → workflow-orchestrator（生成 todo.md）
 | 缺少章节文件 | 重新调用 `chapter-writer` |
 | 缺少输出位置 | 先保存到项目 `output/`，等待用户指定 Obsidian 位置 |
 | 已有一批旧笔记要接入项目 | 调用 `legacy-note-importer`，先盘点和生成迁移计划 |
+| 多篇旧笔记过时 | 调用 `batch-note-updater`，先生成更新清单和批量计划 |
 | 旧笔记过时 | 调用 `note-updater`，不要重跑完整新笔记流程 |

@@ -16,6 +16,7 @@
 
 - `note-beautifier`：处理 Obsidian Markdown、frontmatter、标签、Callout、双链和发布位置。
 - `legacy-note-importer`：处理已有旧笔记的批量盘点、迁移计划和规范化入口。
+- `batch-note-updater`：处理多篇旧笔记的批量更新计划、批次编排和逐篇 note-updater 调用。
 - `moc-organizer`：生成或更新 MOC 目录笔记。
 - `.claude/rules/obsidian/note-system.md`：Obsidian 输出规范。
 
@@ -33,6 +34,7 @@
 | 技能 | 触发场景 | 关键触发词 |
 |------|----------|-----------|
 | `legacy-note-importer` | 旧笔记批量导入、盘点、迁移到本项目规范 | 旧笔记导入、已有笔记、一堆笔记、批量整理、迁移到这个项目、import existing notes |
+| `batch-note-updater` | 多篇旧笔记批量更新和逐篇局部 patch 编排 | 批量更新旧笔记、多篇笔记过时、更新一个目录的笔记、refresh multiple notes |
 | `note-beautifier` | 处理 Obsidian Markdown 与发布位置 | Obsidian、wikilink、双链、Callout、美化、发布 |
 | `moc-organizer` | 生成或更新 MOC 目录笔记 | MOC、目录、索引、Map of Content |
 #### 资料研究
@@ -48,6 +50,7 @@
 |------|----------|-----------|
 | `workflow-orchestrator` | 工作流编排器，选择工作流模板并生成 todo.md | 工作流、流程、开始学习、新建项目、workflow、orchestrator |
 | `legacy-note-importer` | 将已有一批旧笔记接入项目工作流并按规范处理 | 旧笔记、已有笔记、一堆笔记、批量导入、normalize notes |
+| `batch-note-updater` | 将多篇既有笔记按批次更新，逐篇调用 note-updater | 批量更新、多篇笔记、旧笔记过时、refresh multiple notes |
 | `note-assembler` | 将章节组装成完整笔记（由 agent 调用） | 组装、合并章节、收尾、拼装、assemble |
 | `note-beautifier` | Obsidian 笔记智能美化专家 | 美化、Obsidian、优化格式、笔记美化、beautify |
 | `note-updater` | 更新已有过时笔记 | 更新旧笔记、过时、refresh、update |
