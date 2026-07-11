@@ -306,9 +306,9 @@ opkg install luci-i18n-passwall2-zh-cn
 # 1. 确认系统架构
 cat /etc/openwrt_release | grep ARCH
 
-# 2. 下载 IPK 包（示例）
+# 2. 下载 IPK 包（版本号格式已变更为 YY.M.DD-N）
 cd /tmp
-wget https://github.com/xiaorouji/openwrt-passwall2/releases/download/v1.28/luci-app-passwall2_1.28_all.ipk
+wget https://github.com/Openwrt-Passwall/openwrt-passwall2/releases/download/26.6.16-1/luci-app-passwall2_26.6.16-1_all.ipk
 
 # 3. 安装（忽略依赖）
 opkg install --force-depends luci-app-passwall2_*.ipk
@@ -495,6 +495,13 @@ curl ip.sb
 | **游戏模式** | 专用游戏规则优化 |
 | **假链接过滤** | 内置广告拦截 |
 
+**v0.47.x 新特性**：
+- **LuCI 界面重构** — 更现代化的管理界面
+- **订阅与配置管理分离** — 各自独立维护，不再耦合
+- **覆写设置系统** — 不修改原始订阅文件即可注入自定义规则
+- **多订阅合并** — 可将多个机场订阅节点合并到同一配置
+- **内核管理页面** — 支持直接在线更新 Mihomo / Clash Premium 内核
+
 ### 4.2 通过 iStore 安装
 
 #### 步骤 1：进入 iStore
@@ -551,7 +558,8 @@ cat /etc/openwrt_release | grep ARCH
 
 # 2. 下载 OpenClash IPK 包
 cd /tmp
-wget https://github.com/vernesong/OpenClash/releases/download/v0.46.033-beta/luci-app-openclash_0.46.033-beta_all.ipk
+# 获取最新版本号（以 v0.47.096-dev 为例）
+wget https://github.com/vernesong/OpenClash/releases/download/v0.47.096-beta/luci-app-openclash_0.47.096-beta_all.ipk
 
 # 3. 安装
 opkg install --force-depends luci-app-openclash_*.ipk
@@ -646,6 +654,10 @@ OpenClash 的规则系统非常灵活：
 
 > [!tip] 推荐选择
 > 新手推荐使用 **Fake-IP 模式**，性能最佳且兼容性好。
+
+> [!warning] v0.47.x 已知问题
+> - **无法随系统启动**：v0.47.055-beta 版本存在无法跟随 OpenWrt 开机自动启动的 Bug，需手动启动。如追求稳定性，建议使用 v0.46.075 或等待后续修复版本。
+> - **iStoreOS 24.10.7 升级冲突**：从旧版 iStoreOS 升级到 24.10.7 后，OpenClash 可能与新系统发生冲突，导致部分游戏无法登录。升级前建议使用 U 盘进行全量备份。
 
 ---
 
@@ -816,9 +828,9 @@ opkg install luci-i18n-passwall2-zh-cn
 cat /etc/openwrt_release | grep ARCH
 # 常见架构：x86_64, aarch64_cortex-a53, mipsel_24kc
 
-# 2. 下载 IPK 包（示例）
+# 2. 下载 IPK 包（版本号格式已变更为 YY.M.DD-N）
 cd /tmp
-wget https://github.com/xiaorouji/openwrt-passwall2/releases/download/v1.28/luci-app-passwall2_1.28_all.ipk
+wget https://github.com/Openwrt-Passwall/openwrt-passwall2/releases/download/26.6.16-1/luci-app-passwall2_26.6.16-1_all.ipk
 
 # 3. 安装（忽略依赖）
 opkg install --force-depends luci-app-passwall2_*.ipk
@@ -828,7 +840,7 @@ opkg install <缺失的依赖包名>
 ```
 
 **常用 IPK 下载地址**：
-- [Passwall2 Releases](https://github.com/xiaorouji/openwrt-passwall2/releases)
+- [Passwall2 Releases](https://github.com/Openwrt-Passwall/openwrt-passwall2/releases)
 - [kenzok8 Packages](https://github.com/kenzok8/openwrt-packages)
 
 ---
@@ -990,7 +1002,7 @@ curl ip.sb
 - [科技老王博客：新版Passwall负载均衡](https://kejilaowang.com/openwrt-istoreos-passwall-haproxy-socks/) - 科技老王
 - [OpenWrt 第三方软件源配置](https://cxorz.com/blog/openwrt-thirdparty) - Hanasaki 博客
 - [kenzok8 软件包仓库](https://github.com/kenzok8/openwrt-packages) - GitHub
-- [Passwall2 Releases](https://github.com/xiaorouji/openwrt-passwall2/releases) - GitHub
+- [Passwall2 Releases](https://github.com/Openwrt-Passwall/openwrt-passwall2/releases) - GitHub
 
 ### 硬件相关
 - [iStoreOS默认IP地址及网络配置管理指南](https://comate.baidu.com/zh/page/8zqve692bec) - 百度 Comate
@@ -998,4 +1010,17 @@ curl ip.sb
 
 ---
 
-**最后更新**：2026-03-07
+## 更新记录
+
+### 2026-07-11
+
+- **iStoreOS**：版本更新至 24.10.7（Linux 6.6.141 内核），补充升级冲突提醒
+- **Passwall2**：版本号变更为 YY.M.DD-N 格式，更新至 26.6.16-1，仓库迁移至 Openwrt-Passwall 组织；补充 sing-box 1.13+ DNS 配置变更提醒
+- **OpenClash**：更新至 v0.47.096-dev，补充 v0.47.x 新特性（界面重构、覆写设置、多订阅合并等）；补充 v0.47.055 开机自启 Bug 提醒
+- **HomeProxy**：确认保持活跃更新，补充 Docker 部署方式
+- **参考资料**：更新已失效链接，补充新版本下载地址
+- **插件对比表**：新增「当前版本」列
+
+---
+
+**最后更新**：2026-07-11

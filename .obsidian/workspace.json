@@ -200,7 +200,7 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -224,6 +224,7 @@
   },
   "active": "30b0ade23c460f17",
   "lastOpenFiles": [
+    "软路由教程/update_report_iStoreOS爬梯配置指南.md",
     "软路由教程/主流软路由系统对比与选择指南.md",
     "项目实战/AI实战/AI实战 MOC.md",
     "AI学习/00-索引/AI学习 MOC.md",
@@ -255,7 +256,6 @@
     "StudySystem/2-drafts/codex-config-guide",
     "StudySystem/0-inbox/codex-config-guide/metadata.yaml",
     "StudySystem/0-inbox/codex-config-guide/sources.md",
-    "StudySystem/0-inbox/codex-config-guide/raw/doc-13.md",
     "StudySystem/0-inbox/codex-config-guide/raw",
     "StudySystem/0-inbox/codex-config-guide",
     "StudySystem/2-drafts/Subagent启动模式",
