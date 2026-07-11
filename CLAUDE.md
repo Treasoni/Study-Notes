@@ -1,146 +1,101 @@
-# CLAUDE.md
+# Study System
 
-This repository contains the **Study System** — a semi-automated technical learning note system built with Claude Code + Obsidian.
+学习笔记自动化生产系统。
 
-## Overview
+## Codex / Claude Code 同步
 
-1. User says "I want to learn X" — **requirement discovery** clarifies intent, generates execution plan
-2. Research-driven: 5 phases (discover → collect → write → beautify → [evaluate] → [digest])
-3. Experience notes: user content → review → optional research → write → beautify → [evaluate] → [digest]
-4. **Autonomy levels** (0-3) control confirmation frequency per `.study-config.yaml`
-5. **Hybrid note types** — combine multiple types (e.g., concept + practice)
-6. All system files under `{SYSTEM_ROOT}` — user reviews every phase boundary
+本项目同时维护 `.codex/` 与 `.claude/` 两套配置。当前约定是：
 
-## Critical Rules
+1. 新增或修改工作流能力时，优先改 `.codex/`。
+2. 改完后运行：
+   ```bash
+   .codex/scripts/sync-codex-to-claude.sh
+   ```
+3. 同步脚本会把可迁移的 skills、agents、rules、scripts 复制到 `.claude/`，并把路径从 `.codex` 转成 `.claude`。
+4. Claude Code 专属 hooks 不由 Codex hooks 覆盖；详见 `.claude/rules/common/hooks.md`。
 
-### Phase Boundary Rules (CRITICAL)
+## 可用工作流
 
-After completing ANY phase, you MUST STOP. WAIT for explicit confirmation ("继续", "proceed", "进入下一阶段").
-NEVER chain phases. NEVER skip a phase. NEVER assume user approval.
+每个工作流由「planner + orchestrator + 模板文件对」组成：
 
-### TODO.md State Machine (CRITICAL)
+| 工作流 | 对应 planner | 模板文件对 | 用途 |
+|-------|-------------|-----------|------|
+| learning-note-flow | `/research-planner` | learning-note-flow.md / learning-note-todo.md | 完整学习笔记生产 + Obsidian 发布 + MOC 同步 |
+| legacy-note-import-flow | `/legacy-note-importer` | legacy-note-import-flow.md / legacy-note-import-todo.md | 已有旧笔记批量导入、规范化、可选更新与 MOC 同步 |
 
-See [docs/todo-state-machine.md](docs/todo-state-machine.md) for complete rules. Key invariants:
-- Use explicit tool names (Read/Write/Bash) — NEVER natural-language verbs
-- Phase Gate: Read TODO.md before every phase, verify prior `[x]`
-- Delete TODO.md via Bash when workflow completes
+> 新增工作流：在 `.claude/skills/workflow-orchestrator/templates/` 创建说明书 + todo 模板文件对，并新建对应 planner 或入口 skill。
+> orchestrator 通常不直接面向用户，由各 planner 或入口 skill 调用。上游负责领域特定的意图澄清，orchestrator 负责生成 todo.md。
 
-### Mandatory Triggered Reads（强制前置读取）
+## 核心原则
 
-> **⚠️ MAIN AGENT ONLY** — 此表仅约束主 Agent。Subagent 由主 Agent 传入精确的输入路径，不需要按此表触发读取。
+### 必须执行 todo.md
 
-| Trigger | Must Read |
-|---------|-----------|
-| User wants to learn X | `docs/phases.md` |
-| User wants 心得笔记 | `docs/experience-notes.md` |
-| User wants to update a note | `docs/updating-notes.md` |
-| Before any phase skill | `{SYSTEM_ROOT}/TODO.md` |
-| Session start | `.study-config.yaml` |
-| Error in Phase 1-3 | `docs/error-handling.md` |
+**每个技能/Agent 启动时必须:**
+1. 读取项目目录下的 `todo.md`
+2. 确认当前阶段状态
+3. 不可跳步，不可不做
 
-DO NOT guess workflow steps from memory — you WILL produce broken output.
-
-### Key Principles
-
-1. System files under `StudySystem/` — no vault root pollution
-2. Output path set by user in Phase 0 — never hardcoded
-3. Each skill handles its own phase only
-4. Data passes through files, not memory
-5. Respect autonomy level (0-3) at every phase boundary
-6. Every claim traceable to its source
-7. Hybrid notes reuse templates via `templates/hybrid-sections.yaml`
-
-## Resource Discovery
-
-> **⚠️ MAIN AGENT ONLY** — 以下搜索指令仅适用于主 Agent。Subagent 不应执行这些 Glob 搜索，它们已由主 Agent 提供所需上下文。
-
-Claude uses glob patterns — no hardcoded paths.
-
-- **Skills**: `Glob .claude/skills/*/SKILL.md` → match YAML frontmatter → `Skill(skill="{name}")`
-- **Agents**: `Glob .claude/agents/*.md` → match frontmatter → `Agent(subagent_type="{name}")`
-- **Templates**: `Glob templates/*.md` → match frontmatter `type` (concept/practice/compare/cheat-sheet/experience)
-- **Config**: `Glob .obsidian-config.md` → Read for vault path
-
-> **Skill Filtering**: After Glob results, filter by `skills.mode` in `.study-config.yaml`:
-> - `project` → only study-system runtime skills (collect, curate, write, beautify, evaluate, digest, update, update-workflow, requirement-discovery, moc, generate-links, fix-broken-links, delete-file, obsidian-cli, obsidian-markdown, smart-search, defuddle, json-canvas,sortspec-generator, opencli-)
-> - `dev` → only development skills (comet-*, brainstorming, openspec-*, writing-plans, executing-plans, subagent-driven-development, test-driven-development, systematic-debugging, using-git-worktrees, finishing-a-development-branch, dispatching-parallel-agents, using-superpowers, requesting-code-review, receiving-code-review, verification-before-completion, tool-registry, writing-skills)
-> - `all` → no filtering (current behavior)
-
-## Pre-Task Initialization
-
-> **⚠️ MAIN AGENT ONLY** — 以下初始化步骤仅适用于主 Agent。Subagent 由主 Agent 直接传入所需上下文，无需执行这些读取。
-
-Before any Study System task. Full details: [docs/pre-task-init.md](docs/pre-task-init.md)
-
-0. MUST Read tool on `{SYSTEM_ROOT}/TODO.md`. If exists → ask: "Detected unfinished workflow. Resume from Phase [N]?"
-1. Read `.obsidian-config.md` → validate `VAULT_PATH`
-2. Read `.study-config.yaml` → autonomy level, discovery settings, hybrid limits
-3. Read `.learnings/RULES.md` → internalize Do/Don't/Watch For (skip if missing)
-4. Resolve `SYSTEM_ROOT` and `OUTPUT_PATH`
-
-## Docs Map
-
-| Doc | Content |
-|-----|---------|
-| [docs/phases.md](docs/phases.md) | Phase 0-5: requirement discovery, collect+curate, write, beautify, evaluate, digest |
-| [docs/experience-notes.md](docs/experience-notes.md) | 心得笔记 7-step workflow: user-input-first, review rules |
-| [docs/updating-notes.md](docs/updating-notes.md) | INSERT and REFRESH modes for existing notes |
-| [docs/error-handling.md](docs/error-handling.md) | Error recording protocol (Phase 1-3) |
-| [docs/learnings-digest.md](docs/learnings-digest.md) | Digest thresholds, compression process |
-| [docs/pre-task-init.md](docs/pre-task-init.md) | Vault path validation |
-| [docs/architecture.md](docs/architecture.md) | Design rationale, file layout, skill isolation |
-| [docs/changelog.md](docs/changelog.md) | System-level change history |
-
-## Directory Convention
-
+**状态流转（[PN] 标记精准定位，不跨阶段污染）**:
 ```
-{VAULT_PATH}/StudySystem/
-├── templates/       # Note templates (5 types)
-├── 0-inbox/         # Phase 1: collected and curated materials
-├── 2-drafts/        # Phase 2: draft notes
-├── 3-published/     # Phase 3: final beautified notes (default output)
-└── 4-meta/          # Logs, errors, evaluations
+[PN] ⬜ 未开始 → [PN] 🔲 进行中 → [PN] ✅ 已完成
 ```
 
-## Configuration
+### 断点恢复机制
 
-- `.obsidian-config.md` — vault path, system root, default output path
-- `.study-config.yaml` — autonomy level (0-3), subagent settings, requirement discovery, hybrid limits
-- `.learnings/RULES.md` — compressed action rules from past sessions
+1. **读取状态**: 每个技能启动时读取 todo.md
+2. **验证前置**: 检查前置阶段是否为 ✅
+3. **更新状态**: 开始时改为 🔲，完成后改为 ✅
+4. **阶段推进**: 更新 `当前阶段` 字段
 
-## Autonomy Levels
+## 文件结构
 
-| Level | Behavior | Confirmation Points |
-|-------|----------|-------------------|
-| 0 | Full confirmation | Every step |
-| 1 | Phase confirmation (default) | Phase boundaries only |
-| 2 | Key point confirmation | Note type, execution plan, final result |
-| 3 | Full auto | Final result review only |
+```
+${WORKSPACE_PATH:-./workspace}/
+├── {topic-slug}/
+│   ├── 00_intent.md
+│   ├── 01_explore_result.md
+│   ├── 02_deep_research.md
+│   ├── 03_outline.md
+│   ├── todo.md
+│   ├── chapters/
+│   └── output/
+└── ...
+```
 
-Set via `autonomy.level` or `autonomy.overrides` in `.study-config.yaml`.
+## 技能依赖关系
 
-## Requirement Discovery
+完整编排流程见 `.claude/skills/workflow-orchestrator/SKILL.md`，各工作流的阶段执行流见 `templates/` 下对应说明书。核心链路：
 
-Before note generation, system asks 4-6 structured questions. Triggered by "I want to learn X".
+```
+research-planner → workflow-orchestrator（生成 todo.md）
+→ research-collector → outline-generator → chapter-writer
+→ note-assembler → note-beautifier → moc-organizer
+```
 
-**Questions:** 1) Purpose (exam/work/interest) 2) Audience (self/team/community) 3) Depth (beginner/advanced/expert) 4) Usage (review/learning/sharing) 5) *(optional)* Focus areas 6) *(optional)* Knowledge level
+## 工作流执行规则
 
-System recommends hybrid note type combination. User can accept or override. See [docs/phases.md](docs/phases.md) for Phase 0 details. Can be skipped (defaults: concept, level 1, intermediate).
+### 阶段完成检查点
 
-## Hybrid Note Types
+每阶段结束都必须让用户确认后才进入下一阶段:
 
-Combine multiple types (max 2 per config). Section ordering in `templates/hybrid-sections.yaml`.
+| 阶段 | 检查点内容 |
+|------|-----------|
+| 0 → 1 | 用户确认意图文件和研究计划 |
+| 1 → 2 | 用户确认素材质量 |
+| 2 → 3 | 用户确认大纲顺序和深度 |
+| 3 → 4 | 用户确认大纲（大纲模式） |
+| 4 → 5 | 所有章节写作完成 |
+| 5 → 6 | 用户确认组装结果和 Obsidian 输出位置 |
+| 6 → 7 | 用户确认是否同步 MOC |
 
-| Combination | Key Sections |
-|-------------|-------------|
-| concept + practice | Core Concept → Practical Examples → Patterns |
-| compare + cheat_sheet | Comparison → Quick Reference → Decision Framework |
-| experience + concept | Background → Core Concept → Insights |
-| concept + cheat_sheet | Core Concept → Key Points → Quick Reference |
+### 错误处理
 
-Single-type notes fully supported. Hybrid notes require `[来源: R1]` attribution per section.
-
-## Structure Integrity
-
-Run `bash scripts/validate-structure.sh` after structural changes to verify:
-- CLAUDE.md ≤ 160 lines, all docs/ references resolve, valid frontmatter, required config fields
+| 情况 | 处理方式 |
+|------|---------|
+| 缺少意图文件 | 重新调用 `/research-planner` |
+| 缺少素材文件 | 重新调用 `/research-collector` |
+| 缺少大纲文件 | 重新调用 `outline-generator` |
+| 缺少章节文件 | 重新调用 `chapter-writer` |
+| 缺少输出位置 | 先保存到项目 `output/`，等待用户指定 Obsidian 位置 |
+| 已有一批旧笔记要接入项目 | 调用 `legacy-note-importer`，先盘点和生成迁移计划 |
+| 旧笔记过时 | 调用 `note-updater`，不要重跑完整新笔记流程 |

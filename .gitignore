@@ -1,64 +1,24 @@
-# === 系统文件 ===
 .DS_Store
-*.log
 
-# === 依赖 ===
-node_modules/
-package-lock.json
-skills-lock.json
-
-# === 开发流程产物（用户不需要） ===
-openspec/changes/              # 进行中的 change 提案
-openspec/changes/archive/      # 已归档的 change 历史
-.comet/                        # Comet 运行时状态
-.codegraph/                    # CodeGraph 自动生成的索引数据库
-docs/superpowers/              # 开发流程产生的 plans/specs/reports
-
-# === 本地配置 ===
-.claude/settings.local.json
-.claudian
-
-# === 密钥与私密文件（禁止上传） ===
-*.pem
-*.key
-*.p12
-*.pfx
-*.cert
-*.crt
-*.jks
-*.keystore
+# Security - never commit secrets
 .env
-.env.*
-!.env.example
-secrets/
-**/secrets/
-*secret*
-!*secret*.md
-*.credentials
-credentials.json
-service-account*.json
-*-key.json
-*-credentials.json
-.kube/config
-.ssh/
-id_rsa*
-id_ed25519*
-*.gpg
-*.asc
-*.kdbx
-*.keychain-db
-**/vault-password*
-**/.vault-secrets*
-*.key.json
-*.pem.json
-**/config.local.*
-**/config.private.*
-**/*.local.md
-**/*.private.md
-*.bak.private
-**/.env.local
+.env.local
+.env.*.local
 
-# === 用户学习数据（可选共享） ===
-.learnings/LEARNINGS.md
-.learnings/ERRORS.md
-.learnings/archive/
+# API keys and tokens
+*.key
+*.pem
+*.p12
+
+# Logs that may contain sensitive data
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+
+# Security audit logs (local only)
+**/security-audit.log
+**/security-incident.md
