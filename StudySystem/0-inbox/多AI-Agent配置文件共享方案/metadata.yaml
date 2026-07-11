@@ -1,0 +1,164 @@
+topic: "多AI Agent配置文件共享方案"
+collected_at: "2026-07-11T11:30:00+08:00"
+scope:
+  count: medium
+  types: [technical_docs, blog_posts]
+  research_depth: standard
+tools_used:
+  search: "WebSearch (builtin)"
+  fetch: "WebFetch (builtin)"
+  fallback_used: false
+
+files:
+  - filename: "doc-01.md"
+    title: "Claude Code .claude 目录结构与配置详解"
+    url: "https://computingforgeeks.com/claude-code-dot-claude-directory-guide/"
+    authority: 4
+    freshness: 4
+    completeness: 5
+    readability: 5
+    score: 4.5
+    classification: core_concepts
+    duplicate_of: null
+
+  - filename: "doc-02.md"
+    title: "Codex CLI 配置结构与设置详解"
+    url: "https://composio.dev/content/how-to-mcp-with-codex"
+    authority: 4
+    freshness: 5
+    completeness: 4
+    readability: 5
+    score: 4.5
+    classification: core_concepts
+    duplicate_of: null
+
+  - filename: "doc-03.md"
+    title: "CodeBuddy CLI 配置结构详解"
+    url: "https://www.codebuddy.ai/docs/cli/settings"
+    authority: 4
+    freshness: 4
+    completeness: 5
+    readability: 5
+    score: 4.5
+    classification: core_concepts
+    duplicate_of: null
+
+  - filename: "doc-04.md"
+    title: "AGENTS.md 规范与跨工具配置策略"
+    url: "https://www.morphllm.com/agents-md-guide"
+    authority: 4
+    freshness: 5
+    completeness: 5
+    readability: 5
+    score: 4.8
+    classification: core_concepts
+    duplicate_of: null
+
+  - filename: "doc-05.md"
+    title: "ai-agent-config: 基于符号链接的配置文件共享方案"
+    url: "https://github.com/casoon/ai-agent-config"
+    authority: 3
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.0
+    classification: practical_examples
+    duplicate_of: null
+
+  - filename: "doc-06.md"
+    title: "agentalign: Agent配置统一引擎"
+    url: "https://github.com/Jonathangadeaharder/agentalign"
+    authority: 3
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.0
+    classification: advanced
+    duplicate_of: null
+
+  - filename: "doc-07.md"
+    title: "ai-agent-rules: 带合并管线的配置管理方案"
+    url: "https://github.com/wpfleger96/ai-agent-rules"
+    authority: 3
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.0
+    classification: advanced
+    duplicate_of: null
+
+  - filename: "doc-08.md"
+    title: "SkillCaddy: 中心化技能库+按项目符号链接启用"
+    url: "https://github.com/chenweil/skillcaddy"
+    authority: 3
+    freshness: 4
+    completeness: 4
+    readability: 4
+    score: 3.8
+    classification: practical_examples
+    duplicate_of: null
+
+  - filename: "doc-09.md"
+    title: "swarmskills: 跨45+Agent技能管理工具"
+    url: "https://himcp.ai/server/swarmskills"
+    authority: 3
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.0
+    classification: practical_examples
+    duplicate_of: null
+
+  - filename: "doc-10.md"
+    title: "ai-config (azat-io): 统一配置安装管理器"
+    url: "https://github.com/azat-io/ai-config"
+    authority: 3
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.0
+    classification: practical_examples
+    duplicate_of: null
+
+  - filename: "doc-11.md"
+    title: "AgentSync: 快速可移植的Agent配置同步CLI"
+    url: "https://github.com/dallay/agentsync"
+    authority: 3
+    freshness: 5
+    completeness: 4
+    readability: 4
+    score: 4.0
+    classification: practical_examples
+    duplicate_of: null
+
+  - filename: "doc-12.md"
+    title: "Codex vs Claude Code: 技能共享策略与实践"
+    url: "https://docs.kanaries.net/articles/codex-vs-claude-code-skills"
+    authority: 4
+    freshness: 5
+    completeness: 4
+    readability: 5
+    score: 4.5
+    classification: practical_examples
+    duplicate_of: null
+
+summary:
+  total_collected: 12
+  total_kept: 12
+  total_removed: 0
+  by_classification:
+    core_concepts: 4
+    practical_examples: 6
+    advanced: 2
+  by_authority:
+    official_docs: 0
+    tech_blogs: 6
+    community: 6
+    videos: 0
+  gaps:
+    - "缺少官方第一手文档——所有 Claude/Codex/CodeBuddy 配置信息均来自技术博客而非官方原始文档"
+    - "缺少视频教程来源——搜索策略未覆盖视频平台"
+    - "缺少 WinGet/Winget 或 Windows 生态下的工具链配置方案对比"
+    - "缺少 Cursor 和 Windsurf 的配置结构详细对比(只在 doc-04 中部分提及)"
+    - "缺少 GitHub Copilot 配置结构的详细解析"
+    - "缺少 Gemini CLI 配置结构的详细解析"
