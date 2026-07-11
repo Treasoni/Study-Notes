@@ -49,8 +49,7 @@
               "title": "Codex手动配置指南"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -185,13 +184,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "软路由教程/update_report_iStoreOS爬梯配置指南.md",
+                "file": "软路由教程/iStoreOS爬梯配置指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "update_report_iStoreOS爬梯配置指南 的大纲"
+              "title": "iStoreOS爬梯配置指南 的大纲"
             }
           },
           {
@@ -215,7 +214,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
@@ -237,12 +236,12 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "1376a4e2179dcd91",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "软路由教程/update_report_iStoreOS爬梯配置指南.md",
     "软路由教程/iStoreOS爬梯配置指南.md",
     "AI学习/03-技术专题/Codex手动配置指南.md",
     "软路由教程/主流软路由系统对比与选择指南.md",
-    "软路由教程/update_report_iStoreOS爬梯配置指南.md",
     "软路由教程/旁路由原理详解.md",
     "项目实战/AI实战/AI实战 MOC.md",
     "AI学习/00-索引/AI学习 MOC.md",
