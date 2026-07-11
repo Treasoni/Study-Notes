@@ -945,10 +945,10 @@ function mergeDefs(...defs) {
 function cloneDef(schema) {
   return mergeDefs(schema._zod.def);
 }
-function getElementAtPath(obj, path27) {
-  if (!path27)
+function getElementAtPath(obj, path28) {
+  if (!path28)
     return obj;
-  return path27.reduce((acc, key) => acc == null ? void 0 : acc[key], obj);
+  return path28.reduce((acc, key) => acc == null ? void 0 : acc[key], obj);
 }
 function promiseAllObject(promisesObj) {
   const keys = Object.keys(promisesObj);
@@ -1261,12 +1261,12 @@ function aborted(x2, startIndex = 0) {
   }
   return false;
 }
-function prefixIssues(path27, issues) {
+function prefixIssues(path28, issues) {
   return issues.map((iss) => {
     var _a6;
     var _a5;
     (_a6 = (_a5 = iss).path) != null ? _a6 : _a5.path = [];
-    iss.path.unshift(path27);
+    iss.path.unshift(path28);
     return iss;
   });
 }
@@ -1510,7 +1510,7 @@ function formatError(error48, mapper = (issue2) => issue2.message) {
 }
 function treeifyError(error48, mapper = (issue2) => issue2.message) {
   const result = { errors: [] };
-  const processError = (error49, path27 = []) => {
+  const processError = (error49, path28 = []) => {
     var _a6, _b4, _c2, _d;
     var _a5, _b3;
     for (const issue2 of error49.issues) {
@@ -1521,7 +1521,7 @@ function treeifyError(error48, mapper = (issue2) => issue2.message) {
       } else if (issue2.code === "invalid_element") {
         processError({ issues: issue2.issues }, issue2.path);
       } else {
-        const fullpath = [...path27, ...issue2.path];
+        const fullpath = [...path28, ...issue2.path];
         if (fullpath.length === 0) {
           result.errors.push(mapper(issue2));
           continue;
@@ -1553,8 +1553,8 @@ function treeifyError(error48, mapper = (issue2) => issue2.message) {
 }
 function toDotPath(_path) {
   const segs = [];
-  const path27 = _path.map((seg) => typeof seg === "object" ? seg.key : seg);
-  for (const seg of path27) {
+  const path28 = _path.map((seg) => typeof seg === "object" ? seg.key : seg);
+  for (const seg of path28) {
     if (typeof seg === "number")
       segs.push(`[${seg}]`);
     else if (typeof seg === "symbol")
@@ -19233,8 +19233,8 @@ var require_utils = __commonJS({
       }
       return ind;
     }
-    function removeDotSegments(path27) {
-      let input = path27;
+    function removeDotSegments(path28) {
+      let input = path28;
       const output = [];
       let nextSlash = -1;
       let len = 0;
@@ -19486,8 +19486,8 @@ var require_schemes = __commonJS({
         wsComponent.secure = void 0;
       }
       if (wsComponent.resourceName) {
-        const [path27, query] = wsComponent.resourceName.split("?");
-        wsComponent.path = path27 && path27 !== "/" ? path27 : void 0;
+        const [path28, query] = wsComponent.resourceName.split("?");
+        wsComponent.path = path28 && path28 !== "/" ? path28 : void 0;
         wsComponent.query = query;
         wsComponent.resourceName = void 0;
       }
@@ -22880,12 +22880,12 @@ var require_dist = __commonJS({
         throw new Error(`Unknown format "${name}"`);
       return f9;
     };
-    function addFormats(ajv, list, fs29, exportName) {
+    function addFormats(ajv, list, fs30, exportName) {
       var _a5;
       var _b3;
       (_a5 = (_b3 = ajv.opts.code).formats) !== null && _a5 !== void 0 ? _a5 : _b3.formats = (0, codegen_1._)`require("ajv-formats/dist/formats").${exportName}`;
       for (const f9 of list)
-        ajv.addFormat(f9, fs29[f9]);
+        ajv.addFormat(f9, fs30[f9]);
     }
     module2.exports = exports = formatsPlugin;
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -22898,8 +22898,8 @@ var require_windows = __commonJS({
   "node_modules/isexe/windows.js"(exports, module2) {
     module2.exports = isexe;
     isexe.sync = sync;
-    var fs29 = require("fs");
-    function checkPathExt(path27, options) {
+    var fs30 = require("fs");
+    function checkPathExt(path28, options) {
       var pathext = options.pathExt !== void 0 ? options.pathExt : process.env.PATHEXT;
       if (!pathext) {
         return true;
@@ -22910,25 +22910,25 @@ var require_windows = __commonJS({
       }
       for (var i = 0; i < pathext.length; i++) {
         var p = pathext[i].toLowerCase();
-        if (p && path27.substr(-p.length).toLowerCase() === p) {
+        if (p && path28.substr(-p.length).toLowerCase() === p) {
           return true;
         }
       }
       return false;
     }
-    function checkStat(stat, path27, options) {
+    function checkStat(stat, path28, options) {
       if (!stat.isSymbolicLink() && !stat.isFile()) {
         return false;
       }
-      return checkPathExt(path27, options);
+      return checkPathExt(path28, options);
     }
-    function isexe(path27, options, cb2) {
-      fs29.stat(path27, function(er, stat) {
-        cb2(er, er ? false : checkStat(stat, path27, options));
+    function isexe(path28, options, cb2) {
+      fs30.stat(path28, function(er, stat) {
+        cb2(er, er ? false : checkStat(stat, path28, options));
       });
     }
-    function sync(path27, options) {
-      return checkStat(fs29.statSync(path27), path27, options);
+    function sync(path28, options) {
+      return checkStat(fs30.statSync(path28), path28, options);
     }
   }
 });
@@ -22938,14 +22938,14 @@ var require_mode = __commonJS({
   "node_modules/isexe/mode.js"(exports, module2) {
     module2.exports = isexe;
     isexe.sync = sync;
-    var fs29 = require("fs");
-    function isexe(path27, options, cb2) {
-      fs29.stat(path27, function(er, stat) {
+    var fs30 = require("fs");
+    function isexe(path28, options, cb2) {
+      fs30.stat(path28, function(er, stat) {
         cb2(er, er ? false : checkStat(stat, options));
       });
     }
-    function sync(path27, options) {
-      return checkStat(fs29.statSync(path27), options);
+    function sync(path28, options) {
+      return checkStat(fs30.statSync(path28), options);
     }
     function checkStat(stat, options) {
       return stat.isFile() && checkMode(stat, options);
@@ -22969,7 +22969,7 @@ var require_mode = __commonJS({
 // node_modules/isexe/index.js
 var require_isexe = __commonJS({
   "node_modules/isexe/index.js"(exports, module2) {
-    var fs29 = require("fs");
+    var fs30 = require("fs");
     var core;
     if (process.platform === "win32" || global.TESTING_WINDOWS) {
       core = require_windows();
@@ -22978,7 +22978,7 @@ var require_isexe = __commonJS({
     }
     module2.exports = isexe;
     isexe.sync = sync;
-    function isexe(path27, options, cb2) {
+    function isexe(path28, options, cb2) {
       if (typeof options === "function") {
         cb2 = options;
         options = {};
@@ -22988,7 +22988,7 @@ var require_isexe = __commonJS({
           throw new TypeError("callback not provided");
         }
         return new Promise(function(resolve8, reject) {
-          isexe(path27, options || {}, function(er, is) {
+          isexe(path28, options || {}, function(er, is) {
             if (er) {
               reject(er);
             } else {
@@ -22997,7 +22997,7 @@ var require_isexe = __commonJS({
           });
         });
       }
-      core(path27, options || {}, function(er, is) {
+      core(path28, options || {}, function(er, is) {
         if (er) {
           if (er.code === "EACCES" || options && options.ignoreErrors) {
             er = null;
@@ -23007,9 +23007,9 @@ var require_isexe = __commonJS({
         cb2(er, is);
       });
     }
-    function sync(path27, options) {
+    function sync(path28, options) {
       try {
-        return core.sync(path27, options || {});
+        return core.sync(path28, options || {});
       } catch (er) {
         if (options && options.ignoreErrors || er.code === "EACCES") {
           return false;
@@ -23025,7 +23025,7 @@ var require_isexe = __commonJS({
 var require_which = __commonJS({
   "node_modules/which/which.js"(exports, module2) {
     var isWindows2 = process.platform === "win32" || process.env.OSTYPE === "cygwin" || process.env.OSTYPE === "msys";
-    var path27 = require("path");
+    var path28 = require("path");
     var COLON = isWindows2 ? ";" : ":";
     var isexe = require_isexe();
     var getNotFoundError = (cmd) => Object.assign(new Error(`not found: ${cmd}`), { code: "ENOENT" });
@@ -23063,7 +23063,7 @@ var require_which = __commonJS({
           return opt.all && found.length ? resolve8(found) : reject(getNotFoundError(cmd));
         const ppRaw = pathEnv[i];
         const pathPart = /^".*"$/.test(ppRaw) ? ppRaw.slice(1, -1) : ppRaw;
-        const pCmd = path27.join(pathPart, cmd);
+        const pCmd = path28.join(pathPart, cmd);
         const p = !pathPart && /^\.[\\\/]/.test(cmd) ? cmd.slice(0, 2) + pCmd : pCmd;
         resolve8(subStep(p, i, 0));
       });
@@ -23090,7 +23090,7 @@ var require_which = __commonJS({
       for (let i = 0; i < pathEnv.length; i++) {
         const ppRaw = pathEnv[i];
         const pathPart = /^".*"$/.test(ppRaw) ? ppRaw.slice(1, -1) : ppRaw;
-        const pCmd = path27.join(pathPart, cmd);
+        const pCmd = path28.join(pathPart, cmd);
         const p = !pathPart && /^\.[\\\/]/.test(cmd) ? cmd.slice(0, 2) + pCmd : pCmd;
         for (let j = 0; j < pathExt.length; j++) {
           const cur = p + pathExt[j];
@@ -23138,7 +23138,7 @@ var require_path_key = __commonJS({
 var require_resolveCommand = __commonJS({
   "node_modules/cross-spawn/lib/util/resolveCommand.js"(exports, module2) {
     "use strict";
-    var path27 = require("path");
+    var path28 = require("path");
     var which = require_which();
     var getPathKey = require_path_key();
     function resolveCommandAttempt(parsed, withoutPathExt) {
@@ -23156,7 +23156,7 @@ var require_resolveCommand = __commonJS({
       try {
         resolved = which.sync(parsed.command, {
           path: env[getPathKey({ env })],
-          pathExt: withoutPathExt ? path27.delimiter : void 0
+          pathExt: withoutPathExt ? path28.delimiter : void 0
         });
       } catch (e2) {
       } finally {
@@ -23165,7 +23165,7 @@ var require_resolveCommand = __commonJS({
         }
       }
       if (resolved) {
-        resolved = path27.resolve(hasCustomCwd ? parsed.options.cwd : "", resolved);
+        resolved = path28.resolve(hasCustomCwd ? parsed.options.cwd : "", resolved);
       }
       return resolved;
     }
@@ -23219,8 +23219,8 @@ var require_shebang_command = __commonJS({
       if (!match) {
         return null;
       }
-      const [path27, argument] = match[0].replace(/#! ?/, "").split(" ");
-      const binary = path27.split("/").pop();
+      const [path28, argument] = match[0].replace(/#! ?/, "").split(" ");
+      const binary = path28.split("/").pop();
       if (binary === "env") {
         return argument;
       }
@@ -23233,16 +23233,16 @@ var require_shebang_command = __commonJS({
 var require_readShebang = __commonJS({
   "node_modules/cross-spawn/lib/util/readShebang.js"(exports, module2) {
     "use strict";
-    var fs29 = require("fs");
+    var fs30 = require("fs");
     var shebangCommand = require_shebang_command();
     function readShebang(command) {
       const size = 150;
       const buffer = Buffer.alloc(size);
       let fd;
       try {
-        fd = fs29.openSync(command, "r");
-        fs29.readSync(fd, buffer, 0, size, 0);
-        fs29.closeSync(fd);
+        fd = fs30.openSync(command, "r");
+        fs30.readSync(fd, buffer, 0, size, 0);
+        fs30.closeSync(fd);
       } catch (e2) {
       }
       return shebangCommand(buffer.toString());
@@ -23255,7 +23255,7 @@ var require_readShebang = __commonJS({
 var require_parse = __commonJS({
   "node_modules/cross-spawn/lib/parse.js"(exports, module2) {
     "use strict";
-    var path27 = require("path");
+    var path28 = require("path");
     var resolveCommand = require_resolveCommand();
     var escape2 = require_escape();
     var readShebang = require_readShebang();
@@ -23280,7 +23280,7 @@ var require_parse = __commonJS({
       const needsShell = !isExecutableRegExp.test(commandFile);
       if (parsed.options.forceShell || needsShell) {
         const needsDoubleEscapeMetaChars = isCmdShimRegExp.test(commandFile);
-        parsed.command = path27.normalize(parsed.command);
+        parsed.command = path28.normalize(parsed.command);
         parsed.command = escape2.command(parsed.command);
         parsed.args = parsed.args.map((arg) => escape2.argument(arg, needsDoubleEscapeMetaChars));
         const shellCommand = [parsed.command].concat(parsed.args).join(" ");
@@ -24976,7 +24976,7 @@ function isProviderModelSelectionId(providerId, value) {
 }
 function toProviderRuntimeModelId(providerId, value) {
   const decoded = decodeProviderModelSelectionId(value);
-  return (decoded == null ? void 0 : decoded.providerId) === providerId ? decoded.modelId : value;
+  return decoded && decoded.providerId === providerId ? decoded.modelId : value;
 }
 
 // src/core/providers/types.ts
@@ -25247,6 +25247,10 @@ var ProviderWorkspaceRegistry = class {
   static async refreshAgentMentions(providerId) {
     var _a5, _b3;
     await ((_b3 = (_a5 = this.getServices(providerId)) == null ? void 0 : _a5.refreshAgentMentions) == null ? void 0 : _b3.call(_a5));
+  }
+  static async refreshModelCatalog(providerId) {
+    var _a5, _b3, _c2;
+    return (_c2 = await ((_b3 = (_a5 = this.getServices(providerId)) == null ? void 0 : _a5.refreshModelCatalog) == null ? void 0 : _b3.call(_a5))) != null ? _c2 : { changed: false };
   }
   static getCliResolver(providerId) {
     var _a5, _b3;
@@ -46106,11 +46110,12 @@ function installTreeAwareKill(child, spawnSpec) {
     return;
   }
   const originalKill = child.kill.bind(child);
+  const callOriginalKill = (signal) => originalKill(signal);
   const killableChild = {
     get pid() {
       return child.pid;
     },
-    kill: (signal) => originalKill(signal)
+    kill: callOriginalKill
   };
   child.kill = ((signal) => terminateSpawnedProcess(killableChild, signal, import_child_process6.spawn, spawnSpec));
 }
@@ -47011,6 +47016,19 @@ var CHAT_VIEW_PLACEMENTS = [
   "main-tab"
 ];
 
+// src/core/providers/reasoning.ts
+var DEFAULT_REASONING_VALUE = "high";
+function resolvePreferredReasoningDefault(availableValues, fallbackValue) {
+  var _a5;
+  if (availableValues.includes(DEFAULT_REASONING_VALUE)) {
+    return DEFAULT_REASONING_VALUE;
+  }
+  if (availableValues.includes(fallbackValue)) {
+    return fallbackValue;
+  }
+  return (_a5 = availableValues[0]) != null ? _a5 : fallbackValue;
+}
+
 // src/providers/codex/settings.ts
 init_env();
 
@@ -47024,12 +47042,12 @@ function isCodexModelSelectionId(modelId) {
 function toCodexRuntimeModelId(modelId) {
   return toProviderRuntimeModelId("codex", modelId);
 }
+function looksLikeCodexModel(modelId) {
+  return /^gpt-/i.test(modelId) || /^o\d/i.test(modelId);
+}
 
 // src/providers/codex/types/models.ts
 var CODEX_SPARK_MODEL = "gpt-5.3-codex-spark";
-var DEFAULT_CODEX_MINI_MODEL = "gpt-5.4-mini";
-var DEFAULT_CODEX_PRIMARY_MODEL = "gpt-5.5";
-var FAST_TIER_CODEX_MODEL = DEFAULT_CODEX_PRIMARY_MODEL;
 function formatCodexModelSuffix(suffix) {
   return suffix.split("-").filter(Boolean).map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1).toLowerCase()).join(" ");
 }
@@ -47041,22 +47059,151 @@ function formatCodexModelLabel(model) {
   const [, version2, suffix] = match;
   return `GPT-${version2}${suffix ? ` ${formatCodexModelSuffix(suffix)}` : ""}`;
 }
-function createCodexModelOption(model, description) {
-  return {
-    value: model,
-    label: formatCodexModelLabel(model),
-    description
-  };
+
+// src/providers/codex/models.ts
+var DEFAULT_INPUT_MODALITIES = ["text", "image"];
+var EXCLUDED_REASONING_EFFORTS = /* @__PURE__ */ new Set(["ultra"]);
+function isRecord3(value) {
+  return !!value && typeof value === "object" && !Array.isArray(value);
 }
-var DEFAULT_CODEX_MINI_MODEL_LABEL = formatCodexModelLabel(DEFAULT_CODEX_MINI_MODEL);
-var DEFAULT_CODEX_PRIMARY_MODEL_LABEL = formatCodexModelLabel(DEFAULT_CODEX_PRIMARY_MODEL);
-var FAST_TIER_CODEX_MODEL_LABEL = formatCodexModelLabel(FAST_TIER_CODEX_MODEL);
-var FAST_TIER_CODEX_DESCRIPTION = `Enable ${FAST_TIER_CODEX_MODEL_LABEL} fast mode for this conversation. Faster responses use more credits.`;
-var DEFAULT_CODEX_MODELS = [
-  createCodexModelOption(DEFAULT_CODEX_MINI_MODEL, "Fast"),
-  createCodexModelOption(DEFAULT_CODEX_PRIMARY_MODEL, "Latest")
-];
-var DEFAULT_CODEX_MODEL_SET = new Set(DEFAULT_CODEX_MODELS.map((model) => model.value));
+function normalizeNonEmptyString(value) {
+  if (typeof value !== "string") {
+    return null;
+  }
+  const normalized = value.trim();
+  return normalized || null;
+}
+function normalizeReasoningEfforts(value) {
+  var _a5, _b3;
+  if (!Array.isArray(value)) {
+    return [];
+  }
+  const efforts = [];
+  const seen = /* @__PURE__ */ new Set();
+  for (const entry of value) {
+    if (!isRecord3(entry)) {
+      continue;
+    }
+    const effort = normalizeNonEmptyString((_a5 = entry.value) != null ? _a5 : entry.reasoningEffort);
+    if (!effort || EXCLUDED_REASONING_EFFORTS.has(effort.toLowerCase()) || seen.has(effort)) {
+      continue;
+    }
+    seen.add(effort);
+    efforts.push({
+      value: effort,
+      description: (_b3 = normalizeNonEmptyString(entry.description)) != null ? _b3 : ""
+    });
+  }
+  return efforts;
+}
+function normalizeServiceTiers(value) {
+  var _a5, _b3;
+  if (!Array.isArray(value)) {
+    return [];
+  }
+  const tiers = [];
+  const seen = /* @__PURE__ */ new Set();
+  for (const entry of value) {
+    if (!isRecord3(entry)) {
+      continue;
+    }
+    const id = normalizeNonEmptyString(entry.id);
+    if (!id || seen.has(id)) {
+      continue;
+    }
+    seen.add(id);
+    tiers.push({
+      id,
+      name: (_a5 = normalizeNonEmptyString(entry.name)) != null ? _a5 : id,
+      description: (_b3 = normalizeNonEmptyString(entry.description)) != null ? _b3 : ""
+    });
+  }
+  return tiers;
+}
+function normalizeInputModalities(value) {
+  if (value === void 0) {
+    return [...DEFAULT_INPUT_MODALITIES];
+  }
+  if (!Array.isArray(value)) {
+    return [];
+  }
+  const modalities = /* @__PURE__ */ new Set();
+  for (const entry of value) {
+    if (typeof entry === "string" && (entry === "text" || entry === "image")) {
+      modalities.add(entry);
+    }
+  }
+  return Array.from(modalities);
+}
+function normalizeCodexDiscoveredModels(value) {
+  var _a5, _b3, _c2;
+  if (!Array.isArray(value)) {
+    return [];
+  }
+  const models = [];
+  const seen = /* @__PURE__ */ new Set();
+  for (const entry of value) {
+    if (!isRecord3(entry) || entry.hidden === true) {
+      continue;
+    }
+    const model = normalizeNonEmptyString((_a5 = entry.model) != null ? _a5 : entry.id);
+    if (!model || seen.has(model)) {
+      continue;
+    }
+    const supportedReasoningEfforts = normalizeReasoningEfforts(entry.supportedReasoningEfforts);
+    let defaultReasoningEffort = normalizeNonEmptyString(entry.defaultReasoningEffort);
+    if (!defaultReasoningEffort || !supportedReasoningEfforts.some((option) => option.value === defaultReasoningEffort)) {
+      if (defaultReasoningEffort && EXCLUDED_REASONING_EFFORTS.has(defaultReasoningEffort.toLowerCase()) && supportedReasoningEfforts.length > 0) {
+        defaultReasoningEffort = resolvePreferredReasoningDefault(
+          supportedReasoningEfforts.map((option) => option.value),
+          supportedReasoningEfforts[0].value
+        );
+      } else {
+        continue;
+      }
+    }
+    const serviceTiers = normalizeServiceTiers(entry.serviceTiers);
+    const defaultServiceTier = normalizeNonEmptyString(entry.defaultServiceTier);
+    seen.add(model);
+    models.push({
+      model,
+      displayName: (_b3 = normalizeNonEmptyString(entry.displayName)) != null ? _b3 : formatCodexModelLabel(model),
+      description: (_c2 = normalizeNonEmptyString(entry.description)) != null ? _c2 : "",
+      supportedReasoningEfforts,
+      defaultReasoningEffort,
+      serviceTiers,
+      defaultServiceTier,
+      inputModalities: normalizeInputModalities(entry.inputModalities),
+      isDefault: entry.isDefault === true
+    });
+  }
+  return models;
+}
+function findCodexModel(models, modelId) {
+  var _a5;
+  if (!modelId) {
+    return null;
+  }
+  const runtimeModelId = toCodexRuntimeModelId(modelId);
+  return (_a5 = models.find((model) => model.model === runtimeModelId)) != null ? _a5 : null;
+}
+function getDefaultCodexModel(models) {
+  var _a5, _b3;
+  return (_b3 = (_a5 = models.find((model) => model.isDefault)) != null ? _a5 : models[0]) != null ? _b3 : null;
+}
+function getCodexModelsInPickerOrder(models) {
+  return [...models].reverse();
+}
+function getCodexDefaultReasoningEffort(model) {
+  return resolvePreferredReasoningDefault(
+    model.supportedReasoningEfforts.map((option) => option.value),
+    model.defaultReasoningEffort || DEFAULT_REASONING_VALUE
+  );
+}
+function getCodexFastServiceTier(model) {
+  var _a5;
+  return (_a5 = model.serviceTiers.find((tier) => tier.name.trim().toLowerCase() === "fast")) != null ? _a5 : null;
+}
 
 // src/providers/codex/settings.ts
 function normalizeCodexInstallationMethod(value) {
@@ -47065,19 +47212,42 @@ function normalizeCodexInstallationMethod(value) {
 function normalizeOptionalString(value) {
   return typeof value === "string" ? value.trim() : "";
 }
-var DEFAULT_CODEX_PROVIDER_SETTINGS = Object.freeze({
+function shouldPersistCodexInstallationSettings() {
+  return process.platform === "win32";
+}
+function omitCurrentHost(entries, hostnameKey) {
+  const next = { ...entries };
+  delete next[hostnameKey];
+  delete next[getLegacyHostnameKey()];
+  return next;
+}
+function ensureCodexProjectionMap(settings11, key) {
+  const current = settings11[key];
+  if (current && typeof current === "object" && !Array.isArray(current)) {
+    return current;
+  }
+  const next = {};
+  settings11[key] = next;
+  return next;
+}
+var DEFAULT_CODEX_PROVIDER_CONFIG = Object.freeze({
   enabled: false,
   safeMode: "workspace-write",
   cliPath: "",
   cliPathsByHost: {},
   customModels: "",
+  discoveredModels: [],
+  visibleModels: null,
   reasoningSummary: "detailed",
   environmentVariables: "",
   environmentHash: "",
-  installationMethod: "native-windows",
   installationMethodsByHost: {},
-  wslDistroOverride: "",
   wslDistroOverridesByHost: {}
+});
+var DEFAULT_CODEX_PROVIDER_SETTINGS = Object.freeze({
+  ...DEFAULT_CODEX_PROVIDER_CONFIG,
+  installationMethod: "native-windows",
+  wslDistroOverride: ""
 });
 function shouldDisableCodexReasoningSummary(model) {
   return model ? toCodexRuntimeModelId(model) === CODEX_SPARK_MODEL : false;
@@ -47089,6 +47259,8 @@ function getEffectiveCodexReasoningSummary(settings11, model) {
   return getCodexProviderSettings(settings11).reasoningSummary;
 }
 function applyCodexModelDefaults(model, settings11) {
+  const modelMetadata = findCodexModel(getCodexProviderSettings(settings11).discoveredModels, model);
+  settings11.effortLevel = modelMetadata ? getCodexDefaultReasoningEffort(modelMetadata) : DEFAULT_REASONING_VALUE;
   if (shouldDisableCodexReasoningSummary(model)) {
     updateCodexProviderSettings(settings11, { reasoningSummary: "none" });
   }
@@ -47105,6 +47277,82 @@ function normalizeHostnameCliPaths2(value) {
   }
   return result;
 }
+function normalizeCodexVisibleModels(value, discoveredModels = []) {
+  if (value === null || value === void 0) {
+    return null;
+  }
+  if (!Array.isArray(value)) {
+    return null;
+  }
+  const knownModelIds = new Set(discoveredModels.map((model) => model.model));
+  const visibleModels = [];
+  const seen = /* @__PURE__ */ new Set();
+  for (const entry of value) {
+    if (typeof entry !== "string") {
+      continue;
+    }
+    const modelId = entry.trim();
+    if (!modelId || seen.has(modelId) || knownModelIds.size > 0 && !knownModelIds.has(modelId)) {
+      continue;
+    }
+    seen.add(modelId);
+    visibleModels.push(modelId);
+  }
+  return visibleModels;
+}
+function createCodexVisibleModelFilter(value, discoveredModels) {
+  const normalized = normalizeCodexVisibleModels(value, discoveredModels);
+  return normalized !== null && discoveredModels.length > 0 && normalized.length === discoveredModels.length ? null : normalized;
+}
+function getVisibleCodexModelIds(visibleModels, discoveredModels) {
+  var _a5;
+  return visibleModels === null ? discoveredModels.map((model) => model.model) : (_a5 = normalizeCodexVisibleModels(visibleModels, discoveredModels)) != null ? _a5 : [];
+}
+function retargetRemovedCodexSelections(settings11, next) {
+  var _a5;
+  if (next.visibleModels === null) {
+    return;
+  }
+  const visibleModelIds = new Set(next.visibleModels);
+  if (visibleModelIds.size === 0) {
+    if (findCodexModel(next.discoveredModels, settings11.titleGenerationModel)) {
+      settings11.titleGenerationModel = "";
+    }
+    return;
+  }
+  const fallbackModel = getDefaultCodexModel(
+    next.discoveredModels.filter((model) => visibleModelIds.has(model.model))
+  );
+  if (!fallbackModel) {
+    return;
+  }
+  const maybeRetarget = (value) => {
+    if (typeof value !== "string") {
+      return null;
+    }
+    const model = findCodexModel(next.discoveredModels, value);
+    return model && !visibleModelIds.has(model.model) ? fallbackModel.model : null;
+  };
+  const fallbackServiceTier = (_a5 = fallbackModel.defaultServiceTier) != null ? _a5 : "default";
+  const existingSavedModels = settings11.savedProviderModel;
+  const savedCodexModel = existingSavedModels && typeof existingSavedModels === "object" && !Array.isArray(existingSavedModels) ? existingSavedModels.codex : void 0;
+  const nextSavedModel = maybeRetarget(savedCodexModel);
+  if (nextSavedModel) {
+    ensureCodexProjectionMap(settings11, "savedProviderModel").codex = nextSavedModel;
+    ensureCodexProjectionMap(settings11, "savedProviderEffort").codex = getCodexDefaultReasoningEffort(fallbackModel);
+    ensureCodexProjectionMap(settings11, "savedProviderServiceTier").codex = fallbackServiceTier;
+  }
+  const nextTopLevelModel = maybeRetarget(settings11.model);
+  if (nextTopLevelModel) {
+    settings11.model = nextTopLevelModel;
+    settings11.effortLevel = getCodexDefaultReasoningEffort(fallbackModel);
+    settings11.serviceTier = fallbackServiceTier;
+  }
+  const nextTitleGenerationModel = maybeRetarget(settings11.titleGenerationModel);
+  if (nextTitleGenerationModel) {
+    settings11.titleGenerationModel = nextTitleGenerationModel;
+  }
+}
 function normalizeInstallationMethodsByHost(value) {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
     return {};
@@ -47117,53 +47365,143 @@ function normalizeInstallationMethodsByHost(value) {
   }
   return result;
 }
-function getCodexProviderSettings(settings11) {
-  var _a5, _b3, _c2, _d, _e2, _f2, _g, _h2, _i, _j, _k3, _l2, _m, _n, _o, _p;
+function hasOwnEntry2(entries, key) {
+  return Object.prototype.hasOwnProperty.call(entries, key);
+}
+function getCodexStoredConfig(settings11, hostnameKey, legacyHostnameKey) {
+  var _a5, _b3, _c2, _d, _e2, _f2, _g, _h2, _i, _j, _k3, _l2, _m, _n;
   const config2 = getProviderConfig(settings11, "codex");
-  const hostnameKey = getHostnameKey();
   const normalizedCliPathsByHost = normalizeHostnameCliPaths2((_a5 = config2.cliPathsByHost) != null ? _a5 : settings11.codexCliPathsByHost);
   const normalizedInstallationMethodsByHost = normalizeInstallationMethodsByHost(config2.installationMethodsByHost);
   const normalizedWslDistroOverridesByHost = normalizeHostnameCliPaths2(config2.wslDistroOverridesByHost);
-  const hasLegacyHostnameKeyedSettings = Object.keys(normalizedCliPathsByHost).length > 0 || Object.keys(normalizedInstallationMethodsByHost).length > 0 || Object.keys(normalizedWslDistroOverridesByHost).length > 0;
-  const legacyHostnameKey = hasLegacyHostnameKeyedSettings ? getLegacyHostnameKey() : "";
-  const cliPathsByHost = hasLegacyHostnameKeyedSettings ? migrateLegacyHostnameKeyedMap(normalizedCliPathsByHost, hostnameKey, legacyHostnameKey) : normalizedCliPathsByHost;
-  const installationMethodsByHost = hasLegacyHostnameKeyedSettings ? migrateLegacyHostnameKeyedMap(normalizedInstallationMethodsByHost, hostnameKey, legacyHostnameKey) : normalizedInstallationMethodsByHost;
-  const wslDistroOverridesByHost = hasLegacyHostnameKeyedSettings ? migrateLegacyHostnameKeyedMap(normalizedWslDistroOverridesByHost, hostnameKey, legacyHostnameKey) : normalizedWslDistroOverridesByHost;
-  const hasHostScopedInstallationMethods = Object.keys(installationMethodsByHost).length > 0;
-  const hasHostScopedWslDistroOverrides = Object.keys(wslDistroOverridesByHost).length > 0;
-  const legacyInstallationMethod = normalizeCodexInstallationMethod(config2.installationMethod);
-  const legacyWslDistroOverride = normalizeOptionalString(config2.wslDistroOverride);
+  const cliPathsByHost = migrateLegacyHostnameKeyedMap(normalizedCliPathsByHost, hostnameKey, legacyHostnameKey);
+  const installationMethodsByHost = migrateLegacyHostnameKeyedMap(
+    normalizedInstallationMethodsByHost,
+    hostnameKey,
+    legacyHostnameKey
+  );
+  const wslDistroOverridesByHost = migrateLegacyHostnameKeyedMap(
+    normalizedWslDistroOverridesByHost,
+    hostnameKey,
+    legacyHostnameKey
+  );
+  const discoveredModels = normalizeCodexDiscoveredModels(config2.discoveredModels);
   return {
-    enabled: (_c2 = (_b3 = config2.enabled) != null ? _b3 : settings11.codexEnabled) != null ? _c2 : DEFAULT_CODEX_PROVIDER_SETTINGS.enabled,
-    safeMode: (_e2 = (_d = config2.safeMode) != null ? _d : settings11.codexSafeMode) != null ? _e2 : DEFAULT_CODEX_PROVIDER_SETTINGS.safeMode,
-    cliPath: (_g = (_f2 = config2.cliPath) != null ? _f2 : settings11.codexCliPath) != null ? _g : DEFAULT_CODEX_PROVIDER_SETTINGS.cliPath,
+    enabled: (_c2 = (_b3 = config2.enabled) != null ? _b3 : settings11.codexEnabled) != null ? _c2 : DEFAULT_CODEX_PROVIDER_CONFIG.enabled,
+    safeMode: (_e2 = (_d = config2.safeMode) != null ? _d : settings11.codexSafeMode) != null ? _e2 : DEFAULT_CODEX_PROVIDER_CONFIG.safeMode,
+    cliPath: (_g = (_f2 = config2.cliPath) != null ? _f2 : settings11.codexCliPath) != null ? _g : DEFAULT_CODEX_PROVIDER_CONFIG.cliPath,
     cliPathsByHost,
-    customModels: (_h2 = config2.customModels) != null ? _h2 : DEFAULT_CODEX_PROVIDER_SETTINGS.customModels,
-    reasoningSummary: (_j = (_i = config2.reasoningSummary) != null ? _i : settings11.codexReasoningSummary) != null ? _j : DEFAULT_CODEX_PROVIDER_SETTINGS.reasoningSummary,
-    environmentVariables: (_l2 = (_k3 = config2.environmentVariables) != null ? _k3 : getProviderEnvironmentVariables(settings11, "codex")) != null ? _l2 : DEFAULT_CODEX_PROVIDER_SETTINGS.environmentVariables,
-    environmentHash: (_n = (_m = config2.environmentHash) != null ? _m : settings11.lastCodexEnvHash) != null ? _n : DEFAULT_CODEX_PROVIDER_SETTINGS.environmentHash,
-    installationMethod: (_o = installationMethodsByHost[hostnameKey]) != null ? _o : hasHostScopedInstallationMethods ? DEFAULT_CODEX_PROVIDER_SETTINGS.installationMethod : legacyInstallationMethod,
+    customModels: (_h2 = config2.customModels) != null ? _h2 : DEFAULT_CODEX_PROVIDER_CONFIG.customModels,
+    discoveredModels,
+    visibleModels: normalizeCodexVisibleModels(config2.visibleModels, discoveredModels),
+    reasoningSummary: (_j = (_i = config2.reasoningSummary) != null ? _i : settings11.codexReasoningSummary) != null ? _j : DEFAULT_CODEX_PROVIDER_CONFIG.reasoningSummary,
+    environmentVariables: (_l2 = (_k3 = config2.environmentVariables) != null ? _k3 : getProviderEnvironmentVariables(settings11, "codex")) != null ? _l2 : DEFAULT_CODEX_PROVIDER_CONFIG.environmentVariables,
+    environmentHash: (_n = (_m = config2.environmentHash) != null ? _m : settings11.lastCodexEnvHash) != null ? _n : DEFAULT_CODEX_PROVIDER_CONFIG.environmentHash,
     installationMethodsByHost,
-    wslDistroOverride: (_p = wslDistroOverridesByHost[hostnameKey]) != null ? _p : hasHostScopedWslDistroOverrides ? DEFAULT_CODEX_PROVIDER_SETTINGS.wslDistroOverride : legacyWslDistroOverride,
     wslDistroOverridesByHost
   };
 }
-function updateCodexProviderSettings(settings11, updates) {
+function getNormalizedCodexStoredConfigContext(context) {
+  var _a5, _b3, _c2;
+  return {
+    platform: (_a5 = context.platform) != null ? _a5 : process.platform,
+    hostnameKey: (_b3 = context.hostnameKey) != null ? _b3 : getHostnameKey(),
+    legacyHostnameKey: (_c2 = context.legacyHostnameKey) != null ? _c2 : getLegacyHostnameKey()
+  };
+}
+function projectStoredCodexConfigNormalization(originalConfig, normalizedConfig) {
+  const projected = { ...originalConfig };
+  for (const key of Object.keys(DEFAULT_CODEX_PROVIDER_CONFIG)) {
+    if (key in originalConfig) {
+      projected[key] = normalizedConfig[key];
+    }
+  }
+  delete projected.installationMethod;
+  delete projected.wslDistroOverride;
+  return projected;
+}
+function normalizeCodexStoredConfig(settings11, context = {}) {
+  const originalConfig = getProviderConfig(settings11, "codex");
+  const {
+    platform,
+    hostnameKey,
+    legacyHostnameKey
+  } = getNormalizedCodexStoredConfigContext(context);
+  const storedConfig = getCodexStoredConfig(settings11, hostnameKey, legacyHostnameKey);
+  const installationMethodsByHost = { ...storedConfig.installationMethodsByHost };
+  const wslDistroOverridesByHost = { ...storedConfig.wslDistroOverridesByHost };
+  if (platform === "win32") {
+    if (!hasOwnEntry2(installationMethodsByHost, hostnameKey) && "installationMethod" in originalConfig) {
+      installationMethodsByHost[hostnameKey] = normalizeCodexInstallationMethod(originalConfig.installationMethod);
+    }
+    if (!hasOwnEntry2(wslDistroOverridesByHost, hostnameKey) && "wslDistroOverride" in originalConfig) {
+      const normalizedDistroOverride = normalizeOptionalString(originalConfig.wslDistroOverride);
+      if (normalizedDistroOverride) {
+        wslDistroOverridesByHost[hostnameKey] = normalizedDistroOverride;
+      }
+    }
+  } else {
+    delete installationMethodsByHost[hostnameKey];
+    delete installationMethodsByHost[legacyHostnameKey];
+    delete wslDistroOverridesByHost[hostnameKey];
+    delete wslDistroOverridesByHost[legacyHostnameKey];
+  }
+  const normalizedConfig = {
+    ...originalConfig,
+    ...storedConfig,
+    installationMethodsByHost,
+    wslDistroOverridesByHost
+  };
+  delete normalizedConfig.installationMethod;
+  delete normalizedConfig.wslDistroOverride;
+  const projectedConfig = projectStoredCodexConfigNormalization(originalConfig, normalizedConfig);
+  return {
+    config: normalizedConfig,
+    changed: JSON.stringify(projectedConfig) !== JSON.stringify(originalConfig)
+  };
+}
+function getCodexProviderSettings(settings11) {
   var _a5, _b3;
+  const config2 = getProviderConfig(settings11, "codex");
+  const hostnameKey = getHostnameKey();
+  const legacyHostnameKey = getLegacyHostnameKey();
+  const storedConfig = getCodexStoredConfig(settings11, hostnameKey, legacyHostnameKey);
+  const hasHostScopedInstallationMethods = Object.keys(storedConfig.installationMethodsByHost).length > 0;
+  const hasHostScopedWslDistroOverrides = Object.keys(storedConfig.wslDistroOverridesByHost).length > 0;
+  const legacyInstallationMethod = normalizeCodexInstallationMethod(config2.installationMethod);
+  const legacyWslDistroOverride = normalizeOptionalString(config2.wslDistroOverride);
+  return {
+    ...storedConfig,
+    installationMethod: (_a5 = storedConfig.installationMethodsByHost[hostnameKey]) != null ? _a5 : hasHostScopedInstallationMethods ? DEFAULT_CODEX_PROVIDER_SETTINGS.installationMethod : legacyInstallationMethod,
+    wslDistroOverride: (_b3 = storedConfig.wslDistroOverridesByHost[hostnameKey]) != null ? _b3 : hasHostScopedWslDistroOverrides ? DEFAULT_CODEX_PROVIDER_SETTINGS.wslDistroOverride : legacyWslDistroOverride
+  };
+}
+function updateCodexProviderSettings(settings11, updates) {
+  var _a5, _b3, _c2;
   const current = getCodexProviderSettings(settings11);
   const hostnameKey = getHostnameKey();
-  const installationMethodsByHost = "installationMethodsByHost" in updates ? normalizeInstallationMethodsByHost(updates.installationMethodsByHost) : { ...current.installationMethodsByHost };
-  const wslDistroOverridesByHost = "wslDistroOverridesByHost" in updates ? normalizeHostnameCliPaths2(updates.wslDistroOverridesByHost) : { ...current.wslDistroOverridesByHost };
-  if (Object.keys(installationMethodsByHost).length === 0 && current.installationMethod !== DEFAULT_CODEX_PROVIDER_SETTINGS.installationMethod) {
+  const persistInstallationSettings = shouldPersistCodexInstallationSettings();
+  const updatedInstallationMethodsByHost = "installationMethodsByHost" in updates ? normalizeInstallationMethodsByHost(updates.installationMethodsByHost) : { ...current.installationMethodsByHost };
+  const updatedWslDistroOverridesByHost = "wslDistroOverridesByHost" in updates ? normalizeHostnameCliPaths2(updates.wslDistroOverridesByHost) : { ...current.wslDistroOverridesByHost };
+  const installationMethodsByHost = persistInstallationSettings ? updatedInstallationMethodsByHost : omitCurrentHost(updatedInstallationMethodsByHost, hostnameKey);
+  const wslDistroOverridesByHost = persistInstallationSettings ? updatedWslDistroOverridesByHost : omitCurrentHost(updatedWslDistroOverridesByHost, hostnameKey);
+  const discoveredModels = normalizeCodexDiscoveredModels(
+    (_a5 = updates.discoveredModels) != null ? _a5 : current.discoveredModels
+  );
+  const visibleModels = normalizeCodexVisibleModels(
+    "visibleModels" in updates ? updates.visibleModels : current.visibleModels,
+    discoveredModels
+  );
+  if (persistInstallationSettings && Object.keys(installationMethodsByHost).length === 0 && current.installationMethod !== DEFAULT_CODEX_PROVIDER_SETTINGS.installationMethod) {
     installationMethodsByHost[hostnameKey] = current.installationMethod;
   }
-  if (Object.keys(wslDistroOverridesByHost).length === 0 && current.wslDistroOverride) {
+  if (persistInstallationSettings && Object.keys(wslDistroOverridesByHost).length === 0 && current.wslDistroOverride) {
     wslDistroOverridesByHost[hostnameKey] = current.wslDistroOverride;
   }
-  if ("installationMethod" in updates) {
+  if (persistInstallationSettings && "installationMethod" in updates) {
     installationMethodsByHost[hostnameKey] = normalizeCodexInstallationMethod(updates.installationMethod);
   }
-  if ("wslDistroOverride" in updates) {
+  if (persistInstallationSettings && "wslDistroOverride" in updates) {
     const normalizedDistroOverride = normalizeOptionalString(updates.wslDistroOverride);
     if (normalizedDistroOverride) {
       wslDistroOverridesByHost[hostnameKey] = normalizedDistroOverride;
@@ -47174,9 +47512,11 @@ function updateCodexProviderSettings(settings11, updates) {
   const next = {
     ...current,
     ...updates,
-    installationMethod: (_a5 = installationMethodsByHost[hostnameKey]) != null ? _a5 : DEFAULT_CODEX_PROVIDER_SETTINGS.installationMethod,
+    discoveredModels,
+    visibleModels,
+    installationMethod: persistInstallationSettings ? (_b3 = installationMethodsByHost[hostnameKey]) != null ? _b3 : DEFAULT_CODEX_PROVIDER_SETTINGS.installationMethod : DEFAULT_CODEX_PROVIDER_SETTINGS.installationMethod,
     installationMethodsByHost,
-    wslDistroOverride: (_b3 = wslDistroOverridesByHost[hostnameKey]) != null ? _b3 : DEFAULT_CODEX_PROVIDER_SETTINGS.wslDistroOverride,
+    wslDistroOverride: persistInstallationSettings ? (_c2 = wslDistroOverridesByHost[hostnameKey]) != null ? _c2 : DEFAULT_CODEX_PROVIDER_SETTINGS.wslDistroOverride : DEFAULT_CODEX_PROVIDER_SETTINGS.wslDistroOverride,
     wslDistroOverridesByHost
   };
   setProviderConfig(settings11, "codex", {
@@ -47185,12 +47525,17 @@ function updateCodexProviderSettings(settings11, updates) {
     cliPath: next.cliPath,
     cliPathsByHost: next.cliPathsByHost,
     customModels: next.customModels,
+    discoveredModels: next.discoveredModels,
+    visibleModels: next.visibleModels,
     reasoningSummary: next.reasoningSummary,
     environmentVariables: next.environmentVariables,
     environmentHash: next.environmentHash,
     installationMethodsByHost,
     wslDistroOverridesByHost
   });
+  if ("visibleModels" in updates) {
+    retargetRemovedCodexSelections(settings11, next);
+  }
   return next;
 }
 
@@ -47263,6 +47608,13 @@ var OPENCODE_VARIANT_ASCENDING_ORDER = [
 var OPENCODE_VARIANT_ASCENDING_RANK = new Map(
   OPENCODE_VARIANT_ASCENDING_ORDER.map((value, index) => [value, index])
 );
+function resolveOpencodeDefaultThinkingLevel(options, preferredValue, fallbackValue = DEFAULT_REASONING_VALUE) {
+  const values = options.map((option) => option.value);
+  if (preferredValue && (values.length === 0 || values.includes(preferredValue))) {
+    return preferredValue;
+  }
+  return resolvePreferredReasoningDefault(values, fallbackValue);
+}
 function isOpencodeModelSelectionId(model) {
   return model === OPENCODE_SYNTHETIC_MODEL_ID || model.startsWith(OPENCODE_MODEL_PREFIX);
 }
@@ -47928,7 +48280,10 @@ function retargetRemovedOpencodeSelections(settings11, next) {
   const visibleSet = new Set(next.visibleModels);
   const fallbackRawId = next.visibleModels[0];
   const fallbackModelId = encodeOpencodeModelId(fallbackRawId);
-  const fallbackEffort = (_a5 = next.preferredThinkingByModel[fallbackRawId]) != null ? _a5 : OPENCODE_DEFAULT_THINKING_LEVEL;
+  const fallbackEffort = resolveOpencodeDefaultThinkingLevel(
+    (_a5 = next.thinkingOptionsByModel[fallbackRawId]) != null ? _a5 : [],
+    next.preferredThinkingByModel[fallbackRawId]
+  );
   const maybeRetargetModel = (value) => {
     if (typeof value !== "string" || !isOpencodeModelSelectionId(value)) {
       return null;
@@ -47961,9 +48316,22 @@ function retargetRemovedOpencodeSelections(settings11, next) {
 init_env();
 
 // src/providers/pi/internal/providerProjection.ts
+function normalizeProviderProjectionMap(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return null;
+  }
+  const normalized = {};
+  for (const [providerId, projectedValue] of Object.entries(value)) {
+    if (typeof projectedValue === "string") {
+      normalized[providerId] = projectedValue;
+    }
+  }
+  return normalized;
+}
 function ensureProviderProjectionMap2(settings11, key) {
-  const current = settings11[key];
-  if (current && typeof current === "object" && !Array.isArray(current)) {
+  const current = normalizeProviderProjectionMap(settings11[key]);
+  if (current) {
+    settings11[key] = current;
     return current;
   }
   const next = {};
@@ -47974,7 +48342,7 @@ function ensureProviderProjectionMap2(settings11, key) {
 // src/providers/pi/models.ts
 var PI_SYNTHETIC_MODEL_ID = "pi";
 var PI_MODEL_PREFIX = "pi:";
-var PI_DEFAULT_THINKING_LEVEL = "medium";
+var PI_DEFAULT_THINKING_LEVEL = DEFAULT_REASONING_VALUE;
 var VALID_THINKING_LEVELS = /* @__PURE__ */ new Set([
   "off",
   "minimal",
@@ -48106,15 +48474,14 @@ function findPiModel(settings11, encodedId) {
   return (_a5 = settings11.discoveredModels.find((model) => model.encodedId === encodedId)) != null ? _a5 : null;
 }
 function clampPiThinkingLevel(level, supportedLevels) {
-  var _a5;
   const normalized = normalizePiThinkingLevel(level);
   if (normalized && supportedLevels.includes(normalized)) {
     return normalized;
   }
-  if (supportedLevels.includes(PI_DEFAULT_THINKING_LEVEL)) {
-    return PI_DEFAULT_THINKING_LEVEL;
+  if (supportedLevels.length === 0) {
+    return "off";
   }
-  return (_a5 = supportedLevels[0]) != null ? _a5 : "off";
+  return resolvePreferredReasoningDefault(supportedLevels, "medium");
 }
 function collectExplicitThinkingLevels(record2) {
   const rawLevels = [
@@ -48448,7 +48815,8 @@ function retargetRemovedPiSelections(settings11, next) {
   }
   const visibleSet = new Set(next.visibleModels);
   const fallbackModelId = next.visibleModels[0];
-  const fallbackEffort = (_a5 = next.preferredThinkingByModel[fallbackModelId]) != null ? _a5 : PI_DEFAULT_THINKING_LEVEL;
+  const fallbackModel = findPiModel(next, fallbackModelId);
+  const fallbackEffort = (_a5 = next.preferredThinkingByModel[fallbackModelId]) != null ? _a5 : fallbackModel ? clampPiThinkingLevel(PI_DEFAULT_THINKING_LEVEL, fallbackModel.thinkingLevels) : PI_DEFAULT_THINKING_LEVEL;
   const maybeRetargetModel = (value) => {
     if (typeof value !== "string" || !isPiModelSelectionId(value) || value === "pi") {
       return null;
@@ -48476,7 +48844,7 @@ function retargetRemovedPiSelections(settings11, next) {
 function getBuiltInProviderDefaultConfigs() {
   return {
     claude: { ...DEFAULT_CLAUDE_PROVIDER_SETTINGS },
-    codex: { ...DEFAULT_CODEX_PROVIDER_SETTINGS },
+    codex: { ...DEFAULT_CODEX_PROVIDER_CONFIG },
     opencode: { ...DEFAULT_OPENCODE_PROVIDER_SETTINGS },
     pi: { ...DEFAULT_PI_PROVIDER_SETTINGS }
   };
@@ -48488,7 +48856,7 @@ var DEFAULT_CLAUDIAN_SETTINGS = {
   permissionMode: "yolo",
   model: "haiku",
   thinkingBudget: "off",
-  effortLevel: "high",
+  effortLevel: DEFAULT_REASONING_VALUE,
   serviceTier: "default",
   enableAutoTitleGeneration: true,
   titleGenerationModel: "",
@@ -48588,6 +48956,26 @@ function normalizeProviderConfigs(value) {
     }
   }
   return result;
+}
+var RUNTIME_ONLY_PROVIDER_CONFIG_FIELDS = {
+  codex: ["discoveredModels"]
+};
+function projectPersistableProviderConfigs(value) {
+  const providerConfigs = normalizeProviderConfigs(value);
+  let changed = false;
+  for (const [providerId, fields] of Object.entries(RUNTIME_ONLY_PROVIDER_CONFIG_FIELDS)) {
+    const config2 = providerConfigs[providerId];
+    if (!config2) {
+      continue;
+    }
+    for (const field of fields) {
+      if (field in config2) {
+        delete config2[field];
+        changed = true;
+      }
+    }
+  }
+  return { changed, providerConfigs };
 }
 var HOST_SCOPED_PROVIDER_CONFIG_FIELDS = {
   claude: ["cliPathsByHost"],
@@ -48706,7 +49094,10 @@ var ClaudianSettingsStorage = class {
     );
     const envSnippets = normalizeEnvSnippets(stored.envSnippets);
     const customModelAliases = normalizeModelAliases(stored.customModelAliases);
-    const providerConfigs = normalizeProviderConfigs(stored.providerConfigs);
+    const {
+      changed: didStripRuntimeProviderConfig,
+      providerConfigs
+    } = projectPersistableProviderConfigs(stored.providerConfigs);
     const chatViewPlacement = normalizeChatViewPlacement(
       stored.chatViewPlacement,
       stored.openInMainTab
@@ -48736,10 +49127,8 @@ var ClaudianSettingsStorage = class {
       merged,
       getClaudeProviderSettings(legacyProviderSettings)
     );
-    updateCodexProviderSettings(
-      merged,
-      getCodexProviderSettings(legacyProviderSettings)
-    );
+    const codexConfigNormalization = normalizeCodexStoredConfig(legacyProviderSettings);
+    setProviderConfig(merged, "codex", codexConfigNormalization.config);
     updateOpencodeProviderSettings(
       merged,
       getOpencodeProviderSettings(legacyProviderSettings)
@@ -48752,14 +49141,18 @@ var ClaudianSettingsStorage = class {
       providerConfigs,
       merged.providerConfigs
     );
-    if (settingsPath !== CLAUDIAN_SETTINGS_PATH || (hasLegacyTopLevelProviderFields(stored) || "show1MModel" in stored || "slashCommands" in stored || "hiddenSlashCommands" in stored || "activeConversationId" in stored || "allowExternalAccess" in stored || "allowedExportPaths" in stored || "enableBlocklist" in stored || "blockedCommands" in stored || shouldPersistChatViewPlacementMigration(stored, chatViewPlacement) || JSON.stringify(envSnippets) !== JSON.stringify((_a5 = stored.envSnippets) != null ? _a5 : []) || "customModelAliases" in stored && JSON.stringify(customModelAliases) !== JSON.stringify((_b3 = stored.customModelAliases) != null ? _b3 : {}) || didNormalizeHostScopedProviderConfigs)) {
+    if (settingsPath !== CLAUDIAN_SETTINGS_PATH || (hasLegacyTopLevelProviderFields(stored) || "show1MModel" in stored || "slashCommands" in stored || "hiddenSlashCommands" in stored || "activeConversationId" in stored || "allowExternalAccess" in stored || "allowedExportPaths" in stored || "enableBlocklist" in stored || "blockedCommands" in stored || shouldPersistChatViewPlacementMigration(stored, chatViewPlacement) || JSON.stringify(envSnippets) !== JSON.stringify((_a5 = stored.envSnippets) != null ? _a5 : []) || "customModelAliases" in stored && JSON.stringify(customModelAliases) !== JSON.stringify((_b3 = stored.customModelAliases) != null ? _b3 : {}) || codexConfigNormalization.changed || didStripRuntimeProviderConfig || didNormalizeHostScopedProviderConfigs)) {
       await this.save(merged);
     }
     return merged;
   }
   async save(settings11) {
+    const { providerConfigs } = projectPersistableProviderConfigs(settings11.providerConfigs);
     const content = JSON.stringify(
-      stripLegacyFields(settings11),
+      stripLegacyFields({
+        ...settings11,
+        providerConfigs
+      }),
       null,
       2
     );
@@ -48903,6 +49296,7 @@ var SessionStorage = class {
       updatedAt: conversation.updatedAt,
       lastResponseAt: conversation.lastResponseAt,
       sessionId: conversation.sessionId,
+      selectedModel: conversation.selectedModel,
       providerState: providerState && Object.keys(providerState).length > 0 ? providerState : void 0,
       currentNote: conversation.currentNote,
       externalContextPaths: conversation.externalContextPaths,
@@ -48958,45 +49352,84 @@ var SessionStorage = class {
   }
 };
 
+// src/core/bootstrap/tabManagerState.ts
+function isRecord4(value) {
+  return !!value && typeof value === "object" && !Array.isArray(value);
+}
+function normalizeTabManagerState(data) {
+  if (!isRecord4(data) || !Array.isArray(data.openTabs)) {
+    return null;
+  }
+  const openTabs = [];
+  const openTabIds = /* @__PURE__ */ new Set();
+  for (const tab of data.openTabs) {
+    if (!isRecord4(tab) || typeof tab.tabId !== "string") {
+      continue;
+    }
+    openTabs.push({
+      tabId: tab.tabId,
+      conversationId: typeof tab.conversationId === "string" ? tab.conversationId : null,
+      ...typeof tab.draftModel === "string" ? { draftModel: tab.draftModel } : {}
+    });
+    openTabIds.add(tab.tabId);
+  }
+  const expandedTitleTabIds = [];
+  const seenExpandedTabIds = /* @__PURE__ */ new Set();
+  if (Array.isArray(data.expandedTitleTabIds)) {
+    for (const tabId of data.expandedTitleTabIds) {
+      if (typeof tabId !== "string" || !openTabIds.has(tabId) || seenExpandedTabIds.has(tabId)) {
+        continue;
+      }
+      expandedTitleTabIds.push(tabId);
+      seenExpandedTabIds.add(tabId);
+    }
+  }
+  return {
+    openTabs,
+    activeTabId: typeof data.activeTabId === "string" ? data.activeTabId : null,
+    ...expandedTitleTabIds.length > 0 ? { expandedTitleTabIds } : {}
+  };
+}
+
 // src/core/storage/VaultFileAdapter.ts
 var VaultFileAdapter = class {
   constructor(app) {
     this.app = app;
     this.writeQueue = Promise.resolve();
   }
-  async exists(path27) {
-    return this.app.vault.adapter.exists(path27);
+  async exists(path28) {
+    return this.app.vault.adapter.exists(path28);
   }
-  async read(path27) {
-    return this.app.vault.adapter.read(path27);
+  async read(path28) {
+    return this.app.vault.adapter.read(path28);
   }
-  async write(path27, content) {
-    await this.ensureParentFolder(path27);
-    await this.app.vault.adapter.write(path27, content);
+  async write(path28, content) {
+    await this.ensureParentFolder(path28);
+    await this.app.vault.adapter.write(path28, content);
   }
-  async append(path27, content) {
-    await this.ensureParentFolder(path27);
+  async append(path28, content) {
+    await this.ensureParentFolder(path28);
     this.writeQueue = this.writeQueue.then(async () => {
-      if (await this.exists(path27)) {
-        const existing = await this.read(path27);
-        await this.app.vault.adapter.write(path27, existing + content);
+      if (await this.exists(path28)) {
+        const existing = await this.read(path28);
+        await this.app.vault.adapter.write(path28, existing + content);
       } else {
-        await this.app.vault.adapter.write(path27, content);
+        await this.app.vault.adapter.write(path28, content);
       }
     }).catch(() => {
     });
     await this.writeQueue;
   }
-  async delete(path27) {
-    if (await this.exists(path27)) {
-      await this.app.vault.adapter.remove(path27);
+  async delete(path28) {
+    if (await this.exists(path28)) {
+      await this.app.vault.adapter.remove(path28);
     }
   }
   /** Fails silently if non-empty or missing. */
-  async deleteFolder(path27) {
+  async deleteFolder(path28) {
     try {
-      if (await this.exists(path27)) {
-        await this.app.vault.adapter.rmdir(path27, false);
+      if (await this.exists(path28)) {
+        await this.app.vault.adapter.rmdir(path28, false);
       }
     } catch (e2) {
     }
@@ -49037,9 +49470,9 @@ var VaultFileAdapter = class {
     }
   }
   /** Ensure a folder exists, creating it and parent folders if needed. */
-  async ensureFolder(path27) {
-    if (await this.exists(path27)) return;
-    const parts = path27.split("/").filter(Boolean);
+  async ensureFolder(path28) {
+    if (await this.exists(path28)) return;
+    const parts = path28.split("/").filter(Boolean);
     let current = "";
     for (const part of parts) {
       current = current ? `${current}/${part}` : part;
@@ -49052,9 +49485,9 @@ var VaultFileAdapter = class {
   async rename(oldPath, newPath) {
     await this.app.vault.adapter.rename(oldPath, newPath);
   }
-  async stat(path27) {
+  async stat(path28) {
     try {
-      const stat = await this.app.vault.adapter.stat(path27);
+      const stat = await this.app.vault.adapter.stat(path28);
       if (!stat) return null;
       return { mtime: stat.mtime, size: stat.size };
     } catch (e2) {
@@ -49567,7 +50000,7 @@ var SlashCommandStorage = class {
 
 // src/providers/claude/storage/StorageService.ts
 var CLAUDE_PATH = ".claude";
-function isRecord3(value) {
+function isRecord5(value) {
   return !!value && typeof value === "object" && !Array.isArray(value);
 }
 var StorageService = class {
@@ -49632,47 +50065,18 @@ var StorageService = class {
   async getTabManagerState() {
     try {
       const data = await this.plugin.loadData();
-      if (isRecord3(data) && data.tabManagerState) {
-        return this.validateTabManagerState(data.tabManagerState);
+      if (isRecord5(data) && data.tabManagerState) {
+        return normalizeTabManagerState(data.tabManagerState);
       }
       return null;
     } catch (e2) {
       return null;
     }
   }
-  validateTabManagerState(data) {
-    if (!data || typeof data !== "object") {
-      return null;
-    }
-    const state = data;
-    if (!Array.isArray(state.openTabs)) {
-      return null;
-    }
-    const validatedTabs = [];
-    for (const tab of state.openTabs) {
-      if (!tab || typeof tab !== "object") {
-        continue;
-      }
-      const tabObj = tab;
-      if (typeof tabObj.tabId !== "string") {
-        continue;
-      }
-      validatedTabs.push({
-        tabId: tabObj.tabId,
-        conversationId: typeof tabObj.conversationId === "string" ? tabObj.conversationId : null,
-        ...typeof tabObj.draftModel === "string" ? { draftModel: tabObj.draftModel } : {}
-      });
-    }
-    const activeTabId = typeof state.activeTabId === "string" ? state.activeTabId : null;
-    return {
-      openTabs: validatedTabs,
-      activeTabId
-    };
-  }
   async setTabManagerState(state) {
     try {
       const loaded = await this.plugin.loadData();
-      const data = isRecord3(loaded) ? loaded : {};
+      const data = isRecord5(loaded) ? loaded : {};
       data.tabManagerState = state;
       await this.plugin.saveData(data);
     } catch (e2) {
@@ -49742,7 +50146,49 @@ function normalizeProviderModel(uiConfig, settings11, model) {
   }
   return uiConfig.normalizeModelVariant(model, settings11);
 }
+function normalizeModelDependentSettings(uiConfig, settings11, model) {
+  var _a5, _b3;
+  if (uiConfig.isAdaptiveReasoningModel(model, settings11)) {
+    settings11.effortLevel = normalizeReasoningValue(
+      uiConfig,
+      settings11,
+      model,
+      settings11.effortLevel
+    );
+  } else {
+    settings11.thinkingBudget = normalizeReasoningValue(
+      uiConfig,
+      settings11,
+      model,
+      settings11.thinkingBudget
+    );
+  }
+  const serviceTierToggle = (_b3 = (_a5 = uiConfig.getServiceTierToggle) == null ? void 0 : _a5.call(uiConfig, settings11)) != null ? _b3 : null;
+  if (!serviceTierToggle) {
+    settings11.serviceTier = "default";
+    return;
+  }
+  const currentServiceTier = typeof settings11.serviceTier === "string" ? settings11.serviceTier : void 0;
+  if (currentServiceTier === "fast") {
+    settings11.serviceTier = serviceTierToggle.activeValue;
+    return;
+  }
+  if (currentServiceTier !== serviceTierToggle.inactiveValue && currentServiceTier !== serviceTierToggle.activeValue) {
+    settings11.serviceTier = serviceTierToggle.inactiveValue;
+  }
+}
 var ProviderSettingsCoordinator = class {
+  static applyModelSelection(settings11, providerId, model) {
+    const uiConfig = ProviderRegistry.getChatUIConfig(providerId);
+    settings11.model = model;
+    uiConfig.applyModelDefaults(model, settings11);
+    normalizeModelDependentSettings(uiConfig, settings11, model);
+  }
+  static projectModelSelection(settings11, providerId, model) {
+    const uiConfig = ProviderRegistry.getChatUIConfig(providerId);
+    settings11.model = model;
+    normalizeModelDependentSettings(uiConfig, settings11, model);
+  }
   static handleEnvironmentChange(settings11, providerIds) {
     var _a5;
     let anyChanged = false;
@@ -49837,7 +50283,7 @@ var ProviderSettingsCoordinator = class {
     }
   }
   static projectProviderState(settings11, providerId) {
-    var _a5, _b3, _c2, _d, _e2, _f2, _g, _h2, _i, _j, _k3, _l2;
+    var _a5, _b3, _c2, _d, _e2, _f2, _g, _h2, _i, _j, _k3, _l2, _m, _n;
     const uiConfig = ProviderRegistry.getChatUIConfig(providerId);
     const savedModel = settings11.savedProviderModel;
     const savedEffort = settings11.savedProviderEffort;
@@ -49853,19 +50299,21 @@ var ProviderSettingsCoordinator = class {
     const modelOptions = uiConfig.getModelOptions(settings11);
     const isDefaultModelOfAnotherProvider = currentModel.length > 0 && ProviderRegistry.getRegisteredProviderIds().filter((id) => id !== providerId).some((id) => ProviderRegistry.getChatUIConfig(id).isDefaultModel(currentModel));
     const canReuseCurrentModel = currentModel.length > 0 && !isDefaultModelOfAnotherProvider && (shouldPreferCurrentProjection || modelOptions.some((option) => option.value === currentModel));
-    const fallbackModel = canReuseCurrentModel ? currentModel : (_c2 = (_b3 = modelOptions[0]) == null ? void 0 : _b3.value) != null ? _c2 : currentModel;
+    const providerDefaultModel = (_c2 = (_b3 = uiConfig.getDefaultModel) == null ? void 0 : _b3.call(uiConfig, settings11)) != null ? _c2 : null;
+    const validProviderDefaultModel = providerDefaultModel && modelOptions.some((option) => option.value === providerDefaultModel) ? providerDefaultModel : null;
+    const fallbackModel = canReuseCurrentModel ? currentModel : (_e2 = validProviderDefaultModel != null ? validProviderDefaultModel : (_d = modelOptions[0]) == null ? void 0 : _d.value) != null ? _e2 : currentModel;
     const savedModelValue = normalizeProviderModel(uiConfig, settings11, savedModel == null ? void 0 : savedModel[providerId]);
     const isSavedModelValid = savedModelValue !== void 0 && modelOptions.some((option) => option.value === savedModelValue);
-    const model = (_d = isSavedModelValid ? savedModelValue : void 0) != null ? _d : fallbackModel;
+    const model = (_f2 = isSavedModelValid ? savedModelValue : void 0) != null ? _f2 : fallbackModel;
     const canReuseCurrentProjection = canReuseCurrentModel && model === currentModel;
     if (model) {
       settings11.model = model;
       uiConfig.applyModelDefaults(model, settings11);
     }
-    const serviceTierToggle = (_f2 = (_e2 = uiConfig.getServiceTierToggle) == null ? void 0 : _e2.call(uiConfig, {
+    const serviceTierToggle = (_h2 = (_g = uiConfig.getServiceTierToggle) == null ? void 0 : _g.call(uiConfig, {
       ...settings11,
       ...model ? { model } : {}
-    })) != null ? _f2 : null;
+    })) != null ? _h2 : null;
     const isAdaptive = Boolean(model) && uiConfig.isAdaptiveReasoningModel(model, settings11);
     if ((savedEffort == null ? void 0 : savedEffort[providerId]) !== void 0) {
       settings11.effortLevel = savedEffort[providerId];
@@ -49882,7 +50330,7 @@ var ProviderSettingsCoordinator = class {
     } else if (canReuseCurrentProjection && currentServiceTier !== void 0) {
       settings11.serviceTier = currentServiceTier;
     } else {
-      settings11.serviceTier = (_g = serviceTierToggle == null ? void 0 : serviceTierToggle.inactiveValue) != null ? _g : "default";
+      settings11.serviceTier = (_i = serviceTierToggle == null ? void 0 : serviceTierToggle.inactiveValue) != null ? _i : "default";
     }
     const usesBudget = Boolean(model) && !isAdaptive;
     if (usesBudget) {
@@ -49895,7 +50343,7 @@ var ProviderSettingsCoordinator = class {
       }
       settings11.thinkingBudget = normalizeReasoningValue(uiConfig, settings11, model, settings11.thinkingBudget);
     }
-    const permissionToggle = (_i = (_h2 = uiConfig.getPermissionModeToggle) == null ? void 0 : _h2.call(uiConfig)) != null ? _i : null;
+    const permissionToggle = (_k3 = (_j = uiConfig.getPermissionModeToggle) == null ? void 0 : _j.call(uiConfig)) != null ? _k3 : null;
     if (!permissionToggle) {
       return;
     }
@@ -49906,14 +50354,14 @@ var ProviderSettingsCoordinator = class {
     ]);
     const currentPermissionMode = normalizeToggleValue(settings11.permissionMode, allowedPermissionModes);
     const derivedPermissionMode = normalizeToggleValue(
-      (_j = uiConfig.resolvePermissionMode) == null ? void 0 : _j.call(uiConfig, settings11),
+      (_l2 = uiConfig.resolvePermissionMode) == null ? void 0 : _l2.call(uiConfig, settings11),
       allowedPermissionModes
     );
     const savedPermissionModeValue = normalizeToggleValue(
       savedPermissionMode == null ? void 0 : savedPermissionMode[providerId],
       allowedPermissionModes
     );
-    const projectedPermissionMode = (_l2 = (_k3 = savedPermissionModeValue != null ? savedPermissionModeValue : derivedPermissionMode) != null ? _k3 : shouldPreferCurrentProjection ? currentPermissionMode : void 0) != null ? _l2 : currentPermissionMode;
+    const projectedPermissionMode = (_n = (_m = savedPermissionModeValue != null ? savedPermissionModeValue : derivedPermissionMode) != null ? _m : shouldPreferCurrentProjection ? currentPermissionMode : void 0) != null ? _n : currentPermissionMode;
     if (projectedPermissionMode !== void 0) {
       settings11.permissionMode = projectedPermissionMode;
     }
@@ -50215,12 +50663,12 @@ var settings = {
     desc: "L\xE4dt ~/.claude/settings.json. Wenn aktiviert, k\xF6nnen Benutzer-Claude-Code-Berechtigungsregeln den Sicherheitsmodus umgehen."
   },
   claudeSafeMode: {
-    name: "Safe mode",
-    desc: "Permission mode used when the Safe toggle is active."
+    name: "Sicherheitsmodus",
+    desc: "Berechtigungsmodus, der verwendet wird, wenn der Safe-Schalter aktiv ist."
   },
   codexSafeMode: {
-    name: "Safe mode",
-    desc: "Sandbox mode used when the Safe toggle is active."
+    name: "Sicherheitsmodus",
+    desc: "Sandbox-Modus, der verwendet wird, wenn der Safe-Schalter aktiv ist."
   },
   environment: "Umgebung",
   customVariables: {
@@ -50251,7 +50699,7 @@ var settings = {
     desc: "Legen Sie Aliasnamen in der Modellauswahl und Kontextfenstergr\xF6\xDFen f\xFCr benutzerdefinierte Modelle fest."
   },
   customModelAliases: {
-    placeholder: "Alias"
+    placeholder: "Aliasname"
   },
   customContextLimits: {
     name: "Benutzerdefinierte Kontextlimits",
@@ -50267,8 +50715,8 @@ var settings = {
     desc: "Sonnet 1M in der Modellauswahl anzeigen. Erfordert zus\xE4tzliche Nutzung bei Max-, Team- und Enterprise-Pl\xE4nen. API- und Pro-Nutzer ben\xF6tigen zus\xE4tzliche Nutzung."
   },
   customModels: {
-    name: "Custom models",
-    desc: "Append additional Claude model IDs to the picker, one per line. Environment model overrides still replace the picker.",
+    name: "Benutzerdefinierte Modelle",
+    desc: "F\xFCge zus\xE4tzliche Claude-Modell-IDs zur Auswahl hinzu, eine pro Zeile. Modell\xFCberschreibungen aus der Umgebung ersetzen die Auswahl weiterhin.",
     placeholder: "claude-opus-4-6\nclaude-opus-4-6[1m]\nclaude-opus-4-5-20251101"
   },
   enableChrome: {
@@ -50319,6 +50767,138 @@ var settings = {
   language: {
     name: "Sprache",
     desc: "Anzeigesprache der Plugin-Oberfl\xE4che \xE4ndern"
+  },
+  codex: {
+    enableProvider: {
+      name: "Codex-Anbieter aktivieren",
+      desc: "Wenn aktiviert, erscheinen Codex-Modelle in der Modellauswahl f\xFCr neue Unterhaltungen. Bestehende Codex-Sitzungen bleiben erhalten."
+    },
+    installationMethod: {
+      name: "Installationsmethode",
+      desc: "Wie Claudian Codex unter Windows starten soll. Native Windows verwendet einen Windows-Programmpfad. WSL startet die Linux-CLI in einer ausgew\xE4hlten Distribution.",
+      nativeWindows: "Natives Windows",
+      wsl: "WSL"
+    },
+    cliPath: {
+      name: "Codex-CLI-Pfad",
+      descUnix: "Benutzerdefinierter Pfad zur lokalen Codex-CLI. Leer lassen, um bekannte Codex-Installationen und dann PATH zu bevorzugen.",
+      descWindows: "Benutzerdefinierter Pfad zur lokalen Codex-CLI. Leer lassen f\xFCr automatische Erkennung \xFCber PATH. Verwende den nativen Windows-Programmpfad, normalerweise `codex.exe`.",
+      descWsl: "Linux-seitiger Codex-Befehl oder absoluter Pfad zur Ausf\xFChrung in WSL. Leer lassen f\xFCr PATH-Suche in der ausgew\xE4hlten Distribution.",
+      validation: {
+        wslWindowsPath: "Der WSL-Modus erwartet einen Linux-Befehl oder absoluten Linux-Pfad, keinen Windows-Programmpfad."
+      }
+    },
+    wslDistroOverride: {
+      name: "WSL-Distribution \xFCberschreiben",
+      desc: "Optionale erweiterte \xDCberschreibung. Leer lassen, um die Distribution m\xF6glichst aus einem WSL-Workspace-Pfad abzuleiten, sonst wird die Standard-WSL-Distribution verwendet."
+    },
+    safeMode: {
+      workspaceWrite: "Workspace schreiben",
+      readOnly: "Nur lesen"
+    },
+    customModels: {
+      name: "Benutzerdefinierte Modelle",
+      desc: "F\xFCge zus\xE4tzliche Codex-Modell-IDs zur Auswahl hinzu, eine pro Zeile. `OPENAI_MODEL` hat weiterhin Vorrang, wenn gesetzt.",
+      placeholder: "gpt-5.4\ngpt-5.3-codex-spark"
+    },
+    reasoningSummary: {
+      name: "Reasoning-Zusammenfassung",
+      desc: "Zeigt eine Zusammenfassung des Reasoning-Prozesses des Modells im Denkblock.",
+      auto: "Automatisch",
+      concise: "Kurz",
+      detailed: "Ausf\xFChrlich",
+      off: "Aus"
+    },
+    skills: {
+      name: "Codex-F\xE4higkeiten",
+      desc: "Verwalte Vault-Codex-F\xE4higkeiten in .codex/skills/ oder .agents/skills/. F\xE4higkeiten auf Home-Ebene sind hier ausgeschlossen.",
+      hiddenName: "Ausgeblendete F\xE4higkeiten",
+      hiddenDesc: "Blende bestimmte Codex-F\xE4higkeiten aus dem Dropdown aus. Gib F\xE4higkeitsnamen ohne f\xFChrendes $ ein, einen pro Zeile.",
+      hiddenPlaceholder: "analyze\nexplain\nfix"
+    },
+    subagents: {
+      name: "Codex-Sub-Agenten",
+      desc: "Verwalte Vault-Codex-Sub-Agenten in .codex/agents/. Jede TOML-Datei definiert einen benutzerdefinierten Agenten."
+    },
+    mcp: {
+      descBeforeCommand: "Codex verwaltet MCP-Server \xFCber seine eigene CLI. Konfiguriere mit ",
+      descAfterCommand: ", dann sind sie in Claudian verf\xFCgbar. ",
+      learnMore: "Mehr erfahren"
+    },
+    environment: {
+      name: "Codex-Umgebung",
+      desc: "Nur Codex-eigene Laufzeitvariablen. Verwende dies f\xFCr OPENAI_*- und CODEX_*-Einstellungen. Wenn die Codex-Autoerkennung Hilfe braucht, f\xFCge das Installationsverzeichnis dem gemeinsamen PATH hinzu statt diesem Anbieterabschnitt."
+    }
+  },
+  codexSkills: {
+    modal: {
+      titleEdit: "Codex-F\xE4higkeit bearbeiten",
+      titleAdd: "Codex-F\xE4higkeit hinzuf\xFCgen",
+      directory: "Verzeichnis",
+      directoryDesc: "Speicherort der F\xE4higkeit",
+      skillName: "Name der F\xE4higkeit",
+      skillNameDesc: 'Der Name nach $ (z. B. "analyze" f\xFCr $analyze)',
+      description: "Beschreibung",
+      descriptionDesc: "Optionale Beschreibung im Dropdown",
+      instructions: "Anweisungen",
+      instructionsDesc: "Anweisungen der F\xE4higkeit (SKILL.md-Inhalt)",
+      instructionsPlaceholder: "Analyze the code for..."
+    },
+    instructionsRequired: "Anweisungen sind erforderlich",
+    saveFailed: "Codex-F\xE4higkeit konnte nicht gespeichert werden",
+    header: "Codex-F\xE4higkeiten",
+    noSkills: "Keine Codex-F\xE4higkeiten im Vault. Klicke auf +, um eine zu erstellen.",
+    skillBadge: "F\xE4higkeit",
+    deleted: 'Codex-F\xE4higkeit "{name}" gel\xF6scht',
+    deleteFailed: "Codex-F\xE4higkeit konnte nicht gel\xF6scht werden",
+    created: 'Codex-F\xE4higkeit "{name}" erstellt',
+    updated: 'Codex-F\xE4higkeit "{name}" aktualisiert'
+  },
+  codexSubagents: {
+    modal: {
+      titleEdit: "Codex-Sub-Agent bearbeiten",
+      titleAdd: "Codex-Sub-Agent hinzuf\xFCgen",
+      nameDesc: "Agentenname, den Codex beim Starten verwendet (Kleinbuchstaben, Bindestriche, Unterstriche)",
+      descriptionDesc: "Wann Codex diesen Agenten verwenden soll",
+      modelDesc: "Modell\xFCberschreibung (leer lassen zum Vererben)",
+      namePlaceholder: "code_reviewer"
+    },
+    reasoningEffort: {
+      name: "Reasoning-Aufwand",
+      desc: "Reasoning-Aufwandsstufe des Modells",
+      inherit: "Vererben",
+      low: "Niedrig",
+      medium: "Mittel",
+      high: "Hoch",
+      xhigh: "Sehr hoch"
+    },
+    sandboxMode: {
+      name: "Sandbox-Modus",
+      desc: "Sandbox-Beschr\xE4nkung f\xFCr diesen Agenten",
+      inherit: "Vererben",
+      readOnly: "Nur lesen",
+      dangerFullAccess: "Vollzugriff",
+      workspaceWrite: "Workspace schreiben"
+    },
+    nicknameCandidates: {
+      name: "Nickname-Kandidaten",
+      desc: "Kommagetrennte Anzeige-Nicknames (z. B. atlas, delta, echo)"
+    },
+    developerInstructions: {
+      name: "Entwickleranweisungen",
+      desc: "Kernanweisungen, die das Verhalten des Agenten definieren",
+      placeholder: "Review code like an owner.\nPrioritize correctness, security, and missing test coverage.",
+      required: "Entwickleranweisungen sind erforderlich"
+    },
+    validation: {
+      nameRequired: "Sub-Agent-Name ist erforderlich",
+      nameTooLong: "Sub-Agent-Name darf h\xF6chstens {count} Zeichen lang sein",
+      nameInvalid: "Sub-Agent-Name darf nur Kleinbuchstaben, Zahlen, Bindestriche und Unterstriche enthalten",
+      nicknameInvalid: "Nickname-Kandidaten d\xFCrfen nur ASCII-Buchstaben, Zahlen, Leerzeichen, Bindestriche und Unterstriche enthalten",
+      nicknameDuplicate: "Nickname-Kandidaten m\xFCssen eindeutig sein"
+    },
+    header: "Codex-Sub-Agenten",
+    noAgents: "Keine Codex-Sub-Agenten im Vault. Klicke auf +, um einen zu erstellen."
   }
 };
 var de_default = {
@@ -50653,6 +51233,138 @@ var settings2 = {
   language: {
     name: "Language",
     desc: "Change the display language of the plugin interface"
+  },
+  codex: {
+    enableProvider: {
+      name: "Enable Codex provider",
+      desc: "When enabled, Codex models appear in the model selector for new conversations. Existing Codex sessions are preserved."
+    },
+    installationMethod: {
+      name: "Installation method",
+      desc: "How Claudian should launch Codex on Windows. Native Windows uses a Windows executable path. WSL launches the Linux CLI inside a selected distro.",
+      nativeWindows: "Native Windows",
+      wsl: "WSL"
+    },
+    cliPath: {
+      name: "Codex CLI path",
+      descUnix: "Custom path to the local Codex CLI. Leave empty to prefer known Codex installs, then PATH.",
+      descWindows: "Custom path to the local Codex CLI. Leave empty to auto-detect from PATH. Use the native Windows executable path, usually `codex.exe`.",
+      descWsl: "Linux-side Codex command or absolute path to run inside WSL. Leave empty for PATH lookup inside the selected distro.",
+      validation: {
+        wslWindowsPath: "WSL mode expects a Linux command or Linux absolute path, not a Windows executable path."
+      }
+    },
+    wslDistroOverride: {
+      name: "WSL distro override",
+      desc: "Optional advanced override. Leave empty to infer the distro from a WSL workspace path when possible, otherwise use the default WSL distro."
+    },
+    safeMode: {
+      workspaceWrite: "Workspace write",
+      readOnly: "Read only"
+    },
+    customModels: {
+      name: "Custom models",
+      desc: "Append additional Codex model IDs to the picker, one per line. `OPENAI_MODEL` still takes precedence when set.",
+      placeholder: "gpt-5.4\ngpt-5.3-codex-spark"
+    },
+    reasoningSummary: {
+      name: "Reasoning summary",
+      desc: "Show a summary of the model's reasoning process in the thinking block.",
+      auto: "Auto",
+      concise: "Concise",
+      detailed: "Detailed",
+      off: "Off"
+    },
+    skills: {
+      name: "Codex skills",
+      desc: "Manage vault-level Codex skills stored in .codex/skills/ or .agents/skills/. Home-level skills are excluded here.",
+      hiddenName: "Hidden Skills",
+      hiddenDesc: "Hide specific Codex skills from the dropdown. Enter skill names without the leading $, one per line.",
+      hiddenPlaceholder: "analyze\nexplain\nfix"
+    },
+    subagents: {
+      name: "Codex subagents",
+      desc: "Manage vault-level Codex subagents stored in .codex/agents/. Each TOML file defines one custom agent."
+    },
+    mcp: {
+      descBeforeCommand: "Codex manages MCP servers via its own CLI. Configure with ",
+      descAfterCommand: " and they will be available in Claudian. ",
+      learnMore: "Learn more"
+    },
+    environment: {
+      name: "Codex environment",
+      desc: "Codex-owned runtime variables only. Use this for OPENAI_* and CODEX_* settings. If Codex auto-detection needs help, add its install directory to shared PATH instead of this provider section."
+    }
+  },
+  codexSkills: {
+    modal: {
+      titleEdit: "Edit Codex Skill",
+      titleAdd: "Add Codex Skill",
+      directory: "Directory",
+      directoryDesc: "Where to store the skill",
+      skillName: "Skill name",
+      skillNameDesc: 'The name used after $ (e.g., "analyze" for $analyze)',
+      description: "Description",
+      descriptionDesc: "Optional description shown in dropdown",
+      instructions: "Instructions",
+      instructionsDesc: "The skill instructions (SKILL.md content)",
+      instructionsPlaceholder: "Analyze the code for..."
+    },
+    instructionsRequired: "Instructions are required",
+    saveFailed: "Failed to save Codex skill",
+    header: "Codex Skills",
+    noSkills: "No Codex skills in vault. Click + to create one.",
+    skillBadge: "skill",
+    deleted: 'Codex skill "{name}" deleted',
+    deleteFailed: "Failed to delete Codex skill",
+    created: 'Codex skill "{name}" created',
+    updated: 'Codex skill "{name}" updated'
+  },
+  codexSubagents: {
+    modal: {
+      titleEdit: "Edit Codex Subagent",
+      titleAdd: "Add Codex Subagent",
+      nameDesc: "Agent name Codex uses when spawning (lowercase, hyphens, underscores)",
+      descriptionDesc: "When Codex should use this agent",
+      modelDesc: "Model override (leave empty to inherit)",
+      namePlaceholder: "code_reviewer"
+    },
+    reasoningEffort: {
+      name: "Reasoning effort",
+      desc: "Model reasoning effort level",
+      inherit: "Inherit",
+      low: "Low",
+      medium: "Medium",
+      high: "High",
+      xhigh: "Extra High"
+    },
+    sandboxMode: {
+      name: "Sandbox mode",
+      desc: "Sandbox restriction for this agent",
+      inherit: "Inherit",
+      readOnly: "Read only",
+      dangerFullAccess: "Danger full access",
+      workspaceWrite: "Workspace write"
+    },
+    nicknameCandidates: {
+      name: "Nickname candidates",
+      desc: "Comma-separated display nicknames (e.g., atlas, delta, echo)"
+    },
+    developerInstructions: {
+      name: "Developer instructions",
+      desc: "Core instructions that define the agent's behavior",
+      placeholder: "Review code like an owner.\nPrioritize correctness, security, and missing test coverage.",
+      required: "Developer instructions are required"
+    },
+    validation: {
+      nameRequired: "Subagent name is required",
+      nameTooLong: "Subagent name must be {count} characters or fewer",
+      nameInvalid: "Subagent name can only contain lowercase letters, numbers, hyphens, and underscores",
+      nicknameInvalid: "Nickname candidates can only contain ASCII letters, numbers, spaces, hyphens, and underscores",
+      nicknameDuplicate: "Nickname candidates must be unique"
+    },
+    header: "Codex Subagents",
+    noAgents: "No Codex subagents in vault. Click + to create one."
   }
 };
 var en_default = {
@@ -50883,12 +51595,12 @@ var settings3 = {
     desc: "Carga ~/.claude/settings.json. Cuando est\xE1 habilitado, las reglas de permisos del usuario pueden eludir el modo seguro."
   },
   claudeSafeMode: {
-    name: "Safe mode",
-    desc: "Permission mode used when the Safe toggle is active."
+    name: "Modo seguro",
+    desc: "Modo de permisos usado cuando el interruptor Seguro est\xE1 activo."
   },
   codexSafeMode: {
-    name: "Safe mode",
-    desc: "Sandbox mode used when the Safe toggle is active."
+    name: "Modo seguro",
+    desc: "Modo de sandbox usado cuando el interruptor Seguro est\xE1 activo."
   },
   environment: "Entorno",
   customVariables: {
@@ -50935,8 +51647,8 @@ var settings3 = {
     desc: "Mostrar Sonnet 1M en el selector de modelos. Requiere uso adicional en planes Max, Team y Enterprise. Usuarios de API y Pro necesitan uso adicional."
   },
   customModels: {
-    name: "Custom models",
-    desc: "Append additional Claude model IDs to the picker, one per line. Environment model overrides still replace the picker.",
+    name: "Modelos personalizados",
+    desc: "A\xF1ade IDs de modelos de Claude al selector, uno por l\xEDnea. Las sobrescrituras de modelo desde el entorno siguen reemplazando el selector.",
     placeholder: "claude-opus-4-6\nclaude-opus-4-6[1m]\nclaude-opus-4-5-20251101"
   },
   enableChrome: {
@@ -50987,6 +51699,138 @@ var settings3 = {
   language: {
     name: "Idioma",
     desc: "Cambiar el idioma de visualizaci\xF3n de la interfaz del plugin"
+  },
+  codex: {
+    enableProvider: {
+      name: "Activar proveedor Codex",
+      desc: "Cuando est\xE1 activado, los modelos Codex aparecen en el selector de modelos para nuevas conversaciones. Las sesiones Codex existentes se conservan."
+    },
+    installationMethod: {
+      name: "M\xE9todo de instalaci\xF3n",
+      desc: "C\xF3mo debe iniciar Claudian Codex en Windows. Windows nativo usa una ruta de ejecutable de Windows. WSL inicia la CLI de Linux dentro de una distribuci\xF3n seleccionada.",
+      nativeWindows: "Windows nativo",
+      wsl: "WSL"
+    },
+    cliPath: {
+      name: "Ruta de la CLI de Codex",
+      descUnix: "Ruta personalizada a la CLI local de Codex. D\xE9jala vac\xEDa para preferir instalaciones conocidas de Codex y luego PATH.",
+      descWindows: "Ruta personalizada a la CLI local de Codex. D\xE9jala vac\xEDa para autodetectar desde PATH. Usa la ruta del ejecutable nativo de Windows, normalmente `codex.exe`.",
+      descWsl: "Comando de Codex del lado Linux o ruta absoluta para ejecutar dentro de WSL. D\xE9jala vac\xEDa para buscar en PATH dentro de la distribuci\xF3n seleccionada.",
+      validation: {
+        wslWindowsPath: "El modo WSL espera un comando Linux o una ruta absoluta de Linux, no una ruta de ejecutable de Windows."
+      }
+    },
+    wslDistroOverride: {
+      name: "Sobrescritura de distribuci\xF3n WSL",
+      desc: "Sobrescritura avanzada opcional. D\xE9jala vac\xEDa para inferir la distribuci\xF3n desde una ruta de espacio de trabajo WSL cuando sea posible; si no, se usa la distribuci\xF3n WSL predeterminada."
+    },
+    safeMode: {
+      workspaceWrite: "Escritura en espacio de trabajo",
+      readOnly: "Solo lectura"
+    },
+    customModels: {
+      name: "Modelos personalizados",
+      desc: "A\xF1ade IDs de modelos Codex al selector, uno por l\xEDnea. `OPENAI_MODEL` sigue teniendo prioridad cuando est\xE1 definido.",
+      placeholder: "gpt-5.4\ngpt-5.3-codex-spark"
+    },
+    reasoningSummary: {
+      name: "Resumen de razonamiento",
+      desc: "Muestra un resumen del proceso de razonamiento del modelo en el bloque de pensamiento.",
+      auto: "Auto",
+      concise: "Conciso",
+      detailed: "Detallado",
+      off: "Desactivado"
+    },
+    skills: {
+      name: "Habilidades de Codex",
+      desc: "Gestiona habilidades Codex de nivel vault guardadas en .codex/skills/ o .agents/skills/. Las habilidades de nivel home se excluyen aqu\xED.",
+      hiddenName: "Habilidades ocultas",
+      hiddenDesc: "Oculta habilidades Codex espec\xEDficas del desplegable. Introduce nombres de habilidad sin el $ inicial, uno por l\xEDnea.",
+      hiddenPlaceholder: "analyze\nexplain\nfix"
+    },
+    subagents: {
+      name: "Subagentes de Codex",
+      desc: "Gestiona subagentes Codex de nivel vault guardados en .codex/agents/. Cada archivo TOML define un agente personalizado."
+    },
+    mcp: {
+      descBeforeCommand: "Codex gestiona servidores MCP mediante su propia CLI. Config\xFAralos con ",
+      descAfterCommand: " y estar\xE1n disponibles en Claudian. ",
+      learnMore: "M\xE1s informaci\xF3n"
+    },
+    environment: {
+      name: "Entorno de Codex",
+      desc: "Solo variables de ejecuci\xF3n propiedad de Codex. \xDAsalo para ajustes OPENAI_* y CODEX_*. Si la autodetecci\xF3n de Codex necesita ayuda, a\xF1ade su directorio de instalaci\xF3n al PATH compartido en lugar de esta secci\xF3n del proveedor."
+    }
+  },
+  codexSkills: {
+    modal: {
+      titleEdit: "Editar habilidad de Codex",
+      titleAdd: "A\xF1adir habilidad de Codex",
+      directory: "Directorio",
+      directoryDesc: "D\xF3nde guardar la habilidad",
+      skillName: "Nombre de habilidad",
+      skillNameDesc: 'El nombre usado despu\xE9s de $ (por ejemplo, "analyze" para $analyze)',
+      description: "Descripci\xF3n",
+      descriptionDesc: "Descripci\xF3n opcional mostrada en el desplegable",
+      instructions: "Instrucciones",
+      instructionsDesc: "Instrucciones de la habilidad (contenido de SKILL.md)",
+      instructionsPlaceholder: "Analyze the code for..."
+    },
+    instructionsRequired: "Las instrucciones son obligatorias",
+    saveFailed: "No se pudo guardar la habilidad de Codex",
+    header: "Habilidades de Codex",
+    noSkills: "No hay habilidades Codex en el vault. Haz clic en + para crear una.",
+    skillBadge: "habilidad",
+    deleted: 'Habilidad de Codex "{name}" eliminada',
+    deleteFailed: "No se pudo eliminar la habilidad de Codex",
+    created: 'Habilidad de Codex "{name}" creada',
+    updated: 'Habilidad de Codex "{name}" actualizada'
+  },
+  codexSubagents: {
+    modal: {
+      titleEdit: "Editar subagente de Codex",
+      titleAdd: "A\xF1adir subagente de Codex",
+      nameDesc: "Nombre de agente que Codex usa al generarlo (min\xFAsculas, guiones y guiones bajos)",
+      descriptionDesc: "Cu\xE1ndo deber\xEDa usar Codex este agente",
+      modelDesc: "Sobrescritura de modelo (vac\xEDo = heredar)",
+      namePlaceholder: "code_reviewer"
+    },
+    reasoningEffort: {
+      name: "Esfuerzo de razonamiento",
+      desc: "Nivel de esfuerzo de razonamiento del modelo",
+      inherit: "Heredar",
+      low: "Bajo",
+      medium: "Medio",
+      high: "Alto",
+      xhigh: "Muy alto"
+    },
+    sandboxMode: {
+      name: "Modo sandbox",
+      desc: "Restricci\xF3n de sandbox para este agente",
+      inherit: "Heredar",
+      readOnly: "Solo lectura",
+      dangerFullAccess: "Acceso total",
+      workspaceWrite: "Escritura en espacio de trabajo"
+    },
+    nicknameCandidates: {
+      name: "Candidatos de apodo",
+      desc: "Apodos visibles separados por comas (p. ej., atlas, delta, echo)"
+    },
+    developerInstructions: {
+      name: "Instrucciones de desarrollador",
+      desc: "Instrucciones centrales que definen el comportamiento del agente",
+      placeholder: "Review code like an owner.\nPrioritize correctness, security, and missing test coverage.",
+      required: "Las instrucciones de desarrollador son obligatorias"
+    },
+    validation: {
+      nameRequired: "El nombre del subagente es obligatorio",
+      nameTooLong: "El nombre del subagente debe tener {count} caracteres o menos",
+      nameInvalid: "El nombre del subagente solo puede contener letras min\xFAsculas, n\xFAmeros, guiones y guiones bajos",
+      nicknameInvalid: "Los candidatos de apodo solo pueden contener letras ASCII, n\xFAmeros, espacios, guiones y guiones bajos",
+      nicknameDuplicate: "Los candidatos de apodo deben ser \xFAnicos"
+    },
+    header: "Subagentes de Codex",
+    noAgents: "No hay subagentes Codex en el vault. Haz clic en + para crear uno."
   }
 };
 var es_default = {
@@ -51217,12 +52061,12 @@ var settings4 = {
     desc: "Charge ~/.claude/settings.json. Lorsqu'activ\xE9, les r\xE8gles de permission de l'utilisateur peuvent contourner le mode s\xE9curis\xE9."
   },
   claudeSafeMode: {
-    name: "Safe mode",
-    desc: "Permission mode used when the Safe toggle is active."
+    name: "Mode s\xE9curis\xE9",
+    desc: "Mode d'autorisation utilis\xE9 lorsque le bouton Safe est actif."
   },
   codexSafeMode: {
-    name: "Safe mode",
-    desc: "Sandbox mode used when the Safe toggle is active."
+    name: "Mode s\xE9curis\xE9",
+    desc: "Mode sandbox utilis\xE9 lorsque le bouton Safe est actif."
   },
   environment: "Environnement",
   customVariables: {
@@ -51269,8 +52113,8 @@ var settings4 = {
     desc: "Afficher Sonnet 1M dans le s\xE9lecteur de mod\xE8le. N\xE9cessite une utilisation suppl\xE9mentaire sur les plans Max, Team et Enterprise. Les utilisateurs API et Pro n\xE9cessitent une utilisation suppl\xE9mentaire."
   },
   customModels: {
-    name: "Custom models",
-    desc: "Append additional Claude model IDs to the picker, one per line. Environment model overrides still replace the picker.",
+    name: "Mod\xE8les personnalis\xE9s",
+    desc: "Ajoutez des IDs de mod\xE8les Claude au s\xE9lecteur, un par ligne. Les remplacements de mod\xE8le par variables d'environnement remplacent toujours le s\xE9lecteur.",
     placeholder: "claude-opus-4-6\nclaude-opus-4-6[1m]\nclaude-opus-4-5-20251101"
   },
   enableChrome: {
@@ -51321,6 +52165,138 @@ var settings4 = {
   language: {
     name: "Langue",
     desc: "Changer la langue d'affichage de l'interface du plugin"
+  },
+  codex: {
+    enableProvider: {
+      name: "Activer le fournisseur Codex",
+      desc: "Lorsque cette option est activ\xE9e, les mod\xE8les Codex apparaissent dans le s\xE9lecteur de mod\xE8les des nouvelles conversations. Les sessions Codex existantes sont conserv\xE9es."
+    },
+    installationMethod: {
+      name: "M\xE9thode d\u2019installation",
+      desc: "Comment Claudian doit lancer Codex sous Windows. Windows natif utilise un chemin d\u2019ex\xE9cutable Windows. WSL lance la CLI Linux dans une distribution choisie.",
+      nativeWindows: "Windows natif",
+      wsl: "WSL"
+    },
+    cliPath: {
+      name: "Chemin de la CLI Codex",
+      descUnix: "Chemin personnalis\xE9 vers la CLI Codex locale. Laissez vide pour pr\xE9f\xE9rer les installations Codex connues, puis PATH.",
+      descWindows: "Chemin personnalis\xE9 vers la CLI Codex locale. Laissez vide pour d\xE9tecter via PATH. Utilisez le chemin de l\u2019ex\xE9cutable Windows natif, g\xE9n\xE9ralement `codex.exe`.",
+      descWsl: "Commande Codex c\xF4t\xE9 Linux ou chemin absolu \xE0 ex\xE9cuter dans WSL. Laissez vide pour rechercher dans PATH dans la distribution choisie.",
+      validation: {
+        wslWindowsPath: "Le mode WSL attend une commande Linux ou un chemin absolu Linux, pas un chemin d\u2019ex\xE9cutable Windows."
+      }
+    },
+    wslDistroOverride: {
+      name: "Remplacement de distribution WSL",
+      desc: "Remplacement avanc\xE9 facultatif. Laissez vide pour d\xE9duire la distribution depuis un chemin d\u2019espace de travail WSL si possible, sinon utiliser la distribution WSL par d\xE9faut."
+    },
+    safeMode: {
+      workspaceWrite: "\xC9criture dans l\u2019espace de travail",
+      readOnly: "Lecture seule"
+    },
+    customModels: {
+      name: "Mod\xE8les personnalis\xE9s",
+      desc: "Ajoutez des IDs de mod\xE8les Codex au s\xE9lecteur, un par ligne. `OPENAI_MODEL` reste prioritaire lorsqu\u2019il est d\xE9fini.",
+      placeholder: "gpt-5.4\ngpt-5.3-codex-spark"
+    },
+    reasoningSummary: {
+      name: "R\xE9sum\xE9 du raisonnement",
+      desc: "Affiche un r\xE9sum\xE9 du processus de raisonnement du mod\xE8le dans le bloc de r\xE9flexion.",
+      auto: "Auto",
+      concise: "Concise",
+      detailed: "D\xE9taill\xE9e",
+      off: "D\xE9sactiv\xE9"
+    },
+    skills: {
+      name: "Comp\xE9tences Codex",
+      desc: "G\xE9rez les comp\xE9tences Codex de niveau vault stock\xE9es dans .codex/skills/ ou .agents/skills/. Les comp\xE9tences de niveau home sont exclues ici.",
+      hiddenName: "Comp\xE9tences masqu\xE9es",
+      hiddenDesc: "Masquez certaines comp\xE9tences Codex dans le menu d\xE9roulant. Entrez les noms sans le $ initial, un par ligne.",
+      hiddenPlaceholder: "analyze\nexplain\nfix"
+    },
+    subagents: {
+      name: "Sous-agents Codex",
+      desc: "G\xE9rez les sous-agents Codex de niveau vault stock\xE9s dans .codex/agents/. Chaque fichier TOML d\xE9finit un agent personnalis\xE9."
+    },
+    mcp: {
+      descBeforeCommand: "Codex g\xE8re les serveurs MCP via sa propre CLI. Configurez avec ",
+      descAfterCommand: " et ils seront disponibles dans Claudian. ",
+      learnMore: "En savoir plus"
+    },
+    environment: {
+      name: "Environnement Codex",
+      desc: "Variables d\u2019ex\xE9cution appartenant uniquement \xE0 Codex. Utilisez ceci pour les r\xE9glages OPENAI_* et CODEX_*. Si l\u2019auto-d\xE9tection de Codex a besoin d\u2019aide, ajoutez son r\xE9pertoire d\u2019installation au PATH partag\xE9 plut\xF4t qu\u2019\xE0 cette section fournisseur."
+    }
+  },
+  codexSkills: {
+    modal: {
+      titleEdit: "Modifier la comp\xE9tence Codex",
+      titleAdd: "Ajouter une comp\xE9tence Codex",
+      directory: "R\xE9pertoire",
+      directoryDesc: "O\xF9 stocker la comp\xE9tence",
+      skillName: "Nom de la comp\xE9tence",
+      skillNameDesc: 'Le nom utilis\xE9 apr\xE8s $ (par ex. "analyze" pour $analyze)',
+      description: "Description",
+      descriptionDesc: "Description facultative affich\xE9e dans le menu d\xE9roulant",
+      instructions: "Instructions",
+      instructionsDesc: "Instructions de la comp\xE9tence (contenu de SKILL.md)",
+      instructionsPlaceholder: "Analyze the code for..."
+    },
+    instructionsRequired: "Les instructions sont obligatoires",
+    saveFailed: "\xC9chec de l\u2019enregistrement de la comp\xE9tence Codex",
+    header: "Comp\xE9tences Codex",
+    noSkills: "Aucune comp\xE9tence Codex dans le vault. Cliquez sur + pour en cr\xE9er une.",
+    skillBadge: "comp\xE9tence",
+    deleted: 'Comp\xE9tence Codex "{name}" supprim\xE9e',
+    deleteFailed: "\xC9chec de la suppression de la comp\xE9tence Codex",
+    created: 'Comp\xE9tence Codex "{name}" cr\xE9\xE9e',
+    updated: 'Comp\xE9tence Codex "{name}" mise \xE0 jour'
+  },
+  codexSubagents: {
+    modal: {
+      titleEdit: "Modifier le sous-agent Codex",
+      titleAdd: "Ajouter un sous-agent Codex",
+      nameDesc: "Nom d\u2019agent utilis\xE9 par Codex au lancement (minuscules, traits d\u2019union, underscores)",
+      descriptionDesc: "Quand Codex doit utiliser cet agent",
+      modelDesc: "Remplacement de mod\xE8le (vide = h\xE9riter)",
+      namePlaceholder: "code_reviewer"
+    },
+    reasoningEffort: {
+      name: "Effort de raisonnement",
+      desc: "Niveau d\u2019effort de raisonnement du mod\xE8le",
+      inherit: "H\xE9riter",
+      low: "Faible",
+      medium: "Moyen",
+      high: "\xC9lev\xE9",
+      xhigh: "Tr\xE8s \xE9lev\xE9"
+    },
+    sandboxMode: {
+      name: "Mode sandbox",
+      desc: "Restriction sandbox pour cet agent",
+      inherit: "H\xE9riter",
+      readOnly: "Lecture seule",
+      dangerFullAccess: "Acc\xE8s complet",
+      workspaceWrite: "\xC9criture dans l\u2019espace de travail"
+    },
+    nicknameCandidates: {
+      name: "Surnoms candidats",
+      desc: "Surnoms d\u2019affichage s\xE9par\xE9s par des virgules (ex. atlas, delta, echo)"
+    },
+    developerInstructions: {
+      name: "Instructions d\xE9veloppeur",
+      desc: "Instructions centrales qui d\xE9finissent le comportement de l\u2019agent",
+      placeholder: "Review code like an owner.\nPrioritize correctness, security, and missing test coverage.",
+      required: "Les instructions d\xE9veloppeur sont obligatoires"
+    },
+    validation: {
+      nameRequired: "Le nom du sous-agent est obligatoire",
+      nameTooLong: "Le nom du sous-agent doit contenir {count} caract\xE8res ou moins",
+      nameInvalid: "Le nom du sous-agent ne peut contenir que des minuscules, chiffres, traits d\u2019union et underscores",
+      nicknameInvalid: "Les surnoms candidats ne peuvent contenir que des lettres ASCII, chiffres, espaces, traits d\u2019union et underscores",
+      nicknameDuplicate: "Les surnoms candidats doivent \xEAtre uniques"
+    },
+    header: "Sous-agents Codex",
+    noAgents: "Aucun sous-agent Codex dans le vault. Cliquez sur + pour en cr\xE9er un."
   }
 };
 var fr_default = {
@@ -51551,12 +52527,12 @@ var settings5 = {
     desc: "~/.claude/settings.json \u3092\u8AAD\u307F\u8FBC\u307F\u307E\u3059\u3002\u6709\u52B9\u306B\u3059\u308B\u3068\u3001\u30E6\u30FC\u30B6\u30FC\u306E Claude Code \u8A31\u53EF\u30EB\u30FC\u30EB\u304C\u30BB\u30AD\u30E5\u30EA\u30C6\u30A3\u30E2\u30FC\u30C9\u3092\u30D0\u30A4\u30D1\u30B9\u3059\u308B\u53EF\u80FD\u6027\u304C\u3042\u308A\u307E\u3059\u3002"
   },
   claudeSafeMode: {
-    name: "Safe mode",
-    desc: "Permission mode used when the Safe toggle is active."
+    name: "\u30BB\u30FC\u30D5\u30E2\u30FC\u30C9",
+    desc: "Safe \u30C8\u30B0\u30EB\u304C\u6709\u52B9\u306A\u3068\u304D\u306B\u4F7F\u7528\u3059\u308B\u6A29\u9650\u30E2\u30FC\u30C9\u3067\u3059\u3002"
   },
   codexSafeMode: {
-    name: "Safe mode",
-    desc: "Sandbox mode used when the Safe toggle is active."
+    name: "\u30BB\u30FC\u30D5\u30E2\u30FC\u30C9",
+    desc: "Safe \u30C8\u30B0\u30EB\u304C\u6709\u52B9\u306A\u3068\u304D\u306B\u4F7F\u7528\u3059\u308B\u30B5\u30F3\u30C9\u30DC\u30C3\u30AF\u30B9\u30E2\u30FC\u30C9\u3067\u3059\u3002"
   },
   environment: "\u74B0\u5883",
   customVariables: {
@@ -51603,8 +52579,8 @@ var settings5 = {
     desc: "\u30E2\u30C7\u30EB\u30BB\u30EC\u30AF\u30BF\u30FC\u306BSonnet 1M\u3092\u8868\u793A\u3057\u307E\u3059\u3002Max\u3001Team\u3001Enterprise\u30D7\u30E9\u30F3\u3067\u306F\u8FFD\u52A0\u4F7F\u7528\u91CF\u304C\u5FC5\u8981\u3067\u3059\u3002API\u304A\u3088\u3073Pro\u30E6\u30FC\u30B6\u30FC\u306F\u8FFD\u52A0\u4F7F\u7528\u91CF\u304C\u5FC5\u8981\u3067\u3059\u3002"
   },
   customModels: {
-    name: "Custom models",
-    desc: "Append additional Claude model IDs to the picker, one per line. Environment model overrides still replace the picker.",
+    name: "\u30AB\u30B9\u30BF\u30E0\u30E2\u30C7\u30EB",
+    desc: "\u8FFD\u52A0\u306E Claude \u30E2\u30C7\u30EB ID \u30921\u884C\u306B1\u3064\u305A\u3064\u30D4\u30C3\u30AB\u30FC\u306B\u8FFD\u52A0\u3057\u307E\u3059\u3002\u74B0\u5883\u5909\u6570\u306B\u3088\u308B\u30E2\u30C7\u30EB\u4E0A\u66F8\u304D\u306F\u5F15\u304D\u7D9A\u304D\u30D4\u30C3\u30AB\u30FC\u3092\u7F6E\u304D\u63DB\u3048\u307E\u3059\u3002",
     placeholder: "claude-opus-4-6\nclaude-opus-4-6[1m]\nclaude-opus-4-5-20251101"
   },
   enableChrome: {
@@ -51655,6 +52631,138 @@ var settings5 = {
   language: {
     name: "\u8A00\u8A9E",
     desc: "\u30D7\u30E9\u30B0\u30A4\u30F3\u30A4\u30F3\u30BF\u30FC\u30D5\u30A7\u30FC\u30B9\u306E\u8868\u793A\u8A00\u8A9E\u3092\u5909\u66F4"
+  },
+  codex: {
+    enableProvider: {
+      name: "Codex \u30D7\u30ED\u30D0\u30A4\u30C0\u30FC\u3092\u6709\u52B9\u5316",
+      desc: "\u6709\u52B9\u306B\u3059\u308B\u3068\u3001\u65B0\u3057\u3044\u4F1A\u8A71\u306E\u30E2\u30C7\u30EB\u30BB\u30EC\u30AF\u30BF\u30FC\u306B Codex \u30E2\u30C7\u30EB\u304C\u8868\u793A\u3055\u308C\u307E\u3059\u3002\u65E2\u5B58\u306E Codex \u30BB\u30C3\u30B7\u30E7\u30F3\u306F\u4FDD\u6301\u3055\u308C\u307E\u3059\u3002"
+    },
+    installationMethod: {
+      name: "\u30A4\u30F3\u30B9\u30C8\u30FC\u30EB\u65B9\u5F0F",
+      desc: "Windows \u3067 Claudian \u304C Codex \u3092\u8D77\u52D5\u3059\u308B\u65B9\u6CD5\u3002\u30CD\u30A4\u30C6\u30A3\u30D6 Windows \u306F Windows \u5B9F\u884C\u30D5\u30A1\u30A4\u30EB\u30D1\u30B9\u3092\u4F7F\u3044\u3001WSL \u306F\u9078\u629E\u3057\u305F\u30C7\u30A3\u30B9\u30C8\u30EA\u30D3\u30E5\u30FC\u30B7\u30E7\u30F3\u5185\u3067 Linux CLI \u3092\u8D77\u52D5\u3057\u307E\u3059\u3002",
+      nativeWindows: "\u30CD\u30A4\u30C6\u30A3\u30D6 Windows",
+      wsl: "WSL"
+    },
+    cliPath: {
+      name: "Codex CLI \u30D1\u30B9",
+      descUnix: "\u30ED\u30FC\u30AB\u30EB Codex CLI \u306E\u30AB\u30B9\u30BF\u30E0\u30D1\u30B9\u3002\u7A7A\u6B04\u306E\u5834\u5408\u306F\u65E2\u77E5\u306E Codex \u30A4\u30F3\u30B9\u30C8\u30FC\u30EB\u3001\u6B21\u306B PATH \u3092\u512A\u5148\u3057\u307E\u3059\u3002",
+      descWindows: "\u30ED\u30FC\u30AB\u30EB Codex CLI \u306E\u30AB\u30B9\u30BF\u30E0\u30D1\u30B9\u3002\u7A7A\u6B04\u306E\u5834\u5408\u306F PATH \u304B\u3089\u81EA\u52D5\u691C\u51FA\u3057\u307E\u3059\u3002\u901A\u5E38\u306F `codex.exe` \u306E\u30CD\u30A4\u30C6\u30A3\u30D6 Windows \u5B9F\u884C\u30D5\u30A1\u30A4\u30EB\u30D1\u30B9\u3092\u4F7F\u7528\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+      descWsl: "WSL \u5185\u3067\u5B9F\u884C\u3059\u308B Linux \u5074\u306E Codex \u30B3\u30DE\u30F3\u30C9\u307E\u305F\u306F\u7D76\u5BFE\u30D1\u30B9\u3002\u7A7A\u6B04\u306E\u5834\u5408\u306F\u9078\u629E\u3057\u305F\u30C7\u30A3\u30B9\u30C8\u30EA\u30D3\u30E5\u30FC\u30B7\u30E7\u30F3\u5185\u306E PATH \u3092\u691C\u7D22\u3057\u307E\u3059\u3002",
+      validation: {
+        wslWindowsPath: "WSL \u30E2\u30FC\u30C9\u3067\u306F Windows \u5B9F\u884C\u30D5\u30A1\u30A4\u30EB\u30D1\u30B9\u3067\u306F\u306A\u304F\u3001Linux \u30B3\u30DE\u30F3\u30C9\u307E\u305F\u306F Linux \u7D76\u5BFE\u30D1\u30B9\u304C\u5FC5\u8981\u3067\u3059\u3002"
+      }
+    },
+    wslDistroOverride: {
+      name: "WSL \u30C7\u30A3\u30B9\u30C8\u30EA\u30D3\u30E5\u30FC\u30B7\u30E7\u30F3\u4E0A\u66F8\u304D",
+      desc: "\u4EFB\u610F\u306E\u8A73\u7D30\u4E0A\u66F8\u304D\u3002\u7A7A\u6B04\u306E\u5834\u5408\u3001\u53EF\u80FD\u306A\u3089 WSL \u30EF\u30FC\u30AF\u30B9\u30DA\u30FC\u30B9\u30D1\u30B9\u304B\u3089\u63A8\u6E2C\u3057\u3001\u305D\u308C\u4EE5\u5916\u306F\u65E2\u5B9A\u306E WSL \u30C7\u30A3\u30B9\u30C8\u30EA\u30D3\u30E5\u30FC\u30B7\u30E7\u30F3\u3092\u4F7F\u7528\u3057\u307E\u3059\u3002"
+    },
+    safeMode: {
+      workspaceWrite: "\u30EF\u30FC\u30AF\u30B9\u30DA\u30FC\u30B9\u66F8\u304D\u8FBC\u307F",
+      readOnly: "\u8AAD\u307F\u53D6\u308A\u5C02\u7528"
+    },
+    customModels: {
+      name: "\u30AB\u30B9\u30BF\u30E0\u30E2\u30C7\u30EB",
+      desc: "\u8FFD\u52A0\u306E Codex \u30E2\u30C7\u30EB ID \u30921\u884C\u306B1\u3064\u305A\u3064\u30D4\u30C3\u30AB\u30FC\u306B\u8FFD\u52A0\u3057\u307E\u3059\u3002`OPENAI_MODEL` \u304C\u8A2D\u5B9A\u3055\u308C\u3066\u3044\u308B\u5834\u5408\u306F\u5F15\u304D\u7D9A\u304D\u512A\u5148\u3055\u308C\u307E\u3059\u3002",
+      placeholder: "gpt-5.4\ngpt-5.3-codex-spark"
+    },
+    reasoningSummary: {
+      name: "\u63A8\u8AD6\u30B5\u30DE\u30EA\u30FC",
+      desc: "\u601D\u8003\u30D6\u30ED\u30C3\u30AF\u306B\u30E2\u30C7\u30EB\u306E\u63A8\u8AD6\u30D7\u30ED\u30BB\u30B9\u306E\u30B5\u30DE\u30EA\u30FC\u3092\u8868\u793A\u3057\u307E\u3059\u3002",
+      auto: "\u81EA\u52D5",
+      concise: "\u7C21\u6F54",
+      detailed: "\u8A73\u7D30",
+      off: "\u30AA\u30D5"
+    },
+    skills: {
+      name: "Codex \u30B9\u30AD\u30EB",
+      desc: ".codex/skills/ \u307E\u305F\u306F .agents/skills/ \u306B\u4FDD\u5B58\u3055\u308C\u305F Vault \u30EC\u30D9\u30EB\u306E Codex \u30B9\u30AD\u30EB\u3092\u7BA1\u7406\u3057\u307E\u3059\u3002\u30DB\u30FC\u30E0\u30EC\u30D9\u30EB\u306E\u30B9\u30AD\u30EB\u306F\u3053\u3053\u3067\u306F\u9664\u5916\u3055\u308C\u307E\u3059\u3002",
+      hiddenName: "\u975E\u8868\u793A\u306E\u30B9\u30AD\u30EB",
+      hiddenDesc: "\u7279\u5B9A\u306E Codex \u30B9\u30AD\u30EB\u3092\u30C9\u30ED\u30C3\u30D7\u30C0\u30A6\u30F3\u304B\u3089\u975E\u8868\u793A\u306B\u3057\u307E\u3059\u3002\u5148\u982D\u306E $ \u306A\u3057\u3067\u30B9\u30AD\u30EB\u540D\u30921\u884C\u306B1\u3064\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+      hiddenPlaceholder: "analyze\nexplain\nfix"
+    },
+    subagents: {
+      name: "Codex \u30B5\u30D6\u30A8\u30FC\u30B8\u30A7\u30F3\u30C8",
+      desc: ".codex/agents/ \u306B\u4FDD\u5B58\u3055\u308C\u305F Vault \u30EC\u30D9\u30EB\u306E Codex \u30B5\u30D6\u30A8\u30FC\u30B8\u30A7\u30F3\u30C8\u3092\u7BA1\u7406\u3057\u307E\u3059\u3002\u5404 TOML \u30D5\u30A1\u30A4\u30EB\u304C\u30AB\u30B9\u30BF\u30E0\u30A8\u30FC\u30B8\u30A7\u30F3\u30C8\u30921\u3064\u5B9A\u7FA9\u3057\u307E\u3059\u3002"
+    },
+    mcp: {
+      descBeforeCommand: "Codex \u306F\u72EC\u81EA\u306E CLI \u3067 MCP \u30B5\u30FC\u30D0\u30FC\u3092\u7BA1\u7406\u3057\u307E\u3059\u3002",
+      descAfterCommand: " \u3067\u8A2D\u5B9A\u3059\u308B\u3068 Claudian \u3067\u5229\u7528\u3067\u304D\u307E\u3059\u3002",
+      learnMore: "\u8A73\u3057\u304F\u898B\u308B"
+    },
+    environment: {
+      name: "Codex \u74B0\u5883",
+      desc: "Codex \u304C\u6240\u6709\u3059\u308B\u30E9\u30F3\u30BF\u30A4\u30E0\u5909\u6570\u306E\u307F\u3002OPENAI_* \u3068 CODEX_* \u8A2D\u5B9A\u306B\u4F7F\u7528\u3057\u307E\u3059\u3002Codex \u306E\u81EA\u52D5\u691C\u51FA\u306B\u88DC\u52A9\u304C\u5FC5\u8981\u306A\u5834\u5408\u306F\u3001\u3053\u306E\u30D7\u30ED\u30D0\u30A4\u30C0\u30FC\u74B0\u5883\u3067\u306F\u306A\u304F\u5171\u6709 PATH \u306B\u30A4\u30F3\u30B9\u30C8\u30FC\u30EB\u30C7\u30A3\u30EC\u30AF\u30C8\u30EA\u3092\u8FFD\u52A0\u3057\u3066\u304F\u3060\u3055\u3044\u3002"
+    }
+  },
+  codexSkills: {
+    modal: {
+      titleEdit: "Codex \u30B9\u30AD\u30EB\u3092\u7DE8\u96C6",
+      titleAdd: "Codex \u30B9\u30AD\u30EB\u3092\u8FFD\u52A0",
+      directory: "\u30C7\u30A3\u30EC\u30AF\u30C8\u30EA",
+      directoryDesc: "\u30B9\u30AD\u30EB\u306E\u4FDD\u5B58\u5148",
+      skillName: "\u30B9\u30AD\u30EB\u540D",
+      skillNameDesc: '$ \u306E\u5F8C\u306B\u4F7F\u3046\u540D\u524D\uFF08\u4F8B: $analyze \u306E\u5834\u5408\u306F "analyze"\uFF09',
+      description: "\u8AAC\u660E",
+      descriptionDesc: "\u30C9\u30ED\u30C3\u30D7\u30C0\u30A6\u30F3\u306B\u8868\u793A\u3055\u308C\u308B\u4EFB\u610F\u306E\u8AAC\u660E",
+      instructions: "\u6307\u793A",
+      instructionsDesc: "\u30B9\u30AD\u30EB\u306E\u6307\u793A\uFF08SKILL.md \u306E\u5185\u5BB9\uFF09",
+      instructionsPlaceholder: "Analyze the code for..."
+    },
+    instructionsRequired: "\u6307\u793A\u306F\u5FC5\u9808\u3067\u3059",
+    saveFailed: "Codex \u30B9\u30AD\u30EB\u306E\u4FDD\u5B58\u306B\u5931\u6557\u3057\u307E\u3057\u305F",
+    header: "Codex \u30B9\u30AD\u30EB",
+    noSkills: "Vault \u306B Codex \u30B9\u30AD\u30EB\u304C\u3042\u308A\u307E\u305B\u3093\u3002+ \u3092\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u4F5C\u6210\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+    skillBadge: "\u30B9\u30AD\u30EB",
+    deleted: "Codex \u30B9\u30AD\u30EB\u300C{name}\u300D\u3092\u524A\u9664\u3057\u307E\u3057\u305F",
+    deleteFailed: "Codex \u30B9\u30AD\u30EB\u306E\u524A\u9664\u306B\u5931\u6557\u3057\u307E\u3057\u305F",
+    created: "Codex \u30B9\u30AD\u30EB\u300C{name}\u300D\u3092\u4F5C\u6210\u3057\u307E\u3057\u305F",
+    updated: "Codex \u30B9\u30AD\u30EB\u300C{name}\u300D\u3092\u66F4\u65B0\u3057\u307E\u3057\u305F"
+  },
+  codexSubagents: {
+    modal: {
+      titleEdit: "Codex \u30B5\u30D6\u30A8\u30FC\u30B8\u30A7\u30F3\u30C8\u3092\u7DE8\u96C6",
+      titleAdd: "Codex \u30B5\u30D6\u30A8\u30FC\u30B8\u30A7\u30F3\u30C8\u3092\u8FFD\u52A0",
+      nameDesc: "Codex \u304C\u8D77\u52D5\u6642\u306B\u4F7F\u7528\u3059\u308B\u30A8\u30FC\u30B8\u30A7\u30F3\u30C8\u540D\uFF08\u5C0F\u6587\u5B57\u3001\u30CF\u30A4\u30D5\u30F3\u3001\u30A2\u30F3\u30C0\u30FC\u30B9\u30B3\u30A2\uFF09",
+      descriptionDesc: "Codex \u304C\u3053\u306E\u30A8\u30FC\u30B8\u30A7\u30F3\u30C8\u3092\u4F7F\u3046\u3079\u304D\u30BF\u30A4\u30DF\u30F3\u30B0",
+      modelDesc: "\u30E2\u30C7\u30EB\u4E0A\u66F8\u304D\uFF08\u7A7A\u6B04\u3067\u7D99\u627F\uFF09",
+      namePlaceholder: "code_reviewer"
+    },
+    reasoningEffort: {
+      name: "\u63A8\u8AD6\u5F37\u5EA6",
+      desc: "\u30E2\u30C7\u30EB\u63A8\u8AD6\u5F37\u5EA6\u30EC\u30D9\u30EB",
+      inherit: "\u7D99\u627F",
+      low: "\u4F4E",
+      medium: "\u4E2D",
+      high: "\u9AD8",
+      xhigh: "\u975E\u5E38\u306B\u9AD8\u3044"
+    },
+    sandboxMode: {
+      name: "\u30B5\u30F3\u30C9\u30DC\u30C3\u30AF\u30B9\u30E2\u30FC\u30C9",
+      desc: "\u3053\u306E\u30A8\u30FC\u30B8\u30A7\u30F3\u30C8\u306E\u30B5\u30F3\u30C9\u30DC\u30C3\u30AF\u30B9\u5236\u9650",
+      inherit: "\u7D99\u627F",
+      readOnly: "\u8AAD\u307F\u53D6\u308A\u5C02\u7528",
+      dangerFullAccess: "\u5B8C\u5168\u30A2\u30AF\u30BB\u30B9",
+      workspaceWrite: "\u30EF\u30FC\u30AF\u30B9\u30DA\u30FC\u30B9\u66F8\u304D\u8FBC\u307F"
+    },
+    nicknameCandidates: {
+      name: "\u30CB\u30C3\u30AF\u30CD\u30FC\u30E0\u5019\u88DC",
+      desc: "\u8868\u793A\u30CB\u30C3\u30AF\u30CD\u30FC\u30E0\u3092\u30AB\u30F3\u30DE\u533A\u5207\u308A\u3067\u6307\u5B9A\uFF08\u4F8B: atlas, delta, echo\uFF09"
+    },
+    developerInstructions: {
+      name: "\u958B\u767A\u8005\u6307\u793A",
+      desc: "\u30A8\u30FC\u30B8\u30A7\u30F3\u30C8\u306E\u52D5\u4F5C\u3092\u5B9A\u7FA9\u3059\u308B\u4E2D\u6838\u306E\u6307\u793A",
+      placeholder: "Review code like an owner.\nPrioritize correctness, security, and missing test coverage.",
+      required: "\u958B\u767A\u8005\u6307\u793A\u306F\u5FC5\u9808\u3067\u3059"
+    },
+    validation: {
+      nameRequired: "\u30B5\u30D6\u30A8\u30FC\u30B8\u30A7\u30F3\u30C8\u540D\u306F\u5FC5\u9808\u3067\u3059",
+      nameTooLong: "\u30B5\u30D6\u30A8\u30FC\u30B8\u30A7\u30F3\u30C8\u540D\u306F {count} \u6587\u5B57\u4EE5\u5185\u306B\u3057\u3066\u304F\u3060\u3055\u3044",
+      nameInvalid: "\u30B5\u30D6\u30A8\u30FC\u30B8\u30A7\u30F3\u30C8\u540D\u306B\u306F\u5C0F\u6587\u5B57\u3001\u6570\u5B57\u3001\u30CF\u30A4\u30D5\u30F3\u3001\u30A2\u30F3\u30C0\u30FC\u30B9\u30B3\u30A2\u306E\u307F\u4F7F\u7528\u3067\u304D\u307E\u3059",
+      nicknameInvalid: "\u30CB\u30C3\u30AF\u30CD\u30FC\u30E0\u5019\u88DC\u306B\u306F ASCII \u6587\u5B57\u3001\u6570\u5B57\u3001\u30B9\u30DA\u30FC\u30B9\u3001\u30CF\u30A4\u30D5\u30F3\u3001\u30A2\u30F3\u30C0\u30FC\u30B9\u30B3\u30A2\u306E\u307F\u4F7F\u7528\u3067\u304D\u307E\u3059",
+      nicknameDuplicate: "\u30CB\u30C3\u30AF\u30CD\u30FC\u30E0\u5019\u88DC\u306F\u4E00\u610F\u3067\u3042\u308B\u5FC5\u8981\u304C\u3042\u308A\u307E\u3059"
+    },
+    header: "Codex \u30B5\u30D6\u30A8\u30FC\u30B8\u30A7\u30F3\u30C8",
+    noAgents: "Vault \u306B Codex \u30B5\u30D6\u30A8\u30FC\u30B8\u30A7\u30F3\u30C8\u304C\u3042\u308A\u307E\u305B\u3093\u3002+ \u3092\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u4F5C\u6210\u3057\u3066\u304F\u3060\u3055\u3044\u3002"
   }
 };
 var ja_default = {
@@ -51885,12 +52993,12 @@ var settings6 = {
     desc: "~/.claude/settings.json\uC744 \uB85C\uB4DC\uD569\uB2C8\uB2E4. \uD65C\uC131\uD654\uD558\uBA74 \uC0AC\uC6A9\uC790\uC758 Claude Code \uD5C8\uC6A9 \uADDC\uCE59\uC774 \uBCF4\uC548 \uBAA8\uB4DC\uB97C \uC6B0\uD68C\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
   },
   claudeSafeMode: {
-    name: "Safe mode",
-    desc: "Permission mode used when the Safe toggle is active."
+    name: "\uC548\uC804 \uBAA8\uB4DC",
+    desc: "Safe \uD1A0\uAE00\uC774 \uD65C\uC131\uD654\uB418\uC5C8\uC744 \uB54C \uC0AC\uC6A9\uD558\uB294 \uAD8C\uD55C \uBAA8\uB4DC\uC785\uB2C8\uB2E4."
   },
   codexSafeMode: {
-    name: "Safe mode",
-    desc: "Sandbox mode used when the Safe toggle is active."
+    name: "\uC548\uC804 \uBAA8\uB4DC",
+    desc: "Safe \uD1A0\uAE00\uC774 \uD65C\uC131\uD654\uB418\uC5C8\uC744 \uB54C \uC0AC\uC6A9\uD558\uB294 \uC0CC\uB4DC\uBC15\uC2A4 \uBAA8\uB4DC\uC785\uB2C8\uB2E4."
   },
   environment: "\uD658\uACBD",
   customVariables: {
@@ -51937,8 +53045,8 @@ var settings6 = {
     desc: "\uBAA8\uB378 \uC120\uD0DD\uAE30\uC5D0\uC11C Sonnet 1M\uC744 \uD45C\uC2DC\uD569\uB2C8\uB2E4. Max, Team, Enterprise \uD50C\uB79C\uC5D0\uC11C \uCD94\uAC00 \uC0AC\uC6A9\uB7C9\uC774 \uD544\uC694\uD569\uB2C8\uB2E4. API \uBC0F Pro \uC0AC\uC6A9\uC790\uB294 \uCD94\uAC00 \uC0AC\uC6A9\uB7C9\uC774 \uD544\uC694\uD569\uB2C8\uB2E4."
   },
   customModels: {
-    name: "Custom models",
-    desc: "Append additional Claude model IDs to the picker, one per line. Environment model overrides still replace the picker.",
+    name: "\uC0AC\uC6A9\uC790 \uC9C0\uC815 \uBAA8\uB378",
+    desc: "\uCD94\uAC00 Claude \uBAA8\uB378 ID\uB97C \uD55C \uC904\uC5D0 \uD558\uB098\uC529 \uC120\uD0DD\uAE30\uC5D0 \uCD94\uAC00\uD569\uB2C8\uB2E4. \uD658\uACBD \uBAA8\uB378 \uC7AC\uC815\uC758\uB294 \uACC4\uC18D \uC120\uD0DD\uAE30\uB97C \uB300\uCCB4\uD569\uB2C8\uB2E4.",
     placeholder: "claude-opus-4-6\nclaude-opus-4-6[1m]\nclaude-opus-4-5-20251101"
   },
   enableChrome: {
@@ -51989,6 +53097,138 @@ var settings6 = {
   language: {
     name: "\uC5B8\uC5B4",
     desc: "\uD50C\uB7EC\uADF8\uC778 \uC778\uD130\uD398\uC774\uC2A4\uC758 \uD45C\uC2DC \uC5B8\uC5B4 \uBCC0\uACBD"
+  },
+  codex: {
+    enableProvider: {
+      name: "Codex \uACF5\uAE09\uC790 \uD65C\uC131\uD654",
+      desc: "\uD65C\uC131\uD654\uD558\uBA74 \uC0C8 \uB300\uD654\uC758 \uBAA8\uB378 \uC120\uD0DD\uAE30\uC5D0 Codex \uBAA8\uB378\uC774 \uD45C\uC2DC\uB429\uB2C8\uB2E4. \uAE30\uC874 Codex \uC138\uC158\uC740 \uC720\uC9C0\uB429\uB2C8\uB2E4."
+    },
+    installationMethod: {
+      name: "\uC124\uCE58 \uBC29\uC2DD",
+      desc: "Windows\uC5D0\uC11C Claudian\uC774 Codex\uB97C \uC2E4\uD589\uD558\uB294 \uBC29\uC2DD\uC785\uB2C8\uB2E4. \uB124\uC774\uD2F0\uBE0C Windows\uB294 Windows \uC2E4\uD589 \uD30C\uC77C \uACBD\uB85C\uB97C \uC0AC\uC6A9\uD558\uACE0, WSL\uC740 \uC120\uD0DD\uD55C \uBC30\uD3EC\uD310 \uC548\uC5D0\uC11C Linux CLI\uB97C \uC2E4\uD589\uD569\uB2C8\uB2E4.",
+      nativeWindows: "\uB124\uC774\uD2F0\uBE0C Windows",
+      wsl: "WSL"
+    },
+    cliPath: {
+      name: "Codex CLI \uACBD\uB85C",
+      descUnix: "\uB85C\uCEEC Codex CLI\uC758 \uC0AC\uC6A9\uC790 \uC9C0\uC815 \uACBD\uB85C\uC785\uB2C8\uB2E4. \uBE44\uC6CC \uB450\uBA74 \uC54C\uB824\uC9C4 Codex \uC124\uCE58\uB97C \uBA3C\uC800 \uC0AC\uC6A9\uD55C \uB4A4 PATH\uB97C \uCC3E\uC2B5\uB2C8\uB2E4.",
+      descWindows: "\uB85C\uCEEC Codex CLI\uC758 \uC0AC\uC6A9\uC790 \uC9C0\uC815 \uACBD\uB85C\uC785\uB2C8\uB2E4. \uBE44\uC6CC \uB450\uBA74 PATH\uC5D0\uC11C \uC790\uB3D9 \uAC10\uC9C0\uD569\uB2C8\uB2E4. \uC77C\uBC18\uC801\uC73C\uB85C `codex.exe`\uC778 \uB124\uC774\uD2F0\uBE0C Windows \uC2E4\uD589 \uD30C\uC77C \uACBD\uB85C\uB97C \uC0AC\uC6A9\uD558\uC138\uC694.",
+      descWsl: "WSL \uC548\uC5D0\uC11C \uC2E4\uD589\uD560 Linux \uCE21 Codex \uBA85\uB839 \uB610\uB294 \uC808\uB300 \uACBD\uB85C\uC785\uB2C8\uB2E4. \uBE44\uC6CC \uB450\uBA74 \uC120\uD0DD\uD55C \uBC30\uD3EC\uD310\uC758 PATH\uC5D0\uC11C \uCC3E\uC2B5\uB2C8\uB2E4.",
+      validation: {
+        wslWindowsPath: "WSL \uBAA8\uB4DC\uC5D0\uB294 Windows \uC2E4\uD589 \uD30C\uC77C \uACBD\uB85C\uAC00 \uC544\uB2C8\uB77C Linux \uBA85\uB839 \uB610\uB294 Linux \uC808\uB300 \uACBD\uB85C\uAC00 \uD544\uC694\uD569\uB2C8\uB2E4."
+      }
+    },
+    wslDistroOverride: {
+      name: "WSL \uBC30\uD3EC\uD310 \uC7AC\uC815\uC758",
+      desc: "\uC120\uD0DD\uC801 \uACE0\uAE09 \uC7AC\uC815\uC758\uC785\uB2C8\uB2E4. \uBE44\uC6CC \uB450\uBA74 \uAC00\uB2A5\uD55C \uACBD\uC6B0 WSL \uC791\uC5C5\uACF5\uAC04 \uACBD\uB85C\uC5D0\uC11C \uBC30\uD3EC\uD310\uC744 \uCD94\uB860\uD558\uACE0, \uADF8\uB807\uC9C0 \uC54A\uC73C\uBA74 \uAE30\uBCF8 WSL \uBC30\uD3EC\uD310\uC744 \uC0AC\uC6A9\uD569\uB2C8\uB2E4."
+    },
+    safeMode: {
+      workspaceWrite: "\uC791\uC5C5\uACF5\uAC04 \uC4F0\uAE30",
+      readOnly: "\uC77D\uAE30 \uC804\uC6A9"
+    },
+    customModels: {
+      name: "\uC0AC\uC6A9\uC790 \uC9C0\uC815 \uBAA8\uB378",
+      desc: "\uCD94\uAC00 Codex \uBAA8\uB378 ID\uB97C \uD55C \uC904\uC5D0 \uD558\uB098\uC529 \uC120\uD0DD\uAE30\uC5D0 \uCD94\uAC00\uD569\uB2C8\uB2E4. `OPENAI_MODEL`\uC774 \uC124\uC815\uB418\uC5B4 \uC788\uC73C\uBA74 \uACC4\uC18D \uC6B0\uC120 \uC801\uC6A9\uB429\uB2C8\uB2E4.",
+      placeholder: "gpt-5.4\ngpt-5.3-codex-spark"
+    },
+    reasoningSummary: {
+      name: "\uCD94\uB860 \uC694\uC57D",
+      desc: "\uC0DD\uAC01 \uBE14\uB85D\uC5D0 \uBAA8\uB378\uC758 \uCD94\uB860 \uACFC\uC815 \uC694\uC57D\uC744 \uD45C\uC2DC\uD569\uB2C8\uB2E4.",
+      auto: "\uC790\uB3D9",
+      concise: "\uAC04\uACB0",
+      detailed: "\uC0C1\uC138",
+      off: "\uB044\uAE30"
+    },
+    skills: {
+      name: "Codex \uC2A4\uD0AC",
+      desc: ".codex/skills/ \uB610\uB294 .agents/skills/\uC5D0 \uC800\uC7A5\uB41C vault \uC218\uC900 Codex \uC2A4\uD0AC\uC744 \uAD00\uB9AC\uD569\uB2C8\uB2E4. \uD648 \uC218\uC900 \uC2A4\uD0AC\uC740 \uC5EC\uAE30\uC5D0\uC11C \uC81C\uC678\uB429\uB2C8\uB2E4.",
+      hiddenName: "\uC228\uAE34 \uC2A4\uD0AC",
+      hiddenDesc: "\uB4DC\uB86D\uB2E4\uC6B4\uC5D0\uC11C \uD2B9\uC815 Codex \uC2A4\uD0AC\uC744 \uC228\uAE41\uB2C8\uB2E4. \uC55E\uC758 $ \uC5C6\uC774 \uC2A4\uD0AC \uC774\uB984\uC744 \uD55C \uC904\uC5D0 \uD558\uB098\uC529 \uC785\uB825\uD558\uC138\uC694.",
+      hiddenPlaceholder: "analyze\nexplain\nfix"
+    },
+    subagents: {
+      name: "Codex \uD558\uC704 \uC5D0\uC774\uC804\uD2B8",
+      desc: ".codex/agents/\uC5D0 \uC800\uC7A5\uB41C vault \uC218\uC900 Codex \uD558\uC704 \uC5D0\uC774\uC804\uD2B8\uB97C \uAD00\uB9AC\uD569\uB2C8\uB2E4. \uAC01 TOML \uD30C\uC77C\uC740 \uC0AC\uC6A9\uC790 \uC9C0\uC815 \uC5D0\uC774\uC804\uD2B8 \uD558\uB098\uB97C \uC815\uC758\uD569\uB2C8\uB2E4."
+    },
+    mcp: {
+      descBeforeCommand: "Codex\uB294 \uC790\uCCB4 CLI\uB85C MCP \uC11C\uBC84\uB97C \uAD00\uB9AC\uD569\uB2C8\uB2E4. ",
+      descAfterCommand: " \uBA85\uB839\uC73C\uB85C \uAD6C\uC131\uD558\uBA74 Claudian\uC5D0\uC11C \uC0AC\uC6A9\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4. ",
+      learnMore: "\uC790\uC138\uD788 \uC54C\uC544\uBCF4\uAE30"
+    },
+    environment: {
+      name: "Codex \uD658\uACBD",
+      desc: "Codex \uC804\uC6A9 \uB7F0\uD0C0\uC784 \uBCC0\uC218\uB9CC \uC785\uB825\uD558\uC138\uC694. OPENAI_* \uBC0F CODEX_* \uC124\uC815\uC5D0 \uC0AC\uC6A9\uD569\uB2C8\uB2E4. Codex \uC790\uB3D9 \uAC10\uC9C0\uC5D0 \uB3C4\uC6C0\uC774 \uD544\uC694\uD558\uBA74 \uC774 \uACF5\uAE09\uC790 \uC139\uC158 \uB300\uC2E0 \uACF5\uC720 PATH\uC5D0 \uC124\uCE58 \uB514\uB809\uD130\uB9AC\uB97C \uCD94\uAC00\uD558\uC138\uC694."
+    }
+  },
+  codexSkills: {
+    modal: {
+      titleEdit: "Codex \uC2A4\uD0AC \uD3B8\uC9D1",
+      titleAdd: "Codex \uC2A4\uD0AC \uCD94\uAC00",
+      directory: "\uB514\uB809\uD130\uB9AC",
+      directoryDesc: "\uC2A4\uD0AC\uC744 \uC800\uC7A5\uD560 \uC704\uCE58",
+      skillName: "\uC2A4\uD0AC \uC774\uB984",
+      skillNameDesc: '$ \uB4A4\uC5D0 \uC0AC\uC6A9\uD560 \uC774\uB984\uC785\uB2C8\uB2E4(\uC608: $analyze\uC758 \uACBD\uC6B0 "analyze")',
+      description: "\uC124\uBA85",
+      descriptionDesc: "\uB4DC\uB86D\uB2E4\uC6B4\uC5D0 \uD45C\uC2DC\uD560 \uC120\uD0DD\uC801 \uC124\uBA85",
+      instructions: "\uC9C0\uCE68",
+      instructionsDesc: "\uC2A4\uD0AC \uC9C0\uCE68(SKILL.md \uB0B4\uC6A9)",
+      instructionsPlaceholder: "Analyze the code for..."
+    },
+    instructionsRequired: "\uC9C0\uCE68\uC740 \uD544\uC218\uC785\uB2C8\uB2E4",
+    saveFailed: "Codex \uC2A4\uD0AC \uC800\uC7A5 \uC2E4\uD328",
+    header: "Codex \uC2A4\uD0AC",
+    noSkills: "Vault\uC5D0 Codex \uC2A4\uD0AC\uC774 \uC5C6\uC2B5\uB2C8\uB2E4. +\uB97C \uD074\uB9AD\uD574 \uB9CC\uB4DC\uC138\uC694.",
+    skillBadge: "\uC2A4\uD0AC",
+    deleted: 'Codex \uC2A4\uD0AC "{name}" \uC0AD\uC81C\uB428',
+    deleteFailed: "Codex \uC2A4\uD0AC \uC0AD\uC81C \uC2E4\uD328",
+    created: 'Codex \uC2A4\uD0AC "{name}" \uC0DD\uC131\uB428',
+    updated: 'Codex \uC2A4\uD0AC "{name}" \uC5C5\uB370\uC774\uD2B8\uB428'
+  },
+  codexSubagents: {
+    modal: {
+      titleEdit: "Codex \uD558\uC704 \uC5D0\uC774\uC804\uD2B8 \uD3B8\uC9D1",
+      titleAdd: "Codex \uD558\uC704 \uC5D0\uC774\uC804\uD2B8 \uCD94\uAC00",
+      nameDesc: "Codex\uAC00 \uC0DD\uC131\uD560 \uB54C \uC0AC\uC6A9\uD558\uB294 \uC5D0\uC774\uC804\uD2B8 \uC774\uB984(\uC18C\uBB38\uC790, \uD558\uC774\uD508, \uBC11\uC904)",
+      descriptionDesc: "Codex\uAC00 \uC774 \uC5D0\uC774\uC804\uD2B8\uB97C \uC0AC\uC6A9\uD574\uC57C \uD558\uB294 \uC2DC\uC810",
+      modelDesc: "\uBAA8\uB378 \uC7AC\uC815\uC758(\uBE44\uC6CC \uB450\uBA74 \uC0C1\uC18D)",
+      namePlaceholder: "code_reviewer"
+    },
+    reasoningEffort: {
+      name: "\uCD94\uB860 \uAC15\uB3C4",
+      desc: "\uBAA8\uB378 \uCD94\uB860 \uAC15\uB3C4 \uC218\uC900",
+      inherit: "\uC0C1\uC18D",
+      low: "\uB0AE\uC74C",
+      medium: "\uC911\uAC04",
+      high: "\uB192\uC74C",
+      xhigh: "\uB9E4\uC6B0 \uB192\uC74C"
+    },
+    sandboxMode: {
+      name: "\uC0CC\uB4DC\uBC15\uC2A4 \uBAA8\uB4DC",
+      desc: "\uC774 \uC5D0\uC774\uC804\uD2B8\uC758 \uC0CC\uB4DC\uBC15\uC2A4 \uC81C\uD55C",
+      inherit: "\uC0C1\uC18D",
+      readOnly: "\uC77D\uAE30 \uC804\uC6A9",
+      dangerFullAccess: "\uC804\uCCB4 \uC561\uC138\uC2A4",
+      workspaceWrite: "\uC791\uC5C5\uACF5\uAC04 \uC4F0\uAE30"
+    },
+    nicknameCandidates: {
+      name: "\uB2C9\uB124\uC784 \uD6C4\uBCF4",
+      desc: "\uD45C\uC2DC \uB2C9\uB124\uC784\uC744 \uC27C\uD45C\uB85C \uAD6C\uBD84\uD569\uB2C8\uB2E4(\uC608: atlas, delta, echo)"
+    },
+    developerInstructions: {
+      name: "\uAC1C\uBC1C\uC790 \uC9C0\uCE68",
+      desc: "\uC5D0\uC774\uC804\uD2B8 \uB3D9\uC791\uC744 \uC815\uC758\uD558\uB294 \uD575\uC2EC \uC9C0\uCE68",
+      placeholder: "Review code like an owner.\nPrioritize correctness, security, and missing test coverage.",
+      required: "\uAC1C\uBC1C\uC790 \uC9C0\uCE68\uC740 \uD544\uC218\uC785\uB2C8\uB2E4"
+    },
+    validation: {
+      nameRequired: "\uD558\uC704 \uC5D0\uC774\uC804\uD2B8 \uC774\uB984\uC740 \uD544\uC218\uC785\uB2C8\uB2E4",
+      nameTooLong: "\uD558\uC704 \uC5D0\uC774\uC804\uD2B8 \uC774\uB984\uC740 {count}\uC790 \uC774\uD558\uC5EC\uC57C \uD569\uB2C8\uB2E4",
+      nameInvalid: "\uD558\uC704 \uC5D0\uC774\uC804\uD2B8 \uC774\uB984\uC740 \uC18C\uBB38\uC790, \uC22B\uC790, \uD558\uC774\uD508, \uBC11\uC904\uB9CC \uD3EC\uD568\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4",
+      nicknameInvalid: "\uB2C9\uB124\uC784 \uD6C4\uBCF4\uB294 ASCII \uBB38\uC790, \uC22B\uC790, \uACF5\uBC31, \uD558\uC774\uD508, \uBC11\uC904\uB9CC \uD3EC\uD568\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4",
+      nicknameDuplicate: "\uB2C9\uB124\uC784 \uD6C4\uBCF4\uB294 \uACE0\uC720\uD574\uC57C \uD569\uB2C8\uB2E4"
+    },
+    header: "Codex \uD558\uC704 \uC5D0\uC774\uC804\uD2B8",
+    noAgents: "Vault\uC5D0 Codex \uD558\uC704 \uC5D0\uC774\uC804\uD2B8\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4. +\uB97C \uD074\uB9AD\uD574 \uB9CC\uB4DC\uC138\uC694."
   }
 };
 var ko_default = {
@@ -52219,12 +53459,12 @@ var settings7 = {
     desc: "Carrega ~/.claude/settings.json. Quando habilitado, as regras de permiss\xE3o do usu\xE1rio podem ignorar o modo seguro."
   },
   claudeSafeMode: {
-    name: "Safe mode",
-    desc: "Permission mode used when the Safe toggle is active."
+    name: "Modo seguro",
+    desc: "Modo de permiss\xE3o usado quando o controle Safe est\xE1 ativo."
   },
   codexSafeMode: {
-    name: "Safe mode",
-    desc: "Sandbox mode used when the Safe toggle is active."
+    name: "Modo seguro",
+    desc: "Modo de sandbox usado quando o controle Safe est\xE1 ativo."
   },
   environment: "Ambiente",
   customVariables: {
@@ -52232,7 +53472,7 @@ var settings7 = {
     desc: "Vari\xE1veis de ambiente para Claude SDK (formato KEY=VALUE, uma por linha). Prefixo export suportado."
   },
   envSnippets: {
-    name: "Snippets",
+    name: "Trechos",
     addBtn: "Adicionar snippet",
     noSnippets: "Nenhum snippet de ambiente salvo. Clique em + para salvar sua configura\xE7\xE3o atual.",
     nameRequired: "Por favor, insira um nome para o snippet",
@@ -52255,7 +53495,7 @@ var settings7 = {
     desc: "Defina aliases no seletor de modelos e tamanhos de janela de contexto para modelos personalizados."
   },
   customModelAliases: {
-    placeholder: "Alias"
+    placeholder: "Apelido"
   },
   customContextLimits: {
     name: "Limites de contexto personalizados",
@@ -52271,8 +53511,8 @@ var settings7 = {
     desc: "Mostrar Sonnet 1M no seletor de modelos. Requer uso adicional nos planos Max, Team e Enterprise. Usu\xE1rios de API e Pro precisam de uso adicional."
   },
   customModels: {
-    name: "Custom models",
-    desc: "Append additional Claude model IDs to the picker, one per line. Environment model overrides still replace the picker.",
+    name: "Modelos personalizados",
+    desc: "Adicione IDs de modelos Claude ao seletor, um por linha. Substitui\xE7\xF5es de modelo por ambiente continuam substituindo o seletor.",
     placeholder: "claude-opus-4-6\nclaude-opus-4-6[1m]\nclaude-opus-4-5-20251101"
   },
   enableChrome: {
@@ -52323,6 +53563,138 @@ var settings7 = {
   language: {
     name: "Idioma",
     desc: "Alterar o idioma de exibi\xE7\xE3o da interface do plugin"
+  },
+  codex: {
+    enableProvider: {
+      name: "Ativar provedor Codex",
+      desc: "Quando ativado, modelos Codex aparecem no seletor de modelos para novas conversas. Sess\xF5es Codex existentes s\xE3o preservadas."
+    },
+    installationMethod: {
+      name: "M\xE9todo de instala\xE7\xE3o",
+      desc: "Como o Claudian deve iniciar o Codex no Windows. Windows nativo usa um caminho de execut\xE1vel do Windows. WSL inicia a CLI Linux dentro de uma distro selecionada.",
+      nativeWindows: "Windows nativo",
+      wsl: "WSL"
+    },
+    cliPath: {
+      name: "Caminho da CLI do Codex",
+      descUnix: "Caminho personalizado para a CLI local do Codex. Deixe vazio para preferir instala\xE7\xF5es conhecidas do Codex e depois PATH.",
+      descWindows: "Caminho personalizado para a CLI local do Codex. Deixe vazio para detectar automaticamente pelo PATH. Use o caminho do execut\xE1vel nativo do Windows, geralmente `codex.exe`.",
+      descWsl: "Comando Codex do lado Linux ou caminho absoluto para executar dentro do WSL. Deixe vazio para procurar no PATH dentro da distro selecionada.",
+      validation: {
+        wslWindowsPath: "O modo WSL espera um comando Linux ou caminho absoluto Linux, n\xE3o um caminho de execut\xE1vel do Windows."
+      }
+    },
+    wslDistroOverride: {
+      name: "Substitui\xE7\xE3o de distro WSL",
+      desc: "Substitui\xE7\xE3o avan\xE7ada opcional. Deixe vazio para inferir a distro a partir de um caminho de workspace WSL quando poss\xEDvel; caso contr\xE1rio, usa a distro WSL padr\xE3o."
+    },
+    safeMode: {
+      workspaceWrite: "Grava\xE7\xE3o no workspace",
+      readOnly: "Somente leitura"
+    },
+    customModels: {
+      name: "Modelos personalizados",
+      desc: "Adicione IDs de modelos Codex ao seletor, um por linha. `OPENAI_MODEL` continua tendo preced\xEAncia quando definido.",
+      placeholder: "gpt-5.4\ngpt-5.3-codex-spark"
+    },
+    reasoningSummary: {
+      name: "Resumo de racioc\xEDnio",
+      desc: "Mostra um resumo do processo de racioc\xEDnio do modelo no bloco de pensamento.",
+      auto: "Autom\xE1tico",
+      concise: "Conciso",
+      detailed: "Detalhado",
+      off: "Desativado"
+    },
+    skills: {
+      name: "Habilidades Codex",
+      desc: "Gerencie habilidades Codex de n\xEDvel vault armazenadas em .codex/skills/ ou .agents/skills/. Habilidades de n\xEDvel home s\xE3o exclu\xEDdas aqui.",
+      hiddenName: "Habilidades ocultas",
+      hiddenDesc: "Oculte habilidades Codex espec\xEDficas do menu. Insira nomes sem o $ inicial, um por linha.",
+      hiddenPlaceholder: "analyze\nexplain\nfix"
+    },
+    subagents: {
+      name: "Subagentes Codex",
+      desc: "Gerencie subagentes Codex de n\xEDvel vault armazenados em .codex/agents/. Cada arquivo TOML define um agente personalizado."
+    },
+    mcp: {
+      descBeforeCommand: "O Codex gerencia servidores MCP por sua pr\xF3pria CLI. Configure com ",
+      descAfterCommand: " e eles ficar\xE3o dispon\xEDveis no Claudian. ",
+      learnMore: "Saiba mais"
+    },
+    environment: {
+      name: "Ambiente do Codex",
+      desc: "Somente vari\xE1veis de runtime pertencentes ao Codex. Use isto para configura\xE7\xF5es OPENAI_* e CODEX_*. Se a autodetec\xE7\xE3o do Codex precisar de ajuda, adicione o diret\xF3rio de instala\xE7\xE3o ao PATH compartilhado em vez desta se\xE7\xE3o do provedor."
+    }
+  },
+  codexSkills: {
+    modal: {
+      titleEdit: "Editar habilidade Codex",
+      titleAdd: "Adicionar habilidade Codex",
+      directory: "Diret\xF3rio",
+      directoryDesc: "Onde armazenar a habilidade",
+      skillName: "Nome da habilidade",
+      skillNameDesc: 'O nome usado ap\xF3s $ (ex.: "analyze" para $analyze)',
+      description: "Descri\xE7\xE3o",
+      descriptionDesc: "Descri\xE7\xE3o opcional exibida no menu",
+      instructions: "Instru\xE7\xF5es",
+      instructionsDesc: "Instru\xE7\xF5es da habilidade (conte\xFAdo de SKILL.md)",
+      instructionsPlaceholder: "Analyze the code for..."
+    },
+    instructionsRequired: "Instru\xE7\xF5es s\xE3o obrigat\xF3rias",
+    saveFailed: "Falha ao salvar habilidade Codex",
+    header: "Habilidades Codex",
+    noSkills: "N\xE3o h\xE1 habilidades Codex no vault. Clique em + para criar uma.",
+    skillBadge: "habilidade",
+    deleted: 'Habilidade Codex "{name}" exclu\xEDda',
+    deleteFailed: "Falha ao excluir habilidade Codex",
+    created: 'Habilidade Codex "{name}" criada',
+    updated: 'Habilidade Codex "{name}" atualizada'
+  },
+  codexSubagents: {
+    modal: {
+      titleEdit: "Editar subagente Codex",
+      titleAdd: "Adicionar subagente Codex",
+      nameDesc: "Nome do agente que o Codex usa ao iniciar (min\xFAsculas, hifens e underscores)",
+      descriptionDesc: "Quando o Codex deve usar este agente",
+      modelDesc: "Substitui\xE7\xE3o de modelo (vazio = herdar)",
+      namePlaceholder: "code_reviewer"
+    },
+    reasoningEffort: {
+      name: "Esfor\xE7o de racioc\xEDnio",
+      desc: "N\xEDvel de esfor\xE7o de racioc\xEDnio do modelo",
+      inherit: "Herdar",
+      low: "Baixo",
+      medium: "M\xE9dio",
+      high: "Alto",
+      xhigh: "Muito alto"
+    },
+    sandboxMode: {
+      name: "Modo sandbox",
+      desc: "Restri\xE7\xE3o de sandbox para este agente",
+      inherit: "Herdar",
+      readOnly: "Somente leitura",
+      dangerFullAccess: "Acesso total",
+      workspaceWrite: "Grava\xE7\xE3o no workspace"
+    },
+    nicknameCandidates: {
+      name: "Candidatos de apelido",
+      desc: "Apelidos exibidos separados por v\xEDrgula (ex.: atlas, delta, echo)"
+    },
+    developerInstructions: {
+      name: "Instru\xE7\xF5es de desenvolvedor",
+      desc: "Instru\xE7\xF5es centrais que definem o comportamento do agente",
+      placeholder: "Review code like an owner.\nPrioritize correctness, security, and missing test coverage.",
+      required: "Instru\xE7\xF5es de desenvolvedor s\xE3o obrigat\xF3rias"
+    },
+    validation: {
+      nameRequired: "Nome do subagente \xE9 obrigat\xF3rio",
+      nameTooLong: "Nome do subagente deve ter {count} caracteres ou menos",
+      nameInvalid: "Nome do subagente s\xF3 pode conter letras min\xFAsculas, n\xFAmeros, hifens e underscores",
+      nicknameInvalid: "Candidatos de apelido s\xF3 podem conter letras ASCII, n\xFAmeros, espa\xE7os, hifens e underscores",
+      nicknameDuplicate: "Candidatos de apelido devem ser \xFAnicos"
+    },
+    header: "Subagentes Codex",
+    noAgents: "N\xE3o h\xE1 subagentes Codex no vault. Clique em + para criar um."
   }
 };
 var pt_default = {
@@ -52553,12 +53925,12 @@ var settings8 = {
     desc: "\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u0435\u0442 ~/.claude/settings.json. \u041F\u0440\u0438 \u0432\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0438 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C\u0441\u043A\u0438\u0435 \u043F\u0440\u0430\u0432\u0438\u043B\u0430 \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043D\u0438\u0439 Claude Code \u043C\u043E\u0433\u0443\u0442 \u043E\u0431\u0445\u043E\u0434\u0438\u0442\u044C \u0431\u0435\u0437\u043E\u043F\u0430\u0441\u043D\u044B\u0439 \u0440\u0435\u0436\u0438\u043C."
   },
   claudeSafeMode: {
-    name: "Safe mode",
-    desc: "Permission mode used when the Safe toggle is active."
+    name: "\u0411\u0435\u0437\u043E\u043F\u0430\u0441\u043D\u044B\u0439 \u0440\u0435\u0436\u0438\u043C",
+    desc: "\u0420\u0435\u0436\u0438\u043C \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043D\u0438\u0439, \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C\u044B\u0439, \u043A\u043E\u0433\u0434\u0430 \u043F\u0435\u0440\u0435\u043A\u043B\u044E\u0447\u0430\u0442\u0435\u043B\u044C Safe \u0430\u043A\u0442\u0438\u0432\u0435\u043D."
   },
   codexSafeMode: {
-    name: "Safe mode",
-    desc: "Sandbox mode used when the Safe toggle is active."
+    name: "\u0411\u0435\u0437\u043E\u043F\u0430\u0441\u043D\u044B\u0439 \u0440\u0435\u0436\u0438\u043C",
+    desc: "\u0420\u0435\u0436\u0438\u043C \u043F\u0435\u0441\u043E\u0447\u043D\u0438\u0446\u044B, \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C\u044B\u0439, \u043A\u043E\u0433\u0434\u0430 \u043F\u0435\u0440\u0435\u043A\u043B\u044E\u0447\u0430\u0442\u0435\u043B\u044C Safe \u0430\u043A\u0442\u0438\u0432\u0435\u043D."
   },
   environment: "\u041E\u043A\u0440\u0443\u0436\u0435\u043D\u0438\u0435",
   customVariables: {
@@ -52605,8 +53977,8 @@ var settings8 = {
     desc: "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C Sonnet 1M \u0432 \u0441\u0435\u043B\u0435\u043A\u0442\u043E\u0440\u0435 \u043C\u043E\u0434\u0435\u043B\u0435\u0439. \u0422\u0440\u0435\u0431\u0443\u0435\u0442\u0441\u044F \u0434\u043E\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0435 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435 \u0432 \u043F\u043B\u0430\u043D\u0430\u0445 Max, Team \u0438 Enterprise. \u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F\u043C API \u0438 Pro \u0442\u0440\u0435\u0431\u0443\u0435\u0442\u0441\u044F \u0434\u043E\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0435 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435."
   },
   customModels: {
-    name: "Custom models",
-    desc: "Append additional Claude model IDs to the picker, one per line. Environment model overrides still replace the picker.",
+    name: "\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C\u0441\u043A\u0438\u0435 \u043C\u043E\u0434\u0435\u043B\u0438",
+    desc: "\u0414\u043E\u0431\u0430\u0432\u044C\u0442\u0435 \u0434\u043E\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0435 ID \u043C\u043E\u0434\u0435\u043B\u0435\u0439 Claude \u0432 \u0441\u043F\u0438\u0441\u043E\u043A \u0432\u044B\u0431\u043E\u0440\u0430, \u043F\u043E \u043E\u0434\u043D\u043E\u043C\u0443 \u043D\u0430 \u0441\u0442\u0440\u043E\u043A\u0443. \u041F\u0435\u0440\u0435\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u044F \u043C\u043E\u0434\u0435\u043B\u0438 \u0438\u0437 \u043E\u043A\u0440\u0443\u0436\u0435\u043D\u0438\u044F \u043F\u043E-\u043F\u0440\u0435\u0436\u043D\u0435\u043C\u0443 \u0437\u0430\u043C\u0435\u043D\u044F\u044E\u0442 \u0441\u043F\u0438\u0441\u043E\u043A.",
     placeholder: "claude-opus-4-6\nclaude-opus-4-6[1m]\nclaude-opus-4-5-20251101"
   },
   enableChrome: {
@@ -52657,6 +54029,138 @@ var settings8 = {
   language: {
     name: "\u042F\u0437\u044B\u043A",
     desc: "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u044F\u0437\u044B\u043A \u0438\u043D\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430 \u043F\u043B\u0430\u0433\u0438\u043D\u0430"
+  },
+  codex: {
+    enableProvider: {
+      name: "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u043F\u0440\u043E\u0432\u0430\u0439\u0434\u0435\u0440\u0430 Codex",
+      desc: "\u041A\u043E\u0433\u0434\u0430 \u0432\u043A\u043B\u044E\u0447\u0435\u043D\u043E, \u043C\u043E\u0434\u0435\u043B\u0438 Codex \u043F\u043E\u044F\u0432\u043B\u044F\u044E\u0442\u0441\u044F \u0432 \u0432\u044B\u0431\u043E\u0440\u0435 \u043C\u043E\u0434\u0435\u043B\u0435\u0439 \u0434\u043B\u044F \u043D\u043E\u0432\u044B\u0445 \u0431\u0435\u0441\u0435\u0434. \u0421\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0435 \u0441\u0435\u0430\u043D\u0441\u044B Codex \u0441\u043E\u0445\u0440\u0430\u043D\u044F\u044E\u0442\u0441\u044F."
+    },
+    installationMethod: {
+      name: "\u0421\u043F\u043E\u0441\u043E\u0431 \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043A\u0438",
+      desc: "\u041A\u0430\u043A Claudian \u0434\u043E\u043B\u0436\u0435\u043D \u0437\u0430\u043F\u0443\u0441\u043A\u0430\u0442\u044C Codex \u0432 Windows. \u041D\u0430\u0442\u0438\u0432\u043D\u044B\u0439 Windows \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442 \u043F\u0443\u0442\u044C \u043A Windows-\u0438\u0441\u043F\u043E\u043B\u043D\u044F\u0435\u043C\u043E\u043C\u0443 \u0444\u0430\u0439\u043B\u0443. WSL \u0437\u0430\u043F\u0443\u0441\u043A\u0430\u0435\u0442 Linux CLI \u0432\u043D\u0443\u0442\u0440\u0438 \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u043E\u0433\u043E \u0434\u0438\u0441\u0442\u0440\u0438\u0431\u0443\u0442\u0438\u0432\u0430.",
+      nativeWindows: "\u041D\u0430\u0442\u0438\u0432\u043D\u044B\u0439 Windows",
+      wsl: "WSL"
+    },
+    cliPath: {
+      name: "\u041F\u0443\u0442\u044C \u043A Codex CLI",
+      descUnix: "\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C\u0441\u043A\u0438\u0439 \u043F\u0443\u0442\u044C \u043A \u043B\u043E\u043A\u0430\u043B\u044C\u043D\u043E\u043C\u0443 Codex CLI. \u041E\u0441\u0442\u0430\u0432\u044C\u0442\u0435 \u043F\u0443\u0441\u0442\u044B\u043C, \u0447\u0442\u043E\u0431\u044B \u0441\u043D\u0430\u0447\u0430\u043B\u0430 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C \u0438\u0437\u0432\u0435\u0441\u0442\u043D\u044B\u0435 \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043A\u0438 Codex, \u0437\u0430\u0442\u0435\u043C PATH.",
+      descWindows: "\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C\u0441\u043A\u0438\u0439 \u043F\u0443\u0442\u044C \u043A \u043B\u043E\u043A\u0430\u043B\u044C\u043D\u043E\u043C\u0443 Codex CLI. \u041E\u0441\u0442\u0430\u0432\u044C\u0442\u0435 \u043F\u0443\u0441\u0442\u044B\u043C \u0434\u043B\u044F \u0430\u0432\u0442\u043E\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u044F \u0447\u0435\u0440\u0435\u0437 PATH. \u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u043F\u0443\u0442\u044C \u043A \u043D\u0430\u0442\u0438\u0432\u043D\u043E\u043C\u0443 Windows-\u0438\u0441\u043F\u043E\u043B\u043D\u044F\u0435\u043C\u043E\u043C\u0443 \u0444\u0430\u0439\u043B\u0443, \u043E\u0431\u044B\u0447\u043D\u043E `codex.exe`.",
+      descWsl: "Linux-\u043A\u043E\u043C\u0430\u043D\u0434\u0430 Codex \u0438\u043B\u0438 \u0430\u0431\u0441\u043E\u043B\u044E\u0442\u043D\u044B\u0439 \u043F\u0443\u0442\u044C \u0434\u043B\u044F \u0437\u0430\u043F\u0443\u0441\u043A\u0430 \u0432\u043D\u0443\u0442\u0440\u0438 WSL. \u041E\u0441\u0442\u0430\u0432\u044C\u0442\u0435 \u043F\u0443\u0441\u0442\u044B\u043C \u0434\u043B\u044F \u043F\u043E\u0438\u0441\u043A\u0430 \u0432 PATH \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u043E\u0433\u043E \u0434\u0438\u0441\u0442\u0440\u0438\u0431\u0443\u0442\u0438\u0432\u0430.",
+      validation: {
+        wslWindowsPath: "\u0412 \u0440\u0435\u0436\u0438\u043C\u0435 WSL \u043E\u0436\u0438\u0434\u0430\u0435\u0442\u0441\u044F Linux-\u043A\u043E\u043C\u0430\u043D\u0434\u0430 \u0438\u043B\u0438 \u0430\u0431\u0441\u043E\u043B\u044E\u0442\u043D\u044B\u0439 Linux-\u043F\u0443\u0442\u044C, \u0430 \u043D\u0435 \u043F\u0443\u0442\u044C \u043A Windows-\u0438\u0441\u043F\u043E\u043B\u043D\u044F\u0435\u043C\u043E\u043C\u0443 \u0444\u0430\u0439\u043B\u0443."
+      }
+    },
+    wslDistroOverride: {
+      name: "\u041F\u0435\u0440\u0435\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u0435 \u0434\u0438\u0441\u0442\u0440\u0438\u0431\u0443\u0442\u0438\u0432\u0430 WSL",
+      desc: "\u041D\u0435\u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E\u0435 \u0440\u0430\u0441\u0448\u0438\u0440\u0435\u043D\u043D\u043E\u0435 \u043F\u0435\u0440\u0435\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u0435. \u041E\u0441\u0442\u0430\u0432\u044C\u0442\u0435 \u043F\u0443\u0441\u0442\u044B\u043C, \u0447\u0442\u043E\u0431\u044B \u043F\u043E \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0441\u0442\u0438 \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0438\u0442\u044C \u0434\u0438\u0441\u0442\u0440\u0438\u0431\u0443\u0442\u0438\u0432 \u0438\u0437 \u043F\u0443\u0442\u0438 \u0440\u0430\u0431\u043E\u0447\u0435\u0439 \u043E\u0431\u043B\u0430\u0441\u0442\u0438 WSL, \u0438\u043D\u0430\u0447\u0435 \u0431\u0443\u0434\u0435\u0442 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D \u0434\u0438\u0441\u0442\u0440\u0438\u0431\u0443\u0442\u0438\u0432 WSL \u043F\u043E \u0443\u043C\u043E\u043B\u0447\u0430\u043D\u0438\u044E."
+    },
+    safeMode: {
+      workspaceWrite: "\u0417\u0430\u043F\u0438\u0441\u044C \u0432 \u0440\u0430\u0431\u043E\u0447\u0443\u044E \u043E\u0431\u043B\u0430\u0441\u0442\u044C",
+      readOnly: "\u0422\u043E\u043B\u044C\u043A\u043E \u0447\u0442\u0435\u043D\u0438\u0435"
+    },
+    customModels: {
+      name: "\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C\u0441\u043A\u0438\u0435 \u043C\u043E\u0434\u0435\u043B\u0438",
+      desc: "\u0414\u043E\u0431\u0430\u0432\u044C\u0442\u0435 \u0434\u043E\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0435 ID \u043C\u043E\u0434\u0435\u043B\u0435\u0439 Codex \u0432 \u0441\u043F\u0438\u0441\u043E\u043A \u0432\u044B\u0431\u043E\u0440\u0430, \u043F\u043E \u043E\u0434\u043D\u043E\u043C\u0443 \u043D\u0430 \u0441\u0442\u0440\u043E\u043A\u0443. `OPENAI_MODEL` \u043F\u043E-\u043F\u0440\u0435\u0436\u043D\u0435\u043C\u0443 \u0438\u043C\u0435\u0435\u0442 \u043F\u0440\u0438\u043E\u0440\u0438\u0442\u0435\u0442, \u0435\u0441\u043B\u0438 \u0437\u0430\u0434\u0430\u043D.",
+      placeholder: "gpt-5.4\ngpt-5.3-codex-spark"
+    },
+    reasoningSummary: {
+      name: "\u0421\u0432\u043E\u0434\u043A\u0430 \u0440\u0430\u0441\u0441\u0443\u0436\u0434\u0435\u043D\u0438\u0439",
+      desc: "\u041F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0442\u044C \u0441\u0432\u043E\u0434\u043A\u0443 \u043F\u0440\u043E\u0446\u0435\u0441\u0441\u0430 \u0440\u0430\u0441\u0441\u0443\u0436\u0434\u0435\u043D\u0438\u0439 \u043C\u043E\u0434\u0435\u043B\u0438 \u0432 \u0431\u043B\u043E\u043A\u0435 \u0440\u0430\u0437\u043C\u044B\u0448\u043B\u0435\u043D\u0438\u0439.",
+      auto: "\u0410\u0432\u0442\u043E",
+      concise: "\u041A\u0440\u0430\u0442\u043A\u043E",
+      detailed: "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u043E",
+      off: "\u0412\u044B\u043A\u043B."
+    },
+    skills: {
+      name: "\u041D\u0430\u0432\u044B\u043A\u0438 Codex",
+      desc: "\u0423\u043F\u0440\u0430\u0432\u043B\u044F\u0439\u0442\u0435 \u043D\u0430\u0432\u044B\u043A\u0430\u043C\u0438 Codex \u0443\u0440\u043E\u0432\u043D\u044F vault, \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u043D\u044B\u043C\u0438 \u0432 .codex/skills/ \u0438\u043B\u0438 .agents/skills/. \u041D\u0430\u0432\u044B\u043A\u0438 \u0443\u0440\u043E\u0432\u043D\u044F home \u0437\u0434\u0435\u0441\u044C \u0438\u0441\u043A\u043B\u044E\u0447\u0435\u043D\u044B.",
+      hiddenName: "\u0421\u043A\u0440\u044B\u0442\u044B\u0435 \u043D\u0430\u0432\u044B\u043A\u0438",
+      hiddenDesc: "\u0421\u043A\u0440\u044B\u0442\u044C \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u044B\u0435 \u043D\u0430\u0432\u044B\u043A\u0438 Codex \u0438\u0437 \u0441\u043F\u0438\u0441\u043A\u0430. \u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0438\u043C\u0435\u043D\u0430 \u043D\u0430\u0432\u044B\u043A\u043E\u0432 \u0431\u0435\u0437 \u043D\u0430\u0447\u0430\u043B\u044C\u043D\u043E\u0433\u043E $, \u043F\u043E \u043E\u0434\u043D\u043E\u043C\u0443 \u043D\u0430 \u0441\u0442\u0440\u043E\u043A\u0443.",
+      hiddenPlaceholder: "analyze\nexplain\nfix"
+    },
+    subagents: {
+      name: "\u0421\u0443\u0431\u0430\u0433\u0435\u043D\u0442\u044B Codex",
+      desc: "\u0423\u043F\u0440\u0430\u0432\u043B\u044F\u0439\u0442\u0435 \u0441\u0443\u0431\u0430\u0433\u0435\u043D\u0442\u0430\u043C\u0438 Codex \u0443\u0440\u043E\u0432\u043D\u044F vault, \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u043D\u044B\u043C\u0438 \u0432 .codex/agents/. \u041A\u0430\u0436\u0434\u044B\u0439 TOML-\u0444\u0430\u0439\u043B \u0437\u0430\u0434\u0430\u0435\u0442 \u043E\u0434\u043D\u043E\u0433\u043E \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C\u0441\u043A\u043E\u0433\u043E \u0430\u0433\u0435\u043D\u0442\u0430."
+    },
+    mcp: {
+      descBeforeCommand: "Codex \u0443\u043F\u0440\u0430\u0432\u043B\u044F\u0435\u0442 MCP-\u0441\u0435\u0440\u0432\u0435\u0440\u0430\u043C\u0438 \u0447\u0435\u0440\u0435\u0437 \u0441\u043E\u0431\u0441\u0442\u0432\u0435\u043D\u043D\u044B\u0439 CLI. \u041D\u0430\u0441\u0442\u0440\u043E\u0439\u0442\u0435 \u0447\u0435\u0440\u0435\u0437 ",
+      descAfterCommand: ", \u0438 \u043E\u043D\u0438 \u0431\u0443\u0434\u0443\u0442 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B \u0432 Claudian. ",
+      learnMore: "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435"
+    },
+    environment: {
+      name: "\u041E\u043A\u0440\u0443\u0436\u0435\u043D\u0438\u0435 Codex",
+      desc: "\u0422\u043E\u043B\u044C\u043A\u043E \u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u0435 \u0441\u0440\u0435\u0434\u044B \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044F, \u043F\u0440\u0438\u043D\u0430\u0434\u043B\u0435\u0436\u0430\u0449\u0438\u0435 Codex. \u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u0434\u043B\u044F \u043D\u0430\u0441\u0442\u0440\u043E\u0435\u043A OPENAI_* \u0438 CODEX_*. \u0415\u0441\u043B\u0438 \u0430\u0432\u0442\u043E\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u044E Codex \u043D\u0443\u0436\u043D\u0430 \u043F\u043E\u043C\u043E\u0449\u044C, \u0434\u043E\u0431\u0430\u0432\u044C\u0442\u0435 \u043A\u0430\u0442\u0430\u043B\u043E\u0433 \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043A\u0438 \u0432 \u043E\u0431\u0449\u0438\u0439 PATH, \u0430 \u043D\u0435 \u0432 \u044D\u0442\u043E\u0442 \u0440\u0430\u0437\u0434\u0435\u043B \u043F\u0440\u043E\u0432\u0430\u0439\u0434\u0435\u0440\u0430."
+    }
+  },
+  codexSkills: {
+    modal: {
+      titleEdit: "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043D\u0430\u0432\u044B\u043A Codex",
+      titleAdd: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043D\u0430\u0432\u044B\u043A Codex",
+      directory: "\u041A\u0430\u0442\u0430\u043B\u043E\u0433",
+      directoryDesc: "\u0413\u0434\u0435 \u0445\u0440\u0430\u043D\u0438\u0442\u044C \u043D\u0430\u0432\u044B\u043A",
+      skillName: "\u0418\u043C\u044F \u043D\u0430\u0432\u044B\u043A\u0430",
+      skillNameDesc: '\u0418\u043C\u044F, \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C\u043E\u0435 \u043F\u043E\u0441\u043B\u0435 $ (\u043D\u0430\u043F\u0440\u0438\u043C\u0435\u0440, "analyze" \u0434\u043B\u044F $analyze)',
+      description: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435",
+      descriptionDesc: "\u041D\u0435\u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435, \u043E\u0442\u043E\u0431\u0440\u0430\u0436\u0430\u0435\u043C\u043E\u0435 \u0432 \u0441\u043F\u0438\u0441\u043A\u0435",
+      instructions: "\u0418\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u0438",
+      instructionsDesc: "\u0418\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u0438 \u043D\u0430\u0432\u044B\u043A\u0430 (\u0441\u043E\u0434\u0435\u0440\u0436\u0438\u043C\u043E\u0435 SKILL.md)",
+      instructionsPlaceholder: "Analyze the code for..."
+    },
+    instructionsRequired: "\u0418\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u0438 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u044B",
+    saveFailed: "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u043D\u0430\u0432\u044B\u043A Codex",
+    header: "\u041D\u0430\u0432\u044B\u043A\u0438 Codex",
+    noSkills: "\u0412 vault \u043D\u0435\u0442 \u043D\u0430\u0432\u044B\u043A\u043E\u0432 Codex. \u041D\u0430\u0436\u043C\u0438\u0442\u0435 +, \u0447\u0442\u043E\u0431\u044B \u0441\u043E\u0437\u0434\u0430\u0442\u044C \u043D\u0430\u0432\u044B\u043A.",
+    skillBadge: "\u043D\u0430\u0432\u044B\u043A",
+    deleted: '\u041D\u0430\u0432\u044B\u043A Codex "{name}" \u0443\u0434\u0430\u043B\u0435\u043D',
+    deleteFailed: "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u043D\u0430\u0432\u044B\u043A Codex",
+    created: '\u041D\u0430\u0432\u044B\u043A Codex "{name}" \u0441\u043E\u0437\u0434\u0430\u043D',
+    updated: '\u041D\u0430\u0432\u044B\u043A Codex "{name}" \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D'
+  },
+  codexSubagents: {
+    modal: {
+      titleEdit: "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u0441\u0443\u0431\u0430\u0433\u0435\u043D\u0442\u0430 Codex",
+      titleAdd: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0441\u0443\u0431\u0430\u0433\u0435\u043D\u0442\u0430 Codex",
+      nameDesc: "\u0418\u043C\u044F \u0430\u0433\u0435\u043D\u0442\u0430, \u043A\u043E\u0442\u043E\u0440\u043E\u0435 Codex \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442 \u043F\u0440\u0438 \u0437\u0430\u043F\u0443\u0441\u043A\u0435 (\u0441\u0442\u0440\u043E\u0447\u043D\u044B\u0435 \u0431\u0443\u043A\u0432\u044B, \u0434\u0435\u0444\u0438\u0441\u044B, \u043F\u043E\u0434\u0447\u0435\u0440\u043A\u0438\u0432\u0430\u043D\u0438\u044F)",
+      descriptionDesc: "\u041A\u043E\u0433\u0434\u0430 Codex \u0434\u043E\u043B\u0436\u0435\u043D \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C \u044D\u0442\u043E\u0433\u043E \u0430\u0433\u0435\u043D\u0442\u0430",
+      modelDesc: "\u041F\u0435\u0440\u0435\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u0435 \u043C\u043E\u0434\u0435\u043B\u0438 (\u043F\u0443\u0441\u0442\u043E = \u043D\u0430\u0441\u043B\u0435\u0434\u043E\u0432\u0430\u0442\u044C)",
+      namePlaceholder: "code_reviewer"
+    },
+    reasoningEffort: {
+      name: "\u0423\u0441\u0438\u043B\u0438\u0435 \u0440\u0430\u0441\u0441\u0443\u0436\u0434\u0435\u043D\u0438\u044F",
+      desc: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C \u0443\u0441\u0438\u043B\u0438\u044F \u0440\u0430\u0441\u0441\u0443\u0436\u0434\u0435\u043D\u0438\u044F \u043C\u043E\u0434\u0435\u043B\u0438",
+      inherit: "\u041D\u0430\u0441\u043B\u0435\u0434\u043E\u0432\u0430\u0442\u044C",
+      low: "\u041D\u0438\u0437\u043A\u0438\u0439",
+      medium: "\u0421\u0440\u0435\u0434\u043D\u0438\u0439",
+      high: "\u0412\u044B\u0441\u043E\u043A\u0438\u0439",
+      xhigh: "\u041E\u0447\u0435\u043D\u044C \u0432\u044B\u0441\u043E\u043A\u0438\u0439"
+    },
+    sandboxMode: {
+      name: "\u0420\u0435\u0436\u0438\u043C \u043F\u0435\u0441\u043E\u0447\u043D\u0438\u0446\u044B",
+      desc: "\u041E\u0433\u0440\u0430\u043D\u0438\u0447\u0435\u043D\u0438\u0435 \u043F\u0435\u0441\u043E\u0447\u043D\u0438\u0446\u044B \u0434\u043B\u044F \u044D\u0442\u043E\u0433\u043E \u0430\u0433\u0435\u043D\u0442\u0430",
+      inherit: "\u041D\u0430\u0441\u043B\u0435\u0434\u043E\u0432\u0430\u0442\u044C",
+      readOnly: "\u0422\u043E\u043B\u044C\u043A\u043E \u0447\u0442\u0435\u043D\u0438\u0435",
+      dangerFullAccess: "\u041F\u043E\u043B\u043D\u044B\u0439 \u0434\u043E\u0441\u0442\u0443\u043F",
+      workspaceWrite: "\u0417\u0430\u043F\u0438\u0441\u044C \u0432 \u0440\u0430\u0431\u043E\u0447\u0443\u044E \u043E\u0431\u043B\u0430\u0441\u0442\u044C"
+    },
+    nicknameCandidates: {
+      name: "\u0412\u0430\u0440\u0438\u0430\u043D\u0442\u044B \u043F\u0441\u0435\u0432\u0434\u043E\u043D\u0438\u043C\u043E\u0432",
+      desc: "\u041E\u0442\u043E\u0431\u0440\u0430\u0436\u0430\u0435\u043C\u044B\u0435 \u043F\u0441\u0435\u0432\u0434\u043E\u043D\u0438\u043C\u044B \u0447\u0435\u0440\u0435\u0437 \u0437\u0430\u043F\u044F\u0442\u0443\u044E (\u043D\u0430\u043F\u0440\u0438\u043C\u0435\u0440: atlas, delta, echo)"
+    },
+    developerInstructions: {
+      name: "\u0418\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u0438 \u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u0447\u0438\u043A\u0430",
+      desc: "\u041E\u0441\u043D\u043E\u0432\u043D\u044B\u0435 \u0438\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u0438, \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u044F\u044E\u0449\u0438\u0435 \u043F\u043E\u0432\u0435\u0434\u0435\u043D\u0438\u0435 \u0430\u0433\u0435\u043D\u0442\u0430",
+      placeholder: "Review code like an owner.\nPrioritize correctness, security, and missing test coverage.",
+      required: "\u0418\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u0438 \u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u0447\u0438\u043A\u0430 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u044B"
+    },
+    validation: {
+      nameRequired: "\u0418\u043C\u044F \u0441\u0443\u0431\u0430\u0433\u0435\u043D\u0442\u0430 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E",
+      nameTooLong: "\u0418\u043C\u044F \u0441\u0443\u0431\u0430\u0433\u0435\u043D\u0442\u0430 \u0434\u043E\u043B\u0436\u043D\u043E \u0431\u044B\u0442\u044C \u043D\u0435 \u0434\u043B\u0438\u043D\u043D\u0435\u0435 {count} \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432",
+      nameInvalid: "\u0418\u043C\u044F \u0441\u0443\u0431\u0430\u0433\u0435\u043D\u0442\u0430 \u043C\u043E\u0436\u0435\u0442 \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u0442\u043E\u043B\u044C\u043A\u043E \u0441\u0442\u0440\u043E\u0447\u043D\u044B\u0435 \u0431\u0443\u043A\u0432\u044B, \u0446\u0438\u0444\u0440\u044B, \u0434\u0435\u0444\u0438\u0441\u044B \u0438 \u043F\u043E\u0434\u0447\u0435\u0440\u043A\u0438\u0432\u0430\u043D\u0438\u044F",
+      nicknameInvalid: "\u0412\u0430\u0440\u0438\u0430\u043D\u0442\u044B \u043F\u0441\u0435\u0432\u0434\u043E\u043D\u0438\u043C\u043E\u0432 \u043C\u043E\u0433\u0443\u0442 \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u0442\u043E\u043B\u044C\u043A\u043E ASCII-\u0431\u0443\u043A\u0432\u044B, \u0446\u0438\u0444\u0440\u044B, \u043F\u0440\u043E\u0431\u0435\u043B\u044B, \u0434\u0435\u0444\u0438\u0441\u044B \u0438 \u043F\u043E\u0434\u0447\u0435\u0440\u043A\u0438\u0432\u0430\u043D\u0438\u044F",
+      nicknameDuplicate: "\u0412\u0430\u0440\u0438\u0430\u043D\u0442\u044B \u043F\u0441\u0435\u0432\u0434\u043E\u043D\u0438\u043C\u043E\u0432 \u0434\u043E\u043B\u0436\u043D\u044B \u0431\u044B\u0442\u044C \u0443\u043D\u0438\u043A\u0430\u043B\u044C\u043D\u044B\u043C\u0438"
+    },
+    header: "\u0421\u0443\u0431\u0430\u0433\u0435\u043D\u0442\u044B Codex",
+    noAgents: "\u0412 vault \u043D\u0435\u0442 \u0441\u0443\u0431\u0430\u0433\u0435\u043D\u0442\u043E\u0432 Codex. \u041D\u0430\u0436\u043C\u0438\u0442\u0435 +, \u0447\u0442\u043E\u0431\u044B \u0441\u043E\u0437\u0434\u0430\u0442\u044C \u043E\u0434\u043D\u043E\u0433\u043E."
   }
 };
 var ru_default = {
@@ -52887,12 +54391,12 @@ var settings9 = {
     desc: "\u52A0\u8F7D ~/.claude/settings.json\u3002\u542F\u7528\u540E\uFF0C\u7528\u6237\u7684 Claude Code \u6743\u9650\u89C4\u5219\u53EF\u80FD\u7ED5\u8FC7\u5B89\u5168\u6A21\u5F0F\u3002"
   },
   claudeSafeMode: {
-    name: "Safe mode",
-    desc: "Permission mode used when the Safe toggle is active."
+    name: "\u5B89\u5168\u6A21\u5F0F",
+    desc: "\u542F\u7528 Safe \u5F00\u5173\u65F6\u4F7F\u7528\u7684\u6743\u9650\u6A21\u5F0F\u3002"
   },
   codexSafeMode: {
-    name: "Safe mode",
-    desc: "Sandbox mode used when the Safe toggle is active."
+    name: "\u5B89\u5168\u6A21\u5F0F",
+    desc: "\u542F\u7528 Safe \u5F00\u5173\u65F6\u4F7F\u7528\u7684\u6C99\u76D2\u6A21\u5F0F\u3002"
   },
   environment: "\u73AF\u5883",
   customVariables: {
@@ -52939,8 +54443,8 @@ var settings9 = {
     desc: "\u5728\u6A21\u578B\u9009\u62E9\u5668\u4E2D\u663E\u793A Sonnet 1M\u3002Max\u3001Team \u548C Enterprise \u8BA1\u5212\u9700\u8981\u989D\u5916\u7528\u91CF\u3002API \u548C Pro \u7528\u6237\u9700\u8981\u989D\u5916\u7528\u91CF\u3002"
   },
   customModels: {
-    name: "Custom models",
-    desc: "Append additional Claude model IDs to the picker, one per line. Environment model overrides still replace the picker.",
+    name: "\u81EA\u5B9A\u4E49\u6A21\u578B",
+    desc: "\u5411\u9009\u62E9\u5668\u8FFD\u52A0\u989D\u5916\u7684 Claude \u6A21\u578B ID\uFF0C\u6BCF\u884C\u4E00\u4E2A\u3002\u73AF\u5883\u4E2D\u7684\u6A21\u578B\u8986\u76D6\u4ECD\u4F1A\u66FF\u6362\u9009\u62E9\u5668\u3002",
     placeholder: "claude-opus-4-6\nclaude-opus-4-6[1m]\nclaude-opus-4-5-20251101"
   },
   enableChrome: {
@@ -52991,6 +54495,138 @@ var settings9 = {
   language: {
     name: "\u8BED\u8A00",
     desc: "\u66F4\u6539\u63D2\u4EF6\u754C\u9762\u7684\u663E\u793A\u8BED\u8A00"
+  },
+  codex: {
+    enableProvider: {
+      name: "\u542F\u7528 Codex \u63D0\u4F9B\u5546",
+      desc: "\u542F\u7528\u540E\uFF0CCodex \u6A21\u578B\u4F1A\u51FA\u73B0\u5728\u65B0\u5BF9\u8BDD\u7684\u6A21\u578B\u9009\u62E9\u5668\u4E2D\u3002\u73B0\u6709 Codex \u4F1A\u8BDD\u4F1A\u4FDD\u7559\u3002"
+    },
+    installationMethod: {
+      name: "\u5B89\u88C5\u65B9\u5F0F",
+      desc: "Claudian \u5728 Windows \u4E0A\u542F\u52A8 Codex \u7684\u65B9\u5F0F\u3002\u539F\u751F Windows \u4F7F\u7528 Windows \u53EF\u6267\u884C\u6587\u4EF6\u8DEF\u5F84\uFF1BWSL \u4F1A\u5728\u6240\u9009\u53D1\u884C\u7248\u5185\u542F\u52A8 Linux CLI\u3002",
+      nativeWindows: "\u539F\u751F Windows",
+      wsl: "WSL"
+    },
+    cliPath: {
+      name: "Codex CLI \u8DEF\u5F84",
+      descUnix: "\u672C\u673A Codex CLI \u7684\u81EA\u5B9A\u4E49\u8DEF\u5F84\u3002\u7559\u7A7A\u4F1A\u4F18\u5148\u4F7F\u7528\u5DF2\u77E5 Codex \u5B89\u88C5\uFF0C\u7136\u540E\u67E5\u627E PATH\u3002",
+      descWindows: "\u672C\u673A Codex CLI \u7684\u81EA\u5B9A\u4E49\u8DEF\u5F84\u3002\u7559\u7A7A\u4F1A\u4ECE PATH \u81EA\u52A8\u68C0\u6D4B\u3002\u8BF7\u4F7F\u7528\u539F\u751F Windows \u53EF\u6267\u884C\u6587\u4EF6\u8DEF\u5F84\uFF0C\u901A\u5E38\u4E3A `codex.exe`\u3002",
+      descWsl: "\u5728 WSL \u5185\u8FD0\u884C\u7684 Linux \u7AEF Codex \u547D\u4EE4\u6216\u7EDD\u5BF9\u8DEF\u5F84\u3002\u7559\u7A7A\u4F1A\u5728\u6240\u9009\u53D1\u884C\u7248\u5185\u67E5\u627E PATH\u3002",
+      validation: {
+        wslWindowsPath: "WSL \u6A21\u5F0F\u9700\u8981 Linux \u547D\u4EE4\u6216 Linux \u7EDD\u5BF9\u8DEF\u5F84\uFF0C\u800C\u4E0D\u662F Windows \u53EF\u6267\u884C\u6587\u4EF6\u8DEF\u5F84\u3002"
+      }
+    },
+    wslDistroOverride: {
+      name: "WSL \u53D1\u884C\u7248\u8986\u76D6",
+      desc: "\u53EF\u9009\u9AD8\u7EA7\u8986\u76D6\u3002\u7559\u7A7A\u65F6\u4F1A\u5C3D\u53EF\u80FD\u4ECE WSL \u5DE5\u4F5C\u533A\u8DEF\u5F84\u63A8\u65AD\u53D1\u884C\u7248\uFF0C\u5426\u5219\u4F7F\u7528\u9ED8\u8BA4 WSL \u53D1\u884C\u7248\u3002"
+    },
+    safeMode: {
+      workspaceWrite: "\u5DE5\u4F5C\u533A\u53EF\u5199",
+      readOnly: "\u53EA\u8BFB"
+    },
+    customModels: {
+      name: "\u81EA\u5B9A\u4E49\u6A21\u578B",
+      desc: "\u5411\u9009\u62E9\u5668\u8FFD\u52A0\u989D\u5916\u7684 Codex \u6A21\u578B ID\uFF0C\u6BCF\u884C\u4E00\u4E2A\u3002\u8BBE\u7F6E `OPENAI_MODEL` \u65F6\u4ECD\u4F18\u5148\u751F\u6548\u3002",
+      placeholder: "gpt-5.4\ngpt-5.3-codex-spark"
+    },
+    reasoningSummary: {
+      name: "\u63A8\u7406\u6458\u8981",
+      desc: "\u5728\u601D\u8003\u5757\u4E2D\u663E\u793A\u6A21\u578B\u63A8\u7406\u8FC7\u7A0B\u7684\u6458\u8981\u3002",
+      auto: "\u81EA\u52A8",
+      concise: "\u7B80\u6D01",
+      detailed: "\u8BE6\u7EC6",
+      off: "\u5173\u95ED"
+    },
+    skills: {
+      name: "Codex \u6280\u80FD",
+      desc: "\u7BA1\u7406\u5B58\u50A8\u5728 .codex/skills/ \u6216 .agents/skills/ \u4E2D\u7684 Vault \u7EA7 Codex \u6280\u80FD\u3002\u6B64\u5904\u4E0D\u5305\u542B\u4E3B\u76EE\u5F55\u7EA7\u6280\u80FD\u3002",
+      hiddenName: "\u9690\u85CF\u6280\u80FD",
+      hiddenDesc: "\u4ECE\u4E0B\u62C9\u83DC\u5355\u4E2D\u9690\u85CF\u7279\u5B9A Codex \u6280\u80FD\u3002\u6BCF\u884C\u8F93\u5165\u4E00\u4E2A\u6280\u80FD\u540D\u79F0\uFF0C\u4E0D\u5E26\u524D\u5BFC $\u3002",
+      hiddenPlaceholder: "analyze\nexplain\nfix"
+    },
+    subagents: {
+      name: "Codex \u5B50\u4EE3\u7406",
+      desc: "\u7BA1\u7406\u5B58\u50A8\u5728 .codex/agents/ \u4E2D\u7684 Vault \u7EA7 Codex \u5B50\u4EE3\u7406\u3002\u6BCF\u4E2A TOML \u6587\u4EF6\u5B9A\u4E49\u4E00\u4E2A\u81EA\u5B9A\u4E49\u4EE3\u7406\u3002"
+    },
+    mcp: {
+      descBeforeCommand: "Codex \u901A\u8FC7\u81EA\u5DF1\u7684 CLI \u7BA1\u7406 MCP \u670D\u52A1\u5668\u3002\u8BF7\u4F7F\u7528 ",
+      descAfterCommand: " \u8FDB\u884C\u914D\u7F6E\uFF0C\u5B83\u4EEC\u4F1A\u5728 Claudian \u4E2D\u53EF\u7528\u3002",
+      learnMore: "\u4E86\u89E3\u66F4\u591A"
+    },
+    environment: {
+      name: "Codex \u73AF\u5883",
+      desc: "\u4EC5\u9650 Codex \u62E5\u6709\u7684\u8FD0\u884C\u65F6\u53D8\u91CF\u3002\u7528\u4E8E OPENAI_* \u548C CODEX_* \u8BBE\u7F6E\u3002\u5982\u679C Codex \u81EA\u52A8\u68C0\u6D4B\u9700\u8981\u5E2E\u52A9\uFF0C\u8BF7\u628A\u5B89\u88C5\u76EE\u5F55\u6DFB\u52A0\u5230\u5171\u4EAB PATH\uFF0C\u800C\u4E0D\u662F\u6B64\u63D0\u4F9B\u5546\u73AF\u5883\u3002"
+    }
+  },
+  codexSkills: {
+    modal: {
+      titleEdit: "\u7F16\u8F91 Codex \u6280\u80FD",
+      titleAdd: "\u6DFB\u52A0 Codex \u6280\u80FD",
+      directory: "\u76EE\u5F55",
+      directoryDesc: "\u6280\u80FD\u7684\u5B58\u50A8\u4F4D\u7F6E",
+      skillName: "\u6280\u80FD\u540D\u79F0",
+      skillNameDesc: "\u5728 $ \u540E\u4F7F\u7528\u7684\u540D\u79F0\uFF08\u4F8B\u5982 $analyze \u7684\u540D\u79F0\u4E3A \u201Canalyze\u201D\uFF09",
+      description: "\u63CF\u8FF0",
+      descriptionDesc: "\u4E0B\u62C9\u83DC\u5355\u4E2D\u663E\u793A\u7684\u53EF\u9009\u63CF\u8FF0",
+      instructions: "\u6307\u4EE4",
+      instructionsDesc: "\u6280\u80FD\u6307\u4EE4\uFF08SKILL.md \u5185\u5BB9\uFF09",
+      instructionsPlaceholder: "Analyze the code for..."
+    },
+    instructionsRequired: "\u6307\u4EE4\u4E3A\u5FC5\u586B\u9879",
+    saveFailed: "\u4FDD\u5B58 Codex \u6280\u80FD\u5931\u8D25",
+    header: "Codex \u6280\u80FD",
+    noSkills: "Vault \u4E2D\u6CA1\u6709 Codex \u6280\u80FD\u3002\u70B9\u51FB + \u521B\u5EFA\u4E00\u4E2A\u3002",
+    skillBadge: "\u6280\u80FD",
+    deleted: "\u5DF2\u5220\u9664 Codex \u6280\u80FD\u201C{name}\u201D",
+    deleteFailed: "\u5220\u9664 Codex \u6280\u80FD\u5931\u8D25",
+    created: "\u5DF2\u521B\u5EFA Codex \u6280\u80FD\u201C{name}\u201D",
+    updated: "\u5DF2\u66F4\u65B0 Codex \u6280\u80FD\u201C{name}\u201D"
+  },
+  codexSubagents: {
+    modal: {
+      titleEdit: "\u7F16\u8F91 Codex \u5B50\u4EE3\u7406",
+      titleAdd: "\u6DFB\u52A0 Codex \u5B50\u4EE3\u7406",
+      nameDesc: "Codex \u6D3E\u751F\u4EE3\u7406\u65F6\u4F7F\u7528\u7684\u4EE3\u7406\u540D\u79F0\uFF08\u5C0F\u5199\u3001\u8FDE\u5B57\u7B26\u3001\u4E0B\u5212\u7EBF\uFF09",
+      descriptionDesc: "Codex \u5E94\u5728\u4F55\u65F6\u4F7F\u7528\u8BE5\u4EE3\u7406",
+      modelDesc: "\u6A21\u578B\u8986\u76D6\uFF08\u7559\u7A7A\u8868\u793A\u7EE7\u627F\uFF09",
+      namePlaceholder: "code_reviewer"
+    },
+    reasoningEffort: {
+      name: "\u63A8\u7406\u5F3A\u5EA6",
+      desc: "\u6A21\u578B\u63A8\u7406\u5F3A\u5EA6\u7EA7\u522B",
+      inherit: "\u7EE7\u627F",
+      low: "\u4F4E",
+      medium: "\u4E2D",
+      high: "\u9AD8",
+      xhigh: "\u6781\u9AD8"
+    },
+    sandboxMode: {
+      name: "\u6C99\u76D2\u6A21\u5F0F",
+      desc: "\u8BE5\u4EE3\u7406\u7684\u6C99\u76D2\u9650\u5236",
+      inherit: "\u7EE7\u627F",
+      readOnly: "\u53EA\u8BFB",
+      dangerFullAccess: "\u5B8C\u5168\u8BBF\u95EE",
+      workspaceWrite: "\u5DE5\u4F5C\u533A\u53EF\u5199"
+    },
+    nicknameCandidates: {
+      name: "\u6635\u79F0\u5019\u9009",
+      desc: "\u663E\u793A\u6635\u79F0\uFF0C\u4F7F\u7528\u9017\u53F7\u5206\u9694\uFF08\u4F8B\u5982 atlas, delta, echo\uFF09"
+    },
+    developerInstructions: {
+      name: "\u5F00\u53D1\u8005\u6307\u4EE4",
+      desc: "\u5B9A\u4E49\u4EE3\u7406\u884C\u4E3A\u7684\u6838\u5FC3\u6307\u4EE4",
+      placeholder: "Review code like an owner.\nPrioritize correctness, security, and missing test coverage.",
+      required: "\u5F00\u53D1\u8005\u6307\u4EE4\u4E3A\u5FC5\u586B\u9879"
+    },
+    validation: {
+      nameRequired: "\u5B50\u4EE3\u7406\u540D\u79F0\u4E3A\u5FC5\u586B\u9879",
+      nameTooLong: "\u5B50\u4EE3\u7406\u540D\u79F0\u5FC5\u987B\u4E0D\u8D85\u8FC7 {count} \u4E2A\u5B57\u7B26",
+      nameInvalid: "\u5B50\u4EE3\u7406\u540D\u79F0\u53EA\u80FD\u5305\u542B\u5C0F\u5199\u5B57\u6BCD\u3001\u6570\u5B57\u3001\u8FDE\u5B57\u7B26\u548C\u4E0B\u5212\u7EBF",
+      nicknameInvalid: "\u6635\u79F0\u5019\u9009\u53EA\u80FD\u5305\u542B ASCII \u5B57\u6BCD\u3001\u6570\u5B57\u3001\u7A7A\u683C\u3001\u8FDE\u5B57\u7B26\u548C\u4E0B\u5212\u7EBF",
+      nicknameDuplicate: "\u6635\u79F0\u5019\u9009\u5FC5\u987B\u552F\u4E00"
+    },
+    header: "Codex \u5B50\u4EE3\u7406",
+    noAgents: "Vault \u4E2D\u6CA1\u6709 Codex \u5B50\u4EE3\u7406\u3002\u70B9\u51FB + \u521B\u5EFA\u4E00\u4E2A\u3002"
   }
 };
 var zh_CN_default = {
@@ -53221,12 +54857,12 @@ var settings10 = {
     desc: "\u8F09\u5165 ~/.claude/settings.json\u3002\u555F\u7528\u5F8C\uFF0C\u4F7F\u7528\u8005\u7684 Claude Code \u6B0A\u9650\u898F\u5247\u53EF\u80FD\u7E5E\u904E\u5B89\u5168\u6A21\u5F0F\u3002"
   },
   claudeSafeMode: {
-    name: "Safe mode",
-    desc: "Permission mode used when the Safe toggle is active."
+    name: "\u5B89\u5168\u6A21\u5F0F",
+    desc: "\u555F\u7528 Safe \u958B\u95DC\u6642\u4F7F\u7528\u7684\u6B0A\u9650\u6A21\u5F0F\u3002"
   },
   codexSafeMode: {
-    name: "Safe mode",
-    desc: "Sandbox mode used when the Safe toggle is active."
+    name: "\u5B89\u5168\u6A21\u5F0F",
+    desc: "\u555F\u7528 Safe \u958B\u95DC\u6642\u4F7F\u7528\u7684\u6C99\u76D2\u6A21\u5F0F\u3002"
   },
   environment: "\u74B0\u5883",
   customVariables: {
@@ -53273,8 +54909,8 @@ var settings10 = {
     desc: "\u5728\u6A21\u578B\u9078\u64C7\u5668\u4E2D\u986F\u793A Sonnet 1M\u3002Max\u3001Team \u548C Enterprise \u65B9\u6848\u9700\u8981\u984D\u5916\u7528\u91CF\u3002API \u548C Pro \u4F7F\u7528\u8005\u9700\u8981\u984D\u5916\u7528\u91CF\u3002"
   },
   customModels: {
-    name: "Custom models",
-    desc: "Append additional Claude model IDs to the picker, one per line. Environment model overrides still replace the picker.",
+    name: "\u81EA\u8A02\u6A21\u578B",
+    desc: "\u5411\u9078\u64C7\u5668\u8FFD\u52A0\u984D\u5916\u7684 Claude \u6A21\u578B ID\uFF0C\u6BCF\u884C\u4E00\u500B\u3002\u74B0\u5883\u4E2D\u7684\u6A21\u578B\u8986\u5BEB\u4ECD\u6703\u53D6\u4EE3\u9078\u64C7\u5668\u3002",
     placeholder: "claude-opus-4-6\nclaude-opus-4-6[1m]\nclaude-opus-4-5-20251101"
   },
   enableChrome: {
@@ -53325,6 +54961,138 @@ var settings10 = {
   language: {
     name: "\u8A9E\u8A00",
     desc: "\u66F4\u6539\u63D2\u4EF6\u4ECB\u9762\u7684\u986F\u793A\u8A9E\u8A00"
+  },
+  codex: {
+    enableProvider: {
+      name: "\u555F\u7528 Codex \u63D0\u4F9B\u8005",
+      desc: "\u555F\u7528\u5F8C\uFF0CCodex \u6A21\u578B\u6703\u51FA\u73FE\u5728\u65B0\u5C0D\u8A71\u7684\u6A21\u578B\u9078\u64C7\u5668\u4E2D\u3002\u73FE\u6709 Codex \u5DE5\u4F5C\u968E\u6BB5\u6703\u4FDD\u7559\u3002"
+    },
+    installationMethod: {
+      name: "\u5B89\u88DD\u65B9\u5F0F",
+      desc: "Claudian \u5728 Windows \u4E0A\u555F\u52D5 Codex \u7684\u65B9\u5F0F\u3002\u539F\u751F Windows \u4F7F\u7528 Windows \u53EF\u57F7\u884C\u6A94\u8DEF\u5F91\uFF1BWSL \u6703\u5728\u6240\u9078\u767C\u884C\u7248\u5167\u555F\u52D5 Linux CLI\u3002",
+      nativeWindows: "\u539F\u751F Windows",
+      wsl: "WSL"
+    },
+    cliPath: {
+      name: "Codex CLI \u8DEF\u5F91",
+      descUnix: "\u672C\u6A5F Codex CLI \u7684\u81EA\u8A02\u8DEF\u5F91\u3002\u7559\u7A7A\u6703\u512A\u5148\u4F7F\u7528\u5DF2\u77E5 Codex \u5B89\u88DD\uFF0C\u7136\u5F8C\u67E5\u627E PATH\u3002",
+      descWindows: "\u672C\u6A5F Codex CLI \u7684\u81EA\u8A02\u8DEF\u5F91\u3002\u7559\u7A7A\u6703\u5F9E PATH \u81EA\u52D5\u5075\u6E2C\u3002\u8ACB\u4F7F\u7528\u539F\u751F Windows \u53EF\u57F7\u884C\u6A94\u8DEF\u5F91\uFF0C\u901A\u5E38\u70BA `codex.exe`\u3002",
+      descWsl: "\u5728 WSL \u5167\u57F7\u884C\u7684 Linux \u7AEF Codex \u547D\u4EE4\u6216\u7D55\u5C0D\u8DEF\u5F91\u3002\u7559\u7A7A\u6703\u5728\u6240\u9078\u767C\u884C\u7248\u5167\u67E5\u627E PATH\u3002",
+      validation: {
+        wslWindowsPath: "WSL \u6A21\u5F0F\u9700\u8981 Linux \u547D\u4EE4\u6216 Linux \u7D55\u5C0D\u8DEF\u5F91\uFF0C\u800C\u4E0D\u662F Windows \u53EF\u57F7\u884C\u6A94\u8DEF\u5F91\u3002"
+      }
+    },
+    wslDistroOverride: {
+      name: "WSL \u767C\u884C\u7248\u8986\u5BEB",
+      desc: "\u53EF\u9078\u9032\u968E\u8986\u5BEB\u3002\u7559\u7A7A\u6642\u6703\u76E1\u53EF\u80FD\u5F9E WSL \u5DE5\u4F5C\u5340\u8DEF\u5F91\u63A8\u65B7\u767C\u884C\u7248\uFF0C\u5426\u5247\u4F7F\u7528\u9810\u8A2D WSL \u767C\u884C\u7248\u3002"
+    },
+    safeMode: {
+      workspaceWrite: "\u5DE5\u4F5C\u5340\u53EF\u5BEB",
+      readOnly: "\u552F\u8B80"
+    },
+    customModels: {
+      name: "\u81EA\u8A02\u6A21\u578B",
+      desc: "\u5411\u9078\u64C7\u5668\u8FFD\u52A0\u984D\u5916\u7684 Codex \u6A21\u578B ID\uFF0C\u6BCF\u884C\u4E00\u500B\u3002\u8A2D\u5B9A `OPENAI_MODEL` \u6642\u4ECD\u512A\u5148\u751F\u6548\u3002",
+      placeholder: "gpt-5.4\ngpt-5.3-codex-spark"
+    },
+    reasoningSummary: {
+      name: "\u63A8\u7406\u6458\u8981",
+      desc: "\u5728\u601D\u8003\u5340\u584A\u4E2D\u986F\u793A\u6A21\u578B\u63A8\u7406\u904E\u7A0B\u7684\u6458\u8981\u3002",
+      auto: "\u81EA\u52D5",
+      concise: "\u7C21\u6F54",
+      detailed: "\u8A73\u7D30",
+      off: "\u95DC\u9589"
+    },
+    skills: {
+      name: "Codex \u6280\u80FD",
+      desc: "\u7BA1\u7406\u5132\u5B58\u5728 .codex/skills/ \u6216 .agents/skills/ \u4E2D\u7684 Vault \u5C64\u7D1A Codex \u6280\u80FD\u3002\u6B64\u8655\u4E0D\u5305\u542B\u4E3B\u76EE\u9304\u5C64\u7D1A\u6280\u80FD\u3002",
+      hiddenName: "\u96B1\u85CF\u6280\u80FD",
+      hiddenDesc: "\u5F9E\u4E0B\u62C9\u9078\u55AE\u4E2D\u96B1\u85CF\u7279\u5B9A Codex \u6280\u80FD\u3002\u6BCF\u884C\u8F38\u5165\u4E00\u500B\u6280\u80FD\u540D\u7A31\uFF0C\u4E0D\u5E36\u524D\u5C0E $\u3002",
+      hiddenPlaceholder: "analyze\nexplain\nfix"
+    },
+    subagents: {
+      name: "Codex \u5B50\u4EE3\u7406",
+      desc: "\u7BA1\u7406\u5132\u5B58\u5728 .codex/agents/ \u4E2D\u7684 Vault \u5C64\u7D1A Codex \u5B50\u4EE3\u7406\u3002\u6BCF\u500B TOML \u6A94\u6848\u5B9A\u7FA9\u4E00\u500B\u81EA\u8A02\u4EE3\u7406\u3002"
+    },
+    mcp: {
+      descBeforeCommand: "Codex \u900F\u904E\u81EA\u5DF1\u7684 CLI \u7BA1\u7406 MCP \u4F3A\u670D\u5668\u3002\u8ACB\u4F7F\u7528 ",
+      descAfterCommand: " \u9032\u884C\u8A2D\u5B9A\uFF0C\u5B83\u5011\u6703\u5728 Claudian \u4E2D\u53EF\u7528\u3002",
+      learnMore: "\u4E86\u89E3\u66F4\u591A"
+    },
+    environment: {
+      name: "Codex \u74B0\u5883",
+      desc: "\u50C5\u9650 Codex \u64C1\u6709\u7684\u57F7\u884C\u968E\u6BB5\u8B8A\u6578\u3002\u7528\u65BC OPENAI_* \u548C CODEX_* \u8A2D\u5B9A\u3002\u5982\u679C Codex \u81EA\u52D5\u5075\u6E2C\u9700\u8981\u5354\u52A9\uFF0C\u8ACB\u628A\u5B89\u88DD\u76EE\u9304\u65B0\u589E\u5230\u5171\u4EAB PATH\uFF0C\u800C\u4E0D\u662F\u6B64\u63D0\u4F9B\u8005\u74B0\u5883\u3002"
+    }
+  },
+  codexSkills: {
+    modal: {
+      titleEdit: "\u7DE8\u8F2F Codex \u6280\u80FD",
+      titleAdd: "\u65B0\u589E Codex \u6280\u80FD",
+      directory: "\u76EE\u9304",
+      directoryDesc: "\u6280\u80FD\u7684\u5132\u5B58\u4F4D\u7F6E",
+      skillName: "\u6280\u80FD\u540D\u7A31",
+      skillNameDesc: "\u5728 $ \u5F8C\u4F7F\u7528\u7684\u540D\u7A31\uFF08\u4F8B\u5982 $analyze \u7684\u540D\u7A31\u70BA\u300Canalyze\u300D\uFF09",
+      description: "\u63CF\u8FF0",
+      descriptionDesc: "\u4E0B\u62C9\u9078\u55AE\u4E2D\u986F\u793A\u7684\u53EF\u9078\u63CF\u8FF0",
+      instructions: "\u6307\u4EE4",
+      instructionsDesc: "\u6280\u80FD\u6307\u4EE4\uFF08SKILL.md \u5167\u5BB9\uFF09",
+      instructionsPlaceholder: "Analyze the code for..."
+    },
+    instructionsRequired: "\u6307\u4EE4\u70BA\u5FC5\u586B\u9805",
+    saveFailed: "\u5132\u5B58 Codex \u6280\u80FD\u5931\u6557",
+    header: "Codex \u6280\u80FD",
+    noSkills: "Vault \u4E2D\u6C92\u6709 Codex \u6280\u80FD\u3002\u9EDE\u64CA + \u5EFA\u7ACB\u4E00\u500B\u3002",
+    skillBadge: "\u6280\u80FD",
+    deleted: "\u5DF2\u522A\u9664 Codex \u6280\u80FD\u300C{name}\u300D",
+    deleteFailed: "\u522A\u9664 Codex \u6280\u80FD\u5931\u6557",
+    created: "\u5DF2\u5EFA\u7ACB Codex \u6280\u80FD\u300C{name}\u300D",
+    updated: "\u5DF2\u66F4\u65B0 Codex \u6280\u80FD\u300C{name}\u300D"
+  },
+  codexSubagents: {
+    modal: {
+      titleEdit: "\u7DE8\u8F2F Codex \u5B50\u4EE3\u7406",
+      titleAdd: "\u65B0\u589E Codex \u5B50\u4EE3\u7406",
+      nameDesc: "Codex \u884D\u751F\u4EE3\u7406\u6642\u4F7F\u7528\u7684\u4EE3\u7406\u540D\u7A31\uFF08\u5C0F\u5BEB\u3001\u9023\u5B57\u7B26\u3001\u5E95\u7DDA\uFF09",
+      descriptionDesc: "Codex \u61C9\u5728\u4F55\u6642\u4F7F\u7528\u8A72\u4EE3\u7406",
+      modelDesc: "\u6A21\u578B\u8986\u5BEB\uFF08\u7559\u7A7A\u8868\u793A\u7E7C\u627F\uFF09",
+      namePlaceholder: "code_reviewer"
+    },
+    reasoningEffort: {
+      name: "\u63A8\u7406\u5F37\u5EA6",
+      desc: "\u6A21\u578B\u63A8\u7406\u5F37\u5EA6\u7D1A\u5225",
+      inherit: "\u7E7C\u627F",
+      low: "\u4F4E",
+      medium: "\u4E2D",
+      high: "\u9AD8",
+      xhigh: "\u6975\u9AD8"
+    },
+    sandboxMode: {
+      name: "\u6C99\u76D2\u6A21\u5F0F",
+      desc: "\u8A72\u4EE3\u7406\u7684\u6C99\u76D2\u9650\u5236",
+      inherit: "\u7E7C\u627F",
+      readOnly: "\u552F\u8B80",
+      dangerFullAccess: "\u5B8C\u6574\u5B58\u53D6",
+      workspaceWrite: "\u5DE5\u4F5C\u5340\u53EF\u5BEB"
+    },
+    nicknameCandidates: {
+      name: "\u66B1\u7A31\u5019\u9078",
+      desc: "\u986F\u793A\u66B1\u7A31\uFF0C\u4F7F\u7528\u9017\u865F\u5206\u9694\uFF08\u4F8B\u5982 atlas, delta, echo\uFF09"
+    },
+    developerInstructions: {
+      name: "\u958B\u767C\u8005\u6307\u4EE4",
+      desc: "\u5B9A\u7FA9\u4EE3\u7406\u884C\u70BA\u7684\u6838\u5FC3\u6307\u4EE4",
+      placeholder: "Review code like an owner.\nPrioritize correctness, security, and missing test coverage.",
+      required: "\u958B\u767C\u8005\u6307\u4EE4\u70BA\u5FC5\u586B\u9805"
+    },
+    validation: {
+      nameRequired: "\u5B50\u4EE3\u7406\u540D\u7A31\u70BA\u5FC5\u586B\u9805",
+      nameTooLong: "\u5B50\u4EE3\u7406\u540D\u7A31\u5FC5\u9808\u4E0D\u8D85\u904E {count} \u500B\u5B57\u5143",
+      nameInvalid: "\u5B50\u4EE3\u7406\u540D\u7A31\u53EA\u80FD\u5305\u542B\u5C0F\u5BEB\u5B57\u6BCD\u3001\u6578\u5B57\u3001\u9023\u5B57\u7B26\u548C\u5E95\u7DDA",
+      nicknameInvalid: "\u66B1\u7A31\u5019\u9078\u53EA\u80FD\u5305\u542B ASCII \u5B57\u6BCD\u3001\u6578\u5B57\u3001\u7A7A\u683C\u3001\u9023\u5B57\u7B26\u548C\u5E95\u7DDA",
+      nicknameDuplicate: "\u66B1\u7A31\u5019\u9078\u5FC5\u9808\u552F\u4E00"
+    },
+    header: "Codex \u5B50\u4EE3\u7406",
+    noAgents: "Vault \u4E2D\u6C92\u6709 Codex \u5B50\u4EE3\u7406\u3002\u9EDE\u64CA + \u5EFA\u7ACB\u4E00\u500B\u3002"
   }
 };
 var zh_TW_default = {
@@ -53858,16 +55626,16 @@ function renderEnvironmentSettingsSection(options) {
 var import_obsidian9 = require("obsidian");
 
 // src/core/mcp/McpConfigParser.ts
-function isRecord4(value) {
+function isRecord6(value) {
   return !!value && typeof value === "object" && !Array.isArray(value);
 }
 function parseClipboardConfig(json2) {
   try {
     const parsed = JSON.parse(json2);
-    if (!isRecord4(parsed)) {
+    if (!isRecord6(parsed)) {
       throw new Error("Invalid JSON object");
     }
-    if (isRecord4(parsed.mcpServers)) {
+    if (isRecord6(parsed.mcpServers)) {
       const servers2 = [];
       for (const [name, config2] of Object.entries(parsed.mcpServers)) {
         if (isValidMcpServerConfig(config2)) {
@@ -54283,8 +56051,8 @@ function getErrorMap() {
 
 // node_modules/zod/v3/helpers/parseUtil.js
 var makeIssue = (params) => {
-  const { data, path: path27, errorMaps, issueData } = params;
-  const fullPath = [...path27, ...issueData.path || []];
+  const { data, path: path28, errorMaps, issueData } = params;
+  const fullPath = [...path28, ...issueData.path || []];
   const fullIssue = {
     ...issueData,
     path: fullPath
@@ -54399,11 +56167,11 @@ var errorUtil;
 
 // node_modules/zod/v3/types.js
 var ParseInputLazyPath = class {
-  constructor(parent, value, path27, key) {
+  constructor(parent, value, path28, key) {
     this._cachedPath = [];
     this.parent = parent;
     this.data = value;
-    this._path = path27;
+    this._path = path28;
     this._key = key;
   }
   get path() {
@@ -60985,12 +62753,12 @@ function appendSpinnerSvg(container) {
   svg.setAttribute("fill", "none");
   svg.setAttribute("stroke", "currentColor");
   svg.setAttribute("stroke-width", "2");
-  const path27 = container.ownerDocument.createElementNS(SVG_NS, "path");
-  path27.setAttribute(
+  const path28 = container.ownerDocument.createElementNS(SVG_NS, "path");
+  path28.setAttribute(
     "d",
     "M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"
   );
-  svg.appendChild(path27);
+  svg.appendChild(path28);
   container.appendChild(svg);
 }
 var McpTestModal = class extends import_obsidian8.Modal {
@@ -61592,7 +63360,7 @@ function formatClaudeCustomModelLabel(labelSource) {
   const claudePrefixIndex = without1M.toLowerCase().indexOf("claude-");
   const candidate = claudePrefixIndex >= 0 ? without1M.slice(claudePrefixIndex) : without1M;
   const versionedMatch = candidate.match(
-    /^claude-(haiku|sonnet|opus)-(\d+)-(\d+)(?:-(\d{8}))?(?:-v\d+:\d+)?$/i
+    /^claude-(haiku|sonnet|opus|fable)-(\d+)-(\d+)(?:-(\d{8}))?(?:-v\d+:\d+)?$/i
   );
   if (versionedMatch) {
     const [, family, major, minor, date7] = versionedMatch;
@@ -61603,7 +63371,7 @@ function formatClaudeCustomModelLabel(labelSource) {
     return `${getFamilyDisplayName(family)} ${major}.${minor}${suffixes ? ` ${suffixes}` : ""}`;
   }
   const majorOnlyMatch = candidate.match(
-    /^claude-(haiku|sonnet|opus)-(\d+)(?:-(\d{8}))?(?:-v\d+:\d+)?$/i
+    /^claude-(haiku|sonnet|opus|fable)-(\d+)(?:-(\d{8}))?(?:-v\d+:\d+)?$/i
   );
   if (majorOnlyMatch) {
     const [, family, major, date7] = majorOnlyMatch;
@@ -61687,7 +63455,8 @@ var DEFAULT_CLAUDE_MODELS = [
   { value: "sonnet", label: "Sonnet", description: "Balanced performance" },
   { value: "sonnet[1m]", label: "Sonnet 1M", description: "Balanced performance (1M context window)" },
   { value: "opus", label: "Opus", description: "Most capable" },
-  { value: "opus[1m]", label: "Opus 1M", description: "Most capable (1M context window)" }
+  { value: "opus[1m]", label: "Opus 1M", description: "Most capable (1M context window)" },
+  { value: "claude-fable-5", label: "Fable 5 ($$$)", description: "Anthropic's most capable model \u2014 premium pricing above Opus" }
 ];
 var EFFORT_LEVELS = [
   { value: "low", label: "Low" },
@@ -61697,11 +63466,12 @@ var EFFORT_LEVELS = [
   { value: "max", label: "Max" }
 ];
 var DEFAULT_EFFORT_LEVEL = {
-  "haiku": "high",
-  "sonnet": "high",
-  "sonnet[1m]": "high",
-  "opus": "high",
-  "opus[1m]": "high"
+  "haiku": DEFAULT_REASONING_VALUE,
+  "sonnet": DEFAULT_REASONING_VALUE,
+  "sonnet[1m]": DEFAULT_REASONING_VALUE,
+  "opus": DEFAULT_REASONING_VALUE,
+  "opus[1m]": DEFAULT_REASONING_VALUE,
+  "claude-fable-5": DEFAULT_REASONING_VALUE
 };
 var ONE_M_SUFFIX = "[1m]";
 var DEFAULT_MODEL_VALUES = new Set(DEFAULT_CLAUDE_MODELS.map((m4) => m4.value.toLowerCase()));
@@ -61714,6 +63484,9 @@ function has1MContextSuffix(model) {
 function isBuiltInFamilyVariant(model, family) {
   const normalized = normalizeModelId(model);
   return normalized === family || normalized === `${family}${ONE_M_SUFFIX}`;
+}
+function isFableModel(model) {
+  return /claude-fable-\d+/.test(normalizeModelId(model));
 }
 function isValidContextLimit(limit) {
   return typeof limit === "number" && limit > 0 && !isNaN(limit) && isFinite(limit);
@@ -61736,7 +63509,9 @@ function isDefaultClaudeModel(model) {
 function supportsXHighEffort(model) {
   const normalized = normalizeModelId(model);
   if (isBuiltInFamilyVariant(normalized, "opus")) return true;
-  return /claude-opus-(4-[7-9]|[5-9])/.test(normalized);
+  if (isBuiltInFamilyVariant(normalized, "sonnet")) return true;
+  if (isFableModel(normalized)) return true;
+  return /claude-opus-(4-[7-9]|[5-9])/.test(normalized) || /claude-sonnet-(?:[5-9]|\d{2,})(?:-\d{8})?(?:-|$)/.test(normalized);
 }
 function normalizeEffortLevel(model, effortLevel) {
   var _a5;
@@ -61747,7 +63522,7 @@ function normalizeEffortLevel(model, effortLevel) {
   if (isSupported) {
     return effortLevel;
   }
-  return (_a5 = DEFAULT_EFFORT_LEVEL[normalizeModelId(model)]) != null ? _a5 : "high";
+  return (_a5 = DEFAULT_EFFORT_LEVEL[normalizeModelId(model)]) != null ? _a5 : DEFAULT_REASONING_VALUE;
 }
 function resolveEffortLevel(model, effortLevel) {
   return normalizeEffortLevel(model, effortLevel);
@@ -61779,7 +63554,7 @@ function getContextWindowSize(model, customLimits) {
   if (customLimit !== null) {
     return customLimit;
   }
-  if (has1MContextSuffix(model)) {
+  if (has1MContextSuffix(model) || isFableModel(model)) {
     return CONTEXT_WINDOW_1M;
   }
   return CONTEXT_WINDOW_STANDARD;
@@ -62191,9 +63966,9 @@ function appendMcpIcon(container) {
   title.textContent = "MCP";
   svg.appendChild(title);
   for (const pathData of MCP_ICON_PATHS) {
-    const path27 = createSvgElement(container.ownerDocument, "path");
-    path27.setAttribute("d", pathData);
-    svg.appendChild(path27);
+    const path28 = createSvgElement(container.ownerDocument, "path");
+    path28.setAttribute("d", pathData);
+    svg.appendChild(path28);
   }
   container.appendChild(svg);
 }
@@ -62296,10 +64071,10 @@ function createProviderIconSvg(icon, options = {}) {
     }
     return svg;
   }
-  const path27 = ownerDocument.createElementNS(SVG_NS2, "path");
-  path27.setAttribute("d", icon.path);
-  path27.setAttribute("fill", "currentColor");
-  svg.appendChild(path27);
+  const path28 = ownerDocument.createElementNS(SVG_NS2, "path");
+  path28.setAttribute("d", icon.path);
+  path28.setAttribute("fill", "currentColor");
+  svg.appendChild(path28);
   return svg;
 }
 function createProviderSvgChild(child, ownerDocument) {
@@ -62344,7 +64119,7 @@ var claudeChatUIConfig = {
   },
   getDefaultReasoningValue(model, _settings) {
     var _a5;
-    return (_a5 = DEFAULT_EFFORT_LEVEL[toClaudeRuntimeModelId(model)]) != null ? _a5 : "high";
+    return (_a5 = DEFAULT_EFFORT_LEVEL[toClaudeRuntimeModelId(model)]) != null ? _a5 : DEFAULT_REASONING_VALUE;
   },
   getContextWindowSize(model, customLimits) {
     return getContextWindowSize(toClaudeRuntimeModelId(model), customLimits);
@@ -62358,7 +64133,7 @@ var claudeChatUIConfig = {
     const target = settings11;
     const runtimeModel = toClaudeRuntimeModelId(model);
     if (DEFAULT_CLAUDE_MODELS.some((m4) => m4.value === runtimeModel)) {
-      target.effortLevel = (_a5 = DEFAULT_EFFORT_LEVEL[runtimeModel]) != null ? _a5 : "high";
+      target.effortLevel = (_a5 = DEFAULT_EFFORT_LEVEL[runtimeModel]) != null ? _a5 : DEFAULT_REASONING_VALUE;
       updateClaudeProviderSettings(target, { lastModel: runtimeModel });
     } else {
       target.lastCustomModel = model;
@@ -63204,14 +64979,16 @@ function getClaudeWorkspaceServices() {
 }
 
 // src/utils/context.ts
-var CURRENT_NOTE_PREFIX_REGEX = /^<current_note>\n[\s\S]*?<\/current_note>\n\n/;
-var CURRENT_NOTE_SUFFIX_REGEX = /\n\n<current_note>\n[\s\S]*?<\/current_note>$/;
-var XML_CONTEXT_PATTERN = /\n\n<(?:current_note|editor_selection|editor_cursor|context_files|canvas_selection|browser_selection)[\s>]/;
+var LINKED_NOTE_TAG = "linked_note";
+var NOTE_CONTEXT_TAG_PATTERN = "(linked_note|current_note)";
+var NOTE_CONTEXT_PREFIX_REGEX = new RegExp(`^<${NOTE_CONTEXT_TAG_PATTERN}>\\n[\\s\\S]*?<\\/\\1>\\n\\n`);
+var NOTE_CONTEXT_SUFFIX_REGEX = new RegExp(`\\n\\n<${NOTE_CONTEXT_TAG_PATTERN}>\\n[\\s\\S]*?<\\/\\1>$`);
+var XML_CONTEXT_PATTERN = /\n\n<(?:linked_note|current_note|editor_selection|editor_cursor|context_files|canvas_selection|browser_selection)[\s>]/;
 var BRACKET_CONTEXT_PATTERN = /\n\[(?:Current note|Editor selection from|Browser selection from|Canvas selection from)\b/;
 function formatCurrentNote(notePath) {
-  return `<current_note>
+  return `<${LINKED_NOTE_TAG}>
 ${notePath}
-</current_note>`;
+</${LINKED_NOTE_TAG}>`;
 }
 function appendCurrentNote(prompt, notePath) {
   return `${prompt}
@@ -63219,11 +64996,11 @@ function appendCurrentNote(prompt, notePath) {
 ${formatCurrentNote(notePath)}`;
 }
 function stripCurrentNoteContext(prompt) {
-  const strippedPrefix = prompt.replace(CURRENT_NOTE_PREFIX_REGEX, "");
+  const strippedPrefix = prompt.replace(NOTE_CONTEXT_PREFIX_REGEX, "");
   if (strippedPrefix !== prompt) {
     return strippedPrefix;
   }
-  return prompt.replace(CURRENT_NOTE_SUFFIX_REGEX, "");
+  return prompt.replace(NOTE_CONTEXT_SUFFIX_REGEX, "");
 }
 function extractContentBeforeXmlContext(text) {
   if (!text) return void 0;
@@ -63255,7 +65032,7 @@ function extractUserQuery(prompt) {
   if (extracted !== void 0) {
     return extracted;
   }
-  return prompt.replace(/<current_note>[\s\S]*?<\/current_note>\s*/g, "").replace(/<editor_selection[\s\S]*?<\/editor_selection>\s*/g, "").replace(/<editor_cursor[\s\S]*?<\/editor_cursor>\s*/g, "").replace(/<context_files>[\s\S]*?<\/context_files>\s*/g, "").replace(/<canvas_selection[\s\S]*?<\/canvas_selection>\s*/g, "").replace(/<browser_selection[\s\S]*?<\/browser_selection>\s*/g, "").trim();
+  return prompt.replace(/<(linked_note|current_note)>[\s\S]*?<\/\1>\s*/g, "").replace(/<editor_selection[\s\S]*?<\/editor_selection>\s*/g, "").replace(/<editor_cursor[\s\S]*?<\/editor_cursor>\s*/g, "").replace(/<context_files>[\s\S]*?<\/context_files>\s*/g, "").replace(/<canvas_selection[\s\S]*?<\/canvas_selection>\s*/g, "").replace(/<browser_selection[\s\S]*?<\/browser_selection>\s*/g, "").trim();
 }
 function formatContextFilesLine(files) {
   return `<context_files>
@@ -63524,6 +65301,106 @@ Then after user clarifies "river bank":
 <replacement>La orilla era empinada.</replacement>`;
 }
 
+// src/core/providers/conversationModel.ts
+function trimModel(model) {
+  return typeof model === "string" ? model.trim() : "";
+}
+function findModelOption(providerId, model, settings11) {
+  var _a5;
+  const runtimeModel = toProviderRuntimeModelId(providerId, model);
+  const option = ProviderRegistry.getChatUIConfig(providerId).getModelOptions(settings11).find(
+    (candidate) => candidate.value === model || toProviderRuntimeModelId(providerId, candidate.value) === runtimeModel
+  );
+  return (_a5 = option == null ? void 0 : option.value) != null ? _a5 : null;
+}
+function normalizeProviderModelSelection(providerId, settings11, model) {
+  const rawModel = trimModel(model);
+  if (!rawModel) {
+    return null;
+  }
+  const uiConfig = ProviderRegistry.getChatUIConfig(providerId);
+  const baseSettings = ProviderSettingsCoordinator.getProviderSettingsSnapshot(
+    settings11,
+    providerId
+  );
+  const rawSettings = {
+    ...baseSettings,
+    model: rawModel
+  };
+  const rawOption = findModelOption(providerId, rawModel, rawSettings);
+  if (rawOption) {
+    return rawOption;
+  }
+  if (uiConfig.ownsModel(rawModel, rawSettings)) {
+    return rawModel;
+  }
+  const normalizedModel = trimModel(uiConfig.normalizeModelVariant(rawModel, rawSettings));
+  if (!normalizedModel) {
+    return null;
+  }
+  const normalizedSettings = {
+    ...baseSettings,
+    model: normalizedModel
+  };
+  const normalizedOption = findModelOption(providerId, normalizedModel, normalizedSettings);
+  if (normalizedOption) {
+    return normalizedOption;
+  }
+  return normalizedModel === rawModel && uiConfig.ownsModel(normalizedModel, normalizedSettings) ? normalizedModel : null;
+}
+function resolveConversationModel(settings11, providerId, conversation) {
+  var _a5, _b3;
+  const selectedModel = normalizeProviderModelSelection(
+    providerId,
+    settings11,
+    conversation == null ? void 0 : conversation.selectedModel
+  );
+  if (selectedModel) {
+    return {
+      model: selectedModel,
+      source: "selected",
+      shouldPersist: selectedModel !== (conversation == null ? void 0 : conversation.selectedModel)
+    };
+  }
+  const usageModel = normalizeProviderModelSelection(
+    providerId,
+    settings11,
+    (_a5 = conversation == null ? void 0 : conversation.usage) == null ? void 0 : _a5.model
+  );
+  if (usageModel) {
+    return {
+      model: usageModel,
+      source: "usage",
+      shouldPersist: true
+    };
+  }
+  const providerSettings = ProviderSettingsCoordinator.getProviderSettingsSnapshot(
+    settings11,
+    providerId
+  );
+  const defaultModel = (_b3 = normalizeProviderModelSelection(
+    providerId,
+    settings11,
+    providerSettings.model
+  )) != null ? _b3 : trimModel(providerSettings.model);
+  return {
+    model: defaultModel,
+    source: "default",
+    shouldPersist: false
+  };
+}
+function getProviderSettingsSnapshotWithModel(settings11, providerId, model) {
+  const snapshot = ProviderSettingsCoordinator.getProviderSettingsSnapshot(
+    settings11,
+    providerId
+  );
+  const normalizedModel = normalizeProviderModelSelection(providerId, snapshot, model);
+  if (normalizedModel) {
+    ProviderSettingsCoordinator.projectModelSelection(snapshot, providerId, normalizedModel);
+  }
+  return snapshot;
+}
+
 // src/core/tools/toolNames.ts
 var TOOL_AGENT_OUTPUT = "TaskOutput";
 var TOOL_ASK_USER_QUESTION = "AskUserQuestion";
@@ -63740,10 +65617,15 @@ var InlineEditService = class {
     this.plugin = plugin;
   }
   getScopedSettings() {
-    return ProviderSettingsCoordinator.getProviderSettingsSnapshot(
+    return getProviderSettingsSnapshotWithModel(
       this.plugin.settings,
-      "claude"
+      "claude",
+      this.modelOverride
     );
+  }
+  setModelOverride(model) {
+    const trimmed = model == null ? void 0 : model.trim();
+    this.modelOverride = trimmed ? trimmed : void 0;
   }
   resetConversation() {
     this.sessionId = null;
@@ -64807,6 +66689,65 @@ function parseUnifiedDiffLines(diffText) {
   return diffLines;
 }
 
+// src/utils/imageAttachment.ts
+var IMAGE_MEDIA_TYPES = {
+  "image/gif": "image/gif",
+  "image/jpeg": "image/jpeg",
+  "image/jpg": "image/jpeg",
+  "image/png": "image/png",
+  "image/webp": "image/webp"
+};
+var IMAGE_EXTENSIONS = {
+  "image/gif": "gif",
+  "image/jpeg": "jpg",
+  "image/png": "png",
+  "image/webp": "webp"
+};
+function normalizeImageMediaType(value) {
+  var _a5;
+  if (typeof value !== "string") {
+    return null;
+  }
+  return (_a5 = IMAGE_MEDIA_TYPES[value.trim().toLowerCase()]) != null ? _a5 : null;
+}
+function parseImageDataUri(value) {
+  var _a5;
+  if (typeof value !== "string") {
+    return null;
+  }
+  const match = value.trim().match(/^data:([^;,]+);base64,(.+)$/i);
+  if (!match) {
+    return null;
+  }
+  const mediaType = normalizeImageMediaType(match[1]);
+  const data = (_a5 = match[2]) == null ? void 0 : _a5.trim();
+  if (!mediaType || !data) {
+    return null;
+  }
+  return { data, mediaType };
+}
+function buildImageAttachmentFromBase64(options) {
+  var _a5;
+  const mediaType = normalizeImageMediaType(options.mediaType);
+  const data = options.data.trim();
+  if (!mediaType || !data) {
+    return null;
+  }
+  return {
+    data,
+    id: options.id,
+    mediaType,
+    name: ((_a5 = options.name) == null ? void 0 : _a5.trim()) || `image.${IMAGE_EXTENSIONS[mediaType]}`,
+    size: estimateBase64ByteLength(data),
+    source: "paste"
+  };
+}
+function estimateBase64ByteLength(value) {
+  const data = value.replace(/\s/g, "");
+  const padding = data.endsWith("==") ? 2 : data.endsWith("=") ? 1 : 0;
+  return Math.max(0, Math.floor(data.length * 3 / 4) - padding);
+}
+
 // src/utils/interrupt.ts
 var INTERRUPT_MARKERS = /* @__PURE__ */ new Set([
   "[Request interrupted by user]",
@@ -64860,7 +66801,7 @@ function isRebuiltContextContent(textContent) {
   }
   return textContent.includes("\n\nUser:") || textContent.includes("\n\nAssistant:") || textContent.includes("\n\nA:");
 }
-function extractImages(content) {
+function extractImages(content, messageId) {
   if (!content || typeof content === "string") {
     return void 0;
   }
@@ -64873,14 +66814,18 @@ function extractImages(content) {
   if (imageBlocks.length === 0) {
     return void 0;
   }
-  return imageBlocks.map((block, index) => ({
-    id: `sdk-img-${Date.now()}-${index}`,
-    name: `image-${index + 1}`,
-    mediaType: block.source.media_type,
-    data: block.source.data,
-    size: Math.ceil(block.source.data.length * 0.75),
-    source: "paste"
-  }));
+  const images = imageBlocks.flatMap((block, index) => {
+    var _a5, _b3;
+    const parsedDataUri = parseImageDataUri(block.source.data);
+    const image = buildImageAttachmentFromBase64({
+      data: (_a5 = parsedDataUri == null ? void 0 : parsedDataUri.data) != null ? _a5 : block.source.data,
+      id: `sdk-img-${messageId}-${index}`,
+      mediaType: (_b3 = parsedDataUri == null ? void 0 : parsedDataUri.mediaType) != null ? _b3 : block.source.media_type,
+      name: `image-${index + 1}`
+    });
+    return image ? [image] : [];
+  });
+  return images.length > 0 ? images : void 0;
 }
 function extractToolCalls(content, toolResults) {
   var _a5;
@@ -64974,13 +66919,14 @@ function parseSDKMessageToChat(sdkMsg, toolResults) {
   }
   const content = (_a5 = sdkMsg.message) == null ? void 0 : _a5.content;
   const textContent = extractTextContent(content);
-  const images = sdkMsg.type === "user" ? extractImages(content) : void 0;
+  const timestamp = sdkMsg.timestamp ? new Date(sdkMsg.timestamp).getTime() : Date.now();
+  const messageId = sdkMsg.uuid || `sdk-${timestamp}`;
+  const images = sdkMsg.type === "user" ? extractImages(content, messageId) : void 0;
   const hasToolUse = Array.isArray(content) && content.some((block) => block.type === "tool_use");
   const hasImages = !!images && images.length > 0;
   if (!textContent && !hasToolUse && !hasImages && (!content || typeof content === "string")) {
     return null;
   }
-  const timestamp = sdkMsg.timestamp ? new Date(sdkMsg.timestamp).getTime() : Date.now();
   const commandNameMatch = sdkMsg.type === "user" ? textContent.match(/<command-name>(\/[^<]+)<\/command-name>/) : null;
   let displayContent;
   if (sdkMsg.type === "user") {
@@ -65647,12 +67593,50 @@ function ensureTaskToolCall(msg, subagentId, subagent) {
   taskToolCall.subagent = mergedSubagent;
   return taskToolCall;
 }
+function hasImageData(image) {
+  return typeof (image == null ? void 0 : image.data) === "string" && image.data.length > 0;
+}
+function mergeImageAttachments(current, incoming) {
+  var _a5;
+  if (!(incoming == null ? void 0 : incoming.length)) {
+    return current;
+  }
+  if (!(current == null ? void 0 : current.length)) {
+    return incoming;
+  }
+  const merged = [...current];
+  for (const [index, incomingImage] of incoming.entries()) {
+    const currentImage = merged[index];
+    if (!currentImage) {
+      merged.push(incomingImage);
+      continue;
+    }
+    if (!hasImageData(currentImage) && hasImageData(incomingImage)) {
+      merged[index] = {
+        ...currentImage,
+        data: incomingImage.data,
+        mediaType: incomingImage.mediaType,
+        name: currentImage.name || incomingImage.name,
+        size: incomingImage.size,
+        source: (_a5 = currentImage.source) != null ? _a5 : incomingImage.source
+      };
+    }
+  }
+  return merged;
+}
+function mergeDuplicateMessage(target, incoming) {
+  target.images = mergeImageAttachments(target.images, incoming.images);
+}
 function dedupeMessages(messages) {
-  const seen = /* @__PURE__ */ new Set();
+  const byId = /* @__PURE__ */ new Map();
   const result = [];
   for (const message of messages) {
-    if (seen.has(message.id)) continue;
-    seen.add(message.id);
+    const existing = byId.get(message.id);
+    if (existing) {
+      mergeDuplicateMessage(existing, message);
+      continue;
+    }
+    byId.set(message.id, message);
     result.push(message);
   }
   return result;
@@ -66214,11 +68198,11 @@ function isBlockedMessage(message) {
 
 // src/providers/claude/stream/toolInputStreamState.ts
 var MAIN_AGENT_STREAM = "__main__";
-function isRecord5(value) {
+function isRecord7(value) {
   return !!value && typeof value === "object" && !Array.isArray(value);
 }
 function normalizeToolInput(value) {
-  return isRecord5(value) ? value : {};
+  return isRecord7(value) ? value : {};
 }
 function getContentBlockKey(parentToolUseId, index) {
   return `${parentToolUseId != null ? parentToolUseId : MAIN_AGENT_STREAM}:${index}`;
@@ -66524,7 +68508,7 @@ function parseClaudeModelSignature(model) {
     return { normalizedModel: normalized, family: "opus", is1M: normalized.endsWith("[1m]") };
   }
   const versionedMatch = normalized.match(
-    /^claude-(haiku|sonnet|opus)-(\d+)(?:-(\d+))?(?:-(\d{8}))?(?:-v\d+:\d+)?(\[1m\])?$/
+    /^claude-(haiku|sonnet|opus|fable)-(\d+)(?:-(\d+))?(?:-(\d{8}))?(?:-v\d+:\d+)?(\[1m\])?$/
   );
   if (versionedMatch) {
     const [, familyMatch, major, minor, date7, oneMillionSuffix] = versionedMatch;
@@ -67424,9 +69408,9 @@ User messages have the query first, followed by optional XML context tags:
 \`\`\`
 User's question or request here
 
-<current_note>
+<linked_note>
 path/to/note.md
-</current_note>
+</linked_note>
 
 <editor_selection path="path/to/note.md" lines="10-15">
 selected text content
@@ -67438,7 +69422,7 @@ selected content from an Obsidian browser view
 \`\`\`
 
 - The user's query/instruction always comes first in the message.
-- \`<current_note>\`: The note the user is currently viewing/focused on. Read this to understand context.
+- \`<linked_note>\`: The note this session is linked to. Read this to understand session context. Legacy messages may use \`<current_note>\` for the same context.
 - \`<editor_selection>\`: Text currently selected in the editor, with file path and line numbers.
 - \`<browser_selection>\`: Text selected in an Obsidian browser/web view (for example Surfing), including optional source/title/url metadata.
 - \`@filename.md\`: Files mentioned with @ in the query. Read these files when referenced.
@@ -68056,6 +70040,7 @@ var ClaudianService = class {
     this.permissionModeSyncCallback = null;
     this.vaultPath = null;
     this.currentExternalContextPaths = [];
+    this.currentConversationModel = null;
     this.readyStateListeners = /* @__PURE__ */ new Set();
     // Modular components
     this.sessionManager = new SessionManager();
@@ -68118,6 +70103,9 @@ var ClaudianService = class {
     this.bufferedUsageChunk = null;
     return metadata;
   }
+  getAuxiliaryModel() {
+    return this.currentConversationModel;
+  }
   onReadyStateChange(listener) {
     this.readyStateListeners.add(listener);
     try {
@@ -68176,6 +70164,10 @@ var ClaudianService = class {
     this.bufferedUsageChunk = nextChunk;
     return nextChunk;
   }
+  setCurrentConversationModel(model) {
+    const selectedModel = typeof model === "string" ? model.trim() : "";
+    this.currentConversationModel = selectedModel || null;
+  }
   setPendingResumeAt(uuid3) {
     this.pendingResumeAt = uuid3;
   }
@@ -68197,11 +70189,13 @@ var ClaudianService = class {
   }
   syncConversationState(conversation, externalContextPaths) {
     if (!conversation) {
+      this.currentConversationModel = null;
       this.pendingForkSession = false;
       this.pendingResumeAt = void 0;
       this.setSessionId(null, externalContextPaths);
       return;
     }
+    this.setCurrentConversationModel(conversation.selectedModel);
     const resolvedSessionId = this.applyForkState(conversation);
     this.setSessionId(resolvedSessionId, externalContextPaths);
   }
@@ -68427,10 +70421,14 @@ var ClaudianService = class {
    * Builds the base query options context from current state.
    */
   getScopedSettings() {
-    return ProviderSettingsCoordinator.getProviderSettingsSnapshot(
+    const settings11 = ProviderSettingsCoordinator.getProviderSettingsSnapshot(
       this.plugin.settings,
       this.providerId
     );
+    if (this.currentConversationModel) {
+      settings11.model = this.currentConversationModel;
+    }
+    return settings11;
   }
   buildQueryOptionsContext(vaultPath, cliPath) {
     const customEnv = parseEnvironmentVariables(this.plugin.getActiveEnvironmentVariables(this.providerId));
@@ -68760,6 +70758,9 @@ var ClaudianService = class {
     const images = normalized.request.images;
     const conversationHistory = normalized.conversationHistory;
     const queryOptions = normalized.queryOptions;
+    if (queryOptions == null ? void 0 : queryOptions.model) {
+      this.setCurrentConversationModel(queryOptions.model);
+    }
     const vaultPath = getVaultPath(this.plugin.app);
     if (!vaultPath) {
       yield { type: "error", content: "Could not determine vault path" };
@@ -69489,6 +71490,7 @@ var CodexAgentMentionProvider = class {
 // src/providers/codex/runtime/CodexAppServerProcess.ts
 var import_child_process7 = require("child_process");
 var SIGKILL_TIMEOUT_MS = 3e3;
+var STDERR_BUFFER_LIMIT = 8192;
 var CodexAppServerProcess = class {
   constructor(launchSpec) {
     this.launchSpec = launchSpec;
@@ -69496,8 +71498,10 @@ var CodexAppServerProcess = class {
     this.alive = false;
     this.exitCallbacks = [];
     this.resolvedSpawnSpec = null;
+    this.stderrBuffer = "";
   }
   start() {
+    var _a5;
     const resolvedSpawnSpec = resolveWindowsCmdShimSpawnSpec(this.launchSpec);
     this.resolvedSpawnSpec = resolvedSpawnSpec;
     this.proc = (0, import_child_process7.spawn)(resolvedSpawnSpec.command, resolvedSpawnSpec.args, {
@@ -69508,7 +71512,10 @@ var CodexAppServerProcess = class {
       ...resolvedSpawnSpec.windowsVerbatimArguments ? { windowsVerbatimArguments: true } : {}
     });
     this.alive = true;
-    this.proc.on("exit", (code, signal) => {
+    this.proc.on("exit", () => {
+      this.alive = false;
+    });
+    this.proc.on("close", (code, signal) => {
       this.alive = false;
       for (const cb2 of this.exitCallbacks) {
         cb2(code, signal);
@@ -69516,6 +71523,10 @@ var CodexAppServerProcess = class {
     });
     this.proc.on("error", () => {
       this.alive = false;
+    });
+    (_a5 = this.proc.stderr) == null ? void 0 : _a5.on("data", (chunk) => {
+      const text = Buffer.isBuffer(chunk) ? chunk.toString("utf8") : String(chunk);
+      this.stderrBuffer = `${this.stderrBuffer}${text}`.slice(-STDERR_BUFFER_LIMIT);
     });
   }
   get stdin() {
@@ -69535,6 +71546,9 @@ var CodexAppServerProcess = class {
   }
   isAlive() {
     return this.alive;
+  }
+  getStderrSnapshot() {
+    return this.stderrBuffer.trim();
   }
   onExit(callback) {
     this.exitCallbacks.push(callback);
@@ -69771,15 +71785,15 @@ function createCodexPathMapper(target) {
 // src/providers/codex/runtime/CodexLaunchSpecBuilder.ts
 var CODEX_APP_SERVER_ARGS = Object.freeze(["app-server", "--listen", "stdio://"]);
 function buildCodexLaunchSpec(options) {
-  var _a5, _b3;
-  const target = resolveCodexExecutionTarget({
+  var _a5, _b3, _c2;
+  const target = (_a5 = options.executionTarget) != null ? _a5 : resolveCodexExecutionTarget({
     settings: options.settings,
     hostPlatform: options.hostPlatform,
     hostVaultPath: options.hostVaultPath,
     resolveDefaultWslDistro: options.resolveDefaultWslDistro
   });
   const pathMapper = createCodexPathMapper(target);
-  const spawnCwd = (_a5 = options.hostVaultPath) != null ? _a5 : process.cwd();
+  const spawnCwd = (_b3 = options.hostVaultPath) != null ? _b3 : process.cwd();
   const workspaceDistro = inferWslDistroFromWindowsPath(options.hostVaultPath);
   if (target.method === "wsl" && target.distroName && workspaceDistro && target.distroName.toLowerCase() !== workspaceDistro.toLowerCase()) {
     throw new Error(
@@ -69795,7 +71809,7 @@ function buildCodexLaunchSpec(options) {
   if (!targetCwd) {
     throw new Error("WSL mode only supports Windows drive paths and \\\\wsl$ workspace paths");
   }
-  const resolvedCliCommand = ((_b3 = options.resolvedCliCommand) == null ? void 0 : _b3.trim()) || "codex";
+  const resolvedCliCommand = ((_c2 = options.resolvedCliCommand) == null ? void 0 : _c2.trim()) || "codex";
   if (target.method === "wsl") {
     const args = [
       ...target.distroName ? ["--distribution", target.distroName] : [],
@@ -69847,11 +71861,17 @@ function buildCodexAppServerEnvironment(plugin, providerId = "codex") {
   };
 }
 function resolveCodexAppServerLaunchSpec(plugin, providerId = "codex") {
+  const hostVaultPath = getCodexAppServerWorkingDirectory(plugin);
+  const executionTarget = resolveCodexExecutionTarget({
+    settings: plugin.settings,
+    hostVaultPath
+  });
   return buildCodexLaunchSpec({
     settings: plugin.settings,
-    resolvedCliCommand: plugin.getResolvedProviderCliPath(providerId),
-    hostVaultPath: getCodexAppServerWorkingDirectory(plugin),
-    env: buildCodexAppServerEnvironment(plugin, providerId)
+    resolvedCliCommand: plugin.getResolvedProviderCliPath(providerId, { executionTarget }),
+    hostVaultPath,
+    env: buildCodexAppServerEnvironment(plugin, providerId),
+    executionTarget
   });
 }
 async function initializeCodexAppServerTransport(transport) {
@@ -69879,7 +71899,7 @@ var CodexRpcTransport = class {
     const rl2 = (0, import_readline3.createInterface)({ input: this.proc.stdout });
     rl2.on("line", (line) => this.handleLine(line));
     this.proc.onExit(() => {
-      this.rejectAllPending(new Error("App-server process exited"));
+      this.rejectAllPending(new Error(this.buildProcessExitMessage()));
     });
   }
   request(method, params, timeoutMs = DEFAULT_TIMEOUT_MS) {
@@ -69990,6 +72010,12 @@ var CodexRpcTransport = class {
       pending.reject(error48);
     }
     this.pending.clear();
+  }
+  buildProcessExitMessage() {
+    const stderr = this.proc.getStderrSnapshot();
+    return stderr ? `App-server process exited
+
+${stderr}` : "App-server process exited";
   }
 };
 
@@ -70457,6 +72483,11 @@ var CodexSkillCatalog = class {
 // src/providers/codex/runtime/CodexCliResolver.ts
 init_env();
 
+// src/providers/codex/runtime/CodexBinaryLocator.ts
+var fs13 = __toESM(require("fs"));
+var os9 = __toESM(require("os"));
+var path14 = __toESM(require("path"));
+
 // src/utils/cliBinaryLocator.ts
 var fs12 = __toESM(require("fs"));
 var path13 = __toESM(require("path"));
@@ -70528,6 +72559,7 @@ function translateMsysPathForPlatform(value, platform) {
 
 // src/providers/codex/runtime/CodexBinaryLocator.ts
 init_env();
+init_path();
 function isWindowsStyleCliReference(value) {
   const trimmed = (value != null ? value : "").trim();
   if (!trimmed) {
@@ -70536,12 +72568,88 @@ function isWindowsStyleCliReference(value) {
   return /^[A-Za-z]:[\\/]/.test(trimmed) || trimmed.startsWith("\\\\") || /\.(?:exe|cmd|bat|ps1)$/i.test(trimmed);
 }
 function findCodexBinaryPath(additionalPath, platform = process.platform) {
+  const explicitPathBinary = findCodexBinaryInDirs(
+    parsePathEntriesForPlatform2(additionalPath, platform),
+    platform
+  );
+  if (explicitPathBinary) {
+    return explicitPathBinary;
+  }
+  const preferredBinary = findCodexBinaryInDirs(
+    getPreferredCodexBinaryDirs(platform),
+    platform
+  );
+  if (preferredBinary) {
+    return preferredBinary;
+  }
   return findCliBinaryPath("codex", additionalPath, platform);
+}
+function getCodexBinaryNames(platform) {
+  return platform === "win32" ? ["codex.exe", "codex.cmd", "codex"] : ["codex"];
+}
+function findCodexBinaryInDirs(dirs, platform) {
+  const binaryNames = getCodexBinaryNames(platform);
+  for (const dir of dirs) {
+    if (!dir) continue;
+    for (const binaryName of binaryNames) {
+      const candidate = path14.join(dir, binaryName);
+      if (isExistingFile3(candidate)) {
+        return candidate;
+      }
+    }
+  }
+  return null;
+}
+function getPreferredCodexBinaryDirs(platform) {
+  const home = getHomeDir2();
+  if (platform === "darwin") {
+    return [
+      path14.join(home, "Applications", "Codex.app", "Contents", "Resources"),
+      "/Applications/Codex.app/Contents/Resources",
+      path14.join(home, "Applications", "Codex.app", "Contents", "MacOS"),
+      "/Applications/Codex.app/Contents/MacOS",
+      path14.join(home, ".local", "bin")
+    ];
+  }
+  if (platform !== "win32") {
+    return [
+      path14.join(home, ".local", "bin")
+    ];
+  }
+  return [];
+}
+function getHomeDir2() {
+  return process.env.HOME || process.env.USERPROFILE || os9.homedir();
+}
+function isExistingFile3(filePath) {
+  try {
+    return fs13.statSync(filePath).isFile();
+  } catch (e2) {
+    return false;
+  }
+}
+function parsePathEntriesForPlatform2(pathValue, platform) {
+  if (!pathValue) {
+    return [];
+  }
+  const delimiter = platform === "win32" ? ";" : ":";
+  return pathValue.split(delimiter).map((segment) => stripSurroundingQuotes3(segment.trim())).filter((segment) => {
+    if (!segment) return false;
+    const upper = segment.toUpperCase();
+    return upper !== "$PATH" && upper !== "${PATH}" && upper !== "%PATH%";
+  }).map((segment) => expandHomePath(segment));
+}
+function stripSurroundingQuotes3(value) {
+  if (value.startsWith('"') && value.endsWith('"') || value.startsWith("'") && value.endsWith("'")) {
+    return value.slice(1, -1);
+  }
+  return value;
 }
 function resolveCodexCliPath(hostnamePath, legacyPath, envText, options = {}) {
   var _a5;
   const hostPlatform = (_a5 = options.hostPlatform) != null ? _a5 : process.platform;
-  if (hostPlatform === "win32" && options.installationMethod === "wsl") {
+  const isWslTarget = options.executionTarget ? options.executionTarget.method === "wsl" : hostPlatform === "win32" && options.installationMethod === "wsl";
+  if (isWslTarget) {
     const configuredCommand = [hostnamePath, legacyPath].map((value) => (value != null ? value : "").trim()).find((value) => value.length > 0 && !isWindowsStyleCliReference(value));
     return configuredCommand || "codex";
   }
@@ -70564,25 +72672,26 @@ var CodexCliResolver = class {
     this.lastHostnamePath = "";
     this.lastLegacyPath = "";
     this.lastEnvText = "";
-    this.lastInstallationMethod = "";
+    this.lastExecutionTargetKey = "";
     this.cachedHostname = getHostnameKey();
   }
-  resolveFromSettings(settings11) {
-    var _a5;
+  resolveFromSettings(settings11, context = {}) {
+    var _a5, _b3;
     const codexSettings = getCodexProviderSettings(settings11);
     const hostnamePath = ((_a5 = codexSettings.cliPathsByHost[this.cachedHostname]) != null ? _a5 : "").trim();
     const legacyPath = codexSettings.cliPath.trim();
     const envText = getRuntimeEnvironmentText(settings11, "codex");
-    const installationMethod = codexSettings.installationMethod;
-    if (this.resolvedPath && hostnamePath === this.lastHostnamePath && legacyPath === this.lastLegacyPath && envText === this.lastEnvText && installationMethod === this.lastInstallationMethod) {
+    const executionTarget = (_b3 = getCodexExecutionTargetFromContext(context)) != null ? _b3 : resolveCodexExecutionTarget({ settings: settings11 });
+    const executionTargetKey = getCodexExecutionTargetCacheKey(executionTarget);
+    if (this.resolvedPath && hostnamePath === this.lastHostnamePath && legacyPath === this.lastLegacyPath && envText === this.lastEnvText && executionTargetKey === this.lastExecutionTargetKey) {
       return this.resolvedPath;
     }
     this.lastHostnamePath = hostnamePath;
     this.lastLegacyPath = legacyPath;
     this.lastEnvText = envText;
-    this.lastInstallationMethod = installationMethod;
+    this.lastExecutionTargetKey = executionTargetKey;
     this.resolvedPath = resolveCodexCliPath(hostnamePath, legacyPath, envText, {
-      installationMethod
+      executionTarget
     });
     return this.resolvedPath;
   }
@@ -70597,7 +72706,78 @@ var CodexCliResolver = class {
     this.lastHostnamePath = "";
     this.lastLegacyPath = "";
     this.lastEnvText = "";
-    this.lastInstallationMethod = "";
+    this.lastExecutionTargetKey = "";
+  }
+};
+function isCodexExecutionTarget(value) {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+  const candidate = value;
+  return candidate.method === "host-native" || candidate.method === "native-windows" || candidate.method === "wsl";
+}
+function getCodexExecutionTargetFromContext(context) {
+  return isCodexExecutionTarget(context.executionTarget) ? context.executionTarget : null;
+}
+function getCodexExecutionTargetCacheKey(target) {
+  var _a5;
+  return [
+    target.method,
+    target.platformFamily,
+    target.platformOs,
+    (_a5 = target.distroName) != null ? _a5 : ""
+  ].join(":");
+}
+
+// src/providers/codex/runtime/CodexModelDiscoveryService.ts
+var MODEL_LIST_PAGE_SIZE = 100;
+var CodexModelDiscoveryService = class {
+  constructor(plugin) {
+    this.plugin = plugin;
+  }
+  async discoverModels() {
+    const launchSpec = resolveCodexAppServerLaunchSpec(this.plugin, "codex");
+    const process4 = new CodexAppServerProcess(launchSpec);
+    let transport = null;
+    try {
+      process4.start();
+      transport = new CodexRpcTransport(process4);
+      transport.start();
+      await initializeCodexAppServerTransport(transport);
+      const entries = [];
+      const seenCursors = /* @__PURE__ */ new Set();
+      let cursor = null;
+      do {
+        const result = await transport.request("model/list", {
+          ...cursor ? { cursor } : {},
+          includeHidden: false,
+          limit: MODEL_LIST_PAGE_SIZE
+        });
+        entries.push(...result.data);
+        const nextCursor = typeof result.nextCursor === "string" && result.nextCursor.trim() ? result.nextCursor : null;
+        if (nextCursor && seenCursors.has(nextCursor)) {
+          throw new Error("Codex model/list returned a repeated cursor");
+        }
+        if (nextCursor) {
+          seenCursors.add(nextCursor);
+        }
+        cursor = nextCursor;
+      } while (cursor);
+      return { models: normalizeCodexDiscoveredModels(entries) };
+    } catch (error48) {
+      const message = error48 instanceof Error ? error48.message : "Codex model discovery failed";
+      const stderr = process4.getStderrSnapshot();
+      return {
+        diagnostics: stderr ? `${message}
+
+${stderr}` : message,
+        models: []
+      };
+    } finally {
+      transport == null ? void 0 : transport.dispose();
+      await process4.shutdown().catch(() => {
+      });
+    }
   }
 };
 
@@ -71604,8 +73784,8 @@ function serializeSubagentToml(agent) {
 }
 
 // src/providers/codex/ui/CodexSettingsTab.ts
-var fs13 = __toESM(require("fs"));
-var import_obsidian17 = require("obsidian");
+var fs14 = __toESM(require("fs"));
+var import_obsidian18 = require("obsidian");
 init_env();
 init_path();
 
@@ -71625,7 +73805,8 @@ function getConfiguredEnvModel(settings11) {
 }
 function getConfiguredEnvCustomModel(settings11) {
   const modelId = getConfiguredEnvModel(settings11);
-  return modelId && !DEFAULT_CODEX_MODEL_SET.has(modelId) ? modelId : null;
+  const discoveredModels = getCodexProviderSettings(settings11).discoveredModels;
+  return modelId && !discoveredModels.some((model) => model.model === modelId) ? modelId : null;
 }
 function parseConfiguredCustomModelIds2(value) {
   const modelIds = [];
@@ -71641,14 +73822,88 @@ function parseConfiguredCustomModelIds2(value) {
   return modelIds;
 }
 function getCodexModelOptions(settings11) {
-  const models = [...DEFAULT_CODEX_MODELS];
-  const seenModelIds = new Set(models.map((model) => toCodexRuntimeModelId(model.value)));
+  const codexSettings = getCodexProviderSettings(settings11);
+  const visibleModelIds = new Set(getVisibleCodexModelIds(
+    codexSettings.visibleModels,
+    codexSettings.discoveredModels
+  ));
+  const savedProviderModel = settings11.savedProviderModel && typeof settings11.savedProviderModel === "object" && !Array.isArray(settings11.savedProviderModel) ? settings11.savedProviderModel : null;
+  const pinnedModelIds = /* @__PURE__ */ new Set();
+  for (const value of [
+    settings11.model,
+    savedProviderModel == null ? void 0 : savedProviderModel.codex,
+    getConfiguredEnvModel(settings11)
+  ]) {
+    if (typeof value === "string" && value.trim()) {
+      pinnedModelIds.add(toCodexRuntimeModelId(value));
+    }
+  }
+  const absentPinnedSelections = [];
+  const currentModel = typeof settings11.model === "string" ? settings11.model.trim() : "";
+  if (codexSettings.discoveredModels.length === 0 && currentModel && (isCodexModelSelectionId(currentModel) || looksLikeCodexModel(toCodexRuntimeModelId(currentModel)))) {
+    absentPinnedSelections.push(currentModel);
+  }
+  const savedCodexModel = typeof (savedProviderModel == null ? void 0 : savedProviderModel.codex) === "string" ? savedProviderModel.codex.trim() : "";
+  if (codexSettings.discoveredModels.length === 0 && savedCodexModel) {
+    absentPinnedSelections.push(savedCodexModel);
+  }
+  const pickerOrderedModels = getCodexModelsInPickerOrder(codexSettings.discoveredModels);
+  const visibleDiscoveredModels = pickerOrderedModels.filter((model) => visibleModelIds.has(model.model));
+  const pinnedDiscoveredModels = pickerOrderedModels.filter(
+    (model) => !visibleModelIds.has(model.model) && pinnedModelIds.has(model.model)
+  );
+  const models = visibleDiscoveredModels.map((model) => ({
+    value: model.model,
+    label: model.displayName,
+    description: model.description || void 0
+  }));
+  const seenModelIds = new Set(visibleDiscoveredModels.map((model) => model.model));
+  const persistedVisibleModels = codexSettings.visibleModels === null ? [] : [...codexSettings.visibleModels].reverse();
+  for (const modelId of persistedVisibleModels) {
+    if (seenModelIds.has(modelId)) {
+      continue;
+    }
+    seenModelIds.add(modelId);
+    models.push({
+      value: modelId,
+      label: formatCodexModelLabel(modelId),
+      description: "Selected model"
+    });
+  }
+  for (const model of pinnedDiscoveredModels) {
+    seenModelIds.add(model.model);
+    models.push({
+      value: model.model,
+      label: model.displayName,
+      description: model.description || void 0
+    });
+  }
+  for (const selection of absentPinnedSelections) {
+    const modelId = toCodexRuntimeModelId(selection);
+    if (seenModelIds.has(modelId)) {
+      continue;
+    }
+    seenModelIds.add(modelId);
+    models.push(
+      isCodexModelSelectionId(selection) || !looksLikeCodexModel(modelId) ? createCustomCodexModelOption(modelId, "Selected model") : {
+        value: modelId,
+        label: formatCodexModelLabel(modelId),
+        description: "Selected model"
+      }
+    );
+  }
   const envModel = getConfiguredEnvCustomModel(settings11);
   if (envModel) {
-    seenModelIds.add(envModel);
+    const runtimeModelId = toCodexRuntimeModelId(envModel);
+    const existingIndex = models.findIndex(
+      (option) => toCodexRuntimeModelId(option.value) === runtimeModelId
+    );
+    if (existingIndex >= 0) {
+      models.splice(existingIndex, 1);
+    }
+    seenModelIds.add(runtimeModelId);
     models.unshift(createCustomCodexModelOption(envModel, "Custom (env)"));
   }
-  const codexSettings = getCodexProviderSettings(settings11);
   for (const configuredModelId of parseConfiguredCustomModelIds2(codexSettings.customModels)) {
     const modelId = toCodexRuntimeModelId(configuredModelId);
     if (seenModelIds.has(modelId)) {
@@ -71660,7 +73915,7 @@ function getCodexModelOptions(settings11) {
   return models;
 }
 function resolveCodexModelSelection(settings11, currentModel) {
-  var _a5, _b3, _c2;
+  var _a5, _b3, _c2, _d;
   const modelOptions = getCodexModelOptions(settings11);
   const envModel = getConfiguredEnvModel(settings11);
   if (envModel) {
@@ -71679,12 +73934,277 @@ function resolveCodexModelSelection(settings11, currentModel) {
       return currentOption.value;
     }
   }
-  return (_c2 = (_b3 = modelOptions[0]) == null ? void 0 : _b3.value) != null ? _c2 : DEFAULT_CODEX_PRIMARY_MODEL;
+  const codexSettings = getCodexProviderSettings(settings11);
+  const visibleModelIds = new Set(getVisibleCodexModelIds(
+    codexSettings.visibleModels,
+    codexSettings.discoveredModels
+  ));
+  const defaultModel = getDefaultCodexModel(
+    codexSettings.discoveredModels.filter((model) => visibleModelIds.has(model.model))
+  );
+  return (_d = (_c2 = defaultModel == null ? void 0 : defaultModel.model) != null ? _c2 : (_b3 = modelOptions[0]) == null ? void 0 : _b3.value) != null ? _d : null;
+}
+
+// src/providers/codex/ui/CodexModelPicker.ts
+var import_obsidian15 = require("obsidian");
+function sameVisibleModels(left, right) {
+  if (left === null || right === null) {
+    return left === right;
+  }
+  return left.length === right.length && left.every((value, index) => value === right[index]);
+}
+function matchesSearch(model, query) {
+  if (!query) {
+    return true;
+  }
+  return model.model.toLowerCase().includes(query) || model.displayName.toLowerCase().includes(query) || model.description.toLowerCase().includes(query);
+}
+function renderCodexModelPicker(container, context, workspace) {
+  const settingsBag = context.plugin.settings;
+  new import_obsidian15.Setting(container).setName("Visible models").setDesc("Choose which app-server models appear in the Codex selector. Existing session models stay pinned even when hidden here.");
+  const pickerEl = container.createDiv({
+    cls: "claudian-provider-model-picker claudian-provider-model-picker--codex"
+  });
+  let searchQuery = "";
+  let loading = false;
+  let loadFailed = false;
+  const summaryEl = pickerEl.createDiv({ cls: "claudian-provider-model-picker-summary" });
+  const selectedEl = pickerEl.createDiv({ cls: "claudian-provider-model-picker-selected" });
+  const catalogEl = pickerEl.createEl("details", { cls: "claudian-provider-model-picker-catalog" });
+  catalogEl.open = getCodexProviderSettings(settingsBag).discoveredModels.length === 0;
+  const catalogSummaryEl = catalogEl.createEl("summary", {
+    cls: "claudian-provider-model-picker-catalog-summary"
+  });
+  catalogSummaryEl.createSpan({
+    cls: "claudian-provider-model-picker-catalog-caret",
+    text: "\u25B8"
+  });
+  catalogSummaryEl.createSpan({
+    cls: "claudian-provider-model-picker-catalog-title",
+    text: "Browse models"
+  });
+  const catalogSummaryCountEl = catalogSummaryEl.createSpan({
+    cls: "claudian-provider-model-picker-catalog-count"
+  });
+  const controlsEl = catalogEl.createDiv({ cls: "claudian-provider-model-picker-controls" });
+  const searchInput = controlsEl.createEl("input", {
+    cls: "claudian-provider-model-picker-search",
+    type: "search"
+  });
+  searchInput.placeholder = "Filter by model name, description, or ID...";
+  searchInput.addEventListener("input", () => {
+    searchQuery = searchInput.value.trim().toLowerCase();
+    renderList();
+  });
+  const refreshButtonEl = controlsEl.createEl("button", {
+    cls: "claudian-provider-model-picker-action",
+    text: "Refresh"
+  });
+  refreshButtonEl.setAttribute("type", "button");
+  refreshButtonEl.addEventListener("click", () => {
+    void refreshCatalog();
+  });
+  const listEl = catalogEl.createDiv({ cls: "claudian-provider-model-picker-list" });
+  const getVisibleModelIds = () => {
+    const current = getCodexProviderSettings(settingsBag);
+    return getVisibleCodexModelIds(current.visibleModels, current.discoveredModels);
+  };
+  const persistVisibleModels = async (modelIds) => {
+    const current = getCodexProviderSettings(settingsBag);
+    const nextVisibleModels = createCodexVisibleModelFilter(modelIds, current.discoveredModels);
+    if (sameVisibleModels(current.visibleModels, nextVisibleModels)) {
+      return;
+    }
+    updateCodexProviderSettings(settingsBag, { visibleModels: nextVisibleModels });
+    ProviderSettingsCoordinator.normalizeAllModelVariants(settingsBag);
+    await context.plugin.saveSettings();
+    renderAll();
+    context.refreshModelSelectors();
+  };
+  const renderSummary = () => {
+    summaryEl.empty();
+    const current = getCodexProviderSettings(settingsBag);
+    const visibleCount = getVisibleCodexModelIds(
+      current.visibleModels,
+      current.discoveredModels
+    ).length;
+    summaryEl.createSpan({ text: "Visible: " });
+    summaryEl.createSpan({
+      cls: "claudian-provider-model-picker-summary-value",
+      text: String(visibleCount)
+    });
+    summaryEl.createSpan({ text: ` of ${current.discoveredModels.length} discovered` });
+    let catalogSummary = "No models discovered yet";
+    if (loading) {
+      catalogSummary = "Loading models...";
+    } else if (current.discoveredModels.length > 0) {
+      catalogSummary = `${current.discoveredModels.length} available`;
+    }
+    catalogSummaryCountEl.setText(catalogSummary);
+    refreshButtonEl.disabled = loading;
+    refreshButtonEl.setText(loading ? "Loading..." : "Refresh");
+  };
+  const renderSelected = () => {
+    var _a5, _b3;
+    selectedEl.empty();
+    const current = getCodexProviderSettings(settingsBag);
+    const visibleModelIds = getVisibleModelIds();
+    if (visibleModelIds.length === 0) {
+      selectedEl.toggleClass("claudian-hidden", true);
+      return;
+    }
+    selectedEl.toggleClass("claudian-hidden", false);
+    const modelsById = new Map(current.discoveredModels.map((model) => [model.model, model]));
+    const visibleModelIdSet = new Set(visibleModelIds);
+    const pickerOrderedVisibleModelIds = getCodexModelsInPickerOrder(current.discoveredModels).map((model) => model.model).filter((modelId) => visibleModelIdSet.has(modelId));
+    for (const modelId of visibleModelIds) {
+      if (!modelsById.has(modelId)) {
+        pickerOrderedVisibleModelIds.push(modelId);
+      }
+    }
+    const headerEl = selectedEl.createDiv({ cls: "claudian-provider-model-picker-selected-header" });
+    headerEl.createEl("span", {
+      cls: "claudian-provider-model-picker-selected-label",
+      text: `Selected (${visibleModelIds.length})`
+    });
+    const clearAllButton = headerEl.createEl("button", {
+      cls: "claudian-provider-model-picker-selected-clear",
+      text: "Clear all"
+    });
+    clearAllButton.setAttribute("type", "button");
+    clearAllButton.setAttribute("aria-label", "Clear all selected Codex models");
+    clearAllButton.addEventListener("click", () => {
+      void persistVisibleModels([]);
+    });
+    const rowsEl = selectedEl.createDiv({ cls: "claudian-provider-model-picker-selected-rows" });
+    for (const modelId of pickerOrderedVisibleModelIds) {
+      const model = modelsById.get(modelId);
+      const rowEl = rowsEl.createDiv({ cls: "claudian-provider-model-picker-selected-row" });
+      const infoEl = rowEl.createDiv({ cls: "claudian-provider-model-picker-selected-info" });
+      const titleEl = infoEl.createDiv({ cls: "claudian-provider-model-picker-selected-title" });
+      titleEl.createEl("span", {
+        cls: "claudian-provider-model-picker-selected-name",
+        text: (_a5 = model == null ? void 0 : model.displayName) != null ? _a5 : modelId
+      });
+      infoEl.createEl("div", {
+        cls: "claudian-provider-model-picker-selected-id",
+        text: modelId
+      });
+      const controls = rowEl.createDiv({ cls: "claudian-provider-model-picker-selected-controls" });
+      const removeButton = controls.createEl("button", {
+        cls: "claudian-provider-model-picker-selected-remove",
+        text: "\xD7"
+      });
+      removeButton.setAttribute("type", "button");
+      removeButton.setAttribute("aria-label", `Remove ${(_b3 = model == null ? void 0 : model.displayName) != null ? _b3 : modelId}`);
+      removeButton.addEventListener("click", () => {
+        void persistVisibleModels(getVisibleModelIds().filter((id) => id !== modelId));
+      });
+    }
+  };
+  const renderList = () => {
+    listEl.empty();
+    const current = getCodexProviderSettings(settingsBag);
+    const selectedIds = new Set(getVisibleModelIds());
+    const models = getCodexModelsInPickerOrder(current.discoveredModels).filter((model) => matchesSearch(model, searchQuery));
+    if (models.length === 0) {
+      let message = "No models match your filter.";
+      if (loading) {
+        message = "Loading the Codex model catalog...";
+      } else if (loadFailed) {
+        message = "Could not load models from Codex app-server. Check the CLI path and login state, then try again.";
+      } else if (current.discoveredModels.length === 0) {
+        message = "No Codex models discovered yet. Click Refresh to query app-server.";
+      }
+      listEl.createDiv({ cls: "claudian-provider-model-picker-empty", text: message });
+      return;
+    }
+    for (const model of models) {
+      const rowEl = listEl.createEl("label", { cls: "claudian-provider-model-picker-row" });
+      const isSelected = selectedIds.has(model.model);
+      if (isSelected) {
+        rowEl.classList.add("claudian-provider-model-picker-row--selected");
+      }
+      rowEl.title = model.model;
+      const checkboxEl = rowEl.createEl("input", { type: "checkbox" });
+      checkboxEl.checked = isSelected;
+      checkboxEl.addEventListener("change", () => {
+        const latest = getCodexProviderSettings(settingsBag);
+        const latestSelectedIds = new Set(getVisibleCodexModelIds(
+          latest.visibleModels,
+          latest.discoveredModels
+        ));
+        if (checkboxEl.checked) {
+          latestSelectedIds.add(model.model);
+        } else {
+          latestSelectedIds.delete(model.model);
+        }
+        const nextModelIds = latest.discoveredModels.map((candidate) => candidate.model).filter((modelId) => latestSelectedIds.has(modelId));
+        void persistVisibleModels(nextModelIds);
+      });
+      const textEl = rowEl.createDiv({ cls: "claudian-provider-model-picker-row-text" });
+      const headerEl = textEl.createDiv({ cls: "claudian-provider-model-picker-row-header" });
+      headerEl.createEl("span", {
+        cls: "claudian-provider-model-picker-row-name",
+        text: model.displayName
+      });
+      if (model.isDefault) {
+        headerEl.createEl("span", {
+          cls: "claudian-provider-model-picker-row-badge",
+          text: "Default"
+        });
+      }
+      textEl.createDiv({
+        cls: "claudian-provider-model-picker-row-meta",
+        text: model.model
+      });
+      if (model.description) {
+        textEl.createDiv({
+          cls: "claudian-provider-model-picker-row-desc",
+          text: model.description
+        });
+      }
+    }
+  };
+  const renderAll = () => {
+    renderSummary();
+    renderSelected();
+    renderList();
+  };
+  const refreshCatalog = async () => {
+    if (loading || !workspace.refreshModelCatalog) {
+      return;
+    }
+    loading = true;
+    loadFailed = false;
+    renderAll();
+    try {
+      const result = await workspace.refreshModelCatalog();
+      if (result.diagnostics) {
+        loadFailed = true;
+        new import_obsidian15.Notice(`Codex model discovery failed: ${result.diagnostics}`);
+        return;
+      }
+      if (result.persistedSettingsChanged) {
+        await context.plugin.saveSettings();
+      }
+      context.refreshModelSelectors();
+    } finally {
+      loading = false;
+      renderAll();
+    }
+  };
+  renderAll();
+  catalogEl.addEventListener("toggle", () => {
+    if (catalogEl.open && getCodexProviderSettings(settingsBag).discoveredModels.length === 0) {
+      void refreshCatalog();
+    }
+  });
 }
 
 // src/providers/codex/ui/CodexSkillSettings.ts
-var import_obsidian15 = require("obsidian");
-var CodexSkillModal = class extends import_obsidian15.Modal {
+var import_obsidian16 = require("obsidian");
+var CodexSkillModal = class extends import_obsidian16.Modal {
   constructor(app, existing, onSave) {
     var _a5, _b3;
     super(app);
@@ -71706,10 +74226,10 @@ var CodexSkillModal = class extends import_obsidian15.Modal {
   }
   onOpen() {
     var _a5;
-    this.setTitle(this.existing ? "Edit Codex Skill" : "Add Codex Skill");
+    this.setTitle(this.existing ? t10("settings.codexSkills.modal.titleEdit") : t10("settings.codexSkills.modal.titleAdd"));
     this.modalEl.addClass("claudian-sp-modal");
     const { contentEl } = this;
-    new import_obsidian15.Setting(contentEl).setName("Directory").setDesc("Where to store the skill").addDropdown((dropdown) => {
+    new import_obsidian16.Setting(contentEl).setName(t10("settings.codexSkills.modal.directory")).setDesc(t10("settings.codexSkills.modal.directoryDesc")).addDropdown((dropdown) => {
       for (const opt of CODEX_SKILL_ROOT_OPTIONS) {
         dropdown.addOption(opt.id, opt.label);
       }
@@ -71718,20 +74238,20 @@ var CodexSkillModal = class extends import_obsidian15.Modal {
         this._selectedRootId = value;
       });
     });
-    new import_obsidian15.Setting(contentEl).setName("Skill name").setDesc('The name used after $ (e.g., "analyze" for $analyze)').addText((text) => {
+    new import_obsidian16.Setting(contentEl).setName(t10("settings.codexSkills.modal.skillName")).setDesc(t10("settings.codexSkills.modal.skillNameDesc")).addText((text) => {
       var _a6;
       this._nameInput = text.inputEl;
       text.setValue(((_a6 = this.existing) == null ? void 0 : _a6.name) || "").setPlaceholder("Analyze-code");
     });
-    new import_obsidian15.Setting(contentEl).setName("Description").setDesc("Optional description shown in dropdown").addText((text) => {
+    new import_obsidian16.Setting(contentEl).setName(t10("settings.codexSkills.modal.description")).setDesc(t10("settings.codexSkills.modal.descriptionDesc")).addText((text) => {
       var _a6;
       this._descInput = text.inputEl;
       text.setValue(((_a6 = this.existing) == null ? void 0 : _a6.description) || "");
     });
-    new import_obsidian15.Setting(contentEl).setName("Instructions").setDesc("The skill instructions (SKILL.md content)");
+    new import_obsidian16.Setting(contentEl).setName(t10("settings.codexSkills.modal.instructions")).setDesc(t10("settings.codexSkills.modal.instructionsDesc"));
     const contentArea = contentEl.createEl("textarea", {
       cls: "claudian-sp-content-area",
-      attr: { rows: "10", placeholder: "Analyze the code for..." }
+      attr: { rows: "10", placeholder: t10("settings.codexSkills.modal.instructionsPlaceholder") }
     });
     contentArea.value = ((_a5 = this.existing) == null ? void 0 : _a5.content) || "";
     this._contentArea = contentArea;
@@ -71740,12 +74260,12 @@ var CodexSkillModal = class extends import_obsidian15.Modal {
       const name = this._nameInput.value.trim();
       const nameError = validateCommandName(name);
       if (nameError) {
-        new import_obsidian15.Notice(nameError);
+        new import_obsidian16.Notice(nameError);
         return;
       }
       const content = this._contentArea.value;
       if (!content.trim()) {
-        new import_obsidian15.Notice("Instructions are required");
+        new import_obsidian16.Notice(t10("settings.codexSkills.instructionsRequired"));
         return;
       }
       const entry = {
@@ -71769,7 +74289,7 @@ var CodexSkillModal = class extends import_obsidian15.Modal {
       try {
         await this.onSave(entry);
       } catch (e2) {
-        new import_obsidian15.Notice("Failed to save Codex skill");
+        new import_obsidian16.Notice(t10("settings.codexSkills.saveFailed"));
         return;
       }
       this.close();
@@ -71777,12 +74297,12 @@ var CodexSkillModal = class extends import_obsidian15.Modal {
     this._triggerSave = doSave;
     const buttonContainer = contentEl.createDiv({ cls: "claudian-sp-modal-buttons" });
     const cancelBtn = buttonContainer.createEl("button", {
-      text: "Cancel",
+      text: t10("common.cancel"),
       cls: "claudian-cancel-btn"
     });
     cancelBtn.addEventListener("click", () => this.close());
     const saveBtn = buttonContainer.createEl("button", {
-      text: "Save",
+      text: t10("common.save"),
       cls: "claudian-save-btn"
     });
     saveBtn.addEventListener("click", () => {
@@ -71817,25 +74337,25 @@ var CodexSkillSettings = class {
       this.entries = [];
     }
     const headerEl = this.containerEl.createDiv({ cls: "claudian-sp-header" });
-    headerEl.createSpan({ text: "Codex Skills", cls: "claudian-sp-label" });
+    headerEl.createSpan({ text: t10("settings.codexSkills.header"), cls: "claudian-sp-label" });
     const actionsEl = headerEl.createDiv({ cls: "claudian-sp-header-actions" });
     const refreshBtn = actionsEl.createEl("button", {
       cls: "claudian-settings-action-btn",
-      attr: { "aria-label": "Refresh" }
+      attr: { "aria-label": t10("common.refresh") }
     });
-    (0, import_obsidian15.setIcon)(refreshBtn, "refresh-cw");
+    (0, import_obsidian16.setIcon)(refreshBtn, "refresh-cw");
     refreshBtn.addEventListener("click", () => {
       void this.refresh();
     });
     const addBtn = actionsEl.createEl("button", {
       cls: "claudian-settings-action-btn",
-      attr: { "aria-label": "Add" }
+      attr: { "aria-label": t10("common.add") }
     });
-    (0, import_obsidian15.setIcon)(addBtn, "plus");
+    (0, import_obsidian16.setIcon)(addBtn, "plus");
     addBtn.addEventListener("click", () => this.openModal(null));
     if (this.entries.length === 0) {
       const emptyEl = this.containerEl.createDiv({ cls: "claudian-sp-empty-state" });
-      emptyEl.setText("No Codex skills in vault. Click + to create one.");
+      emptyEl.setText(t10("settings.codexSkills.noSkills"));
       return;
     }
     const listEl = this.containerEl.createDiv({ cls: "claudian-sp-list" });
@@ -71849,7 +74369,7 @@ var CodexSkillSettings = class {
     const headerRow = infoEl.createDiv({ cls: "claudian-sp-item-header" });
     const nameEl = headerRow.createSpan({ cls: "claudian-sp-item-name" });
     nameEl.setText(`$${entry.name}`);
-    headerRow.createSpan({ text: "skill", cls: "claudian-slash-item-badge" });
+    headerRow.createSpan({ text: t10("settings.codexSkills.skillBadge"), cls: "claudian-slash-item-badge" });
     if (entry.description) {
       const descEl = infoEl.createDiv({ cls: "claudian-sp-item-desc" });
       descEl.setText(entry.description);
@@ -71858,24 +74378,24 @@ var CodexSkillSettings = class {
     if (entry.isEditable) {
       const editBtn = actionsEl.createEl("button", {
         cls: "claudian-settings-action-btn",
-        attr: { "aria-label": "Edit" }
+        attr: { "aria-label": t10("common.edit") }
       });
-      (0, import_obsidian15.setIcon)(editBtn, "pencil");
+      (0, import_obsidian16.setIcon)(editBtn, "pencil");
       editBtn.addEventListener("click", () => this.openModal(entry));
     }
     if (entry.isDeletable) {
       const deleteBtn = actionsEl.createEl("button", {
         cls: "claudian-settings-action-btn claudian-settings-delete-btn",
-        attr: { "aria-label": "Delete" }
+        attr: { "aria-label": t10("common.delete") }
       });
-      (0, import_obsidian15.setIcon)(deleteBtn, "trash-2");
+      (0, import_obsidian16.setIcon)(deleteBtn, "trash-2");
       deleteBtn.addEventListener("click", () => {
         void (async () => {
           try {
             await this.deleteEntry(entry);
-            new import_obsidian15.Notice(`Codex skill "$${entry.name}" deleted`);
+            new import_obsidian16.Notice(t10("settings.codexSkills.deleted", { name: entry.name }));
           } catch (e2) {
-            new import_obsidian15.Notice("Failed to delete Codex skill");
+            new import_obsidian16.Notice(t10("settings.codexSkills.deleteFailed"));
           }
         })();
       });
@@ -71889,7 +74409,7 @@ var CodexSkillSettings = class {
       async (entry) => {
         await this.catalog.saveVaultEntry(entry);
         await this.render();
-        new import_obsidian15.Notice(`Codex skill "$${entry.name}" ${existing ? "updated" : "created"}`);
+        new import_obsidian16.Notice(t10(existing ? "settings.codexSkills.updated" : "settings.codexSkills.created", { name: entry.name }));
       }
     );
     modal.open();
@@ -71897,27 +74417,34 @@ var CodexSkillSettings = class {
 };
 
 // src/providers/codex/ui/CodexSubagentSettings.ts
-var import_obsidian16 = require("obsidian");
-var REASONING_EFFORT_OPTIONS = [
-  { value: "", label: "Inherit" },
-  { value: "low", label: "Low" },
-  { value: "medium", label: "Medium" },
-  { value: "high", label: "High" },
-  { value: "xhigh", label: "Extra High" }
-];
-var SANDBOX_MODE_OPTIONS = [
-  { value: "", label: "Inherit" },
-  { value: "read-only", label: "Read only" },
-  { value: "danger-full-access", label: "Danger full access" },
-  { value: "workspace-write", label: "Workspace write" }
-];
+var import_obsidian17 = require("obsidian");
+function getCodexSubagentReasoningEffortOptions() {
+  return [
+    { value: "", label: t10("settings.codexSubagents.reasoningEffort.inherit") },
+    { value: "low", label: t10("settings.codexSubagents.reasoningEffort.low") },
+    { value: "medium", label: t10("settings.codexSubagents.reasoningEffort.medium") },
+    { value: "high", label: t10("settings.codexSubagents.reasoningEffort.high") },
+    { value: "xhigh", label: t10("settings.codexSubagents.reasoningEffort.xhigh") },
+    { value: "max", label: "Max" }
+  ];
+}
+function getSandboxModeOptions() {
+  return [
+    { value: "", label: t10("settings.codexSubagents.sandboxMode.inherit") },
+    { value: "read-only", label: t10("settings.codexSubagents.sandboxMode.readOnly") },
+    { value: "danger-full-access", label: t10("settings.codexSubagents.sandboxMode.dangerFullAccess") },
+    { value: "workspace-write", label: t10("settings.codexSubagents.sandboxMode.workspaceWrite") }
+  ];
+}
 var MAX_NAME_LENGTH = 64;
 var CODEX_AGENT_NAME_PATTERN = /^[a-z0-9_-]+$/;
 var CODEX_NICKNAME_PATTERN = /^[A-Za-z0-9 _-]+$/;
 function validateCodexSubagentName(name) {
-  if (!name) return "Subagent name is required";
-  if (name.length > MAX_NAME_LENGTH) return `Subagent name must be ${MAX_NAME_LENGTH} characters or fewer`;
-  if (!CODEX_AGENT_NAME_PATTERN.test(name)) return "Subagent name can only contain lowercase letters, numbers, hyphens, and underscores";
+  if (!name) return t10("settings.codexSubagents.validation.nameRequired");
+  if (name.length > MAX_NAME_LENGTH) {
+    return t10("settings.codexSubagents.validation.nameTooLong", { count: MAX_NAME_LENGTH });
+  }
+  if (!CODEX_AGENT_NAME_PATTERN.test(name)) return t10("settings.codexSubagents.validation.nameInvalid");
   return null;
 }
 function validateCodexNicknameCandidates(candidates) {
@@ -71926,17 +74453,17 @@ function validateCodexNicknameCandidates(candidates) {
   const seen = /* @__PURE__ */ new Set();
   for (const candidate of normalized) {
     if (!CODEX_NICKNAME_PATTERN.test(candidate)) {
-      return "Nickname candidates can only contain ASCII letters, numbers, spaces, hyphens, and underscores";
+      return t10("settings.codexSubagents.validation.nicknameInvalid");
     }
     const dedupeKey = candidate.toLowerCase();
     if (seen.has(dedupeKey)) {
-      return "Nickname candidates must be unique";
+      return t10("settings.codexSubagents.validation.nicknameDuplicate");
     }
     seen.add(dedupeKey);
   }
   return null;
 }
-var CodexSubagentModal = class extends import_obsidian16.Modal {
+var CodexSubagentModal = class extends import_obsidian17.Modal {
   constructor(app, existing, allAgents, onSave) {
     var _a5, _b3;
     super(app);
@@ -71966,34 +74493,34 @@ var CodexSubagentModal = class extends import_obsidian16.Modal {
   }
   onOpen() {
     var _a5, _b3, _c2, _d, _e2, _f2, _g;
-    this.setTitle(this.existing ? "Edit Codex Subagent" : "Add Codex Subagent");
+    this.setTitle(this.existing ? t10("settings.codexSubagents.modal.titleEdit") : t10("settings.codexSubagents.modal.titleAdd"));
     this.modalEl.addClass("claudian-sp-modal");
     const { contentEl } = this;
-    new import_obsidian16.Setting(contentEl).setName("Name").setDesc("Agent name Codex uses when spawning (lowercase, hyphens, underscores)").addText((text) => {
+    new import_obsidian17.Setting(contentEl).setName(t10("settings.subagents.modal.name")).setDesc(t10("settings.codexSubagents.modal.nameDesc")).addText((text) => {
       var _a6, _b4;
       this._nameInput = text.inputEl;
-      text.setValue((_b4 = (_a6 = this.existing) == null ? void 0 : _a6.name) != null ? _b4 : "").setPlaceholder("Code_reviewer");
+      text.setValue((_b4 = (_a6 = this.existing) == null ? void 0 : _a6.name) != null ? _b4 : "").setPlaceholder(t10("settings.codexSubagents.modal.namePlaceholder"));
     });
-    new import_obsidian16.Setting(contentEl).setName("Description").setDesc("When Codex should use this agent").addText((text) => {
+    new import_obsidian17.Setting(contentEl).setName(t10("settings.subagents.modal.description")).setDesc(t10("settings.codexSubagents.modal.descriptionDesc")).addText((text) => {
       var _a6, _b4;
       this._descInput = text.inputEl;
       text.setValue((_b4 = (_a6 = this.existing) == null ? void 0 : _a6.description) != null ? _b4 : "").setPlaceholder("Reviews code for correctness and security");
     });
     const details = contentEl.createEl("details", { cls: "claudian-sp-advanced-section" });
     details.createEl("summary", {
-      text: "Advanced options",
+      text: t10("settings.subagents.modal.advancedOptions"),
       cls: "claudian-sp-advanced-summary"
     });
     if (((_a5 = this.existing) == null ? void 0 : _a5.model) || ((_b3 = this.existing) == null ? void 0 : _b3.modelReasoningEffort) || ((_c2 = this.existing) == null ? void 0 : _c2.sandboxMode) || ((_e2 = (_d = this.existing) == null ? void 0 : _d.nicknameCandidates) == null ? void 0 : _e2.length)) {
       details.open = true;
     }
-    new import_obsidian16.Setting(details).setName("Model").setDesc("Model override (leave empty to inherit)").addText((text) => {
+    new import_obsidian17.Setting(details).setName(t10("settings.subagents.modal.model")).setDesc(t10("settings.codexSubagents.modal.modelDesc")).addText((text) => {
       var _a6, _b4;
       this._modelInput = text.inputEl;
-      text.setValue((_b4 = (_a6 = this.existing) == null ? void 0 : _a6.model) != null ? _b4 : "").setPlaceholder(DEFAULT_CODEX_PRIMARY_MODEL);
+      text.setValue((_b4 = (_a6 = this.existing) == null ? void 0 : _a6.model) != null ? _b4 : "").setPlaceholder("Model ID");
     });
-    new import_obsidian16.Setting(details).setName("Reasoning effort").setDesc("Model reasoning effort level").addDropdown((dropdown) => {
-      for (const opt of REASONING_EFFORT_OPTIONS) {
+    new import_obsidian17.Setting(details).setName(t10("settings.codexSubagents.reasoningEffort.name")).setDesc(t10("settings.codexSubagents.reasoningEffort.desc")).addDropdown((dropdown) => {
+      for (const opt of getCodexSubagentReasoningEffortOptions()) {
         dropdown.addOption(opt.value, opt.label);
       }
       dropdown.setValue(this._reasoningEffort);
@@ -72001,8 +74528,8 @@ var CodexSubagentModal = class extends import_obsidian16.Modal {
         this._reasoningEffort = v2;
       });
     });
-    new import_obsidian16.Setting(details).setName("Sandbox mode").setDesc("Sandbox restriction for this agent").addDropdown((dropdown) => {
-      for (const opt of SANDBOX_MODE_OPTIONS) {
+    new import_obsidian17.Setting(details).setName(t10("settings.codexSubagents.sandboxMode.name")).setDesc(t10("settings.codexSubagents.sandboxMode.desc")).addDropdown((dropdown) => {
+      for (const opt of getSandboxModeOptions()) {
         dropdown.addOption(opt.value, opt.label);
       }
       dropdown.setValue(this._sandboxMode);
@@ -72010,17 +74537,17 @@ var CodexSubagentModal = class extends import_obsidian16.Modal {
         this._sandboxMode = v2;
       });
     });
-    new import_obsidian16.Setting(details).setName("Nickname candidates").setDesc("Comma-separated display nicknames (e.g., atlas, delta, echo)").addText((text) => {
+    new import_obsidian17.Setting(details).setName(t10("settings.codexSubagents.nicknameCandidates.name")).setDesc(t10("settings.codexSubagents.nicknameCandidates.desc")).addText((text) => {
       var _a6, _b4, _c3;
       this._nicknamesInput = text.inputEl;
       text.setValue((_c3 = (_b4 = (_a6 = this.existing) == null ? void 0 : _a6.nicknameCandidates) == null ? void 0 : _b4.join(", ")) != null ? _c3 : "");
     });
-    new import_obsidian16.Setting(contentEl).setName("Developer instructions").setDesc("Core instructions that define the agent's behavior");
+    new import_obsidian17.Setting(contentEl).setName(t10("settings.codexSubagents.developerInstructions.name")).setDesc(t10("settings.codexSubagents.developerInstructions.desc"));
     const instructionsArea = contentEl.createEl("textarea", {
       cls: "claudian-sp-content-area",
       attr: {
         rows: "10",
-        placeholder: "Review code like an owner.\nPrioritize correctness, security, and missing test coverage."
+        placeholder: t10("settings.codexSubagents.developerInstructions.placeholder")
       }
     });
     instructionsArea.value = (_g = (_f2 = this.existing) == null ? void 0 : _f2.developerInstructions) != null ? _g : "";
@@ -72030,23 +74557,23 @@ var CodexSubagentModal = class extends import_obsidian16.Modal {
       const name = this._nameInput.value.trim();
       const nameError = validateCodexSubagentName(name);
       if (nameError) {
-        new import_obsidian16.Notice(nameError);
+        new import_obsidian17.Notice(nameError);
         return;
       }
       const description = this._descInput.value.trim();
       if (!description) {
-        new import_obsidian16.Notice("Description is required");
+        new import_obsidian17.Notice(t10("settings.subagents.descriptionRequired"));
         return;
       }
       const developerInstructions = this._instructionsArea.value;
       if (!developerInstructions.trim()) {
-        new import_obsidian16.Notice("Developer instructions are required");
+        new import_obsidian17.Notice(t10("settings.codexSubagents.developerInstructions.required"));
         return;
       }
       const nicknameCandidates = this._nicknamesInput.value.split(",").map((s2) => s2.trim()).filter(Boolean);
       const nicknameError = validateCodexNicknameCandidates(nicknameCandidates);
       if (nicknameError) {
-        new import_obsidian16.Notice(nicknameError);
+        new import_obsidian17.Notice(nicknameError);
         return;
       }
       const duplicate = this.allAgents.find(
@@ -72056,7 +74583,7 @@ var CodexSubagentModal = class extends import_obsidian16.Modal {
         }
       );
       if (duplicate) {
-        new import_obsidian16.Notice(`A subagent named "${name}" already exists`);
+        new import_obsidian17.Notice(t10("settings.subagents.duplicateName", { name }));
         return;
       }
       const agent = {
@@ -72074,7 +74601,7 @@ var CodexSubagentModal = class extends import_obsidian16.Modal {
         await this.onSave(agent);
       } catch (err) {
         const message = err instanceof Error ? err.message : "Unknown error";
-        new import_obsidian16.Notice(`Failed to save subagent: ${message}`);
+        new import_obsidian17.Notice(t10("settings.subagents.saveFailed", { message }));
         return;
       }
       this.close();
@@ -72082,12 +74609,12 @@ var CodexSubagentModal = class extends import_obsidian16.Modal {
     this._triggerSave = doSave;
     const buttonContainer = contentEl.createDiv({ cls: "claudian-sp-modal-buttons" });
     const cancelBtn = buttonContainer.createEl("button", {
-      text: "Cancel",
+      text: t10("common.cancel"),
       cls: "claudian-cancel-btn"
     });
     cancelBtn.addEventListener("click", () => this.close());
     const saveBtn = buttonContainer.createEl("button", {
-      text: "Save",
+      text: t10("common.save"),
       cls: "claudian-save-btn"
     });
     saveBtn.addEventListener("click", () => {
@@ -72115,25 +74642,25 @@ var CodexSubagentSettings = class {
       this.agents = [];
     }
     const headerEl = this.containerEl.createDiv({ cls: "claudian-sp-header" });
-    headerEl.createSpan({ text: "Codex Subagents", cls: "claudian-sp-label" });
+    headerEl.createSpan({ text: t10("settings.codexSubagents.header"), cls: "claudian-sp-label" });
     const actionsEl = headerEl.createDiv({ cls: "claudian-sp-header-actions" });
     const refreshBtn = actionsEl.createEl("button", {
       cls: "claudian-settings-action-btn",
-      attr: { "aria-label": "Refresh" }
+      attr: { "aria-label": t10("common.refresh") }
     });
-    (0, import_obsidian16.setIcon)(refreshBtn, "refresh-cw");
+    (0, import_obsidian17.setIcon)(refreshBtn, "refresh-cw");
     refreshBtn.addEventListener("click", () => {
       void this.render();
     });
     const addBtn = actionsEl.createEl("button", {
       cls: "claudian-settings-action-btn",
-      attr: { "aria-label": "Add" }
+      attr: { "aria-label": t10("common.add") }
     });
-    (0, import_obsidian16.setIcon)(addBtn, "plus");
+    (0, import_obsidian17.setIcon)(addBtn, "plus");
     addBtn.addEventListener("click", () => this.openModal(null));
     if (this.agents.length === 0) {
       const emptyEl = this.containerEl.createDiv({ cls: "claudian-sp-empty-state" });
-      emptyEl.setText("No Codex subagents in vault. Click + to create one.");
+      emptyEl.setText(t10("settings.codexSubagents.noAgents"));
       return;
     }
     const listEl = this.containerEl.createDiv({ cls: "claudian-sp-list" });
@@ -72157,31 +74684,32 @@ var CodexSubagentSettings = class {
     const actionsEl = itemEl.createDiv({ cls: "claudian-sp-item-actions" });
     const editBtn = actionsEl.createEl("button", {
       cls: "claudian-settings-action-btn",
-      attr: { "aria-label": "Edit" }
+      attr: { "aria-label": t10("common.edit") }
     });
-    (0, import_obsidian16.setIcon)(editBtn, "pencil");
+    (0, import_obsidian17.setIcon)(editBtn, "pencil");
     editBtn.addEventListener("click", () => this.openModal(agent));
     const deleteBtn = actionsEl.createEl("button", {
       cls: "claudian-settings-action-btn claudian-settings-delete-btn",
-      attr: { "aria-label": "Delete" }
+      attr: { "aria-label": t10("common.delete") }
     });
-    (0, import_obsidian16.setIcon)(deleteBtn, "trash-2");
+    (0, import_obsidian17.setIcon)(deleteBtn, "trash-2");
     deleteBtn.addEventListener("click", () => {
       void (async () => {
         var _a5;
         if (!this.app) return;
         const confirmed = await confirmDelete(
           this.app,
-          `Delete subagent "${agent.name}"?`
+          t10("settings.subagents.deleteConfirm", { name: agent.name })
         );
         if (!confirmed) return;
         try {
           await this.storage.delete(agent);
           await this.render();
           (_a5 = this.onChanged) == null ? void 0 : _a5.call(this);
-          new import_obsidian16.Notice(`Subagent "${agent.name}" deleted`);
-        } catch (e2) {
-          new import_obsidian16.Notice("Failed to delete subagent");
+          new import_obsidian17.Notice(t10("settings.subagents.deleted", { name: agent.name }));
+        } catch (err) {
+          const message = err instanceof Error ? err.message : "Unknown error";
+          new import_obsidian17.Notice(t10("settings.subagents.deleteFailed", { message }));
         }
       })();
     });
@@ -72197,8 +74725,8 @@ var CodexSubagentSettings = class {
         await this.storage.save(agent, existing);
         await this.render();
         (_a5 = this.onChanged) == null ? void 0 : _a5.call(this);
-        new import_obsidian16.Notice(
-          existing ? `Subagent "${agent.name}" updated` : `Subagent "${agent.name}" created`
+        new import_obsidian17.Notice(
+          existing ? t10("settings.subagents.updated", { name: agent.name }) : t10("settings.subagents.created", { name: agent.name })
         );
       }
     );
@@ -72209,12 +74737,21 @@ var CodexSubagentSettings = class {
 // src/providers/codex/ui/CodexSettingsTab.ts
 var codexSettingsTabRenderer = {
   render(container, context) {
+    var _a5, _b3;
     const codexWorkspace = getCodexWorkspaceServices();
     const settingsBag = context.plugin.settings;
     const codexSettings = getCodexProviderSettings(settingsBag);
     const hostnameKey = getHostnameKey();
     const isWindowsHost = process.platform === "win32";
     let installationMethod = codexSettings.installationMethod;
+    const environmentModelPlaceholder = (_b3 = (_a5 = getDefaultCodexModel(codexSettings.discoveredModels)) == null ? void 0 : _a5.model) != null ? _b3 : "model-id";
+    const refreshCodexModelCatalog = async () => {
+      var _a6;
+      const result = await ((_a6 = codexWorkspace.refreshModelCatalog) == null ? void 0 : _a6.call(codexWorkspace));
+      if (result == null ? void 0 : result.diagnostics) {
+        new import_obsidian18.Notice(`Codex model discovery failed: ${result.diagnostics}`);
+      }
+    };
     const reconcileActiveCodexModelSelection = () => {
       const activeProvider = settingsBag.settingsProvider;
       if (activeProvider !== "codex") {
@@ -72227,20 +74764,24 @@ var codexSettingsTabRenderer = {
       }
       settingsBag.model = nextModel;
     };
-    new import_obsidian17.Setting(container).setName(t10("settings.setup")).setHeading();
-    new import_obsidian17.Setting(container).setName("Enable Codex provider").setDesc("When enabled, Codex models appear in the model selector for new conversations. Existing Codex sessions are preserved.").addToggle(
+    new import_obsidian18.Setting(container).setName(t10("settings.setup")).setHeading();
+    new import_obsidian18.Setting(container).setName(t10("settings.codex.enableProvider.name")).setDesc(t10("settings.codex.enableProvider.desc")).addToggle(
       (toggle) => toggle.setValue(codexSettings.enabled).onChange(async (value) => {
         updateCodexProviderSettings(settingsBag, { enabled: value });
+        if (value) {
+          await refreshCodexModelCatalog();
+        }
         await context.plugin.saveSettings();
         context.refreshModelSelectors();
       })
     );
     if (isWindowsHost) {
-      new import_obsidian17.Setting(container).setName("Installation method").setDesc("How Claudian should launch Codex on Windows. Native Windows uses a Windows executable path. WSL launches the Linux CLI inside a selected distro.").addDropdown((dropdown) => {
-        dropdown.addOption("native-windows", "Native Windows").addOption("wsl", "WSL").setValue(installationMethod).onChange(async (value) => {
+      new import_obsidian18.Setting(container).setName(t10("settings.codex.installationMethod.name")).setDesc(t10("settings.codex.installationMethod.desc")).addDropdown((dropdown) => {
+        dropdown.addOption("native-windows", t10("settings.codex.installationMethod.nativeWindows")).addOption("wsl", t10("settings.codex.installationMethod.wsl")).setValue(installationMethod).onChange(async (value) => {
           installationMethod = value === "wsl" ? "wsl" : "native-windows";
           updateCodexProviderSettings(settingsBag, { installationMethod });
           refreshInstallationMethodUI();
+          await refreshCodexModelCatalog();
           await context.plugin.saveSettings();
         });
       });
@@ -72248,23 +74789,23 @@ var codexSettingsTabRenderer = {
     const getCliPathCopy = () => {
       if (!isWindowsHost) {
         return {
-          desc: "Custom path to the local Codex CLI. Leave empty for auto-detection from PATH.",
+          desc: t10("settings.codex.cliPath.descUnix"),
           placeholder: "/usr/local/bin/codex"
         };
       }
       if (installationMethod === "wsl") {
         return {
-          desc: "Linux-side Codex command or absolute path to run inside WSL. Leave empty for PATH lookup inside the selected distro.",
+          desc: t10("settings.codex.cliPath.descWsl"),
           placeholder: "codex"
         };
       }
       return {
-        desc: "Custom path to the local Codex CLI. Leave empty for auto-detection from PATH. Use the native Windows executable path, usually `codex.exe`.",
+        desc: t10("settings.codex.cliPath.descWindows"),
         placeholder: "C:\\Users\\you\\AppData\\Roaming\\npm\\codex.exe"
       };
     };
     const shouldValidateCliPathAsFile = () => !isWindowsHost || installationMethod !== "wsl";
-    const cliPathSetting = new import_obsidian17.Setting(container).setName("Codex CLI path").setDesc(getCliPathCopy().desc);
+    const cliPathSetting = new import_obsidian18.Setting(container).setName(t10("settings.codex.cliPath.name")).setDesc(getCliPathCopy().desc);
     const validationEl = container.createDiv({
       cls: "claudian-cli-path-validation claudian-setting-validation claudian-setting-validation-error claudian-hidden"
     });
@@ -72273,15 +74814,15 @@ var codexSettingsTabRenderer = {
       if (!trimmed) return null;
       if (!shouldValidateCliPathAsFile()) {
         if (isWindowsStyleCliReference(trimmed)) {
-          return "WSL mode expects a Linux command or Linux absolute path, not a Windows executable path.";
+          return t10("settings.codex.cliPath.validation.wslWindowsPath");
         }
         return null;
       }
       const expandedPath = expandHomePath(trimmed);
-      if (!fs13.existsSync(expandedPath)) {
+      if (!fs14.existsSync(expandedPath)) {
         return t10("settings.cliPath.validation.notExist");
       }
-      const stat = fs13.statSync(expandedPath);
+      const stat = fs14.statSync(expandedPath);
       if (!stat.isFile()) {
         return t10("settings.cliPath.validation.isDirectory");
       }
@@ -72322,7 +74863,7 @@ var codexSettingsTabRenderer = {
       }
     };
     const persistCliPath = async (value) => {
-      var _a5;
+      var _a6;
       const isValid2 = updateCliPathValidation(value, cliPathInputEl != null ? cliPathInputEl : void 0);
       if (!isValid2) {
         return false;
@@ -72336,7 +74877,7 @@ var codexSettingsTabRenderer = {
       updateCodexProviderSettings(settingsBag, { cliPathsByHost: { ...cliPathsByHost } });
       await context.plugin.saveSettings();
       const view = context.plugin.getView();
-      await ((_a5 = view == null ? void 0 : view.getTabManager()) == null ? void 0 : _a5.broadcastToAllTabs(
+      await ((_a6 = view == null ? void 0 : view.getTabManager()) == null ? void 0 : _a6.broadcastToAllTabs(
         (service) => Promise.resolve(service.cleanup())
       ));
       return true;
@@ -72351,7 +74892,7 @@ var codexSettingsTabRenderer = {
       updateCliPathValidation(currentValue, text.inputEl);
     });
     if (isWindowsHost) {
-      const wslDistroSetting = new import_obsidian17.Setting(container).setName("WSL distro override").setDesc("Optional advanced override. Leave empty to infer the distro from a WSL workspace path when possible, otherwise use the default WSL distro.");
+      const wslDistroSetting = new import_obsidian18.Setting(container).setName(t10("settings.codex.wslDistroOverride.name")).setDesc(t10("settings.codex.wslDistroOverride.desc"));
       wslDistroSettingEl = wslDistroSetting.settingEl;
       wslDistroSetting.addText((text) => {
         text.setPlaceholder("Ubuntu").setValue(codexSettings.wslDistroOverride).onChange(async (value) => {
@@ -72364,9 +74905,9 @@ var codexSettingsTabRenderer = {
       });
     }
     refreshInstallationMethodUI();
-    new import_obsidian17.Setting(container).setName(t10("settings.safety")).setHeading();
-    new import_obsidian17.Setting(container).setName(t10("settings.codexSafeMode.name")).setDesc(t10("settings.codexSafeMode.desc")).addDropdown((dropdown) => {
-      dropdown.addOption("workspace-write", "Workspace write").addOption("read-only", "Read only").setValue(codexSettings.safeMode).onChange(async (value) => {
+    new import_obsidian18.Setting(container).setName(t10("settings.safety")).setHeading();
+    new import_obsidian18.Setting(container).setName(t10("settings.codexSafeMode.name")).setDesc(t10("settings.codexSafeMode.desc")).addDropdown((dropdown) => {
+      dropdown.addOption("workspace-write", t10("settings.codex.safeMode.workspaceWrite")).addOption("read-only", t10("settings.codex.safeMode.readOnly")).setValue(codexSettings.safeMode).onChange(async (value) => {
         updateCodexProviderSettings(
           settingsBag,
           { safeMode: value }
@@ -72374,14 +74915,15 @@ var codexSettingsTabRenderer = {
         await context.plugin.saveSettings();
       });
     });
-    new import_obsidian17.Setting(container).setName(t10("settings.models")).setHeading();
+    new import_obsidian18.Setting(container).setName(t10("settings.models")).setHeading();
+    renderCodexModelPicker(container, context, codexWorkspace);
     const SUMMARY_OPTIONS = [
-      { value: "auto", label: "Auto" },
-      { value: "concise", label: "Concise" },
-      { value: "detailed", label: "Detailed" },
-      { value: "none", label: "Off" }
+      { value: "auto", label: t10("settings.codex.reasoningSummary.auto") },
+      { value: "concise", label: t10("settings.codex.reasoningSummary.concise") },
+      { value: "detailed", label: t10("settings.codex.reasoningSummary.detailed") },
+      { value: "none", label: t10("settings.codex.reasoningSummary.off") }
     ];
-    new import_obsidian17.Setting(container).setName("Custom models").setDesc("Append additional Codex model ids to the picker, one per line. `OPENAI_MODEL` still takes precedence when set.").addTextArea((text) => {
+    new import_obsidian18.Setting(container).setName(t10("settings.codex.customModels.name")).setDesc(t10("settings.codex.customModels.desc")).addTextArea((text) => {
       let pendingCustomModels = codexSettings.customModels;
       let savedCustomModels = codexSettings.customModels;
       const reconcileInactiveCodexProjection = (previousCustomModels) => {
@@ -72428,7 +74970,7 @@ var codexSettingsTabRenderer = {
         await context.plugin.saveSettings();
         context.refreshModelSelectors();
       };
-      text.setPlaceholder("gpt-5.4\ngpt-5.3-codex-spark").setValue(codexSettings.customModels).onChange((value) => {
+      text.setPlaceholder(t10("settings.codex.customModels.placeholder")).setValue(codexSettings.customModels).onChange((value) => {
         pendingCustomModels = value;
       });
       text.inputEl.rows = 4;
@@ -72437,7 +74979,7 @@ var codexSettingsTabRenderer = {
         void commitCustomModels();
       });
     });
-    new import_obsidian17.Setting(container).setName("Reasoning summary").setDesc("Show a summary of the model's reasoning process in the thinking block.").addDropdown((dropdown) => {
+    new import_obsidian18.Setting(container).setName(t10("settings.codex.reasoningSummary.name")).setDesc(t10("settings.codex.reasoningSummary.desc")).addDropdown((dropdown) => {
       for (const opt of SUMMARY_OPTIONS) {
         dropdown.addOption(opt.value, opt.label);
       }
@@ -72452,39 +74994,39 @@ var codexSettingsTabRenderer = {
     });
     const codexCatalog = codexWorkspace.commandCatalog;
     if (codexCatalog) {
-      new import_obsidian17.Setting(container).setName("Codex skills").setHeading();
+      new import_obsidian18.Setting(container).setName(t10("settings.codex.skills.name")).setHeading();
       const skillsDesc = container.createDiv({ cls: "claudian-sp-settings-desc" });
       skillsDesc.createEl("p", {
         cls: "setting-item-description",
-        text: "Manage vault-level Codex skills stored in .codex/skills/ or .agents/skills/. Home-level skills are excluded here."
+        text: t10("settings.codex.skills.desc")
       });
       const skillsContainer = container.createDiv({ cls: "claudian-slash-commands-container" });
       new CodexSkillSettings(skillsContainer, codexCatalog, context.plugin.app);
     }
     context.renderHiddenProviderCommandSetting(container, "codex", {
-      name: "Hidden Skills",
-      desc: "Hide specific Codex skills from the dropdown. Enter skill names without the leading $, one per line.",
-      placeholder: "analyze\nexplain\nfix"
+      name: t10("settings.codex.skills.hiddenName"),
+      desc: t10("settings.codex.skills.hiddenDesc"),
+      placeholder: t10("settings.codex.skills.hiddenPlaceholder")
     });
-    new import_obsidian17.Setting(container).setName("Codex subagents").setHeading();
+    new import_obsidian18.Setting(container).setName(t10("settings.codex.subagents.name")).setHeading();
     const subagentDesc = container.createDiv({ cls: "claudian-sp-settings-desc" });
     subagentDesc.createEl("p", {
       cls: "setting-item-description",
-      text: "Manage vault-level Codex subagents stored in .codex/agents/. Each TOML file defines one custom agent."
+      text: t10("settings.codex.subagents.desc")
     });
     const subagentContainer = container.createDiv({ cls: "claudian-slash-commands-container" });
     new CodexSubagentSettings(subagentContainer, codexWorkspace.subagentStorage, context.plugin.app, () => {
-      var _a5;
-      void ((_a5 = codexWorkspace.refreshAgentMentions) == null ? void 0 : _a5.call(codexWorkspace));
+      var _a6;
+      void ((_a6 = codexWorkspace.refreshAgentMentions) == null ? void 0 : _a6.call(codexWorkspace));
     });
-    new import_obsidian17.Setting(container).setName(t10("settings.mcpServers.name")).setHeading();
+    new import_obsidian18.Setting(container).setName(t10("settings.mcpServers.name")).setHeading();
     const mcpNotice = container.createDiv({ cls: "claudian-mcp-settings-desc" });
     const mcpDesc = mcpNotice.createEl("p", { cls: "setting-item-description" });
-    mcpDesc.appendText("Codex manages MCP servers via its own CLI. Configure with ");
+    mcpDesc.appendText(t10("settings.codex.mcp.descBeforeCommand"));
     mcpDesc.createEl("code").appendText("codex mcp");
-    mcpDesc.appendText(" and they will be available in Claudian. ");
+    mcpDesc.appendText(t10("settings.codex.mcp.descAfterCommand"));
     mcpDesc.createEl("a", {
-      text: "Learn more",
+      text: t10("settings.codex.mcp.learnMore"),
       href: "https://developers.openai.com/codex/mcp"
     });
     renderEnvironmentSettingsSection({
@@ -72492,11 +75034,11 @@ var codexSettingsTabRenderer = {
       plugin: context.plugin,
       scope: "provider:codex",
       heading: t10("settings.environment"),
-      name: "Codex environment",
-      desc: "Codex-owned runtime variables only. Use this for OPENAI_* and CODEX_* settings. If Codex auto-detection needs help, add its install directory to shared PATH instead of this provider section.",
+      name: t10("settings.codex.environment.name"),
+      desc: t10("settings.codex.environment.desc"),
       placeholder: `OPENAI_API_KEY=your-key
 OPENAI_BASE_URL=https://api.openai.com/v1
-OPENAI_MODEL=${DEFAULT_CODEX_PRIMARY_MODEL}
+OPENAI_MODEL=${environmentModelPlaceholder}
 CODEX_SANDBOX=workspace-write`,
       renderCustomContextLimits: (target) => context.renderCustomContextLimits(target, "codex")
     });
@@ -72504,6 +75046,9 @@ CODEX_SANDBOX=workspace-write`,
 };
 
 // src/providers/codex/app/CodexWorkspaceServices.ts
+function sameCatalog(left, right) {
+  return JSON.stringify(left) === JSON.stringify(right);
+}
 function createCodexCliResolver() {
   return new CodexCliResolver();
 }
@@ -72512,6 +75057,7 @@ async function createCodexWorkspaceServices(plugin, vaultAdapter, homeAdapter) {
   const agentMentionProvider = new CodexAgentMentionProvider(subagentStorage);
   await agentMentionProvider.loadAgents();
   const skillListProvider = new CodexSkillListingService(plugin);
+  const modelDiscovery = new CodexModelDiscoveryService(plugin);
   const commandCatalog = new CodexSkillCatalog(
     new CodexSkillStorage(
       vaultAdapter,
@@ -72520,7 +75066,7 @@ async function createCodexWorkspaceServices(plugin, vaultAdapter, homeAdapter) {
     skillListProvider,
     getVaultPath(plugin.app)
   );
-  return {
+  const services = {
     subagentStorage,
     commandCatalog,
     agentMentionProvider,
@@ -72528,8 +75074,44 @@ async function createCodexWorkspaceServices(plugin, vaultAdapter, homeAdapter) {
     settingsTabRenderer: codexSettingsTabRenderer,
     refreshAgentMentions: async () => {
       await agentMentionProvider.loadAgents();
+    },
+    refreshModelCatalog: async () => {
+      const result = await modelDiscovery.discoverModels();
+      if (result.diagnostics) {
+        return { changed: false, diagnostics: result.diagnostics };
+      }
+      if (result.models.length === 0) {
+        return { changed: false, diagnostics: "Codex app-server returned no visible models" };
+      }
+      const currentSettings = getCodexProviderSettings(plugin.settings);
+      const currentModels = currentSettings.discoveredModels;
+      const visibleModels = normalizeCodexVisibleModels(
+        currentSettings.visibleModels,
+        result.models
+      );
+      const catalogChanged = !sameCatalog(currentModels, result.models);
+      const visibilityChanged = !sameCatalog(currentSettings.visibleModels, visibleModels);
+      if (catalogChanged || visibilityChanged) {
+        updateCodexProviderSettings(plugin.settings, {
+          discoveredModels: result.models,
+          visibleModels
+        });
+      }
+      const selectionChanged = ProviderSettingsCoordinator.normalizeAllModelVariants(plugin.settings);
+      const persistedSettingsChanged = visibilityChanged || selectionChanged;
+      return {
+        changed: catalogChanged || persistedSettingsChanged,
+        persistedSettingsChanged
+      };
     }
   };
+  if (getCodexProviderSettings(plugin.settings).enabled) {
+    const result = await services.refreshModelCatalog();
+    if (result.persistedSettingsChanged) {
+      await plugin.saveSettings();
+    }
+  }
+  return services;
 }
 var codexWorkspaceRegistration = {
   initialize: async ({ plugin, vaultAdapter, homeAdapter }) => createCodexWorkspaceServices(
@@ -72607,15 +75189,15 @@ var CodexAuxQueryRunner = class {
     this.launchSpec = null;
   }
   async query(config2, prompt) {
-    var _a5, _b3, _c2, _d, _e2, _f2, _g, _h2, _i;
+    var _a5, _b3, _c2, _d, _e2, _f2, _g, _h2;
     if (!this.process || !this.transport) {
       await this.startProcess();
     }
     if (!this.threadId) {
-      const model = toCodexRuntimeModelId((_a5 = config2.model) != null ? _a5 : this.resolveProviderModel());
+      const model = config2.model ? toCodexRuntimeModelId(config2.model) : this.resolveProviderModel();
       const result = await this.transport.request("thread/start", {
-        model,
-        cwd: (_c2 = (_b3 = this.launchSpec) == null ? void 0 : _b3.targetCwd) != null ? _c2 : process.cwd(),
+        ...model ? { model } : {},
+        cwd: (_b3 = (_a5 = this.launchSpec) == null ? void 0 : _a5.targetCwd) != null ? _b3 : process.cwd(),
         approvalPolicy: "never",
         sandbox: "read-only",
         baseInstructions: config2.systemPrompt,
@@ -72666,10 +75248,10 @@ var CodexAuxQueryRunner = class {
       }
       resolveWait == null ? void 0 : resolveWait();
     };
-    (_d = config2.abortController) == null ? void 0 : _d.signal.addEventListener("abort", abortHandler, { once: true });
-    if ((_e2 = config2.abortController) == null ? void 0 : _e2.signal.aborted) {
+    (_c2 = config2.abortController) == null ? void 0 : _c2.signal.addEventListener("abort", abortHandler, { once: true });
+    if ((_d = config2.abortController) == null ? void 0 : _d.signal.aborted) {
       config2.abortController.signal.removeEventListener("abort", abortHandler);
-      (_f2 = this.process) == null ? void 0 : _f2.offExit(exitHandler);
+      (_e2 = this.process) == null ? void 0 : _e2.offExit(exitHandler);
       throw new Error("Cancelled");
     }
     const turnResult = await this.transport.request("turn/start", {
@@ -72681,10 +75263,10 @@ var CodexAuxQueryRunner = class {
     try {
       await donePromise;
     } finally {
-      (_g = config2.abortController) == null ? void 0 : _g.signal.removeEventListener("abort", abortHandler);
-      (_h2 = this.process) == null ? void 0 : _h2.offExit(exitHandler);
+      (_f2 = config2.abortController) == null ? void 0 : _f2.signal.removeEventListener("abort", abortHandler);
+      (_g = this.process) == null ? void 0 : _g.offExit(exitHandler);
     }
-    if ((_i = config2.abortController) == null ? void 0 : _i.signal.aborted) {
+    if ((_h2 = config2.abortController) == null ? void 0 : _h2.signal.aborted) {
       throw new Error("Cancelled");
     }
     if (turnError) {
@@ -72706,12 +75288,16 @@ var CodexAuxQueryRunner = class {
     }
   }
   resolveProviderModel() {
+    var _a5;
     const providerSettings = ProviderSettingsCoordinator.getProviderSettingsSnapshot(
       this.plugin.settings,
       "codex"
     );
     const model = providerSettings.model;
-    return typeof model === "string" ? toCodexRuntimeModelId(model) : DEFAULT_CODEX_PRIMARY_MODEL;
+    if (typeof model === "string" && model.trim()) {
+      return toCodexRuntimeModelId(model);
+    }
+    return (_a5 = getDefaultCodexModel(getCodexProviderSettings(providerSettings).discoveredModels)) == null ? void 0 : _a5.model;
   }
   async startProcess() {
     this.launchSpec = resolveCodexAppServerLaunchSpec(this.plugin, "codex");
@@ -72876,8 +75462,15 @@ var EFFORT_LEVELS2 = [
   { value: "low", label: "Low" },
   { value: "medium", label: "Medium" },
   { value: "high", label: "High" },
-  { value: "xhigh", label: "XHigh" }
+  { value: "xhigh", label: "XHigh" },
+  { value: "max", label: "Max" }
 ];
+function formatEffortLabel(value) {
+  if (value.toLowerCase() === "xhigh") {
+    return "XHigh";
+  }
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
 var CODEX_PERMISSION_MODE_TOGGLE = {
   inactiveValue: "normal",
   inactiveLabel: "Safe",
@@ -72886,20 +75479,24 @@ var CODEX_PERMISSION_MODE_TOGGLE = {
   planValue: "plan",
   planLabel: "Plan"
 };
-var CODEX_SERVICE_TIER_TOGGLE = {
-  inactiveValue: "default",
-  inactiveLabel: "Standard",
-  activeValue: "fast",
-  activeLabel: "Fast",
-  description: FAST_TIER_CODEX_DESCRIPTION
-};
+var DEFAULT_SERVICE_TIER_VALUE = "default";
+var DEFAULT_SERVICE_TIER_LABEL = "Standard";
 var DEFAULT_CONTEXT_WINDOW = 2e5;
-function looksLikeCodexModel(model) {
-  return /^gpt-/i.test(model) || /^o\d/i.test(model);
+function getVisibleDiscoveredModels(settings11) {
+  const codexSettings = getCodexProviderSettings(settings11);
+  const visibleModelIds = new Set(getVisibleCodexModelIds(
+    codexSettings.visibleModels,
+    codexSettings.discoveredModels
+  ));
+  return codexSettings.discoveredModels.filter((model) => visibleModelIds.has(model.model));
 }
 var codexChatUIConfig = {
   getModelOptions(settings11) {
     return getCodexModelOptions(settings11);
+  },
+  getDefaultModel(settings11) {
+    var _a5, _b3;
+    return (_b3 = (_a5 = getDefaultCodexModel(getVisibleDiscoveredModels(settings11))) == null ? void 0 : _a5.model) != null ? _b3 : null;
   },
   ownsModel(model, settings11) {
     if (isCodexModelSelectionId(model)) {
@@ -72916,17 +75513,32 @@ var codexChatUIConfig = {
   isAdaptiveReasoningModel(_model, _settings) {
     return true;
   },
-  getReasoningOptions(_model, _settings) {
-    return [...EFFORT_LEVELS2];
+  getReasoningOptions(modelId, settings11) {
+    const model = findCodexModel(
+      getCodexProviderSettings(settings11).discoveredModels,
+      modelId
+    );
+    if (!model) {
+      return [...EFFORT_LEVELS2];
+    }
+    return model.supportedReasoningEfforts.map((option) => ({
+      value: option.value,
+      label: formatEffortLabel(option.value),
+      ...option.description ? { description: option.description } : {}
+    }));
   },
-  getDefaultReasoningValue(_model, _settings) {
-    return "medium";
+  getDefaultReasoningValue(modelId, settings11) {
+    const model = findCodexModel(
+      getCodexProviderSettings(settings11).discoveredModels,
+      modelId
+    );
+    return model ? getCodexDefaultReasoningEffort(model) : DEFAULT_REASONING_VALUE;
   },
   getContextWindowSize() {
     return DEFAULT_CONTEXT_WINDOW;
   },
   isDefaultModel(model) {
-    return DEFAULT_CODEX_MODEL_SET.has(model);
+    return looksLikeCodexModel(toCodexRuntimeModelId(model)) && !isCodexModelSelectionId(model);
   },
   applyModelDefaults(model, settings11) {
     if (!settings11 || typeof settings11 !== "object") {
@@ -72935,6 +75547,7 @@ var codexChatUIConfig = {
     applyCodexModelDefaults(toCodexRuntimeModelId(model), settings11);
   },
   normalizeModelVariant(model, settings11) {
+    var _a5, _b3;
     const runtimeModel = toCodexRuntimeModelId(model);
     const option = getCodexModelOptions(settings11).find(
       (candidate) => candidate.value === model || toCodexRuntimeModelId(candidate.value) === runtimeModel
@@ -72942,11 +75555,16 @@ var codexChatUIConfig = {
     if (option) {
       return option.value;
     }
-    return DEFAULT_CODEX_PRIMARY_MODEL;
+    const codexSettings = getCodexProviderSettings(settings11);
+    const discoveredModels = codexSettings.discoveredModels;
+    if (discoveredModels.length === 0) {
+      return model;
+    }
+    return (_b3 = (_a5 = getDefaultCodexModel(getVisibleDiscoveredModels(settings11))) == null ? void 0 : _a5.model) != null ? _b3 : model;
   },
   getCustomModelIds(envVars) {
     const ids = /* @__PURE__ */ new Set();
-    if (envVars.OPENAI_MODEL && !DEFAULT_CODEX_MODEL_SET.has(envVars.OPENAI_MODEL)) {
+    if (envVars.OPENAI_MODEL && !looksLikeCodexModel(envVars.OPENAI_MODEL)) {
       ids.add(envVars.OPENAI_MODEL);
     }
     return ids;
@@ -72955,7 +75573,25 @@ var codexChatUIConfig = {
     return CODEX_PERMISSION_MODE_TOGGLE;
   },
   getServiceTierToggle(settings11) {
-    return settings11.model === FAST_TIER_CODEX_MODEL ? CODEX_SERVICE_TIER_TOGGLE : null;
+    var _a5;
+    const model = findCodexModel(
+      getCodexProviderSettings(settings11).discoveredModels,
+      typeof settings11.model === "string" ? settings11.model : void 0
+    );
+    if (!model) {
+      return null;
+    }
+    const tier = getCodexFastServiceTier(model);
+    if (!tier) {
+      return null;
+    }
+    return {
+      inactiveValue: (_a5 = model.defaultServiceTier) != null ? _a5 : DEFAULT_SERVICE_TIER_VALUE,
+      inactiveLabel: DEFAULT_SERVICE_TIER_LABEL,
+      activeValue: tier.id,
+      activeLabel: tier.name,
+      description: tier.description || void 0
+    };
   },
   getProviderIcon() {
     return OPENAI_PROVIDER_ICON;
@@ -73046,12 +75682,95 @@ var codexSettingsReconciler = {
 };
 
 // src/providers/codex/history/CodexConversationHistoryService.ts
-var fs15 = __toESM(require("fs"));
+var fs16 = __toESM(require("fs"));
 
 // src/providers/codex/history/CodexHistoryStore.ts
-var fs14 = __toESM(require("fs"));
-var os9 = __toESM(require("os"));
-var path14 = __toESM(require("path"));
+var fs15 = __toESM(require("fs"));
+var os10 = __toESM(require("os"));
+var path15 = __toESM(require("path"));
+
+// src/providers/codex/codexUserText.ts
+var CODEX_IMAGE_OPEN_TAG_PATTERN = /^<image\b[^>]*>$/i;
+var CODEX_IMAGE_CLOSE_TAG_PATTERN = /^<\/image>$/i;
+var CODEX_EMPTY_IMAGE_TAG_PATTERN = /^<image\b[^>]*>\s*<\/image>$/i;
+var CODEX_EMPTY_IMAGE_TAG_PATTERN_GLOBAL = /<image\b[^>]*>\s*<\/image>\s*/gi;
+var CODEX_CONTROL_BLOCK_TAGS = [
+  "recommended_plugins",
+  "system_instruction",
+  "environment_context",
+  "turn_aborted",
+  "user-preferences",
+  "subagent_notification",
+  "skill"
+];
+var CODEX_AGENTS_INSTRUCTIONS_PREFIX = "# AGENTS.md instructions";
+var CODEX_AGENTS_INSTRUCTIONS_CLOSE_TAG = "</INSTRUCTIONS>";
+function stripLeadingTaggedBlock(text, tagName) {
+  const openTag = `<${tagName}>`;
+  if (!text.startsWith(openTag)) {
+    return null;
+  }
+  const closeTag = `</${tagName}>`;
+  const closeIndex = text.indexOf(closeTag, openTag.length);
+  if (closeIndex === -1) {
+    return "";
+  }
+  return text.slice(closeIndex + closeTag.length);
+}
+function stripLeadingAgentsInstructions(text) {
+  if (!text.startsWith(CODEX_AGENTS_INSTRUCTIONS_PREFIX)) {
+    return null;
+  }
+  const closeIndex = text.indexOf(CODEX_AGENTS_INSTRUCTIONS_CLOSE_TAG);
+  if (closeIndex === -1) {
+    return "";
+  }
+  return text.slice(closeIndex + CODEX_AGENTS_INSTRUCTIONS_CLOSE_TAG.length);
+}
+function stripLeadingCodexControlMetadata(text) {
+  let remaining = text.trimStart();
+  while (remaining) {
+    const withoutAgentsInstructions = stripLeadingAgentsInstructions(remaining);
+    if (withoutAgentsInstructions !== null) {
+      remaining = withoutAgentsInstructions.trimStart();
+      continue;
+    }
+    let strippedTaggedBlock = false;
+    for (const tagName of CODEX_CONTROL_BLOCK_TAGS) {
+      const next = stripLeadingTaggedBlock(remaining, tagName);
+      if (next === null) {
+        continue;
+      }
+      remaining = next.trimStart();
+      strippedTaggedBlock = true;
+      break;
+    }
+    if (!strippedTaggedBlock) {
+      break;
+    }
+  }
+  return remaining;
+}
+function stripCodexImagePlaceholderText(text) {
+  const trimmed = text.trim();
+  if (!trimmed) {
+    return text;
+  }
+  if (CODEX_IMAGE_OPEN_TAG_PATTERN.test(trimmed) || CODEX_IMAGE_CLOSE_TAG_PATTERN.test(trimmed) || CODEX_EMPTY_IMAGE_TAG_PATTERN.test(trimmed)) {
+    return "";
+  }
+  return text.replace(CODEX_EMPTY_IMAGE_TAG_PATTERN_GLOBAL, "");
+}
+function joinCodexUserTextParts(parts, separator = "") {
+  return parts.map(stripCodexImagePlaceholderText).filter((text) => text.length > 0).join(separator);
+}
+function extractCodexUserVisibleText(text) {
+  const withoutImagePlaceholders = stripCodexImagePlaceholderText(text);
+  const visible = stripCodexImagePlaceholderText(
+    stripLeadingCodexControlMetadata(withoutImagePlaceholders)
+  ).trim();
+  return visible ? visible : null;
+}
 
 // src/providers/codex/normalization/codexToolNormalization.ts
 var TOOL_NAME_MAP = {
@@ -73081,6 +75800,195 @@ function normalizeCodexToolName(rawName) {
   if (!rawName) return "tool";
   if (NATIVE_TOOLS.has(rawName)) return rawName;
   return (_a5 = TOOL_NAME_MAP[rawName]) != null ? _a5 : rawName;
+}
+function normalizeCodexToolCall(rawName, rawInput) {
+  var _a5, _b3;
+  const nestedCall = rawName === "exec" ? decodeExecEnvelope(rawInput) : null;
+  const effectiveName = (_a5 = nestedCall == null ? void 0 : nestedCall.name) != null ? _a5 : rawName;
+  const effectiveInput = (_b3 = nestedCall == null ? void 0 : nestedCall.input) != null ? _b3 : rawInput;
+  return {
+    name: normalizeCodexToolName(effectiveName),
+    input: normalizeCodexToolInput(effectiveName, effectiveInput)
+  };
+}
+function decodeExecEnvelope(input) {
+  const source = firstNonEmptyString(input.raw, input.value);
+  if (!source) return null;
+  const tokens = tokenizeExecEnvelope(source);
+  if (!tokens) return null;
+  const calls = findExecEnvelopeToolCalls(tokens);
+  if (!calls || calls.length !== 1) return null;
+  const call = calls[0];
+  if (!call) return null;
+  if (call.name === "exec_command") {
+    const command = extractExecCommand(tokens, call);
+    return command ? { name: call.name, input: { cmd: command } } : null;
+  }
+  if (call.name === "apply_patch") {
+    const patch = extractApplyPatch(tokens, call);
+    return patch ? { name: call.name, input: { patch } } : null;
+  }
+  return null;
+}
+function tokenizeExecEnvelope(source) {
+  var _a5, _b3, _c2;
+  const tokens = [];
+  for (let index = 0; index < source.length; ) {
+    const char = (_a5 = source[index]) != null ? _a5 : "";
+    const next = (_b3 = source[index + 1]) != null ? _b3 : "";
+    if (/\s/.test(char)) {
+      index += 1;
+      continue;
+    }
+    if (char === "/" && next === "/") {
+      const lineEnd = source.indexOf("\n", index + 2);
+      index = lineEnd === -1 ? source.length : lineEnd + 1;
+      continue;
+    }
+    if (char === "/" && next === "*") {
+      const commentEnd = source.indexOf("*/", index + 2);
+      if (commentEnd === -1) return null;
+      index = commentEnd + 2;
+      continue;
+    }
+    if (char === '"' || char === "'") {
+      const stringToken = readJavaScriptStringToken(source, index);
+      if (!stringToken) return null;
+      tokens.push({ kind: "string", value: stringToken.value });
+      index = stringToken.end;
+      continue;
+    }
+    if (char === "`" || char === "/") {
+      return null;
+    }
+    if (/[A-Za-z_$]/.test(char)) {
+      let end = index + 1;
+      while (end < source.length && /[\w$]/.test((_c2 = source[end]) != null ? _c2 : "")) {
+        end += 1;
+      }
+      tokens.push({ kind: "identifier", value: source.slice(index, end) });
+      index = end;
+      continue;
+    }
+    tokens.push({ kind: "punctuation", value: char });
+    index += 1;
+  }
+  return tokens;
+}
+function readJavaScriptStringToken(source, startIndex) {
+  const quote = source[startIndex];
+  if (quote !== '"' && quote !== "'") return null;
+  for (let index = startIndex + 1; index < source.length; index += 1) {
+    if (source[index] === "\\") {
+      index += 1;
+      continue;
+    }
+    if (source[index] !== quote) continue;
+    const literal2 = source.slice(startIndex, index + 1);
+    if (quote === '"') {
+      try {
+        const parsed = JSON.parse(literal2);
+        return typeof parsed === "string" ? { value: parsed, end: index + 1 } : null;
+      } catch (e2) {
+        return null;
+      }
+    }
+    return {
+      value: decodeSingleQuotedString(literal2.slice(1, -1)),
+      end: index + 1
+    };
+  }
+  return null;
+}
+function findExecEnvelopeToolCalls(tokens) {
+  const calls = [];
+  for (let index = 0; index < tokens.length; index += 1) {
+    const toolsToken = tokens[index];
+    const previousToken = tokens[index - 1];
+    if ((toolsToken == null ? void 0 : toolsToken.kind) !== "identifier" || toolsToken.value !== "tools" || (previousToken == null ? void 0 : previousToken.value) === ".") {
+      continue;
+    }
+    const dotToken = tokens[index + 1];
+    const nameToken = tokens[index + 2];
+    const openParenToken = tokens[index + 3];
+    if ((dotToken == null ? void 0 : dotToken.value) !== "." || (nameToken == null ? void 0 : nameToken.kind) !== "identifier" || (openParenToken == null ? void 0 : openParenToken.value) !== "(") {
+      return null;
+    }
+    calls.push({
+      name: nameToken.value,
+      toolTokenIndex: index,
+      openParenTokenIndex: index + 3
+    });
+  }
+  return calls;
+}
+function extractExecCommand(tokens, call) {
+  var _a5, _b3, _c2, _d, _e2;
+  const closeParenTokenIndex = findMatchingToken(tokens, call.openParenTokenIndex, "(", ")");
+  if (closeParenTokenIndex === null) return null;
+  if (((_a5 = tokens[call.openParenTokenIndex + 1]) == null ? void 0 : _a5.value) !== "{") return null;
+  let objectDepth = 0;
+  for (let index = call.openParenTokenIndex + 1; index < closeParenTokenIndex; index += 1) {
+    const token = tokens[index];
+    if ((token == null ? void 0 : token.value) === "{") {
+      objectDepth += 1;
+      continue;
+    }
+    if ((token == null ? void 0 : token.value) === "}") {
+      objectDepth -= 1;
+      continue;
+    }
+    if (objectDepth === 1 && (token == null ? void 0 : token.value) === "cmd" && ((_b3 = tokens[index + 1]) == null ? void 0 : _b3.value) === ":" && ((_c2 = tokens[index + 2]) == null ? void 0 : _c2.kind) === "string") {
+      return (_e2 = (_d = tokens[index + 2]) == null ? void 0 : _d.value) != null ? _e2 : null;
+    }
+  }
+  return null;
+}
+function extractApplyPatch(tokens, call) {
+  var _a5, _b3, _c2, _d, _e2;
+  const argumentToken = tokens[call.openParenTokenIndex + 1];
+  if ((argumentToken == null ? void 0 : argumentToken.kind) === "string") return argumentToken.value;
+  if ((argumentToken == null ? void 0 : argumentToken.kind) !== "identifier") return null;
+  let patch = null;
+  for (let index = 0; index <= call.toolTokenIndex - 4; index += 1) {
+    const declarationToken = tokens[index];
+    if ((declarationToken == null ? void 0 : declarationToken.kind) === "identifier" && (declarationToken.value === "const" || declarationToken.value === "let" || declarationToken.value === "var") && ((_a5 = tokens[index + 1]) == null ? void 0 : _a5.value) === argumentToken.value && ((_b3 = tokens[index + 2]) == null ? void 0 : _b3.value) === "=" && ((_c2 = tokens[index + 3]) == null ? void 0 : _c2.kind) === "string") {
+      patch = (_e2 = (_d = tokens[index + 3]) == null ? void 0 : _d.value) != null ? _e2 : null;
+    }
+  }
+  return patch;
+}
+function findMatchingToken(tokens, openTokenIndex, open, close) {
+  var _a5;
+  let depth = 0;
+  for (let index = openTokenIndex; index < tokens.length; index += 1) {
+    const value = (_a5 = tokens[index]) == null ? void 0 : _a5.value;
+    if (value === open) {
+      depth += 1;
+    } else if (value === close) {
+      depth -= 1;
+      if (depth === 0) return index;
+    }
+  }
+  return null;
+}
+function decodeSingleQuotedString(value) {
+  return value.replace(/\\([\\'"nrtbfv0])/g, (_match, escaped) => {
+    var _a5;
+    const escapes = {
+      "\\": "\\",
+      "'": "'",
+      '"': '"',
+      n: "\n",
+      r: "\r",
+      t: "	",
+      b: "\b",
+      f: "\f",
+      v: "\v",
+      0: "\0"
+    };
+    return (_a5 = escapes[escaped]) != null ? _a5 : escaped;
+  });
 }
 function normalizeCodexToolInput(rawName, input) {
   var _a5, _b3, _c2;
@@ -73269,6 +76177,43 @@ function normalizeCodexToolResult(normalizedName, rawResult) {
   if (!TERMINAL_RESULT_TOOLS.has(normalizedName)) return rawResult;
   return unwrapTerminalResult(rawResult);
 }
+function stringifyCodexToolOutput(value) {
+  if (typeof value === "string") return value;
+  if (value === void 0) return "";
+  if (Array.isArray(value)) {
+    const textParts = value.map((part) => {
+      if (!part || typeof part !== "object" || Array.isArray(part)) return "";
+      const text = part.text;
+      return typeof text === "string" ? text : "";
+    }).filter(Boolean);
+    if (textParts.length > 0) return textParts.join("");
+  }
+  try {
+    const result = JSON.stringify(value);
+    return typeof result === "string" ? result : String(value);
+  } catch (e2) {
+    return String(value);
+  }
+}
+function extractCodexExecCellId(output) {
+  var _a5;
+  const match = output.trimStart().match(/^Script running with cell ID\s+([^\n]+)/i);
+  return ((_a5 = match == null ? void 0 : match[1]) == null ? void 0 : _a5.trim()) || void 0;
+}
+function readCodexExecCellIdArgument(input) {
+  var _a5;
+  const value = (_a5 = input.cell_id) != null ? _a5 : input.cellId;
+  if (typeof value === "string" && value) return value;
+  if (typeof value === "number" && Number.isFinite(value)) return String(value);
+  return void 0;
+}
+function appendCodexCommandOutput(previous, next) {
+  if (!next) return previous != null ? previous : "";
+  if (!previous) return next;
+  if (previous.endsWith("\n") || next.startsWith("\n")) return previous + next;
+  return `${previous}
+${next}`;
+}
 function unwrapTerminalResult(raw) {
   let result = raw;
   const trimmed = result.trim();
@@ -73336,6 +76281,7 @@ function newTurnState(id, timestamp) {
     startedAt: timestamp,
     lastEventAt: timestamp,
     userChunks: [],
+    userImages: [],
     assistantBubbles: [],
     activeBubbleIndex: null
   };
@@ -73349,6 +76295,8 @@ function createPersistedParseContext() {
     suppressedToolOutputIds: /* @__PURE__ */ new Set(),
     terminalSessionToCommandId: /* @__PURE__ */ new Map(),
     stdinCallToCommandId: /* @__PURE__ */ new Map(),
+    execCellToCommandId: /* @__PURE__ */ new Map(),
+    waitCallToCommand: /* @__PURE__ */ new Map(),
     turnCounter: 0
   };
 }
@@ -73408,6 +76356,16 @@ function appendUserChunk(turn, value, timestamp) {
   const chunkCountBefore = turn.userChunks.length;
   appendUniqueChunk(turn.userChunks, value);
   if (turn.userChunks.length > chunkCountBefore && !turn.userTimestamp && timestamp > 0) {
+    turn.userTimestamp = timestamp;
+  }
+}
+function appendUserImages(turn, content, timestamp) {
+  const images = extractMessageImages(content, `codex-img-${turn.id}`, turn.userImages.length);
+  if (images.length === 0) {
+    return;
+  }
+  turn.userImages.push(...images);
+  if (!turn.userTimestamp && timestamp > 0) {
     turn.userTimestamp = timestamp;
   }
 }
@@ -73481,62 +76439,59 @@ function parseSessionRecord(line) {
     payload: parsed.payload
   };
 }
-var CODEX_SYSTEM_MESSAGE_PREFIXES = [
-  "# AGENTS.md instructions"
-];
-var CODEX_CONTROL_BLOCK_TAGS = [
-  "system_instruction",
-  "environment_context",
-  "turn_aborted",
-  "user-preferences",
-  "subagent_notification",
-  "skill"
-];
-function stripLeadingTaggedBlock(text, tagName) {
-  const openTag = `<${tagName}>`;
-  if (!text.startsWith(openTag)) {
-    return null;
-  }
-  const closeTag = `</${tagName}>`;
-  const closeIndex = text.indexOf(closeTag, openTag.length);
-  if (closeIndex === -1) {
-    return "";
-  }
-  return text.slice(closeIndex + closeTag.length);
-}
-function stripLeadingCodexControlBlocks(text) {
-  let remaining = text.trimStart();
-  let stripped = true;
-  while (stripped) {
-    stripped = false;
-    for (const tagName of CODEX_CONTROL_BLOCK_TAGS) {
-      const next = stripLeadingTaggedBlock(remaining, tagName);
-      if (next === null) {
-        continue;
-      }
-      remaining = next.trimStart();
-      stripped = true;
-      break;
-    }
-  }
-  return remaining;
-}
-function extractCodexUserVisibleText(text) {
-  const trimmed = text.trimStart();
-  if (!trimmed) {
-    return null;
-  }
-  if (CODEX_SYSTEM_MESSAGE_PREFIXES.some((prefix) => trimmed.startsWith(prefix))) {
-    return null;
-  }
-  const visible = stripLeadingCodexControlBlocks(trimmed).trim();
-  return visible ? visible : null;
-}
 function extractMessageText(content) {
   if (!Array.isArray(content)) {
     return "";
   }
   return content.map((part) => typeof (part == null ? void 0 : part.text) === "string" ? part.text : "").join("");
+}
+function extractUserMessageText(content) {
+  if (!Array.isArray(content)) {
+    return "";
+  }
+  return joinCodexUserTextParts(
+    content.map((part) => typeof (part == null ? void 0 : part.text) === "string" ? part.text : "")
+  );
+}
+function extractMessageImages(content, idPrefix, startIndex = 0) {
+  var _a5;
+  if (!Array.isArray(content)) {
+    return [];
+  }
+  const images = [];
+  for (const part of content) {
+    if ((part == null ? void 0 : part.type) !== "input_image") {
+      continue;
+    }
+    const imageUrl = typeof part.image_url === "string" ? part.image_url : typeof ((_a5 = part.image_url) == null ? void 0 : _a5.url) === "string" ? part.image_url.url : null;
+    const parsed = parseImageDataUri(imageUrl);
+    if (!parsed) {
+      continue;
+    }
+    const image = buildImageAttachmentFromBase64({
+      data: parsed.data,
+      id: `${idPrefix}-${startIndex + images.length}`,
+      mediaType: parsed.mediaType,
+      name: `image-${startIndex + images.length + 1}.${parsed.mediaType.split("/")[1]}`
+    });
+    if (image) {
+      images.push(image);
+    }
+  }
+  return images;
+}
+function hasMessageImages(content) {
+  if (!Array.isArray(content)) {
+    return false;
+  }
+  return content.some((part) => {
+    var _a5;
+    if ((part == null ? void 0 : part.type) !== "input_image") {
+      return false;
+    }
+    const imageUrl = typeof part.image_url === "string" ? part.image_url : typeof ((_a5 = part.image_url) == null ? void 0 : _a5.url) === "string" ? part.image_url.url : null;
+    return parseImageDataUri(imageUrl) !== null;
+  });
 }
 function joinTextParts(parts) {
   return parts.map((part) => {
@@ -73654,13 +76609,23 @@ function nextTurnId(ctx) {
   return `turn-${ctx.turnCounter}`;
 }
 function processPersistedToolCall(payload, timestamp, ctx) {
-  var _a5, _b3;
+  var _a5;
   const callId = payload.call_id;
   if (!callId) return;
-  if (payload.name === "write_stdin") {
-    const parsedArgs2 = parseCodexArguments((_a5 = payload.arguments) != null ? _a5 : payload.input);
-    if (isSilentWriteStdinInput(parsedArgs2)) {
-      const terminalSessionId = readTerminalSessionIdArgument(parsedArgs2);
+  const rawArgs = (_a5 = payload.arguments) != null ? _a5 : payload.input;
+  const parsedArgs = parseCodexArguments(rawArgs);
+  const normalized = normalizeCodexToolCall(payload.name, parsedArgs);
+  if (normalized.name === "wait") {
+    const cellId = readCodexExecCellIdArgument(normalized.input);
+    const commandCallId = cellId ? ctx.execCellToCommandId.get(cellId) : void 0;
+    if (cellId && commandCallId) {
+      ctx.waitCallToCommand.set(callId, { commandCallId, cellId });
+      return;
+    }
+  }
+  if (normalized.name === "write_stdin") {
+    if (isSilentWriteStdinInput(parsedArgs)) {
+      const terminalSessionId = readTerminalSessionIdArgument(parsedArgs);
       const parentCallId = terminalSessionId ? ctx.terminalSessionToCommandId.get(terminalSessionId) : void 0;
       if (parentCallId) {
         ctx.stdinCallToCommandId.set(callId, parentCallId);
@@ -73671,14 +76636,10 @@ function processPersistedToolCall(payload, timestamp, ctx) {
   }
   const turn = ensureTurn(ctx.turns, ctx.turnOrder, nextTurnId(ctx), ctx.currentTurnId, timestamp);
   const bubble = ensureAssistantBubble(turn, timestamp);
-  const rawArgs = (_b3 = payload.arguments) != null ? _b3 : payload.input;
-  const parsedArgs = parseCodexArguments(rawArgs);
-  const normalizedName = normalizeCodexToolName(payload.name);
-  const normalizedInput = normalizeCodexToolInput(payload.name, parsedArgs);
   const toolCall = {
     id: callId,
-    name: normalizedName,
-    input: normalizedInput,
+    name: normalized.name,
+    input: normalized.input,
     status: "running"
   };
   pushToolInvocation(bubble, toolCall);
@@ -73690,7 +76651,17 @@ function processPersistedToolCall(payload, timestamp, ctx) {
 function processPersistedToolOutput(payload, timestamp, ctx) {
   const callId = payload.call_id;
   if (!callId) return;
-  const rawOutput = typeof payload.output === "string" ? payload.output : Array.isArray(payload.output) ? JSON.stringify(payload.output) : "";
+  const rawOutput = stringifyCodexToolOutput(payload.output);
+  const waitCall = ctx.waitCallToCommand.get(callId);
+  if (waitCall) {
+    const parentToolCall = findPersistedToolCallById(ctx, waitCall.commandCallId);
+    ctx.execCellToCommandId.delete(waitCall.cellId);
+    if (parentToolCall) {
+      applyPersistedToolOutput(parentToolCall, payload.output, rawOutput, ctx);
+    }
+    ctx.waitCallToCommand.delete(callId);
+    return;
+  }
   const parentCommandId = ctx.stdinCallToCommandId.get(callId);
   if (parentCommandId) {
     const parentToolCall = findPersistedToolCallById(ctx, parentCommandId);
@@ -73754,31 +76725,29 @@ function readTerminalSessionIdArgument(input) {
 function isSilentWriteStdinInput(input) {
   return typeof input.chars !== "string" || input.chars.length === 0;
 }
-function appendCommandOutput(previous, next) {
-  if (!next) return previous != null ? previous : "";
-  if (!previous) return next;
-  if (previous.endsWith("\n") || next.startsWith("\n")) return previous + next;
-  return `${previous}
-${next}`;
-}
 function readPersistedCommandToolResult(rawOutputText) {
   var _a5, _b3;
   const output = normalizeCodexToolResult("Bash", rawOutputText);
   const exitCodeMatch = rawOutputText.match(/(?:Exit code:|Process exited with code)\s*(-?\d+)/i);
   const runningMatch = rawOutputText.match(/Process running with session ID\s*([^\n]+)/i);
+  const execCellId = extractCodexExecCellId(rawOutputText);
   return {
     output,
-    status: exitCodeMatch ? "completed" : runningMatch ? "running" : "unknown",
+    status: exitCodeMatch ? "completed" : runningMatch || execCellId ? "running" : "unknown",
     ...exitCodeMatch ? { exitCode: Number((_a5 = exitCodeMatch[1]) != null ? _a5 : 0) } : {},
-    ...runningMatch ? { terminalSessionId: ((_b3 = runningMatch[1]) != null ? _b3 : "").trim() } : {}
+    ...runningMatch ? { terminalSessionId: ((_b3 = runningMatch[1]) != null ? _b3 : "").trim() } : {},
+    ...execCellId ? { execCellId } : {}
   };
 }
 function applyPersistedToolOutput(toolCall, rawOutputValue, rawOutputText, ctx, options = {}) {
   if (toolCall.name === "Bash") {
     const commandResult = readPersistedCommandToolResult(rawOutputText);
-    toolCall.result = appendCommandOutput(toolCall.result, commandResult.output);
+    toolCall.result = appendCodexCommandOutput(toolCall.result, commandResult.output);
     if (commandResult.terminalSessionId) {
       ctx.terminalSessionToCommandId.set(commandResult.terminalSessionId, toolCall.id);
+    }
+    if (commandResult.execCellId) {
+      ctx.execCellToCommandId.set(commandResult.execCellId, toolCall.id);
     }
     if (commandResult.status === "running") {
       toolCall.status = "running";
@@ -73853,10 +76822,11 @@ function processPersistedPayload(payload, timestamp, lineIndex, ctx) {
   switch (payload.type) {
     case "message": {
       const messagePayload = payload;
-      const text = extractMessageText(messagePayload.content);
       if (messagePayload.role === "user") {
+        const text = extractUserMessageText(messagePayload.content);
         const visibleText = extractCodexUserVisibleText(text);
-        if (visibleText === null) break;
+        const hasImages = hasMessageImages(messagePayload.content);
+        if (visibleText === null && !hasImages) break;
         if (ctx.currentTurnId) {
           const prevTurn = ctx.turns.get(ctx.currentTurnId);
           if (prevTurn) closeAssistantBubble(prevTurn);
@@ -73864,8 +76834,12 @@ function processPersistedPayload(payload, timestamp, lineIndex, ctx) {
         ctx.currentTurnId = null;
         const turn = ensureTurn(ctx.turns, ctx.turnOrder, nextTurnId(ctx), null, timestamp);
         ctx.currentTurnId = turn.id;
-        appendUserChunk(turn, visibleText, timestamp);
+        if (visibleText !== null) {
+          appendUserChunk(turn, visibleText, timestamp);
+        }
+        appendUserImages(turn, messagePayload.content, timestamp);
       } else if (messagePayload.role === "assistant") {
+        const text = extractMessageText(messagePayload.content);
         const turn = ensureTurn(ctx.turns, ctx.turnOrder, nextTurnId(ctx), ctx.currentTurnId, timestamp);
         const bubble = ensureAssistantBubble(turn, timestamp);
         if (text) {
@@ -73994,13 +76968,15 @@ function processEventMsg(payload, timestamp, ctx) {
 function flushBubbleTurnMessages(turn, msgIndex) {
   const messages = [];
   const visibleUserText = extractCodexUserVisibleText(turn.userChunks.join("\n"));
-  if (visibleUserText) {
-    const displayContent = extractUserDisplayContent(visibleUserText);
+  const userImages = turn.userImages.length > 0 ? turn.userImages : void 0;
+  if (visibleUserText || userImages) {
+    const displayContent = visibleUserText ? extractUserDisplayContent(visibleUserText) : void 0;
     messages.push({
       id: `codex-msg-${msgIndex}`,
       role: "user",
-      content: visibleUserText,
+      content: visibleUserText != null ? visibleUserText : "",
       ...displayContent !== void 0 ? { displayContent } : {},
+      ...userImages ? { images: userImages } : {},
       ...turn.serverTurnId ? { userMessageId: turn.serverTurnId } : {},
       timestamp: turn.userTimestamp || turn.startedAt || Date.now()
     });
@@ -74069,7 +77045,7 @@ function flushBubbleTurnMessages(turn, msgIndex) {
 }
 var SAFE_SESSION_ID_PATTERN = /^[A-Za-z0-9_-]+$/;
 function getPathModuleForSessionPath(sessionPath) {
-  return sessionPath.includes("\\") || /^[A-Za-z]:/.test(sessionPath) ? path14.win32 : path14.posix;
+  return sessionPath.includes("\\") || /^[A-Za-z]:/.test(sessionPath) ? path15.win32 : path15.posix;
 }
 function deriveCodexSessionsRootFromSessionPath(sessionFilePath) {
   if (!sessionFilePath) {
@@ -74094,12 +77070,12 @@ function deriveCodexMemoriesDirFromSessionsRoot(sessionsDir) {
   const pathModule = getPathModuleForSessionPath(sessionsDir);
   return pathModule.join(pathModule.dirname(sessionsDir), "memories");
 }
-function findCodexSessionFile(threadId, root = path14.join(os9.homedir(), ".codex", "sessions")) {
-  if (!threadId || !SAFE_SESSION_ID_PATTERN.test(threadId) || !fs14.existsSync(root)) {
+function findCodexSessionFile(threadId, root = path15.join(os10.homedir(), ".codex", "sessions")) {
+  if (!threadId || !SAFE_SESSION_ID_PATTERN.test(threadId) || !fs15.existsSync(root)) {
     return null;
   }
-  const directPath = path14.join(root, `${threadId}.jsonl`);
-  if (fs14.existsSync(directPath)) {
+  const directPath = path15.join(root, `${threadId}.jsonl`);
+  if (fs15.existsSync(directPath)) {
     return directPath;
   }
   const stack = [root];
@@ -74110,12 +77086,12 @@ function findCodexSessionFile(threadId, root = path14.join(os9.homedir(), ".code
     }
     let entries;
     try {
-      entries = fs14.readdirSync(current, { withFileTypes: true });
+      entries = fs15.readdirSync(current, { withFileTypes: true });
     } catch (e2) {
       continue;
     }
     for (const entry of entries) {
-      const fullPath = path14.join(current, entry.name);
+      const fullPath = path15.join(current, entry.name);
       if (entry.isDirectory()) {
         stack.push(fullPath);
         continue;
@@ -74130,7 +77106,7 @@ function findCodexSessionFile(threadId, root = path14.join(os9.homedir(), ".code
 function parseCodexSessionFile(filePath) {
   let content;
   try {
-    content = fs14.readFileSync(filePath, "utf-8");
+    content = fs15.readFileSync(filePath, "utf-8");
   } catch (e2) {
     return [];
   }
@@ -74437,7 +77413,7 @@ function processLegacyEventInModernContext(event, timestamp, ctx) {
 function readSessionTurns(sessionFilePath) {
   let content;
   try {
-    content = fs15.readFileSync(sessionFilePath, "utf-8");
+    content = fs16.readFileSync(sessionFilePath, "utf-8");
   } catch (e2) {
     return [];
   }
@@ -74732,9 +77708,9 @@ var codexSubagentLifecycleAdapter = {
 };
 
 // src/providers/codex/runtime/CodexChatRuntime.ts
-var fs16 = __toESM(require("fs"));
-var os10 = __toESM(require("os"));
-var path15 = __toESM(require("path"));
+var fs17 = __toESM(require("fs"));
+var os11 = __toESM(require("os"));
+var path16 = __toESM(require("path"));
 init_path();
 
 // src/providers/codex/prompt/encodeCodexTurn.ts
@@ -74821,6 +77797,10 @@ var CodexNotificationRouter = class {
     this.rawToolNamesByCallId = /* @__PURE__ */ new Map();
     this.rawToolInputsByCallId = /* @__PURE__ */ new Map();
     this.rawToolOutputsByCallId = /* @__PURE__ */ new Map();
+    this.immediateRawOutputCallIds = /* @__PURE__ */ new Set();
+    this.wrappedCommandCallIdsByCellId = /* @__PURE__ */ new Map();
+    this.wrappedCommandOutputByCallId = /* @__PURE__ */ new Map();
+    this.wrappedWaitCallsByCallId = /* @__PURE__ */ new Map();
     this.suppressedRawCallIds = /* @__PURE__ */ new Set();
     this.fileChangeInputsById = /* @__PURE__ */ new Map();
   }
@@ -74870,6 +77850,10 @@ var CodexNotificationRouter = class {
     this.rawToolNamesByCallId.clear();
     this.rawToolInputsByCallId.clear();
     this.rawToolOutputsByCallId.clear();
+    this.immediateRawOutputCallIds.clear();
+    this.wrappedCommandCallIdsByCellId.clear();
+    this.wrappedCommandOutputByCallId.clear();
+    this.wrappedWaitCallsByCallId.clear();
     this.suppressedRawCallIds.clear();
     this.fileChangeInputsById.clear();
   }
@@ -74884,6 +77868,10 @@ var CodexNotificationRouter = class {
     this.rawToolNamesByCallId.clear();
     this.rawToolInputsByCallId.clear();
     this.rawToolOutputsByCallId.clear();
+    this.immediateRawOutputCallIds.clear();
+    this.wrappedCommandCallIdsByCellId.clear();
+    this.wrappedCommandOutputByCallId.clear();
+    this.wrappedWaitCallsByCallId.clear();
     this.suppressedRawCallIds.clear();
     this.fileChangeInputsById.clear();
   }
@@ -75077,6 +78065,14 @@ var CodexNotificationRouter = class {
       return;
     }
     const rawArguments = parseRawArguments(item);
+    if (rawName === "wait") {
+      const cellId = readCodexExecCellIdArgument(rawArguments);
+      const commandCallId = cellId ? this.wrappedCommandCallIdsByCellId.get(cellId) : void 0;
+      if (cellId && commandCallId) {
+        this.wrappedWaitCallsByCallId.set(callId, { commandCallId, cellId });
+        return;
+      }
+    }
     if (rawName === "write_stdin" && isSilentWriteStdinInput2(rawArguments)) {
       this.suppressedRawCallIds.add(callId);
       return;
@@ -75096,30 +78092,39 @@ var CodexNotificationRouter = class {
       this.resetAssistantSegmentText();
       return;
     }
+    this.immediateRawOutputCallIds.add(callId);
     this.emitRawToolUse(callId, rawName, item);
   }
   emitRawToolUse(callId, rawName, item, rawArguments) {
-    const normalizedName = normalizeCodexToolName(rawName);
-    const input = normalizeCodexToolInput(rawName, rawArguments != null ? rawArguments : parseRawArguments(item));
+    const normalized = normalizeCodexToolCall(
+      rawName,
+      rawArguments != null ? rawArguments : parseRawArguments(item)
+    );
     if (this.rawStartedCallIds.has(callId)) {
-      this.rawToolNamesByCallId.set(callId, normalizedName);
-      this.rawToolInputsByCallId.set(callId, input);
+      this.rawToolNamesByCallId.set(callId, normalized.name);
+      this.rawToolInputsByCallId.set(callId, normalized.input);
       return;
     }
     this.rawStartedCallIds.add(callId);
-    this.rawToolNamesByCallId.set(callId, normalizedName);
-    this.rawToolInputsByCallId.set(callId, input);
+    this.rawToolNamesByCallId.set(callId, normalized.name);
+    this.rawToolInputsByCallId.set(callId, normalized.input);
     this.resetAssistantSegmentText();
     this.emit({
       type: "tool_use",
       id: callId,
-      name: normalizedName,
-      input
+      name: normalized.name,
+      input: normalized.input
     });
   }
   handleRawToolOutput(item) {
     const callId = readRawCallId(item);
     if (!callId) {
+      return;
+    }
+    const wrappedWaitCall = this.wrappedWaitCallsByCallId.get(callId);
+    if (wrappedWaitCall) {
+      this.wrappedWaitCallsByCallId.delete(callId);
+      this.handleWrappedWaitOutput(wrappedWaitCall, item.output);
       return;
     }
     if (this.suppressedRawCallIds.delete(callId)) {
@@ -75130,15 +78135,63 @@ var CodexNotificationRouter = class {
       return;
     }
     const rawOutput = item.output;
+    const rawOutputText = stringifyCodexToolOutput(rawOutput);
     const content = normalizeRawToolOutput(
       normalizedName,
       rawOutput,
       this.rawToolInputsByCallId.get(callId)
     );
-    this.rawToolOutputsByCallId.set(callId, {
+    const result = {
       content,
-      isError: isCodexToolOutputError(stringifyRawOutput(rawOutput))
+      isError: isCodexToolOutputError(rawOutputText)
+    };
+    if (this.immediateRawOutputCallIds.delete(callId)) {
+      const execCellId = normalizedName === "Bash" ? extractCodexExecCellId(rawOutputText) : void 0;
+      if (execCellId) {
+        this.wrappedCommandCallIdsByCellId.set(execCellId, callId);
+        this.appendWrappedCommandOutput(callId, content);
+        return;
+      }
+      this.emit({ type: "tool_result", id: callId, ...result });
+      return;
+    }
+    this.rawToolOutputsByCallId.set(callId, result);
+  }
+  handleWrappedWaitOutput(waitCall, rawOutput) {
+    const rawOutputText = stringifyCodexToolOutput(rawOutput);
+    const content = normalizeRawToolOutput(
+      "Bash",
+      rawOutput,
+      this.rawToolInputsByCallId.get(waitCall.commandCallId)
+    );
+    const nextCellId = extractCodexExecCellId(rawOutputText);
+    if (nextCellId) {
+      this.wrappedCommandCallIdsByCellId.delete(waitCall.cellId);
+      this.wrappedCommandCallIdsByCellId.set(nextCellId, waitCall.commandCallId);
+      this.appendWrappedCommandOutput(waitCall.commandCallId, content);
+      return;
+    }
+    const previousOutput = this.wrappedCommandOutputByCallId.get(waitCall.commandCallId);
+    const completeOutput = appendCodexCommandOutput(previousOutput, content);
+    this.wrappedCommandOutputByCallId.delete(waitCall.commandCallId);
+    this.wrappedCommandCallIdsByCellId.delete(waitCall.cellId);
+    this.emit({
+      type: "tool_result",
+      id: waitCall.commandCallId,
+      content: completeOutput,
+      isError: isCodexToolOutputError(rawOutputText)
     });
+  }
+  appendWrappedCommandOutput(callId, content) {
+    var _a5;
+    if (!content) return;
+    const previousOutput = this.wrappedCommandOutputByCallId.get(callId);
+    const completeOutput = appendCodexCommandOutput(previousOutput, content);
+    const delta = completeOutput.slice((_a5 = previousOutput == null ? void 0 : previousOutput.length) != null ? _a5 : 0);
+    this.wrappedCommandOutputByCallId.set(callId, completeOutput);
+    if (delta) {
+      this.emit({ type: "tool_output", id: callId, content: delta });
+    }
   }
   emitMissingRawAgentMessageText(item) {
     const text = item.type === "message" ? readAssistantMessageText(item) : firstString2(item.text, item.message);
@@ -75354,11 +78407,16 @@ var CodexNotificationRouter = class {
     if (this.startedUserMessageIds.has(item.id)) {
       return;
     }
+    const rawContent = this.extractUserMessageText(item.content);
+    const visibleContent = extractCodexUserVisibleText(rawContent);
     this.startedUserMessageIds.add(item.id);
+    if (visibleContent === null && rawContent.trim()) {
+      return;
+    }
     this.emit({
       type: "user_message_start",
       itemId: item.id,
-      content: this.extractUserMessageText(item.content)
+      content: visibleContent != null ? visibleContent : rawContent
     });
   }
   emitAgentMessageBoundary(item) {
@@ -75379,7 +78437,10 @@ var CodexNotificationRouter = class {
     this.emitMissingAssistantSegmentText(item.text, item.id);
   }
   extractUserMessageText(content) {
-    return content.map((part) => part.type === "text" ? part.text : "").filter((text) => text.length > 0).join("\n\n");
+    return joinCodexUserTextParts(
+      content.map((part) => part.type === "text" ? part.text : ""),
+      "\n\n"
+    );
   }
   // -- turn/plan/updated (update_plan) ----------------------------------------
   onPlanUpdated(params) {
@@ -75474,21 +78535,7 @@ function normalizeRawToolOutput(normalizedName, rawOutput, input) {
       return filePath;
     }
   }
-  return normalizeCodexToolResult(normalizedName, stringifyRawOutput(rawOutput));
-}
-function stringifyRawOutput(value) {
-  if (typeof value === "string") {
-    return value;
-  }
-  if (value === void 0) {
-    return "";
-  }
-  try {
-    const result = JSON.stringify(value);
-    return typeof result === "string" ? result : String(value);
-  } catch (e2) {
-    return String(value);
-  }
+  return normalizeCodexToolResult(normalizedName, stringifyCodexToolOutput(rawOutput));
 }
 function buildFileChangeInput(changes) {
   return { changes: normalizeFileChanges(changes) };
@@ -75515,15 +78562,15 @@ function normalizeFileChanges(changes) {
 function normalizeFileChange(change) {
   var _a5;
   const record2 = asRecord(change);
-  const path27 = firstString2(record2 == null ? void 0 : record2.path);
-  if (!record2 || !path27) {
+  const path28 = firstString2(record2 == null ? void 0 : record2.path);
+  if (!record2 || !path28) {
     return null;
   }
   const kindInfo = normalizeFileChangeKind((_a5 = record2.kind) != null ? _a5 : record2.type);
   const diff = firstString2(record2.diff);
   return {
     ...record2,
-    path: path27,
+    path: path28,
     kind: kindInfo.kind,
     type: kindInfo.kind,
     ...kindInfo.movePath ? { movePath: kindInfo.movePath } : {},
@@ -75570,12 +78617,12 @@ function fileChangeKey(change) {
 }
 function formatFileChangeSummary(change) {
   const record2 = asRecord(change);
-  const path27 = firstString2(record2 == null ? void 0 : record2.path);
-  if (!record2 || !path27) {
+  const path28 = firstString2(record2 == null ? void 0 : record2.path);
+  if (!record2 || !path28) {
     return "";
   }
   const kind = firstString2(record2.kind, record2.type) || "change";
-  return `${kind}: ${path27}`;
+  return `${kind}: ${path28}`;
 }
 function readContentText(value) {
   if (!Array.isArray(value)) {
@@ -75904,18 +78951,22 @@ function resolveCodexSandboxConfig(permissionMode, codexSafeMode = "workspace-wr
   }
   return { approvalPolicy: "on-request", sandbox: codexSafeMode };
 }
-function resolveCodexServiceTier(serviceTier, model) {
-  if (model !== FAST_TIER_CODEX_MODEL) {
+function resolveCodexServiceTier(serviceTier, modelId, settings11) {
+  var _a5, _b3;
+  const model = findCodexModel(getCodexProviderSettings(settings11).discoveredModels, modelId);
+  if (!model) {
     return null;
   }
-  return serviceTier === "fast" ? "fast" : null;
+  if (typeof serviceTier === "string") {
+    if (model.serviceTiers.some((tier) => tier.id === serviceTier)) {
+      return serviceTier;
+    }
+    if (serviceTier === "fast") {
+      return (_b3 = (_a5 = model.serviceTiers.find((tier) => tier.name.toLowerCase() === "fast")) == null ? void 0 : _a5.id) != null ? _b3 : null;
+    }
+  }
+  return model.defaultServiceTier;
 }
-var EFFORT_MAP = {
-  low: "low",
-  medium: "medium",
-  high: "high",
-  xhigh: "xhigh"
-};
 var CodexChatRuntime = class {
   constructor(plugin) {
     this.providerId = "codex";
@@ -75945,6 +78996,7 @@ var CodexChatRuntime = class {
     this.subagentHookProvider = null;
     this.autoTurnCallback = null;
     this.activeInputBundles = /* @__PURE__ */ new Set();
+    this.currentConversationModel = null;
     // Fork state
     this.pendingFork = null;
     // Cancellation
@@ -75975,12 +79027,14 @@ var CodexChatRuntime = class {
   syncConversationState(conversation, _externalContextPaths) {
     var _a5, _b3;
     if (!conversation) {
+      this.currentConversationModel = null;
       this.session.reset();
       this.loadedThreadId = null;
       this.currentThreadPath = null;
       this.pendingFork = null;
       return;
     }
+    this.setCurrentConversationModel(conversation.selectedModel);
     const state = getCodexState(conversation.providerState);
     if (state.forkSource && !state.threadId && !conversation.sessionId) {
       this.pendingFork = state.forkSource;
@@ -76021,7 +79075,10 @@ var CodexChatRuntime = class {
     return shouldRebuild;
   }
   async *query(originalTurn, _conversationHistory, queryOptions) {
-    var _a5, _b3, _c2, _d, _e2, _f2, _g, _h2, _i, _j, _k3, _l2, _m, _n, _o, _p, _q3, _r;
+    var _a5, _b3, _c2, _d, _e2, _f2, _g, _h2, _i, _j, _k3, _l2, _m, _n, _o, _p, _q3;
+    if (queryOptions == null ? void 0 : queryOptions.model) {
+      this.setCurrentConversationModel(queryOptions.model);
+    }
     this.resetTurnMetadata();
     let turn = originalTurn;
     await this.ensureReady();
@@ -76031,7 +79088,8 @@ var CodexChatRuntime = class {
     this.chunkResolve = null;
     this.currentQueryThreadId = null;
     this.pendingTurnNotifications = [];
-    const model = this.resolveModel(queryOptions);
+    const providerSettings = this.getProviderSettings();
+    const model = this.resolveModel(queryOptions, providerSettings);
     const promptSettings = this.getSystemPromptSettings();
     const promptText = buildSystemPrompt(promptSettings);
     const enqueueChunk = (chunk) => {
@@ -76075,10 +79133,10 @@ var CodexChatRuntime = class {
         const permissionMode = this.resolveSandboxConfig();
         await this.transport.request("thread/resume", {
           threadId,
-          model: model != null ? model : DEFAULT_CODEX_PRIMARY_MODEL,
+          ...model ? { model } : {},
           approvalPolicy: permissionMode.approvalPolicy,
           sandbox: permissionMode.sandbox,
-          serviceTier: resolveCodexServiceTier(this.getProviderSettings().serviceTier, model != null ? model : DEFAULT_CODEX_PRIMARY_MODEL),
+          serviceTier: resolveCodexServiceTier(providerSettings.serviceTier, model, providerSettings),
           baseInstructions: promptText,
           experimentalRawEvents: true,
           persistExtendedHistory: true
@@ -76112,10 +79170,10 @@ User: ${turn.prompt}`
         const permissionMode = this.resolveSandboxConfig();
         const resumeResult = await this.transport.request("thread/resume", {
           threadId: existingThreadId,
-          model: model != null ? model : DEFAULT_CODEX_PRIMARY_MODEL,
+          ...model ? { model } : {},
           approvalPolicy: permissionMode.approvalPolicy,
           sandbox: permissionMode.sandbox,
-          serviceTier: resolveCodexServiceTier(this.getProviderSettings().serviceTier, model != null ? model : DEFAULT_CODEX_PRIMARY_MODEL),
+          serviceTier: resolveCodexServiceTier(providerSettings.serviceTier, model, providerSettings),
           baseInstructions: promptText,
           experimentalRawEvents: true,
           persistExtendedHistory: true
@@ -76129,11 +79187,11 @@ User: ${turn.prompt}`
       } else {
         const permissionMode = this.resolveSandboxConfig();
         const startResult = await this.transport.request("thread/start", {
-          model: model != null ? model : DEFAULT_CODEX_PRIMARY_MODEL,
+          ...model ? { model } : {},
           cwd: (_f2 = (_e2 = (_d = this.launchSpec) == null ? void 0 : _d.targetCwd) != null ? _e2 : getVaultPath(this.plugin.app)) != null ? _f2 : void 0,
           approvalPolicy: permissionMode.approvalPolicy,
           sandbox: permissionMode.sandbox,
-          serviceTier: resolveCodexServiceTier(this.getProviderSettings().serviceTier, model != null ? model : DEFAULT_CODEX_PRIMARY_MODEL),
+          serviceTier: resolveCodexServiceTier(providerSettings.serviceTier, model, providerSettings),
           baseInstructions: promptText,
           experimentalRawEvents: true,
           persistExtendedHistory: true
@@ -76161,35 +79219,35 @@ User: ${turn.prompt}`
         const skillInputs = await this.resolveSkillInputs(turn.request.text);
         const turnInputBundle = this.buildInput(turn.prompt, turn.request.images, skillInputs);
         this.registerActiveInputBundle(turnInputBundle);
-        const providerSettings = this.getProviderSettings();
-        const effort = (_k3 = EFFORT_MAP[providerSettings.effortLevel]) != null ? _k3 : "medium";
-        const resolvedModel = model != null ? model : DEFAULT_CODEX_PRIMARY_MODEL;
+        const selectedEffort = typeof providerSettings.effortLevel === "string" ? providerSettings.effortLevel.trim() : "";
+        const effort = selectedEffort || "medium";
+        const resolvedModel = model;
         const isPlanMode = providerSettings.permissionMode === "plan";
         const externalContextPaths = this.resolveExternalContextPaths(turn, queryOptions);
         const permissionMode = this.resolveSandboxConfig();
-        const transcriptRootTarget = (_n = (_m = (_l2 = this.runtimeContext) == null ? void 0 : _l2.sessionsDirTarget) != null ? _m : deriveCodexSessionsRootFromSessionPath(threadTargetPath)) != null ? _n : this.resolveTranscriptRootTarget(sessionFilePathHint);
+        const transcriptRootTarget = (_m = (_l2 = (_k3 = this.runtimeContext) == null ? void 0 : _k3.sessionsDirTarget) != null ? _l2 : deriveCodexSessionsRootFromSessionPath(threadTargetPath)) != null ? _m : this.resolveTranscriptRootTarget(sessionFilePathHint);
         const sandboxPolicy = this.buildTurnSandboxPolicy(
           externalContextPaths,
           permissionMode.sandbox,
           transcriptRootTarget,
           sessionFilePathHint
         );
-        const collaborationMode = {
+        const collaborationMode = resolvedModel ? {
           mode: isPlanMode ? "plan" : "default",
           settings: {
             model: resolvedModel,
             reasoning_effort: effort,
             developer_instructions: null
           }
-        };
+        } : void 0;
         const summary = getEffectiveCodexReasoningSummary(providerSettings, resolvedModel);
-        const serviceTier = resolveCodexServiceTier(providerSettings.serviceTier, resolvedModel);
-        (_o = this.notificationRouter) == null ? void 0 : _o.beginTurn({ isPlanTurn: isPlanMode });
+        const serviceTier = resolveCodexServiceTier(providerSettings.serviceTier, resolvedModel, providerSettings);
+        (_n = this.notificationRouter) == null ? void 0 : _n.beginTurn({ isPlanTurn: isPlanMode });
         const turnResult = await this.transport.request("turn/start", {
           threadId,
           input: turnInputBundle.input,
           approvalPolicy: permissionMode.approvalPolicy,
-          model: resolvedModel,
+          ...resolvedModel ? { model: resolvedModel } : {},
           serviceTier,
           effort,
           summary,
@@ -76240,7 +79298,7 @@ User: ${turn.prompt}`
       yield { type: "done" };
       return;
     } finally {
-      (_p = this.notificationRouter) == null ? void 0 : _p.endTurn();
+      (_o = this.notificationRouter) == null ? void 0 : _o.endTurn();
       this.cleanupActiveInputBundles();
       this.currentTurnId = null;
       this.currentQueryThreadId = null;
@@ -76250,7 +79308,7 @@ User: ${turn.prompt}`
         if (threadId) {
           const sessionFilePath = findCodexSessionFile(
             threadId,
-            (_r = this.resolveTranscriptRootHost((_q3 = this.session.getSessionFilePath()) != null ? _q3 : this.currentThreadPath)) != null ? _r : void 0
+            (_q3 = this.resolveTranscriptRootHost((_p = this.session.getSessionFilePath()) != null ? _p : this.currentThreadPath)) != null ? _q3 : void 0
           );
           if (sessionFilePath) {
             this.session.setThread(threadId, sessionFilePath);
@@ -76449,20 +79507,30 @@ User: ${turn.prompt}`
     };
   }
   getProviderSettings() {
-    return ProviderSettingsCoordinator.getProviderSettingsSnapshot(
+    return this.currentConversationModel ? getProviderSettingsSnapshotWithModel(
+      this.plugin.settings,
+      this.providerId,
+      this.currentConversationModel
+    ) : ProviderSettingsCoordinator.getProviderSettingsSnapshot(
       this.plugin.settings,
       this.providerId
     );
   }
   getAuxiliaryModel() {
-    var _a5;
-    return (_a5 = this.resolveModel()) != null ? _a5 : null;
+    var _a5, _b3;
+    return (_b3 = (_a5 = this.currentConversationModel) != null ? _a5 : this.resolveModel()) != null ? _b3 : null;
   }
-  resolveModel(queryOptions) {
-    var _a5;
-    const providerSettings = this.getProviderSettings();
+  setCurrentConversationModel(model) {
+    const selectedModel = typeof model === "string" ? model.trim() : "";
+    this.currentConversationModel = selectedModel || null;
+  }
+  resolveModel(queryOptions, providerSettings = this.getProviderSettings()) {
+    var _a5, _b3;
     const model = (_a5 = queryOptions == null ? void 0 : queryOptions.model) != null ? _a5 : providerSettings.model;
-    return model ? toCodexRuntimeModelId(model) : void 0;
+    if (model) {
+      return toCodexRuntimeModelId(model);
+    }
+    return (_b3 = getDefaultCodexModel(getCodexProviderSettings(providerSettings).discoveredModels)) == null ? void 0 : _b3.model;
   }
   resolveSandboxConfig() {
     const providerSettings = this.getProviderSettings();
@@ -76571,12 +79639,12 @@ User: ${turn.prompt}`
       externalContextPaths,
       "external context path"
     );
-    const memoriesDirTarget = (_c2 = (_a5 = deriveCodexMemoriesDirFromSessionsRoot(transcriptRootTargetHint)) != null ? _a5 : this.resolveMemoriesDirTarget(sessionFilePathHint)) != null ? _c2 : ((_b3 = this.launchSpec) == null ? void 0 : _b3.target.method) === "wsl" ? null : path15.join(os10.homedir(), ".codex", "memories");
+    const memoriesDirTarget = (_c2 = (_a5 = deriveCodexMemoriesDirFromSessionsRoot(transcriptRootTargetHint)) != null ? _a5 : this.resolveMemoriesDirTarget(sessionFilePathHint)) != null ? _c2 : ((_b3 = this.launchSpec) == null ? void 0 : _b3.target.method) === "wsl" ? null : path16.join(os11.homedir(), ".codex", "memories");
     const writableRoots = [
       (_e2 = (_d = this.launchSpec) == null ? void 0 : _d.targetCwd) != null ? _e2 : getVaultPath(this.plugin.app),
       ...mappedExternalContextPaths,
       memoriesDirTarget,
-      this.mapHostPathToTarget(os10.tmpdir()),
+      this.mapHostPathToTarget(os11.tmpdir()),
       ((_f2 = this.launchSpec) == null ? void 0 : _f2.target.platformFamily) === "unix" ? "/tmp" : null,
       this.mapHostPathToTarget(process.env.TMPDIR)
     ].filter((value) => typeof value === "string" && value.trim().length > 0);
@@ -76708,19 +79776,19 @@ User: ${turn.prompt}`
         return;
       }
       try {
-        fs16.rmSync(tempDir, { recursive: true, force: true });
+        fs17.rmSync(tempDir, { recursive: true, force: true });
       } catch (e2) {
       }
     };
     try {
       if (images && images.length > 0) {
-        tempDir = fs16.mkdtempSync(path15.join(os10.tmpdir(), "claudian-codex-images-"));
+        tempDir = fs17.mkdtempSync(path16.join(os11.tmpdir(), "claudian-codex-images-"));
         for (let i = 0; i < images.length; i++) {
           const img = images[i];
           if (!img.mediaType.startsWith("image/")) continue;
           const filename = toAttachmentFilename(img, i);
-          const filePath = path15.join(tempDir, `${i + 1}-${filename}`);
-          fs16.writeFileSync(filePath, Buffer.from(img.data, "base64"));
+          const filePath = path16.join(tempDir, `${i + 1}-${filename}`);
+          fs17.writeFileSync(filePath, Buffer.from(img.data, "base64"));
           const targetFilePath = this.mapHostPathToTarget(filePath);
           if (!targetFilePath) {
             throw new Error(`Codex cannot access image attachment path from the selected target: ${filePath}`);
@@ -76983,7 +80051,7 @@ var OpencodeCliResolver = class {
 };
 
 // src/providers/opencode/storage/OpencodeAgentStorage.ts
-var path16 = __toESM(require("node:path"));
+var path17 = __toESM(require("node:path"));
 
 // src/providers/opencode/types/agent.ts
 var OPENCODE_AGENT_KNOWN_KEYS = /* @__PURE__ */ new Set([
@@ -77054,7 +80122,7 @@ var OpencodeAgentStorage = class {
   async save(agent, previous) {
     const filePath = this.resolveTargetPath(agent, previous);
     const previousPath = previous ? this.resolveCurrentPath(previous) : null;
-    await this.vaultAdapter.ensureFolder(path16.posix.dirname(filePath));
+    await this.vaultAdapter.ensureFolder(path17.posix.dirname(filePath));
     const content = serializeOpencodeAgentMarkdown(agent);
     await this.vaultAdapter.write(filePath, content);
     if (previousPath && previousPath !== filePath) {
@@ -77271,14 +80339,14 @@ function isSupportedAgentFilePath(filePath) {
 }
 
 // src/providers/opencode/ui/OpencodeSettingsTab.ts
-var fs20 = __toESM(require("fs"));
-var import_obsidian19 = require("obsidian");
+var fs21 = __toESM(require("fs"));
+var import_obsidian20 = require("obsidian");
 init_env();
 init_path();
 
 // src/providers/opencode/runtime/OpencodeChatRuntime.ts
-var fs19 = __toESM(require("node:fs/promises"));
-var path19 = __toESM(require("node:path"));
+var fs20 = __toESM(require("node:fs/promises"));
+var path20 = __toESM(require("node:path"));
 init_env();
 init_path();
 
@@ -78186,7 +81254,7 @@ function parseIsoDate(value) {
 // src/providers/acp/AcpSubprocess.ts
 var import_node_child_process = require("node:child_process");
 var SIGKILL_TIMEOUT_MS2 = 3e3;
-var STDERR_BUFFER_LIMIT = 8e3;
+var STDERR_BUFFER_LIMIT2 = 8e3;
 var AcpSubprocess = class {
   constructor(launchSpec) {
     this.launchSpec = launchSpec;
@@ -78227,7 +81295,7 @@ var AcpSubprocess = class {
     });
     proc.stderr.on("data", (chunk) => {
       const text = typeof chunk === "string" ? chunk : chunk.toString("utf-8");
-      this.stderrBuffer = `${this.stderrBuffer}${text}`.slice(-STDERR_BUFFER_LIMIT);
+      this.stderrBuffer = `${this.stderrBuffer}${text}`.slice(-STDERR_BUFFER_LIMIT2);
     });
     proc.on("error", (error48) => {
       this.closeError = error48;
@@ -78769,14 +81837,14 @@ function buildOpencodePromptBlocks(request, conversationHistory = []) {
 }
 
 // src/providers/opencode/runtime/OpencodeLaunchArtifacts.ts
-var fs18 = __toESM(require("node:fs/promises"));
-var path18 = __toESM(require("node:path"));
+var fs19 = __toESM(require("node:fs/promises"));
+var path19 = __toESM(require("node:path"));
 init_path();
 
 // src/providers/opencode/runtime/OpencodePaths.ts
-var fs17 = __toESM(require("node:fs"));
-var os11 = __toESM(require("node:os"));
-var path17 = __toESM(require("node:path"));
+var fs18 = __toESM(require("node:fs"));
+var os12 = __toESM(require("node:os"));
+var path18 = __toESM(require("node:path"));
 var OPENCODE_APP_NAME = "opencode";
 var DEFAULT_DATABASE_NAME = "opencode.db";
 var DATABASE_NAME_PATTERN = /^opencode(?:-[a-z0-9._-]+)?\.db$/i;
@@ -78784,27 +81852,27 @@ function resolveOpencodeDataDir(env = process.env) {
   var _a5;
   const xdgDataHome = (_a5 = env.XDG_DATA_HOME) == null ? void 0 : _a5.trim();
   if (xdgDataHome) {
-    return path17.join(xdgDataHome, OPENCODE_APP_NAME);
+    return path18.join(xdgDataHome, OPENCODE_APP_NAME);
   }
-  const home = env.HOME || os11.homedir();
+  const home = env.HOME || os12.homedir();
   if (process.platform === "win32") {
-    const appData = env.APPDATA || env.LOCALAPPDATA || path17.join(home, "AppData", "Roaming");
-    return path17.join(appData, OPENCODE_APP_NAME);
+    const appData = env.APPDATA || env.LOCALAPPDATA || path18.join(home, "AppData", "Roaming");
+    return path18.join(appData, OPENCODE_APP_NAME);
   }
-  return path17.join(home, ".local", "share", OPENCODE_APP_NAME);
+  return path18.join(home, ".local", "share", OPENCODE_APP_NAME);
 }
 function resolveOpencodeDatabasePath(env = process.env) {
   var _a5, _b3;
   const override = (_a5 = env.OPENCODE_DB) == null ? void 0 : _a5.trim();
   if (override) {
-    if (override === ":memory:" || path17.isAbsolute(override)) {
+    if (override === ":memory:" || path18.isAbsolute(override)) {
       return override;
     }
-    return path17.join(resolveOpencodeDataDir(env), override);
+    return path18.join(resolveOpencodeDataDir(env), override);
   }
   const candidates = getOpencodeDatabasePathCandidates(env);
   for (const candidate of candidates) {
-    if (fs17.existsSync(candidate)) {
+    if (fs18.existsSync(candidate)) {
       return candidate;
     }
   }
@@ -78816,12 +81884,12 @@ function resolveExistingOpencodeDatabasePath(preferredPath, env = process.env) {
     if (preferred === ":memory:") {
       return preferred;
     }
-    if (fs17.existsSync(preferred)) {
+    if (fs18.existsSync(preferred)) {
       return preferred;
     }
   }
   const resolved = resolveOpencodeDatabasePath(env);
-  if (resolved && (resolved === ":memory:" || fs17.existsSync(resolved))) {
+  if (resolved && (resolved === ":memory:" || fs18.existsSync(resolved))) {
     return resolved;
   }
   return preferred != null ? preferred : resolved;
@@ -78829,21 +81897,21 @@ function resolveExistingOpencodeDatabasePath(preferredPath, env = process.env) {
 function getOpencodeDatabasePathCandidates(env) {
   const candidates = [];
   const seen = /* @__PURE__ */ new Set();
-  const home = env.HOME || os11.homedir();
+  const home = env.HOME || os12.homedir();
   const dataDirs = [
     resolveOpencodeDataDir(env),
-    path17.join(home, "Library", "Application Support", OPENCODE_APP_NAME)
+    path18.join(home, "Library", "Application Support", OPENCODE_APP_NAME)
   ];
   for (const dataDir of dataDirs) {
-    pushCandidate(candidates, seen, path17.join(dataDir, DEFAULT_DATABASE_NAME));
+    pushCandidate(candidates, seen, path18.join(dataDir, DEFAULT_DATABASE_NAME));
     try {
-      const matches = fs17.readdirSync(dataDir).filter((entry) => DATABASE_NAME_PATTERN.test(entry)).sort((left, right) => {
+      const matches = fs18.readdirSync(dataDir).filter((entry) => DATABASE_NAME_PATTERN.test(entry)).sort((left, right) => {
         if (left === DEFAULT_DATABASE_NAME) return -1;
         if (right === DEFAULT_DATABASE_NAME) return 1;
         return left.localeCompare(right);
       });
       for (const entry of matches) {
-        pushCandidate(candidates, seen, path17.join(dataDir, entry));
+        pushCandidate(candidates, seen, path18.join(dataDir, entry));
       }
     } catch (e2) {
     }
@@ -78887,13 +81955,13 @@ var DEFAULT_OPENCODE_MANAGED_AGENT_CONFIGS = [
 ];
 async function prepareOpencodeLaunchArtifacts(params) {
   var _a5, _b3, _c2, _d, _e2, _f2;
-  const artifactsDir = path18.join(
+  const artifactsDir = path19.join(
     params.workspaceRoot,
     CLAUDIAN_STORAGE_PATH,
     (_a5 = params.artifactsSubdir) != null ? _a5 : "opencode"
   );
-  const systemPromptPath = path18.join(artifactsDir, "system.md");
-  const configPath = path18.join(artifactsDir, "config.json");
+  const systemPromptPath = path19.join(artifactsDir, "system.md");
+  const configPath = path19.join(artifactsDir, "config.json");
   const systemPrompt = normalizeSystemPrompt(
     (_b3 = params.systemPromptText) != null ? _b3 : buildSystemPrompt(requireSettings(params))
   );
@@ -78915,7 +81983,7 @@ async function prepareOpencodeLaunchArtifacts(params) {
   )}
 `;
   const databasePath = resolveOpencodeDatabasePath(params.runtimeEnv);
-  await fs18.mkdir(artifactsDir, { recursive: true });
+  await fs19.mkdir(artifactsDir, { recursive: true });
   await ensureOpencodeDatabaseDirectory(databasePath);
   await writeIfChanged(systemPromptPath, systemPrompt);
   await writeIfChanged(configPath, configContent);
@@ -78936,7 +82004,7 @@ async function ensureOpencodeDatabaseDirectory(databasePath) {
   if (!databasePath || databasePath === ":memory:") {
     return;
   }
-  await fs18.mkdir(path18.dirname(databasePath), { recursive: true });
+  await fs19.mkdir(path19.dirname(databasePath), { recursive: true });
 }
 function buildOpencodeManagedConfig(baseConfig, systemPromptPath, userName, managedAgents = DEFAULT_OPENCODE_MANAGED_AGENT_CONFIGS, defaultAgentId) {
   const config2 = {
@@ -78968,13 +82036,13 @@ function buildOpencodeManagedConfig(baseConfig, systemPromptPath, userName, mana
 }
 async function writeIfChanged(filePath, content) {
   try {
-    const existing = await fs18.readFile(filePath, "utf-8");
+    const existing = await fs19.readFile(filePath, "utf-8");
     if (existing === content) {
       return;
     }
   } catch (e2) {
   }
-  await fs18.writeFile(filePath, content, "utf-8");
+  await fs19.writeFile(filePath, content, "utf-8");
 }
 async function loadOpencodeBaseConfig(configuredPath, workspaceRoot) {
   const trimmedPath = configuredPath == null ? void 0 : configuredPath.trim();
@@ -78982,9 +82050,9 @@ async function loadOpencodeBaseConfig(configuredPath, workspaceRoot) {
     return {};
   }
   const expandedPath = expandHomePath(trimmedPath);
-  const resolvedPath = path18.isAbsolute(expandedPath) ? expandedPath : path18.resolve(workspaceRoot, expandedPath);
+  const resolvedPath = path19.isAbsolute(expandedPath) ? expandedPath : path19.resolve(workspaceRoot, expandedPath);
   try {
-    const rawConfig = await fs18.readFile(resolvedPath, "utf8");
+    const rawConfig = await fs19.readFile(resolvedPath, "utf8");
     const parsedConfig = JSON.parse(rawConfig);
     return isPlainObject6(parsedConfig) ? parsedConfig : {};
   } catch (e2) {
@@ -79071,6 +82139,7 @@ var OpencodeChatRuntime = class {
     this.currentSessionEffortValue = null;
     this.currentSessionEffortValues = /* @__PURE__ */ new Set();
     this.currentSessionModelId = null;
+    this.currentConversationModel = null;
     this.currentSessionModeId = null;
     this.currentTurnMetadata = {};
     this.loadedSessionId = null;
@@ -79115,6 +82184,7 @@ var OpencodeChatRuntime = class {
   }
   syncConversationState(conversation) {
     var _a5;
+    this.setCurrentConversationModel(conversation == null ? void 0 : conversation.selectedModel);
     const previousSessionId = this.sessionId;
     const nextSessionId = (_a5 = conversation == null ? void 0 : conversation.sessionId) != null ? _a5 : null;
     if (this.sessionId !== nextSessionId) {
@@ -79230,6 +82300,9 @@ var OpencodeChatRuntime = class {
   }
   async *query(turn, conversationHistory, queryOptions) {
     var _a5, _b3;
+    if (queryOptions == null ? void 0 : queryOptions.model) {
+      this.setCurrentConversationModel(queryOptions.model);
+    }
     const previousMessages = conversationHistory != null ? conversationHistory : [];
     const expectedSessionId = this.sessionId;
     let shouldBootstrapHistory = previousMessages.length > 0 && (!expectedSessionId || this.sessionInvalidated);
@@ -79436,7 +82509,7 @@ var OpencodeChatRuntime = class {
       OPENCODE_CONFIG: params.configPath,
       PATH: getEnhancedPath(
         params.runtimeEnv.PATH,
-        path19.isAbsolute(params.command) ? params.command : void 0
+        path20.isAbsolute(params.command) ? params.command : void 0
       )
     };
     this.process = new AcpSubprocess({
@@ -79521,10 +82594,14 @@ var OpencodeChatRuntime = class {
     );
   }
   getProviderSettings() {
-    return ProviderSettingsCoordinator.getProviderSettingsSnapshot(
+    const settings11 = ProviderSettingsCoordinator.getProviderSettingsSnapshot(
       this.plugin.settings,
       this.providerId
     );
+    if (this.currentConversationModel) {
+      settings11.model = this.currentConversationModel;
+    }
+    return settings11;
   }
   resolveSelectedRawModelId(queryOptions) {
     const providerSettings = this.getProviderSettings();
@@ -79548,8 +82625,12 @@ var OpencodeChatRuntime = class {
     return normalizedBaseRawModelId;
   }
   getAuxiliaryModel() {
-    var _a5;
-    return (_a5 = this.getActiveDisplayModel()) != null ? _a5 : null;
+    var _a5, _b3;
+    return (_b3 = (_a5 = this.currentConversationModel) != null ? _a5 : this.getActiveDisplayModel()) != null ? _b3 : null;
+  }
+  setCurrentConversationModel(model) {
+    const selectedModel = typeof model === "string" ? model.trim() : "";
+    this.currentConversationModel = selectedModel || null;
   }
   getActiveDisplayModel(queryOptions) {
     const providerSettings = this.getProviderSettings();
@@ -79661,6 +82742,7 @@ var OpencodeChatRuntime = class {
     const settingsBag = this.plugin.settings;
     const currentSettings = getOpencodeProviderSettings(settingsBag);
     const currentBaseRawModelId = currentRawModelId ? resolveOpencodeBaseModelRawId(currentRawModelId, discoveredModels) : null;
+    const currentPreferredThinking = currentBaseRawModelId ? currentSettings.preferredThinkingByModel[currentBaseRawModelId] : "";
     const thoughtLevelState = extractAcpSessionThoughtLevelState(params);
     const currentThinkingOptions = normalizeOpencodeModelVariants(
       thoughtLevelState.availableLevels.map((level) => ({
@@ -79670,6 +82752,11 @@ var OpencodeChatRuntime = class {
       }))
     );
     const currentThinkingLevel = thoughtLevelState.currentLevel;
+    const defaultThinkingLevel = currentThinkingOptions.length > 0 ? resolveOpencodeDefaultThinkingLevel(
+      currentThinkingOptions,
+      currentPreferredThinking,
+      currentThinkingLevel != null ? currentThinkingLevel : void 0
+    ) : currentThinkingLevel;
     this.currentSessionEffortConfigId = currentThinkingOptions.length > 0 ? thoughtLevelState.configId : null;
     this.currentSessionEffortValue = currentThinkingOptions.length > 0 ? currentThinkingLevel : null;
     this.currentSessionEffortValues = new Set(currentThinkingOptions.map((option) => option.value));
@@ -79682,11 +82769,10 @@ var OpencodeChatRuntime = class {
       }
     }
     const nextVisibleModels = currentSettings.visibleModels.length === 0 && currentBaseRawModelId ? [currentBaseRawModelId] : currentSettings.visibleModels;
-    const currentPreferredThinking = currentBaseRawModelId ? currentSettings.preferredThinkingByModel[currentBaseRawModelId] : "";
-    const shouldSeedCurrentThinking = currentBaseRawModelId && currentThinkingLevel && (!currentPreferredThinking || currentThinkingOptions.length > 0 && !this.currentSessionEffortValues.has(currentPreferredThinking));
-    const nextPreferredThinkingByModel = shouldSeedCurrentThinking && currentBaseRawModelId && currentThinkingLevel ? {
+    const shouldSeedCurrentThinking = currentBaseRawModelId && defaultThinkingLevel && (!currentPreferredThinking || currentThinkingOptions.length > 0 && !this.currentSessionEffortValues.has(currentPreferredThinking));
+    const nextPreferredThinkingByModel = shouldSeedCurrentThinking && currentBaseRawModelId && defaultThinkingLevel ? {
       ...currentSettings.preferredThinkingByModel,
-      [currentBaseRawModelId]: currentThinkingLevel
+      [currentBaseRawModelId]: defaultThinkingLevel
     } : currentSettings.preferredThinkingByModel;
     const shouldSeedVisibleModels = !sameStringList(currentSettings.visibleModels, nextVisibleModels);
     const shouldSeedPreferredThinking = !sameStringMap(
@@ -79704,7 +82790,7 @@ var OpencodeChatRuntime = class {
       const seeded = this.seedActiveModelSelection(
         settingsBag,
         encodeOpencodeModelId(currentBaseRawModelId),
-        currentThinkingLevel
+        defaultThinkingLevel
       );
       changed = changed || seeded;
     }
@@ -79734,7 +82820,7 @@ var OpencodeChatRuntime = class {
     if (thinkingLevel) {
       const savedProviderEffort = ensureProviderProjectionMap(settingsBag, "savedProviderEffort");
       const savedEffort = typeof savedProviderEffort.opencode === "string" ? savedProviderEffort.opencode.trim() : "";
-      if (!savedEffort || savedEffort === OPENCODE_DEFAULT_THINKING_LEVEL) {
+      if (!savedEffort || savedEffort === OPENCODE_DEFAULT_THINKING_LEVEL || !this.currentSessionEffortValues.has(savedEffort)) {
         savedProviderEffort.opencode = thinkingLevel;
         changed = true;
       }
@@ -79749,7 +82835,7 @@ var OpencodeChatRuntime = class {
     }
     if (thinkingLevel) {
       const activeEffort = typeof settingsBag.effortLevel === "string" ? settingsBag.effortLevel : "";
-      if (!activeEffort || activeEffort === OPENCODE_DEFAULT_THINKING_LEVEL) {
+      if (!activeEffort || activeEffort === OPENCODE_DEFAULT_THINKING_LEVEL || !this.currentSessionEffortValues.has(activeEffort)) {
         settingsBag.effortLevel = thinkingLevel;
         changed = true;
       }
@@ -79964,7 +83050,7 @@ var OpencodeChatRuntime = class {
   async readTextFile(request) {
     var _a5;
     const resolvedPath = this.resolveSessionPath(request.sessionId, request.path);
-    const content = await fs19.readFile(resolvedPath, "utf-8");
+    const content = await fs20.readFile(resolvedPath, "utf-8");
     if (request.line === void 0 && request.limit === void 0) {
       return { content };
     }
@@ -79977,17 +83063,17 @@ var OpencodeChatRuntime = class {
   }
   async writeTextFile(request) {
     const resolvedPath = this.resolveSessionPath(request.sessionId, request.path);
-    await fs19.mkdir(path19.dirname(resolvedPath), { recursive: true });
-    await fs19.writeFile(resolvedPath, request.content, "utf-8");
+    await fs20.mkdir(path20.dirname(resolvedPath), { recursive: true });
+    await fs20.writeFile(resolvedPath, request.content, "utf-8");
     return {};
   }
   resolveSessionPath(sessionId, rawPath) {
     var _a5, _b3;
-    if (path19.isAbsolute(rawPath)) {
+    if (path20.isAbsolute(rawPath)) {
       return rawPath;
     }
     const cwd = (_b3 = (_a5 = this.sessionCwds.get(sessionId)) != null ? _a5 : getVaultPath(this.plugin.app)) != null ? _b3 : process.cwd();
-    return path19.resolve(cwd, rawPath);
+    return path20.resolve(cwd, rawPath);
   }
   formatRuntimeError(error48) {
     var _a5;
@@ -80215,7 +83301,7 @@ function selectPermissionOption(options, preferredKinds) {
 }
 
 // src/providers/opencode/ui/OpencodeAgentSettings.ts
-var import_obsidian18 = require("obsidian");
+var import_obsidian19 = require("obsidian");
 var OPENCODE_AGENT_INVALID_SEGMENT_PATTERN = /[<>:"\\|?*]/;
 function validateOpencodeAgentName(name) {
   if (!name) return "Agent name is required";
@@ -80246,7 +83332,7 @@ function findOpencodeAgentNameConflict(agents, name, currentPersistenceKey) {
     (agent) => agent.name.toLowerCase() === normalizedName && agent.persistenceKey !== currentPersistenceKey
   )) != null ? _a5 : null;
 }
-var OpencodeAgentModal = class extends import_obsidian18.Modal {
+var OpencodeAgentModal = class extends import_obsidian19.Modal {
   constructor(app, existing, allAgents, onSave) {
     super(app);
     this.existing = existing;
@@ -80271,12 +83357,12 @@ var OpencodeAgentModal = class extends import_obsidian18.Modal {
     let toolsInput;
     let permissionInput;
     let optionsInput;
-    new import_obsidian18.Setting(contentEl).setName("Name").setDesc("OpenCode agent name. Use slash-separated segments for nested agents.").addText((text) => {
+    new import_obsidian19.Setting(contentEl).setName("Name").setDesc("OpenCode agent name. Use slash-separated segments for nested agents.").addText((text) => {
       var _a6, _b4;
       nameInput = text.inputEl;
       text.setValue((_b4 = (_a6 = this.existing) == null ? void 0 : _a6.name) != null ? _b4 : "").setPlaceholder("Review");
     });
-    new import_obsidian18.Setting(contentEl).setName("Description").setDesc("When OpenCode should use this subagent").addText((text) => {
+    new import_obsidian19.Setting(contentEl).setName("Description").setDesc("When OpenCode should use this subagent").addText((text) => {
       var _a6, _b4;
       descriptionInput = text.inputEl;
       text.setValue((_b4 = (_a6 = this.existing) == null ? void 0 : _a6.description) != null ? _b4 : "").setPlaceholder("Reviews code for correctness and maintainability");
@@ -80289,62 +83375,62 @@ var OpencodeAgentModal = class extends import_obsidian18.Modal {
     if (((_e2 = this.existing) == null ? void 0 : _e2.model) || ((_f2 = this.existing) == null ? void 0 : _f2.variant) || ((_g = this.existing) == null ? void 0 : _g.temperature) !== void 0 || ((_h2 = this.existing) == null ? void 0 : _h2.topP) !== void 0 || ((_i = this.existing) == null ? void 0 : _i.color) || ((_j = this.existing) == null ? void 0 : _j.steps) !== void 0 || ((_k3 = this.existing) == null ? void 0 : _k3.hidden) || ((_l2 = this.existing) == null ? void 0 : _l2.disable) || ((_m = this.existing) == null ? void 0 : _m.tools) || ((_n = this.existing) == null ? void 0 : _n.permission) !== void 0 || ((_o = this.existing) == null ? void 0 : _o.options)) {
       details.open = true;
     }
-    new import_obsidian18.Setting(details).setName("Model").setDesc("Model override in provider/model format").addText((text) => {
+    new import_obsidian19.Setting(details).setName("Model").setDesc("Model override in provider/model format").addText((text) => {
       var _a6, _b4;
       modelInput = text.inputEl;
       text.setValue((_b4 = (_a6 = this.existing) == null ? void 0 : _a6.model) != null ? _b4 : "").setPlaceholder("Anthropic/Claude-sonnet-4-20250514");
     });
-    new import_obsidian18.Setting(details).setName("Variant").setDesc("Model variant override").addText((text) => {
+    new import_obsidian19.Setting(details).setName("Variant").setDesc("Model variant override").addText((text) => {
       var _a6, _b4;
       variantInput = text.inputEl;
       text.setValue((_b4 = (_a6 = this.existing) == null ? void 0 : _a6.variant) != null ? _b4 : "").setPlaceholder("High");
     });
-    new import_obsidian18.Setting(details).setName("Temperature").setDesc("Optional sampling temperature").addText((text) => {
+    new import_obsidian19.Setting(details).setName("Temperature").setDesc("Optional sampling temperature").addText((text) => {
       var _a6;
       temperatureInput = text.inputEl;
       text.setValue(((_a6 = this.existing) == null ? void 0 : _a6.temperature) !== void 0 ? String(this.existing.temperature) : "").setPlaceholder("0.1");
     });
-    new import_obsidian18.Setting(details).setName("Top p").setDesc("Optional nucleus sampling value").addText((text) => {
+    new import_obsidian19.Setting(details).setName("Top p").setDesc("Optional nucleus sampling value").addText((text) => {
       var _a6;
       topPInput = text.inputEl;
       text.setValue(((_a6 = this.existing) == null ? void 0 : _a6.topP) !== void 0 ? String(this.existing.topP) : "").setPlaceholder("0.9");
     });
-    new import_obsidian18.Setting(details).setName("Color").setDesc("Hex color or theme token").addText((text) => {
+    new import_obsidian19.Setting(details).setName("Color").setDesc("Hex color or theme token").addText((text) => {
       var _a6, _b4;
       colorInput = text.inputEl;
       text.setValue((_b4 = (_a6 = this.existing) == null ? void 0 : _a6.color) != null ? _b4 : "").setPlaceholder("#Ff5733");
     });
-    new import_obsidian18.Setting(details).setName("Steps").setDesc("Maximum agentic iterations before forcing text-only output").addText((text) => {
+    new import_obsidian19.Setting(details).setName("Steps").setDesc("Maximum agentic iterations before forcing text-only output").addText((text) => {
       var _a6;
       stepsInput = text.inputEl;
       text.setValue(((_a6 = this.existing) == null ? void 0 : _a6.steps) !== void 0 ? String(this.existing.steps) : "").setPlaceholder("10");
     });
-    new import_obsidian18.Setting(details).setName("Hide from @mention").setDesc("Hide this subagent from the @ autocomplete menu").addToggle((toggle) => {
+    new import_obsidian19.Setting(details).setName("Hide from @mention").setDesc("Hide this subagent from the @ autocomplete menu").addToggle((toggle) => {
       toggle.setValue(hiddenValue).onChange((value) => {
         hiddenValue = value;
       });
     });
-    new import_obsidian18.Setting(details).setName("Disable agent").setDesc("Disable the agent without deleting the file").addToggle((toggle) => {
+    new import_obsidian19.Setting(details).setName("Disable agent").setDesc("Disable the agent without deleting the file").addToggle((toggle) => {
       toggle.setValue(disableValue).onChange((value) => {
         disableValue = value;
       });
     });
-    new import_obsidian18.Setting(details).setName("Enabled tools (JSON)").setDesc('Optional deprecated tools map, e.g. {"write":false,"edit":false}').addTextArea((text) => {
+    new import_obsidian19.Setting(details).setName("Enabled tools (JSON)").setDesc('Optional deprecated tools map, e.g. {"write":false,"edit":false}').addTextArea((text) => {
       var _a6;
       toolsInput = text.inputEl;
       text.setValue(((_a6 = this.existing) == null ? void 0 : _a6.tools) ? JSON.stringify(this.existing.tools, null, 2) : "").setPlaceholder('{\n  "write": false,\n  "edit": false\n}');
     });
-    new import_obsidian18.Setting(details).setName("Permission (JSON)").setDesc('Optional permission config, e.g. {"edit":"deny","bash":"allow"}').addTextArea((text) => {
+    new import_obsidian19.Setting(details).setName("Permission (JSON)").setDesc('Optional permission config, e.g. {"edit":"deny","bash":"allow"}').addTextArea((text) => {
       var _a6;
       permissionInput = text.inputEl;
       text.setValue(((_a6 = this.existing) == null ? void 0 : _a6.permission) !== void 0 ? JSON.stringify(this.existing.permission, null, 2) : "").setPlaceholder('{\n  "edit": "deny"\n}');
     });
-    new import_obsidian18.Setting(details).setName("Options (JSON)").setDesc("Optional custom agent options").addTextArea((text) => {
+    new import_obsidian19.Setting(details).setName("Options (JSON)").setDesc("Optional custom agent options").addTextArea((text) => {
       var _a6;
       optionsInput = text.inputEl;
       text.setValue(((_a6 = this.existing) == null ? void 0 : _a6.options) ? JSON.stringify(this.existing.options, null, 2) : "").setPlaceholder('{\n  "focus": "security"\n}');
     });
-    new import_obsidian18.Setting(contentEl).setName("Prompt").setDesc("Markdown body used as the agent prompt");
+    new import_obsidian19.Setting(contentEl).setName("Prompt").setDesc("Markdown body used as the agent prompt");
     const promptArea = contentEl.createEl("textarea", {
       cls: "claudian-sp-content-area",
       attr: {
@@ -80369,17 +83455,17 @@ var OpencodeAgentModal = class extends import_obsidian18.Modal {
         const name = nameInput.value.trim();
         const nameError = validateOpencodeAgentName(name);
         if (nameError) {
-          new import_obsidian18.Notice(nameError);
+          new import_obsidian19.Notice(nameError);
           return;
         }
         const description = descriptionInput.value.trim();
         if (!description) {
-          new import_obsidian18.Notice("Description is required");
+          new import_obsidian19.Notice("Description is required");
           return;
         }
         const prompt = promptArea.value;
         if (!prompt.trim()) {
-          new import_obsidian18.Notice("Prompt is required");
+          new import_obsidian19.Notice("Prompt is required");
           return;
         }
         const duplicate = findOpencodeAgentNameConflict(
@@ -80388,37 +83474,37 @@ var OpencodeAgentModal = class extends import_obsidian18.Modal {
           (_a6 = this.existing) == null ? void 0 : _a6.persistenceKey
         );
         if (duplicate) {
-          new import_obsidian18.Notice(`A subagent named "${name}" already exists`);
+          new import_obsidian19.Notice(`A subagent named "${name}" already exists`);
           return;
         }
         const temperature = parseOptionalNumber(temperatureInput.value, "Temperature");
         if (temperature.error) {
-          new import_obsidian18.Notice(temperature.error);
+          new import_obsidian19.Notice(temperature.error);
           return;
         }
         const topP = parseOptionalNumber(topPInput.value, "Top P");
         if (topP.error) {
-          new import_obsidian18.Notice(topP.error);
+          new import_obsidian19.Notice(topP.error);
           return;
         }
         const steps = parseOptionalPositiveInteger(stepsInput.value, "Steps");
         if (steps.error) {
-          new import_obsidian18.Notice(steps.error);
+          new import_obsidian19.Notice(steps.error);
           return;
         }
         const tools = parseOptionalJsonObjectOfBooleans(toolsInput.value, "Enabled Tools");
         if (tools.error) {
-          new import_obsidian18.Notice(tools.error);
+          new import_obsidian19.Notice(tools.error);
           return;
         }
         const permission = parseOptionalJson(permissionInput.value, "Permission");
         if (permission.error) {
-          new import_obsidian18.Notice(permission.error);
+          new import_obsidian19.Notice(permission.error);
           return;
         }
         const options = parseOptionalJsonObject(optionsInput.value, "Options");
         if (options.error) {
-          new import_obsidian18.Notice(options.error);
+          new import_obsidian19.Notice(options.error);
           return;
         }
         const agent = {
@@ -80444,7 +83530,7 @@ var OpencodeAgentModal = class extends import_obsidian18.Modal {
           await this.onSave(agent);
         } catch (error48) {
           const message = error48 instanceof Error ? error48.message : "Unknown error";
-          new import_obsidian18.Notice(`Failed to save subagent: ${message}`);
+          new import_obsidian19.Notice(`Failed to save subagent: ${message}`);
           return;
         }
         this.close();
@@ -80479,7 +83565,7 @@ var OpencodeAgentSettings = class {
       cls: "claudian-settings-action-btn",
       attr: { "aria-label": "Refresh" }
     });
-    (0, import_obsidian18.setIcon)(refreshBtn, "refresh-cw");
+    (0, import_obsidian19.setIcon)(refreshBtn, "refresh-cw");
     refreshBtn.addEventListener("click", () => {
       void this.render();
     });
@@ -80487,7 +83573,7 @@ var OpencodeAgentSettings = class {
       cls: "claudian-settings-action-btn",
       attr: { "aria-label": "Add" }
     });
-    (0, import_obsidian18.setIcon)(addBtn, "plus");
+    (0, import_obsidian19.setIcon)(addBtn, "plus");
     addBtn.addEventListener("click", () => this.openModal(null));
     if (visibleAgents.length === 0) {
       const emptyEl = this.containerEl.createDiv({ cls: "claudian-sp-empty-state" });
@@ -80521,13 +83607,13 @@ var OpencodeAgentSettings = class {
       cls: "claudian-settings-action-btn",
       attr: { "aria-label": "Edit" }
     });
-    (0, import_obsidian18.setIcon)(editBtn, "pencil");
+    (0, import_obsidian19.setIcon)(editBtn, "pencil");
     editBtn.addEventListener("click", () => this.openModal(agent));
     const deleteBtn = actionsEl.createEl("button", {
       cls: "claudian-settings-action-btn claudian-settings-delete-btn",
       attr: { "aria-label": "Delete" }
     });
-    (0, import_obsidian18.setIcon)(deleteBtn, "trash-2");
+    (0, import_obsidian19.setIcon)(deleteBtn, "trash-2");
     deleteBtn.addEventListener("click", () => {
       void (async () => {
         var _a5;
@@ -80541,9 +83627,9 @@ var OpencodeAgentSettings = class {
           await this.storage.delete(agent);
           await this.render();
           await ((_a5 = this.onChanged) == null ? void 0 : _a5.call(this));
-          new import_obsidian18.Notice(`Subagent "${agent.name}" deleted`);
+          new import_obsidian19.Notice(`Subagent "${agent.name}" deleted`);
         } catch (e2) {
-          new import_obsidian18.Notice("Failed to delete subagent");
+          new import_obsidian19.Notice("Failed to delete subagent");
         }
       })();
     });
@@ -80559,7 +83645,7 @@ var OpencodeAgentSettings = class {
         await this.storage.save(agent, existing);
         await this.render();
         await ((_a5 = this.onChanged) == null ? void 0 : _a5.call(this));
-        new import_obsidian18.Notice(
+        new import_obsidian19.Notice(
           existing ? `Subagent "${agent.name}" updated` : `Subagent "${agent.name}" created`
         );
       }
@@ -80633,15 +83719,15 @@ var opencodeSettingsTabRenderer = {
     const settingsBag = context.plugin.settings;
     const opencodeSettings = getOpencodeProviderSettings(settingsBag);
     const hostnameKey = getHostnameKey();
-    new import_obsidian19.Setting(container).setName("Setup").setHeading();
-    new import_obsidian19.Setting(container).setName("Enable OpenCode").setDesc("Launch `opencode acp` as a provider.").addToggle(
+    new import_obsidian20.Setting(container).setName("Setup").setHeading();
+    new import_obsidian20.Setting(container).setName("Enable OpenCode").setDesc("Launch `opencode acp` as a provider.").addToggle(
       (toggle) => toggle.setValue(opencodeSettings.enabled).onChange(async (value) => {
         updateOpencodeProviderSettings(settingsBag, { enabled: value });
         await context.plugin.saveSettings();
         context.refreshModelSelectors();
       })
     );
-    const cliPathSetting = new import_obsidian19.Setting(container).setName("CLI path").setDesc("Optional absolute path to the OpenCode CLI for this computer. Leave empty to use `opencode` from PATH.");
+    const cliPathSetting = new import_obsidian20.Setting(container).setName("CLI path").setDesc("Optional absolute path to the OpenCode CLI for this computer. Leave empty to use `opencode` from PATH.");
     const validationEl = container.createDiv({
       cls: "claudian-cli-path-validation claudian-setting-validation claudian-setting-validation-error claudian-hidden"
     });
@@ -80651,10 +83737,10 @@ var opencodeSettingsTabRenderer = {
         return null;
       }
       const expandedPath = expandHomePath(trimmed);
-      if (!fs20.existsSync(expandedPath)) {
+      if (!fs21.existsSync(expandedPath)) {
         return "Path does not exist";
       }
-      const stat = fs20.statSync(expandedPath);
+      const stat = fs21.statSync(expandedPath);
       if (!stat.isFile()) {
         return "Path must point to a file";
       }
@@ -80721,8 +83807,8 @@ var opencodeSettingsTabRenderer = {
       cliPathInputEl = text.inputEl;
       updateCliPathValidation(currentValue, text.inputEl);
     });
-    new import_obsidian19.Setting(container).setName("Models").setHeading();
-    new import_obsidian19.Setting(container).setName("Visible models").setDesc("Choose which OpenCode models appear in the chat selector. Filter by provider or type to search. The current session model stays pinned even if it is not selected here.");
+    new import_obsidian20.Setting(container).setName("Models").setHeading();
+    new import_obsidian20.Setting(container).setName("Visible models").setDesc("Choose which OpenCode models appear in the chat selector. Filter by provider or type to search. The current session model stays pinned even if it is not selected here.");
     const pickerEl = container.createDiv({ cls: "claudian-opencode-model-picker" });
     let searchQuery = "";
     let providerFilter = ALL_PROVIDERS_KEY;
@@ -81079,7 +84165,7 @@ var opencodeSettingsTabRenderer = {
     if (catalogEl.open) {
       void loadModelCatalog();
     }
-    new import_obsidian19.Setting(container).setName("Commands and skills").setHeading();
+    new import_obsidian20.Setting(container).setName("Commands and skills").setHeading();
     const commandsDesc = container.createDiv({ cls: "claudian-sp-settings-desc" });
     commandsDesc.createEl("p", {
       cls: "setting-item-description",
@@ -81091,7 +84177,7 @@ var opencodeSettingsTabRenderer = {
       placeholder: "compact\nreview\nfix"
     });
     if (opencodeWorkspace == null ? void 0 : opencodeWorkspace.agentStorage) {
-      new import_obsidian19.Setting(container).setName("Subagents").setHeading();
+      new import_obsidian20.Setting(container).setName("Subagents").setHeading();
       const subagentsDesc = container.createDiv({ cls: "claudian-sp-settings-desc" });
       subagentsDesc.createEl("p", {
         cls: "setting-item-description",
@@ -81232,8 +84318,8 @@ function maybeGetOpencodeWorkspaceServices() {
 }
 
 // src/providers/opencode/runtime/OpencodeAuxQueryRunner.ts
-var fs21 = __toESM(require("node:fs/promises"));
-var path20 = __toESM(require("node:path"));
+var fs22 = __toESM(require("node:fs/promises"));
+var path21 = __toESM(require("node:path"));
 init_path();
 
 // src/providers/opencode/ui/OpencodeChatUIConfig.ts
@@ -81442,16 +84528,12 @@ var opencodeChatUIConfig = {
   }
 };
 function getDefaultThinkingLevelForModel(baseRawId, settings11) {
-  var _a5, _b3, _c2, _d;
+  var _a5;
   const opencodeSettings = getOpencodeProviderSettings(settings11);
-  const preferred = opencodeSettings.preferredThinkingByModel[baseRawId];
-  const supportedValues = new Set(
-    ((_a5 = opencodeSettings.thinkingOptionsByModel[baseRawId]) != null ? _a5 : []).map((variant) => variant.value)
+  return resolveOpencodeDefaultThinkingLevel(
+    (_a5 = opencodeSettings.thinkingOptionsByModel[baseRawId]) != null ? _a5 : [],
+    opencodeSettings.preferredThinkingByModel[baseRawId]
   );
-  if (preferred && supportedValues.has(preferred)) {
-    return preferred;
-  }
-  return (_d = (_c2 = (_b3 = opencodeSettings.thinkingOptionsByModel[baseRawId]) == null ? void 0 : _b3[0]) == null ? void 0 : _c2.value) != null ? _d : OPENCODE_DEFAULT_THINKING_LEVEL;
 }
 function getOpencodeThinkingOptions(model, settings11) {
   var _a5;
@@ -81695,7 +84777,7 @@ ${stderr}` : message,
   async readTextFile(request) {
     var _a5;
     const resolvedPath = this.resolveSessionPath(request.sessionId, request.path);
-    const content = await fs21.readFile(resolvedPath, "utf-8");
+    const content = await fs22.readFile(resolvedPath, "utf-8");
     if (request.line === void 0 && request.limit === void 0) {
       return { content };
     }
@@ -81745,9 +84827,9 @@ ${stderr}` : message,
   resolveSessionPath(sessionId, rawPath) {
     var _a5, _b3;
     const cwd = (_b3 = (_a5 = this.sessionCwds.get(sessionId)) != null ? _a5 : getVaultPath(this.plugin.app)) != null ? _b3 : process.cwd();
-    const resolvedPath = path20.isAbsolute(rawPath) ? path20.resolve(rawPath) : path20.resolve(cwd, rawPath);
-    const relative4 = path20.relative(cwd, resolvedPath);
-    if (relative4 === "" || !relative4.startsWith("..") && !path20.isAbsolute(relative4)) {
+    const resolvedPath = path21.isAbsolute(rawPath) ? path21.resolve(rawPath) : path21.resolve(cwd, rawPath);
+    const relative4 = path21.relative(cwd, resolvedPath);
+    if (relative4 === "" || !relative4.startsWith("..") && !path21.isAbsolute(relative4)) {
       return resolvedPath;
     }
     throw new Error("OpenCode aux read access is limited to the current workspace.");
@@ -81978,7 +85060,7 @@ var opencodeSettingsReconciler = {
 };
 
 // src/providers/opencode/history/OpencodeHistoryStore.ts
-var fs22 = __toESM(require("node:fs"));
+var fs23 = __toESM(require("node:fs"));
 
 // src/providers/opencode/history/OpencodeSqliteReader.ts
 var import_node_child_process2 = require("node:child_process");
@@ -82187,7 +85269,7 @@ order by message_id asc, id asc;`.trim();
 var OPENCODE_HYDRATION_DIAGNOSTIC_ID_PREFIX = "opencode-hydration-error";
 async function loadOpencodeSessionMessages(sessionId, providerState) {
   const databasePath = resolveExistingOpencodeDatabasePath(providerState == null ? void 0 : providerState.databasePath);
-  if (!databasePath || databasePath === ":memory:" || !fs22.existsSync(databasePath)) {
+  if (!databasePath || databasePath === ":memory:" || !fs23.existsSync(databasePath)) {
     return [];
   }
   const rows = await loadOpencodeSessionRows(databasePath, sessionId);
@@ -82276,10 +85358,12 @@ function mapStoredMessage(message, context) {
   const createdAt = (_a5 = getMessageCreatedAt(message.info)) != null ? _a5 : Date.now();
   if (role === "user") {
     const promptText = extractUserQuery(getJoinedTextParts(message.parts));
+    const images = buildUserImages(message.parts, id);
     return {
       assistantMessageId: void 0,
       content: promptText,
       id,
+      ...images.length > 0 ? { images } : {},
       role: "user",
       timestamp: createdAt,
       userMessageId: id
@@ -82475,6 +85559,32 @@ function getJoinedTextParts(parts) {
     var _a5;
     return (_a5 = getString(part.text)) != null ? _a5 : "";
   }).join("");
+}
+function buildUserImages(parts, messageId) {
+  var _a5, _b3, _c2, _d;
+  const images = [];
+  for (const part of parts) {
+    if (getString(part.type) !== "file") {
+      continue;
+    }
+    const parsed = parseImageDataUri(getString(part.url));
+    const mime = getString(part.mime);
+    const mediaType = (_a5 = parsed == null ? void 0 : parsed.mediaType) != null ? _a5 : mime;
+    const data = parsed == null ? void 0 : parsed.data;
+    if (!data || !mediaType) {
+      continue;
+    }
+    const image = buildImageAttachmentFromBase64({
+      data,
+      id: `opencode-img-${messageId}-${images.length}`,
+      mediaType,
+      name: (_d = (_b3 = getString(part.filename)) != null ? _b3 : getString(part.name)) != null ? _d : `image-${images.length + 1}.${(_c2 = String(mediaType).split("/")[1]) != null ? _c2 : "img"}`
+    });
+    if (image) {
+      images.push(image);
+    }
+  }
+  return images;
 }
 function getDurationSeconds(part) {
   const start = getNestedNumber(part, ["time", "start"]);
@@ -82719,8 +85829,8 @@ var PiCliResolver = class {
 };
 
 // src/providers/pi/ui/PiSettingsTab.ts
-var fs23 = __toESM(require("node:fs"));
-var import_obsidian20 = require("obsidian");
+var fs24 = __toESM(require("node:fs"));
+var import_obsidian21 = require("obsidian");
 init_env();
 init_path();
 
@@ -83008,10 +86118,10 @@ function isPlainObject9(value) {
 
 // src/providers/pi/runtime/PiSubprocess.ts
 var import_node_child_process3 = require("node:child_process");
-var path21 = __toESM(require("node:path"));
+var path22 = __toESM(require("node:path"));
 init_env();
 var SIGKILL_TIMEOUT_MS3 = 3e3;
-var STDERR_BUFFER_LIMIT2 = 8e3;
+var STDERR_BUFFER_LIMIT3 = 8e3;
 var PiSubprocess = class {
   constructor(launchSpec) {
     this.launchSpec = launchSpec;
@@ -83046,7 +86156,7 @@ var PiSubprocess = class {
         ...this.launchSpec.env,
         PATH: getEnhancedPath(
           this.launchSpec.env.PATH,
-          path21.isAbsolute(this.launchSpec.command) ? this.launchSpec.command : void 0
+          path22.isAbsolute(this.launchSpec.command) ? this.launchSpec.command : void 0
         )
       },
       stdio: "pipe",
@@ -83055,7 +86165,7 @@ var PiSubprocess = class {
     });
     proc.stderr.on("data", (chunk) => {
       const text = typeof chunk === "string" ? chunk : chunk.toString("utf-8");
-      this.stderrBuffer = `${this.stderrBuffer}${text}`.slice(-STDERR_BUFFER_LIMIT2);
+      this.stderrBuffer = `${this.stderrBuffer}${text}`.slice(-STDERR_BUFFER_LIMIT3);
     });
     proc.on("error", (error48) => {
       this.closeError = error48;
@@ -83214,8 +86324,8 @@ var piSettingsTabRenderer = {
     const piSettings = getPiProviderSettings(settingsBag);
     const hostnameKey = getHostnameKey();
     const workspace = maybeGetPiWorkspaceServices();
-    new import_obsidian20.Setting(container).setName("Setup").setHeading();
-    new import_obsidian20.Setting(container).setName("Enable Pi").setDesc("Launch `pi --mode rpc` as a provider.").addToggle(
+    new import_obsidian21.Setting(container).setName("Setup").setHeading();
+    new import_obsidian21.Setting(container).setName("Enable Pi").setDesc("Launch `pi --mode rpc` as a provider.").addToggle(
       (toggle) => toggle.setValue(piSettings.enabled).onChange(async (value) => {
         updatePiProviderSettings(settingsBag, { enabled: value });
         await context.plugin.saveSettings();
@@ -83258,7 +86368,7 @@ var piSettingsTabRenderer = {
       await context.plugin.saveSettings();
       context.refreshModelSelectors();
     };
-    new import_obsidian20.Setting(container).setName("CLI path").setDesc("Optional absolute path to the Pi CLI for this computer. Leave empty to use `pi` from PATH.").addText((text) => {
+    new import_obsidian21.Setting(container).setName("CLI path").setDesc("Optional absolute path to the Pi CLI for this computer. Leave empty to use `pi` from PATH.").addText((text) => {
       const currentValue = piSettings.cliPathsByHost[hostnameKey] || "";
       text.setPlaceholder(process.platform === "win32" ? "C:\\Users\\you\\AppData\\Roaming\\npm\\pi.cmd" : "/usr/local/bin/pi").setValue(currentValue).onChange((value) => {
         void persistCliPath(value);
@@ -83266,8 +86376,8 @@ var piSettingsTabRenderer = {
       cliPathInputEl = text.inputEl;
       updateCliPathValidation(currentValue, text.inputEl);
     });
-    new import_obsidian20.Setting(container).setName("Models").setHeading();
-    new import_obsidian20.Setting(container).setName("Visible models").setDesc("Choose which Pi models appear in the chat selector. Filter by provider or type to search. The current session model stays pinned even if it is not selected here.");
+    new import_obsidian21.Setting(container).setName("Models").setHeading();
+    new import_obsidian21.Setting(container).setName("Visible models").setDesc("Choose which Pi models appear in the chat selector. Filter by provider or type to search. The current session model stays pinned even if it is not selected here.");
     const pickerEl = container.createDiv({ cls: "claudian-provider-model-picker claudian-provider-model-picker--pi" });
     let searchQuery = "";
     let providerFilter = ALL_PROVIDERS_KEY2;
@@ -83586,7 +86696,7 @@ var piSettingsTabRenderer = {
         const result = await new PiModelDiscoveryService(context.plugin).discoverModels();
         if (result.diagnostics) {
           modelCatalogLoadFailed = true;
-          new import_obsidian20.Notice(`Pi discovery failed: ${result.diagnostics}`);
+          new import_obsidian21.Notice(`Pi discovery failed: ${result.diagnostics}`);
           return;
         }
         const current = getPiProviderSettings(settingsBag);
@@ -83628,10 +86738,10 @@ function validateCliPath(value) {
     return null;
   }
   const expandedPath = expandHomePath(trimmed);
-  if (!fs23.existsSync(expandedPath)) {
+  if (!fs24.existsSync(expandedPath)) {
     return "Path does not exist";
   }
-  if (!fs23.statSync(expandedPath).isFile()) {
+  if (!fs24.statSync(expandedPath).isFile()) {
     return "Path must point to a file";
   }
   return null;
@@ -83709,7 +86819,7 @@ function formatProviderLabel(provider) {
 
 // src/providers/pi/runtime/PiChatRuntime.ts
 var fsp2 = __toESM(require("node:fs/promises"));
-var path23 = __toESM(require("node:path"));
+var path24 = __toESM(require("node:path"));
 init_env();
 init_path();
 
@@ -83731,10 +86841,10 @@ var PI_PROVIDER_CAPABILITIES = Object.freeze({
 
 // src/providers/pi/history/PiHistoryStore.ts
 var import_node_crypto = require("node:crypto");
-var fs24 = __toESM(require("node:fs"));
+var fs25 = __toESM(require("node:fs"));
 var fsp = __toESM(require("node:fs/promises"));
-var os12 = __toESM(require("node:os"));
-var path22 = __toESM(require("node:path"));
+var os13 = __toESM(require("node:os"));
+var path23 = __toESM(require("node:path"));
 
 // src/providers/pi/normalizations/piToolNormalization.ts
 var PI_BUILT_IN_TOOL_NAMES = {
@@ -83956,8 +87066,8 @@ async function createPiForkSessionFile(sourceSessionFile, resumeAt, options = {}
   const timestamp = (_a5 = options.now) != null ? _a5 : /* @__PURE__ */ new Date();
   const timestampText = timestamp.toISOString();
   const sessionId = (_b3 = options.sessionId) != null ? _b3 : (0, import_node_crypto.randomUUID)();
-  const sessionDir = (_c2 = options.sessionDir) != null ? _c2 : path22.dirname(sourceSessionFile);
-  const sessionFile = path22.join(
+  const sessionDir = (_c2 = options.sessionDir) != null ? _c2 : path23.dirname(sourceSessionFile);
+  const sessionFile = path23.join(
     sessionDir,
     `${timestampText.replace(/[:.]/g, "-")}_${sessionId}.jsonl`
   );
@@ -83989,16 +87099,16 @@ function findPiSessionFile(sessionIdOrFile, cwd, sessionDir) {
   if (!trimmed) {
     return null;
   }
-  if (path22.isAbsolute(trimmed) && fileExists(trimmed)) {
+  if (path23.isAbsolute(trimmed) && fileExists(trimmed)) {
     return trimmed;
   }
   const roots = [
     sessionDir,
-    cwd ? path22.join(cwd, ".pi", "agent", "sessions") : null,
-    path22.join(os12.homedir(), ".pi", "agent", "sessions")
+    cwd ? path23.join(cwd, ".pi", "agent", "sessions") : null,
+    path23.join(os13.homedir(), ".pi", "agent", "sessions")
   ].filter((root) => !!root);
   for (const root of roots) {
-    const direct = path22.join(root, trimmed.endsWith(".jsonl") ? trimmed : `${trimmed}.jsonl`);
+    const direct = path23.join(root, trimmed.endsWith(".jsonl") ? trimmed : `${trimmed}.jsonl`);
     if (fileExists(direct)) {
       return direct;
     }
@@ -84058,28 +87168,30 @@ function mergeAssistantContinuation(target, source) {
   }
 }
 function mapPiSessionEntry(entry, messages) {
-  var _a5, _b3, _c2, _d, _e2, _f2, _g, _h2, _i, _j, _k3, _l2, _m, _n, _o;
+  var _a5, _b3, _c2, _d, _e2, _f2, _g, _h2, _i, _j, _k3, _l2, _m, _n, _o, _p, _q3, _r;
   const message = (_a5 = entry.message) != null ? _a5 : entry.raw;
   const role = (_b3 = getString2(message.role)) != null ? _b3 : inferRole(entry.type);
   const timestamp = getTimestamp((_c2 = message.timestamp) != null ? _c2 : entry.raw.timestamp);
   if (role === "user") {
+    const images = extractUserImages((_e2 = (_d = message.content) != null ? _d : message.parts) != null ? _e2 : message.blocks, (_f2 = entry.id) != null ? _f2 : `pi-user-${messages.length}`);
     return {
-      content: extractTextContent2((_e2 = (_d = message.content) != null ? _d : message.text) != null ? _e2 : message.message),
-      id: (_f2 = entry.id) != null ? _f2 : `pi-user-${messages.length}`,
+      content: extractTextContent2((_h2 = (_g = message.content) != null ? _g : message.text) != null ? _h2 : message.message),
+      id: (_i = entry.id) != null ? _i : `pi-user-${messages.length}`,
+      ...images.length > 0 ? { images } : {},
       role: "user",
       timestamp,
       userMessageId: entry.id
     };
   }
   if (role === "assistant") {
-    const contentBlocks = extractAssistantContentBlocks((_h2 = (_g = message.content) != null ? _g : message.parts) != null ? _h2 : message.blocks);
-    const toolCalls = extractAssistantToolCalls((_j = (_i = message.content) != null ? _i : message.parts) != null ? _j : message.blocks);
+    const contentBlocks = extractAssistantContentBlocks((_k3 = (_j = message.content) != null ? _j : message.parts) != null ? _k3 : message.blocks);
+    const toolCalls = extractAssistantToolCalls((_m = (_l2 = message.content) != null ? _l2 : message.parts) != null ? _m : message.blocks);
     const text = contentBlocks.filter((block) => block.type === "text").map((block) => block.content).join("");
     return {
       assistantMessageId: entry.id,
       content: text,
       ...contentBlocks.length > 0 ? { contentBlocks } : {},
-      id: (_k3 = entry.id) != null ? _k3 : `pi-assistant-${messages.length}`,
+      id: (_n = entry.id) != null ? _n : `pi-assistant-${messages.length}`,
       role: "assistant",
       timestamp,
       ...toolCalls.length > 0 ? { toolCalls } : {}
@@ -84093,20 +87205,20 @@ function mapPiSessionEntry(entry, messages) {
     return {
       content: "",
       contentBlocks: [{ type: "context_compacted" }],
-      id: (_l2 = entry.id) != null ? _l2 : `pi-compaction-${messages.length}`,
+      id: (_o = entry.id) != null ? _o : `pi-compaction-${messages.length}`,
       role: "assistant",
       timestamp
     };
   }
   if ((entry.type === "branch_summary" || entry.type === "compactionSummary" || entry.type === "custom_message") && entry.raw.display !== false) {
-    const content = extractTextContent2((_n = (_m = entry.raw.content) != null ? _m : entry.raw.summary) != null ? _n : entry.raw.message);
+    const content = extractTextContent2((_q3 = (_p = entry.raw.content) != null ? _p : entry.raw.summary) != null ? _q3 : entry.raw.message);
     if (!content) {
       return null;
     }
     return {
       content,
       contentBlocks: [{ type: "text", content }],
-      id: (_o = entry.id) != null ? _o : `pi-notice-${messages.length}`,
+      id: (_r = entry.id) != null ? _r : `pi-notice-${messages.length}`,
       role: "assistant",
       timestamp
     };
@@ -84142,6 +87254,35 @@ function extractAssistantContentBlocks(value) {
     }
   }
   return blocks;
+}
+function extractUserImages(value, messageId) {
+  var _a5, _b3, _c2, _d, _e2;
+  const parts = Array.isArray(value) ? value : [];
+  const images = [];
+  for (const part of parts) {
+    if (!isPlainObject11(part)) {
+      continue;
+    }
+    const type = getString2(part.type);
+    if (type !== "image") {
+      continue;
+    }
+    const data = getString2(part.data);
+    const mediaType = (_b3 = (_a5 = getString2(part.mimeType)) != null ? _a5 : getString2(part.mime_type)) != null ? _b3 : getString2(part.mediaType);
+    if (!data || !mediaType) {
+      continue;
+    }
+    const image = buildImageAttachmentFromBase64({
+      data,
+      id: `pi-img-${messageId}-${images.length}`,
+      mediaType,
+      name: (_e2 = (_c2 = getString2(part.name)) != null ? _c2 : getString2(part.filename)) != null ? _e2 : `image-${images.length + 1}.${(_d = mediaType.split("/")[1]) != null ? _d : "img"}`
+    });
+    if (image) {
+      images.push(image);
+    }
+  }
+  return images;
 }
 function extractAssistantToolCalls(value) {
   const parts = Array.isArray(value) ? value : [];
@@ -84243,9 +87384,9 @@ function extractTextContent2(value) {
 }
 function findSessionFileInRoot(root, sessionId) {
   try {
-    const entries = fs24.readdirSync(root, { withFileTypes: true });
+    const entries = fs25.readdirSync(root, { withFileTypes: true });
     for (const entry of entries) {
-      const candidate = path22.join(root, entry.name);
+      const candidate = path23.join(root, entry.name);
       if (entry.isDirectory()) {
         const nested = findSessionFileInRoot(candidate, sessionId);
         if (nested) {
@@ -84262,7 +87403,7 @@ function findSessionFileInRoot(root, sessionId) {
 }
 function fileExists(filePath) {
   try {
-    return fs24.existsSync(filePath) && fs24.statSync(filePath).isFile();
+    return fs25.existsSync(filePath) && fs25.statSync(filePath).isFile();
   } catch (e2) {
     return false;
   }
@@ -84711,6 +87852,7 @@ var PiChatRuntime = class {
     this.providerId = "pi";
     this.activeTurn = null;
     this.currentLaunchKey = null;
+    this.currentConversationModel = null;
     this.currentModel = null;
     this.currentSessionTarget = null;
     this.currentThinkingLevel = null;
@@ -84756,7 +87898,9 @@ var PiChatRuntime = class {
   }
   syncConversationState(conversation) {
     var _a5, _b3, _c2, _d, _e2, _f2;
+    this.setCurrentConversationModel(conversation == null ? void 0 : conversation.selectedModel);
     if (!conversation) {
+      this.currentConversationModel = null;
       this.sessionId = null;
       this.sessionFile = null;
       this.leafEntryId = null;
@@ -84845,6 +87989,9 @@ var PiChatRuntime = class {
   }
   async *query(turn, conversationHistory, queryOptions) {
     var _a5, _b3;
+    if (queryOptions == null ? void 0 : queryOptions.model) {
+      this.setCurrentConversationModel(queryOptions.model);
+    }
     this.currentTurnMetadata = {};
     let isReady;
     try {
@@ -84968,7 +88115,8 @@ var PiChatRuntime = class {
     }
   }
   getAuxiliaryModel() {
-    return this.currentModel;
+    var _a5;
+    return (_a5 = this.currentConversationModel) != null ? _a5 : this.currentModel;
   }
   cleanup() {
     var _a5, _b3;
@@ -85336,10 +88484,18 @@ var PiChatRuntime = class {
     };
   }
   getProviderSettings() {
-    return ProviderSettingsCoordinator.getProviderSettingsSnapshot(
+    const settings11 = ProviderSettingsCoordinator.getProviderSettingsSnapshot(
       this.plugin.settings,
       this.providerId
     );
+    if (this.currentConversationModel) {
+      settings11.model = this.currentConversationModel;
+    }
+    return settings11;
+  }
+  setCurrentConversationModel(model) {
+    const selectedModel = typeof model === "string" ? model.trim() : "";
+    this.currentConversationModel = selectedModel || null;
   }
   resolveSelectedModel(providerSettings, queryOptions) {
     const selectedModel = typeof (queryOptions == null ? void 0 : queryOptions.model) === "string" ? queryOptions.model : typeof providerSettings.model === "string" ? providerSettings.model : "";
@@ -85399,7 +88555,7 @@ var PiChatRuntime = class {
 ${stderr}` : message;
   }
   isSwitchableSessionFile(sessionFile) {
-    return typeof sessionFile === "string" && sessionFile.trim().length > 0 && path23.isAbsolute(sessionFile);
+    return typeof sessionFile === "string" && sessionFile.trim().length > 0 && path24.isAbsolute(sessionFile);
   }
   async switchSession(sessionFile, launchSpec, nextLaunchKey) {
     var _a5, _b3;
@@ -86087,7 +89243,7 @@ function getDefaultPiEffortForSelection(selection, piSettings) {
 }
 
 // src/providers/pi/history/PiConversationHistoryService.ts
-var fs25 = __toESM(require("node:fs/promises"));
+var fs26 = __toESM(require("node:fs/promises"));
 var PiConversationHistoryService = class {
   constructor() {
     this.hydratedKeys = /* @__PURE__ */ new Map();
@@ -86105,7 +89261,7 @@ var PiConversationHistoryService = class {
         return;
       }
       try {
-        const content = await fs25.readFile(sourceSessionFile, "utf-8");
+        const content = await fs26.readFile(sourceSessionFile, "utf-8");
         const messages = parsePiSessionContent(content, {
           leafEntryId: state.forkSource.resumeAt,
           requireLeafEntryId: true
@@ -86136,7 +89292,7 @@ var PiConversationHistoryService = class {
       return;
     }
     try {
-      const content = await fs25.readFile(sessionFile, "utf-8");
+      const content = await fs26.readFile(sessionFile, "utf-8");
       const messages = parsePiSessionContent(content, {
         leafEntryId: state.leafEntryId
       });
@@ -86176,7 +89332,7 @@ var PiConversationHistoryService = class {
 };
 
 // src/providers/pi/ui/ObsidianPiExtensionUiRenderer.ts
-var import_obsidian21 = require("obsidian");
+var import_obsidian22 = require("obsidian");
 var ObsidianPiExtensionUiRenderer = class {
   constructor(app) {
     this.app = app;
@@ -86194,7 +89350,7 @@ var ObsidianPiExtensionUiRenderer = class {
     return new PiTextModal(this.app, request, signal, true).openAndWait();
   }
   notify(request) {
-    new import_obsidian21.Notice(getDisplayText(request));
+    new import_obsidian22.Notice(getDisplayText(request));
   }
   setStatus(_request) {
   }
@@ -86231,7 +89387,7 @@ function getSelectOptions(request) {
     return value ? [{ label, value }] : [];
   });
 }
-var PiExtensionModal = class extends import_obsidian21.Modal {
+var PiExtensionModal = class extends import_obsidian22.Modal {
   constructor(app, request, signal) {
     super(app);
     this.request = request;
@@ -86392,11 +89548,11 @@ function registerBuiltInProviders() {
 registerBuiltInProviders();
 
 // src/main.ts
-var import_obsidian50 = require("obsidian");
+var import_obsidian51 = require("obsidian");
 
 // src/app/storage/SharedStorageService.ts
-var import_obsidian22 = require("obsidian");
-function isRecord6(value) {
+var import_obsidian23 = require("obsidian");
+function isRecord8(value) {
   return !!value && typeof value === "object" && !Array.isArray(value);
 }
 var SharedStorageService = class {
@@ -86417,20 +89573,20 @@ var SharedStorageService = class {
   async setTabManagerState(state) {
     try {
       const loaded = await this.plugin.loadData();
-      const data = isRecord6(loaded) ? loaded : {};
+      const data = isRecord8(loaded) ? loaded : {};
       data.tabManagerState = state;
       await this.plugin.saveData(data);
     } catch (e2) {
-      new import_obsidian22.Notice("Failed to save tab layout");
+      new import_obsidian23.Notice("Failed to save tab layout");
     }
   }
   async getTabManagerState() {
     try {
       const data = await this.plugin.loadData();
-      if (!isRecord6(data) || !data.tabManagerState) {
+      if (!isRecord8(data) || !data.tabManagerState) {
         return null;
       }
-      return this.validateTabManagerState(data.tabManagerState);
+      return normalizeTabManagerState(data.tabManagerState);
     } catch (e2) {
       return null;
     }
@@ -86442,38 +89598,10 @@ var SharedStorageService = class {
     await this.adapter.ensureFolder(CLAUDIAN_STORAGE_PATH);
     await this.adapter.ensureFolder(SESSIONS_PATH);
   }
-  validateTabManagerState(data) {
-    if (!data || typeof data !== "object") {
-      return null;
-    }
-    const state = data;
-    if (!Array.isArray(state.openTabs)) {
-      return null;
-    }
-    const validatedTabs = [];
-    for (const tab of state.openTabs) {
-      if (!tab || typeof tab !== "object") {
-        continue;
-      }
-      const tabObj = tab;
-      if (typeof tabObj.tabId !== "string") {
-        continue;
-      }
-      validatedTabs.push({
-        tabId: tabObj.tabId,
-        conversationId: typeof tabObj.conversationId === "string" ? tabObj.conversationId : null,
-        ...typeof tabObj.draftModel === "string" ? { draftModel: tabObj.draftModel } : {}
-      });
-    }
-    return {
-      openTabs: validatedTabs,
-      activeTabId: typeof state.activeTabId === "string" ? state.activeTabId : null
-    };
-  }
 };
 
 // src/features/chat/ClaudianView.ts
-var import_obsidian46 = require("obsidian");
+var import_obsidian47 = require("obsidian");
 
 // src/utils/animationFrame.ts
 function getRendererWindow() {
@@ -86510,7 +89638,7 @@ function cancelScheduledAnimationFrame(frame) {
 }
 
 // src/features/chat/tabs/Tab.ts
-var import_obsidian43 = require("obsidian");
+var import_obsidian44 = require("obsidian");
 
 // src/core/providers/modelRouting.ts
 function getProviderForModel(model, settings11) {
@@ -87260,7 +90388,7 @@ var CanvasSelectionController = class {
 };
 
 // src/features/chat/controllers/ConversationController.ts
-var import_obsidian23 = require("obsidian");
+var import_obsidian24 = require("obsidian");
 
 // src/features/chat/rendering/collapsible.ts
 function setupCollapsible(wrapperEl, headerEl, contentEl, state, options = {}) {
@@ -87397,7 +90525,7 @@ function findRewindContext(messages, userIndex) {
 // src/features/chat/controllers/ConversationController.ts
 function runConversationAction(action, failureMessage) {
   void action().catch(() => {
-    new import_obsidian23.Notice(failureMessage);
+    new import_obsidian24.Notice(failureMessage);
   });
 }
 var ConversationController = class {
@@ -87560,27 +90688,27 @@ var ConversationController = class {
     const { plugin, state, renderer } = this.deps;
     const agentServiceForCheck = this.getAgentService();
     if (agentServiceForCheck && !agentServiceForCheck.getCapabilities().supportsRewind) {
-      new import_obsidian23.Notice(t10("chat.rewind.failed", { error: "Rewind is not supported by this provider." }));
+      new import_obsidian24.Notice(t10("chat.rewind.failed", { error: "Rewind is not supported by this provider." }));
       return;
     }
     if (state.isStreaming) {
-      new import_obsidian23.Notice(t10("chat.rewind.unavailableStreaming"));
+      new import_obsidian24.Notice(t10("chat.rewind.unavailableStreaming"));
       return;
     }
     const msgs = state.messages;
     const userIdx = msgs.findIndex((m4) => m4.id === userMessageId);
     if (userIdx === -1) {
-      new import_obsidian23.Notice(t10("chat.rewind.failed", { error: "Message not found" }));
+      new import_obsidian24.Notice(t10("chat.rewind.failed", { error: "Message not found" }));
       return;
     }
     const userMsg = msgs[userIdx];
     if (!userMsg.userMessageId) {
-      new import_obsidian23.Notice(t10("chat.rewind.unavailableNoUuid"));
+      new import_obsidian24.Notice(t10("chat.rewind.unavailableNoUuid"));
       return;
     }
     const rewindCtx = findRewindContext(msgs, userIdx);
     if (!rewindCtx.hasResponse) {
-      new import_obsidian23.Notice(t10("chat.rewind.unavailableNoUuid"));
+      new import_obsidian24.Notice(t10("chat.rewind.unavailableNoUuid"));
       return;
     }
     const prevAssistantUuid = rewindCtx.prevAssistantUuid;
@@ -87591,23 +90719,23 @@ var ConversationController = class {
     );
     if (!confirmed) return;
     if (state.isStreaming) {
-      new import_obsidian23.Notice(t10("chat.rewind.unavailableStreaming"));
+      new import_obsidian24.Notice(t10("chat.rewind.unavailableStreaming"));
       return;
     }
     const agentService = this.getAgentService();
     if (!agentService) {
-      new import_obsidian23.Notice(t10("chat.rewind.failed", { error: "Agent service not available" }));
+      new import_obsidian24.Notice(t10("chat.rewind.failed", { error: "Agent service not available" }));
       return;
     }
     let result;
     try {
       result = await agentService.rewind(userMsg.userMessageId, prevAssistantUuid, mode);
     } catch (e2) {
-      new import_obsidian23.Notice(t10("chat.rewind.failed", { error: e2 instanceof Error ? e2.message : "Unknown error" }));
+      new import_obsidian24.Notice(t10("chat.rewind.failed", { error: e2 instanceof Error ? e2.message : "Unknown error" }));
       return;
     }
     if (!result.canRewind) {
-      new import_obsidian23.Notice(t10("chat.rewind.cannot", { error: (_a5 = result.error) != null ? _a5 : "Unknown error" }));
+      new import_obsidian24.Notice(t10("chat.rewind.cannot", { error: (_a5 = result.error) != null ? _a5 : "Unknown error" }));
       return;
     }
     state.truncateAt(userMessageId);
@@ -87628,12 +90756,12 @@ var ConversationController = class {
       saveError = e2 instanceof Error ? e2.message : "Failed to save";
     }
     if (saveError) {
-      new import_obsidian23.Notice(
+      new import_obsidian24.Notice(
         mode === "conversation" ? t10("chat.rewind.noticeConversationOnlySaveFailed", { error: saveError }) : t10("chat.rewind.noticeSaveFailed", { count: String(filesChanged), error: saveError })
       );
       return;
     }
-    new import_obsidian23.Notice(
+    new import_obsidian24.Notice(
       mode === "conversation" ? t10("chat.rewind.noticeConversationOnly") : t10("chat.rewind.notice", { count: String(filesChanged) })
     );
   }
@@ -87647,7 +90775,7 @@ var ConversationController = class {
    * only metadata is saved - the SDK handles message persistence.
    */
   async save(updateLastResponse = false, options) {
-    var _a5, _b3, _c2, _d, _e2;
+    var _a5, _b3, _c2, _d, _e2, _f2, _g, _h2;
     const { plugin, state } = this.deps;
     if (!state.currentConversationId && state.messages.length === 0) {
       return;
@@ -87656,16 +90784,18 @@ var ConversationController = class {
     const sessionInvalidated = (_b3 = (_a5 = agentService == null ? void 0 : agentService.consumeSessionInvalidation) == null ? void 0 : _a5.call(agentService)) != null ? _b3 : false;
     if (!state.currentConversationId && state.messages.length > 0) {
       const initialSessionId = (_c2 = agentService == null ? void 0 : agentService.getSessionId()) != null ? _c2 : void 0;
+      const selectedModel = (_f2 = (_e2 = (_d = this.deps).getSelectedModel) == null ? void 0 : _e2.call(_d)) != null ? _f2 : void 0;
       const conversation2 = await plugin.createConversation({
         providerId: agentService == null ? void 0 : agentService.providerId,
-        sessionId: initialSessionId
+        sessionId: initialSessionId,
+        ...selectedModel ? { selectedModel } : {}
       });
       state.currentConversationId = conversation2.id;
     }
     const fileCtx = this.deps.getFileContextManager();
     const currentNote = (fileCtx == null ? void 0 : fileCtx.getCurrentNotePath()) || void 0;
     const externalContextSelector = this.deps.getExternalContextSelector();
-    const externalContextPaths = (_d = externalContextSelector == null ? void 0 : externalContextSelector.getExternalContexts()) != null ? _d : [];
+    const externalContextPaths = (_g = externalContextSelector == null ? void 0 : externalContextSelector.getExternalContexts()) != null ? _g : [];
     const mcpServerSelector = this.deps.getMcpServerSelector();
     const enabledMcpServers = mcpServerSelector ? Array.from(mcpServerSelector.getEnabledServers()) : [];
     const conversation = plugin.getConversationSync(state.currentConversationId);
@@ -87675,7 +90805,7 @@ var ConversationController = class {
       messages: state.messages,
       currentNote,
       externalContextPaths: externalContextPaths.length > 0 ? externalContextPaths : void 0,
-      usage: (_e2 = state.usage) != null ? _e2 : void 0,
+      usage: (_h2 = state.usage) != null ? _h2 : void 0,
       enabledMcpServers: enabledMcpServers.length > 0 ? enabledMcpServers : void 0
     };
     if (updateLastResponse) {
@@ -87809,7 +90939,7 @@ var ConversationController = class {
         item.setAttribute("data-tab-index", String(conversationStatus.tabIndex));
       }
       const iconEl = item.createDiv({ cls: "claudian-history-item-icon" });
-      (0, import_obsidian23.setIcon)(iconEl, this.getHistoryItemIcon(openState, isRunning));
+      (0, import_obsidian24.setIcon)(iconEl, this.getHistoryItemIcon(openState, isRunning));
       const content = item.createDiv({ cls: "claudian-history-item-content" });
       const titleEl = content.createDiv({ cls: "claudian-history-item-title", text: conv.title });
       titleEl.setAttribute("title", conv.title);
@@ -87868,11 +90998,11 @@ var ConversationController = class {
       const actions = item.createDiv({ cls: "claudian-history-item-actions" });
       if (conv.titleGenerationStatus === "pending") {
         const loadingEl = actions.createEl("span", { cls: "claudian-action-btn claudian-action-loading" });
-        (0, import_obsidian23.setIcon)(loadingEl, "loader-2");
+        (0, import_obsidian24.setIcon)(loadingEl, "loader-2");
         loadingEl.setAttribute("aria-label", "Generating title...");
       } else if (conv.titleGenerationStatus === "failed") {
         const regenerateBtn = actions.createEl("button", { cls: "claudian-action-btn" });
-        (0, import_obsidian23.setIcon)(regenerateBtn, "refresh-cw");
+        (0, import_obsidian24.setIcon)(regenerateBtn, "refresh-cw");
         regenerateBtn.setAttribute("aria-label", "Regenerate title");
         regenerateBtn.addEventListener("click", (e2) => {
           e2.stopPropagation();
@@ -87886,7 +91016,7 @@ var ConversationController = class {
         const openInNewTabBtn = actions.createEl("button", {
           cls: "claudian-action-btn claudian-open-new-tab-btn"
         });
-        (0, import_obsidian23.setIcon)(openInNewTabBtn, "square-plus");
+        (0, import_obsidian24.setIcon)(openInNewTabBtn, "square-plus");
         openInNewTabBtn.setAttribute("aria-label", "Open in new tab");
         openInNewTabBtn.addEventListener("click", (e2) => {
           e2.stopPropagation();
@@ -87903,14 +91033,14 @@ var ConversationController = class {
         });
       }
       const renameBtn = actions.createEl("button", { cls: "claudian-action-btn" });
-      (0, import_obsidian23.setIcon)(renameBtn, "pencil");
+      (0, import_obsidian24.setIcon)(renameBtn, "pencil");
       renameBtn.setAttribute("aria-label", "Rename");
       renameBtn.addEventListener("click", (e2) => {
         e2.stopPropagation();
         this.showRenameInput(item, conv.id, conv.title);
       });
       const deleteBtn = actions.createEl("button", { cls: "claudian-action-btn claudian-delete-btn" });
-      (0, import_obsidian23.setIcon)(deleteBtn, "trash-2");
+      (0, import_obsidian24.setIcon)(deleteBtn, "trash-2");
       deleteBtn.setAttribute("aria-label", "Delete");
       deleteBtn.addEventListener("click", (e2) => {
         e2.stopPropagation();
@@ -87974,11 +91104,11 @@ var ConversationController = class {
     try {
       await action();
     } catch (e2) {
-      new import_obsidian23.Notice(errorMessage);
+      new import_obsidian24.Notice(errorMessage);
     }
   }
   showHistoryContextMenu(item, conversationId, title, isCurrent, options, event) {
-    const menu = new import_obsidian23.Menu();
+    const menu = new import_obsidian24.Menu();
     const fallbackOpenState = isCurrent ? "current" : "closed";
     const { openState } = this.getHistoryConversationStatus(conversationId, fallbackOpenState, options);
     if (openState !== "current") {
@@ -88048,7 +91178,7 @@ var ConversationController = class {
         await this.deps.plugin.renameConversation(convId, newTitle);
         this.updateHistoryDropdown();
       } catch (e2) {
-        new import_obsidian23.Notice("Failed to rename conversation");
+        new import_obsidian24.Notice("Failed to rename conversation");
       }
     };
     input.addEventListener("blur", () => {
@@ -88204,7 +91334,7 @@ var ConversationController = class {
 };
 
 // src/features/chat/controllers/InputController.ts
-var import_obsidian28 = require("obsidian");
+var import_obsidian29 = require("obsidian");
 
 // src/core/runtime/QueuedTurn.ts
 function cloneChatTurnRequest(request) {
@@ -88266,7 +91396,7 @@ function mergeSets(first, second) {
 }
 
 // src/shared/components/ResumeSessionDropdown.ts
-var import_obsidian24 = require("obsidian");
+var import_obsidian25 = require("obsidian");
 var ResumeSessionDropdown = class {
   constructor(containerEl, inputEl, conversations, currentConversationId, callbacks) {
     this.selectedIndex = 0;
@@ -88369,7 +91499,7 @@ var ResumeSessionDropdown = class {
       if (isCurrent) item.addClass("current");
       if (i === this.selectedIndex) item.addClass("selected");
       const iconEl = item.createDiv({ cls: "claudian-resume-item-icon" });
-      (0, import_obsidian24.setIcon)(iconEl, isCurrent ? "message-square-dot" : "message-square");
+      (0, import_obsidian25.setIcon)(iconEl, isCurrent ? "message-square-dot" : "message-square");
       const content = item.createDiv({ cls: "claudian-resume-item-content" });
       const titleEl = content.createDiv({ cls: "claudian-resume-item-title", text: conv.title });
       titleEl.setAttribute("title", conv.title);
@@ -88401,8 +91531,8 @@ var ResumeSessionDropdown = class {
 };
 
 // src/shared/modals/InstructionConfirmModal.ts
-var import_obsidian25 = require("obsidian");
-var InstructionModal = class extends import_obsidian25.Modal {
+var import_obsidian26 = require("obsidian");
+var InstructionModal = class extends import_obsidian26.Modal {
   constructor(app, rawInstruction, callbacks) {
     super(app);
     this.state = "loading";
@@ -88446,7 +91576,7 @@ var InstructionModal = class extends import_obsidian25.Modal {
     const responseSection = this.clarificationEl.createDiv({ cls: "claudian-instruction-section" });
     const responseLabel = responseSection.createDiv({ cls: "claudian-instruction-label" });
     responseLabel.setText("Your response:");
-    this.responseTextarea = new import_obsidian25.TextAreaComponent(responseSection);
+    this.responseTextarea = new import_obsidian26.TextAreaComponent(responseSection);
     this.responseTextarea.inputEl.addClass("claudian-instruction-response-textarea");
     this.responseTextarea.inputEl.rows = 3;
     this.responseTextarea.inputEl.placeholder = "Provide more details...";
@@ -88464,7 +91594,7 @@ var InstructionModal = class extends import_obsidian25.Modal {
     this.refinedDisplayEl = refinedSection.createDiv({ cls: "claudian-instruction-refined" });
     this.editContainerEl = refinedSection.createDiv({ cls: "claudian-instruction-edit-container" });
     this.editContainerEl.addClass("claudian-hidden");
-    this.editTextarea = new import_obsidian25.TextAreaComponent(this.editContainerEl);
+    this.editTextarea = new import_obsidian26.TextAreaComponent(this.editContainerEl);
     this.editTextarea.inputEl.addClass("claudian-instruction-edit-textarea");
     this.editTextarea.inputEl.rows = 4;
     this.buttonsEl = contentEl.createDiv({ cls: "claudian-instruction-buttons" });
@@ -89316,7 +92446,7 @@ var InlineAskUserQuestion = class {
 };
 
 // src/features/chat/rendering/InlineExitPlanMode.ts
-var fs26 = __toESM(require("fs"));
+var fs27 = __toESM(require("fs"));
 var nodePath = __toESM(require("path"));
 var HINTS_TEXT2 = "Arrow keys to navigate \xB7 Enter to select \xB7 Esc to cancel";
 var InlineExitPlanMode = class {
@@ -89431,7 +92561,7 @@ var InlineExitPlanMode = class {
       return null;
     }
     try {
-      const content = fs26.readFileSync(planFilePath, "utf-8");
+      const content = fs27.readFileSync(planFilePath, "utf-8");
       return content.trim() || null;
     } catch (err) {
       this.planReadError = err instanceof Error ? err.message : "unknown error";
@@ -89697,7 +92827,7 @@ var InlinePlanApproval = class {
 };
 
 // src/features/chat/rendering/ToolCallRenderer.ts
-var import_obsidian27 = require("obsidian");
+var import_obsidian28 = require("obsidian");
 
 // src/core/tools/toolIcons.ts
 var TOOL_ICONS = {
@@ -89832,7 +92962,7 @@ function renderDiffContent(containerEl, diffLines, contextLines = 3) {
 }
 
 // src/features/chat/rendering/todoUtils.ts
-var import_obsidian26 = require("obsidian");
+var import_obsidian27 = require("obsidian");
 function getTodoStatusIcon(status) {
   return status === "completed" ? "check" : "dot";
 }
@@ -89845,7 +92975,7 @@ function renderTodoItems(container, todos) {
     const item = container.createDiv({ cls: `claudian-todo-item claudian-todo-${todo.status}` });
     const icon = item.createSpan({ cls: "claudian-todo-status-icon" });
     icon.setAttribute("aria-hidden", "true");
-    (0, import_obsidian26.setIcon)(icon, getTodoStatusIcon(todo.status));
+    (0, import_obsidian27.setIcon)(icon, getTodoStatusIcon(todo.status));
     const text = item.createSpan({ cls: "claudian-todo-text" });
     text.setText(getTodoDisplayText(todo));
   }
@@ -89857,7 +92987,7 @@ function setToolIcon(el2, name) {
   if (icon === MCP_ICON_MARKER) {
     appendMcpIcon(el2);
   } else {
-    (0, import_obsidian27.setIcon)(el2, icon);
+    (0, import_obsidian28.setIcon)(el2, icon);
   }
 }
 function stringifyToolValue(value) {
@@ -90097,7 +93227,7 @@ function appendToolLink(parent, title, url2) {
   linkEl.setAttribute("target", "_blank");
   linkEl.setAttribute("rel", "noopener noreferrer");
   const iconEl = linkEl.createSpan({ cls: "claudian-tool-link-icon" });
-  (0, import_obsidian27.setIcon)(iconEl, "external-link");
+  (0, import_obsidian28.setIcon)(iconEl, "external-link");
   linkEl.createSpan({ cls: "claudian-tool-link-title", text: title });
 }
 function isPlaceholderWebSearchResult(result) {
@@ -90273,10 +93403,10 @@ function renderApplyPatchExpanded(container, input, result) {
     for (const change of changes) {
       if (!change || typeof change !== "object" || Array.isArray(change)) continue;
       const changeRecord = change;
-      const path27 = typeof changeRecord.path === "string" ? changeRecord.path : "";
-      if (!path27) continue;
+      const path28 = typeof changeRecord.path === "string" ? changeRecord.path : "";
+      if (!path28) continue;
       const movedTo = readMoveTarget(changeRecord.kind);
-      const pathText = movedTo ? `${path27} -> ${movedTo}` : path27;
+      const pathText = movedTo ? `${path28} -> ${movedTo}` : path28;
       linesEl.createDiv({ cls: "claudian-tool-line", text: pathText });
     }
     return;
@@ -90446,12 +93576,12 @@ function setTodoWriteStatus(statusEl, input) {
   const status = isComplete ? "completed" : "running";
   const ariaLabel = isComplete ? "Status: completed" : "Status: in progress";
   resetStatusElement(statusEl, `status-${status}`, ariaLabel);
-  if (isComplete) (0, import_obsidian27.setIcon)(statusEl, "check");
+  if (isComplete) (0, import_obsidian28.setIcon)(statusEl, "check");
 }
 function setToolStatus(statusEl, status) {
   resetStatusElement(statusEl, `status-${status}`, `Status: ${status}`);
   const icon = STATUS_ICONS[status];
-  if (icon) (0, import_obsidian27.setIcon)(statusEl, icon);
+  if (icon) (0, import_obsidian28.setIcon)(statusEl, icon);
 }
 function setApplyPatchHeaderRight(statusEl, toolCall) {
   const isError = toolCall.status === "error" || toolCall.status === "blocked";
@@ -90940,7 +94070,7 @@ var InputController = class {
     if (this.deps.ensureServiceInitialized) {
       const ready = await this.deps.ensureServiceInitialized();
       if (!ready) {
-        new import_obsidian28.Notice("Failed to initialize agent service. Please try again.");
+        new import_obsidian29.Notice("Failed to initialize agent service. Please try again.");
         streamController.hideThinkingIndicator();
         state.isStreaming = false;
         this.activeStreamingAssistantMessage = null;
@@ -90950,7 +94080,7 @@ var InputController = class {
     }
     const agentService = this.getAgentService();
     if (!agentService) {
-      new import_obsidian28.Notice("Agent service not available. Please reload the plugin.");
+      new import_obsidian29.Notice("Agent service not available. Please reload the plugin.");
       this.activeStreamingAssistantMessage = null;
       this.resetProviderMessageBoundaryState();
       return;
@@ -90974,7 +94104,9 @@ var InputController = class {
       userMsg.content = preparedTurn.persistedContent;
       userMsg.currentNote = preparedTurn.isCompact ? void 0 : preparedTurn.request.currentNotePath;
       const previousMessages = state.messages.slice(0, -2);
-      for await (const chunk of agentService.query(preparedTurn, previousMessages)) {
+      const selectedModel = this.getAuxiliaryModel();
+      const queryOptions = selectedModel ? { model: selectedModel } : void 0;
+      for await (const chunk of agentService.query(preparedTurn, previousMessages, queryOptions)) {
         if (state.streamGeneration !== streamGeneration) {
           wasInvalidated = true;
           break;
@@ -91265,7 +94397,7 @@ var InputController = class {
         type: "button"
       }
     });
-    (0, import_obsidian28.setIcon)(button, icon);
+    (0, import_obsidian29.setIcon)(button, icon);
     return button;
   }
   canSteerQueuedMessage() {
@@ -91381,7 +94513,7 @@ var InputController = class {
       });
     } catch (e2) {
       this.restoreQueuedMessageAfterSteerFailure(queuedMessage);
-      new import_obsidian28.Notice("Failed to steer the queued Codex message. It is still available.");
+      new import_obsidian29.Notice("Failed to steer the queued Codex message. It is still available.");
     }
   }
   restoreQueuedMessageAfterSteerFailure(message) {
@@ -91526,16 +94658,18 @@ var InputController = class {
    * Handles setting fallback title, firing async generation, and updating UI.
    */
   async triggerTitleGeneration() {
-    var _a5, _b3, _c2, _d;
+    var _a5, _b3, _c2, _d, _e2;
     const { plugin, state, conversationController } = this.deps;
     if (state.messages.length !== 1) {
       return;
     }
     if (!state.currentConversationId) {
       const sessionId = (_b3 = (_a5 = this.getAgentService()) == null ? void 0 : _a5.getSessionId()) != null ? _b3 : void 0;
+      const selectedModel = (_c2 = this.getAuxiliaryModel()) != null ? _c2 : void 0;
       const conversation = await plugin.createConversation({
         providerId: this.getActiveProviderId(),
-        sessionId
+        sessionId,
+        ...selectedModel ? { selectedModel } : {}
       });
       state.currentConversationId = conversation.id;
     }
@@ -91543,7 +94677,7 @@ var InputController = class {
     if (!firstUserMsg) {
       return;
     }
-    const userContent = (_d = (_c2 = firstUserMsg.displayContent) != null ? _c2 : extractUserDisplayContent(firstUserMsg.content)) != null ? _d : firstUserMsg.content;
+    const userContent = (_e2 = (_d = firstUserMsg.displayContent) != null ? _d : extractUserDisplayContent(firstUserMsg.content)) != null ? _e2 : firstUserMsg.content;
     const fallbackTitle = conversationController.generateFallbackTitle(userContent);
     await plugin.renameConversation(state.currentConversationId, fallbackTitle);
     if (!plugin.settings.enableAutoTitleGeneration) {
@@ -91623,7 +94757,7 @@ var InputController = class {
               const currentPrompt = plugin.settings.systemPrompt;
               plugin.settings.systemPrompt = appendMarkdownSnippet(currentPrompt, finalInstruction);
               await plugin.saveSettings();
-              new import_obsidian28.Notice("Instruction added to custom system prompt");
+              new import_obsidian29.Notice("Instruction added to custom system prompt");
               instructionModeManager == null ? void 0 : instructionModeManager.clear();
             })();
           },
@@ -91642,7 +94776,7 @@ var InputController = class {
               if (result2.error === "Cancelled") {
                 return;
               }
-              new import_obsidian28.Notice(result2.error || "Failed to process response");
+              new import_obsidian29.Notice(result2.error || "Failed to process response");
               modal == null ? void 0 : modal.showError(result2.error || "Failed to process response");
               return;
             }
@@ -91669,7 +94803,7 @@ var InputController = class {
           instructionModeManager == null ? void 0 : instructionModeManager.clear();
           return;
         }
-        new import_obsidian28.Notice(result.error || "Failed to refine instruction");
+        new import_obsidian29.Notice(result.error || "Failed to refine instruction");
         modal.showError(result.error || "Failed to refine instruction");
         instructionModeManager == null ? void 0 : instructionModeManager.clear();
         return;
@@ -91679,13 +94813,13 @@ var InputController = class {
       } else if (result.refinedInstruction) {
         modal.showConfirmation(result.refinedInstruction);
       } else {
-        new import_obsidian28.Notice("No instruction received");
+        new import_obsidian29.Notice("No instruction received");
         modal.showError("No instruction received");
         instructionModeManager == null ? void 0 : instructionModeManager.clear();
       }
     } catch (error48) {
       const errorMsg = error48 instanceof Error ? error48.message : "Unknown error";
-      new import_obsidian28.Notice(`Error: ${errorMsg}`);
+      new import_obsidian29.Notice(`Error: ${errorMsg}`);
       modal == null ? void 0 : modal.showError(errorMsg);
       instructionModeManager == null ? void 0 : instructionModeManager.clear();
     }
@@ -91753,7 +94887,7 @@ var InputController = class {
     const selected = Object.values(result)[0];
     const selectedValue = Array.isArray(selected) ? selected[0] : selected;
     if (typeof selectedValue !== "string") {
-      new import_obsidian28.Notice(`Unexpected approval selection: "${String(selectedValue)}"`);
+      new import_obsidian29.Notice(`Unexpected approval selection: "${String(selectedValue)}"`);
       return "cancel";
     }
     const decision = optionDecisionMap.get(selectedValue);
@@ -91924,7 +95058,7 @@ var InputController = class {
     const { conversationController } = this.deps;
     const capabilities = this.getActiveCapabilities();
     if (!isBuiltInCommandSupported(command, capabilities)) {
-      new import_obsidian28.Notice(`/${command.name} is not supported by this provider.`);
+      new import_obsidian29.Notice(`/${command.name} is not supported by this provider.`);
       return;
     }
     switch (command.action) {
@@ -91934,14 +95068,14 @@ var InputController = class {
       case "add-dir": {
         const externalContextSelector = this.deps.getExternalContextSelector();
         if (!externalContextSelector) {
-          new import_obsidian28.Notice("External context selector not available.");
+          new import_obsidian29.Notice("External context selector not available.");
           return;
         }
         const result = externalContextSelector.addExternalContext(args);
         if (result.success) {
-          new import_obsidian28.Notice(`Added external context: ${result.normalizedPath}`);
+          new import_obsidian29.Notice(`Added external context: ${result.normalizedPath}`);
         } else {
-          new import_obsidian28.Notice(result.error);
+          new import_obsidian29.Notice(result.error);
         }
         break;
       }
@@ -91950,11 +95084,11 @@ var InputController = class {
         break;
       case "fork": {
         if (!this.getActiveCapabilities().supportsFork) {
-          new import_obsidian28.Notice("Fork is not supported by this provider.");
+          new import_obsidian29.Notice("Fork is not supported by this provider.");
           return;
         }
         if (!this.deps.onForkAll) {
-          new import_obsidian28.Notice("Fork not available.");
+          new import_obsidian29.Notice("Fork not available.");
           return;
         }
         await this.deps.onForkAll();
@@ -91962,7 +95096,7 @@ var InputController = class {
       }
       default: {
         const unknownAction = typeof command.action === "string" ? command.action : "unknown";
-        new import_obsidian28.Notice(`Unknown command: ${unknownAction}`);
+        new import_obsidian29.Notice(`Unknown command: ${unknownAction}`);
         break;
       }
     }
@@ -91991,7 +95125,7 @@ var InputController = class {
     this.destroyResumeDropdown();
     const conversations = plugin.getConversationList();
     if (conversations.length === 0) {
-      new import_obsidian28.Notice("No conversations to resume");
+      new import_obsidian29.Notice("No conversations to resume");
       return;
     }
     const openConversation = (_a5 = this.deps.openConversation) != null ? _a5 : ((id) => conversationController.switchTo(id));
@@ -92005,7 +95139,7 @@ var InputController = class {
           this.destroyResumeDropdown();
           openConversation(id).catch((err) => {
             const msg = err instanceof Error ? err.message : String(err);
-            new import_obsidian28.Notice(`Failed to open conversation: ${msg}`);
+            new import_obsidian29.Notice(`Failed to open conversation: ${msg}`);
           });
         },
         onDismiss: () => {
@@ -92151,7 +95285,7 @@ var NavigationController = class {
 };
 
 // src/features/chat/controllers/SelectionController.ts
-var import_obsidian29 = require("obsidian");
+var import_obsidian30 = require("obsidian");
 
 // src/shared/components/SelectionHighlight.ts
 var import_state = require("@codemirror/state");
@@ -92267,7 +95401,7 @@ var SelectionController = class {
   // ============================================
   poll() {
     var _a5;
-    const view = this.app.workspace.getActiveViewOfType(import_obsidian29.MarkdownView);
+    const view = this.app.workspace.getActiveViewOfType(import_obsidian30.MarkdownView);
     if (!view) {
       this.clearWhenMarkdownContextIsUnavailable();
       return;
@@ -92528,7 +95662,7 @@ var SelectionController = class {
 };
 
 // src/features/chat/controllers/StreamController.ts
-var import_obsidian32 = require("obsidian");
+var import_obsidian33 = require("obsidian");
 
 // src/core/tools/todo.ts
 function isValidTodoItem(item) {
@@ -92668,7 +95802,7 @@ function adapterOwnsTool(adapter, toolName) {
 }
 
 // src/features/chat/rendering/SubagentRenderer.ts
-var import_obsidian30 = require("obsidian");
+var import_obsidian31 = require("obsidian");
 var SUBAGENT_TOOL_STATUS_ICONS = {
   completed: "check",
   error: "x",
@@ -92727,7 +95861,7 @@ function setSubagentToolStatus(view, status) {
   view.statusEl.setAttribute("aria-label", `Status: ${status}`);
   const statusIcon = SUBAGENT_TOOL_STATUS_ICONS[status];
   if (statusIcon) {
-    (0, import_obsidian30.setIcon)(view.statusEl, statusIcon);
+    (0, import_obsidian31.setIcon)(view.statusEl, statusIcon);
   }
 }
 function updateSubagentToolView(view, toolCall) {
@@ -92832,7 +95966,7 @@ function createSubagentBlock(parentEl, taskToolId, taskInput) {
   headerEl.setAttribute("role", "button");
   const iconEl = headerEl.createDiv({ cls: "claudian-subagent-icon" });
   iconEl.setAttribute("aria-hidden", "true");
-  (0, import_obsidian30.setIcon)(iconEl, getToolIcon(TOOL_TASK));
+  (0, import_obsidian31.setIcon)(iconEl, getToolIcon(TOOL_TASK));
   const labelEl = headerEl.createDiv({ cls: "claudian-subagent-label" });
   labelEl.setText(truncateDescription(description));
   const statusEl = headerEl.createDiv({ cls: "claudian-subagent-status status-running" });
@@ -92907,11 +96041,11 @@ function finalizeSubagentBlock(state, result, isError) {
   state.statusEl.addClass(`status-${state.info.status}`);
   state.statusEl.empty();
   if (state.info.status === "completed") {
-    (0, import_obsidian30.setIcon)(state.statusEl, "check");
+    (0, import_obsidian31.setIcon)(state.statusEl, "check");
     state.wrapperEl.removeClass("error");
     state.wrapperEl.addClass("done");
   } else {
-    (0, import_obsidian30.setIcon)(state.statusEl, "x");
+    (0, import_obsidian31.setIcon)(state.statusEl, "x");
     state.wrapperEl.removeClass("done");
     state.wrapperEl.addClass("error");
   }
@@ -93033,7 +96167,7 @@ function createAsyncSubagentBlock(parentEl, taskToolId, taskInput) {
   headerEl.setAttribute("aria-label", `Background task: ${description} - Initializing - click to expand`);
   const iconEl = headerEl.createDiv({ cls: "claudian-subagent-icon" });
   iconEl.setAttribute("aria-hidden", "true");
-  (0, import_obsidian30.setIcon)(iconEl, getToolIcon(TOOL_TASK));
+  (0, import_obsidian31.setIcon)(iconEl, getToolIcon(TOOL_TASK));
   const labelEl = headerEl.createDiv({ cls: "claudian-subagent-label" });
   labelEl.setText(truncateDescription(description));
   const statusTextEl = headerEl.createDiv({ cls: "claudian-subagent-status-text" });
@@ -93072,9 +96206,9 @@ function finalizeAsyncSubagent(state, result, isError) {
   state.statusEl.addClass(`status-${isError ? "error" : "completed"}`);
   state.statusEl.empty();
   if (isError) {
-    (0, import_obsidian30.setIcon)(state.statusEl, "x");
+    (0, import_obsidian31.setIcon)(state.statusEl, "x");
   } else {
-    (0, import_obsidian30.setIcon)(state.statusEl, "check");
+    (0, import_obsidian31.setIcon)(state.statusEl, "check");
   }
   if (isError) {
     state.wrapperEl.addClass("error");
@@ -93092,7 +96226,7 @@ function markAsyncSubagentOrphaned(state) {
   state.statusTextEl.setText("Orphaned");
   state.statusEl.className = "claudian-subagent-status status-error";
   state.statusEl.empty();
-  (0, import_obsidian30.setIcon)(state.statusEl, "alert-circle");
+  (0, import_obsidian31.setIcon)(state.statusEl, "alert-circle");
   state.wrapperEl.addClass("error");
   state.wrapperEl.addClass("orphaned");
   renderAsyncContentLikeSync(state.contentEl, state.info, "orphaned");
@@ -93119,7 +96253,7 @@ function renderStoredAsyncSubagent(parentEl, subagent) {
   );
   const iconEl = headerEl.createDiv({ cls: "claudian-subagent-icon" });
   iconEl.setAttribute("aria-hidden", "true");
-  (0, import_obsidian30.setIcon)(iconEl, getToolIcon(TOOL_TASK));
+  (0, import_obsidian31.setIcon)(iconEl, getToolIcon(TOOL_TASK));
   const labelEl = headerEl.createDiv({ cls: "claudian-subagent-label" });
   labelEl.setText(truncateDescription(subagent.description));
   const statusTextEl = headerEl.createDiv({ cls: "claudian-subagent-status-text" });
@@ -93140,13 +96274,13 @@ function renderStoredAsyncSubagent(parentEl, subagent) {
   statusEl.setAttribute("aria-label", `Status: ${statusAriaLabel}`);
   switch (displayStatus) {
     case "completed":
-      (0, import_obsidian30.setIcon)(statusEl, "check");
+      (0, import_obsidian31.setIcon)(statusEl, "check");
       break;
     case "error":
-      (0, import_obsidian30.setIcon)(statusEl, "x");
+      (0, import_obsidian31.setIcon)(statusEl, "x");
       break;
     case "orphaned":
-      (0, import_obsidian30.setIcon)(statusEl, "alert-circle");
+      (0, import_obsidian31.setIcon)(statusEl, "alert-circle");
       break;
   }
   const contentEl = wrapperEl.createDiv({ cls: "claudian-subagent-content" });
@@ -93157,7 +96291,7 @@ function renderStoredAsyncSubagent(parentEl, subagent) {
 }
 
 // src/features/chat/rendering/WriteEditRenderer.ts
-var import_obsidian31 = require("obsidian");
+var import_obsidian32 = require("obsidian");
 function shortenPath2(filePath, maxLength = 40) {
   if (!filePath) return "file";
   const normalized = filePath.replace(/\\/g, "/");
@@ -93186,7 +96320,7 @@ function createWriteEditBlock(parentEl, toolCall, options = {}) {
   headerEl.setAttribute("role", "button");
   const iconEl = headerEl.createDiv({ cls: "claudian-write-edit-icon" });
   iconEl.setAttribute("aria-hidden", "true");
-  (0, import_obsidian31.setIcon)(iconEl, getToolIcon(toolName));
+  (0, import_obsidian32.setIcon)(iconEl, getToolIcon(toolName));
   const nameEl = headerEl.createDiv({ cls: "claudian-write-edit-name" });
   nameEl.setText(toolName);
   const summaryEl = headerEl.createDiv({ cls: "claudian-write-edit-summary" });
@@ -93230,7 +96364,7 @@ function finalizeWriteEditBlock(state, isError) {
   state.statusEl.empty();
   if (isError) {
     state.statusEl.addClass("status-error");
-    (0, import_obsidian31.setIcon)(state.statusEl, "x");
+    (0, import_obsidian32.setIcon)(state.statusEl, "x");
     state.statusEl.setAttribute("aria-label", "Status: error");
     if (!state.diffLines) {
       state.contentEl.empty();
@@ -93268,7 +96402,7 @@ function renderStoredWriteEdit(parentEl, toolCall, options = {}) {
   headerEl.setAttribute("role", "button");
   const iconEl = headerEl.createDiv({ cls: "claudian-write-edit-icon" });
   iconEl.setAttribute("aria-hidden", "true");
-  (0, import_obsidian31.setIcon)(iconEl, getToolIcon(toolName));
+  (0, import_obsidian32.setIcon)(iconEl, getToolIcon(toolName));
   const nameEl = headerEl.createDiv({ cls: "claudian-write-edit-name" });
   nameEl.setText(toolName);
   const summaryEl = headerEl.createDiv({ cls: "claudian-write-edit-summary" });
@@ -93280,7 +96414,7 @@ function renderStoredWriteEdit(parentEl, toolCall, options = {}) {
   const statusEl = headerEl.createDiv({ cls: "claudian-write-edit-status" });
   if (isError) {
     statusEl.addClass("status-error");
-    (0, import_obsidian31.setIcon)(statusEl, "x");
+    (0, import_obsidian32.setIcon)(statusEl, "x");
   }
   const contentEl = wrapperEl.createDiv({ cls: "claudian-write-edit-content" });
   const row = contentEl.createDiv({ cls: "claudian-write-edit-diff-row" });
@@ -93508,7 +96642,20 @@ var _StreamController = class _StreamController {
   }
   getActiveProviderModel() {
     var _a5, _b3, _c2;
-    const providerId = (_c2 = (_b3 = (_a5 = this.deps).getAgentService) == null ? void 0 : _b3.call(_a5)) == null ? void 0 : _c2.providerId;
+    const conversation = this.deps.state.currentConversationId ? this.deps.plugin.getConversationSync(this.deps.state.currentConversationId) : null;
+    if (conversation) {
+      return resolveConversationModel(
+        this.deps.plugin.settings,
+        conversation.providerId,
+        conversation
+      ).model;
+    }
+    const service = (_b3 = (_a5 = this.deps).getAgentService) == null ? void 0 : _b3.call(_a5);
+    const serviceModel = (_c2 = service == null ? void 0 : service.getAuxiliaryModel) == null ? void 0 : _c2.call(service);
+    if (serviceModel) {
+      return serviceModel;
+    }
+    const providerId = service == null ? void 0 : service.providerId;
     if (!providerId) {
       return void 0;
     }
@@ -94368,7 +97515,7 @@ var _StreamController = class _StreamController {
     window.setTimeout(() => {
       const { vault } = this.deps.plugin.app;
       const file2 = vault.getAbstractFileByPath(relativePath);
-      if (file2 instanceof import_obsidian32.TFile) {
+      if (file2 instanceof import_obsidian33.TFile) {
         vault.trigger("modify", file2);
       } else {
         const parentDir = relativePath.includes("/") ? relativePath.substring(0, relativePath.lastIndexOf("/")) : "";
@@ -94463,7 +97610,7 @@ _StreamController.THINKING_INDICATOR_DELAY = 400;
 var StreamController = _StreamController;
 
 // src/features/chat/rendering/MessageRenderer.ts
-var import_obsidian33 = require("obsidian");
+var import_obsidian34 = require("obsidian");
 
 // src/utils/obsidianCompat.ts
 function getVaultFileByPath(app, filePath) {
@@ -94654,7 +97801,7 @@ function escapeHtml(text) {
 }
 
 // src/utils/imageEmbed.ts
-var IMAGE_EXTENSIONS = /* @__PURE__ */ new Set([
+var IMAGE_EXTENSIONS2 = /* @__PURE__ */ new Set([
   "png",
   "jpg",
   "jpeg",
@@ -94665,10 +97812,10 @@ var IMAGE_EXTENSIONS = /* @__PURE__ */ new Set([
   "ico"
 ]);
 var IMAGE_EMBED_PATTERN = /!\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g;
-function isImagePath(path27) {
+function isImagePath(path28) {
   var _a5;
-  const ext = (_a5 = path27.split(".").pop()) == null ? void 0 : _a5.toLowerCase();
-  return ext ? IMAGE_EXTENSIONS.has(ext) : false;
+  const ext = (_a5 = path28.split(".").pop()) == null ? void 0 : _a5.toLowerCase();
+  return ext ? IMAGE_EXTENSIONS2.has(ext) : false;
 }
 function resolveImageFile(app, imagePath, options) {
   let file2 = getVaultFileByPath(app, imagePath);
@@ -95252,7 +98399,7 @@ var MessageRenderer = class {
         this.app,
         { mediaFolder: this.plugin.settings.mediaFolder }
       );
-      await import_obsidian33.MarkdownRenderer.render(
+      await import_obsidian34.MarkdownRenderer.render(
         this.app,
         processedMarkdown,
         el2,
@@ -95315,7 +98462,7 @@ var MessageRenderer = class {
    */
   addTextCopyButton(textEl, markdown) {
     const copyBtn = textEl.createSpan({ cls: "claudian-text-copy-btn" });
-    (0, import_obsidian33.setIcon)(copyBtn, "copy");
+    (0, import_obsidian34.setIcon)(copyBtn, "copy");
     let feedbackTimeout = null;
     copyBtn.addEventListener("click", (e2) => {
       e2.stopPropagation();
@@ -95333,7 +98480,7 @@ var MessageRenderer = class {
         copyBtn.classList.add("copied");
         feedbackTimeout = window.setTimeout(() => {
           copyBtn.empty();
-          (0, import_obsidian33.setIcon)(copyBtn, "copy");
+          (0, import_obsidian34.setIcon)(copyBtn, "copy");
           copyBtn.classList.remove("copied");
           feedbackTimeout = null;
         }, 1500);
@@ -95370,7 +98517,7 @@ var MessageRenderer = class {
   addUserCopyButton(msgEl, content) {
     const toolbar = this.getOrCreateActionsToolbar(msgEl);
     const copyBtn = toolbar.createSpan({ cls: "claudian-user-msg-copy-btn" });
-    (0, import_obsidian33.setIcon)(copyBtn, "copy");
+    (0, import_obsidian34.setIcon)(copyBtn, "copy");
     copyBtn.setAttribute("aria-label", "Copy message");
     let feedbackTimeout = null;
     copyBtn.addEventListener("click", (e2) => {
@@ -95387,7 +98534,7 @@ var MessageRenderer = class {
         copyBtn.classList.add("copied");
         feedbackTimeout = window.setTimeout(() => {
           copyBtn.empty();
-          (0, import_obsidian33.setIcon)(copyBtn, "copy");
+          (0, import_obsidian34.setIcon)(copyBtn, "copy");
           copyBtn.classList.remove("copied");
           feedbackTimeout = null;
         }, 1500);
@@ -95399,7 +98546,7 @@ var MessageRenderer = class {
     const toolbar = this.getOrCreateActionsToolbar(msgEl);
     const btn = toolbar.createSpan({ cls: "claudian-message-rewind-btn" });
     if (toolbar.firstChild !== btn) toolbar.insertBefore(btn, toolbar.firstChild);
-    (0, import_obsidian33.setIcon)(btn, "rotate-ccw");
+    (0, import_obsidian34.setIcon)(btn, "rotate-ccw");
     btn.setAttribute("aria-label", t10("chat.rewind.ariaLabel"));
     btn.addEventListener("click", (e2) => {
       e2.stopPropagation();
@@ -95407,7 +98554,7 @@ var MessageRenderer = class {
     });
   }
   showRewindMenu(event, messageId) {
-    const menu = new import_obsidian33.Menu();
+    const menu = new import_obsidian34.Menu();
     this.addRewindMenuItem(menu, messageId, "conversation");
     this.addRewindMenuItem(menu, messageId, "code-and-conversation");
     menu.showAtMouseEvent(event);
@@ -95422,7 +98569,7 @@ var MessageRenderer = class {
           try {
             await ((_a5 = this.rewindCallback) == null ? void 0 : _a5.call(this, messageId, mode));
           } catch (err) {
-            new import_obsidian33.Notice(t10("chat.rewind.failed", { error: err instanceof Error ? err.message : "Unknown error" }));
+            new import_obsidian34.Notice(t10("chat.rewind.failed", { error: err instanceof Error ? err.message : "Unknown error" }));
           }
         });
       });
@@ -95433,7 +98580,7 @@ var MessageRenderer = class {
     const toolbar = this.getOrCreateActionsToolbar(msgEl);
     const btn = toolbar.createSpan({ cls: "claudian-message-fork-btn" });
     if (toolbar.firstChild !== btn) toolbar.insertBefore(btn, toolbar.firstChild);
-    (0, import_obsidian33.setIcon)(btn, "git-fork");
+    (0, import_obsidian34.setIcon)(btn, "git-fork");
     btn.setAttribute("aria-label", t10("chat.fork.ariaLabel"));
     btn.addEventListener("click", (e2) => {
       e2.stopPropagation();
@@ -95442,7 +98589,7 @@ var MessageRenderer = class {
         try {
           await ((_a5 = this.forkCallback) == null ? void 0 : _a5.call(this, messageId));
         } catch (err) {
-          new import_obsidian33.Notice(t10("chat.fork.failed", { error: err instanceof Error ? err.message : "Unknown error" }));
+          new import_obsidian34.Notice(t10("chat.fork.failed", { error: err instanceof Error ? err.message : "Unknown error" }));
         }
       });
     });
@@ -95509,14 +98656,14 @@ var BangBashService = class {
 // src/features/chat/services/SubagentManager.ts
 var import_fs11 = require("fs");
 var import_os6 = require("os");
-var import_path41 = require("path");
-function isRecord7(value) {
+var import_path42 = require("path");
+function isRecord9(value) {
   return !!value && typeof value === "object" && !Array.isArray(value);
 }
 function parseJsonRecord(value) {
   try {
     const parsed = JSON.parse(value);
-    return isRecord7(parsed) ? parsed : null;
+    return isRecord9(parsed) ? parsed : null;
   } catch (e2) {
     return null;
   }
@@ -95980,7 +99127,7 @@ var _SubagentManager = class _SubagentManager {
         return directAgentId;
       }
       const taskRecord = parsed.task;
-      if (isRecord7(taskRecord)) {
+      if (isRecord9(taskRecord)) {
         return this.extractAgentIdFromRecord(taskRecord);
       }
     }
@@ -96075,13 +99222,13 @@ var _SubagentManager = class _SubagentManager {
     const parsed = parseJsonRecord(payload);
     if (parsed) {
       const status = (_a5 = parsed.retrieval_status) != null ? _a5 : parsed.status;
-      const agents = isRecord7(parsed.agents) ? parsed.agents : null;
+      const agents = isRecord9(parsed.agents) ? parsed.agents : null;
       const hasAgents = agents !== null && Object.keys(agents).length > 0;
       if (status === "not_ready" || status === "running" || status === "pending") {
         return true;
       }
       if (hasAgents && agents) {
-        const agentStatuses = Object.values(agents).map((agent) => isRecord7(agent) && typeof agent.status === "string" ? agent.status.toLowerCase() : "");
+        const agentStatuses = Object.values(agents).map((agent) => isRecord9(agent) && typeof agent.status === "string" ? agent.status.toLowerCase() : "");
         const anyRunning = agentStatuses.some(
           (s2) => s2 === "running" || s2 === "pending" || s2 === "not_ready"
         );
@@ -96122,9 +99269,9 @@ var _SubagentManager = class _SubagentManager {
       if (taskResult) {
         return taskResult;
       }
-      const agents = isRecord7(parsed.agents) ? parsed.agents : null;
+      const agents = isRecord9(parsed.agents) ? parsed.agents : null;
       const agentData = agents && agentId ? agents[agentId] : null;
-      if (isRecord7(agentData)) {
+      if (isRecord9(agentData)) {
         const parsedResult2 = this.extractResultFromCandidateString(agentData.result);
         if (parsedResult2) {
           return parsedResult2;
@@ -96139,7 +99286,7 @@ var _SubagentManager = class _SubagentManager {
         const agentIds = Object.keys(agents);
         if (agentIds.length > 0) {
           const firstAgent = agents[agentIds[0]];
-          if (isRecord7(firstAgent)) {
+          if (isRecord9(firstAgent)) {
             const parsedResult2 = this.extractResultFromCandidateString(firstAgent.result);
             if (parsedResult2) {
               return parsedResult2;
@@ -96214,7 +99361,7 @@ var _SubagentManager = class _SubagentManager {
         return agentId;
       }
       const data = parsed.data;
-      if (isRecord7(data) && typeof data.agent_id === "string") {
+      if (isRecord9(data) && typeof data.agent_id === "string") {
         return data.agent_id;
       }
       if (parsed.id && typeof parsed.id === "string") {
@@ -96227,7 +99374,7 @@ var _SubagentManager = class _SubagentManager {
     var _a5;
     const parsed = parseJsonRecord(result);
     if (parsed) {
-      const agents = isRecord7(parsed.agents) ? parsed.agents : null;
+      const agents = isRecord9(parsed.agents) ? parsed.agents : null;
       if (agents) {
         return (_a5 = Object.keys(agents)[0]) != null ? _a5 : null;
       }
@@ -96238,9 +99385,9 @@ var _SubagentManager = class _SubagentManager {
     const parsed = parseJsonValue(raw);
     if (parsed !== null) {
       if (Array.isArray(parsed)) {
-        const textBlock = parsed.find((block) => isRecord7(block) && typeof block.text === "string");
-        if (isRecord7(textBlock) && typeof textBlock.text === "string") return textBlock.text;
-      } else if (isRecord7(parsed) && typeof parsed.text === "string") {
+        const textBlock = parsed.find((block) => isRecord9(block) && typeof block.text === "string");
+        if (isRecord9(textBlock) && typeof textBlock.text === "string") return textBlock.text;
+      } else if (isRecord9(parsed) && typeof parsed.text === "string") {
         return parsed.text;
       }
     }
@@ -96313,7 +99460,7 @@ var _SubagentManager = class _SubagentManager {
     return Array.from(roots);
   }
   isTrustedOutputPath(fullOutputPath) {
-    if (!(0, import_path41.isAbsolute)(fullOutputPath)) {
+    if (!(0, import_path42.isAbsolute)(fullOutputPath)) {
       return false;
     }
     if (!fullOutputPath.toLowerCase().endsWith(_SubagentManager.TRUSTED_OUTPUT_EXT)) {
@@ -96326,7 +99473,7 @@ var _SubagentManager = class _SubagentManager {
       return false;
     }
     return _SubagentManager.TRUSTED_TMP_ROOTS.some(
-      (root) => resolvedPath === root || resolvedPath.startsWith(`${root}${import_path41.sep}`)
+      (root) => resolvedPath === root || resolvedPath.startsWith(`${root}${import_path42.sep}`)
     );
   }
 };
@@ -96683,7 +99830,7 @@ var ChatState = class {
 };
 
 // src/features/chat/ui/BangBashModeManager.ts
-var import_obsidian34 = require("obsidian");
+var import_obsidian35 = require("obsidian");
 var BangBashModeManager = class {
   constructor(inputEl, callbacks) {
     this.state = { active: false, rawCommand: "" };
@@ -96753,7 +99900,7 @@ var BangBashModeManager = class {
       this.clear();
       await this.callbacks.onSubmit(rawCommand);
     } catch (e2) {
-      new import_obsidian34.Notice(`Command failed: ${e2 instanceof Error ? e2.message : String(e2)}`);
+      new import_obsidian35.Notice(`Command failed: ${e2 instanceof Error ? e2.message : String(e2)}`);
     } finally {
       this.isSubmitting = false;
     }
@@ -96770,13 +99917,13 @@ var BangBashModeManager = class {
 };
 
 // src/features/chat/ui/FileContext.ts
-var import_obsidian38 = require("obsidian");
+var import_obsidian39 = require("obsidian");
 
 // src/shared/mention/MentionDropdownController.ts
-var import_obsidian35 = require("obsidian");
+var import_obsidian36 = require("obsidian");
 
 // src/utils/externalContext.ts
-var fs27 = __toESM(require("fs"));
+var fs28 = __toESM(require("fs"));
 init_path();
 function normalizePathForComparison3(p) {
   return normalizePathForComparison(p);
@@ -96836,7 +99983,7 @@ function buildExternalContextDisplayEntries(externalContexts) {
 }
 function validateDirectoryPath(p) {
   try {
-    const stats = fs27.statSync(p);
+    const stats = fs28.statSync(p);
     if (!stats.isDirectory()) {
       return { valid: false, error: "Path exists but is not a directory" };
     }
@@ -96864,8 +100011,8 @@ function isDuplicatePath(newPath, existingPaths) {
 }
 
 // src/utils/externalContextScanner.ts
-var fs28 = __toESM(require("fs"));
-var path24 = __toESM(require("path"));
+var fs29 = __toESM(require("fs"));
+var path25 = __toESM(require("path"));
 init_path();
 var CACHE_TTL_MS = 3e4;
 var MAX_FILES_PER_PATH = 1e3;
@@ -96911,25 +100058,25 @@ var ExternalContextScanner = class {
     if (depth > MAX_DEPTH) return [];
     const files = [];
     try {
-      if (!fs28.existsSync(dir)) return [];
-      const stat = fs28.statSync(dir);
+      if (!fs29.existsSync(dir)) return [];
+      const stat = fs29.statSync(dir);
       if (!stat.isDirectory()) return [];
-      const entries = fs28.readdirSync(dir, { withFileTypes: true });
+      const entries = fs29.readdirSync(dir, { withFileTypes: true });
       for (const entry of entries) {
         if (entry.name.startsWith(".")) continue;
         if (SKIP_DIRECTORIES.has(entry.name)) continue;
         if (entry.isSymbolicLink()) continue;
-        const fullPath = path24.join(dir, entry.name);
+        const fullPath = path25.join(dir, entry.name);
         if (entry.isDirectory()) {
           const subFiles = this.scanDirectory(fullPath, contextRoot, depth + 1);
           files.push(...subFiles);
         } else if (entry.isFile()) {
           try {
-            const fileStat = fs28.statSync(fullPath);
+            const fileStat = fs29.statSync(fullPath);
             files.push({
               path: fullPath,
               name: entry.name,
-              relativePath: path24.relative(contextRoot, fullPath),
+              relativePath: path25.relative(contextRoot, fullPath),
               contextRoot,
               mtime: fileStat.mtimeMs
             });
@@ -97394,17 +100541,17 @@ var MentionDropdownController = class {
             break;
           case "agent":
           case "agent-folder":
-            (0, import_obsidian35.setIcon)(iconEl, "bot");
+            (0, import_obsidian36.setIcon)(iconEl, "bot");
             break;
           case "context-file":
-            (0, import_obsidian35.setIcon)(iconEl, "folder-open");
+            (0, import_obsidian36.setIcon)(iconEl, "folder-open");
             break;
           case "folder":
           case "context-folder":
-            (0, import_obsidian35.setIcon)(iconEl, "folder");
+            (0, import_obsidian36.setIcon)(iconEl, "folder");
             break;
           default:
-            (0, import_obsidian35.setIcon)(iconEl, "file-text");
+            (0, import_obsidian36.setIcon)(iconEl, "file-text");
         }
         const textEl = itemEl.createSpan({ cls: "claudian-mention-text" });
         switch (item.type) {
@@ -97550,7 +100697,7 @@ var MentionDropdownController = class {
 };
 
 // src/shared/mention/VaultMentionCache.ts
-var import_obsidian36 = require("obsidian");
+var import_obsidian37 = require("obsidian");
 var VaultFileCache = class {
   constructor(app, options = {}) {
     this.app = app;
@@ -97629,7 +100776,7 @@ var VaultFolderCache = class {
     }
   }
   loadFolders() {
-    return this.app.vault.getAllLoadedFiles().filter((file2) => file2 instanceof import_obsidian36.TFolder && isVisibleFolder(file2));
+    return this.app.vault.getAllLoadedFiles().filter((file2) => file2 instanceof import_obsidian37.TFolder && isVisibleFolder(file2));
   }
 };
 
@@ -97814,11 +100961,11 @@ var FileContextState = class {
       this.attachedFiles.add(file2);
     }
   }
-  attachFile(path27) {
-    this.attachedFiles.add(path27);
+  attachFile(path28) {
+    this.attachedFiles.add(path28);
   }
-  detachFile(path27) {
-    this.attachedFiles.delete(path27);
+  detachFile(path28) {
+    this.attachedFiles.delete(path28);
   }
   clearAttachments() {
     this.attachedFiles.clear();
@@ -97842,7 +100989,7 @@ var FileContextState = class {
 };
 
 // src/features/chat/ui/file-context/view/FileChipsView.ts
-var import_obsidian37 = require("obsidian");
+var import_obsidian38 = require("obsidian");
 var FileChipsView = class {
   constructor(containerEl, callbacks) {
     this.containerEl = containerEl;
@@ -97872,7 +101019,7 @@ var FileChipsView = class {
   renderFileChip(filePath, onRemove) {
     const chipEl = this.fileIndicatorEl.createDiv({ cls: "claudian-file-chip" });
     const iconEl = chipEl.createSpan({ cls: "claudian-file-chip-icon" });
-    (0, import_obsidian37.setIcon)(iconEl, "file-text");
+    (0, import_obsidian38.setIcon)(iconEl, "file-text");
     const normalizedPath = filePath.replace(/\\/g, "/");
     const filename = normalizedPath.split("/").pop() || filePath;
     const nameEl = chipEl.createSpan({ cls: "claudian-file-chip-name" });
@@ -97920,14 +101067,14 @@ var FileContextManager = class {
       onOpenFile: (filePath) => {
         void (async () => {
           const file2 = this.app.vault.getAbstractFileByPath(filePath);
-          if (!(file2 instanceof import_obsidian38.TFile)) {
-            new import_obsidian38.Notice(`Could not open file: ${filePath}`);
+          if (!(file2 instanceof import_obsidian39.TFile)) {
+            new import_obsidian39.Notice(`Could not open file: ${filePath}`);
             return;
           }
           try {
             await this.app.workspace.getLeaf().openFile(file2);
           } catch (error48) {
-            new import_obsidian38.Notice(`Failed to open file: ${error48 instanceof Error ? error48.message : String(error48)}`);
+            new import_obsidian39.Notice(`Failed to open file: ${error48 instanceof Error ? error48.message : String(error48)}`);
           }
         })();
       }
@@ -97958,10 +101105,10 @@ var FileContextManager = class {
       }
     );
     this.deleteEventRef = this.app.vault.on("delete", (file2) => {
-      if (file2 instanceof import_obsidian38.TFile) this.handleFileDeleted(file2.path);
+      if (file2 instanceof import_obsidian39.TFile) this.handleFileDeleted(file2.path);
     });
     this.renameEventRef = this.app.vault.on("rename", (file2, oldPath) => {
-      if (file2 instanceof import_obsidian38.TFile) this.handleFileRenamed(oldPath, file2.path);
+      if (file2 instanceof import_obsidian39.TFile) this.handleFileRenamed(oldPath, file2.path);
     });
   }
   /** Returns the current note path (shown as chip). */
@@ -98185,10 +101332,10 @@ var FileContextManager = class {
 };
 
 // src/features/chat/ui/ImageContext.ts
-var import_obsidian39 = require("obsidian");
-var path25 = __toESM(require("path"));
+var import_obsidian40 = require("obsidian");
+var path26 = __toESM(require("path"));
 var MAX_IMAGE_SIZE = 5 * 1024 * 1024;
-var IMAGE_EXTENSIONS2 = {
+var IMAGE_EXTENSIONS3 = {
   ".jpg": "image/jpeg",
   ".jpeg": "image/jpeg",
   ".png": "image/png",
@@ -98338,12 +101485,12 @@ var ImageContextManager = class {
     return file2.type.startsWith("image/") && this.getMediaType(file2.name) !== null;
   }
   getMediaType(filename) {
-    const ext = path25.extname(filename).toLowerCase();
-    return IMAGE_EXTENSIONS2[ext] || null;
+    const ext = path26.extname(filename).toLowerCase();
+    return IMAGE_EXTENSIONS3[ext] || null;
   }
   async addImageFromFile(file2, source) {
     if (!this.enabled) {
-      new import_obsidian39.Notice("Image attachments are not supported by this provider.");
+      new import_obsidian40.Notice("Image attachments are not supported by this provider.");
       return false;
     }
     if (file2.size > MAX_IMAGE_SIZE) {
@@ -98456,7 +101603,7 @@ var ImageContextManager = class {
   }
   truncateName(name, maxLen) {
     if (name.length <= maxLen) return name;
-    const ext = path25.extname(name);
+    const ext = path26.extname(name);
     const base = name.slice(0, name.length - ext.length);
     const truncatedBase = base.slice(0, maxLen - ext.length - 3);
     return `${truncatedBase}...${ext}`;
@@ -98475,18 +101622,18 @@ var ImageContextManager = class {
         userMessage = `${message} (Permission denied)`;
       }
     }
-    new import_obsidian39.Notice(userMessage);
+    new import_obsidian40.Notice(userMessage);
   }
 };
 
 // src/features/chat/ui/InputToolbar.ts
-var import_obsidian40 = require("obsidian");
-var os13 = __toESM(require("os"));
-var path26 = __toESM(require("path"));
+var import_obsidian41 = require("obsidian");
+var os14 = __toESM(require("os"));
+var path27 = __toESM(require("path"));
 init_path();
 function runToolbarAction(action, failureMessage) {
   void action().catch(() => {
-    new import_obsidian40.Notice(failureMessage);
+    new import_obsidian41.Notice(failureMessage);
   });
 }
 var ModelSelector = class {
@@ -98673,6 +101820,9 @@ var ThinkingBudgetSelector = class {
     for (const effort of [...options].reverse()) {
       const gearEl = optionsEl.createDiv({ cls: "claudian-thinking-gear" });
       gearEl.setText(effort.label);
+      if (effort.description) {
+        gearEl.setAttribute("title", effort.description);
+      }
       if (effort.value === currentEffort) {
         gearEl.addClass("selected");
       }
@@ -98826,7 +101976,7 @@ var ServiceTierToggle = class {
     this.container.empty();
     this.buttonEl = this.container.createDiv({ cls: "claudian-service-tier-button" });
     this.iconEl = this.buttonEl.createSpan({ cls: "claudian-service-tier-icon" });
-    (0, import_obsidian40.setIcon)(this.iconEl, "zap");
+    (0, import_obsidian41.setIcon)(this.iconEl, "zap");
     this.updateDisplay();
     this.buttonEl.addEventListener("click", () => {
       runToolbarAction(() => this.toggle(), "Failed to change service tier");
@@ -98905,28 +102055,28 @@ var ExternalContextSelector = class {
     this.renderDropdown();
     if (invalidPaths.length > 0) {
       const pathNames = invalidPaths.map((p) => this.shortenPath(p)).join(", ");
-      new import_obsidian40.Notice(`Removed ${invalidPaths.length} invalid external context path(s): ${pathNames}`, 5e3);
+      new import_obsidian41.Notice(`Removed ${invalidPaths.length} invalid external context path(s): ${pathNames}`, 5e3);
       (_a5 = this.onPersistenceChangeCallback) == null ? void 0 : _a5.call(this, [...this.persistentPaths]);
     }
   }
-  togglePersistence(path27) {
+  togglePersistence(path28) {
     var _a5;
-    if (this.persistentPaths.has(path27)) {
-      this.persistentPaths.delete(path27);
+    if (this.persistentPaths.has(path28)) {
+      this.persistentPaths.delete(path28);
     } else {
-      if (!isValidDirectoryPath(path27)) {
-        new import_obsidian40.Notice(`Cannot persist "${this.shortenPath(path27)}" - directory no longer exists`, 4e3);
+      if (!isValidDirectoryPath(path28)) {
+        new import_obsidian41.Notice(`Cannot persist "${this.shortenPath(path28)}" - directory no longer exists`, 4e3);
         return;
       }
-      this.persistentPaths.add(path27);
+      this.persistentPaths.add(path28);
     }
     (_a5 = this.onPersistenceChangeCallback) == null ? void 0 : _a5.call(this, [...this.persistentPaths]);
     this.renderDropdown();
   }
   mergePersistentPaths() {
     const pathSet = new Set(this.externalContextPaths);
-    for (const path27 of this.persistentPaths) {
-      pathSet.add(path27);
+    for (const path28 of this.persistentPaths) {
+      pathSet.add(path28);
     }
     this.externalContextPaths = [...pathSet];
   }
@@ -98973,7 +102123,7 @@ var ExternalContextSelector = class {
     }
     const expandedPath = expandHomePath(cleanPath);
     const normalizedPath = normalizePathForFilesystem(expandedPath);
-    if (!path26.isAbsolute(normalizedPath)) {
+    if (!path27.isAbsolute(normalizedPath)) {
       return { success: false, error: "Path must be absolute. Usage: /add-dir /absolute/path" };
     }
     const validation = validateDirectoryPath(normalizedPath);
@@ -99011,7 +102161,7 @@ var ExternalContextSelector = class {
     this.container.empty();
     const iconWrapper = this.container.createDiv({ cls: "claudian-external-context-icon-wrapper" });
     this.iconEl = iconWrapper.createDiv({ cls: "claudian-external-context-icon" });
-    (0, import_obsidian40.setIcon)(this.iconEl, "folder");
+    (0, import_obsidian41.setIcon)(this.iconEl, "folder");
     this.badgeEl = iconWrapper.createDiv({ cls: "claudian-external-context-badge" });
     this.updateDisplay();
     iconWrapper.addEventListener("click", (e2) => {
@@ -99035,12 +102185,12 @@ var ExternalContextSelector = class {
       if (!result.canceled && result.filePaths.length > 0) {
         const selectedPath = result.filePaths[0];
         if (isDuplicatePath(selectedPath, this.externalContextPaths)) {
-          new import_obsidian40.Notice("This folder is already added as an external context.", 3e3);
+          new import_obsidian41.Notice("This folder is already added as an external context.", 3e3);
           return;
         }
         const conflict = findConflictingPath(selectedPath, this.externalContextPaths);
         if (conflict) {
-          new import_obsidian40.Notice(this.formatConflictMessage(selectedPath, conflict), 5e3);
+          new import_obsidian41.Notice(this.formatConflictMessage(selectedPath, conflict), 5e3);
           return;
         }
         this.externalContextPaths = [...this.externalContextPaths, selectedPath];
@@ -99049,7 +102199,7 @@ var ExternalContextSelector = class {
         this.renderDropdown();
       }
     } catch (e2) {
-      new import_obsidian40.Notice("Unable to open folder picker.", 5e3);
+      new import_obsidian41.Notice("Unable to open folder picker.", 5e3);
     }
   }
   /** Formats a conflict error message for display. */
@@ -99079,14 +102229,14 @@ var ExternalContextSelector = class {
         if (isPersistent) {
           lockBtn.addClass("locked");
         }
-        (0, import_obsidian40.setIcon)(lockBtn, isPersistent ? "lock" : "unlock");
+        (0, import_obsidian41.setIcon)(lockBtn, isPersistent ? "lock" : "unlock");
         lockBtn.setAttribute("title", isPersistent ? "Persistent (click to make session-only)" : "Session-only (click to persist)");
         lockBtn.addEventListener("click", (e2) => {
           e2.stopPropagation();
           this.togglePersistence(pathStr);
         });
         const removeBtn = itemEl.createSpan({ cls: "claudian-external-context-remove" });
-        (0, import_obsidian40.setIcon)(removeBtn, "x");
+        (0, import_obsidian41.setIcon)(removeBtn, "x");
         removeBtn.setAttribute("title", "Remove path");
         removeBtn.addEventListener("click", (e2) => {
           e2.stopPropagation();
@@ -99098,7 +102248,7 @@ var ExternalContextSelector = class {
   /** Shorten path for display (replace home dir with ~) */
   shortenPath(fullPath) {
     try {
-      const homeDir = os13.homedir();
+      const homeDir = os14.homedir();
       const normalize3 = (value) => value.replace(/\\/g, "/");
       const normalizedFull = normalize3(fullPath);
       const normalizedHome = normalize3(homeDir);
@@ -99536,7 +102686,7 @@ var InstructionModeManager = class {
 };
 
 // src/features/chat/ui/NavigationSidebar.ts
-var import_obsidian41 = require("obsidian");
+var import_obsidian42 = require("obsidian");
 var NavigationSidebar = class {
   constructor(parentEl, messagesEl) {
     this.parentEl = parentEl;
@@ -99559,7 +102709,7 @@ var NavigationSidebar = class {
   }
   createButton(cls, icon, label) {
     const btn = this.container.createDiv({ cls: `claudian-nav-btn ${cls}` });
-    (0, import_obsidian41.setIcon)(btn, icon);
+    (0, import_obsidian42.setIcon)(btn, icon);
     btn.setAttribute("aria-label", label);
     return btn;
   }
@@ -99761,7 +102911,7 @@ var NavigationSidebar = class {
 };
 
 // src/features/chat/ui/StatusPanel.ts
-var import_obsidian42 = require("obsidian");
+var import_obsidian43 = require("obsidian");
 var MAX_BASH_OUTPUTS = 50;
 var StatusPanel = class {
   constructor() {
@@ -99926,7 +103076,7 @@ var StatusPanel = class {
     const ownerDocument = (_a5 = this.todoHeaderEl.ownerDocument) != null ? _a5 : window.document;
     const icon = ownerDocument.createElement("span");
     icon.className = "claudian-status-panel-icon";
-    (0, import_obsidian42.setIcon)(icon, getToolIcon(TOOL_TODO_WRITE));
+    (0, import_obsidian43.setIcon)(icon, getToolIcon(TOOL_TODO_WRITE));
     this.todoHeaderEl.appendChild(icon);
     const label = ownerDocument.createElement("span");
     label.className = "claudian-status-panel-label";
@@ -99936,7 +103086,7 @@ var StatusPanel = class {
       if (completedCount === totalCount && totalCount > 0) {
         const status = ownerDocument.createElement("span");
         status.className = "claudian-status-panel-status status-completed";
-        (0, import_obsidian42.setIcon)(status, "check");
+        (0, import_obsidian43.setIcon)(status, "check");
         this.todoHeaderEl.appendChild(status);
       }
       if (currentTask) {
@@ -100039,7 +103189,7 @@ var StatusPanel = class {
     const headerIconEl = ownerDocument.createElement("span");
     headerIconEl.className = "claudian-tool-icon";
     headerIconEl.setAttribute("aria-hidden", "true");
-    (0, import_obsidian42.setIcon)(headerIconEl, "terminal");
+    (0, import_obsidian43.setIcon)(headerIconEl, "terminal");
     this.bashHeaderEl.appendChild(headerIconEl);
     const latest = Array.from(this.currentBashOutputs.values()).at(-1);
     const headerLabelEl = ownerDocument.createElement("span");
@@ -100059,8 +103209,8 @@ var StatusPanel = class {
     if (!this.isBashExpanded && latest) {
       summaryStatusEl.classList.add(`status-${latest.status}`);
       summaryStatusEl.setAttribute("aria-label", t10("chat.bangBash.statusLabel", { status: latest.status }));
-      if (latest.status === "completed") (0, import_obsidian42.setIcon)(summaryStatusEl, "check");
-      if (latest.status === "error") (0, import_obsidian42.setIcon)(summaryStatusEl, "x");
+      if (latest.status === "completed") (0, import_obsidian43.setIcon)(summaryStatusEl, "check");
+      if (latest.status === "error") (0, import_obsidian43.setIcon)(summaryStatusEl, "x");
     } else {
       summaryStatusEl.classList.add("claudian-hidden");
     }
@@ -100098,7 +103248,7 @@ var StatusPanel = class {
     const entryIconEl = ownerDocument.createElement("span");
     entryIconEl.className = "claudian-tool-icon";
     entryIconEl.setAttribute("aria-hidden", "true");
-    (0, import_obsidian42.setIcon)(entryIconEl, "dollar-sign");
+    (0, import_obsidian43.setIcon)(entryIconEl, "dollar-sign");
     entryHeaderEl.appendChild(entryIconEl);
     const entryLabelEl = ownerDocument.createElement("span");
     entryLabelEl.className = "claudian-tool-label";
@@ -100108,8 +103258,8 @@ var StatusPanel = class {
     entryStatusEl.className = "claudian-tool-status";
     entryStatusEl.classList.add(`status-${info.status}`);
     entryStatusEl.setAttribute("aria-label", t10("chat.bangBash.statusLabel", { status: info.status }));
-    if (info.status === "completed") (0, import_obsidian42.setIcon)(entryStatusEl, "check");
-    if (info.status === "error") (0, import_obsidian42.setIcon)(entryStatusEl, "x");
+    if (info.status === "completed") (0, import_obsidian43.setIcon)(entryStatusEl, "check");
+    if (info.status === "error") (0, import_obsidian43.setIcon)(entryStatusEl, "x");
     entryHeaderEl.appendChild(entryStatusEl);
     entryEl.appendChild(entryHeaderEl);
     const contentEl = ownerDocument.createElement("div");
@@ -100153,7 +103303,7 @@ ${output}` : `$ ${latest.command}`;
     try {
       await navigator.clipboard.writeText(text);
     } catch (e2) {
-      new import_obsidian42.Notice(t10("chat.bangBash.copyFailed"));
+      new import_obsidian43.Notice(t10("chat.bangBash.copyFailed"));
     }
   }
   appendActionButton(parent, name, ariaLabel, icon, action) {
@@ -100163,7 +103313,7 @@ ${output}` : `$ ${latest.command}`;
     el2.setAttribute("role", "button");
     el2.setAttribute("tabindex", "0");
     el2.setAttribute("aria-label", ariaLabel);
-    (0, import_obsidian42.setIcon)(el2, icon);
+    (0, import_obsidian43.setIcon)(el2, icon);
     el2.addEventListener("click", (e2) => {
       e2.stopPropagation();
       action();
@@ -100336,10 +103486,33 @@ function getTabChatUIConfig(tab, plugin, conversation) {
   return ProviderRegistry.getChatUIConfig(getTabProviderId(tab, plugin, conversation));
 }
 function getTabSettingsSnapshot(tab, plugin) {
+  const providerId = getTabProviderId(tab, plugin);
+  return getProviderSettingsSnapshotWithModel(
+    plugin.settings,
+    providerId,
+    getTabSelectedModel(tab, plugin)
+  );
+}
+function getWritableTabSettingsSnapshot(tab, plugin) {
   return ProviderSettingsCoordinator.getProviderSettingsSnapshot(
     plugin.settings,
     getTabProviderId(tab, plugin)
   );
+}
+function getTabConversation(tab, plugin) {
+  return tab.conversationId ? plugin.getConversationSync(tab.conversationId) : null;
+}
+function getTabSelectedModel(tab, plugin) {
+  var _a5, _b3, _c2, _d, _e2, _f2, _g, _h2;
+  const providerId = getTabProviderId(tab, plugin);
+  if (tab.lifecycleState === "blank") {
+    return (_e2 = (_d = (_c2 = normalizeProviderModelSelection(providerId, plugin.settings, tab.draftModel)) != null ? _c2 : (_b3 = (_a5 = tab.service) == null ? void 0 : _a5.getAuxiliaryModel) == null ? void 0 : _b3.call(_a5)) != null ? _d : tab.draftModel) != null ? _e2 : null;
+  }
+  const conversation = getTabConversation(tab, plugin);
+  if (conversation) {
+    return resolveConversationModel(plugin.settings, providerId, conversation).model;
+  }
+  return (_h2 = (_g = (_f2 = tab.service) == null ? void 0 : _f2.getAuxiliaryModel) == null ? void 0 : _g.call(_f2)) != null ? _h2 : null;
 }
 function getTabPermissionMode(tab, plugin) {
   const permissionMode = getTabSettingsSnapshot(tab, plugin).permissionMode;
@@ -100358,7 +103531,7 @@ function isEnterWithoutShiftOrComposition(e2) {
   return true;
 }
 function hasPlatformSendModifier(e2) {
-  if (import_obsidian43.Platform.isMacOS) {
+  if (import_obsidian44.Platform.isMacOS) {
     return e2.metaKey === true && !e2.ctrlKey && !e2.altKey;
   }
   return e2.ctrlKey === true && !e2.metaKey && !e2.altKey;
@@ -100431,7 +103604,7 @@ function syncSlashCommandDropdownForProvider(tab, plugin, getProviderCatalogConf
 }
 async function updateTabProviderSettings(tab, plugin, update) {
   const providerId = getTabProviderId(tab, plugin);
-  const snapshot = getTabSettingsSnapshot(tab, plugin);
+  const snapshot = getWritableTabSettingsSnapshot(tab, plugin);
   update(snapshot);
   ProviderSettingsCoordinator.commitProviderSettingsSnapshot(
     plugin.settings,
@@ -100643,6 +103816,7 @@ async function initializeTabService(tab, plugin, argOrOverride, maybeOverride) {
   const conversationOverride = isConversationLike(argOrOverride) ? argOrOverride : argOrOverride === null ? null : maybeOverride;
   const conversation = conversationOverride != null ? conversationOverride : tab.conversationId ? await plugin.getConversationById(tab.conversationId) : null;
   const providerId = getTabProviderId(tab, plugin, conversation);
+  const selectedModel = conversation ? resolveConversationModel(plugin.settings, providerId, conversation).model : getTabSelectedModel(tab, plugin);
   if (tab.serviceInitialized && ((_a5 = tab.service) == null ? void 0 : _a5.providerId) === providerId) {
     return;
   }
@@ -100660,11 +103834,10 @@ async function initializeTabService(tab, plugin, argOrOverride, maybeOverride) {
     unsubscribeReadyState = runtime.onReadyStateChange(() => {
     });
     tab.dom.eventCleanups.push(() => unsubscribeReadyState == null ? void 0 : unsubscribeReadyState());
-    if (conversation) {
-      const hasMessages = conversation.messages.length > 0;
-      const externalContextPaths = hasMessages ? conversation.externalContextPaths || [] : plugin.settings.persistentExternalContextPaths || [];
-      runtime.syncConversationState(conversation, externalContextPaths);
-    }
+    const hasMessages = conversation ? conversation.messages.length > 0 : false;
+    const externalContextPaths = conversation && hasMessages ? conversation.externalContextPaths || [] : plugin.settings.persistentExternalContextPaths || [];
+    const runtimeConversationState = conversation != null ? conversation : selectedModel ? { sessionId: null, selectedModel } : null;
+    runtime.syncConversationState(runtimeConversationState, externalContextPaths);
     if (isClosingLifecycleState(tab.lifecycleState)) {
       unsubscribeReadyState == null ? void 0 : unsubscribeReadyState();
       service == null ? void 0 : service.cleanup();
@@ -100817,7 +103990,7 @@ function initializeInputToolbar(tab, plugin, getProviderCatalogConfig, onProvide
     getSettings: () => getTabSettingsSnapshot(tab, plugin),
     getEnvironmentVariables: () => plugin.getActiveEnvironmentVariables(),
     onModelChange: async (model) => {
-      var _a6, _b3, _c2, _d, _e2, _f2, _g, _h2, _i, _j, _k3, _l2, _m;
+      var _a6, _b3, _c2, _d, _e2, _f2, _g, _h2, _i, _j, _k3, _l2, _m, _n, _o, _p, _q3, _r, _s;
       if (tab.lifecycleState === "blank") {
         const previousProvider = tab.providerId;
         tab.draftModel = model;
@@ -100835,14 +104008,15 @@ function initializeInputToolbar(tab, plugin, getProviderCatalogConfig, onProvide
         }
         syncSlashCommandDropdownForProvider(tab, plugin, getProviderCatalogConfig);
         const uiConfig2 = ProviderRegistry.getChatUIConfig(newProvider);
-        await updateTabProviderSettings(tab, plugin, (settings11) => {
-          settings11.model = model;
-          uiConfig2.applyModelDefaults(model, settings11);
-        });
         if (didProviderChange) {
           await (onProviderChanged == null ? void 0 : onProviderChanged(newProvider));
         }
-        await ((_a6 = uiConfig2.prepareModelMetadata) == null ? void 0 : _a6.call(uiConfig2, model, plugin.settings, { plugin }));
+        await ((_a6 = uiConfig2.prepareModelMetadata) == null ? void 0 : _a6.call(
+          uiConfig2,
+          model,
+          getProviderSettingsSnapshotWithModel(plugin.settings, newProvider, model),
+          { plugin }
+        ));
         (_b3 = tab.ui.thinkingBudgetSelector) == null ? void 0 : _b3.updateDisplay();
         (_c2 = tab.ui.serviceTierToggle) == null ? void 0 : _c2.updateDisplay();
         (_d = tab.ui.modelSelector) == null ? void 0 : _d.updateDisplay();
@@ -100855,28 +104029,41 @@ function initializeInputToolbar(tab, plugin, getProviderCatalogConfig, onProvide
       const boundProvider = tab.providerId;
       const modelProvider = getProviderForModel(model, plugin.settings);
       if (modelProvider !== boundProvider) {
-        new import_obsidian43.Notice("Cannot switch provider on a bound session. Start a new tab instead.");
+        new import_obsidian44.Notice("Cannot switch provider on a bound session. Start a new tab instead.");
         (_h2 = tab.ui.modelSelector) == null ? void 0 : _h2.updateDisplay();
         return;
       }
       const uiConfig = getTabChatUIConfig(tab, plugin);
-      const providerSettings = await updateTabProviderSettings(tab, plugin, (settings11) => {
-        settings11.model = model;
-        uiConfig.applyModelDefaults(model, settings11);
-      });
-      await ((_i = uiConfig.prepareModelMetadata) == null ? void 0 : _i.call(uiConfig, model, plugin.settings, { plugin }));
-      (_j = tab.ui.thinkingBudgetSelector) == null ? void 0 : _j.updateDisplay();
-      (_k3 = tab.ui.serviceTierToggle) == null ? void 0 : _k3.updateDisplay();
-      (_l2 = tab.ui.modelSelector) == null ? void 0 : _l2.updateDisplay();
-      (_m = tab.ui.modelSelector) == null ? void 0 : _m.renderOptions();
+      const normalizedModel = (_i = normalizeProviderModelSelection(boundProvider, plugin.settings, model)) != null ? _i : model;
+      const providerSettings = getProviderSettingsSnapshotWithModel(
+        plugin.settings,
+        boundProvider,
+        normalizedModel
+      );
+      if (tab.conversationId) {
+        await plugin.updateConversation(tab.conversationId, {
+          selectedModel: normalizedModel
+        });
+        const updatedConversation = plugin.getConversationSync(tab.conversationId);
+        if (updatedConversation && ((_j = tab.service) == null ? void 0 : _j.providerId) === boundProvider) {
+          const hasMessages = updatedConversation.messages.length > 0;
+          const externalContextPaths = (_n = (_k3 = tab.ui.externalContextSelector) == null ? void 0 : _k3.getExternalContexts()) != null ? _n : hasMessages ? (_l2 = updatedConversation.externalContextPaths) != null ? _l2 : [] : (_m = plugin.settings.persistentExternalContextPaths) != null ? _m : [];
+          tab.service.syncConversationState(updatedConversation, externalContextPaths);
+        }
+      }
+      await ((_o = uiConfig.prepareModelMetadata) == null ? void 0 : _o.call(uiConfig, normalizedModel, providerSettings, { plugin }));
+      (_p = tab.ui.thinkingBudgetSelector) == null ? void 0 : _p.updateDisplay();
+      (_q3 = tab.ui.serviceTierToggle) == null ? void 0 : _q3.updateDisplay();
+      (_r = tab.ui.modelSelector) == null ? void 0 : _r.updateDisplay();
+      (_s = tab.ui.modelSelector) == null ? void 0 : _s.renderOptions();
       const currentUsage = tab.state.usage;
       if (currentUsage) {
         const newContextWindow = uiConfig.getContextWindowSize(
-          model,
+          normalizedModel,
           providerSettings.customContextLimits,
           providerSettings
         );
-        tab.state.usage = recalculateUsageForModel(currentUsage, model, newContextWindow);
+        tab.state.usage = recalculateUsageForModel(currentUsage, normalizedModel, newContextWindow);
       }
     },
     onModeChange: async (mode) => {
@@ -100890,16 +104077,18 @@ function initializeInputToolbar(tab, plugin, getProviderCatalogConfig, onProvide
     },
     onThinkingBudgetChange: async (budget) => {
       await updateTabProviderSettings(tab, plugin, (settings11) => {
-        var _a6, _b3;
+        var _a6, _b3, _c2;
+        const model = (_a6 = getTabSelectedModel(tab, plugin)) != null ? _a6 : settings11.model;
         settings11.thinkingBudget = budget;
-        (_b3 = (_a6 = getTabChatUIConfig(tab, plugin)).applyReasoningSelection) == null ? void 0 : _b3.call(_a6, settings11.model, budget, settings11);
+        (_c2 = (_b3 = getTabChatUIConfig(tab, plugin)).applyReasoningSelection) == null ? void 0 : _c2.call(_b3, model, budget, settings11);
       });
     },
     onEffortLevelChange: async (effort) => {
       await updateTabProviderSettings(tab, plugin, (settings11) => {
-        var _a6, _b3;
+        var _a6, _b3, _c2;
+        const model = (_a6 = getTabSelectedModel(tab, plugin)) != null ? _a6 : settings11.model;
         settings11.effortLevel = effort;
-        (_b3 = (_a6 = getTabChatUIConfig(tab, plugin)).applyReasoningSelection) == null ? void 0 : _b3.call(_a6, settings11.model, effort, settings11);
+        (_c2 = (_b3 = getTabChatUIConfig(tab, plugin)).applyReasoningSelection) == null ? void 0 : _c2.call(_b3, model, effort, settings11);
       });
     },
     onServiceTierChange: async (serviceTier) => {
@@ -101009,17 +104198,19 @@ function countUserMessagesForForkTitle(messages) {
   return messages.filter((m4) => m4.role === "user" && !m4.isInterrupt && !m4.isRebuiltContext).length;
 }
 function resolveForkSource(tab, plugin) {
-  var _a5;
+  var _a5, _b3;
   const conversation = tab.conversationId ? plugin.getConversationSync(tab.conversationId) : null;
   const sourceSessionId = tab.service ? tab.service.resolveSessionIdForFork(conversation != null ? conversation : null) : ProviderRegistry.getConversationHistoryService((_a5 = conversation == null ? void 0 : conversation.providerId) != null ? _a5 : tab.providerId).resolveSessionIdForConversation(conversation);
   if (!sourceSessionId) {
-    new import_obsidian43.Notice(t10("chat.fork.failed", { error: t10("chat.fork.errorNoSession") }));
+    new import_obsidian44.Notice(t10("chat.fork.failed", { error: t10("chat.fork.errorNoSession") }));
     return null;
   }
+  const providerId = getTabProviderId(tab, plugin, conversation);
   return {
-    providerId: getTabProviderId(tab, plugin, conversation),
+    providerId,
     sourceSessionId,
     sourceProviderState: conversation == null ? void 0 : conversation.providerState,
+    sourceSelectedModel: conversation ? resolveConversationModel(plugin.settings, providerId, conversation).model : (_b3 = getTabSelectedModel(tab, plugin)) != null ? _b3 : void 0,
     sourceTitle: conversation == null ? void 0 : conversation.title,
     currentNote: conversation == null ? void 0 : conversation.currentNote
   };
@@ -101027,26 +104218,26 @@ function resolveForkSource(tab, plugin) {
 async function handleForkRequest(tab, plugin, userMessageId, forkRequestCallback) {
   const { state } = tab;
   if (!getTabCapabilities(tab, plugin).supportsFork) {
-    new import_obsidian43.Notice("Fork is not supported by this provider.");
+    new import_obsidian44.Notice("Fork is not supported by this provider.");
     return;
   }
   if (state.isStreaming) {
-    new import_obsidian43.Notice(t10("chat.fork.unavailableStreaming"));
+    new import_obsidian44.Notice(t10("chat.fork.unavailableStreaming"));
     return;
   }
   const msgs = state.messages;
   const userIdx = msgs.findIndex((m4) => m4.id === userMessageId);
   if (userIdx === -1) {
-    new import_obsidian43.Notice(t10("chat.fork.failed", { error: t10("chat.fork.errorMessageNotFound") }));
+    new import_obsidian44.Notice(t10("chat.fork.failed", { error: t10("chat.fork.errorMessageNotFound") }));
     return;
   }
   if (!msgs[userIdx].userMessageId) {
-    new import_obsidian43.Notice(t10("chat.fork.unavailableNoUuid"));
+    new import_obsidian44.Notice(t10("chat.fork.unavailableNoUuid"));
     return;
   }
   const rewindCtx = findRewindContext(msgs, userIdx);
   if (!rewindCtx.hasResponse || !rewindCtx.prevAssistantUuid) {
-    new import_obsidian43.Notice(t10("chat.fork.unavailableNoResponse"));
+    new import_obsidian44.Notice(t10("chat.fork.unavailableNoResponse"));
     return;
   }
   const source = resolveForkSource(tab, plugin);
@@ -101056,6 +104247,7 @@ async function handleForkRequest(tab, plugin, userMessageId, forkRequestCallback
     providerId: source.providerId,
     sourceSessionId: source.sourceSessionId,
     sourceProviderState: source.sourceProviderState,
+    sourceSelectedModel: source.sourceSelectedModel,
     resumeAt: rewindCtx.prevAssistantUuid,
     sourceTitle: source.sourceTitle,
     forkAtUserMessage: countUserMessagesForForkTitle(msgs.slice(0, userIdx + 1)),
@@ -101065,16 +104257,16 @@ async function handleForkRequest(tab, plugin, userMessageId, forkRequestCallback
 async function handleForkAll(tab, plugin, forkRequestCallback) {
   const { state } = tab;
   if (!getTabCapabilities(tab, plugin).supportsFork) {
-    new import_obsidian43.Notice("Fork is not supported by this provider.");
+    new import_obsidian44.Notice("Fork is not supported by this provider.");
     return;
   }
   if (state.isStreaming) {
-    new import_obsidian43.Notice(t10("chat.fork.unavailableStreaming"));
+    new import_obsidian44.Notice(t10("chat.fork.unavailableStreaming"));
     return;
   }
   const msgs = state.messages;
   if (msgs.length === 0) {
-    new import_obsidian43.Notice(t10("chat.fork.commandNoMessages"));
+    new import_obsidian44.Notice(t10("chat.fork.commandNoMessages"));
     return;
   }
   let lastAssistantUuid;
@@ -101085,7 +104277,7 @@ async function handleForkAll(tab, plugin, forkRequestCallback) {
     }
   }
   if (!lastAssistantUuid) {
-    new import_obsidian43.Notice(t10("chat.fork.commandNoAssistantUuid"));
+    new import_obsidian44.Notice(t10("chat.fork.commandNoAssistantUuid"));
     return;
   }
   const source = resolveForkSource(tab, plugin);
@@ -101095,6 +104287,7 @@ async function handleForkAll(tab, plugin, forkRequestCallback) {
     providerId: source.providerId,
     sourceSessionId: source.sourceSessionId,
     sourceProviderState: source.sourceProviderState,
+    sourceSelectedModel: source.sourceSelectedModel,
     resumeAt: lastAssistantUuid,
     sourceTitle: source.sourceTitle,
     forkAtUserMessage: countUserMessagesForForkTitle(msgs) + 1,
@@ -101186,6 +104379,7 @@ function initializeTabControllers(tab, plugin, component, arg4, arg5, arg6, arg7
       getStatusPanel: () => ui.statusPanel,
       getAgentService: () => tab.service,
       // Use tab's service instead of plugin's
+      getSelectedModel: () => getTabSelectedModel(tab, plugin),
       dismissPendingInlinePrompts: () => {
         var _a5;
         return (_a5 = tab.controllers.inputController) == null ? void 0 : _a5.dismissPendingApproval();
@@ -101260,10 +104454,7 @@ function initializeTabControllers(tab, plugin, component, arg4, arg5, arg6, arg7
     generateId: generateMessageId,
     resetInputHeight: () => {
     },
-    getAuxiliaryModel: () => {
-      var _a5, _b3, _c2, _d;
-      return (_d = (_c2 = (_b3 = (_a5 = tab.service) == null ? void 0 : _a5.getAuxiliaryModel) == null ? void 0 : _b3.call(_a5)) != null ? _c2 : tab.draftModel) != null ? _d : null;
-    },
+    getAuxiliaryModel: () => getTabSelectedModel(tab, plugin),
     getAgentService: () => tab.service,
     getSubagentManager: () => services.subagentManager,
     getTabProviderId: () => getTabProviderId(tab, plugin),
@@ -101285,7 +104476,7 @@ function initializeTabControllers(tab, plugin, component, arg4, arg5, arg6, arg7
         applyProviderUIGating(tab, plugin);
         return true;
       } catch (error48) {
-        new import_obsidian43.Notice(error48 instanceof Error ? error48.message : "Failed to initialize chat service");
+        new import_obsidian44.Notice(error48 instanceof Error ? error48.message : "Failed to initialize chat service");
         return false;
       }
     },
@@ -101644,7 +104835,7 @@ async function renderAutoTriggeredTurn(tab, result) {
 function updatePlanModeUI(tab, plugin, mode) {
   var _a5;
   const providerId = getTabProviderId(tab, plugin);
-  const snapshot = getTabSettingsSnapshot(tab, plugin);
+  const snapshot = getWritableTabSettingsSnapshot(tab, plugin);
   const uiConfig = ProviderRegistry.getChatUIConfig(providerId);
   if (uiConfig.applyPermissionMode) {
     uiConfig.applyPermissionMode(mode, snapshot);
@@ -101695,6 +104886,12 @@ var TabBar = class {
       this.renderBadge(item);
     }
     this.restoreScrollPosition();
+  }
+  getExpandedTitleTabIds() {
+    return Array.from(this.expandedTitleTabIds);
+  }
+  setExpandedTitleTabIds(tabIds) {
+    this.expandedTitleTabIds = new Set(tabIds);
   }
   /** Renders a single tab badge. */
   renderBadge(item) {
@@ -101770,6 +104967,7 @@ var TabBar = class {
     }
   }
   toggleBadgeTitle(item, badgeEl) {
+    var _a5, _b3;
     if (this.expandedTitleTabIds.has(item.id)) {
       this.expandedTitleTabIds.delete(item.id);
     } else {
@@ -101779,6 +104977,7 @@ var TabBar = class {
     badgeEl.textContent = this.getBadgeLabel(item);
     badgeEl.toggleClass("claudian-tab-badge-expanded", isTitleExpanded);
     badgeEl.setAttribute("data-title-expanded", isTitleExpanded ? "true" : "false");
+    (_b3 = (_a5 = this.callbacks).onTitleExpansionChanged) == null ? void 0 : _b3.call(_a5, this.getExpandedTitleTabIds());
   }
   getBadgeLabel(item) {
     if (!this.expandedTitleTabIds.has(item.id)) {
@@ -101796,16 +104995,16 @@ var TabBar = class {
 };
 
 // src/features/chat/tabs/TabManager.ts
-var import_obsidian45 = require("obsidian");
+var import_obsidian46 = require("obsidian");
 
 // src/shared/modals/ForkTargetModal.ts
-var import_obsidian44 = require("obsidian");
+var import_obsidian45 = require("obsidian");
 function chooseForkTarget(app) {
   return new Promise((resolve8) => {
     new ForkTargetModal(app, resolve8).open();
   });
 }
-var ForkTargetModal = class extends import_obsidian44.Modal {
+var ForkTargetModal = class extends import_obsidian45.Modal {
   constructor(app, resolve8) {
     super(app);
     this.resolved = false;
@@ -102152,17 +105351,17 @@ var TabManager = class {
       const tab = await this.forkToNewTab(context);
       if (!tab) {
         const maxTabs = this.getMaxTabs();
-        new import_obsidian45.Notice(t10("chat.fork.maxTabsReached", { count: String(maxTabs) }));
+        new import_obsidian46.Notice(t10("chat.fork.maxTabsReached", { count: String(maxTabs) }));
         return;
       }
-      new import_obsidian45.Notice(t10("chat.fork.notice"));
+      new import_obsidian46.Notice(t10("chat.fork.notice"));
     } else {
       const success2 = await this.forkInCurrentTab(context);
       if (!success2) {
-        new import_obsidian45.Notice(t10("chat.fork.failed", { error: t10("chat.fork.errorNoActiveTab") }));
+        new import_obsidian46.Notice(t10("chat.fork.failed", { error: t10("chat.fork.errorNoActiveTab") }));
         return;
       }
-      new import_obsidian45.Notice(t10("chat.fork.noticeCurrentTab"));
+      new import_obsidian46.Notice(t10("chat.fork.noticeCurrentTab"));
     }
   }
   async forkToNewTab(context) {
@@ -102194,7 +105393,8 @@ var TabManager = class {
   }
   async createForkConversation(context) {
     const conversation = await this.plugin.createConversation({
-      providerId: context.providerId
+      providerId: context.providerId,
+      ...context.sourceSelectedModel ? { selectedModel: context.sourceSelectedModel } : {}
     });
     const title = context.sourceTitle ? this.buildForkTitle(context.sourceTitle, context.forkAtUserMessage) : void 0;
     const forkProviderState = ProviderRegistry.getConversationHistoryService(conversation.providerId).buildForkProviderState(
@@ -102543,7 +105743,7 @@ var TabManager = class {
 };
 
 // src/features/chat/ClaudianView.ts
-var ClaudianView = class extends import_obsidian46.ItemView {
+var ClaudianView = class extends import_obsidian47.ItemView {
   constructor(leaf, plugin) {
     super(leaf);
     // Tab management
@@ -102596,13 +105796,16 @@ var ClaudianView = class extends import_obsidian46.ItemView {
   }
   /** Refreshes model-dependent UI across all tabs (used after settings/env changes). */
   refreshModelSelector() {
-    var _a5, _b3, _c2, _d, _e2, _f2, _g, _h2, _i, _j;
+    var _a5, _b3, _c2, _d, _e2, _f2, _g, _h2, _i, _j, _k3, _l2, _m;
     for (const tab of (_b3 = (_a5 = this.tabManager) == null ? void 0 : _a5.getAllTabs()) != null ? _b3 : []) {
       onProviderAvailabilityChanged(tab, this.plugin);
       const providerId = getTabProviderId(tab, this.plugin);
-      const providerSettings = ProviderSettingsCoordinator.getProviderSettingsSnapshot(
+      const conversation = tab.conversationId ? this.plugin.getConversationSync(tab.conversationId) : null;
+      const modelOverride = conversation ? resolveConversationModel(this.plugin.settings, providerId, conversation).model : tab.lifecycleState === "blank" ? tab.draftModel : (_e2 = (_d = (_c2 = tab.service) == null ? void 0 : _c2.getAuxiliaryModel) == null ? void 0 : _d.call(_c2)) != null ? _e2 : null;
+      const providerSettings = getProviderSettingsSnapshotWithModel(
         this.plugin.settings,
-        providerId
+        providerId,
+        modelOverride
       );
       const model = providerSettings.model;
       const uiConfig = ProviderRegistry.getChatUIConfig(providerId);
@@ -102615,19 +105818,19 @@ var ClaudianView = class extends import_obsidian46.ItemView {
       if (tab.state.usage) {
         tab.state.usage = recalculateUsageForModel(tab.state.usage, model, contextWindow);
       }
-      (_c2 = tab.ui.modelSelector) == null ? void 0 : _c2.updateDisplay();
-      (_d = tab.ui.modelSelector) == null ? void 0 : _d.renderOptions();
-      (_e2 = tab.ui.modeSelector) == null ? void 0 : _e2.updateDisplay();
-      (_f2 = tab.ui.modeSelector) == null ? void 0 : _f2.renderOptions();
-      (_g = tab.ui.thinkingBudgetSelector) == null ? void 0 : _g.updateDisplay();
-      (_h2 = tab.ui.permissionToggle) == null ? void 0 : _h2.updateDisplay();
-      (_i = tab.ui.serviceTierToggle) == null ? void 0 : _i.updateDisplay();
+      (_f2 = tab.ui.modelSelector) == null ? void 0 : _f2.updateDisplay();
+      (_g = tab.ui.modelSelector) == null ? void 0 : _g.renderOptions();
+      (_h2 = tab.ui.modeSelector) == null ? void 0 : _h2.updateDisplay();
+      (_i = tab.ui.modeSelector) == null ? void 0 : _i.renderOptions();
+      (_j = tab.ui.thinkingBudgetSelector) == null ? void 0 : _j.updateDisplay();
+      (_k3 = tab.ui.permissionToggle) == null ? void 0 : _k3.updateDisplay();
+      (_l2 = tab.ui.serviceTierToggle) == null ? void 0 : _l2.updateDisplay();
       tab.dom.inputWrapper.toggleClass(
         "claudian-input-plan-mode",
         providerSettings.permissionMode === "plan" && capabilities.supportsPlanMode
       );
     }
-    (_j = this.tabManager) == null ? void 0 : _j.primeProviderRuntime();
+    (_m = this.tabManager) == null ? void 0 : _m.primeProviderRuntime();
   }
   invalidateProviderCommandCaches(providerIds) {
     var _a5;
@@ -102758,31 +105961,32 @@ var ClaudianView = class extends import_obsidian46.ItemView {
         void this.handleTabClose(tabId);
       },
       onNewTab: () => {
-        void this.createNewTab().catch(() => new import_obsidian46.Notice("Failed to create tab"));
-      }
+        void this.createNewTab().catch(() => new import_obsidian47.Notice("Failed to create tab"));
+      },
+      onTitleExpansionChanged: () => this.persistTabState()
     });
     fragment.appendChild(this.tabBarContainerEl);
     const navActionsEl = activeDocument.createElement("div");
     navActionsEl.className = "claudian-input-nav-actions";
     this.newTabButtonEl = navActionsEl.createDiv({ cls: "claudian-input-nav-btn claudian-new-tab-btn" });
-    (0, import_obsidian46.setIcon)(this.newTabButtonEl, "square-plus");
+    (0, import_obsidian47.setIcon)(this.newTabButtonEl, "square-plus");
     this.newTabButtonEl.setAttribute("aria-label", "New tab");
     this.newTabButtonEl.addEventListener("click", () => {
-      void this.createNewTab().catch(() => new import_obsidian46.Notice("Failed to create tab"));
+      void this.createNewTab().catch(() => new import_obsidian47.Notice("Failed to create tab"));
     });
     const newBtn = navActionsEl.createDiv({ cls: "claudian-input-nav-btn" });
-    (0, import_obsidian46.setIcon)(newBtn, "square-pen");
+    (0, import_obsidian47.setIcon)(newBtn, "square-pen");
     newBtn.setAttribute("aria-label", "New conversation");
     newBtn.addEventListener("click", () => {
       void (async () => {
         var _a5;
         await ((_a5 = this.tabManager) == null ? void 0 : _a5.createNewConversation());
         this.updateHistoryDropdown();
-      })().catch(() => new import_obsidian46.Notice("Failed to create conversation"));
+      })().catch(() => new import_obsidian47.Notice("Failed to create conversation"));
     });
     const historyContainer = navActionsEl.createDiv({ cls: "claudian-history-container" });
     const historyBtn = historyContainer.createDiv({ cls: "claudian-input-nav-btn" });
-    (0, import_obsidian46.setIcon)(historyBtn, "history");
+    (0, import_obsidian47.setIcon)(historyBtn, "history");
     historyBtn.setAttribute("aria-label", "Chat history");
     this.historyDropdown = historyContainer.createDiv({ cls: "claudian-history-menu" });
     historyBtn.addEventListener("click", (e2) => {
@@ -102856,7 +106060,7 @@ var ClaudianView = class extends import_obsidian46.ItemView {
     var _a5;
     const switched = (_a5 = this.tabManager) == null ? void 0 : _a5.switchToTab(tabId);
     if (switched) {
-      void switched.catch(() => new import_obsidian46.Notice("Failed to switch tab"));
+      void switched.catch(() => new import_obsidian47.Notice("Failed to switch tab"));
     }
   }
   async handleTabClose(tabId) {
@@ -102867,7 +106071,7 @@ var ClaudianView = class extends import_obsidian46.ItemView {
       await ((_c2 = this.tabManager) == null ? void 0 : _c2.closeTab(tabId, force));
       this.updateTabBarVisibility();
     } catch (e2) {
-      new import_obsidian46.Notice("Failed to close tab");
+      new import_obsidian47.Notice("Failed to close tab");
     }
   }
   async createNewTab() {
@@ -102875,7 +106079,7 @@ var ClaudianView = class extends import_obsidian46.ItemView {
     const tab = await ((_a5 = this.tabManager) == null ? void 0 : _a5.createTab());
     if (!tab) {
       const maxTabs = (_b3 = this.plugin.settings.maxTabs) != null ? _b3 : 3;
-      new import_obsidian46.Notice(`Maximum ${maxTabs} tabs allowed`);
+      new import_obsidian47.Notice(`Maximum ${maxTabs} tabs allowed`);
       this.updateTabBarVisibility();
       return;
     }
@@ -103056,7 +106260,7 @@ var ClaudianView = class extends import_obsidian46.ItemView {
         }
       }
     });
-    this.scope = new import_obsidian46.Scope(this.app.scope);
+    this.scope = new import_obsidian47.Scope(this.app.scope);
     this.scope.register([], "Escape", (e2) => {
       var _a5, _b3;
       if (e2.isComposing) return;
@@ -103113,10 +106317,13 @@ var ClaudianView = class extends import_obsidian46.ItemView {
   // Persistence
   // ============================================
   async restoreOrCreateTabs() {
+    var _a5, _b3;
     if (!this.tabManager) return;
     const persistedState = await this.plugin.storage.getTabManagerState();
     if (persistedState && persistedState.openTabs.length > 0) {
       await this.tabManager.restoreState(persistedState);
+      (_b3 = this.tabBar) == null ? void 0 : _b3.setExpandedTitleTabIds((_a5 = persistedState.expandedTitleTabIds) != null ? _a5 : []);
+      this.updateTabBar();
       return;
     }
     await this.tabManager.createTab();
@@ -103127,8 +106334,8 @@ var ClaudianView = class extends import_obsidian46.ItemView {
     }
     this.pendingPersist = window.setTimeout(() => {
       this.pendingPersist = null;
-      if (!this.tabManager) return;
-      const state = this.tabManager.getPersistedState();
+      const state = this.getPersistedTabState();
+      if (!state) return;
       this.plugin.persistTabManagerState(state).catch(() => {
       });
     }, 300);
@@ -103139,9 +106346,20 @@ var ClaudianView = class extends import_obsidian46.ItemView {
       window.clearTimeout(this.pendingPersist);
       this.pendingPersist = null;
     }
-    if (!this.tabManager) return;
-    const state = this.tabManager.getPersistedState();
+    const state = this.getPersistedTabState();
+    if (!state) return;
     await this.plugin.persistTabManagerState(state);
+  }
+  getPersistedTabState() {
+    var _a5, _b3;
+    if (!this.tabManager) return null;
+    const state = this.tabManager.getPersistedState();
+    const openTabIds = new Set(state.openTabs.map((tab) => tab.tabId));
+    const expandedTitleTabIds = ((_b3 = (_a5 = this.tabBar) == null ? void 0 : _a5.getExpandedTitleTabIds()) != null ? _b3 : []).filter((tabId) => openTabIds.has(tabId));
+    return {
+      ...state,
+      ...expandedTitleTabIds.length > 0 ? { expandedTitleTabIds } : {}
+    };
   }
   // ============================================
   // Public API
@@ -103166,11 +106384,11 @@ var ClaudianView = class extends import_obsidian46.ItemView {
 // src/features/inline-edit/ui/InlineEditModal.ts
 var import_state2 = require("@codemirror/state");
 var import_view2 = require("@codemirror/view");
-var import_obsidian48 = require("obsidian");
+var import_obsidian49 = require("obsidian");
 init_path();
 
 // src/features/inline-edit/ui/inlineEditMarkdownPreview.ts
-var import_obsidian47 = require("obsidian");
+var import_obsidian48 = require("obsidian");
 function emptyElement(container) {
   if (typeof container.empty === "function") {
     container.empty();
@@ -103198,7 +106416,7 @@ async function renderInlineEditMarkdownPreview({
       mediaFolder,
       sourcePath
     });
-    await import_obsidian47.MarkdownRenderer.render(app, processedMarkdown, container, sourcePath, component);
+    await import_obsidian48.MarkdownRenderer.render(app, processedMarkdown, container, sourcePath, component);
     if (processedMarkdown.includes("[[") && app.metadataCache) {
       processFileLinks(app, container);
     }
@@ -103398,7 +106616,7 @@ var InlineEditModal = class {
       editorView = getEditorView(editor);
     }
     if (!editorView) {
-      new import_obsidian48.Notice("Inline edit unavailable: could not access the active editor. Try reopening the note.");
+      new import_obsidian49.Notice("Inline edit unavailable: could not access the active editor. Try reopening the note.");
       return { decision: "reject" };
     }
     return new Promise((resolve8) => {
@@ -103448,12 +106666,12 @@ var InlineEditController = class {
     const conversation = (activeTab == null ? void 0 : activeTab.conversationId) ? plugin.getConversationSync(activeTab.conversationId) : null;
     const providerId = (_d = (_c2 = (_b3 = conversation == null ? void 0 : conversation.providerId) != null ? _b3 : (_a5 = activeTab == null ? void 0 : activeTab.service) == null ? void 0 : _a5.providerId) != null ? _c2 : activeTab == null ? void 0 : activeTab.providerId) != null ? _d : DEFAULT_CHAT_PROVIDER_ID;
     this.inlineEditService = ProviderRegistry.createInlineEditService(plugin, providerId);
-    const auxiliaryModel = ((_e2 = activeTab == null ? void 0 : activeTab.service) == null ? void 0 : _e2.providerId) === providerId ? (_g = (_f2 = activeTab.service).getAuxiliaryModel) == null ? void 0 : _g.call(_f2) : (activeTab == null ? void 0 : activeTab.providerId) === providerId ? activeTab == null ? void 0 : activeTab.draftModel : null;
+    const auxiliaryModel = conversation ? resolveConversationModel(plugin.settings, providerId, conversation).model : ((_e2 = activeTab == null ? void 0 : activeTab.service) == null ? void 0 : _e2.providerId) === providerId ? (_g = (_f2 = activeTab.service).getAuxiliaryModel) == null ? void 0 : _g.call(_f2) : (activeTab == null ? void 0 : activeTab.providerId) === providerId ? activeTab == null ? void 0 : activeTab.draftModel : null;
     (_i = (_h2 = this.inlineEditService).setModelOverride) == null ? void 0 : _i.call(_h2, auxiliaryModel != null ? auxiliaryModel : void 0);
     this.resolvedProviderId = providerId;
     this.mentionDataProvider = new VaultMentionDataProvider(this.app, {
       onFileLoadError: () => {
-        new import_obsidian48.Notice("Failed to load vault files. Vault @-mentions may be unavailable.");
+        new import_obsidian49.Notice("Failed to load vault files. Vault @-mentions may be unavailable.");
       }
     });
     this.mentionDataProvider.initializeInBackground();
@@ -103882,7 +107100,7 @@ var InlineEditController = class {
       const vaultPath = getVaultPath(this.app);
       return normalizePathForVault(rawPath, vaultPath);
     } catch (e2) {
-      new import_obsidian48.Notice("Failed to attach file: invalid path");
+      new import_obsidian49.Notice("Failed to attach file: invalid path");
       return null;
     }
   }
@@ -103933,7 +107151,7 @@ var InlineEditController = class {
 };
 
 // src/features/settings/ClaudianSettings.ts
-var import_obsidian49 = require("obsidian");
+var import_obsidian50 = require("obsidian");
 init_env();
 
 // src/features/settings/keyboardNavigation.ts
@@ -103983,7 +107201,7 @@ var parseNavMappings = (value) => {
 
 // src/features/settings/ClaudianSettings.ts
 function formatHotkey(hotkey) {
-  const isMac = import_obsidian49.Platform.isMacOS;
+  const isMac = import_obsidian50.Platform.isMacOS;
   const modMap = isMac ? { Mod: "\u2318", Ctrl: "\u2303", Alt: "\u2325", Shift: "\u21E7", Meta: "\u2318" } : { Mod: "Ctrl", Ctrl: "Ctrl", Alt: "Alt", Shift: "Shift", Meta: "Win" };
   const mods = hotkey.modifiers.map((modifier) => modMap[modifier] || modifier);
   const key = hotkey.key.length === 1 ? hotkey.key.toUpperCase() : hotkey.key;
@@ -104032,7 +107250,7 @@ function addHotkeySettingRow(containerEl, app, commandId, translationPrefix) {
   }
   item.addEventListener("click", () => openHotkeySettings(app));
 }
-var ClaudianSettingTab = class extends import_obsidian49.PluginSettingTab {
+var ClaudianSettingTab = class extends import_obsidian50.PluginSettingTab {
   constructor(app, plugin) {
     super(app, plugin);
     this.activeTab = "general";
@@ -104093,7 +107311,7 @@ var ClaudianSettingTab = class extends import_obsidian49.PluginSettingTab {
     }
   }
   renderGeneralTab(container) {
-    new import_obsidian49.Setting(container).setName(t10("settings.language.name")).setDesc(t10("settings.language.desc")).addDropdown((dropdown) => {
+    new import_obsidian50.Setting(container).setName(t10("settings.language.name")).setDesc(t10("settings.language.desc")).addDropdown((dropdown) => {
       const locales = getAvailableLocales();
       for (const locale of locales) {
         dropdown.addOption(locale, getLocaleDisplayName(locale));
@@ -104109,8 +107327,8 @@ var ClaudianSettingTab = class extends import_obsidian49.PluginSettingTab {
         this.display();
       });
     });
-    new import_obsidian49.Setting(container).setName(t10("settings.display")).setHeading();
-    const maxTabsSetting = new import_obsidian49.Setting(container).setName(t10("settings.maxTabs.name")).setDesc(t10("settings.maxTabs.desc"));
+    new import_obsidian50.Setting(container).setName(t10("settings.display")).setHeading();
+    const maxTabsSetting = new import_obsidian50.Setting(container).setName(t10("settings.maxTabs.name")).setDesc(t10("settings.maxTabs.desc"));
     const maxTabsWarningEl = container.createDiv({
       cls: "claudian-max-tabs-warning claudian-setting-validation claudian-setting-validation-warning claudian-hidden"
     });
@@ -104130,13 +107348,13 @@ var ClaudianSettingTab = class extends import_obsidian49.PluginSettingTab {
       });
       updateMaxTabsWarning((_b3 = this.plugin.settings.maxTabs) != null ? _b3 : 3);
     });
-    new import_obsidian49.Setting(container).setName(t10("settings.chatViewPlacement.name")).setDesc(t10("settings.chatViewPlacement.desc")).addDropdown((dropdown) => {
+    new import_obsidian50.Setting(container).setName(t10("settings.chatViewPlacement.name")).setDesc(t10("settings.chatViewPlacement.desc")).addDropdown((dropdown) => {
       dropdown.addOption("right-sidebar", t10("settings.chatViewPlacement.rightSidebar")).addOption("left-sidebar", t10("settings.chatViewPlacement.leftSidebar")).addOption("main-tab", t10("settings.chatViewPlacement.mainTab")).setValue(this.plugin.settings.chatViewPlacement).onChange(async (value) => {
         this.plugin.settings.chatViewPlacement = value;
         await this.plugin.saveSettings();
       });
     });
-    new import_obsidian49.Setting(container).setName(t10("settings.enableAutoScroll.name")).setDesc(t10("settings.enableAutoScroll.desc")).addToggle(
+    new import_obsidian50.Setting(container).setName(t10("settings.enableAutoScroll.name")).setDesc(t10("settings.enableAutoScroll.desc")).addToggle(
       (toggle) => {
         var _a5;
         return toggle.setValue((_a5 = this.plugin.settings.enableAutoScroll) != null ? _a5 : true).onChange(async (value) => {
@@ -104145,7 +107363,7 @@ var ClaudianSettingTab = class extends import_obsidian49.PluginSettingTab {
         });
       }
     );
-    new import_obsidian49.Setting(container).setName(t10("settings.deferMathRenderingDuringStreaming.name")).setDesc(t10("settings.deferMathRenderingDuringStreaming.desc")).addToggle(
+    new import_obsidian50.Setting(container).setName(t10("settings.deferMathRenderingDuringStreaming.name")).setDesc(t10("settings.deferMathRenderingDuringStreaming.desc")).addToggle(
       (toggle) => {
         var _a5;
         return toggle.setValue((_a5 = this.plugin.settings.deferMathRenderingDuringStreaming) != null ? _a5 : true).onChange(async (value) => {
@@ -104154,7 +107372,7 @@ var ClaudianSettingTab = class extends import_obsidian49.PluginSettingTab {
         });
       }
     );
-    new import_obsidian49.Setting(container).setName(t10("settings.expandFileEditsByDefault.name")).setDesc(t10("settings.expandFileEditsByDefault.desc")).addToggle(
+    new import_obsidian50.Setting(container).setName(t10("settings.expandFileEditsByDefault.name")).setDesc(t10("settings.expandFileEditsByDefault.desc")).addToggle(
       (toggle) => {
         var _a5;
         return toggle.setValue((_a5 = this.plugin.settings.expandFileEditsByDefault) != null ? _a5 : false).onChange(async (value) => {
@@ -104163,8 +107381,8 @@ var ClaudianSettingTab = class extends import_obsidian49.PluginSettingTab {
         });
       }
     );
-    new import_obsidian49.Setting(container).setName(t10("settings.conversations")).setHeading();
-    new import_obsidian49.Setting(container).setName(t10("settings.autoTitle.name")).setDesc(t10("settings.autoTitle.desc")).addToggle(
+    new import_obsidian50.Setting(container).setName(t10("settings.conversations")).setHeading();
+    new import_obsidian50.Setting(container).setName(t10("settings.autoTitle.name")).setDesc(t10("settings.autoTitle.desc")).addToggle(
       (toggle) => toggle.setValue(this.plugin.settings.enableAutoTitleGeneration).onChange(async (value) => {
         this.plugin.settings.enableAutoTitleGeneration = value;
         await this.plugin.saveSettings();
@@ -104172,7 +107390,7 @@ var ClaudianSettingTab = class extends import_obsidian49.PluginSettingTab {
       })
     );
     if (this.plugin.settings.enableAutoTitleGeneration) {
-      new import_obsidian49.Setting(container).setName(t10("settings.titleModel.name")).setDesc(t10("settings.titleModel.desc")).addDropdown((dropdown) => {
+      new import_obsidian50.Setting(container).setName(t10("settings.titleModel.name")).setDesc(t10("settings.titleModel.desc")).addDropdown((dropdown) => {
         dropdown.addOption("", t10("settings.titleModel.auto"));
         const settingsBag = this.plugin.settings;
         const seenValues = /* @__PURE__ */ new Set();
@@ -104191,8 +107409,8 @@ var ClaudianSettingTab = class extends import_obsidian49.PluginSettingTab {
         });
       });
     }
-    new import_obsidian49.Setting(container).setName(t10("settings.content")).setHeading();
-    new import_obsidian49.Setting(container).setName(t10("settings.userName.name")).setDesc(t10("settings.userName.desc")).addText((text) => {
+    new import_obsidian50.Setting(container).setName(t10("settings.content")).setHeading();
+    new import_obsidian50.Setting(container).setName(t10("settings.userName.name")).setDesc(t10("settings.userName.desc")).addText((text) => {
       text.setPlaceholder(t10("settings.userName.name")).setValue(this.plugin.settings.userName).onChange(async (value) => {
         this.plugin.settings.userName = value;
         await this.plugin.saveSettings();
@@ -104201,7 +107419,7 @@ var ClaudianSettingTab = class extends import_obsidian49.PluginSettingTab {
         void this.restartServiceForPromptChange();
       });
     });
-    new import_obsidian49.Setting(container).setName(t10("settings.systemPrompt.name")).setDesc(t10("settings.systemPrompt.desc")).addTextArea((text) => {
+    new import_obsidian50.Setting(container).setName(t10("settings.systemPrompt.name")).setDesc(t10("settings.systemPrompt.desc")).addTextArea((text) => {
       text.setPlaceholder(t10("settings.systemPrompt.name")).setValue(this.plugin.settings.systemPrompt).onChange(async (value) => {
         this.plugin.settings.systemPrompt = value;
         await this.plugin.saveSettings();
@@ -104212,7 +107430,7 @@ var ClaudianSettingTab = class extends import_obsidian49.PluginSettingTab {
         void this.restartServiceForPromptChange();
       });
     });
-    new import_obsidian49.Setting(container).setName(t10("settings.excludedTags.name")).setDesc(t10("settings.excludedTags.desc")).addTextArea((text) => {
+    new import_obsidian50.Setting(container).setName(t10("settings.excludedTags.name")).setDesc(t10("settings.excludedTags.desc")).addTextArea((text) => {
       text.setPlaceholder("System\nprivate\ndraft").setValue(this.plugin.settings.excludedTags.join("\n")).onChange(async (value) => {
         this.plugin.settings.excludedTags = value.split(/\r?\n/).map((entry) => entry.trim().replace(/^#/, "")).filter((entry) => entry.length > 0);
         await this.plugin.saveSettings();
@@ -104220,7 +107438,7 @@ var ClaudianSettingTab = class extends import_obsidian49.PluginSettingTab {
       text.inputEl.rows = 4;
       text.inputEl.cols = 30;
     });
-    new import_obsidian49.Setting(container).setName(t10("settings.mediaFolder.name")).setDesc(t10("settings.mediaFolder.desc")).addText((text) => {
+    new import_obsidian50.Setting(container).setName(t10("settings.mediaFolder.name")).setDesc(t10("settings.mediaFolder.desc")).addText((text) => {
       text.setPlaceholder("Attachments").setValue(this.plugin.settings.mediaFolder).onChange(async (value) => {
         this.plugin.settings.mediaFolder = value.trim();
         await this.plugin.saveSettings();
@@ -104230,15 +107448,15 @@ var ClaudianSettingTab = class extends import_obsidian49.PluginSettingTab {
         void this.restartServiceForPromptChange();
       });
     });
-    new import_obsidian49.Setting(container).setName(t10("settings.input")).setHeading();
-    new import_obsidian49.Setting(container).setName(t10("settings.requireCommandOrControlEnterToSend.name")).setDesc(t10("settings.requireCommandOrControlEnterToSend.desc")).addToggle((toggle) => {
+    new import_obsidian50.Setting(container).setName(t10("settings.input")).setHeading();
+    new import_obsidian50.Setting(container).setName(t10("settings.requireCommandOrControlEnterToSend.name")).setDesc(t10("settings.requireCommandOrControlEnterToSend.desc")).addToggle((toggle) => {
       var _a5;
       toggle.setValue((_a5 = this.plugin.settings.requireCommandOrControlEnterToSend) != null ? _a5 : false).onChange(async (value) => {
         this.plugin.settings.requireCommandOrControlEnterToSend = value;
         await this.plugin.saveSettings();
       });
     });
-    new import_obsidian49.Setting(container).setName(t10("settings.navMappings.name")).setDesc(t10("settings.navMappings.desc")).addTextArea((text) => {
+    new import_obsidian50.Setting(container).setName(t10("settings.navMappings.name")).setDesc(t10("settings.navMappings.desc")).addTextArea((text) => {
       let pendingValue = buildNavMappingText(this.plugin.settings.keyboardNavigation);
       let saveTimeout = null;
       const commitValue = async (showError) => {
@@ -104249,7 +107467,7 @@ var ClaudianSettingTab = class extends import_obsidian49.PluginSettingTab {
         const result = parseNavMappings(pendingValue);
         if (!result.settings) {
           if (showError) {
-            new import_obsidian49.Notice(`${t10("common.error")}: ${result.error}`);
+            new import_obsidian50.Notice(`${t10("common.error")}: ${result.error}`);
             pendingValue = buildNavMappingText(this.plugin.settings.keyboardNavigation);
             text.setValue(pendingValue);
           }
@@ -104279,7 +107497,7 @@ var ClaudianSettingTab = class extends import_obsidian49.PluginSettingTab {
         void commitValue(true);
       });
     });
-    new import_obsidian49.Setting(container).setName(t10("settings.hotkeys")).setHeading();
+    new import_obsidian50.Setting(container).setName(t10("settings.hotkeys")).setHeading();
     const hotkeyGrid = container.createDiv({ cls: "claudian-hotkey-grid" });
     addHotkeySettingRow(hotkeyGrid, this.app, "claudian:inline-edit", "settings.inlineEditHotkey");
     addHotkeySettingRow(hotkeyGrid, this.app, "claudian:open-view", "settings.openChatHotkey");
@@ -104298,7 +107516,7 @@ var ClaudianSettingTab = class extends import_obsidian49.PluginSettingTab {
     });
   }
   renderHiddenProviderCommandSetting(container, providerId, copy) {
-    new import_obsidian49.Setting(container).setName(copy.name).setDesc(copy.desc).addTextArea((text) => {
+    new import_obsidian50.Setting(container).setName(copy.name).setDesc(copy.desc).addTextArea((text) => {
       text.setPlaceholder(copy.placeholder).setValue(getHiddenProviderCommands(this.plugin.settings, providerId).join("\n")).onChange(async (value) => {
         var _a5;
         this.plugin.settings.hiddenProviderCommands = {
@@ -104443,7 +107661,7 @@ patchSetMaxListenersForElectron();
 function isClaudianView(value) {
   return !!value && typeof value === "object" && typeof value.getTabManager === "function";
 }
-var ClaudianPlugin = class extends import_obsidian50.Plugin {
+var ClaudianPlugin = class extends import_obsidian51.Plugin {
   constructor() {
     super(...arguments);
     this.conversations = [];
@@ -104471,9 +107689,9 @@ var ClaudianPlugin = class extends import_obsidian50.Plugin {
       name: "Inline edit",
       editorCallback: async (editor, ctx) => {
         var _a5;
-        const view = ctx instanceof import_obsidian50.MarkdownView ? ctx : this.app.workspace.getActiveViewOfType(import_obsidian50.MarkdownView);
+        const view = ctx instanceof import_obsidian51.MarkdownView ? ctx : this.app.workspace.getActiveViewOfType(import_obsidian51.MarkdownView);
         if (!view) {
-          new import_obsidian50.Notice("Inline edit unavailable: could not access the active Markdown view.");
+          new import_obsidian51.Notice("Inline edit unavailable: could not access the active Markdown view.");
           return;
         }
         const selectedText = editor.getSelection();
@@ -104505,7 +107723,7 @@ var ClaudianPlugin = class extends import_obsidian50.Plugin {
         );
         const result = await modal.openAndWait();
         if (result.decision === "accept" && result.editedText !== void 0) {
-          new import_obsidian50.Notice(editContext.mode === "cursor" ? "Inserted" : "Edit applied");
+          new import_obsidian51.Notice(editContext.mode === "cursor" ? "Inserted" : "Edit applied");
         }
       }
     });
@@ -104671,6 +107889,7 @@ var ClaudianPlugin = class extends import_obsidian50.Plugin {
         updatedAt: meta3.updatedAt,
         lastResponseAt: meta3.lastResponseAt,
         sessionId: resumeSessionId,
+        selectedModel: meta3.selectedModel,
         providerState: meta3.providerState,
         messages: [],
         currentNote: meta3.currentNote,
@@ -104758,6 +107977,17 @@ var ClaudianPlugin = class extends import_obsidian50.Plugin {
     const affectedProviderIds = this.getAffectedEnvironmentProviders(changedScopes);
     ProviderSettingsCoordinator.handleEnvironmentChange(settingsBag, affectedProviderIds);
     const { changed, invalidatedConversations } = this.reconcileModelWithEnvironment(affectedProviderIds);
+    const modelCatalogDiagnostics = [];
+    for (const providerId of affectedProviderIds) {
+      if (ProviderRegistry.isEnabled(providerId, settingsBag)) {
+        const result = await ProviderWorkspaceRegistry.refreshModelCatalog(providerId);
+        if (result.diagnostics) {
+          modelCatalogDiagnostics.push(
+            `${ProviderRegistry.getProviderDisplayName(providerId)}: ${result.diagnostics}`
+          );
+        }
+      }
+    }
     await this.saveSettings();
     if (invalidatedConversations.length > 0) {
       for (const conv of invalidatedConversations) {
@@ -104816,7 +108046,7 @@ var ClaudianPlugin = class extends import_obsidian50.Plugin {
         }
       }
       if (failedTabs > 0) {
-        new import_obsidian50.Notice(`Environment changes applied, but ${failedTabs} affected tab(s) failed to restart.`);
+        new import_obsidian51.Notice(`Environment changes applied, but ${failedTabs} affected tab(s) failed to restart.`);
       }
     }
     for (const openView of this.getAllViews()) {
@@ -104824,7 +108054,11 @@ var ClaudianPlugin = class extends import_obsidian50.Plugin {
       openView.refreshModelSelector();
     }
     const noticeText = changed ? "Environment variables applied. Sessions will be rebuilt on next message." : "Environment variables applied.";
-    new import_obsidian50.Notice(noticeText);
+    new import_obsidian51.Notice(noticeText);
+    if (modelCatalogDiagnostics.length > 0) {
+      new import_obsidian51.Notice(`Model catalog refresh failed:
+${modelCatalogDiagnostics.join("\n")}`);
+    }
   }
   /** Returns the runtime environment variables (fixed at plugin load). */
   getActiveEnvironmentVariables(providerId = ProviderRegistry.resolveSettingsProviderId(
@@ -104841,12 +108075,12 @@ var ClaudianPlugin = class extends import_obsidian50.Plugin {
       scope
     );
   }
-  getResolvedProviderCliPath(providerId) {
+  getResolvedProviderCliPath(providerId, context) {
     const cliResolver = ProviderWorkspaceRegistry.getCliResolver(providerId);
     if (!cliResolver) {
       return null;
     }
-    return cliResolver.resolveFromSettings(this.settings);
+    return cliResolver.resolveFromSettings(this.settings, context);
   }
   reconcileModelWithEnvironment(providerIds = ProviderRegistry.getRegisteredProviderIds()) {
     return ProviderSettingsCoordinator.reconcileProviders(
@@ -104893,13 +108127,36 @@ var ClaudianPlugin = class extends import_obsidian50.Plugin {
     const previewText = (_b3 = (_a5 = firstUserMsg.displayContent) != null ? _a5 : extractUserDisplayContent(firstUserMsg.content)) != null ? _b3 : firstUserMsg.content;
     return previewText.substring(0, 50) + (previewText.length > 50 ? "..." : "");
   }
+  async ensureConversationSelectedModel(conversation) {
+    const resolved = resolveConversationModel(
+      this.settings,
+      conversation.providerId,
+      conversation
+    );
+    if (!resolved.shouldPersist || !resolved.model || conversation.selectedModel === resolved.model) {
+      return;
+    }
+    conversation.selectedModel = resolved.model;
+    await this.storage.sessions.saveMetadata(
+      this.storage.sessions.toSessionMetadata(conversation)
+    );
+  }
   async loadSdkMessagesForConversation(conversation) {
     await ProviderRegistry.getConversationHistoryService(conversation.providerId).hydrateConversationHistory(conversation, getVaultPath(this.app));
   }
   async createConversation(options) {
-    var _a5;
+    var _a5, _b3, _c2;
     const providerId = (_a5 = options == null ? void 0 : options.providerId) != null ? _a5 : DEFAULT_CHAT_PROVIDER_ID;
     const sessionId = options == null ? void 0 : options.sessionId;
+    const providerSettings = ProviderSettingsCoordinator.getProviderSettingsSnapshot(
+      this.settings,
+      providerId
+    );
+    const selectedModel = (_c2 = normalizeProviderModelSelection(
+      providerId,
+      this.settings,
+      (_b3 = options == null ? void 0 : options.selectedModel) != null ? _b3 : providerSettings.model
+    )) != null ? _c2 : void 0;
     const conversationId = sessionId != null ? sessionId : this.generateConversationId();
     const conversation = {
       id: conversationId,
@@ -104908,6 +108165,7 @@ var ClaudianPlugin = class extends import_obsidian50.Plugin {
       createdAt: Date.now(),
       updatedAt: Date.now(),
       sessionId: sessionId != null ? sessionId : null,
+      selectedModel,
       messages: []
     };
     this.conversations.unshift(conversation);
@@ -104919,6 +108177,7 @@ var ClaudianPlugin = class extends import_obsidian50.Plugin {
   async switchConversation(id) {
     const conversation = this.conversations.find((c) => c.id === id);
     if (!conversation) return null;
+    await this.ensureConversationSelectedModel(conversation);
     await this.loadSdkMessagesForConversation(conversation);
     return conversation;
   }
@@ -104955,23 +108214,27 @@ var ClaudianPlugin = class extends import_obsidian50.Plugin {
     if (!conversation) return;
     const safeUpdates = { ...updates };
     delete safeUpdates.providerId;
+    if ("selectedModel" in safeUpdates) {
+      const selectedModel = normalizeProviderModelSelection(
+        conversation.providerId,
+        this.settings,
+        safeUpdates.selectedModel
+      );
+      if (selectedModel) {
+        safeUpdates.selectedModel = selectedModel;
+      } else {
+        delete safeUpdates.selectedModel;
+      }
+    }
     Object.assign(conversation, safeUpdates, { updatedAt: Date.now() });
     await this.storage.sessions.saveMetadata(
       this.storage.sessions.toSessionMetadata(conversation)
     );
-    if (!ProviderRegistry.getConversationHistoryService(conversation.providerId).isPendingForkConversation(conversation)) {
-      for (const msg of conversation.messages) {
-        if (msg.images) {
-          for (const img of msg.images) {
-            img.data = "";
-          }
-        }
-      }
-    }
   }
   async getConversationById(id) {
     const conversation = this.conversations.find((c) => c.id === id) || null;
     if (conversation) {
+      await this.ensureConversationSelectedModel(conversation);
       await this.loadSdkMessagesForConversation(conversation);
     }
     return conversation;
