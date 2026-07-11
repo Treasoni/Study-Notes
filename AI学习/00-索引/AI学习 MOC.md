@@ -56,6 +56,7 @@ graph TB
 ### 01-基础概念
 
 - [[AI-Agents]]
+- [[AI-Agent-状态机工作流]]
 - [[Agent智能体]]
 - [[Agent Teams智能体团队]]
 - [[AI学习路径与技能图谱]]
@@ -82,6 +83,7 @@ graph TB
 
 ### 03-技术专题
 
+- [[Codex手动配置指南]]
 - [[GLM系列模型完整对比]]
 - [[OCR概念笔记]]
 - [[RAG技术入门指南]]
@@ -138,6 +140,7 @@ graph TB
 #### 高级功能
 
 - [[CLAUDE.md 使用指南]]
+- [[Claude Code Dynamic Workflows 使用指南]]
 - [[如何编写Skills]]
 
 ---
