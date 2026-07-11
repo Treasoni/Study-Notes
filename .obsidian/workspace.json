@@ -200,7 +200,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
@@ -222,7 +222,7 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "30b0ade23c460f17",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
     "AI学习/03-技术专题/Codex手动配置指南.md",
     "项目实战/AI实战/工程实践/多AI-Agent配置文件共享方案.md",
