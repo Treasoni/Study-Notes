@@ -35,8 +35,7 @@
               "title": "Codex手动配置指南"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -171,13 +170,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/03-技术专题/Codex手动配置指南.md",
+                "file": "项目实战/AI实战/工程实践/多AI-Agent配置文件共享方案.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Codex手动配置指南 的大纲"
+              "title": "多AI-Agent配置文件共享方案 的大纲"
             }
           },
           {
@@ -223,10 +222,10 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "1c29f6dcbb6e1a66",
+  "active": "30b0ade23c460f17",
   "lastOpenFiles": [
-    "项目实战/AI实战/工程实践/多AI-Agent配置文件共享方案.md",
     "AI学习/03-技术专题/Codex手动配置指南.md",
+    "项目实战/AI实战/工程实践/多AI-Agent配置文件共享方案.md",
     "StudySystem/4-meta/evaluation/多AI-Agent配置文件共享方案-eval.md",
     "StudySystem/2-drafts/多AI-Agent配置文件共享方案/多AI-Agent配置文件共享方案-笔记.md",
     "StudySystem/2-drafts/多AI-Agent配置文件共享方案",
