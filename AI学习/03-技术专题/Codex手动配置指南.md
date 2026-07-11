@@ -809,7 +809,7 @@ argument-hint: FILES=<paths> PR_TITLE=<title>
 
 #### 概述
 
-Subagents（子代理）是 Codex 的多 agent 并行执行机制。自 **CLI v0.115.0**（2026 年 3 月）起正式 GA，默认启用。每个子 agent 运行在独立线程中，拥有自己的上下文、模型、指令和 sandbox 权限，只向主线程返回摘要，避免中间产物（日志、堆栈追踪、测试输出等）污染主会话上下文。[来源: R13]
+Subagents（子代理）是 Codex 的多 agent 并行执行机制。自 **CLI v0.115.0**（2026 年 3 月）起正式 GA，默认启用。每个子 agent 运行在独立线程中，拥有自己的上下文、模型、指令和 sandbox 权限，只向主线程返回摘要，避免中间产物（日志、堆栈追踪、测试输出等）污染主会话上下文。[来源: R12]
 
 ```mermaid
 graph LR
@@ -837,7 +837,7 @@ Codex 内置 4 种 agent 角色：
 | **`monitor`** | 长任务监控 | 优化用于等待、轮询、重复状态检查，支持长达 1 小时的轮询窗口 |
 
 > [!note] 自定义覆盖
-> 如果自定义角色与内置角色同名（如 `explorer`），你的定义优先。[来源: R13]
+> 如果自定义角色与内置角色同名（如 `explorer`），你的定义优先。[来源: R12]
 
 #### 自定义 Agent 配置
 
@@ -862,7 +862,7 @@ Codex 内置 4 种 agent 角色：
 | `mcp_servers` | 否 | 该角色专用的 MCP 服务器定义 |
 
 > [!important] 继承规则
-> 任何未在角色配置文件中显式设置的字段，均**继承自主会话**的配置。[来源: R14]
+> 任何未在角色配置文件中显式设置的字段，均**继承自主会话**的配置。[来源: R13]
 
 ##### 示例：只读探索 Agent
 
@@ -914,7 +914,7 @@ Do not make code changes.
 url = "https://developers.openai.com/mcp"
 ```
 
-[来源: R14]
+[来源: R13]
 
 #### 项目级并发限制
 
@@ -928,7 +928,7 @@ job_max_runtime_seconds = 1800 # CSV 批处理任务超时
 ```
 
 > [!warning] 嵌套深度警告
-> 增加 `max_depth` 会导致级联 fan-out，token 消耗、延迟和资源消耗呈指数级增长。**强烈建议保持 `max_depth = 1`**。[来源: R14]
+> 增加 `max_depth` 会导致级联 fan-out，token 消耗、延迟和资源消耗呈指数级增长。**强烈建议保持 `max_depth = 1`**。[来源: R13]
 
 #### 调用方式
 
@@ -939,12 +939,12 @@ job_max_runtime_seconds = 1800 # CSV 批处理任务超时
 
 #### CSV 批处理（实验性）
 
-对于需要逐文件重复处理的任务（如逐文件审计），可以使用 `spawn_agents_on_csv` 工具对 CSV 中的每一行派生一个 worker agent。[来源: R14]
+对于需要逐文件重复处理的任务（如逐文件审计），可以使用 `spawn_agents_on_csv` 工具对 CSV 中的每一行派生一个 worker agent。[来源: R13]
 
 #### 最佳实践
 
 > [!tip] 模型分配策略
-> "Fast for scouts, strong for reviewers" — 探索/综合用轻量快速模型（`gpt-5.4-mini`, `gpt-5.3-codex-spark`），深度推理和审查用强模型（`gpt-5.4`, `gpt-5.5`, `gpt-5.6-terra`）。[来源: R14]
+> "Fast for scouts, strong for reviewers" — 探索/综合用轻量快速模型（`gpt-5.4-mini`, `gpt-5.3-codex-spark`），深度推理和审查用强模型（`gpt-5.4`, `gpt-5.5`, `gpt-5.6-terra`）。[来源: R13]
 
 > [!tip] 明确的任务边界
 > 每个子 agent 聚焦一个子任务。不要在一个 agent 中塞多个不相关的目标。developer_instructions 要明确职责边界和输出格式。
@@ -953,7 +953,7 @@ job_max_runtime_seconds = 1800 # CSV 批处理任务超时
 > 对不熟悉的大型代码库，先用 `explorer` 风格的只读 agent 探索，再派 `worker` 执行变更。这既安全又能避免上下文污染。
 
 > [!note] 运行时覆盖优先
-> 会话中的运行时覆盖（如 `/permissions`, `--yolo`）在派生子 agent 时**优先于**静态 agent 文件中的默认值。[来源: R14]
+> 会话中的运行时覆盖（如 `/permissions`, `--yolo`）在派生子 agent 时**优先于**静态 agent 文件中的默认值。[来源: R13]
 
 #### 社区工具生态
 
@@ -964,7 +964,7 @@ job_max_runtime_seconds = 1800 # CSV 批处理任务超时
 | `codex-claude-subagents` (GitHub) | 在 Codex 中使用 Claude 作为子 agent |
 | `awesome-codex-subagents` (GitHub) | 171+ 个 Codex 子 agent 精选集合，覆盖 13 个类别 |
 
-[来源: R15][来源: R15]
+[来源: R14][来源: R15]
 
 #### 对比：Codex Subagents vs Claude Code Subagents
 
@@ -983,7 +983,7 @@ job_max_runtime_seconds = 1800 # CSV 批处理任务超时
 | `/review` 代码审查 | 内置，可对指定文件或 diff 审查 | 内置 |
 | 社区 agent 数量 | 171+（`awesome-codex-subagents`） | 也有社区生态 |
 
-[来源: R13][来源: R14]
+[来源: R12][来源: R13]
 
 ### 对比：Codex Commands vs Claude Code Commands
 
