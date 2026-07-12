@@ -56,12 +56,3 @@ python3 .claude/skills/sync-skill-registry/scripts/sync_skill_registry.py
 - 不创建或删除任何 SKILL.md 文件
 - 同步 `--dry-run` 预览变更，确认后再应用
 
-## 与 sync-codex-to-claude.sh 的关系
-
-运行本技能后，如果涉及新增或删除技能，建议继续运行：
-
-```bash
-.codex/scripts/sync-codex-to-claude.sh
-```
-
-以确保 Codex 配置与 Claude Code 配置同步。
