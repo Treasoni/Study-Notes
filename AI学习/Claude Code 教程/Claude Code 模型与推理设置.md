@@ -1,7 +1,10 @@
 ---
+title: Claude Code 模型与推理设置
 tags: [claude, ai, 工具使用, 模型配置]
 created: 2026-03-08
-updated: 2026-04-07
+updated: 2026-07-12
+status: updated
+source_project: claude-code-tutorial
 ---
 
 # Claude Code 模型与推理设置
@@ -58,10 +61,10 @@ Claude Code 使用**模型别名**来简化模型选择，别名总是指向最�
 
 | 别名 | 对应模型 | 使用场景 | Token 上下文 |
 |------|----------|----------|-------------|
-| `default` | 根据账户自动选择 | 系统推荐 | 200K |
-| `sonnet` | Claude Sonnet 4.6 | 日常编码任务 | 200K |
-| `opus` | Claude Opus 4.6 | 复杂推理任务 | 200K |
-| `haiku` | Claude Haiku 4.5 | 简单快速任务 | 200K |
+| `default` | 根据账户自动选择（Max: Opus 4.8, 其他: Sonnet 5） | 系统推荐 | 1M |
+| `sonnet` | Claude Sonnet 5 | 日常编码任务 | 1M |
+| `opus` | Claude Opus 4.8 | 复杂推理任务 | 1M |
+| `haiku` | Claude Haiku 4.5 | 简单快速任务 | 1M |
 | `sonnet[1m]` | Sonnet + 1M 上下文 | 长会话/大型代码库 | 1M |
 | `opusplan` | 智能混合模式 | 规划用 Opus，执行用 Sonnet | 200K |
 
@@ -152,6 +155,26 @@ source ~/.zshrc
 > - 全局设置：使用 `sonnet` 作为默认（平衡性能和成本）
 > - 项目设置：复杂项目使用 `opusplan`，大型代码库使用 `sonnet[1m]`
 
+### Fallback 模型（2026 新增）
+
+> [!tip] Fallback 模型
+> 配置最多 3 个 fallback 模型，当主模型过载时自动按顺序尝试。
+
+```bash
+# CLI 启动时指定
+claude --model opus --fallback-model sonnet "分析架构"
+
+# settings.json 配置
+{
+  "model": "opus",
+  "fallbackModels": ["sonnet", "haiku"]
+}
+```
+
+**工作原理**：主模型不可用时 → 尝试第一个 fallback → 仍不可用则尝试下一个 → 全部失败时报错。
+
+---
+
 ### 推理参数配置
 
 #### Effort Level（推理努力级别）
@@ -161,24 +184,29 @@ source ~/.zshrc
 | 级别 | 说明 | Token 预算 | 适用场景 |
 |------|------|-----------|----------|
 | `low` | 快速响应 | 最少 | 简单问答、代码补全 |
-| `medium` | 标准思考（Opus 默认） | 平衡 | 日常开发任务 |
-| `high` | 深度推理 | 最多 | 复杂架构设计、调试 |
+| `medium` | 标准思考（Opus/Sonnet 默认） | 平衡 | 日常开发任务 |
+| `high` | 深度推理 | 多 | 复杂架构设计、调试 |
+| `xhigh` | 极深推理（Opus 4.7/4.8 支持） | 更多 | 高难度架构决策 |
+| `max` | 最大推理（Opus 4.6+ 支持） | 最多 | 最难的问题 |
 
 **设置方式**：
 
 ```bash
-# 方式一：在 /model 命令中使用左右箭头调整滑块
+# 方式一：/effort 命令（推荐）
+/effort high
+
+# 方式二：在 /model 命令中使用左右箭头调整滑块
 /model
 # 使用箭头键选择 Effort Level
 
-# 方式二：环境变量
-export CLAUDE_CODE_EFFORT_LEVEL=low
+# 方式三：环境变量
 export CLAUDE_CODE_EFFORT_LEVEL=medium
 export CLAUDE_CODE_EFFORT_LEVEL=high
+export CLAUDE_CODE_EFFORT_LEVEL=xhigh
 
-# 方式三：settings.json
+# 方式四：settings.json
 {
-  "effortLevel": "medium"
+  "effortLevel": "high"
 }
 ```
 

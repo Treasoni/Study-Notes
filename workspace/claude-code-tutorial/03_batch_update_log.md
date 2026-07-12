@@ -5,3 +5,6 @@
 | 2026-07-12 | 1 | 如何使用Claude code.md | patch-in-place | ✅ 成功 | 低 |
 | 2026-07-12 | 1 | Claude Code CLI 完整参考.md | patch-in-place | ✅ 成功 | 低 |
 | 2026-07-12 | 1 | Claude Code Subagents 完整指南.md | patch-in-place | ✅ 成功 | 极低 |
+| 2026-07-12 | 2 | Claude Code 常用功能.md | patch-in-place | ✅ 成功 | 低 |
+| 2026-07-12 | 2 | Claude Code 模型与推理设置.md | patch-in-place | ✅ 成功 | 低 |
+| 2026-07-12 | 2 | Claude Code Memory 完整指南.md | patch-in-place | ✅ 成功 | 低 |

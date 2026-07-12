@@ -1,7 +1,10 @@
 ---
+title: Claude Code Memory 完整指南
 tags: [claude, ai, 工具使用, memory, claude-md, 持久化上下文]
 created: 2026-04-05
-updated: 2026-04-05
+updated: 2026-07-12
+status: updated
+source_project: claude-code-tutorial
 ---
 
 # Claude Code Memory 完整指南
@@ -238,6 +241,31 @@ paths: src/api/**/*.ts
 
 - **子目录**：规则递归发现，可组织为主题文件夹
 - **符号链接**：支持跨项目共享规则
+
+### `.claude/rules/` 路径范围规则
+
+> [!tip] 2026 年新增
+> 将规则文件放入 `.claude/rules/` 目录，使用 `paths:` 元数据指定生效路径范围，触及时才加载，节省上下文预算。
+
+```markdown
+---
+description: React 组件开发规范
+paths:
+  - src/components/**
+  - src/pages/**
+---
+
+# React 组件规范
+- 使用 TypeScript + Function Component
+- 组件文件使用 PascalCase 命名
+- 每个组件一个文件
+```
+
+| 规则位置 | 加载时机 |
+|----------|---------|
+| `.claude/rules/*.md`（无 paths） | 始终加载 |
+| `.claude/rules/*.md`（有 paths） | 仅当读取匹配路径文件时加载 |
+| 子目录 `CLAUDE.md` | 仅当读取目录内文件时加载 |
 
 > [!info] 📚 来源
 > - [GitHub - claude-howto Memory Guide](https://github.com/luongnv89/claude-howto/blob/main/02-memory/README.md) - Modular Rules System
