@@ -57,6 +57,7 @@
 
 | 技能 | 触发场景 | 关键触发词 |
 |------|----------|-----------|
+| `sync-skill-registry` | 技能注册表同步工具。扫描 .claude/skills/*/SKILL.md 并自动更新 .claude/rules/common/skill-invoc… | 同步注册表、更新技能列表、sync skill registry、update skill registration、刷新技能列表、同步技能表格 |
 | `tool-discovery` | 查看当前环境中可用于资料收集的工具，包括内置工具、MCP 工具和已安装的 skills。当用户想了解有哪些工具可以用来搜索、提取、分析资料时使用此技能。 | 可用工具、有哪些工具、工具列表、收集工具、search tools、available tools |
 
 #### 自我学习
@@ -74,7 +75,7 @@
 | `moc-organizer` | 为 Obsidian 生成或更新 MOC（Map of Content）目录笔记。 | 生成 MOC、整理目录、把新笔记加入目录、每次加入笔记自动更新索引 |
 | `note-beautifier` | Obsidian 笔记智能美化与发布。用于将最终学习笔记处理成 Obsidian Markdown，补 frontmatter、标签、Callout、双链 | 美化、Obsidian、优化格式、笔记美化、发布到 vault、beautify |
 
-#### 未分类
+#### 代码质量
 
 | 技能 | 触发场景 | 关键触发词 |
 |------|----------|-----------|

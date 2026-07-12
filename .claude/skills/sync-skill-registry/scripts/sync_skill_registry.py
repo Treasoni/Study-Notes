@@ -348,13 +348,20 @@ def main():
     if managed_rows:
         print(f"  更新 {len(managed_rows)} 个现有受管条目")
 
-    # Step 5: Infer category from existing tables for skills without frontmatter category
+    # Step 5: Infer category for skills without frontmatter category
+    # Priority: 1) fallback mapping 2) existing table position 3) "未分类"
     existing_category_map = {r["name"]: r["category"] for r in existing_rows}
     for name, info in managed_skills.items():
-        if not info["category"] and name in existing_category_map:
+        if info["category"]:
+            continue
+        if name in FALLBACK_CATEGORIES:
+            info["category"] = FALLBACK_CATEGORIES[name]
+        elif name in existing_category_map:
             info["category"] = existing_category_map[name]
-            if args.verbose:
-                print(f"  推断 {name} → 分类: {info['category']}")
+        else:
+            info["category"] = "未分类"
+        if args.verbose:
+            print(f"  推断 {name} → 分类: {info['category']}")
 
     # Step 6: Check for removals
     removed_names = set()
