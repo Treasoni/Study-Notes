@@ -1,5 +1,9 @@
 ---
-tags: [claude, ai, 工具使用]
+title: Claude Code 常用功能
+tags: [claude, ai, 工具使用, claude-code]
+updated: 2026-07-12
+status: updated
+source_project: claude-code-tutorial
 ---
 
 # Claude Code 常用功能
@@ -541,7 +545,7 @@ A: 按 `Ctrl+C` 停止当前操作。
 
 ### 什么是"上下文"？
 
-**通俗理解**：Claude 的"脑容量"是有限的（200K tokens）
+**通俗理解**：Claude 的"脑容量"是有限的（200K~1M tokens，取决于模型）
 
 - 对话历史、读取的文件、系统提示都占用"脑容量"
 - 用 `/context` 可以查看占用情况

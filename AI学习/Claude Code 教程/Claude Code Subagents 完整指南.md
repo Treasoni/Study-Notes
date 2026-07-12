@@ -1,7 +1,10 @@
 ---
+title: Claude Code Subagents 完整指南
 tags: [claude, ai, 工具使用, subagents, 代理, 任务委托]
 created: 2026-04-05
-updated: 2026-04-05
+updated: 2026-07-12
+status: updated
+source_project: claude-code-tutorial
 ---
 
 # Claude Code Subagents 完整指南
@@ -486,6 +489,9 @@ description: Performs long-running analysis tasks in the background
 ---
 ```
 
+> [!tip] 2026 更新
+> 自 Claude Code v2.1.0+，Subagents 默认在后台运行，新版安装后自动升级后台代理。
+
 ### 快捷键
 
 | 快捷键 | 操作 |
@@ -575,12 +581,12 @@ You are a coordinator agent. You can delegate work to the "worker" and
 
 ---
 
-## Agent Teams（实验性）
+## Agent Teams
 
 Agent Teams 协调多个 Claude Code 实例共同处理复杂任务。
 
 > [!note] 注意
-> Agent Teams 是实验性功能，需要 Claude Code v2.1.32+。使用前需启用。
+> Agent Teams 是实验性功能（v2.1.32+），需要设置 `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` 启用。
 
 ### Subagents vs Agent Teams
 
@@ -661,6 +667,23 @@ User: Build the authentication module. Use a team — one teammate for the API e
 > [!info] 📚 来源
 > - [GitHub - claude-howto Subagents Guide](https://github.com/luongnv89/claude-howto/tree/main/04-subagents) - Agent Teams
 
+### Subagents vs Dynamic Workflows
+
+Dynamic Workflows（2026年5月GA）是另一种多 Agent 编排方式——Claude 自行编写 JavaScript 编排脚本，动态生成 Subagents。
+
+**对比**：
+
+| 方面 | Subagents（手动委托） | Dynamic Workflows |
+|------|---------------------|-------------------|
+| **编排者** | 人类或主 Agent | Claude 自动生成编排脚本 |
+| **并行度** | 多至 10 并行 | 可达数百并行 |
+| **适用场景** | 明确子任务、日常委派 | 大规模重构、跨仓库迁移、安全审计 |
+| **Token 成本** | 较低 | 较高 |
+| **控制粒度** | 精细控制每个代理 | 高阶策略描述 |
+| **学习曲线** | 低 | 中 |
+
+**推荐策略**：日常开发用 Subagents，大规模并行任务用 Dynamic Workflows。
+
 ---
 
 ## 架构与上下文管理
@@ -702,7 +725,7 @@ User: Build the authentication module. Use a team — one teammate for the API e
 
 ### 关键行为
 
-- **无嵌套生成**：Subagents 不能生成其他 Subagents（除非使用 Agent() 语法限制）
+- **嵌套生成**：Subagents 可嵌套最多 5 层。使用 `Agent(agent_type)` 语法限制可生成的 Subagent 类型
 - **后台权限**：后台 Subagents 自动拒绝非预批准的权限
 - **后台化**：按 `Ctrl+B` 将当前任务转为后台
 - **转录存储**：Subagent 转录存储在 `~/.claude/projects/{project}/{sessionId}/subagents/agent-{agentId}.jsonl`

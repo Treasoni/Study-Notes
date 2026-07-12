@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "workspace/claude-code-tutorial/shared_research/research_plan.md",
+                "file": "workspace/claude-code-tutorial/updates/03/stale_map.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "research_plan"
+              "title": "stale_map"
             }
           },
           {
@@ -184,13 +184,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "workspace/claude-code-tutorial/shared_research/research_plan.md",
+                "file": "workspace/claude-code-tutorial/updates/03/stale_map.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "research_plan 的大纲"
+              "title": "stale_map 的大纲"
             }
           },
           {
@@ -236,20 +236,23 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "52ff2f9fbef74052",
   "lastOpenFiles": [
+    "workspace/claude-code-tutorial/03_batch_update_log.md",
+    "workspace/claude-code-tutorial/updates/03/update_report.md",
+    "workspace/claude-code-tutorial/updates/01/stale_map.md",
+    "workspace/claude-code-tutorial/updates/03/stale_map.md",
+    "workspace/claude-code-tutorial/updates/01/update_plan.md",
+    "workspace/claude-code-tutorial/updates/01/update_report.md",
+    "workspace/claude-code-tutorial/shared_research/research_plan.md",
     "workspace/claude-code-tutorial/updates/02/update_report.md",
     "workspace/claude-code-tutorial/updates/02/stale_map.md",
-    "workspace/claude-code-tutorial/updates/01/update_report.md",
-    "workspace/claude-code-tutorial/updates/01/update_plan.md",
-    "workspace/claude-code-tutorial/updates/01/stale_map.md",
     "workspace/claude-code-tutorial/updates/03",
     "workspace/claude-code-tutorial/updates/02",
     "workspace/claude-code-tutorial/updates/01",
     "workspace/claude-code-tutorial/updates",
     "workspace/claude-code-tutorial/shared_research/source_bank.md",
     "workspace/claude-code-tutorial/02_batch_update_plan.md",
-    "workspace/claude-code-tutorial/shared_research/research_plan.md",
     "workspace/claude-code-tutorial/shared_research",
     "workspace/claude-code-tutorial/todo.md.ZEPpH5",
     "workspace/claude-code-tutorial/todo.md",
@@ -271,9 +274,6 @@
     "项目实战/AI实战/LLM 提示词缓存优化策略.md",
     "learnings/RULES.md",
     "learnings/LEARNINGS.md",
-    "learnings/ERRORS.md",
-    "templates/self-learning/skills/maintain-learnings/SKILL.md",
-    "templates/self-learning/skills/digest/SKILL.md",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
