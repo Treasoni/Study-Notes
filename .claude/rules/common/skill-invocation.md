@@ -81,6 +81,7 @@
 | 技能 | 触发场景 | 关键触发词 |
 |------|----------|-----------|
 | `skill-creator` | 创建新的 Claude Code 技能 | 创建 skill、新技能、写一个 skill |
+| `prompt-cache-optimizer` | 审计并优化 LLM 提示缓存、token 与调用成本 | 缓存命中、token 成本、LLM 审计、提示词缓存优化 |
 
 ### 1. 分析意图
 
