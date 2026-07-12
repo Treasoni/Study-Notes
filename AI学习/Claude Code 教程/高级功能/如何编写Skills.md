@@ -16,46 +16,49 @@ source_project: claude-code-tutorial
 
 ## 核心概念 💡
 
-### 文件结构
+### 当前 Skills 格式（v2.1.207）
+
+> [!note] 2026 年格式变更
+> Skills 已采用 **Agent Skills 开放标准**，格式从旧的 `metadata.json` + `skill.md` 双文件结构简化为单一的 `SKILL.md` 文件，通过 YAML frontmatter 声明元数据。
 
 **标准结构**：
 ```
-skills/
-└── sql_generator/          ← Skill 文件夹（与命名一致）
-    ├── skill.md            ← 核心逻辑文件
-    └── metadata.json       ← 能力描述文件
+.claude/skills/
+└── sql-generator/          ← Skill 文件夹（kebab-case）
+    └── SKILL.md            ← 核心指令文件（含 YAML frontmatter）
 ```
 
-### metadata.json
+### SKILL.md Frontmatter
 
-**是什么**：Skill 的"简历"，用于低 token 成本的能力匹配
-
-**为什么需要**：
-- 让 AI 快速了解 Skill 能力
-- 避免 loading 所有 skill.md
-- 节省 90% 以上 token
+**是什么**：SKILL.md 的 YAML 头部，替代了旧版的 metadata.json，以更低 token 成本实现能力匹配
 
 **关键字段**：
 
 | 字段 | 说明 | 必填 |
 |------|------|------|
-| name | 唯一标识符 | ✅ |
-| description | 一句话描述功能 | ✅ |
-| use_cases | 使用场景列表 | ✅ |
-| keywords | 关键词用于匹配 | ✅ |
-| when_to_use | 触发条件描述 | ✅ |
-| category | 分类标签 | ❌ |
+| `name` | 唯一标识符 | ✅ |
+| `description` | 描述（最重要——决定自动触发率） | ✅ |
+| `allowed-tools` | 允许的工具列表 | ❌ |
+| `disallowed-tools` | 禁止的工具列表（v2.1.199+） | ❌ |
+| `context: fork` | 在子代理中隔离执行 | ❌ |
+| `model: haiku` | 指定使用的模型 | ❌ |
+| `argument-hint` | 参数提示 | ❌ |
+| `disable-model-invocation` | 禁止 Claude 自动触发 | ❌ |
 
-### skill.md
+**描述要"pushy"**：
+> [!tip] 描述原则
+> description 字段要列出具体触发词，提高自动调用率。例如："当用户说'简化这段代码'或'重构优化'时触发。"
+> 参考：[[Claude Code Slash Commands 完整参考]]
 
-**是什么**：完整的 Prompt 定义文件
+### 与旧格式对比（2026 年前）
 
-**核心结构**：
-1. **角色设定** - "你是什么专家"
-2. **能力描述** - "你能做什么"
-3. **工作流程** - "按什么步骤执行"
-4. **输出规范** - "输出什么格式"
-5. **约束条件** - "注意什么限制"
+| 维度 | 旧格式 | 当前格式 |
+|------|--------|---------|
+| 文件 | `metadata.json` + `skill.md` | `SKILL.md`（单文件） |
+| 元数据 | 独立的 JSON 文件 | YAML frontmatter |
+| 目录 | `~/.claude/skills/` | `.claude/skills/<name>/` |
+| 可移植性 | Claude Code 专属 | Agent Skills 开放标准 |
+| 参数传递 | 字符串 | 命名参数（v2.1.199+） |
 
 ## 操作步骤
 
@@ -65,34 +68,26 @@ skills/
 # 创建 skills 目录
 mkdir -p ~/.claude/skills
 
-# 创建你的 skill 文件夹
-mkdir -p ~/.claude/skills/sql_generator
+# 创建你的 skill 文件夹（kebab-case 命名）
+mkdir -p ~/.claude/skills/sql-generator
 
-# 创建必需文件
-touch ~/.claude/skills/sql_generator/skill.md
-touch ~/.claude/skills/sql_generator/metadata.json
+# 创建 SKILL.md
+touch ~/.claude/skills/sql-generator/SKILL.md
 ```
 
-### 步骤 2：编写 metadata.json
+### 步骤 2：编写 SKILL.md（含 Frontmatter）
 
-```json
-{
-  "name": "sql_generator",
-  "description": "根据自然语言描述生成 SQL 查询语句",
-  "use_cases": [
-    "用户需要查询数据库时",
-    "用户需要编写复杂 SQL 时",
-    "用户需要优化 SQL 查询时"
-  ],
-  "keywords": ["SQL", "数据库", "查询", "SELECT", "表"],
-  "when_to_use": "当用户的问题涉及数据库查询、数据检索或 SQL 语句编写时",
-  "category": "code_generation"
-}
-```
-
-### 步骤 3：编写 skill.md
+当前格式使用 YAML frontmatter 替代了旧版的 metadata.json：
 
 ```markdown
+---
+name: sql-generator
+description: 根据自然语言描述生成 SQL 查询语句。当用户说"写查询"、"查数据库"、"SQL"时触发。
+allowed-tools: Read, Bash
+model: claude-sonnet-5
+argument-hint: [database_type, query_description]
+---
+
 # SQL 查询生成器
 
 ## 角色
@@ -143,7 +138,10 @@ LIMIT 100;
 - SQL 语句格式化，便于阅读
 ```
 
-### 步骤 4：测试验证
+> [!tip] 命名参数（v2.1.199+）
+> 支持在 description 中定义命名参数，通过 `$ARGUMENTS.param_name` 引用，取代旧版的 `$ARGUMENTS` 字符串拼接。
+
+### 步骤 3：测试验证
 
 在 Claude Code 中测试：
 ```
@@ -155,9 +153,9 @@ LIMIT 100;
 ### 常见错误
 
 **Skill 不被识别**：
-- ❌ metadata.json 格式错误
-- ❌ 文件夹名与 metadata.name 不一致
-- ❌ when_to_use 描述太模糊
+- ❌ SKILL.md frontmatter 格式错误
+- ❌ 文件夹名与 frontmatter 的 name 不一致
+- ❌ description 描述太模糊
 
 **输出不符合预期**：
 - ❌ skill.md 描述不清
@@ -172,17 +170,17 @@ LIMIT 100;
 ### 关键配置点
 
 **命名规范**：
-- ✅ `sql_generator` - 清晰描述功能
-- ✅ `code_reviewer` - 明确用途
+- ✅ `sql-generator` - 清晰描述功能
+- ✅ `code-reviewer` - 明确用途
 - ❌ `helper` - 太泛
 - ❌ `my_agent` - 无意义
 
 **关键词选择**：
-- ✅ 包含专业术语：`["SQL", "PostgreSQL", "MySQL"]`
-- ✅ 包含常见动词：`["查询", "检索", "写入"]`
-- ❌ 避免太泛的词：`["帮助", "工具"]`
+- ✅ 在 description 中包含专业术语：`"当用户提到 SQL、PostgreSQL、MySQL 时触发"`
+- ✅ 包含常见动词：`"查询"`、`"检索"`、`"写入"`
+- ❌ 避免太泛的词：`"帮助"`、`"工具"`
 
-**when_to_use 要具体**：
+**description 要具体（pushy）**：
 - ❌ 模糊：`"用户需要帮助时"`
 - ✅ 具体：`"当用户问题包含'表'、'查询'、'SQL'等关键词时"`
 
@@ -190,23 +188,24 @@ LIMIT 100;
 
 **Q: 如何组织复杂的 Skill？**
 
-A: 当 skill.md 太长时，可以拆分成多个文件：
+A: SKILL.md 推荐控制在 **500 行以内**。过长时可拆分成多个文件：
 ```
-sql_generator/
-├── skill.md          # 主入口
-├── metadata.json
-├── examples.md       # 示例集合
-└── best_practices.md # 最佳实践
+sql-generator/
+├── SKILL.md             # 主入口（含 frontmatter）
+├── examples.md          # 示例集合
+└── scripts/
+    └── validate.sh      # 可执行脚本
 ```
 
 **Q: 如何让 Skill 支持参数？**
 
-A: 在文档中说明参数：
+A: 当前格式支持命名参数（v2.1.199+），在 frontmatter 中声明，通过 `$ARGUMENTS.param_name` 引用：
 ```markdown
-## 参数说明
-| 参数 | 说明 | 默认值 |
-|------|------|--------|
-| --database | 数据库类型 | PostgreSQL |
+---
+name: sql-generator
+argument-hint: [database_type]
+---
+使用 $ARGUMENTS.database_type 数据库类型生成查询。
 ```
 
 **Q: 如何调试 Skill？**
@@ -217,9 +216,20 @@ A:
 3. 在 Claude Code 中测试触发
 4. 根据输出优化 skill.md
 
-**Q: metadata 和 skill.md 的关系？**
+**Q: 一个 Skill 文件太长怎么办？**
 
-A: metadata 是"简历"用于快速匹配，skill.md 是"详细指南"用于执行。AI 先看 metadata 决定是否用，再加载 skill.md 执行任务。
+A: SKILL.md 推荐控制在 500 行以内。参考资料、示例可以拆到独立的 `.md` 文件中，主文件通过路径引用。
+
+**Q: Skills 和 Subagents 有什么区别？**
+
+A: 核心区别在于**执行方式**：
+- **Skills**：在主线程执行，Claude 可观察其全过程
+- **Subagents**：在隔离上下文中执行，不污染主上下文
+- Skills 适合提示词注入；Subagents 适合独立任务委派
+
+**Q: Skills 和 Dynamic Workflows 有什么区别？**
+
+A: Skills 跑在前台（在主上下文或 forked subagent 里）；workflow 跑在后台（独立运行时 + 隔离脚本）。
 
 ## 相关文档
-[[01-基础概念/Skills 是什么]] | [[01-基础概念/人工智能重要的六大概念体系]] | [[02-工具使用/Claude Code 常用功能]]
+[[01-基础概念/Skills 是什么]] | [[Claude Code Subagents 完整指南]] | [[Claude Code 高级功能]]

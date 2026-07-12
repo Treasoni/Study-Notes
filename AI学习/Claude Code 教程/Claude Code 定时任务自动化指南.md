@@ -658,31 +658,35 @@ trap 'error_handler ${LINENO} $?' ERR
 Claude Code 的 Hooks 功能可以在特定生命周期事件触发时执行自定义操作，与定时任务结合使用更强大。
 
 > [!success] 2026 年更新
-> Hooks 现已支持 **14 种生命周期事件**、**3 种处理器类型**和异步模式，成为完整的自动化平台。
+> Hooks 现已支持 **24+ 种生命周期事件**、**5 种处理器类型**和异步模式，成为完整的自动化平台。
 
-**完整的 Hook 事件列表（2026年2月）**：
+**完整的 Hook 事件列表（v2.1.207）**：
 
 | 事件 | 触发时机 | 用途 |
 |------|----------|------|
 | `SessionStart` | 会话开始时 | 初始化环境、加载配置 |
+| `SessionEnd` | 会话结束时 | 清理、日志 |
+| `UserPromptSubmit` | 用户提交提示词时 | 验证提示词 |
 | `PreToolUse` | 工具调用前 | 验证参数、阻止危险操作 |
 | `PostToolUse` | 工具调用成功后 | 格式化文件、记录日志 |
 | `PostToolUseFailure` | 工具调用失败后 | 错误通知、回滚操作 |
-| `Stop` | 会话结束时 | 清理资源、发送报告 |
-| `Notification` | 收到通知时 | 自定义通知处理 |
-| `PreCompact` | 上下文压缩前 | 保存重要信息 |
-| `PostCompact` | 上下文压缩后 | 恢复关键数据 |
+| `PermissionRequest` | 显示权限对话框时 | 自动批准/拒绝 |
+| `Stop` | 停止响应时 | 任务完成检查 |
 | `SubAgentStart` | 子代理启动时 | 记录子任务 |
 | `SubAgentStop` | 子代理结束时 | 汇总结果 |
-| `UserInputRequest` | 请求用户输入时 | 自动填充、验证 |
-| `ToolCall` | 任意工具调用时 | 通用拦截器 |
-| `FileChange` | 文件变更时 | 自动格式化、测试触发 |
-| `TaskComplete` | 任务完成时 | 通知、报告生成 |
+| `PreCompact` | 上下文压缩前 | 保存重要信息 |
+| `PostCompact` | 上下文压缩后 | 恢复关键数据 |
+| `TaskCompleted` | 任务标记完成时 | 通知、报告生成 |
+| `ConfigChange` | 配置文件变更时 | 响应更新 |
 
-**3 种处理器类型**：
+完整列表含 24+ 个事件，涵盖会话生命周期、工具执行、Agent/团队、上下文压缩、MCP 交互等 7 个类别。
+
+**5 种处理器类型**：
 1. **Command** - 执行 shell 命令
-2. **Script** - 运行 Python/Node.js 脚本
-3. **HTTP** - 发送 HTTP 请求（新增）
+2. **HTTP** - 发送 HTTP 请求
+3. **Prompt** - LLM 评估（AI 判断操作是否安全）
+4. **Agent** - 启动独立 Agent 进行多步验证
+5. **MCP Tool** - 调用 MCP 服务器工具
 
 **配置示例** (`.claude/settings.json`)：
 ```json
@@ -959,7 +963,7 @@ docker run --rm -v "$PWD:/workspace" \
 FROM ubuntu:24.04
 
 # 安装 Claude Code
-RUN curl -fsSL https://code.claude.com/install.sh | sh
+RUN curl -fsSL https://claude.ai/install.sh | sh
 
 # 创建非 root 用户
 RUN useradd -m -u 1000 claude

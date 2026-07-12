@@ -24,13 +24,15 @@ source_project: claude-code-tutorial
 - 记录团队约定和工作流程
 - 作为项目的"记忆系统"
 
-### 文件优先级
+### 文件优先级（2026）
 
-| 文件 | 位置 | 作用域 | 共享 |
-|------|------|--------|------|
+| 文件/目录 | 位置 | 作用域 | 共享 |
+|-----------|------|--------|------|
 | `CLAUDE.md` | 项目根目录 | 项目级 | 是（提交到 Git） |
+| `.claude/rules/` | 项目目录 | 路径范围 | 是（提交到 Git） |
 | `CLAUDE.local.md` | 项目根目录 | 项目级 | 否（本地配置） |
 | `~/.claude/CLAUDE.md` | 用户目录 | 全局级 | 否（所有项目） |
+| 子目录 `CLAUDE.md` | 项目子目录 | 目录级 | 是（仅当读取该目录文件时加载） |
 
 ### 工作原理
 
@@ -48,9 +50,9 @@ source_project: claude-code-tutorial
 
 ## 最佳实践
 
-### 1. 保持简洁
+### 1. 保持简洁（200 行以内）
 
-Claude 可靠遵循约 150-200 条指令。过长会导致内容被随机忽略。
+Claude 可靠遵循约 150-200 条指令。**超过 200 行会降低依从性**——过长会导致内容被随机忽略。
 
 **❌ 不推荐**：
 ```markdown
@@ -92,6 +94,62 @@ main 是主分支...
 ### 3. 说明"为什么"
 
 解释规则背后的原因，Claude 表现更好。
+
+### 4. 使用 @import 引入外部文件
+
+> [!tip] @import 语法
+> 在 CLAUDE.md 中使用 `@import` 可拉入其他文件（最多 4 层嵌套），适合将详细规范拆分到独立文件。
+
+```markdown
+# CLAUDE.md
+
+## 项目概述
+...
+
+## 编码规范
+@import ./docs/coding-standards.md
+
+## 架构决策
+@import ./docs/adr/001-auth-flow.md
+```
+
+### 5. 子目录 CLAUDE.md（Monorepo 友好）
+
+> [!tip] 子目录规则
+> 子目录中的 `CLAUDE.md` 仅当 Claude 读取该目录内的文件时才会加载——非常适合 monorepo。
+
+```
+repo/
+├── CLAUDE.md              # 始终加载（根级规则）
+├── frontend/
+│   ├── CLAUDE.md          # 仅在处理 frontend/ 文件时加载
+│   └── src/
+└── backend/
+    ├── CLAUDE.md          # 仅在处理 backend/ 文件时加载
+    └── src/
+```
+
+### 6. `.claude/rules/` 路径范围规则
+
+> [!tip] 路径范围规则（2026 Q2 新增）
+> `.claude/rules/` 目录支持通过 `paths:` 元数据定义路径范围，触及时才加载——节省上下文预算。
+
+```bash
+.claude/rules/
+├── common/
+│   ├── env.md              # 始终加载的通用规则
+│   └── hooks.md            # Hook 规范
+└── frontend/
+    └── rules.md            # 仅当处理 frontend/ 目录时加载
+        paths: frontend/
+```
+
+**规则加载优先级**（高→低）：
+1. `CLAUDE.md`（项目根）
+2. `.claude/rules/`（路径匹配）
+3. 子目录 `CLAUDE.md`
+4. `~/.claude/CLAUDE.md`（用户级）
+5. 内置规则
 
 ```markdown
 ## 状态管理
