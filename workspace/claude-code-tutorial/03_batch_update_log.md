@@ -20,3 +20,5 @@
 | 2026-07-12 | 6 | Claude Code 插件系统使用指南.md | patch-in-place | ✅ 成功 | 极低 |
 | 2026-07-12 | 6 | Subagent 实战练习.md | patch-in-place | ✅ 成功 | 低 |
 | 2026-07-12 | 6 | Claude Code 多 Agent 流程设计.md | patch-in-place | ✅ 成功 | 极低 |
+| 2026-07-12 | 7 | Claude MCP 使用指南.md | patch-in-place | ✅ 成功 | 极低 |
+| 2026-07-12 | 7 | sortspec.md | patch-in-place | ✅ 成功 | 极低 |
