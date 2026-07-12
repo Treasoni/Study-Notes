@@ -238,6 +238,7 @@
   },
   "active": "30b0ade23c460f17",
   "lastOpenFiles": [
+    "workspace/claude-code-tutorial/shared_research/source_bank.md",
     "workspace/claude-code-tutorial/02_batch_update_plan.md",
     "workspace/claude-code-tutorial/shared_research/research_plan.md",
     "workspace/claude-code-tutorial/shared_research",
@@ -273,7 +274,6 @@
     "templates/self-learning/learnings/ERRORS.md",
     "templates/self-learning/README.md",
     "templates/self-learning/AGENTS.snippet.md",
-    "self-learning/skills/maintain-learnings/SKILL.md",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
