@@ -17,3 +17,6 @@
 | 2026-07-12 | 5 | 如何编写Skills.md | patch-in-place | ✅ 成功 | 低 |
 | 2026-07-12 | 5 | CLAUDE.md 使用指南.md | patch-in-place | ✅ 成功 | 低 |
 | 2026-07-12 | 5 | Claude Code 定时任务自动化指南.md | patch-in-place | ✅ 成功 | 低 |
+| 2026-07-12 | 6 | Claude Code 插件系统使用指南.md | patch-in-place | ✅ 成功 | 极低 |
+| 2026-07-12 | 6 | Subagent 实战练习.md | patch-in-place | ✅ 成功 | 低 |
+| 2026-07-12 | 6 | Claude Code 多 Agent 流程设计.md | patch-in-place | ✅ 成功 | 极低 |
