@@ -1,0 +1,145 @@
+{
+  "version": "1",
+  "description": "Stable regression cases for high-frequency prompt-cache validation. No raw inputs, secrets, or personal data.",
+  "cases": [
+    {
+      "id": "outline-generator-phase-3",
+      "enabled": true,
+      "request_type": "subagent",
+      "template_id": "outline-generator",
+      "input_fixture": "fixtures/outline-generator-input.md",
+      "parameters": {
+        "phase": "P3",
+        "workflow": "learning-note-flow",
+        "input_files": ["00_intent.md", "02_deep_research.md"]
+      },
+      "quality_checks": [
+        "Outputs valid 03_outline.md with correct metadata (篇幅, 覆盖要点, 素材引用, 代码示例)",
+        "Does not exceed 3 heading levels",
+        "All material reference numbers match 02_deep_research.md",
+        "Learning path section is present",
+        "Asks user for confirmation before proceeding"
+      ],
+      "baseline": {
+        "input_tokens": null,
+        "cache_read_tokens": null,
+        "output_tokens": null,
+        "latency_ms": null,
+        "cost_usd": null,
+        "quality_score": null
+      }
+    },
+    {
+      "id": "chapter-writer-phase-4",
+      "enabled": true,
+      "request_type": "subagent",
+      "template_id": "chapter-writer",
+      "input_fixture": "fixtures/chapter-writer-input.md",
+      "parameters": {
+        "phase": "P4",
+        "chapter": 1,
+        "note_type": "实战笔记",
+        "input_files": ["00_intent.md", "03_outline.md", "02_deep_research.md"]
+      },
+      "quality_checks": [
+        "Chapter has opening paragraph stating purpose",
+        "Body covers all key points from outline",
+        "Writing style matches the note type (实战笔记: step-by-step)",
+        "Code examples are complete and commented",
+        "Chapter summary has 3-5 bullet points",
+        "Next chapter preview bridges to next chapter",
+        "Saved to correct chapters/ path"
+      ],
+      "baseline": {
+        "input_tokens": null,
+        "cache_read_tokens": null,
+        "output_tokens": null,
+        "latency_ms": null,
+        "cost_usd": null,
+        "quality_score": null
+      }
+    },
+    {
+      "id": "note-assembler-phase-5",
+      "enabled": true,
+      "request_type": "subagent",
+      "template_id": "note-assembler",
+      "input_fixture": "fixtures/note-assembler-input.md",
+      "parameters": {
+        "phase": "P5",
+        "assembly_mode": "sequential",
+        "input_files": ["chapters/*.md", "00_intent.md", "03_outline.md"]
+      },
+      "quality_checks": [
+        "Table of contents is accurate and complete",
+        "All chapters are included in order",
+        "Transitions between chapters are smooth",
+        "Heading levels are consistent (H1 title, H2 chapters, H3 sections)",
+        "Saved to output/final_note.md",
+        "Assembly report shows correct stats"
+      ],
+      "baseline": {
+        "input_tokens": null,
+        "cache_read_tokens": null,
+        "output_tokens": null,
+        "latency_ms": null,
+        "cost_usd": null,
+        "quality_score": null
+      }
+    },
+    {
+      "id": "research-planner-intent-clarification",
+      "enabled": true,
+      "request_type": "skill",
+      "template_id": "research-planner",
+      "input_fixture": "fixtures/research-planner-input.md",
+      "parameters": {
+        "topic": "React Server Components",
+        "workflow": "learning-note-flow",
+        "output_target": "project-output"
+      },
+      "quality_checks": [
+        "Intent file 00_intent.md is generated with correct structure",
+        "todo.md is generated via workflow-orchestrator",
+        "User is asked before proceeding to next phase",
+        "Output contains project directory path and next steps"
+      ],
+      "baseline": {
+        "input_tokens": null,
+        "cache_read_tokens": null,
+        "output_tokens": null,
+        "latency_ms": null,
+        "cost_usd": null,
+        "quality_score": null
+      }
+    },
+    {
+      "id": "research-collector-two-phase-collection",
+      "enabled": true,
+      "request_type": "skill",
+      "template_id": "research-collector",
+      "input_fixture": "fixtures/research-collector-input.md",
+      "parameters": {
+        "phase": "P2",
+        "topic": "React Server Components",
+        "depth": "上手",
+        "strategy": "two-phase"
+      },
+      "quality_checks": [
+        "02_deep_research.md is generated with correct caching structure",
+        "Phase 1 results include 标题, URL, 摘要 (≤150字), 评分 (1-5), 来源类型",
+        "Phase 2 includes at least 3-5 deep-read results",
+        "Search sources are diverse (docs, blogs, community)",
+        "Comprehensive analysis section summarizes key findings"
+      ],
+      "baseline": {
+        "input_tokens": null,
+        "cache_read_tokens": null,
+        "output_tokens": null,
+        "latency_ms": null,
+        "cost_usd": null,
+        "quality_score": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/zhqznc/Documents/项目/.claude/hooks/read-learnings.sh'"
+          }
+        ]
+      }
+    ]
+  }
+}
