@@ -1,7 +1,10 @@
 ---
+title: Claude Code 高级功能
 tags: [claude, ai, 进阶应用, 高级功能]
 created: 2026-04-05
-updated: 2026-04-05
+updated: 2026-07-12
+status: updated
+source_project: claude-code-tutorial
 ---
 
 # Claude Code 高级功能

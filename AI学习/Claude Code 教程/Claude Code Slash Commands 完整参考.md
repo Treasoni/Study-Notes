@@ -1,7 +1,10 @@
 ---
+title: Claude Code Slash Commands 完整参考
 tags: [claude, ai, 工具使用, 斜杠命令, slash-commands]
 created: 2026-04-05
-updated: 2026-04-05
+updated: 2026-07-12
+status: updated
+source_project: claude-code-tutorial
 ---
 
 # Claude Code Slash Commands 完整参考

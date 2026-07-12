@@ -1,7 +1,10 @@
 ---
+title: Claude Code Hooks 使用指南
 tags: [claude, ai, 工具使用, hook, 自动化]
 created: 2026-03-22
-updated: 2026-04-05
+updated: 2026-07-12
+status: updated
+source_project: claude-code-tutorial
 ---
 
 # Claude Code Hooks 使用指南
