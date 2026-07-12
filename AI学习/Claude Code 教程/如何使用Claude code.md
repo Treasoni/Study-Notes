@@ -1,5 +1,9 @@
 ---
-tags: [ai, 工具使用]
+title: Claude Code 使用指南
+tags: [ai, 工具使用, claude-code, 入门]
+updated: 2026-07-12
+status: updated
+source_project: claude-code-tutorial
 ---
 
 # Claude Code 使用指南
@@ -28,7 +32,7 @@ curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del in
 
 > [!tip] 原生安装器优势
 > - 自动更新 · 无需 Node.js · 体积约 60-80MB
-> - 安装后执行 `claude --version` 验证，当前最新为 **v2.1.131**（2026-05-06）
+> - 安装后执行 `claude --version` 验证，当前最新为 **v2.1.207**（2026-07-11）
 
 ### 2️⃣ 其他安装方式（备选）
 
@@ -280,9 +284,14 @@ echo "sk-ant-你的API密钥"
 | 命令 | 作用 |
 |------|------|
 | `claude` | 启动交互会话 |
-| `claude --model claude-sonnet-4` | 指定模型启动 |
+| `claude --model claude-sonnet-5` | 指定模型启动（默认 Sonnet 5） |
 | `claude -m deepseek-chat` | 使用第三方模型 |
-| `claude --print < prompt.txt` | 非交互模式（自动化/CI） |
+| `claude -p "query"` | 打印模式，执行后退出（自动化/CI） |
+| `claude -c` | 继续最近会话 |
+| `claude --resume <name>` | 恢复命名会话 |
+| `claude agents` | 统一代理视图（运行/阻塞/完成的会话） |
+| `claude --safe-mode` | 安全模式，禁用所有自定义项（排障用） |
+| `claude --worktree` | Subagent 使用隔离 git worktree |
 | `claude --version` | 查看版本 |
 | `claude --debug` | 调试模式 |
 
@@ -291,14 +300,25 @@ echo "sk-ant-你的API密钥"
 | 命令 | 作用 |
 |------|------|
 | `/model` | 切换模型（列出可选） |
-| `/model claude-opus-4` | 直接切换到指定模型 |
-| `/status` | 查看当前模型/状态 |
-| `/new` | 创建新会话 |
-| `/new my-project` | 创建命名会话 |
-| `/resume` | 列出历史会话 |
-| `/resume my-session` | 恢复特定会话 |
-| `/clear` | 清除当前会话 |
+| `/model claude-opus-4.8` | 直接切换到指定模型 |
+| `/plan` | 强制规划/只读模式 |
+| `/effort` | 设置努力级别（standard/high/xhigh） |
+| `/fast` | 切换速度优化 API 设置 |
+| `/cd <path>` | 切换工作目录（不重建缓存） |
+| `/todos` | 跨会话持久化任务列表 |
+| `/goal` | 保持工作直到完成条件满足 |
+| `/code-review` | 报告正确性错误，`--fix` 直接修复 |
+| `/memory` | 编辑 CLAUDE.md（不离开会话） |
+| `/checkup` | 自诊断工具（清理/优化配置） |
+| `/usage` | 查看配额使用明细（按 skill/agent/插件） |
+| `/compact` | 压缩会话上下文释放空间 |
 | `/context` | 显示 token 消耗 |
+| `/cost` | 查看 Token 消耗与费用 |
+| `/rewind` | 回滚到检查点 |
+| `/fork` | 创建临时会话分支 |
+| `/diff` | 查看会话的 git diff |
+| `/init` | 创建 CLAUDE.md |
+| `/clear` | 清除当前会话 |
 | `/help` | 帮助 |
 | `/mcp` | 查看 MCP 列表 |
 

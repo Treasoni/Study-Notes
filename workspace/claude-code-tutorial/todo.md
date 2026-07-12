@@ -5,7 +5,7 @@ project_slug: claude-code-tutorial
 created_at: "2026-07-12"
 last_updated: "2026-07-12"
 current_phase: P4
-current_status: ready
+current_status: in_progress
 mode: standard
 blocked_reason: ""
 ---
@@ -72,7 +72,7 @@ blocked_reason: ""
 - [ ] 原文未被覆盖，除非 destination_mode 为 patch-in-place 且用户已确认
 - [ ] 批处理日志已追加：`./03_batch_update_log.md`
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中
 
 ---
 
