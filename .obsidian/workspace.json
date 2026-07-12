@@ -236,8 +236,11 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "30b0ade23c460f17",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "workspace/claude-code-tutorial/todo.md",
+    "workspace/claude-code-tutorial/00_batch_update_intent.md",
+    "workspace/claude-code-tutorial",
     "docs/updating-notes.md",
     "docs/learnings-digest.md",
     "docs/experience-notes.md",
@@ -264,7 +267,6 @@
     "templates/self-learning/skills/maintain-learnings",
     "templates/self-learning/learnings/ERRORS.md",
     "templates/self-learning/skills/digest",
-    "templates/self-learning/hooks/read-learnings.sh",
     "templates/self-learning/README.md",
     "templates/self-learning/AGENTS.snippet.md",
     "self-learning/skills/maintain-learnings/SKILL.md",
@@ -272,8 +274,6 @@
     "self-learning/learnings/RULES.md",
     "self-learning/learnings/LEARNINGS.md",
     "self-learning/learnings/ERRORS.md",
-    "self-learning/README.md",
-    "self-learning/AGENTS.snippet.md",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
