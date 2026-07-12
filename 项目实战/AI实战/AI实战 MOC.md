@@ -2,7 +2,7 @@
 title: AI实战 MOC
 tags: [moc]
 created: 2026-05-12
-updated: 2026-07-11
+updated: 2026-07-12
 ---
 
 ## 目录结构
@@ -27,7 +27,8 @@ graph TD
     Arch --> N9[Agent与Skills架构设计]
     Arch --> N10[Claude Code项目动态技能发现机制]
     RootDir --> N11[sortspec]
-    class N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14 internal-link;
+    RootDir --> N15[LLM 提示词缓存优化策略]
+    class N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15 internal-link;
 ```
 
 ## 笔记索引
@@ -51,11 +52,12 @@ graph TD
 
 ### 根目录
 - [[sortspec]]
+- [[LLM 提示词缓存优化策略]] #LLM #prompt-engineering #缓存优化 #心得
 
 ## 概览
 
 - 📂 目录：`AI实战`
-- 📝 笔记总数：14
+- 📝 笔记总数：15
 - 📁 子目录数：2
 - 📅 生成日期：2026-05-12
 - 📅 更新日期：2026-06-02
