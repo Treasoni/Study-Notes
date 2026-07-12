@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "软路由教程/iStoreOS爬梯配置指南.md",
+                "file": "workspace/llm-提示词缓存优化策略/todo.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "iStoreOS爬梯配置指南"
+              "title": "todo"
             }
           },
           {
@@ -236,9 +236,12 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "52ff2f9fbef74052",
   "lastOpenFiles": [
+    "workspace/llm-提示词缓存优化策略/output/final_note.md",
+    "workspace/llm-提示词缓存优化策略/output",
     "workspace/llm-提示词缓存优化策略/00_intent.md",
+    "软路由教程/iStoreOS爬梯配置指南.md",
     "workspace/llm-提示词缓存优化策略/todo.md",
     "workspace/llm-提示词缓存优化策略",
     "workspace",
@@ -268,12 +271,9 @@
     "PVE的学习/common/git-workflow.md",
     "PVE的学习/common/env.md",
     "PVE的学习/common/agent-invocation.md",
-    "PVE的学习/common",
     "PVE的学习/batch-note-updater/SKILL.md",
     "PVE的学习/CLAUDE.md",
     "软路由教程/update_report_iStoreOS爬梯配置指南.md",
-    "软路由教程/iStoreOS爬梯配置指南.md",
-    "AI学习/03-技术专题/Codex手动配置指南.md",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
