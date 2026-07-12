@@ -24,6 +24,11 @@ import sys
 SKILL_DIR = pathlib.Path(__file__).resolve().parent.parent.parent  # .claude/skills/
 INVOCATION_FILE = SKILL_DIR.parent / "rules" / "common" / "skill-invocation.md"  # .claude/rules/common/skill-invocation.md
 
+# 已知技能的默认分类回退（用于 symlink 技能或未声明 category 的情况）
+FALLBACK_CATEGORIES = {
+    "skill-creator": "代码质量",
+}
+
 
 # ── Frontmatter Parser ────────────────────────────────────────────
 
@@ -94,11 +99,17 @@ def extract_scene(description: str) -> str:
     # Use the description as-is (it's already the scene summary)
     # But trim if too long for a table
     if len(description) > 80:
-        # Try to find a natural break point
-        for punct in ["。", "；", "。", "，"]:
+        # Try to find a natural break point at sentence end
+        for punct in ["。", "；"]:
             idx = description.find(punct)
             if 30 <= idx <= 80:
                 return description[: idx + 1]
+        # Fallback: break at comma, but trim trailing comma
+        for punct in ["，", ","]:
+            idx = description.rfind(punct, 30, 80)
+            if idx != -1:
+                return description[:idx]
+        # Hard cut
         return description[:77] + "…"
     return description
 
@@ -337,7 +348,15 @@ def main():
     if managed_rows:
         print(f"  更新 {len(managed_rows)} 个现有受管条目")
 
-    # Step 5: Check for removals
+    # Step 5: Infer category from existing tables for skills without frontmatter category
+    existing_category_map = {r["name"]: r["category"] for r in existing_rows}
+    for name, info in managed_skills.items():
+        if not info["category"] and name in existing_category_map:
+            info["category"] = existing_category_map[name]
+            if args.verbose:
+                print(f"  推断 {name} → 分类: {info['category']}")
+
+    # Step 6: Check for removals
     removed_names = set()
     for row in managed_rows:
         if row["name"] not in managed_skills:
