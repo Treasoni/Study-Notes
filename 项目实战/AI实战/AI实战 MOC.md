@@ -52,7 +52,7 @@ graph TD
 
 ### 根目录
 - [[sortspec]]
-- [[LLM 提示词缓存优化策略]] #LLM #prompt-engineering #缓存优化 #心得
+- [[LLM 提示词缓存优化策略]] #LLM #prompt-engineering #缓存优化 #心得 #项目规范
 
 ## 概览
 
