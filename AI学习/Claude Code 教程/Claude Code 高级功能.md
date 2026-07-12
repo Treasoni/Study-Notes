@@ -20,9 +20,11 @@ graph TD
     A --> C[自动化]
     A --> D[会话管理]
     A --> E[集成与扩展]
+    A --> F[高级工作流]
 
     B --> B1[Planning Mode]
     B --> B2[Extended Thinking]
+    B --> B3[Ultraplan]
 
     C --> C1[Auto Mode]
     C --> C2[Background Tasks]
@@ -31,11 +33,17 @@ graph TD
     D --> D1[Session Management]
     D --> D2[Task List]
     D --> D3[Git Worktrees]
+    D --> D4[Checkpoints & Rewind]
 
     E --> E1[Chrome Integration]
     E --> E2[Remote Control]
     E --> E3[Desktop App]
     E --> E4[Voice Dictation]
+    E --> E5[Computer Use]
+
+    F --> F1[Dynamic Workflows]
+    F --> F2[Subagents]
+    F --> F3[Artifacts]
 ```
 
 ---
@@ -183,8 +191,8 @@ Option + T (macOS) / Alt + T (Windows/Linux)
 # 方式 2: 设置思考 token 预算
 export MAX_THINKING_TOKENS=16000
 
-# 方式 3: 设置思考深度 (仅 Opus 4.6)
-export CLAUDE_CODE_EFFORT_LEVEL=high   # low (○), medium (◐), high (●), max
+# 方式 3: 设置思考深度 (Opus 系列)
+export CLAUDE_CODE_EFFORT_LEVEL=high   # standard, high, xhigh, max
 
 # 方式 4: CLI 标志
 claude --effort high "complex architectural review"
@@ -200,7 +208,9 @@ claude --effort high "complex architectural review"
 
 | 模型 | 思考模式 |
 |------|----------|
-| **Opus 4.6** | 自适应推理，支持 effort 级别：`low` (○), `medium` (◐), `high` (●), `max` |
+| **Opus 4.8** | 自适应推理，支持 effort 级别：`standard`, `high`, `xhigh`, `max` |
+| **Opus 4.6/4.7** | 自适应推理，支持 effort 级别：`low` (○), `medium` (◐), `high` (●), `max` |
+| **Sonnet 5** | 自适应推理，支持 effort 级别：`standard`, `high`, `xhigh`, `max` |
 | **Sonnet 4.6** | 固定预算，最多 31,999 tokens |
 | **Haiku 4.5** | 固定预算，最多 31,999 tokens |
 
@@ -278,8 +288,8 @@ Claude: 让我仔细思考这个架构决策...
 > [!tip] 🎯 一句话定义
 > **自动模式使用后台安全分类器审查每个操作，允许 Claude 自主工作同时阻止危险操作。**
 
-> [!warning] 研究预览功能
-> Auto Mode 是 2026 年 3 月的研究预览功能，需要 Team 计划（Enterprise 和 API 正在推出）。
+> [!note] 正式发布
+> Auto Mode 于 2026 年 Q2 正式发布（GA），Pro 计划即可使用。2026 年 7 月起已支持 Bedrock、Vertex AI 和 Foundry。
 
 ### 通俗理解
 
@@ -501,7 +511,7 @@ export CLAUDE_CODE_DISABLE_CRON=1
 | `default` | 只读文件；其他操作需提示确认 |
 | `acceptEdits` | 自动读写编辑文件；命令需确认 |
 | `plan` | 只读文件（研究模式，无编辑） |
-| `auto` | 所有操作经后台安全分类器检查（研究预览） |
+| `auto` | 所有操作经后台安全分类器检查（正式发布 GA） |
 | `bypassPermissions` | 所有操作，无权限检查（危险） |
 | `dontAsk` | 只执行预批准的工具；其他全部拒绝 |
 
@@ -578,7 +588,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install Claude Code
-        run: npm install -g @anthropic-ai/claude-code
+        run: curl -fsSL https://claude.ai/install.sh | bash
 
       - name: Run Claude Code Review
         env:
@@ -956,8 +966,8 @@ claude --no-sandbox    # 禁用
 
 ```bash
 # 模型选择
-export ANTHROPIC_MODEL=claude-opus-4-6
-export ANTHROPIC_DEFAULT_OPUS_MODEL=claude-opus-4-6
+export ANTHROPIC_MODEL=claude-opus-4-8
+export ANTHROPIC_DEFAULT_OPUS_MODEL=claude-opus-4-8
 
 # API 配置
 export ANTHROPIC_API_KEY=sk-ant-...

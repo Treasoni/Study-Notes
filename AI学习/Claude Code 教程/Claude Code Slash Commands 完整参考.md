@@ -136,7 +136,7 @@ Slash Commands 是 Claude Code 交互会话中的**快捷指令系统**，通过
 | `/cost` | Token 使用统计 | 费用分析 |
 | `/context` | 可视化上下文使用 | 彩色网格显示 |
 | `/stats` | 可视化使用统计 | 每日使用、会话、连续天数 |
-| `/doctor` | 诊断安装健康 | 排查问题 |
+| `/checkup` | 系统诊断（`/doctor` 别名） | 排查问题、清理配置、优化性能 |
 | `/insights` | 生成会话分析报告 | 使用洞察 |
 | `/release-notes` | 查看更新日志 | 版本更新信息 |
 

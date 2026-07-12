@@ -107,7 +107,7 @@ source_project: claude-code-tutorial
 
 ## Hook 类型
 
-Claude Code 支持 **4 种 Hook 类型**：
+Claude Code 支持 **5 种 Hook 类型**：
 
 ### Command Hook（默认）
 
@@ -174,11 +174,26 @@ Claude Code 支持 **4 种 Hook 类型**：
 > [!tip] 与 Prompt Hook 的区别
 > Agent Hook 可以使用工具（Read、Grep、Bash 等）进行多步推理，Prompt Hook 只能单次评估。
 
+### MCP Tool Hook
+
+调用 MCP 服务器工具：
+
+```json
+{
+  "type": "mcp_tool",
+  "mcp_server": "memory",
+  "mcp_tool": "store-memory",
+  "timeout": 30
+}
+```
+
+> MCP Tool Hook 可在 PreToolUse 中无缝集成外部服务。
+
 ---
 
 ## Hook 事件完整列表
 
-Claude Code 支持 **25 个 Hook 事件**：
+Claude Code 支持 **24+ 个 Hook 事件**（v2.1.83+ 新增文件系统事件）：
 
 ### 核心事件
 

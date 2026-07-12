@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "workspace/claude-code-tutorial/updates/03/stale_map.md",
+                "file": "workspace/claude-code-tutorial/03_batch_update_log.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "stale_map"
+              "title": "03_batch_update_log"
             }
           },
           {
@@ -184,13 +184,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "workspace/claude-code-tutorial/updates/03/stale_map.md",
+                "file": "workspace/claude-code-tutorial/03_batch_update_log.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "stale_map 的大纲"
+              "title": "03_batch_update_log 的大纲"
             }
           },
           {
@@ -236,18 +236,18 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "30b0ade23c460f17",
   "lastOpenFiles": [
     "workspace/claude-code-tutorial/updates/06/stale_map.md",
-    "workspace/claude-code-tutorial/updates/06",
     "workspace/claude-code-tutorial/updates/05/stale_map.md",
-    "workspace/claude-code-tutorial/updates/05",
     "workspace/claude-code-tutorial/updates/04/stale_map.md",
+    "workspace/claude-code-tutorial/updates/03/stale_map.md",
+    "workspace/claude-code-tutorial/updates/06",
+    "workspace/claude-code-tutorial/updates/05",
     "workspace/claude-code-tutorial/updates/04",
     "workspace/claude-code-tutorial/03_batch_update_log.md",
     "workspace/claude-code-tutorial/updates/03/update_report.md",
     "workspace/claude-code-tutorial/updates/01/stale_map.md",
-    "workspace/claude-code-tutorial/updates/03/stale_map.md",
     "workspace/claude-code-tutorial/updates/01/update_plan.md",
     "workspace/claude-code-tutorial/updates/01/update_report.md",
     "workspace/claude-code-tutorial/shared_research/research_plan.md",
