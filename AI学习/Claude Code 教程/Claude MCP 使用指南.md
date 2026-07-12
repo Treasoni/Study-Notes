@@ -1,6 +1,10 @@
 ---
+title: Claude MCP 使用指南
 tags: [ai, 进阶应用]
-updated: 2026-04-04
+created: 2026-04-04
+updated: 2026-07-12
+status: updated
+source_project: claude-code-tutorial
 ---
 
 # Claude MCP 使用指南

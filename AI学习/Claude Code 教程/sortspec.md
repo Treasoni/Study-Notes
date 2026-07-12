@@ -40,6 +40,7 @@ order:
       - Claude MCP 使用指南
       - 高级功能/如何编写Skills
       - 高级功能/CLAUDE.md 使用指南
+      - 高级功能/Claude Code Dynamic Workflows 使用指南
       - 高级功能/LLM-Prompt-Caching-提示缓存
 
   - index: 05
