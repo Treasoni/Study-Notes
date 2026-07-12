@@ -28,6 +28,7 @@
 |------|----------|-----------|
 | `excalidraw-diagram` | 生成 Excalidraw 流程图、思维导图、架构图 | 画图、流程图、思维导图、Excalidraw、可视化、diagram |
 | `json-canvas` | 生成 JSON Canvas 格式的可视化画布 | canvas、画布、JSON Canvas |
+| `dataviz` | 创建图表、图形、仪表盘等数据可视化 | chart、graph、plot、数据可视化、dashboard |
 
 #### Obsidian 相关（项目本地）
 
@@ -43,6 +44,7 @@
 |------|----------|-----------|
 | `research-planner` | 资料收集前的需求澄清与引导 | 想学、帮我整理、研究一下、了解一下、不知道从哪开始、帮我看看、research planning、explore topic |
 | `research-collector` | 多策略高效资料收集 | 收集资料、研究资料、搜集信息、资料整理、research、gather information、collect资料 |
+| `deep-research` | 多渠道深度研究，多源验证并生成带引用报告 | 深度研究、研究报告、deep research、全面研究 |
 
 #### 学习笔记工作流
 
@@ -74,8 +76,9 @@
 | 技能 | 触发场景 | 关键触发词 |
 |------|----------|-----------|
 | `digest` | 回顾会话，记录学习心得和错误，压缩去重 | 记录学习、总结经验、记录心得、消化、digest |
+| `maintain-learnings` | 维护和更新学习记录与心得库 | 学习记录、维护心得、更新心得、maintain learnings |
 
-#### 开发工具
+#### 代码质量
 
 | 技能 | 触发场景 | 关键触发词 |
 |------|----------|-----------|
