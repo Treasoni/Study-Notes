@@ -1,7 +1,10 @@
 ---
+title: Claude Code 插件系统使用指南
 tags: [ai, 进阶应用, 插件]
 created: 2025-01-15
-updated: 2026-04-05
+updated: 2026-07-12
+status: updated
+source_project: claude-code-tutorial
 ---
 
 # Claude Code 插件系统使用指南

@@ -1,6 +1,11 @@
 ---
+title: Subagent 实战练习
 tags: [ai, 高级应用, 练习]
 difficulty: intermediate
+created: 2026-04-05
+updated: 2026-07-12
+status: updated
+source_project: claude-code-tutorial
 ---
 
 # Subagent 实战练习
@@ -25,9 +30,10 @@ mkdir -p practice-plugin/.claude-plugin
 mkdir -p practice-plugin/agents
 ```
 
----
+> [!tip] 两种 Agent 定义方式
+> 本练习采用**插件结构**（`practice-plugin/agents/`），适合打包分享。你也可以将 Agent 文件直接放在 `.claude/agents/` 目录下——无需插件包装，Claude Code v2.1+ 自动加载，更适合个人项目使用。
 
-## 练习 1：创建简单的文本格式化 Agent
+---
 
 > [!summary] 目标
 > 创建一个能够将文本转换为特定格式的 Agent

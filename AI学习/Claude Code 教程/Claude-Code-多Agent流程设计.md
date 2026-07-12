@@ -1,8 +1,10 @@
 ---
 title: Claude Code 多 Agent 流程设计
 created: 2026-04-05
-updated: 2026-04-05
+updated: 2026-07-12
 tags: [Claude-Code, 多Agent, AI工作流, Agent协作]
+status: updated
+source_project: claude-code-tutorial
 ---
 
 # Claude Code 多 Agent 流程设计
@@ -232,7 +234,7 @@ graph TB
 
 | Tier | 模型 | 适用场景 | 示例任务 |
 |:----:|:-----|:---------|:---------|
-| **Tier 1** | Opus 4.6 | 关键架构、安全、代码审查 | 架构设计、安全审计 |
+| **Tier 1** | Opus 4.8 | 关键架构、安全、代码审查 | 架构设计、安全审计 |
 | **Tier 2** | Inherit (用户选择) | 专业领域任务 | AI/ML、后端、前端开发 |
 | **Tier 3** | Sonnet | 文档、测试、调试支持 | 编写文档、单元测试 |
 | **Tier 4** | Haiku | 快速操作 | SEO 优化、部署、简单文档 |
@@ -484,6 +486,9 @@ graph TB
 
 | 概念 | 关系 | 说明 |
 |:-----|:-----|:-----|
+| **Dynamic Workflows** | 补充方案（GA since 2026-05） | 本笔记的 Subagent 手动编排 vs Dynamic Workflows 的自动编排；前者灵活可控，后者由 Claude 自行拆解任务。中小型任务可优先尝试 Dynamic Workflows。 |
+| **Agent Skills** | 能力单元 | Skill 是 Agent 的技能模块，多 Agent 流程中可为不同角色挂载不同 Skills。 |
+| **MCP** | 工具层抽象 | MCP 为 Subagent 提供跨领域工具调用能力，是多 Agent 系统的关键基础设施。 |
 
 ## 最佳实践
 
@@ -510,7 +515,7 @@ graph TB
 # 按任务复杂度选择模型
 def select_model(task):
     if task.criticality == "high":
-        return "opus-4.6"  # 关键任务
+        return "opus-4.8"  # 关键任务
     elif task.domain in ["AI/ML", "backend", "frontend"]:
         return "inherit"   # 继承用户选择
     elif task.type in ["docs", "testing", "debug"]:
