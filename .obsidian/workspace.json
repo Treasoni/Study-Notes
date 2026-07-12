@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "workspace/llm-提示词缓存优化策略/todo.md",
+                "file": "项目实战/AI实战/LLM 提示词缓存优化策略.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "todo"
+              "title": "LLM 提示词缓存优化策略"
             }
           },
           {
@@ -236,13 +236,14 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "52ff2f9fbef74052",
+  "active": "30b0ade23c460f17",
   "lastOpenFiles": [
+    "workspace/llm-提示词缓存优化策略/todo.md",
+    "项目实战/AI实战/LLM 提示词缓存优化策略.md",
     "workspace/llm-提示词缓存优化策略/output/final_note.md",
     "workspace/llm-提示词缓存优化策略/output",
     "workspace/llm-提示词缓存优化策略/00_intent.md",
     "软路由教程/iStoreOS爬梯配置指南.md",
-    "workspace/llm-提示词缓存优化策略/todo.md",
     "workspace/llm-提示词缓存优化策略",
     "workspace",
     "learnings/LEARNINGS.md",
@@ -273,7 +274,6 @@
     "PVE的学习/common/agent-invocation.md",
     "PVE的学习/batch-note-updater/SKILL.md",
     "PVE的学习/CLAUDE.md",
-    "软路由教程/update_report_iStoreOS爬梯配置指南.md",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
