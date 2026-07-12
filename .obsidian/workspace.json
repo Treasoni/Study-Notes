@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "workspace/claude-code-tutorial/01_update_inventory.md",
+                "file": "workspace/claude-code-tutorial/02_batch_update_plan.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "01_update_inventory"
+              "title": "02_batch_update_plan"
             }
           },
           {
@@ -184,13 +184,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "workspace/claude-code-tutorial/01_update_inventory.md",
+                "file": "workspace/claude-code-tutorial/02_batch_update_plan.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "01_update_inventory 的大纲"
+              "title": "02_batch_update_plan 的大纲"
             }
           },
           {
@@ -238,11 +238,13 @@
   },
   "active": "30b0ade23c460f17",
   "lastOpenFiles": [
+    "workspace/claude-code-tutorial/todo.md",
+    "workspace/claude-code-tutorial/02_batch_update_plan.md",
+    "workspace/claude-code-tutorial/todo.md.R4zy2k",
+    "workspace/claude-code-tutorial/01_update_inventory.md",
     "workspace/claude-code-tutorial/todo.md.bqsE4u",
     "workspace/claude-code-tutorial/update_inventory.csv",
     "workspace/claude-code-tutorial/00_batch_update_intent.md",
-    "workspace/claude-code-tutorial/todo.md",
-    "workspace/claude-code-tutorial/01_update_inventory.md",
     "docs/todo-state-machine.md",
     "workspace/claude-code-tutorial/todo.md.pIsoCQ",
     "workspace/claude-code-tutorial/todo.md.k9U4jd",
@@ -263,8 +265,6 @@
     "learnings",
     "templates/self-learning/skills/maintain-learnings/scripts/sync_platform_skills.py",
     "templates/self-learning/skills/maintain-learnings/scripts/audit_learnings.py",
-    "templates/self-learning/skills/maintain-learnings/agents/openai.yaml",
-    "templates/self-learning/skills/maintain-learnings/scripts",
     "templates/self-learning/skills/maintain-learnings/SKILL.md",
     "templates/self-learning/skills/digest/SKILL.md",
     "templates/self-learning/learnings/RULES.md",
