@@ -4,8 +4,8 @@ topic: Claude Code 教程批量更新
 project_slug: claude-code-tutorial
 created_at: "2026-07-12"
 last_updated: "2026-07-12"
-current_phase: P0
-current_status: in_progress
+current_phase: P2
+current_status: ready
 mode: standard
 blocked_reason: ""
 ---
@@ -15,7 +15,7 @@ blocked_reason: ""
 > 主题：Claude Code 教程批量更新
 > 项目标识：claude-code-tutorial
 > 创建时间：2026-07-12
-> 当前阶段：阶段 0
+> 当前阶段：阶段 2
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -28,7 +28,7 @@ blocked_reason: ""
 - [x] shared_research 策略已确认
 - [x] 批量更新意图已保存：`./00_batch_update_intent.md`
 
-> [P0] 🔲 进行中
+> [P0] ✅ 已完成
 
 ---
 
@@ -39,7 +39,7 @@ blocked_reason: ""
 - [ ] 更新清单已保存：`./01_update_inventory.md`
 - [ ] 机器清单已保存：`./update_inventory.csv`
 
-> [P1] ⬜ 未开始
+> [P1] ✅ 已完成
 
 ---
 
