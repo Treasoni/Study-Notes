@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "workspace/claude-code-tutorial/02_batch_update_plan.md",
+                "file": "workspace/claude-code-tutorial/shared_research/research_plan.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "02_batch_update_plan"
+              "title": "research_plan"
             }
           },
           {
@@ -184,13 +184,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "workspace/claude-code-tutorial/02_batch_update_plan.md",
+                "file": "workspace/claude-code-tutorial/shared_research/research_plan.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "02_batch_update_plan 的大纲"
+              "title": "research_plan 的大纲"
             }
           },
           {
@@ -238,8 +238,11 @@
   },
   "active": "30b0ade23c460f17",
   "lastOpenFiles": [
-    "workspace/claude-code-tutorial/todo.md",
     "workspace/claude-code-tutorial/02_batch_update_plan.md",
+    "workspace/claude-code-tutorial/shared_research/research_plan.md",
+    "workspace/claude-code-tutorial/shared_research",
+    "workspace/claude-code-tutorial/todo.md.ZEPpH5",
+    "workspace/claude-code-tutorial/todo.md",
     "workspace/claude-code-tutorial/todo.md.R4zy2k",
     "workspace/claude-code-tutorial/01_update_inventory.md",
     "workspace/claude-code-tutorial/todo.md.bqsE4u",
@@ -263,8 +266,6 @@
     "learnings/LEARNINGS.md",
     "learnings/ERRORS.md",
     "learnings",
-    "templates/self-learning/skills/maintain-learnings/scripts/sync_platform_skills.py",
-    "templates/self-learning/skills/maintain-learnings/scripts/audit_learnings.py",
     "templates/self-learning/skills/maintain-learnings/SKILL.md",
     "templates/self-learning/skills/digest/SKILL.md",
     "templates/self-learning/learnings/RULES.md",
@@ -273,7 +274,6 @@
     "templates/self-learning/README.md",
     "templates/self-learning/AGENTS.snippet.md",
     "self-learning/skills/maintain-learnings/SKILL.md",
-    "self-learning/skills/digest/SKILL.md",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",

@@ -5,7 +5,7 @@ project_slug: claude-code-tutorial
 created_at: "2026-07-12"
 last_updated: "2026-07-12"
 current_phase: P3
-current_status: ready
+current_status: in_progress
 mode: standard
 blocked_reason: ""
 ---
@@ -61,7 +61,7 @@ blocked_reason: ""
 - [ ] 每条资料已记录 URL、日期、适用范围和摘要
 - [ ] 来源库已保存：`./shared_research/source_bank.md`
 
-> [P3] ⬜ 未开始
+> [P3] 🔲 进行中
 
 ---
 
