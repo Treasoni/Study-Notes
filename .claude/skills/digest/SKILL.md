@@ -1,6 +1,7 @@
 ---
 name: digest
 description: 自我学习阶段。回顾本次会话，记录真实发生的学习点和错误到 .learnings/；当经验库过长时压缩去重并更新 RULES.md；如果发现重复错误或规则失效，转交 maintain-learnings 先修源头。用户明确要求记录学习、复盘、写入 learnings、digest 时触发。
+category: 自我学习
 ---
 
 # digest（自我学习）

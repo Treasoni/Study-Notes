@@ -1,6 +1,7 @@
 ---
 name: legacy-note-importer
 description: 旧笔记批量导入、盘点和规范化。用于用户已经有一堆 Markdown/Obsidian/零散学习笔记，想接入本项目工作区、按项目 Obsidian 规范补 frontmatter、标签、双链、Callout、MOC，并保留原始文件时使用。触发词：旧笔记导入、已有笔记、一堆笔记、批量整理、迁移到这个项目、按项目规范、import existing notes、normalize notes。
+category: Obsidian 相关
 ---
 
 # Legacy Note Importer

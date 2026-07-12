@@ -1,6 +1,7 @@
 ---
 name: batch-note-updater
 description: 多篇既有学习笔记的批量更新编排。用于用户想一次更新一个目录、文件列表、Obsidian vault 子目录或多篇旧笔记，例如“批量更新这些笔记”“多篇笔记过时了”“把一组笔记更新到新版本”“refresh multiple notes”。先生成更新清单和批量计划，经用户确认后逐篇调用 note-updater 局部 patch，避免全文重写和批量误覆盖。
+category: 学习笔记工作流
 ---
 
 # Batch Note Updater
