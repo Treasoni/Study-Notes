@@ -47,6 +47,7 @@
     },
     "软路由教程": {
       "children": [
+        "软路由教程/update_report_iStoreOS爬梯配置指南.md",
         "软路由教程/sortspec.md",
         "软路由教程/旁路由原理详解.md",
         "软路由教程/软路由教程MOC.md",
@@ -794,6 +795,11 @@
     },
     "PVE的学习": {
       "children": [
+        "PVE的学习/batch-note-updater",
+        "PVE的学习/common",
+        "PVE的学习/legacy-note-importer",
+        "PVE的学习/workflow-orchestrator",
+        "PVE的学习/CLAUDE.md",
         "PVE的学习/AI实战",
         "PVE的学习/StudySystem",
         "PVE的学习/templates",
@@ -949,6 +955,45 @@
       ],
       "sortOrder": "custom"
     },
+    "PVE的学习/batch-note-updater": {
+      "children": [
+        "PVE的学习/batch-note-updater/agents",
+        "PVE的学习/batch-note-updater/SKILL.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/batch-note-updater/agents": {
+      "children": [
+        "PVE的学习/batch-note-updater/agents/openai.yaml"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/common": {
+      "children": [
+        "PVE的学习/common/agent-invocation.md",
+        "PVE的学习/common/env.md",
+        "PVE的学习/common/git-workflow.md",
+        "PVE的学习/common/hooks.md",
+        "PVE的学习/common/skill-creation.md",
+        "PVE的学习/common/skill-invocation.md",
+        "PVE的学习/common/sync-workflow.md",
+        "PVE的学习/common/token-optimization.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/legacy-note-importer": {
+      "children": [
+        "PVE的学习/legacy-note-importer/agents",
+        "PVE的学习/legacy-note-importer/SKILL.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/legacy-note-importer/agents": {
+      "children": [
+        "PVE的学习/legacy-note-importer/agents/openai.yaml"
+      ],
+      "sortOrder": "custom"
+    },
     "PVE的学习/StudySystem": {
       "children": [
         "PVE的学习/StudySystem/0-inbox",
@@ -1068,6 +1113,24 @@
         "PVE的学习/templates/concept-template.md",
         "PVE的学习/templates/experience-template.md",
         "PVE的学习/templates/practice-template.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/workflow-orchestrator": {
+      "children": [
+        "PVE的学习/workflow-orchestrator/templates",
+        "PVE的学习/workflow-orchestrator/SKILL.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "PVE的学习/workflow-orchestrator/templates": {
+      "children": [
+        "PVE的学习/workflow-orchestrator/templates/batch-note-update-flow.md",
+        "PVE的学习/workflow-orchestrator/templates/batch-note-update-todo.md",
+        "PVE的学习/workflow-orchestrator/templates/learning-note-flow.md",
+        "PVE的学习/workflow-orchestrator/templates/learning-note-todo.md",
+        "PVE的学习/workflow-orchestrator/templates/legacy-note-import-flow.md",
+        "PVE的学习/workflow-orchestrator/templates/legacy-note-import-todo.md"
       ],
       "sortOrder": "custom"
     },
