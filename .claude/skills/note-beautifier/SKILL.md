@@ -1,6 +1,7 @@
 ---
 name: note-beautifier
 description: Obsidian 笔记智能美化与发布。用于将最终学习笔记处理成 Obsidian Markdown，补 frontmatter、标签、Callout、双链，并保存到用户指定位置。触发词：美化、Obsidian、优化格式、笔记美化、发布到 vault、beautify。
+category: Obsidian 相关
 ---
 
 # Note Beautifier - Obsidian 笔记智能美化与发布

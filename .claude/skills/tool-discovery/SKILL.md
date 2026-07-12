@@ -1,6 +1,7 @@
 ---
 name: tool-discovery
 description: 查看当前环境中可用于资料收集的工具，包括内置工具、MCP 工具和已安装的 skills。当用户想了解有哪些工具可以用来搜索、提取、分析资料时使用此技能。触发词：可用工具、有哪些工具、工具列表、收集工具、search tools、available tools。
+category: 工具发现
 ---
 
 # Tool Discovery - 资料收集工具发现

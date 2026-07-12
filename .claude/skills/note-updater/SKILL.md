@@ -1,6 +1,7 @@
 ---
 name: note-updater
 description: 更新过时的既有学习笔记。用于用户说“更新这篇笔记”“这篇笔记过时了”“根据新资料刷新旧笔记”“同步到 Obsidian 旧笔记”等场景。先定位旧笔记、判断过时段落、收集最小必要新资料，再局部 patch，避免重写整篇和浪费 token。
+category: 学习笔记工作流
 ---
 
 # Note Updater

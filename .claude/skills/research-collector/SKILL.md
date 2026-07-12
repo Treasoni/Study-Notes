@@ -1,6 +1,7 @@
 ---
 name: research-collector
 description: 使用多策略进行高效资料收集：Fork Subagent 隔离收集、两阶段粗筛+精读、格式约束优化 token 消耗、本地缓存复用。触发词：收集资料、研究资料、搜集信息、资料整理、research、gather information、collect资料。
+category: 资料研究
 ---
 
 # Research Collector - 高效资料收集器

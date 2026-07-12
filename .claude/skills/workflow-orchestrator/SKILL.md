@@ -1,6 +1,7 @@
 ---
 name: workflow-orchestrator
 description: 工作流编排器。由各 planner 技能调用，接收工作流名称和参数，从模板生成 todo.md。不直接面向用户。
+category: 学习笔记工作流
 ---
 
 # Workflow Orchestrator - 工作流编排器
