@@ -127,17 +127,19 @@ ${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}/
 
 ## 状态流转
 
-状态通过 `[PN]` 阶段标记精准更新，sed 不跨阶段污染：
+状态通过 `[PN]` 阶段标记和 YAML frontmatter 共同记录。每次阶段切换都调用 `.claude/scripts/todo-state.sh`，避免各 skill 手写 `sed` 导致状态漂移：
 
 ```
 [PN] ⬜ 未开始  →  [PN] 🔲 进行中  →  [PN] ✅ 已完成
+                  └── [PN] ⏭️ 跳过
 ```
 
-每个阶段的状态行由唯一的 `[P0]`～`[P7]` 前缀标识，各组件用阶段专属的 sed 命令仅修改当前阶段：
+每个阶段的状态行由唯一的 `[P0]`～`[P7]` 前缀标识。状态脚本会同时更新阶段行、`current_phase`、`current_status`、`last_updated` 和 `blocked_reason`：
 ```bash
-# 仅修改阶段 N（不会影响其他阶段）
-sed -i '' 's/\[PN\] ⬜ 未开始/[PN] 🔲 进行中/' todo.md
-sed -i '' 's/\[PN\] 🔲 进行中/[PN] ✅ 已完成/' todo.md
+.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" start P2
+.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" complete P2
+.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" skip P3 "用户选择随性模式"
+.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" block P2 "素材来源不足"
 ```
 
 ## 执行模式
@@ -164,7 +166,11 @@ sed -i '' 's/\[PN\] 🔲 进行中/[PN] ✅ 已完成/' todo.md
    用户选择跳过结构化大纲，直接进入组装。
    章节来源：按 `02_deep_research.md` 中的主题自由划分。
    ```
-3. **不修改** todo.md 中阶段 3 的状态（保持 `[P3] ⬜ 未开始`）
+3. 调用状态脚本明确跳过阶段 3 和阶段 4：
+   ```bash
+   .claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" skip P3 "用户选择随性模式"
+   .claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" skip P4 "随性模式不逐章写作"
+   ```
 4. 在 todo.md 的**方向调整记录**中登记：
    ```
    | {date} | 大纲模式 | 随性模式（跳过阶段 3-4） | 否 |

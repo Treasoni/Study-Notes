@@ -1,7 +1,6 @@
 ---
 name: note-beautifier
 description: Obsidian 笔记智能美化与发布。用于将最终学习笔记处理成 Obsidian Markdown，补 frontmatter、标签、Callout、双链，并保存到用户指定位置。触发词：美化、Obsidian、优化格式、笔记美化、发布到 vault、beautify。
-category: Obsidian 相关
 ---
 
 # Note Beautifier - Obsidian 笔记智能美化与发布
@@ -140,13 +139,13 @@ cat ${PROJECT_DIR}/todo.md 2>/dev/null || echo "不存在"
 **更新 todo.md 状态：**
 ```bash
 # 将阶段 6 标记为进行中
-sed -i '' 's/\[P6\] ⬜ 未开始/[P6] 🔲 进行中/' ${PROJECT_DIR}/todo.md
+.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" start P6
 ```
 
 **完成后更新状态：**
 ```bash
 # 将阶段 6 标记为完成
-sed -i '' 's/\[P6\] 🔲 进行中/[P6] ✅ 已完成/' ${PROJECT_DIR}/todo.md
+.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" complete P6
 ```
 
 ---
@@ -314,7 +313,7 @@ sed -i '' 's/\[P6\] 🔲 进行中/[P6] ✅ 已完成/' ${PROJECT_DIR}/todo.md
 **Update todo.md status after beautification:**
 ```bash
 # Mark Phase 6 as complete (all phases done!)
-sed -i '' 's/\[P6\] 🔲 进行中/[P6] ✅ 已完成/' ${PROJECT_DIR}/todo.md
+.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" complete P6
 ```
 
 ## 美化模板库

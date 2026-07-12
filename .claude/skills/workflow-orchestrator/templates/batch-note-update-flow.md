@@ -53,7 +53,7 @@
   - [ ] 每条资料已记录 URL、日期、适用范围和摘要
   - [ ] 来源库已保存：`./shared_research/source_bank.md`
 - **输出文件**: `shared_research/source_bank.md`
-- **状态**: [P3] ⬜ 未开始 | ⏭️ 跳过
+- **状态**: [P3] ⬜ 未开始（可用 `todo-state.sh skip P3 "无需共享资料"` 标记跳过）
 
 ### 阶段 4: 逐篇局部更新
 - **负责技能**: /note-updater

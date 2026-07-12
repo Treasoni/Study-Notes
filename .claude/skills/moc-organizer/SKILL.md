@@ -1,7 +1,6 @@
 ---
 name: moc-organizer
 description: 为 Obsidian 生成或更新 MOC（Map of Content）目录笔记。用于用户要求“生成 MOC”“整理目录”“把新笔记加入目录”“每次加入笔记自动更新索引”等场景。只维护索引、分组、双链和简短说明，不复制正文。
-category: Obsidian 相关
 ---
 
 # MOC Organizer

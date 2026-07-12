@@ -1,7 +1,6 @@
 ---
 name: legacy-note-importer
 description: 旧笔记批量导入、盘点和规范化。用于用户已经有一堆 Markdown/Obsidian/零散学习笔记，想接入本项目工作区、按项目 Obsidian 规范补 frontmatter、标签、双链、Callout、MOC，并保留原始文件时使用。触发词：旧笔记导入、已有笔记、一堆笔记、批量整理、迁移到这个项目、按项目规范、import existing notes、normalize notes。
-category: Obsidian 相关
 ---
 
 # Legacy Note Importer
@@ -132,8 +131,9 @@ moc_path: "{可选}"
 ## Status Rules
 
 - 每阶段开始前读取 `todo.md`。
-- 只把当前阶段从 `[PN] ⬜ 未开始` 改为 `[PN] 🔲 进行中`。
-- 阶段产物写完、用户确认后，才改为 `[PN] ✅ 已完成`。
+- 使用 `.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" start PN` 将当前阶段改为 `[PN] 🔲 进行中`。
+- 阶段产物写完、用户确认后，使用 `.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" complete PN` 改为 `[PN] ✅ 已完成`。
+- 可选阶段不执行时，使用 `.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" skip PN "原因"` 明确跳过。
 - 出现不确定覆盖、重复标题、大量破损链接时，记录到 `todo.md` 异常记录并停在当前阶段。
 
 ## User-Facing Start

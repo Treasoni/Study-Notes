@@ -1,7 +1,6 @@
 ---
 name: workflow-orchestrator
 description: 工作流编排器。由各 planner 技能调用，接收工作流名称和参数，从模板生成 todo.md。不直接面向用户。
-category: 学习笔记工作流
 ---
 
 # Workflow Orchestrator - 工作流编排器
@@ -62,9 +61,11 @@ workflow-orchestrator (本技能)
 - 支持自定义阶段数和检查项
 
 **todo 模板格式要求**:
-- 必须使用占位符: `{topic}` `{project_slug}` `{date}` `{current_phase}`
+- 必须使用占位符: `{topic}` `{project_slug}` `{date}`
+- 必须包含 YAML frontmatter: `workflow`、`topic`、`project_slug`、`created_at`、`last_updated`、`current_phase`、`current_status`、`mode`、`blocked_reason`
 - 检查项必须与同名说明书各阶段一一对应
 - 初始状态统一为 `⬜ 未开始`
+- 阶段状态行必须使用唯一前缀 `> [PN] ...`，运行时通过 `.claude/scripts/todo-state.sh` 更新
 
 ### 功能 2: 接收 planner 参数
 
@@ -129,7 +130,6 @@ mkdir -p "${PROJECT_DIR}"
 sed -e "s/{topic}/${TOPIC}/g" \
     -e "s/{project_slug}/${PROJECT_SLUG}/g" \
     -e "s/{date}/$(date +%Y-%m-%d)/g" \
-    -e "s/{current_phase}/阶段 0/g" \
     -e "s/{completed_chapters}/0/g" \
     -e "s/{total_chapters}/待大纲确定/g" \
     "${TODO_TEMPLATE}" > "${PROJECT_DIR}/todo.md"
@@ -262,7 +262,16 @@ ${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}/
 
 ```
 ⬜ 未开始 → 🔲 进行中 → ✅ 已完成
+               └── ⏭️ 跳过 / blocked_reason
 ```
+
+状态更新统一调用项目脚本，避免各 skill 手写 `sed`：
+
+```bash
+.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" start P1
+.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" complete P1
+.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" skip P3 "用户选择随性模式"
+.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" block P2 "来源质量不足"
 ```
 
 ## 与其他技能的关系
@@ -342,7 +351,7 @@ orchestrator:
 
 2. **写说明书**: 定义阶段、检查项、技能依赖（格式见"模板格式规范"）
 
-3. **写 todo 模板**: 带 `{topic}` `{project_slug}` `{date}` `{current_phase}` 占位符
+3. **写 todo 模板**: 带 `{topic}` `{project_slug}` `{date}` 占位符，并包含恢复用 YAML frontmatter
 
 4. **创建对应 planner 或入口 skill**: 在 `.claude/skills/` 下新建 skill，负责该领域的意图澄清，完成后调用 orchestrator 并传入 `workflow="project-flow"`
 
@@ -355,7 +364,7 @@ orchestrator:
 1. **模板兼容性**: 新模板必须遵循格式规范
 2. **阶段依赖**: 确保前置条件正确设置
 3. **输出文件**: 使用固定命名，方便下游读取
-4. **状态管理**: 正确维护 ⬜/🔲/✅ 状态
+4. **状态管理**: 通过 `.claude/scripts/todo-state.sh` 维护 ⬜/🔲/✅/⏭️ 状态和恢复元数据
 5. **用户确认**: 关键阶段需要用户确认后才继续
 6. **输出位置**: 最终笔记发布位置由用户指定；未指定时只写项目 `output/`
 7. **旧笔记导入**: 用户已有一批笔记要接入项目时调用 `legacy-note-importer`

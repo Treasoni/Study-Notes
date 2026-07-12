@@ -1,109 +1,113 @@
 ---
 name: digest
-description: 自我学习阶段。回顾本次会话，记录真实发生的学习点和错误到 .learnings/；当经验库过长时压缩去重并更新 RULES.md；如果发现重复错误或规则失效，转交 maintain-learnings 先修源头。用户明确要求记录学习、复盘、写入 learnings、digest 时触发。
-category: 自我学习
+description: 自我学习阶段。回顾本次学习会话，记录学习心得和错误到 .claude/rules/learnings/，当文件超阈值时自动压缩去重，更新 RULES.md，促进系统持续改进。
 ---
 
-# digest（自我学习）
+# Skill: digest（自我学习）
 
-记录真实发生的学习和错误。不要为了“显得有产出”编造条目；质量比数量重要。
+## 执行步骤
 
-## Step 1: 检查压缩阈值
+### Step 1: 检查压缩阈值
+
+在记录新条目之前，检查是否需要先做压缩：
 
 ```bash
-wc -l .learnings/LEARNINGS.md .learnings/ERRORS.md 2>/dev/null || true
+wc -l .claude/rules/learnings/LEARNINGS.md .claude/rules/learnings/ERRORS.md 2>/dev/null || echo "0 .claude/rules/learnings/LEARNINGS.md\n0 .claude/rules/learnings/ERRORS.md"
 ```
 
-如果任一文件超过 100 行，先判断：
+如果任一文件超过 100 行，先执行压缩流程：
 
-- 只是旧记录堆积：压缩、去重、归档。
-- 同类错误复发或 `RULES.md` 已有规则仍失效：停止单纯压缩，改用 `maintain-learnings` 修 skill / 模板 / hook / 项目规则，验证后再归档。
+1. 读取 `.claude/rules/learnings/LEARNINGS.md` 和 `.claude/rules/learnings/ERRORS.md` 中的所有条目
+2. 按主题/模式分组，去重
+3. 写入/更新 `.claude/rules/learnings/RULES.md`：
+   - `## Do` — 值得坚持的做法
+   - `## Don't` — 需要避免的错误
+   - `## Watch For` — 需要特别注意的情况
+   - 每行一条规则，合并重复出现：`(3x) 用 X 而非 Y`
+   - 丢弃只出现一次的孤立噪声
+4. 如果某规则对核心 Study System 流程至关重要，提升到 CLAUDE.md
+5. 归档旧条目到 `.claude/rules/learnings/archive/YYYY-MM-DD.md`
+6. 截断 `.claude/rules/learnings/LEARNINGS.md` 和 `.claude/rules/learnings/ERRORS.md` 只保留头部
 
-## Step 2: 确保目录存在
+### Step 2: 确保目录存在
 
 ```bash
-mkdir -p .learnings .learnings/archive
+mkdir -p .claude/rules/learnings
 ```
 
-若文件不存在，创建最小头部：
+如果 `.claude/rules/learnings/LEARNINGS.md` 或 `.claude/rules/learnings/ERRORS.md` 不存在，创建最小头部。
 
-- `.learnings/LEARNINGS.md`
-- `.learnings/ERRORS.md`
-- `.learnings/RULES.md`
+### Step 3: 回顾本次会话
 
-## Step 3: 回顾本次任务
+扫描评估发现和会话过程中遇到的任何问题：
+- 是否有论断被判定为不准确？ → 记录到 `.claude/rules/learnings/LEARNINGS.md`，类别 `correction`
+- 整理资料是否有缺口？ → 记录到 `.claude/rules/learnings/LEARNINGS.md`，类别 `knowledge_gap`
+- collect/curate/write/beautify 阶段是否有报错？ → 记录到 `.claude/rules/learnings/ERRORS.md`
+- 是否有值得未来 Study System 运行时参考的模式？ → 记录到 `.claude/rules/learnings/LEARNINGS.md`，类别 `best_practice`
 
-只记录本次任务中实际发生的内容：
+### Step 4: 记录条目
 
-- 用户纠正了什么？
-- 哪个判断、操作或输出有问题？
-- 根因是什么？
-- 下次应该用什么可执行规则避免？
-- 是否需要修改 skill、模板、hook、脚本或项目规则？
+使用自改进格式记录：
 
-## Step 4: 写入条目
-
-学习条目追加到 `.learnings/LEARNINGS.md`：
-
+**学习条目**（追加到 `.claude/rules/learnings/LEARNINGS.md`）：
 ```markdown
-## YYYY-MM-DD
+## [LRN-YYYYMMDD-XXX] category
 
-### <简短主题>
+**Logged**: ISO-8601 timestamp
+**Priority**: low | medium | high
+**Status**: pending
+**Area**: docs
 
-**类别**：correction | knowledge_gap | best_practice | workflow
-**优先级**：low | medium | high
-**状态**：pending
-**范围**：<skill / module / workflow / docs>
+### Summary
+One-line description
 
-**摘要**：一句话说明学到了什么。
+### Details
+What happened, what was learned
 
-**详情**：
-- 事实：
-- 根因：
-- 下次做法：
+### Suggested Action
+What to do differently next time
 
 ---
 ```
 
-错误条目追加到 `.learnings/ERRORS.md`：
-
+**错误条目**（追加到 `.claude/rules/learnings/ERRORS.md`）：
 ```markdown
-## YYYY-MM-DD
+## [ERR-YYYYMMDD-XXX] phase_name
 
-### <skill 或阶段>：<错误标题>
+**Logged**: ISO-8601 timestamp
+**Priority**: high
+**Status**: pending
+**Area**: docs
 
-**错误**：实际发生了什么。
+### Summary
+Brief description of what failed
 
-**触发场景**：什么时候发生。
+### Error
+```
+Actual error message
+```
 
-**根因**：为什么发生。
-
-**修复**：
-- 已采取的修复动作。
-
-**预防措施**：
-- 下次必须执行的检查或规则。
+### Context
+What was being attempted
 
 ---
 ```
 
-## Step 5: 更新 RULES.md
+### Step 5: 无意义则不记录
 
-只把高价值、可复用、可执行的规则提炼到 `.learnings/RULES.md`。格式保持短：
+如果本次会话没有错误且没有值得记录的学习点，跳过记录 —— 不创建空条目。质量比数量重要。
 
-```markdown
-## <area>
-
-- **规则名**：用 X，而不是 Y。
-```
-
-## Step 6: 无意义则不记录
-
-如果本次任务没有错误、没有纠正、没有可迁移经验，不写空条目。
+## 产出
+- `.claude/rules/learnings/LEARNINGS.md`：追加新学习条目（如有）
+- `.claude/rules/learnings/ERRORS.md`：追加新错误条目（如有）
+- `.claude/rules/learnings/RULES.md`：去重压缩后的规则（如触发压缩）
+- `.claude/rules/learnings/archive/YYYY-MM-DD.md`：归档文件（如触发压缩）
 
 ## 禁止行为
+- 不要修改笔记本身
+- 不要编造学习条目
+- 不要跳过压缩阈值检查
+- 不要归档未压缩的条目
+- 不要在无意义时强行记录
 
-- 不要编造学习点。
-- 不要把长故事塞进 `RULES.md`。
-- 不要把“下次注意”当成源头修复。
-- 不要在未修复、未验证前归档复发错误。
+

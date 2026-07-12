@@ -1,9 +1,21 @@
+---
+workflow: batch-note-update-flow
+topic: "{topic}"
+project_slug: "{project_slug}"
+created_at: "{date}"
+last_updated: "{date}"
+current_phase: P0
+current_status: not_started
+mode: standard
+blocked_reason: ""
+---
+
 # 批量旧笔记更新工作流 - 执行检查清单
 
 > 主题：{topic}
 > 项目标识：{project_slug}
 > 创建时间：{date}
-> 当前阶段：{current_phase}
+> 当前阶段：阶段 0
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -49,7 +61,7 @@
 - [ ] 每条资料已记录 URL、日期、适用范围和摘要
 - [ ] 来源库已保存：`./shared_research/source_bank.md`
 
-> [P3] ⬜ 未开始 | ⏭️ 跳过
+> [P3] ⬜ 未开始
 
 ---
 

@@ -1,7 +1,6 @@
 ---
 name: batch-note-updater
 description: 多篇既有学习笔记的批量更新编排。用于用户想一次更新一个目录、文件列表、Obsidian vault 子目录或多篇旧笔记，例如“批量更新这些笔记”“多篇笔记过时了”“把一组笔记更新到新版本”“refresh multiple notes”。先生成更新清单和批量计划，经用户确认后逐篇调用 note-updater 局部 patch，避免全文重写和批量误覆盖。
-category: 学习笔记工作流
 ---
 
 # Batch Note Updater
@@ -152,8 +151,9 @@ updates/{note_id}/
 ## Status Rules
 
 - 每阶段开始前读取 `todo.md`。
-- 只把当前阶段从 `[PN] ⬜ 未开始` 改为 `[PN] 🔲 进行中`。
-- 阶段产物写完、用户确认后，才改为 `[PN] ✅ 已完成`。
+- 使用 `.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" start PN` 将当前阶段改为 `[PN] 🔲 进行中`。
+- 阶段产物写完、用户确认后，使用 `.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" complete PN` 改为 `[PN] ✅ 已完成`。
+- 可选阶段不执行时，使用 `.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" skip PN "原因"` 明确跳过。
 - 批量更新中遇到覆盖冲突、来源不可信或更新目标不明确时，记录到异常记录并暂停该笔记。
 
 ## User-Facing Start

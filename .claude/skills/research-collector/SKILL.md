@@ -1,7 +1,6 @@
 ---
 name: research-collector
 description: 使用多策略进行高效资料收集：Fork Subagent 隔离收集、两阶段粗筛+精读、格式约束优化 token 消耗、本地缓存复用。触发词：收集资料、研究资料、搜集信息、资料整理、research、gather information、collect资料。
-category: 资料研究
 ---
 
 # Research Collector - 高效资料收集器
@@ -147,19 +146,18 @@ cat ${PROJECT_DIR}/todo.md 2>/dev/null || echo "不存在"
 ```bash
 # 将当前阶段标记为进行中（根据实际执行的阶段选择 [P1] 或 [P2]）
 # 阶段 1（探测式收集）：
-sed -i '' 's/\[P1\] ⬜ 未开始/[P1] 🔲 进行中/' ${PROJECT_DIR}/todo.md
+.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" start P1
 # 阶段 2（深度收集）：
-sed -i '' 's/\[P2\] ⬜ 未开始/[P2] 🔲 进行中/' ${PROJECT_DIR}/todo.md
+.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" start P2
 ```
 
 **完成后更新状态：**
 ```bash
 # 将当前阶段标记为完成（根据实际执行的阶段选择 [P1] 或 [P2]）
 # 阶段 1 完成：
-sed -i '' 's/\[P1\] 🔲 进行中/[P1] ✅ 已完成/' ${PROJECT_DIR}/todo.md
+.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" complete P1
 # 阶段 2 完成：
-sed -i '' 's/\[P2\] 🔲 进行中/[P2] ✅ 已完成/' ${PROJECT_DIR}/todo.md
-sed -i '' 's/当前阶段：阶段 [0-9]/当前阶段：阶段 3/g' ${PROJECT_DIR}/todo.md
+.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" complete P2
 ```
 
 ---
@@ -186,10 +184,7 @@ Subagent 4: 搜索 "{关键词4} 常见问题 问题排查"
 
 每个 subagent 的 prompt 模板:
 ```
-你是一个资料收集助手。请搜索关于 {主题} 的资料。
-
-搜索关键词: {关键词}
-信源限制: {信源类型}
+你是一个资料收集助手。只返回关于指定主题的结构化资料摘要。
 
 返回格式（严格遵守，每条不超过 150 字）:
 1. **标题**: ...
@@ -202,6 +197,11 @@ Subagent 4: 搜索 "{关键词4} 常见问题 问题排查"
 禁止返回: 完整段落、导航、广告、Cookie 提示。
 
 请搜索并返回 3-5 条最相关的资料。
+
+参数：
+- 主题: {主题}
+- 搜索关键词: {关键词}
+- 信源限制: {信源类型}
 ```
 
 **Phase 2: 精读 (按需)**
@@ -232,9 +232,7 @@ ${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}/02_deep_research.md
 **更新 todo.md 状态：**
 ```bash
 # 将当前阶段标记为完成，推进到下一阶段
-sed -i '' 's/\[P2\] 🔲 进行中/[P2] ✅ 已完成/' ${PROJECT_DIR}/todo.md
-# 根据实际执行阶段更新当前阶段
-sed -i '' 's/当前阶段：阶段 [0-9]/当前阶段：阶段 3/g' ${PROJECT_DIR}/todo.md
+.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" complete P2
 ```
 
 ## 输出示例

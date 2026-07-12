@@ -1,7 +1,6 @@
 ---
 name: research-planner
 description: 学习笔记需求澄清与引导。分析用户学习需求，引导明确学习目标和方向，调用 workflow-orchestrator 生成项目结构。触发词：想学、帮我整理、研究一下、了解一下、不知道从哪开始、research planning、explore topic。
-category: 资料研究
 ---
 
 # Research Planner - 学习笔记需求澄清与引导

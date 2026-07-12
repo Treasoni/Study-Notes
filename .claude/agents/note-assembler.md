@@ -1,6 +1,6 @@
 ---
 name: note-assembler
-description: "Use this agent when the user has completed writing all chapters and wants to assemble them into a final coherent learning note. This agent merges chapter files, adds transitions, generates a table of contents, and ensures consistent formatting. Examples: <example>Context: The user has finished writing all chapters and wants to combine them into a final document.\\nuser: '所有章节都写完了，帮我组装成完整的笔记'\\nassistant: '我来使用 note-assembler agent，将所有章节组装成完整的笔记。'\\n<commentary>\\nThe user has completed the writing phase and needs to assemble all chapters into a final document. This triggers the note-assembler agent.\\n</commentary></example> <example>Context: After writing chapters, user wants to merge them with proper formatting.\\nuser: '把章节合并一下，加上目录'\\nassistant: '我来使用 note-assembler agent 合并章节并生成目录。'\\n<commentary>\\nUser wants to merge chapters with table of contents. Use note-assembler agent.\\n</commentary></example> <example>Context: User wants to finalize the note structure.\\nuser: '笔记写得差不多了，帮我整理成最终版本'\\nassistant: '好的，我来用 note-assembler agent 帮你整理成最终版本。'\\n<commentary>\\nUser wants to finalize the note. Use note-assembler agent to assemble and format.\\n</commentary></example>"
+description: "Assemble completed chapter files into one coherent learning note with transitions, a table of contents, and consistent formatting."
 tools: Read, Write, Glob
 model: sonnet
 color: green
