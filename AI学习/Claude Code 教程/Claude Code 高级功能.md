@@ -10,7 +10,7 @@ source_project: claude-code-tutorial
 # Claude Code 高级功能
 
 > [!info] 概述
-> **Claude Code 高级功能扩展核心能力** - 包括规划模式、扩展思考、自动模式、后台任务、远程控制、沙盒隔离等，用于复杂开发任务和自动化工作流。
+> **Claude Code 高级功能扩展核心能力** - 包括规划模式、扩展思考、Ultraplan、自动模式、Dynamic Workflows、后台任务、远程控制、沙盒隔离、Computer Use 等，用于复杂开发任务和自动化工作流。
 
 ## 核心功能概览
 
@@ -169,6 +169,26 @@ claude --model opusplan "design and implement the new API"
 
 # 在外部编辑器中编辑计划
 Ctrl + G    # 打开当前计划到外部编辑器
+```
+
+### Ultraplan（云端规划）
+
+> [!tip] 🎯 一句话定义
+> **Ultraplan 在云端起草计划，在 Web 编辑器中查看和编辑，可远程运行或拉回本地。**
+
+Ultraplan 是 2026 Q2 新增的规划增强功能：
+
+- **云端起草**：计划在云端生成，不占用本地上下文预算
+- **Web 编辑器**：在浏览器中可视化查看和编辑计划
+- **灵活执行**：可远程运行，也可将计划拉回本地执行
+- **适用场景**：大型项目规划、跨团队协作、复杂架构设计
+
+```bash
+# 启用 Ultraplan
+claude --ultraplan "design the new microservice architecture"
+
+# 在 Web 编辑器中查看/编辑计划
+# 确认后选择远程执行或拉回本地
 ```
 
 ---
@@ -499,6 +519,50 @@ export CLAUDE_CODE_DISABLE_CRON=1
 
 ---
 
+## Dynamic Workflows（动态工作流）
+
+> [!tip] 🎯 一句话定义
+> **Dynamic Workflows 让 Claude 自主编写多 Agent 编排脚本，运行时生成 JavaScript 编排器，并行处理大规模任务。**
+
+> [!note] 正式发布
+> Dynamic Workflows 于 2026 年 5 月 28 日 GA（正式发布）。
+
+### 通俗理解
+
+**🎯 比喻**：Dynamic Workflows 就像 AI 项目经理——接到大任务后，自行组建多个"助手团队"，分配任务、协调工作、汇总结果。
+
+### 6 种编排模式
+
+| 模式 | 描述 | 适用场景 |
+|------|------|----------|
+| **Classify-and-act** | 分类后分发到不同 Agent | 问题分类、路由 |
+| **Fan-out-and-synthesize** | 并行处理再合成结果 | 批量代码审查、日志分析 |
+| **Adversarial verification** | 双 Agent 对抗验证 | 安全审计、质量检查 |
+| **Generate-and-filter** | 生成候选 → 过滤最佳 | 代码生成、测试生成 |
+| **Tournament** | 多方案竞争筛选 | 架构决策、方案选型 |
+| **Loop-until-done** | 循环直到条件满足 | 迭代优化、渐进式重构 |
+
+### 真实案例
+
+```text
+Bun 迁移项目：Zig → Rust，75 万行代码
+测试通过率：99.8%
+完成时间：11 天
+工作方式：Dynamic Workflows 并行处理数千个文件
+```
+
+### 与 Subagents 对比
+
+| 维度 | Dynamic Workflows | Subagents |
+|------|------------------|-----------|
+| 编排方式 | Claude 自动生成编排脚本 | 手工定义 agent 文件 |
+| 任务规模 | 大规模并行处理 | 中等规模子任务 |
+| 适用场景 | 跨仓库迁移、批量重构 | 代码审查、架构评估 |
+| 复杂度 | 高 | 中 |
+| 引入版本 | 2026 Q2 | 内置功能 |
+
+---
+
 ## Permission Modes（权限模式）
 
 > [!tip] 🎯 一句话定义
@@ -714,6 +778,41 @@ jobs:
 | 20 种语言 | 语音转文字支持 |
 | 自定义键绑定 | 通过 `/keybindings` 配置 |
 | 账户要求 | 需要 Claude.ai 账户进行 STT 处理 |
+
+---
+
+## Computer Use（计算机使用）
+
+> [!tip] 🎯 一句话定义
+> **Computer Use 让 Claude Code 通过 CLI 直接操作计算机界面，实现端到端自动化。**
+
+> [!note] 研究预览
+> Computer Use CLI 于 2026 Q2 以研究预览形式发布，适用于需要 GUI 交互的自动化场景。
+
+### 功能
+
+| 功能 | 描述 |
+|------|------|
+| 屏幕理解 | Claude 可读取屏幕内容并理解界面布局 |
+| 键盘鼠标操作 | 模拟点击、输入等交互操作 |
+| CLI 集成 | 通过命令行触发和管理 Computer Use 会话 |
+| 适用场景 | GUI 测试自动化、数据录入、跨应用工作流 |
+
+---
+
+## Artifacts（内容工件）
+
+> [!tip] 🎯 一句话定义
+> **Artifacts 是在对话中生成的可视化内容，包括代码预览、图表渲染和交互式原型。**
+
+Artifacts 于 2026 Q2 引入，支持在对话中直接渲染和预览：
+
+| 类型 | 描述 |
+|------|------|
+| **代码预览** | 实时渲染 HTML/CSS/JavaScript 输出 |
+| **图表渲染** | Mermaid、SVG 等图表即时预览 |
+| **交互式原型** | 可操作的 UI 原型预览 |
+| **富文档** | 带格式的文档和报告预览 |
 
 ---
 
