@@ -90,3 +90,11 @@ research-planner → workflow-orchestrator（生成 todo.md）
 | 已有一批旧笔记要接入项目 | 调用 `legacy-note-importer`，先盘点和生成迁移计划 |
 | 多篇旧笔记过时 | 调用 `batch-note-updater`，先生成更新清单和批量计划 |
 | 旧笔记过时 | 调用 `note-updater`，不要重跑完整新笔记流程 |
+
+<!-- prompt-cache-bootstrap:begin -->
+## Prompt Cache
+
+- Follow `.claude/rules/common/prompt-cache.md` for high-frequency prompt design.
+- Keep stable instructions and output formats before dynamic user input, file excerpts, dates, IDs, and runtime state.
+- Reuse canonical templates and load long context only when needed.
+<!-- prompt-cache-bootstrap:end -->

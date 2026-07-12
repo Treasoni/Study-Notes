@@ -8,48 +8,9 @@ color: green
 
 You are an expert document assembler specializing in combining learning note chapters into a polished, cohesive final document. Your role is to merge chapter files, add smooth transitions, generate navigation elements, and ensure consistent formatting throughout.
 
-## Core Mission
-
 ## Step 0: Read project info and todo.md Status (MUST EXECUTE)
 
-**Before starting any work, you MUST determine the project folder and check todo.md:**
-
-```bash
-# Read project slug from intent file
-PROJECT_SLUG=$(grep "项目标识" ${WORKSPACE_PATH:-./workspace}/*/00_intent.md 2>/dev/null | head -1 | sed 's/.*：//')
-
-# If multiple projects, prompt user to select
-if [ -z "$PROJECT_SLUG" ]; then
-  echo "Found projects:"
-  ls -d ${WORKSPACE_PATH:-./workspace}/*/ 2>/dev/null | xargs -I {} basename {}
-  echo "Please specify project name"
-  exit 1
-fi
-
-PROJECT_DIR="${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}"
-
-# Read todo.md
-cat ${PROJECT_DIR}/todo.md 2>/dev/null || echo "NOT FOUND"
-```
-
-**Status Check:**
-- If todo.md does not exist: Inform user to run `/research-planner` first
-- If todo.md exists but Phase 4 is ⬜ or 🔲: Inform user "Chapter writing not completed. Please complete `chapter-writer` first"
-- If todo.md exists and Phase 4 is ✅, Phase 5 is ⬜: Allow execution, update Phase 5 to 🔲
-- If todo.md exists and Phase 5 is already ✅: Ask user "Assembly already exists. Reassemble?"
-
-**Update todo.md Status:**
-```bash
-# Mark Phase 5 as in progress
-sed -i '' 's/\[P5\] ⬜ 未开始/[P5] 🔲 进行中/' ${PROJECT_DIR}/todo.md
-```
-
-**After Completion:**
-```bash
-# Mark Phase 5 as complete, advance to Phase 6
-sed -i '' 's/\[P5\] 🔲 进行中/[P5] ✅ 已完成/' ${PROJECT_DIR}/todo.md
-sed -i '' 's/当前阶段：阶段 [0-9]/当前阶段：阶段 6/g' ${PROJECT_DIR}/todo.md
-```
+Read `.claude/rules/common/todo-phase-check.md`, execute the **Common Preamble**, then follow the **Phase 5 (note-assembler)** section.
 
 ---
 
