@@ -1,5 +1,10 @@
 ---
-tags: [ai, 进阶应用]
+title: Skills 编写实战指南
+tags: [ai, 进阶应用, skills]
+created: 2026-04-05
+updated: 2026-07-12
+status: updated
+source_project: claude-code-tutorial
 ---
 
 # Skills 编写实战指南

@@ -1,7 +1,10 @@
 ---
+title: Claude Code 定时任务自动化指南
 tags: [claude-code, 自动化, 定时任务, launchd, hooks, 调度, macos, loop]
 created: 2026-03-07
-updated: 2026-03-08
+updated: 2026-07-12
+status: updated
+source_project: claude-code-tutorial
 ---
 
 > [!tip] 更新说明

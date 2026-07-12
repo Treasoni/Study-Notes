@@ -1,5 +1,10 @@
 ---
+title: CLAUDE.md 使用指南
 tags: [claude, ai, 进阶应用, 配置]
+created: 2026-04-05
+updated: 2026-07-12
+status: updated
+source_project: claude-code-tutorial
 ---
 
 # CLAUDE.md 使用指南
