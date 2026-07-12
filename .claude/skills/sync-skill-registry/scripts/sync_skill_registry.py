@@ -3,7 +3,7 @@
 sync_skill_registry.py — 技能注册表同步工具
 
 读取 .claude/skills/*/SKILL.md 的前置元数据，
-更新 .claude/rules/common/skill-invocation.md 中的技能列��。
+更新 .claude/rules/common/skill-invocation.md 中的技能列表。
 
 用法:
     python3 .claude/skills/sync-skill-registry/scripts/sync_skill_registry.py
@@ -15,9 +15,11 @@ sync_skill_registry.py — 技能注册表同步工具
     - 非本地技能（无 SKILL.md 的现有条目）保持不变
 """
 
+import argparse
 import os
 import re
 import pathlib
+import sys
 
 SKILL_DIR = pathlib.Path(__file__).resolve().parent.parent.parent  # .claude/skills/
 INVOCATION_FILE = SKILL_DIR.parent / "rules" / "common" / "skill-invocation.md"  # .claude/rules/common/skill-invocation.md
@@ -69,8 +71,8 @@ def extract_triggers(description: str) -> str:
             triggers_raw = re.sub(r"[。，、；\.,;]+$", "", triggers_raw)
             return triggers_raw
 
-    # 2. Quoted keywords
-    quoted = re.findall(r'"([^"]+)"|"([^"]+)"|「([^」]+)」', description)
+    # 2. Quoted keywords — handle ASCII "..." and Chinese "“...”" and 「...」
+    quoted = re.findall(r'"([^"]+)"|“([^”]+)”|「([^」]+)」', description)
     if quoted:
         keywords = [k for group in quoted for k in group if k]
         return "、".join(keywords[:8])  # Limit to top 8
@@ -165,6 +167,11 @@ def parse_invocation_tables(text: str) -> list:
         if line.startswith("|") and line.endswith("|"):
             cells = [c.strip() for c in line.split("|")[1:-1]]
 
+            # Skip table separator lines (|---|)
+            if cells and all(re.match(r'^-{3,}$', c) for c in cells if c.strip()):
+                header_seen = True
+                continue
+
             if not header_seen and len(cells) >= 3:
                 header_seen = True
                 continue
@@ -180,7 +187,7 @@ def parse_invocation_tables(text: str) -> list:
                     })
                 continue
 
-        # Separator line
+        # Other separator line
         if line.startswith("|---"):
             continue
 
@@ -281,7 +288,25 @@ def generate_tables(
 
 # ── Main ──────────────────────────────────────────────────────────
 
+def parse_args(argv=None):
+    parser = argparse.ArgumentParser(
+        description="同步技能注册表：读取 .claude/skills/*/SKILL.md，更新 skill-invocation.md",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="仅预览变更，不写入文件",
+    )
+    parser.add_argument(
+        "--verbose",
+        action="store_true",
+        help="输出详细调试信息",
+    )
+    return parser.parse_args(argv)
+
+
 def main():
+    args = parse_args()
     skills_dir = SKILL_DIR.resolve()
     invocation_file = INVOCATION_FILE.resolve()
 
@@ -290,16 +315,16 @@ def main():
         return 1
 
     # Step 1: Scan local skills
-    print(f"Scanning {skills_dir}/*/SKILL.md ...")
+    print(f"扫描 {skills_dir}/*/SKILL.md ...")
     managed_skills = scan_local_skills(skills_dir)
-    print(f"  Found {len(managed_skills)} local skills")
+    print(f"  发现 {len(managed_skills)} 个本地技能")
 
     # Step 2: Read current invocation file
     text = invocation_file.read_text(encoding="utf-8")
 
     # Step 3: Parse existing tables
     existing_rows = parse_invocation_tables(text)
-    print(f"  Found {len(existing_rows)} existing entries in tables")
+    print(f"  表格中找到 {len(existing_rows)} 个现有条目")
 
     # Step 4: Determine preserved skills (in tables but no SKILL.md)
     managed_names = set(managed_skills.keys())
@@ -308,23 +333,23 @@ def main():
 
     if preserved_rows:
         preserved_names = set(r["name"] for r in preserved_rows)
-        print(f"  Preserving {len(preserved_rows)} non-local entries: {', '.join(sorted(preserved_names))}")
+        print(f"  保留 {len(preserved_rows)} 个非本地条目: {', '.join(sorted(preserved_names))}")
     if managed_rows:
-        print(f"  Will update {len(managed_rows)} existing managed entries")
+        print(f"  更新 {len(managed_rows)} 个现有受管条目")
 
     # Step 5: Check for removals
-    removed = set()
+    removed_names = set()
     for row in managed_rows:
         if row["name"] not in managed_skills:
-            removed.add(row["name"])
-    if removed:
-        print(f"  Removing {len(removed)} entries: {', '.join(sorted(removed))}")
+            removed_names.add(row["name"])
+    if removed_names:
+        print(f"  移除 {len(removed_names)} 个已删除条目: {', '.join(sorted(removed_names))}")
 
     # Step 6: Check for additions
     existing_names = set(r["name"] for r in existing_rows)
-    added = set(managed_skills.keys()) - existing_names
-    if added:
-        print(f"  Adding {len(added)} new entries: {', '.join(sorted(added))}")
+    added_names = set(managed_skills.keys()) - existing_names
+    if added_names:
+        print(f"  新增 {len(added_names)} 个条目: {', '.join(sorted(added_names))}")
 
     # Step 7: Build category order from existing tables
     seen_categories = []
@@ -349,9 +374,34 @@ def main():
     # Preserve the `\n` before ### 1. 分析意图
     new_text = text[:section_start] + new_tables + "\n" + text[section_end:]
 
+    if args.dry_run:
+        print("\n─── Dry Run ──────────────────────────────────────────")
+        print(f"将更新 {invocation_file}")
+        diff_lines = new_text.split("\n")
+        orig_lines = text.split("\n")
+        changes = 0
+        for i, line in enumerate(diff_lines):
+            if i >= len(orig_lines) or line != orig_lines[i]:
+                if changes == 0:
+                    print("\n变更预览（首个差异附近）:")
+                if changes < 20:
+                    context_before = min(3, i)
+                    if i + context_before < len(orig_lines):
+                        print(f"  行 {i+1}: {'→ ' + line}")
+                changes += 1
+        if changes:
+            print(f"\n共 {changes} 行变更（按行级差异统计）")
+            print("─── 未写入 ────────────────────────────────────────────")
+        else:
+            print("  无变更")
+        return 0
+
     # Step 10: Write back
     invocation_file.write_text(new_text, encoding="utf-8")
-    print(f"\n✓ Updated {invocation_file}")
+    print(f"\n✓ 已更新 {invocation_file}")
+
+    if added_names or removed_names:
+        print("\n提示：建议运行 `.codex/scripts/sync-codex-to-claude.sh` 以同步 Codex 配置。")
     return 0
 
 
