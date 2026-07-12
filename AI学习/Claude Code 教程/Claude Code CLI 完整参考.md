@@ -1,7 +1,10 @@
 ---
+title: Claude Code CLI 完整参考
 tags: [ai, 工具使用, cli, claude-code]
 created: 2026-04-05
-updated: 2026-04-27
+updated: 2026-07-12
+status: updated
+source_project: claude-code-tutorial
 ---
 
 # Claude Code CLI 完整参考
@@ -9,7 +12,7 @@ updated: 2026-04-27
 > [!info] 概述
 > **一句话定义**：Claude Code CLI 是在终端中与 Claude 交互的命令行工具，支持交互式会话和脚本化自动化两种模式。
 > **🎯 比喻**：就像一个住在终端里的 AI 编程助手，既能和你聊天对话，也能像 Unix 管道一样处理自动化任务。
-> **版本**：Claude Code v2.1.119（2026-04-24）
+> **版本**：Claude Code v2.1.207（2026-07-11）
 
 ## 核心概念
 
@@ -204,7 +207,8 @@ claude -p "列出待办事项" | grep "紧急"
 | 标志 | 描述 | 示例 |
 |------|------|------|
 | `--bare` | 最小模式（跳过 hooks、skills、plugins、MCP、auto memory、CLAUDE.md） | `claude --bare` |
-| `--enable-auto-mode` | 解锁自动权限模式 | `claude --enable-auto-mode` |
+| `--safe-mode` | 安全模式，禁用所有自定义项（排障用） | `claude --safe-mode` |
+| `--enable-auto-mode` | 解锁自动权限模式（Pro/Enterprise 已默认可用） | `claude --enable-auto-mode` |
 | `--disable-slash-commands` | 禁用所有 skills 和斜杠命令 | `claude --disable-slash-commands` |
 | `--no-session-persistence` | 禁用会话保存（Print 模式） | `claude -p --no-session-persistence "query"` |
 
@@ -226,10 +230,12 @@ claude -p "列出待办事项" | grep "紧急"
 
 | 模型         | ID                  | 上下文窗口     | 说明            |
 | ---------- | ------------------- | --------- | ------------- |
-| Opus 4.7   | `claude-opus-4-7`   | 1M tokens | 最强大，支持 xhigh/max 努力级别 |
+| Opus 4.8   | `claude-opus-4-8`   | 1M tokens | 最新默认（Max/Team Premium），支持 xhigh 努力级别 |
+| Opus 4.7   | `claude-opus-4-7`   | 1M tokens | 最强大之一，支持 xhigh/max 努力级别 |
 | Opus 4.6   | `claude-opus-4-6`   | 1M tokens | 支持 max 努力级别 |
-| Sonnet 4.6 | `claude-sonnet-4-6` | 1M tokens | 平衡速度和能力，支持 max  |
-| Haiku 4.5  | `claude-haiku-4-5`  | 1M tokens | 最快，适合快速任务     |
+| Sonnet 5   | `claude-sonnet-5`   | 1M tokens | 当前默认模型，平衡速度和能力 |
+| Sonnet 4.6 | `claude-sonnet-4-6` | 1M tokens | 平衡速度和能力，支持 max |
+| Haiku 4.5  | `claude-haiku-4-5`  | 1M tokens | 最快，适合快速任务 |
 
 ### 模型选择示例
 
@@ -263,8 +269,9 @@ export CLAUDE_CODE_EFFORT_LEVEL=high   # low, medium, high, xhigh, max
 ```
 
 > [!tip] 努力级别支持矩阵
-> - **Opus 4.7**：low, medium, high, **xhigh**, max（xhigh 仅此版本）
-> - **Opus 4.6 / Sonnet 4.6**：low, medium, high, max
+> - **Opus 4.8**：low, medium, high, **xhigh**, max
+> - **Opus 4.7**：low, medium, high, **xhigh**, max
+> - **Opus 4.6 / Sonnet 5 / Sonnet 4.6**：low, medium, high, max
 > - 在提示词中使用 "ultrathink" 可激活 max 级别深度推理
 
 > [!info] 📚 来源
@@ -573,7 +580,7 @@ claude --ide "帮我处理这个文件"
 | `ANTHROPIC_MODEL` | 覆盖默认模型 |
 | `ANTHROPIC_BASE_URL` | API 基础 URL（第三方平台） |
 | `MAX_THINKING_TOKENS` | 设置扩展思考 token 预算 |
-| `CLAUDE_CODE_EFFORT_LEVEL` | 设置努力级别（`low`/`medium`/`high`/`max`） |
+| `CLAUDE_CODE_EFFORT_LEVEL` | 设置努力级别（`low`/`medium`/`high`/`xhigh`/`max`） |
 | `CLAUDE_CODE_SIMPLE` | 最小模式，由 `--bare` 标志设置 |
 | `CLAUDE_CODE_DISABLE_AUTO_MEMORY` | 禁用自动 CLAUDE.md 更新 |
 | `CLAUDE_CODE_DISABLE_BACKGROUND_TASKS` | 禁用后台任务执行 |
@@ -601,7 +608,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install Claude Code
-        run: npm install -g @anthropic-ai/claude-code
+        run: curl -fsSL https://claude.ai/install.sh | bash
 
       - name: Run Code Review
         env:

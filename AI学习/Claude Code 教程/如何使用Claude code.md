@@ -297,6 +297,9 @@ echo "sk-ant-你的API密钥"
 
 ### 会话中常用 `/` 命令
 
+> [!tip] 2026 年新增命令
+> `/cd` `/code-review` `/usage` `/effort` `/checkup` `/fast` `/plan` `/todos` `/goal` 均为 2026 年新引入，旧版参考中可能未收录。
+
 | 命令 | 作用 |
 |------|------|
 | `/model` | 切换模型（列出可选） |
@@ -350,6 +353,12 @@ claude mcp disable fs   # 禁用
 ## 六、CLAUDE.md
 
 > **项目级记忆文件**，Claude Code 启动时自动读取，定义项目规范、工作流、禁止事项。
+
+> [!tip] 官方建议
+> - 限制 **200 行以内**，超长降低依从性
+> - 子目录 `CLAUDE.md` 仅当读取目录内文件时加载，适合 monorepo
+> - 使用 `@import` 拉入其他文件（最多 4 层嵌套）
+> - `.claude/rules/` + `paths:` 元数据: 路径范围规则，触及时才加载，节省上下文预算
 
 ```markdown
 # CLAUDE.md
@@ -491,8 +500,12 @@ settings.json
 
 ### 官方
 - [Claude Code 文档](https://code.claude.com/docs/en/overview)
+- [What's New - 官方更新日志](https://code.claude.com/docs/en/whats-new)
+- [Changelog](https://code.claude.com/docs/en/changelog)
 - [GitHub 仓库](https://github.com/anthropics/claude-code)
 - [Auto Mode 官方博客](https://www.anthropic.com/engineering/claude-code-auto-mode)
+- [Subagents 官方博客](https://claude.com/blog/subagents-in-claude-code)
+- [定制 Claude Code 官方博客](https://claude.com/blog/steering-claude-code-skills-hooks-rules-subagents-and-more)
 
 ### 社区
 - [claude-howto 学习指南](https://github.com/luongnv89/claude-howto)（21,800+ ⭐）
@@ -500,6 +513,5 @@ settings.json
 - [第三方 API 免登录配置](https://www.xugj520.cn/archives/windows-claude-code-api-setup-no-login.html)
 
 ### 跳过认证
-- [apiKeyHelper 用法](https://github.com/lbjlaq/Antigravity-Manager/issues/362)
-- [Desktop Developer Mode](https://developer.aliyun.com/article/1731254)
+- [CC-Switch（可视化供应商切换）](https://github.com/farion1231/cc-switch)
 - [settings.json 详解](https://blog.csdn.net/tirestay/article/details/158808038)
