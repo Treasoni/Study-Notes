@@ -40,13 +40,13 @@ batch_size: 5
 
 ### Step 0: 创建导入项目
 
-使用 `workflow-orchestrator` 的 `legacy-note-import-flow` 模板创建项目目录：
+使用 `workflow-orchestrator` 的 `legacy-note-import-flow` 创建项目目录和命名 workflow state file：
 
 ```text
 ${WORKSPACE_PATH:-./workspace}/{project_slug}/
 ```
 
-写入 `00_import_intent.md`，记录来源、目标、发布策略、批处理大小和是否允许更新旧内容。创建后读取 `todo.md`，确认当前阶段是 `[P0]`。
+写入 `00_import_intent.md`，记录来源、目标、发布策略、批处理大小和是否允许更新旧内容。创建后读取 workflow state file，确认当前阶段是 `[P0]`。
 
 ### Step 1: 生成旧笔记清单
 
@@ -82,7 +82,7 @@ id,relative_path,title,heading_count,has_frontmatter,has_tags,has_wikilinks,has_
 
 ### Step 3: 按批次规范化
 
-每批读取 `todo.md` 和 `02_migration_plan.md`，只处理本批文件。对每篇 `normalize` 笔记：
+每批读取 workflow state file 和 `02_migration_plan.md`，只处理本批文件。对每篇 `normalize` 笔记：
 
 1. 读取原文。
 2. 应用 `.claude/rules/obsidian/note-system.md`。
@@ -130,11 +130,11 @@ moc_path: "{可选}"
 
 ## Status Rules
 
-- 每阶段开始前读取 `todo.md`。
-- 使用 `.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" start PN` 将当前阶段改为 `[PN] 🔲 进行中`。
-- 阶段产物写完、用户确认后，使用 `.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" complete PN` 改为 `[PN] ✅ 已完成`。
-- 可选阶段不执行时，使用 `.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" skip PN "原因"` 明确跳过。
-- 出现不确定覆盖、重复标题、大量破损链接时，记录到 `todo.md` 异常记录并停在当前阶段。
+- 每阶段开始前读取 `${WORKFLOW_STATE_FILE}`。
+- 使用 `.claude/scripts/todo-state.sh "${WORKFLOW_STATE_FILE}" start PN` 将当前阶段改为 `[PN] 🔲 进行中`。
+- 阶段产物写完、用户确认后，使用 `.claude/scripts/todo-state.sh "${WORKFLOW_STATE_FILE}" complete PN` 改为 `[PN] ✅ 已完成`。
+- 可选阶段不执行时，使用 `.claude/scripts/todo-state.sh "${WORKFLOW_STATE_FILE}" skip PN "原因"` 明确跳过。
+- 出现不确定覆盖、重复标题、大量破损链接时，记录到 workflow state file 异常记录并停在当前阶段。
 
 ## User-Facing Start
 

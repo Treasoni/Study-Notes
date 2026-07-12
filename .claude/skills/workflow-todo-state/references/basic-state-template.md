@@ -1,7 +1,11 @@
 ---
-workflow: example-flow
-topic: "{topic}"
-project_slug: "{project_slug}"
+workflow_id: example-flow
+workflow_name: Example Flow
+workflow_version: 1
+state_file_type: workflow-run
+run_id: "{run_id}"
+task: "{task}"
+created_from: ".claude/workflows/example-flow/state-template.md"
 created_at: "{date}"
 last_updated: "{date}"
 current_phase: P0
@@ -10,10 +14,11 @@ mode: standard
 blocked_reason: ""
 ---
 
-# Example Workflow - 执行检查清单
+# Example Flow - Workflow Run
 
-> 主题：{topic}
-> 项目标识：{project_slug}
+> 工作流：example-flow
+> 任务：{task}
+> 运行标识：{run_id}
 > 创建时间：{date}
 > 当前阶段：阶段 0
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过

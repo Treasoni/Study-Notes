@@ -4,10 +4,10 @@ set -euo pipefail
 usage() {
   cat <<'USAGE'
 Usage:
-  .claude/scripts/todo-state.sh <todo.md> start P1
-  .claude/scripts/todo-state.sh <todo.md> complete P1
-  .claude/scripts/todo-state.sh <todo.md> skip P3 "reason"
-  .claude/scripts/todo-state.sh <todo.md> block P2 "reason"
+  .claude/scripts/todo-state.sh <workflow-state.md> start P1
+  .claude/scripts/todo-state.sh <workflow-state.md> complete P1
+  .claude/scripts/todo-state.sh <workflow-state.md> skip P3 "reason"
+  .claude/scripts/todo-state.sh <workflow-state.md> block P2 "reason"
 
 Updates the phase status line, YAML recovery metadata, and visible current phase.
 USAGE

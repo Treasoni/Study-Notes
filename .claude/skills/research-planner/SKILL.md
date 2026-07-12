@@ -10,7 +10,7 @@ description: 学习笔记需求澄清与引导。分析用户学习需求，引�
 ## 核心职责
 
 1. **意图澄清**: 通过提问和探测，帮用户明确学习方向
-2. **调用编排器**: 调用 workflow-orchestrator 生成项目结构和 todo.md
+2. **调用编排器**: 调用 workflow-orchestrator 生成项目结构和命名 workflow state file
 
 ## 触发条件
 
@@ -44,7 +44,7 @@ description: 学习笔记需求澄清与引导。分析用户学习需求，引�
 **需求分类**:
 - 本 planner 专用于 **learning-note-flow** 工作流
 - 其他类型需求（项目类/阅读类/调研类）由对应的 planner 处理
-- orchestrator 根据 planner 传入的 `workflow` 参数决定使用哪个模板，无需在本 planner 内分类
+- orchestrator 根据 planner 传入的 `workflow_id` 参数决定使用哪个 `.claude/workflows/{workflow-id}` 模板，无需在本 planner 内分类
 
 ---
 
@@ -86,8 +86,10 @@ description: 学习笔记需求澄清与引导。分析用户学习需求，引�
 
 ```yaml
 调用 /workflow-orchestrator 传入:
-  workflow: "learning-note-flow"       # 本 planner 专用于此工作流
+  workflow_id: "learning-note-flow"    # 本 planner 专用于此工作流
   topic: "{用户学习主题}"
+  project_slug: "{主题 slug}"
+  run_id: "{主题 slug}"
   depth: "{学习深度}"
   level: "{用户基础}"
   purpose: "{学习目的}"
@@ -97,7 +99,7 @@ description: 学习笔记需求澄清与引导。分析用户学习需求，引�
   moc_path: "{MOC 路径，可后续补}"
 ```
 
-orchestrator 将根据 `workflow` 参数定位 `templates/learning-note-flow.md`（说明书）和 `templates/learning-note-todo.md`（todo 模板），生成 `${WORKSPACE_PATH:-./workspace}/{project_slug}/todo.md`。
+orchestrator 将根据 `workflow_id` 定位 `.claude/workflows/learning-note-flow/workflow.md` 和 `state-template.md`，生成 `${WORKSPACE_PATH:-./workspace}/workflow-runs/{run_id}.workflow.md`。
 
 ---
 
@@ -178,18 +180,18 @@ ${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}/00_intent.md
 ### 意图文件
 已生成: `${WORKSPACE_PATH:-./workspace}/{project_slug}/00_intent.md`
 
-### todo.md
-已生成: `${WORKSPACE_PATH:-./workspace}/{project_slug}/todo.md`
+### Workflow State
+已生成: `${WORKSPACE_PATH:-./workspace}/workflow-runs/{run_id}.workflow.md`
 
 ### 后续步骤
 1. 系统将调用 `/research-collector` 收集资料
-2. 按照 todo.md 执行各阶段任务
+2. 按照 workflow state file 执行各阶段任务
 3. 每阶段完成后需要用户确认
 ```
 
 ## 与其他技能的关系
 
-本技能负责意图澄清，完成后调用 workflow-orchestrator 生成 todo.md。完整编排流程见 `.claude/skills/workflow-orchestrator/SKILL.md`，阶段执行流见 `templates/learning-note-flow.md`。
+本技能负责意图澄清，完成后调用 workflow-orchestrator 生成命名 workflow state file。完整编排流程见 `.claude/skills/workflow-orchestrator/SKILL.md`，阶段定义见 `.claude/workflows/learning-note-flow/workflow.md`。
 
 核心链路：
 ```
@@ -212,7 +214,7 @@ research-planner → workflow-orchestrator → research-collector
 
 2. 调用 workflow-orchestrator
    - 选择 learning-note-flow 工作流
-   - 生成 ./workspace/react-server-components/todo.md
+   - 生成 ./workspace/workflow-runs/react-server-components.workflow.md
 
 3. 生成意图文件
    - ./workspace/react-server-components/00_intent.md
@@ -244,7 +246,7 @@ research-planner → workflow-orchestrator → research-collector
 
 ## 注意事项
 
-1. **必须调用 workflow-orchestrator**: 不要手动创建 todo.md
+1. **必须调用 workflow-orchestrator**: 不要手动创建 workflow state file
 2. **保持意图文件简洁**: 只记录关键信息，不要过度详细
 3. **等待用户确认**: 关键选择需要用户确认
 4. **支持中断恢复**: 如果用户中途退出，下次可以继续

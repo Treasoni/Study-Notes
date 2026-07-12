@@ -13,7 +13,25 @@
 
 ## Prompt Cache Strategy
 
-See `.claude/rules/common/prompt-cache.md` for the complete prompt cache strategy and the stable subagent template.
+1. 高频复用的系统说明、输出结构和固定模板放在提示词开头，并保持措辞、顺序和空白稳定。
+2. 用户主题、关键词、文件片段、日期、git 状态和任务进度等动态内容统一放在固定指令之后。
+3. 不要在可复用提示词前缀中插入时间戳、随机 ID、实时状态或每次变化的待办列表。
+4. 子代理提示采用“固定职责与输出格式 + 参数块”的结构；参数块置于末尾，避免每个任务破坏缓存前缀。
+5. 优先传递文件路径、标题和锚点，再按需读取局部内容；不要为方便而重复粘贴长文。
+6. 默认排除 `.claude/` 目录的搜索和读取，除非正在维护 Claude Code 配置或执行同步验证。
+
+### Stable Subagent Template
+
+```text
+你是 {固定角色}。
+固定任务边界与输出格式...
+禁止事项...
+
+参数：
+- 主题: {动态主题}
+- 资料范围: {动态范围}
+- 其他约束: {动态约束}
+```
 
 ## File Loading Budget
 

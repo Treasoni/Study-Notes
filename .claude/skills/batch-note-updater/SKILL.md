@@ -38,7 +38,7 @@ stale_threshold: "可选，如 older-than:2025-01-01 或 contains:旧 API"
 
 ### Step 0: 创建批量更新项目
 
-使用 `workflow-orchestrator` 的 `batch-note-update-flow` 模板创建项目目录：
+使用 `workflow-orchestrator` 的 `batch-note-update-flow` 创建项目目录和命名 workflow state file：
 
 ```text
 ${WORKSPACE_PATH:-./workspace}/{project_slug}/
@@ -57,7 +57,7 @@ shared_research:
 moc_path:
 ```
 
-创建后读取 `todo.md`，确认当前阶段是 `[P0]`。
+创建后读取 workflow state file，确认当前阶段是 `[P0]`。
 
 ### Step 1: 建立更新清单
 
@@ -110,7 +110,7 @@ id,relative_path,title,updated,status,reason,priority,size_bytes
 
 ### Step 4: 按批次逐篇更新
 
-每批开始前读取 `todo.md` 和 `02_batch_update_plan.md`。对每篇 `update` 笔记调用 `note-updater`，传入：
+每批开始前读取 workflow state file 和 `02_batch_update_plan.md`。对每篇 `update` 笔记调用 `note-updater`，传入：
 
 ```yaml
 existing_note_path: "{源笔记路径}"
@@ -150,10 +150,10 @@ updates/{note_id}/
 
 ## Status Rules
 
-- 每阶段开始前读取 `todo.md`。
-- 使用 `.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" start PN` 将当前阶段改为 `[PN] 🔲 进行中`。
-- 阶段产物写完、用户确认后，使用 `.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" complete PN` 改为 `[PN] ✅ 已完成`。
-- 可选阶段不执行时，使用 `.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" skip PN "原因"` 明确跳过。
+- 每阶段开始前读取 `${WORKFLOW_STATE_FILE}`。
+- 使用 `.claude/scripts/todo-state.sh "${WORKFLOW_STATE_FILE}" start PN` 将当前阶段改为 `[PN] 🔲 进行中`。
+- 阶段产物写完、用户确认后，使用 `.claude/scripts/todo-state.sh "${WORKFLOW_STATE_FILE}" complete PN` 改为 `[PN] ✅ 已完成`。
+- 可选阶段不执行时，使用 `.claude/scripts/todo-state.sh "${WORKFLOW_STATE_FILE}" skip PN "原因"` 明确跳过。
 - 批量更新中遇到覆盖冲突、来源不可信或更新目标不明确时，记录到异常记录并暂停该笔记。
 
 ## User-Facing Start
