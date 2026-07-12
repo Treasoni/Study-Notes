@@ -11,3 +11,6 @@
 | 2026-07-12 | 3 | Claude Code Hooks 使用指南.md | patch-in-place | ✅ 成功 | 低 |
 | 2026-07-12 | 3 | Claude Code Slash Commands 完整参考.md | patch-in-place | ✅ 成功 | 低 |
 | 2026-07-12 | 3 | Claude Code 高级功能.md | patch-in-place | ✅ 成功 | 低 |
+| 2026-07-12 | 4 | Claude Code Checkpoints 使用指南.md | patch-in-place | ✅ 成功 | 极低 |
+| 2026-07-12 | 4 | Claude Code 会话管理.md | patch-in-place | ✅ 成功 | 低 |
+| 2026-07-12 | 4 | Claude Code Dynamic Workflows 使用指南.md | patch-in-place | ✅ 成功 | 极低 |

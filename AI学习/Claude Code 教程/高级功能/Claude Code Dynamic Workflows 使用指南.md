@@ -1,4 +1,5 @@
 ---
+title: Claude Code Dynamic Workflows 使用指南
 topic: Claude Code Dynamic Workflows
 type: concept+cheat_sheet
 difficulty: intermediate
@@ -12,7 +13,9 @@ tags:
   - workflow
   - ai-coding
 created: 2026-06-18
-updated: 2026-06-18
+updated: 2026-07-12
+status: updated
+source_project: claude-code-tutorial
 sources:
   - R1: "Orchestrate subagents at scale with dynamic workflows (Anthropic, 2026-05-28) https://code.claude.com/docs/en/workflows.md"
   - R2: "Run agents in parallel (Anthropic, 2026) https://code.claude.com/docs/en/agents.md"

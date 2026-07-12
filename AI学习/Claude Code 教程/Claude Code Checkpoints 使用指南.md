@@ -1,7 +1,10 @@
 ---
+title: Claude Code Checkpoints 使用指南
 tags: [ai, claude-code, checkpoints, session-management]
 created: 2026-04-05
-updated: 2026-04-05
+updated: 2026-07-12
+status: updated
+source_project: claude-code-tutorial
 ---
 
 # Claude Code Checkpoints 使用指南

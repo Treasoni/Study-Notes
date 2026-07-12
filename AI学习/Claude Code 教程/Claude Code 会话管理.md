@@ -1,5 +1,10 @@
 ---
-tags: [claude, ai, 工具使用]
+title: Claude Code 会话管理
+tags: [claude, ai, 工具使用, 会话管理]
+created: 2026-04-05
+updated: 2026-07-12
+status: updated
+source_project: claude-code-tutorial
 ---
 
 # Claude Code 会话管理
@@ -74,13 +79,13 @@ graph TD
 ./.claude.local/settings.json
 
 # 托管配置（优先级最高）
-~/.claude/managed-settings.json
+~/.claude/managed-settings.d/
 ```
 
 **示例配置结构**：
 ```json
 {
-  "model": "claude-sonnet-4-6",
+  "model": "claude-sonnet-5",
   "permissions": {
     "allowedTools": ["Edit", "Read", "Bash"],
     "blockedTools": ["WebSearch"]
@@ -110,6 +115,31 @@ tags: [project, backend]
 - 使用 TypeScript
 - 遵循 ESLint 配置
 - API 遵循 RESTful 规范
+```
+
+### `.claude/rules/` 路径范围规则（2026 Q2 新增）
+
+> [!tip] 新功能
+> **`.claude/rules/`** 目录支持路径范围的规则文件，只有当 Claude 读取对应目录内的文件时才加载，节省上下文预算。
+
+```bash
+.claude/rules/
+├── common/
+│   ├── env.md                # 始终加载的通用规则
+│   └── hooks.md              # Hook 规范
+└── frontend/
+    └── rules.md              # 仅当处理 frontend/ 目录时加载
+        paths: frontend/
+```
+
+**适用场景**：
+- Monorepo 中各模块的独立规范
+- 特定技术栈的编码指南
+- 安全敏感文件的特殊规则
+
+**规则加载优先级**：
+```
+CLAUDE.md > .claude/rules/ (路径匹配) > 内置规则
 ```
 
 **用户记忆** - `~/.claude/user_memory.md`：
@@ -194,11 +224,17 @@ tags: [project, backend]
 |------|------|
 | `/add-dir` | 添加目录到上下文 |
 | `/bug` | 报告 Bug |
+| `/cd` | 切换工作目录 |
+| `/checkup` | 自诊断工具（清理无用 skills/MCPs/插件） |
 | `/clear` | 清理会话历史 |
+| `/code-review` | 代码正确性审查 |
 | `/compact` | 压缩会话内容 |
 | `/config` | 编辑配置文件 |
 | `/cost` | 查看 Token 成本 |
-| `/doctor` | 诊断工具 |
+| `/doctor` | 诊断工具（2026 Q2 起已重命名为 `/checkup`） |
+| `/effort` | 设置努力级别 |
+| `/fast` | 速度优化 API 设置切换 |
+| `/goal` | 保持工作直到条件满足 |
 | `/help` | 显示帮助信息（包括所有可用技能） |
 | `/init` | 初始化 Claude Code |
 | `/login` | 登录账户 |
@@ -207,9 +243,12 @@ tags: [project, backend]
 | `/memory` | 管理记忆文件 |
 | `/model` | 选择模型 |
 | `/permissions` | 权限管理 |
+| `/plan` | 进入规划模式 |
 | `/pr_comments` | PR 评论 |
 | `/status` | 会话状态 |
 | `/terminal-setup` | 终端设置 |
+| `/todos` | 跨会话持久化任务列表 |
+| `/usage` | 查看配额明细 |
 | `/vim` | Vim 模式配置 |
 
 ### 自定义 Skills
@@ -245,7 +284,7 @@ argument-hint: [filename]        # 参数提示（可选）
 disable-model-invocation: true   # 禁止 Claude 自动触发
 user-invocable: false            # 对用户隐藏
 allowed-tools: Read, Grep        # 允许的工具
-model: claude-sonnet-4-6          # 使用的模型
+model: claude-sonnet-5            # 使用的模型
 context: fork                    # 在子代理中运行
 agent: Explore                   # 子代理类型
 hooks:                           # 技能生命周期钩子
@@ -323,6 +362,9 @@ claude -c              # 简写
 # 从历史记录选择会话恢复
 claude --resume
 
+# 查看所有后台会话
+claude agents
+
 # 搜索包含特定内容的会话
 claude --search "关键词"
 
@@ -330,7 +372,7 @@ claude --search "关键词"
 claude --directory /path/to/project
 
 # 指定模型启动
-claude --model claude-opus-4-6
+claude --model claude-opus-4-8
 
 # 静默模式（减少输出）
 claude --quiet
@@ -458,9 +500,10 @@ tags: [project, type]
 ~/.claude/
 ├── settings.json              # 全局配置
 ├── user_memory.md             # 用户记忆
+├── managed-settings.d/        # 托管配置（企业）
 ├── memory/                    # 本地记忆目录
 │   └── {session-id}/          # 会话特定记忆
-└── managed-settings.json      # 托管配置
+└── skills/                    # 个人 Skills
 
 ./
 ├── .claude/
