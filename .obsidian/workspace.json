@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/updating-notes.md",
+                "file": "docs/todo-state-machine.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "updating-notes"
+              "title": "todo-state-machine"
             }
           },
           {
@@ -184,13 +184,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/updating-notes.md",
+                "file": "docs/todo-state-machine.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "updating-notes 的大纲"
+              "title": "todo-state-machine 的大纲"
             }
           },
           {
@@ -238,6 +238,7 @@
   },
   "active": "30b0ade23c460f17",
   "lastOpenFiles": [
+    "docs/updating-notes.md",
     "docs/learnings-digest.md",
     "docs/experience-notes.md",
     "docs/changelog.md",
@@ -273,7 +274,6 @@
     "self-learning/learnings/ERRORS.md",
     "self-learning/README.md",
     "self-learning/AGENTS.snippet.md",
-    "workspace/llm-提示词缓存优化策略/output/final_note.md",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
