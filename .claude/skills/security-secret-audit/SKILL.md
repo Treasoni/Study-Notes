@@ -19,7 +19,7 @@ Run the bundled scanner before a commit and whenever a credential leak is suspec
 # Only the staged content; use immediately before committing.
 .claude/skills/security-secret-audit/scripts/audit-secrets.sh --staged
 
-# Every reachable Git commit; use after a suspected past leak.
+# Every unique file version reachable from Git history; use after a suspected past leak.
 .claude/skills/security-secret-audit/scripts/audit-secrets.sh --history
 ```
 

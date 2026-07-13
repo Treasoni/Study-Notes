@@ -16,9 +16,9 @@ usage() {
 Usage: audit-secrets.sh [--staged | --history | --all] [--max-commits N]
 
   --staged          Scan files as staged in the Git index.
-  --history         Scan every reachable Git commit.
+  --history         Scan each unique file version reachable from Git history.
   --all             Scan working tree, staged files, and history.
-  --max-commits N   Limit history scanning; 0 means all commits (default).
+  --max-commits N   Limit commits used to collect historical file versions; 0 means all (default).
 USAGE
 }
 
@@ -108,15 +108,24 @@ scan_index_file() {
 }
 
 scan_history_blob() {
-  local commit="$1"
+  local object="$1"
   local path="$2"
-  local short_commit="${commit:0:12}"
-  local label="history:$short_commit:$path"
+  local short_object="${object:0:12}"
+  local source_path="${path:-history-blob-$short_object}"
+  local label="history:$source_path"
   local status=0
 
-  git show "$commit:$path" 2>/dev/null | perl "$DETECTOR" --label "$label" --path "$path"
+  git cat-file blob "$object" 2>/dev/null | perl "$DETECTOR" --label "$label" --path "$source_path"
   status=${PIPESTATUS[1]}
   record_status "$status" "$label"
+}
+
+history_objects() {
+  if [ "$MAX_COMMITS" -gt 0 ]; then
+    git rev-list --objects --all --max-count="$MAX_COMMITS"
+  else
+    git rev-list --objects --all
+  fi
 }
 
 scan_working_tree() {
@@ -140,20 +149,14 @@ scan_staged() {
 }
 
 scan_history() {
-  local commit
+  local object
+  local type
   local path
-  local count=0
 
-  while IFS= read -r commit; do
-    count=$((count + 1))
-    if [ "$MAX_COMMITS" -gt 0 ] && [ "$count" -gt "$MAX_COMMITS" ]; then
-      break
-    fi
-
-    while IFS= read -r -d '' path; do
-      scan_history_blob "$commit" "$path"
-    done < <(git ls-tree -r -z --name-only "$commit")
-  done < <(git rev-list --all)
+  while IFS=' ' read -r object type path; do
+    [ "$type" = 'blob' ] || continue
+    scan_history_blob "$object" "$path"
+  done < <(history_objects | git cat-file --batch-check='%(objectname) %(objecttype) %(rest)')
 }
 
 case "$MODE" in
