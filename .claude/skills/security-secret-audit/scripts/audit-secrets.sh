@@ -92,7 +92,7 @@ scan_file() {
   local status=0
 
   [ -f "$path" ] || return 0
-  perl "$DETECTOR" --label "$label" < "$path"
+  perl "$DETECTOR" --label "$label" --path "$path" < "$path"
   status=$?
   record_status "$status" "$label"
 }
@@ -102,7 +102,7 @@ scan_index_file() {
   local label="index:$path"
   local status=0
 
-  git show ":$path" 2>/dev/null | perl "$DETECTOR" --label "$label"
+  git show ":$path" 2>/dev/null | perl "$DETECTOR" --label "$label" --path "$path"
   status=${PIPESTATUS[1]}
   record_status "$status" "$label"
 }
@@ -114,7 +114,7 @@ scan_history_blob() {
   local label="history:$short_commit:$path"
   local status=0
 
-  git show "$commit:$path" 2>/dev/null | perl "$DETECTOR" --label "$label"
+  git show "$commit:$path" 2>/dev/null | perl "$DETECTOR" --label "$label" --path "$path"
   status=${PIPESTATUS[1]}
   record_status "$status" "$label"
 }

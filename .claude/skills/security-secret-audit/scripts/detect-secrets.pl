@@ -2,12 +2,17 @@ use strict;
 use warnings;
 
 my $label = 'input';
+my $path = '';
 
 while (@ARGV) {
     my $arg = shift @ARGV;
     if ($arg eq '--label') {
         die "missing value for --label\n" unless @ARGV;
         $label = shift @ARGV;
+    }
+    elsif ($arg eq '--path') {
+        die "missing value for --path\n" unless @ARGV;
+        $path = shift @ARGV;
     }
     else {
         die "unknown option: $arg\n";
@@ -28,11 +33,21 @@ sub is_placeholder {
     return 0;
 }
 
+sub is_config_like_path {
+    return 1 if $path eq '';
+
+    my ($name) = $path =~ m{([^/]+)$};
+    return 1 if $name =~ /^\.env(?:\..+)?$/i;
+    return 1 if $name =~ /\.(?:json|ya?ml|toml|ini|cfg|conf|properties)$/i;
+    return 1 if $name =~ /(?:secret|credential|config|settings)/i;
+
+    return 0;
+}
+
+my $secret_suffix = qr/(?:api[_-]?key|secret|password|passwd|private[_-]?key|access[_-]?key|client[_-]?secret)/i;
 my $secret_name = qr/
     (?:
-        [A-Za-z_][A-Za-z0-9_-]*
-        (?:api[_-]?key|secret|password|passwd|private[_-]?key|access[_-]?key|client[_-]?secret)
-        [A-Za-z0-9_-]*
+        (?:$secret_suffix|[A-Za-z_][A-Za-z0-9_-]*$secret_suffix)[A-Za-z0-9_-]*
       |
         (?:token|[A-Za-z_][A-Za-z0-9_-]*(?:auth|access|refresh|session|bearer|github|gitlab|slack|npm|stripe)[_-]?token)
     )
@@ -74,7 +89,7 @@ while (my $line = <STDIN>) {
     push @rules, 'json-web-token'
         if $line =~ /\beyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\b/;
 
-    if ($line =~ /\b($secret_name)\b\s*[:=]\s*(?:"([^"]*)"|'([^']*)'|([^\s,;\}\]\)#]+))/) {
+    if (is_config_like_path() && $line =~ /\b($secret_name)\b\s*[:=]\s*(?:"([^"]*)"|'([^']*)'|([^\s,;\}\]\)#]+))/) {
         my $value = defined $2 ? $2 : defined $3 ? $3 : $4;
         push @rules, 'named-secret-literal'
             if length($value) >= 16 && !is_placeholder($value);

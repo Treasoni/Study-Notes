@@ -33,7 +33,7 @@ Run the bundled scanner before a commit and whenever a credential leak is suspec
 - Exit `0`: no findings.
 - Exit `2`: potential credential found; stop the commit or push.
 - Exit `1`: scanner error; treat it as a failed security check and investigate before proceeding.
-- Output is intentionally redacted to `scope:path:line:rule`; the scanner never prints matched content.
+- Output is intentionally redacted to `scope:path:line:rule`; the scanner never prints matched content. Provider-specific formats, private keys, and JWTs are scanned in all text files; lower-confidence variable-name checks are limited to configuration-like files to avoid generated-code noise.
 
 ## Limitations
 
