@@ -9,6 +9,8 @@
 *.key
 *.pem
 *.p12
+.claudian/
+.obsidian/plugins/i18n/main.js
 
 # Logs that may contain sensitive data
 *.log
