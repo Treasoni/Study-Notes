@@ -2,6 +2,8 @@
   "customOrder": {
     "/": {
       "children": [
+        "templates",
+        "workspace",
         "项目实战",
         "虚拟机",
         "docs",
@@ -72,6 +74,7 @@
     },
     "项目实战/AI实战": {
       "children": [
+        "项目实战/AI实战/LLM 提示词缓存优化策略.md",
         "项目实战/AI实战/工程实践",
         "项目实战/AI实战/架构设计",
         "项目实战/AI实战/AI实战 MOC.md",
@@ -1170,6 +1173,278 @@
     "qBittorent/assets/qBittorrent配置代理": {
       "children": [
         "qBittorent/assets/qBittorrent配置代理/截屏2026-02-05 21.17.18.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "templates": {
+      "children": [
+        "templates/self-learning"
+      ],
+      "sortOrder": "custom"
+    },
+    "templates/self-learning": {
+      "children": [
+        "templates/self-learning/hooks",
+        "templates/self-learning/learnings",
+        "templates/self-learning/skills",
+        "templates/self-learning/AGENTS.snippet.md",
+        "templates/self-learning/install.py",
+        "templates/self-learning/README.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "templates/self-learning/hooks": {
+      "children": [
+        "templates/self-learning/hooks/claude-settings.json.template",
+        "templates/self-learning/hooks/codex-hooks.json.template",
+        "templates/self-learning/hooks/read-learnings.sh"
+      ],
+      "sortOrder": "custom"
+    },
+    "templates/self-learning/learnings": {
+      "children": [
+        "templates/self-learning/learnings/ERRORS.md",
+        "templates/self-learning/learnings/LEARNINGS.md",
+        "templates/self-learning/learnings/RULES.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "templates/self-learning/skills": {
+      "children": [
+        "templates/self-learning/skills/digest",
+        "templates/self-learning/skills/maintain-learnings"
+      ],
+      "sortOrder": "custom"
+    },
+    "templates/self-learning/skills/digest": {
+      "children": [
+        "templates/self-learning/skills/digest/SKILL.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "templates/self-learning/skills/maintain-learnings": {
+      "children": [
+        "templates/self-learning/skills/maintain-learnings/agents",
+        "templates/self-learning/skills/maintain-learnings/scripts",
+        "templates/self-learning/skills/maintain-learnings/SKILL.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "templates/self-learning/skills/maintain-learnings/agents": {
+      "children": [
+        "templates/self-learning/skills/maintain-learnings/agents/openai.yaml"
+      ],
+      "sortOrder": "custom"
+    },
+    "templates/self-learning/skills/maintain-learnings/scripts": {
+      "children": [
+        "templates/self-learning/skills/maintain-learnings/scripts/audit_learnings.py",
+        "templates/self-learning/skills/maintain-learnings/scripts/sync_platform_skills.py"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace": {
+      "children": [
+        "workspace/claude-code-tutorial",
+        "workspace/llm-提示词缓存优化策略"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial": {
+      "children": [
+        "workspace/claude-code-tutorial/shared_research",
+        "workspace/claude-code-tutorial/updates",
+        "workspace/claude-code-tutorial/00_batch_update_intent.md",
+        "workspace/claude-code-tutorial/01_update_inventory.md",
+        "workspace/claude-code-tutorial/02_batch_update_plan.md",
+        "workspace/claude-code-tutorial/03_batch_update_log.md",
+        "workspace/claude-code-tutorial/04_batch_update_report.md",
+        "workspace/claude-code-tutorial/todo.md",
+        "workspace/claude-code-tutorial/update_inventory.csv"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/shared_research": {
+      "children": [
+        "workspace/claude-code-tutorial/shared_research/research_plan.md",
+        "workspace/claude-code-tutorial/shared_research/source_bank.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/updates": {
+      "children": [
+        "workspace/claude-code-tutorial/updates/01",
+        "workspace/claude-code-tutorial/updates/02",
+        "workspace/claude-code-tutorial/updates/03",
+        "workspace/claude-code-tutorial/updates/04",
+        "workspace/claude-code-tutorial/updates/05",
+        "workspace/claude-code-tutorial/updates/06",
+        "workspace/claude-code-tutorial/updates/07",
+        "workspace/claude-code-tutorial/updates/08",
+        "workspace/claude-code-tutorial/updates/09",
+        "workspace/claude-code-tutorial/updates/10",
+        "workspace/claude-code-tutorial/updates/11",
+        "workspace/claude-code-tutorial/updates/12",
+        "workspace/claude-code-tutorial/updates/13",
+        "workspace/claude-code-tutorial/updates/14",
+        "workspace/claude-code-tutorial/updates/15",
+        "workspace/claude-code-tutorial/updates/16",
+        "workspace/claude-code-tutorial/updates/17",
+        "workspace/claude-code-tutorial/updates/18",
+        "workspace/claude-code-tutorial/updates/19",
+        "workspace/claude-code-tutorial/updates/20"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/updates/01": {
+      "children": [
+        "workspace/claude-code-tutorial/updates/01/stale_map.md",
+        "workspace/claude-code-tutorial/updates/01/update_plan.md",
+        "workspace/claude-code-tutorial/updates/01/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/updates/02": {
+      "children": [
+        "workspace/claude-code-tutorial/updates/02/stale_map.md",
+        "workspace/claude-code-tutorial/updates/02/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/updates/03": {
+      "children": [
+        "workspace/claude-code-tutorial/updates/03/stale_map.md",
+        "workspace/claude-code-tutorial/updates/03/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/updates/04": {
+      "children": [
+        "workspace/claude-code-tutorial/updates/04/stale_map.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/updates/05": {
+      "children": [
+        "workspace/claude-code-tutorial/updates/05/stale_map.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/updates/06": {
+      "children": [
+        "workspace/claude-code-tutorial/updates/06/stale_map.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/updates/07": {
+      "children": [
+        "workspace/claude-code-tutorial/updates/07/stale_map.md",
+        "workspace/claude-code-tutorial/updates/07/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/updates/08": {
+      "children": [
+        "workspace/claude-code-tutorial/updates/08/stale_map.md",
+        "workspace/claude-code-tutorial/updates/08/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/updates/09": {
+      "children": [
+        "workspace/claude-code-tutorial/updates/09/stale_map.md",
+        "workspace/claude-code-tutorial/updates/09/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/updates/10": {
+      "children": [
+        "workspace/claude-code-tutorial/updates/10/stale_map.md",
+        "workspace/claude-code-tutorial/updates/10/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/updates/11": {
+      "children": [
+        "workspace/claude-code-tutorial/updates/11/stale_map.md",
+        "workspace/claude-code-tutorial/updates/11/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/updates/12": {
+      "children": [
+        "workspace/claude-code-tutorial/updates/12/stale_map.md",
+        "workspace/claude-code-tutorial/updates/12/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/updates/13": {
+      "children": [
+        "workspace/claude-code-tutorial/updates/13/stale_map.md",
+        "workspace/claude-code-tutorial/updates/13/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/updates/14": {
+      "children": [
+        "workspace/claude-code-tutorial/updates/14/stale_map.md",
+        "workspace/claude-code-tutorial/updates/14/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/updates/15": {
+      "children": [
+        "workspace/claude-code-tutorial/updates/15/stale_map.md",
+        "workspace/claude-code-tutorial/updates/15/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/updates/16": {
+      "children": [
+        "workspace/claude-code-tutorial/updates/16/stale_map.md",
+        "workspace/claude-code-tutorial/updates/16/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/updates/17": {
+      "children": [
+        "workspace/claude-code-tutorial/updates/17/stale_map.md",
+        "workspace/claude-code-tutorial/updates/17/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/updates/18": {
+      "children": [
+        "workspace/claude-code-tutorial/updates/18/stale_map.md",
+        "workspace/claude-code-tutorial/updates/18/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/updates/19": {
+      "children": [
+        "workspace/claude-code-tutorial/updates/19/stale_map.md",
+        "workspace/claude-code-tutorial/updates/19/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/claude-code-tutorial/updates/20": {
+      "children": [
+        "workspace/claude-code-tutorial/updates/20/stale_map.md",
+        "workspace/claude-code-tutorial/updates/20/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/llm-提示词缓存优化策略": {
+      "children": [
+        "workspace/llm-提示词缓存优化策略/output",
+        "workspace/llm-提示词缓存优化策略/00_intent.md",
+        "workspace/llm-提示词缓存优化策略/todo.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/llm-提示词缓存优化策略/output": {
+      "children": [
+        "workspace/llm-提示词缓存优化策略/output/final_note.md"
       ],
       "sortOrder": "custom"
     }
