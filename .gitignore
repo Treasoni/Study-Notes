@@ -10,6 +10,9 @@
 *.pem
 *.p12
 .claudian/
+.claude/claudian-settings.json
+.claude/sessions/
+.claude/settings.local.json
 .obsidian/plugins/i18n/main.js
 
 # Logs that may contain sensitive data

@@ -156,7 +156,7 @@ scan_history() {
   while IFS=' ' read -r object type path; do
     [ "$type" = 'blob' ] || continue
     scan_history_blob "$object" "$path"
-  done < <(history_objects | git cat-file --batch-check='%(objectname) %(objecttype) %(rest)')
+  done < <(history_objects | git cat-file --batch-check='%(objectname) %(objecttype) %(rest)' | awk '$2 == "blob"' | sort -u -k1,1)
 }
 
 case "$MODE" in
