@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+"$ROOT/.claude/skills/security-secret-audit/scripts/audit-secrets.sh" --staged

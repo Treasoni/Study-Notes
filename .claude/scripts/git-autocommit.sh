@@ -4,6 +4,9 @@
 
 set -euo pipefail
 
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+secret_audit="$script_dir/../skills/security-secret-audit/scripts/audit-secrets.sh"
+
 # 确保在 git 仓库中
 git rev-parse --is-inside-work-tree &>/dev/null || exit 0
 
@@ -17,6 +20,9 @@ if [ -z "$has_staged" ]; then
   # 没有已暂存文件，暂存所有改动（排除不追踪的大文件/敏感文件）
   git add -A
 fi
+
+# Exit 2 from the audit blocks this automated commit without revealing a secret.
+"$secret_audit" --staged
 
 # 获取改动的文件列表
 changed_files=$(git diff --cached --name-only)

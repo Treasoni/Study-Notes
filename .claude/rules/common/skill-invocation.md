@@ -82,6 +82,7 @@
 |------|----------|-----------|
 | `skill-creator` | 创建新的 Claude Code 技能 | 创建 skill、新技能、写一个 skill |
 | `prompt-cache-optimizer` | 审计并优化 LLM 提示缓存、token 与调用成本 | 缓存命中、token 成本、LLM 审计、提示词缓存优化 |
+| `security-secret-audit` | 扫描当前文件、暂存内容或 Git 历史中的 API 密钥、Token、密码和私钥 | 安全检查、密钥扫描、凭证泄露、提交前检查、secret scan |
 
 ### 1. 分析意图
 

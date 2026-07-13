@@ -1,0 +1,80 @@
+use strict;
+use warnings;
+
+my $label = 'input';
+
+while (@ARGV) {
+    my $arg = shift @ARGV;
+    if ($arg eq '--label') {
+        die "missing value for --label\n" unless @ARGV;
+        $label = shift @ARGV;
+    }
+    else {
+        die "unknown option: $arg\n";
+    }
+}
+
+sub is_placeholder {
+    my ($value) = @_;
+
+    return 1 if $value eq '' || $value =~ /^\*+$/;
+    return 1 if $value =~ /^(?:null|none|undefined|true|false)$/i;
+    return 1 if $value =~ /^(?:your|replace|changeme|dummy|example|test|placeholder|redacted|not[-_]?set)(?:[-_].*)?$/i;
+    return 1 if $value =~ /^sk-(?:x|-)+$/i;
+    return 1 if $value =~ /^(?:\$\{?|\{\{|<|process\.env\b|os\.(?:environ|getenv)\b|getenv\b|config\.|settings\.|env\.)/i;
+    return 1 if $value =~ /^[A-Z][A-Z0-9_]{2,}$/;
+
+    return 0;
+}
+
+my $secret_name = qr/
+    [A-Za-z_][A-Za-z0-9_-]*
+    (?:api[_-]?key|secret|token|password|passwd|private[_-]?key|access[_-]?key|client[_-]?secret)
+    [A-Za-z0-9_-]*
+/ix;
+
+my $found = 0;
+my $line_number = 0;
+
+while (my $line = <STDIN>) {
+    ++$line_number;
+    last if index($line, "\0") >= 0;
+
+    my @rules;
+
+    push @rules, 'private-key-material'
+        if $line =~ /-----BEGIN (?:[A-Z ]+ )?PRIVATE KEY-----/;
+    push @rules, 'openai-style-api-key'
+        if $line =~ /\bsk-[A-Za-z0-9_-]{16,}\b/;
+    push @rules, 'github-token'
+        if $line =~ /\b(?:gh[pousr]_[A-Za-z0-9_]{30,}|github_pat_[A-Za-z0-9_]{22,})\b/;
+    push @rules, 'aws-access-key-id'
+        if $line =~ /\bAKIA[0-9A-Z]{16}\b/;
+    push @rules, 'google-api-key'
+        if $line =~ /\bAIza[0-9A-Za-z_-]{35}\b/;
+    push @rules, 'slack-token'
+        if $line =~ /\bxox(?:b|p|a|r|s)-[0-9A-Za-z-]{10,}\b/;
+    push @rules, 'gitlab-token'
+        if $line =~ /\bglpat-[0-9A-Za-z_-]{20,}\b/;
+    push @rules, 'npm-token'
+        if $line =~ /\bnpm_[A-Za-z0-9]{36}\b/;
+    push @rules, 'stripe-secret-key'
+        if $line =~ /\b(?:sk|rk)_(?:live|test)_[A-Za-z0-9]{16,}\b/;
+    push @rules, 'json-web-token'
+        if $line =~ /\beyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\b/;
+
+    if ($line =~ /\b($secret_name)\b\s*[:=]\s*(?:"([^"]*)"|'([^']*)'|([^\s,;\}\]\)#]+))/) {
+        my $value = defined $2 ? $2 : defined $3 ? $3 : $4;
+        push @rules, 'named-secret-literal'
+            if length($value) >= 8 && !is_placeholder($value);
+    }
+
+    my %seen;
+    for my $rule (@rules) {
+        next if $seen{$rule}++;
+        print "$label:$line_number:$rule\n";
+        $found = 1;
+    }
+}
+
+exit($found ? 2 : 0);

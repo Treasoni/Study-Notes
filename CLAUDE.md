@@ -98,3 +98,7 @@ research-planner → workflow-orchestrator（生成 todo.md）
 - Keep stable instructions and output formats before dynamic user input, file excerpts, dates, IDs, and runtime state.
 - Reuse canonical templates and load long context only when needed.
 <!-- prompt-cache-bootstrap:end -->
+
+## Security
+
+- Follow `.claude/rules/common/security-secrets.md` before staging, committing, pushing, or handling credentials.
