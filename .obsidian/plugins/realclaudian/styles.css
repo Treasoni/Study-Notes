@@ -501,6 +501,22 @@ body.theme-dark .claudian-provider-icon-variant--dark {
   cursor: default;
 }
 
+.claudian-history-load-more {
+  width: calc(100% - 16px);
+  margin: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.claudian-history-load-more:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
 
 /* ============================================
    components/messages.css
@@ -518,7 +534,7 @@ body.theme-dark .claudian-provider-icon-variant--dark {
 .claudian-messages {
   flex: 1;
   overflow-y: auto;
-  padding: 12px 0;
+  padding: 12px 0 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -766,6 +782,35 @@ body.theme-dark .claudian-provider-icon-variant--dark {
   color: var(--text-muted);
   font-size: 11px;
   white-space: nowrap;
+}
+
+.claudian-tab-hydration {
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.claudian-tab-hydration-loading::before {
+  content: '';
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 8px;
+  border: 2px solid var(--background-modifier-border);
+  border-top-color: var(--interactive-accent);
+  border-radius: 50%;
+  animation: claudian-spin 0.8s linear infinite;
+  vertical-align: -2px;
+}
+
+.claudian-tab-hydration-error {
+  max-width: 420px;
+  color: var(--text-error, var(--claudian-error));
 }
 
 
@@ -1386,6 +1431,10 @@ body.theme-light .claudian-message-content pre {
 }
 
 .claudian-status-panel {
+  padding-top: 0;
+}
+
+.claudian-status-panel--visible {
   padding-top: 12px;
 }
 
@@ -1847,7 +1896,7 @@ body.theme-light .claudian-message-content pre {
 .claudian-input-footer {
   position: relative;
   flex-shrink: 0;
-  padding: 12px 0 0 0;
+  padding: 6px 0 0 0;
 }
 
 .claudian-active-input-slot > .claudian-input-composer > .claudian-input-container {
@@ -1855,7 +1904,6 @@ body.theme-light .claudian-message-content pre {
 }
 
 /* Input wrapper (border container) - flex column so textarea expands when no chips */
-/* Height calculation: context row (36px) + textarea min (60px) + toolbar (38px) + border (2px) = 136px */
 .claudian-input-wrapper {
   --claudian-input-wrapper-border-color: var(--background-modifier-border);
   --claudian-input-wrapper-box-shadow: none;
@@ -1869,28 +1917,12 @@ body.theme-light .claudian-message-content pre {
   box-shadow: var(--claudian-input-wrapper-box-shadow);
 }
 
-/* Context row (file chip start, selection indicator end) - inside input wrapper at top */
-/* Collapsed by default; expanded via .has-content class; textarea fills remaining space */
-.claudian-context-row {
-  display: none;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-shrink: 0;
-  padding: 6px 10px 0 10px;
-  gap: 8px;
-}
-
-/* Show context row when it has visible content */
-.claudian-context-row.has-content {
-  display: flex;
-}
-
 /* Nav row (tab badges start, action icons end) - above input wrapper */
 .claudian-input-nav-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 0 8px 0;
+  padding: 0 0 6px 0;
   min-height: 0;
 }
 
@@ -1918,13 +1950,20 @@ body.theme-light .claudian-message-content pre {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
   cursor: pointer;
   color: var(--text-faint);
-  transition: color 0.15s ease;
+  transition: color 0.15s ease, background 0.15s ease;
 }
 
 .claudian-input-nav-btn:hover {
   color: var(--text-normal);
+  background: var(--background-modifier-hover);
 }
 
 .claudian-input-nav-btn svg {
@@ -1935,29 +1974,6 @@ body.theme-light .claudian-message-content pre {
 .claudian-new-tab-btn svg {
   width: 16.8px;
   height: 16.8px;
-}
-
-/* Selection indicator (shown when text is selected in editor) */
-/* Match file chip height (24px): chip has 16px remove button + 6px padding + 2px border */
-/* Indicator: 12px text + 10px padding (5+5) + 2px border = 24px */
-.claudian-selection-indicator,
-.claudian-browser-selection-indicator,
-.claudian-canvas-indicator {
-  color: #7abaff;
-  font-size: 12px;
-  line-height: 1;
-  opacity: 0.9;
-  pointer-events: none;
-  white-space: nowrap;
-  padding: 5px 6px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  margin-inline-start: auto;
-  flex-shrink: 0;
-  order: 4;
-  max-width: min(100%, clamp(220px, 64vw, 560px));
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .claudian-input-wrapper textarea.claudian-input {
@@ -1998,69 +2014,6 @@ body.theme-light .claudian-message-content pre {
   justify-content: flex-start;
   flex-shrink: 0;
   padding: 4px 6px 6px 6px;
-}
-
-/* File indicator (attached files) */
-.claudian-file-indicator {
-  display: none;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.claudian-file-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 6px 3px 8px;
-  background: var(--background-primary);
-  border: 1px solid var(--background-modifier-border);
-  border-radius: 12px;
-  font-size: 12px;
-  line-height: 1;
-  max-width: 200px;
-  cursor: pointer;
-}
-
-.claudian-file-chip-icon {
-  display: flex;
-  align-items: center;
-  color: var(--text-muted);
-  flex-shrink: 0;
-}
-
-.claudian-file-chip-icon svg {
-  width: 12px;
-  height: 12px;
-}
-
-.claudian-file-chip-name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: var(--text-normal);
-}
-
-.claudian-file-chip-remove {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  cursor: pointer;
-  color: var(--text-muted);
-  font-size: 14px;
-  line-height: 1;
-  transition: background 0.15s ease, color 0.15s ease;
-}
-
-.claudian-file-chip-remove:hover {
-  background: var(--background-modifier-hover);
-  color: var(--text-normal);
-}
-
-.claudian-file-chip:hover {
-  background: var(--background-modifier-hover);
 }
 
 /* Composer queue status row (queued follow-up preview + steer action) */
@@ -2149,6 +2102,171 @@ body.theme-light .claudian-message-content pre {
 /* Monospace input while in bash mode */
 .claudian-input-wrapper.claudian-input-bang-bash-mode .claudian-input {
   font-family: var(--font-monospace);
+}
+
+
+/* ============================================
+   components/context-tray.css
+   ============================================ */
+/* Composer context tray */
+.claudian-context-row {
+  display: none;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  gap: 6px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 8px 8px 0;
+}
+
+.claudian-context-row.has-content {
+  display: flex;
+}
+
+.claudian-context-chip {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 1 auto;
+  gap: 4px;
+  min-width: 0;
+  max-width: min(200px, 100%);
+  height: 24px;
+  padding: 3px 6px 3px 8px;
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 12px;
+  background: var(--background-primary);
+  color: var(--text-normal);
+  font-size: 12px;
+  line-height: 1;
+}
+
+.claudian-context-chip:hover {
+  background: var(--background-modifier-hover);
+}
+
+.claudian-context-chip-main {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 16px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1;
+  text-align: start;
+  box-shadow: none;
+}
+
+/* Obsidian applies a button surface to clickable note and image labels. */
+.claudian-context-chip > button.claudian-context-chip-main,
+.claudian-context-chip > button.claudian-context-chip-main:hover,
+.claudian-context-chip > button.claudian-context-chip-main:focus,
+.claudian-context-chip > button.claudian-context-chip-main:active {
+  appearance: none;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  background-image: none;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.claudian-context-chip-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 12px;
+  width: 12px;
+  height: 12px;
+  color: var(--text-muted);
+}
+
+.claudian-context-chip-icon svg {
+  width: 12px;
+  height: 12px;
+}
+
+.claudian-context-chip-label {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--text-normal);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.claudian-context-chip-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: none;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.claudian-context-chip > button.claudian-context-chip-remove,
+.claudian-context-chip > button.claudian-context-chip-remove:focus,
+.claudian-context-chip > button.claudian-context-chip-remove:active {
+  appearance: none;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  background-image: none;
+  box-shadow: none;
+}
+
+.claudian-context-chip > button.claudian-context-chip-remove:hover {
+  border: 0;
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+  box-shadow: none;
+}
+
+.claudian-context-chip--overflow-hidden {
+  display: none;
+}
+
+.claudian-context-more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  height: 24px;
+  padding: 0 8px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 12px;
+  background: var(--background-primary);
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.claudian-context-more:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+  box-shadow: none;
 }
 
 
@@ -3140,112 +3258,6 @@ code .claudian-file-link:hover {
 /* ============================================
    features/image-context.css
    ============================================ */
-/* Image Context - Preview & Attachments */
-
-/* Image preview container (in input area) */
-.claudian-image-preview {
-  display: none;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 8px 0;
-  margin-bottom: 4px;
-}
-
-/* Individual image preview chip */
-.claudian-image-chip {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 8px;
-  background: var(--background-primary);
-  border: 1px solid var(--background-modifier-border);
-  border-radius: 8px;
-  max-width: 200px;
-}
-
-.claudian-image-chip:hover {
-  border-color: var(--interactive-accent);
-}
-
-/* Image thumbnail */
-.claudian-image-thumb {
-  width: 40px;
-  height: 40px;
-  border-radius: 4px;
-  overflow: hidden;
-  flex-shrink: 0;
-  cursor: pointer;
-}
-
-.claudian-image-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Image info */
-.claudian-image-info {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  flex: 1;
-}
-
-.claudian-image-name {
-  font-size: 12px;
-  color: var(--text-normal);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.claudian-image-size {
-  font-size: 10px;
-  color: var(--text-muted);
-}
-
-/* Remove button */
-.claudian-image-remove {
-  position: relative;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background 0.15s ease;
-  flex-shrink: 0;
-  font-size: 0; /* Hide text character */
-}
-
-.claudian-image-remove::before,
-.claudian-image-remove::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 10px;
-  height: 2px;
-  background: var(--text-muted);
-  border-radius: 1px;
-  transition: background 0.15s ease;
-}
-
-.claudian-image-remove::before {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.claudian-image-remove::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-.claudian-image-remove:hover {
-  background: var(--background-modifier-error);
-}
-
-.claudian-image-remove:hover::before,
-.claudian-image-remove:hover::after {
-  background: var(--text-on-accent);
-}
-
 /* Drop overlay - inside input wrapper */
 .claudian-drop-overlay {
   position: absolute;
@@ -6088,14 +6100,14 @@ code .claudian-file-link:hover {
    ============================================ */
 /* Provider model picker */
 
-:is(.claudian-provider-model-picker, .claudian-opencode-model-picker) {
+.claudian-provider-model-picker {
   display: flex;
   flex-direction: column;
   gap: 12px;
   margin-top: 8px;
 }
 
-:is(.claudian-provider-model-picker-summary, .claudian-opencode-model-picker-summary) {
+.claudian-provider-model-picker-summary {
   display: flex;
   flex-wrap: wrap;
   gap: 6px 12px;
@@ -6103,12 +6115,12 @@ code .claudian-file-link:hover {
   color: var(--text-muted);
 }
 
-:is(.claudian-provider-model-picker-summary-value, .claudian-opencode-model-picker-summary-value) {
+.claudian-provider-model-picker-summary-value {
   color: var(--text-normal);
   font-weight: var(--font-medium);
 }
 
-:is(.claudian-provider-model-picker-selected, .claudian-opencode-model-picker-selected) {
+.claudian-provider-model-picker-selected {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -6117,21 +6129,21 @@ code .claudian-file-link:hover {
   border-radius: 6px;
 }
 
-:is(.claudian-provider-model-picker-selected-header, .claudian-opencode-model-picker-selected-header) {
+.claudian-provider-model-picker-selected-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
 }
 
-:is(.claudian-provider-model-picker-selected-label, .claudian-opencode-model-picker-selected-label) {
+.claudian-provider-model-picker-selected-label {
   font-size: var(--font-ui-smaller);
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
 
-:is(.claudian-provider-model-picker-selected-clear, .claudian-opencode-model-picker-selected-clear) {
+.claudian-provider-model-picker-selected-clear {
   padding: 2px 8px;
   font-size: var(--font-ui-smaller);
   color: var(--text-muted);
@@ -6141,12 +6153,12 @@ code .claudian-file-link:hover {
   cursor: pointer;
 }
 
-:is(.claudian-provider-model-picker-selected-clear, .claudian-opencode-model-picker-selected-clear):hover {
+.claudian-provider-model-picker-selected-clear:hover {
   background: var(--background-modifier-hover);
   color: var(--text-normal);
 }
 
-:is(.claudian-provider-model-picker-action, .claudian-opencode-model-picker-action) {
+.claudian-provider-model-picker-action {
   padding: 5px 10px;
   font-size: var(--font-ui-small);
   color: var(--text-muted);
@@ -6156,23 +6168,23 @@ code .claudian-file-link:hover {
   cursor: pointer;
 }
 
-:is(.claudian-provider-model-picker-action, .claudian-opencode-model-picker-action):hover:not(:disabled) {
+.claudian-provider-model-picker-action:hover:not(:disabled) {
   background: var(--background-modifier-hover);
   color: var(--text-normal);
 }
 
-:is(.claudian-provider-model-picker-action, .claudian-opencode-model-picker-action):disabled {
+.claudian-provider-model-picker-action:disabled {
   cursor: default;
   opacity: 0.6;
 }
 
-:is(.claudian-provider-model-picker-selected-rows, .claudian-opencode-model-picker-selected-rows) {
+.claudian-provider-model-picker-selected-rows {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-:is(.claudian-provider-model-picker-selected-row, .claudian-opencode-model-picker-selected-row) {
+.claudian-provider-model-picker-selected-row {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -6182,11 +6194,11 @@ code .claudian-file-link:hover {
   border-radius: 6px;
 }
 
-:is(.claudian-provider-model-picker-selected-row--unavailable, .claudian-opencode-model-picker-selected-row--unavailable) {
+.claudian-provider-model-picker-selected-row--unavailable {
   border-style: dashed;
 }
 
-:is(.claudian-provider-model-picker-selected-info, .claudian-opencode-model-picker-selected-info) {
+.claudian-provider-model-picker-selected-info {
   flex: 1;
   min-width: 0;
   display: flex;
@@ -6194,7 +6206,7 @@ code .claudian-file-link:hover {
   gap: 2px;
 }
 
-:is(.claudian-provider-model-picker-selected-title, .claudian-opencode-model-picker-selected-title) {
+.claudian-provider-model-picker-selected-title {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -6202,7 +6214,7 @@ code .claudian-file-link:hover {
   min-width: 0;
 }
 
-:is(.claudian-provider-model-picker-selected-badge, .claudian-opencode-model-picker-selected-badge) {
+.claudian-provider-model-picker-selected-badge {
   font-size: var(--font-ui-smaller);
   padding: 1px 6px;
   border-radius: 999px;
@@ -6212,7 +6224,7 @@ code .claudian-file-link:hover {
   letter-spacing: 0.04em;
 }
 
-:is(.claudian-provider-model-picker-selected-name, .claudian-opencode-model-picker-selected-name) {
+.claudian-provider-model-picker-selected-name {
   color: var(--text-normal);
   font-weight: var(--font-medium);
   overflow: hidden;
@@ -6220,7 +6232,7 @@ code .claudian-file-link:hover {
   white-space: nowrap;
 }
 
-:is(.claudian-provider-model-picker-selected-id, .claudian-opencode-model-picker-selected-id) {
+.claudian-provider-model-picker-selected-id {
   font-size: var(--font-ui-smaller);
   color: var(--text-muted);
   font-family: var(--font-monospace);
@@ -6229,20 +6241,20 @@ code .claudian-file-link:hover {
   white-space: nowrap;
 }
 
-:is(.claudian-provider-model-picker-selected-unavailable, .claudian-opencode-model-picker-selected-unavailable) {
+.claudian-provider-model-picker-selected-unavailable {
   font-size: var(--font-ui-smaller);
   color: var(--text-muted);
   font-style: italic;
 }
 
-:is(.claudian-provider-model-picker-selected-controls, .claudian-opencode-model-picker-selected-controls) {
+.claudian-provider-model-picker-selected-controls {
   display: flex;
   align-items: center;
   gap: 6px;
   flex-shrink: 0;
 }
 
-:is(.claudian-provider-model-picker-selected-alias, .claudian-opencode-model-picker-selected-alias) {
+.claudian-provider-model-picker-selected-alias {
   width: 180px;
   padding: 4px 8px;
   border: 1px solid var(--background-modifier-border);
@@ -6252,12 +6264,12 @@ code .claudian-file-link:hover {
   font-size: var(--font-ui-small);
 }
 
-:is(.claudian-provider-model-picker-selected-alias, .claudian-opencode-model-picker-selected-alias):focus {
+.claudian-provider-model-picker-selected-alias:focus {
   outline: none;
   border-color: var(--interactive-accent);
 }
 
-:is(.claudian-provider-model-picker-selected-remove, .claudian-opencode-model-picker-selected-remove) {
+.claudian-provider-model-picker-selected-remove {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -6273,12 +6285,12 @@ code .claudian-file-link:hover {
   font-size: 16px;
 }
 
-:is(.claudian-provider-model-picker-selected-remove, .claudian-opencode-model-picker-selected-remove):hover {
+.claudian-provider-model-picker-selected-remove:hover {
   background: var(--background-modifier-hover);
   color: var(--text-normal);
 }
 
-:is(.claudian-provider-model-picker-catalog, .claudian-opencode-model-picker-catalog) {
+.claudian-provider-model-picker-catalog {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -6287,7 +6299,7 @@ code .claudian-file-link:hover {
   border-radius: 6px;
 }
 
-:is(.claudian-provider-model-picker-catalog-summary, .claudian-opencode-model-picker-catalog-summary) {
+.claudian-provider-model-picker-catalog-summary {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -6296,11 +6308,11 @@ code .claudian-file-link:hover {
   list-style: none;
 }
 
-:is(.claudian-provider-model-picker-catalog-summary, .claudian-opencode-model-picker-catalog-summary)::-webkit-details-marker {
+.claudian-provider-model-picker-catalog-summary::-webkit-details-marker {
   display: none;
 }
 
-:is(.claudian-provider-model-picker-catalog-caret, .claudian-opencode-model-picker-catalog-caret) {
+.claudian-provider-model-picker-catalog-caret {
   font-size: 16px;
   color: var(--text-muted);
   transition: transform 0.12s ease;
@@ -6310,30 +6322,30 @@ code .claudian-file-link:hover {
   line-height: 1;
 }
 
-:is(.claudian-provider-model-picker-catalog, .claudian-opencode-model-picker-catalog)[open] :is(.claudian-provider-model-picker-catalog-caret, .claudian-opencode-model-picker-catalog-caret) {
+.claudian-provider-model-picker-catalog[open] .claudian-provider-model-picker-catalog-caret {
   transform: rotate(90deg);
 }
 
-:is(.claudian-provider-model-picker-catalog-title, .claudian-opencode-model-picker-catalog-title) {
+.claudian-provider-model-picker-catalog-title {
   color: var(--text-normal);
   font-weight: var(--font-medium);
   font-size: var(--font-ui-small);
 }
 
-:is(.claudian-provider-model-picker-catalog-count, .claudian-opencode-model-picker-catalog-count) {
+.claudian-provider-model-picker-catalog-count {
   font-size: var(--font-ui-smaller);
   color: var(--text-muted);
   margin-left: auto;
 }
 
-:is(.claudian-provider-model-picker-controls, .claudian-opencode-model-picker-controls) {
+.claudian-provider-model-picker-controls {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   align-items: center;
 }
 
-:is(.claudian-provider-model-picker-search, .claudian-opencode-model-picker-search) {
+.claudian-provider-model-picker-search {
   flex: 1 1 220px;
   min-width: 180px;
   padding: 6px 10px;
@@ -6344,12 +6356,12 @@ code .claudian-file-link:hover {
   font-size: var(--font-ui-small);
 }
 
-:is(.claudian-provider-model-picker-search, .claudian-opencode-model-picker-search):focus {
+.claudian-provider-model-picker-search:focus {
   outline: none;
   border-color: var(--interactive-accent);
 }
 
-:is(.claudian-provider-model-picker-provider, .claudian-opencode-model-picker-provider) {
+.claudian-provider-model-picker-provider {
   padding: 6px 10px;
   border: 1px solid var(--background-modifier-border);
   border-radius: 6px;
@@ -6358,7 +6370,7 @@ code .claudian-file-link:hover {
   font-size: var(--font-ui-small);
 }
 
-:is(.claudian-provider-model-picker-list, .claudian-opencode-model-picker-list) {
+.claudian-provider-model-picker-list {
   display: flex;
   flex-direction: column;
   margin-top: 8px;
@@ -6369,7 +6381,7 @@ code .claudian-file-link:hover {
   overflow-y: auto;
 }
 
-:is(.claudian-provider-model-picker-row, .claudian-opencode-model-picker-row) {
+.claudian-provider-model-picker-row {
   display: flex;
   align-items: flex-start;
   gap: 10px;
@@ -6378,23 +6390,23 @@ code .claudian-file-link:hover {
   cursor: pointer;
 }
 
-:is(.claudian-provider-model-picker-row, .claudian-opencode-model-picker-row):last-child {
+.claudian-provider-model-picker-row:last-child {
   border-bottom: none;
 }
 
-:is(.claudian-provider-model-picker-row, .claudian-opencode-model-picker-row):hover {
+.claudian-provider-model-picker-row:hover {
   background: var(--background-modifier-hover);
 }
 
-:is(.claudian-provider-model-picker-row--selected, .claudian-opencode-model-picker-row--selected) {
+.claudian-provider-model-picker-row--selected {
   background: var(--background-modifier-hover);
 }
 
-:is(.claudian-provider-model-picker-row, .claudian-opencode-model-picker-row) input[type="checkbox"] {
+.claudian-provider-model-picker-row input[type="checkbox"] {
   margin-top: 3px;
 }
 
-:is(.claudian-provider-model-picker-row-text, .claudian-opencode-model-picker-row-text) {
+.claudian-provider-model-picker-row-text {
   flex: 1;
   min-width: 0;
   display: flex;
@@ -6402,7 +6414,7 @@ code .claudian-file-link:hover {
   gap: 2px;
 }
 
-:is(.claudian-provider-model-picker-row-header, .claudian-opencode-model-picker-row-header) {
+.claudian-provider-model-picker-row-header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -6410,7 +6422,7 @@ code .claudian-file-link:hover {
   min-width: 0;
 }
 
-:is(.claudian-provider-model-picker-row-name, .claudian-opencode-model-picker-row-name) {
+.claudian-provider-model-picker-row-name {
   color: var(--text-normal);
   font-weight: var(--font-medium);
   overflow: hidden;
@@ -6418,7 +6430,7 @@ code .claudian-file-link:hover {
   white-space: nowrap;
 }
 
-:is(.claudian-provider-model-picker-row-badge, .claudian-opencode-model-picker-row-badge) {
+.claudian-provider-model-picker-row-badge {
   font-size: var(--font-ui-smaller);
   padding: 1px 6px;
   border-radius: 999px;
@@ -6428,12 +6440,12 @@ code .claudian-file-link:hover {
   letter-spacing: 0.04em;
 }
 
-:is(.claudian-provider-model-picker-row-badge--unavailable, .claudian-opencode-model-picker-row-badge--unavailable) {
+.claudian-provider-model-picker-row-badge--unavailable {
   background: var(--background-modifier-error);
   color: var(--text-on-accent);
 }
 
-:is(.claudian-provider-model-picker-row-meta, .claudian-opencode-model-picker-row-meta) {
+.claudian-provider-model-picker-row-meta {
   font-size: var(--font-ui-smaller);
   color: var(--text-muted);
   font-family: var(--font-monospace);
@@ -6442,12 +6454,12 @@ code .claudian-file-link:hover {
   white-space: nowrap;
 }
 
-:is(.claudian-provider-model-picker-row-desc, .claudian-opencode-model-picker-row-desc) {
+.claudian-provider-model-picker-row-desc {
   font-size: var(--font-ui-smaller);
   color: var(--text-muted);
 }
 
-:is(.claudian-provider-model-picker-empty, .claudian-opencode-model-picker-empty) {
+.claudian-provider-model-picker-empty {
   padding: 24px 16px;
   text-align: center;
   color: var(--text-muted);
@@ -6475,10 +6487,9 @@ code .claudian-file-link:hover {
 /* outline + offset only */
 .claudian-action-btn:focus-visible,
 .claudian-toggle-switch:focus-visible,
-.claudian-file-chip:focus-visible,
-.claudian-image-chip:focus-visible,
-.claudian-file-chip-remove:focus-visible,
-.claudian-image-remove:focus-visible,
+.claudian-context-chip-main:focus-visible,
+.claudian-context-chip-remove:focus-visible,
+.claudian-context-more:focus-visible,
 .claudian-image-modal-close:focus-visible,
 .claudian-approved-remove-btn:focus-visible,
 .claudian-save-env-btn:focus-visible,
@@ -6490,6 +6501,17 @@ code .claudian-file-link:hover {
 .claudian-code-lang-label:focus-visible {
   outline: 2px solid var(--interactive-accent);
   outline-offset: 2px;
+}
+
+.claudian-inline-preview-action:focus-visible {
+  outline: 2px solid var(--interactive-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .claudian-inline-spinner {
+    animation: none;
+  }
 }
 
 /* outline + negative offset + border-radius */
