@@ -17,10 +17,17 @@
 
 - Codex skill 默认放在 `.agents/skills/`。
 - Claude Code skill 默认放在 `.claude/skills/`。
+- Workflow / Skill / Subagent / Hook 都应提供 `manifest.yaml`，用于统一发现、版本、权限、依赖和事件声明。
 - 新增或更新任何共享 skill 后，必须确认两边都保留同等功能：
 
 ```bash
 python3 .agents/skills/maintain-learnings/scripts/sync_platform_skills.py --root . --skill <skill>
+```
+
+- 新增或更新组件 manifest 后，必须校验注册表：
+
+```bash
+python3 .agents/skills/maintain-learnings/scripts/manifest_registry.py --root . --scan .agents --scan .codex/hooks
 ```
 
 - 如果报告另一侧缺失，先补齐另一侧再结束任务。

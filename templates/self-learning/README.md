@@ -8,6 +8,7 @@
 - `maintain-learnings`：当 `.learnings/` 变长或错误反复出现时，先修 skill / 模板 / hook / 项目规则，再归档已解决记录。
 - hooks：在会话开始时自动读取 `.learnings/RULES.md`、`.learnings/ERRORS.md` 和最近的 `.learnings/LEARNINGS.md`。
 - 双平台同步守护：检查 Codex `.agents/skills` 与 Claude Code `.claude/skills` 是否保留同等功能。
+- 统一 `manifest.yaml`：为 Workflow、Skill、Subagent、Hook 提供同一套注册、版本、权限、依赖和事件声明。
 
 ## Install
 
@@ -44,9 +45,16 @@ cp -R templates/self-learning/skills/maintain-learnings .agents/skills/
 cp -R templates/self-learning/skills/digest .claude/skills/
 cp -R templates/self-learning/skills/maintain-learnings .claude/skills/
 rm -rf .claude/skills/maintain-learnings/agents
+mkdir -p .agents/workflows .agents/subagents .claude/workflows .claude/subagents
+cp -R templates/self-learning/workflows/learning-maintenance .agents/workflows/
+cp -R templates/self-learning/subagents/learnings-maintainer .agents/subagents/
+cp -R templates/self-learning/workflows/learning-maintenance .claude/workflows/
+cp -R templates/self-learning/subagents/learnings-maintainer .claude/subagents/
 mkdir -p .codex/hooks .claude/hooks
 cp templates/self-learning/hooks/read-learnings.sh .codex/hooks/
 cp templates/self-learning/hooks/read-learnings.sh .claude/hooks/
+cp -R templates/self-learning/hooks/read-learnings .codex/hooks/
+cp -R templates/self-learning/hooks/read-learnings .claude/hooks/
 cp templates/self-learning/learnings/LEARNINGS.md .learnings/LEARNINGS.md
 cp templates/self-learning/learnings/ERRORS.md .learnings/ERRORS.md
 cp templates/self-learning/learnings/RULES.md .learnings/RULES.md
@@ -89,6 +97,29 @@ python3 .agents/skills/maintain-learnings/scripts/sync_platform_skills.py --root
 ```bash
 python3 .agents/skills/maintain-learnings/scripts/sync_platform_skills.py --root . --from-platform agents --to-platform claude --skill maintain-learnings --apply
 ```
+
+发现并校验统一 manifest：
+
+```bash
+python3 .agents/skills/maintain-learnings/scripts/manifest_registry.py --root . --scan .agents --scan .codex/hooks
+```
+
+Claude Code 侧：
+
+```bash
+python3 .claude/skills/maintain-learnings/scripts/manifest_registry.py --root . --scan .claude --scan .claude/hooks
+```
+
+## Manifest Contract
+
+每个可注册组件都可以有自己的 `manifest.yaml`：
+
+- Skill：放在 `.agents/skills/<name>/manifest.yaml` 或 `.claude/skills/<name>/manifest.yaml`。
+- Workflow：放在 `.agents/workflows/<name>/manifest.yaml` 或 `.claude/workflows/<name>/manifest.yaml`。
+- Subagent：放在 `.agents/subagents/<name>/manifest.yaml` 或 `.claude/subagents/<name>/manifest.yaml`。
+- Hook：放在 `.codex/hooks/<name>/manifest.yaml` 或 `.claude/hooks/<name>/manifest.yaml`。
+
+统一外壳只负责发现、版本、权限、依赖和事件；实际执行仍由 `SKILL.md`、`PROMPT.md`、shell hook 或 workflow steps 承担。字段约定见 `manifest.schema.md`。
 
 ## Customize
 

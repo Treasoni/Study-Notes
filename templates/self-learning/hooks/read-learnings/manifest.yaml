@@ -1,0 +1,49 @@
+apiVersion: agent-platform/v1alpha1
+kind: Hook
+
+metadata:
+  name: read-learnings
+  version: 0.1.0
+  description: Inject project learning rules and recent errors at session start.
+  tags:
+    - self-learning
+    - session-start
+
+spec:
+  runtime: shell
+  entrypoint: ../read-learnings.sh
+  event: SessionStart
+  blocking: false
+  timeoutSeconds: 5
+  inputs:
+    - name: project_root
+      type: directory
+      required: true
+  outputs:
+    - name: system_reminder
+      type: text
+
+permissions:
+  filesystem:
+    read:
+      - ".learnings/**"
+    write: []
+  network: false
+  tools:
+    - shell.execute
+
+dependencies:
+  skills: []
+  workflows: []
+  subagents: []
+  hooks: []
+
+events:
+  triggers:
+    - SessionStart
+
+compatibility:
+  platforms:
+    - codex
+    - claude-code
+

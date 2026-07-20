@@ -41,6 +41,7 @@ python3 .claude/skills/maintain-learnings/scripts/audit_learnings.py --root . --
 根据审计报告读取对应源文件：
 
 - skill 问题：`<skills-dir>/<skill>/SKILL.md`
+- 组件注册问题：对应组件目录下的 `manifest.yaml`
 - skill 模板问题：`<skills-dir>/<skill>/references/`
 - 项目规则问题：`AGENTS.md` / `CLAUDE.md` / 项目自定义规则文件
 - hook 问题：`.codex/hooks/` / `.claude/hooks/` / 项目自定义 hook
@@ -51,6 +52,7 @@ python3 .claude/skills/maintain-learnings/scripts/audit_learnings.py --root . --
 修复必须落到可执行机制之一：
 
 - 在对应 `SKILL.md` 中加入明确步骤、硬性约束或验证 checklist。
+- 更新对应 `manifest.yaml`，让版本、权限、依赖、事件触发和入口文件与真实实现一致。
 - 修改 reference 模板，使正确格式自然生成。
 - 添加或修改校验脚本，让错误能被自动发现。
 - 更新项目规则，但只提升跨 skill 的铁律。
@@ -68,6 +70,18 @@ python3 -c 'from pathlib import Path; p=Path("<skills-dir>/<skill>/SKILL.md"); t
 ```
 
 2. 每条待归档记录都能对应到新的步骤、模板或校验逻辑。
+
+3. 组件 manifest 可以被发现并通过校验：
+
+```bash
+python3 .agents/skills/maintain-learnings/scripts/manifest_registry.py --root . --scan .agents --scan .codex/hooks
+```
+
+Claude Code 侧：
+
+```bash
+python3 .claude/skills/maintain-learnings/scripts/manifest_registry.py --root . --scan .claude --scan .claude/hooks
+```
 
 ## Step 6: 双平台同步守护
 

@@ -1,0 +1,77 @@
+apiVersion: agent-platform/v1alpha1
+kind: Workflow
+
+metadata:
+  name: learning-maintenance
+  version: 0.1.0
+  description: Keep the learning log useful by recording facts, detecting recurrence, repairing sources, and archiving verified fixes.
+  tags:
+    - self-learning
+    - workflow
+    - maintenance
+
+spec:
+  runtime: declarative-workflow
+  stateDir: .learnings
+  inputs:
+    - name: task_context
+      type: text
+      required: false
+  outputs:
+    - name: updated_learning_log
+      type: file-set
+      paths:
+        - .learnings/LEARNINGS.md
+        - .learnings/ERRORS.md
+        - .learnings/RULES.md
+  steps:
+    - id: load-learning-context
+      uses: hook:read-learnings
+      description: Load active rules, errors, and recent learnings before deciding what to change.
+    - id: record-digest
+      uses: skill:digest
+      description: Append only factual task learnings or errors.
+    - id: repair-recurring-errors
+      uses: skill:maintain-learnings
+      when: learnings.over_threshold_or_recurring
+      description: Repair the source mechanism before archiving repeated or rule-breaking errors.
+
+permissions:
+  filesystem:
+    read:
+      - ".learnings/**"
+      - ".agents/**"
+      - ".claude/**"
+      - ".codex/hooks/**"
+    write:
+      - ".learnings/**"
+      - ".agents/**"
+      - ".claude/**"
+      - ".codex/hooks/**"
+  network: false
+  tools:
+    - shell.read
+    - shell.execute
+    - file.edit
+
+dependencies:
+  skills:
+    - digest@>=0.1.0
+    - maintain-learnings@>=0.1.0
+  workflows: []
+  subagents:
+    - learnings-maintainer@>=0.1.0
+  hooks:
+    - read-learnings@>=0.1.0
+
+events:
+  triggers:
+    - onDemand
+    - overThreshold
+    - recurringError
+
+compatibility:
+  platforms:
+    - codex
+    - claude-code
+

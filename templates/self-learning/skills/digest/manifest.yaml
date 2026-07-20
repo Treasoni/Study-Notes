@@ -1,0 +1,58 @@
+apiVersion: agent-platform/v1alpha1
+kind: Skill
+
+metadata:
+  name: digest
+  version: 0.1.0
+  description: Record factual task learnings and errors into the project learning log.
+  tags:
+    - self-learning
+    - governance
+
+spec:
+  runtime: markdown-skill
+  entrypoint: SKILL.md
+  activation:
+    mode: explicit-or-description
+    description: Trigger when the user asks to record learnings, write a digest, or review task errors.
+  inputs:
+    - name: task_context
+      type: text
+      required: false
+  outputs:
+    - name: learnings_update
+      type: file
+      path: .learnings/LEARNINGS.md
+    - name: errors_update
+      type: file
+      path: .learnings/ERRORS.md
+
+permissions:
+  filesystem:
+    read:
+      - ".learnings/**"
+      - ".agents/skills/**"
+      - ".claude/skills/**"
+    write:
+      - ".learnings/**"
+  network: false
+  tools:
+    - shell.read
+    - file.edit
+
+dependencies:
+  skills:
+    - maintain-learnings@>=0.1.0
+  workflows: []
+  subagents: []
+  hooks: []
+
+events:
+  triggers:
+    - onDemand
+
+compatibility:
+  platforms:
+    - codex
+    - claude-code
+

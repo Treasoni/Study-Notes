@@ -10,6 +10,8 @@ from pathlib import Path
 
 TEMPLATE_ROOT = Path(__file__).resolve().parent
 SKILLS = ("digest", "maintain-learnings")
+WORKFLOWS = ("learning-maintenance",)
+SUBAGENTS = ("learnings-maintainer",)
 
 
 def copytree(source: Path, target: Path, overwrite: bool) -> None:
@@ -45,6 +47,14 @@ def install_skills(target_root: Path, platform_dir: str, include_openai_yaml: bo
                 print(f"[OK] removed Codex UI metadata from: {agents_dir}")
 
 
+def install_registry_components(target_root: Path, platform_dir: str, overwrite: bool) -> None:
+    for component_type, names in (("workflows", WORKFLOWS), ("subagents", SUBAGENTS)):
+        component_root = target_root / platform_dir / component_type
+        component_root.mkdir(parents=True, exist_ok=True)
+        for name in names:
+            copytree(TEMPLATE_ROOT / component_type / name, component_root / name, overwrite)
+
+
 def install_learnings(target_root: Path, overwrite: bool) -> None:
     learnings_root = target_root / ".learnings"
     learnings_root.mkdir(parents=True, exist_ok=True)
@@ -55,8 +65,10 @@ def install_learnings(target_root: Path, overwrite: bool) -> None:
 
 def install_hooks(target_root: Path, install_codex: bool, install_claude: bool, overwrite: bool) -> None:
     hook_source = TEMPLATE_ROOT / "hooks" / "read-learnings.sh"
+    hook_manifest_source = TEMPLATE_ROOT / "hooks" / "read-learnings"
     if install_codex:
         copyfile(hook_source, target_root / ".codex" / "hooks" / "read-learnings.sh", overwrite)
+        copytree(hook_manifest_source, target_root / ".codex" / "hooks" / "read-learnings", overwrite)
         codex_config = target_root / ".codex" / "hooks.json"
         if codex_config.exists() and not overwrite:
             print(f"[SKIP] exists: {codex_config}")
@@ -67,6 +79,7 @@ def install_hooks(target_root: Path, install_codex: bool, install_claude: bool, 
             copyfile_from_text(content, codex_config)
     if install_claude:
         copyfile(hook_source, target_root / ".claude" / "hooks" / "read-learnings.sh", overwrite)
+        copytree(hook_manifest_source, target_root / ".claude" / "hooks" / "read-learnings", overwrite)
         claude_config = target_root / ".claude" / "settings.json"
         if claude_config.exists() and not overwrite:
             print(f"[SKIP] exists: {claude_config}")
@@ -98,14 +111,17 @@ def main() -> int:
 
     if not args.no_codex:
         install_skills(target_root, ".agents", include_openai_yaml=True, overwrite=args.overwrite)
+        install_registry_components(target_root, ".agents", overwrite=args.overwrite)
     if not args.no_claude:
         install_skills(target_root, ".claude", include_openai_yaml=False, overwrite=args.overwrite)
+        install_registry_components(target_root, ".claude", overwrite=args.overwrite)
 
     install_learnings(target_root, overwrite=args.overwrite)
     if not args.no_hooks:
         install_hooks(target_root, install_codex=not args.no_codex, install_claude=not args.no_claude, overwrite=args.overwrite)
     print("")
     print("[NEXT] Merge templates/self-learning/AGENTS.snippet.md into the target project's AGENTS.md.")
+    print("[NEXT] Validate manifests with .agents/skills/maintain-learnings/scripts/manifest_registry.py.")
     return 0
 
 

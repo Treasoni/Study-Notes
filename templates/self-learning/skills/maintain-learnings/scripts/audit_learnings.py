@@ -38,6 +38,7 @@ KEYWORD_CLUSTERS = {
     "markdown": ("markdown", "frontmatter", "yaml", "table", "表格", "标题", "callout"),
     "interaction": ("askuserquestion", "other", "路径", "文件名", "用户反馈", "提问"),
     "hook": ("hook", "hooks", "read-learnings", "上下文", "经验库提醒"),
+    "manifest": ("manifest", "manifest.yaml", "注册", "权限", "依赖", "version", "apiVersion"),
     "tooling": ("write 工具", "read 工具", "apply_patch", "sandbox", "权限"),
 }
 
@@ -136,10 +137,16 @@ def source_candidates(root: Path, cluster: str, skills_dir: str, rules_file: str
     skill_file = root / skills_dir / cluster / "SKILL.md"
     if skill_file.exists():
         candidates.append(f"{skills_dir}/{cluster}/SKILL.md")
+        manifest = root / skills_dir / cluster / "manifest.yaml"
+        if manifest.exists():
+            candidates.append(f"{skills_dir}/{cluster}/manifest.yaml")
         refs = root / skills_dir / cluster / "references"
         if refs.exists():
             candidates.append(f"{skills_dir}/{cluster}/references/")
     if cluster == "hook":
+        candidates.append(hooks_path)
+    elif cluster == "manifest":
+        candidates.append(f"{skills_dir}/")
         candidates.append(hooks_path)
     elif cluster in {"markdown", "interaction", "tooling", "general"}:
         candidates.append(rules_file)
