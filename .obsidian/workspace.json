@@ -238,6 +238,7 @@
   },
   "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "项目实战/AI实战/Skill Markdown 与 Workflow YAML 的架构设计哲学.md",
     "templates/self-learning/__pycache__/install.cpython-313.pyc",
     "templates/self-learning/__pycache__",
     "templates/self-learning/skills/maintain-learnings/scripts/__pycache__/sync_platform_skills.cpython-313.pyc",
@@ -249,7 +250,6 @@
     "templates/self-learning/subagents/learnings-maintainer/PROMPT.md",
     "templates/self-learning/workflows/learning-maintenance/manifest.yaml",
     "templates/self-learning/hooks/read-learnings/manifest.yaml",
-    "templates/self-learning/skills/maintain-learnings/manifest.yaml",
     "templates/self-learning/manifest.schema.md",
     "AI学习/01-基础概念/Agent智能体.md",
     "AI学习/01-基础概念/Prompt提示词.md",
