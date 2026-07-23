@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "GitHub项目/Matt Pocock Skills — Agent 框架设计深度解析.md",
+                "file": "workspace/superpowers/00_intent.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Matt Pocock Skills — Agent 框架设计深度解析"
+              "title": "00_intent"
             }
           },
           {
@@ -184,13 +184,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "GitHub项目/Matt Pocock Skills — Agent 框架设计深度解析.md",
+                "file": "workspace/superpowers/00_intent.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Matt Pocock Skills — Agent 框架设计深度解析 的大纲"
+              "title": "00_intent 的大纲"
             }
           },
           {
@@ -236,10 +236,13 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "30b0ade23c460f17",
   "lastOpenFiles": [
-    "workspace/workflow-runs/matt-pocock-skills.workflow.md",
     "GitHub项目/Matt Pocock Skills — Agent 框架设计深度解析.md",
+    "workspace/superpowers/00_intent.md",
+    "workspace/workflow-runs/superpowers.workflow.md",
+    "workspace/superpowers",
+    "workspace/workflow-runs/matt-pocock-skills.workflow.md",
     "workspace/matt-pocock-skills/output/final_note.md",
     "workspace/matt-pocock-skills/output",
     "workspace/matt-pocock-skills/chapters/8_实战应用_构建你自己的Agent框架.md",
@@ -267,14 +270,11 @@
     "templates/self-learning/__pycache__",
     "templates/self-learning/skills/maintain-learnings/scripts/__pycache__/sync_platform_skills.cpython-313.pyc",
     "templates/self-learning/skills/maintain-learnings/scripts/__pycache__/manifest_registry.cpython-313.pyc",
-    "templates/self-learning/skills/maintain-learnings/scripts/__pycache__/audit_learnings.cpython-313.pyc",
     "templates/self-learning/subagents/learnings-maintainer/PROMPT.md",
     "templates/self-learning/manifest.schema.md",
     "AI学习/01-基础概念/Agent智能体.md",
     "AI学习/01-基础概念/Prompt提示词.md",
     "AI学习/01-基础概念/AI-Agents.md",
-    "AI学习/01-基础概念/Agent Teams智能体团队.md",
-    "AI学习/01-基础概念/AI工程范式演进-Prompt到Harness.md",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
     "web-articles/What_is_harness_engineering/images/img_002.png",
