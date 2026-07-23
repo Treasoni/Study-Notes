@@ -28,12 +28,16 @@
 1. **Workflow Pipeline（工作流状态机）** — 如何用规则强制 Agent 遵循 Brainstorm ➔ Plan ➔ TDD ➔ Review 流程
 2. **Subagent Dispatching（子 Agent 派发）** — 如何管理和派发子 Agent 执行具体任务
 3. **Git Worktree 隔离执行** — 如何在隔离环境中运行 Agent
+4. **Skills 系统设计** — 可组合技能体系的设计哲学，SKILL.md 定义与自动触发机制
+5. **Plugin 架构** — plugin-per-harness 模式如何支持 10+ 平台，零依赖跨平台方案
+6. **启动钩子与自举机制** — hooks/session-start 入口设计，框架自举加载流程
+7. **元技能 writing-skills** — 框架如何定义自身扩展性，新技能的创建/测试/打包流程
 
 ### 重点收集
-- **核心概念**: Superpowers 项目架构、Skills 系统、多阶段工作流
-- **实战代码**: CLAUDE.md 规则编写、skills 定义、subagent 派发实现
-- **常见坑**: 工作流断裂、状态管理、Agent 注意力分散
-- **工具链**: Claude Code、Git Worktree、TDD 工具链
+- **核心概念**: Superpowers 项目架构、Skills 系统、多阶段工作流、Plugin 机制、入口钩子
+- **实战代码**: SKILL.md 模板、subagent 派发代码、hooks 配置、plugin.json、writing-skills 流程
+- **常见坑**: 工作流断裂、状态管理、Agent 注意力分散、跨平台兼容问题
+- **工具链**: Claude Code、Codex、Git Worktree、TDD 工具链
 
 ### 信源偏好
 - 官方文档: 是（Superpowers 项目 README、源码）

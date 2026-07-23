@@ -11,7 +11,7 @@ project_slug: "superpowers"
 created_at: "2026-07-23"
 last_updated: "2026-07-23"
 current_phase: P2
-current_status: ready
+current_status: in_progress
 mode: outline
 blocked_reason: ""
 ---
@@ -62,7 +62,7 @@ blocked_reason: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] ⬜ 未开始
+> [P2] 🔲 进行中
 
 ---
 
