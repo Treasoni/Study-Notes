@@ -10,8 +10,8 @@ topic: "Matt Pocock Skills - Agent 框架设计深度解析"
 project_slug: "matt-pocock-skills"
 created_at: "2026-07-23"
 last_updated: "2026-07-23"
-current_phase: P2
-current_status: in_progress
+current_phase: P3
+current_status: not_started
 mode: outline
 blocked_reason: ""
 ---
@@ -51,16 +51,16 @@ blocked_reason: ""
 ---
 
 ## 阶段 2：深度收集
-- [ ] 已根据用户选择的方向启动深度收集
-- [ ] 核心概念/理论素材已收集
-- [ ] 实战代码/项目案例已收集
-- [ ] 常见坑/最佳实践已收集
-- [ ] 工具链/生态已收集
-- [ ] 进阶路径/学习资源已收集
-- [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
-- [ ] 深度素材已保存：`./02_deep_research.md`
+- [x] 已根据用户选择的方向启动深度收集
+- [x] 核心概念/理论素材已收集
+- [x] 实战代码/项目案例已收集
+- [x] 常见坑/最佳实践已收集
+- [x] 工具链/生态已收集
+- [x] 进阶路径/学习资源已收集
+- [x] 素材质量已确认（14 个本地仓库核心文件 + 14+ 外部信源）
+- [x] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] 🔲 进行中
+> [P2] ✅ 已完成
 
 ---
 
