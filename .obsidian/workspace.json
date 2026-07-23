@@ -238,6 +238,7 @@
   },
   "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "workspace/matt-pocock-skills/output/final_note.md",
     "workspace/matt-pocock-skills/output",
     "workspace/matt-pocock-skills/chapters/8_实战应用_构建你自己的Agent框架.md",
     "workspace/matt-pocock-skills/chapters/7_可组合工作流设计.md",
@@ -266,7 +267,6 @@
     "templates/self-learning/skills/maintain-learnings/scripts/__pycache__/sync_platform_skills.cpython-313.pyc",
     "templates/self-learning/skills/maintain-learnings/scripts/__pycache__/manifest_registry.cpython-313.pyc",
     "templates/self-learning/skills/maintain-learnings/scripts/__pycache__/audit_learnings.cpython-313.pyc",
-    "templates/self-learning/skills/maintain-learnings/scripts/__pycache__",
     "templates/self-learning/subagents/learnings-maintainer/PROMPT.md",
     "templates/self-learning/manifest.schema.md",
     "AI学习/01-基础概念/Agent智能体.md",

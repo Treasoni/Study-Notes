@@ -10,7 +10,7 @@ topic: "Matt Pocock Skills - Agent 框架设计深度解析"
 project_slug: "matt-pocock-skills"
 created_at: "2026-07-23"
 last_updated: "2026-07-23"
-current_phase: P5
+current_phase: P6
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -23,7 +23,7 @@ blocked_reason: ""
 > 运行标识：matt-pocock-skills
 > 项目标识：matt-pocock-skills
 > 创建时间：2026-07-23
-> 当前阶段：阶段 0
+> 当前阶段：阶段 6
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -101,7 +101,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] ✅ 已完成
 
 ---
 
@@ -111,7 +111,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] 🔲 进行中
 
 ---
 
