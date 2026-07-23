@@ -214,7 +214,7 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -236,7 +236,7 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "30b0ade23c460f17",
+  "active": "746e3216e1c18840",
   "lastOpenFiles": [
     "workspace/workflow-runs/matt-pocock-skills.workflow.md",
     "GitHub项目/Matt Pocock Skills — Agent 框架设计深度解析.md",
