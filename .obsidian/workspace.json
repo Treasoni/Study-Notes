@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "项目实战/AI实战/Skill Markdown 与 Workflow YAML 的架构设计哲学.md",
+                "file": "GitHub项目/Superpowers/Superpowers.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Skill Markdown 与 Workflow YAML 的架构设计哲学"
+              "title": "Superpowers"
             }
           },
           {
@@ -184,13 +184,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "项目实战/AI实战/Skill Markdown 与 Workflow YAML 的架构设计哲学.md",
+                "file": "GitHub项目/Superpowers/Superpowers.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Skill Markdown 与 Workflow YAML 的架构设计哲学 的大纲"
+              "title": "Superpowers 的大纲"
             }
           },
           {
@@ -236,10 +236,10 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "746e3216e1c18840",
+  "active": "30b0ade23c460f17",
   "lastOpenFiles": [
-    "AI学习/01-基础概念/AI-Agent-状态机工作流.md",
     "项目实战/AI实战/Skill Markdown 与 Workflow YAML 的架构设计哲学.md",
+    "AI学习/01-基础概念/AI-Agent-状态机工作流.md",
     "templates/self-learning/__pycache__/install.cpython-313.pyc",
     "templates/self-learning/__pycache__",
     "templates/self-learning/skills/maintain-learnings/scripts/__pycache__/sync_platform_skills.cpython-313.pyc",
