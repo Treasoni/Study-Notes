@@ -94,34 +94,34 @@ blocked_reason: ""
 
 ## 阶段 5：收尾组装
 - [x] 所有章节文件已检查
-- [ ] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
-- [ ] 过渡语已添加
-- [ ] 目录已生成
-- [ ] 标题层级已统一
-- [ ] 引用已检查
-- [ ] 完整笔记已保存：`./output/final_note.md`
+- [x] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
+- [x] 过渡语已添加
+- [x] 目录已生成
+- [x] 标题层级已统一
+- [x] 引用已检查
+- [x] 完整笔记已保存：`./output/final_note.md`
 
 > [P5] ✅ 已完成
 
 ---
 
 ## 阶段 6：Obsidian 美化与发布
-- [ ] 已读取 Obsidian 输出规则
-- [ ] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
-- [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
-- [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
+- [x] 已读取 Obsidian 输出规则
+- [x] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
+- [x] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
+- [x] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
 > [P6] ✅ 已完成
 
 ---
 
 ## 阶段 7：MOC 同步
-- [ ] 已定位或创建 MOC 文件
+- [ ] 已定位或创建 MOC 文件（用户未指定 MOC 路径）
 - [ ] 新笔记双链已加入 MOC
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ⏭️ 跳过（未配置 MOC 路径）
 
 ---
 
@@ -143,10 +143,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：概念笔记 + 实战笔记
+- **总字数**：约 20,000 字
+- **章节数**：8 章 + 2 附录
+- **输出格式**：Obsidian Markdown（带 frontmatter、Callout、双链）
+- **文件路径**：`workspace/matt-pocock-skills/output/final_note.md`
+- **Obsidian Vault**：`/Users/zhqznc/Documents/项目/GitHub项目/Matt Pocock Skills — Agent 框架设计深度解析.md`
+- **MOC 路径**：未指定（跳过 P7）
