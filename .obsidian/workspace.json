@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "workspace/matt-pocock-skills/chapters/1_项目概览与设计哲学.md",
+                "file": "workspace/workflow-runs/matt-pocock-skills.workflow.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "1_项目概览与设计哲学"
+              "title": "matt-pocock-skills.workflow"
             }
           },
           {
@@ -184,13 +184,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "workspace/matt-pocock-skills/chapters/1_项目概览与设计哲学.md",
+                "file": "workspace/workflow-runs/matt-pocock-skills.workflow.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "1_项目概览与设计哲学 的大纲"
+              "title": "matt-pocock-skills.workflow 的大纲"
             }
           },
           {
@@ -236,11 +236,11 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "5d4ad13713ff5068",
+  "active": "30b0ade23c460f17",
   "lastOpenFiles": [
+    "workspace/matt-pocock-skills/chapters/1_项目概览与设计哲学.md",
     "workspace/matt-pocock-skills/chapters/2_仓库架构与目录组织.md",
     "workspace/matt-pocock-skills/03_outline.md",
-    "workspace/matt-pocock-skills/chapters/1_项目概览与设计哲学.md",
     "workspace/matt-pocock-skills/chapters",
     "workspace/matt-pocock-skills/02_deep_research.md",
     "workspace/matt-pocock-skills/00_intent.md",
