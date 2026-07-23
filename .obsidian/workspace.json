@@ -238,6 +238,7 @@
   },
   "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "workspace/matt-pocock-skills/chapters/6_上下文管理_Handoff与ContextCompaction.md",
     "workspace/matt-pocock-skills/chapters/5_对话边界澄清_SocraticSparring模式.md",
     "workspace/matt-pocock-skills/chapters/4_SKILL.md编写艺术.md",
     "workspace/matt-pocock-skills/chapters/3_调用模型深度解析.md",
@@ -274,7 +275,6 @@
     "workspace/claude-code-tutorial/03_batch_update_log.md",
     "workspace/claude-code-tutorial/04_batch_update_report.md",
     "workspace/claude-code-tutorial/updates/20/update_report.md",
-    "workspace/claude-code-tutorial/updates/20/stale_map.md",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
     "web-articles/What_is_harness_engineering/images/img_002.png",
