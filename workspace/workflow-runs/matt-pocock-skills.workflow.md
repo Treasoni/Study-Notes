@@ -11,7 +11,7 @@ project_slug: "matt-pocock-skills"
 created_at: "2026-07-23"
 last_updated: "2026-07-23"
 current_phase: P3
-current_status: not_started
+current_status: in_progress
 mode: outline
 blocked_reason: ""
 ---
@@ -65,14 +65,14 @@ blocked_reason: ""
 ---
 
 ## 阶段 3：大纲生成（大纲模式）
-- [ ] 已读取意图文件和深度素材
-- [ ] 已根据笔记类型选择大纲结构
-- [ ] 大纲已生成（≤3级层级）
-- [ ] 每章已标注：篇幅、素材引用、代码示例
-- [ ] 大纲已展示给用户确认
+- [x] 已读取意图文件和深度素材
+- [x] 已根据笔记类型选择大纲结构
+- [x] 大纲已生成（≤3级层级）
+- [x] 每章已标注：篇幅、素材引用、代码示例
+- [x] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] ⬜ 未开始
+> [P3] 🔲 进行中
 
 ---
 
