@@ -10,8 +10,8 @@ topic: "Matt Pocock Skills - Agent 框架设计深度解析"
 project_slug: "matt-pocock-skills"
 created_at: "2026-07-23"
 last_updated: "2026-07-23"
-current_phase: P3
-current_status: in_progress
+current_phase: P4
+current_status: not_started
 mode: outline
 blocked_reason: ""
 ---
@@ -70,9 +70,9 @@ blocked_reason: ""
 - [x] 大纲已生成（≤3级层级）
 - [x] 每章已标注：篇幅、素材引用、代码示例
 - [x] 大纲已展示给用户确认
-- [ ] 大纲已保存：`./03_outline.md`
+- [x] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中
+> [P3] ✅ 已完成
 
 ---
 
