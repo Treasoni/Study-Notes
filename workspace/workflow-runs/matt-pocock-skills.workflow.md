@@ -10,8 +10,8 @@ topic: "Matt Pocock Skills - Agent 框架设计深度解析"
 project_slug: "matt-pocock-skills"
 created_at: "2026-07-23"
 last_updated: "2026-07-23"
-current_phase: P1
-current_status: not_started
+current_phase: P2
+current_status: in_progress
 mode: outline
 blocked_reason: ""
 ---
@@ -42,13 +42,11 @@ blocked_reason: ""
 ---
 
 ## 阶段 1：探测式收集
-- [ ] 已派出 2-3 个 subagent 并行探测
-- [ ] 探测结果已汇总
-- [ ] 方向菜单已展示给用户
-- [ ] 用户已选择学习方向
-- [ ] 探测结果已保存：`./01_explore_result.md`
+- [x] 用户已明确学习方向（方向充足，跳过探测）
+- [x] 已确定核心关注点：架构设计、SKILL.md 编写、Socratic Sparring、Handoff 以及如何应用于自建 Agent 框架
+- [x] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] ⬜ 未开始
+> [P1] ⏭️ 跳过
 
 ---
 
@@ -62,7 +60,7 @@ blocked_reason: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] ⬜ 未开始
+> [P2] 🔲 进行中
 
 ---
 
