@@ -11,7 +11,7 @@ project_slug: "matt-pocock-skills"
 created_at: "2026-07-23"
 last_updated: "2026-07-23"
 current_phase: P4
-current_status: not_started
+current_status: in_progress
 mode: outline
 blocked_reason: ""
 ---
@@ -77,10 +77,14 @@ blocked_reason: ""
 ---
 
 ## 阶段 4：逐章写作
-- [ ] 第 1 章已写完并确认
+- [x] 第 1 章已写完并确认
 - [ ] 第 2 章已写完并确认
 - [ ] 第 3 章已写完并确认
-- [ ] ...（根据实际章节数添加）
+- [ ] 第 4 章已写完并确认
+- [ ] 第 5 章已写完并确认
+- [ ] 第 6 章已写完并确认
+- [ ] 第 7 章已写完并确认
+- [ ] 第 8 章已写完并确认
 
 **进度**：0/待大纲确定
 

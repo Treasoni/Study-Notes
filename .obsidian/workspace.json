@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "workspace/matt-pocock-skills/02_deep_research.md",
+                "file": "workspace/matt-pocock-skills/03_outline.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "02_deep_research"
+              "title": "03_outline"
             }
           },
           {
@@ -184,13 +184,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "workspace/matt-pocock-skills/02_deep_research.md",
+                "file": "workspace/matt-pocock-skills/03_outline.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "02_deep_research 的大纲"
+              "title": "03_outline 的大纲"
             }
           },
           {
@@ -238,9 +238,10 @@
   },
   "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "workspace/matt-pocock-skills/chapters",
+    "workspace/matt-pocock-skills/02_deep_research.md",
     "workspace/matt-pocock-skills/03_outline.md",
     "workspace/matt-pocock-skills/00_intent.md",
-    "workspace/matt-pocock-skills/02_deep_research.md",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.md",
     "workspace/matt-pocock-skills",
     "workspace/workflow-runs/matt-pocock-skills.workflow.md",
@@ -274,7 +275,6 @@
     "workspace/claude-code-tutorial/updates/19/stale_map.md",
     "workspace/claude-code-tutorial/updates/18/update_report.md",
     "workspace/claude-code-tutorial/updates/18/stale_map.md",
-    "workspace/claude-code-tutorial/updates/17/update_report.md",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
     "web-articles/What_is_harness_engineering/images/img_002.png",
