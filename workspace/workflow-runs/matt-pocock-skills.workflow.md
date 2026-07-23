@@ -10,8 +10,8 @@ topic: "Matt Pocock Skills - Agent 框架设计深度解析"
 project_slug: "matt-pocock-skills"
 created_at: "2026-07-23"
 last_updated: "2026-07-23"
-current_phase: P0
-current_status: in_progress
+current_phase: P1
+current_status: not_started
 mode: outline
 blocked_reason: ""
 ---
@@ -29,15 +29,15 @@ blocked_reason: ""
 ---
 
 ## 阶段 0：意图澄清
-- [ ] 用户输入已分析
-- [ ] 笔记类型已确定（实战/概念/心得/对比）
-- [ ] 学习深度已确定（入门/上手/精通）
-- [ ] 用户基础已确定（零基础/有了解/熟悉）
-- [ ] 输出位置策略已确定（项目 output / 用户指定 Obsidian vault）
-- [ ] 如发布到 Obsidian，vault_path、note_folder、moc_path 已确认或标记待补
-- [ ] 意图文件已生成：`./00_intent.md`
+- [x] 用户输入已分析
+- [x] 笔记类型已确定（实战/概念/心得/对比）
+- [x] 学习深度已确定（入门/上手/精通）
+- [x] 用户基础已确定（零基础/有了解/熟悉）
+- [x] 输出位置策略已确定（项目 output / 用户指定 Obsidian vault）
+- [x] 如发布到 Obsidian，vault_path、note_folder、moc_path 已确认或标记待补
+- [x] 意图文件已生成：`./00_intent.md`
 
-> [P0] 🔲 进行中
+> [P0] ✅ 已完成
 
 ---
 

@@ -238,6 +238,7 @@
   },
   "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "workspace/matt-pocock-skills/00_intent.md",
     "workspace/matt-pocock-skills",
     "workspace/workflow-runs/matt-pocock-skills.workflow.md",
     "workspace/workflow-runs",
@@ -254,7 +255,6 @@
     "templates/self-learning/skills/maintain-learnings/scripts/__pycache__/audit_learnings.cpython-313.pyc",
     "templates/self-learning/skills/maintain-learnings/scripts/__pycache__",
     "templates/self-learning/skills/maintain-learnings/scripts/manifest_registry.py",
-    "templates/self-learning/subagents/learnings-maintainer/manifest.yaml",
     "templates/self-learning/subagents/learnings-maintainer/PROMPT.md",
     "templates/self-learning/manifest.schema.md",
     "AI学习/01-基础概念/Agent智能体.md",
