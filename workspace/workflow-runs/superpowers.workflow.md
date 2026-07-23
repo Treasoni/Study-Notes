@@ -10,8 +10,8 @@ topic: "Superpowers Agentic Skills Framework"
 project_slug: "superpowers"
 created_at: "2026-07-23"
 last_updated: "2026-07-23"
-current_phase: P1
-current_status: in_progress
+current_phase: P2
+current_status: ready
 mode: outline
 blocked_reason: ""
 ---
@@ -23,7 +23,7 @@ blocked_reason: ""
 > 运行标识：superpowers
 > 项目标识：superpowers
 > 创建时间：2026-07-23
-> 当前阶段：阶段 1
+> 当前阶段：阶段 2
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -48,7 +48,7 @@ blocked_reason: ""
 - [ ] 用户已选择学习方向
 - [ ] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] 🔲 进行中
+> [P1] ✅ 已完成
 
 ---
 

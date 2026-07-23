@@ -238,6 +238,7 @@
   },
   "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "workspace/superpowers/01_explore_result.md",
     "workspace/workflow-runs/superpowers.workflow.md.uHd3Qk",
     "GitHub项目/Matt Pocock Skills — Agent 框架设计深度解析.md",
     "workspace/superpowers/00_intent.md",
@@ -270,7 +271,6 @@
     "templates/self-learning/__pycache__/install.cpython-313.pyc",
     "templates/self-learning/__pycache__",
     "templates/self-learning/skills/maintain-learnings/scripts/__pycache__/sync_platform_skills.cpython-313.pyc",
-    "templates/self-learning/skills/maintain-learnings/scripts/__pycache__/manifest_registry.cpython-313.pyc",
     "templates/self-learning/subagents/learnings-maintainer/PROMPT.md",
     "templates/self-learning/manifest.schema.md",
     "AI学习/01-基础概念/Agent智能体.md",
