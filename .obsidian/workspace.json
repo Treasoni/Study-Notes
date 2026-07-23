@@ -236,8 +236,9 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "30b0ade23c460f17",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "workspace/workflow-runs/superpowers.workflow.md.uHd3Qk",
     "GitHub项目/Matt Pocock Skills — Agent 框架设计深度解析.md",
     "workspace/superpowers/00_intent.md",
     "workspace/workflow-runs/superpowers.workflow.md",
@@ -274,7 +275,6 @@
     "templates/self-learning/manifest.schema.md",
     "AI学习/01-基础概念/Agent智能体.md",
     "AI学习/01-基础概念/Prompt提示词.md",
-    "AI学习/01-基础概念/AI-Agents.md",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
     "web-articles/What_is_harness_engineering/images/img_002.png",

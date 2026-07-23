@@ -11,7 +11,7 @@ project_slug: "superpowers"
 created_at: "2026-07-23"
 last_updated: "2026-07-23"
 current_phase: P1
-current_status: ready
+current_status: in_progress
 mode: outline
 blocked_reason: ""
 ---
@@ -48,7 +48,7 @@ blocked_reason: ""
 - [ ] 用户已选择学习方向
 - [ ] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] ⬜ 未开始
+> [P1] 🔲 进行中
 
 ---
 
