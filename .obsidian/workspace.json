@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "GitHub项目/Superpowers/Superpowers.md",
+                "file": "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Superpowers"
+              "title": "OpenSpec-使用入门与速查"
             }
           },
           {
@@ -184,13 +184,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "GitHub项目/Superpowers/Superpowers.md",
+                "file": "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Superpowers 的大纲"
+              "title": "OpenSpec-使用入门与速查 的大纲"
             }
           },
           {
@@ -238,6 +238,8 @@
   },
   "active": "30b0ade23c460f17",
   "lastOpenFiles": [
+    "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
+    "GitHub项目/Superpowers/Superpowers.md",
     "项目实战/AI实战/Skill Markdown 与 Workflow YAML 的架构设计哲学.md",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.md",
     "templates/self-learning/__pycache__/install.cpython-313.pyc",
@@ -272,10 +274,7 @@
     "workspace/claude-code-tutorial/updates/16/stale_map.md",
     "workspace/claude-code-tutorial/updates/15/update_report.md",
     "workspace/claude-code-tutorial/updates/14/update_report.md",
-    "workspace/claude-code-tutorial/updates/13/update_report.md",
-    "workspace/claude-code-tutorial/updates/15/stale_map.md",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
-    "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
     "web-articles/What_is_harness_engineering/images/img_002.png",
     "web-articles/What_is_harness_engineering/images/img_001.jpg",
