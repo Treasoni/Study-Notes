@@ -10,7 +10,7 @@ topic: "Matt Pocock Skills - Agent 框架设计深度解析"
 project_slug: "matt-pocock-skills"
 created_at: "2026-07-23"
 last_updated: "2026-07-23"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -84,16 +84,16 @@ blocked_reason: ""
 - [x] 第 5 章已写完并确认 (✅ 已确认)
 - [x] 第 6 章已写完并确认 (✅ 已确认)
 - [x] 第 7 章已写完并确认 (✅ 已确认)
-- [ ] 第 8 章已写完并确认
+- [x] 第 8 章已写完并确认 (✅ 已确认)
 
-**进度**：0/待大纲确定
+**进度**：8/8 章
 
-> [P4] ⬜ 未开始
+> [P4] ✅ 已完成
 
 ---
 
 ## 阶段 5：收尾组装
-- [ ] 所有章节文件已检查
+- [x] 所有章节文件已检查
 - [ ] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
 - [ ] 过渡语已添加
 - [ ] 目录已生成
