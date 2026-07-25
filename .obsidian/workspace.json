@@ -236,8 +236,10 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "746e3216e1c18840",
+  "active": "30b0ade23c460f17",
   "lastOpenFiles": [
+    "Cognitive Load.md",
+    "GitHub项目/Matt Pocock Skills — Agent 框架设计深度解析.md",
     "workspace/superpowers/00_intent.md",
     "GitHub项目/superpowers/superpowers-agentic-skills-framework.md",
     "GitHub项目/superpowers",
@@ -258,7 +260,6 @@
     "workspace/superpowers/02_deep_research.md",
     "workspace/superpowers/01_explore_result.md",
     "workspace/workflow-runs/superpowers.workflow.md.uHd3Qk",
-    "GitHub项目/Matt Pocock Skills — Agent 框架设计深度解析.md",
     "workspace/workflow-runs/superpowers.workflow.md",
     "workspace/superpowers",
     "workspace/workflow-runs/matt-pocock-skills.workflow.md",
@@ -270,7 +271,6 @@
     "workspace/matt-pocock-skills/chapters/5_对话边界澄清_SocraticSparring模式.md",
     "workspace/matt-pocock-skills/chapters/4_SKILL.md编写艺术.md",
     "workspace/matt-pocock-skills/chapters/3_调用模型深度解析.md",
-    "workspace/matt-pocock-skills/chapters/1_项目概览与设计哲学.md",
     "workspace/matt-pocock-skills/chapters",
     "workspace/matt-pocock-skills",
     "workspace/workflow-runs",
