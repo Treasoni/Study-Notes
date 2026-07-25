@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "GitHub项目/Matt Pocock Skills — Agent 框架设计深度解析.md",
+                "file": "GitHub项目/superpowers/superpowers-agentic-skills-framework.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Matt Pocock Skills — Agent 框架设计深度解析"
+              "title": "superpowers-agentic-skills-framework"
             }
           },
           {
@@ -184,13 +184,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "GitHub项目/Matt Pocock Skills — Agent 框架设计深度解析.md",
+                "file": "GitHub项目/superpowers/superpowers-agentic-skills-framework.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Matt Pocock Skills — Agent 框架设计深度解析 的大纲"
+              "title": "superpowers-agentic-skills-framework 的大纲"
             }
           },
           {
@@ -238,8 +238,8 @@
   },
   "active": "30b0ade23c460f17",
   "lastOpenFiles": [
-    "Cognitive Load.md",
     "GitHub项目/Matt Pocock Skills — Agent 框架设计深度解析.md",
+    "Cognitive Load.md",
     "workspace/superpowers/00_intent.md",
     "GitHub项目/superpowers/superpowers-agentic-skills-framework.md",
     "GitHub项目/superpowers",
