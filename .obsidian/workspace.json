@@ -186,7 +186,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
@@ -208,8 +208,14 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "092e09f3289157e5",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "workspace/nodejs-ai-application/output/final_note_obsidian.md",
+    "AI学习/Notes/Node.js 基础概念/Node.js 基础概念零基础入门.md",
+    "AI学习/Maps",
+    "AI学习/Notes/Node.js 基础概念",
+    "AI学习/Notes",
+    "workspace/nodejs-ai-application/output/final_note.md",
     "workspace/nodejs-ai-application/output/final_note.md.tmp",
     "AI学习/Claude Code 教程/Claude Code CLI 完整参考.md",
     "AI学习/Claude Code 教程/Claude Code 模型与推理设置.md",
@@ -235,17 +241,11 @@
     "workspace/nodejs-ai-application/chapters/07_网络编程与Express框架入门.md",
     "workspace/nodejs-ai-application/chapters/09_项目实战与学习路径.md",
     "workspace/nodejs-ai-application/chapters/08_环境配置调试与最佳实践.md",
-    "workspace/nodejs-ai-application/chapters/06_事件循环.md",
-    "workspace/nodejs-ai-application/chapters/04_异步编程.md",
     "workspace/nodejs-ai-application/chapters",
     "workspace/vercel-ai-sdk",
     "workspace/workflow-runs/nodejs-ai-application.workflow.md.Ji73qK",
     "workspace/nodejs-ai-application",
     "未命名",
-    "GitHub项目/superpowers",
-    "workspace/superpowers/output",
-    "workspace/superpowers/chapters",
-    "workspace/workflow-runs/superpowers.workflow.md.xjn2Mq",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
