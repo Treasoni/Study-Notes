@@ -29,6 +29,15 @@
 2. Node.js 在 AI 领域的应用场景（LLM 调用、AI API 集成、数据流水线等）
 3. Node.js AI 开发实战工具链与最佳实践
 
+### 用户选择
+**方向 D: Node.js AI 工具链全景**
+- Vercel AI SDK
+- LangChain.js
+- Transformers.js
+- MCP (Model Context Protocol)
+- OpenAI SDK
+- 整体生态对比与架构模式
+
 ### 重点收集
 - **核心概念**: Node.js 运行时、事件循环、npm 包管理、异步编程、AI SDK/API 集成模式
 - **实战代码**: 使用 Node.js 调用 OpenAI/其他 LLM API、构建 AI 应用后端、数据处理脚本
