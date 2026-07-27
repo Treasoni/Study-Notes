@@ -210,6 +210,8 @@
   },
   "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "workspace/nodejs-ai-application/chapters/01_Node.js初识.md",
+    "workspace/nodejs-ai-application/chapters",
     "workspace/nodejs-ai-application/03_outline.md",
     "workspace/nodejs-ai-application/02_deep_research.md",
     "workspace/vercel-ai-sdk/02_deep_research.md",
@@ -244,8 +246,6 @@
     "workspace/superpowers/01_explore_result.md",
     "workspace/workflow-runs/superpowers.workflow.md.uHd3Qk",
     "workspace/workflow-runs/superpowers.workflow.md",
-    "workspace/superpowers",
-    "workspace/workflow-runs/matt-pocock-skills.workflow.md",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
