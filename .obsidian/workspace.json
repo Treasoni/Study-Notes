@@ -210,6 +210,7 @@
   },
   "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "workspace/nodejs-ai-application/chapters/06_事件循环.md",
     "workspace/nodejs-ai-application/chapters/04_异步编程.md",
     "workspace/nodejs-ai-application/chapters/03_模块系统.md",
     "workspace/nodejs-ai-application/chapters/05_文件与路径操作.md",
@@ -242,7 +243,6 @@
     "workspace/superpowers/chapters/04_Subagent_Dispatching.md",
     "workspace/superpowers/chapters/03_Workflow_Pipeline.md",
     "workspace/superpowers/chapters/02_Skills_系统设计.md",
-    "workspace/superpowers/chapters/01_Superpowers_概览与哲学.md",
     "workspace/superpowers/chapters",
     "workspace/workflow-runs/superpowers.workflow.md.xjn2Mq",
     "workspace/workflow-runs/superpowers.workflow.md.uHd3Qk",
