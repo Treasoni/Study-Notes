@@ -2,7 +2,7 @@
 title: CLAUDE.md 使用指南
 tags: [claude, ai, 进阶应用, 配置]
 created: 2026-04-05
-updated: 2026-07-12
+updated: 2026-07-27
 status: updated
 source_project: claude-code-tutorial
 ---
@@ -28,11 +28,13 @@ source_project: claude-code-tutorial
 
 | 文件/目录 | 位置 | 作用域 | 共享 |
 |-----------|------|--------|------|
-| `CLAUDE.md` | 项目根目录 | 项目级 | 是（提交到 Git） |
-| `.claude/rules/` | 项目目录 | 路径范围 | 是（提交到 Git） |
-| `CLAUDE.local.md` | 项目根目录 | 项目级 | 否（本地配置） |
+| Managed Policy | 管理员部署 | 组织级 | 是（强制，不可覆盖） |
 | `~/.claude/CLAUDE.md` | 用户目录 | 全局级 | 否（所有项目） |
+| `CLAUDE.md` | 项目根目录 | 项目级 | 是（提交到 Git） |
+| `CLAUDE.local.md` | 项目根目录 | 项目级 | 否（本地配置） |
 | 子目录 `CLAUDE.md` | 项目子目录 | 目录级 | 是（仅当读取该目录文件时加载） |
+| `.claude/rules/` | 项目目录 | 路径范围 | 是（提交到 Git） |
+| `.claude/output-styles/` | 项目目录 | 系统提示词 | 是（人格/语气切换） |
 
 ### 工作原理
 
@@ -47,6 +49,24 @@ source_project: claude-code-tutorial
     ↓
 开始会话
 ```
+
+## 扩展定制机制（2026）
+
+> [!note] 不止 CLAUDE.md
+> Claude Code 提供 **7 种定制机制**，各自在不同时机加载、拥有不同权威级别。CLAUDE.md 只是其中之一。
+
+| 机制 | 位置 | 加载时机 | 权威性 | 最佳用途 |
+|------|------|----------|--------|----------|
+| **CLAUDE.md** | `./CLAUDE.md`, `~/.claude/` | 会话启动，持久化 | 建议性 | 项目规范、构建命令、架构约定 |
+| **Rules** | `.claude/rules/*.md` | 全会话或路径匹配 | 建议性 | 文件特定约束 |
+| **Skills** | `.claude/skills/*/SKILL.md` | 按需调用 | 建议性 | 流程、检查清单、部署 |
+| **Subagents** | `.claude/agents/*.md` | 按需委派 | 隔离执行 | 复杂子任务隔离运行 |
+| **Hooks** | `settings.json` | 生命周期事件 | **强制执行** | 自动格式化、危险命令拦截 |
+| **Output Styles** | `.claude/output-styles/` | 注入系统提示词 | 高 | 人格切换、教学模式 |
+| **Append System Prompt** | CLI 参数 `--system-prompt` | 单次调用 | 中等 | 临时标准 |
+
+> [!tip] 2026 年趋势
+> Anthropic 已从 CLAUDE.md 移除了 **80%+ 的冗余指令**给新模型。模型判断力越强，越不需要死板规则。关键是设计清晰接口而非堆砌例子。
 
 ## 最佳实践
 
@@ -98,7 +118,7 @@ main 是主分支...
 ### 4. 使用 @import 引入外部文件
 
 > [!tip] @import 语法
-> 在 CLAUDE.md 中使用 `@import` 可拉入其他文件（最多 4 层嵌套），适合将详细规范拆分到独立文件。
+> 在 CLAUDE.md 中使用 `@import` 可拉入其他文件（最多 5 层嵌套），适合将详细规范拆分到独立文件。
 
 ```markdown
 # CLAUDE.md
@@ -145,11 +165,14 @@ repo/
 ```
 
 **规则加载优先级**（高→低）：
-1. `CLAUDE.md`（项目根）
-2. `.claude/rules/`（路径匹配）
-3. 子目录 `CLAUDE.md`
-4. `~/.claude/CLAUDE.md`（用户级）
-5. 内置规则
+1. Managed Policy（管理策略，强制覆盖）
+2. `~/.claude/CLAUDE.md`（用户级全局）
+3. `CLAUDE.md`（项目根）
+4. `CLAUDE.local.md`（本地个人覆盖）
+5. 子目录 `CLAUDE.md`
+6. `.claude/rules/`（路径匹配）
+7. `.claude/output-styles/`（输出风格）
+8. 内置规则
 
 ```markdown
 ## 状态管理
@@ -157,6 +180,69 @@ repo/
 原因：Pinia 支持 TypeScript，API 更简洁，
       且是 Vue 3 官方推荐的状态管理方案。
 ```
+
+## Hooks 确定性自动化
+
+> [!warning] 唯一强制机制
+> Hooks 是 Claude Code **唯一真正确定性**的定制机制——它们在生命周期事件触发时无条件执行，不受上下文压缩影响，始终生效。
+
+### 配置方式
+
+Hooks 注册在 `.claude/settings.json` 中，不在 CLAUDE.md 里：
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "command": "npx eslint --fix $CLAUDE_FILE_PATH 2>/dev/null || true"
+      }
+    ]
+  }
+}
+```
+
+### Hook 类型
+
+| 类型 | 说明 | 典型用途 |
+|------|------|----------|
+| `command` | Shell 命令 | 格式化、lint 检查、拦截操作 |
+| `http` | HTTP POST 请求 | Webhook、Slack 通知 |
+| `mcp_tool` | 调用 MCP 工具 | 复用已有 MCP 集成 |
+| `prompt` | 单轮 LLM 判断 | 安全评估（"这个命令安全吗？"） |
+| `agent` | 多轮子代理 | 复杂验证任务 |
+
+### 关键生命周期事件
+
+Hooks 支持 **30+ 个生命周期事件**，常用包括：
+
+| 事件 | 触发时机 | 典型用途 |
+|------|----------|----------|
+| `PreToolUse` | 工具执行前 | 验证/拦截危险操作 |
+| `PostToolUse` | 工具执行后 | 自动格式化文件 |
+| `UserPromptSubmit` | 用户提交消息 | 注入上下文 |
+| `SessionStart` / `SessionEnd` | 会话启停 | 初始化/清理 |
+| `PreCompact` / `PostCompact` | 上下文压缩前后 | 保留状态 |
+
+### 退出码语义
+
+| 退出码 | 含义 | 行为 |
+|--------|------|------|
+| `0` | 成功 | 继续执行，stdout 解析为 JSON |
+| `2` | **阻止** | stderr 作为错误反馈给 Claude |
+| `1` | 非阻止错误 | 仅记录日志，继续执行 |
+
+> [!tip] 拦截模式
+> 需要阻止操作时，用 `exit 2` 而非 `exit 1`。管道 stdin 到子 shell 会静默吞掉阻止信号（已知陷阱）。
+
+### 适用场景
+
+- **自动格式化**：编辑文件后自动运行 linter
+- **保护敏感文件**：阻止修改 `.env`、`package-lock.json`
+- **分支保护**：检查当前分支是否允许推送
+- **合规检查**：提交前扫描密钥泄露
+- **通知**：构建完成后通知 Slack
 
 ## 模板与示例
 
@@ -390,6 +476,29 @@ CLAUDE.md
 CLAUDE.local.md
 ```
 
+### 诊断命令
+
+| 命令 | 用途 |
+|------|------|
+| `/doctor` | 自动优化 CLAUDE.md 和 Skills 大小 |
+| `/memory` | 验证 CLAUDE.md 是否已加载 |
+| `/hooks` | 查看已注册的 Hooks |
+| `/context` | 查看上下文使用情况 |
+
+## 决策框架：什么时候用什么
+
+> [!summary] 选择指南
+> 别把所有东西都塞进 CLAUDE.md——不同问题用不同机制解决。
+
+| 如果你在 CLAUDE.md 里写... | 改用 |
+|---------------------------|------|
+| "每次 X 时都做 Y" | **Hook**（注册在 settings.json） |
+| "永远不要做这个" | **Hook + 权限**（确定性护栏） |
+| 30 行的流程步骤 | **Skill**（按需加载，不占上下文） |
+| 特定 API 的规则 | **路径范围 Rule**（加 `paths:`） |
+| 个人偏好 | **`~/.claude/CLAUDE.md`**（用户级文件） |
+| 安全/合规规则 | **Managed Policy**（管理员部署，不可覆盖） |
+
 ## 常见问题 ❓
 
 **Q: CLAUDE.md 会被提交到 Git 吗？**
@@ -411,6 +520,22 @@ A: 可以，修改后重启 Claude Code 或使用 `/clear` 清理会话后重新
 **Q: CLAUDE.md 和 Comments 有什么区别？**
 
 A: CLAUDE.md 是项目级指导，影响所有操作。代码注释针对特定代码片段。
+
+**Q: CLAUDE.md 和 Hooks 有什么区别？**
+
+A: CLAUDE.md 是建议性规则，受上下文压缩影响可能被忽略；Hooks 是确定性机制，每次事件触发时无条件执行。需要"一定发生"的行为用 Hooks。
+
+**Q: Skills 和 CLAUDE.md 如何选择？**
+
+A: 多步骤流程（部署、代码审查等）写成 Skill，按需加载不占上下文。项目常识（构建命令、目录结构）留在 CLAUDE.md。
+
+**Q: 如何知道自己用了多少上下文？**
+
+A: 在 Claude Code 中使用 `/context` 查看当前上下文使用情况，`/memory` 查看已加载的配置。
+
+## 更新记录
+
+- **2026-07-27**: 补充七种定制机制概览、Hooks 确定性自动化、决策框架；更新文件优先级表（新增 Managed Policy、Output Styles）；更新 @import 嵌套深度 4→5 层。
 
 ## 相关文档
 [[如何使用Claude code]] | [[Claude Code 会话管理]] | [[Claude Code 常用功能]]
