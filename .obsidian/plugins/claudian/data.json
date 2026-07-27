@@ -2,9 +2,8 @@
   "tabManagerState": {
     "openTabs": [
       {
-        "draftModel": "claude-code/deepseek-v4-flash",
         "tabId": "tab-1780399126824-rdz8r6o",
-        "conversationId": null
+        "conversationId": "conv-1785167451432-fgfmpgurc"
       },
       {
         "tabId": "tab-1780399127173-jv4zblr",
@@ -15,6 +14,6 @@
         "conversationId": "conv-1785162268566-k7ofoaczo"
       }
     ],
-    "activeTabId": "tab-1780399127173-jv4zblr"
+    "activeTabId": "tab-1780399126824-rdz8r6o"
   }
 }
