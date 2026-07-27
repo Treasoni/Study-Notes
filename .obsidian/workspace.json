@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/Claude Code 教程/settings.json 配置详解.md",
+                "file": "AI学习/Claude Code 教程/高级功能/CLAUDE.md 使用指南.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "settings.json 配置详解"
+              "title": "CLAUDE.md 使用指南"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/Claude Code 教程/settings.json 配置详解.md",
+                "file": "AI学习/Claude Code 教程/高级功能/CLAUDE.md 使用指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "settings.json 配置详解 的大纲"
+              "title": "CLAUDE.md 使用指南 的大纲"
             }
           },
           {
@@ -190,7 +190,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 422.5
+    "width": 299.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -210,8 +210,8 @@
   },
   "active": "092e09f3289157e5",
   "lastOpenFiles": [
-    "AI学习/Claude Code 教程/Claude Code Hooks 使用指南.md",
     "AI学习/Claude Code 教程/settings.json 配置详解.md",
+    "AI学习/Claude Code 教程/Claude Code Hooks 使用指南.md",
     "AI学习/Maps/Node.js 基础概念 MOC.md",
     "workspace/nodejs-ai-application/output/final_note_obsidian.md",
     "AI学习/Notes/Node.js 基础概念/Node.js 基础概念零基础入门.md",
