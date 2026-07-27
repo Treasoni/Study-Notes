@@ -10,7 +10,7 @@ topic: "Node.js 基础概念"
 project_slug: "nodejs-ai-application"
 created_at: "2026-07-27"
 last_updated: "2026-07-27"
-current_phase: P3
+current_phase: P4
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -23,7 +23,7 @@ blocked_reason: ""
 > 运行标识：nodejs-ai-application
 > 项目标识：nodejs-ai-application
 > 创建时间：2026-07-27
-> 当前阶段：阶段 3
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -74,7 +74,7 @@ blocked_reason: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中
+> [P3] ✅ 已完成
 
 ---
 
@@ -82,11 +82,16 @@ blocked_reason: ""
 - [ ] 第 1 章已写完并确认
 - [ ] 第 2 章已写完并确认
 - [ ] 第 3 章已写完并确认
-- [ ] ...（根据实际章节数添加）
+- [ ] 第 4 章已写完并确认
+- [ ] 第 5 章已写完并确认
+- [ ] 第 6 章已写完并确认
+- [ ] 第 7 章已写完并确认
+- [ ] 第 8 章已写完并确认
+- [ ] 第 9 章已写完并确认
 
-**进度**：0/待大纲确定
+**进度**：0/9
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中
 
 ---
 
