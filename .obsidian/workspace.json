@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/Claude Code 教程/Claude Code CLI 完整参考.md",
+                "file": "AI学习/Claude Code 教程/Claude Code Hooks 使用指南.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Claude Code CLI 完整参考"
+              "title": "Claude Code Hooks 使用指南"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/Claude Code 教程/Claude Code CLI 完整参考.md",
+                "file": "AI学习/Claude Code 教程/Claude Code Hooks 使用指南.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Claude Code CLI 完整参考 的大纲"
+              "title": "Claude Code Hooks 使用指南 的大纲"
             }
           },
           {
@@ -190,7 +190,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 549.5
+    "width": 357.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -210,6 +210,8 @@
   },
   "active": "092e09f3289157e5",
   "lastOpenFiles": [
+    "workspace/nodejs-ai-application/output/final_note.md.tmp",
+    "AI学习/Claude Code 教程/Claude Code CLI 完整参考.md",
     "AI学习/Claude Code 教程/Claude Code 模型与推理设置.md",
     "AI学习/Claude Code 教程/Claude Code Checkpoints 使用指南.md",
     "AI学习/Claude Code 教程/Claude Code 会话管理.md",
@@ -228,7 +230,6 @@
     "AI学习/Claude Code 教程/Claude Code Slash Commands 完整参考.md",
     "AI学习/Claude Code 教程/Claude Code Memory 完整指南.md",
     "AI学习/Claude Code 教程/Claude Code Hooks 使用指南.md",
-    "AI学习/Claude Code 教程/Claude Code CLI 完整参考.md",
     "AI学习/01-基础概念/规范驱动开发 SDD.md",
     "workspace/nodejs-ai-application/output",
     "workspace/nodejs-ai-application/chapters/07_网络编程与Express框架入门.md",
@@ -236,7 +237,6 @@
     "workspace/nodejs-ai-application/chapters/08_环境配置调试与最佳实践.md",
     "workspace/nodejs-ai-application/chapters/06_事件循环.md",
     "workspace/nodejs-ai-application/chapters/04_异步编程.md",
-    "workspace/nodejs-ai-application/chapters/03_模块系统.md",
     "workspace/nodejs-ai-application/chapters",
     "workspace/vercel-ai-sdk",
     "workspace/workflow-runs/nodejs-ai-application.workflow.md.Ji73qK",
