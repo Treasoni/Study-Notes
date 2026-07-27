@@ -186,11 +186,11 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
-    "width": 226.5
+    "width": 549.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -208,7 +208,7 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "746e3216e1c18840",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
     "workspace/nodejs-ai-application/02_deep_research.md",
     "workspace/vercel-ai-sdk/02_deep_research.md",
