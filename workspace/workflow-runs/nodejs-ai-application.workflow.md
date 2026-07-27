@@ -10,8 +10,8 @@ topic: "Node.js 在 AI 方向的应用"
 project_slug: "nodejs-ai-application"
 created_at: "2026-07-27"
 last_updated: "2026-07-27"
-current_phase: P0
-current_status: in_progress
+current_phase: P1
+current_status: ready
 mode: outline
 blocked_reason: ""
 ---
@@ -23,7 +23,7 @@ blocked_reason: ""
 > 运行标识：nodejs-ai-application
 > 项目标识：nodejs-ai-application
 > 创建时间：2026-07-27
-> 当前阶段：阶段 0
+> 当前阶段：阶段 1
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -37,7 +37,7 @@ blocked_reason: ""
 - [ ] 如发布到 Obsidian，vault_path、note_folder、moc_path 已确认或标记待补
 - [ ] 意图文件已生成：`./00_intent.md`
 
-> [P0] 🔲 进行中
+> [P0] ✅ 已完成
 
 ---
 
