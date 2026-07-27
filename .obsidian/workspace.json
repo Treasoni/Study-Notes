@@ -210,6 +210,7 @@
   },
   "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "workspace/nodejs-ai-application/output",
     "workspace/nodejs-ai-application/chapters/07_网络编程与Express框架入门.md",
     "workspace/nodejs-ai-application/chapters/09_项目实战与学习路径.md",
     "workspace/nodejs-ai-application/chapters/08_环境配置调试与最佳实践.md",
@@ -242,7 +243,6 @@
     "workspace/superpowers/chapters/08_Writing_Skills.md",
     "workspace/superpowers/chapters/07_启动钩子与自举机制.md",
     "workspace/superpowers/chapters/06_Plugin_架构与跨平台部署.md",
-    "workspace/superpowers/chapters/05_Git_Worktree_隔离执行.md",
     "workspace/superpowers/chapters",
     "workspace/workflow-runs/superpowers.workflow.md.xjn2Mq",
     "workspace/workflow-runs/superpowers.workflow.md.uHd3Qk",
