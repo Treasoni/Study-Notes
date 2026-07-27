@@ -206,6 +206,7 @@
   },
   "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "workspace/nodejs-ai-application/01_explore_result.md",
     "AI学习/01-基础概念/规范驱动开发 SDD.md",
     "workspace/nodejs-ai-application/00_intent.md",
     "workspace/workflow-runs/nodejs-ai-application.workflow.md",
@@ -240,7 +241,6 @@
     "workspace/matt-pocock-skills/output",
     "workspace/matt-pocock-skills/chapters/8_实战应用_构建你自己的Agent框架.md",
     "workspace/matt-pocock-skills/chapters/7_可组合工作流设计.md",
-    "workspace/matt-pocock-skills/chapters/6_上下文管理_Handoff与ContextCompaction.md",
     "workspace/matt-pocock-skills/chapters",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
