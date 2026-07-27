@@ -106,7 +106,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 237.5
+    "width": 358.5
   },
   "right": {
     "id": "289642c072eefc79",
@@ -214,7 +214,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
@@ -236,7 +236,7 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "30b0ade23c460f17",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
     "GitHub项目/Matt Pocock Skills — Agent 框架设计深度解析.md",
     "Cognitive Load.md",
