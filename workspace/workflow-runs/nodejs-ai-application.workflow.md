@@ -6,12 +6,12 @@ state_file_type: workflow-run
 run_id: "nodejs-ai-application"
 task: "Node.js 在 AI 方向的应用"
 created_from: ".claude/workflows/learning-note-flow/state-template.md"
-topic: "Node.js 在 AI 方向的应用"
+topic: "Node.js 基础概念"
 project_slug: "nodejs-ai-application"
 created_at: "2026-07-27"
 last_updated: "2026-07-27"
-current_phase: P3
-current_status: ready
+current_phase: P2
+current_status: in_progress
 mode: outline
 blocked_reason: ""
 ---
@@ -62,7 +62,7 @@ blocked_reason: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] ✅ 已完成
+> [P2] 🔲 进行中
 
 ---
 
