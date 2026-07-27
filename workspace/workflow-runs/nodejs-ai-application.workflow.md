@@ -11,7 +11,7 @@ project_slug: "nodejs-ai-application"
 created_at: "2026-07-27"
 last_updated: "2026-07-27"
 current_phase: P7
-current_status: in_progress
+current_status: completed
 mode: outline
 blocked_reason: ""
 ---
@@ -124,7 +124,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] 🔲 进行中
+> [P7] ✅ 已完成
 
 ---
 
