@@ -353,28 +353,12 @@ claude mcp disable fs   # 禁用
 ## 六、CLAUDE.md
 
 > **项目级记忆文件**，Claude Code 启动时自动读取，定义项目规范、工作流、禁止事项。
+> 详细的**三层记忆体系**（CLAUDE.md + Auto Memory + 自建参考文档）见 → [[#八、记忆系统]]
 
-> [!tip] 官方建议
-> - 限制 **200 行以内**，超长降低依从性
-> - 子目录 `CLAUDE.md` 仅当读取目录内文件时加载，适合 monorepo
-> - 使用 `@import` 拉入其他文件（最多 4 层嵌套）
-> - `.claude/rules/` + `paths:` 元数据: 路径范围规则，触及时才加载，节省上下文预算
-
-```markdown
-# CLAUDE.md
-## 项目概述
-一句话描述
-
-## 常用命令
-- npm run dev - 启动开发
-- npm test - 运行测试
-
-## 代码规范
-- 使用 ESLint + Prettier
-- 组件命名 PascalCase
-
-## 禁止事项
-- 不要修改 package-lock.json
+```bash
+# 自动生成（推荐）
+claude
+/init
 ```
 
 | 文件 | 位置 | 作用域 | 提交到 Git |
@@ -382,12 +366,6 @@ claude mcp disable fs   # 禁用
 | `CLAUDE.md` | 项目根目录 | 项目级 | ✅ |
 | `CLAUDE.local.md` | 项目根目录 | 项目级 | ❌ |
 | `~/.claude/CLAUDE.md` | 用户目录 | 全局级 | ❌ |
-
-```bash
-# 自动生成（推荐）
-claude
-/init
-```
 
 > 完整指南 → [[03-进阶应用/CLAUDE.md 使用指南]]
 
@@ -490,7 +468,262 @@ settings.json
 
 ---
 
-## 八、关联文档
+## 八、记忆系统
+
+> Claude Code 的记忆体系由三层构成：**CLAUDE.md（明规则）→ Auto Memory（隐规则）→ 自建参考文档（专项知识）**。三者配合，cc 越用越懂你。
+
+### 8.1 三层记忆总览
+
+| 层 | 位置 | 优先级 | 加载方式 | 谁在维护 |
+|----|------|--------|----------|----------|
+| 1 | CLAUDE.md（三级） | 高 | 会话启动全量加载 | 你手动维护 |
+| 2 | Auto Memory | 中 | 先读索引、按需读子文件 | cc 自己写、你校对修改 |
+| 3 | 参考文档 | 按需 | cc 遇到对应任务才读 | 你手动维护 |
+
+> **本质认知**：agent 的所有"记忆"，本质上都是在合适的时候向大模型注入压缩过的上下文。这些机制本质上还是提示词工程，只不过由 cc 帮你组织了层次。
+
+**选层决策树：**
+
+```
+这条信息是...
+├── 团队所有人都要遵守的硬性规矩？
+│   └── → 第一层 CLAUDE.md（提交到 git）
+├── 你个人的开发偏好？
+│   └── → 第一层 ~/.claude/CLAUDE.md（用户级）
+├── 项目积累的经验教训、踩坑记录？
+│   └── → 第二层 Auto Memory（让 cc 自己记）
+├── 太长太专门、不需要每次都读的内容？
+│   └── → 第三层 参考文档（按需加载）
+└── 只在某些文件/目录下才适用的规则？
+    └── → .claude/rules/ + paths: 元数据（路径范围规则）
+```
+
+---
+
+### 8.2 第一层：CLAUDE.md
+
+> **你主动立下的规矩**，会话启动时全量加载，第一优先级。
+
+**三级 CLAUDE.md：**
+
+| 级别 | 文件位置 | 作用域 | 共享 | 最佳用途 |
+|------|---------|--------|------|----------|
+| 项目级 | `./CLAUDE.md` 或 `./.claude/CLAUDE.md` | 项目 | 团队（提交 git） | 编码规范、架构决策、常用命令 |
+| 用户级 | `~/.claude/CLAUDE.md` | 全局 | 个人 | 开发偏好、编辑器快捷键、沟通风格 |
+| 本地级 | `./CLAUDE.local.md` | 项目 | 个人（不提交 git） | 个人项目特定设置 |
+
+> [!tip] 官方建议
+> - 限制 **200 行以内**，超长降低依从性
+> - 子目录 `CLAUDE.md` 仅当读取目录内文件时加载，适合 monorepo
+> - `.claude/rules/` + `paths:` 元数据：路径范围规则，触及时才加载，节省上下文预算
+
+**快速更新 Memory：**
+
+```
+# 这个项目始终使用 TypeScript 严格模式
+
+# new rule into memory
+始终使用 Zod schemas 验证用户输入
+
+# remember this
+所有版本发布使用语义化版本号
+```
+
+---
+
+### 8.3 第二层：Auto Memory（cc 自己的笔记本）
+
+如果说 CLAUDE.md 是**你主动立下的规矩**，那 Auto Memory 就是 **cc 在干活过程中默默记下的设计笔记**。你没显式写进 CLAUDE.md 的习惯、反馈、项目踩坑，会被一个后台 agent 静静记录。
+
+**如何启用：**
+
+```bash
+# 在 cc 会话中输入
+/memory
+
+# 在弹出的菜单里选第一个选项"启用 Auto Memory"
+# 启用后菜单里会多出"打开自动记忆文件夹"选项
+```
+
+**Auto Memory 在磁盘上的样子：**
+
+```
+~/.claude/projects/<项目标识>/memory/
+├── MEMORY.md          # 索引文件，启动时加载前 200 行
+├── user/              # 关于你的信息
+│   └── preferences.md
+├── feedback/          # 你给过的反馈
+│   └── 2026-07-28_dont-override-config.md
+└── project/           # 项目进度与决策
+    └── architecture-decisions.md
+```
+
+**Auto Memory 会记哪几类东西：**
+
+| 类型 | 含义 | 举例 |
+|------|------|------|
+| `user` | 关于你 | 你的角色、偏好（如"不喜欢深色 UI"） |
+| `feedback` | 你给过的反馈 | "不要这样做"、"对，就这样" |
+| `project` | 项目相关 | 进度、决策、技术选型 |
+| `reference` | 外部资源索引 | "某份设计文档在 docs/design.md" |
+
+**使用手感（重要）：**
+
+- 它只在当前项目生效（文件存在项目目录下），换项目需重新积累
+- 启用后 cc 不会每次都把所有记忆全部加载进上下文，只会读一份 `MEMORY.md` 索引——**遇到具体问题才去读对应的子文件**，占 token 很少
+- 随时可以用快捷键 `Ctrl+O` 在会话中查看实际被调用过的记忆内容
+- 记错了就跟它说："忘掉刚刚说的不喜欢深色主题"，它会自己删掉
+- 或者在 `/memory` 菜单里选"打开自动记忆文件夹"，直接编辑对应子文件
+
+**已知局限性：**
+
+- 记录频率有限——不会每句话都记，只在 cc 判断"值得记住"时才写
+- 准确度取决于 cc 的判断，偶尔会记偏或漏记，建议定期校对
+
+> 提示：**一句话区分 CLAUDE.md vs Auto Memory**：CLAUDE.md 是**第一优先级、全量注入的明规则**；Auto Memory 是**第二优先级、按需注入的隐规则**。两者配合，cc 越用越懂你。
+
+---
+
+### 8.4 第三层：自建参考文档（渐进式披露）
+
+除了上面两层，你还可以仿照 Skill 的"渐进式披露"机制为 cc 手动打造一套**专项参考文档**。
+
+**应用场景**：某些东西不适合全部塞进 CLAUDE.md（太长、太专门），但 cc 需要的时候必须能查到。比如：
+
+- **品牌视觉规范**：颜色、字体、间距 → `docs/brand-visual.md`
+- **产品文本风格**：语调、术语表 → `docs/copywriting-style.md`
+- **API 约定**：请求响应格式、错误码 → `docs/api-conventions.md`
+
+**两种实现模式：**
+
+| 方式 | 做法 | 适合场景 |
+|------|------|---------|
+| CLAUDE.md 指引 | 在 CLAUDE.md 里写"改视觉时必读 docs/brand-visual.md" | 文档 1-3 份，内容稳定 |
+| `@` 导入 | 在 CLAUDE.md 里用 `@docs/api-conventions.md` 直接引入 | 文档 4+ 份，或内容经常变 |
+
+**CLAUDE.md 指引模式示例：**
+
+```markdown
+## 外部参考文档
+
+- 修改前端视觉、调颜色、调间距时 → 必读 `docs/brand-visual.md`
+- 写产品文案、按钮文字、提示语时 → 必读 `docs/copywriting-style.md`
+- 写 API、定义返回格式时 → 必读 `docs/api-conventions.md`
+```
+
+这样 cc 只在"需要的时候"才去读完整文档，既保证了准确性，又不占多余上下文。
+
+---
+
+### 8.5 .claudeignore 文件
+
+类似于 `.gitignore`，用来告诉 Claude Code 哪些文件/目录不需要关注。
+
+**与 .gitignore 的核心区别：**
+
+| 特性 | .gitignore | .claudeignore |
+|------|-----------|--------------|
+| 控制谁 | git add/commit | Claude Code 文件读取 |
+| 默认忽略 | 无 | `node_modules/`、`.git/` |
+| 语法 | gitignore 风格 glob | 相同语法 |
+| 互相影响 | 不 | 不 |
+
+**什么时候一定要配：**
+
+| 情况 | 不配的后果 | 推荐规则 |
+|------|-----------|---------|
+| 有 `node_modules/` | cc 遍历巨量依赖文件，token 暴涨 | `node_modules/` |
+| 有 `dist/`、`build/`、`.next/` | 构建产物干扰 cc 理解源码 | `dist/` `.next/` `build/` |
+| 有 `.env` 等敏感文件 | 可能被 cc 读取并意外展示 | `.env` `.env.*` |
+| 有大文件（如 `.pkl`、`.onnx`） | 尝试读取时超时或浪费 token | `*.pkl` `*.onnx` |
+
+**实用模板：**
+
+```gitignore
+# === 依赖 ===
+node_modules/
+.pnp/
+.pnp.js
+
+# === 构建产物 ===
+dist/
+build/
+.next/
+out/
+.cache/
+.turbo/
+
+# === 环境与密钥 ===
+.env
+.env.*
+*.pem
+*.key
+
+# === 大文件 ===
+*.onnx
+*.pkl
+*.bin
+*.pt
+
+# === 自动生成 ===
+generated/
+coverage/
+.nyc_output/
+
+# === 日志 ===
+*.log
+npm-debug.log*
+```
+
+**最佳实践：**
+
+- 把 `.claudeignore` 提交到 Git，团队共享
+- 只影响 cc 的**文件探索**，不影响你通过 `Read` 工具明确要求读取的文件
+
+---
+
+### 8.6 settings.json 记忆相关配置
+
+```json
+{
+  // 排除某些 CLAUDE.md 不被加载（monorepo 场景）
+  "claudeMdExcludes": [
+    "packages/legacy-app/CLAUDE.md",
+    "vendors/**/CLAUDE.md"
+  ],
+
+  // 自定义 Auto Memory 目录
+  "autoMemoryDirectory": "/path/to/custom/memory",
+
+  // 显式加载指定规则文件
+  "rules": [
+    "~/.claude/rules/security.md",
+    ".claude/rules/api-design.md"
+  ]
+}
+```
+
+**环境变量控制 Auto Memory：**
+
+| 变量 | 值 | 行为 |
+|------|----|------|
+| `CLAUDE_CODE_DISABLE_AUTO_MEMORY` | `0` | 强制开启 |
+| `CLAUDE_CODE_DISABLE_AUTO_MEMORY` | `1` | 强制关闭 |
+| （未设置） | — | 默认启用 |
+
+```bash
+# 禁用 Auto Memory
+CLAUDE_CODE_DISABLE_AUTO_MEMORY=1 claude
+
+# 强制启用
+CLAUDE_CODE_DISABLE_AUTO_MEMORY=0 claude
+```
+
+> settings.json 完整配置详解 → [[settings.json 配置详解]]
+
+---
+
+## 九、关联文档
 
 [[Agent智能体]] · [[Claude Code 常用功能]] · [[Claude Code CLI 完整参考]] · [[Claude Code 会话管理]] · [[Claude Code 模型与推理设置]] · [[Claude MCP 使用指南]] · [[CLAUDE.md 使用指南]] · [[Subagents 完整指南]] · [[如何编写Skills]] · [[Skills 是什么]] · [[人工智能重要的六大概念体系]] · [[Git 入门教程]] · [[Git 命令速查]]
 
