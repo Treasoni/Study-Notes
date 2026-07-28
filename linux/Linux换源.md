@@ -1,5 +1,6 @@
 ---
 tags: [linux]
+updated: 2026-07-28
 ---
 
 # Linux 软件源配置
@@ -48,9 +49,10 @@ cat /etc/os-release
 **Ubuntu 版本代号**：
 | 版本 | 代号 | 状态 |
 |------|------|------|
-| Ubuntu 24.04 LTS | noble | 最新 LTS |
-| Ubuntu 22.04 LTS | jammy | 当前主流 |
-| Ubuntu 20.04 LTS | focal | 即将停止支持 |
+| Ubuntu 26.04 LTS | resolute | 最新 LTS（2026 年 4 月发布） |
+| Ubuntu 24.04 LTS | noble | 当前主流 LTS |
+| Ubuntu 22.04 LTS | jammy | 维护中（至 2027 年 4 月） |
+| Ubuntu 20.04 LTS | focal | 已停止标准支持（Ubuntu Pro 可扩展至 2030 年） |
 
 #### 3. 编辑配置文件
 ```bash
@@ -61,6 +63,12 @@ sudo nano /etc/apt/sources.list
 
 **清华大学镜像（推荐）**：
 ```bash
+# Ubuntu 26.04 (resolute) — 最新 LTS
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ resolute main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ resolute-updates main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ resolute-backports main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ resolute-security main restricted universe multiverse
+
 # Ubuntu 24.04 (noble)
 deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ noble main restricted universe multiverse
 deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ noble-updates main restricted universe multiverse
@@ -76,6 +84,12 @@ deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted 
 
 **阿里云镜像**：
 ```bash
+# Ubuntu 26.04
+deb https://mirrors.aliyun.com/ubuntu/ resolute main restricted universe multiverse
+deb https://mirrors.aliyun.com/ubuntu/ resolute-updates main restricted universe multiverse
+deb https://mirrors.aliyun.com/ubuntu/ resolute-backports main restricted universe multiverse
+deb https://mirrors.aliyun.com/ubuntu/ resolute-security main restricted universe multiverse
+
 # Ubuntu 24.04
 deb https://mirrors.aliyun.com/ubuntu/ noble main restricted universe multiverse
 deb https://mirrors.aliyun.com/ubuntu/ noble-updates main restricted universe multiverse
@@ -94,7 +108,9 @@ deb https://mirrors.aliyun.com/ubuntu/ jammy-security main restricted universe m
 sudo apt update
 ```
 
-### Ubuntu 一键换源脚本
+### Ubuntu 一键换源脚本（传统格式）
+
+> 适用于仍使用 `/etc/apt/sources.list` 单文件的系统。若系统为 Ubuntu 24.04+ 且已迁移到 DEB822 格式，请参考下一节。
 
 ```bash
 # 备份
@@ -108,14 +124,33 @@ sudo sed -i 's|http://security.ubuntu.com|https://mirrors.tuna.tsinghua.edu.cn|g
 sudo apt update
 ```
 
-### Ubuntu 24.04 DEB822 格式换源
+### Ubuntu 24.04+ DEB822 格式换源
+
+> Ubuntu 24.04 起默认使用 DEB822 格式（`.sources` 文件），26.04 延续此标准。
 
 #### 1. 创建新的源配置文件
 ```bash
 sudo nano /etc/apt/sources.list.d/ubuntu.sources
 ```
 
-#### 2. 添加以下内容
+#### 2. 添加以下内容（以清华镜像为例）
+
+**Ubuntu 26.04 (resolute)**：
+```text
+Types: deb
+URIs: https://mirrors.tuna.tsinghua.edu.cn/ubuntu
+Suites: resolute resolute-updates resolute-backports
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+
+Types: deb
+URIs: https://mirrors.tuna.tsinghua.edu.cn/ubuntu
+Suites: resolute-security
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+```
+
+**Ubuntu 24.04 (noble)**：
 ```text
 Types: deb
 URIs: https://mirrors.tuna.tsinghua.edu.cn/ubuntu
@@ -149,12 +184,19 @@ sudo sed -i 's|http://deb.debian.org|https://mirrors.tuna.tsinghua.edu.cn|g' /et
 sudo apt update
 ```
 
-#### CentOS 7
+#### CentOS 7（已停止维护，仅供参考）
+
+> ⚠️ **CentOS 7 已于 2024 年 6 月 30 日结束生命周期（EOL）**，不再接收安全更新。建议迁移到以下替代方案：
+> - **AlmaLinux** — 免费、RHEL 兼容，支持至 2032 年
+> - **Rocky Linux** — 社区驱动的 RHEL 替代品
+> - **Red Hat Enterprise Linux** — 官方企业级方案（Convert2RHEL 工具可原地转换）
+
+以下配置仅对仍运行 CentOS 7 的遗留系统有效：
 ```bash
 # 备份
 sudo cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak
 
-# 替换为阿里云镜像
+# 替换为阿里云镜像（vault 存档）
 sudo wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo
 
 # 清除缓存并重新生成
@@ -163,18 +205,17 @@ sudo yum makecache
 ```
 
 #### Arch Linux
+> ℹ️ 自 2023 年 5 月起，`[community]` 仓库已合并到 `[extra]`，`pacman.conf` 中不再需要单独配置。
+
 ```bash
 # 编辑 pacman 配置
 sudo nano /etc/pacman.conf
 
-# 在文件顶部添加镜像（清华镜像）
+# 添加镜像（清华镜像）
 [core]
 Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch
 
 [extra]
-Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch
-
-[community]
 Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch
 
 # 更新系统
@@ -188,12 +229,25 @@ sudo pacman -Syy
 **GPG 密钥错误**：
 ```bash
 W: GPG error: https://mirrors.xxx.com ... NO_PUBKEY XXXXXXXXXXXXXXXX
+```
 
-# 解决方法 1：自动修复（apt 2.0+）
+> ⚠️ `apt-key` 命令已被弃用（Ubuntu 24.04 起），Ubuntu 25.04+ 已完全移除。请使用现代 GPG 方式管理密钥。
+
+**解决方法 1：自动修复**
+```bash
 sudo apt update --allow-releaseinfo-change
+```
 
-# 解决方法 2：添加密钥
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys XXXXXXXXXXXXXXXX
+**解决方法 2：手动添加密钥（现代方式）**
+```bash
+# 下载并转换密钥（替代旧的 apt-key add）
+sudo mkdir -p /etc/apt/keyrings
+wget -qO- https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xXXXXXXXX | \
+  sudo gpg --dearmor -o /etc/apt/keyrings/第三方源.gpg
+
+# 在 sources.list 中指定密钥
+echo "deb [signed-by=/etc/apt/keyrings/第三方源.gpg] https://mirrors.xxx.com/ubuntu noble main" | \
+  sudo tee /etc/apt/sources.list.d/xxx.list
 ```
 
 **403 Forbidden 错误**：
