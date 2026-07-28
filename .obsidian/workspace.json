@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux/linux的LVM管理.md",
+                "file": "linux/Linux换源.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "linux的LVM管理"
+              "title": "Linux换源"
             }
           }
         ]
@@ -176,13 +176,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux/linux的LVM管理.md",
+                "file": "linux/Linux换源.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "linux的LVM管理 的大纲"
+              "title": "Linux换源 的大纲"
             }
           },
           {
@@ -226,7 +226,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 8
       }
     ],
     "direction": "horizontal",
@@ -254,8 +254,22 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "f5f6330a45d67f9a",
+  "active": "d0d8383a692e3423",
   "lastOpenFiles": [
+    "workspace/workflow-runs/A011hP8f",
+    "workspace/workflow-runs/linux-commands.workflow.md.OnJrdP",
+    "workspace/workflow-runs/linux-commands.workflow.md.zjgyGt",
+    "workspace/workflow-runs/linux-commands.workflow.md.vTB6qE",
+    "workspace/workflow-runs/linux-commands.workflow.md.zoaLEb",
+    "workspace/workflow-runs/Xq68VJEN",
+    "workspace/workflow-runs/3GEANpn2",
+    "workspace/workflow-runs/linux-commands.workflow.md.cgIbRC",
+    "workspace/workflow-runs/linux-commands.workflow.md.EPMHIF",
+    "workspace/workflow-runs/linux-commands.workflow.md.keImdu",
+    "workspace/workflow-runs/linux-commands.workflow.md.rrhOvK",
+    "workspace/linux-commands/00_intent.md",
+    "linux/Ubuntu Server SSH 配置指南.md",
+    "workspace/workflow-runs/linux-commands.workflow.md",
     "linux/Ubuntu Server 安装教程.md",
     "linux/linux的LVM管理.md",
     "linux/update_plan.md",
@@ -283,25 +297,11 @@
     "考研数学/二重积分/images/例14.3-D2-补辅助线.png",
     "考研数学/二重积分/images/例14.3-D3-补辅助线.png",
     "考研数学/二重积分/images/例14.3-D1-正方形对称.png",
-    "考研数学/二重积分/images",
     "考研数学/二重积分/错题本.md",
     "考研数学/0-基础知识/常用平面图形.md",
     "考研数学/二重积分/1-概念性质与对称性/性质.md",
     "考研数学/二重积分/1-概念性质与对称性/概念.md",
     "考研数学/0-基础知识/每天一背.md",
-    "考研数学/高数-一元函数积分学/一元函数积分学的计算/1-基本积分公式.md",
-    "考研数学/高数-一元函数积分学/一元函数积分学应用1/2-旋转体的体积/绕y轴旋转.md",
-    "考研数学/高数-一元函数积分学/一元函数积分的概念与性质/2-定积分/定积分存在定理.md",
-    "考研数学/有价值的错题.md",
-    "_insert_proof.py",
-    "线性代数.zip",
-    "考研数学.zip",
-    "考研/湖南大学2026年硕士研究生招生专业目录.pdf",
-    "assets",
-    "template_ai/profiles/windsurf.yaml",
-    "template_ai/profiles/roo-code.yaml",
-    "template_ai/profiles/qwen-code.yaml",
-    "template_ai/profiles/opencode.yaml",
     "考研数学/高数-一元函数积分学/一元函数积分的概念与性质/2-定积分/未命名.canvas"
   ]
 }
