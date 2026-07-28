@@ -1,14 +1,14 @@
 ---
 title: Linux 学习笔记 MOC
 created: 2026-04-06
-updated: 2026-07-28
+updated: 2026-07-29
 tags: [linux, moc, 索引]
 ---
 
 # Linux 学习笔记 MOC
 
 > [!info] 概述
-> 本 MOC 整理了 Linux 系统学习的核心笔记，��盖系统安装、磁盘管理、网络配置、系统基础等内容。
+> 本 MOC 整理了 Linux 系统学习的核心笔记，涵盖系统安装、磁盘管理、网络配置、系统基础、常用命令参考等内容。
 
 ---
 
@@ -29,6 +29,12 @@ tags: [linux, moc, 索引]
 |------|------|
 | [[linux磁盘相关的知识]] | 磁盘分区、格式化、挂载基础 |
 | [[linux的LVM管理]] | LVM 逻辑卷管理，动态扩容 |
+
+### 常用命令参考
+
+| 笔记 | 说明 |
+|------|------|
+| [[Linux 常用命令实战手册]] | 常用命令全面实战手册，涵盖文件操作、文本处理、进程管理、网络诊断等 |
 
 ### 系统基础
 
@@ -145,6 +151,16 @@ flowchart LR
 
 ---
 
+### 五、常用命令参考
+
+#### 5.1 Linux 常用命令实战手册
+- **适用场景**：日常开发运维、命令速查、系统学习
+- **关键点**：文件操作、文本处理（grep/sed/awk）、进程管理、网络诊断、权限管理、磁盘/包管理、Shell 技巧
+- **命令示例**：`ls`、`grep`、`sed`、`awk`、`ps`、`systemctl`、`curl`、`ss`、`tcpdump`、`chmod`、`df`、`apt`
+- **相关**：[[linux的文件权限]] | [[cpu的线程和内核]] | [[linux磁盘相关的知识]] | [[linux如何修改网络信息]]
+
+---
+
 ## 🔗 知识关联图
 
 ```mermaid
@@ -153,6 +169,10 @@ graph TB
         A[Ubuntu Server 安装教程]
         B[SSH 配置指南]
         C[Linux换源]
+    end
+    
+    subgraph 命令参考
+        J[Linux 常用命令实战手册]
     end
 
     subgraph 磁盘
@@ -177,6 +197,9 @@ graph TB
     D --> E
     F --> G
     E --> H
+    J --> H
+    J --> D
+    J --> F
 ```
 
 ---
@@ -185,15 +208,16 @@ graph TB
 
 ### 路径一：服务器管理员
 1. [[Ubuntu Server 安装教程]] → [[Ubuntu Server SSH 配置指南]] → [[Linux换源]]
-2. [[linux磁盘相关的知识]] → [[linux的LVM管理]]
+2. [[Linux 常用命令实战手册]] → [[linux磁盘相关的知识]] → [[linux的LVM管理]]
 3. [[linux如何修改网络信息]] → [[linux的文件权限]]
 
 ### 路径二：开发环境搭建
 1. [[WSL-Windows子系统forLinux]] → [[Linux换源]]
-2. [[linux的文件权限]] → [[cpu的线程和内核]]
+2. [[Linux 常用命令实战手册]] → [[linux的文件权限]] → [[cpu的线程和内核]]
 
-### 路径三：故障排查
-1. [[Ubuntu curl SSL连接问题排查]] → [[linux如何修改网络信息]]
+### 路径三：命令与排障进阶
+1. [[Linux 常用命令实战手册]]（文本处理/网络诊断章节）
+2. [[Ubuntu curl SSL连接问题排查]] → [[linux如何修改网络信息]]
 
 ---
 
@@ -201,6 +225,7 @@ graph TB
 
 | 文件 | 更新日期 |
 |------|----------|
+| [[Linux 常用命令实战手册]] | 2026-07-29 |
 | [[Linux换源]] | 2026-07-28 |
 | [[Ubuntu curl SSL连接问题排查]] | 2026-03-29 |
 | [[WSL-Windows子系统forLinux]] | 2026-03-29 |

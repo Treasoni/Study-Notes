@@ -9,9 +9,9 @@ created_from: ".claude/workflows/learning-note-flow/state-template.md"
 topic: "Linux常用命令"
 project_slug: "linux-commands"
 created_at: "2026-07-28"
-last_updated: "2026-07-28"
-current_phase: P5
-current_status: in_progress
+last_updated: "2026-07-29"
+current_phase: done
+current_status: complete
 mode: outline
 blocked_reason: ""
 ---
@@ -23,7 +23,7 @@ blocked_reason: ""
 > 运行标识：linux-commands
 > 项目标识：linux-commands
 > 创建时间：2026-07-28
-> 当前阶段：阶段 5
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -99,7 +99,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中
+> [P5] ✅ 已完成
 
 ---
 
@@ -109,7 +109,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成
 
 ---
 
@@ -119,7 +119,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成
 
 ---
 

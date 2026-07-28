@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux/cpu的线程和内核.md",
+                "file": "linux/Linux 常用命令实战手册.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "cpu的线程和内核"
+              "title": "Linux 常用命令实战手册"
             }
           }
         ]
@@ -176,13 +176,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux/cpu的线程和内核.md",
+                "file": "linux/Linux 常用命令实战手册.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "cpu的线程和内核 的大纲"
+              "title": "Linux 常用命令实战手册 的大纲"
             }
           },
           {
@@ -254,19 +254,23 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "f5f6330a45d67f9a",
+  "active": "814922b57e827ba8",
   "lastOpenFiles": [
-    "workspace/workflow-runs/AP6aX6h3",
-    "workspace/workflow-runs/linux-commands.workflow.md.rLpLaf",
-    "workspace/workflow-runs/linux-commands.workflow.md.xLmALF",
-    "workspace/workflow-runs/linux-commands.workflow.md.UPJ7Tv",
-    "workspace/workflow-runs/linux-commands.workflow.md.VpJa6L",
-    "workspace/workflow-runs/Xy4i2mah",
-    "workspace/workflow-runs/vosDcl2u",
-    "workspace/workflow-runs/linux-commands.workflow.md.1yztej",
-    "workspace/workflow-runs/linux-commands.workflow.md.YO6FyR",
-    "workspace/workflow-runs/linux-commands.workflow.md.gchT0y",
-    "workspace/workflow-runs/linux-commands.workflow.md.Mr4geR",
+    "linux/linux磁盘相关的知识.md",
+    "linux/Ubuntu curl SSL连接问题排查.md",
+    "linux/cpu的线程和内核.md",
+    "workspace/workflow-runs/U3HdOLm5",
+    "workspace/workflow-runs/linux-commands.workflow.md.KdM9jg",
+    "workspace/workflow-runs/linux-commands.workflow.md.y7Ss3B",
+    "workspace/workflow-runs/linux-commands.workflow.md.aU8n0o",
+    "workspace/workflow-runs/linux-commands.workflow.md.Ke4MSa",
+    "workspace/workflow-runs/V1k4OnlD",
+    "workspace/workflow-runs/Yc1gs6cH",
+    "workspace/workflow-runs/linux-commands.workflow.md.pz7Jj8",
+    "workspace/workflow-runs/linux-commands.workflow.md.BE1jEN",
+    "workspace/workflow-runs/linux-commands.workflow.md.UreQ6H",
+    "linux/Linux 常用命令实战手册.md",
+    "workspace/linux-commands/output/final_note.md",
     "workspace/linux-commands/chapters/7_磁盘与存储管理.md",
     "workspace/linux-commands/chapters/5_网络诊断与排障.md",
     "workspace/linux-commands/chapters/3_文本处理三剑客实战.md",
@@ -288,7 +292,6 @@
     "linux/update_plan.md",
     "考研计划/每日计划/完成记录/2026-07-28-完成记录.md",
     "考研专业课/模拟电子技术/详细笔记/03-BJT与基本放大电路/06-共射动态指标.md",
-    "线性代数/第二章：矩阵/错题本.md",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/图-固定偏置共射动态指标-Au-Ri-Ro.png",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/图-固定偏置共射动态指标-Au-Ri-Ro.svg",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/手写原图-共射动态指标-输出电阻方法-2026-07-28.jpg",
@@ -296,9 +299,6 @@
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/手写原图-共射动态指标-戴维南定义-2026-07-28.jpg",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/手写原图-共射动态指标-输入电阻-2026-07-28.jpg",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/手写原图-共射动态指标-电压放大倍数-2026-07-28.jpg",
-    "线性代数/第二章：矩阵/2.10 矩阵的秩/2.10.1 子式、秩的概念.md",
-    "线性代数/必背知识.md",
-    "线性代数/第二章：矩阵/2.8 矩阵的分块/2.8.2 分块矩阵的运算.md",
     "考研数学/二重积分/images/例14.3-D2-补辅助线.png",
     "考研数学/二重积分/images/例14.3-D3-补辅助线.png",
     "考研数学/二重积分/images/例14.3-D1-正方形对称.png",
