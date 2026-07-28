@@ -10,7 +10,7 @@ topic: "Linux 网络信息获取与概念"
 project_slug: "linux-network-info-concepts"
 created_at: "2026-07-29"
 last_updated: "2026-07-29"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -23,7 +23,7 @@ blocked_reason: ""
 > 运行标识：linux-network-info-concepts
 > 项目标识：linux-network-info-concepts
 > 创建时间：2026-07-29
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -89,7 +89,7 @@ blocked_reason: ""
 
 **进度**：0/待大纲确定
 
-> [P4] 🔲 进行中
+> [P4] ✅ 已完成
 
 ---
 
@@ -102,7 +102,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中
 
 ---
 
