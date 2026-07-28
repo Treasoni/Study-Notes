@@ -47,6 +47,7 @@ cat /etc/os-release
 ```
 
 **Ubuntu 版本代号**：
+
 | 版本 | 代号 | 状态 |
 |------|------|------|
 | Ubuntu 26.04 LTS | resolute | 最新 LTS（2026 年 4 月发布） |
@@ -268,6 +269,7 @@ lsb_release -cs
 ### 关键配置点
 
 **Ubuntu 分支说明**：
+
 | 分支 | 说明 |
 |------|------|
 | **main** | 官方支持的软件，开源免费 |
@@ -276,17 +278,19 @@ lsb_release -cs
 | **multiverse** | 非自由软件，可能有版权限制 |
 
 **选择镜像源的原则**：
+
 1. **地理位置** - 优先选择距离近的镜像
 2. **同步频率** - 选择同步及时的镜像
 3. **带宽** - 选择有充足带宽的镜像
 4. **稳定性** - 选择长期维护的镜像
 
 **推荐国内镜像源**：
+
 | 镜像 | URL | 特点 |
 |------|-----|------|
 | 清华大学 | https://mirrors.tuna.tsinghua.edu.cn | 全覆盖，速度快 |
 | 阿里云 | https://mirrors.aliyun.com | 稳定，覆盖广 |
-| 中科大 | https://mirrors.ustc.edu.cn | 教育网友好 |
+| 中科大 | https://mirrors.ustc.edu.cn | 教育网速度快 |
 | 华为云 | https://mirrors.huaweicloud.com | 企业级稳定 |
 
 ## 常见问题 ❓
