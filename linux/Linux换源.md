@@ -116,9 +116,9 @@ sudo apt update
 # 备份
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
 
-# 替换为清华镜像
-sudo sed -i 's|http://archive.ubuntu.com|https://mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list
-sudo sed -i 's|http://security.ubuntu.com|https://mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list
+# 替换为清华镜像（同时匹配 http:// 和 https:// 源）
+sudo sed -i 's|http://archive.ubuntu.com|https://mirrors.tuna.tsinghua.edu.cn|g; s|https://archive.ubuntu.com|https://mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list
+sudo sed -i 's|http://security.ubuntu.com|https://mirrors.tuna.tsinghua.edu.cn|g; s|https://security.ubuntu.com|https://mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list
 
 # 更新
 sudo apt update
@@ -343,7 +343,7 @@ sudo netselect-apt noble
 
 ## 更新记录
 
-- 2026-07-28：新增 Ubuntu 26.04 LTS (resolute) 镜像源配置；更新版本表与 EOL 状态；CentOS 7 EOL 标注及迁移建议；Arch Linux 移除已合并的 [community] 仓库；apt-key 弃用替换为现代 GPG 方式；FAQ 镜像同步检查补充 Ubuntu/Debian 命令
+- 2026-07-28：新增 Ubuntu 26.04 LTS (resolute) 镜像源配置；更新版本表与 EOL 状态；CentOS 7 EOL 标注及迁移建议；Arch Linux 移除已合并的 [community] 仓库；apt-key 弃用替换为现代 GPG 方式；FAQ 镜像同步检查补充 Ubuntu/Debian 命令；一键换源脚本 sed 补充 HTTPS 匹配
 
 ## 相关文档
 - [[linux MOC]] - Linux 学习笔记索引
