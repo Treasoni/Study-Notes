@@ -56,6 +56,7 @@ tags: [linux, moc, 索引]
 |------|------|
 | [[cpu的线程和内核]] | CPU 核心与线程概念，性能监控 |
 | [[linux的文件权限]] | chmod、chown 权限管理 |
+| [[Linux的文件系统结构]] | FHS 目录标准，各目录用途与常用路径速查 |
 
 ### 网络配置
 
@@ -134,7 +135,12 @@ flowchart TD
 - **常用命令**：`lscpu`、`top`、`htop`
 - **相关**：[[linux磁盘相关的知识]] | [[linux的LVM管理]]
 
-#### 3.2 Linux 文件权限
+#### 3.2 Linux 文件系统结构
+- **核心概念**：FHS 标准、根目录层级、`/etc`/`/var`/`/usr`/`/proc` 等目录用途
+- **常用命令**：`lsblk`、`df`、`du`、`mount`
+- **相关**：[[linux磁盘相关的知识]] | [[linux的文件权限]] | [[linux常用命令/Linux 文件与目录操作]]
+
+#### 3.3 Linux 文件权限
 - **核心概念**：rwx 权限、chmod/chown、用户组管理
 - **常用命令**：`chmod`、`chown`、`usermod`
 - **相关**：[[linux磁盘相关的知识]] | [[linux的LVM管理]]
