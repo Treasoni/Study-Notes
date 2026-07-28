@@ -296,7 +296,11 @@ lsb_release -cs
 A: 可能是镜像同步延迟，解决方法：
 ```bash
 # 等待一段时间后再试，或换其他镜像源
-# 检查同步状态（清华镜像）
+
+# Ubuntu/Debian：检查镜像源上的 Release 文件时间
+curl -sI https://mirrors.tuna.tsinghua.edu.cn/ubuntu/dists/noble/Release | grep -i last-modified
+
+# Arch Linux：检查镜像同步状态
 curl https://mirrors.tuna.tsinghua.edu.cn/archlinux/lastupdate
 ```
 
@@ -339,7 +343,7 @@ sudo netselect-apt noble
 
 ## 更新记录
 
-- 2026-07-28：新增 Ubuntu 26.04 LTS (resolute) 镜像源配置；更新版本表与 EOL 状态；CentOS 7 EOL 标注及迁移建议；Arch Linux 移除已合并的 [community] 仓库；apt-key 弃用替换为现代 GPG 方式
+- 2026-07-28：新增 Ubuntu 26.04 LTS (resolute) 镜像源配置；更新版本表与 EOL 状态；CentOS 7 EOL 标注及迁移建议；Arch Linux 移除已合并的 [community] 仓库；apt-key 弃用替换为现代 GPG 方式；FAQ 镜像同步检查补充 Ubuntu/Debian 命令
 
 ## 相关文档
 - [[linux MOC]] - Linux 学习笔记索引
