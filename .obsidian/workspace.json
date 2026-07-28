@@ -20,8 +20,37 @@
               "icon": "lucide-file",
               "title": "linux如何修改网络信息"
             }
+          },
+          {
+            "id": "ce5373aab5e5045b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "linux/linux如何修改网络信息.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "linux如何修改网络信息"
+            }
+          },
+          {
+            "id": "6c1ec5cded8f16eb",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "linux/Linux的文件系统结构.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Linux的文件系统结构"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -226,7 +255,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 8
       }
     ],
     "direction": "horizontal",
@@ -254,30 +283,33 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "f5f6330a45d67f9a",
+  "active": "d0d8383a692e3423",
   "lastOpenFiles": [
+    "YLgl2ztb",
+    "workspace/workflow-runs/linux-network-info-concepts.workflow.md.APoEEu",
+    "workspace/workflow-runs/linux-network-info-concepts.workflow.md.VnkELm",
+    "workspace/workflow-runs/linux-network-info-concepts.workflow.md.V3SdmC",
+    "workspace/workflow-runs/linux-network-info-concepts.workflow.md.AQLwMI",
+    "cCAJZ385",
+    "WcnjdQd3",
+    "workspace/workflow-runs/linux-network-info-concepts.workflow.md.qlOB9z",
+    "workspace/workflow-runs/linux-network-info-concepts.workflow.md.9ULRIK",
+    "workspace/workflow-runs/linux-network-info-concepts.workflow.md.ddbwby",
+    "workspace/workflow-runs/linux-network-info-concepts.workflow.md.63JrYj",
+    "workspace/linux-network-info-concepts/00_intent.md",
+    "workspace/workflow-runs/linux-network-info-concepts.workflow.md",
     "linux/linux常用命令/Linux 网络诊断与排障.md",
-    "linux/linux常用命令/Linux 常用命令速查索引.md",
     "linux/linux如何修改网络信息.md",
+    "linux/Linux的文件系统结构.md",
+    "linux/linux常用命令/Linux 常用命令速查索引.md",
     "linux/Linux换源.md",
     "linux/Ubuntu Server 安装教程.md",
-    "linux/Linux的文件系统结构.md",
     "linux/linux的文件权限.md",
     "linux/linux常用命令/Linux 用户管理.md",
     "linux/linux常用命令/Linux 日志管理.md",
     "linux/linux常用命令/Linux 系统信息与硬件管理.md",
     "linux/linux常用命令/Linux 远程连接与文件传输.md",
     "linux/linux常用命令/Linux 定时任务与自动化.md",
-    "linux/linux常用命令/sedGjcKmV",
-    "linux/linux常用命令/sed21WavM",
-    "linux/linux常用命令/sedjScCMy",
-    "linux/linux常用命令/sedNHMgvw",
-    "linux/linux常用命令/sedCA2Zkp",
-    "linux/linux常用命令/sedOfhxPw",
-    "linux/sed1xleKo",
-    "linux/sedczzA0t",
-    "linux/sedWWuVln",
-    "linux/sed8p7Eeo",
     "linux/Linux 常用命令速查索引.md",
     "linux/linux常用命令/Linux Shell 实用技巧.md",
     "linux/linux常用命令/Linux 软件包管理.md",
@@ -289,9 +321,6 @@
     "linux/linux常用命令/Linux 文件与目录操作.md",
     "linux/Linux 权限管理基础.md",
     "linux/06-Shell进阶/Linux Shell 实用技巧.md",
-    "linux/05-安全维护/Linux 软件包管理.md",
-    "linux/05-安全维护/Linux 权限管理基础.md",
-    "linux/04-网络/Linux 网络诊断与排障.md",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/图-固定偏置共射动态指标-Au-Ri-Ro.png",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/图-固定偏置共射动态指标-Au-Ri-Ro.svg",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/手写原图-共射动态指标-输出电阻方法-2026-07-28.jpg",
