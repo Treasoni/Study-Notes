@@ -1,7 +1,7 @@
 ---
 title: Linux 学习笔记 MOC
 created: 2026-04-06
-updated: 2026-04-06
+updated: 2026-07-28
 tags: [linux, moc, 索引]
 ---
 
@@ -72,7 +72,7 @@ flowchart LR
 
 #### 1.3 Linux换源
 - **适用场景**：国内网络环境
-- **关键点**：清华/阿里云镜像、DEB822 格式
+- **关键点**：清华/阿里云镜像、DEB822 格式（24.04+）、apt 密钥管理
 - **相关**：[[linux如何修改网络信息]]
 
 #### 1.4 WSL (Windows Subsystem for Linux)
@@ -201,6 +201,7 @@ graph TB
 
 | 文件 | 更新日期 |
 |------|----------|
+| [[Linux换源]] | 2026-07-28 |
 | [[Ubuntu curl SSL连接问题排查]] | 2026-03-29 |
 | [[WSL-Windows子系统forLinux]] | 2026-03-29 |
 | [[linux如何修改网络信息]] | 2026-03-07 |
