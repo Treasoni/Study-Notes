@@ -1,0 +1,788 @@
+---
+title: "Linux 文本处理三剑客"
+created: 2026-07-29
+updated: 2026-07-29
+tags: [linux, sed, awk, 文本处理]
+status: completed
+source_project: linux-commands
+---
+
+> [!note]
+> 本章是全书篇幅最长、实战性最强的一章。你将系统学习 Linux 文本处理的四大核心工具：sed（流编辑）、awk（结构化分析）、cut（列提取）、sort 与 uniq（排序去重），并通过管道组合它们来解决真实的日志分析和数据处理问题。学完本章后，你将能用一行命令完成许多在其他语言中需要几十行代码才能做到的事情。
+
+---
+
+## 3.1 sed -- 流编辑器
+
+`sed`（Stream Editor）的核心能力是对文本流进行**非交互式编辑**。它不会打开编辑器让你手动改，而是根据你给的规则（脚本）逐行处理输入，把结果输出到标准输出。
+
+### 核心语法
+
+```bash
+sed '<脚本>' <文件>
+```
+
+脚本的通用格式是：`<范围><操作>`。默认行为是**逐行读取，处理，输出**。
+
+### 3.1.1 替换操作（s///）
+
+替换是 `sed` 最常用的功能，语法借鉴了 `vi` 编辑器。
+
+```bash
+sed 's/旧文本/新文本/' file.txt        # 替换每行第一个匹配
+sed 's/旧文本/新文本/g' file.txt       # 替换全局（每行所有匹配）
+sed 's/旧文本/新文本/2' file.txt       # 只替换每行的第二个匹配
+sed 's/旧文本/新文本/gi' file.txt      # 全局替换 + 忽略大小写
+```
+
+**为什么 / 是分隔符？** 因为 `s///` 继承自 `vi` 编辑器。你可以改用其他字符避免转义，比如处理路径时用 `#`：
+
+```bash
+# 用 # 代替 /，免去转义路径中的斜杠
+sed 's#/usr/local#/opt#g' paths.txt
+sed 's|/var/log|/data/logs|g' paths.txt  # 也可以用 |
+```
+
+> [!tip] 分隔符可任意选择
+> `s` 后面的第一个字符就是分隔符。当要替换的文本包含大量 `/` 时，改用 `#`、`|`、`:` 等字符可以省去大量转义。
+
+#### 原地编辑（-i）
+
+默认情况下 `sed` 只输出到终端，不会修改原文件。用 `-i` 直接修改文件：
+
+```bash
+# 直接修改文件（谨慎！不可撤销）
+sed -i 's/foo/bar/g' config.yaml
+
+# 安全做法：先备份，再修改（加备份后缀）
+sed -i.bak 's/foo/bar/g' config.yaml
+# 这会生成 config.yaml.bak 作为备份，然后修改 config.yaml
+
+# 恢复备份
+mv config.yaml.bak config.yaml
+```
+
+> [!warning] sed -i 不可撤销
+> 没有备份的 `-i` 操作是不可逆的。强烈建议首次使用时先不加 `-i` 预览结果，确认无误后再加 `-i`，或者同时提供备份后缀：
+> ```bash
+> # 推荐做法：三步法
+> sed 's/foo/bar/g' config.yaml           # 第 1 步：预览输出
+> sed -i.bak 's/foo/bar/g' config.yaml    # 第 2 步：确认后原地编辑（留备份）
+> diff config.yaml.bak config.yaml        # 第 3 步：检查改动是否正确
+> ```
+
+### 3.1.2 地址范围与行操作
+
+sed 可以指定操作的**行范围**，只编辑感兴趣的部分。
+
+```bash
+# 按行号
+sed -n '10p' file.txt           # 只打印第 10 行（-n 抑制默认输出）
+sed '5,10d' file.txt            # 删除第 5~10 行
+sed '10q' file.txt              # 打印到第 10 行后退出（大文件高效查看开头）
+
+# 按行号 + 步进
+sed -n '1~2p' file.txt          # 打印奇数行（从第 1 行开始，步进 2）
+sed -n '0~2p' file.txt          # 打印偶数行（从第 2 行开始，步进 2）
+
+# 按模式匹配
+sed -n '/ERROR/p' log.txt       # 只打印包含 ERROR 的行
+sed '/^#/d' config.txt          # 删除所有以 # 开头的行（注释行）
+sed '/^$/d' file.txt            # 删除所有空行
+
+# 范围模式：从匹配行到匹配行
+sed -n '/BEGIN/,/END/p' file.txt    # 打印 BEGIN 到 END 之间的内容
+sed '/BEGIN/,/END/d' file.txt       # 删除 BEGIN 到 END 之间的内容
+```
+
+**例子：从 Nginx 日志中提取特定时间段的内容**
+
+```bash
+# 假设 access.log 每行以 [02/Jul/2026:10:15:30 开头
+sed -n '/10:00:/,/11:00:/p' access.log   # 打印 10:00 到 11:00 之间的日志
+```
+
+### 3.1.3 多命令组合
+
+可以用 `-e` 或分号组合多个 sed 命令：
+
+```bash
+# 用 -e 执行多个操作
+sed -e 's/foo/bar/g' -e '/^$/d' file.txt
+
+# 用分号分隔（注意分号前不能有空格，加空格需要引号包裹）
+sed 's/foo/bar/g; s/baz/qux/g' file.txt
+
+# 将命令写入文件供复用（适合复杂脚本）
+cat << 'EOF' > fix-nginx.sed
+s/# server/server/g
+s/# listen/listen/g
+s/# root/root/g
+EOF
+
+sed -f fix-nginx.sed nginx.conf
+```
+
+> [!example] 开启和关闭 Nginx 配置中的注释块
+> ```bash
+> # 场景：nginx.conf 中有一段被注释的 HTTPS 配置，想一次性取消注释
+> cat nginx.conf
+> #server {
+> #    listen 443 ssl;
+> #    server_name example.com;
+> #    ssl_certificate /etc/ssl/cert.pem;
+> #}
+> 
+> # 取消注释（删除每行开头的 # 和空格）
+> sed -i 's/^# *//' nginx.conf
+> 
+> # 反向操作：注释掉 server 块（行首加 #）
+> sed -i '/server {/,/^}/s/^/#/' nginx.conf
+> ```
+
+### 3.1.4 高级替换技巧
+
+```bash
+# 引用匹配内容
+echo "hello world" | sed 's/\([a-z]*\) \([a-z]*\)/\2 \1/'   # 输出: world hello
+# 圆括号捕获组用 \1, \2 引用，需要转义括号
+
+# 使用 & 代表整个匹配的内容
+echo "error: timeout" | sed 's/error: */[FOUND] &/'  # 输出: [FOUND] error: timeout
+
+# 替换行首/行尾
+sed 's/^/  /' file.txt          # 每行行首加两个空格（缩进）
+sed 's/$/;/' file.txt           # 每行行尾加分号（生成 SQL）
+
+# 只替换不包含特定模式的行
+sed '/^#/!s/foo/bar/g' config.txt   # ! 表示取反：不匹配 # 开头的行才执行替换
+```
+
+### 3.1.5 sed 常用操作速查
+
+| 命令 | 含义 | 示例 |
+|------|------|------|
+| `s/old/new/g` | 全局替换 | `sed 's/foo/bar/g' file` |
+| `d` | 删除行 | `sed '/^#/d' file` |
+| `p` | 打印行（需配合 -n） | `sed -n '10,20p' file` |
+| `q` | 退出 sed | `sed '10q' file` |
+| `a\` | 追加行（在匹配行后） | `sed '/error/a\ALERT' log` |
+| `i\` | 插入行（在匹配行前） | `sed '/error/i\CHECK' log` |
+| `c\` | 替换整行 | `sed '/error/c\FOUND_ERROR' log` |
+| `y///` | 字符转换 | `sed 'y/abc/ABC/' file`（a->A, b->B, c->C） |
+
+---
+
+## 3.2 awk -- 结构化文本分析
+
+如果说 `sed` 是"按行处理"的专家，那么 `awk` 就是"按列分析"的利器。`awk` 实际上是一门小型编程语言，有变量、条件、循环、数组和函数，但作为日常命令使用时，掌握几个核心模式就足够了。
+
+### 核心模型
+
+`awk` 的工作模式是：**逐行读取 → 按分隔符拆成列 → 执行模式匹配 → 执行动作**。
+
+```bash
+awk '<模式> { <动作> }' <文件>
+```
+
+- **缺省模式**：匹配所有行（每行都执行动作）
+- **缺省动作**：`{ print }`（等价于打印整行）
+
+**内置变量**：
+
+| 变量 | 含义 |
+|------|------|
+| `$0` | 整行内容 |
+| `$1` | 第 1 列 |
+| `$2` | 第 2 列 |
+| `$NF` | 最后一列 |
+| `$(NF-1)` | 倒数第二列 |
+| `NR` | 当前行号（从 1 开始） |
+| `NF` | 当前行的总列数 |
+| `FS` | 列分隔符（默认空格/制表符） |
+| `OFS` | 输出列分隔符（默认空格） |
+
+### 3.2.1 列提取 -- awk 最基础用法
+
+```bash
+# 打印第 1 列和第 3 列（默认以空格分隔）
+awk '{print $1, $3}' file.txt
+
+# 打印最后一列
+awk '{print $NF}' file.txt
+
+# 打印行号和内容
+awk '{print NR": "$0}' file.txt
+
+# 指定分隔符（-F 选项）
+awk -F: '{print $1, $6}' /etc/passwd         # 用户名和家目录
+
+# 指定多个分隔符
+awk -F'[:/]' '{print $1, $5}' /etc/passwd    # 以 : 或 / 作为分隔符
+
+# 自定义输出分隔符
+awk -F: 'BEGIN{OFS=" | "} {print $1, $3, $7}' /etc/passwd
+```
+
+**实战例子：列出系统中所有可登录用户的用户名和 shell**
+
+```bash
+$ awk -F: '$7 ~ /bash|sh$/ {print $1, $7}' /etc/passwd
+root /bin/bash
+ubuntu /bin/bash
+deploy /bin/sh
+```
+
+### 3.2.2 条件过滤
+
+awk 的模式部分支持完整的比较运算符和逻辑运算：
+
+```bash
+# 数字比较
+awk '$3 > 100 {print $1, $3}' scores.txt          # 第 3 列大于 100
+awk '$5 >= 90 && $5 <= 100 {print $1}' grades.txt # 分数在 90~100 之间
+
+# 字符串匹配（正则）
+awk '$1 ~ /^2026/ {print $0}' access.log           # 第 1 列以 2026 开头
+awk '$7 !~ /\.(jpg|png|gif)/ {print $7}' log.txt   # 第 7 列不匹配图片格式
+
+# 行号过滤
+awk 'NR > 1 {print $0}' file.txt                    # 跳过标题行
+awk 'NR % 2 == 0 {print NR, $0}' log.txt            # 打印偶数行
+
+# 列数过滤
+awk 'NF > 5 {print NR, $0}' messy.txt               # 打印列数超过 5 的行
+```
+
+**实战例子：分析 df 输出，只显示磁盘使用率超过 80% 的分区**
+
+```bash
+$ df -h | awk 'NR > 1 && $5 ~ /%/ {gsub(/%/,"",$5); if ($5+0 > 80) print $1, $5"%"}'
+/dev/sda1 85%
+/dev/sdb1 92%
+```
+
+> [!tip] awk 中的数字比较陷阱
+> 当 awk 的列包含 `%` 等符号时，直接用 `$5 > 80` 比较会失败。需要用 `gsub` 去掉 `%`，再用 `$5+0` 强制转为数字：
+> ```bash
+> # 错误：$5 是字符串 "85%"，不是数字
+> df -h | awk '$5 > 80'
+> 
+> # 正确：去掉 % 后转为数字比较
+> df -h | awk '{gsub(/%/,"",$5); if ($5+0 > 80) print $1, $5"%"}'
+> ```
+
+### 3.2.3 BEGIN 和 END 块
+
+`BEGIN` 在处理第一行之前执行，用于初始化；`END` 在处理最后一行之后执行，用于汇总。
+
+```bash
+# 计算总和
+awk '{sum += $1} END {print "Total:", sum}' numbers.txt
+
+# 计算平均值
+awk '{sum += $1; count++} END {print "Average:", sum/count}' numbers.txt
+
+# 带格式的输出
+awk 'BEGIN {print "=== Report ==="; print "Name\tScore"}
+     {print $1 "\t" $2}
+     END {print "=== End ==="}' scores.txt
+
+# 统计行数（模拟 wc -l）
+awk 'END {print NR}' file.txt
+```
+
+**实战：统计 /etc/passwd 中各 shell 类型数量**
+
+```bash
+$ awk -F: '{shells[$7]++} END {for (s in shells) print s, shells[s]}' /etc/passwd
+/bin/bash 3
+/usr/sbin/nologin 12
+/bin/sh 1
+```
+
+### 3.2.4 统计计算实战
+
+awk 内置的变量和运算使其成为飞快的"命令行计算器"。
+
+```bash
+# 多列运算
+awk '{sum += $1; sumsq += ($1)^2} END {print "Sum:", sum, "Avg:", sum/NR}' data.txt
+
+# 找出最大值和最小值
+awk 'NR==1 {max=$1; min=$1} {if ($1>max) max=$1; if ($1<min) min=$1} END {print "Max:", max, "Min:", min}' data.txt
+
+# 分组统计
+awk '{group[$1] += $2} END {for (g in group) print g, group[g]}' sales.txt
+```
+
+> [!example] 分析 HTTP 访问日志统计
+> ```bash
+> # 场景：access.log 格式为：
+> # 192.168.1.1 - - [28/Jul/2026:10:15:30 +0800] "GET /api/users HTTP/1.1" 200 1234
+> 
+> # 统计每个 IP 的请求次数
+> awk '{ips[$1]++} END {for (ip in ips) print ip, ips[ip]}' access.log
+> 
+> # 统计每个 HTTP 状态码的出现次数
+> awk '{codes[$9]++} END {for (c in codes) print c, codes[c]}' access.log
+> 
+> # 统计每个请求路径的请求次数
+> awk '{paths[$7]++} END {for (p in paths) print paths[p], p}' access.log | sort -rn | head -10
+> ```
+
+### 3.2.5 实用技巧
+
+```bash
+# printf 格式化输出
+awk '{printf "%-20s %8d\n", $1, $2}' file.txt
+
+# 字符串函数
+awk '{print toupper($1), length($0)}' file.txt     # 大写 + 行长度
+awk '{print substr($1, 1, 5)}' file.txt             # 取第 1 列的前 5 个字符
+
+# 将 awk 脚本写入文件（适合复杂场景）
+cat << 'EOF' > report.awk
+BEGIN {print "=== Report ==="}
+{
+    total[$1] += $2
+    count[$1]++
+}
+END {
+    for (key in total) {
+        avg = total[key] / count[key]
+        printf "%-10s %8.2f\n", key, avg
+    }
+}
+EOF
+
+awk -f report.awk data.txt
+```
+
+---
+
+## 3.3 cut -- 快速列提取
+
+如果你只需要最简单的"按分隔符取列"，`cut` 比 `awk` 更轻量、更快。它不能做条件过滤和计算，但提取动作比 awk 更简洁。
+
+### 核心用法
+
+```bash
+cut -d'<分隔符>' -f<列号列表> <文件>
+```
+
+```bash
+# 提取 /etc/passwd 的第 1 和第 7 列（用户名和 shell）
+cut -d: -f1,7 /etc/passwd
+
+# 提取第 1 到第 3 列
+cut -d: -f1-3 /etc/passwd
+
+# 提取第 3 列及之后的所有列
+cut -d: -f3- /etc/passwd
+
+# 排除第 2 列（提取除第 2 列外的所有列）
+cut -d: -f1,3- /etc/passwd
+
+# 默认分隔符是制表符（\"），适合处理 TSV 文件
+cut -f1,3 data.tsv
+```
+
+### cut vs awk 列提取对比
+
+| 场景 | cut | awk |
+|------|-----|-----|
+| `-d:` 分隔后取第 1、3 列 | `cut -d: -f1,3` | `awk -F: '{print $1,$3}'` |
+| 取第 1 列到第 5 列 | `cut -d: -f1-5` | `awk -F: '{print $1,$2,$3,$4,$5}'` |
+| 取第 3 列及之后 | `cut -d: -f3-` | 需要循环或特殊处理 |
+| 条件过滤（$3 > 100） | 不支持 | 支持 |
+| 计算（求和/平均值） | 不支持 | 支持 |
+| 重排列 | `cut -f3,1`（先 3 后 1） | `awk '{print $3,$1}'` |
+| 处理连续空格 | 不支持（单字符分隔符） | 默认支持 |
+
+> [!tip] 什么时候用 cut？
+> 当你的需求仅仅是："按某个字符切分，取第 N 列"，没有任何过滤、计算、重排需求时，用 `cut`。它更快，语法也更简洁。当需求逐渐变复杂时，随时可以切换到 `awk`。
+
+### 字符位置提取
+
+`cut` 还能按**字符位置**提取，这在处理定宽文件时很实用：
+
+```bash
+# 提取每行的第 1~5 个字符
+cut -c1-5 /etc/passwd
+
+# 提取每行的第 1、3、5 个字符
+cut -c1,3,5 /etc/passwd
+
+# 提取每行的第 2 个字符到结尾
+cut -c2- /etc/passwd
+```
+
+> [!example] 实战：解析 ls -l 的输出提取权限位
+> ```bash
+> $ ls -l | tail -n +2 | cut -c1-10
+> drwxr-xr-x
+> -rw-rw-r--
+> -rwxr-xr-x
+> ```
+
+---
+
+## 3.4 sort -- 排序
+
+`sort` 对输入行进行排序，默认按字典序（字母顺序）。
+
+### 核心选项
+
+| 选项 | 含义 | 示例 |
+|------|------|------|
+| `-n` | 按数字大小排序 | `sort -n scores.txt` |
+| `-r` | 降序（反向） | `sort -rn scores.txt` |
+| `-k` | 按指定列排序 | `sort -k2 -n scores.txt` |
+| `-t` | 指定分隔符 | `sort -t: -k3 -n /etc/passwd` |
+| `-h` | 人类可读数字排序（2K, 1G） | `sort -h sizes.txt` |
+| `-u` | 去重（同 uniq） | `sort -u file.txt` |
+
+```bash
+# 按数字排序（默认 sort 按字符串，10 < 2）
+$ cat scores.txt
+Alice 90
+Bob 100
+Charlie 75
+
+$ sort -k2 -n scores.txt         # 按第 2 列数字升序
+Charlie 75
+Alice 90
+Bob 100
+
+$ sort -k2 -rn scores.txt        # 降序
+Bob 100
+Alice 90
+Charlie 75
+```
+
+**按人类可读大小排序**：
+
+```bash
+$ du -sh * | sort -rh            # 从大到小排序文件/目录大小
+1.2G  videos/
+456M  backups/
+23M   logs/
+4.2M  config/
+```
+
+> [!tip] sort -h 的神奇之处
+> `-h` 选项能正确识别 `K`、`M`、`G`、`T` 等单位并按照实际大小排序。如果没有 `-h`，`1.2G` 会被排在 `456M` 前面（字典序），这显然是错的。
+
+### 多级排序
+
+```bash
+# 先按第 2 列数字降序，相同则按第 3 列数字升序
+sort -k2,2rn -k3,3n data.txt
+
+# 示例：学生成绩按总分降序，总分相同则按语文成绩升序
+sort -k3,3rn -k2,2n students.txt
+```
+
+---
+
+## 3.5 uniq -- 去重与统计
+
+`uniq` 只能去除**相邻**的重复行。所以它几乎总是和 `sort` 配合使用。
+
+### 核心选项
+
+| 选项 | 含义 | 示例 |
+|------|------|------|
+| 无选项 | 去除相邻的重复行 | `sort file \| uniq` |
+| `-c` | 统计每行出现次数 | `sort file \| uniq -c` |
+| `-d` | 只显示重复的行 | `sort file \| uniq -d` |
+| `-u` | 只显示唯一行（不重复的） | `sort file \| uniq -u` |
+
+```bash
+# 基本去重（必须先排序）
+sort names.txt | uniq
+
+# 统计词频（最常用的组合之一）
+sort words.txt | uniq -c | sort -rn
+# 输出示例：
+#  142 the
+#   89 to
+#   75 and
+#   56 of
+
+# 只显示重复项
+sort names.txt | uniq -d
+
+# 只显示唯一项
+sort names.txt | uniq -u
+
+# 忽略前 N 个字段比较去重
+sort -k2 file.txt | uniq -f1      # 忽略第 1 列，比较剩余部分去重
+```
+
+> [!example] 日志分析经典组合
+> ```bash
+> # 统计 access.log 中访问次数最多的 10 个 IP
+> awk '{print $1}' access.log | sort | uniq -c | sort -rn | head -10
+> 
+> # 输出示例：
+>  3425 192.168.1.100
+>  2100 10.0.0.55
+>  1890 172.16.0.10
+> ```
+
+---
+
+## 3.6 管道组合实战
+
+将以上工具用管道 `|` 串联起来，是 Linux 命令行最强大的能力之一。下面覆盖几个真实场景。
+
+### 场景 1：Nginx 访问日志分析
+
+假设 `access.log` 的标准格式（Combined Log Format）：
+
+```
+192.168.1.1 - - [28/Jul/2026:10:15:30 +0800] "GET /api/users HTTP/1.1" 200 1234 "https://example.com" "Mozilla/5.0"
+```
+
+**任务 1：找出访问最多的前 10 个 IP**
+
+```bash
+$ awk '{print $1}' access.log | sort | uniq -c | sort -rn | head -10
+   4523 192.168.1.100
+   3891 10.0.0.55
+   2104 203.0.113.50
+```
+
+**任务 2：统计每个 HTTP 状态码的出现次数**
+
+```bash
+$ awk '{print $9}' access.log | sort | uniq -c | sort -rn
+  15200 200
+   1200 304
+    450 404
+     23 500
+      5 502
+```
+
+**任务 3：找出产生最多 404 错误的 URL 路径**
+
+```bash
+$ grep ' 404 ' access.log | awk '{print $7}' | sort | uniq -c | sort -rn | head -10
+    89 /wp-admin/admin-ajax.php
+    67 /old-api/v1/users
+    45 /nonexistent-page
+```
+
+**任务 4：找出返回时间最慢的 5 个请求**（假设日志格式中有响应时间）
+
+```bash
+# 假设日志在第 10 列（NF-1）记录响应时间
+$ awk '{print $(NF-1), $7, $1}' access.log | sort -rn | head -5
+12.345 /api/reports 192.168.1.1
+11.002 /search?q=linux 10.0.0.2
+9.876 /data/export 172.16.0.5
+```
+
+### 场景 2：系统性能数据统计
+
+**任务 1：找出 /var 下占用空间最大的 10 个目录**
+
+```bash
+$ du /var | sort -rn | head -10
+# 或者更可读的版本
+$ du -sh /var/* | sort -rh | head -10
+```
+
+**任务 2：统计当前系统中各用户的进程数**
+
+```bash
+$ ps aux | awk 'NR>1 {print $1}' | sort | uniq -c | sort -rn
+   45 root
+   12 www-data
+    5 ubuntu
+```
+
+**任务 3：查看最近的登录记录**
+
+```bash
+$ last | awk '{print $1}' | sort | uniq -c | sort -rn
+   23 ubuntu
+   12 root
+```
+
+### 场景 3：数据清洗与格式转换
+
+**任务 1：CSV 文件转置和统计**
+
+```bash
+# 原始 CSV：name,score,class
+# 统计每个班级的平均分
+$ awk -F, 'NR>1 {sum[$3]+=$2; count[$3]++} END {for (c in sum) print c, sum[c]/count[c]}' grades.csv
+A 85.3
+B 78.6
+C 92.1
+```
+
+**任务 2：从日志中提取特定时间段，统计并排序**
+
+```bash
+# 提取 10:00~11:00 的日志，统计各路径访问量
+$ awk '$4 ~ /10:|11:/ {print $7}' access.log | sort | uniq -c | sort -rn | head -10
+```
+
+**任务 3：多个文件拼接后去重**
+
+```bash
+# 合并多个黑名单并去重
+$ cat blocklist1.txt blocklist2.txt blocklist3.txt | sort -u > merged_blocklist.txt
+```
+
+### 场景 4：寻找进程并批量操作
+
+```bash
+# 查找 nginx 进程的内存使用总和（MB）
+$ ps aux | grep nginx | grep -v grep | awk '{sum += $6} END {print sum/1024 " MB"}'
+
+# 杀掉所有由 deploy 用户运行的 node 进程
+$ ps -u deploy -o pid,comm | grep node | awk '{print $1}' | xargs kill
+
+# 找到占用 CPU 最高的 5 个进程
+$ ps aux --sort=-%cpu | head -6
+```
+
+> [!warning] xargs 的危险
+> 当 `kill` 配合 `xargs` 时，一定要先确认输出的 PID 是否正确。建议先不加管道执行前半部分，确认无误后再加上：
+> ```bash
+> # 危险做法（一步到位）
+> ps aux | grep nginx | awk '{print $2}' | xargs kill
+> 
+> # 安全做法（分两步）
+> ps aux | grep nginx | awk '{print $2}'       # 先确认 PID
+> ps aux | grep nginx | awk '{print $2}' | xargs kill  # 确认后再执行
+> ```
+
+---
+
+## 3.7 完整实战案例
+
+### 案例 1：Web 服务器日志一键分析脚本
+
+```bash
+#!/bin/bash
+# 功能：分析 Nginx access.log，输出关键指标
+LOG=${1:-/var/log/nginx/access.log}
+
+echo "=== Nginx 访问日志分析报告 ==="
+echo "日志文件: $LOG"
+echo ""
+
+echo "1. 总请求数"
+wc -l < "$LOG"
+
+echo "2. 独立 IP 数"
+awk '{print $1}' "$LOG" | sort -u | wc -l
+
+echo "3. 访问最多的 5 个 IP"
+awk '{print $1}' "$LOG" | sort | uniq -c | sort -rn | head -5
+
+echo "4. 访问最多的 5 个路径"
+awk '{print $7}' "$LOG" | sort | uniq -c | sort -rn | head -5
+
+echo "5. HTTP 状态码分布"
+awk '{print $9}' "$LOG" | sort | uniq -c | sort -rn
+
+echo "6. 4XX 错误路径 Top 10"
+grep ' 4[0-9][0-9] ' "$LOG" | awk '{print $7}' | sort | uniq -c | sort -rn | head -10
+
+echo "7. 总流量（MB）"
+awk '{sum += $10} END {print sum/1024/1024 " MB"}' "$LOG"
+```
+
+### 案例 2：CSV 数据处理
+
+```bash
+# 假设 data.csv 格式：
+# Name,Age,City,Salary
+# Alice,30,Beijing,15000
+# Bob,25,Shanghai,12000
+# Charlie,35,Shenzhen,20000
+
+# 计算平均薪资
+$ awk -F, 'NR>1 {sum+=$4; count++} END {print "Avg salary:", sum/count}' data.csv
+Avg salary: 15666.7
+
+# 按城市分组统计平均薪资
+$ awk -F, 'NR>1 {sum[$3]+=$4; count[$3]++} END {for (city in sum) printf "%s: %.0f\n", city, sum[city]/count[city]}' data.csv
+Beijing: 15000
+Shanghai: 12000
+Shenzhen: 20000
+
+# 找出薪资最高的人
+$ awk -F, 'NR>1 {if ($4 > max) {max=$4; name=$1}} END {print name, max}' data.csv
+Charlie 20000
+```
+
+### 案例 3：配置文件批量修改
+
+```bash
+# 场景：批量修改多个 YAML 配置文件中的数据库连接字符串
+
+# 预览所有配置中的数据库主机
+$ grep -r "host:" config/*.yaml | awk '{print $3}' | sort -u
+
+# 批量替换旧主机地址为新地址（保留备份）
+$ find config/ -name "*.yaml" -exec sed -i.bak 's/db-old.example.com/db-new.example.com/g' {} \;
+
+# 确认替换结果
+$ grep -r "host:" config/*.yaml
+
+# 如果确认无误，删除备份文件
+$ find config/ -name "*.bak" -delete
+```
+
+### 案例 4：大文件高效处理
+
+当处理几百 MB 甚至 GB 级别的文件时，以下技巧能让你等得不要那么久。
+
+```bash
+# 只看文件头部和尾部
+head -1 huge.log                      # 看第 1 行（了解格式）
+tail -1 huge.log                      # 看最后 1 行（最新时间）
+
+# 只看感兴趣的行
+grep 'ERROR' huge.log | head -20      # 快速浏览错误类型
+
+# 分段处理：用 split 拆分后并行处理
+split -l 100000 huge.log chunk_       # 每 10 万行拆成一个小文件
+for f in chunk_*; do
+    awk '{...}' "$f" > "result_$f" &  # 并行处理（& 放入后台）
+done
+wait                                   # 等待所有后台任务完成
+
+# 管道流式处理（不产生中间文件）
+zcat huge.log.gz | grep 'ERROR' | awk '{print $1}' | sort | uniq -c | sort -rn | head -10
+```
+
+> [!tip] 大文件处理的黄金法则
+> 1. **能流式就别存中间文件**：用管道串联，避免磁盘 I/O
+> 2. **能过滤就早过滤**：把 `grep` 放在管道最前面，让后续处理的数据量尽量小
+> 3. **测试时用小数据量**：先用 `head -1000` 或 `tail -f` 验证命令正确性，再跑全量
+> 4. **善用 `zcat` / `bzcat`**：直接处理压缩文件，解压到管道，不需要先解压到磁盘
+
+---
+
+## 本章总结
+
+- **sed** 是流编辑器，核心操作是替换 `s///g` 和行操作（删除 `d`、打印 `p`、退出 `q`），`-i` 做原地编辑时务必先预览或留备份
+- **awk** 是按列分析的语言级工具，核心模式 `{print $1, $NF}`，支持条件过滤、统计计算、分组聚合，`-F` 指定分隔符，`BEGIN/END` 做初始化和收尾
+- **cut** 是最轻量的列提取工具，按分隔符 `-d` 或字符位置 `-c` 取列，适合简单场景
+- **sort** 按列排序，`-n` 按数字、`-r` 降序、`-h` 认识单位、`-k` 指定排序列
+- **uniq** 去重必须配合 `sort` 使用（因为只去相邻重复），`-c` 统计频率是最常用选项
+- **管道组合**是文本处理的核心生产力，学会"先选数据再加工"的思维：`选取 → 转换 → 排序 → 统计 → 截取`
+- **复杂场景四步法**：先用小数据测试、确认中间结果、再跑全量、最后验证输出
+
+## 下一步
+
+文本处理三剑客让你拥有了"命令行数据分析"的核心能力。第四章将转向**进程管理与系统监控**，学习如何使用 `ps`、`top`、`systemctl` 来管理和排查系统进程，以及后台作业的灵活控制。

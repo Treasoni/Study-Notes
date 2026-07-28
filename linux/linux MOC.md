@@ -34,7 +34,16 @@ tags: [linux, moc, 索引]
 
 | 笔记 | 说明 |
 |------|------|
-| [[Linux 常用命令实战手册]] | 常用命令全面实战手册，涵盖文件操作、文本处理、进程管理、网络诊断等 |
+| [[Linux 常用命令速查索引]] | 命令主题索引，快速定位对应笔记 |
+| [[linux常用命令/Linux 文件与目录操作]] | ls、cp、mv、rm、find、tar 等文件操作 |
+| [[linux常用命令/Linux 文件内容查看与搜索]] | cat、less、grep 文件查看与搜索 |
+| [[linux常用命令/Linux 文本处理三剑客]] | sed、awk、cut、sort、uniq 文本处理 |
+| [[linux常用命令/Linux 进程管理与系统监控]] | ps、top、systemctl、journalctl |
+| [[linux常用命令/Linux 网络诊断与排障]] | ping、curl、ss、tcpdump 网络工具 |
+| [[linux常用命令/Linux 权限管理基础]] | chmod、chown、umask、特殊权限 |
+| [[linux常用命令/Linux 磁盘与存储管理]] | df、du、fdisk、mount |
+| [[linux常用命令/Linux 软件包管理]] | apt、dnf、pacman 跨发行版 |
+| [[linux常用命令/Linux Shell 实用技巧]] | 管道、重定向、别名、一行命令 |
 
 ### 系统基础
 
@@ -153,11 +162,54 @@ flowchart LR
 
 ### 五、常用命令参考
 
-#### 5.1 Linux 常用命令实战手册
-- **适用场景**：日常开发运维、命令速查、系统学习
-- **关键点**：文件操作、文本处理（grep/sed/awk）、进程管理、网络诊断、权限管理、磁盘/包管理、Shell 技巧
-- **命令示例**：`ls`、`grep`、`sed`、`awk`、`ps`、`systemctl`、`curl`、`ss`、`tcpdump`、`chmod`、`df`、`apt`
-- **相关**：[[linux的文件权限]] | [[cpu的线程和内核]] | [[linux磁盘相关的知识]] | [[linux如何修改网络信息]]
+#### 5.1 Linux 常用命令速查索引
+- **适用场景**：命令速查导航，快速定位对应主题笔记
+- **相关**：所有 Linux 命令主题笔记
+
+#### 5.2 Linux 文件与目录操作
+- **适用场景**：日常文件管理、批量操作
+- **命令**：`ls`、`cp`、`mv`、`rm`、`find`、`tar`
+- **相关**：[[linux常用命令/Linux 文件内容查看与搜索]]
+
+#### 5.3 Linux 文件内容查看与搜索
+- **适用场景**：日志查看、内容搜索
+- **命令**：`cat`、`less`、`head`、`tail`、`grep`
+- **相关**：[[linux常用命令/Linux 文本处理三剑客]]
+
+#### 5.4 Linux 文本处理三剑客
+- **适用场景**：日志分析、数据处理、批量替换
+- **命令**：`sed`、`awk`、`cut`、`sort`、`uniq`
+- **相关**：[[linux常用命令/Linux Shell 实用技巧]]
+
+#### 5.5 Linux 进程管理与系统监控
+- **适用场景**：服务管理、性能监控、故障排查
+- **命令**：`ps`、`top`、`systemctl`、`journalctl`
+- **相关**：[[linux常用命令/Linux 网络诊断与排障]]
+
+#### 5.6 Linux 网络诊断与排障
+- **适用场景**：网络连通性排查、HTTP 测试、抓包分析
+- **命令**：`ping`、`curl`、`ss`、`tcpdump`、`dig`
+- **相关**：[[linux如何修改网络信息]]
+
+#### 5.7 Linux 权限管理基础
+- **适用场景**：文件权限设置、多用户协作、安全加固
+- **命令**：`chmod`、`chown`、`umask`
+- **相关**：[[linux的文件权限]]
+
+#### 5.8 Linux 磁盘与存储管理
+- **适用场景**：磁盘空间告警、分区管理、挂载配置
+- **命令**：`df`、`du`、`fdisk`、`mount`
+- **相关**：[[linux磁盘相关的知识]]
+
+#### 5.9 Linux 软件包管理
+- **适用场景**：软件安装、系统更新
+- **命令**：`apt`、`dnf`、`pacman`
+- **相关**：[[Linux换源]]
+
+#### 5.10 Linux Shell 实用技巧
+- **适用场景**：提升命令行效率、脚本编写
+- **命令**：管道、重定向、别名、快捷键
+- **相关**：[[linux常用命令/Linux 文本处理三剑客]]
 
 ---
 
@@ -172,7 +224,14 @@ graph TB
     end
     
     subgraph 命令参考
-        J[Linux 常用命令实战手册]
+        J[Linux 常用命令速查索引]
+        K[Linux 文件与目录操作]
+        L[Linux 文本处理三剑客]
+        M[Linux 进程管理]
+        N[Linux 网络诊断]
+        O[Linux 权限管理]
+        P[Linux 磁盘管理]
+        Q[Linux Shell 技巧]
     end
 
     subgraph 磁盘
@@ -197,9 +256,18 @@ graph TB
     D --> E
     F --> G
     E --> H
-    J --> H
-    J --> D
-    J --> F
+    J --> K
+    J --> L
+    J --> M
+    J --> N
+    J --> O
+    J --> P
+    J --> Q
+    K --> D
+    K --> F
+    L --> Q
+    M --> N
+    O --> H
 ```
 
 ---
@@ -208,16 +276,18 @@ graph TB
 
 ### 路径一：服务器管理员
 1. [[Ubuntu Server 安装教程]] → [[Ubuntu Server SSH 配置指南]] → [[Linux换源]]
-2. [[Linux 常用命令实战手册]] → [[linux磁盘相关的知识]] → [[linux的LVM管理]]
-3. [[linux如何修改网络信息]] → [[linux的文件权限]]
+2. [[linux常用命令/Linux 文件与目录操作]] → [[linux常用命令/Linux 磁盘与存储管理]] → [[linux磁盘相关的知识]]
+3. [[linux常用命令/Linux 网络诊断与排障]] → [[linux如何修改网络信息]] → [[linux的文件权限]]
 
 ### 路径二：开发环境搭建
 1. [[WSL-Windows子系统forLinux]] → [[Linux换源]]
-2. [[Linux 常用命令实战手册]] → [[linux的文件权限]] → [[cpu的线程和内核]]
+2. [[linux常用命令/Linux Shell 实用技巧]] → [[linux常用命令/Linux 文本处理三剑客]]
+3. [[linux常用命令/Linux 权限管理基础]] → [[linux常用命令/Linux 软件包管理]]
 
 ### 路径三：命令与排障进阶
-1. [[Linux 常用命令实战手册]]（文本处理/网络诊断章节）
-2. [[Ubuntu curl SSL连接问题排查]] → [[linux如何修改网络信息]]
+1. [[Linux 常用命令速查索引]]（入口导航）
+2. [[linux常用命令/Linux 文本处理三剑客]] → [[linux常用命令/Linux 网络诊断与排障]]
+3. [[Ubuntu curl SSL连接问题排查]] → [[linux如何修改网络信息]]
 
 ---
 
@@ -225,7 +295,10 @@ graph TB
 
 | 文件 | 更新日期 |
 |------|----------|
-| [[Linux 常用命令实战手册]] | 2026-07-29 |
+| [[Linux 常用命令速查索引]] | 2026-07-29 |
+| [[linux常用命令/Linux 文件与目录操作]] | 2026-07-29 |
+| [[linux常用命令/Linux 文本处理三剑客]] | 2026-07-29 |
+| [[linux常用命令/Linux 网络诊断与排障]] | 2026-07-29 |
 | [[Linux换源]] | 2026-07-28 |
 | [[Ubuntu curl SSL连接问题排查]] | 2026-03-29 |
 | [[WSL-Windows子系统forLinux]] | 2026-03-29 |

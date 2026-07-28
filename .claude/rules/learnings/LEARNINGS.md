@@ -47,3 +47,45 @@
 
 ---
 
+
+## [LRN-20260729-001] best_practice
+
+**Logged**: 2026-07-29T00:20:00+08:00
+**Priority**: medium
+**Status**: active
+**Area**: obsidian
+
+### Summary
+大笔记应拆分为多个主题独立的单篇笔记，放入一个专用文件夹
+
+### Details
+本次 "Linux 常用命令实战手册" 初始产出为 5423 行单一笔记，用户反馈太大。改为按章节拆分为 9 篇独立笔记 + 1 篇索引页，放入 `linux/linux常用命令/` 文件夹。每篇 300-800 行，按需查阅。
+
+拆分要点：
+- 每篇添加独立 YAML frontmatter（title/created/updated/tags/status）
+- 创建轻量索引页汇总所有子篇的链接和说明
+- MOC 中每个子篇独立一条索引项，链接路径用文件夹前缀
+- 原有的旧笔记（如 linux的文件权限.md）保持不动
+
+### Suggested Action
+产出综合型笔记时，优先考虑"一个主题文件夹 + 多篇独立笔记 + 索引页"结构，而非单一长篇笔记。写入 CLAUDE.md 或 note-system.md 作为规范。
+
+---
+
+## [LRN-20260729-002] tool_limitation
+
+**Logged**: 2026-07-29T00:20:30+08:00
+**Priority**: low
+**Status**: active
+**Area**: research
+
+### Summary
+WebFetch 无法访问 cloud.tencent.com 和 blog.csdn.net 等国内技术站点
+
+### Details
+深度收集阶段尝试用 WebFetch 精读腾讯云和 CSDN 的文章，全部返回 "Unable to verify if domain is safe to fetch"。改用 WebSearch 获取摘要信息，结合自身知识库完成内容编写。
+
+### Suggested Action
+遇到 WebFetch 无法访问的站点时，优先用 WebSearch + 自身知识库的组合方案，或尝试 defuddle skill。
+
+---

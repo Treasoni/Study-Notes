@@ -1,0 +1,742 @@
+---
+title: "Linux 网络诊断与排障"
+created: 2026-07-29
+updated: 2026-07-29
+tags: [linux, 网络, curl, tcpdump]
+status: completed
+source_project: linux-commands
+---
+
+> [!note]
+> 网络问题是日常开发和运维中最常遇到的故障来源之一。本章将系统性地介绍 Linux 下的网络诊断工具链：从连通性测试、DNS 解析、路由追踪，到端口检测、HTTP 服务验证和抓包分析。学完本章，你将掌握一套完整的网络排障方法，遇到网络问题时不再是盲目猜测，而是逐步排查、精准定位。
+
+---
+
+## 5.1 连通性测试：ping
+
+`ping` 是最基础也最常用的网络连通性测试工具。它通过发送 ICMP Echo 请求并等待响应，来判断目标主机是否可达以及网络延迟情况。
+
+### 基本用法
+
+```bash
+ping -c 4 example.com              # 发送 4 个 ICMP 包后自动停止
+ping -c 4 8.8.8.8                  # 直接 ping IP 地址（跳过 DNS 解析）
+ping -c 4 -i 0.2 example.com       # 每 0.2 秒发一个包（默认 1 秒）
+ping -c 4 -s 1472 example.com      # 指定包大小为 1472 字节（MTU 测试用）
+```
+
+**输出解读**：
+
+```bash
+$ ping -c 4 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=118 time=12.3 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=118 time=11.8 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=118 time=12.1 ms
+64 bytes from 8.8.8.8: icmp_seq=4 ttl=118 time=11.9 ms
+
+--- 8.8.8.8 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3005ms
+rtt min/avg/max/mdev = 11.794/12.037/12.287/0.173 ms
+```
+
+关键指标解释：
+
+| 指标 | 含义 | 正常范围 |
+|------|------|---------|
+| `time` | 往返延迟（RTT），从发出到收到响应的时间 | 同机房 < 1ms，同城 < 10ms，跨省 < 50ms，跨国 < 200ms |
+| `ttl` | 生存时间，每经过一个路由器减 1 | Linux 初始 64，Windows 初始 128 |
+| `packet loss` | 丢包率 | 正常应为 0% |
+| `mdev` | 延迟抖动，标准差 | 越小越稳定 |
+
+> [!tip] 通过 TTL 判断目标系统类型
+> 如果回包的 TTL 在 64 附近（如 52-64），目标很可能是 Linux/Unix 系统；如果在 128 附近，则很可能是 Windows。这是因为不同操作系统 ICMP 包的初始 TTL 不同。
+>
+> ```bash
+> # TTL=118，初始 TTL=64，说明经过了 64-118+1=... 
+> # 不对，ping 回显的 TTL 是目标的初始 TTL 减去经过的跳数
+> # Linux 通常初始 TTL=64，如果收到 118，说明目标不是 Linux
+> # 跳过计算：初始 TTL 128 - 10(跳数) = 118 → Windows
+> # 初始 TTL 64 - 10(跳数) = 54 → Linux
+> ```
+
+### 常见故障模式
+
+| 现象 | 可能原因 | 下一步排查 |
+|------|---------|-----------|
+| 100% 丢包 | 目标宕机、网络断开、防火墙拦截 ICMP | 检查本机网络 `ip a`，检查防火墙 |
+| 部分丢包 | 网络拥塞、链路不稳定 | 用 `mtr` 追踪丢包发生在哪一跳 |
+| 延迟突增 | 跨运营商、链路质量差 | 用 `traceroute` 定位延迟在哪跳增加 |
+| 目标域名解析失败 | DNS 问题 | 用 `dig` 检查 DNS 解析 |
+
+> [!warning] 不要用 ping 判断服务是否正常
+> 能 ping 通只说明网络层（ICMP）可达，但不能代表应用层（HTTP/SSH/MySQL 等）服务正常。很多服务器会防火墙拦截 ICMP（此时 ping 不通但不代表服务不可用），反过来即使 ping 通，HTTP 服务也可能已挂掉。
+
+---
+
+## 5.2 DNS 查询：dig
+
+`dig`（Domain Information Groper）是最强大的 DNS 查询工具。当遇到"能 ping 通 IP 但域名访问不了"的问题时，首先就该用 `dig` 检查 DNS 解析。
+
+### 基本用法
+
+```bash
+dig example.com                      # 标准查询，显示完整信息
+dig example.com +short               # 只返回解析结果（最常用）
+dig example.com A                    # 查询 A 记录（IPv4）
+dig example.com AAAA                 # 查询 AAAA 记录（IPv6）
+dig example.com MX                   # 查询 MX 记录（邮件交换）
+dig example.com NS                   # 查询 NS 记录（权威域名服务器）
+dig example.com CNAME                # 查询 CNAME 记录（别名）
+dig -x 8.8.8.8                       # 反向查询（IP → 域名）
+dig @1.1.1.1 example.com             # 指定 DNS 服务器查询（不依赖系统配置）
+```
+
+**标准输出解读**：
+
+```bash
+$ dig example.com
+
+; <<>> DiG 9.18.28-1~deb12u2-Debian <<>> example.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 12345
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;example.com.                   IN      A
+
+;; ANSWER SECTION:
+example.com.            86400   IN      A       93.184.216.34
+
+;; Query time: 23 msec
+;; SERVER: 192.168.1.1#53(192.168.1.1)
+;; WHEN: Tue Jul 28 10:00:00 CST 2026
+;; MSG SIZE  rcvd: 56
+```
+
+关注 `status` 字段：
+
+| status | 含义 |
+|--------|------|
+| `NOERROR` | 解析成功 |
+| `NXDOMAIN` | 域名不存在（检查是否拼写错误） |
+| `SERVFAIL` | DNS 服务器故障 |
+| `REFUSED` | 请求被拒绝 |
+
+### 实用技巧
+
+```bash
+# 只关心 IP 地址
+dig +short example.com
+# 输出: 93.184.216.34
+
+# 追踪 DNS 解析路径（从根服务器开始递归）
+dig +trace example.com
+
+# 查询特定类型的多条记录
+dig github.com A +short
+dig github.com CNAME +short
+
+# 批量查询域名
+echo -e "google.com\ngithub.com\nstackoverflow.com" | while read d; do
+    echo "$d -> $(dig +short $d)";
+done
+```
+
+> [!tip] /etc/hosts 会绕过 DNS
+> 系统首先检查 `/etc/hosts` 文件，如果其中有域名映射，则不会发起 DNS 查询。这就是为什么有时候 `dig` 返回了正确 IP，但 `ping` 或 `curl` 仍然解析到错误地址——检查 `/etc/hosts` 是否有脏条目：
+> ```bash
+> cat /etc/hosts
+> # 127.0.0.1 example.com  ← 如果有这行，所有到 example.com 的请求都会发往本地
+> ```
+
+---
+
+## 5.3 路由追踪：traceroute
+
+当 ping 显示丢包或延迟异常时，`traceroute` 能告诉你问题出在网络路径的哪一段。
+
+### 基本用法
+
+```bash
+traceroute example.com               # 标准路由追踪
+traceroute -n example.com            # 不解析域名（速度快）
+traceroute -n -q 1 example.com       # 每跳只发 1 个探测包（默认 3 个）
+traceroute -I example.com            # 用 ICMP 代替 UDP（部分防火墙不会拦截）
+```
+
+**输出示例**：
+
+```bash
+$ traceroute -n 8.8.8.8
+traceroute to 8.8.8.8 (8.8.8.8), 30 hops max, 60 byte packets
+ 1  192.168.1.1    0.512 ms   0.489 ms   0.512 ms       ← 家用路由器
+ 2  10.0.0.1       2.123 ms   2.089 ms   2.101 ms       ← 运营商网关
+ 3  172.16.1.2     5.234 ms   5.211 ms   5.198 ms       ← 省级骨干节点
+ 4  61.xxx.xxx.1   12.345 ms  12.321 ms  12.298 ms      ← 骨干网出口
+ 5  * * *                                            ← 该跳无响应（可能防火墙）
+ 6  72.14.xxx.xxx  25.123 ms  25.089 ms  25.101 ms      ← Google 骨干
+ 7  8.8.8.8        12.001 ms  11.987 ms  12.034 ms       ← 最终目标
+```
+
+**逐行解读**：
+
+- 每一行代表一个网络跳（路由器）
+- 三列时间是三次探测的 RTT
+- `* * *` 表示该跳无响应（路由器不回应或防火墙拦截）
+
+### 定位故障点
+
+```bash
+# 场景：ping 丢包，但不知道路由哪一段出问题
+# 观察 traceroute 中哪一跳开始出现 * 或延迟突增
+
+# 更好的替代工具：mtr（traceroute + ping 的结合）
+mtr -n 8.8.8.8                    # 实时显示每一跳的丢包率和延迟
+mtr -n -r -c 10 8.8.8.8          # 发送 10 个包后输出报告（适合脚本）
+```
+
+> [!tip] traceroute vs mtr
+> `traceroute` 只做一次快照，而 `mtr` 会持续发送包并统计每一跳的丢包率，更适合诊断间歇性问题。如果系统没有 `mtr`，先安装：`sudo apt install mtr-tiny`。
+
+---
+
+## 5.4 HTTP/HTTPS 测试：curl
+
+`curl` 是命令行 HTTP 客户端的事实标准。调试 Web 服务、API 接口、下载文件都离不开它。
+
+### 常用调试模式
+
+```bash
+curl https://example.com                    # GET 请求，输出响应体
+curl -I https://example.com                 # 只查看响应头（HEAD 请求）
+curl -v https://example.com                 # 详细模式，显示请求和响应头 + TLS 握手
+curl -L https://example.com                 # 跟随重定向（默认不跟随）
+curl -o output.html https://example.com     # 下载文件到指定名称
+curl -s https://example.com                 # 静默模式，不显示进度条和错误
+```
+
+**`-v` 详细输出的关键信息**：
+
+```bash
+$ curl -v https://api.example.com
+*   Trying 93.184.216.34:443...                    ← 解析到 IP，开始 TCP 连接
+* Connected to api.example.com (93.184.216.34) port 443 (#0)  ← TCP 连接建立
+* ALPN: curl offers h2,http/1.1                    ← TLS 握手开始
+*  SSL certificate verify ok.                      ← 证书验证通过
+> GET /api/v1/users HTTP/2                         ← 发送 HTTP 请求
+> Host: api.example.com
+> User-Agent: curl/7.88.1
+>
+< HTTP/2 200                                       ← 收到响应，状态码 200
+< content-type: application/json
+< content-length: 234
+<
+{"users": [...]}                                   ← 响应体
+```
+
+### HTTP 状态码速查
+
+| 状态码 | 含义 | 常见原因 |
+|--------|------|---------|
+| 200 | 成功 | 一切正常 |
+| 301/302 | 重定向 | 需要用 `-L` 跟随 |
+| 401 | 未授权 | 缺少认证信息 |
+| 403 | 禁止访问 | IP 被限制、权限不足 |
+| 404 | 未找到 | 路径错误 |
+| 500 | 服务器内部错误 | 后端服务挂了 |
+| 502 | Bad Gateway | 代理/网关后端不可达 |
+| 503 | 服务不可用 | 服务过载或维护中 |
+| 504 | 网关超时 | 后端响应超时 |
+
+### HTTP 请求测试
+
+```bash
+# 带请求头的 GET 请求
+curl -H "Authorization: Bearer token123" https://api.example.com/users
+
+# POST 请求发送 JSON
+curl -X POST -H "Content-Type: application/json" \
+     -d '{"name":"test","email":"test@example.com"}' \
+     https://api.example.com/users
+
+# PUT 请求更新资源
+curl -X PUT -H "Content-Type: application/json" \
+     -d '{"email":"new@example.com"}' \
+     https://api.example.com/users/1
+
+# 测试 REST API 并只关注响应码
+curl -s -o /dev/null -w "%{http_code}" https://api.example.com/health
+# 输出: 200
+```
+
+### 耗时分析
+
+这是 `curl` 最强大的功能之一——拆解 HTTP 请求的各个环节耗时。对于排查"为什么接口慢"非常有用。
+
+```bash
+curl -o /dev/null -s -w "\
+DNS:    %{time_namelookup}s\n\
+TCP:    %{time_connect}s\n\
+TLS:    %{time_appconnect}s\n\
+TTFB:   %{time_starttransfer}s\n\
+Total:  %{time_total}s\n\
+Speed:  %{speed_download}B/s\n\
+Status: %{http_code}\n" https://example.com
+```
+
+**输出示例**：
+
+```bash
+DNS:    0.023s       ← DNS 解析耗时（23ms，正常）
+TCP:    0.045s       ← TCP 三次握手（45ms）
+TLS:    0.182s       ← TLS 握手（182ms，包含了 TCP 时间）
+TTFB:   0.245s       ← 首字节时间（245ms，服务端处理时间的关键指标）
+Total:  0.890s       ← 总耗时（包含下载响应体）
+Speed:  1250.0B/s    ← 下载速度
+Status: 200
+```
+
+**耗时分析指南**：
+
+| 环节耗时长 | 可能原因 |
+|-----------|---------|
+| DNS 耗时 > 100ms | DNS 服务器响应慢，考虑换 DNS（如 1.1.1.1 或 223.5.5.5） |
+| TCP 耗时 > 200ms | 物理距离远或中间路由问题 |
+| TLS 耗时 > 500ms | 证书链过长或服务器性能不足 |
+| TTFB 耗时异常长 | **后端应用处理慢**（最常见的问题来源） |
+
+> [!example] 把耗时分析封装成脚本
+> 每天都要用的话，可以写成函数放在 `.bashrc` 里：
+> ```bash
+> curltime() {
+>   curl -o /dev/null -s -w "\
+>   DNS: %{time_namelookup}s\n\
+>   TCP: %{time_connect}s\n\
+>   TLS: %{time_appconnect}s\n\
+>   TTFB: %{time_starttransfer}s\n\
+>   Total: %{time_total}s\n\
+>   Status: %{http_code}\n" "$@"
+> }
+> # 使用
+> curltime https://api.example.com/health
+> ```
+
+---
+
+## 5.5 端口监听检查：ss
+
+需要知道服务器上哪些端口在监听、谁在监听时，`ss`（Socket Statistics）是首选工具。它取代了传统的 `netstat`，速度更快、输出更清晰。
+
+### 基础查询
+
+```bash
+ss -tlnp                    # 查看所有 TCP 监听端口（含进程信息）
+ss -ulnp                    # 查看所有 UDP 监听端口
+ss -tun                     # 查看所有 TCP + UDP 连接（不限于监听）
+ss -tlnp | grep :80         # 查看端口 80 是否在监听
+ss -tn state established    # 查看所有已建立的 TCP 连接
+```
+
+**输出示例**：
+
+```bash
+$ ss -tlnp
+State    Recv-Q   Send-Q     Local Address:Port      Peer Address:Port   Process
+LISTEN   0        128              0.0.0.0:22             0.0.0.0:*       users:(("sshd",pid=1234,fd=3))
+LISTEN   0        128                 [::]:22                [::]:*       users:(("sshd",pid=1234,fd=4))
+LISTEN   0        511              0.0.0.0:80             0.0.0.0:*       users:(("nginx",pid=2345,fd=8))
+LISTEN   0        4096           127.0.0.1:3306           0.0.0.0:*       users:(("mysqld",pid=3456,fd=21))
+```
+
+**关键信息解读**：
+
+- `Local Address:Port` — 监听地址和端口。`0.0.0.0:22` 表示在所有网卡上监听 SSH；`127.0.0.1:3306` 表示 MySQL 仅在本机监听（外部无法访问）
+- `Process` — 哪个进程在监听，包含 PID
+- `Recv-Q / Send-Q` — 接收和发送队列大小，长时间不为 0 说明有积压
+
+### 常见排查场景
+
+```bash
+# 1. 检查 Nginx 是否在监听（Web 服务是否起来了）
+ss -tlnp | grep nginx
+# 输出示例: LISTEN  0  511  0.0.0.0:80  0.0.0.0:*  users:(("nginx",pid=2345,fd=8))
+
+# 2. 检查 SSH 端口（排查连不上的问题）
+ss -tlnp | grep :22
+
+# 3. 查看所有已建立的连接（看谁在连我的服务）
+ss -tn state established
+
+# 4. 查看所有监听中的端口概览（无进程信息，速度更快）
+ss -tln
+```
+
+> [!warning] ss 需要 root 才能看到所有进程信息
+> 普通用户执行 `ss -tlnp` 时，Process 字段可能为空或显示 `-`。如果需要查看进程信息，加 `sudo`：
+> ```bash
+> sudo ss -tlnp
+> ```
+
+### ss 选项速查
+
+| 选项 | 含义 |
+|------|------|
+| `-t` | 只显示 TCP 套接字 |
+| `-u` | 只显示 UDP 套接字 |
+| `-l` | 只显示 LISTEN（监听）状态的套接字 |
+| `-n` | 数字格式，不解析服务名（`:80` 而不是 `:http`） |
+| `-p` | 显示进程名和 PID |
+| `-a` | 显示所有状态（不限于监听） |
+| `-4` | 只显示 IPv4 |
+| `-6` | 只显示 IPv6 |
+
+---
+
+## 5.6 端口检测：nc
+
+`nc`（netcat）是网络界的瑞士军刀，这里只介绍它最常用的功能——端口可达性检测。当你需要从**另一台机器**测试某端口是否开放时，`nc` 比 `ss` 更合适（因为 `ss` 只能查本机）。
+
+### 端口连通性测试
+
+```bash
+nc -zv host port                    # 测试端口是否可达（不发送数据）
+nc -zv -w 3 host port               # 超时设置为 3 秒（默认可能等很久）
+nc -zvn host port                   # 跳过 DNS 解析，速度更快
+nc -zv host 80 443 3306             # 一次测试多个端口
+```
+
+**输出示例**：
+
+```bash
+$ nc -zv 192.168.1.100 22
+Connection to 192.168.1.100 port 22 [tcp/ssh] succeeded!
+
+$ nc -zv 192.168.1.100 3306
+nc: connect to 192.168.1.100 port 3306 (tcp) failed: Connection refused
+  # 端口未开放或服务没在运行
+
+$ nc -zv 192.168.1.100 8080
+nc: connect to 192.168.1.100 port 8080 (tcp) failed: No route to host
+  # 目标不可达（网络不通或防火墙拦截）
+```
+
+### 端口范围扫描
+
+```bash
+# 扫描 1-1024 端口，检查哪些开放
+nc -zv 192.168.1.100 1-1024 2>&1 | grep succeeded
+
+# 扫描常见服务端口
+nc -zv 192.168.1.100 22 80 443 3306 6379 27017 2>&1 | grep -E "succeeded|refused"
+```
+
+> [!tip] nc vs telnet
+> 很多人习惯用 `telnet ip port` 来测试端口，但 telnet 需要安装且很多系统默认不带。`nc` 更轻量、功能更强大：
+> - `nc -zv` 只测试连接，不进入交互模式
+> - 支持超时设置 `-w`
+> - 支持端口范围扫描
+
+### nc 的其他用途
+
+```bash
+# 简易 TCP 端口监听（可以用来测试防火墙规则）
+nc -lvp 9999                          # 在 9999 端口监听
+
+# 测试 UDP 端口
+nc -zuv host port                     # 注意：UDP 是无连接的，"成功"不代表服务在监听
+```
+
+> [!warning] UDP 端口检测的局限性
+> 和 TCP 不同，UDP 是无连接协议。`nc -zuv` 测试 UDP 端口时，如果目标没回复，既可能是端口不可达，也可能是防火墙丢弃了 UDP 包。UDP 端口检测不太可靠，最好用专有客户端（如 `dig` 测试 DNS 的 53 端口）。
+
+---
+
+## 5.7 抓包分析：tcpdump
+
+当其他工具都查不出问题时——网络配置看起来正确、服务在监听、端口可达、但连接就是有问题——就需要抓包来看网络上到底发生了什么。
+
+`tcpdump` 是命令行抓包的王者。它不依赖图形界面，可以在任何 Linux 服务器上使用。
+
+### 基础抓包
+
+```bash
+sudo tcpdump -i eth0 -n               # 监听 eth0 网卡，不解析域名
+sudo tcpdump -i any -n                # 监听所有网卡
+sudo tcpdump -i any -n port 80        # 只抓 80 端口的流量
+sudo tcpdump -i any -n host 10.0.0.5  # 只抓与某主机的流量
+sudo tcpdump -i any -n -c 100         # 抓 100 个包后自动停止
+```
+
+**输出示例**：
+
+```bash
+$ sudo tcpdump -i any -n port 80
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on any, link-type LINUX_SLL (Linux cooked v1), snapshot length 262144 bytes
+13:42:15.123456 IP 10.0.0.1.54321 > 93.184.216.34.80: Flags [S], seq 1000, win 64240, ...
+13:42:15.234567 IP 93.184.216.34.80 > 10.0.0.1.54321: Flags [S.], seq 2000, ack 1001, ...
+13:42:15.234678 IP 10.0.0.1.54321 > 93.184.216.34.80: Flags [.], ack 2001, ...
+13:42:15.235000 IP 10.0.0.1.54321 > 93.184.216.34.80: Flags [P.], seq 1001:1021, ack 2001, ...
+13:42:15.345678 IP 93.184.216.34.80 > 10.0.0.1.54321: Flags [.], ack 1022, ...
+```
+
+### TCP 标志解读
+
+TCP 三次握手就是通过这几个标志（Flags）完成的，看懂它们是理解网络问题的关键。
+
+| 标志 | 缩写 | 含义 | 出现时机 |
+|------|:----:|------|---------|
+| `[S]` | SYN | 发起连接请求 | 客户端发起连接 |
+| `[S.]` | SYN-ACK | 确认并同意连接 | 服务端回复握手 |
+| `[.]` | ACK | 确认收到数据 | 几乎所有后续包 |
+| `[P.]` | PUSH-ACK | 推送应用数据 | 传输数据时 |
+| `[F.]` | FIN-ACK | 关闭连接 | 一方主动关闭 |
+| `[R]` | RST | 重置连接 | 端口未监听或异常中断 |
+| `[R.]` | RST-ACK | 带确认的重置 | 连接被拒绝 |
+
+**三次握手过程**（正常连接）：
+
+```
+客户端 ---[S]---> 服务端      # SYN：请求连接
+客户端 <--[S.]--- 服务端      # SYN-ACK：收到请求，同意连接
+客户端 ---[.]---> 服务端      # ACK：确认收到，连接建立
+```
+
+**异常模式诊断**：
+
+```bash
+# 场景 1：端口未开放（防火墙没拦截，但服务没在运行）
+# 客户端发送 SYN，服务端直接回复 RST
+客户端 ---[S]---> 服务端
+客户端 <--[R]---- 服务端      # RST 说明"没有进程在监听此端口"
+
+# 场景 2：防火墙拦截
+# 客户端发送 SYN，什么都没收到（需要等超时）
+客户端 ---[S]---> [?]         # 请求被防火墙丢弃，无任何回应
+# 结果：客户端反复重试，直到超时
+
+# 场景 3：防火墙拒绝
+# 客户端发送 SYN，收到 RST
+客户端 ---[S]---> [?]
+客户端 <--[R]---- [?]        # 防火墙主动拒绝连接
+```
+
+### 常用过滤表达式
+
+```bash
+# 按主机过滤
+sudo tcpdump -i any -n host 10.0.0.5              # 与某主机的所有流量
+sudo tcpdump -i any -n src host 10.0.0.5           # 从某主机发出的
+sudo tcpdump -i any -n dst host 10.0.0.5           # 发往某主机的
+
+# 按端口过滤
+sudo tcpdump -i any -n port 443                    # 443 端口流量
+sudo tcpdump -i any -n src port 80                 # 源端口 80
+sudo tcpdump -i any -n dst port 53                 # 目标端口 53（DNS 查询）
+
+# 组合过滤（用 and/or/not）
+sudo tcpdump -i any -n 'port 80 and host 10.0.0.5'     # 与特定主机的 80 端口
+sudo tcpdump -i any -n 'tcp[tcpflags] & tcp-syn != 0'  # 只抓 SYN 包
+sudo tcpdump -i any -n 'port not 22'                    # 排除 SSH 流量
+```
+
+### 保存和分析
+
+```bash
+# 保存到文件以供后续分析
+sudo tcpdump -i any -n -w capture.pcap           # 写入文件（二进制格式）
+sudo tcpdump -i any -n -c 1000 -w capture.pcap   # 抓 1000 个包后保存
+
+# 读取已保存的抓包文件
+sudo tcpdump -r capture.pcap                     # 读取并打印
+sudo tcpdump -r capture.pcap -n port 80          # 读取时过滤
+sudo tcpdump -r capture.pcap -X                  # 以 HEX + ASCII 格式打印
+```
+
+> [!tip] 用 Wireshark 分析 pcap 文件
+> tcpdump 保存的 `capture.pcap` 文件可以直接用 Wireshark 打开，获得图形化的分析体验。在服务器上用 tcpdump 抓包保存，然后传到本地用 Wireshark 分析，是线上问题排查的标准工作流。
+
+### 排障场景示例：检查 HTTP 响应是否正常
+
+```bash
+# 终端 1：启动 tcpdump 抓取 80 端口流量
+sudo tcpdump -i any -n port 80 -A
+
+# 终端 2：发送 HTTP 请求
+curl http://example.com
+
+# 在 tcpdump 输出中可以看到完整的 HTTP 请求和响应内容
+# -A 参数会把包内容按 ASCII 打印出来，直接看到 HTTP 协议头
+```
+
+---
+
+## 5.8 网络排障五步法实战
+
+掌握了以上各个工具后，更重要的是知道在什么场景该用什么工具。下面是一个标准化的排障流程——**五步法**，从底到顶逐层排查。
+
+### 排障流程概览
+
+```
+步骤 1: 检查本机网络配置       命令: ip a, ip route, ping 127.0.0.1
+步骤 2: DNS 解析检查          命令: dig +short example.com
+步骤 3: 路由连通性检查        命令: ping -c 4 target_ip, traceroute
+步骤 4: 端口与服务检查        命令: ss -tlnp, nc -zv target port
+步骤 5: 应用层协议验证        命令: curl -v, tcpdump
+```
+
+### 实战案例：网站无法访问
+
+**场景**：用户反馈 `https://myapp.example.com` 无法访问。
+
+#### 步骤 1：检查本机网络配置
+
+先确认本机网络是正常的：
+
+```bash
+# 检查 IP 地址是否配置正常
+ip a
+
+# 检查默认路由
+ip route show | grep default
+
+# 检查本机回环接口（基本网络栈是否正常）
+ping -c 1 127.0.0.1
+```
+
+**判断**：如果 `127.0.0.1` 都 ping 不通，说明本机网络栈有问题，重启网络服务或检查内核模块。
+
+#### 步骤 2：DNS 解析检查
+
+```bash
+# 域名能否解析
+dig +short myapp.example.com
+# 如果没返回 IP，检查域名拼写或 DNS 服务器
+
+# 对比使用不同 DNS 服务器
+dig @8.8.8.8 myapp.example.com +short
+dig @1.1.1.1 myapp.example.com +short
+```
+
+**判断**：
+- 返回 IP → DNS 正常，进入下一步
+- 返回 `NXDOMAIN` → 域名不存在，检查是否拼写错误
+- 一个 DNS 能解析另一个不能 → 本地 DNS 服务器配置有问题
+
+#### 步骤 3：路由连通性检查
+
+```bash
+# 先 ping IP（跳过 DNS），确认网络层是否可达
+ping -c 4 93.184.216.34
+
+# 如果丢包或延迟高，追踪路由
+traceroute -n 93.184.216.34
+
+# 用 mtr 更精确地检测丢包位置
+mtr -n -r -c 10 93.184.216.34
+```
+
+**判断**：
+- ping 通且延迟正常 → 网络层没问题
+- ping 不通 → 防火墙拦截 ICMP 或目标宕机（用上层工具进一步验证）
+- traceroute 在某跳后全 `*` → 该段网络故障或防火墙
+
+#### 步骤 4：端口与服务检查
+
+```bash
+# 从本机检查目标端口是否开放
+nc -zv 93.184.216.34 443
+
+# 如果本机端口开放检查（如果是排查本地服务）
+ss -tlnp | grep :443
+```
+
+**判断**：
+- `succeeded` → 端口开放
+- `Connection refused` → 端口没在监听（服务没启动或端口错误）
+- `No route to host` → 网络不可达
+
+#### 步骤 5：应用层协议验证
+
+```bash
+# 用 curl 验证 HTTP 服务
+curl -I https://myapp.example.com
+
+# 详细模式看完整握手过程
+curl -v https://myapp.example.com
+
+# 看耗时分布
+curl -o /dev/null -s -w "DNS: %{time_namelookup}s\nTCP: %{time_connect}s\nTLS: %{time_appconnect}s\nTTFB: %{time_starttransfer}s\nTotal: %{time_total}s\nStatus: %{http_code}\n" https://myapp.example.com
+
+# 如果怀疑 HTTPS 问题，测试 HTTP
+curl -I http://myapp.example.com
+
+# 如果怀疑网络层问题，抓包确认
+sudo tcpdump -i any -n host myapp.example.com -c 100
+```
+
+**判断**：
+- HTTP 状态码 200 → 服务正常
+- 502/504 → 后端代理或应用问题
+- SSL 证书错误 → 证书过期或配置错误
+- curl 卡住 → 网络连接问题
+
+### 快速诊断速查表
+
+| 现象 | 排查命令 | 常见原因 |
+|------|---------|---------|
+| 域名访问不了，IP 能访问 | `dig example.com` | DNS 问题 |
+| 连接超时 | `traceroute -n IP` | 防火墙拦截或路由不通 |
+| 连接被拒绝 | `nc -zv IP PORT` | 服务没启动或端口错误 |
+| 网站慢 | `curl -w` 耗时分析 | 后端处理慢，或 CDN 问题 |
+| 时通时不通 | `mtr -n IP` | 链路不稳定或 DNS 负载均衡 |
+| SSH 连不上 | `ss -tlnp \| grep :22` | SSH 服务没运行或防火墙 |
+| 能 ping 通但浏览器打不开 | `curl -v http://IP:PORT` | Web 服务没启动或防火墙拦截端口 |
+| HTTPS 报证书错误 | `openssl s_client -connect host:443` | 证书过期或配置错误 |
+
+> [!example] 一键排障脚本
+> 把五步法写成脚本，需要时一键执行：
+> ```bash
+> #!/bin/bash
+> # diagnose.sh - 快速网络排障脚本
+> TARGET=$1
+> 
+> echo "=== Step 1: DNS Resolve ==="
+> dig +short $TARGET
+> 
+> echo -e "\n=== Step 2: Ping ==="
+> ping -c 4 $TARGET
+> 
+> echo -e "\n=== Step 3: Route ==="
+> traceroute -n -q 1 -w 2 $TARGET
+> 
+> echo -e "\n=== Step 4: Port Check (80/443) ==="
+> nc -zv -w 3 $TARGET 80
+> nc -zv -w 3 $TARGET 443
+> 
+> echo -e "\n=== Step 5: HTTP Check ==="
+> curl -o /dev/null -s -w "Status: %{http_code}\nTTFB: %{time_starttransfer}s\nTotal: %{time_total}s\n" http://$TARGET
+> 
+> # 使用：bash diagnose.sh example.com
+> ```
+
+---
+
+## 本章总结
+
+- **ping** 测试网络层连通性和延迟，但注意 ICMP 可能被防火墙拦截，能 ping 通不代表服务正常
+- **dig** 是 DNS 查询的标准工具，`+short` 参数直接返回 IP，遇到域名解析问题首选
+- **traceroute** 定位路由路径中的故障点，`mtr` 是其增强版，能持续检测丢包
+- **curl** 是 HTTP 排障的核心工具，`-v` 看详细握手过程，`-w` 做耗时分析可以精确拆解 DNS/TCP/TLS/TTFB 各阶段耗时
+- **ss** 替换了旧的 netstat，检查端口监听最快：`ss -tlnp` 查看所有 TCP 监听端口和对应进程
+- **nc -zv** 从远程测试端口是否开放，`Connection refused` 和 `No route to host` 含义不同
+- **tcpdump** 抓包分析是排障的终极手段，看懂 TCP 标志 `[S]` `[S.]` `[R]` 能快速判断连接状态
+- **网络排障五步法**（网络配置 → DNS → 路由 → 端口 → 应用层）是标准化的排障思路，按层排查不跳步
+
+## 下一步
+
+掌握了网络诊断工具后，第六章将转向 **权限管理与安全基础**，学习 Linux 文件权限模型、chmod/chown 的实战用法，以及如何设置安全的默认权限。

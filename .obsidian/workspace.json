@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux/Linux 常用命令实战手册.md",
+                "file": "linux/linux常用命令/Linux 常用命令速查索引.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Linux 常用命令实战手册"
+              "title": "Linux 常用命令速查索引"
             }
           }
         ]
@@ -176,13 +176,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux/Linux 常用命令实战手册.md",
+                "file": "linux/linux常用命令/Linux 常用命令速查索引.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Linux 常用命令实战手册 的大纲"
+              "title": "Linux 常用命令速查索引 的大纲"
             }
           },
           {
@@ -226,11 +226,11 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 8
       }
     ],
     "direction": "horizontal",
-    "width": 372.5
+    "width": 478.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -254,44 +254,43 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "814922b57e827ba8",
+  "active": "d0d8383a692e3423",
   "lastOpenFiles": [
-    "linux/linux磁盘相关的知识.md",
-    "linux/Ubuntu curl SSL连接问题排查.md",
-    "linux/cpu的线程和内核.md",
-    "workspace/workflow-runs/U3HdOLm5",
-    "workspace/workflow-runs/linux-commands.workflow.md.KdM9jg",
-    "workspace/workflow-runs/linux-commands.workflow.md.y7Ss3B",
-    "workspace/workflow-runs/linux-commands.workflow.md.aU8n0o",
-    "workspace/workflow-runs/linux-commands.workflow.md.Ke4MSa",
-    "workspace/workflow-runs/V1k4OnlD",
-    "workspace/workflow-runs/Yc1gs6cH",
-    "workspace/workflow-runs/linux-commands.workflow.md.pz7Jj8",
-    "workspace/workflow-runs/linux-commands.workflow.md.BE1jEN",
-    "workspace/workflow-runs/linux-commands.workflow.md.UreQ6H",
-    "linux/Linux 常用命令实战手册.md",
-    "workspace/linux-commands/output/final_note.md",
-    "workspace/linux-commands/chapters/7_磁盘与存储管理.md",
-    "workspace/linux-commands/chapters/5_网络诊断与排障.md",
-    "workspace/linux-commands/chapters/3_文本处理三剑客实战.md",
-    "workspace/linux-commands/chapters/9_Shell实用技巧与命令组合.md",
-    "workspace/linux-commands/chapters/4_进程管理与系统监控.md",
-    "workspace/linux-commands/chapters/6_权限管理与安全基础.md",
-    "workspace/linux-commands/chapters/8_软件包管理.md",
-    "workspace/linux-commands/chapters/2_文件内容查看与搜索.md",
-    "linux/Linux换源.md",
-    "workspace/linux-commands/chapters/1_文件与目录操作基础.md",
-    "workspace/linux-commands/03_outline.md",
-    "workspace/linux-commands/02_deep_research.md",
-    "workspace/linux-commands/01_explore_result.md",
-    "workspace/linux-commands/00_intent.md",
-    "linux/Ubuntu Server SSH 配置指南.md",
-    "workspace/workflow-runs/linux-commands.workflow.md",
     "linux/Ubuntu Server 安装教程.md",
-    "linux/linux的LVM管理.md",
-    "linux/update_plan.md",
-    "考研计划/每日计划/完成记录/2026-07-28-完成记录.md",
-    "考研专业课/模拟电子技术/详细笔记/03-BJT与基本放大电路/06-共射动态指标.md",
+    "linux/linux常用命令/sedGjcKmV",
+    "linux/linux常用命令/sed21WavM",
+    "linux/linux常用命令/sedjScCMy",
+    "linux/linux常用命令/sedNHMgvw",
+    "linux/linux常用命令/sedCA2Zkp",
+    "linux/linux常用命令/sedOfhxPw",
+    "linux/sed1xleKo",
+    "linux/sedczzA0t",
+    "linux/sedWWuVln",
+    "linux/sed8p7Eeo",
+    "linux/Linux 常用命令速查索引.md",
+    "linux/linux常用命令/Linux 常用命令速查索引.md",
+    "linux/linux常用命令/Linux Shell 实用技巧.md",
+    "linux/linux常用命令/Linux 软件包管理.md",
+    "linux/linux常用命令/Linux 权限管理基础.md",
+    "linux/linux常用命令/Linux 网络诊断与排障.md",
+    "linux/linux常用命令/Linux 磁盘与存储管理.md",
+    "linux/linux常用命令/Linux 进程管理与系统监控.md",
+    "linux/linux常用命令/Linux 文本处理三剑客.md",
+    "linux/linux常用命令/Linux 文件内容查看与搜索.md",
+    "linux/linux常用命令/Linux 文件与目录操作.md",
+    "linux/Linux 权限管理基础.md",
+    "linux/06-Shell进阶/Linux Shell 实用技巧.md",
+    "linux/05-安全维护/Linux 软件包管理.md",
+    "linux/05-安全维护/Linux 权限管理基础.md",
+    "linux/04-网络/Linux 网络诊断与排障.md",
+    "linux/03-系统管理/Linux 磁盘与存储管理.md",
+    "linux/03-系统管理/Linux 进程管理与系统监控.md",
+    "linux/02-文本处理/Linux 文本处理三剑客.md",
+    "linux/01-基础操作/Linux 文件内容查看与搜索.md",
+    "linux/01-基础操作/Linux 文件与目录操作.md",
+    "linux/Linux 进程管理与系统监控.md",
+    "linux/Linux 磁盘与存储管理.md",
+    "linux/linux磁盘相关的知识.md",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/图-固定偏置共射动态指标-Au-Ri-Ro.png",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/图-固定偏置共射动态指标-Au-Ri-Ro.svg",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/手写原图-共射动态指标-输出电阻方法-2026-07-28.jpg",
