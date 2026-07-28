@@ -226,7 +226,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 8
       }
     ],
     "direction": "horizontal",
@@ -254,19 +254,20 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "f5f6330a45d67f9a",
+  "active": "d0d8383a692e3423",
   "lastOpenFiles": [
+    "workspace/workflow-runs/jMZ2oL5W",
+    "workspace/workflow-runs/linux-commands.workflow.md.iNMi4B",
+    "workspace/workflow-runs/linux-commands.workflow.md.xvxfVE",
+    "workspace/workflow-runs/linux-commands.workflow.md.k5sKHK",
+    "workspace/workflow-runs/linux-commands.workflow.md.WMT3JE",
+    "workspace/workflow-runs/mPeXaHDU",
+    "workspace/workflow-runs/MDkR5aHV",
+    "workspace/workflow-runs/linux-commands.workflow.md.gVLpmh",
+    "workspace/workflow-runs/linux-commands.workflow.md.94jc9J",
+    "workspace/workflow-runs/linux-commands.workflow.md.NcVq9r",
+    "workspace/workflow-runs/linux-commands.workflow.md.1mnPjw",
     "workspace/linux-commands/03_outline.md",
-    "workspace/workflow-runs/5gXq1jel",
-    "workspace/workflow-runs/linux-commands.workflow.md.z3rdeB",
-    "workspace/workflow-runs/linux-commands.workflow.md.UtatgG",
-    "workspace/workflow-runs/linux-commands.workflow.md.nGuQCV",
-    "workspace/workflow-runs/linux-commands.workflow.md.8C3fwh",
-    "workspace/workflow-runs/pK9CelGz",
-    "workspace/workflow-runs/KIkkEnGE",
-    "workspace/workflow-runs/linux-commands.workflow.md.fA5Rc8",
-    "workspace/workflow-runs/linux-commands.workflow.md.w7Va0p",
-    "workspace/workflow-runs/linux-commands.workflow.md.PFlb1Y",
     "workspace/linux-commands/02_deep_research.md",
     "workspace/linux-commands/01_explore_result.md",
     "workspace/linux-commands/00_intent.md",
@@ -301,7 +302,6 @@
     "考研数学/二重积分/images/例14.3-D1-正方形对称.png",
     "考研数学/二重积分/错题本.md",
     "考研数学/0-基础知识/常用平面图形.md",
-    "考研数学/二重积分/1-概念性质与对称性/性质.md",
     "考研数学/高数-一元函数积分学/一元函数积分的概念与性质/2-定积分/未命名.canvas"
   ]
 }
