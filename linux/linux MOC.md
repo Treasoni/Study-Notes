@@ -41,7 +41,12 @@ tags: [linux, moc, 索引]
 | [[linux常用命令/Linux 进程管理与系统监控]] | ps、top、systemctl、journalctl |
 | [[linux常用命令/Linux 网络诊断与排障]] | ping、curl、ss、tcpdump 网络工具 |
 | [[linux常用命令/Linux 权限管理基础]] | chmod、chown、umask、特殊权限 |
+| [[linux常用命令/Linux 用户管理]] | useradd、passwd、sudo、用户组 |
 | [[linux常用命令/Linux 磁盘与存储管理]] | df、du、fdisk、mount |
+| [[linux常用命令/Linux 定时任务与自动化]] | crontab、systemd-timer、at |
+| [[linux常用命令/Linux 远程连接与文件传输]] | SSH、scp、rsync、端口转发 |
+| [[linux常用命令/Linux 系统信息与硬件管理]] | uname、lscpu、free、dmidecode |
+| [[linux常用命令/Linux 日志管理]] | journalctl、rsyslog、logrotate |
 | [[linux常用命令/Linux 软件包管理]] | apt、dnf、pacman 跨发行版 |
 | [[linux常用命令/Linux Shell 实用技巧]] | 管道、重定向、别名、一行命令 |
 
@@ -201,17 +206,37 @@ flowchart LR
 - **命令**：`useradd`、`passwd`、`sudo`、`su`、`groupadd`
 - **相关**：[[linux常用命令/Linux 权限管理基础]]
 
-#### 5.9 Linux 磁盘与存储管理
+#### 5.9 Linux 定时任务与自动化
+- **适用场景**：周期性任务调度、系统自动化运维
+- **命令**：`crontab`、`at`、`systemctl`、`journalctl`
+- **相关**：[[linux常用命令/Linux 进程管理与系统监控]]
+
+#### 5.10 Linux 远程连接与文件传输
+- **适用场景**：远程服务器管理、文件同步与备份、端口转发
+- **命令**：`ssh`、`scp`、`rsync`、`sftp`
+- **相关**：[[Ubuntu Server SSH 配置指南]]
+
+#### 5.11 Linux 系统信息与硬件管理
+- **适用场景**：系统排障、资源配置、硬件信息查询
+- **命令**：`uname`、`lscpu`、`free`、`dmidecode`、`dmesg`
+- **相关**：[[linux常用命令/Linux 进程管理与系统监控]]
+
+#### 5.12 Linux 日志管理
+- **适用场景**：日志查看、集中收集、轮转清理、故障排查
+- **命令**：`journalctl`、`rsyslog`、`logrotate`
+- **相关**：[[linux常用命令/Linux 进程管理与系统监控]]
+
+#### 5.13 Linux 磁盘与存储管理
 - **适用场景**：磁盘空间告警、分区管理、挂载配置
 - **命令**：`df`、`du`、`fdisk`、`mount`
 - **相关**：[[linux磁盘相关的知识]]
 
-#### 5.10 Linux 软件包管理
+#### 5.14 Linux 软件包管理
 - **适用场景**：软件安装、系统更新
 - **命令**：`apt`、`dnf`、`pacman`
 - **相关**：[[Linux换源]]
 
-#### 5.11 Linux Shell 实用技巧
+#### 5.15 Linux Shell 实用技巧
 - **适用场景**：提升命令行效率、脚本编写
 - **命令**：管道、重定向、别名、快捷键
 - **相关**：[[linux常用命令/Linux 文本处理三剑客]]
@@ -301,6 +326,10 @@ graph TB
 | 文件 | 更新日期 |
 |------|----------|
 | [[Linux 常用命令速查索引]] | 2026-07-29 |
+| [[linux常用命令/Linux 定时任务与自动化]] | 2026-07-29 |
+| [[linux常用命令/Linux 远程连接与文件传输]] | 2026-07-29 |
+| [[linux常用命令/Linux 系统信息与硬件管理]] | 2026-07-29 |
+| [[linux常用命令/Linux 日志管理]] | 2026-07-29 |
 | [[linux常用命令/Linux 用户管理]] | 2026-07-29 |
 | [[linux常用命令/Linux 文件与目录操作]] | 2026-07-29 |
 | [[linux常用命令/Linux 文本处理三剑客]] | 2026-07-29 |

@@ -25,11 +25,18 @@ source_project: linux-commands
 ## 系统管理
 
 - [[linux常用命令/Linux 进程管理与系统监控]] — ps、top、systemctl、journalctl、nohup
+- [[linux常用命令/Linux 定时任务与自动化]] — crontab、systemd-timer、at、anacron
+- [[linux常用命令/Linux 系统信息与硬件管理]] — uname、lscpu、free、dmidecode、dmesg
+- [[linux常用命令/Linux 日志管理]] — journalctl、rsyslog、logrotate
 - [[linux常用命令/Linux 磁盘与存储管理]] — df、du、fdisk、mount、lsblk
 
 ## 网络
 
 - [[linux常用命令/Linux 网络诊断与排障]] — ping、curl、ss、tcpdump、dig
+
+## 远程管理
+
+- [[linux常用命令/Linux 远程连接与文件传输]] — SSH、scp、rsync、sftp、端口转发
 
 ## 安全与维护
 
