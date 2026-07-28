@@ -157,6 +157,13 @@ flowchart LR
     B --> E[DHCP]
     F[故障排查] --> G[SSL 问题]
     G --> H[旁路由环境]
+    I[网络信息查询] --> J[接口/链路层]
+    I --> K[IP/子网]
+    I --> L[路由表]
+    I --> M[DNS 解析]
+    I --> N[ARP/邻居]
+    I --> O[Socket/传输层]
+    I --> P[抓包分析]
 ```
 
 #### 4.1 Linux 网络配置
@@ -168,6 +175,20 @@ flowchart LR
 - **核心问题**：旁路由 ICMP 重定向导致 SSL 握手失败
 - **解决方案**：MASQUERADE、禁用 ICMP 重定向
 - **相关**：[[linux如何修改网络信息]]
+
+#### 4.3 Linux 网络信息查询与概念
+- **核心概念**：IP 地址与子网、路由表、DNS 解析、ARP 邻居发现、TCP/UDP Socket
+- **查询命令**：`ip`（link/addr/route/neigh）、`ss`、`dig`、`resolvectl`、`iw`、`tcpdump`
+- **入口**：[[linux/Linux网络信息获取与概念/_index|Linux 网络信息获取与概念 索引]]
+- **相关笔记**：
+  - [[linux/Linux网络信息获取与概念/02_网络接口与链路层信息]] - `ip link`、`ethtool`、MAC/MTU
+  - [[linux/Linux网络信息获取与概念/03_IP地址与子网信息]] - `ip addr`、CIDR、子网掩码
+  - [[linux/Linux网络信息获取与概念/04_路由表信息]] - `ip route`、路由决策、策略路由
+  - [[linux/Linux网络信息获取与概念/05_DNS解析与域名信息]] - `dig`、`resolvectl`、DNS 配置体系
+  - [[linux/Linux网络信息获取与概念/06_ARP与邻居发现]] - `ip neigh`、ARP 状态机
+  - [[linux/Linux网络信息获取与概念/07_Socket连接与传输层信息]] - `ss`、TCP 状态、Recv-Q/Send-Q
+  - [[linux/Linux网络信息获取与概念/10_抓包与协议分析基础]] - `tcpdump`、BPF 过滤
+- **与 4.1 的区别**：本笔记只讲**查询/获取**和**概念理解**，4.1 侧重**修改配置**
 
 ---
 
@@ -344,6 +365,7 @@ graph TB
 | [[Ubuntu curl SSL连接问题排查]] | 2026-03-29 |
 | [[WSL-Windows子系统forLinux]] | 2026-03-29 |
 | [[linux如何修改网络信息]] | 2026-07-29 |
+| [[linux/Linux网络信息获取与概念/_index|Linux 网络信息获取与概念]] | 2026-07-29 |
 
 ---
 
