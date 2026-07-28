@@ -1,7 +1,7 @@
 ---
 tags: [linux, ubuntu, 服务器, 系统安装]
 created: 2026-03-02
-updated: 2026-03-02
+updated: 2026-07-28
 ---
 
 # Ubuntu Server 安装教程
@@ -15,7 +15,7 @@ updated: 2026-03-02
 Ubuntu Server 是 Ubuntu 的服务器版本，特点：
 - 无图形界面（纯命令行）
 - 占用资源少、性能高
-- 5年免费安全更新（LTS 版本）
+- 5 年免费安全更新（LTS 版本，Ubuntu Pro 可延至 10-15 年）
 - 稳定可靠、适合生产环境
 
 ### 为什么需要
@@ -28,7 +28,7 @@ Ubuntu Server 是 Ubuntu 的服务器版本，特点：
 **🎯 比喻**：Ubuntu Desktop 就像精装修的公寓（有家具、装修），Ubuntu Server 就像毛坯房（只有基础结构，自己按需求装修）。服务器不需要图形界面，就像公寓不需要厨房一样——节省空间、专注功能。
 
 **📦 版本选择**：
-- **LTS（长期支持）**：每2年发布一次，支持5年（推荐生产环境）
+- **LTS（长期支持）**：每2年发布一次，标准支持 5 年（如 26.04 LTS 支持至 2031 年），Ubuntu Pro 可延至 10-15 年（推荐生产环境）
 - **普通版本**：每6个月发布，支持9个月（适合尝鲜）
 
 ---
@@ -39,14 +39,14 @@ Ubuntu Server 是 Ubuntu 的服务器版本，特点：
 | 项目 | 要求 |
 |------|------|
 | 处理器 | 1 GHz 或更好 |
-| 内存 | 1 GB RAM |
+| 内存 | 1.5-2 GB RAM |
 | 硬盘空间 | 5 GB 可用空间 |
 | 安装介质 | USB 接口或 DVD 驱动器 |
 
 ### 推荐配置
 | 项目 | 要求 |
 |------|------|
-| 内存 | 2 GB RAM 或更多 |
+| 内存 | 4 GB RAM 或更多 |
 | 硬盘 | 20 GB 或更多（取决于服务需求） |
 | 网络 | 有线网络连接 |
 
@@ -62,9 +62,9 @@ https://ubuntu.com/download/server
 
 # 国内镜像源（推荐）
 # 清华大学
-https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/24.04/
+https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/26.04/
 # 中科大
-https://mirrors.ustc.edu.cn/ubuntu-releases/24.04/
+https://mirrors.ustc.edu.cn/ubuntu-releases/26.04/
 ```
 
 ### 2. 制作启动盘
@@ -233,6 +233,7 @@ Use an entire disk
 > - `/var` 单独分区：防止日志占满根分区
 > - `/home` 单独分区：重装系统时保留用户数据
 > - 使用 LVM：方便后期调整分区大小
+> - **TPM 全盘加密**（26.04 新增）：Subiquity 安装器支持 TPM 绑定全盘加密，将解密密钥绑定到硬件 TPM 芯片，增强物理安全性
 
 ---
 
@@ -278,6 +279,9 @@ Featured Server Snaps
 
 通常不需要选择，安装完成后可以手动安装。
 
+> [!note] 26.04 新变化：自动 HWE 内核
+> Ubuntu Server 26.04 安装器会自动安装 HWE（Hardware Enablement）或 OEM 内核元包，确保对较新硬件的 Wi-Fi、GPU 和外设的即装即用支持。这是此前桌面版独有的特性，现已统一。
+
 ---
 
 ### 第十步：安装完成
@@ -311,15 +315,16 @@ ssh admin@192.168.1.100
 sudo apt update && sudo apt upgrade -y
 
 # 查看系统信息
-lsb_release -a        # 查看 Ubuntu 版本
+cat /etc/os-release   # 查看 Ubuntu 版本（lsb_release 默认不再安装）
 uname -r              # 查看内核版本
 ip a                  # 查看 IP 地址
 
 # 配置时区
 sudo timedatectl set-timezone Asia/Shanghai
 
-# 同步时间
-sudo apt install -y ntp
+# 同步时间（26.04 默认使用 chrony）
+sudo apt install -y chrony
+sudo systemctl enable --now chrony
 ```
 
 ---
@@ -390,8 +395,16 @@ sudo netplan apply
 | 勾选 LVM | 方便后期扩展 |
 | 勾选 OpenSSH Server | 必需！远程管理依赖 |
 | `/var` 单独分区 | 防止日志占满根分区 |
+| 注意 HWE 内核自动安装 | 26.04 起服务器版自动安装，无需手动配置 |
 
 ### 安全建议
+
+> [!note] 26.04 安全变化
+> - **sudo-rs**：使用 Rust 重写的 sudo，更安全
+> - **uutils/coreutils**：Rust 重写 GNU coreutils（~99% 兼容）
+> - **OpenSSH 后量子加密**：支持混合密钥交换，抵御量子计算威胁
+> - **Dracut**：替代 initramfs-tools 作为默认 initramfs 生成工具
+> - **APT 3.1**：新依赖解析器，更智能的包管理
 
 ```bash
 # 更新系统
@@ -476,7 +489,17 @@ sudo su -
 - [Ubuntu 官方下载](https://ubuntu.com/download/server)
 - [Ubuntu 官方文档](https://help.ubuntu.com/)
 - [Ubuntu Server 安装教程](https://ubuntu.com/server/docs)
+- [Ubuntu 26.04 LTS Release Notes](https://documentation.ubuntu.com/release-notes/26.04/)
 
 ---
 
-**最后更新**：2026-03-02
+## 更新记录
+
+| 日期 | 变更内容 |
+|------|----------|
+| 2026-07-28 | 升级至 26.04 LTS "Resolute Raccoon"：更新镜像 URL、系统要求；chrony 替代 ntp；新增 TPM 全盘加密、HWE 内核自动安装说明；补充 APT 3.1、Dracut、sudo-rs、后量子加密等安全变化 |
+| 2026-03-02 | 初版撰写（Ubuntu 24.04 LTS） |
+
+---
+
+**最后更新**：2026-07-28

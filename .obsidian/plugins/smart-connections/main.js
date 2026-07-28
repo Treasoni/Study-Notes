@@ -1,4 +1,4 @@
-/*! smart-connections-obsidian v4.5.2 | (c) 2026 🌴 Brian (Brian Petro) */
+/*! smart-connections-obsidian v4.5.3 | (c) 2026 🌴 Brian (Brian Petro) */
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -27838,7 +27838,7 @@ async function post_process26(view, container, opts = {}) {
 }
 
 // src/components/connections-graph/v1.css
-var v1_default = ".connections-graph {\n  position: relative;\n  width: 100%;\n  block-size: auto;\n  container-type: inline-size;\n}\n\n.sc-graph-svg {\n  width: 100%;\n  aspect-ratio: 1 / 1; /* keep square; height follows width */\n  height: auto;\n  display: block;\n  border-radius: var(--radius-m);\n  border: 1px solid var(--background-modifier-border);\n  background: var(--background-secondary);\n  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--background-modifier-hover) 50%, transparent);\n}\n\n/* Details mount */\n.sc-graph-details {\n  margin-block-start: 10px;\n}\n\n/* Nodes (small, Obsidian-like) */\n.sc-graph-node .sc-graph-node-dot {\n  fill: var(--background-primary);\n  stroke: var(--color-base-100);\n  stroke-width: 1.25px;\n  transition: stroke-width 120ms ease, stroke 120ms ease, fill 120ms ease;\n}\n\n.sc-graph-node-center .sc-graph-node-dot {\n  fill: color-mix(in srgb, var(--interactive-accent) 18%, var(--background-primary));\n  stroke: var(--interactive-accent);\n  stroke-width: 1.5px;\n}\n\n.sc-graph-node-hover .sc-graph-node-dot {\n  fill: var(--background-modifier-hover);\n  stroke: var(--text-accent);\n  stroke-width: 2px;\n}\n\n/* Score as native SVG text */\n.sc-score-text {\n  font-size: 0.8em;\n  fill: var(--text-muted);\n  opacity: 0.95;\n  pointer-events: none;\n  user-select: none;\n}\n\n.sc-graph-node-hover .sc-score-text {\n  display: none;\n}\n\n/* Label text */\n.sc-node-label {\n  font-size: 0.85em;\n  font-weight: 500;\n  fill: var(--nav-item-color);\n  opacity: 0;\n  pointer-events: none;\n  user-select: none;\n  paint-order: stroke fill;\n  stroke: color-mix(in srgb, var(--background-primary) 65%, transparent);\n  stroke-width: 2px;\n  transition: opacity 120ms ease-in-out;\n}\n\n.sc-graph-node-hover .sc-node-label {\n  opacity: 0.96;\n  fill: var(--nav-item-color-active);\n}\n\n/* Explicitly hide any label rendered for the center (defense-in-depth) */\n.connections-graph .sc-graph-node-center .sc-node-label {\n  display: none !important;\n}\n\n/* Pinned state */\n.sc-graph-node.sc-result-pinned .sc-graph-node-dot {\n  fill: color-mix(in srgb, var(--interactive-accent) 12%, var(--background-primary));\n  stroke: var(--interactive-accent);\n  stroke-width: 2px;\n  filter: drop-shadow(0 0 0.25rem color-mix(in srgb, var(--interactive-accent) 50%, transparent));\n}\n\n.sc-graph-node.sc-result-hidden .sc-graph-node-dot {\n  fill: color-mix(in srgb, var(--background-modifier-border) 40%, transparent);\n  stroke: color-mix(in srgb, var(--text-muted) 65%, transparent);\n  stroke-width: 1px;\n  opacity: 0.6;\n}\n\n/* Hidden nodes: scores always visible but muted */\n.sc-graph-node.sc-result-hidden .sc-score-text {\n  opacity: 0.4;\n  fill: var(--text-faint);\n}\n\n/* Hidden nodes: labels only appear on hover, with a softer style */\n.sc-graph-node.sc-result-hidden.sc-graph-node-hover .sc-node-label {\n  opacity: 0.85;\n  fill: var(--text-faint);\n}\n\n.sc-node-drag-handle-inner {\n  width: 100%;\n  height: 100%;\n  background: transparent;\n  cursor: grab;\n  pointer-events: auto;\n}\n\n.sc-node-drag-handle-inner:active {\n  cursor: grabbing;\n}\n";
+var v1_default = ".connections-graph {\n  position: relative;\n  width: 100%;\n  block-size: auto;\n  container-type: inline-size;\n}\n\n.sc-graph-svg {\n  width: 100%;\n  aspect-ratio: 1 / 1; /* keep square; height follows width */\n  height: auto;\n  display: block;\n  border-radius: var(--radius-m);\n  border: 1px solid var(--background-modifier-border);\n  background: var(--background-secondary);\n  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--background-modifier-hover) 50%, transparent);\n}\n\n/* Details mount */\n.sc-graph-details {\n  margin-block-start: 10px;\n}\n\n/* Nodes (small, Obsidian-like) */\n.sc-graph-node .sc-graph-node-dot {\n  fill: var(--background-primary);\n  stroke: var(--color-base-100);\n  stroke-width: 1.25px;\n  transition: stroke-width 120ms ease, stroke 120ms ease, fill 120ms ease;\n}\n\n.sc-graph-node-center .sc-graph-node-dot {\n  fill: color-mix(in srgb, var(--interactive-accent) 18%, var(--background-primary));\n  stroke: var(--interactive-accent);\n  stroke-width: 1.5px;\n}\n\n.sc-graph-node-hover .sc-graph-node-dot {\n  fill: var(--background-modifier-hover);\n  stroke: var(--text-accent);\n  stroke-width: 2px;\n}\n\n/* Score as native SVG text */\n.sc-score-text {\n  font-size: 0.8em;\n  fill: var(--text-muted);\n  opacity: 0.95;\n  pointer-events: none;\n  user-select: none;\n}\n\n.sc-graph-node-hover .sc-score-text {\n  display: none;\n}\n\n/* Label text */\n.sc-node-label {\n  font-size: 0.85em;\n  font-weight: 500;\n  fill: var(--nav-item-color);\n  opacity: 0;\n  pointer-events: none;\n  user-select: none;\n  paint-order: stroke fill;\n  stroke: color-mix(in srgb, var(--background-primary) 65%, transparent);\n  stroke-width: 2px;\n  transition: opacity 120ms ease-in-out;\n}\n\n.sc-graph-node-hover .sc-node-label {\n  opacity: 0.96;\n  fill: var(--nav-item-color-active);\n}\n\n/* Explicitly hide any label rendered for the center (defense-in-depth) */\n.connections-list-container .connections-graph-container .connections-graph .sc-graph-node-center .sc-node-label {\n  display: none;\n}\n\n/* Pinned state */\n.sc-graph-node.sc-result-pinned .sc-graph-node-dot {\n  fill: color-mix(in srgb, var(--interactive-accent) 12%, var(--background-primary));\n  stroke: var(--interactive-accent);\n  stroke-width: 2px;\n  filter: drop-shadow(0 0 0.25rem color-mix(in srgb, var(--interactive-accent) 50%, transparent));\n}\n\n.sc-graph-node.sc-result-hidden .sc-graph-node-dot {\n  fill: color-mix(in srgb, var(--background-modifier-border) 40%, transparent);\n  stroke: color-mix(in srgb, var(--text-muted) 65%, transparent);\n  stroke-width: 1px;\n  opacity: 0.6;\n}\n\n/* Hidden nodes: scores always visible but muted */\n.sc-graph-node.sc-result-hidden .sc-score-text {\n  opacity: 0.4;\n  fill: var(--text-faint);\n}\n\n/* Hidden nodes: labels only appear on hover, with a softer style */\n.sc-graph-node.sc-result-hidden.sc-graph-node-hover .sc-node-label {\n  opacity: 0.85;\n  fill: var(--text-faint);\n}\n\n.sc-node-drag-handle-inner {\n  width: 100%;\n  height: 100%;\n  background: transparent;\n  cursor: grab;\n  pointer-events: auto;\n}\n\n.sc-node-drag-handle-inner:active {\n  cursor: grabbing;\n}\n";
 
 // node_modules/obsidian-smart-env/src/utils/get_item_display_name.js
 var DISPLAY_SEPARATOR = " \u203A ";
@@ -28202,9 +28202,12 @@ function parse_prefixed_key(prefixed_key) {
   if (!collection_key || !rest.length) return null;
   return { collection_key, item_key: rest.join(":") };
 }
-var D3_CDN_URL = "https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js";
+var D3_CDN_URL = "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 var D3_EXPECTED_MAJOR = "7.";
-var D3_INTEGRITY_SHA256 = typeof activeWindow !== "undefined" && activeWindow.SC_D3_INTEGRITY_SHA256 || "";
+var d3_import_promise = null;
+function get_d3_cdn_url() {
+  return D3_CDN_URL;
+}
 function validate_d3_instance(d3) {
   if (!d3) return;
   const version = String(d3.version || "");
@@ -28215,44 +28218,23 @@ function validate_d3_instance(d3) {
   }
 }
 async function load_d3() {
-  const g = typeof activeWindow !== "undefined" ? activeWindow : window;
+  const g = typeof activeWindow !== "undefined" ? activeWindow : typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : {};
   if (g.d3) {
     validate_d3_instance(g.d3);
     return g.d3;
   }
-  const existing = typeof activeDocument !== "undefined" ? activeDocument.querySelector("script[data-sc-d3]") : null;
-  if (existing && g.d3) {
-    validate_d3_instance(g.d3);
-    return g.d3;
+  if (!d3_import_promise) {
+    const d3_cdn_url = get_d3_cdn_url();
+    d3_import_promise = import(d3_cdn_url).then((d3) => {
+      validate_d3_instance(d3);
+      if (!g.d3) g.d3 = d3;
+      return d3;
+    }).catch((err) => {
+      d3_import_promise = null;
+      throw err;
+    });
   }
-  const d3 = await new Promise((resolve, reject) => {
-    if (typeof activeDocument === "undefined" || !activeDocument.head) {
-      reject(new Error("D3 loader: activeDocument.head not available"));
-      return;
-    }
-    const script = activeDocument.createElement("script");
-    script.src = D3_CDN_URL;
-    script.async = true;
-    script.setAttribute("data-sc-d3", "true");
-    const integrity = String(D3_INTEGRITY_SHA256 || "").trim();
-    if (integrity) {
-      script.integrity = integrity;
-      script.crossOrigin = "anonymous";
-    }
-    script.onload = () => {
-      if (!g.d3) {
-        reject(new Error("D3 loader: script loaded but window.d3 is missing"));
-        return;
-      }
-      resolve(g.d3);
-    };
-    script.onerror = () => {
-      reject(new Error("D3 loader: failed to load d3 from CDN"));
-    };
-    activeDocument.head.appendChild(script);
-  });
-  validate_d3_instance(d3);
-  return d3;
+  return d3_import_promise;
 }
 async function build_html28(connections_list, params = {}) {
   const to_item = params?.to_item || connections_list?.item;
@@ -28557,7 +28539,7 @@ function build_result_detail(node, center_item) {
 var import_obsidian54 = require("obsidian");
 
 // src/components/connections-list-item/v3.css
-var v3_default = "a.sc-result-file-title {\n  text-decoration: none !important;\n}\n\na.sc-result-file-title > .sc-score {\n  display: inline-block;\n  width: auto;\n  height: 1.7em;\n  padding: 0 0.3em;\n  line-height: 1.7em;\n  text-align: center;\n  font-weight: 600 !important;\n  font-size: 0.8em !important;\n  color: var(--nav-item-color) !important;\n  background: var(--background-modifier-hover);\n  border-radius: 6px;\n}\n\na.sc-result-file-title > .sc-path {\n  margin-right: -3px;\n}\n\na.sc-result-file-title > .sc-path,\na.sc-result-file-title > .sc-title {\n  font-weight: bold !important;\n  text-decoration: underline;\n}\n\na.sc-result-file-title > .sc-breadcrumb:not(.sc-path, .sc-title, .sc-score) {\n  font-style: italic;\n}\n\na.sc-result-file-title > .sc-breadcrumb-separator {\n  color: color-mix(in srgb, var(--text-normal) 50%, transparent) !important;\n}\n\n.sc-result.sc-result-hidden-by-feedback {\n  display: none;\n}\n\n.sc-result.sc-result-graph-focus {\n  outline: 2px solid color-mix(in srgb, var(--interactive-accent) 70%, transparent);\n  border-radius: var(--radius-s);\n  box-shadow:\n    0 0 0 1px color-mix(in srgb, var(--background-primary) 80%, transparent),\n    0 0 0.5rem color-mix(in srgb, var(--interactive-accent) 45%, transparent);\n  transition: outline 120ms ease, box-shadow 120ms ease;\n}\n\n";
+var v3_default = ".sc-result a.sc-result-file-title {\n  text-decoration: none;\n}\n\n.sc-result a.sc-result-file-title > small.sc-score {\n  display: inline-block;\n  width: auto;\n  height: 1.7em;\n  padding: 0 0.3em;\n  line-height: 1.7em;\n  text-align: center;\n  font-weight: 600;\n  font-size: var(--font-smallest);\n  color: var(--nav-item-color);\n  background: var(--background-modifier-hover);\n  border-radius: 6px;\n  margin-right: 0.2em;\n}\n\na.sc-result-file-title > small.sc-title {\n  font-weight: 500;\n  text-decoration: underline;\n}\n\na.sc-result-file-title > .sc-breadcrumb:not(.sc-title, .sc-score) {\n  font-style: italic;\n}\n\na.sc-result-file-title > small.sc-breadcrumb-separator {\n  color: color-mix(in srgb, var(--text-normal) 50%, transparent);\n}\n\n.sc-result.sc-result-hidden-by-feedback {\n  display: none;\n}\n\n.sc-result.sc-result-graph-focus {\n  outline: 2px solid color-mix(in srgb, var(--interactive-accent) 70%, transparent);\n  border-radius: var(--radius-s);\n  box-shadow:\n    0 0 0 1px color-mix(in srgb, var(--background-primary) 80%, transparent),\n    0 0 0.5rem color-mix(in srgb, var(--interactive-accent) 45%, transparent);\n  transition: outline 120ms ease, box-shadow 120ms ease;\n}\n\n\n/* hide separator if immediately preceded by score */\n.sc-result {\n  small.sc-score + .sc-breadcrumb-separator {\n    display: none;\n  }\n}";
 
 // src/components/connections-list-item/v3.js
 var SC_RESULT_HIDDEN_CLASS = "sc-result-hidden-by-feedback";
@@ -29725,7 +29707,7 @@ function heading_matches_version({ matcher, heading_text }) {
 }
 
 // releases/latest_release.md
-var latest_release_default = "# Smart Connections `v4.5`\n\n> [!NOTE] What's new in `v4.5.2`\n> - Updated Smart Environment to `v2.4.6` for handling Obsidian API changes\n\n## Connections Footer is now a Core feature!\nFooter connections are now included in Smart Connections Core, bringing the most mobile-friendly and no-panel writing surface to every install. Connections Pro continues to add inline discovery, Bases workflows, and advanced ranking control.\n- Place your connections list in the footer of every note.\n- Toggle footer connections from the command palette (hotkey), ribbon icon, or settings.\n\n## Recent highlights\n- Connections lists can now open with a graph view.\n- [Substrate Update.](https://smartconnections.app/smart-plugins/substrate-update/)\n\nUpdated: 2026-05-30\n\n[More details about the latest releases](https://smartconnections.app/smart-connections/releases/4-5/)\n";
+var latest_release_default = "# Smart Connections `v4.5`\n\n> [!NOTE] What's new in `v4.5.3`\n> refactor: update D3 load to use ESM bundle and improve loading logic\n> refactor: update CSS selectors for improved specificity and remove redundant styles\n\n## Connections Footer is now a Core feature!\n[Footer connections](https://smartconnections.app/smart-connections/footer/) are now included in Smart Connections Core, bringing the most mobile-friendly and no-panel writing surface to every install. Connections Pro continues to add inline discovery, Bases workflows, and advanced ranking control.\n- Place your connections list in the footer of every note.\n- Toggle footer connections from the command palette (hotkey), ribbon icon, or settings.\n\n## Recent highlights\n- Connections lists can now open with a graph view.\n- [Substrate Update.](https://smartconnections.app/smart-plugins/substrate-update/)\n\nUpdated: 2026-06-04\n\n[More details about the latest releases](https://smartconnections.app/smart-connections/releases/4-5/)\n";
 
 // src/views/release_notes_view.js
 var ReleaseNotesView2 = class extends ReleaseNotesView {

@@ -1,11 +1,14 @@
 [
   "obsidian-custom-attachment-location",
-  "obsidian-enhancing-export",
+  "obsidian-git",
   "manual-sorting",
-  "claudian",
+  "obsidian-language-learner",
   "obsidian42-brat",
-  "code-styler",
+  "claudian",
+  "calendar",
+  "obsidian-excalidraw-plugin",
   "terminal",
-  "custom-sort",
-  "obsidian-git"
+  "notebook-navigator",
+  "obsidian-enhancing-export",
+  "custom-sort"
 ]

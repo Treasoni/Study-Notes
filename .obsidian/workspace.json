@@ -1,24 +1,24 @@
 {
   "main": {
-    "id": "915f505bc30ed847",
+    "id": "d0f70ea05a628ef8",
     "type": "split",
     "children": [
       {
-        "id": "0f52bc5ba5b65ce9",
+        "id": "a4bd831005980040",
         "type": "tabs",
         "children": [
           {
-            "id": "092e09f3289157e5",
+            "id": "814922b57e827ba8",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/Claude Code 教程/如何使用Claude code.md",
+                "file": "linux/linux的LVM管理.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "如何使用Claude code"
+              "title": "linux的LVM管理"
             }
           }
         ]
@@ -27,20 +27,20 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "e913d4969ee68022",
+    "id": "4186e719fd0193c2",
     "type": "split",
     "children": [
       {
-        "id": "2d44c7554fda1e49",
+        "id": "7a32e3c5ee76d442",
         "type": "tabs",
         "children": [
           {
-            "id": "52ff2f9fbef74052",
+            "id": "6317a39668190194",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "custom",
+                "sortOrder": "alphabetical",
                 "autoReveal": false
               },
               "icon": "lucide-folder-closed",
@@ -48,13 +48,13 @@
             }
           },
           {
-            "id": "7d377134be457d37",
+            "id": "b7461b6e8db7ece1",
             "type": "leaf",
             "state": {
               "type": "search",
               "state": {
-                "query": "缓存",
-                "matchingCase": true,
+                "query": "内积",
+                "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
                 "extraContext": false,
@@ -65,7 +65,7 @@
             }
           },
           {
-            "id": "0e09717bb82edceb",
+            "id": "7b98e39af17c05c3",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -73,28 +73,48 @@
               "icon": "lucide-bookmark",
               "title": "书签"
             }
+          },
+          {
+            "id": "8f0801c840d50070",
+            "type": "leaf",
+            "state": {
+              "type": "langr-search-panel",
+              "state": {},
+              "icon": "lucide-ghost",
+              "title": "langr-search-panel"
+            }
+          },
+          {
+            "id": "6102b6abc9f08367",
+            "type": "leaf",
+            "state": {
+              "type": "notebook-navigator",
+              "state": {},
+              "icon": "lucide-ghost",
+              "title": "notebook-navigator"
+            }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 371.5
+    "width": 295.5
   },
   "right": {
-    "id": "289642c072eefc79",
+    "id": "a99e901caa8bea67",
     "type": "split",
     "children": [
       {
-        "id": "33f860409e25f7cf",
+        "id": "17d2024735c36e69",
         "type": "tabs",
         "children": [
           {
-            "id": "d31323bcb390357e",
+            "id": "8fea128a25517e69",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
+                "file": "线性代数/第一章：行列式/错题题目.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,32 +124,32 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Claude Code 定时任务自动化指南 的反向链接列表"
+              "title": "错题题目 的反向链接列表"
             }
           },
           {
-            "id": "e2ae22ac9dcbc71f",
+            "id": "1d92725e45f5caab",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "AI学习/02-工具使用/Claude Code 定时任务自动化指南.md",
+                "file": "线性代数/第一章：行列式/错题题目.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Claude Code 定时任务自动化指南 的出链列表"
+              "title": "错题题目 的出链列表"
             }
           },
           {
-            "id": "457b98ba71acf99a",
+            "id": "24c7595e5233b7bf",
             "type": "leaf",
             "state": {
               "type": "tag",
               "state": {
                 "sortOrder": "frequency",
                 "useHierarchy": true,
-                "showSearch": true,
+                "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-tags",
@@ -137,7 +157,7 @@
             }
           },
           {
-            "id": "8ab5af66fe6cf14d",
+            "id": "496a141e6f4cad04",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -151,22 +171,42 @@
             }
           },
           {
-            "id": "746e3216e1c18840",
+            "id": "f5f6330a45d67f9a",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/Claude Code 教程/如何使用Claude code.md",
+                "file": "linux/linux的LVM管理.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "如何使用Claude code 的大纲"
+              "title": "linux的LVM管理 的大纲"
             }
           },
           {
-            "id": "8f0ed8ba9067d029",
+            "id": "5bd92ebabbf49620",
+            "type": "leaf",
+            "state": {
+              "type": "langr-learn-panel",
+              "state": {},
+              "icon": "reading-glasses",
+              "title": "Learning New Words"
+            }
+          },
+          {
+            "id": "1a1d7c445d99050d",
+            "type": "leaf",
+            "state": {
+              "type": "calendar",
+              "state": {},
+              "icon": "calendar-with-checkmark",
+              "title": "Calendar"
+            }
+          },
+          {
+            "id": "1772bb87736101b7",
             "type": "leaf",
             "state": {
               "type": "git-view",
@@ -176,7 +216,7 @@
             }
           },
           {
-            "id": "5d4ad13713ff5068",
+            "id": "d0d8383a692e3423",
             "type": "leaf",
             "state": {
               "type": "claudian-view",
@@ -186,78 +226,82 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 8
       }
     ],
     "direction": "horizontal",
-    "width": 416.5
+    "width": 372.5
   },
   "left-ribbon": {
     "hiddenItems": {
+      "daily-notes:打开/创建今天的日记": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
-      "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
       "command-palette:打开命令面板": false,
       "bases:新建数据库": false,
       "obsidian-git:Open Git source control": false,
-      "claudian:Open Claudian": false,
+      "obsidian-language-learner:Open word search panel": false,
+      "obsidian-language-learner:Open new word panel": false,
+      "obsidian-language-learner:Open statistics": false,
+      "obsidian-language-learner:Data Panel": false,
       "obsidian42-brat:BRAT": false,
+      "claudian:Open Claudian": false,
+      "obsidian-excalidraw-plugin:新建绘图文件": false,
       "terminal:Open terminal": false,
+      "notebook-navigator:笔记本导航器": false,
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "092e09f3289157e5",
+  "active": "d0d8383a692e3423",
   "lastOpenFiles": [
-    "AI学习/Claude Code 教程/高级功能/CLAUDE.md 使用指南.md",
-    "AI学习/Claude Code 教程/如何使用Claude code.md",
-    "AI学习/Claude Code 教程/Claude Code 插件系统使用指南.md",
-    "AI学习/Claude Code 教程/高级功能/CLAUDE.md 使用指南-update_report.md",
-    "AI学习/Claude Code 教程/settings.json 配置详解.md",
-    "AI学习/Claude Code 教程/Claude Code Hooks 使用指南.md",
-    "AI学习/Maps/Node.js 基础概念 MOC.md",
-    "workspace/nodejs-ai-application/output/final_note_obsidian.md",
-    "AI学习/Notes/Node.js 基础概念/Node.js 基础概念零基础入门.md",
-    "AI学习/Maps",
-    "AI学习/Notes/Node.js 基础概念",
-    "AI学习/Notes",
-    "workspace/nodejs-ai-application/output/final_note.md",
-    "workspace/nodejs-ai-application/output/final_note.md.tmp",
-    "AI学习/Claude Code 教程/Claude Code CLI 完整参考.md",
-    "AI学习/Claude Code 教程/Claude Code 模型与推理设置.md",
-    "AI学习/Claude Code 教程/Claude Code Checkpoints 使用指南.md",
-    "AI学习/Claude Code 教程/Claude Code 会话管理.md",
-    "AI学习/Claude Code 教程/Claude Code 高级功能.md",
-    "AI学习/Claude Code 教程/Claude Code 定时任务自动化指南.md",
-    "AI学习/Claude Code 教程/Claude Code 常用功能.md",
-    "AI学习/Claude Code 教程/高级功能/如何编写Skills.md",
-    "AI学习/Claude Code 教程/高级功能/Claude Code Dynamic Workflows 使用指南.md",
-    "AI学习/Claude Code 教程/Subagent 实战练习.md",
-    "AI学习/Claude Code 教程/Claude-Code-多Agent流程设计.md",
-    "AI学习/Claude Code 教程/Claude MCP 使用指南.md",
-    "AI学习/Claude Code 教程/Claude Code Subagents 完整指南.md",
-    "AI学习/Claude Code 教程/Claude Code Slash Commands 完整参考.md",
-    "AI学习/Claude Code 教程/Claude Code Memory 完整指南.md",
-    "AI学习/01-基础概念/规范驱动开发 SDD.md",
-    "workspace/nodejs-ai-application/output",
-    "workspace/nodejs-ai-application/chapters",
-    "workspace/vercel-ai-sdk",
-    "workspace/workflow-runs/nodejs-ai-application.workflow.md.Ji73qK",
-    "workspace/nodejs-ai-application",
-    "未命名",
-    "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
-    "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
-    "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
-    "web-articles/What_is_harness_engineering/images/img_002.png",
-    "web-articles/What_is_harness_engineering/images/img_001.jpg",
-    "web-articles/What_is_harness_engineering/images/img_003.png",
-    "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_016.svg",
-    "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_012.png",
-    "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_015.png",
-    "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_011.png",
-    "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_013.png",
-    "web-articles/The_Anatomy_of_an_Agent_Harness/images/img_014.png",
-    "PVE的学习/PVE学习笔记MOC.canvas"
+    "linux/Ubuntu Server 安装教程.md",
+    "linux/linux的LVM管理.md",
+    "linux/update_plan.md",
+    "考研计划/每日计划/完成记录/2026-07-28-完成记录.md",
+    "考研专业课/模拟电子技术/详细笔记/03-BJT与基本放大电路/06-共射动态指标.md",
+    "线性代数/第二章：矩阵/错题本.md",
+    "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/图-固定偏置共射动态指标-Au-Ri-Ro.png",
+    "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/图-固定偏置共射动态指标-Au-Ri-Ro.svg",
+    "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/手写原图-共射动态指标-输出电阻方法-2026-07-28.jpg",
+    "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/手写原图-共射动态指标-输出电阻推导-2026-07-28.jpg",
+    "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/手写原图-共射动态指标-戴维南定义-2026-07-28.jpg",
+    "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/手写原图-共射动态指标-输入电阻-2026-07-28.jpg",
+    "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/手写原图-共射动态指标-电压放大倍数-2026-07-28.jpg",
+    "线性代数/第二章：矩阵/2.10 矩阵的秩/2.10.1 子式、秩的概念.md",
+    "线性代数/必背知识.md",
+    "线性代数/第二章：矩阵/2.8 矩阵的分块/2.8.2 分块矩阵的运算.md",
+    "线性代数/第二章：矩阵/2.8 矩阵的分块/2.8.1 分块矩阵的概念.md",
+    "线性代数/第二章：矩阵/错题题目.md",
+    "考研数学/高数-函数极限与连续/错题本.md",
+    "考研数学/高数-函数极限与连续/错题题目.md",
+    "考研数学/高数-多元函数微分学/1-基本概念/连续.md",
+    "考研数学/二重积分/2-计算/直角坐标系.md",
+    "考研数学/二重积分/1-概念性质与对称性/对称性/轮换对称性.md",
+    "考研数学/二重积分/1-概念性质与对称性/对称性/普通对称性.md",
+    "考研数学/二重积分/images/例14.3-D2-补辅助线.png",
+    "考研数学/二重积分/images/例14.3-D3-补辅助线.png",
+    "考研数学/二重积分/images/例14.3-D1-正方形对称.png",
+    "考研数学/二重积分/images",
+    "考研数学/二重积分/错题本.md",
+    "考研数学/0-基础知识/常用平面图形.md",
+    "考研数学/二重积分/1-概念性质与对称性/性质.md",
+    "考研数学/二重积分/1-概念性质与对称性/概念.md",
+    "考研数学/0-基础知识/每天一背.md",
+    "考研数学/高数-一元函数积分学/一元函数积分学的计算/1-基本积分公式.md",
+    "考研数学/高数-一元函数积分学/一元函数积分学应用1/2-旋转体的体积/绕y轴旋转.md",
+    "考研数学/高数-一元函数积分学/一元函数积分的概念与性质/2-定积分/定积分存在定理.md",
+    "考研数学/有价值的错题.md",
+    "_insert_proof.py",
+    "线性代数.zip",
+    "考研数学.zip",
+    "考研/湖南大学2026年硕士研究生招生专业目录.pdf",
+    "assets",
+    "template_ai/profiles/windsurf.yaml",
+    "template_ai/profiles/roo-code.yaml",
+    "template_ai/profiles/qwen-code.yaml",
+    "template_ai/profiles/opencode.yaml",
+    "考研数学/高数-一元函数积分学/一元函数积分的概念与性质/2-定积分/未命名.canvas"
   ]
 }

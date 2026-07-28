@@ -621,12 +621,12 @@ settings.json
 
 **与 .gitignore 的核心区别：**
 
-| 特性 | .gitignore | .claudeignore |
-|------|-----------|--------------|
-| 控制谁 | git add/commit | Claude Code 文件读取 |
-| 默认忽略 | 无 | `node_modules/`、`.git/` |
-| 语法 | gitignore 风格 glob | 相同语法 |
-| 互相影响 | 不 | 不 |
+| 特性   | .gitignore        | .claudeignore           |
+| ---- | ----------------- | ----------------------- |
+| 控制谁  | git add/commit    | Claude Code 文件读取        |
+| 默认忽略 | 无                 | `node_modules/`、`.git/` |
+| 语法   | gitignore 风格 glob | 相同语法                    |
+| 互相影响 | 不                 | 不                       |
 
 **什么时候一定要配：**
 
