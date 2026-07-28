@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux/Linux换源.md",
+                "file": "linux/cpu的线程和内核.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Linux换源"
+              "title": "cpu的线程和内核"
             }
           }
         ]
@@ -176,13 +176,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux/Linux换源.md",
+                "file": "linux/cpu的线程和内核.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Linux换源 的大纲"
+              "title": "cpu的线程和内核 的大纲"
             }
           },
           {
@@ -256,6 +256,14 @@
   },
   "active": "d0d8383a692e3423",
   "lastOpenFiles": [
+    "workspace/linux-commands/chapters/5_网络诊断与排障.md",
+    "workspace/linux-commands/chapters/3_文本处理三剑客实战.md",
+    "workspace/linux-commands/chapters/9_Shell实用技巧与命令组合.md",
+    "workspace/linux-commands/chapters/4_进程管理与系统监控.md",
+    "workspace/linux-commands/chapters/6_权限管理与安全基础.md",
+    "workspace/linux-commands/chapters/8_软件包管理.md",
+    "workspace/linux-commands/chapters/2_文件内容查看与搜索.md",
+    "linux/Linux换源.md",
     "workspace/linux-commands/chapters/1_文件与目录操作基础.md",
     "workspace/workflow-runs/jMZ2oL5W",
     "workspace/workflow-runs/linux-commands.workflow.md.iNMi4B",
@@ -291,17 +299,9 @@
     "线性代数/第二章：矩阵/2.8 矩阵的分块/2.8.2 分块矩阵的运算.md",
     "线性代数/第二章：矩阵/2.8 矩阵的分块/2.8.1 分块矩阵的概念.md",
     "线性代数/第二章：矩阵/错题题目.md",
-    "考研数学/高数-函数极限与连续/错题本.md",
-    "考研数学/高数-函数极限与连续/错题题目.md",
-    "考研数学/高数-多元函数微分学/1-基本概念/连续.md",
-    "考研数学/二重积分/2-计算/直角坐标系.md",
-    "考研数学/二重积分/1-概念性质与对称性/对称性/轮换对称性.md",
-    "考研数学/二重积分/1-概念性质与对称性/对称性/普通对称性.md",
     "考研数学/二重积分/images/例14.3-D2-补辅助线.png",
     "考研数学/二重积分/images/例14.3-D3-补辅助线.png",
     "考研数学/二重积分/images/例14.3-D1-正方形对称.png",
-    "考研数学/二重积分/错题本.md",
-    "考研数学/0-基础知识/常用平面图形.md",
     "考研数学/高数-一元函数积分学/一元函数积分的概念与性质/2-定积分/未命名.canvas"
   ]
 }
