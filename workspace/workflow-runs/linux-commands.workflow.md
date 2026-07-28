@@ -10,7 +10,7 @@ topic: "Linux常用命令"
 project_slug: "linux-commands"
 created_at: "2026-07-28"
 last_updated: "2026-07-28"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -23,7 +23,7 @@ blocked_reason: ""
 > 运行标识：linux-commands
 > 项目标识：linux-commands
 > 创建时间：2026-07-28
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -84,9 +84,9 @@ blocked_reason: ""
 - [ ] 第 3 章已写完并确认
 - [ ] ...（根据实际章节数添加）
 
-**进度**：0/待大纲确定
+**进度**：0/9
 
-> [P4] 🔲 进行中
+> [P4] ✅ 已完成
 
 ---
 
@@ -99,7 +99,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中
 
 ---
 
