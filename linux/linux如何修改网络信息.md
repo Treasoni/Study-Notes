@@ -1,5 +1,7 @@
 ---
 tags: [linux]
+created: 2026-07-29
+updated: 2026-07-29
 ---
 
 # Linux 网络配置
@@ -18,11 +20,6 @@ tags: [linux]
 - **是什么**：通用的网络管理工具，提供 GUI 和 CLI 接口
 - **为什么需要**：更灵活的网络配置，支持 VPN、WiFi 等复杂场景
 - **与其他概念关系**：可以通过 `nmcli` 命令行工具管理
-
-### DEB822 格式（Ubuntu 24.04+）
-- **是什么**：新的软件源配置格式，也用于网络配置
-- **为什么需要**：更易读、更安全的配置格式
-- **与传统格式区别**：使用 `.sources` 文件而非 `.list` 文件
 
 ## 操作步骤
 
@@ -53,7 +50,9 @@ network:
       dhcp4: no         # 关闭 DHCP
       addresses:
         - 192.168.1.100/24    # 静态 IP，/24 是子网掩码
-      gateway4: 192.168.1.1   # 网关
+      routes:
+        - to: default
+          via: 192.168.1.1    # 网关
       nameservers:
         addresses:
           - 223.5.5.5         # 阿里 DNS
@@ -81,6 +80,8 @@ sudo netplan apply
 > - YAML 对缩进极其敏感，只能用空格，不能用 Tab
 > - `/24` 子网掩码不能省略
 > - 冒号 `-` 后面必须有空格
+> - `gateway4` 已弃用（Netplan 0.103+），始终使用 `routes` 格式
+> - `renderer` 根据场景选择：Server 用 `networkd`，Desktop 用 `NetworkManager`
 > - 配置错误会导致网络中断
 
 ### 方法二：NetworkManager 配置
@@ -130,8 +131,11 @@ sudo ip addr add 192.168.1.100/24 dev ens18
 # 临时设置网关
 sudo ip route add default via 192.168.1.1
 
-# 临时设置 DNS
-echo "nameserver 223.5.5.5" | sudo tee /etc/resolv.conf
+# 临时设置 DNS（使用 systemd-resolved）
+sudo resolvectl dns ens18 223.5.5.5 8.8.8.8
+
+# ⚠️ 旧方法（echo ... > /etc/resolv.conf）在 systemd-resolved 管理的系统上无效
+# /etc/resolv.conf 是符号链接，由 systemd-resolved 自动管理
 ```
 
 ## 注意事项 ⚠️
@@ -150,7 +154,8 @@ network:
 ```
 
 **网关配置错误**：
-- Ubuntu 20.04+ 使用 `routes` 而非 `gateway4`
+- Netplan 0.103+（Ubuntu 22.04+）已弃用 `gateway4`，必须用 `routes`
+- Ubuntu 20.04 仍支持 `gateway4`，但建议新配置直接使用 `routes` 格式
 - 新格式示例：
 ```yaml
 routes:
@@ -185,9 +190,13 @@ ping baidu.com
 
 **查看当前 IP 配置**：
 ```bash
-ip addr show
+ip addr show          # 推荐，默认已安装
 # 或
-ifconfig
+ip -br addr show      # 简洁输出
+# 或
+hostname -I           # 快速查看所有 IP
+# 或
+ifconfig              # 需安装 net-tools（已废弃，建议用 ip 命令替代）
 ```
 
 ## 常见问题 ❓
@@ -217,9 +226,10 @@ systemctl status networking
 **Q: Ubuntu 24.04 的网络配置有什么变化？**
 
 A: 主要变化：
-- Netplan 仍为主流配置方式
-- DEB822 格式用于软件源配置
-- NetworkManager 作为默认后端
+- **Netplan 成为唯一推荐方式**，传统 `ifupdown`（`/etc/network/interfaces`）不再默认安装
+- **renderer 按场景区分**：Desktop 默认 NetworkManager，Server 默认 systemd-networkd
+- **`gateway4` 已完全弃用**，必须使用 `routes` 格式
+- **`net-tools`（`ifconfig`）不再预装**，默认使用 `iproute2`（`ip` 命令）
 
 **Q: 如何配置多个 IP 地址？**
 
@@ -237,6 +247,17 @@ A: 虚拟机网络模式选择：
 - **桥接模式**：虚拟机独立 IP，与宿主机同网段
 - **NAT 模式**：共享宿主机网络，端口映射访问外网
 - **仅主机模式**：只能与宿主机通信
+
+## 更新记录
+
+| 日期 | 变更内容 |
+|------|---------|
+| 2026-07-29 | 修复 Netplan 主示例 `gateway4` → `routes` |
+| 2026-07-29 | 删除 DEB822 错误内容（DEB822 是 APT 软件源格式，非网络配置）|
+| 2026-07-29 | 补充 renderer 说明（Desktop/Server 默认不同）|
+| 2026-07-29 | 修正 `ifconfig` 为可选项，以 `ip` 命令为主 |
+| 2026-07-29 | 修复临时 DNS 配置（改用 `resolvectl`）|
+| 2026-07-29 | 扩充 Ubuntu 24.04 网络变化说明 |
 
 ## 相关文档
 - [[linux MOC]] - Linux 学习笔记索引

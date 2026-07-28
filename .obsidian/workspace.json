@@ -226,7 +226,7 @@
             }
           }
         ],
-        "currentTab": 8
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -254,7 +254,7 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "d0d8383a692e3423",
+  "active": "f5f6330a45d67f9a",
   "lastOpenFiles": [
     "linux/linux常用命令/Linux 网络诊断与排障.md",
     "linux/linux常用命令/Linux 常用命令速查索引.md",
