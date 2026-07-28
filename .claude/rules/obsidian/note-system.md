@@ -29,6 +29,17 @@ publish_mode: copy | overwrite | patch
 4. 代码块必须带语言标识。
 5. Dataview/Bases 只在用户 vault 支持时加入；不确定时保持普通 Markdown。
 
+## Large Note Splitting
+
+综合型笔记超过 3000 行时应拆分为多篇独立笔记：
+
+1. 按主题/章节拆分为独立 `.md` 文件（每篇 300-800 行）
+2. 放入一个专用文件夹（如 `linux/linux常用命令/`）
+3. 创建轻量索引页汇总所有子篇链接（带一句话说明）
+4. 每篇添加独立 YAML frontmatter
+5. MOC 中每个子篇独立一条索引项，链接路径带文件夹前缀
+6. 原有的旧笔记保持不动，不混入新文件夹
+
 ## MOC Rules
 
 MOC 是目录型笔记，不应该复制正文。每次新增或更新笔记后，只追加或更新一条索引项：

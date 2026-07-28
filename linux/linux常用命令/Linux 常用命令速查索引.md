@@ -34,6 +34,7 @@ source_project: linux-commands
 ## 安全与维护
 
 - [[linux常用命令/Linux 权限管理基础]] — chmod、chown、umask、SUID/SGID/Sticky
+- [[linux常用命令/Linux 用户管理]] — useradd、passwd、sudo、用户组管理
 - [[linux常用命令/Linux 软件包管理]] — apt、dnf、pacman
 
 ## 进阶
