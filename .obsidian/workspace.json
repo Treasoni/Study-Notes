@@ -208,8 +208,12 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "092e09f3289157e5",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "workspace/workflow-runs/virtual-networking.workflow.md.gUz82x",
+    "workspace/virtual-networking/00_intent.md",
+    "workspace/workflow-runs/virtual-networking.workflow.md",
+    "workspace/virtual-networking",
     "linux/Linux网络信息获取与概念/02_网络接口与链路层信息.md",
     "linux/linux如何修改网络信息.md",
     "linux/assets/linux磁盘相关的知识/file-20260202185424052.png",
@@ -235,9 +239,6 @@
     "workspace/linux-network-info-concepts/chapters/05_DNS解析与域名信息.md",
     "workspace/linux-network-info-concepts/chapters/06_ARP与邻居发现.md",
     "workspace/linux-network-info-concepts/chapters/04_路由表信息.md",
-    "workspace/linux-network-info-concepts/chapters/03_IP地址与子网信息.md",
-    "workspace/linux-network-info-concepts/chapters/02_网络接口与链路层信息.md",
-    "workspace/linux-network-info-concepts/chapters/01_网络信息查询概览与工具链.md",
     "workspace/linux-network-info-concepts/output",
     "workspace/linux-network-info-concepts/chapters",
     "workspace/linux-network-info-concepts",
@@ -246,7 +247,6 @@
     "workspace/linux-commands",
     "linux/linux常用命令",
     "linux/Linux网络信息获取与概念",
-    "AI学习/Maps",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
