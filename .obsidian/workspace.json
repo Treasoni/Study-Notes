@@ -208,8 +208,9 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "092e09f3289157e5",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "workspace/workflow-runs/virtual-networking.workflow.md.V1PH2V",
     "linux/Linux网络信息获取与概念/04_路由表信息.md",
     "workspace/virtual-networking/01_explore_result.md",
     "linux/Linux网络信息获取与概念/04_路由表信息.md.bak",
@@ -240,7 +241,6 @@
     "workspace/linux-network-info-concepts/chapters/07_Socket连接与传输层信息.md",
     "workspace/linux-network-info-concepts/chapters/05_DNS解析与域名信息.md",
     "workspace/linux-network-info-concepts/chapters/06_ARP与邻居发现.md",
-    "workspace/linux-network-info-concepts/chapters/04_路由表信息.md",
     "workspace/linux-network-info-concepts/output",
     "workspace/linux-network-info-concepts/chapters",
     "workspace/linux-network-info-concepts",
