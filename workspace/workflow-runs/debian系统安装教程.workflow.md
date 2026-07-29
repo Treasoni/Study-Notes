@@ -10,7 +10,7 @@ topic: "Debian系统安装教程"
 project_slug: "debian系统安装教程"
 created_at: "2026-07-29"
 last_updated: "2026-07-29"
-current_phase: P6
+current_phase: P7
 current_status: completed
 mode: outline
 blocked_reason: ""
@@ -23,7 +23,7 @@ blocked_reason: ""
 > 运行标识：debian系统安装教程
 > 项目标识：debian系统安装教程
 > 创建时间：2026-07-29
-> 当前阶段：阶段 6
+> 当前阶段：阶段 7（全部完成）
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -118,12 +118,12 @@ blocked_reason: ""
 ---
 
 ## 阶段 7：MOC 同步
-- [ ] 已定位或创建 MOC 文件
-- [ ] 新笔记双链已加入 MOC
-- [ ] 已去重并更新摘要/标签
-- [ ] MOC 只保留索引，不复制正文
+- [x] 已定位或创建 MOC 文件
+- [x] 新笔记双链已加入 MOC
+- [x] 已去重并更新摘要/标签
+- [x] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成
 
 ---
 
@@ -151,4 +151,4 @@ blocked_reason: ""
 - **输出格式**：Obsidian Markdown
 - **文件路径**：`workspace/debian系统安装教程/output/final_note.md`
 - **Obsidian Vault**：`/Users/zhqznc/Documents/项目/linux/linux系统安装教程/Debian安装教程.md`
-- **MOC 路径**：待确认
+- **MOC 路径**：`/Users/zhqznc/Documents/项目/linux/linux MOC.md`

@@ -19,6 +19,7 @@ tags: [linux, moc, 索引]
 | 笔记                         | 说明                               |
 | -------------------------- | -------------------------------- |
 | [[Ubuntu Server 安装教程]]     | Ubuntu Server 完整安装指南，包含分区、LVM 配置 |
+| [[linux系统安装教程/Debian安装教程]] | Debian 12 完整安装指南，含桌面/服务器/中文配置/安全加固 |
 | [[Ubuntu Server SSH 配置指南]] | SSH 远程连接配置，密钥认证最佳实践              |
 | [[Linux换源]]                | 国内镜像源配置，加速软件下载                   |
 | [[WSL-Windows子系统forLinux]] | Windows 内置 Linux 子系统使用指南         |
@@ -79,6 +80,11 @@ flowchart LR
     B --> E[远程管理]
     C --> F[加速下载]
     D --> G[静态IP/DHCP]
+    H[Debian 安装] --> I[APT 管理]
+    H --> J[安全加固]
+    H --> K[桌面/中文]
+    I --> L[Backports]
+    J --> B
 ```
 
 #### 1.1 Ubuntu Server 安装教程
@@ -100,6 +106,11 @@ flowchart LR
 - **适用场景**：Windows 开发环境
 - **关键点**：WSL 2、VS Code 集成、Docker 支持
 - **相关**：无
+
+#### 1.5 Debian 系统安装教程
+- **适用场景**：Debian 服务器/桌面部署，Ubuntu 用户迁移
+- **关键点**：Stable/Testing/Sid 分支选择、Backports 源、中文配置、SSH 安全加固、GRUB 排错
+- **相关**：[[Ubuntu Server 安装教程]] | [[Linux换源]] | [[Ubuntu Server SSH 配置指南]]
 
 ---
 
@@ -276,10 +287,11 @@ flowchart LR
 graph TB
     subgraph 入门
         A[Ubuntu Server 安装教程]
+        A2[Debian 安装教程]
         B[SSH 配置指南]
         C[Linux换源]
     end
-    
+
     subgraph 命令参考
         J[Linux 常用命令速查索引]
         K[Linux 文件与目录操作]
@@ -310,6 +322,8 @@ graph TB
     A --> F
     A --> B
     A --> C
+    A2 --> C
+    A2 --> B
     D --> E
     F --> G
     E --> H
@@ -333,7 +347,8 @@ graph TB
 
 ### 路径一：服务器管理员
 1. [[Ubuntu Server 安装教程]] → [[Ubuntu Server SSH 配置指南]] → [[Linux换源]]
-2. [[linux常用命令/Linux 文件与目录操作]] → [[linux常用命令/Linux 磁盘与存储管理]] → [[linux磁盘相关的知识]]
+2. [[linux系统安装教程/Debian安装教程]] → [[linux常用命令/Linux 软件包管理]]
+3. [[linux常用命令/Linux 文件与目录操作]] → [[linux常用命令/Linux 磁盘与存储管理]] → [[linux磁盘相关的知识]]
 3. [[linux常用命令/Linux 网络诊断与排障]] → [[linux如何修改网络信息]] → [[linux的文件权限]]
 
 ### 路径二：开发环境搭建
@@ -352,6 +367,7 @@ graph TB
 
 | 文件 | 更新日期 |
 |------|----------|
+| [[linux系统安装教程/Debian安装教程]] | 2026-07-29 |
 | [[Linux 常用命令速查索引]] | 2026-07-29 |
 | [[linux常用命令/Linux 定时任务与自动化]] | 2026-07-29 |
 | [[linux常用命令/Linux 远程连接与文件传输]] | 2026-07-29 |
