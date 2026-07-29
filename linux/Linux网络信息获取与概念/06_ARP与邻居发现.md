@@ -6,107 +6,154 @@ updated: 2026-07-29
 status: complete
 source_project: linux-network-info-concepts
 ---
-# ARP 涓庨偦灞呭彂鐜?
-## 浠庝竴涓棶棰樺紑濮?
-涓ゅ彴鏈哄櫒鍦ㄥ悓涓€涓簩灞傜綉缁滐紙姣斿杩炲湪鍚屼竴涓氦鎹㈡満涓婏級锛孉 瑕佸彂涓€涓?IP 鍖呯粰 B銆侫 鐭ラ亾 B 鐨?IP 鍦板潃锛坄192.168.1.5`锛夛紝浣嗕互澶綉甯х殑鐩爣鍦板潃闇€瑕佺殑鏄?**MAC 鍦板潃**锛岃€屼笉鏄?IP 鍦板潃銆侫 鎬庝箞鐭ラ亾 B 鐨?MAC 鏄粈涔堬紵
+# ARP 与邻居发现
 
-杩欎釜"IP 鍒?MAC"鐨勬槧灏勫氨鏄湰绔犺瑙ｅ喅鐨勬牳蹇冮棶棰樸€傛槧灏勮〃鐢?**ARP 鍗忚**锛圛Pv4锛夋垨 **NDP**锛圛Pv6锛夌淮鎶わ紝鑰?`ip neigh` 灏辨槸鎴戜滑鏌ョ湅鍜屾搷浣滆繖寮犺〃鐨勫懡浠ゃ€?
-> [!note] 鍓嶇疆鐭ヨ瘑
-> 璇绘湰绔犲墠锛屼綘搴旇浜嗚В MAC 鍦板潃锛? 瀛楄妭鐨勭綉鍗＄‖浠跺湴鍧€锛夊拰 IP 鍦板潃鐨勫熀鏈尯鍒€傚鏋滀綘瀵?MAC 鍦板潃涓嶅お鐔熸倝锛屽缓璁厛璇荤浜岀珷"缃戠粶鎺ュ彛涓庨摼璺眰淇℃伅"銆?
+## 从一个问题开始
+
+两台机器在同一个二层网络（比如连在同一个交换机上），A 要发一个 IP 包给 B。A 知道 B 的 IP 地址（`192.168.1.5`），但以太网帧的目标地址需要的是 **MAC 地址**，而不是 IP 地址。A 怎么知道 B 的 MAC 是什么？
+
+这个"IP 到 MAC"的映射就是本章要解决的核心问题。映射表由 **ARP 协议**（IPv4）或 **NDP**（IPv6）维护，而 `ip neigh` 就是我们查看和操作这张表的命令。
+
+> [!note] 前置知识
+> 读本章前，你应该了解 MAC 地址（6 字节的网卡硬件地址）和 IP 地址的基本区别。如果你对 MAC 地址不太熟悉，建议先读第二章"网络接口与链路层信息"。
+
 ---
 
-## ARP 鍗忚鏍稿績姒傚康
+## ARP 协议核心概念
 
-### 骞挎挱璇锋眰锛屽崟鎾洖澶?
-ARP锛圓ddress Resolution Protocol锛屽湴鍧€瑙ｆ瀽鍗忚锛夌殑宸ヤ綔鍘熺悊闈炲父绠€鍗曪紝鍙湁涓や釜姝ラ锛?
+### 广播请求，单播回复
+
+ARP（Address Resolution Protocol，地址解析协议）的工作原理非常简单，只有两个步骤：
+
 ```
-涓绘満 A (192.168.1.2, MAC: aa:aa:aa:aa:aa:aa)
-鎯虫壘 B (192.168.1.5) 鐨?MAC
+主机 A (192.168.1.2, MAC: aa:aa:aa:aa:aa:aa)
+想找 B (192.168.1.5) 的 MAC
 
-Step 1: 骞挎挱  鈹€鈹€鈫?浜ゆ崲鏈?鈹€鈹€鈫?鎵€鏈夊悓缃戞璁惧
-          "璋佹槸 192.168.1.5锛熻鍛婅瘔 aa:aa:aa:aa:aa:aa"
-          鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?          鈹?鐩爣 MAC: FF:FF:FF:FF:FF:FF  鈫?骞挎挱鍦板潃
-          鈹?婧?MAC:    aa:aa:aa:aa:aa:aa  鈫?A 鑷繁鐨?MAC
-          鈹?璇锋眰:      192.168.1.5 鐨?MAC 鏄皝锛?          鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
-Step 2: 鍗曟挱  鈫愨攢鈹€ 鍙湁 B 鍥炲
-          "192.168.1.5 鏄垜锛屾垜鐨?MAC 鏄?bb:bb:bb:bb:bb:bb"
-          鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?          鈹?鐩爣 MAC: aa:aa:aa:aa:aa:aa  鈫?鍗曟挱鐩存帴鍙戠粰 A
-          鈹?婧?MAC:    bb:bb:bb:bb:bb:bb  鈫?B 鍝嶅簲
-          鈹?鍥炲:      192.168.1.5 鈫?bb:bb:bb:bb:bb:bb
-          鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?```
+Step 1: 广播  ──→ 交换机 ──→ 所有同网段设备
+          "谁是 192.168.1.5？请告诉 aa:aa:aa:aa:aa:aa"
+          ┌───────────────┐
+          │ 目标 MAC: FF:FF:FF:FF:FF:FF  ← 广播地址
+          │ 源 MAC:    aa:aa:aa:aa:aa:aa  ← A 自己的 MAC
+          │ 请求:      192.168.1.5 的 MAC 是谁？
+          └───────────────┘
 
-鍏抽敭鐗瑰緛锛?
-| 鐗瑰緛 | 璇存槑 |
+Step 2: 单播  ←── 只有 B 回复
+          "192.168.1.5 是我，我的 MAC 是 bb:bb:bb:bb:bb:bb"
+          ┌───────────────┐
+          │ 目标 MAC: aa:aa:aa:aa:aa:aa  ← 单播直接发给 A
+          │ 源 MAC:    bb:bb:bb:bb:bb:bb  ← B 响应
+          │ 回复:      192.168.1.5 → bb:bb:bb:bb:bb:bb
+          └───────────────┘
+```
+
+关键特征：
+
+| 特征 | 说明 |
 |------|------|
-| **骞挎挱璇锋眰** | 鐩爣 MAC 濉?`FF:FF:FF:FF:FF:FF`锛屽悓涓€骞挎挱鍩熷唴鎵€鏈夎澶囬兘浼氭敹鍒?|
-| **鍗曟挱鍥炲** | 鍙湁鐩爣 IP 瀵瑰簲鐨勮澶囧洖澶嶏紝鍥炲鏄崟鎾紙鐩存帴鍙戠粰璇锋眰鑰咃級 |
-| **缂撳瓨** | 瑙ｆ瀽缁撴灉瀛樺叆鍐呮牳鐨?ARP 缂撳瓨锛堥偦灞呰〃锛夛紝鍚庣画涓嶅啀骞挎挱 |
-| **瓒呮椂** | 鏉＄洰鏈夌敓瀛樻椂闂达紙閫氬父鍑犲崄绉掑埌鍑犲垎閽燂級锛岃秴鏃跺悗閲嶆柊鎺㈡祴 |
-| **鍗忚鏍囪瘑** | 浠ュお缃戝抚涓?EtherType = `0x0806` 琛ㄧず ARP |
+| **广播请求** | 目标 MAC 填 `FF:FF:FF:FF:FF:FF`，同一广播域内所有设备都会收到 |
+| **单播回复** | 只有目标 IP 对应的设备回复，回复是单播（直接发给请求者） |
+| **缓存** | 解析结果存入内核的 ARP 缓存（邻居表），后续不再广播 |
+| **超时** | 条目有生存时间（通常几十秒到几分钟），超时后重新探测 |
+| **协议标识** | 以太网帧中 EtherType = `0x0806` 表示 ARP |
 
-> [!tip] 鎶撳寘楠岃瘉
-> 鍙互鐢?`tcpdump -i eth0 arp` 鎶撳埌 ARP 璇锋眰鍜屽洖澶嶅寘銆備綘浼氱湅鍒板箍鎾姹傜殑 MAC 鐩爣鍦板潃鍏ㄦ槸 `ff:ff:ff:ff:ff:ff`锛岃€屽洖澶嶆槸鍗曟挱銆?
-### ARP 鍙湪鍚屼竴骞挎挱鍩熷唴宸ヤ綔
+> [!tip] 抓包验证
+> 可以用 `tcpdump -i eth0 arp` 抓到 ARP 请求和回复包。你会看到广播请求的 MAC 目标地址全是 `ff:ff:ff:ff:ff:ff`，而回复是单播。
 
-杩欐槸 **闈炲父鍏抽敭** 鐨勪竴鐐癸細ARP 涓嶈兘璺ㄨ矾鐢卞櫒宸ヤ綔銆傚鏋滅洰鏍?IP 涓嶅湪鍚屼竴瀛愮綉锛屼富鏈轰細鎶婂寘鍙戠粰榛樿缃戝叧锛岀劧鍚庣敤 ARP 瑙ｆ瀽 **缃戝叧鐨?MAC**锛岃€岄潪鐩爣 IP 鐨?MAC銆?
+### ARP 只在同一广播域内工作
+
+这是 **非常关键** 的一点：ARP 不能跨路由器工作。如果目标 IP 不在同一子网，主机会把包发给默认网关，然后用 ARP 解析 **网关的 MAC**，而非目标 IP 的 MAC。
+
 ```
-# 鏈満 IP: 192.168.1.2/24
-# 榛樿缃戝叧: 192.168.1.1
-# 鐩爣: 8.8.8.8锛堜笉鍦ㄥ悓涓€瀛愮綉锛?
-# 鏈満鍒ゆ柇锛?.8.8.8 涓嶅湪 192.168.1.0/24 鍐?# 琛屼负锛欰RP 鏌ヨ鐨勬槸 192.168.1.1锛堢綉鍏筹級鐨?MAC锛屼笉鏄?8.8.8.8 鐨?```
+# 本机 IP: 192.168.1.2/24
+# 默认网关: 192.168.1.1
+# 目标: 8.8.8.8（不在同一子网）
+
+# 本机判断：8.8.8.8 不在 192.168.1.0/24 内
+# 行为：ARP 查询的是 192.168.1.1（网关）的 MAC，不是 8.8.8.8 的
+```
 
 ---
 
-## 閭诲眳鐘舵€佹満璇﹁В
+## 邻居状态机详解
 
-ARP 缂撳瓨涓殑姣忎釜鏉＄洰閮芥湁涓€涓?*鐘舵€?*锛屾爣蹇楃潃璇ユ槧灏勭殑"淇′换绋嬪害"銆傜悊瑙ｈ繖浜涚姸鎬佹槸鎺掗殰鐨勫熀纭€銆?
+ARP 缓存中的每个条目都有一个**状态**，标志着该映射的"信任程度"。理解这些状态是排障的基础。
+
 ```
-                    鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?                    鈹? PERMANENT 鈹? 鈫?闈欐€侀厤缃紝姘镐笉瓒呮椂
-                    鈹斺攢鈹€鈹€鈹€鈹€鈹攢鈹€鈹€鈹€鈹?                          鈹?    鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?   鈹屸攢鈹€鈹€鈻尖攢鈹€鈹€鈹€鈹?    鈹? FAILED   鈹傗梽鈹€鈹€鈹€鈹?鍒氭坊鍔? 鈹?    鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?   鈹斺攢鈹€鈹€鈹攢鈹€鈹€鈹€鈹?                         鈹?瑙ｆ瀽鎴愬姛
-                    鈹屸攢鈹€鈹€鈹€鈻尖攢鈹€鈹€鈹€鈹€鈹?                    鈹?REACHABLE 鈹? 鈫?鏈€杩戠‘璁よ繃鍙揪
-                    鈹斺攢鈹€鈹€鈹€鈹攢鈹€鈹€鈹€鈹€鈹?                         鈹?瓒呮椂锛堢害 30s锛?                    鈹屸攢鈹€鈹€鈹€鈻尖攢鈹€鈹€鈹€鈹?                    鈹? STALE  鈹? 鈫?鍙兘杩樺彲鐢紝浣嗘湭楠岃瘉
-                    鈹斺攢鈹€鈹€鈹€鈹攢鈹€鈹€鈹€鈹?                         鈹?瑕佸彂鍖呯粰杩欎釜閭诲眳
-                    鈹屸攢鈹€鈹€鈹€鈻尖攢鈹€鈹€鈹€鈹?                    鈹? DELAY  鈹? 鈫?寤惰繜楠岃瘉鏈燂紙绾?5s锛?                    鈹斺攢鈹€鈹€鈹€鈹攢鈹€鈹€鈹€鈹?                         鈹?浠嶇劧娌＄‘璁?                    鈹屸攢鈹€鈹€鈹€鈻尖攢鈹€鈹€鈹€鈹?                    鈹? PROBE  鈹? 鈫?鍙戝崟鎾帰娴嬶紙鏈€澶?3 娆★級
-                    鈹斺攢鈹€鈹€鈹€鈹攢鈹€鈹€鈹€鈹?                    鎴愬姛锛忊攤 澶辫触
-                 鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹粹攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?                 鈻?               鈻?            鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?  鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?            鈹俁EACHABLE 鈹?  鈹? FAILED  鈹?            鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?  鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?```
+                    ┌──────────┐
+                    │  PERMANENT │  ← 静态配置，永不超时
+                    └─────┬────┘
+                          │
+    ┌───────────┐    ┌───▼────┐
+    │  FAILED   │◄───│ 刚添加  │
+    └───────────┘    └───┬────┘
+                         │ 解析成功
+                    ┌────▼─────┐
+                    │ REACHABLE │  ← 最近确认过可达
+                    └────┬─────┘
+                         │ 超时（约 30s）
+                    ┌────▼────┐
+                    │  STALE  │  ← 可能还可用，但未验证
+                    └────┬────┘
+                         │ 要发包给这个邻居
+                    ┌────▼────┐
+                    │  DELAY  │  ← 延迟验证期（约 5s）
+                    └────┬────┘
+                         │ 仍然没确认
+                    ┌────▼────┐
+                    │  PROBE  │  ← 发单播探测（最多 3 次）
+                    └────┬────┘
+                    成功／│ 失败
+                 ┌───────┴────────┐
+                 ▼                ▼
+            ┌──────────┐   ┌──────────┐
+            │REACHABLE │   │  FAILED  │
+            └──────────┘   └──────────┘
+```
 
-### 鐘舵€佽瑙?
-| 鐘舵€?| 鍚箟 | 鍏稿瀷瑙﹀彂鏉′欢 |
+### 状态详解
+
+| 状态 | 含义 | 典型触发条件 |
 |------|------|-------------|
-| **REACHABLE** | 鏈€杩戠‘璁よ繃鍙揪锛屾槧灏勬湁鏁?| 鍒氬畬鎴?ARP 瑙ｆ瀽 / 鏀跺埌瀵圭鍥炲 |
-| **STALE** | 鏉＄洰瓒呮椂锛屽彲鑳戒粛鍙敤浣嗘湭楠岃瘉 | REACHABLE 瓒呮椂锛堥粯璁ょ害 30-45 绉掞級 |
-| **DELAY** | 闇€瑕佸彂鏁版嵁浜嗭紝浣嗗厛绛変竴灏忎細鍎?| STALE 鐘舵€佷笅鏈夋祦閲忚鍙戠粰杩欎釜 IP |
-| **PROBE** | 姝ｅ湪鍙戝崟鎾帰娴嬬‘璁?| DELAY 瓒呮椂锛堢害 5 绉掞級鍚庝粛鏈敹鍒扮‘璁?|
-| **FAILED** | 涓嶅彲杈?| PROBE 閲嶈瘯澶辫触 |
-| **PERMANENT** | 闈欐€佹潯鐩紝姘镐笉瓒呮椂 | 閫氳繃 `ip neigh add ... nud permanent` 娣诲姞 |
+| **REACHABLE** | 最近确认过可达，映射有效 | 刚完成 ARP 解析 / 收到对端回复 |
+| **STALE** | 条目超时，可能仍可用但未验证 | REACHABLE 超时（默认约 30-45 秒） |
+| **DELAY** | 需要发数据了，但先等一小会儿 | STALE 状态下有流量要发给这个 IP |
+| **PROBE** | 正在发单播探测确认 | DELAY 超时（约 5 秒）后仍未收到确认 |
+| **FAILED** | 不可达 | PROBE 重试失败 |
+| **PERMANENT** | 静态条目，永不超时 | 通过 `ip neigh add ... nud permanent` 添加 |
 
-> [!warning] STALE 涓嶆槸"鍧?鐨勭姸鎬?
-> STALE 鍙〃绀?鏈変竴娈垫椂闂存病纭浜?銆傚鏋滄槧灏勫疄闄呬笂浠嶆槸姝ｇ‘鐨勶紝浠?STALE 鍙戞暟鎹寘鏃惰蛋 DELAY 鈫?PROBE 娴佺▼锛屾垚鍔熷悗浼氬洖鍒?REACHABLE锛岀敤鎴峰熀鏈棤鎰熺煡銆?
-### 瓒呮椂鍙傛暟璋冧紭
+> [!warning] STALE 不是"坏"的状态
+> STALE 只表示"有一段时间没确认了"。如果映射实际上仍是正确的，从 STALE 发数据包时走 DELAY → PROBE 流程，成功后会回到 REACHABLE，用户基本无感知。
+
+### 超时参数调优
 
 ```bash
-# 鏌ョ湅 ARP 鐩稿叧瓒呮椂鍙傛暟
+# 查看 ARP 相关超时参数
 sysctl net.ipv4.neigh.default.gc_stale_time
-# 榛樿鍊? 60 绉?# 鍚箟: 浠?REACHABLE 鍙樹负 STALE 鐨勬椂闂?
+# 默认值: 60 秒
+# 含义: 从 REACHABLE 变为 STALE 的时间
+
 sysctl net.ipv4.neigh.default.base_reachable_time
-# 榛樿鍊? 30 绉?# 鍚箟: REACHABLE 鐘舵€佺殑鍩虹瓒呮椂鏃堕棿
+# 默认值: 30 秒
+# 含义: REACHABLE 状态的基础超时时间
 
 sysctl net.ipv4.neigh.default.retrans_time_ms
-# 榛樿鍊? 1000 姣
-# 鍚箟: PROBE 鐘舵€佺殑閲嶈瘯闂撮殧
+# 默认值: 1000 毫秒
+# 含义: PROBE 状态的重试间隔
 ```
 
 ---
 
-## `ip neigh show` 杈撳嚭瑙ｈ
+## `ip neigh show` 输出解读
 
-`ip neigh` 鏄?iproute2 涓鐞嗛偦灞呰〃鐨勫懡浠わ紝鏇夸唬鏃х殑 `arp -a`銆?
-### 鍩烘湰鐢ㄦ硶
+`ip neigh` 是 iproute2 中管理邻居表的命令，替代旧的 `arp -a`。
+
+### 基本用法
 
 ```bash
-# 鏌ョ湅鎵€鏈夐偦灞呮潯鐩?ip neigh show
+# 查看所有邻居条目
+ip neigh show
 
-# 杈撳嚭绀轰緥
+# 输出示例
 192.168.1.1 dev eth0 lladdr aa:bb:cc:dd:ee:ff REACHABLE
 192.168.1.5 dev eth0 lladdr 11:22:33:44:55:66 STALE
 192.168.1.10 dev eth0 FAILED
@@ -114,219 +161,254 @@ fe80::1 dev eth0 lladdr aa:bb:cc:dd:ee:ff REACHABLE
 172.17.0.2 dev docker0 lladdr 02:42:ac:11:00:02 REACHABLE
 ```
 
-### 杈撳嚭瀛楁瑙ｈ
+### 输出字段解读
 
 ```
 192.168.1.1        dev eth0        lladdr aa:bb:cc:dd:ee:ff      REACHABLE
-鈹斺攢鈹€鈹€鈹€ 閭诲眳 IP      鈹斺攢鈹€ 鎵€灞炵綉鍗?   鈹斺攢鈹€ 瀵圭 MAC 鍦板潃             鈹斺攢鈹€ 鐘舵€?   (鍙惈 IPv6)        (澶氫釜缃戝崱鏃?       (lladdr = link layer
-                      鍖哄垎鎺ュ彛)          address)
+└──── 邻居 IP      └── 所属网卡    └── 对端 MAC 地址             └── 状态
+   (可含 IPv6)        (多个网卡时        (lladdr = link layer
+                      区分接口)          address)
 ```
 
-### 甯哥敤杩囨护
+### 常用过滤
 
 ```bash
-# 鍙湅鏌愪釜鎺ュ彛鐨勯偦灞?ip neigh show dev eth0
+# 只看某个接口的邻居
+ip neigh show dev eth0
 
-# 鍙湅 IPv6 閭诲眳锛圢DP 鏉＄洰锛?ip neigh show dev eth0 | grep "inet6"   # 鎴?ip -6 neigh show
+# 只看 IPv6 邻居（NDP 条目）
+ip neigh show dev eth0 | grep "inet6"   # 或
+ip -6 neigh show
 
-# 鍙煡鐪?REACHABLE 鐘舵€佺殑
+# 只查看 REACHABLE 状态的
 ip neigh show | grep REACHABLE
 
-# 鍙煡鐪?FAILED 鐨勶紙鍙兘鏈夐棶棰樼殑锛?ip neigh show | grep FAILED
+# 只查看 FAILED 的（可能有问题的）
+ip neigh show | grep FAILED
 
-# JSON 杈撳嚭锛堥€傚悎鑴氭湰瑙ｆ瀽锛?ip -j neigh show
+# JSON 输出（适合脚本解析）
+ip -j neigh show
 ```
 
-### 涓庢棫鍛戒护瀵规瘮
+### 与旧命令对比
 
 ```bash
-# 鏃у懡浠わ紙net-tools锛?arp -a            # 鏌ョ湅 ARP 琛?arp -d 192.168.1.5  # 鍒犻櫎鏉＄洰
+# 旧命令（net-tools）
+arp -a            # 查看 ARP 表
+arp -d 192.168.1.5  # 删除条目
 
-# 鏂板懡浠わ紙iproute2锛?ip neigh show     # 鏌ョ湅閭诲眳琛?ip neigh delete 192.168.1.5 dev eth0  # 鍒犻櫎鏉＄洰
+# 新命令（iproute2）
+ip neigh show     # 查看邻居表
+ip neigh delete 192.168.1.5 dev eth0  # 删除条目
 ```
 
 > [!note] `ip neigh` vs `arp`
-> `ip neigh` 鏄唴鏍?netlink 鎺ュ彛鐨勭洿鎺ュ皝瑁咃紝鏀寔 **IPv4锛圓RP锛夊拰 IPv6锛圢DP锛?* 缁熶竴杈撳嚭锛岃€屾棫 `arp` 鍛戒护鍙敮鎸?IPv4銆傚湪鐜颁唬鍙戣鐗堜笂锛屽缁堜娇鐢?`ip neigh`銆?
+> `ip neigh` 是内核 netlink 接口的直接封装，支持 **IPv4（ARP）和 IPv6（NDP）** 统一输出，而旧 `arp` 命令只支持 IPv4。在现代发行版上，始终使用 `ip neigh`。
+
 ---
 
-## `ip neigh flush` 娓呴櫎閭诲眳琛?
-褰撲綘鎬€鐤戦偦灞呰〃涓湁杩囨湡鎴栭敊璇殑鏉＄洰鏃讹紝娓呯┖鍚庤鍐呮牳閲嶆柊瑙ｆ瀽鏄竴绉嶅父鐢ㄧ殑鎺掗殰鎵嬫銆?
-### 娓呯┖鎵€鏈夋潯鐩?
-```bash
-# 娓呯┖鎵€鏈夐偦灞呮潯鐩?ip neigh flush all
+## `ip neigh flush` 清除邻居表
 
-# 杈撳嚭绀轰緥
+当你怀疑邻居表中有过期或错误的条目时，清空后让内核重新解析是一种常用的排障手段。
+
+### 清空所有条目
+
+```bash
+# 清空所有邻居条目
+ip neigh flush all
+
+# 输出示例
 192.168.1.1 dev eth0 lladdr aa:bb:cc:dd:ee:ff REACHABLE removed
 192.168.1.5 dev eth0 lladdr 11:22:33:44:55:66 STALE removed
 192.168.1.10 dev eth0 FAILED removed
 ```
 
-### 鎸夋潯浠惰繃婊ゆ竻闄?
+### 按条件过滤清除
+
 ```bash
-# 鍙竻绌烘煇涓帴鍙ｇ殑
+# 只清空某个接口的
 ip neigh flush dev eth0
 
-# 鍙竻绌?NUD_FAILED 鐘舵€佺殑
+# 只清空 NUD_FAILED 状态的
 ip neigh flush nud failed
 
-# 鍙竻绌烘寚瀹?IP
+# 只清空指定 IP
 ip neigh flush 192.168.1.5 to 192.168.1.5
 
-# 缁勫悎鏉′欢
+# 组合条件
 ip neigh flush dev eth0 nud stale
 ```
 
-### flush 鐨勫吀鍨嬩娇鐢ㄥ満鏅?
-| 鍦烘櫙 | 鎿嶄綔 | 璇存槑 |
+### flush 的典型使用场景
+
+| 场景 | 操作 | 说明 |
 |------|------|------|
-| 缃戝叧 MAC 鍙樻洿 | `ip neigh flush dev eth0` | 缃戝叧鏇存崲纭欢鍚庢棫鏄犲皠澶辨晥 |
-| VM/瀹瑰櫒杩佺Щ | `ip neigh flush dev br0` | 杩佺Щ鍚?IP 鏈彉浣?MAC 鍙樹簡 |
-| 棰戠箒鍑虹幇 FAILED | `ip neigh flush nud failed` | 娓呯悊涓嶅彲杈炬潯鐩伩鍏嶈〃婊?|
-| 鎬€鐤?ARP 缂撳瓨闂 | `ip neigh flush all` | 璁╂墍鏈夋潯鐩噸鏂拌В鏋?|
+| 网关 MAC 变更 | `ip neigh flush dev eth0` | 网关更换硬件后旧映射失效 |
+| VM/容器迁移 | `ip neigh flush dev br0` | 迁移后 IP 未变但 MAC 变了 |
+| 频繁出现 FAILED | `ip neigh flush nud failed` | 清理不可达条目避免表满 |
+| 怀疑 ARP 缓存问题 | `ip neigh flush all` | 让所有条目重新解析 |
 
-> [!tip] flush 鍚庨獙璇?
-> 娓呯┖鍚庤繍琛?`ping 192.168.1.1` 瑙﹀彂 ARP 閲嶆柊瑙ｆ瀽锛岀劧鍚?`ip neigh show` 纭鏂版潯鐩槸 REACHABLE銆?
-### 闈欐€佹坊鍔犳潯鐩?
+> [!tip] flush 后验证
+> 清空后运行 `ping 192.168.1.1` 触发 ARP 重新解析，然后 `ip neigh show` 确认新条目是 REACHABLE。
+
+### 静态添加条目
+
 ```bash
-# 娣诲姞涓€涓?PERMANENT锛堟案涓嶈秴鏃讹級鐨勯潤鎬佹潯鐩?ip neigh add 192.168.1.100 lladdr de:ad:be:ef:00:01 nud permanent dev eth0
+# 添加一个 PERMANENT（永不超时）的静态条目
+ip neigh add 192.168.1.100 lladdr de:ad:be:ef:00:01 nud permanent dev eth0
 
-# 娣诲姞涓€涓?REACHABLE 鏉＄洰锛堜篃浼氳秴鏃讹級
+# 添加一个 REACHABLE 条目（也会超时）
 ip neigh add 192.168.1.200 lladdr de:ad:be:ef:00:02 nud reachable dev eth0
 
-# 鍒犻櫎闈欐€佹潯鐩?ip neigh delete 192.168.1.100 dev eth0
+# 删除静态条目
+ip neigh delete 192.168.1.100 dev eth0
 ```
 
-> [!warning] 璋ㄦ厧浣跨敤 PERMANENT
-> 闈欐€?MAC 缁戝畾鍙湪鏋佸皯鏁板満鏅笅闇€瑕侊紙濡傜壒瀹氬畨鍏ㄨ姹傦級銆備竴鏃﹀绔‖浠舵洿鎹紝浣犱細鏀跺埌 **IP 閫氫絾瀹為檯涓嶉€?* 鐨勮寮傛晠闅溿€傚鏁板満鏅笅璁╁唴鏍歌嚜鍔ㄧ鐞嗗嵆鍙€?
+> [!warning] 谨慎使用 PERMANENT
+> 静态 MAC 绑定只在极少数场景下需要（如特定安全要求）。一旦对端硬件更换，你会收到 **IP 通但实际不通** 的诡异故障。多数场景下让内核自动管理即可。
+
 ---
 
-## IPv6 NDP 鍙栦唬 ARP
+## IPv6 NDP 取代 ARP
 
-IPv6 涓病鏈?ARP 鍗忚锛屽畠鐨勮鑹茬敱 **NDP锛圢eighbor Discovery Protocol锛岄偦灞呭彂鐜板崗璁級** 鏇夸唬銆?
-### 鏍稿績宸紓
+IPv6 中没有 ARP 协议，它的角色由 **NDP（Neighbor Discovery Protocol，邻居发现协议）** 替代。
 
-| 瀵规瘮缁村害 | ARP锛圛Pv4锛?| NDP锛圛Pv6锛?|
+### 核心差异
+
+| 对比维度 | ARP（IPv4） | NDP（IPv6） |
 |---------|-----------|-------------|
-| **鍗忚鍩虹** | 鐙珛鐨?ARP 鍗忚锛圗therType=0x0806锛?| 鍩轰簬 ICMPv6锛圱ype 135/136锛?|
-| **浼犺緭鏂瑰紡** | 骞挎挱 (L2 broadcast) | 澶氭挱 (L2 multicast锛屼笉鍙戝埌鏃犲叧鑺傜偣) |
-| **瀹夊叏鎬?* | 鏃犲唴缃繚鎶わ紝鏄撹 ARP 娆洪獥 | 鏀寔 SEND锛圫ecure Neighbor Discovery锛?|
-| **鍦板潃瑙ｆ瀽** | ARP 璇锋眰/鍥炲 | 閭诲眳璇锋眰 NS / 閭诲眳鍏憡 NA |
-| **鍏朵粬鍔熻兘** | 浠呭湴鍧€瑙ｆ瀽 | 杩樺寘鎷矾鐢卞櫒鍙戠幇銆佹棤鐘舵€佸湴鍧€鑷姩閰嶇疆(SLAAC)銆侀噸澶嶅湴鍧€妫€娴?DAD) |
-| **鍐呮牳鎺ュ彛** | `ip neigh` 缁熶竴绠＄悊 | 鍚屼竴寮犻偦灞呰〃锛宍ip neigh` 鍚屾牱閫傜敤 |
+| **协议基础** | 独立的 ARP 协议（EtherType=0x0806） | 基于 ICMPv6（Type 135/136） |
+| **传输方式** | 广播 (L2 broadcast) | 多播 (L2 multicast，不发到无关节点) |
+| **安全性** | 无内置保护，易被 ARP 欺骗 | 支持 SEND（Secure Neighbor Discovery） |
+| **地址解析** | ARP 请求/回复 | 邻居请求 NS / 邻居公告 NA |
+| **其他功能** | 仅地址解析 | 还包括路由器发现、无状态地址自动配置(SLAAC)、重复地址检测(DAD) |
+| **内核接口** | `ip neigh` 统一管理 | 同一张邻居表，`ip neigh` 同样适用 |
 
-### NDP 鐨勬牳蹇冩秷鎭?
+### NDP 的核心消息
+
 ```
-NDP 閭诲眳璇锋眰 (Neighbor Solicitation, ICMPv6 Type 135)
-  鈹€鈹€鈫?澶氭挱鍒扮洰鏍囪妭鐐圭殑琚姹傝妭鐐瑰鎾湴鍧€
-  鈹€鈹€鈫?"璋佹槸 fe80::1234?"
+NDP 邻居请求 (Neighbor Solicitation, ICMPv6 Type 135)
+  ──→ 多播到目标节点的被请求节点多播地址
+  ──→ "谁是 fe80::1234?"
 
-NDP 閭诲眳鍏憡 (Neighbor Advertisement, ICMPv6 Type 136)
-  鈫愨攢鈹€ 鍗曟挱鍥炲
-  鈫愨攢鈹€ "fe80::1234 鏄垜锛屾垜鐨?MAC 鏄?aa:bb:cc:dd:ee:ff"
+NDP 邻居公告 (Neighbor Advertisement, ICMPv6 Type 136)
+  ←── 单播回复
+  ←── "fe80::1234 是我，我的 MAC 是 aa:bb:cc:dd:ee:ff"
 ```
 
 ```bash
-# 鏌ョ湅 IPv6 閭诲眳鏉＄洰锛堝拰 IPv4 鐢ㄥ悓涓€涓懡浠わ級
+# 查看 IPv6 邻居条目（和 IPv4 用同一个命令）
 ip -6 neigh show
 
-# 杈撳嚭绀轰緥
+# 输出示例
 fe80::1 dev eth0 lladdr aa:bb:cc:dd:ee:ff REACHABLE
 fe80::1234 dev eth0 lladdr 11:22:33:44:55:66 STALE
 ```
 
-> [!note] 閭诲眳琛ㄧ粺涓€绠＄悊
-> 鍦?Linux 鍐呮牳灞傞潰锛孉RP锛圛Pv4锛夊拰 NDP锛圛Pv6锛夌殑瑙ｆ瀽缁撴灉瀛樺湪 **鍚屼竴寮犻偦灞呰〃** 涓€俙ip neigh show` 涓嶅尯鍒嗗崗璁紝IPv4 鍜?IPv6 鏉＄洰骞舵帓杈撳嚭銆傜敤 `ip -4 neigh show` 鍙湅 IPv4锛宍ip -6 neigh show` 鍙湅 IPv6銆?
+> [!note] 邻居表统一管理
+> 在 Linux 内核层面，ARP（IPv4）和 NDP（IPv6）的解析结果存在 **同一张邻居表** 中。`ip neigh show` 不区分协议，IPv4 和 IPv6 条目并排输出。用 `ip -4 neigh show` 只看 IPv4，`ip -6 neigh show` 只看 IPv6。
+
 ---
 
-## ARP 琛ㄦ孩鍑轰笌 `gc_thresh` 鎺掗殰
+## ARP 表溢出与 `gc_thresh` 排障
 
-### 闂鐜拌薄
+### 问题现象
 
-鍦ㄨ緝澶ц妯＄殑浜屽眰缃戠粶锛堝 Kubernetes 闆嗙兢鑺傜偣鏁拌緝澶氥€丏HCP 瀛愮綉寰堝ぇ锛夋垨棰戠箒寤虹珛/鏂紑杩炴帴鐨勫満鏅笅锛孉RP 琛ㄥ彲鑳戒細鍗犳弧銆傚崰婊″悗鐨勫吀鍨嬬棁鐘讹細
+在较大规模的二层网络（如 Kubernetes 集群节点数较多、DHCP 子网很大）或频繁建立/断开连接的场景下，ARP 表可能会占满。占满后的典型症状：
 
-- 鍐呮牳鏃ュ織鍑虹幇 `neighbour: arp_cache: neighbor table overflow!`
-- 鏂扮殑 AP R瑙ｆ瀽澶辫触锛屽鑷?`ping` 閫氫絾瀵圭杩炴帴寮傚父
-- `dmesg | tail` 鑳界湅鍒扮浉鍏宠鍛?
-### 涓変釜鍏抽敭鍙傛暟
+- 内核日志出现 `neighbour: arp_cache: neighbor table overflow!`
+- 新的 AP R解析失败，导致 `ping` 通但对端连接异常
+- `dmesg | tail` 能看到相关警告
 
-鍐呮牳鐢ㄤ笁涓弬鏁版帶鍒?ARP 琛ㄧ殑鍨冨溇鍥炴敹锛圙C锛夛細
+### 三个关键参数
+
+内核用三个参数控制 ARP 表的垃圾回收（GC）：
 
 ```bash
-sysctl net.ipv4.neigh.default.gc_thresh1   # 杞笅闄愶紙榛樿 128锛?sysctl net.ipv4.neigh.default.gc_thresh2   # 杞笂闄愶紙榛樿 512锛?sysctl net.ipv4.neigh.default.gc_thresh3   # 纭笂闄愶紙榛樿 1024锛?```
+sysctl net.ipv4.neigh.default.gc_thresh1   # 软下限（默认 128）
+sysctl net.ipv4.neigh.default.gc_thresh2   # 软上限（默认 512）
+sysctl net.ipv4.neigh.default.gc_thresh3   # 硬上限（默认 1024）
+```
 
-| 鍙傛暟 | 浣滅敤 | 琛屼负 |
+| 参数 | 作用 | 行为 |
 |------|------|------|
-| `gc_thresh1` | 鏈€灏忎繚鐣欐暟 | 鏉＄洰灏戜簬杩欎釜鏁版椂锛孏C 涓嶄細涓诲姩鍥炴敹 |
-| `gc_thresh2` | 杞笂闄?| 瓒呰繃杩欎釜鏁版椂锛孏C 寮€濮嬪皾璇曞洖鏀?**STALE** 鏉＄洰 |
-| `gc_thresh3` | 纭笂闄?| 瓒呰繃杩欎釜鏁版椂锛岀洿鎺ユ嫆缁濇柊鏉＄洰锛堝紑濮嬩涪鍖咃級 |
+| `gc_thresh1` | 最小保留数 | 条目少于这个数时，GC 不会主动回收 |
+| `gc_thresh2` | 软上限 | 超过这个数时，GC 开始尝试回收 **STALE** 条目 |
+| `gc_thresh3` | 硬上限 | 超过这个数时，直接拒绝新条目（开始丢包） |
 
-### 鎺掓煡姝ラ
+### 排查步骤
 
 ```bash
-# 1. 鏌ョ湅褰撳墠閭诲眳琛ㄥぇ灏?ip neigh show | wc -l
+# 1. 查看当前邻居表大小
+ip neigh show | wc -l
 
-# 2. 鏌ョ湅褰撳墠 GC 鍙傛暟
+# 2. 查看当前 GC 参数
 sysctl net.ipv4.neigh.default.gc_thresh1
 sysctl net.ipv4.neigh.default.gc_thresh2
 sysctl net.ipv4.neigh.default.gc_thresh3
 
-# 3. 妫€鏌ュ唴鏍告棩蹇楁槸鍚︽湁婧㈠嚭璀﹀憡
+# 3. 检查内核日志是否有溢出警告
 dmesg | grep -i "neighbor table overflow"
 
-# 4. 鐪?FAILED 鏉＄洰鏄惁杩囧
+# 4. 看 FAILED 条目是否过多
 ip neigh show | grep FAILED | wc -l
 ```
 
-### 瀹氫綅鍘熷洜
+### 定位原因
 
-ARP 琛ㄦ孩鍑洪€氬父鏈変互涓嬪師鍥狅細
+ARP 表溢出通常有以下原因：
 
-1. **瀛愮綉杩囧ぇ**锛堝 `/16` 鐢氳嚦 `/8` 鐨勫瓙缃戯級锛孉RP 鏉＄洰杩滃浜?`gc_thresh3`
-2. **澶栭儴鎵弿**锛孖P 鎵弿宸ュ叿鍙戝嚭澶ч噺璇锋眰锛屼骇鐢熷ぇ閲?FAILED 鏉＄洰
-3. **瀹瑰櫒/VM 棰戠箒鍒涘缓閿€姣?*锛孖P 涓嶆柇鍙樺寲锛屾棫鐨?STALE/FALED 鏉＄洰鍫嗙Н
-4. **缃戠粶璁惧鏁呴殰**锛屾煇浜?IP 鍙嶅鍙揪/涓嶅彲杈撅紝瀵艰嚧鐘舵€侀绻佸垏鎹?
-### 涓存椂淇
+1. **子网过大**（如 `/16` 甚至 `/8` 的子网），ARP 条目远多于 `gc_thresh3`
+2. **外部扫描**，IP 扫描工具发出大量请求，产生大量 FAILED 条目
+3. **容器/VM 频繁创建销毁**，IP 不断变化，旧的 STALE/FALED 条目堆积
+4. **网络设备故障**，某些 IP 反复可达/不可达，导致状态频繁切换
+
+### 临时修复
 
 ```bash
-# 璋冨ぇ gc_thresh锛堜复鏃剁敓鏁堬紝閲嶅惎鍚庢仮澶嶏級
+# 调大 gc_thresh（临时生效，重启后恢复）
 sysctl -w net.ipv4.neigh.default.gc_thresh1=512
 sysctl -w net.ipv4.neigh.default.gc_thresh2=2048
 sysctl -w net.ipv4.neigh.default.gc_thresh3=4096
 
-# 娓呯┖ FAILED 鏉＄洰閲婃斁绌洪棿
+# 清空 FAILED 条目释放空间
 ip neigh flush nud failed
 ```
 
-### 鎸佷箙鍖栭厤缃?
+### 持久化配置
+
 ```bash
-# 鍐欏叆 /etc/sysctl.conf 鎴?/etc/sysctl.d/99-arp.conf
+# 写入 /etc/sysctl.conf 或 /etc/sysctl.d/99-arp.conf
 cat >> /etc/sysctl.d/99-arp.conf << 'EOF'
-# ARP 琛?GC 鍙傛暟璋冧紭锛堥€傜敤浜庡ぇ浜屽眰缃戠粶锛?net.ipv4.neigh.default.gc_thresh1 = 512
+# ARP 表 GC 参数调优（适用于大二层网络）
+net.ipv4.neigh.default.gc_thresh1 = 512
 net.ipv4.neigh.default.gc_thresh2 = 2048
 net.ipv4.neigh.default.gc_thresh3 = 4096
 EOF
 
-# 绔嬪嵆鐢熸晥
+# 立即生效
 sysctl -p /etc/sysctl.d/99-arp.conf
 ```
 
-> [!warning] gc_thresh3 涓嶆槸瓒婂瓒婂ソ
-> 姣忎釜閭诲眳鏉＄洰绾﹀崰鐢?256 瀛楄妭鍐呮牳鍐呭瓨銆傝缃繃澶э紙濡傚崄鍑犱竾锛変細娑堣€楀ぇ閲忓唴鏍稿唴瀛樸€傛牴鎹疄闄呴渶瑕佽缃紝Kubernetes 闆嗙兢寤鸿璁句负鑺傜偣鏁扮殑 2-3 鍊嶃€?
+> [!warning] gc_thresh3 不是越多越好
+> 每个邻居条目约占用 256 字节内核内存。设置过大（如十几万）会消耗大量内核内存。根据实际需要设置，Kubernetes 集群建议设为节点数的 2-3 倍。
+
 ---
 
-## 鏈珷灏忕粨
+## 本章小结
 
-- **ARP 鍗忚** 閫氳繃骞挎挱璇锋眰 / 鍗曟挱鍥炲锛屽皢 IP 鍦板潃瑙ｆ瀽涓?MAC 鍦板潃锛?*鍙湪鍚屼竴骞挎挱鍩熷唴宸ヤ綔**
-- **閭诲眳鐘舵€佹満** 鏄悊瑙?ARP 缂撳瓨琛屼负鐨勫叧閿細REACHABLE锛堟渶杩戠‘璁わ級鈫?STALE锛堣秴鏃讹級鈫?DELAY锛堢瓑寰咃級鈫?PROBE锛堟帰娴嬶級鈫?FAILED锛堝け璐ワ級锛孭ERMANENT 鏄潤鎬佺粦瀹?- `ip neigh show` 鏄煡鐪嬮偦灞呰〃鐨勬爣鍑嗗懡浠わ紝鏀寔 `-j` JSON 杈撳嚭鍜屾寜鎺ュ彛/鐘舵€佽繃婊わ紝**缁熶竴绠＄悊 IPv4锛圓RP锛夊拰 IPv6锛圢DP锛?*
-- `ip neigh flush` 娓呯┖閭诲眳琛ㄦ槸甯歌鎺掗殰鎵嬫锛屽彲閰嶅悎杩囨护鏉′欢瀹氬悜娓呴櫎
-- **IPv6 鐢?NDP 鏇夸唬 ARP**锛屽熀浜?ICMPv6 澶氭挱锛屾洿楂樻晥瀹夊叏锛屼絾鍐呮牳浣跨敤鍚屼竴寮犻偦灞呰〃绠＄悊
-- **ARP 琛ㄦ孩鍑?* 鐢?`gc_thresh1/2/3` 鎺у埗锛岃秴杩囩‖涓婇檺浼氬鑷村唴鏍镐涪鍖咃紝鍙牴鎹瓙缃戣妯￠€傚綋璋冨ぇ
-- 鎺掓煡 ARP 闂鐨勫熀鏈€濊矾锛歚ip neigh show | wc -l` 鈫?`dmesg | grep "neighbor table overflow"` 鈫?瀹氫綅鍘熷洜 鈫?`ip neigh flush nud failed` 鈫?璋冩暣 `gc_thresh`
+- **ARP 协议** 通过广播请求 / 单播回复，将 IP 地址解析为 MAC 地址，**只在同一广播域内工作**
+- **邻居状态机** 是理解 ARP 缓存行为的关键：REACHABLE（最近确认）→ STALE（超时）→ DELAY（等待）→ PROBE（探测）→ FAILED（失败），PERMANENT 是静态绑定
+- `ip neigh show` 是查看邻居表的标准命令，支持 `-j` JSON 输出和按接口/状态过滤，**统一管理 IPv4（ARP）和 IPv6（NDP）**
+- `ip neigh flush` 清空邻居表是常见排障手段，可配合过滤条件定向清除
+- **IPv6 用 NDP 替代 ARP**，基于 ICMPv6 多播，更高效安全，但内核使用同一张邻居表管理
+- **ARP 表溢出** 由 `gc_thresh1/2/3` 控制，超过硬上限会导致内核丢包，可根据子网规模适当调大
+- 排查 ARP 问题的基本思路：`ip neigh show | wc -l` → `dmesg | grep "neighbor table overflow"` → 定位原因 → `ip neigh flush nud failed` → 调整 `gc_thresh`
 
-### 涓嬬珷棰勫憡
+### 下章预告
 
-涓嬩竴绔犳垜浠皢浠庢暟鎹摼璺眰锛圠2锛夎穬鍗囧埌浼犺緭灞傦紙L4锛夛紝瀛︿範 **Socket 杩炴帴涓庝紶杈撳眰淇℃伅**銆備綘浼氱湅鍒板浣曠敤 `ss` 鏇夸唬 `netstat` 鏌ョ湅 TCP/UDP 杩炴帴鐘舵€併€佽В璇?Recv-Q/Send-Q 鐨勫惈涔夛紝浠ュ強濡備綍閫氳繃 TCP 鐘舵€佹満璇婃柇杩炴帴闂銆?
+下一章我们将从数据链路层（L2）跃升到传输层（L4），学习 **Socket 连接与传输层信息**。你会看到如何用 `ss` 替代 `netstat` 查看 TCP/UDP 连接状态、解读 Recv-Q/Send-Q 的含义，以及如何通过 TCP 状态机诊断连接问题。
+
 ---
 
-*绔犺妭缂栧彿锛?6 | 璁″垝绡囧箙锛氱煭 | 浠ｇ爜绀轰緥锛氭湁*
-
+*章节编号：06 | 计划篇幅：短 | 代码示例：有*
