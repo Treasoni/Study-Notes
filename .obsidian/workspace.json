@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux/linux系统安装教程/Ubuntu Server 安装教程.md",
+                "file": "linux/linux系统安装教程/Debian 安装教程.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Ubuntu Server 安装教程"
+              "title": "Debian 安装教程"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux/linux系统安装教程/Ubuntu Server 安装教程.md",
+                "file": "linux/linux系统安装教程/Debian 安装教程.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Ubuntu Server 安装教程 的大纲"
+              "title": "Debian 安装教程 的大纲"
             }
           },
           {
@@ -210,11 +210,11 @@
   },
   "active": "092e09f3289157e5",
   "lastOpenFiles": [
+    "linux/linux系统安装教程/Ubuntu Server 安装教程.md",
     "linux/linux系统安装教程/Debian 安装教程.md",
     "linux/linux MOC.md",
     "linux/linux常用命令/Linux 网络诊断与排障.md",
     "linux/Ubuntu Server 安装教程.md",
-    "linux/linux系统安装教程/Ubuntu Server 安装教程.md",
     "linux/linux系统安装教程",
     "linux/linux常用命令/Linux 常用命令速查索引.md",
     "linux/Linux网络信息获取与概念/_index.md",
