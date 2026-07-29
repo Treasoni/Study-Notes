@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux/Linux网络信息获取与概念/11_网络查询命令速查表.md",
+                "file": "linux/linux常用命令/Linux 网络诊断与排障.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "11_网络查询命令速查表"
+              "title": "Linux 网络诊断与排障"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux/Linux网络信息获取与概念/11_网络查询命令速查表.md",
+                "file": "linux/linux常用命令/Linux 网络诊断与排障.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "11_网络查询命令速查表 的大纲"
+              "title": "Linux 网络诊断与排障 的大纲"
             }
           },
           {
@@ -208,14 +208,20 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "092e09f3289157e5",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
-    "linux/linux如何修改网络信息.md",
-    "linux/Linux网络信息获取与概念/11_网络查询命令速查表.md",
-    "linux/Linux网络信息获取与概念/01_网络信息查询概览与工具链.md",
+    "linux/Ubuntu Server 安装教程.md",
+    "linux/linux系统安装教程/Ubuntu Server 安装教程.md",
     "linux/linux常用命令/Linux 网络诊断与排障.md",
-    "linux/Linux的文件系统结构.md",
+    "linux/linux系统安装教程",
+    "linux/linux常用命令/Linux 常用命令速查索引.md",
+    "linux/Linux网络信息获取与概念/_index.md",
+    "linux/Linux网络信息获取与概念/02_网络接口与链路层信息.md",
+    "linux/Linux网络信息获取与概念/11_网络查询命令速查表.md",
     "linux/Linux网络信息获取与概念/03_IP地址与子网信息.md",
+    "linux/linux如何修改网络信息.md",
+    "linux/Linux网络信息获取与概念/01_网络信息查询概览与工具链.md",
+    "linux/Linux的文件系统结构.md",
     "虚拟机/VMware 获取虚拟机所有权失败.md",
     "虚拟机/虚拟网络模式/04_软件定义网络SDN.md",
     "虚拟机/虚拟网络模式/05_Linux网络命名空间与veth.md",
@@ -232,11 +238,6 @@
     "docker/镜像加速器vs代理-概念对比.md",
     "workspace/virtual-networking/output/虚拟网络模式/10_虚拟网络技术全景对比与选型.md",
     "workspace/virtual-networking/output/虚拟网络模式/05_Linux网络命名空间与veth.md",
-    "workspace/virtual-networking/output/虚拟网络模式/09_Kubernetes网络模型与CNI插件.md",
-    "workspace/virtual-networking/output/虚拟网络模式/04_软件定义网络SDN.md",
-    "workspace/virtual-networking/output/虚拟网络模式/08_Docker容器网络模式下.md",
-    "workspace/virtual-networking/output/虚拟网络模式/03_VXLAN覆盖网络.md",
-    "workspace/virtual-networking/output/虚拟网络模式/07_Docker容器网络模式上.md",
     "workspace/virtual-networking/output/虚拟网络模式",
     "workspace/virtual-networking/output",
     "workspace/virtual-networking/chapters",
@@ -246,7 +247,6 @@
     "workspace/workflow-runs/virtual-networking.workflow.md.gUz82x",
     "workspace/virtual-networking",
     "linux/assets/linux磁盘相关的知识/file-20260202185424052.png",
-    "workspace/linux-network-info-concepts/output/assemble.ps1",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
