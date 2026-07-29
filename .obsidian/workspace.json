@@ -210,6 +210,7 @@
   },
   "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "linux/linux系统安装教程/Debian安装教程.md",
     "workspace/debian系统安装教程/output/final_note.md",
     "workspace/workflow-runs/debian系统安装教程.workflow.md.Ihb0tA",
     "workspace/debian系统安装教程/chapters/08_常见问题与排错.md",
@@ -243,7 +244,6 @@
     "linux/Linux网络信息获取与概念/11_网络查询命令速查表.md",
     "linux/Linux网络信息获取与概念/03_IP地址与子网信息.md",
     "linux/linux如何修改网络信息.md",
-    "linux/Linux网络信息获取与概念/01_网络信息查询概览与工具链.md",
     "虚拟机/虚拟网络模式",
     "workspace/virtual-networking/output/虚拟网络模式",
     "linux/assets/linux磁盘相关的知识/file-20260202185424052.png",

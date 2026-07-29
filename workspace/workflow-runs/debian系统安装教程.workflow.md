@@ -11,7 +11,7 @@ project_slug: "debian系统安装教程"
 created_at: "2026-07-29"
 last_updated: "2026-07-29"
 current_phase: P6
-current_status: in_progress
+current_status: completed
 mode: outline
 blocked_reason: ""
 ---
@@ -108,12 +108,12 @@ blocked_reason: ""
 ---
 
 ## 阶段 6：Obsidian 美化与发布
-- [ ] 已读取 Obsidian 输出规则
-- [ ] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
-- [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
-- [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
+- [x] 已读取 Obsidian 输出规则
+- [x] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
+- [x] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
+- [x] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] 🔲 进行中
+> [P6] ✅ 已完成
 
 ---
 
@@ -145,10 +145,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战笔记
+- **总字数**：约 30,000 字
+- **章节数**：8 章
+- **输出格式**：Obsidian Markdown
+- **文件路径**：`workspace/debian系统安装教程/output/final_note.md`
+- **Obsidian Vault**：`/Users/zhqznc/Documents/项目/linux/linux系统安装教程/Debian安装教程.md`
+- **MOC 路径**：待确认
