@@ -208,8 +208,9 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "092e09f3289157e5",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
+    "workspace/debian系统安装教程/03_outline.md",
     "workspace/debian系统安装教程/02_deep_research.md",
     "workspace/workflow-runs/debian系统安装教程.workflow.md.pjNFtD",
     "workspace/debian系统安装教程/01_explore_result.md",
@@ -241,7 +242,6 @@
     "虚拟机/虚拟网络模式/06_虚拟机网络模式.md",
     "虚拟机/虚拟网络模式/03_VXLAN覆盖网络.md",
     "虚拟机/虚拟网络模式/02_VLAN与VLANIF.md",
-    "虚拟机/虚拟网络模式/01_虚拟网络概述.md",
     "虚拟机/虚拟网络模式",
     "workspace/virtual-networking/output/虚拟网络模式",
     "workspace/virtual-networking/output",
