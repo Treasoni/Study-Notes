@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux/linux如何修改网络信息.md",
+                "file": "linux/Linux网络信息获取与概念/11_网络查询命令速查表.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "linux如何修改网络信息"
+              "title": "11_网络查询命令速查表"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux/linux如何修改网络信息.md",
+                "file": "linux/Linux网络信息获取与概念/11_网络查询命令速查表.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "linux如何修改网络信息 的大纲"
+              "title": "11_网络查询命令速查表 的大纲"
             }
           },
           {
@@ -210,8 +210,9 @@
   },
   "active": "092e09f3289157e5",
   "lastOpenFiles": [
-    "linux/Linux网络信息获取与概念/01_网络信息查询概览与工具链.md",
     "linux/linux如何修改网络信息.md",
+    "linux/Linux网络信息获取与概念/11_网络查询命令速查表.md",
+    "linux/Linux网络信息获取与概念/01_网络信息查询概览与工具链.md",
     "linux/linux常用命令/Linux 网络诊断与排障.md",
     "linux/Linux的文件系统结构.md",
     "linux/Linux网络信息获取与概念/03_IP地址与子网信息.md",
@@ -236,7 +237,6 @@
     "workspace/virtual-networking/output/虚拟网络模式/08_Docker容器网络模式下.md",
     "workspace/virtual-networking/output/虚拟网络模式/03_VXLAN覆盖网络.md",
     "workspace/virtual-networking/output/虚拟网络模式/07_Docker容器网络模式上.md",
-    "workspace/virtual-networking/output/虚拟网络模式/02_VLAN与VLANIF.md",
     "workspace/virtual-networking/output/虚拟网络模式",
     "workspace/virtual-networking/output",
     "workspace/virtual-networking/chapters",
