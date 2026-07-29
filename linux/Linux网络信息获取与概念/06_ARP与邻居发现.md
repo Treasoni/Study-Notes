@@ -1,4 +1,4 @@
-﻿---
+---
 title: "第06章：ARP与邻居发现"
 tags: [linux, network]
 created: 2026-07-29
@@ -80,7 +80,8 @@ ARP 缂撳瓨涓殑姣忎釜鏉＄洰閮芥湁涓€涓?*鐘舵€?*锛屾爣
 | **FAILED** | 涓嶅彲杈?| PROBE 閲嶈瘯澶辫触 |
 | **PERMANENT** | 闈欐€佹潯鐩紝姘镐笉瓒呮椂 | 閫氳繃 `ip neigh add ... nud permanent` 娣诲姞 |
 
-> [!warning] STALE 涓嶆槸"鍧?鐨勭姸鎬?> STALE 鍙〃绀?鏈変竴娈垫椂闂存病纭浜?銆傚鏋滄槧灏勫疄闄呬笂浠嶆槸姝ｇ‘鐨勶紝浠?STALE 鍙戞暟鎹寘鏃惰蛋 DELAY 鈫?PROBE 娴佺▼锛屾垚鍔熷悗浼氬洖鍒?REACHABLE锛岀敤鎴峰熀鏈棤鎰熺煡銆?
+> [!warning] STALE 涓嶆槸"鍧?鐨勭姸鎬?
+> STALE 鍙〃绀?鏈変竴娈垫椂闂存病纭浜?銆傚鏋滄槧灏勫疄闄呬笂浠嶆槸姝ｇ‘鐨勶紝浠?STALE 鍙戞暟鎹寘鏃惰蛋 DELAY 鈫?PROBE 娴佺▼锛屾垚鍔熷悗浼氬洖鍒?REACHABLE锛岀敤鎴峰熀鏈棤鎰熺煡銆?
 ### 瓒呮椂鍙傛暟璋冧紭
 
 ```bash
@@ -183,7 +184,8 @@ ip neigh flush dev eth0 nud stale
 | 棰戠箒鍑虹幇 FAILED | `ip neigh flush nud failed` | 娓呯悊涓嶅彲杈炬潯鐩伩鍏嶈〃婊?|
 | 鎬€鐤?ARP 缂撳瓨闂 | `ip neigh flush all` | 璁╂墍鏈夋潯鐩噸鏂拌В鏋?|
 
-> [!tip] flush 鍚庨獙璇?> 娓呯┖鍚庤繍琛?`ping 192.168.1.1` 瑙﹀彂 ARP 閲嶆柊瑙ｆ瀽锛岀劧鍚?`ip neigh show` 纭鏂版潯鐩槸 REACHABLE銆?
+> [!tip] flush 鍚庨獙璇?
+> 娓呯┖鍚庤繍琛?`ping 192.168.1.1` 瑙﹀彂 ARP 閲嶆柊瑙ｆ瀽锛岀劧鍚?`ip neigh show` 纭鏂版潯鐩槸 REACHABLE銆?
 ### 闈欐€佹坊鍔犳潯鐩?
 ```bash
 # 娣诲姞涓€涓?PERMANENT锛堟案涓嶈秴鏃讹級鐨勯潤鎬佹潯鐩?ip neigh add 192.168.1.100 lladdr de:ad:be:ef:00:01 nud permanent dev eth0

@@ -1,4 +1,4 @@
-﻿---
+---
 title: "第05章：DNS解析与域名信息"
 tags: [linux, network]
 created: 2026-07-29
@@ -30,7 +30,8 @@ source_project: linux-network-info-concepts
 # 涓嬮潰杩欒鍙互鐢ㄦ潵涓存椂灞忚斀鏌愪釜鍩熷悕锛堝己鍒舵寚鍚?127.0.0.1锛?127.0.0.1       unwanted-ads.example.com
 ```
 
-> [!tip] `/etc/hosts` 鐨勫疄鐢ㄥ満鏅?> - **寮€鍙戠幆澧?*锛氬皢 `my-app.local` 鎸囧悜鏈満 `127.0.0.1`锛屾柟渚挎湰鍦拌皟璇?> - **灞忚斀鍩熷悕**锛氬皢骞垮憡鍩熷悕鎸囧悜 `127.0.0.1` / `0.0.0.0`
+> [!tip] `/etc/hosts` 鐨勫疄鐢ㄥ満鏅?
+> - **寮€鍙戠幆澧?*锛氬皢 `my-app.local` 鎸囧悜鏈満 `127.0.0.1`锛屾柟渚挎湰鍦拌皟璇?> - **灞忚斀鍩熷悕**锛氬皢骞垮憡鍩熷悕鎸囧悜 `127.0.0.1` / `0.0.0.0`
 > - **绱ф€ョ粫杩?DNS 鏁呴殰**锛氬鏋?DNS 鏈嶅姟鍣ㄦ寕浜嗭紝鍙互鍦?hosts 閲屼复鏃跺啓鍏ュ叧閿煙鍚?
 ### 绗洓姝ワ細鏌ヨ DNS 瑙ｆ瀽鍣?
 濡傛灉 `/etc/hosts` 涓篃娌℃湁锛孡inux 灏嗘煡璇㈤厤缃殑 DNS 瑙ｆ瀽鍣ㄣ€傚湪鐜颁唬 Ubuntu 绯荤粺涓婏紝杩欎釜瑙ｆ瀽鍣ㄩ€氬父鏄?**systemd-resolved** 鐨?stub resolver锛坄127.0.0.53`锛夛紝瀹冨厖褰撴湰鍦?DNS 浠ｇ悊锛岃礋璐ｇ紦瀛樸€佽浆鍙戝拰 DNSSEC 楠岃瘉銆?
@@ -92,7 +93,8 @@ $ dig baidu.com AAAA +short
 ### CNAME 璁板綍
 
 灏嗗煙鍚嶆寚鍚戝彟涓€涓煙鍚嶃€侰NAME 璁板綍鏈韩涓嶈繑鍥?IP鈥斺€斿鎴风闇€瑕佸啀鏌ヤ竴娆＄洰鏍囧煙鍚嶇殑 A/AAAA 璁板綍銆?
-> [!warning] CNAME 鐨勫父瑙侀櫡闃?> - CNAME 璁板綍涓嶈兘涓庡叾浠栬褰曠被鍨嬪叡瀛樹簬鍚屼竴涓煙鍚嶄笂
+> [!warning] CNAME 鐨勫父瑙侀櫡闃?
+> - CNAME 璁板綍涓嶈兘涓庡叾浠栬褰曠被鍨嬪叡瀛樹簬鍚屼竴涓煙鍚嶄笂
 > - 鏍瑰煙鍚嶏紙濡?`example.com`锛夐€氬父涓嶈兘鐢?CNAME锛屽洜涓?NS/SOA 璁板綍浼氬啿绐佲€斺€旇繖灏辨槸涓轰粈涔堝緢澶氱綉绔欐妸 `www.example.com` 鍋?CNAME 鍒?`example.com`锛岃€?`example.com` 鏈韩鐢?A 璁板綍
 
 ```bash
@@ -221,7 +223,8 @@ $ getent hosts baidu.com
 # 濡傛灉淇敼浜?/etc/hosts锛実etent 鑳界珛鍒诲弽鏄犻『搴忓彉鍖?# 鑰?dig 濮嬬粓鐩存帴鏌?DNS锛屼笉鍙?nsswitch.conf 褰卞搷
 ```
 
-> [!warning] `getent hosts` vs `dig` 鐨勫尯鍒?> - `getent hosts`锛氳蛋 NSS 閾捐矾锛坄nsswitch.conf` 鈫?`/etc/hosts` 鈫?DNS锛夛紝**瀹屽叏妯℃嫙搴旂敤琛屼负**
+> [!warning] `getent hosts` vs `dig` 鐨勫尯鍒?
+> - `getent hosts`锛氳蛋 NSS 閾捐矾锛坄nsswitch.conf` 鈫?`/etc/hosts` 鈫?DNS锛夛紝**瀹屽叏妯℃嫙搴旂敤琛屼负**
 > - `dig`锛氱洿鎺ュ悜 DNS 鏈嶅姟鍣ㄥ彂閫佽姹傦紝**璺宠繃 NSS 鍜?`/etc/hosts`**
 > - 鎺掗殰鏃朵袱鑰呴兘瑕佺敤锛歚dig` 娴?DNS 鏈嶅姟鍣ㄦ湰韬槸鍚︽甯革紝`getent hosts` 娴嬬郴缁熻В鏋愰摼璺槸鍚︽甯?
 ### 绗簩鐜細`/etc/hosts`
@@ -240,7 +243,8 @@ $ cat /etc/hosts
 ::1             localhost ip6-localhost ip6-loopback
 ```
 
-> [!tip] `/etc/hosts` 鐨勮皟璇曟妧宸?> 濡傛灉鎯充复鏃?灞忚斀"鏌愪釜鍩熷悕鎸囧悜鍏剁湡瀹?IP锛屽彲浠ュ湪 hosts 涓姞鍏ワ細
+> [!tip] `/etc/hosts` 鐨勮皟璇曟妧宸?
+> 濡傛灉鎯充复鏃?灞忚斀"鏌愪釜鍩熷悕鎸囧悜鍏剁湡瀹?IP锛屽彲浠ュ湪 hosts 涓姞鍏ワ細
 > ```
 > 127.0.0.1  tracking.example.com
 > ```
@@ -361,7 +365,8 @@ Cache statistics:
 Current Cache Size: 0
 ```
 
-> [!tip] `flush-caches` 鐨勪娇鐢ㄦ椂鏈?> 褰撲綘淇敼浜?DNS 璁板綍锛堝鏇存崲浜嗙綉绔?IP锛夛紝浣嗘湰鏈轰粛鐒惰В鏋愬埌鏃?IP 鏃讹紝鍏堟墽琛?`resolvectl flush-caches` 娓呴櫎 systemd-resolved 缂撳瓨銆傚鏋滄竻闄ゅ悗杩樻槸鏃?IP锛岃鏄庨棶棰樺湪涓婄骇 DNS 鐨?TTL 缂撳瓨銆?
+> [!tip] `flush-caches` 鐨勪娇鐢ㄦ椂鏈?
+> 褰撲綘淇敼浜?DNS 璁板綍锛堝鏇存崲浜嗙綉绔?IP锛夛紝浣嗘湰鏈轰粛鐒惰В鏋愬埌鏃?IP 鏃讹紝鍏堟墽琛?`resolvectl flush-caches` 娓呴櫎 systemd-resolved 缂撳瓨銆傚鏋滄竻闄ゅ悗杩樻槸鏃?IP锛岃鏄庨棶棰樺湪涓婄骇 DNS 鐨?TTL 缂撳瓨銆?
 #### 绠＄悊姣忔帴鍙?DNS 閰嶇疆
 
 杩欐槸 systemd-resolved 鏈€寮哄ぇ鐨勭壒鎬т箣涓€鈥斺€?*姣忎釜缃戠粶鎺ュ彛鍙互鏈夌嫭绔嬬殑 DNS 閰嶇疆**銆?
@@ -517,7 +522,8 @@ baidu.com.              5       IN      A       110.242.68.66
 ;; Received 70 bytes from 110.242.68.3#53(ns4.baidu.com) in 12 ms
 ```
 
-> [!warning] `+trace` 鐨勬帓闅滀环鍊?> 濡傛灉鏌愪釜鍩熷悕瑙ｆ瀽澶辫触锛宍+trace` 鍙互绮惧噯瀹氫綅闂鍑哄湪閾炬潯鐨勫摢涓幆鑺傦細
+> [!warning] `+trace` 鐨勬帓闅滀环鍊?
+> 濡傛灉鏌愪釜鍩熷悕瑙ｆ瀽澶辫触锛宍+trace` 鍙互绮惧噯瀹氫綅闂鍑哄湪閾炬潯鐨勫摢涓幆鑺傦細
 > - 鏍规湇鍔″櫒鏌ヤ笉鍒?鈫?鍙兘鏄槻鐏闃绘柇浜?DNS 鏌ヨ锛堟鏌?53 绔彛 UDP 鍑虹珯锛?> - TLD 鏈嶅姟鍣ㄦ煡涓嶅埌 鈫?鍙兘鍩熷悕涓嶅瓨鍦?> - 鏉冨▉鏈嶅姟鍣ㄦ病鍝嶅簲 鈫?鍙兘鏄煙鍚?NS 璁板綍閰嶇疆閿欒鎴栨潈濞佹湇鍔″櫒瀹曟満
 > - 鏉冨▉鏈嶅姟鍣ㄨ繑鍥炰簡閿欒鐨?IP 鈫?DNS 鍔寔
 
