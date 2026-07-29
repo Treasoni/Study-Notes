@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docker/Docker网络结构详解.md",
+                "file": "docker/镜像加速器vs代理-概念对比.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Docker网络结构详解"
+              "title": "镜像加速器vs代理-概念对比"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker/Docker网络结构详解.md",
+                "file": "docker/镜像加速器vs代理-概念对比.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Docker网络结构详解 的大纲"
+              "title": "镜像加速器vs代理-概念对比 的大纲"
             }
           },
           {
@@ -210,6 +210,8 @@
   },
   "active": "092e09f3289157e5",
   "lastOpenFiles": [
+    "docker/Windows-DockerDesktop安装指南-国内网络版.md",
+    "docker/Docker网络结构详解.md",
     "linux/linux MOC.md",
     "workspace/virtual-networking/chapters",
     "workspace/virtual-networking/03_outline.md",
@@ -241,9 +243,7 @@
     "workspace/workflow-runs/linux-network-info-concepts.workflow.md",
     "workspace/workflow-runs/linux-commands.workflow.md",
     "workspace/linux-network-info-concepts/output/index.md",
-    "workspace/linux-network-info-concepts/output/final_note.md",
     "workspace/linux-network-info-concepts/output/assemble.ps1",
-    "workspace/linux-network-info-concepts/chapters/10_抓包与协议分析基础.md",
     "workspace/linux-network-info-concepts/output",
     "workspace/linux-network-info-concepts/chapters",
     "workspace/linux-network-info-concepts",
