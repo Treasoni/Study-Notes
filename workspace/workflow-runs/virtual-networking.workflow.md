@@ -153,5 +153,6 @@ blocked_reason: ""
 - **章节数**：10 章
 - **输出格式**：Obsidian Markdown（文件夹 + 多篇独立笔记 + 索引页）
 - **文件路径**：`./output/虚拟网络模式/`
-- **Obsidian Vault**：未指定（笔记已保存至项目 output 目录）
+- **Obsidian Vault**：`/Users/zhqznc/Documents/项目/虚拟机`
+- **note_folder**：`虚拟网络模式/`
 - **MOC 路径**：因未指定 vault 路径，未同步
