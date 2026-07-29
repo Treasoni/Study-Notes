@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux/linux系统安装教程/Debian 安装教程.md",
+                "file": "linux/linux系统安装教程/Ubuntu Server 安装教程.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Debian 安装教程"
+              "title": "Ubuntu Server 安装教程"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux/linux系统安装教程/Debian 安装教程.md",
+                "file": "linux/linux系统安装教程/Ubuntu Server 安装教程.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Debian 安装教程 的大纲"
+              "title": "Ubuntu Server 安装教程 的大纲"
             }
           },
           {
@@ -208,10 +208,15 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "092e09f3289157e5",
+  "active": "5d4ad13713ff5068",
   "lastOpenFiles": [
-    "linux/linux系统安装教程/Ubuntu Server 安装教程.md",
+    "workspace/debian系统安装教程/00_intent.md",
+    "workspace/workflow-runs/debian系统安装教程.workflow.md",
+    "workspace/debian系统安装教程/output",
+    "workspace/debian系统安装教程/chapters",
+    "workspace/debian系统安装教程",
     "linux/linux系统安装教程/Debian 安装教程.md",
+    "linux/linux系统安装教程/Ubuntu Server 安装教程.md",
     "linux/linux MOC.md",
     "linux/linux常用命令/Linux 网络诊断与排障.md",
     "linux/Ubuntu Server 安装教程.md",
@@ -235,17 +240,12 @@
     "虚拟机/虚拟网络模式/01_虚拟网络概述.md",
     "虚拟机/虚拟网络模式/00_索引.md",
     "虚拟机/虚拟网络模式/09_Kubernetes网络模型与CNI插件.md",
-    "虚拟机/虚拟网络模式/07_Docker容器网络模式上.md",
     "虚拟机/虚拟网络模式",
-    "docker/镜像加速器vs代理-概念对比.md",
     "workspace/virtual-networking/output/虚拟网络模式",
     "workspace/virtual-networking/output",
     "workspace/virtual-networking/chapters",
     "workspace/workflow-runs/virtual-networking.workflow.md.BnCXbX",
     "workspace/workflow-runs/virtual-networking.workflow.md.V1PH2V",
-    "linux/Linux网络信息获取与概念/04_路由表信息.md.bak",
-    "workspace/workflow-runs/virtual-networking.workflow.md.gUz82x",
-    "workspace/virtual-networking",
     "linux/assets/linux磁盘相关的知识/file-20260202185424052.png",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
