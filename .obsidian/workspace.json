@@ -210,6 +210,7 @@
   },
   "active": "092e09f3289157e5",
   "lastOpenFiles": [
+    "linux/linux系统安装教程/Debian 安装教程.md",
     "linux/linux MOC.md",
     "linux/linux常用命令/Linux 网络诊断与排障.md",
     "linux/Ubuntu Server 安装教程.md",
@@ -237,7 +238,6 @@
     "虚拟机/虚拟网络模式/07_Docker容器网络模式上.md",
     "虚拟机/虚拟网络模式",
     "docker/镜像加速器vs代理-概念对比.md",
-    "workspace/virtual-networking/output/虚拟网络模式/10_虚拟网络技术全景对比与选型.md",
     "workspace/virtual-networking/output/虚拟网络模式",
     "workspace/virtual-networking/output",
     "workspace/virtual-networking/chapters",
