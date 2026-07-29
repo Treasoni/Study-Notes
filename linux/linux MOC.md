@@ -16,12 +16,12 @@ tags: [linux, moc, 索引]
 
 ### 入门必读
 
-| 笔记 | 说明 |
-|------|------|
-| [[Ubuntu Server 安装教程]] | Ubuntu Server 完整安装指南，包含分区、LVM 配置 |
-| [[Ubuntu Server SSH 配置指南]] | SSH ���程连接配置，密钥认证最佳实践 |
-| [[Linux换源]] | 国内镜像源配置，加速软件下载 |
-| [[WSL-Windows子系统forLinux]] | Windows 内置 Linux 子系统使用指南 |
+| 笔记                         | 说明                               |
+| -------------------------- | -------------------------------- |
+| [[Ubuntu Server 安装教程]]     | Ubuntu Server 完整安装指南，包含分区、LVM 配置 |
+| [[Ubuntu Server SSH 配置指南]] | SSH 远程连接配置，密钥认证最佳实践              |
+| [[Linux换源]]                | 国内镜像源配置，加速软件下载                   |
+| [[WSL-Windows子系统forLinux]] | Windows 内置 Linux 子系统使用指南         |
 
 ### 磁盘与存储
 

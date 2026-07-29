@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux/Linux网络信息获取与概念/09_网络监控与统计.md",
+                "file": "docker/Docker网络结构详解.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "09_网络监控与统计"
+              "title": "Docker网络结构详解"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux/Linux网络信息获取与概念/09_网络监控与统计.md",
+                "file": "docker/Docker网络结构详解.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "09_网络监控与统计 的大纲"
+              "title": "Docker网络结构详解 的大纲"
             }
           },
           {
@@ -210,6 +210,12 @@
   },
   "active": "092e09f3289157e5",
   "lastOpenFiles": [
+    "linux/linux MOC.md",
+    "workspace/virtual-networking/chapters",
+    "workspace/virtual-networking/03_outline.md",
+    "linux/sortspec.md",
+    "linux/Linux网络信息获取与概念/10_抓包与协议分析基础.md",
+    "linux/Linux网络信息获取与概念/09_网络监控与统计.md",
     "workspace/workflow-runs/virtual-networking.workflow.md.BnCXbX",
     "linux/Linux网络信息获取与概念/08_无线网络信息.md",
     "workspace/virtual-networking/02_deep_research.md",
@@ -227,7 +233,6 @@
     "workspace/virtual-networking",
     "linux/linux如何修改网络信息.md",
     "linux/assets/linux磁盘相关的知识/file-20260202185424052.png",
-    "linux/Linux网络信息获取与概念/09_网络监控与统计.md",
     "linux/Linux网络信息获取与概念/05_DNS解析与域名信息.md",
     "linux/Linux网络信息获取与概念/03_IP地址与子网信息.md",
     "linux/Linux网络信息获取与概念/_index.md",
@@ -239,14 +244,9 @@
     "workspace/linux-network-info-concepts/output/final_note.md",
     "workspace/linux-network-info-concepts/output/assemble.ps1",
     "workspace/linux-network-info-concepts/chapters/10_抓包与协议分析基础.md",
-    "workspace/linux-network-info-concepts/chapters/09_网络监控与统计.md",
-    "workspace/linux-network-info-concepts/chapters/08_无线网络信息.md",
-    "workspace/linux-network-info-concepts/chapters/07_Socket连接与传输层信息.md",
     "workspace/linux-network-info-concepts/output",
     "workspace/linux-network-info-concepts/chapters",
     "workspace/linux-network-info-concepts",
-    "workspace/linux-commands/output",
-    "workspace/linux-commands/chapters",
     "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
     "AI学习/01-基础概念/AI-Agent-状态机工作流.canvas",
     "虚拟机/assets/VMware 获取虚拟机所有权失败/831da48b-3680-4156-b124-9cac042e8aef.png",
