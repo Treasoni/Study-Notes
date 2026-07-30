@@ -598,6 +598,10 @@
     },
     "linux": {
       "children": [
+        "linux/linux常用命令",
+        "linux/Linux网络信息获取与概念",
+        "linux/Linux的文件系统结构.md",
+        "linux/update_plan.md",
         "linux/assets",
         "linux/cpu的线程和内核.md",
         "linux/linux MOC.md",
@@ -632,6 +636,42 @@
     "linux/assets/linux如何修改网络信息": {
       "children": [
         "linux/assets/linux如何修改网络信息/file-20260204122916989.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "linux/linux常用命令": {
+      "children": [
+        "linux/linux常用命令/Linux 常用命令速查索引.md",
+        "linux/linux常用命令/Linux 磁盘与存储管理.md",
+        "linux/linux常用命令/Linux 定时任务与自动化.md",
+        "linux/linux常用命令/Linux 进程管理与系统监控.md",
+        "linux/linux常用命令/Linux 权限管理基础.md",
+        "linux/linux常用命令/Linux 日志管理.md",
+        "linux/linux常用命令/Linux 软件包管理.md",
+        "linux/linux常用命令/Linux 网络诊断与排障.md",
+        "linux/linux常用命令/Linux 文本处理三剑客.md",
+        "linux/linux常用命令/Linux 文件内容查看与搜索.md",
+        "linux/linux常用命令/Linux 文件与目录操作.md",
+        "linux/linux常用命令/Linux 系统信息与硬件管理.md",
+        "linux/linux常用命令/Linux 用户管理.md",
+        "linux/linux常用命令/Linux 远程连接与文件传输.md",
+        "linux/linux常用命令/Linux Shell 实用技巧.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "linux/Linux网络信息获取与概念": {
+      "children": [
+        "linux/Linux网络信息获取与概念/_index.md",
+        "linux/Linux网络信息获取与概念/01_网络信息查询概览与工具链.md",
+        "linux/Linux网络信息获取与概念/02_网络接口与链路层信息.md",
+        "linux/Linux网络信息获取与概念/03_IP地址与子网信息.md",
+        "linux/Linux网络信息获取与概念/04_路由表信息.md",
+        "linux/Linux网络信息获取与概念/05_DNS解析与域名信息.md",
+        "linux/Linux网络信息获取与概念/06_ARP与邻居发现.md",
+        "linux/Linux网络信息获取与概念/07_Socket连接与传输层信息.md",
+        "linux/Linux网络信息获取与概念/08_无线网络信息.md",
+        "linux/Linux网络信息获取与概念/09_网络监控与统计.md",
+        "linux/Linux网络信息获取与概念/10_抓包与协议分析基础.md"
       ],
       "sortOrder": "custom"
     },
@@ -1193,6 +1233,8 @@
     },
     "workspace": {
       "children": [
+        "workspace/linux-commands",
+        "workspace/linux-network-info-concepts",
         "workspace/claude-code-tutorial",
         "workspace/llm-提示词缓存优化策略",
         "workspace/matt-pocock-skills",
@@ -1386,6 +1428,70 @@
       ],
       "sortOrder": "custom"
     },
+    "workspace/linux-commands": {
+      "children": [
+        "workspace/linux-commands/chapters",
+        "workspace/linux-commands/output",
+        "workspace/linux-commands/00_intent.md",
+        "workspace/linux-commands/01_explore_result.md",
+        "workspace/linux-commands/02_deep_research.md",
+        "workspace/linux-commands/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/linux-commands/chapters": {
+      "children": [
+        "workspace/linux-commands/chapters/1_文件与目录操作基础.md",
+        "workspace/linux-commands/chapters/2_文件内容查看与搜索.md",
+        "workspace/linux-commands/chapters/3_文本处理三剑客实战.md",
+        "workspace/linux-commands/chapters/4_进程管理与系统监控.md",
+        "workspace/linux-commands/chapters/5_网络诊断与排障.md",
+        "workspace/linux-commands/chapters/6_权限管理与安全基础.md",
+        "workspace/linux-commands/chapters/7_磁盘与存储管理.md",
+        "workspace/linux-commands/chapters/8_软件包管理.md",
+        "workspace/linux-commands/chapters/9_Shell实用技巧与命令组合.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/linux-commands/output": {
+      "children": [
+        "workspace/linux-commands/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/linux-network-info-concepts": {
+      "children": [
+        "workspace/linux-network-info-concepts/chapters",
+        "workspace/linux-network-info-concepts/output",
+        "workspace/linux-network-info-concepts/00_intent.md",
+        "workspace/linux-network-info-concepts/02_deep_research.md",
+        "workspace/linux-network-info-concepts/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/linux-network-info-concepts/chapters": {
+      "children": [
+        "workspace/linux-network-info-concepts/chapters/01_网络信息查询概览与工具链.md",
+        "workspace/linux-network-info-concepts/chapters/02_网络接口与链路层信息.md",
+        "workspace/linux-network-info-concepts/chapters/03_IP地址与子网信息.md",
+        "workspace/linux-network-info-concepts/chapters/04_路由表信息.md",
+        "workspace/linux-network-info-concepts/chapters/05_DNS解析与域名信息.md",
+        "workspace/linux-network-info-concepts/chapters/06_ARP与邻居发现.md",
+        "workspace/linux-network-info-concepts/chapters/07_Socket连接与传输层信息.md",
+        "workspace/linux-network-info-concepts/chapters/08_无线网络信息.md",
+        "workspace/linux-network-info-concepts/chapters/09_网络监控与统计.md",
+        "workspace/linux-network-info-concepts/chapters/10_抓包与协议分析基础.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/linux-network-info-concepts/output": {
+      "children": [
+        "workspace/linux-network-info-concepts/output/assemble.ps1",
+        "workspace/linux-network-info-concepts/output/final_note.md",
+        "workspace/linux-network-info-concepts/output/index.md"
+      ],
+      "sortOrder": "custom"
+    },
     "workspace/llm-提示词缓存优化策略": {
       "children": [
         "workspace/llm-提示词缓存优化策略/output",
@@ -1494,6 +1600,8 @@
     },
     "workspace/workflow-runs": {
       "children": [
+        "workspace/workflow-runs/linux-commands.workflow.md",
+        "workspace/workflow-runs/linux-network-info-concepts.workflow.md",
         "workspace/workflow-runs/matt-pocock-skills.workflow.md",
         "workspace/workflow-runs/nodejs-ai-application.workflow.md",
         "workspace/workflow-runs/superpowers.workflow.md"
