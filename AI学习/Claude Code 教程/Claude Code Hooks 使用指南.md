@@ -10,7 +10,7 @@ source_project: claude-code-tutorial
 # Claude Code Hooks 使用指南
 
 > [!info] 文档定位
-> **本文档是 Hook 的详细使用指南**。概念理解请先阅读 [[01-基础概念/Hook钩子]]。
+> **本文档是 Hook 的详细使用指南**。概念理解请先阅读 [[Hook钩子]]。
 
 > [!info] 概述
 > **一句话定义**：通过配置文件定义自动化规则，在 Claude Code 生命周期的特定时间点执行自定义逻辑。
@@ -698,10 +698,10 @@ A: 运行一次性脚本种子 `~/.claude/settings.json`，添加约 67 条安�
 
 ## 相关文档
 
-- [[01-基础概念/Hook钩子]] - Hook 概念详解
+- [[Hook钩子]] - Hook 概念详解
 - [[Claude Code 常用功能]] - /hooks 命令速查
-- [[03-进阶应用/CLAUDE.md 使用指南]] - 项目级指令配置
-- [[01-基础概念/Skills 是什么]] - 用户主动调用的技能系统
+- [[CLAUDE.md 使用指南]] - 项目级指令配置
+- [[Skills 是什么]] - 用户主动调用的技能系统
 
 ## 参考资料
 

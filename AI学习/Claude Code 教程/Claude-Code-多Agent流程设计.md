@@ -598,5 +598,5 @@ def select_model(task):
 > - [ ] 探索如何为特定领域定制 Subagent
 
 > [!personal] 相关笔记
-> - [[01-基础概念/Agent Teams智能体团队]] - Agent Teams 基础概念
+> - [[Agent Teams智能体团队]] - Agent Teams 基础概念
 > - [[AI-Agent-协作模式对比]]

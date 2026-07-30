@@ -9,7 +9,7 @@ source_project: claude-code-tutorial
 
 # Skills 编写实战指南
 
-> **前置知识**：[[01-基础概念/Skills 是什么]] - Skills 基础概念
+> **前置知识**：[[Skills 是什么]] - Skills 基础概念
 
 > [!info] 概述
 > **编写 Skills = 写好 Prompt + 规范文档 + 持续迭代**。就像写菜谱：食材准备（输入要求）、烹饪步骤（执行流程）、成品标准（输出规范）、注意事项（禁忌提示）。
@@ -232,4 +232,4 @@ A: 核心区别在于**执行方式**：
 A: Skills 跑在前台（在主上下文或 forked subagent 里）；workflow 跑在后台（独立运行时 + 隔离脚本）。
 
 ## 相关文档
-[[01-基础概念/Skills 是什么]] | [[Claude Code Subagents 完整指南]] | [[Claude Code 高级功能]]
+[[Skills 是什么]] | [[Claude Code Subagents 完整指南]] | [[Claude Code 高级功能]]

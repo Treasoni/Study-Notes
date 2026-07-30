@@ -537,7 +537,7 @@ claude --strict-mcp-config --mcp-config ./production-mcp.json "部署到预发�
 ```
 
 > [!tip] 详细说明
-> 完整的 MCP 配置教程请参阅 [[03-进阶应用/Claude MCP 使用指南]]
+> 完整的 MCP 配置教程请参阅 [[Claude MCP 使用指南]]
 
 ---
 

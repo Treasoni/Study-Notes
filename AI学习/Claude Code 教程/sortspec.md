@@ -20,6 +20,7 @@ order:
       - Claude Code CLI 完整参考
       - Claude Code 会话管理
       - Claude Code 模型与推理设置
+      - settings.json 配置详解
 
   - index: 03
     title: 进阶功能

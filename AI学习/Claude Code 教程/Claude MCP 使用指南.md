@@ -12,7 +12,7 @@ source_project: claude-code-tutorial
 > [!info] 概述
 > **MCP (Model Context Protocol) 是 Claude Code 与外部工具通信的标准化开源协议** - 就像 USB 接口一样，所有工具都能用同一个接口连接。通过 MCP，Claude 可以访问文件系统、数据库、API 等各种外部资源。
 >
-> **前置知识**：[[01-基础概念/MCP协议]] - MCP 协议基础概念
+> **前置知识**：[[MCP协议]] - MCP 协议基础概念
 
 **官方资源**：
 - [MCP 官方文档](https://code.claude.com/docs/zh-CN/mcp)
@@ -944,4 +944,4 @@ A: 添加 SSE 类型的 URL 配置，首次使用时 Claude Code 会自动打开
 
 ## 相关文档
 
-[[01-基础概念/人工智能重要的六大概念体系]] | [[02-工具使用/Claude Code Subagents 完整指南]] | [[02-工具使用/如何使用Claude code]]
+[[人工智能重要的六大概念体系]] | [[Claude Code Subagents 完整指南]] | [[如何使用Claude code]]

@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "虚拟机/VMware 启动出现 No Media 报错.md",
+                "file": "AI学习/Claude Code 教程/Claude Code 高级功能.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "VMware 启动出现 No Media 报错"
+              "title": "Claude Code 高级功能"
             }
           }
         ],
@@ -205,13 +205,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "虚拟机/VMware 启动出现 No Media 报错.md",
+                "file": "AI学习/Claude Code 教程/Claude Code 高级功能.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "VMware 启动出现 No Media 报错 的大纲"
+              "title": "Claude Code 高级功能 的大纲"
             }
           },
           {
@@ -255,7 +255,7 @@
             }
           }
         ],
-        "currentTab": 8
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -283,24 +283,30 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "d0d8383a692e3423",
+  "active": "6c1ec5cded8f16eb",
   "lastOpenFiles": [
-    "workspace/workflow-runs/5DmYMMML",
-    "workspace/workflow-runs/codex-config.workflow.md.ye4EsJ",
-    "workspace/workflow-runs/codex-config.workflow.md.fOFqTy",
-    "workspace/workflow-runs/codex-config.workflow.md.38BFUV",
-    "workspace/workflow-runs/codex-config.workflow.md.mXiXER",
-    "workspace/workflow-runs/twIUgPo9",
-    "workspace/workflow-runs/DVd8VWyD",
-    "workspace/workflow-runs/codex-config.workflow.md.J1YY0a",
-    "workspace/workflow-runs/codex-config.workflow.md.z0Gk7g",
-    "workspace/workflow-runs/codex-config.workflow.md.LNxEIh",
-    "workspace/workflow-runs/codex-config.workflow.md.Psxj3S",
+    "AI学习/Claude Code 教程/高级功能/CLAUDE.md 使用指南.md",
+    "AI学习/Claude Code 教程/高级功能/CLAUDE.md 使用指南-update_report.md",
+    "AI学习/Claude Code 教程/Claude Code 高级功能.md",
+    "虚拟机/VMware 启动出现 No Media 报错.md",
+    "workspace/codex-config/03_outline.md",
+    "workspace/workflow-runs/u2Kz9IrD",
+    "workspace/workflow-runs/codex-config.workflow.md.Iz2PJw",
+    "workspace/workflow-runs/codex-config.workflow.md.6mZP40",
+    "workspace/workflow-runs/codex-config.workflow.md.CAcdhX",
+    "workspace/workflow-runs/codex-config.workflow.md.maQDDC",
+    "workspace/workflow-runs/I86hUDWY",
+    "workspace/workflow-runs/wknALqZW",
+    "workspace/workflow-runs/codex-config.workflow.md.VCfJ1t",
+    "workspace/workflow-runs/codex-config.workflow.md.pyGX5r",
+    "workspace/workflow-runs/codex-config.workflow.md.Eucb9n",
+    "AI学习/Claude Code 教程/高级功能/LLM-Prompt-Caching-提示缓存.md",
+    "workspace/codex-config/02_deep_research.md",
+    "workspace/codex-config/01_explore_result.md",
     "workspace/codex-config/00_intent.md",
     "workspace/workflow-runs/codex-config.workflow.md",
     "虚拟机/assets/VMware 启动出现 No Media 报错/file-20260731001315730.png",
     "虚拟机/VMware Workstation Player 安装 Windows 虚拟机.md",
-    "虚拟机/VMware 启动出现 No Media 报错.md",
     "linux/linux如何修改网络信息.md",
     "linux/Linux的文件系统结构.md",
     "虚拟机/虚拟机 MOC.md",
@@ -316,12 +322,6 @@
     "虚拟机/虚拟网络模式/06_虚拟机网络模式.md",
     "虚拟机/虚拟网络模式/05_Linux网络命名空间与veth.md",
     "虚拟机/虚拟网络模式/04_软件定义网络SDN.md",
-    "虚拟机/虚拟网络模式/03_VXLAN覆盖网络.md",
-    "虚拟机/虚拟网络模式/02_VLAN与VLANIF.md",
-    "虚拟机/虚拟网络模式/01_虚拟网络概述.md",
-    "虚拟机/虚拟网络模式/00_索引.md",
-    "workspace/workflow-runs/virtual-networking.workflow.md",
-    "workspace/workflow-runs/debian系统安装教程.workflow.md",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/图-固定偏置共射动态指标-Au-Ri-Ro.png",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/图-固定偏置共射动态指标-Au-Ri-Ro.svg",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/手写原图-共射动态指标-输出电阻方法-2026-07-28.jpg",

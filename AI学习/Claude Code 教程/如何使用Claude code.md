@@ -335,7 +335,7 @@ claude mcp enable fs    # 启用
 claude mcp disable fs   # 禁用
 ```
 
-> 详细 MCP 教程 → [[03-进阶应用/Claude MCP 使用指南]]
+> 详细 MCP 教程 → [[Claude MCP 使用指南]]
 
 ### Skills 使用
 
@@ -346,7 +346,7 @@ claude mcp disable fs   # 禁用
 "帮我画一个流程图"   # 自然语言触发
 ```
 
-> 了解 Skills → [[01-基础概念/Skills 是什么]] · 自定义技能 → [[03-进阶应用/如何编写Skills]]
+> 了解 Skills → [[Skills 是什么]] · 自定义技能 → [[如何编写Skills]]
 
 ---
 
@@ -367,7 +367,7 @@ claude
 | `CLAUDE.local.md` | 项目根目录 | 项目级 | ❌ |
 | `~/.claude/CLAUDE.md` | 用户目录 | 全局级 | ❌ |
 
-> 完整指南 → [[03-进阶应用/CLAUDE.md 使用指南]]
+> 完整指南 → [[CLAUDE.md 使用指南]]
 
 ---
 

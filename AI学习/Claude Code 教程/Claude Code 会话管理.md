@@ -834,8 +834,8 @@ cp ~/.claude/settings.json backup/
 A: 会话期间的对话需要通过 `/memory` 手动保存到记忆文件。配置文件修改后自动保存。
 
 ## 相关文档
-- [[02-工具使用/如何使用Claude code]] | [[03-进阶应用/Claude MCP 使用指南]]
-- [[03-进阶应用/Claude Code 高级功能]] - 规划模式、扩展思考、自动模式、后台任务等高级功能
+- [[如何使用Claude code]] | [[Claude MCP 使用指南]]
+- [[Claude Code 高级功能]] - 规划模式、扩展思考、自动模式、后台任务等高级功能
 
 ## 参考资料
 

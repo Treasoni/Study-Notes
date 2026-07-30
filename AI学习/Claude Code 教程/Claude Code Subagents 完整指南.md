@@ -977,7 +977,7 @@ Dynamic Workflows（2026年5月GA）是另一种多 Agent 编排方式——Clau
 
 ## 相关文档
 
-- [[01-基础概念/SubAgent子代理]] - SubAgent 概念详解
+- [[SubAgent子代理]] - SubAgent 概念详解
 - [[Claude Code Memory 完整指南]] - Memory 持久化上下文
 - [[Skills 是什么]] - Skills 概念详解
 - [[Claude Code Hooks 使用指南]] - 事件驱动自动化
