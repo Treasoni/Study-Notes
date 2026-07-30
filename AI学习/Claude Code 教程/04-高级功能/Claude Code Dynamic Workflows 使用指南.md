@@ -44,7 +44,7 @@ related_notes:
   - "[[如何编写Skills]]"
   - "[[CLAUDE.md 使用指南]]"
   - "[[Claude Code 高级功能]]"
-  - "[[Claude-Code-多Agent流程设计]]"
+  - "[[Claude Code Subagents 完整指南]]"
 ---
 
 # Claude Code Dynamic Workflows 使用指南

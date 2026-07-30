@@ -133,8 +133,6 @@ graph TB
 - [[Claude Code 模型与推理设置]]
 - [[Claude Code 高级功能]]
 - [[Claude MCP 使用指南]]
-- [[Claude-Code-多Agent流程设计]]
-- [[Subagent 实战练习]]
 - [[如何使用Claude code]]
 
 #### 高级功能

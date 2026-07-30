@@ -968,6 +968,270 @@ Dynamic Workflows（2026年5月GA）是另一种多 Agent 编排方式——Clau
 
 ---
 
+## 多 Agent 设计模式
+
+> [!note] 来源
+> 本章内容整合自 [[Claude Code 多 Agent 流程设计]]，聚焦 Claude Code 中多 Agent 协作的架构模式。
+
+### 模型分层策略
+
+在大规模多 Agent 系统中，按任务复杂度分层选择模型以优化成本：
+
+| Tier | 模型 | 适用场景 | 示例任务 |
+|:----:|:-----|:---------|:---------|
+| **Tier 1** | Opus 4.8 | 关键架构、安全、代码审查 | 架构设计、安全审计 |
+| **Tier 2** | Inherit（用户选择） | 专业领域任务 | AI/ML、后端、前端开发 |
+| **Tier 3** | Sonnet | 文档、测试、调试支持 | 编写文档、单元测试 |
+| **Tier 4** | Haiku | 快速操作 | 简单搜索、部署、格式转换 |
+
+```python
+# 按任务复杂度选择模型
+def select_model(task):
+    if task.criticality == "high":
+        return "opus-4.8"
+    elif task.domain in ["AI/ML", "backend", "frontend"]:
+        return "inherit"
+    elif task.type in ["docs", "testing", "debug"]:
+        return "sonnet"
+    else:
+        return "haiku"
+```
+
+### 四种核心设计模式
+
+#### 1. Supervisor Pattern（主管模式）
+
+> 中央 Agent 协调多个 Subagents，统一决策。
+
+```
+Supervisor Agent
+   ├── Subagent 1 (代码审查)
+   ├── Subagent 2 (测试)
+   └── Subagent 3 (文档)
+```
+
+**适用场景**：任务之间有依赖关系、需要中央协调、统一决策。
+
+#### 2. Swarm Architecture（群体架构）
+
+> 去中心化协作，Agent 之间直接通信，自组织。
+
+```
+Agent 1 ←→ Agent 2
+  ↕         ↕
+Agent 3 ←→ Agent 4
+```
+
+**适用场景**：任务独立性强、需要灵活协作、容错性要求高。
+
+#### 3. Hierarchical Patterns（层级模式）
+
+> 嵌套 Agent 结构处理超大规模任务，支持多层抽象。
+
+```
+Root Agent
+├── Level 1 Agent A
+│   └── Level 2 Agent
+└── Level 1 Agent B
+    └── Level 2 Agent
+```
+
+**适用场景**：超大规模任务、需要多层抽象、复杂决策树。
+
+#### 4. Router Pattern（路由模式）
+
+> 用 Router 分析请求并路由到最合适的 Agent，解决单 Agent 的 "指令冲突" 问题。
+
+```
+Router（分析请求）
+├── Agent 1 (前端)
+├── Agent 2 (后端)
+├── Agent 3 (数据库)
+├── Agent 4 (DevOps)
+└── Agent 5 (安全)
+```
+
+**核心优势**：每个 Agent 的系统提示更专注，减少指令冲突，提高响应准确性。
+
+### 模式选择指南
+
+| 场景 | 推荐模式 |
+|:-----|:---------|
+| 需要中央协调 | Supervisor Pattern |
+| 任务独立性强 | Swarm Architecture |
+| 超大规模任务 | Hierarchical Patterns |
+| 指令冲突严重 | Router Pattern |
+
+### 常见工作流
+
+#### Explore → Plan → Execute
+
+```
+Explore（探索代码库）→ Plan（设计方案）→ Execute（实施）
+```
+
+#### 并行后台任务
+
+```
+主 Agent
+├── Task 1（后台：运行测试）
+├── Task 2（后台：构建镜像）
+├── Task 3（后台：Lint 检查）
+└── Task 4（后台：生成文档）
+```
+
+#### Plan → Act → Reflect 循环
+
+```
+Plan（制定计划）→ Act（执行）→ Reflect（反思）→ 回到 Plan
+```
+
+适用于需要迭代优化的任务，每次循环根据反思调整策略。
+
+### 大规模系统设计实践
+
+| 关键实践 | 说明 |
+|---------|------|
+| **Planning Coordinator** | 中央协调器负责任务路由，智能分配 |
+| **Git Worktree 隔离** | 每个 Agent 独立 worktree，避免文件冲突 |
+| **超时控制** | 设置任务超时，防止长时间阻塞 |
+| **分布式追踪** | 跟踪任务执行路径，便于调试和优化 |
+| **文件分区** | 不同 Agent 操作不同文件/目录 |
+
+---
+
+## 实战练习
+
+> [!info] 练习说明
+> 以下 5 个渐进式任务帮助你掌握 Subagent 的创建和使用。每个练习都有明确的验证标准和参考答案。
+
+### 练习 1：创建文本格式化 Agent
+
+创建一个 `text-formatter` agent，能转换 Title Case、添加项目符号、统计字符。
+
+```markdown
+---
+name: text-formatter
+description: Use when user asks to "format text", "格式化文本"
+model: haiku
+tools: []
+---
+
+# Text Formatter Agent
+你是一个文本格式化专家。
+
+## 输出格式
+# 格式化结果
+[Title Case 文本]
+
+## 原文
+[原始文本]
+
+## 统计信息
+- 字符数：[数量]
+- 单词数：[数量]
+```
+
+### 练习 2：创建代码摘要 Agent
+
+创建一个 `code-summarizer` agent，读取代码文件并生成摘要。
+
+```markdown
+---
+name: code-summarizer
+description: Use when user asks to "summarize code", "代码摘要"
+model: sonnet
+tools: ["Read", "Glob"]
+---
+
+# Code Summarizer Agent
+你擅长分析代码并生成简洁的功能摘要。
+
+## 工作流程
+1. 读取指定的代码文件
+2. 识别主要结构（函数、类、模块）
+3. 理解代码目的
+4. 生成摘要和导出列表
+```
+
+### 练习 3：创建 TODO 查找 Agent
+
+创建一个 `todo-finder` agent，搜索整个代码库的 TODO/FIXME/HACK 注释。
+
+```markdown
+---
+name: todo-finder
+description: Use when user asks to "find todos", "查找TODO"
+model: sonnet
+tools: ["Grep", "Glob"]
+---
+
+# TODO Finder Agent
+搜索目标：TODO, FIXME, HACK, XXX, NOTE
+
+## 输出格式
+### 📋 TODO 报告
+**总计**: [数量] 项 | **高优先级**: [数量] 项
+
+#### 🔴 高优先级 (TODO, FIXME)
+- `file:line` - [注释内容]
+
+#### 🟡 中优先级 (HACK, XXX)
+- `file:line` - [注释内容]
+```
+
+### 练习 4：创建 Git 日志分析 Agent
+
+创建一个 `git-analyzer` agent，分析提交历史并生成报告。
+
+```markdown
+---
+name: git-analyzer
+description: Use when user asks to "analyze git", "分析提交"
+model: sonnet
+tools: ["Bash"]
+---
+
+# Git Analyzer Agent
+分析内容：提交频率、贡献者分布、提交类型、代码活跃度。
+
+## 输出格式
+### 📊 Git 活动报告
+#### 👥 贡献者排名
+#### 📝 提交类型分布
+- feat: XX% | fix: XX% | docs: XX% | refactor: XX%
+```
+
+### 练习 5：创建综合测试助手 Agent
+
+多功能 test-helper，能生成测试、运行测试并分析失败原因。
+
+```markdown
+---
+name: test-helper
+description: Use when user asks to "test helper", "测试助手"
+model: sonnet
+tools: ["Read", "Grep", "Bash", "Glob"]
+---
+
+# Test Helper Agent
+工作流程：理解代码 → 生成测试（正常/边界/错误）→ 运行测试 → 分析结果
+
+## 输出格式
+### 🧪 测试报告
+**状态**: ✅ 通过 / ❌ 失败
+**通过**: [数量] | **失败**: [数量]
+
+#### 失败分析（如有）
+**原因**: [失败原因分析]
+**建议**: [修复建议]
+```
+
+> [!challenge] 综合挑战
+> 将以上 5 个 Agent 整合为一个 `dev-toolkit` 插件，确保所有 Agent 独立触发、协同工作，编写 README 说明文档。
+
+---
+
 ## 个人笔记
 
 > [!personal] 💡 我的理解与感悟
@@ -978,11 +1242,14 @@ Dynamic Workflows（2026年5月GA）是另一种多 Agent 编排方式——Clau
 ## 相关文档
 
 - [[SubAgent子代理]] - SubAgent 概念详解
+- [[Agent Teams智能体团队]] - Agent Teams 基础概念
 - [[Claude Code Memory 完整指南]] - Memory 持久化上下文
 - [[Skills 是什么]] - Skills 概念详解
 - [[Claude Code Hooks 使用指南]] - 事件驱动自动化
 - [[Claude Code Slash Commands 完整参考]] - 斜杠命令
 - [[Claude Code 插件系统使用指南]] - 插件系统
+- [[Claude Code Dynamic Workflows 使用指南]] - Dynamic Workflows 详解
+- [[LLM-Prompt-Caching-提示缓存]] - 缓存优化策略
 
 ---
 
