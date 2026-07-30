@@ -114,6 +114,7 @@
     },
     "虚拟机": {
       "children": [
+        "虚拟机/虚拟网络模式",
         "虚拟机/assets",
         "虚拟机/VMware 获取虚拟机所有权失败.md"
       ],
@@ -599,6 +600,7 @@
     "linux": {
       "children": [
         "linux/linux常用命令",
+        "linux/linux系统安装教程",
         "linux/Linux网络信息获取与概念",
         "linux/Linux的文件系统结构.md",
         "linux/update_plan.md",
@@ -1235,6 +1237,7 @@
       "children": [
         "workspace/linux-commands",
         "workspace/linux-network-info-concepts",
+        "workspace/virtual-networking",
         "workspace/claude-code-tutorial",
         "workspace/llm-提示词缓存优化策略",
         "workspace/matt-pocock-skills",
@@ -1602,10 +1605,79 @@
       "children": [
         "workspace/workflow-runs/linux-commands.workflow.md",
         "workspace/workflow-runs/linux-network-info-concepts.workflow.md",
+        "workspace/workflow-runs/virtual-networking.workflow.md",
         "workspace/workflow-runs/matt-pocock-skills.workflow.md",
         "workspace/workflow-runs/nodejs-ai-application.workflow.md",
         "workspace/workflow-runs/superpowers.workflow.md"
       ],
+      "sortOrder": "custom"
+    },
+    "workspace/virtual-networking": {
+      "children": [
+        "workspace/virtual-networking/output",
+        "workspace/virtual-networking/chapters",
+        "workspace/virtual-networking/03_outline.md",
+        "workspace/virtual-networking/02_deep_research.md",
+        "workspace/virtual-networking/01_explore_result.md",
+        "workspace/virtual-networking/00_intent.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/virtual-networking/chapters": {
+      "children": [
+        "workspace/virtual-networking/chapters/06_虚拟机网络模式.md",
+        "workspace/virtual-networking/chapters/10_虚拟网络技术全景对比与选型.md",
+        "workspace/virtual-networking/chapters/08_Docker容器网络模式下.md",
+        "workspace/virtual-networking/chapters/04_软件定义网络SDN.md",
+        "workspace/virtual-networking/chapters/09_Kubernetes网络模型与CNI插件.md",
+        "workspace/virtual-networking/chapters/07_Docker容器网络模式上.md",
+        "workspace/virtual-networking/chapters/05_Linux网络命名空间与veth.md",
+        "workspace/virtual-networking/chapters/03_VXLAN覆盖网络.md",
+        "workspace/virtual-networking/chapters/02_VLAN与VLANIF.md",
+        "workspace/virtual-networking/chapters/01_虚拟网络概述.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/virtual-networking/output": {
+      "children": [
+        "workspace/virtual-networking/output/虚拟网络模式"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/virtual-networking/output/虚拟网络模式": {
+      "children": [
+        "workspace/virtual-networking/output/虚拟网络模式/10_虚拟网络技术全景对比与选型.md",
+        "workspace/virtual-networking/output/虚拟网络模式/05_Linux网络命名空间与veth.md",
+        "workspace/virtual-networking/output/虚拟网络模式/09_Kubernetes网络模型与CNI插件.md",
+        "workspace/virtual-networking/output/虚拟网络模式/04_软件定义网络SDN.md",
+        "workspace/virtual-networking/output/虚拟网络模式/08_Docker容器网络模式下.md",
+        "workspace/virtual-networking/output/虚拟网络模式/03_VXLAN覆盖网络.md",
+        "workspace/virtual-networking/output/虚拟网络模式/07_Docker容器网络模式上.md",
+        "workspace/virtual-networking/output/虚拟网络模式/02_VLAN与VLANIF.md",
+        "workspace/virtual-networking/output/虚拟网络模式/06_虚拟机网络模式.md",
+        "workspace/virtual-networking/output/虚拟网络模式/01_虚拟网络概述.md",
+        "workspace/virtual-networking/output/虚拟网络模式/00_索引.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "虚拟机/虚拟网络模式": {
+      "children": [
+        "虚拟机/虚拟网络模式/10_虚拟网络技术全景对比与选型.md",
+        "虚拟机/虚拟网络模式/09_Kubernetes网络模型与CNI插件.md",
+        "虚拟机/虚拟网络模式/08_Docker容器网络模式下.md",
+        "虚拟机/虚拟网络模式/07_Docker容器网络模式上.md",
+        "虚拟机/虚拟网络模式/06_虚拟机网络模式.md",
+        "虚拟机/虚拟网络模式/05_Linux网络命名空间与veth.md",
+        "虚拟机/虚拟网络模式/04_软件定义网络SDN.md",
+        "虚拟机/虚拟网络模式/03_VXLAN覆盖网络.md",
+        "虚拟机/虚拟网络模式/02_VLAN与VLANIF.md",
+        "虚拟机/虚拟网络模式/01_虚拟网络概述.md",
+        "虚拟机/虚拟网络模式/00_索引.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "linux/linux系统安装教程": {
+      "children": [],
       "sortOrder": "custom"
     }
   },

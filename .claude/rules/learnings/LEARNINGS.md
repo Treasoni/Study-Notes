@@ -89,3 +89,47 @@ WebFetch 无法访问 cloud.tencent.com 和 blog.csdn.net 等国内技术站点
 遇到 WebFetch 无法访问的站点时，优先用 WebSearch + 自身知识库的组合方案，或尝试 defuddle skill。
 
 ---
+
+## [LRN-20260729-003] best_practice
+
+**Logged**: 2026-07-29T15:40:00+08:00
+**Priority**: high
+**Status**: active
+**Area**: beautify
+
+### Summary
+发布笔记到目标目录后必须验证文件编码，确保 CJK 内容未被破坏。
+
+### Details
+本次 `Linux网络信息获取与概念` 笔记发布后，所有 10 个章节文件的正文出现 mojibake（如"网络"变成"缃戠粶"），但 YAML frontmatter 是正常的。工作区的源文件编码正确，问题出在发布/复制阶段的编码转换。
+
+排查耗时较长，因为一开始误以为用户说的"显示有问题"是格式问题（BOM、callout），忽略了编码问题这一首要疑点。在 CJK 内容处理中，编码问题应作为最优先排查项。
+
+### Suggested Action
+发布步骤（note-beautifier 或 publish 流程）完成后，抽样验证目标文件的编码：
+1. 用 `python3 -c "open('file.md','rb').read().decode('utf-8')"` 确认无解码错误
+2. 从前 10 行中提取几个中文字符检查是否与预期一致
+3. 优先对比工作区源文件和目标文件的正文内容，而非仅看格式
+
+---
+
+## [LRN-20260729-004] debug_order
+
+**Logged**: 2026-07-29T15:40:00+08:00
+**Priority**: medium
+**Status**: active
+**Area**: general
+
+### Summary
+用户反馈中文笔记"显示有问题"时，编码问题（mojibake）应作为首要排查项，优先于格式问题（BOM、callout、wikilink 等）。
+
+### Details
+本次会话中用户报告"笔记显示有问题"，我首先检查了 BOM 和 callout 格式，花了一轮才发现用户实际说的是"乱码"（编码问题）。在 CJK 内容的生产/发布流程中，编码损坏是最常见且影响最严重的显示问题，应在排查的第一轮就检查。
+
+### Suggested Action
+当用户报告中文笔记"显示有问题"或"乱码"时，排查优先级：
+1. 第一轮：用 `xxd` 或 `python3` 检查文件编码、对比源文件和目标文件
+2. 第二轮：检查 YAML frontmatter 是否可被正常解析
+3. 第三轮：检查 callout、表格、代码块等格式问题
+
+---

@@ -1,4 +1,4 @@
-﻿---
+---
 title: "第05章：DNS解析与域名信息"
 tags: [linux, network]
 created: 2026-07-29
@@ -6,108 +6,145 @@ updated: 2026-07-29
 status: complete
 source_project: linux-network-info-concepts
 ---
-# DNS 瑙ｆ瀽涓庡煙鍚嶄俊鎭?
-褰撲綘杈撳叆 `baidu.com` 骞舵寜涓嬪洖杞︼紝娴忚鍣ㄩ渶瑕佹壘鍒拌繖涓煙鍚嶅搴旂殑 IP 鍦板潃鎵嶈兘寤虹珛杩炴帴銆傝繖涓粠"鍩熷悕"鍒?IP"鐨勮浆鎹㈣繃绋嬶紝灏辨槸 **DNS 瑙ｆ瀽锛圖omain Name System resolution锛?*銆傚畠鏄簰鑱旂綉閫氫俊鐨勭涓€姝モ€斺€斿鏋滆繖涓€姝ュけ璐ワ紝浣犺繛涓嶄笂浠讳綍缃戠珯锛岃€?`ping` 鍜?`ip addr` 鐪嬪埌鐨勭綉缁滈厤缃彲鑳藉畬鍏ㄦ甯搞€?
-鏈珷鏄叏涔︽渶闀跨殑涓€绔狅紝鍥犱负 DNS 鏄疄闄呮帓闅滀腑**鏈€甯稿嚭闂**鐨勭幆鑺傦紝鑰屼笖 Linux 涓婄殑 DNS 浣撶郴缁忓巻浜嗗娆℃紨鍙橈紝鏂拌€侀厤缃苟瀛橈紝鏋佸叾瀹规槗韪╁潙銆備綘灏嗗鍒帮細DNS 鍒板簳鏄€庝箞宸ヤ綔鐨勩€丩inux 涓婂摢浜涙枃浠舵帶鍒?DNS銆佷互鍙婂浣曠敤 `dig`/`resolvectl` 绛夊伐鍏风簿鍑嗗畾浣嶉棶棰樸€?
+# DNS 解析与域名信息
+
+当你输入 `baidu.com` 并按下回车，浏览器需要找到这个域名对应的 IP 地址才能建立连接。这个从"域名"到"IP"的转换过程，就是 **DNS 解析（Domain Name System resolution）**。它是互联网通信的第一步——如果这一步失败，你连不上任何网站，而 `ping` 和 `ip addr` 看到的网络配置可能完全正常。
+
+本章是全书最长的一章，因为 DNS 是实际排障中**最常出问题**的环节，而且 Linux 上的 DNS 体系经历了多次演变，新老配置并存，极其容易踩坑。你将学到：DNS 到底是怎么工作的、Linux 上哪些文件控制 DNS、以及如何用 `dig`/`resolvectl` 等工具精准定位问题。
+
 ---
 
-## DNS 瑙ｆ瀽瀹屾暣娴佺▼锛氫粠娴忚鍣ㄥ埌 DNS 鏈嶅姟鍣?
-> [!note] 涓€鍙ヨ瘽鐞嗚В DNS
-> DNS 鏈川涓婃槸涓€涓?*鍒嗗竷寮忕殑閿€兼暟鎹簱**鈥斺€旈敭鏄煙鍚嶏紙濡?`www.example.com`锛夛紝鍊兼槸 IP 鍦板潃锛堝 `93.184.216.34`锛夈€傛煡璇㈢殑杩囩▼灏辨槸娌跨潃杩欎釜鍒嗗竷寮忔暟鎹簱鐨勯摼鏉￠€愮骇鏌ユ壘銆?
-涓嬮潰浠ュ湪娴忚鍣ㄤ腑杈撳叆 `www.example.com` 涓轰緥锛屽畬鏁磋蛋涓€閬?DNS 瑙ｆ瀽鐨勬祦绋嬨€?
-### 绗竴姝ワ細娴忚鍣ㄧ紦瀛樻鏌?
-娴忚鍣ㄨ嚜韬淮鎶や簡涓€涓?DNS 缂撳瓨銆傚鏋滀箣鍓嶆煡杩?`www.example.com` 涓旂紦瀛樻湭杩囨湡锛屾祻瑙堝櫒鐩存帴鐢ㄧ紦瀛樼殑 IP锛?*涓嶅彂閫佷换浣曠綉缁滆姹?*銆備綘鍙互閫氳繃 `chrome://net-internals/#dns`锛圕hrome锛夋垨 `about:networking#dns`锛團irefox锛夋煡鐪嬫祻瑙堝櫒 DNS 缂撳瓨銆?
-### 绗簩姝ワ細鎿嶄綔绯荤粺缂撳瓨妫€鏌?
-濡傛灉娴忚鍣ㄧ紦瀛樻病鍛戒腑锛屾祻瑙堝櫒浼氳皟鐢ㄦ搷浣滅郴缁熺殑瑙ｆ瀽鎺ュ彛銆傚湪 Linux 涓婏紝鎿嶄綔绯荤粺锛堝 systemd-resolved锛変篃浼氱淮鎶や竴涓?DNS 缂撳瓨銆傜敤 `resolvectl statistics` 鍙互鐪嬪埌缂撳瓨鍛戒腑鎯呭喌銆?
-### 绗笁姝ワ細璇诲彇 `/etc/hosts`
+## DNS 解析完整流程：从浏览器到 DNS 服务器
 
-濡傛灉鎿嶄綔绯荤粺缂撳瓨涔熸病鏈夛紝Linux 浼氭鏌?`/etc/hosts` 鏂囦欢銆傝繖涓枃浠舵槸**闈欐€佺殑鍩熷悕鈫扞P 鏄犲皠琛?*锛屼紭鍏堢骇閫氬父楂樹簬 DNS 鏌ヨ鈥斺€旇繖鏄?`/etc/nsswitch.conf` 涓?`hosts: files dns` 鐨勫惈涔夛紙"鍏堟煡鏂囦欢锛屽啀鏌?DNS"锛夈€?
+> [!note] 一句话理解 DNS
+> DNS 本质上是一个**分布式的键值数据库**——键是域名（如 `www.example.com`），值是 IP 地址（如 `93.184.216.34`）。查询的过程就是沿着这个分布式数据库的链条逐级查找。
+
+下面以在浏览器中输入 `www.example.com` 为例，完整走一遍 DNS 解析的流程。
+
+### 第一步：浏览器缓存检查
+
+浏览器自身维护了一个 DNS 缓存。如果之前查过 `www.example.com` 且缓存未过期，浏览器直接用缓存的 IP，**不发送任何网络请求**。你可以通过 `chrome://net-internals/#dns`（Chrome）或 `about:networking#dns`（Firefox）查看浏览器 DNS 缓存。
+
+### 第二步：操作系统缓存检查
+
+如果浏览器缓存没命中，浏览器会调用操作系统的解析接口。在 Linux 上，操作系统（如 systemd-resolved）也会维护一个 DNS 缓存。用 `resolvectl statistics` 可以看到缓存命中情况。
+
+### 第三步：读取 `/etc/hosts`
+
+如果操作系统缓存也没有，Linux 会检查 `/etc/hosts` 文件。这个文件是**静态的域名→IP 映射表**，优先级通常高于 DNS 查询——这是 `/etc/nsswitch.conf` 中 `hosts: files dns` 的含义（"先查文件，再查 DNS"）。
+
 ```bash
-# /etc/hosts 绀轰緥
+# /etc/hosts 示例
 127.0.0.1       localhost
 127.0.1.1       my-laptop
 192.168.1.10    dev-server.internal
-# 涓嬮潰杩欒鍙互鐢ㄦ潵涓存椂灞忚斀鏌愪釜鍩熷悕锛堝己鍒舵寚鍚?127.0.0.1锛?127.0.0.1       unwanted-ads.example.com
+# 下面这行可以用来临时屏蔽某个域名（强制指向 127.0.0.1）
+127.0.0.1       unwanted-ads.example.com
 ```
 
-> [!tip] `/etc/hosts` 鐨勫疄鐢ㄥ満鏅?> - **寮€鍙戠幆澧?*锛氬皢 `my-app.local` 鎸囧悜鏈満 `127.0.0.1`锛屾柟渚挎湰鍦拌皟璇?> - **灞忚斀鍩熷悕**锛氬皢骞垮憡鍩熷悕鎸囧悜 `127.0.0.1` / `0.0.0.0`
-> - **绱ф€ョ粫杩?DNS 鏁呴殰**锛氬鏋?DNS 鏈嶅姟鍣ㄦ寕浜嗭紝鍙互鍦?hosts 閲屼复鏃跺啓鍏ュ叧閿煙鍚?
-### 绗洓姝ワ細鏌ヨ DNS 瑙ｆ瀽鍣?
-濡傛灉 `/etc/hosts` 涓篃娌℃湁锛孡inux 灏嗘煡璇㈤厤缃殑 DNS 瑙ｆ瀽鍣ㄣ€傚湪鐜颁唬 Ubuntu 绯荤粺涓婏紝杩欎釜瑙ｆ瀽鍣ㄩ€氬父鏄?**systemd-resolved** 鐨?stub resolver锛坄127.0.0.53`锛夛紝瀹冨厖褰撴湰鍦?DNS 浠ｇ悊锛岃礋璐ｇ紦瀛樸€佽浆鍙戝拰 DNSSEC 楠岃瘉銆?
-### 绗簲姝ワ細閫掑綊鏌ヨ鍒版潈濞?DNS
+> [!tip] `/etc/hosts` 的实用场景
+> - **开发环境**：将 `my-app.local` 指向本机 `127.0.0.1`，方便本地调试
+> - **屏蔽域名**：将广告域名指向 `127.0.0.1` / `0.0.0.0`
+> - **紧急绕过 DNS 故障**：如果 DNS 服务器挂了，可以在 hosts 里临时写入关键域名
 
-瑙ｆ瀽鍣ㄤ粠鏍?DNS 鏈嶅姟鍣ㄥ紑濮嬶紝閫愮骇鍚戜笅鏌ヨ锛屾渶缁堝埌杈?`www.example.com` 鐨勬潈濞?DNS 鏈嶅姟鍣ㄣ€傚畬鏁寸殑閫掑綊杩囩▼濡備笅锛?
+### 第四步：查询 DNS 解析器
+
+如果 `/etc/hosts` 中也没有，Linux 将查询配置的 DNS 解析器。在现代 Ubuntu 系统上，这个解析器通常是 **systemd-resolved** 的 stub resolver（`127.0.0.53`），它充当本地 DNS 代理，负责缓存、转发和 DNSSEC 验证。
+
+### 第五步：递归查询到权威 DNS
+
+解析器从根 DNS 服务器开始，逐级向下查询，最终到达 `www.example.com` 的权威 DNS 服务器。完整的递归过程如下：
+
 ```
-瀹㈡埛绔?鈫?鏈湴瑙ｆ瀽鍣?(127.0.0.53)
-       鈫?   閫掑綊鏌ヨ寮€濮?       鈫?   鏍?DNS 鏈嶅姟鍣?         鈫? 杩斿洖 .com 椤剁骇鍩熸湇鍔″櫒鍦板潃
-       鈫?   .com 椤剁骇鍩熸湇鍔″櫒      鈫? 杩斿洖 example.com 鏉冨▉鏈嶅姟鍣ㄥ湴鍧€
-       鈫?   example.com 鏉冨▉鏈嶅姟鍣? 鈫? 杩斿洖 www.example.com 鐨?IP 鍦板潃
-       鈫?   鏈湴瑙ｆ瀽鍣ㄧ紦瀛樼粨鏋滐紝杩斿洖缁欏鎴风
+客户端 → 本地解析器 (127.0.0.53)
+       ↓
+   递归查询开始
+       ↓
+   根 DNS 服务器          →  返回 .com 顶级域服务器地址
+       ↓
+   .com 顶级域服务器      →  返回 example.com 权威服务器地址
+       ↓
+   example.com 权威服务器  →  返回 www.example.com 的 IP 地址
+       ↓
+   本地解析器缓存结果，返回给客户端
 ```
 
-> [!tip] `+trace` 鍙傛暟鍙互浜茬溂鐪嬪埌杩欎釜閾炬潯
-> `dig www.example.com +trace` 浼氫竴姝ユ灞曠ず浠庢牴鍒版潈濞佺殑瀹屾暣鏌ヨ杩囩▼锛屾湰绔犲悗闈細璇︾粏婕旂ず銆?
-### 绗叚姝ワ細娴忚鍣ㄥ彂璧?HTTP 杩炴帴
+> [!tip] `+trace` 参数可以亲眼看到这个链条
+> `dig www.example.com +trace` 会一步步展示从根到权威的完整查询过程，本章后面会详细演示。
 
-鎷垮埌 IP 鍦板潃鍚庯紝娴忚鍣ㄧ粓浜庡彲浠ュ彂璧?TCP 杩炴帴锛屽紑濮?HTTP 璇锋眰銆傝嚦姝わ紝DNS 瑙ｆ瀽鐨勪娇鍛藉畬鎴愩€?
+### 第六步：浏览器发起 HTTP 连接
+
+拿到 IP 地址后，浏览器终于可以发起 TCP 连接，开始 HTTP 请求。至此，DNS 解析的使命完成。
+
 ```
-瀹屾暣閾捐矾锛?娴忚鍣ㄧ紦瀛?鈫?鎿嶄綔绯荤粺缂撳瓨 鈫?/etc/hosts 鈫?DNS 瑙ｆ瀽鍣?鈫?鏍?DNS 鈫?TLD 鈫?鏉冨▉ DNS
-                                  鈫?                           锛堝埌杩欎竴姝ユ墠鍙戠綉缁滃寘锛?```
+完整链路：
+浏览器缓存 → 操作系统缓存 → /etc/hosts → DNS 解析器 → 根 DNS → TLD → 权威 DNS
+                                  ↓
+                           （到这一步才发网络包）
+```
 
 ---
 
-## DNS 璁板綍绫诲瀷璇﹁В
+## DNS 记录类型详解
 
-DNS 涓嶅彧鏄?鍩熷悕鈫扞P"鐨勭畝鍗曟槧灏勩€傚畠鏄竴涓赴瀵岀殑鏁版嵁搴擄紝姣忔潯璁板綍绉颁负涓€涓?**璧勬簮璁板綍锛圧esource Record, RR锛?*锛屾湁涓嶅悓绫诲瀷銆?
-### 鏍稿績璁板綍绫诲瀷閫熸煡
+DNS 不只是"域名→IP"的简单映射。它是一个丰富的数据库，每条记录称为一个 **资源记录（Resource Record, RR）**，有不同类型。
 
-| 璁板綍绫诲瀷 | 鍏ㄧО | 浣滅敤 | 鏌ヨ鍛戒护 |
+### 核心记录类型速查
+
+| 记录类型 | 全称 | 作用 | 查询命令 |
 |---------|------|------|---------|
-| **A** | Address Record | 鍩熷悕 鈫?IPv4 鍦板潃 | `dig example.com A` |
-| **AAAA** | IPv6 Address Record | 鍩熷悕 鈫?IPv6 鍦板潃 | `dig example.com AAAA` |
-| **CNAME** | Canonical Name | 鍩熷悕鍒悕锛堝煙鍚?鈫?鍙︿竴涓煙鍚嶏級 | `dig www.example.com CNAME` |
-| **MX** | Mail Exchange | 閭欢鏈嶅姟鍣紙鍚紭鍏堢骇锛?| `dig example.com MX` |
-| **NS** | Name Server | 鍩熷悕鐨勬潈濞?DNS 鏈嶅姟鍣?| `dig example.com NS` |
-| **TXT** | Text Record | 浠绘剰鏂囨湰淇℃伅锛堝父鐢ㄤ簬 SPF/DKIM 楠岃瘉锛?| `dig example.com TXT` |
-| **SOA** | Start of Authority | 鍖哄煙鐨勬潈濞佷俊鎭紙鍒锋柊闂撮殧銆佺鐞嗗憳閭绛夛級 | `dig example.com SOA` |
+| **A** | Address Record | 域名 → IPv4 地址 | `dig example.com A` |
+| **AAAA** | IPv6 Address Record | 域名 → IPv6 地址 | `dig example.com AAAA` |
+| **CNAME** | Canonical Name | 域名别名（域名 → 另一个域名） | `dig www.example.com CNAME` |
+| **MX** | Mail Exchange | 邮件服务器（含优先级） | `dig example.com MX` |
+| **NS** | Name Server | 域名的权威 DNS 服务器 | `dig example.com NS` |
+| **TXT** | Text Record | 任意文本信息（常用于 SPF/DKIM 验证） | `dig example.com TXT` |
+| **SOA** | Start of Authority | 区域的权威信息（刷新间隔、管理员邮箱等） | `dig example.com SOA` |
 
-### A 璁板綍
+### A 记录
 
-鏈€鍩烘湰鐨勮褰曪紝灏嗗煙鍚嶆槧灏勫埌涓€涓?IPv4 鍦板潃銆備竴涓煙鍚嶅彲浠ユ湁澶氭潯 A 璁板綍瀹炵幇**DNS 杞璐熻浇鍧囪　**銆?
+最基本的记录，将域名映射到一个 IPv4 地址。一个域名可以有多条 A 记录实现**DNS 轮询负载均衡**。
+
 ```bash
 $ dig baidu.com A +short
 39.156.66.10
 110.242.68.66
 
-# 涓や釜 IP鈥斺€旂櫨搴︾敤浜?DNS 杞锛屾瘡娆¤В鏋愬彲鑳芥嬁鍒颁笉鍚?IP
+# 两个 IP——百度用了 DNS 轮询，每次解析可能拿到不同 IP
 ```
 
-### AAAA 璁板綍
+### AAAA 记录
 
-涓?A 璁板綍鍔熻兘鐩稿悓锛屼絾杩斿洖鐨勬槸 IPv6 鍦板潃銆?
+与 A 记录功能相同，但返回的是 IPv6 地址。
+
 ```bash
 $ dig baidu.com AAAA +short
-# 濡傛灉鍩熷悕娌℃湁 IPv6 鍦板潃锛岃繖閲屾病鏈夎緭鍑?```
+# 如果域名没有 IPv6 地址，这里没有输出
+```
 
-### CNAME 璁板綍
+### CNAME 记录
 
-灏嗗煙鍚嶆寚鍚戝彟涓€涓煙鍚嶃€侰NAME 璁板綍鏈韩涓嶈繑鍥?IP鈥斺€斿鎴风闇€瑕佸啀鏌ヤ竴娆＄洰鏍囧煙鍚嶇殑 A/AAAA 璁板綍銆?
-> [!warning] CNAME 鐨勫父瑙侀櫡闃?> - CNAME 璁板綍涓嶈兘涓庡叾浠栬褰曠被鍨嬪叡瀛樹簬鍚屼竴涓煙鍚嶄笂
-> - 鏍瑰煙鍚嶏紙濡?`example.com`锛夐€氬父涓嶈兘鐢?CNAME锛屽洜涓?NS/SOA 璁板綍浼氬啿绐佲€斺€旇繖灏辨槸涓轰粈涔堝緢澶氱綉绔欐妸 `www.example.com` 鍋?CNAME 鍒?`example.com`锛岃€?`example.com` 鏈韩鐢?A 璁板綍
+将域名指向另一个域名。CNAME 记录本身不返回 IP——客户端需要再查一次目标域名的 A/AAAA 记录。
+
+> [!warning] CNAME 的常见陷阱
+> - CNAME 记录不能与其他记录类型共存于同一个域名上
+> - 根域名（如 `example.com`）通常不能用 CNAME，因为 NS/SOA 记录会冲突——这就是为什么很多网站把 `www.example.com` 做 CNAME 到 `example.com`，而 `example.com` 本身用 A 记录
 
 ```bash
-# 寰堝 CDN 鏈嶅姟鐢?CNAME 鎸囧悜鍔犻€熷煙鍚?$ dig www.baidu.com CNAME +short
+# 很多 CDN 服务用 CNAME 指向加速域名
+$ dig www.baidu.com CNAME +short
 www.a.shifen.com.
 
-# 瀹㈡埛绔渶瑕佸啀鏌ヤ竴娆?A 璁板綍鎵嶈兘鎷垮埌 IP
+# 客户端需要再查一次 A 记录才能拿到 IP
 $ dig www.a.shifen.com A +short
 39.156.66.14
 110.242.68.3
 ```
 
-### MX 璁板綍
+### MX 记录
 
-鎸囧畾鍩熷悕鐨勯偖浠舵湇鍔″櫒鍦板潃銆傛瘡涓?MX 璁板綍甯︽湁涓€涓?**浼樺厛绾э紙preference锛?* 瀛楁锛屾暟鍊艰秺灏忎紭鍏堢骇瓒婇珮銆?
+指定域名的邮件服务器地址。每个 MX 记录带有一个 **优先级（preference）** 字段，数值越小优先级越高。
+
 ```bash
 $ dig gmail.com MX +short
 30 alt3.gmail-smtp-in.l.google.com.
@@ -117,10 +154,12 @@ $ dig gmail.com MX +short
 5  gmail-smtp-in.l.google.com.
 ```
 
-杩欓噷 `gmail-smtp-in.l.google.com` 浼樺厛绾?5锛堟渶楂橈級锛宍alt1` 浼樺厛绾?10锛堝鐢級锛屼互姝ょ被鎺ㄣ€傚彂浠舵湇鍔″櫒浼氬厛灏濊瘯浼樺厛绾ф渶楂樼殑锛屽け璐ュ悗渚濇灏濊瘯澶囩敤銆?
-### NS 璁板綍
+这里 `gmail-smtp-in.l.google.com` 优先级 5（最高），`alt1` 优先级 10（备用），以此类推。发件服务器会先尝试优先级最高的，失败后依次尝试备用。
 
-鎸囧畾鍝釜 DNS 鏈嶅姟鍣ㄦ槸鏌愪釜鍩熷悕鐨勬潈濞佹湇鍔″櫒銆傝繖鏄?DNS 濮旀淳鏈哄埗鐨勬牳蹇冦€?
+### NS 记录
+
+指定哪个 DNS 服务器是某个域名的权威服务器。这是 DNS 委派机制的核心。
+
 ```bash
 $ dig baidu.com NS +short
 ns3.baidu.com.
@@ -130,106 +169,124 @@ ns4.baidu.com.
 ns2.baidu.com.
 ```
 
-### TXT 璁板綍
+### TXT 记录
 
-瀛樺偍浠绘剰鏂囨湰淇℃伅锛岃骞挎硾鐢ㄤ簬鍩熷悕鎵€鏈夋潈楠岃瘉鍜岄偖浠跺畨鍏ㄣ€?
+存储任意文本信息，被广泛用于域名所有权验证和邮件安全。
+
 ```bash
-# SPF 璁板綍鈥斺€斿０鏄庡摢浜涙湇鍔″櫒鍙互浠ｈ〃璇ュ煙鍚嶅彂閭欢
+# SPF 记录——声明哪些服务器可以代表该域名发邮件
 $ dig gmail.com TXT +short
 "v=spf1 redirect=_spf.google.com"
 "v=spf1 include:_spf.google.com ~all"
 "google-site-verification=..._LpQc"
 ```
 
-甯歌鐢ㄩ€旓細
-- **SPF**锛圫ender Policy Framework锛夛細澹版槑鍚堟硶鐨勫彂浠舵湇鍔″櫒
-- **DKIM**锛氶偖浠剁鍚嶉獙璇佸叕閽?- **DMARC**锛氶偖浠堕獙璇佸け璐ユ椂鐨勫鐞嗙瓥鐣?- **鍩熷悕鎵€鏈夋潈楠岃瘉**锛氫簯鏈嶅姟鍟嗚浣犳坊鍔?TXT 璁板綍璇佹槑浣犳帶鍒惰鍩熷悕
+常见用途：
+- **SPF**（Sender Policy Framework）：声明合法的发件服务器
+- **DKIM**：邮件签名验证公钥
+- **DMARC**：邮件验证失败时的处理策略
+- **域名所有权验证**：云服务商让你添加 TXT 记录证明你控制该域名
 
-### SOA 璁板綍
+### SOA 记录
 
-鍖哄煙锛坺one锛夌殑**鏉冨▉鍏冩暟鎹褰?*銆傛瘡涓煙鍚嶆湁涓斾粎鏈変竴涓?SOA 璁板綍锛屽寘鍚互涓嬪叧閿瓧娈碉細
+区域（zone）的**权威元数据记录**。每个域名有且仅有一个 SOA 记录，包含以下关键字段：
 
 ```bash
 $ dig baidu.com SOA
 ...
 baidu.com.  7200  IN  SOA  dns.baidu.com.  sa.baidu.com. (
-                        2024072201  ; serial锛堝簭鍒楀彿锛屽尯鍩熺増鏈爣璇嗭級
-                        300         ; refresh锛堜粠鏈嶅姟鍣ㄥ埛鏂伴棿闅旓紝绉掞級
-                        300         ; retry锛堝埛鏂板け璐ュ悗閲嶈瘯闂撮殧锛岀锛?                        2592000     ; expire锛堜粠鏈嶅姟鍣ㄦ暟鎹繃鏈熸椂闂达紝绉掞級
-                        7200        ; minimum锛堝惁瀹氱紦瀛?TTL锛岀锛?)
+                        2024072201  ; serial（序列号，区域版本标识）
+                        300         ; refresh（从服务器刷新间隔，秒）
+                        300         ; retry（刷新失败后重试间隔，秒）
+                        2592000     ; expire（从服务器数据过期时间，秒）
+                        7200        ; minimum（否定缓存 TTL，秒）
+)
 ```
 
-> [!tip] SOA 鐨?serial 瀛楁鏄?DNS 鎺掗殰绁炲櫒"
-> 褰撲綘鐨?DNS 淇敼娌℃湁鐢熸晥鏃讹紝鐢?`dig example.com SOA` 鏌ョ湅 serial 鍙枫€傚鏋滀笌浣犻鏈熺殑涓嶄竴鑷达紝璇存槑 DNS 鏈嶅姟鍣ㄤ笂鐨勫尯鍩熸枃浠舵病鏈夋洿鏂版垨鍚屾銆?
-### 璁板綍绫诲瀷鏌ヨ閫氱敤鍐欐硶
+> [!tip] SOA 的 serial 字段是"DNS 排障神器"
+> 当你的 DNS 修改没有生效时，用 `dig example.com SOA` 查看 serial 号。如果与你预期的不一致，说明 DNS 服务器上的区域文件没有更新或同步。
+
+### 记录类型查询通用写法
 
 ```bash
-# 鎸囧畾璁板綍绫诲瀷
-dig baidu.com A          # A 璁板綍
-dig baidu.com AAAA       # AAAA 璁板綍
-dig baidu.com MX         # MX 璁板綍
-dig baidu.com NS         # NS 璁板綍
-dig baidu.com TXT        # TXT 璁板綍
-dig baidu.com SOA        # SOA 璁板綍
-dig baidu.com CNAME      # CNAME 璁板綍
-dig baidu.com ANY        # 鎵€鏈夎褰曠被鍨嬶紙娉ㄦ剰锛氬緢澶?DNS 鏈嶅姟鍣ㄤ笉鏀寔 ANY 鏌ヨ锛?
-# +short 绠€鍖栬緭鍑?dig baidu.com MX +short
+# 指定记录类型
+dig baidu.com A          # A 记录
+dig baidu.com AAAA       # AAAA 记录
+dig baidu.com MX         # MX 记录
+dig baidu.com NS         # NS 记录
+dig baidu.com TXT        # TXT 记录
+dig baidu.com SOA        # SOA 记录
+dig baidu.com CNAME      # CNAME 记录
+dig baidu.com ANY        # 所有记录类型（注意：很多 DNS 服务器不支持 ANY 查询）
 
-# +noall +answer 鍙樉绀哄洖绛旈儴鍒嗭紙姣?+short 鐣ヨ缁嗭級
+# +short 简化输出
+dig baidu.com MX +short
+
+# +noall +answer 只显示回答部分（比 +short 略详细）
 dig baidu.com MX +noall +answer
 ```
 
 ---
 
-## Linux DNS 閰嶇疆鏂囦欢浣撶郴
+## Linux DNS 配置文件体系
 
-Linux 涓婄殑 DNS 瑙ｆ瀽涓嶆槸"涓€涓枃浠舵悶瀹?鐨勭畝鍗曚簨鎯呫€?*涓変釜鏂囦欢**鏋勬垚涓€鏉″畬鏁寸殑瑙ｆ瀽閾捐矾锛岀悊瑙ｅ畠浠殑鍗忎綔鍏崇郴鏄帓鏌?DNS 闂鐨勫叧閿€?
-### 閰嶇疆鏂囦欢閾捐矾
+Linux 上的 DNS 解析不是"一个文件搞定"的简单事情。**三个文件**构成一条完整的解析链路，理解它们的协作关系是排查 DNS 问题的关键。
+
+### 配置文件链路
 
 ```
 /etc/nsswitch.conf
-    鈫?鎺у埗"浠ヤ粈涔堥『搴忔煡"
+    ↓ 控制"以什么顺序查"
 /etc/hosts
-    鈫?闈欐€佹槧灏勶紙浼樺厛绾ч珮锛?/etc/resolv.conf
-    鈫?鎸囧畾 DNS 鏈嶅姟鍣紙浼樺厛绾т綆锛?DNS 鏈嶅姟鍣紙濡?8.8.8.8 鎴?127.0.0.53锛?```
+    ↓ 静态映射（优先级高）
+/etc/resolv.conf
+    ↓ 指定 DNS 服务器（优先级低）
+DNS 服务器（如 8.8.8.8 或 127.0.0.53）
+```
 
-### 绗竴鐜細`/etc/nsswitch.conf`
+### 第一环：`/etc/nsswitch.conf`
 
-**NSS锛圢ame Service Switch锛?* 鏄?Linux 绯荤粺瑙ｆ瀽鍚嶇О锛堢敤鎴枫€佺粍銆佷富鏈哄悕绛夛級鐨勭粺涓€妗嗘灦銆傚浜庝富鏈哄悕瑙ｆ瀽锛屽畠鍐冲畾浜?鍏堟煡浠€涔堛€佸啀鏌ヤ粈涔?鐨勯『搴忋€?
+**NSS（Name Service Switch）** 是 Linux 系统解析名称（用户、组、主机名等）的统一框架。对于主机名解析，它决定了"先查什么、再查什么"的顺序。
+
 ```bash
 $ grep hosts /etc/nsswitch.conf
 hosts:          files dns
 ```
 
-甯歌閰嶇疆鍙婂叾鍚箟锛?
-| 閰嶇疆 | 鍚箟 |
-|------|------|
-| `hosts: files dns` | 鍏堟煡 `/etc/hosts`锛屾病鎵惧埌鍐嶆煡 DNS |
-| `hosts: dns files` | 鍏堟煡 DNS锛屾病鎵惧埌鍐嶆煡 `/etc/hosts`锛堟瀬灏戣锛?|
-| `hosts: files mdns4_minimal [NOTFOUND=return] dns` | Ubuntu 榛樿閰嶇疆锛屽厛鏌?hosts锛屽啀鏌?mDNS锛屾渶鍚庢煡 DNS |
+常见配置及其含义：
 
-> [!note] mDNS 鏄粈涔堬紵
-> `mdns4_minimal` 鏄?**Multicast DNS**锛堥浂閰嶇疆缃戠粶鍗忚锛孉vahi 瀹炵幇锛夈€傚畠鍏佽鍚屼竴灞€鍩熺綉鍐呯殑璁惧閫氳繃 `.local` 鍩熷悕浜掔浉鍙戠幇鈥斺€旀瘮濡?`my-printer.local` 涓嶉渶瑕?DNS 鏈嶅姟鍣ㄥ氨鑳借В鏋愩€俙[NOTFOUND=return]` 鐨勬剰鎬濇槸锛氬鏋?mDNS 鏄庣‘杩斿洖"鏌ヤ笉鍒?锛堣€屼笉鏄秴鏃讹級锛屽氨涓嶅啀缁х画鏌?DNS 浜嗐€?
-娴嬭瘯 NSS 瑙ｆ瀽閾捐矾鐨勫懡浠わ細
+| 配置 | 含义 |
+|------|------|
+| `hosts: files dns` | 先查 `/etc/hosts`，没找到再查 DNS |
+| `hosts: dns files` | 先查 DNS，没找到再查 `/etc/hosts`（极少见） |
+| `hosts: files mdns4_minimal [NOTFOUND=return] dns` | Ubuntu 默认配置，先查 hosts，再查 mDNS，最后查 DNS |
+
+> [!note] mDNS 是什么？
+> `mdns4_minimal` 是 **Multicast DNS**（零配置网络协议，Avahi 实现）。它允许同一局域网内的设备通过 `.local` 域名互相发现——比如 `my-printer.local` 不需要 DNS 服务器就能解析。`[NOTFOUND=return]` 的意思是：如果 mDNS 明确返回"查不到"（而不是超时），就不再继续查 DNS 了。
+
+测试 NSS 解析链路的命令：
 
 ```bash
-# 浣跨敤 NSS 鎺ュ彛鏌ヨ锛屼笉璧?dig/nslookup锛屽畬鏁存ā鎷熷簲鐢ㄥ眰瑙ｆ瀽琛屼负
+# 使用 NSS 接口查询，不走 dig/nslookup，完整模拟应用层解析行为
 $ getent hosts baidu.com
 39.156.66.10     baidu.com
 110.242.68.66    baidu.com
 
-# 濡傛灉淇敼浜?/etc/hosts锛実etent 鑳界珛鍒诲弽鏄犻『搴忓彉鍖?# 鑰?dig 濮嬬粓鐩存帴鏌?DNS锛屼笉鍙?nsswitch.conf 褰卞搷
+# 如果修改了 /etc/hosts，getent 能立刻反映顺序变化
+# 而 dig 始终直接查 DNS，不受 nsswitch.conf 影响
 ```
 
-> [!warning] `getent hosts` vs `dig` 鐨勫尯鍒?> - `getent hosts`锛氳蛋 NSS 閾捐矾锛坄nsswitch.conf` 鈫?`/etc/hosts` 鈫?DNS锛夛紝**瀹屽叏妯℃嫙搴旂敤琛屼负**
-> - `dig`锛氱洿鎺ュ悜 DNS 鏈嶅姟鍣ㄥ彂閫佽姹傦紝**璺宠繃 NSS 鍜?`/etc/hosts`**
-> - 鎺掗殰鏃朵袱鑰呴兘瑕佺敤锛歚dig` 娴?DNS 鏈嶅姟鍣ㄦ湰韬槸鍚︽甯革紝`getent hosts` 娴嬬郴缁熻В鏋愰摼璺槸鍚︽甯?
-### 绗簩鐜細`/etc/hosts`
+> [!warning] `getent hosts` vs `dig` 的区别
+> - `getent hosts`：走 NSS 链路（`nsswitch.conf` → `/etc/hosts` → DNS），**完全模拟应用行为**
+> - `dig`：直接向 DNS 服务器发送请求，**跳过 NSS 和 `/etc/hosts`**
+> - 排障时两者都要用：`dig` 测 DNS 服务器本身是否正常，`getent hosts` 测系统解析链路是否正常
 
-闈欐€佷富鏈哄悕鏄犲皠鏂囦欢銆傛牸寮忛潪甯哥畝鍗曪細
+### 第二环：`/etc/hosts`
+
+静态主机名映射文件。格式非常简单：
 
 ```
-IP鍦板潃    涓绘満鍚?[鍒悕...]
+IP地址    主机名 [别名...]
 ```
 
 ```bash
@@ -240,69 +297,82 @@ $ cat /etc/hosts
 ::1             localhost ip6-localhost ip6-loopback
 ```
 
-> [!tip] `/etc/hosts` 鐨勮皟璇曟妧宸?> 濡傛灉鎯充复鏃?灞忚斀"鏌愪釜鍩熷悕鎸囧悜鍏剁湡瀹?IP锛屽彲浠ュ湪 hosts 涓姞鍏ワ細
+> [!tip] `/etc/hosts` 的调试技巧
+> 如果想临时"屏蔽"某个域名指向其真实 IP，可以在 hosts 中加入：
 > ```
 > 127.0.0.1  tracking.example.com
 > ```
-> 杩欐牱鎵€鏈夋寚鍚?`tracking.example.com` 鐨勮姹傞兘浼氬彂鍒版湰鏈猴紙琚嫆缁濓級銆傛敼瀹屽悗绔嬪嵆鐢熸晥锛屼笉闇€瑕侀噸鍚换浣曟湇鍔°€?
-### 绗笁鐜細`/etc/resolv.conf`
+> 这样所有指向 `tracking.example.com` 的请求都会发到本机（被拒绝）。改完后立即生效，不需要重启任何服务。
 
-浼犵粺涓婅繖涓枃浠剁洿鎺ユ寚瀹?DNS 鏈嶅姟鍣ㄥ湴鍧€銆備絾鍦ㄧ幇浠?Linux 涓婏紝**瀹冨線寰€鏄竴涓鍙烽摼鎺?*锛岀敱 systemd-resolved 鎴?NetworkManager 鑷姩绠＄悊銆?
+### 第三环：`/etc/resolv.conf`
+
+传统上这个文件直接指定 DNS 服务器地址。但在现代 Linux 上，**它往往是一个符号链接**，由 systemd-resolved 或 NetworkManager 自动管理。
+
 ```bash
 $ ls -l /etc/resolv.conf
 lrwxrwxrwx 1 root root 39 ... /etc/resolv.conf -> ../run/systemd/resolve/stub-resolv.conf
 
 $ cat /etc/resolv.conf
-# 杩欐槸 systemd-resolved 绠＄悊鐨勬枃浠?nameserver 127.0.0.53
+# 这是 systemd-resolved 管理的文件
+nameserver 127.0.0.53
 options edns0 trust-ad
 search .
 ```
 
-鍏抽敭瀛楁锛?
-| 瀛楁 | 鍚箟 | 绀轰緥 |
-|------|------|------|
-| `nameserver` | DNS 鏈嶅姟鍣ㄥ湴鍧€锛堟渶澶?3 涓級 | `nameserver 8.8.8.8` |
-| `search` | 鎼滅储鍩燂紝杈撳叆鐭煙鍚嶆椂鑷姩杩藉姞 | `search example.com` 璁?`ping dev` 鑷姩鏌ヨ `dev.example.com` |
-| `options` | 瑙ｆ瀽閫夐」 | `ndots:5` 鎺у埗"澶氬皯涓偣鎵嶇畻瀹屾暣鍩熷悕"銆乣timeout:2` 瓒呮椂绉掓暟 |
+关键字段：
 
-> [!warning] 鏈€甯歌鐨?DNS 韪╁潙鐐癸細鎵嬪姩缂栬緫 `/etc/resolv.conf`
-> 鍦?Ubuntu 16.04+ 涓婏紝`/etc/resolv.conf` 鏄竴涓鍙烽摼鎺ユ寚鍚?systemd-resolved 绠＄悊鐨勬枃浠躲€?*鎵嬪姩缂栬緫杩欎釜鏂囦欢浼氳 systemd-resolved 瀹氭湡瑕嗙洊**銆?>
-> 姝ｇ‘鍋氭硶锛氫娇鐢?`resolvectl` 鎴栭厤缃?`/etc/systemd/resolved.conf`銆?
+| 字段 | 含义 | 示例 |
+|------|------|------|
+| `nameserver` | DNS 服务器地址（最多 3 个） | `nameserver 8.8.8.8` |
+| `search` | 搜索域，输入短域名时自动追加 | `search example.com` 让 `ping dev` 自动查询 `dev.example.com` |
+| `options` | 解析选项 | `ndots:5` 控制"多少个点才算完整域名"、`timeout:2` 超时秒数 |
+
+> [!warning] 最常见的 DNS 踩坑点：手动编辑 `/etc/resolv.conf`
+> 在 Ubuntu 16.04+ 上，`/etc/resolv.conf` 是一个符号链接指向 systemd-resolved 管理的文件。**手动编辑这个文件会被 systemd-resolved 定期覆盖**。
+>
+> 正确做法：使用 `resolvectl` 或配置 `/etc/systemd/resolved.conf`。
+
 ---
 
-## systemd-resolved 涓?resolvectl
+## systemd-resolved 与 resolvectl
 
-systemd-resolved 鏄?systemd 瀹舵棌鐨?DNS 瑙ｆ瀽鏈嶅姟銆傚畠鍦ㄧ幇浠?Linux 鍙戣鐗堬紙Ubuntu 16.04+銆丏ebian 11+銆丗edora銆丄rch Linux锛変笂骞挎硾浣跨敤锛屼絾瀹冪殑琛屼负涓庝紶缁熺殑 DNS 閰嶇疆鏂瑰紡鏈夊緢澶т笉鍚岋紝鏄?**Linux DNS 鎺掗殰涓渶澶х殑"鍧?鏉ユ簮**銆?
-### Stub Resolver 鏋舵瀯
+systemd-resolved 是 systemd 家族的 DNS 解析服务。它在现代 Linux 发行版（Ubuntu 16.04+、Debian 11+、Fedora、Arch Linux）上广泛使用，但它的行为与传统的 DNS 配置方式有很大不同，是 **Linux DNS 排障中最大的"坑"来源**。
+
+### Stub Resolver 架构
 
 ```
-搴旂敤杩涚▼锛堟祻瑙堝櫒銆乧url 绛夛級
-    鈫?鏌ヨ 127.0.0.53:53
-systemd-resolved锛坰tub resolver锛岀洃鍚?127.0.0.53:53锛?    鈫?    鈹溾攢鈹€ 缂撳瓨鍛戒腑 鈫?鐩存帴杩斿洖
-    鈹溾攢鈹€ /etc/hosts 鈫?鏌ラ潤鎬佹槧灏?    鈹斺攢鈹€ 杞彂鍒颁笂娓?DNS 鈫?8.8.8.8 / 114.114.114.114 / ...
+应用进程（浏览器、curl 等）
+    ↓ 查询 127.0.0.53:53
+systemd-resolved（stub resolver，监听 127.0.0.53:53）
+    ↓
+    ├── 缓存命中 → 直接返回
+    ├── /etc/hosts → 查静态映射
+    └── 转发到上游 DNS → 8.8.8.8 / 114.114.114.114 / ...
 ```
 
-systemd-resolved 鍦?`127.0.0.53` 涓婂惎鍔ㄤ竴涓湰鍦?DNS 浠ｇ悊锛岃礋璐ｏ細
+systemd-resolved 在 `127.0.0.53` 上启动一个本地 DNS 代理，负责：
 
-1. **缂撳瓨 DNS 鏌ヨ缁撴灉**锛堝噺灏戦噸澶嶆煡璇級
-2. **绠＄悊 `/etc/hosts`**锛坰tub 妯″紡锛屼絾涔熷彲閰嶇疆涓哄彧璇伙級
-3. **DNSSEC 楠岃瘉**锛堝彲閫夛級
-4. **姣忔帴鍙?DNS 閰嶇疆**锛堜笉鍚岀綉缁滄帴鍙ｅ彲浣跨敤涓嶅悓 DNS 鏈嶅姟鍣級
-5. **mDNS 鏀寔**锛堥€氳繃 `.local` 鍩熷悕锛?
-### 妯″紡閫夋嫨
+1. **缓存 DNS 查询结果**（减少重复查询）
+2. **管理 `/etc/hosts`**（stub 模式，但也可配置为只读）
+3. **DNSSEC 验证**（可选）
+4. **每接口 DNS 配置**（不同网络接口可使用不同 DNS 服务器）
+5. **mDNS 支持**（通过 `.local` 域名）
 
-systemd-resolved 鏈変笁绉嶈繍琛屾ā寮忥紝鍐冲畾浜?`/etc/resolv.conf` 鐨勫唴瀹癸細
+### 模式选择
 
-| 妯″紡 | resolv.conf 鎸囧悜 | 鐗圭偣 |
+systemd-resolved 有三种运行模式，决定了 `/etc/resolv.conf` 的内容：
+
+| 模式 | resolv.conf 指向 | 特点 |
 |------|------------------|------|
-| **stub**锛堥粯璁わ級 | `/run/systemd/resolve/stub-resolv.conf` | `nameserver 127.0.0.53`锛屾墍鏈夋煡璇㈢粡杩?systemd-resolved |
-| **direct** | `/run/systemd/resolve/resolv.conf` | 鐩存帴濉啓涓婃父 DNS 鏈嶅姟鍣ㄥ湴鍧€锛岀粫寮€ systemd-resolved |
-| **static** | 鎵嬪姩绠＄悊 `/etc/resolv.conf` | systemd-resolved 涓嶇鐞?resolv.conf |
+| **stub**（默认） | `/run/systemd/resolve/stub-resolv.conf` | `nameserver 127.0.0.53`，所有查询经过 systemd-resolved |
+| **direct** | `/run/systemd/resolve/resolv.conf` | 直接填写上游 DNS 服务器地址，绕开 systemd-resolved |
+| **static** | 手动管理 `/etc/resolv.conf` | systemd-resolved 不管理 resolv.conf |
 
-### resolvectl 鍛戒护璇﹁В
+### resolvectl 命令详解
 
-`resolvectl` 鏄?systemd-resolved 鐨勭鐞嗗懡浠よ宸ュ叿銆?
-#### 鏌ョ湅褰撳墠 DNS 閰嶇疆
+`resolvectl` 是 systemd-resolved 的管理命令行工具。
+
+#### 查看当前 DNS 配置
 
 ```bash
 $ resolvectl status
@@ -313,73 +383,90 @@ resolv.conf mode: stub
 Link 2 (enp0s3)
     Current Scopes: DNS
          Protocols: +DefaultRoute -LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
-Current DNS Server: 192.168.1.1    鈫?褰撳墠缃戝崱鐨?DNS 鏈嶅姟鍣?       DNS Servers: 192.168.1.1    鈫?閰嶇疆鐨勬墍鏈?DNS 鏈嶅姟鍣紙DHCP 鑾峰彇锛?        DNS Domain: home            鈫?DNS 鎼滅储鍩?```
+Current DNS Server: 192.168.1.1    ← 当前网卡的 DNS 服务器
+       DNS Servers: 192.168.1.1    ← 配置的所有 DNS 服务器（DHCP 获取）
+        DNS Domain: home            ← DNS 搜索域
+```
 
-鍏抽敭淇℃伅瑙ｈ锛?
-- **Global** 閮ㄥ垎锛氬叏灞€璁剧疆锛屽崗璁惎鐢ㄧ姸鎬併€丏NSSEC 閰嶇疆
-- **Link N** 閮ㄥ垎锛氭瘡涓綉缁滄帴鍙ｇ嫭绔嬬殑 DNS 閰嶇疆
-- **Current DNS Server**锛氬綋鍓嶆鍦ㄤ娇鐢ㄧ殑 DNS 鏈嶅姟鍣紙鍙兘鏄涓腑鏈€蹇殑涓€涓級
-- **resolv.conf mode**锛氬綋鍓?`/etc/resolv.conf` 鐨勭敓鎴愭ā寮?
-#### DNS 鏌ヨ锛堟浛浠?dig 鐨勭郴缁熺骇鏌ヨ锛?
+关键信息解读：
+
+- **Global** 部分：全局设置，协议启用状态、DNSSEC 配置
+- **Link N** 部分：每个网络接口独立的 DNS 配置
+- **Current DNS Server**：当前正在使用的 DNS 服务器（可能是多个中最快的一个）
+- **resolv.conf mode**：当前 `/etc/resolv.conf` 的生成模式
+
+#### DNS 查询（替代 dig 的系统级查询）
+
 ```bash
-# 閫氳繃 systemd-resolved 鏌ヨ鍩熷悕
+# 通过 systemd-resolved 查询域名
 $ resolvectl query baidu.com
 baidu.com: 39.156.66.10               -- link: enp0s3
            110.242.68.66              -- link: enp0s3
 
-# 鍙嶅悜鏌ヨ
+# 反向查询
 $ resolvectl query 8.8.8.8
 8.8.8.8: dns.google                   -- link: enp0s3
 
-# 鏌ョ湅鐗瑰畾鎺ュ彛鐨?DNS 閰嶇疆
+# 查看特定接口的 DNS 配置
 $ resolvectl dns enp0s3
 Link 2 (enp0s3): 192.168.1.1
 
-# 鏌ョ湅鐗瑰畾鎺ュ彛鐨?DNS 鎼滅储鍩?$ resolvectl domain enp0s3
+# 查看特定接口的 DNS 搜索域
+$ resolvectl domain enp0s3
 Link 2 (enp0s3): home
 ```
 
 > [!note] `resolvectl query` vs `dig`
-> - `resolvectl query` 璧?systemd-resolved 鐨勫畬鏁撮摼璺紙鍚紦瀛樺拰 `/etc/hosts`锛?> - `dig` 鐩存帴鍚戞寚瀹?DNS 鏈嶅姟鍣ㄥ彂鏌ヨ锛岀粫杩?systemd-resolved
-> - 鎺掗殰鏃朵袱鑰呯殑宸紓鏈韩灏辨槸淇℃伅锛氬鏋?`dig` 姝ｅ父浣?`resolvectl query` 澶辫触锛岄棶棰樺湪 systemd-resolved 鑰屼笉鏄綉缁?
-#### DNS 缂撳瓨绠＄悊
+> - `resolvectl query` 走 systemd-resolved 的完整链路（含缓存和 `/etc/hosts`）
+> - `dig` 直接向指定 DNS 服务器发查询，绕过 systemd-resolved
+> - 排障时两者的差异本身就是信息：如果 `dig` 正常但 `resolvectl query` 失败，问题在 systemd-resolved 而不是网络
+
+#### DNS 缓存管理
 
 ```bash
-# 鏌ョ湅缂撳瓨缁熻
+# 查看缓存统计
 $ resolvectl statistics
 Cache statistics:
-    Current Cache Size: 78          鈫?褰撳墠缂撳瓨鏉＄洰鏁?          Cache Hits: 1243          鈫?鍛戒腑娆℃暟锛堣秺澶ц鏄庣紦瀛樻晥鏋滆秺濂斤級
-        Cache Misses: 567           鈫?鏈懡涓鏁?DNSSEC verdicts:
+    Current Cache Size: 78          ← 当前缓存条目数
+          Cache Hits: 1243          ← 命中次数（越大说明缓存效果越好）
+        Cache Misses: 567           ← 未命中次数
+DNSSEC verdicts:
               Secure: 0
             Insecure: 0
                Bogus: 0
        Indeterminate: 0
 
-# 鍒锋柊 DNS 缂撳瓨锛堟帓闅滀腑鏈€甯哥敤鐨勬搷浣滀箣涓€锛?$ resolvectl flush-caches
+# 刷新 DNS 缓存（排障中最常用的操作之一）
+$ resolvectl flush-caches
 
-# 楠岃瘉缂撳瓨宸叉竻绌?$ resolvectl statistics | grep "Current Cache Size"
+# 验证缓存已清空
+$ resolvectl statistics | grep "Current Cache Size"
 Current Cache Size: 0
 ```
 
-> [!tip] `flush-caches` 鐨勪娇鐢ㄦ椂鏈?> 褰撲綘淇敼浜?DNS 璁板綍锛堝鏇存崲浜嗙綉绔?IP锛夛紝浣嗘湰鏈轰粛鐒惰В鏋愬埌鏃?IP 鏃讹紝鍏堟墽琛?`resolvectl flush-caches` 娓呴櫎 systemd-resolved 缂撳瓨銆傚鏋滄竻闄ゅ悗杩樻槸鏃?IP锛岃鏄庨棶棰樺湪涓婄骇 DNS 鐨?TTL 缂撳瓨銆?
-#### 绠＄悊姣忔帴鍙?DNS 閰嶇疆
+> [!tip] `flush-caches` 的使用时机
+> 当你修改了 DNS 记录（如更换了网站 IP），但本机仍然解析到旧 IP 时，先执行 `resolvectl flush-caches` 清除 systemd-resolved 缓存。如果清除后还是旧 IP，说明问题在上级 DNS 的 TTL 缓存。
 
-杩欐槸 systemd-resolved 鏈€寮哄ぇ鐨勭壒鎬т箣涓€鈥斺€?*姣忎釜缃戠粶鎺ュ彛鍙互鏈夌嫭绔嬬殑 DNS 閰嶇疆**銆?
+#### 管理每接口 DNS 配置
+
+这是 systemd-resolved 最强大的特性之一——**每个网络接口可以有独立的 DNS 配置**。
+
 ```bash
-# 鏌ョ湅姣忎釜鎺ュ彛鐨?DNS 閰嶇疆
+# 查看每个接口的 DNS 配置
 $ resolvectl status
 
-# 鎵嬪姩璁剧疆鏌愪釜鎺ュ彛鐨?DNS锛堜复鏃讹紝閲嶅惎鍚庡け鏁堬級
+# 手动设置某个接口的 DNS（临时，重启后失效）
 $ sudo resolvectl dns enp0s3 8.8.8.8 8.8.4.4
 
-# 璁剧疆鎼滅储鍩?$ sudo resolvectl domain enp0s3 example.com
+# 设置搜索域
+$ sudo resolvectl domain enp0s3 example.com
 
-# 姘镐箙閰嶇疆锛氬啓 /etc/systemd/resolved.conf
+# 永久配置：写 /etc/systemd/resolved.conf
 $ cat /etc/systemd/resolved.conf
 [Resolve]
 DNS=8.8.8.8 8.8.4.4
 Domains=example.com
-# FallbackDNS=1.1.1.1   鈫?褰撴墍鏈夋帴鍙ｆ寚瀹氱殑 DNS 閮戒笉鍙敤鏃剁殑澶囩敤
+# FallbackDNS=1.1.1.1   ← 当所有接口指定的 DNS 都不可用时的备用
 # DNSSEC=allow-downgrade
 
 $ sudo systemctl restart systemd-resolved
@@ -387,10 +474,11 @@ $ sudo systemctl restart systemd-resolved
 
 ---
 
-## dig 鍛戒护璇﹁В
+## dig 命令详解
 
-`dig`锛圖omain Information Groper锛夋槸 DNS 鏌ヨ鐨?*棣栭€夊伐鍏?*銆傚畠鐏垫椿銆佷俊鎭赴瀵屻€佸彲鑴氭湰鍖栥€備笌 `nslookup` 鐩告瘮锛宍dig` 鏇磋缁嗐€佹洿鍙帶銆?
-### 鍩烘湰鏌ヨ
+`dig`（Domain Information Groper）是 DNS 查询的**首选工具**。它灵活、信息丰富、可脚本化。与 `nslookup` 相比，`dig` 更详细、更可控。
+
+### 基本查询
 
 ```bash
 $ dig baidu.com
@@ -417,111 +505,124 @@ baidu.com.              5       IN      A       110.242.68.66
 ;; MSG SIZE  rcvd: 70
 ```
 
-杈撳嚭瑙ｈ锛?
-| 瀛楁 | 鍚箟 |
-|------|------|
-| `status: NOERROR` | 鏌ヨ鎴愬姛锛坄NXDOMAIN` 琛ㄧず鍩熷悕涓嶅瓨鍦級 |
-| `flags: qr rd ra` | `qr`=鏌ヨ鍝嶅簲, `rd`=鏈熸湜閫掑綊, `ra`=鏀寔閫掑綊 |
-| `QUESTION SECTION` | 鏌ョ殑鏄粈涔堬紙`baidu.com. IN A` = 鏌?baidu.com 鐨?A 璁板綍锛?|
-| `ANSWER SECTION` | 杩斿洖鐨勭粨鏋?|
-| `5 IN A 39.156.66.10` | TTL=5 绉? 璁板綍绫?IN(Internet), 绫诲瀷=A, 鍊?39.156.66.10 |
-| `SERVER: 127.0.0.53#53` | 鍝釜 DNS 鏈嶅姟鍣ㄨ繑鍥炵殑锛堣繖閲屾樉绀?systemd-resolved 鐨?stub锛?|
-| `Query time: 4 msec` | 鏌ヨ鑰楁椂 |
+输出解读：
 
-### +short锛氱畝鍖栬緭鍑?
-褰撳彧闇€瑕?IP 鍦板潃鍒楄〃鏃讹紝`+short` 鍘婚櫎鎵€鏈夊厓淇℃伅锛?
+| 字段 | 含义 |
+|------|------|
+| `status: NOERROR` | 查询成功（`NXDOMAIN` 表示域名不存在） |
+| `flags: qr rd ra` | `qr`=查询响应, `rd`=期望递归, `ra`=支持递归 |
+| `QUESTION SECTION` | 查的是什么（`baidu.com. IN A` = 查 baidu.com 的 A 记录） |
+| `ANSWER SECTION` | 返回的结果 |
+| `5 IN A 39.156.66.10` | TTL=5 秒, 记录类=IN(Internet), 类型=A, 值=39.156.66.10 |
+| `SERVER: 127.0.0.53#53` | 哪个 DNS 服务器返回的（这里显示 systemd-resolved 的 stub） |
+| `Query time: 4 msec` | 查询耗时 |
+
+### +short：简化输出
+
+当只需要 IP 地址列表时，`+short` 去除所有元信息：
+
 ```bash
 $ dig baidu.com +short
 39.156.66.10
 110.242.68.66
 ```
 
-瀵硅剼鏈壒鍒弸濂斤細
+对脚本特别友好：
 
 ```bash
-# 鎶婅В鏋愮粨鏋滆祴鍊肩粰鍙橀噺
+# 把解析结果赋值给变量
 IP=$(dig baidu.com +short | head -1)
 echo $IP
-# 杈撳嚭锛?9.156.66.10
+# 输出：39.156.66.10
 ```
 
-### +noall +answer锛氱簿纭帶鍒惰緭鍑?
-`dig` 鐨?寮€鍏?妯″紡闈炲父鐏垫椿锛屽彲浠ョ簿纭帶鍒舵樉绀哄摢浜涙钀斤細
+### +noall +answer：精确控制输出
+
+`dig` 的"开关"模式非常灵活，可以精确控制显示哪些段落：
 
 ```bash
-# 鍙樉绀?ANSWER SECTION
+# 只显示 ANSWER SECTION
 dig baidu.com +noall +answer
 baidu.com.              5       IN      A       39.156.66.10
 baidu.com.              5       IN      A       110.242.68.66
 
-# 鍙樉绀虹粺璁′俊鎭?dig baidu.com +noall +stats
+# 只显示统计信息
+dig baidu.com +noall +stats
 ```
 
-甯哥敤寮€鍏崇粍鍚堬細
+常用开关组合：
 
-| 缁勫悎 | 鐢ㄩ€?|
+| 组合 | 用途 |
 |------|------|
-| `+noall +answer` | 鏈€甯哥敤锛屽彧鏄剧ず绛旀 |
-| `+noall +short` | 绾?IP 鍒楄〃锛岄€傚悎鑴氭湰 |
-| `+noall +stats` | 鍙樉绀烘煡璇㈢粺璁?|
-| `+noall +authority +additional` | DNS 鎺掗殰鏃舵煡鐪嬫潈濞佸拰闄勫姞淇℃伅 |
+| `+noall +answer` | 最常用，只显示答案 |
+| `+noall +short` | 纯 IP 列表，适合脚本 |
+| `+noall +stats` | 只显示查询统计 |
+| `+noall +authority +additional` | DNS 排障时查看权威和附加信息 |
 
-### @server锛氭寚瀹?DNS 鏈嶅姟鍣?
-榛樿鎯呭喌涓?`dig` 浣跨敤绯荤粺閰嶇疆鐨?DNS 鏈嶅姟鍣紙`/etc/resolv.conf` 涓寚瀹氱殑锛夈€傞€氳繃 `@` 鍙互鎸囧畾浠绘剰 DNS 鏈嶅姟鍣細
+### @server：指定 DNS 服务器
+
+默认情况下 `dig` 使用系统配置的 DNS 服务器（`/etc/resolv.conf` 中指定的）。通过 `@` 可以指定任意 DNS 服务器：
 
 ```bash
-# 浣跨敤 Google 鍏叡 DNS
+# 使用 Google 公共 DNS
 $ dig @8.8.8.8 baidu.com +short
 39.156.66.10
 110.242.68.66
 
-# 浣跨敤 Cloudflare DNS
+# 使用 Cloudflare DNS
 $ dig @1.1.1.1 baidu.com +short
 39.156.66.10
 110.242.68.66
 
-# 浣跨敤鍥藉唴 DNS
+# 使用国内 DNS
 $ dig @114.114.114.114 baidu.com +short
 39.156.66.10
 110.242.68.66
 ```
 
-> [!tip] 涓轰粈涔堣鎸囧畾 DNS 鏈嶅姟鍣紵
-> 姣旇緝涓嶅悓 DNS 鏈嶅姟鍣ㄧ殑杩斿洖缁撴灉锛屽彲浠ュ垽鏂綘鐨?DNS 瑙ｆ瀽鍣ㄦ槸鍚﹁繑鍥炰簡姝ｇ‘鎴栨渶鏂扮殑缁撴灉銆傛瘮濡備慨鏀逛簡鍩熷悕 DNS 璁板綍鍚庯紝鐢?`dig @8.8.8.8` 涓?`dig @浣犵殑DNS` 瀵规瘮锛屽彲浠ュ垽鏂槸 DNS 鏈嶅姟鍣ㄧ紦瀛橀棶棰樿繕鏄綉缁滈棶棰樸€?
-### +trace锛氳拷韪畬鏁村娲鹃摼
+> [!tip] 为什么要指定 DNS 服务器？
+> 比较不同 DNS 服务器的返回结果，可以判断你的 DNS 解析器是否返回了正确或最新的结果。比如修改了域名 DNS 记录后，用 `dig @8.8.8.8` 与 `dig @你的DNS` 对比，可以判断是 DNS 服务器缓存问题还是网络问题。
 
-杩欐槸 `dig` 鏈€寮哄ぇ鐨勬帓闅滃姛鑳姐€傚畠妯℃嫙 DNS 瑙ｆ瀽鍣ㄧ殑閫掑綊鏌ヨ杩囩▼锛屼粠鏍规湇鍔″櫒寮€濮嬩竴姝ユ杩借釜锛?
+### +trace：追踪完整委派链
+
+这是 `dig` 最强大的排障功能。它模拟 DNS 解析器的递归查询过程，从根服务器开始一步步追踪：
+
 ```bash
 $ dig baidu.com +trace
 ```
-杈撳嚭闈炲父闀匡紝浣嗙粨鏋勬竻鏅帮細
+输出非常长，但结构清晰：
 
 ```
-.                       518336  IN      NS      a.root-servers.net.      鈫?浠庢牴寮€濮?.                       518336  IN      NS      b.root-servers.net.
-.                       518336  IN      NS      ...锛?3 鍙版牴鏈嶅姟鍣級
+.                       518336  IN      NS      a.root-servers.net.      ← 从根开始
+.                       518336  IN      NS      b.root-servers.net.
+.                       518336  IN      NS      ...（13 台根服务器）
 ;; Received 281 bytes from 199.7.83.42#53(l.root-servers.net) in 4 ms
 
-com.                    172800  IN      NS      a.gtld-servers.net.     鈫?.com 椤剁骇鍩?com.                    172800  IN      NS      b.gtld-servers.net.
-com.                    172800  IN      NS      ...锛?3 鍙?TLD 鏈嶅姟鍣級
+com.                    172800  IN      NS      a.gtld-servers.net.     ← .com 顶级域
+com.                    172800  IN      NS      b.gtld-servers.net.
+com.                    172800  IN      NS      ...（13 台 TLD 服务器）
 ;; Received 1093 bytes from 192.5.6.30#53(a.gtld-servers.net) in 26 ms
 
-baidu.com.              172800  IN      NS      ns2.baidu.com.          鈫?baidu.com 鐨勬潈濞佹湇鍔″櫒
+baidu.com.              172800  IN      NS      ns2.baidu.com.          ← baidu.com 的权威服务器
 baidu.com.              172800  IN      NS      ns3.baidu.com.
 baidu.com.              172800  IN      NS      ns4.baidu.com.
 baidu.com.              172800  IN      NS      ns7.baidu.com.
 baidu.com.              172800  IN      NS      dns.baidu.com.
 ;; Received 364 bytes from 192.42.93.30#53(g.gtld-servers.net) in 148 ms
 
-baidu.com.              5       IN      A       39.156.66.10            鈫?鏈€缁堢殑绛旀
+baidu.com.              5       IN      A       39.156.66.10            ← 最终的答案
 baidu.com.              5       IN      A       110.242.68.66
 ;; Received 70 bytes from 110.242.68.3#53(ns4.baidu.com) in 12 ms
 ```
 
-> [!warning] `+trace` 鐨勬帓闅滀环鍊?> 濡傛灉鏌愪釜鍩熷悕瑙ｆ瀽澶辫触锛宍+trace` 鍙互绮惧噯瀹氫綅闂鍑哄湪閾炬潯鐨勫摢涓幆鑺傦細
-> - 鏍规湇鍔″櫒鏌ヤ笉鍒?鈫?鍙兘鏄槻鐏闃绘柇浜?DNS 鏌ヨ锛堟鏌?53 绔彛 UDP 鍑虹珯锛?> - TLD 鏈嶅姟鍣ㄦ煡涓嶅埌 鈫?鍙兘鍩熷悕涓嶅瓨鍦?> - 鏉冨▉鏈嶅姟鍣ㄦ病鍝嶅簲 鈫?鍙兘鏄煙鍚?NS 璁板綍閰嶇疆閿欒鎴栨潈濞佹湇鍔″櫒瀹曟満
-> - 鏉冨▉鏈嶅姟鍣ㄨ繑鍥炰簡閿欒鐨?IP 鈫?DNS 鍔寔
+> [!warning] `+trace` 的排障价值
+> 如果某个域名解析失败，`+trace` 可以精准定位问题出在链条的哪个环节：
+> - 根服务器查不到 → 可能是防火墙阻断了 DNS 查询（检查 53 端口 UDP 出站）
+> - TLD 服务器查不到 → 可能域名不存在
+> - 权威服务器没响应 → 可能是域名 NS 记录配置错误或权威服务器宕机
+> - 权威服务器返回了错误的 IP → DNS 劫持
 
-### -x锛氬弽鍚戞煡璇紙IP 鍒板煙鍚嶏級
+### -x：反向查询（IP 到域名）
 
 ```bash
 $ dig -x 8.8.8.8 +short
@@ -531,57 +632,65 @@ $ dig -x 114.114.114.114 +short
 public1.114dns.com.
 ```
 
-鍙嶅悜鏌ヨ閫氳繃 **PTR 璁板綍**瀹炵幇銆侷SP 鍜屼簯鏈嶅姟鍟嗛€氬父浼氫负鍏綉 IP 閰嶇疆 PTR 璁板綍锛屼絾瀹跺涵瀹藉甫鍜屽緢澶?VPS 榛樿涓嶉厤缃€?
-### 鎸囧畾璁板綍绫诲瀷
+反向查询通过 **PTR 记录**实现。ISP 和云服务商通常会为公网 IP 配置 PTR 记录，但家庭宽带和很多 VPS 默认不配置。
 
-鏈珷鍓嶉潰宸叉紨绀鸿繃锛岃繖閲屾眹鎬绘垚琛ㄦ牸锛?
+### 指定记录类型
+
+本章前面已演示过，这里汇总成表格：
+
 ```bash
-dig baidu.com A                  # A 璁板綍
-dig baidu.com AAAA               # AAAA 璁板綍
-dig baidu.com MX                 # MX 璁板綍
-dig baidu.com NS                 # NS 璁板綍
-dig baidu.com TXT                # TXT 璁板綍
-dig baidu.com SOA                # SOA 璁板綍
-dig baidu.com CNAME              # CNAME 璁板綍
+dig baidu.com A                  # A 记录
+dig baidu.com AAAA               # AAAA 记录
+dig baidu.com MX                 # MX 记录
+dig baidu.com NS                 # NS 记录
+dig baidu.com TXT                # TXT 记录
+dig baidu.com SOA                # SOA 记录
+dig baidu.com CNAME              # CNAME 记录
 ```
 
-### 鎵归噺鏌ヨ涓庤剼鏈簲鐢?
+### 批量查询与脚本应用
+
 ```bash
-# 鎵归噺鏌ヨ澶氫釜鍩熷悕
+# 批量查询多个域名
 for domain in baidu.com google.com github.com; do
     echo "$domain: $(dig +short $domain | head -1)"
 done
-# 杈撳嚭锛?# baidu.com: 39.156.66.10
+# 输出：
+# baidu.com: 39.156.66.10
 # google.com: 142.250.80.46
 # github.com: 140.82.121.3
 
-# 鐩戞帶鍩熷悕 IP 鍙樺寲
+# 监控域名 IP 变化
 watch -n 60 'dig +short baidu.com | sort'
 ```
 
-### dig 甯哥敤閫夐」閫熸煡
+### dig 常用选项速查
 
-| 閫夐」 | 浣滅敤 | 绀轰緥 |
+| 选项 | 作用 | 示例 |
 |------|------|------|
-| `+short` | 绠€鍖栬緭鍑猴紝鍙樉绀哄€?| `dig baidu.com +short` |
-| `+trace` | 杩借釜閫掑綊鏌ヨ閾捐矾 | `dig baidu.com +trace` |
-| `+noall +answer` | 鍙樉绀虹瓟妗堟 | `dig baidu.com +noall +answer` |
-| `+noall +short` | 绾€艰緭鍑猴紝閫傚悎鑴氭湰 | `dig baidu.com +short` |
-| `@server` | 鎸囧畾 DNS 鏈嶅姟鍣?| `dig @8.8.8.8 baidu.com` |
-| `-x IP` | 鍙嶅悜鏌ヨ | `dig -x 8.8.8.8` |
-| `+time=5` | 璁剧疆瓒呮椂绉掓暟 | `dig @8.8.8.8 baidu.com +time=5` |
-| `+tries=2` | 璁剧疆閲嶈瘯娆℃暟 | `dig @8.8.8.8 baidu.com +tries=2` |
+| `+short` | 简化输出，只显示值 | `dig baidu.com +short` |
+| `+trace` | 追踪递归查询链路 | `dig baidu.com +trace` |
+| `+noall +answer` | 只显示答案段 | `dig baidu.com +noall +answer` |
+| `+noall +short` | 纯值输出，适合脚本 | `dig baidu.com +short` |
+| `@server` | 指定 DNS 服务器 | `dig @8.8.8.8 baidu.com` |
+| `-x IP` | 反向查询 | `dig -x 8.8.8.8` |
+| `+time=5` | 设置超时秒数 | `dig @8.8.8.8 baidu.com +time=5` |
+| `+tries=2` | 设置重试次数 | `dig @8.8.8.8 baidu.com +tries=2` |
 
 ---
 
-## nslookup 涓?host 蹇€熸煡璇?
-铏界劧 `dig` 鏄閫夛紝浣?`nslookup` 鍜?`host` 涔熸湁鍚勮嚜鐨勯€傜敤鍦烘櫙銆?
+## nslookup 与 host 快速查询
+
+虽然 `dig` 是首选，但 `nslookup` 和 `host` 也有各自的适用场景。
+
 ### nslookup
 
-`nslookup` 鏇剧粡鏄?DNS 鏌ヨ鐨勬爣閰嶅伐鍏凤紝浜や簰寮忓拰鍗曞懡浠ゆā寮忛兘鏀寔銆?
-**鍗曞懡浠ゆā寮?*锛?
+`nslookup` 曾经是 DNS 查询的标配工具，交互式和单命令模式都支持。
+
+**单命令模式**：
+
 ```bash
-# 鍩烘湰鏌ヨ
+# 基本查询
 $ nslookup baidu.com
 Server:         127.0.0.53
 Address:        127.0.0.53#53
@@ -592,31 +701,34 @@ Address: 39.156.66.10
 Name:   baidu.com
 Address: 110.242.68.66
 
-# 鎸囧畾璁板綍绫诲瀷
+# 指定记录类型
 $ nslookup -type=MX gmail.com
 gmail.com       mail exchanger = 30 alt3.gmail-smtp-in.l.google.com.
 gmail.com       mail exchanger = 10 alt1.gmail-smtp-in.l.google.com.
 ...
 
-# 鎸囧畾 DNS 鏈嶅姟鍣?$ nslookup baidu.com 8.8.8.8
+# 指定 DNS 服务器
+$ nslookup baidu.com 8.8.8.8
 ```
 
-**浜や簰妯″紡**锛堣緭鍏?`nslookup` 鐩存帴鍥炶溅杩涘叆锛夛細
+**交互模式**（输入 `nslookup` 直接回车进入）：
 
 ```
 $ nslookup
-> server 8.8.8.8          # 璁剧疆 DNS 鏈嶅姟鍣?Default server: 8.8.8.8
-> set type=MX             # 璁剧疆鏌ヨ绫诲瀷
-> gmail.com               # 鏌ヨ
+> server 8.8.8.8          # 设置 DNS 服务器
+Default server: 8.8.8.8
+> set type=MX             # 设置查询类型
+> gmail.com               # 查询
 ...
 > exit
 ```
 
 > [!note] `nslookup` vs `dig`
-> `nslookup` 鐨勪紭鍔挎槸杈撳嚭鏇寸畝娲併€佸浜烘洿鍙嬪ソ锛涘姡鍔挎槸淇℃伅閲忓皯銆佷笉鏀寔 `+trace`銆傛棩甯稿揩閫熸煡涓€涓嬬敤 `nslookup` 娌￠棶棰橈紝**娣卞害鎺掗殰鏃惰鐢?`dig`**銆?
+> `nslookup` 的优势是输出更简洁、对人更友好；劣势是信息量少、不支持 `+trace`。日常快速查一下用 `nslookup` 没问题，**深度排障时请用 `dig`**。
+
 ### host
 
-`host` 鏄笁鑰呬腑鏈€绠€娲佺殑锛岃緭鍑烘瀬鑷寸簿绠€锛岄€傚悎蹇€熸煡鐪嬶細
+`host` 是三者中最简洁的，输出极致精简，适合快速查看：
 
 ```bash
 $ host baidu.com
@@ -627,129 +739,149 @@ baidu.com mail is handled by 20 mx1.baidu.com.
 baidu.com mail is handled by 15 mx.n.shifen.com.
 baidu.com mail is handled by 20 jpmx.baidu.com.
 
-# 鎸囧畾璁板綍绫诲瀷
+# 指定记录类型
 $ host -t MX gmail.com
 gmail.com mail is handled by 30 alt3.gmail-smtp-in.l.google.com.
 gmail.com mail is handled by 10 alt1.gmail-smtp-in.l.google.com.
 ...
 
-# 鎸囧畾 DNS 鏈嶅姟鍣?$ host baidu.com 8.8.8.8
+# 指定 DNS 服务器
+$ host baidu.com 8.8.8.8
 ```
 
-閫傜敤浜庤剼鏈腑蹇€熻幏鍙栬В鏋愮粨鏋滐細
+适用于脚本中快速获取解析结果：
 
 ```bash
 host baidu.com 2>/dev/null | grep "has address" | awk '{print $NF}'
 ```
 
-### 涓夊伐鍏峰姣?
-| 宸ュ叿 | 杈撳嚭璇︾粏搴?| 浜や簰妯″紡 | `+trace` | 鑴氭湰鍙嬪ソ | 鎺ㄨ崘浣跨敤鍦烘櫙 |
+### 三工具对比
+
+| 工具 | 输出详细度 | 交互模式 | `+trace` | 脚本友好 | 推荐使用场景 |
 |------|-----------|---------|----------|---------|------------|
-| `dig` | 鏈€璇︾粏 | 涓嶆敮鎸?| 鏀寔 | 寰堝ソ | 娣卞害鎺掗殰銆佸垎鏋愩€佽剼鏈?|
-| `nslookup` | 涓瓑 | 鏀寔 | 涓嶆敮鎸?| 涓€鑸?| 鏃ュ父蹇€熸煡璇?|
-| `host` | 鏈€绮剧畝 | 涓嶆敮鎸?| 涓嶆敮鎸?| 鏈€濂?| 鑴氭湰銆佺畝鍗曢獙璇?|
+| `dig` | 最详细 | 不支持 | 支持 | 很好 | 深度排障、分析、脚本 |
+| `nslookup` | 中等 | 支持 | 不支持 | 一般 | 日常快速查询 |
+| `host` | 最精简 | 不支持 | 不支持 | 最好 | 脚本、简单验证 |
 
 ---
 
-## 甯歌 DNS 鎺掓煡鍦烘櫙
+## 常见 DNS 排查场景
 
-鍓嶉潰瀛﹀畬浜嗙悊璁虹煡璇嗗拰宸ュ叿锛岀幇鍦ㄦ潵鐪嬪嚑涓疄闄呮帓鏌ュ満鏅紝鎶婄煡璇嗕覆璧锋潵銆?
-### 鍦烘櫙涓€锛?缃戠珯鎵撲笉寮€锛屾槸涓嶆槸 DNS 鐨勯棶棰橈紵"
+前面学完了理论知识和工具，现在来看几个实际排查场景，把知识串起来。
+
+### 场景一："网站打不开，是不是 DNS 的问题？"
 
 ```bash
-# 绗竴姝ワ細纭鍩熷悕鑳戒笉鑳借В鏋愶紙缁曞紑 systemd-resolved锛?dig www.baidu.com +short
-# 濡傛灉杩斿洖 IP 鈫?DNS 娌￠棶棰橈紝闂涓嶅湪 DNS 瑙ｆ瀽
-# 濡傛灉娌℃湁杩斿洖 鈫?DNS 鍑洪棶棰樹簡锛岀户缁帓鏌?
-# 绗簩姝ワ細纭鍝釜 DNS 鏈嶅姟鍣ㄥ嚭闂锛堟寚瀹氫笉鍚?DNS 瀵规瘮锛?dig @8.8.8.8 www.baidu.com +short
+# 第一步：确认域名能不能解析（绕开 systemd-resolved）
+dig www.baidu.com +short
+# 如果返回 IP → DNS 没问题，问题不在 DNS 解析
+# 如果没有返回 → DNS 出问题了，继续排查
+
+# 第二步：确认哪个 DNS 服务器出问题（指定不同 DNS 对比）
+dig @8.8.8.8 www.baidu.com +short
 dig @114.114.114.114 www.baidu.com +short
-# 濡傛灉鍏叡 DNS 鑳借В鏋愪絾绯荤粺閰嶇疆鐨?DNS 涓嶈兘 鈫?浣犵敤鐨?DNS 鏈嶅姟鍣ㄦ湁闂
-# 濡傛灉閮戒笉鑳?鈫?鍙兘鏄綉缁滀笉閫氭垨鍩熷悕鐪熺殑涓嶅瓨鍦?
-# 绗笁姝ワ細妫€鏌ョ郴缁熻В鏋愰摼璺?getent hosts www.baidu.com
-# 濡傛灉 getent 澶辫触浣?dig 鎴愬姛 鈫?闂鍦?NSS 閰嶇疆鎴?systemd-resolved
-# 濡傛灉 getent 鎴愬姛浣?dig 涔熸垚鍔?鈫?涓€鍒囨甯革紝闂涓嶅湪 DNS
+# 如果公共 DNS 能解析但系统配置的 DNS 不能 → 你用的 DNS 服务器有问题
+# 如果都不能 → 可能是网络不通或域名真的不存在
+
+# 第三步：检查系统解析链路
+getent hosts www.baidu.com
+# 如果 getent 失败但 dig 成功 → 问题在 NSS 配置或 systemd-resolved
+# 如果 getent 成功但 dig 也成功 → 一切正常，问题不在 DNS
 ```
 
-### 鍦烘櫙浜岋細"鏀逛簡 DNS 璁板綍锛屼絾鏈満杩樻槸鏃?IP"
+### 场景二："改了 DNS 记录，但本机还是旧 IP"
 
 ```bash
-# 绗竴姝ワ細妫€鏌?systemd-resolved 缂撳瓨
+# 第一步：检查 systemd-resolved 缓存
 resolvectl statistics
-# 鐪?Cache Hits 鍜?Cache Misses 鐨勬瘮渚?
-# 绗簩姝ワ細娓呯┖缂撳瓨
+# 看 Cache Hits 和 Cache Misses 的比例
+
+# 第二步：清空缓存
 resolvectl flush-caches
 
-# 绗笁姝ワ細纭娓呯┖鍚庢槸鍚﹁兘鎷垮埌鏂?IP
+# 第三步：确认清空后是否能拿到新 IP
 dig www.example.com +short
 
-# 濡傛灉杩樻槸鏃?IP 鈫?涓婃父 DNS 鏈嶅姟鍣ㄧ紦瀛樻湭杩囨湡锛屽彧鑳界瓑 TTL
-# TTL 鐢卞煙鍚嶆墍鏈夎€呰缃紝鍦?dig 缁撴灉涓彲浠ョ湅鍒帮細
+# 如果还是旧 IP → 上游 DNS 服务器缓存未过期，只能等 TTL
+# TTL 由域名所有者设置，在 dig 结果中可以看到：
 dig www.example.com +noall +answer
 # www.example.com.  300  IN  A  1.2.3.4
-#                  ^^^ TTL=300 绉?= 5 鍒嗛挓
+#                  ^^^ TTL=300 秒 = 5 分钟
 ```
 
-### 鍦烘櫙涓夛細"鍩熷悕瑙ｆ瀽鍒颁簡閿欒鐨?IP锛堝彲鑳借鍔寔锛?
+### 场景三："域名解析到了错误的 IP（可能被劫持）"
 
 ```bash
-# 鐢ㄤ笉鍚?DNS 鏈嶅姟鍣ㄥ姣?echo "Google DNS:"
+# 用不同 DNS 服务器对比
+echo "Google DNS:"
 dig @8.8.8.8 example.com +short
 
 echo "Cloudflare DNS:"
 dig @1.1.1.1 example.com +short
 
-echo "绯荤粺 DNS:"
+echo "系统 DNS:"
 dig example.com +short
 
-# 濡傛灉绯荤粺 DNS 杩斿洖鐨?IP 涓庡叾浠栦笉涓€鑷?鈫?鍙兘鏄?DNS 鍔寔
-# 鐢?+trace 纭鏉冨▉鏈嶅姟鍣ㄨ繑鍥炵殑姝ｇ‘缁撴灉
+# 如果系统 DNS 返回的 IP 与其他不一致 → 可能是 DNS 劫持
+# 用 +trace 确认权威服务器返回的正确结果
 dig @8.8.8.8 example.com +trace | grep "example.com."
 ```
 
-### 鍦烘櫙鍥涳細"鍐呯綉鍩熷悕锛堢鏈夊煙鍚嶏級瑙ｆ瀽涓嶄簡"
+### 场景四："内网域名（私有域名）解析不了"
 
 ```bash
-# 妫€鏌?/etc/hosts 鏄惁鏈夐厤缃?grep internal-server /etc/hosts
+# 检查 /etc/hosts 是否有配置
+grep internal-server /etc/hosts
 
-# 妫€鏌?systemd-resolved 鐨勬悳绱㈠煙
+# 检查 systemd-resolved 的搜索域
 resolvectl status | grep "DNS Domain"
 
-# 妫€鏌?NSS 閰嶇疆
+# 检查 NSS 配置
 grep hosts /etc/nsswitch.conf
 
-# 妫€鏌ユ槸鍚﹀惎鐢ㄤ簡 mDNS锛?local 鍩熷悕蹇呴』鐢?mDNS锛?resolvectl status | grep "mDNS"
+# 检查是否启用了 mDNS（.local 域名必须用 mDNS）
+resolvectl status | grep "mDNS"
 
-# 灏濊瘯鐩存帴閫氳繃鏉冨▉鏈嶅姟鍣ㄦ煡璇紙濡傛灉鑳借闂殑璇濓級
-dig @鍐呯綉DNS鏈嶅姟鍣↖P internal-server.internal A +short
+# 尝试直接通过权威服务器查询（如果能访问的话）
+dig @内网DNS服务器IP internal-server.internal A +short
 ```
 
-### 鍦烘櫙浜旓細"ping 鍩熷悕鑳介€氾紝浣嗘祻瑙堝櫒涓嶈涓轰粈涔堬紵"
+### 场景五："ping 域名能通，但浏览器不行为什么？"
 
-杩欏彲鑳芥槸鍥犱负锛?
-1. **娴忚鍣ㄦ湁鑷繁鐨?DNS 缂撳瓨** 鈫?娓呯┖娴忚鍣?DNS 缂撳瓨锛坄chrome://net-internals/#dns`锛?2. **娴忚鍣ㄤ娇鐢?HTTPS DNS锛圖oH锛?* 鈫?鏌愪簺娴忚鍣ㄩ粯璁ゅ惎鐢?DNS over HTTPS锛岀粫杩囩郴缁?DNS
-3. **CNAME 璁板綍瑙ｆ瀽闂** 鈫?娴忚鍣ㄩ渶瑕侀澶栬В鏋?CNAME 鎸囧悜鐨勭洰鏍囧煙鍚?
+这可能是因为：
+
+1. **浏览器有自己的 DNS 缓存** → 清空浏览器 DNS 缓存（`chrome://net-internals/#dns`）
+2. **浏览器使用 HTTPS DNS（DoH）** → 某些浏览器默认启用 DNS over HTTPS，绕过系统 DNS
+3. **CNAME 记录解析问题** → 浏览器需要额外解析 CNAME 指向的目标域名
+
 ```bash
-# 纭鍩熷悕鏄惁鏈?CNAME 璁板綍
+# 确认域名是否有 CNAME 记录
 dig example.com CNAME +noall +answer
 
-# 濡傛灉鏈夛紝鎵嬪姩瑙ｆ瀽鐩爣鍩熷悕
-dig 鐩爣鍩熷悕.com A +short
+# 如果有，手动解析目标域名
+dig 目标域名.com A +short
 
-# 妫€鏌ユ槸鍚︽敮鎸?IPv6 浣?IPv6 缃戠粶鏈夐棶棰?dig example.com AAAA +short
-# 濡傛灉鏈?AAAA 璁板綍杩斿洖锛屽皾璇曠鐢?IPv6 娴嬭瘯
+# 检查是否支持 IPv6 但 IPv6 网络有问题
+dig example.com AAAA +short
+# 如果有 AAAA 记录返回，尝试禁用 IPv6 测试
 ```
 
 ---
 
-## 鏈珷灏忕粨
+## 本章小结
 
-- **DNS 瑙ｆ瀽娴佺▼**浠庢祻瑙堝櫒缂撳瓨寮€濮嬶紝缁忚繃鎿嶄綔绯荤粺缂撳瓨銆乣/etc/hosts`銆佹湰鍦拌В鏋愬櫒锛屾渶缁堥€氳繃閫掑綊鏌ヨ鍒拌揪鏉冨▉ DNS 鏈嶅姟鍣?- **DNS 璁板綍绫诲瀷**涓?A/AAAA 鏄渶鍩烘湰鐨勫煙鍚嶅埌 IP 鏄犲皠锛孋NAME 鐢ㄤ簬鍒悕锛孧X 鐢ㄤ簬閭欢璺敱锛孨S 鐢ㄤ簬鍩熷悕濮旀淳锛孴XT 鐢ㄤ簬楠岃瘉鍜岄偖浠跺畨鍏紝SOA 鏄尯鍩熺殑鏉冨▉鍏冩暟鎹?- **Linux DNS 閰嶇疆鏂囦欢閾捐矾**涓?`nsswitch.conf` 鈫?`/etc/hosts` 鈫?`/etc/resolv.conf`銆備娇鐢?`getent hosts` 娴嬭瘯瀹屾暣閾捐矾锛宍dig` 娴嬭瘯 DNS 鏈嶅姟鍣ㄦ湰韬?- **systemd-resolved** 鍦?`127.0.0.53` 鍚姩 stub 瑙ｆ瀽鍣紝绠＄悊缂撳瓨銆佹瘡鎺ュ彛 DNS 鍜?DNSSEC銆俙resolvectl` 鏄鐞嗗伐鍏凤紝`flush-caches` 鏄渶甯哥敤鐨勬帓闅滄搷浣?- **`dig`** 鏄?DNS 鎺掗殰鐨勯閫夊伐鍏封€斺€擿+short` 绠€鍖栬緭鍑恒€乣+trace` 杩借釜濮旀淳閾俱€乣@server` 鎸囧畾 DNS 鏈嶅姟鍣ㄣ€乣-x` 鍙嶅悜鏌ヨ銆俙nslookup` 閫傚悎蹇€熸煡璇紝`host` 閫傚悎鑴氭湰
-- **DNS 缂撳瓨**鐢?systemd-resolved 绠＄悊锛岀敤 `resolvectl statistics` 鏌ョ湅鍛戒腑鎯呭喌锛宍resolvectl flush-caches` 娓呯┖缂撳瓨
-- **鎺掗殰涓夋璧?*锛歚dig` 娴?DNS 鏈嶅姟鍣ㄦ湰韬?鈫?`getent hosts` 娴嬬郴缁熼摼璺?鈫?瀵规瘮涓嶅悓 DNS 鏈嶅姟鍣ㄥ垽鏂槸鍚﹁鍔寔
+- **DNS 解析流程**从浏览器缓存开始，经过操作系统缓存、`/etc/hosts`、本地解析器，最终通过递归查询到达权威 DNS 服务器
+- **DNS 记录类型**中 A/AAAA 是最基本的域名到 IP 映射，CNAME 用于别名，MX 用于邮件路由，NS 用于域名委派，TXT 用于验证和邮件安全，SOA 是区域的权威元数据
+- **Linux DNS 配置文件链路**为 `nsswitch.conf` → `/etc/hosts` → `/etc/resolv.conf`。使用 `getent hosts` 测试完整链路，`dig` 测试 DNS 服务器本身
+- **systemd-resolved** 在 `127.0.0.53` 启动 stub 解析器，管理缓存、每接口 DNS 和 DNSSEC。`resolvectl` 是管理工具，`flush-caches` 是最常用的排障操作
+- **`dig`** 是 DNS 排障的首选工具——`+short` 简化输出、`+trace` 追踪委派链、`@server` 指定 DNS 服务器、`-x` 反向查询。`nslookup` 适合快速查询，`host` 适合脚本
+- **DNS 缓存**由 systemd-resolved 管理，用 `resolvectl statistics` 查看命中情况，`resolvectl flush-caches` 清空缓存
+- **排障三步走**：`dig` 测 DNS 服务器本身 → `getent hosts` 测系统链路 → 对比不同 DNS 服务器判断是否被劫持
 
-### 涓嬬珷棰勫憡
+### 下章预告
 
-涓嬩竴绔犳垜浠洖鍒伴摼璺眰锛屾繁鍏?**ARP 鍗忚涓庨偦灞呭彂鐜?*銆備綘浼氬鍒?IP 鍦板潃鏄浣曢€氳繃 ARP 鍗忚杞崲涓?MAC 鍦板潃鐨勶紝浠ュ強 Linux 涓婇偦灞呰〃鐨勭姸鎬佹満锛圧EACHABLE/STALE/FAILED锛夊拰 `ip neigh` 鍛戒护鐨勫畬鏁寸敤娉曗€斺€旇繖鏄悊瑙?鍚屼竴灞€鍩熺綉鍐呬袱鍙版満鍣ㄥ浣曢€氫俊"鐨勫叧閿€?
+下一章我们回到链路层，深入 **ARP 协议与邻居发现**。你会学到 IP 地址是如何通过 ARP 协议转换为 MAC 地址的，以及 Linux 上邻居表的状态机（REACHABLE/STALE/FAILED）和 `ip neigh` 命令的完整用法——这是理解"同一局域网内两台机器如何通信"的关键。
+
 ---
 
-*绔犺妭缂栧彿锛?5 | 璁″垝绡囧箙锛氶暱 | 瀹為檯绡囧箙锛氬疄鎴樼瑪璁帮紙姒傚康 + 鍛戒护鎿嶄綔锛?
-
+*章节编号：05 | 计划篇幅：长 | 实际篇幅：实战笔记（概念 + 命令操作）*

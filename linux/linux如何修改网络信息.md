@@ -1,5 +1,6 @@
 ---
-tags: [linux]
+title: Linux 网络配置
+tags: [linux, network]
 created: 2026-07-29
 updated: 2026-07-29
 ---
@@ -23,7 +24,7 @@ updated: 2026-07-29
 
 ## 操作步骤
 
- ### 方法一：Netplan 配置（推荐）
+### 方法一：Netplan 配置（推荐）
 
 #### 1. 确认网络管理方式
 
@@ -122,6 +123,29 @@ sudo nmcli connection modify static-ip ipv4.method auto
 sudo nmcli connection up static-ip
 ```
 
+> [!tip] nmtui：NetworkManager 的文本界面
+> 如果记不住 `nmcli` 命令，可以用 `nmtui`——一个交互式文本界面，通过菜单引导完成配置：
+> ```bash
+> sudo nmtui
+> ```
+> 适合不熟悉命令行的新手。
+
+#### 5. WiFi 配置（无线网络）
+
+```bash
+# 查看可用的 WiFi 网络
+nmcli dev wifi list
+
+# 连接 WiFi
+sudo nmcli dev wifi connect "WiFi名称" password "密码"
+
+# 连接隐藏 WiFi（指定 SSID）
+sudo nmcli dev wifi connect "WiFi名称" password "密码" hidden yes
+
+# 查看已保存的连接
+nmcli connection show
+```
+
 ### 方法三：临时配置（重启失效）
 
 ```bash
@@ -138,6 +162,63 @@ sudo resolvectl dns ens18 223.5.5.5 8.8.8.8
 # /etc/resolv.conf 是符号链接，由 systemd-resolved 自动管理
 ```
 
+### 方法四：systemd-networkd 直接配置（Arch Linux / Fedora / Debian 无桌面）
+
+> 非 Ubuntu 发行版通常不装 Netplan，而是直接使用 systemd-networkd。配置文件放在 `/etc/systemd/network/` 下。
+
+#### 1. 确认 systemd-networkd 是否运行
+
+```bash
+systemctl status systemd-networkd
+```
+
+如果未运行，启用并启动：
+
+```bash
+sudo systemctl enable --now systemd-networkd
+```
+
+#### 2. 创建网络配置文件
+
+```bash
+sudo nano /etc/systemd/network/20-wired.network
+```
+
+#### 3. 静态 IP 配置示例
+
+```ini
+[Match]
+Name=ens18
+
+[Network]
+Address=192.168.1.100/24
+Gateway=192.168.1.1
+DNS=223.5.5.5
+DNS=8.8.8.8
+```
+
+#### 4. DHCP 配置示例
+
+```ini
+[Match]
+Name=ens18
+
+[Network]
+DHCP=yes
+```
+
+#### 5. 应用配置
+
+```bash
+sudo systemctl restart systemd-networkd
+```
+
+#### 6. 查看配置状态
+
+```bash
+networkctl status
+```
+
 ## 注意事项 ⚠️
 
 ### 常见错误
@@ -148,9 +229,9 @@ sudo resolvectl dns ens18 223.5.5.5 8.8.8.8
 network:
   version: 2
 
-# ✅ 正确：使用空格
+# ✅ 正确：使用 2 空格（Netplan 标准）
 network:
-    version: 2
+  version: 2
 ```
 
 **网关配置错误**：
@@ -198,6 +279,21 @@ hostname -I           # 快速查看所有 IP
 # 或
 ifconfig              # 需安装 net-tools（已废弃，建议用 ip 命令替代）
 ```
+
+**网络排障速查**：
+
+| 目标 | 推荐命令 | 说明 |
+|------|---------|------|
+| 查看 IP 地址 | `ip -br addr` | 最简洁，一眼看清 |
+| 查看路由表 | `ip route` | 检查默认网关是否正确 |
+| 端口监听 | `ss -tuln` | 查看哪些端口在监听（替代 `netstat`）|
+| 连通性测试 | `ping -c 4 8.8.8.8` | 测试到公网是否可达 |
+| DNS 解析 | `dig baidu.com` | 查看 DNS 解析详情（需安装 dnsutils）|
+| DNS 解析简洁版 | `host baidu.com` | 快速查 IP（需安装 bind9-host）|
+| 跟踪路由 | `traceroute 8.8.8.8` | 排查哪一跳丢包（需安装 traceroute）|
+| 抓包分析 | `sudo tcpdump -i ens18` | 查看网络流量（需安装 tcpdump）|
+
+> `netstat`、`ifconfig` 等传统工具属于 `net-tools` 包，已多年未维护。现代 Linux 发行版默认使用 `iproute2` 套件（`ip`、`ss` 命令）。
 
 ## 常见问题 ❓
 
@@ -258,6 +354,10 @@ A: 虚拟机网络模式选择：
 | 2026-07-29 | 修正 `ifconfig` 为可选项，以 `ip` 命令为主 |
 | 2026-07-29 | 修复临时 DNS 配置（改用 `resolvectl`）|
 | 2026-07-29 | 扩充 Ubuntu 24.04 网络变化说明 |
+| 2026-07-29 | 补充 WiFi 配置和 nmtui 文本界面说明 |
+| 2026-07-29 | 新增 systemd-networkd 直接配置方法 |
+| 2026-07-29 | 新增网络排障速查表 |
+| 2026-07-29 | 补充 title 和 network 标签，修复 YAML 缩进示例
 
 ## 相关文档
 - [[linux MOC]] - Linux 学习笔记索引
