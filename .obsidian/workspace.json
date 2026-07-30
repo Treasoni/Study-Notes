@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux/Linux的文件系统结构.md",
+                "file": "虚拟机/VMware Workstation Player 安装 Windows 虚拟机.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Linux的文件系统结构"
+              "title": "VMware Workstation Player 安装 Windows 虚拟机"
             }
           }
         ],
@@ -205,13 +205,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux/linux如何修改网络信息.md",
+                "file": "虚拟机/VMware Workstation Player 安装 Windows 虚拟机.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "linux如何修改网络信息 的大纲"
+              "title": "VMware Workstation Player 安装 Windows 虚拟机 的大纲"
             }
           },
           {
@@ -255,7 +255,7 @@
             }
           }
         ],
-        "currentTab": 8
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -283,8 +283,10 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "d0d8383a692e3423",
+  "active": "f5f6330a45d67f9a",
   "lastOpenFiles": [
+    "linux/linux如何修改网络信息.md",
+    "linux/Linux的文件系统结构.md",
     "workspace/workflow-runs/KrG5ThOG",
     "workspace/workflow-runs/vmware-windows-vm.workflow.md.A8skly",
     "workspace/workflow-runs/vmware-windows-vm.workflow.md.3oErVO",
@@ -296,14 +298,12 @@
     "workspace/workflow-runs/vmware-windows-vm.workflow.md.P0b8O2",
     "workspace/workflow-runs/vmware-windows-vm.workflow.md.zfq10K",
     "workspace/workflow-runs/vmware-windows-vm.workflow.md.AiUCt3",
-    "workspace/workflow-runs/vmware-windows-vm.workflow.md.m9KVTo",
     "虚拟机/VMware Workstation Player 安装 Windows 虚拟机.md",
     "conflict-files-obsidian-git.md",
     "workspace/vmware-windows-vm/01_explore_result.md",
     "workspace/vmware-windows-vm/00_intent.md",
     "workspace/workflow-runs/vmware-windows-vm.workflow.md",
     "workspace/vmware-windows-vm/output/VMware Workstation Player 安装 Windows 虚拟机.md",
-    "linux/linux如何修改网络信息.md",
     "虚拟机/虚拟网络模式/10_虚拟网络技术全景对比与选型.md",
     "虚拟机/虚拟网络模式/09_Kubernetes网络模型与CNI插件.md",
     "虚拟机/虚拟网络模式/08_Docker容器网络模式下.md",

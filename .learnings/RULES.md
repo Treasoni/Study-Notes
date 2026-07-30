@@ -12,7 +12,7 @@ Read before starting any new Study System task.
 
 ## Don't
 
-- (no rules yet)
+- 不要把表格嵌套在列表项内（带缩进），Obsidian 无法渲染列表内的表格
 
 ## Watch For
 
