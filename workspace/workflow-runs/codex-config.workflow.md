@@ -10,10 +10,10 @@ topic: "Codex 配置"
 project_slug: "codex-config"
 created_at: "2026-07-31"
 last_updated: "2026-07-31"
-current_phase: P5
-current_status: in_progress
+current_phase: P7
+current_status: ready
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：codex-config
 > 项目标识：codex-config
 > 创建时间：2026-07-31
-> 当前阶段：阶段 5
+> 当前阶段：阶段 7
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -100,15 +100,15 @@ blocked_reason: ""
 ---
 
 ## 阶段 5：收尾组装
-- [ ] 所有章节文件已检查
-- [ ] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
-- [ ] 过渡语已添加
-- [ ] 目录已生成
-- [ ] 标题层级已统一
-- [ ] 引用已检查
-- [ ] 完整笔记已保存：`./output/final_note.md`
+- [x] 所有章节文件已检查
+- [x] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
+- [x] 过渡语已添加
+- [x] 目录已生成
+- [x] 标题层级已统一
+- [x] 引用已检查
+- [x] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中
+> [P5] ✅ 已完成
 
 ---
 
@@ -118,7 +118,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成
 
 ---
 
@@ -136,12 +136,13 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P6 | 已发布到Obsidian vault: AI学习/Codex 完整配置体系.md | 2026-07-31 00:46 |
 | P4 | 全部8章写作完成并用户确认 | 2026-07-31 00:42 |
 | P3 | 用户确认大纲结构和学习顺序 | 2026-07-31 00:28 |
 | P2 | 用户选择全面覆盖，深度素材收集完成10个维度 | 2026-07-31 00:25 |
 | P1 | 用户选择全面覆盖，按 1→5 顺序深入 | 2026-07-31 00:23 |
 | P0 | 用户确认意图文件和综合配置范围 | 2026-07-31 00:20 |
-| | | |
+| P5 | 用户确认组装结果，完整笔记已生成 | 2026-07-31 |
 
 ---
 
@@ -171,10 +172,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：综合笔记（概念对比 + 实操配置）
+- **总字数**：约 35,000+
+- **章节数**：8 章 + 附录
+- **输出格式**：Obsidian Markdown
+- **文件路径**：workspace/codex-config/output/final_note.md
+- **Obsidian Vault**：C:\note\Study-Notes
+- **MOC 路径**：待指定
