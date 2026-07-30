@@ -112,52 +112,52 @@ description: 使用多策略进行高效资料收集：Fork Subagent 隔离收�
 
 ## 工作流程
 
-### Step 0: 读取项目信息和 todo.md 状态（必须执行）
+### Step 0: 读取 workflow state file（必须执行）
 
-**启动时必须确定项目文件夹并检查 todo.md：**
+**启动时必须确定当前命名 workflow state file 并读取它：**
 
 ```bash
 WORKSPACE_PATH="${WORKSPACE_PATH:-./workspace}"
+WORKFLOW_STATE_FILE="${WORKFLOW_STATE_FILE:-${RUN_STATE_FILE:-}}"
 
-# 方式 1: 从意图文件读取项目标识
-PROJECT_SLUG=$(grep "项目标识" "${WORKSPACE_PATH}"/*/00_intent.md 2>/dev/null | head -1 | sed 's/.*：//')
-
-# 方式 2: 如果有多个项目，提示用户选择
-if [ -z "$PROJECT_SLUG" ]; then
-  echo "找到以下项目："
-  ls -d "${WORKSPACE_PATH}"/*/ 2>/dev/null | xargs -I {} basename {}
-  echo "请指定项目名称"
+if [ -z "$WORKFLOW_STATE_FILE" ]; then
+  echo "请提供 WORKFLOW_STATE_FILE，路径应位于 workspace/workflow-runs/*.workflow.md"
   exit 1
 fi
 
-PROJECT_DIR="${WORKSPACE_PATH}/${PROJECT_SLUG}"
+if [ ! -f "$WORKFLOW_STATE_FILE" ]; then
+  echo "workflow state file 不存在：$WORKFLOW_STATE_FILE"
+  exit 1
+fi
 
-# 读取 todo.md
-cat ${PROJECT_DIR}/todo.md 2>/dev/null || echo "不存在"
+cat "$WORKFLOW_STATE_FILE"
+
+PROJECT_SLUG="$(awk -F': *' '/^project_slug:/ {gsub(/^"|"$/, "", $2); print $2; exit}' "$WORKFLOW_STATE_FILE")"
+PROJECT_DIR="${WORKSPACE_PATH}/${PROJECT_SLUG}"
 ```
 
 **状态检查：**
-- 如果 todo.md 不存在：提示用户先运行 `/research-planner` 创建意图文件
-- 如果 todo.md 存在但阶段 0 为 ⬜ 或 🔲：提示用户"意图阶段未完成，请先完成 `/research-planner`"
-- 如果 todo.md 存在且阶段 0 为 ✅，阶段 1 为 ⬜：允许执行，更新阶段 1 为 🔲 进行中
-- 如果 todo.md 存在且阶段 1 为 ✅，阶段 2 为 ⬜：允许执行，更新阶段 2 为 🔲 进行中
+- 如果 workflow state file 不存在：提示用户先运行 `/research-planner` 创建运行状态文件。
+- 如果阶段 0 未 `✅ 已完成`：提示用户先完成 `/research-planner`。
+- 如果阶段 1 为 `⬜ 未开始`：允许执行探测式收集，并用状态脚本启动 P1。
+- 如果阶段 1 已 `✅ 已完成` 且阶段 2 为 `⬜ 未开始`：允许执行深度收集，并用状态脚本启动 P2。
 
-**更新 todo.md 状态：**
+**更新 workflow state：**
 ```bash
 # 将当前阶段标记为进行中（根据实际执行的阶段选择 [P1] 或 [P2]）
 # 阶段 1（探测式收集）：
-.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" start P1
+.claude/scripts/todo-state.sh "$WORKFLOW_STATE_FILE" start P1
 # 阶段 2（深度收集）：
-.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" start P2
+.claude/scripts/todo-state.sh "$WORKFLOW_STATE_FILE" start P2
 ```
 
 **完成后更新状态：**
 ```bash
 # 将当前阶段标记为完成（根据实际执行的阶段选择 [P1] 或 [P2]）
 # 阶段 1 完成：
-.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" complete P1
+.claude/scripts/todo-state.sh "$WORKFLOW_STATE_FILE" complete P1
 # 阶段 2 完成：
-.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" complete P2
+.claude/scripts/todo-state.sh "$WORKFLOW_STATE_FILE" complete P2
 ```
 
 ---
@@ -229,10 +229,10 @@ ${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}/02_deep_research.md
 
 **注意**: 使用固定文件名 `02_deep_research.md`，方便下游组件（outline-generator、chapter-writer）直接读取。
 
-**更新 todo.md 状态：**
+**更新 workflow state：**
 ```bash
 # 将当前阶段标记为完成，推进到下一阶段
-.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" complete P2
+.claude/scripts/todo-state.sh "$WORKFLOW_STATE_FILE" complete P2
 ```
 
 ## 输出示例

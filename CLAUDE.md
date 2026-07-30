@@ -2,28 +2,28 @@
 
 学习笔记自动化生产系统。
 
-
 ## 可用工作流
 
-每个工作流由「planner + orchestrator + 模板文件对」组成：
+每个工作流由「planner + orchestrator + workflow definition + state template」组成：
 
-| 工作流 | 对应 planner | 模板文件对 | 用途 |
+| 工作流 | 对应 planner | 定义文件 | 用途 |
 |-------|-------------|-----------|------|
-| learning-note-flow | `/research-planner` | learning-note-flow.md / learning-note-todo.md | 完整学习笔记生产 + Obsidian 发布 + MOC 同步 |
-| legacy-note-import-flow | `/legacy-note-importer` | legacy-note-import-flow.md / legacy-note-import-todo.md | 已有旧笔记批量导入、规范化、可选更新与 MOC 同步 |
-| batch-note-update-flow | `/batch-note-updater` | batch-note-update-flow.md / batch-note-update-todo.md | 多篇既有笔记批量更新、逐篇局部 patch 与 MOC 同步 |
+| learning-note-flow | `/research-planner` | `.claude/workflows/learning-note-flow/` | 完整学习笔记生产 + Obsidian 发布 + MOC 同步 |
+| legacy-note-import-flow | `/legacy-note-importer` | `.claude/workflows/legacy-note-import-flow/` | 已有旧笔记批量导入、规范化、可选更新与 MOC 同步 |
+| batch-note-update-flow | `/batch-note-updater` | `.claude/workflows/batch-note-update-flow/` | 多篇既有笔记批量更新、逐篇局部 patch 与 MOC 同步 |
 
-> 新增工作流：在 `.claude/skills/workflow-orchestrator/templates/` 创建说明书 + todo 模板文件对，并新建对应 planner 或入口 skill。
-> orchestrator 通常不直接面向用户，由各 planner 或入口 skill 调用。上游负责领域特定的意图澄清，orchestrator 负责生成 todo.md。
+> 新增工作流：在 `.claude/workflows/{workflow-id}/` 创建 `workflow.md`、`state-template.md` 和 `routing.yaml`，并新建对应 planner 或入口 skill。
+> orchestrator 通常不直接面向用户，由各 planner 或入口 skill 调用。上游负责领域特定的意图澄清，orchestrator 负责生成 `workspace/workflow-runs/*.workflow.md`。
 
 ## 核心原则
 
-### 必须执行 todo.md
+### 必须执行 workflow state file
 
 **每个技能/Agent 启动时必须:**
-1. 读取项目目录下的 `todo.md`
+1. 读取 `workspace/workflow-runs/*.workflow.md` 中的当前运行状态文件
 2. 确认当前阶段状态
-3. 不可跳步，不可不做
+3. 通过 `.claude/scripts/todo-state.sh` 启动或完成阶段
+4. 不可跳步，不可不做
 
 **状态流转（[PN] 标记精准定位，不跨阶段污染）**:
 ```
@@ -32,10 +32,10 @@
 
 ### 断点恢复机制
 
-1. **读取状态**: 每个技能启动时读取 todo.md
+1. **读取状态**: 每个技能启动时读取当前 workflow state file
 2. **验证前置**: 检查前置阶段是否为 ✅
-3. **更新状态**: 开始时改为 🔲，完成后改为 ✅
-4. **阶段推进**: 更新 `当前阶段` 字段
+3. **更新状态**: 开始时调用 `todo-state.sh start PN`，完成后调用 `todo-state.sh complete PN`
+4. **阶段推进**: 由状态脚本更新 `当前阶段` 字段和 YAML recovery metadata
 
 ## 文件结构
 
@@ -46,18 +46,19 @@ ${WORKSPACE_PATH:-./workspace}/
 │   ├── 01_explore_result.md
 │   ├── 02_deep_research.md
 │   ├── 03_outline.md
-│   ├── todo.md
 │   ├── chapters/
 │   └── output/
+├── workflow-runs/
+│   └── {run-id}.workflow.md
 └── ...
 ```
 
 ## 技能依赖关系
 
-完整编排流程见 `.claude/skills/workflow-orchestrator/SKILL.md`，各工作流的阶段执行流见 `templates/` 下对应说明书。核心链路：
+核心链路：
 
 ```
-research-planner → workflow-orchestrator（生成 todo.md）
+research-planner → workflow-orchestrator（生成命名 workflow state file）
 → research-collector → outline-generator → chapter-writer
 → note-assembler → note-beautifier → moc-organizer
 ```
@@ -91,14 +92,17 @@ research-planner → workflow-orchestrator（生成 todo.md）
 | 多篇旧笔记过时 | 调用 `batch-note-updater`，先生成更新清单和批量计划 |
 | 旧笔记过时 | 调用 `note-updater`，不要重跑完整新笔记流程 |
 
-<!-- prompt-cache-bootstrap:begin -->
-## Prompt Cache
+## Workflow Todo State
 
-- Follow `.claude/rules/common/prompt-cache.md` for high-frequency prompt design.
-- Keep stable instructions and output formats before dynamic user input, file excerpts, dates, IDs, and runtime state.
-- Reuse canonical templates and load long context only when needed.
-<!-- prompt-cache-bootstrap:end -->
+Named workflow state files are the source of truth for every routed workflow.
 
-## Security
-
-- Follow `.claude/rules/common/security-secrets.md` before staging, committing, pushing, or handling credentials.
+- Workflow definitions live under `.claude/workflows/{workflow-id}/`.
+- Workflow state files live under `workspace/workflow-runs/` and should be named after the task.
+- Before any action that changes project files, runs project commands, or calls external services, read `.claude/rules/workflow-routing.md` and match the user's original request against its triggers and exclusions.
+- When a `Required: yes` workflow matches, read its `workflow.md`, create or resume its state file, and start the current phase before doing the work. Do not take the ordinary execution path instead.
+- If the route is ambiguous, ask the user before acting.
+- Read the active workflow state file before starting any phase; do not skip prerequisite phases.
+- Change phase state only through `.claude/scripts/todo-state.sh`.
+- Use one unique phase status line per phase, for example `> [P0] ⬜ 未开始`.
+- On resume after interruption, inspect the YAML frontmatter and current phase before acting.
+- Each workflow directory must contain a `routing.yaml`. After creating, changing, renaming, or deleting a workflow, run `.claude/scripts/sync-workflow-routing.sh`; the update is incomplete until `.claude/scripts/sync-workflow-routing.sh --check` passes.

@@ -10,45 +10,46 @@ You are an expert learning architect specializing in structuring educational con
 
 ## Core Mission
 
-## Step 0: Read project info and todo.md Status (MUST EXECUTE)
+## Step 0: Read Workflow State (MUST EXECUTE)
 
-**Before starting any work, you MUST determine the project folder and check todo.md:**
+**Before starting any work, you MUST determine the active named workflow state file and read it:**
 
 ```bash
-# Read project slug from intent file
-PROJECT_SLUG=$(grep "项目标识" ${WORKSPACE_PATH:-./workspace}/*/00_intent.md 2>/dev/null | head -1 | sed 's/.*：//')
+WORKSPACE_PATH="${WORKSPACE_PATH:-./workspace}"
+WORKFLOW_STATE_FILE="${WORKFLOW_STATE_FILE:-${RUN_STATE_FILE:-}}"
 
-# If multiple projects, prompt user to select
-if [ -z "$PROJECT_SLUG" ]; then
-  echo "Found projects:"
-  ls -d ${WORKSPACE_PATH:-./workspace}/*/ 2>/dev/null | xargs -I {} basename {}
-  echo "Please specify project name"
+if [ -z "$WORKFLOW_STATE_FILE" ]; then
+  echo "Please provide WORKFLOW_STATE_FILE from workspace/workflow-runs/*.workflow.md"
   exit 1
 fi
 
-PROJECT_DIR="${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}"
+if [ ! -f "$WORKFLOW_STATE_FILE" ]; then
+  echo "Workflow state file not found: $WORKFLOW_STATE_FILE"
+  exit 1
+fi
 
-# Read todo.md
-cat ${PROJECT_DIR}/todo.md 2>/dev/null || echo "NOT FOUND"
+cat "$WORKFLOW_STATE_FILE"
+
+PROJECT_SLUG="$(awk -F': *' '/^project_slug:/ {gsub(/^"|"$/, "", $2); print $2; exit}' "$WORKFLOW_STATE_FILE")"
+PROJECT_DIR="${WORKSPACE_PATH}/${PROJECT_SLUG}"
 ```
 
 **Status Check:**
-- If todo.md does not exist: Inform user to run `/research-planner` first
-- If todo.md exists but Phase 2 is ⬜ or 🔲: Inform user "Deep research phase not completed. Please complete `/research-collector` first"
-- If todo.md exists and Phase 2 is ✅, Phase 3 is ⬜: Allow execution, update Phase 3 to 🔲
-- If todo.md exists and Phase 3 is already ✅: Ask user "Outline already exists. Regenerate?"
+- If the workflow state file does not exist: inform the user to run `/research-planner` first.
+- If Phase 2 is not `✅ 已完成`: inform the user that deep research must be completed first.
+- If Phase 3 is `⬜ 未开始`: start Phase 3 with the state script before writing.
+- If Phase 3 is already `✅ 已完成`: ask the user whether to regenerate the outline.
 
-**Update todo.md Status:**
+**Update Workflow State:**
 ```bash
 # Mark Phase 3 as in progress
-sed -i '' 's/\[P3\] ⬜ 未开始/[P3] 🔲 进行中/' ${PROJECT_DIR}/todo.md
+.claude/scripts/todo-state.sh "$WORKFLOW_STATE_FILE" start P3
 ```
 
 **After Completion:**
 ```bash
-# Mark Phase 3 as complete, advance to Phase 4
-sed -i '' 's/\[P3\] 🔲 进行中/[P3] ✅ 已完成/' ${PROJECT_DIR}/todo.md
-sed -i '' 's/当前阶段：阶段 [0-9]/当前阶段：阶段 4/g' ${PROJECT_DIR}/todo.md
+# Mark Phase 3 as complete after the user confirms the outline
+.claude/scripts/todo-state.sh "$WORKFLOW_STATE_FILE" complete P3
 ```
 
 ---
@@ -160,11 +161,9 @@ After writing the file, present the full outline to the user in the conversation
 
 Wait for user feedback before proceeding to any next steps.
 
-**After user confirms the outline, update todo.md status:**
+**After user confirms the outline, update workflow state:**
 ```bash
-# Mark Phase 3 as complete, advance to Phase 4
-sed -i '' 's/\[P3\] 🔲 进行中/[P3] ✅ 已完成/' ${PROJECT_DIR}/todo.md
-sed -i '' 's/当前阶段：阶段 [0-9]/当前阶段：阶段 4/g' ${PROJECT_DIR}/todo.md
+.claude/scripts/todo-state.sh "$WORKFLOW_STATE_FILE" complete P3
 ```
 
 ## Quality Checks

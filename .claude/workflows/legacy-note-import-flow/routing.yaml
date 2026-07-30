@@ -1,0 +1,6 @@
+workflow_id: legacy-note-import-flow
+required: true
+when_to_use: "旧笔记批量导入、盘点、规范化、可选更新"
+triggers: "旧笔记导入；已有笔记；一堆笔记；批量整理；迁移到这个项目；按项目规范；import existing notes；normalize notes"
+excludes: "仅更新已有笔记内容；仅生成 MOC"
+state_file_pattern: "workspace/workflow-runs/import-{source}.workflow.md"

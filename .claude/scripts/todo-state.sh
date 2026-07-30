@@ -4,12 +4,14 @@ set -euo pipefail
 usage() {
   cat <<'USAGE'
 Usage:
-  .claude/scripts/todo-state.sh <workflow-state.md> start P1
-  .claude/scripts/todo-state.sh <workflow-state.md> complete P1
-  .claude/scripts/todo-state.sh <workflow-state.md> skip P3 "reason"
-  .claude/scripts/todo-state.sh <workflow-state.md> block P2 "reason"
+  <agent-dir>/scripts/todo-state.sh <workflow-state.md> start P1
+  <agent-dir>/scripts/todo-state.sh <workflow-state.md> confirm P1 "user approval"
+  <agent-dir>/scripts/todo-state.sh <workflow-state.md> complete P1
+  <agent-dir>/scripts/todo-state.sh <workflow-state.md> skip P3 "reason"
+  <agent-dir>/scripts/todo-state.sh <workflow-state.md> block P2 "reason"
+  <agent-dir>/scripts/todo-state.sh <workflow-state.md> mode P2 freeform "reason"
 
-Updates the phase status line, YAML recovery metadata, and visible current phase.
+Enforces confirmed phase completion, bounded skips, and configured mode changes.
 USAGE
 }
 
@@ -21,7 +23,8 @@ fi
 TODO_FILE="$1"
 ACTION="$2"
 PHASE="$3"
-REASON="${4:-}"
+REASON=""
+SELECTED_MODE=""
 
 if [ ! -f "$TODO_FILE" ]; then
   echo "todo-state: file not found: $TODO_FILE" >&2
@@ -29,7 +32,14 @@ if [ ! -f "$TODO_FILE" ]; then
 fi
 
 case "$ACTION" in
-  start|complete|skip|block) ;;
+  start|complete) ;;
+  confirm|skip|block)
+    if [ "$#" -ge 4 ]; then REASON="$4"; fi
+    ;;
+  mode)
+    if [ "$#" -ge 4 ]; then SELECTED_MODE="$4"; fi
+    if [ "$#" -ge 5 ]; then REASON="$5"; fi
+    ;;
   *)
     echo "todo-state: unknown action: $ACTION" >&2
     usage
@@ -78,6 +88,11 @@ ensure_frontmatter() {
     printf 'current_phase: %s\n' "$PHASE"
     printf '%s\n' 'current_status: unknown'
     printf '%s\n' 'mode: standard'
+    printf '%s\n' 'confirmed_phases: ""'
+    printf '%s\n' 'skippable_phases: ""'
+    printf '%s\n' 'mode_dependent_skips: ""'
+    printf '%s\n' 'allowed_modes: ""'
+    printf '%s\n' 'mode_change_phase: ""'
     printf '%s\n' 'blocked_reason: ""'
     printf '%s\n' '---'
     cat "$TODO_FILE"
@@ -147,6 +162,90 @@ phase_has_status() {
   grep -qF "> [$PHASE] $label" "$TODO_FILE"
 }
 
+frontmatter_value() {
+  local key="$1"
+  awk -v key="$key" '
+    $0 == "---" { if (seen) exit; seen = 1; next }
+    seen && index($0, key ":") == 1 {
+      value = substr($0, length(key) + 2)
+      sub(/^[[:space:]]+/, "", value)
+      sub(/[[:space:]]+$/, "", value)
+      if (value ~ /^".*"$/) { sub(/^"/, "", value); sub(/"$/, "", value) }
+      print value
+      exit
+    }
+  ' "$TODO_FILE"
+}
+
+csv_contains() {
+  case ",$1," in *",$2,"*) return 0 ;; *) return 1 ;; esac
+}
+
+require_nonempty_reason() {
+  if [ -z "$2" ]; then
+    echo "todo-state: $1 requires a non-empty reason" >&2
+    exit 1
+  fi
+}
+
+require_phase_in_progress() {
+  if ! phase_has_status "🔲 进行中"; then
+    echo "todo-state: phase must be in progress: $PHASE" >&2
+    exit 1
+  fi
+}
+
+append_table_row() {
+  local heading="$1" row="$2" tmp
+  if ! grep -qF "$heading" "$TODO_FILE"; then
+    echo "todo-state: missing audit table: $heading" >&2
+    exit 1
+  fi
+  tmp="$(mktemp "$TODO_FILE.XXXXXX")"
+  if ! awk -v heading="$heading" -v row="$row" '
+    $0 == heading { print; in_section = 1; next }
+    in_section && /^\|[-:| ]+\|$/ { print; print row; in_section = 0; inserted = 1; next }
+    { print }
+    END { if (!inserted) exit 3 }
+  ' "$TODO_FILE" > "$tmp"; then
+    rm -f "$tmp"
+    echo "todo-state: could not append audit row for $heading" >&2
+    exit 1
+  fi
+  mv "$tmp" "$TODO_FILE"
+}
+
+append_confirmation() {
+  local confirmed
+  confirmed="$(frontmatter_value confirmed_phases)"
+  if csv_contains "$confirmed" "$PHASE"; then
+    echo "todo-state: phase is already confirmed: $PHASE" >&2
+    exit 1
+  fi
+  if [ -n "$confirmed" ]; then confirmed="$confirmed,$PHASE"; else confirmed="$PHASE"; fi
+  set_frontmatter_key "confirmed_phases" "$(yaml_quote "$confirmed")"
+  append_table_row "## 用户确认记录" "| $PHASE | $REASON | $NOW |"
+  set_frontmatter_key "last_updated" "$(yaml_quote "$TODAY")"
+}
+
+append_skip_record() {
+  append_table_row "## 跳过记录" "| $PHASE | user approved skip | $REASON | $NOW |"
+  set_frontmatter_key "last_updated" "$(yaml_quote "$TODAY")"
+}
+
+require_skippable_phase() {
+  if csv_contains "$(frontmatter_value skippable_phases)" "$PHASE"; then return; fi
+  if csv_contains "$(frontmatter_value mode_dependent_skips)" "$PHASE" && [ "$(frontmatter_value mode)" = "freeform" ]; then return; fi
+  echo "todo-state: phase is not skippable in the current workflow mode: $PHASE" >&2
+  exit 1
+}
+
+append_mode_record() {
+  if grep -qF "## 方向调整记录" "$TODO_FILE"; then
+    append_table_row "## 方向调整记录" "| $NOW | $1 | $2 | $REASON |"
+  fi
+}
+
 previous_open_phase_before() {
   PHASE_NUM="$PHASE_NUM" perl -ne '
     if (/^> \[P(\d+)\] (.*)$/ && $1 < $ENV{PHASE_NUM}) {
@@ -191,13 +290,18 @@ append_exception_record() {
 case "$ACTION" in
   start)
     ensure_previous_phases_closed
-    if phase_has_status "✅ 已完成" || phase_has_status "⏭️ 跳过"; then
-      echo "todo-state: cannot start completed or skipped phase: $PHASE" >&2
+    if phase_has_status "✅ 已完成" || phase_has_status "⏭️ 跳过" || phase_has_status "🔲 进行中"; then
+      echo "todo-state: cannot start closed or active phase: $PHASE" >&2
       exit 1
     fi
     replace_phase_status "🔲 进行中"
     set_recovery_state "$PHASE" "in_progress"
     set_visible_current_phase "$PHASE"
+    ;;
+  confirm)
+    require_phase_in_progress
+    require_nonempty_reason "confirm" "$REASON"
+    append_confirmation
     ;;
   complete)
     ensure_previous_phases_closed
@@ -207,6 +311,10 @@ case "$ACTION" in
     fi
     if ! phase_has_status "🔲 进行中"; then
       echo "todo-state: phase must be in progress before complete: $PHASE" >&2
+      exit 1
+    fi
+    if ! csv_contains "$(frontmatter_value confirmed_phases)" "$PHASE"; then
+      echo "todo-state: phase requires recorded user confirmation before completion: $PHASE" >&2
       exit 1
     fi
     replace_phase_status "✅ 已完成"
@@ -221,11 +329,11 @@ case "$ACTION" in
     ;;
   skip)
     ensure_previous_phases_closed
-    if phase_has_status "✅ 已完成"; then
-      echo "todo-state: cannot skip completed phase: $PHASE" >&2
-      exit 1
-    fi
+    require_phase_in_progress
+    require_nonempty_reason "skip" "$REASON"
+    require_skippable_phase
     replace_phase_status "⏭️ 跳过"
+    append_skip_record
     append_exception_record "跳过阶段：${REASON:-未填写原因}" "继续推进到下一未完成阶段"
     NEXT_PHASE="$(next_pending_phase_after || true)"
     if [ -n "$NEXT_PHASE" ]; then
@@ -238,9 +346,30 @@ case "$ACTION" in
     ;;
   block)
     ensure_previous_phases_closed
-    replace_phase_status "🔲 进行中"
+    require_phase_in_progress
+    require_nonempty_reason "block" "$REASON"
     set_recovery_state "$PHASE" "blocked" "$REASON"
     set_visible_current_phase "$PHASE"
     append_exception_record "阻塞：${REASON:-未填写原因}" "停在当前阶段，等待用户确认或补充资料"
+    ;;
+  mode)
+    require_phase_in_progress
+    require_nonempty_reason "mode" "$REASON"
+    if [ -z "$SELECTED_MODE" ]; then
+      echo "todo-state: mode requires a mode value" >&2
+      exit 1
+    fi
+    if [ "$PHASE" != "$(frontmatter_value mode_change_phase)" ]; then
+      echo "todo-state: mode can change only at $(frontmatter_value mode_change_phase)" >&2
+      exit 1
+    fi
+    if ! csv_contains "$(frontmatter_value allowed_modes)" "$SELECTED_MODE"; then
+      echo "todo-state: unsupported mode: $SELECTED_MODE" >&2
+      exit 1
+    fi
+    OLD_MODE="$(frontmatter_value mode)"
+    set_frontmatter_key "mode" "$SELECTED_MODE"
+    append_mode_record "$OLD_MODE" "$SELECTED_MODE"
+    set_frontmatter_key "last_updated" "$(yaml_quote "$TODAY")"
     ;;
 esac

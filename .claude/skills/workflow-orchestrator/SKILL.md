@@ -68,15 +68,7 @@ workspace/workflow-runs/{run_id}.workflow.md
 workspace/workflow-runs/{run-id}.workflow.md
 ```
 
-`workflow-orchestrator` 优先使用 `.claude/workflows/{workflow-id}/state-template.md`。
-
-兼容旧结构时，可以回退读取：
-
-```text
-.claude/skills/workflow-orchestrator/templates/{workflow-id}-todo.md
-```
-
-但新工作流不要再添加到旧 `templates/` 目录。
+`workflow-orchestrator` 只使用 `.claude/workflows/{workflow-id}/state-template.md`。旧的 `templates/*-todo.md` 结构已经废弃，不再作为回退来源。
 
 ## 实例化流程
 

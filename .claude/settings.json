@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 '.claude/hooks/read_learnings.py'"
+          }
+        ]
+      }
+    ]
+  }
+}

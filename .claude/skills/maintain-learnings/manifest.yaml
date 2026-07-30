@@ -1,0 +1,21 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: maintain-learnings
+  version: 0.1.0
+  description: "维护 .learnings/ 经验库，把过多或反复出现的学习记录、错误日志、规则失效问题聚类诊断，追溯并修改对应 skill、模板、hook、校验脚本或项目规则。"
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - learnings.audit
+    - learnings.diagnose
+    - learnings.fix-source
+  permissions:
+    filesystem: write
+    network: none
+    subprocess: allow
+    git: none
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

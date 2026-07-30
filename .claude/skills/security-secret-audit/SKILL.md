@@ -14,13 +14,13 @@ Run the bundled scanner before a commit and whenever a credential leak is suspec
 
 ```bash
 # Current tracked and non-ignored files; default mode.
-.claude/skills/security-secret-audit/scripts/audit-secrets.sh
+.codex/skills/security-secret-audit/scripts/audit-secrets.sh
 
 # Only the staged content; use immediately before committing.
-.claude/skills/security-secret-audit/scripts/audit-secrets.sh --staged
+.codex/skills/security-secret-audit/scripts/audit-secrets.sh --staged
 
 # Every unique file version reachable from Git history; use after a suspected past leak.
-.claude/skills/security-secret-audit/scripts/audit-secrets.sh --history
+.codex/skills/security-secret-audit/scripts/audit-secrets.sh --history
 ```
 
 3. Report findings by file, line, rule name, and scope only. Never reveal the credential value.

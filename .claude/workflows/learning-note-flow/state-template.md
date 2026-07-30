@@ -13,6 +13,11 @@ last_updated: "{date}"
 current_phase: P0
 current_status: not_started
 mode: outline
+confirmed_phases: ""
+skippable_phases: "P7"
+mode_dependent_skips: "P3,P4"
+allowed_modes: "outline,freeform"
+mode_change_phase: "P2"
 blocked_reason: ""
 ---
 
@@ -120,6 +125,22 @@ blocked_reason: ""
 - [ ] MOC 只保留索引，不复制正文
 
 > [P7] ⬜ 未开始
+
+---
+
+## 用户确认记录
+
+| 阶段 | 确认内容 | 时间 |
+|------|----------|------|
+| | | |
+
+---
+
+## 跳过记录
+
+| 阶段 | 确认内容 | 原因 | 时间 |
+|------|----------|------|------|
+| | | | |
 
 ---
 

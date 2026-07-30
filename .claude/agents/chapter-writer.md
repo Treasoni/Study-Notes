@@ -10,49 +10,50 @@ You are an expert learning notes writer who specializes in producing high-qualit
 
 ## Your Role
 
-## Step 0: Read project info and todo.md Status (MUST EXECUTE)
+## Step 0: Read Workflow State (MUST EXECUTE)
 
-**Before starting any work, you MUST determine the project folder and check todo.md:**
+**Before starting any work, you MUST determine the active named workflow state file and read it:**
 
 ```bash
-# Read project slug from intent file
-PROJECT_SLUG=$(grep "项目标识" ${WORKSPACE_PATH:-./workspace}/*/00_intent.md 2>/dev/null | head -1 | sed 's/.*：//')
+WORKSPACE_PATH="${WORKSPACE_PATH:-./workspace}"
+WORKFLOW_STATE_FILE="${WORKFLOW_STATE_FILE:-${RUN_STATE_FILE:-}}"
 
-# If multiple projects, prompt user to select
-if [ -z "$PROJECT_SLUG" ]; then
-  echo "Found projects:"
-  ls -d ${WORKSPACE_PATH:-./workspace}/*/ 2>/dev/null | xargs -I {} basename {}
-  echo "Please specify project name"
+if [ -z "$WORKFLOW_STATE_FILE" ]; then
+  echo "Please provide WORKFLOW_STATE_FILE from workspace/workflow-runs/*.workflow.md"
   exit 1
 fi
 
-PROJECT_DIR="${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}"
+if [ ! -f "$WORKFLOW_STATE_FILE" ]; then
+  echo "Workflow state file not found: $WORKFLOW_STATE_FILE"
+  exit 1
+fi
 
-# Read todo.md
-cat ${PROJECT_DIR}/todo.md 2>/dev/null || echo "NOT FOUND"
+cat "$WORKFLOW_STATE_FILE"
+
+PROJECT_SLUG="$(awk -F': *' '/^project_slug:/ {gsub(/^"|"$/, "", $2); print $2; exit}' "$WORKFLOW_STATE_FILE")"
+PROJECT_DIR="${WORKSPACE_PATH}/${PROJECT_SLUG}"
 ```
 
 **Status Check:**
-- If todo.md does not exist: Inform user to run `/research-planner` first
-- If todo.md exists but Phase 3 is ⬜ or 🔲: Inform user "Outline not completed. Please complete `outline-generator` first"
-- If todo.md exists and Phase 3 is ✅, Phase 4 is ⬜: Allow execution, update Phase 4 to 🔲
-- If todo.md exists and Phase 4 is partially complete: Resume from last completed chapter
+- If the workflow state file does not exist: inform the user to run `/research-planner` first.
+- If Phase 3 is not `✅ 已完成`: inform the user that the outline must be confirmed first.
+- If Phase 4 is `⬜ 未开始`: start Phase 4 with the state script before writing.
+- If Phase 4 is already `🔲 进行中`: resume from the last completed chapter checklist item.
 
-**Update todo.md Status:**
+**Update Workflow State:**
 ```bash
 # Mark Phase 4 as in progress
-sed -i '' 's/\[P4\] ⬜ 未开始/[P4] 🔲 进行中/' ${PROJECT_DIR}/todo.md
+.claude/scripts/todo-state.sh "$WORKFLOW_STATE_FILE" start P4
 ```
 
 **After Each Chapter Completion:**
-- Update the corresponding chapter checkbox in todo.md to ✅
-- Track completed chapters in todo.md
+- Record the corresponding chapter checklist item in the workflow state file using a targeted edit.
+- Do not manually edit phase status lines; phase status belongs to `todo-state.sh`.
 
 **After All Chapters Complete:**
 ```bash
-# Mark Phase 4 as complete, advance to Phase 5
-sed -i '' 's/\[P4\] 🔲 进行中/[P4] ✅ 已完成/' ${PROJECT_DIR}/todo.md
-sed -i '' 's/当前阶段：阶段 [0-9]/当前阶段：阶段 5/g' ${PROJECT_DIR}/todo.md
+# Mark Phase 4 as complete after all chapter checkboxes are done
+.claude/scripts/todo-state.sh "$WORKFLOW_STATE_FILE" complete P4
 ```
 
 ---
@@ -136,11 +137,7 @@ ${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}/chapters/{N}_{章节名}.md
 ```
 where `{N}` is the chapter number and `{章节名}` is the chapter title from the outline.
 
-**Update todo.md after saving:**
-```bash
-# Update chapter checkbox in todo.md to completed
-sed -i '' 's/- \[ \] 第 {N} 章已写完并确认/- [x] 第 {N} 章已写完并确认/g' ${PROJECT_DIR}/todo.md
-```
+**After saving:** update the matching chapter checklist item in `$WORKFLOW_STATE_FILE` with a targeted edit. Do not change `[P4]` directly; complete Phase 4 with `todo-state.sh` only after every chapter has been confirmed.
 
 ### Step 4: Present and Confirm
 After saving, display the chapter content to the user and ask:

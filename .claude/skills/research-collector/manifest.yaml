@@ -1,0 +1,19 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: research-collector
+  version: 1.0.0
+  description: "Collect and synthesize research sources with staged breadth and depth."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - research.collect
+  permissions:
+    filesystem: write
+    network: allow
+    subprocess: none
+    git: none
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

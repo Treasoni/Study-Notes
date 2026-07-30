@@ -21,6 +21,7 @@
 - `.claude/rules/obsidian/note-system.md`：Obsidian 输出规范。
 
 ## 技能列表
+<!-- skill-registry:managed ["batch-note-updater","digest","legacy-note-importer","maintain-learnings","manifest-platform","moc-organizer","note-beautifier","note-starter","note-updater","prompt-cache-optimizer","research-collector","research-planner","security-secret-audit","sync-skill-registry","tool-discovery","workflow-orchestrator","workflow-todo-state"] -->
 
 #### 图表与可视化
 
@@ -29,34 +30,25 @@
 | `excalidraw-diagram` | 生成 Excalidraw 流程图、思维导图、架构图 | 画图、流程图、思维导图、Excalidraw、可视化、diagram |
 | `json-canvas` | 生成 JSON Canvas 格式的可视化画布 | canvas、画布、JSON Canvas |
 
-#### Obsidian 相关（项目本地）
-
-| 技能 | 触发场景 | 关键触发词 |
-|------|----------|-----------|
-| `legacy-note-importer` | 旧笔记批量导入、盘点、迁移到本项目规范 | 旧笔记导入、已有笔记、一堆笔记、批量整理、迁移到这个项目、import existing notes |
-| `batch-note-updater` | 多篇旧笔记批量更新和逐篇局部 patch 编排 | 批量更新旧笔记、多篇笔记过时、更新一个目录的笔记、refresh multiple notes |
-| `note-beautifier` | 处理 Obsidian Markdown 与发布位置 | Obsidian、wikilink、双链、Callout、美化、发布 |
-| `moc-organizer` | 生成或更新 MOC 目录笔记 | MOC、目录、索引、Map of Content |
 #### 资料研究
 
 | 技能 | 触发场景 | 关键触发词 |
 |------|----------|-----------|
-| `research-planner` | 资料收集前的需求澄清与引导 | 想学、帮我整理、研究一下、了解一下、不知道从哪开始、帮我看看、research planning、explore topic |
-| `research-collector` | 多策略高效资料收集 | 收集资料、研究资料、搜集信息、资料整理、research、gather information、collect资料 |
+| `research-collector` | 使用多策略进行高效资料收集：Fork Subagent 隔离收集、两阶段粗筛+精读、格式约束优化 token 消耗、本地缓存复用。 | 收集资料、研究资料、搜集信息、资料整理、research、gather information、collect资料 |
+| `research-planner` | 学习笔记需求澄清与引导。分析用户学习需求，引导明确学习目标和方向，调用 workflow-orchestrator 生成项目结构。 | 想学、帮我整理、研究一下、了解一下、不知道从哪开始、research planning、explore topic |
 
 #### 学习笔记工作流
 
 | 技能 | 触发场景 | 关键触发词 |
 |------|----------|-----------|
-| `workflow-orchestrator` | 工作流编排器，选择工作流模板并生成状态文件 | 工作流、流程、开始学习、新建项目、workflow、orchestrator |
-| `workflow-todo-state` | 为多阶段 agent 项目创建或改造命名工作流状态文件和路由规则 | 可复用 workflow、状态机、恢复流程、阶段状态、命名状态文件、workflow routing |
-| `legacy-note-importer` | 将已有一批旧笔记接入项目工作流并按规范处理 | 旧笔记、已有笔记、一堆笔记、批量导入、normalize notes |
-| `batch-note-updater` | 将多篇既有笔记按批次更新，逐篇调用 note-updater | 批量更新、多篇笔记、旧笔记过时、refresh multiple notes |
+| `batch-note-updater` | 多篇既有学习笔记的批量更新编排。用于用户想一次更新一个目录、文件列表、Obsidian vault 子目录或多篇旧笔记 | 批量更新这些笔记、多篇笔记过时了、把一组笔记更新到新版本、refresh multiple notes |
+| `legacy-note-importer` | 旧笔记批量导入、盘点和规范化。用于用户已经有一堆 Markdown/Obsidian/零散学习笔记 | 旧笔记导入、已有笔记、一堆笔记、批量整理、迁移到这个项目、按项目规范、import existing notes、normalize notes |
+| `moc-organizer` | 为 Obsidian 生成或更新 MOC（Map of Content）目录笔记。 | 生成 MOC、整理目录、把新笔记加入目录、每次加入笔记自动更新索引 |
+| `note-beautifier` | Obsidian 笔记智能美化与发布。用于将最终学习笔记处理成 Obsidian Markdown，补 frontmatter、标签、Callout、双链 | 美化、Obsidian、优化格式、笔记美化、发布到 vault、beautify |
+| `note-updater` | 更新过时的既有学习笔记。用于用户说“更新这篇笔记”“这篇笔记过时了”“根据新资料刷新旧笔记”“同步到 Obsidian 旧笔记”等场景。先定位旧笔记、判断… | 更新这篇笔记、这篇笔记过时了、根据新资料刷新旧笔记、同步到 Obsidian 旧笔记 |
+| `workflow-orchestrator` | 业务工作流实例化器。由 planner 技能调用，接收 workflow_id、topic、project_slug 等参数 | 业务工作流实例化器 |
+| `workflow-todo-state` | Create or retrofit reusable named workflow state machines for multi-step agen… | Create or retrofit reusable named workfl… |
 | `note-assembler` | 将章节组装成完整笔记（由 agent 调用） | 组装、合并章节、收尾、拼装、assemble |
-| `note-beautifier` | Obsidian 笔记智能美化专家 | 美化、Obsidian、优化格式、笔记美化、beautify |
-| `note-updater` | 更新已有过时笔记 | 更新旧笔记、过时、refresh、update |
-| `moc-organizer` | 同步 MOC 目录 | MOC、目录、索引、整理 |
-
 
 #### 内容提取
 
@@ -68,21 +60,30 @@
 
 | 技能 | 触发场景 | 关键触发词 |
 |------|----------|-----------|
-| `tool-discovery` | 查看可用的资料收集工具 | 可用工具、有哪些工具、工具列表、收集工具、search tools |
+| `sync-skill-registry` | 技能注册表同步工具。扫描任意 agent skill 目录中的 */SKILL.md 并自动更新对应 skill-invocation.md 中的技能列表… | 同步注册表、更新技能列表、sync skill registry、update skill registration、刷新技能列表、同步技能表格 |
+| `tool-discovery` | 查看当前环境中可用于资料收集的工具，包括内置工具、MCP 工具和已安装的 skills。当用户想了解有哪些工具可以用来搜索、提取、分析资料时使用此技能。 | 可用工具、有哪些工具、工具列表、收集工具、search tools、available tools |
 
 #### 自我学习
 
 | 技能 | 触发场景 | 关键触发词 |
 |------|----------|-----------|
-| `digest` | 回顾会话，记录学习心得和错误，压缩去重 | 记录学习、总结经验、记录心得、消化、digest |
+| `digest` | 自我学习阶段。回顾本次会话，记录真实发生的学习点和错误到 .learnings/； | 自我学习阶段 |
 
 #### 开发工具
 
 | 技能 | 触发场景 | 关键触发词 |
 |------|----------|-----------|
-| `skill-creator` | 创建新的 Claude Code 技能 | 创建 skill、新技能、写一个 skill |
-| `prompt-cache-optimizer` | 审计并优化 LLM 提示缓存、token 与调用成本 | 缓存命中、token 成本、LLM 审计、提示词缓存优化 |
-| `security-secret-audit` | 扫描当前文件、暂存内容或 Git 历史中的 API 密钥、Token、密码和私钥 | 安全检查、密钥扫描、凭证泄露、提交前检查、secret scan |
+| `manifest-platform` | Install, configure, migrate, and validate a portable manifest registry for ag… | Install, configure, migrate, and validat… |
+| `prompt-cache-optimizer` | 审计并优化 LLM 提示缓存命中率、输入 token、延迟与调用成本。 | 优化缓存命中、降低 token 成本、审计 LLM 调用、提示词缓存优化、优化 AI 调用费用 |
+| `skill-creator` | 创建新的 Codex 技能 | 创建 skill、新技能、写一个 skill |
+
+#### 未分类
+
+| 技能 | 触发场景 | 关键触发词 |
+|------|----------|-----------|
+| `maintain-learnings` | 维护 .learnings/ 经验库，把过多或反复出现的学习记录、错误日志、规则失效问题聚类诊断，追溯并修改对应 skill、模板、hook、校验脚本或项目规则； | 维护 .learnings/ 经验库，把过多或反复出现的学习记录、错误日志、规则… |
+| `note-starter` | 启动新主题学习笔记。用于用户说“开始写笔记”“启动写笔记”“创建学习笔记”或明确想为新主题建立学习笔记时。检查可恢复运行后 | 开始写笔记、启动写笔记、创建学习笔记 |
+| `security-secret-audit` | Audit a Git repository for exposed API keys, tokens, passwords, private keys | Audit a Git repository for exposed API k… |
 
 ### 1. 分析意图
 

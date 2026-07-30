@@ -106,46 +106,46 @@ publish_mode: copy | overwrite | patch
 
 ## 工作流程
 
-### Step 0: 读取项目信息和 todo.md 状态（必须执行）
+### Step 0: 读取 workflow state file（必须执行）
 
-**启动时必须确定项目文件夹并检查 todo.md：**
+**启动时必须确定当前命名 workflow state file 并读取它：**
 
 ```bash
 WORKSPACE_PATH="${WORKSPACE_PATH:-./workspace}"
+WORKFLOW_STATE_FILE="${WORKFLOW_STATE_FILE:-${RUN_STATE_FILE:-}}"
 
-# 从意图文件读取项目标识
-PROJECT_SLUG=$(grep "项目标识" "${WORKSPACE_PATH}"/*/00_intent.md 2>/dev/null | head -1 | sed 's/.*：//')
-
-# 如果有多个项目，提示用户选择
-if [ -z "$PROJECT_SLUG" ]; then
-  echo "找到以下项目："
-  ls -d "${WORKSPACE_PATH}"/*/ 2>/dev/null | xargs -I {} basename {}
-  echo "请指定项目名称"
+if [ -z "$WORKFLOW_STATE_FILE" ]; then
+  echo "请提供 WORKFLOW_STATE_FILE，路径应位于 workspace/workflow-runs/*.workflow.md"
   exit 1
 fi
 
-PROJECT_DIR="${WORKSPACE_PATH}/${PROJECT_SLUG}"
+if [ ! -f "$WORKFLOW_STATE_FILE" ]; then
+  echo "workflow state file 不存在：$WORKFLOW_STATE_FILE"
+  exit 1
+fi
 
-# 读取 todo.md
-cat ${PROJECT_DIR}/todo.md 2>/dev/null || echo "不存在"
+cat "$WORKFLOW_STATE_FILE"
+
+PROJECT_SLUG="$(awk -F': *' '/^project_slug:/ {gsub(/^"|"$/, "", $2); print $2; exit}' "$WORKFLOW_STATE_FILE")"
+PROJECT_DIR="${WORKSPACE_PATH}/${PROJECT_SLUG}"
 ```
 
 **状态检查：**
-- 如果 todo.md 不存在：提示用户先运行 `/research-planner` 创建意图文件
-- 如果 todo.md 存在但阶段 5 为 ⬜ 或 🔲：提示用户"笔记组装未完成，请先完成 `note-assembler`"
-- 如果 todo.md 存在且阶段 5 为 ✅，阶段 6 为 ⬜：允许执行，更新阶段 6 为 🔲 进行中
-- 如果 todo.md 存在且阶段 6 为 ✅：提示用户"美化已完成，是否要重新美化？"
+- 如果 workflow state file 不存在：提示用户先运行 `/research-planner` 创建运行状态文件。
+- 如果阶段 5 未 `✅ 已完成`：提示用户先完成 `note-assembler`。
+- 如果阶段 6 为 `⬜ 未开始`：允许执行，并用状态脚本启动 P6。
+- 如果阶段 6 已 `✅ 已完成`：提示用户“美化已完成，是否要重新美化？”
 
-**更新 todo.md 状态：**
+**更新 workflow state：**
 ```bash
 # 将阶段 6 标记为进行中
-.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" start P6
+.claude/scripts/todo-state.sh "$WORKFLOW_STATE_FILE" start P6
 ```
 
 **完成后更新状态：**
 ```bash
 # 将阶段 6 标记为完成
-.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" complete P6
+.claude/scripts/todo-state.sh "$WORKFLOW_STATE_FILE" complete P6
 ```
 
 ---
@@ -310,10 +310,10 @@ cat ${PROJECT_DIR}/todo.md 2>/dev/null || echo "不存在"
 3. 保持标签系统一致性
 ```
 
-**Update todo.md status after beautification:**
+**Update workflow state after beautification:**
 ```bash
 # Mark Phase 6 as complete (all phases done!)
-.claude/scripts/todo-state.sh "${PROJECT_DIR}/todo.md" complete P6
+.claude/scripts/todo-state.sh "$WORKFLOW_STATE_FILE" complete P6
 ```
 
 ## 美化模板库

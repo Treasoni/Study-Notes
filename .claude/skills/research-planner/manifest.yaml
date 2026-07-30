@@ -1,0 +1,20 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: research-planner
+  version: 1.0.0
+  description: "Clarify a learning request and initialize its named workflow run."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - research.plan
+  permissions:
+    filesystem: write
+    network: none
+    subprocess: allow
+    git: none
+  dependsOn:
+    - Skill/workflow-orchestrator
+  lifecycle:
+    discoverable: true
+    deprecated: false

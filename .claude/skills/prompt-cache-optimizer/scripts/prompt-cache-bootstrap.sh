@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install and audit prompt-cache conventions for Claude Code and Claude Code projects.
+# Install and audit prompt-cache conventions for Codex and Claude Code projects.
 
 set -euo pipefail
 
@@ -285,7 +285,7 @@ scan_prompts() {
 
 if [ "$MODE" = "apply" ]; then
   if platform_enabled codex; then
-    install_rule ".co""dex" "AGENTS.md" ".co""dex/rules/common/prompt-cache.md"
+    install_rule ".co""dex" "CLAUDE.md" ".co""dex/rules/common/prompt-cache.md"
   fi
   if platform_enabled claude; then
     install_rule ".claude" "CLAUDE.md" ".claude/rules/common/prompt-cache.md"
@@ -294,7 +294,7 @@ if [ "$MODE" = "apply" ]; then
   log "installation complete; run --check to review the project"
 else
   if platform_enabled codex; then
-    check_rule ".co""dex" "AGENTS.md"
+    check_rule ".co""dex" "CLAUDE.md"
   fi
   if platform_enabled claude; then
     check_rule ".claude" "CLAUDE.md"

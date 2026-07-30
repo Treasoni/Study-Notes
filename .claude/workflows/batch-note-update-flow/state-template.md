@@ -13,6 +13,11 @@ last_updated: "{date}"
 current_phase: P0
 current_status: not_started
 mode: standard
+confirmed_phases: ""
+skippable_phases: "P3"
+mode_dependent_skips: ""
+allowed_modes: ""
+mode_change_phase: ""
 blocked_reason: ""
 ---
 
@@ -91,6 +96,22 @@ blocked_reason: ""
 - [ ] 批量更新报告已保存：`./04_batch_update_report.md`
 
 > [P5] ⬜ 未开始
+
+---
+
+## 用户确认记录
+
+| 阶段 | 确认内容 | 时间 |
+|------|----------|------|
+| | | |
+
+---
+
+## 跳过记录
+
+| 阶段 | 确认内容 | 原因 | 时间 |
+|------|----------|------|------|
+| | | | |
 
 ---
 

@@ -65,7 +65,7 @@
   - [ ] 已按用户确认的策略局部更新
   - [ ] 更新报告已保存：`./updates/update_report.md`
 - **输出文件**: `updates/update_report.md`
-- **状态**: [P4] ⬜ 未开始（可用 `todo-state.sh skip P4 "无 update 项"` 标记跳过）
+- **状态**: [P4] ⬜ 未开始（如无 update 项，先启动 P4，再用 `todo-state.sh skip P4 "无 update 项"` 记录用户确认后跳过）
 
 ### 阶段 5: 发布与 MOC 同步
 - **负责技能**: /legacy-note-importer + /moc-organizer

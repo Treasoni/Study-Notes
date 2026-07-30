@@ -53,4 +53,4 @@ updated: {date}
 
 ## Automation Boundary
 
-“自动执行”在本项目中指：每次阶段 6 发布或更新笔记后，工作流必须调用本 skill 同步 MOC。不要依赖全局 Claude Code 配置。
+“自动执行”在本项目中指：每次阶段 6 发布或更新笔记后，工作流必须调用本 skill 同步 MOC。不要依赖全局 Codex 配置。

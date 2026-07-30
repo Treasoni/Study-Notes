@@ -1,0 +1,20 @@
+apiVersion: agent-platform/v1
+kind: Hook
+metadata:
+  name: post-conversation
+  version: 1.2.0
+  description: "Report project changes after a Codex conversation and optionally commit them."
+spec:
+  entrypoint: ../post_conversation.py
+  event: Stop
+  capabilities:
+    - lifecycle.project-status
+  permissions:
+    filesystem: write
+    network: none
+    subprocess: allow
+    git: write
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

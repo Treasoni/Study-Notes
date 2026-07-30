@@ -134,17 +134,19 @@ ${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}/
                   └── [PN] ⏭️ 跳过
 ```
 
-每个阶段的状态行由唯一的 `[P0]`～`[P7]` 前缀标识。状态脚本会同时更新阶段行、`current_phase`、`current_status`、`last_updated` 和 `blocked_reason`：
+每个阶段的状态行由唯一的 `[P0]`～`[P7]` 前缀标识。状态脚本会同时更新阶段行、`current_phase`、`current_status`、`last_updated`、`blocked_reason` 和确认记录。阶段只有在用户确认后才能完成；跳过阶段必须先启动并记录原因：
 ```bash
-.claude/scripts/todo-state.sh "${RUN_STATE_FILE}" start P2
-.claude/scripts/todo-state.sh "${RUN_STATE_FILE}" complete P2
-.claude/scripts/todo-state.sh "${RUN_STATE_FILE}" skip P3 "用户选择随性模式"
-.claude/scripts/todo-state.sh "${RUN_STATE_FILE}" block P2 "素材来源不足"
+.claude/scripts/todo-state.sh "$RUN_STATE_FILE" start P2
+.claude/scripts/todo-state.sh "$RUN_STATE_FILE" mode P2 freeform "用户选择随性模式"
+.claude/scripts/todo-state.sh "$RUN_STATE_FILE" confirm P2 "用户确认研究方向"
+.claude/scripts/todo-state.sh "$RUN_STATE_FILE" complete P2
+.claude/scripts/todo-state.sh "$RUN_STATE_FILE" start P3
+.claude/scripts/todo-state.sh "$RUN_STATE_FILE" skip P3 "随性模式不生成大纲"
 ```
 
 ## 执行模式
 
-工作流支持两种执行模式，在**阶段 3（大纲生成）** 选择分支：
+工作流支持两种执行模式，在**阶段 2（深度收集）完成前**选择分支：
 
 ### 大纲模式（默认）
 适用场景：需要结构化笔记输出的场景。流程：
@@ -159,23 +161,21 @@ ${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}/
 适用场景：快速笔记、心得、或用户明确表示"不需要大纲"。
 
 **触发规则**：
-1. 用户在阶段 2 完成后选择"跳过，直接出笔记"
-2. `outline-generator` 在 `03_outline.md` 中写入：
-   ```markdown
-   # 随性模式 - 无大纲
-   用户选择跳过结构化大纲，直接进入组装。
-   章节来源：按 `02_deep_research.md` 中的主题自由划分。
-   ```
-3. 调用状态脚本明确跳过阶段 3 和阶段 4：
+1. 用户在阶段 2 进行中选择"跳过，直接出笔记"。
+2. 调用状态脚本将运行模式持久化为 `freeform`，再确认并完成阶段 2：
    ```bash
-   .claude/scripts/todo-state.sh "${RUN_STATE_FILE}" skip P3 "用户选择随性模式"
-   .claude/scripts/todo-state.sh "${RUN_STATE_FILE}" skip P4 "随性模式不逐章写作"
+   .claude/scripts/todo-state.sh "$RUN_STATE_FILE" mode P2 freeform "用户选择随性模式"
+   .claude/scripts/todo-state.sh "$RUN_STATE_FILE" confirm P2 "用户确认直接组装"
+   .claude/scripts/todo-state.sh "$RUN_STATE_FILE" complete P2
    ```
-4. 在 workflow state file 的**方向调整记录**中登记：
+3. 依次启动并跳过阶段 3 和阶段 4；脚本会把选择写入方向调整记录和跳过记录：
+   ```bash
+   .claude/scripts/todo-state.sh "$RUN_STATE_FILE" start P3
+   .claude/scripts/todo-state.sh "$RUN_STATE_FILE" skip P3 "随性模式不生成大纲"
+   .claude/scripts/todo-state.sh "$RUN_STATE_FILE" start P4
+   .claude/scripts/todo-state.sh "$RUN_STATE_FILE" skip P4 "随性模式不逐章写作"
    ```
-   | {date} | 大纲模式 | 随性模式（跳过阶段 3-4） | 否 |
-   ```
-5. 直接跳入阶段 5（使用自由组装模式 C：保持零散片段）
+4. 直接跳入阶段 5（使用自由组装模式 C：保持零散片段）。
 
 **决策点**：阶段 2 结束时，`research-collector` 询问用户："是进入大纲模式（逐章写），还是随性模式（直接出笔记）？"
 
