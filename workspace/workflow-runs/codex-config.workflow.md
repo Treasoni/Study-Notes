@@ -90,7 +90,7 @@ blocked_reason: ""
 - [x] 第 4 章已写完并确认
 - [x] 第 5 章已写完并确认
 - [x] 第 6 章已写完
-- [ ] 第 7 章已写完
+- [x] 第 7 章已写完
 - [ ] 第 8 章已写完
 
 **进度**：{completed_chapters}/{total_chapters}
