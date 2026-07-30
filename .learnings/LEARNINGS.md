@@ -1,5 +1,23 @@
 # LEARNINGS.md
 
+## [2026-07-31] Codex 配置笔记 — 笔记拆分策略
+
+### 大笔记必须主动建议拆分
+
+**类别**：best_practice
+**优先级**：high
+**状态**：pending
+**范围**：note-beautifier / note-assembler / workflow
+
+**摘要**：长篇笔记（>~30KB 或多章节）默认不应输出为单一 Monolithic 文件；应在组装或美化阶段主动向用户建议拆分方案。
+
+**详情**：
+- 事实：用户要求写 Codex 配置笔记，完整流程生成了 75KB / 1876 行的单文件笔记。用户反问"你不拆分吗？"
+- 根因：工作流默认产出单一 final_note.md，note-beautifier 和 note-assembler 均未检测文件大小或多章节结构并提示拆分
+- 下次做法：P5 组装后 / P6 美化前，检测笔记是否 > 30KB 或包含 3+ 章节；若是，主动给出拆分方案（独立章节 + 前后导航 + MOC 索引），让用户选择
+
+---
+
 ## [2026-06-01] OpenSpec 学习笔记 - Session Learnings
 
 ### 流程方面
