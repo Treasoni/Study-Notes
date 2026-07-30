@@ -114,9 +114,27 @@
     },
     "虚拟机": {
       "children": [
+        "虚拟机/虚拟机 MOC.md",
+        "虚拟机/VMware Workstation Player 安装 Windows 虚拟机.md",
         "虚拟机/虚拟网络模式",
         "虚拟机/assets",
         "虚拟机/VMware 获取虚拟机所有权失败.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "虚拟机/虚拟网络模式": {
+      "children": [
+        "虚拟机/虚拟网络模式/10_虚拟网络技术全景对比与选型.md",
+        "虚拟机/虚拟网络模式/09_Kubernetes网络模型与CNI插件.md",
+        "虚拟机/虚拟网络模式/08_Docker容器网络模式下.md",
+        "虚拟机/虚拟网络模式/07_Docker容器网络模式上.md",
+        "虚拟机/虚拟网络模式/06_虚拟机网络模式.md",
+        "虚拟机/虚拟网络模式/05_Linux网络命名空间与veth.md",
+        "虚拟机/虚拟网络模式/04_软件定义网络SDN.md",
+        "虚拟机/虚拟网络模式/03_VXLAN覆盖网络.md",
+        "虚拟机/虚拟网络模式/02_VLAN与VLANIF.md",
+        "虚拟机/虚拟网络模式/01_虚拟网络概述.md",
+        "虚拟机/虚拟网络模式/00_索引.md"
       ],
       "sortOrder": "custom"
     },
@@ -614,7 +632,6 @@
         "linux/linux如何修改网络信息.md",
         "linux/sortspec.md",
         "linux/Ubuntu curl SSL连接问题排查.md",
-        "linux/Ubuntu Server 安装教程.md",
         "linux/Ubuntu Server SSH 配置指南.md",
         "linux/WSL-Windows子系统forLinux.md"
       ],
@@ -663,6 +680,7 @@
     },
     "linux/Linux网络信息获取与概念": {
       "children": [
+        "linux/Linux网络信息获取与概念/11_网络查询命令速查表.md",
         "linux/Linux网络信息获取与概念/_index.md",
         "linux/Linux网络信息获取与概念/01_网络信息查询概览与工具链.md",
         "linux/Linux网络信息获取与概念/02_网络接口与链路层信息.md",
@@ -674,6 +692,13 @@
         "linux/Linux网络信息获取与概念/08_无线网络信息.md",
         "linux/Linux网络信息获取与概念/09_网络监控与统计.md",
         "linux/Linux网络信息获取与概念/10_抓包与协议分析基础.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "linux/linux系统安装教程": {
+      "children": [
+        "linux/linux系统安装教程/Debian安装教程.md",
+        "linux/linux系统安装教程/Ubuntu Server 安装教程.md"
       ],
       "sortOrder": "custom"
     },
@@ -1235,6 +1260,8 @@
     },
     "workspace": {
       "children": [
+        "workspace/debian系统安装教程",
+        "workspace/vmware-windows-vm",
         "workspace/linux-commands",
         "workspace/linux-network-info-concepts",
         "workspace/virtual-networking",
@@ -1431,6 +1458,36 @@
       ],
       "sortOrder": "custom"
     },
+    "workspace/debian系统安装教程": {
+      "children": [
+        "workspace/debian系统安装教程/chapters",
+        "workspace/debian系统安装教程/output",
+        "workspace/debian系统安装教程/00_intent.md",
+        "workspace/debian系统安装教程/01_explore_result.md",
+        "workspace/debian系统安装教程/02_deep_research.md",
+        "workspace/debian系统安装教程/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/debian系统安装教程/chapters": {
+      "children": [
+        "workspace/debian系统安装教程/chapters/01_Debian概述与版本选择.md",
+        "workspace/debian系统安装教程/chapters/02_安装前的准备工作.md",
+        "workspace/debian系统安装教程/chapters/03_安装步骤全流程.md",
+        "workspace/debian系统安装教程/chapters/04_安装后基础配置.md",
+        "workspace/debian系统安装教程/chapters/05_桌面环境与中文配置.md",
+        "workspace/debian系统安装教程/chapters/06_服务器安全加固.md",
+        "workspace/debian系统安装教程/chapters/07_软件包管理与版本升级.md",
+        "workspace/debian系统安装教程/chapters/08_常见问题与排错.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/debian系统安装教程/output": {
+      "children": [
+        "workspace/debian系统安装教程/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
     "workspace/linux-commands": {
       "children": [
         "workspace/linux-commands/chapters",
@@ -1601,17 +1658,6 @@
       ],
       "sortOrder": "custom"
     },
-    "workspace/workflow-runs": {
-      "children": [
-        "workspace/workflow-runs/linux-commands.workflow.md",
-        "workspace/workflow-runs/linux-network-info-concepts.workflow.md",
-        "workspace/workflow-runs/virtual-networking.workflow.md",
-        "workspace/workflow-runs/matt-pocock-skills.workflow.md",
-        "workspace/workflow-runs/nodejs-ai-application.workflow.md",
-        "workspace/workflow-runs/superpowers.workflow.md"
-      ],
-      "sortOrder": "custom"
-    },
     "workspace/virtual-networking": {
       "children": [
         "workspace/virtual-networking/output",
@@ -1660,24 +1706,31 @@
       ],
       "sortOrder": "custom"
     },
-    "虚拟机/虚拟网络模式": {
+    "workspace/vmware-windows-vm": {
       "children": [
-        "虚拟机/虚拟网络模式/10_虚拟网络技术全景对比与选型.md",
-        "虚拟机/虚拟网络模式/09_Kubernetes网络模型与CNI插件.md",
-        "虚拟机/虚拟网络模式/08_Docker容器网络模式下.md",
-        "虚拟机/虚拟网络模式/07_Docker容器网络模式上.md",
-        "虚拟机/虚拟网络模式/06_虚拟机网络模式.md",
-        "虚拟机/虚拟网络模式/05_Linux网络命名空间与veth.md",
-        "虚拟机/虚拟网络模式/04_软件定义网络SDN.md",
-        "虚拟机/虚拟网络模式/03_VXLAN覆盖网络.md",
-        "虚拟机/虚拟网络模式/02_VLAN与VLANIF.md",
-        "虚拟机/虚拟网络模式/01_虚拟网络概述.md",
-        "虚拟机/虚拟网络模式/00_索引.md"
+        "workspace/vmware-windows-vm/output",
+        "workspace/vmware-windows-vm/00_intent.md",
+        "workspace/vmware-windows-vm/01_explore_result.md"
       ],
       "sortOrder": "custom"
     },
-    "linux/linux系统安装教程": {
-      "children": [],
+    "workspace/vmware-windows-vm/output": {
+      "children": [
+        "workspace/vmware-windows-vm/output/VMware Workstation Player 安装 Windows 虚拟机.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/workflow-runs": {
+      "children": [
+        "workspace/workflow-runs/debian系统安装教程.workflow.md",
+        "workspace/workflow-runs/vmware-windows-vm.workflow.md",
+        "workspace/workflow-runs/linux-commands.workflow.md",
+        "workspace/workflow-runs/linux-network-info-concepts.workflow.md",
+        "workspace/workflow-runs/virtual-networking.workflow.md",
+        "workspace/workflow-runs/matt-pocock-skills.workflow.md",
+        "workspace/workflow-runs/nodejs-ai-application.workflow.md",
+        "workspace/workflow-runs/superpowers.workflow.md"
+      ],
       "sortOrder": "custom"
     }
   },
