@@ -87,6 +87,8 @@ blocked_reason: ""
 - [x] 第 1 章已写完并确认
 - [x] 第 2 章已写完并确认
 - [x] 第 3 章已写完并确认
+- [x] 第 4 章已写完并确认
+- [x] 第 5 章已写完
 - [ ] ...（根据实际章节数添加）
 
 **进度**：{completed_chapters}/{total_chapters}
