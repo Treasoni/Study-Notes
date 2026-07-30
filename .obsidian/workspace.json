@@ -283,8 +283,9 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "6317a39668190194",
+  "active": "d0d8383a692e3423",
   "lastOpenFiles": [
+    "workspace/codex-config/chapters/03_指令与规则——AGENTS.md分层体系.md",
     "AI学习/Claude Code 教程/Claude Code MOC.md",
     "workspace/codex-config/chapters/02_核心配置——config.toml全面解读.md",
     "AI学习/Claude Code 教程/高级功能/CLAUDE.md 使用指南-update_report.md",
@@ -310,7 +311,6 @@
     "AI学习/Claude Code 教程/02-基础功能/Claude Code 会话管理.md",
     "AI学习/Claude Code 教程/02-基础功能/Claude Code CLI 完整参考.md",
     "AI学习/Claude Code 教程/02-基础功能/Claude Code 常用功能.md",
-    "AI学习/Claude Code 教程/01-入门/如何使用Claude code.md",
     "AI学习/Claude Code 教程/05-实战练习",
     "AI学习/Claude Code 教程/04-高级功能",
     "AI学习/Claude Code 教程/03-进阶应用",
