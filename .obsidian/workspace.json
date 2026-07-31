@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Git/Git 入门教程.md",
+                "file": "Git/Git 安装配置教程.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Git 入门教程"
+              "title": "Git 安装配置教程"
             }
           }
         ],
@@ -191,13 +191,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Git/Git 入门教程.md",
+                "file": "Git/Git 安装配置教程.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Git 入门教程 的大纲"
+              "title": "Git 安装配置教程 的大纲"
             }
           },
           {
@@ -241,7 +241,7 @@
             }
           }
         ],
-        "currentTab": 8
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -269,20 +269,20 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "d0d8383a692e3423",
+  "active": "f5f6330a45d67f9a",
   "lastOpenFiles": [
-    "workspace/workflow-runs/C6s2G64z",
-    "workspace/workflow-runs/git安装配置教程.workflow.md.TnpFtV",
-    "workspace/workflow-runs/git安装配置教程.workflow.md.IEf4rs",
-    "workspace/workflow-runs/git安装配置教程.workflow.md.U0FfEK",
-    "workspace/workflow-runs/git安装配置教程.workflow.md.pwaagx",
-    "workspace/workflow-runs/PMc5wCyY",
-    "workspace/workflow-runs/git安装配置教程.workflow.md.jZ64Uj",
-    "workspace/workflow-runs/git安装配置教程.workflow.md.uyLlXR",
-    "workspace/workflow-runs/git安装配置教程.workflow.md.TXlYpj",
+    "Git/Git 入门教程.md",
+    "workspace/workflow-runs/6b7vfH7a",
+    "workspace/workflow-runs/git安装配置教程.workflow.md.WzPNJb",
+    "workspace/workflow-runs/git安装配置教程.workflow.md.kjrhqi",
+    "workspace/workflow-runs/git安装配置教程.workflow.md.lklBUs",
+    "workspace/workflow-runs/git安装配置教程.workflow.md.sG5jAT",
+    "workspace/workflow-runs/YFzlcsjM",
+    "workspace/workflow-runs/git安装配置教程.workflow.md.cSlrfr",
+    "workspace/workflow-runs/git安装配置教程.workflow.md.Wlos2p",
+    "workspace/workflow-runs/git安装配置教程.workflow.md.CXksuZ",
+    "workspace/workflow-runs/2hwgf2x0",
     "Git/Git 安装配置教程.md",
-    "workspace/workflow-runs/8hcQz54z",
-    "workspace/workflow-runs/git安装配置教程.workflow.md.6znlmS",
     "workspace/git安装配置教程/output/final_note.md",
     "workspace/git安装配置教程/chapters/07_收尾验证与常见问题速查.md",
     "workspace/git安装配置教程/chapters/06_实用别名与全局忽略.md",
