@@ -74,6 +74,8 @@ claude --version
 > # ② 从官方源重装（需代理，强制 optional 依赖 + 前台日志）
 > npm install -g @anthropic-ai/claude-code --include=optional --foreground-scripts --registry=https://registry.npmjs.org/
 > ```
+>
+> 安装过程被 `npm warn allow-scripts` 拦截、postinstall 未执行时，按 [[#npm 安装被 allow-scripts 拦截（postinstall 未执行）]] 处理。
 
 **升级**：npm 方式**不自动更新**，手动执行：
 
@@ -535,6 +537,42 @@ npm install -g @anthropic-ai/claude-code --include=optional --foreground-scripts
 
 > 安装成功后 `claude.exe` 约 200MB+，可据此判断 stub 是否被替换；仍不行则改用官方原生安装器。
 
+#### npm 安装被 allow-scripts 拦截（postinstall 未执行）
+
+> [!warning] 问题现象
+> 全局安装时输出：
+> ```text
+> npm warn allow-scripts 1 package has install scripts not yet covered by allowScripts:
+> npm warn allow-scripts   @anthropic-ai/claude-code@2.1.220 (postinstall: node install.cjs)
+> npm warn allow-scripts
+> npm warn allow-scripts Run `npm approve-scripts --allow-scripts-pending` to review, or `npm approve-scripts <pkg>` to allow.
+> ```
+
+> [!tip] 原因
+> npm 11.16+ 引入 `allowScripts` 安装脚本策略，对**未审阅**的 postinstall 脚本输出警告（11.x 仅警告、脚本仍执行；**npm v12 起默认真正拦截**）。`@anthropic-ai/claude-code` 的 postinstall（`node install.cjs`）负责下载配置原生二进制，脚本被跳过时只装上壳包，运行报 `claude native binary not installed`。
+>
+> `npm approve-scripts <pkg>` 只对**本地项目**（有 `package.json`）生效；全局安装（`-g`）没有可写 `allowScripts` 字段的 `package.json`，会报错（官方错误码 `EGLOBAL`，也可能显示 `ENOMATCH`）。
+
+**解决方法**（全局安装场景，任选其一）：
+
+```bash
+# ① 安装时显式放行 claude-code 的 postinstall
+npm install -g @anthropic-ai/claude-code --allow-scripts=@anthropic-ai/claude-code
+
+# ② 写入 npm 用户配置持久化（--location=user），之后安装不用再带参数
+npm config set allow-scripts=@anthropic-ai/claude-code --location=user
+npm install -g @anthropic-ai/claude-code
+
+# ③ 想看 postinstall 实时日志（可选）
+npm config set foreground-scripts true
+```
+
+> [!warning] 别用 `npm config set allow-scripts true`
+> `allow-scripts` 是**包名列表**（逗号分隔字符串），不是布尔开关；写 `true` 只是加了一条名为 `true` 的包名，不会放行 claude-code。真要全放行用 `--dangerously-allow-all-scripts`，全禁止用 `--ignore-scripts`。
+
+> [!tip] 成功判定
+> 日志中出现 `> @anthropic-ai/claude-code@2.1.220 postinstall` / `> node install.cjs` 即代表脚本已执行；末尾的 `npm warn allow-scripts` 只是例行提示，不影响结果。最终以 `claude --version` 输出版本号为准；若提示 `'claude' 不是内部或外部命令`，把 `C:\Users\<用户名>\AppData\Roaming\npm` 加入系统 Path 并重启终端。
+
 ### 代理问题
 
 | 问题 | 解决 |
@@ -859,3 +897,4 @@ CLAUDE_CODE_DISABLE_AUTO_MEMORY=0 claude
 | 日期 | 变更 |
 |------|------|
 | 2026-07-31 | 新增「国内网络安装」专题（0️⃣）：代理+官方安装器 / npm+npmmirror 镜像 / Homebrew / GitHub 加速 + 需放行域名表；纠正 npm「已废弃」为「官方仍支持」；Node.js 要求 v18+ → v22+（v2.1.198 起）；版本号更新至 v2.1.220；新增 npm 安装「native binary not installed」FAQ |
+| 2026-07-31 | 新增 FAQ「npm 安装被 allow-scripts 拦截（postinstall 未执行）」：npm 11.16+ allowScripts 策略、全局安装放行用 `--allow-scripts=<pkg>` / `allow-scripts=<pkg>`；方案 B 增加交叉引用 |

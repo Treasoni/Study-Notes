@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Git/Git 安装配置教程.md",
+                "file": "AI学习/Claude Code 教程/01-入门/如何使用Claude code.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Git 安装配置教程"
+              "title": "如何使用Claude code"
             }
           }
         ],
@@ -191,13 +191,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Git/Git 安装配置教程.md",
+                "file": "AI学习/Claude Code 教程/01-入门/如何使用Claude code.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Git 安装配置教程 的大纲"
+              "title": "如何使用Claude code 的大纲"
             }
           },
           {
@@ -241,7 +241,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 8
       }
     ],
     "direction": "horizontal",
@@ -269,8 +269,9 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "f5f6330a45d67f9a",
+  "active": "d0d8383a692e3423",
   "lastOpenFiles": [
+    "Git/Git 安装配置教程.md",
     "Git/Git 入门教程.md",
     "workspace/workflow-runs/6b7vfH7a",
     "workspace/workflow-runs/git安装配置教程.workflow.md.WzPNJb",
@@ -282,7 +283,6 @@
     "workspace/workflow-runs/git安装配置教程.workflow.md.Wlos2p",
     "workspace/workflow-runs/git安装配置教程.workflow.md.CXksuZ",
     "workspace/workflow-runs/2hwgf2x0",
-    "Git/Git 安装配置教程.md",
     "workspace/git安装配置教程/output/final_note.md",
     "workspace/git安装配置教程/chapters/07_收尾验证与常见问题速查.md",
     "workspace/git安装配置教程/chapters/06_实用别名与全局忽略.md",
