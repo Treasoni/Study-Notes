@@ -10,10 +10,10 @@ topic: "git安装配置教程"
 project_slug: "git安装配置教程"
 created_at: "2026-07-31"
 last_updated: "2026-07-31"
-current_phase: P5
-current_status: in_progress
+current_phase: P7
+current_status: ready
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：git安装配置教程
 > 项目标识：git安装配置教程
 > 创建时间：2026-07-31
-> 当前阶段：阶段 5
+> 当前阶段：阶段 7
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -107,7 +107,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中
+> [P5] ✅ 已完成
 
 ---
 
@@ -117,7 +117,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成
 
 ---
 
@@ -135,6 +135,8 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P6 | 用户确认发布位置 Git/Git 安装配置教程.md | 2026-07-31 12:58 |
+| P5 | 用户确认组装结果和 Obsidian 输出位置 | 2026-07-31 12:57 |
 | P4 | 七章全部完成并确认 | 2026-07-31 12:54 |
 | P3 | 用户确认大纲，进入大纲模式逐章写作 | 2026-07-31 12:41 |
 | P2 | 用户确认素材质量，选择大纲模式 | 2026-07-31 12:39 |
