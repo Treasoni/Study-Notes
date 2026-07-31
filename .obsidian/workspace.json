@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/Claude Code 教程/01-入门/如何使用Claude code.md",
+                "file": "Git/Git 入门教程.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "如何使用Claude code"
+              "title": "Git 入门教程"
             }
           }
         ],
@@ -191,13 +191,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/Claude Code 教程/01-入门/如何使用Claude code.md",
+                "file": "Git/Git 入门教程.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "如何使用Claude code 的大纲"
+              "title": "Git 入门教程 的大纲"
             }
           },
           {
@@ -241,7 +241,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 8
       }
     ],
     "direction": "horizontal",
@@ -269,8 +269,22 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "ce5373aab5e5045b",
+  "active": "d0d8383a692e3423",
   "lastOpenFiles": [
+    "workspace/workflow-runs/8iTLVnzk",
+    "workspace/workflow-runs/git安装配置教程.workflow.md.TohrWS",
+    "workspace/workflow-runs/git安装配置教程.workflow.md.p3ojkg",
+    "workspace/workflow-runs/git安装配置教程.workflow.md.Cq16xR",
+    "workspace/workflow-runs/git安装配置教程.workflow.md.xXTrwR",
+    "workspace/workflow-runs/IA1g9dpB",
+    "workspace/workflow-runs/DvuwTrbr",
+    "workspace/workflow-runs/git安装配置教程.workflow.md.zOHOnf",
+    "workspace/workflow-runs/git安装配置教程.workflow.md.xhtUM7",
+    "workspace/workflow-runs/git安装配置教程.workflow.md.T96nko",
+    "workspace/workflow-runs/git安装配置教程.workflow.md.br4qtH",
+    "workspace/git安装配置教程/00_intent.md",
+    "workspace/workflow-runs/git安装配置教程.workflow.md",
+    "AI学习/Claude Code 教程/01-入门/如何使用Claude code.md",
     "AI学习/Claude Code 教程/01-入门/如何使用Claude code-update_report.md",
     "AI学习/00-索引/AI学习 MOC.md",
     "linux/linux如何修改网络信息.md",
@@ -291,22 +305,8 @@
     "AI学习/Codex/03 AGENTS.md 分层体系.md",
     "AI学习/Codex/02 config.toml 核心配置.md",
     "AI学习/Codex/01 配置哲学概览.md",
-    "AI学习/Claude Code 教程/01-入门/如何使用Claude code.md",
     "AI学习/CLAUDE.md",
-    "workspace/workflow-runs/r64VoiER",
-    "workspace/workflow-runs/codex-config.workflow.md.NYlLjz",
-    "workspace/workflow-runs/codex-config.workflow.md.AbyBO8",
-    "workspace/workflow-runs/codex-config.workflow.md.R7a9sV",
-    "workspace/workflow-runs/codex-config.workflow.md.MSGfwW",
-    "workspace/workflow-runs/2bhwjSvM",
-    "workspace/workflow-runs/codex-config.workflow.md.UKg6pO",
-    "workspace/workflow-runs/codex-config.workflow.md.ZGYtB9",
-    "workspace/workflow-runs/HnqChFRj",
-    "workspace/workflow-runs/iRaWYz1v",
     "AI学习/Codex 完整配置体系.md",
-    "AI学习/Codex 1/附录 快速参考卡片.md",
-    "AI学习/Codex 1/08 对照表与迁移实战.md",
-    "AI学习/Codex 1/07 CLI 与调试.md",
     "虚拟机/assets/VMware 启动出现 No Media 报错/file-20260731001315730.png",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/图-固定偏置共射动态指标-Au-Ri-Ro.png",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/图-固定偏置共射动态指标-Au-Ri-Ro.svg",
