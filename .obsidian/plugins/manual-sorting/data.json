@@ -114,6 +114,7 @@
     },
     "虚拟机": {
       "children": [
+        "虚拟机/VMware 启动出现 No Media 报错.md",
         "虚拟机/虚拟机 MOC.md",
         "虚拟机/VMware Workstation Player 安装 Windows 虚拟机.md",
         "虚拟机/虚拟网络模式",
@@ -140,6 +141,7 @@
     },
     "虚拟机/assets": {
       "children": [
+        "虚拟机/assets/VMware 启动出现 No Media 报错",
         "虚拟机/assets/VMware 获取虚拟机所有权失败"
       ],
       "sortOrder": "custom"
@@ -150,8 +152,15 @@
       ],
       "sortOrder": "custom"
     },
+    "虚拟机/assets/VMware 启动出现 No Media 报错": {
+      "children": [
+        "虚拟机/assets/VMware 启动出现 No Media 报错/file-20260731001315730.png"
+      ],
+      "sortOrder": "custom"
+    },
     "AI学习": {
       "children": [
+        "AI学习/Codex",
         "AI学习/00-索引",
         "AI学习/01-基础概念",
         "AI学习/02-通用工具",
@@ -159,10 +168,7 @@
         "AI学习/04-项目实践",
         "AI学习/assets",
         "AI学习/Claude Code 教程",
-        "AI学习/docs",
-        "AI学习/Maps",
         "AI学习/Notes",
-        "AI学习/CLAUDE.md",
         "AI学习/sortspec.md"
       ],
       "sortOrder": "custom"
@@ -341,34 +347,58 @@
     },
     "AI学习/Claude Code 教程": {
       "children": [
+        "AI学习/Claude Code 教程/01-入门",
+        "AI学习/Claude Code 教程/02-基础功能",
+        "AI学习/Claude Code 教程/03-进阶应用",
+        "AI学习/Claude Code 教程/04-高级功能",
+        "AI学习/Claude Code 教程/Claude Code MOC.md",
         "AI学习/Claude Code 教程/高级功能",
         "AI学习/Claude Code 教程/assets",
-        "AI学习/Claude Code 教程/如何使用Claude code.md",
-        "AI学习/Claude Code 教程/Claude Code 插件系统使用指南.md",
-        "AI学习/Claude Code 教程/Claude Code 常用功能.md",
-        "AI学习/Claude Code 教程/Claude Code 定时任务自动化指南.md",
-        "AI学习/Claude Code 教程/Claude Code 高级功能.md",
-        "AI学习/Claude Code 教程/Claude Code 会话管理.md",
-        "AI学习/Claude Code 教程/Claude Code 模型与推理设置.md",
-        "AI学习/Claude Code 教程/Claude Code Checkpoints 使用指南.md",
-        "AI学习/Claude Code 教程/Claude Code CLI 完整参考.md",
-        "AI学习/Claude Code 教程/Claude Code Hooks 使用指南.md",
-        "AI学习/Claude Code 教程/Claude Code Memory 完整指南.md",
-        "AI学习/Claude Code 教程/Claude Code Slash Commands 完整参考.md",
-        "AI学习/Claude Code 教程/Claude Code Subagents 完整指南.md",
-        "AI学习/Claude Code 教程/Claude MCP 使用指南.md",
-        "AI学习/Claude Code 教程/Claude-Code-多Agent流程设计.md",
-        "AI学习/Claude Code 教程/settings.json 配置详解.md",
-        "AI学习/Claude Code 教程/sortspec.md",
-        "AI学习/Claude Code 教程/Subagent 实战练习.md"
+        "AI学习/Claude Code 教程/sortspec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/Claude Code 教程/01-入门": {
+      "children": [
+        "AI学习/Claude Code 教程/01-入门/如何使用Claude code.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/Claude Code 教程/02-基础功能": {
+      "children": [
+        "AI学习/Claude Code 教程/02-基础功能/Claude Code 常用功能.md",
+        "AI学习/Claude Code 教程/02-基础功能/Claude Code 会话管理.md",
+        "AI学习/Claude Code 教程/02-基础功能/Claude Code 模型与推理设置.md",
+        "AI学习/Claude Code 教程/02-基础功能/Claude Code CLI 完整参考.md",
+        "AI学习/Claude Code 教程/02-基础功能/settings.json 配置详解.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/Claude Code 教程/03-进阶应用": {
+      "children": [
+        "AI学习/Claude Code 教程/03-进阶应用/Claude Code 插件系统使用指南.md",
+        "AI学习/Claude Code 教程/03-进阶应用/Claude Code Checkpoints 使用指南.md",
+        "AI学习/Claude Code 教程/03-进阶应用/Claude Code Hooks 使用指南.md",
+        "AI学习/Claude Code 教程/03-进阶应用/Claude Code Memory 完整指南.md",
+        "AI学习/Claude Code 教程/03-进阶应用/Claude Code Subagents 完整指南.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/Claude Code 教程/04-高级功能": {
+      "children": [
+        "AI学习/Claude Code 教程/04-高级功能/如何编写Skills.md",
+        "AI学习/Claude Code 教程/04-高级功能/Claude Code 定时任务自动化指南.md",
+        "AI学习/Claude Code 教程/04-高级功能/Claude Code 高级功能.md",
+        "AI学习/Claude Code 教程/04-高级功能/Claude Code Dynamic Workflows 使用指南.md",
+        "AI学习/Claude Code 教程/04-高级功能/Claude Code Slash Commands 完整参考.md",
+        "AI学习/Claude Code 教程/04-高级功能/Claude MCP 使用指南.md",
+        "AI学习/Claude Code 教程/04-高级功能/CLAUDE.md 使用指南.md",
+        "AI学习/Claude Code 教程/04-高级功能/LLM-Prompt-Caching-提示缓存.md"
       ],
       "sortOrder": "custom"
     },
     "AI学习/Claude Code 教程/高级功能": {
       "children": [
-        "AI学习/Claude Code 教程/高级功能/如何编写Skills.md",
-        "AI学习/Claude Code 教程/高级功能/Claude Code Dynamic Workflows 使用指南.md",
-        "AI学习/Claude Code 教程/高级功能/CLAUDE.md 使用指南.md",
         "AI学习/Claude Code 教程/高级功能/CLAUDE.md 使用指南-update_report.md"
       ],
       "sortOrder": "custom"
@@ -385,22 +415,18 @@
       ],
       "sortOrder": "custom"
     },
-    "AI学习/docs": {
+    "AI学习/Codex": {
       "children": [
-        "AI学习/docs/architecture.md",
-        "AI学习/docs/changelog.md",
-        "AI学习/docs/error-handling.md",
-        "AI学习/docs/experience-notes.md",
-        "AI学习/docs/learnings-digest.md",
-        "AI学习/docs/phases.md",
-        "AI学习/docs/pre-task-init.md",
-        "AI学习/docs/updating-notes.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/Maps": {
-      "children": [
-        "AI学习/Maps/Node.js 基础概念 MOC.md"
+        "AI学习/Codex/01 配置哲学概览.md",
+        "AI学习/Codex/02 config.toml 核心配置.md",
+        "AI学习/Codex/03 AGENTS.md 分层体系.md",
+        "AI学习/Codex/04 Skills 技能系统.md",
+        "AI学习/Codex/05 Agents 与 MCP.md",
+        "AI学习/Codex/06 Hooks 与插件.md",
+        "AI学习/Codex/07 CLI 与调试.md",
+        "AI学习/Codex/08 对照表与迁移实战.md",
+        "AI学习/Codex/附录 快速参考卡片.md",
+        "AI学习/Codex/Codex 配置体系 MOC.md"
       ],
       "sortOrder": "custom"
     },
@@ -1260,6 +1286,7 @@
     },
     "workspace": {
       "children": [
+        "workspace/codex-config",
         "workspace/debian系统安装教程",
         "workspace/vmware-windows-vm",
         "workspace/linux-commands",
@@ -1455,6 +1482,36 @@
       "children": [
         "workspace/claude-code-tutorial/updates/20/stale_map.md",
         "workspace/claude-code-tutorial/updates/20/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/codex-config": {
+      "children": [
+        "workspace/codex-config/chapters",
+        "workspace/codex-config/output",
+        "workspace/codex-config/00_intent.md",
+        "workspace/codex-config/01_explore_result.md",
+        "workspace/codex-config/02_deep_research.md",
+        "workspace/codex-config/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/codex-config/chapters": {
+      "children": [
+        "workspace/codex-config/chapters/01_配置哲学概览.md",
+        "workspace/codex-config/chapters/02_核心配置——config.toml全面解读.md",
+        "workspace/codex-config/chapters/03_指令与规则——AGENTS.md分层体系.md",
+        "workspace/codex-config/chapters/04_Skills技能系统——创建、注册与共享.md",
+        "workspace/codex-config/chapters/05_Agents子代理与MCP服务配置.md",
+        "workspace/codex-config/chapters/06_Hooks生命周期钩子与插件体系.md",
+        "workspace/codex-config/chapters/07_CLI与调试——日常操作与故障排查.md",
+        "workspace/codex-config/chapters/08_完整对照表与从ClaudeCode迁移实战.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/codex-config/output": {
+      "children": [
+        "workspace/codex-config/output/final_note.md"
       ],
       "sortOrder": "custom"
     },
@@ -1722,6 +1779,7 @@
     },
     "workspace/workflow-runs": {
       "children": [
+        "workspace/workflow-runs/codex-config.workflow.md",
         "workspace/workflow-runs/debian系统安装教程.workflow.md",
         "workspace/workflow-runs/vmware-windows-vm.workflow.md",
         "workspace/workflow-runs/linux-commands.workflow.md",
