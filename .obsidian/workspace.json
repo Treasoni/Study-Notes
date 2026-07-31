@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI学习/00-索引/AI学习 MOC.md",
+                "file": "AI学习/Claude Code 教程/01-入门/如何使用Claude code.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "AI学习 MOC"
+              "title": "如何使用Claude code"
             }
           }
         ],
@@ -191,13 +191,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI学习/00-索引/AI学习 MOC.md",
+                "file": "AI学习/Claude Code 教程/01-入门/如何使用Claude code.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "AI学习 MOC 的大纲"
+              "title": "如何使用Claude code 的大纲"
             }
           },
           {
@@ -241,7 +241,7 @@
             }
           }
         ],
-        "currentTab": 8
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -271,6 +271,8 @@
   },
   "active": "ce5373aab5e5045b",
   "lastOpenFiles": [
+    "AI学习/Claude Code 教程/01-入门/如何使用Claude code-update_report.md",
+    "AI学习/00-索引/AI学习 MOC.md",
     "linux/linux如何修改网络信息.md",
     "AI学习/docs/updating-notes.md",
     "AI学习/docs/pre-task-init.md",
@@ -305,8 +307,6 @@
     "AI学习/Codex 1/附录 快速参考卡片.md",
     "AI学习/Codex 1/08 对照表与迁移实战.md",
     "AI学习/Codex 1/07 CLI 与调试.md",
-    "AI学习/Codex 1/06 Hooks 与插件.md",
-    "AI学习/Codex 1/05 Agents 与 MCP.md",
     "虚拟机/assets/VMware 启动出现 No Media 报错/file-20260731001315730.png",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/图-固定偏置共射动态指标-Au-Ri-Ro.png",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/图-固定偏置共射动态指标-Au-Ri-Ro.svg",

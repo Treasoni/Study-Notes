@@ -1,7 +1,7 @@
 ---
 title: Claude Code 使用指南
 tags: [ai, 工具使用, claude-code, 入门]
-updated: 2026-07-12
+updated: 2026-07-31
 status: updated
 source_project: claude-code-tutorial
 ---
@@ -16,6 +16,88 @@ source_project: claude-code-tutorial
 ---
 
 ## 一、快速安装
+
+### 0️⃣ 国内网络安装（重点）
+
+> [!tip] 先判断你有没有代理
+> - **有代理** → 直接走第 1️⃣ 节的官方原生安装器，保持自动更新，最省心。
+> - **没有代理** → 用方案 B（npm + 国内镜像），全程不走外网即可装完，但需手动升级。
+
+#### 需要放行的域名
+
+| 域名 | 用途 | 国内直连 |
+|------|------|---------|
+| `claude.ai` | 官方安装脚本（install.sh / .ps1 / .cmd） | ❌ 需代理 |
+| `downloads.claude.ai` | 原生二进制、apt/dnf/apk 仓库、版本清单 | ❌ 需代理 |
+| `code.claude.com` | 官方文档 | ❌ 需代理 |
+| `registry.npmjs.org` | npm 官方源 | ⚠️ 慢/不稳 |
+| `registry.npmmirror.com` | npm 国内镜像 | ✅ 直连 |
+| `github.com` | GitHub Releases（社区分发、桌面端） | ⚠️ 不稳定，可用加速 |
+
+#### 方案 A：终端代理 + 官方原生安装器（推荐）
+
+先给终端设置代理（见 [[#四、代理配置]]），再运行第 1️⃣ 节的一行命令。PowerShell 示例：
+
+```powershell
+$env:HTTP_PROXY="http://127.0.0.1:7890"
+$env:HTTPS_PROXY="http://127.0.0.1:7890"
+irm https://claude.ai/install.ps1 | iex
+```
+
+> [!warning] 国内直连 `downloads.claude.ai` 失败时
+> 原生安装器会报 `Failed to fetch version from https://downloads.claude.ai/...`，按 [[#七、常见问题与坑]] 的「ECONNREFUSED」条目处理（设代理或开全局模式）。
+
+#### 方案 B：npm + 国内镜像（无代理首选）
+
+**原理**：`@anthropic-ai/claude-code` 是分发壳包，真实二进制在平台子包里（如 `@anthropic-ai/claude-code-win32-x64`）。npmmirror 已同步这些平台包，因此全程走国内镜像即可装完。
+
+**前置**：Node.js **22+**（官方下载：[nodejs.org](https://nodejs.org)，国内镜像：[npmmirror node](https://npmmirror.com/mirrors/node/)）
+
+```bash
+# ① 切换 npm 到国内镜像
+npm config set registry https://registry.npmmirror.com
+
+# ② 全局安装
+npm install -g @anthropic-ai/claude-code
+
+# ③ 验证
+claude --version
+```
+
+> [!warning] 报 `claude native binary not installed` 时
+> 通常是镜像未同步平台子包、或 postinstall 未执行。任选其一修复：
+>
+> ```bash
+> # ① 显式安装平台子包（Windows x64 示例；macOS 换 -darwin-arm64/-darwin-x64）
+> npm install -g @anthropic-ai/claude-code @anthropic-ai/claude-code-win32-x64
+>
+> # ② 从官方源重装（需代理，强制 optional 依赖 + 前台日志）
+> npm install -g @anthropic-ai/claude-code --include=optional --foreground-scripts --registry=https://registry.npmjs.org/
+> ```
+
+**升级**：npm 方式**不自动更新**，手动执行：
+
+```bash
+npm install -g @anthropic-ai/claude-code@latest
+```
+
+> [!tip] 不登录官方账号
+> 配置了第三方 API（见 [[#二、跳过登录（免认证启动）]]）时，可在 `~/.claude/settings.json` 的 `env` 加 `"DISABLE_INSTALLATION_CHECKS": "1"` 关闭安装检查提示。
+
+#### 方案 C：macOS Homebrew
+
+```bash
+brew install --cask claude-code          # 稳定版（滞后约一周）
+brew install --cask claude-code@latest   # 最新版
+```
+
+brew 本体可先用清华/阿里镜像加速，但 cask 下载的安装包仍可能走国外域名，慢的话直接改用方案 B。
+
+#### 方案 D：GitHub 加速 / 社区一键脚本
+
+- **GitHub Releases**：`downloads.claude.ai` 不通时，可从 [anthropics/claude-code releases](https://github.com/anthropics/claude-code/releases) 下载对应平台二进制，配合 `gh-proxy.com` 等加速前缀。第三方镜像不稳定，下载后建议按官方 `manifest.json` 核对 SHA256。
+- **cc-download**（[ipfred/cc-download](https://github.com/ipfred/cc-download)）：Windows 安装/更新工具，支持代理、下载进度、SHA256 校验、离线安装包。
+- **claude-code-bootstrap**（[ErgeAIA/claude-code-bootstrap](https://github.com/ErgeAIA/claude-code-bootstrap)）：Windows PowerShell 一键安装，native → winget → npm 三级兜底，自动测速选择镜像。
 
 ### 1️⃣ 一行命令安装（推荐）
 
@@ -32,22 +114,23 @@ curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del in
 
 > [!tip] 原生安装器优势
 > - 自动更新 · 无需 Node.js · 体积约 60-80MB
-> - 安装后执行 `claude --version` 验证，当前最新为 **v2.1.207**（2026-07-11）
+> - 安装后执行 `claude --version` 验证，当前 latest 为 **v2.1.220**（2026-07-31），stable 为 v2.1.212
 
 ### 2️⃣ 其他安装方式（备选）
 
 | 平台 | 命令 | 更新方式 |
 |------|------|---------|
-| macOS Homebrew | `brew install --cask claude-code` | 手动 `brew upgrade claude-code` |
+| macOS Homebrew | `brew install --cask claude-code`（或 `claude-code@latest`） | 手动 `brew upgrade claude-code` |
 | Windows WinGet | `winget install Anthropic.ClaudeCode` | 手动 |
-| ~~npm（已废弃）~~ | ~~`npm install -g @anthropic-ai/claude-code`~~ | 不推荐 |
+| npm（国内无代理首选） | `npm install -g @anthropic-ai/claude-code`（先配镜像，见 [[#0️⃣ 国内网络安装（重点）\|国内网络安装]]） | 手动 `npm i -g @anthropic-ai/claude-code@latest` |
+| Linux apt/dnf/apk | `apt install claude-code` 等（官方仓库） | 系统包管理器 |
 
 ### 3️⃣ 前置依赖
 
 | 要求 | 说明 |
 |------|------|
 | **Git** | Claude Code 版本控制依赖，需安装并配置 `git config --global user.name/email` |
-| **Node.js** | 仅废弃的 npm 方式需要 v18+，**原生安装器不需要** |
+| **Node.js** | 仅 npm 方式需要 **22+**（v2.1.198 起），**原生安装器不需要** |
 | **RAM** | 最低 4GB，推荐 8GB |
 
 > [!tip] 企业代理注意
@@ -432,6 +515,26 @@ irm https://claude.ai/install.ps1 | iex
 > - V2Ray：10809
 > - Shadowsocks：1080
 
+#### npm 安装后报 claude native binary not installed
+
+> [!warning] 问题现象
+> `npm install -g @anthropic-ai/claude-code` 装完，运行 `claude` 报 `Error: claude native binary not installed`
+
+> [!tip] 原因
+> 主包只是壳包，真实二进制在平台子包（如 `@anthropic-ai/claude-code-win32-x64`）里，靠 postinstall 替换。镜像未同步平台包、或脚本被 `--ignore-scripts` / `--omit=optional` 跳过时，stub 未被替换。
+
+**解决方法**（任选其一）：
+
+```bash
+# ① 显式安装平台子包（Windows x64 示例；macOS 换 -darwin-arm64/-darwin-x64）
+npm install -g @anthropic-ai/claude-code @anthropic-ai/claude-code-win32-x64
+
+# ② 从官方源重装（需代理，强制 optional 依赖 + 前台日志）
+npm install -g @anthropic-ai/claude-code --include=optional --foreground-scripts --registry=https://registry.npmjs.org/
+```
+
+> 安装成功后 `claude.exe` 约 200MB+，可据此判断 stub 是否被替换；仍不行则改用官方原生安装器。
+
 ### 代理问题
 
 | 问题 | 解决 |
@@ -748,3 +851,11 @@ CLAUDE_CODE_DISABLE_AUTO_MEMORY=0 claude
 ### 跳过认证
 - [CC-Switch（可视化供应商切换）](https://github.com/farion1231/cc-switch)
 - [settings.json 详解](https://blog.csdn.net/tirestay/article/details/158808038)
+
+---
+
+## 更新记录
+
+| 日期 | 变更 |
+|------|------|
+| 2026-07-31 | 新增「国内网络安装」专题（0️⃣）：代理+官方安装器 / npm+npmmirror 镜像 / Homebrew / GitHub 加速 + 需放行域名表；纠正 npm「已废弃」为「官方仍支持」；Node.js 要求 v18+ → v22+（v2.1.198 起）；版本号更新至 v2.1.220；新增 npm 安装「native binary not installed」FAQ |
