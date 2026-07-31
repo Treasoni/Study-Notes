@@ -360,6 +360,7 @@
     },
     "AI学习/Claude Code 教程/01-入门": {
       "children": [
+        "AI学习/Claude Code 教程/01-入门/如何使用Claude code-update_report.md",
         "AI学习/Claude Code 教程/01-入门/如何使用Claude code.md"
       ],
       "sortOrder": "custom"
@@ -575,6 +576,7 @@
     },
     "Git": {
       "children": [
+        "Git/Git 安装配置教程.md",
         "Git/assets",
         "Git/分支管理最佳实践.md",
         "Git/Git 高级技巧.md",
@@ -1286,6 +1288,7 @@
     },
     "workspace": {
       "children": [
+        "workspace/git安装配置教程",
         "workspace/codex-config",
         "workspace/debian系统安装教程",
         "workspace/vmware-windows-vm",
@@ -1545,6 +1548,35 @@
       ],
       "sortOrder": "custom"
     },
+    "workspace/git安装配置教程": {
+      "children": [
+        "workspace/git安装配置教程/chapters",
+        "workspace/git安装配置教程/output",
+        "workspace/git安装配置教程/00_intent.md",
+        "workspace/git安装配置教程/01_explore_result.md",
+        "workspace/git安装配置教程/02_deep_research.md",
+        "workspace/git安装配置教程/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/git安装配置教程/chapters": {
+      "children": [
+        "workspace/git安装配置教程/chapters/01_安装前的准备与平台选型.md",
+        "workspace/git安装配置教程/chapters/02_Windows安装与验证.md",
+        "workspace/git安装配置教程/chapters/03_macOS安装与验证.md",
+        "workspace/git安装配置教程/chapters/04_首次基础配置.md",
+        "workspace/git安装配置教程/chapters/05_认证配置SSH与HTTPS.md",
+        "workspace/git安装配置教程/chapters/06_实用别名与全局忽略.md",
+        "workspace/git安装配置教程/chapters/07_收尾验证与常见问题速查.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/git安装配置教程/output": {
+      "children": [
+        "workspace/git安装配置教程/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
     "workspace/linux-commands": {
       "children": [
         "workspace/linux-commands/chapters",
@@ -1779,6 +1811,7 @@
     },
     "workspace/workflow-runs": {
       "children": [
+        "workspace/workflow-runs/git安装配置教程.workflow.md",
         "workspace/workflow-runs/codex-config.workflow.md",
         "workspace/workflow-runs/debian系统安装教程.workflow.md",
         "workspace/workflow-runs/vmware-windows-vm.workflow.md",
