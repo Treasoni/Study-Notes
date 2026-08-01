@@ -10,10 +10,10 @@ topic: "如何使用 Matt Pocock Skills（Agent Skills 实操使用指南）"
 project_slug: "matt-pocock-skills-usage-guide"
 created_at: "2026-08-01"
 last_updated: "2026-08-01"
-current_phase: P6
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4,P5"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：matt-pocock-skills-usage-guide
 > 项目标识：matt-pocock-skills-usage-guide
 > 创建时间：2026-08-01
-> 当前阶段：阶段 6
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -119,7 +119,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] 🔲 进行中
+> [P6] ✅ 已完成
 
 ---
 
@@ -129,7 +129,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ⏭️ 跳过
 
 ---
 
@@ -137,6 +137,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P6 | 用户确认发布到 GitHub项目/ 目录 | 2026-08-01 23:03 |
 | P5 | 用户确认组装结果，发布到 GitHub项目/ 目录 | 2026-08-01 22:55 |
 | P4 | 所有章节写作完成（8章+附录） | 2026-08-01 22:50 |
 | P3 | 用户确认大纲（8章+附录） | 2026-08-01 22:27 |
@@ -151,6 +152,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 原因 | 时间 |
 |------|----------|------|------|
+| P7 | user approved skip | 用户确认不同步 MOC，P7 跳过 | 2026-08-01 23:03 |
 | | | | |
 
 ---
@@ -159,6 +161,7 @@ blocked_reason: ""
 
 | 时间 | 阶段 | 问题描述 | 处理方式 |
 |------|------|---------|---------|
+| 2026-08-01 23:03 | P7 | 跳过阶段：用户确认不同步 MOC，P7 跳过 | 继续推进到下一未完成阶段 |
 | | | | |
 
 ---
@@ -174,9 +177,9 @@ blocked_reason: ""
 ## 最终产出
 
 - **笔记类型**：实战笔记（实操使用指南）
-- **总字数**：
-- **章节数**：
+- **总字数**：约 8.5 万字符（含代码块与表格）
+- **章节数**：8 章 + 1 附录
 - **输出格式**：Obsidian Markdown
-- **文件路径**：
+- **文件路径**：GitHub项目/Matt Pocock Skills — 实操使用指南.md
 - **Obsidian Vault**：C:\note\Study-Notes\GitHub项目\
 - **MOC 路径**：未指定（P7 跳过）
