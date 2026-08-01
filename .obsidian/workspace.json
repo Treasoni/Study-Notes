@@ -285,7 +285,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 8
       }
     ],
     "direction": "horizontal",
@@ -313,8 +313,21 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "f5f6330a45d67f9a",
+  "active": "d0d8383a692e3423",
   "lastOpenFiles": [
+    "workspace/workflow-runs/026S510o",
+    "workspace/workflow-runs/matt-pocock-skills-usage-guide.workflow.md.xc3Mol",
+    "workspace/workflow-runs/matt-pocock-skills-usage-guide.workflow.md.u7Cofa",
+    "workspace/workflow-runs/matt-pocock-skills-usage-guide.workflow.md.zO6Tp0",
+    "workspace/workflow-runs/matt-pocock-skills-usage-guide.workflow.md.ICnjzR",
+    "workspace/workflow-runs/3tnqIHwa",
+    "workspace/workflow-runs/BA2MYLeD",
+    "workspace/workflow-runs/matt-pocock-skills-usage-guide.workflow.md.DFTGwH",
+    "workspace/workflow-runs/matt-pocock-skills-usage-guide.workflow.md.N35keO",
+    "workspace/workflow-runs/matt-pocock-skills-usage-guide.workflow.md.UHjcO5",
+    "workspace/workflow-runs/matt-pocock-skills-usage-guide.workflow.md.2nrH4G",
+    "workspace/matt-pocock-skills-usage-guide/00_intent.md",
+    "workspace/workflow-runs/matt-pocock-skills-usage-guide.workflow.md",
     "linux/linux系统安装教程/Debian安装教程.md",
     "linux/linux常用命令/Linux 用户管理.md",
     "linux/linux常用命令/Linux 常用命令速查索引.md",
@@ -322,16 +335,6 @@
     "AI学习/Claude Code 教程/01-入门/如何使用Claude code.md",
     "Git/Git 安装配置教程.md",
     "Git/Git 入门教程.md",
-    "workspace/workflow-runs/6b7vfH7a",
-    "workspace/workflow-runs/git安装配置教程.workflow.md.WzPNJb",
-    "workspace/workflow-runs/git安装配置教程.workflow.md.kjrhqi",
-    "workspace/workflow-runs/git安装配置教程.workflow.md.lklBUs",
-    "workspace/workflow-runs/git安装配置教程.workflow.md.sG5jAT",
-    "workspace/workflow-runs/YFzlcsjM",
-    "workspace/workflow-runs/git安装配置教程.workflow.md.cSlrfr",
-    "workspace/workflow-runs/git安装配置教程.workflow.md.Wlos2p",
-    "workspace/workflow-runs/git安装配置教程.workflow.md.CXksuZ",
-    "workspace/workflow-runs/2hwgf2x0",
     "workspace/git安装配置教程/output/final_note.md",
     "workspace/git安装配置教程/chapters/07_收尾验证与常见问题速查.md",
     "workspace/git安装配置教程/chapters/06_实用别名与全局忽略.md",
@@ -348,9 +351,6 @@
     "AI学习/Claude Code 教程/01-入门/如何使用Claude code-update_report.md",
     "AI学习/00-索引/AI学习 MOC.md",
     "AI学习/docs/updating-notes.md",
-    "AI学习/docs/pre-task-init.md",
-    "AI学习/docs/phases.md",
-    "AI学习/docs/experience-notes.md",
     "虚拟机/assets/VMware 启动出现 No Media 报错/file-20260731001315730.png",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/图-固定偏置共射动态指标-Au-Ri-Ro.png",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/图-固定偏置共射动态指标-Au-Ri-Ro.svg",
