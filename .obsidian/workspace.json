@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "GitHub项目/Matt Pocock Skills — 实操使用指南.md",
+                "file": "AI学习/Claude Code 教程/01-入门/如何使用Claude code.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Matt Pocock Skills — 实操使用指南"
+              "title": "如何使用Claude code"
             }
           },
           {
@@ -235,7 +235,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "GitHub项目/Matt Pocock Skills — 实操使用指南.md",
+                "file": "AI学习/Claude Code 教程/01-入门/如何使用Claude code.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
@@ -313,23 +313,24 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "d0d8383a692e3423",
+  "active": "728cb1fc1e8cc4a7",
   "lastOpenFiles": [
-    "workspace/workflow-runs/qttRpG64",
-    "workspace/workflow-runs/debian-practice.workflow.md.GFTN4U",
-    "workspace/workflow-runs/debian-practice.workflow.md.onwt16",
-    "workspace/workflow-runs/debian-practice.workflow.md.Z9I1v6",
-    "workspace/workflow-runs/debian-practice.workflow.md.1Ixq29",
-    "workspace/workflow-runs/4db9boKV",
-    "workspace/workflow-runs/WjYugiVk",
-    "workspace/workflow-runs/debian-practice.workflow.md.Tnhn8N",
-    "workspace/workflow-runs/debian-practice.workflow.md.u4Op4I",
-    "workspace/workflow-runs/debian-practice.workflow.md.2mImzl",
-    "workspace/workflow-runs/debian-practice.workflow.md.04043X",
+    "workspace/workflow-runs/ipvemQs2",
+    "workspace/workflow-runs/debian-practice.workflow.md.mO611T",
+    "workspace/workflow-runs/debian-practice.workflow.md.1yuv8J",
+    "workspace/workflow-runs/debian-practice.workflow.md.qlvvmj",
+    "workspace/workflow-runs/debian-practice.workflow.md.bZb06f",
+    "workspace/workflow-runs/II9sHwtt",
+    "workspace/workflow-runs/jZgodxHN",
+    "workspace/workflow-runs/debian-practice.workflow.md.NtEtLr",
+    "workspace/workflow-runs/debian-practice.workflow.md.eNUVbW",
+    "workspace/workflow-runs/debian-practice.workflow.md.dVZxMs",
+    "workspace/workflow-runs/debian-practice.workflow.md.2n88vX",
+    "workspace/debian-practice/01_explore_result.md",
+    "GitHub项目/Matt Pocock Skills — 实操使用指南.md",
     "workspace/debian-practice/00_intent.md",
     "workspace/workflow-runs/debian-practice.workflow.md",
     "GitHub项目/Matt Pocock Skills — Agent 框架设计深度解析.md",
-    "GitHub项目/Matt Pocock Skills — 实操使用指南.md",
     "workspace/matt-pocock-skills-usage-guide/output/final_note.md",
     "workspace/matt-pocock-skills-usage-guide/chapters/9_附录-命令速查卡.md",
     "workspace/matt-pocock-skills-usage-guide/chapters/8_把skills应用到自己的项目.md",
@@ -350,7 +351,6 @@
     "linux/linux常用命令/Linux 常用命令速查索引.md",
     "linux/linux如何修改网络信息.md",
     "AI学习/Claude Code 教程/01-入门/如何使用Claude code.md",
-    "Git/Git 安装配置教程.md",
     "虚拟机/assets/VMware 启动出现 No Media 报错/file-20260731001315730.png",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/图-固定偏置共射动态指标-Au-Ri-Ro.png",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/图-固定偏置共射动态指标-Au-Ri-Ro.svg",
