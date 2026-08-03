@@ -10,10 +10,10 @@ topic: "Docker 与 Docker Compose 安装（国内环境）"
 project_slug: docker-compose-linux-install
 created_at: 2026-08-03
 last_updated: "2026-08-04"
-current_phase: P6
-current_status: in_progress
+current_phase: P7
+current_status: ready
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4,P5"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：docker-compose-linux-install
 > 项目标识：docker-compose-linux-install
 > 创建时间：2026-08-03
-> 当前阶段：阶段 6
+> 当前阶段：阶段 7
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -113,12 +113,12 @@ blocked_reason: ""
 ---
 
 ## 阶段 6：Obsidian 美化与发布
-- [ ] 已读取 Obsidian 输出规则
-- [ ] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
-- [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
-- [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
+- [x] 已读取 Obsidian 输出规则
+- [x] 输出位置策略：项目 output 暂存，具体 vault 目录待定
+- [x] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
+- [x] 最终 Markdown 已保存到项目 `./output/final_note.md`
 
-> [P6] 🔲 进行中
+> [P6] ✅ 已完成
 
 ---
 
@@ -136,6 +136,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P6 | 输出位置按既定策略暂存项目 output，vault 目录待定（用户此前选择待定） | 2026-08-04 00:08 |
 | P5 | 用户指示连续写作，组装完成（方式 A 顺序拼接，8 章，1527 行） | 2026-08-04 00:07 |
 | P4 | 用户指示连续写作，全部 8 章完成（1-8 已写） | 2026-08-04 00:04 |
 | P3 | 用户确认 8 章大纲（双轨结构） | 2026-08-03 23:55 |
@@ -173,9 +174,9 @@ blocked_reason: ""
 ## 最终产出
 
 - **笔记类型**：实战安装教程
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **总字数**：约 1.5 万字（1527 行）
+- **章节数**：8
+- **输出格式**：Obsidian Markdown（含 frontmatter/Callout/双链）
+- **文件路径**：`workspace/docker-compose-linux-install/output/final_note.md`
+- **Obsidian Vault**：待定
+- **MOC 路径**：待定

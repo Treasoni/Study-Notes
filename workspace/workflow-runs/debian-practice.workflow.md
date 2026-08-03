@@ -10,10 +10,10 @@ topic: "Debian 最小化安装后 sudo 权限配置"
 project_slug: "debian-practice"
 created_at: "2026-08-03"
 last_updated: "2026-08-04"
-current_phase: P6
+current_phase: P7
 current_status: in_progress
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4,P5"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：debian-practice
 > 项目标识：debian-practice
 > 创建时间：2026-08-03
-> 当前阶段：阶段 6
+> 当前阶段：阶段 7
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -118,7 +118,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] 🔲 进行中
+> [P6] ✅ 已完成
 
 ---
 
@@ -128,7 +128,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] 🔲 进行中
 
 ---
 
@@ -136,6 +136,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P6 | 美化发布完成，已发布到 项目实战/debian实战/ | 2026-08-04 00:08 |
 | P5 | 组装结果确认（A 顺序拼接 8 章） | 2026-08-04 00:06 |
 | P4 | 用户授权自动完成，不再逐章确认 | 2026-08-04 00:03 |
 | P3 | 用户确认大纲 | 2026-08-03 23:49 |

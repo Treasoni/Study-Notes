@@ -1,4 +1,16 @@
+---
+title: Docker 与 Docker Compose 安装（国内环境）
+tags: [docker, linux, 安装指南, 国内网络, docker-compose, 镜像加速]
+created: 2026-08-03
+updated: 2026-08-04
+status: 已完成
+source_project: docker-compose-linux-install
+---
+
 # Docker 与 Docker Compose 安装（国内环境）
+
+> [!info] 概述
+> 一份面向**国内网络环境**的 Docker 与 Docker Compose 安装实战教程，覆盖 Ubuntu/Debian（apt）与 CentOS/RHEL（dnf/yum）双轨。从环境检查、阿里云软件源安装、Compose 插件配置，到 2026 镜像加速与常见坑排查，一站到位。
 
 ## 目录
 
