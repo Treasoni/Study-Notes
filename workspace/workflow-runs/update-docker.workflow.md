@@ -9,11 +9,11 @@ created_from: ".claude/workflows/batch-note-update-flow/state-template.md"
 topic: Docker 笔记批量更新
 project_slug: update-docker
 created_at: "2026-08-03"
-last_updated: "2026-08-03"
-current_phase: P4
-current_status: in_progress
+last_updated: "2026-08-04"
+current_phase: done
+current_status: complete
 mode: standard
-confirmed_phases: "P0,P1,P2,P3"
+confirmed_phases: "P0,P1,P2,P3,P4,P5"
 skippable_phases: "P3"
 mode_dependent_skips: ""
 allowed_modes: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：update-docker
 > 项目标识：update-docker
 > 创建时间：2026-08-03
-> 当前阶段：阶段 4
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -85,7 +85,7 @@ blocked_reason: ""
 - [ ] 原文未被覆盖，除非 destination_mode 为 patch-in-place 且用户已确认
 - [ ] 批处理日志已追加：`./03_batch_update_log.md`
 
-> [P4] 🔲 进行中
+> [P4] ✅ 已完成
 
 ---
 
@@ -95,7 +95,7 @@ blocked_reason: ""
 - [ ] 如提供 MOC，已同步索引且未复制正文
 - [ ] 批量更新报告已保存：`./04_batch_update_report.md`
 
-> [P5] ⬜ 未开始
+> [P5] ✅ 已完成
 
 ---
 
@@ -103,6 +103,8 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P5 | 用户指示直接完成：8篇更新+报告+MOC副本完成，原文件未发布待确认 | 2026-08-04 00:05 |
+| P4 | 用户指示直接完成（不再逐批询问）：8篇全部更新完成，无 needs-review | 2026-08-04 00:04 |
 | P3 | 用户确认来源库可信 | 2026-08-03 23:55 |
 | P2 | 用户确认批量计划与Batch1，需共享资料 | 2026-08-03 23:53 |
 | P1 | 用户确认清单：6篇正文更新+2篇补frontmatter+4篇skip | 2026-08-03 23:51 |
@@ -131,7 +133,9 @@ blocked_reason: ""
 
 | 时间 | 批次 | 文件数 | 成功 | 需复核 | 输出位置 |
 |------|------|--------|------|--------|----------|
-| | | | | | |
+| 2026-08-03 | 1 | 3 | 3 | 0 | workspace/update-docker/updates/ |
+| 2026-08-04 | 2 | 3 | 3 | 0 | workspace/update-docker/updates/ |
+| 2026-08-04 | 3 | 2 | 2 | 0 | workspace/update-docker/updates/ |
 
 ---
 
@@ -139,11 +143,11 @@ blocked_reason: ""
 
 - **源路径**：docker/
 - **更新目标**：全面刷新 Docker / Docker Desktop / WSL2 到 2026 最新版本与最佳实践
-- **处理文件数**：
-- **更新文件数**：
-- **跳过文件数**：
-- **需复核文件数**：
+- **处理文件数**：12
+- **更新文件数**：8
+- **跳过文件数**：4
+- **需复核文件数**：0
 - **输出模式**：project-output-only
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：docker/Docker MOC.md
+- **文件路径**：workspace/update-docker/updates/{note_id}/updated_note.md
+- **Obsidian Vault**：（未发布，待用户确认）
+- **MOC 路径**：docker/Docker MOC.md（更新副本在 updates/docker-moc/，原文件未动）
