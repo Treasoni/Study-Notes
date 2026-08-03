@@ -29,3 +29,7 @@ __pycache__/
 # Security audit logs (local only)
 **/security-audit.log
 **/security-incident.md
+
+# LLM usage telemetry (local only, may drift from schema)
+.llm/prompt-cache/*.jsonl
+.llm/prompt-cache/.collect-state.json
