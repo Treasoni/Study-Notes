@@ -3,17 +3,17 @@ workflow_id: learning-note-flow
 workflow_name: 学习笔记工作流
 workflow_version: 1
 state_file_type: workflow-run
-run_id: "debian-practice"
-task: "Debian 最小化安装后 sudo 权限配置"
+run_id: docker-compose-linux-install
+task: "Docker 与 Docker Compose 安装（国内环境）"
 created_from: ".claude/workflows/learning-note-flow/state-template.md"
-topic: "Debian 最小化安装后 sudo 权限配置"
-project_slug: "debian-practice"
-created_at: "2026-08-03"
+topic: "Docker 与 Docker Compose 安装（国内环境）"
+project_slug: docker-compose-linux-install
+created_at: 2026-08-03
 last_updated: "2026-08-03"
-current_phase: P3
+current_phase: P1
 current_status: in_progress
 mode: outline
-confirmed_phases: "P0,P1,P2"
+confirmed_phases: "P0"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -24,11 +24,11 @@ blocked_reason: ""
 # 学习笔记工作流 - 执行检查清单
 
 > 工作流：learning-note-flow
-> 主题：Debian 最小化安装后 sudo 权限配置
-> 运行标识：debian-practice
-> 项目标识：debian-practice
+> 主题：Docker 与 Docker Compose 安装（国内环境）
+> 运行标识：docker-compose-linux-install
+> 项目标识：docker-compose-linux-install
 > 创建时间：2026-08-03
-> 当前阶段：阶段 3
+> 当前阶段：阶段 1
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -53,7 +53,7 @@ blocked_reason: ""
 - [ ] 用户已选择学习方向
 - [ ] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] ✅ 已完成
+> [P1] 🔲 进行中
 
 ---
 
@@ -67,7 +67,7 @@ blocked_reason: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] ✅ 已完成
+> [P2] ⬜ 未开始
 
 ---
 
@@ -79,7 +79,7 @@ blocked_reason: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中
+> [P3] ⬜ 未开始
 
 ---
 
@@ -132,10 +132,8 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
-| P2 | 用户确认素材质量 | 2026-08-03 23:47 |
-| P1 | 用户选择全方向覆盖 | 2026-08-03 23:25 |
-| P0 | 用户确认意图文件和研究计划 | 2026-08-03 23:22 |
-| | | |
+| P0 | 用户确认意图文件和研究计划 | 2026-08-03 23:46 |
+| P0 | 意图澄清：Linux 服务器 · 有了解 · 实战安装教程 · 输出位置待定 | 2026-08-03 |
 
 ---
 
@@ -165,7 +163,7 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
+- **笔记类型**：实战安装教程
 - **总字数**：
 - **章节数**：
 - **输出格式**：

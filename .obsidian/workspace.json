@@ -285,7 +285,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 8
       }
     ],
     "direction": "horizontal",
@@ -313,22 +313,25 @@
       "custom-sort:Toggle custom sorting": false
     }
   },
-  "active": "728cb1fc1e8cc4a7",
+  "active": "d0d8383a692e3423",
   "lastOpenFiles": [
+    "workspace/workflow-runs/UExnjwya",
+    "workspace/workflow-runs/debian-practice.workflow.md.OhBhOX",
+    "workspace/workflow-runs/debian-practice.workflow.md.4l5fSP",
+    "workspace/workflow-runs/debian-practice.workflow.md.NXJ98k",
+    "workspace/workflow-runs/debian-practice.workflow.md.e6fxWP",
+    "workspace/workflow-runs/4gGPuI0k",
+    "workspace/workflow-runs/dS4dbrw5",
+    "workspace/workflow-runs/debian-practice.workflow.md.4HUr9V",
+    "workspace/workflow-runs/debian-practice.workflow.md.SNV2Dx",
+    "workspace/workflow-runs/debian-practice.workflow.md.VNbwff",
+    "workspace/workflow-runs/debian-practice.workflow.md.glyRt1",
+    "workspace/docker-compose-linux-install/00_intent.md",
+    "workspace/workflow-runs/docker-compose-linux-install.workflow.md",
     "workspace/debian-practice/02_deep_research.md",
     "workspace/claude-code-tutorial/updates/21/update_report.md",
-    "AI学习/Claude Code 教程/01-入门/如何使用Claude code.md.tmp.17260.93c6e2a98d78",
-    "AI学习/Claude Code 教程/01-入门/如何使用Claude code.md.tmp.17260.d796b3ec8602",
     "workspace/claude-code-tutorial/updates/21/update_plan.md",
     "workspace/claude-code-tutorial/updates/21/stale_map.md",
-    "workspace/claude-code-tutorial/updates/21",
-    "workspace/workflow-runs/ipvemQs2",
-    "workspace/workflow-runs/debian-practice.workflow.md.mO611T",
-    "workspace/workflow-runs/debian-practice.workflow.md.1yuv8J",
-    "workspace/workflow-runs/debian-practice.workflow.md.qlvvmj",
-    "workspace/workflow-runs/debian-practice.workflow.md.bZb06f",
-    "workspace/workflow-runs/II9sHwtt",
-    "workspace/workflow-runs/jZgodxHN",
     "workspace/debian-practice/01_explore_result.md",
     "GitHub项目/Matt Pocock Skills — 实操使用指南.md",
     "workspace/debian-practice/00_intent.md",
@@ -348,9 +351,6 @@
     "workspace/matt-pocock-skills-usage-guide/02_deep_research.md",
     "workspace/matt-pocock-skills-usage-guide/01_explore_result.md",
     "workspace/matt-pocock-skills-usage-guide/00_intent.md",
-    "workspace/workflow-runs/matt-pocock-skills-usage-guide.workflow.md",
-    "linux/linux系统安装教程/Debian安装教程.md",
-    "linux/linux常用命令/Linux 用户管理.md",
     "虚拟机/assets/VMware 启动出现 No Media 报错/file-20260731001315730.png",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/图-固定偏置共射动态指标-Au-Ri-Ro.png",
     "考研专业课/模拟电子技术/附件/03-BJT与基本放大电路/图-固定偏置共射动态指标-Au-Ri-Ro.svg",
