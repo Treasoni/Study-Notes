@@ -10,10 +10,10 @@ topic: "Docker 与 Docker Compose 安装（国内环境）"
 project_slug: docker-compose-linux-install
 created_at: 2026-08-03
 last_updated: "2026-08-04"
-current_phase: P7
-current_status: ready
+current_phase: done
+current_status: complete
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4,P5,P6"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6,P7"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：docker-compose-linux-install
 > 项目标识：docker-compose-linux-install
 > 创建时间：2026-08-03
-> 当前阶段：阶段 7
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -128,7 +128,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成
 
 ---
 
@@ -136,6 +136,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P7 | 用户确认发布到 docker/ 并同步 Docker MOC | 2026-08-04 00:09 |
 | P6 | 输出位置按既定策略暂存项目 output，vault 目录待定（用户此前选择待定） | 2026-08-04 00:08 |
 | P5 | 用户指示连续写作，组装完成（方式 A 顺序拼接，8 章，1527 行） | 2026-08-04 00:07 |
 | P4 | 用户指示连续写作，全部 8 章完成（1-8 已写） | 2026-08-04 00:04 |
@@ -178,5 +179,5 @@ blocked_reason: ""
 - **章节数**：8
 - **输出格式**：Obsidian Markdown（含 frontmatter/Callout/双链）
 - **文件路径**：`workspace/docker-compose-linux-install/output/final_note.md`
-- **Obsidian Vault**：待定
-- **MOC 路径**：待定
+- **Obsidian Vault**：`docker/Linux-Docker与DockerCompose安装指南-国内网络版.md`
+- **MOC 路径**：`docker/Docker MOC.md`

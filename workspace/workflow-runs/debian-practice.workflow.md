@@ -10,10 +10,10 @@ topic: "Debian 最小化安装后 sudo 权限配置"
 project_slug: "debian-practice"
 created_at: "2026-08-03"
 last_updated: "2026-08-04"
-current_phase: P7
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4,P5,P6"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6,P7"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：debian-practice
 > 项目标识：debian-practice
 > 创建时间：2026-08-03
-> 当前阶段：阶段 7
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -128,7 +128,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] 🔲 进行中
+> [P7] ✅ 已完成
 
 ---
 
@@ -136,6 +136,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P7 | MOC 同步完成，创建 项目实战/项目实战 MOC.md | 2026-08-04 00:08 |
 | P6 | 美化发布完成，已发布到 项目实战/debian实战/ | 2026-08-04 00:08 |
 | P5 | 组装结果确认（A 顺序拼接 8 章） | 2026-08-04 00:06 |
 | P4 | 用户授权自动完成，不再逐章确认 | 2026-08-04 00:03 |
@@ -173,10 +174,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战笔记
+- **总字数**：约 7000 字（40KB）
+- **章节数**：8 章
+- **输出格式**：Obsidian Markdown
+- **文件路径**：`workspace/debian-practice/output/final_note.md`
+- **Obsidian Vault**：`C:\note\Study-Notes\项目实战\debian实战\Debian 最小化安装后 sudo 权限配置.md`
+- **MOC 路径**：`C:\note\Study-Notes\项目实战\项目实战 MOC.md`
