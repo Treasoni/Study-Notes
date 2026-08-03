@@ -1,7 +1,7 @@
 ---
 title: Claude Code 使用指南
 tags: [ai, 工具使用, claude-code, 入门]
-updated: 2026-07-31
+updated: 2026-08-03
 status: updated
 source_project: claude-code-tutorial
 ---
@@ -146,7 +146,24 @@ curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del in
 
 ## 二、跳过登录（免认证启动）
 
-Claude Code **没有** `--no-auth` 参数，但有 4 种方式跳过 OAuth 登录：
+Claude Code **没有** `--no-auth` 参数，但有 6 种方式跳过 OAuth 登录。所有 API Key 类方式按**官方认证优先级**从上到下解析，同时配置多个时取最上面的一个生效。
+
+> [!tip] 确认当前认证方式
+> 在会话里运行 `/status`：`Login method` 行显示订阅账号，`API key` 行表示正在用 API Key，`Auth token` 行表示在用 `ANTHROPIC_AUTH_TOKEN` / `apiKeyHelper`。
+
+### 官方认证优先级（高 → 低）
+
+| 优先级 | 认证方式 | 说明 |
+|--------|----------|------|
+| 1 | 云厂商凭证（Bedrock / Vertex / Foundry） | 设 `CLAUDE_CODE_USE_BEDROCK` 等变量 |
+| 2 | `ANTHROPIC_AUTH_TOKEN` | 环境变量，发 `Authorization: Bearer` 头 |
+| 3 | `ANTHROPIC_API_KEY` | 环境变量，发 `X-Api-Key` 头 |
+| 4 | `apiKeyHelper` 脚本输出 | settings.json 配置 |
+| 5 | `CLAUDE_CODE_OAUTH_TOKEN` | `claude setup-token` 生成的长期 token |
+| 6 | 订阅 OAuth 登录 | `/login` 登录的 Pro / Max / Team 等账号 |
+
+> [!warning] 订阅 vs API Key
+> 已登录订阅且设置了 `ANTHROPIC_API_KEY` 时，**Key 优先**（交互式会先弹一次确认）。想切回订阅：`unset ANTHROPIC_API_KEY`，再用 `/status` 复查。
 
 ### 方式一：apiKeyHelper ⭐ 官方推荐
 
@@ -165,30 +182,21 @@ Claude Code **没有** `--no-auth` 参数，但有 4 种方式跳过 OAuth 登�
 echo "sk-ant-你的API密钥"
 ```
 
+> [!tip] 2026 新增行为
+> - 脚本通过系统 shell 运行：macOS/Linux 用 `/bin/sh`，Windows 用 `cmd`（如 `powershell -NoProfile -File C:\scripts\get-key.ps1`）
+> - 输出**同时**作为 `X-Api-Key` 和 `Authorization: Bearer` 两个头发送，网关 / 代理都认
+> - 默认 **5 分钟**缓存一次，或遇 HTTP 401 立即重取；可用 `CLAUDE_CODE_API_KEY_HELPER_TTL_MS` 自定义间隔（毫秒）
+> - v2.1.208 起脚本失败会报 `Your apiKeyHelper script is failing`（3 次重试后）
+> - 适用于 CLI、VS Code 扩展、Agent SDK、GitHub Actions；**不适用于** Claude Desktop 和云端会话
+
 > [!warning] 注意
 > - **不要**同时设置 `ANTHROPIC_API_KEY` 环境变量（会冲突）
 > - 删除 `~/.claude.json` 中的 `oauthAccount` 条目
-> - 如果嫌创建脚本麻烦，直接用下面的 `primaryApiKey` 方式，纯 JSON 一步到位
+> - 嫌写脚本麻烦，直接用下面的「方式二」env 字段，纯 JSON 一步到位
 
-### 方式二：primaryApiKey ⭐ 直接配置
+### 方式二：env 字段（走第三方 API，无需命令行）⭐ 最常用
 
-```json
-{
-  "primaryApiKey": "sk-ant-你的API密钥",
-  "permissions": {
-    "defaultMode": "acceptEdits"
-  }
-}
-```
-
-> **permissions 可选值**：
-> - `"bypassPermissions"` — 自动批准所有操作（YOLO 模式）
-> - `"acceptEdits"` — 仅自动批准文件编辑
-> - `"default"` — 每次操作都询问
-
-### 方式三：env 字段（走第三方 API，无需命令行）
-
-不用每次 export，直接在 `~/.claude/settings.json` 的 `env` 字段配好就行：
+不用每次 export，直接在 `~/.claude/settings.json` 的 `env` 字段配好就行。settings 文件里的 `env` **会覆盖** shell 里 export 的同名变量。
 
 **使用 OpenRouter：**
 
@@ -197,7 +205,7 @@ echo "sk-ant-你的API密钥"
   "env": {
     "ANTHROPIC_BASE_URL": "https://openrouter.ai/api",
     "ANTHROPIC_AUTH_TOKEN": "sk-or-v1-你的密钥",
-    "ANTHROPIC_MODEL": "anthropic/claude-3.5-sonnet",
+    "ANTHROPIC_MODEL": "anthropic/claude-sonnet-4-6",
     "ANTHROPIC_API_KEY": ""
   }
 }
@@ -217,23 +225,70 @@ echo "sk-ant-你的API密钥"
 
 先启动桥接：`ollama pull qwen2.5-coder:7b && litellm --model ollama/qwen2.5-coder:7b --port 8000`
 
-> [!warning] 协议兼容性
-> - Claude Code 使用 **Anthropic `/v1/messages`** 协议
-> - OpenRouter ✅ · LiteLLM ✅（自动转换） · **Ollama 直连 ❌**（必须通过 LiteLLM）
-> - 模型**必须支持 Tool Use / Function Calling**
+> [!warning] 协议与副作用
+> - Claude Code 使用 **Anthropic `/v1/messages`** 协议：OpenRouter ✅ · LiteLLM ✅（自动转换） · **Ollama 直连 ❌**（必须通过 LiteLLM）
+> - 模型**必须支持 Tool Use / Function Calling**；`ANTHROPIC_MODEL` 示例按你当前可用的模型名填写
+> - `ANTHROPIC_BASE_URL` 指向非官方域名时：**Remote Control 不可用**（v2.1.196 起）；MCP 工具搜索默认关闭，需要时设 `ENABLE_TOOL_SEARCH=true`
 
-### 方式四：CC-Switch ⭐ 可视化方案
+### 方式三：hasCompletedOnboarding（跳过首启登录引导）
 
-> 跨平台桌面应用，**50K+ Star**，支持 Claude Code / Codex / Gemini CLI / OpenCode 等工具的供应商切换，内置 50+ 平台预设。
+不想看到首次启动的「选主题 → 登录」引导，直接改 `~/.claude.json`（Windows：`C:\Users\<用户名>\.claude.json`）：
 
-**开发者**：[farion1231](https://github.com/farion1231/cc-switch) · **开源协议**：MIT
+```json
+{
+  "hasCompletedOnboarding": true,
+  "theme": "dark"
+}
+```
+
+> [!tip] 说明
+> 部分版本只设 `hasCompletedOnboarding` 仍会弹引导，**同时给 `theme` 一个值**更保险。适合配合上面的 API 方式免登录启动，ccgo 等启动器也是这么做的（`ccgo init`）。
+
+### 方式四：primaryApiKey（旧方案，已不可靠）⚠️
+
+```json
+{
+  "primaryApiKey": "sk-ant-你的API密钥",
+  "permissions": {
+    "defaultMode": "acceptEdits"
+  }
+}
+```
+
+> **permissions 可选值**：
+> - `"bypassPermissions"` — 自动批准所有操作（YOLO 模式）
+> - `"acceptEdits"` — 仅自动批准文件编辑
+> - `"default"` — 每次操作都询问
+
+> [!warning] 2026 状态：不推荐
+> `primaryApiKey` **不在官方认证优先级里**，官方文档已不列该字段。v2.0.37 起多个版本不再读取它（[GitHub issue #11631](https://github.com/anthropics/claude-code/issues/11631)），仍会弹 API Key 确认框；Docker 沙箱还会因 `.claude.json` 里存在该字段而报「凭据冲突」警告。新配置请改用**方式一**（脚本）或**方式二**（env 字段）。
+
+### 方式五：claude setup-token（CI 长期 token）
+
+官方提供的一次性生成长期 token，适合 CI/CD、脚本等无法弹浏览器登录的场景：
+
+```bash
+claude setup-token        # 浏览器授权后，终端打印 token（不会自动保存）
+export CLAUDE_CODE_OAUTH_TOKEN=your-token
+```
+
+> [!tip] 说明
+> - token 有效期 **1 年**，需要 Pro / Max / Team / Enterprise 订阅
+> - 只能发模型请求，不能用于 Remote Control 或 claude.ai 连接器
+> - `--bare` 模式不读该 token，请改用 `ANTHROPIC_API_KEY` 或 `apiKeyHelper`
+
+### 方式六：CC-Switch ⭐ 可视化方案
+
+> 跨平台桌面应用，**124K+ Star**，支持 Claude Code / Codex / Gemini CLI / OpenCode / Grok Build / OpenClaw / Hermes Agent 共 8 种工具的供应商切换，内置 50+ 平台预设。
+
+**开发者**：[farion1231](https://github.com/farion1231/cc-switch) · **开源协议**：MIT · **最新版**：v3.16.1
 
 #### 安装
 
 | 平台 | 命令 / 方式 |
 |------|-------------|
 | macOS | `brew tap farion1231/ccswitch && brew install --cask cc-switch` |
-| Windows | GitHub Releases 下载 `.msi` 安装包 |
+| Windows | GitHub Releases 下载 `.msi` 安装包（或 `-Portable.zip` 免安装版） |
 | Linux | DEB / RPM / AppImage 任选 |
 
 #### 配置步骤
@@ -245,13 +300,17 @@ echo "sk-ant-你的API密钥"
 
 > [!tip] CC-Switch 优势
 > - **热切换**：切换供应商**无需重启终端**，即时生效
-> - **故障转移**：某家供应商宕机自动切到下一家
+> - **故障转移**：本地代理自动故障转移 + 熔断，某家宕机自动切到下一家
 > - **用量统计**：Token 消耗追踪、成本监控、趋势图表
-> - **MCP 统一管理**：一处编辑，同步到所有工具
-> - **云同步**：支持 WebDAV / Dropbox / OneDrive 多设备同步
+> - **MCP / Skills 统一管理**：一处编辑，双向同步到所有工具
+> - **云同步**：支持 WebDAV / Dropbox / OneDrive / iCloud 多设备同步
+> - **其他**：Session 管理器、Deep Link（`ccswitch://`）一键导入配置
 
 > [!warning] 注意
 > 如果同时配置了环境变量或 `settings.json`，可能会产生冲突。建议使用 CC-Switch 后，清空其他配置项，避免互相覆盖。
+
+> [!tip] Claude Code Desktop 免登录接第三方模型
+> 桌面版不走 `settings.json` 的 `env`，需单独配置：Help → **Troubleshooting** → **Enable Developer Mode**，重启后到 **Developer** → **Configure Third-Party Inference** 填 Gateway Base URL + API Key 即可免登录使用。
 
 ---
 
@@ -898,3 +957,4 @@ CLAUDE_CODE_DISABLE_AUTO_MEMORY=0 claude
 |------|------|
 | 2026-07-31 | 新增「国内网络安装」专题（0️⃣）：代理+官方安装器 / npm+npmmirror 镜像 / Homebrew / GitHub 加速 + 需放行域名表；纠正 npm「已废弃」为「官方仍支持」；Node.js 要求 v18+ → v22+（v2.1.198 起）；版本号更新至 v2.1.220；新增 npm 安装「native binary not installed」FAQ |
 | 2026-07-31 | 新增 FAQ「npm 安装被 allow-scripts 拦截（postinstall 未执行）」：npm 11.16+ allowScripts 策略、全局安装放行用 `--allow-scripts=<pkg>` / `allow-scripts=<pkg>`；方案 B 增加交叉引用 |
+| 2026-08-03 | 更新「跳过登录（免认证启动）」章节：新增官方 6 层认证优先级表、`hasCompletedOnboarding` 免首启引导、`claude setup-token` CI 长期 token；primaryApiKey 标记为旧方案已不可靠（官方已不列，v2.0.37+ 失效）；apiKeyHelper 补充 TTL / 失败报错 / 适用面；env 字段补充 `ANTHROPIC_BASE_URL` 副作用；CC-Switch 更新至 124K+ Star / v3.16.1 / 8 工具 |
