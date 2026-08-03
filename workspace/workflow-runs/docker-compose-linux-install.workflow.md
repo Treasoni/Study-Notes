@@ -10,10 +10,10 @@ topic: "Docker 与 Docker Compose 安装（国内环境）"
 project_slug: docker-compose-linux-install
 created_at: 2026-08-03
 last_updated: "2026-08-04"
-current_phase: P5
+current_phase: P6
 current_status: in_progress
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4"
+confirmed_phases: "P0,P1,P2,P3,P4,P5"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：docker-compose-linux-install
 > 项目标识：docker-compose-linux-install
 > 创建时间：2026-08-03
-> 当前阶段：阶段 5
+> 当前阶段：阶段 6
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -108,7 +108,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中
+> [P5] ✅ 已完成
 
 ---
 
@@ -118,7 +118,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] 🔲 进行中
 
 ---
 
@@ -136,6 +136,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P5 | 用户指示连续写作，组装完成（方式 A 顺序拼接，8 章，1527 行） | 2026-08-04 00:07 |
 | P4 | 用户指示连续写作，全部 8 章完成（1-8 已写） | 2026-08-04 00:04 |
 | P3 | 用户确认 8 章大纲（双轨结构） | 2026-08-03 23:55 |
 | P2 | 用户确认深度素材质量（官方文档+国内源+2026镜像清单+避坑） | 2026-08-03 23:53 |
