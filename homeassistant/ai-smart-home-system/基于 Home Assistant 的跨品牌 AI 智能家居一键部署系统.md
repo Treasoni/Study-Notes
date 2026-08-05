@@ -61,6 +61,7 @@ source_project: ai-smart-home-system
 ## 配套笔记
 
 - [[系统架构图]] - 四层架构总览 + 「把客厅灯调暗」数据流时序图
+- [[HAOS交付流程图]] - HAOS 交付流程：预建镜像 → 开机引导 → Add-on 装 Agent → 配品牌
 - [[Home Assistant 三种部署方式对比与选型]] - HAOS / Docker Container / HA Supervised 部署方式对比
 - [[Home Assistant MOC]] - Home Assistant 目录
 

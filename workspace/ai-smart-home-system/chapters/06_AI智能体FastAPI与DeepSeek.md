@@ -28,7 +28,7 @@ source_project: ai-smart-home-system
 
 ## 6.1 API 事实核对：2026-08 的 DeepSeek 现状
 
-动笔前先核对 API 事实。DeepSeek 在 2026 年对模型命名、思考模式、`tool_choice` 都做了调整，网上大量旧教程会把你直接带进 400。[深度收集 §4](../02_deep_research.md)
+动笔前先核对 API 事实。DeepSeek 在 2026 年对模型命名、思考模式、`tool_choice` 都做了调整，网上大量旧教程会把你直接带进 400。深度收集 §4
 
 | 事实 | 取值 | 为什么必须记住 |
 |------|------|----------------|
@@ -44,7 +44,7 @@ source_project: ai-smart-home-system
 
 主循环的职责很克制：**模型最多发起 1 次工具调用**（`MAX_TOOL_ROUNDS = 1`），执行后把结果回填，再请求一次拿到最终答复，然后收工。不做多步规划、不给模型第二次调工具的机会。对「单条命令控制」这个场景，这是最稳的做法——多步规划看着聪明，但每多一步就多一次幻觉和越权机会。
 
-先看工具白名单，它定义了 Agent 能力的边界：[深度收集 §4](../02_deep_research.md)
+先看工具白名单，它定义了 Agent 能力的边界：深度收集 §4
 
 ```python
 ENTITY_ID_RE = re.compile(r"^[a-z][a-z0-9_]*\.[a-z0-9_]+$")
@@ -126,7 +126,7 @@ curl -X POST http://127.0.0.1:8000/chat \
 
 ## 6.3 工具层：tools.py 的 Home Assistant REST 封装
 
-工具层把 HA REST API 封装成 `HomeAssistantClient`（httpx.AsyncClient），只暴露 `get_state` / `call_service` / `ping` 三个方法。[深度收集 §4](../02_deep_research.md) [Home Assistant REST API](https://developers.home-assistant.io/docs/api/rest/)
+工具层把 HA REST API 封装成 `HomeAssistantClient`（httpx.AsyncClient），只暴露 `get_state` / `call_service` / `ping` 三个方法。深度收集 §4 [Home Assistant REST API](https://developers.home-assistant.io/docs/api/rest/)
 
 ```python
 self._headers = {
@@ -154,7 +154,7 @@ async def call_service(self, domain, service, data=None):
 
 ## 6.4 实体映射：entity_map.yaml + rapidfuzz 模糊匹配
 
-用户不会说 `light.living_room`，他说「客厅灯」。实体映射层负责把口语别名解析成 HA 实体 ID，避免让模型去猜 entity 命名。[深度收集 §4](../02_deep_research.md)
+用户不会说 `light.living_room`，他说「客厅灯」。实体映射层负责把口语别名解析成 HA 实体 ID，避免让模型去猜 entity 命名。深度收集 §4
 
 ```yaml
 entities:
@@ -181,7 +181,7 @@ entities:
 
 ## 6.5 安全设计：把「口子」收窄成「接口」
 
-把设备控制权交给 LLM，最怕的不是模型笨，而是模型被**越权诱导**（prompt injection）或**手滑控制错误设备**。项目里的安全设计分层如下：[深度收集 §4](../02_deep_research.md)
+把设备控制权交给 LLM，最怕的不是模型笨，而是模型被**越权诱导**（prompt injection）或**手滑控制错误设备**。项目里的安全设计分层如下：深度收集 §4
 
 - **专用受限 HA 用户 + LLAT**：为 Agent 单独建一个 HA 用户，用它生成 Long-Lived Access Token，不要用管理员主号。注意 LLAT 默认无 scope，**等同全管理员权限**，所以「受限用户」才是真正的隔离手段——让这个用户只能看到、控制这一批设备。`.env` 里的 `HA_TOKEN` 就是它。
 - **函数名白名单**：模型返回的工具名只有出现在 `TOOL_HANDLERS` 里的才会被 `_validate_tool_call` 放行，其余一律拒绝。模型最多「提议」，执行权永远在应用层。
@@ -201,7 +201,7 @@ entities:
 | `Dockerfile` | `python:3.12-slim`，`uvicorn main:app --host 0.0.0.0 --port 8000`，`EXPOSE 8000` |
 | `.env.example` | `DEEPSEEK_MODEL=deepseek-v4-flash`、`DEEPSEEK_THINKING=disabled`、`HA_BASE_URL=http://127.0.0.1:8123` |
 
-配合第 3 章的 `docker-compose`，Agent 以 sidecar 形式跑在 `network: host` 下，容器内直接 `127.0.0.1:8123` 连 HA，`depends_on: homeassistant: condition: service_healthy` 保证 HA 先就绪。
+部署到哪：**HAOS 主路径**下，Agent 打包为自定义 Add-on（第 3 章 3.3），由 Supervisor 托管——Add-on 本质是 Supervisor 管理的 Docker 容器，容器内访问 HA 用 `http://homeassistant:8123` 或 Supervisor API 代理，HA 与 Add-on 的启动顺序由 Supervisor 的依赖声明保证。**Container 次级渠道**下，才用第 3 章 3.4 的 compose sidecar（`network: host` 内直连 `127.0.0.1:8123` + `depends_on: condition: service_healthy`）。
 
 ## 本章小结
 
@@ -214,3 +214,7 @@ entities:
 ---
 
 下一章进入「场景」：HA 的自动化引擎。你会看到怎么把回家、离家、睡眠这些场景模板化成 packages 与 Blueprint，让整套系统不止会「听指令」，还会「自己判断该做什么」。
+
+---
+
+> [[05_跨品牌接入矩阵|⬅ 第五章]] · [[基于 Home Assistant 的跨品牌 AI 智能家居一键部署系统|返回索引]] · [[07_场景模板与自动化|第七章 ➡]]
