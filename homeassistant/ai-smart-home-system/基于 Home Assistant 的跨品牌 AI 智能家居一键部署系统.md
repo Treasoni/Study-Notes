@@ -38,24 +38,25 @@ source_project: ai-smart-home-system
 ## 核心结论（先看这个）
 
 > [!summary] 一键速览
-> - **部署选型**：Docker Container 为主 + HAOS 为辅（Supervised 已于 2025.12 弃用）
-> - **镜像**：ghcr 回退链（ghcr.nju.edu.cn → DaoCloud → 1ms.run → 官方直连 → hasscn）
+> - **部署选型**：HAOS 为主 + Container 为辅（Supervised 已于 2025.12 弃用）
+> - **交付形态**：预建 VM 镜像 / 预刷迷你主机 / 定制盒子 → 开机即用；Agent 打包为自定义 Add-on
+> - **稳定运行**：Supervisor 全托管（自动更新 + 快照备份 + Add-on 商店），面向完全非技术用户
 > - **LLM**：DeepSeek `deepseek-v4-flash`（旧名 `deepseek-chat` 已于 2026-07-24 停用）
 > - **跨品牌**：米家 `xiaomi_home` · 涂鸦 `tuya`+`localtuya` · 美的 `midea_ac_lan` · 格力内置 `gree` · 海尔 `hon-revived`；华为无路径；Matter / MQTT / Zigbee 兜底
-> - **一键部署**：install.sh → `docker compose up -d` → 无头 onboarding → 5 分钟可用
+> - **国内适配**：HAOS-CN 镜像 / 社区加速；Container 走 ghcr 回退链（次级渠道）
 
 ## 章节目录
 
 | 章 | 标题 | 内容 |
 |----|------|------|
-| 1 | [[01_系统架构与部署选型\|第一章 系统架构与部署选型]] | 四层架构 · Container 为主 / HAOS 为辅（Supervised 弃用修正） |
-| 2 | [[02_国内镜像链与Docker基础设施\|第二章 国内镜像链与 Docker 基础设施准备]] | ghcr 回退链 · Docker Hub 加速 · ACR 定位 |
-| 3 | [[03_一键部署install脚本与docker编排\|第三章 一键部署：install.sh 与 docker-compose 编排]] | 八步安装脚本 · 双容器编排 · healthcheck |
-| 4 | [[04_无头onboarding自动化\|第四章 无头 onboarding：让 HA 首次启动不再需要浏览器]] | onboarding API · .storage 兜底 · 5 分钟承诺边界 |
+| 1 | [[01_系统架构与部署选型\|第一章 系统架构与部署选型]] | 四层架构 · HAOS 为主 / Container 为辅（Supervised 弃用修正） |
+| 2 | [[02_国内镜像链与Docker基础设施\|第二章 镜像与交付：HAOS 镜像 / 国内分发]] | HAOS 镜像 · HAOS-CN 国内分发 · Container ghcr 回退链（次级） |
+| 3 | [[03_一键部署install脚本与docker编排\|第三章 一键交付：预建镜像 / 盒子 / Add-on]] | 预建 VM 镜像 / 预刷主机 / 盒子 · Agent Add-on 一键装 · Container compose（次级） |
+| 4 | [[04_无头onboarding自动化\|第四章 首次启动：HAOS 引导 / onboarding / Add-on 安装]] | HAOS 首次启动 · onboarding API · 5 分钟承诺边界 |
 | 5 | [[05_跨品牌接入矩阵\|第五章 跨品牌接入矩阵（核心章节）]] | 品牌矩阵 · MVP 预置清单 · 首次接入人工步骤 |
-| 6 | [[06_AI智能体FastAPI与DeepSeek\|第六章 AI 智能体：FastAPI + DeepSeek Function Calling]] | Agent 代码 · entity_map · 安全设计 |
+| 6 | [[06_AI智能体FastAPI与DeepSeek\|第六章 AI 智能体：FastAPI + DeepSeek Function Calling]] | Agent 代码 · entity_map · 安全设计（可打包为 Add-on） |
 | 7 | [[07_场景模板与自动化\|第七章 场景模板与自动化：packages 与 Blueprint]] | 场景三件套 · Blueprint · 组件版本锁定 |
-| 8 | [[08_产品化复制与时效性风险\|第八章 产品化复制与时效性风险]] | 三层复制 · 三种分发渠道 · 待决策事项 |
+| 8 | [[08_产品化复制与时效性风险\|第八章 产品化复制与时效性风险]] | 预建镜像 / 盒子 / Add-on 仓库 / Blueprint 分发 · 待决策事项 |
 
 ## 配套笔记
 
