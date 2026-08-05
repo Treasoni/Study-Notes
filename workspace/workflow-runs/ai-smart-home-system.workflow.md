@@ -10,10 +10,10 @@ topic: "基于 Home Assistant 的跨品牌 AI 智能家居一键部署系统（�
 project_slug: "ai-smart-home-system"
 created_at: "2026-08-05"
 last_updated: "2026-08-06"
-current_phase: P7
-current_status: ready
+current_phase: done
+current_status: complete
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4,P5,P6"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6,P7"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：ai-smart-home-system
 > 项目标识：ai-smart-home-system
 > 创建时间：2026-08-05
-> 当前阶段：阶段 7
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -128,7 +128,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成
 
 ---
 
@@ -136,6 +136,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P7 | 用户确认同步 MOC；已在 Home Assistant MOC 部署指南分组追加索引 | 2026-08-06 00:09 |
 | P6 | 用户确认组装结果与输出位置；已发布到 homeassistant/ai-smart-home-system/（主笔记+3分片，链接已修正） | 2026-08-06 00:08 |
 | P5 | 用户确认组装结果（8章约3万字，转置结构）；输出位置 homeassistant/ai-smart-home-system/ 已确认 | 2026-08-06 00:06 |
 | P4 | 用户授权连续写作；8 章全部完成（进度 8/8） | 2026-08-05 23:48 |
@@ -173,10 +174,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战构建指南（practice，附方案/决策背景）
+- **总字数**：约 3 万字
+- **章节数**：8
+- **输出格式**：Obsidian 转置结构（主笔记 + 3 分片，`![[_partXX]]`）
+- **文件路径**：`homeassistant/ai-smart-home-system/`（主笔记 + `_part02/_part03/_part04.md`）
+- **Obsidian Vault**：`C:\note\Study-Notes`
+- **MOC 路径**：`homeassistant/Home Assistant MOC.md`（部署指南分组已追加索引）
