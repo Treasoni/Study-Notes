@@ -10,10 +10,10 @@ topic: "Home Assistant 中 HAOS 虚拟机、Docker Container、HA Supervised 这
 project_slug: "home-assistant-deployment-methods"
 created_at: "2026-08-05"
 last_updated: "2026-08-05"
-current_phase: P1
+current_phase: P2
 current_status: in_progress
 mode: outline
-confirmed_phases: "P0"
+confirmed_phases: "P0,P1"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：home-assistant-deployment-methods
 > 项目标识：home-assistant-deployment-methods
 > 创建时间：2026-08-05
-> 当前阶段：阶段 1
+> 当前阶段：阶段 2
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -50,13 +50,13 @@ blocked_reason: ""
 ---
 
 ## 阶段 1：探测式收集
-- [ ] 已派出 2-3 个 subagent 并行探测
-- [ ] 探测结果已汇总
-- [ ] 方向菜单已展示给用户
-- [ ] 用户已选择学习方向
-- [ ] 探测结果已保存：`./01_explore_result.md`
+- [✅] 已派出 2-3 个 subagent 并行探测
+- [✅] 探测结果已汇总
+- [✅] 方向菜单已展示给用户
+- [✅] 用户已选择学习方向 → **侧重选型决策（对比表+决策树为主线，部署步骤作附录）**
+- [✅] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] 🔲 进行中
+> [P1] ✅ 已完成
 
 ---
 
@@ -70,7 +70,7 @@ blocked_reason: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] ⬜ 未开始
+> [P2] 🔲 进行中
 
 ---
 
@@ -135,6 +135,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P1 | 用户确认方向：侧重选型决策（对比表+决策树为主线，部署步骤作附录） | 2026-08-05 22:29 |
 | P0 | 用户确认意图文件与研究计划；输出位置 C:
 oteStudy-Noteshomeassistant | 2026-08-05 22:26 |
 | | | |
