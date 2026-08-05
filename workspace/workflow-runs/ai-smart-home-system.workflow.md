@@ -10,10 +10,10 @@ topic: "基于 Home Assistant 的跨品牌 AI 智能家居一键部署系统（�
 project_slug: "ai-smart-home-system"
 created_at: "2026-08-05"
 last_updated: "2026-08-06"
-current_phase: P6
-current_status: in_progress
+current_phase: P7
+current_status: ready
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4,P5"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：ai-smart-home-system
 > 项目标识：ai-smart-home-system
 > 创建时间：2026-08-05
-> 当前阶段：阶段 6
+> 当前阶段：阶段 7
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -118,7 +118,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] 🔲 进行中
+> [P6] ✅ 已完成
 
 ---
 
@@ -136,6 +136,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P6 | 用户确认组装结果与输出位置；已发布到 homeassistant/ai-smart-home-system/（主笔记+3分片，链接已修正） | 2026-08-06 00:08 |
 | P5 | 用户确认组装结果（8章约3万字，转置结构）；输出位置 homeassistant/ai-smart-home-system/ 已确认 | 2026-08-06 00:06 |
 | P4 | 用户授权连续写作；8 章全部完成（进度 8/8） | 2026-08-05 23:48 |
 | P3 | 用户确认大纲顺序与深度（8 章端到端主线，跨品牌接入为核心章节） | 2026-08-05 23:40 |
