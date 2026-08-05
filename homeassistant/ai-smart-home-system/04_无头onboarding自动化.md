@@ -1,63 +1,51 @@
 ---
-title: "第四章 无头 onboarding：让 HA 首次启动不再需要浏览器"
+title: "第四章 首次启动：HAOS 引导 / onboarding / Add-on 安装"
 type: chapter
 chapter: 4
 tags:
   - Home-Assistant
   - 部署
   - onboarding
+  - HAOS
+  - Add-on
 created: 2026-08-05
-updated: 2026-08-05
+updated: 2026-08-06
 status: 已完成
 source_project: ai-smart-home-system
 ---
 
-# 第四章 无头 onboarding：让 HA 首次启动不再需要浏览器
+# 第四章 首次启动：HAOS 引导 / onboarding / Add-on 安装
 
 > 笔记类型：实战构建指南（practice）｜学习深度：精通
-> 素材来源：`02_deep_research.md` §2（onboarding 自动化）、§7（待实测 #4）
+> 素材来源：深度收集 §2（onboarding 自动化 / Add-on）、§7（待实测 #4）
 > 前置关联：[[01_系统架构与部署选型|第一章 系统架构与部署选型]]
 
 > [!summary] 本章回答三个问题
-> 1. HA 首次启动的 5 步浏览器向导能不能整段脚本化？（能，两条路径）
-> 2. 什么集成可以「停 HA → 写配置 → 重启」自动化，什么必须人工？（token 类 vs OAuth 类）
-> 3. 「5 分钟承诺」的技术边界到底划在哪？
+> 1. HAOS 开机引导（浏览器访问 `homeassistant.local:8123` 的建账号 / 位置 / 分析）能不能整段脚本化？（能，onboarding API）
+> 2. Agent 是怎么靠 Add-on 一键装进 HAOS 的？「5 分钟承诺」的技术边界到底划在哪？
+> 3. 什么集成可以「停 HA → 写配置 → 重启」自动化，什么必须人工？（token 类 vs OAuth 类）
 
-第 3 章的 `install.sh` 把 HA 容器拉起来、就绪探测通过之后，用户要面对的下一个东西，是 HA 首次启动自动弹出的 **5 步浏览器向导**：建账号、设位置、选分析、选集成、点完成。对技术人这顺手就能点完，但对「非技术用户」这是第一堵墙——界面是英文、概念陌生、密码没人帮管，一旦卡在这，前面的一键部署就全白做了。本章要解决的就是：把这 5 步也变成可脚本化的后台动作，同时诚实划出「什么能自动化、什么必须人工」的边界。这决定了产品的「5 分钟承诺」到底能承诺到哪一步。
+第 1、2 章确定了交付形态是「HAOS 为主 + Container 为辅」，第 3 章把它落成预建镜像 / 预刷主机 / 定制盒子。用户把盒子插电开机之后，面对的第一样东西，是 HAOS 的首次启动引导：浏览器打开 `homeassistant.local:8123`，一路建账号、设位置、选分析。对技术人这顺手就能点完，但对「非技术用户」这是第一堵墙——界面是英文、概念陌生、密码没人帮管，一旦卡在这，前面的一键交付就全白做了。本章以 HAOS 为主场景，讲清楚三件事：开机引导如何自动化、Agent 如何靠 Add-on 一键装、以及「5 分钟承诺」到底能承诺到哪一步。
 
-## 4.1 为什么需要无头 onboarding
+## 4.1 HAOS 首次启动：开机引导与 Supervisor 托管
 
-### 5 步向导 = 5 个后台动作
+HAOS 是「专机专用」的官方路径：镜像刷进设备（或直接买预刷盒子）后开机即起，系统由 Supervisor 全权托管。首次启动的浏览器引导，本质上是一连串「创建资源 + 打勾」的动作，正好能映射成 5 个后台调用：
 
-HA 首次启动的浏览器向导，本质上是一连串「创建资源 + 打勾」的动作，正好能映射成 5 个后台调用：
+| 开机引导问题（用户可见） | 对应后台动作 | 产物 |
+|--------------------------|-------------|------|
+| 创建 owner 账号 | `POST /api/onboarding/users` | 账号 + 一次性 auth_code |
+| 完成首次登录 | `POST /auth/token` | 长期访问令牌 |
+| 设置位置 / 单位制 | `POST /api/onboarding/core_config` | location_name / 单位制 |
+| 分析数据选择 | `POST /api/onboarding/analytics` | 分析偏好（默认关闭） |
+| 集成步骤收尾 | `POST /api/onboarding/integration` | 向导标记为 done |
 
-| 浏览器向导步骤 | 对应后台动作 | 产物 |
-|---------------|-------------|------|
-| 建 owner 账号 | 创建用户 | 账号 + 一次性 auth_code |
-| 完成首次登录 | 用 auth_code 换令牌 | 长期访问令牌 |
-| 设位置/单位 | 写核心配置 | location_name / 单位制 |
-| 分析数据选择 | 写分析偏好 | 默认关闭即可 |
-| 选集成并收尾 | 标记集成完成 | 向导标记为 done |
+对非技术用户，引导的每一处都是卡点：要理解 `location_name`、`unit_system` 这种专业词；要自己记住刚设的账号密码；英文界面直接劝退。更麻烦的是它发生在「开机即用」的中间——用户正等着「装好了」，屏幕上却跳出「让我回答几个问题」。
 
-### 非技术用户卡在哪
+好在 HAOS 给自动化留了入口：Supervisor 托管的系统自带 `ha` CLI，通过 SSH 或 Advanced SSH & Web Terminal add-on 就能进入本机；下面要讲的 onboarding API 调用，就是从这个入口在后台跑完引导。
 
-对非技术用户，向导的每一处都是卡点：要理解 `location_name`、`unit_system` 这种专业词；要自己记住刚设的账号密码；英文界面直接劝退。更麻烦的是它发生在「部署流程」中间——用户正等着「装好了」，屏幕上却跳出「让我回答几个问题」。
+## 4.2 主路径：onboarding API 自动化（HAOS 与 Container 通用）
 
-### 5 分钟承诺的技术边界
-
-「5 分钟」承诺的前提是：**拉镜像、起容器、走完 onboarding、配好 token 类集成，全部后台完成，用户零感知**。而凡是涉及品牌账号授权的事（扫码、验证码、跳转品牌页面），都进不了这 5 分钟，只能作为「必须人工」步骤交给向导引导。本章的技术目标就是让「后台完成」的部分尽量大，同时把「必须人工」的部分提前暴露给产品设计深度收集 §2。
-
-实现上有两条路径：
-
-- **路径 A（推荐）**：HA 已经启动，实时调 onboarding API 把向导走完；
-- **路径 B（兜底）**：HA 启动前就预置好 `.storage` 文件，让 HA 以为向导已经完成。
-
-> [!warning] 一个必须知道的时效性风险
-> onboarding API 是未文档化的接口，社区实证于 HA 2024.11.3；它在 2026 stable（2026.7.x）上是否仍有效，至今仍是待实测项§7 #4。所以两条路径都必须是「先探测、失败回退浏览器向导」，不能写死。
-
-## 4.2 路径 A（推荐）：onboarding API 调用序列
-
-路径 A 的核心是 5 个请求的固定顺序：
+把引导搬进后台的关键，是一组固定的 onboarding API 调用序列：
 
 1. `POST /api/onboarding/users` — 创建 owner 账号，返回一次性 `auth_code`；
 2. `POST /auth/token` — 用 `auth_code` 换长期访问令牌（这一步用表单编码，不是 JSON）；
@@ -65,12 +53,13 @@ HA 首次启动的浏览器向导，本质上是一连串「创建资源 + 打�
 4. `POST /api/onboarding/analytics` — 提交分析数据偏好（建议默认关闭）；
 5. `POST /api/onboarding/integration` — 标记集成步骤完成，向导收尾。
 
-因为接口未文档化、字段随版本可能变化，脚本必须在最前面做版本探测，任何一步失败都转浏览器向导：
+这条序列不挑部署形态：HAOS 上从 SSH / Web Terminal 进入本机跑，Container 部署（第 3 章 docker-compose）同样适用。因为接口未文档化、字段随版本可能变化，脚本必须在最前面做版本探测，任何一步失败都转浏览器引导：
 
 ```python
 #!/usr/bin/env python3
 """
-无头 onboarding（路径 A）：HA 首次启动后，用 5 个接口走完浏览器向导。
+首次启动 onboarding 自动化（HAOS 与 Container 通用）：
+在 HAOS 的 SSH / Web Terminal 或 Container 宿主上，用 5 个接口走完开机引导。
 用法：python3 headless_onboarding.py <用户名> <密码>
 """
 import json
@@ -78,7 +67,7 @@ import sys
 import urllib.parse
 import urllib.request
 
-BASE = "http://127.0.0.1:8123"  # 与 install.sh 的就绪探测同一地址
+BASE = "http://127.0.0.1:8123"  # 本机回环；浏览器侧访问地址是 homeassistant.local:8123
 
 
 def call(method, path, data=None, token=None, form=False):
@@ -104,7 +93,7 @@ def call(method, path, data=None, token=None, form=False):
 
 username, password = sys.argv[1], sys.argv[2]
 
-# 0) 版本探测：接口未文档化，先看版本，兼容不了就退回浏览器向导
+# 0) 版本探测：接口未文档化，先看版本，兼容不了就退回浏览器引导
 status, meta = call("GET", "/api/")
 version = meta.get("version", "?")
 print("[probe] HA version:", version)
@@ -120,7 +109,7 @@ status, created = call("POST", "/api/onboarding/users", {
     "password": password,
 })
 if not status or status >= 400:
-    print("[fallback] 建号失败，转浏览器向导:", BASE, created)
+    print("[fallback] 建号失败，转浏览器引导:", BASE, created)
     sys.exit(1)
 auth_code = created["auth_code"]
 
@@ -137,7 +126,7 @@ call("POST", "/api/onboarding/core_config", {}, access_token)
 call("POST", "/api/onboarding/analytics", {"user_analytics": False}, access_token)
 call("POST", "/api/onboarding/integration", {}, access_token)
 
-# 4) 校验：能读到 config 说明向导已走完
+# 4) 校验：能读到 config 说明引导已走完
 _, config = call("GET", "/api/config", token=access_token)
 print("[ok] onboarding done. location:", config.get("location_name"))
 ```
@@ -151,11 +140,31 @@ print("[ok] onboarding done. location:", config.get("location_name"))
 
 两点说明：**第一**，`/api/onboarding/users` 的请求体（尤其 `client_id`）在不同版本可能有差异，脚本里的字段是便于理解的形态，上线前必须在目标版本上实测一遍；**第二**，脚本打印出的令牌只是登录态令牌，第 6 章会讲：Agent 真正使用的应该是为它单独创建的 **Long-Lived Access Token（LLAT）**，而不是复用这个登录令牌。
 
-## 4.3 路径 B（兜底）：.storage 文件预置
+> [!warning] 一个必须知道的时效性风险
+> onboarding API 是未文档化的接口，社区实证于 HA 2024.11.3；它在 2026 stable（2026.7.x）上是否仍有效，至今仍是待实测项（深度收集 §7 #4）。所以无论 HAOS 还是 Container，都必须「先探测、失败回退浏览器引导」，不能写死。
 
-当路径 A 失效（版本过低、接口字段变化）时，改用「启动前预置 `.storage`」：在 HA **首次启动之前**，往 `./config/.storage/` 写入 4 个文件，让 HA 认为向导已经完成。需要预置的文件是 `auth`、`core.config`、`onboarding`、`person` 等，外加用 HA 同一套算法预生成的密码哈希深度收集 §2。
+## 4.3 Add-on 一键安装：Agent 上线的关键一步
 
-操作顺序：**停 HA → 写 `.storage` → 启动 → 用 admin 账号登录校验**。以下是便于理解的最小结构：
+HAOS 上 Agent 的交付形态是 Add-on（第 3 章已把 Agent 打包为自定义 Add-on），而不是 Container 里的 sidecar 容器。对非技术用户，这一步是一键的：
+
+```text
+Add-on Store 添加自定义仓库
+   → 仓库里出现 Agent add-on
+      → 一键安装
+         → 填 .env（DEEPSEEK_API_KEY / TZ）
+            → Agent 上线
+```
+
+在 HAOS 上，Add-on 由 Supervisor 托管，好处是用户不需要碰任何命令行：装完 add-on 只填一次 `.env`（DEEPSEEK_API_KEY / TZ），后续自动更新和快照备份都由 Supervisor 兜底。这也是「5 分钟承诺」能对完全非技术用户成立的原因之一：不只是「装好」，而是「以后不用管」。
+
+> [!note] Add-on 与 Container 的分工
+> 主交付形态（HAOS）里，Agent 是 Add-on，随系统自动更新；次级交付形态（Container）里，Agent 是 compose 里的 sidecar 容器，靠 install.sh 维护。两者的 onboarding API 自动化逻辑完全一致（见 4.2）。
+
+## 4.4 次级场景：Container 的 onboarding 兜底（.storage 预置）
+
+Container 是本产品的次级交付形态（第 3 章 docker-compose）。4.2 的 onboarding API 序列在 Container 上同样适用；而当 API 失效（版本过低、字段变化）时，Container 比 HAOS 多一个更底层的兜底：直接在文件系统上预置 `.storage`——因为 `./config` 是宿主目录，可以「停 HA → 写配置 → 启动」，让 HA 认为引导已经完成。HAOS 上 Supervisor 托管文件系统，走这条路要绕 SSH / `ha` CLI，不自然，所以 HAOS 优先用 4.2 的 API 路径。
+
+需要预置的文件是 `auth`、`core.config`、`onboarding`、`person` 等，外加用 HA 同一套算法预生成的密码哈希（深度收集 §2）。以下是便于理解的最小结构：
 
 ```json
 // .storage/auth：预置 owner 用户 + 预生成密码哈希
@@ -227,11 +236,11 @@ print("[ok] onboarding done. location:", config.get("location_name"))
 ```
 
 > [!warning] 别手写 schema
-> `.storage` 是 HA 的内部状态文件，schema 随版本演进，手写极易出错。工程上正确的做法是：**先在一台干净的 HA 上手动跑完一次向导，把生成的 `.storage` 导出为标准模板**，再按模板替换用户名、密码哈希、位置等字段。这样拿到的 schema 必然与目标版本一致，而不是靠猜。
+> `.storage` 是 HA 的内部状态文件，schema 随版本演进，手写极易出错。工程上正确的做法是：**先在一台干净的 HA 上手动跑完一次引导，把生成的 `.storage` 导出为标准模板**，再按模板替换用户名、密码哈希、位置等字段。这样拿到的 schema 必然与目标版本一致，而不是靠猜。
 
 密码哈希必须用 HA 自己的密码哈希算法（PBKDF2-SHA512）预生成，rounds / salt 策略随版本可能变化，直接用标准模板里已有的哈希格式改内容，比从零生成更稳。
 
-## 4.4 config_flow 无头与人工环节分类
+## 4.5 config_flow 无头与人工环节分类
 
 onboarding 只是让 HA「能登录」。真正的接入难关在集成层（config_flow）——第 5 章会逐个品牌展开，这里先建立判断框架。按「能不能脚本化」把集成分成两类：
 
@@ -240,24 +249,24 @@ onboarding 只是让 HA「能登录」。真正的接入难关在集成层（con
 | token 类 | 配置项只有 IP / token / key，无账号体系 | 米家 LAN、美的 `midea_ac_lan`、海尔 `hon-revived` | 可：停 HA → 写 `.storage/core.config_entries` → 启动 |
 | OAuth 类 | 需要品牌账号授权，含扫码 / CAPTCHA | 官方米家 `xiaomi_home`、涂鸦 `tuya` 云 | 必须人工授权 |
 
-token 类的 config entry 本质上就是一段「设备地址 + 密钥」的数据。对这类集成，可以停掉 HA，往 `.storage/core.config_entries` 里写一条记录（字段含 `domain`、`title`、`data`、`options`、`source`、`entry_id` 等），再启动 HA，它就会像正常添加一样加载深度收集 §2。
+token 类的 config entry 本质上就是一段「设备地址 + 密钥」的数据。对这类集成，可以停掉 HA，往 `.storage/core.config_entries` 里写一条记录（字段含 `domain`、`title`、`data`、`options`、`source`、`entry_id` 等），再启动 HA，它就会像正常添加一样加载（深度收集 §2）。
 
 OAuth 类为什么必须人工？因为它的凭据不是「一段静态密钥」，而是走完品牌侧授权流程才签发的 **refresh_token + access_token**，授权过程中还有扫码、验证码（CAPTCHA）这类人类动作。脚本既拿不到品牌侧授权页面的验证，也绕不开验证码，所以这一类只能交给用户，产品层能做的是把步骤引导到最简。
 
-## 4.5 产品 UX 三阶段设计
+## 4.6 产品 UX 三阶段设计与 5 分钟承诺边界
 
-把上面的技术手段翻译成产品体验，就是三个递进的阶段深度收集 §2：
+把上面的技术手段翻译成产品体验，就是三个递进的阶段（深度收集 §2）：
 
 ```text
-install.sh 起容器
-   → A 后台安装（无可感知人工，5 分钟内）
+插盒子开机（HAOS 启动）
+   → A 后台初始化（无可感知人工，5 分钟内）
       → B Agent 后台生成 admin 凭据 + 引导页
          → C 品牌接入卡片（纯后台 / 半后台 / 必须人工）
 ```
 
 | 阶段 | 内容 | 人工量 |
 |------|------|--------|
-| A 后台安装 | install.sh + 路径 A onboarding，全程后台 | 无可感知人工 |
+| A 后台初始化 | 开机引导 API 自动化 + Add-on 一键装 Agent，全程后台 | 无可感知人工 |
 | B 凭据引导页 | Agent 在后台生成 admin 随机强密码，渲染「访问地址 + 账号 + 密码」到引导页 | 用户只读不填 |
 | C 品牌接入卡片 | 按品牌分三档，把第 5 章的接入动作做成卡片 | 分档：纯后台 / 半后台 / 必须人工 |
 
@@ -268,15 +277,15 @@ install.sh 起容器
 - **必须人工**：OAuth 品牌登录（官方米家、涂鸦云），跳转品牌页面人工授权，这一档**不进 5 分钟承诺**，只承诺「向导指到哪、用户点到哪」。
 
 > [!note] 5 分钟承诺的最终边界
-> 承诺 = 阶段 A + B + 阶段 C 的「纯后台」档全部自动；「半后台」档承诺被引导完成而不是无人值守；「必须人工」档（OAuth 登录）不在 5 分钟内，属于第 5 章要重点规划人力的部分。上线前必须先实测 onboarding API 在 2026.7.x 的有效性（§7 #4），否则路径 A 一旦失效，阶段 A 就退化成阶段 B 引导用户开浏览器——5 分钟承诺要据此重新表述。
+> 承诺 = HAOS 开机引导（可 API 自动化）+ Add-on 一键装 Agent + 阶段 C 的「纯后台」档全部自动；「半后台」档承诺被引导完成而不是无人值守；「必须人工」档（OAuth 登录）不在 5 分钟内，属于第 5 章要重点规划人力的部分。上线前必须先实测 onboarding API 在 2026.7.x 的有效性（深度收集 §7 #4），否则引导自动化一旦失效，阶段 A 就退化成让用户开浏览器——5 分钟承诺要据此重新表述。HAOS 的自动更新 + 快照备份负责的是「承诺之后长期不用管」，不改变承诺本身的范围。
 
 ## 本章小结
 
-- HA 首次启动的 5 步浏览器向导 = 5 个后台动作，可以整段脚本化：路径 A（onboarding API 序列）优先，路径 B（`.storage` 预置）兜底。
-- 路径 A 的 5 个请求顺序是 `users → auth/token → core_config → analytics → integration`；接口未文档化，必须版本探测 + 失败回退浏览器向导。
-- 路径 B 在首次启动前预置 `auth` / `core.config` / `onboarding` / `person` 4 个文件，密码哈希用 HA 的 PBKDF2-SHA512 方案预生成；**schema 用标准模板，不要手写**。
+- HAOS 首次启动的浏览器引导（建账号 / 位置 / 分析）= 5 个后台动作，可以用 onboarding API 整段脚本化；HAOS 与 Container 通用，接口未文档化，必须版本探测 + 失败回退浏览器引导。
+- HAOS 是主交付形态：开机引导（可 API 自动化）→ Add-on Store 一键装 Agent → 填 `.env` → 配品牌；自动更新 + 快照保证后续稳定。
+- Container 是次级场景：4.2 的 onboarding API 同样适用，另有一个更底层的 `.storage` 预置兜底（auth / core.config / onboarding / person + PBKDF2 密码哈希），schema 用标准模板，不要手写。
 - config_flow 按「能否无头」分两类：token 类（米家 LAN / 美的 / 海尔）可写 `.storage/core.config_entries` 自动化；OAuth 类（官方米家 / 涂鸦）必须人工授权。
-- 产品 UX 三阶段 = A 后台安装 → B 凭据引导页 → C 品牌接入卡片（纯后台 / 半后台 / 必须人工）；5 分钟承诺只覆盖「纯后台」档，OAuth 类授权不在承诺内。
+- 产品 UX 三阶段 = A 后台初始化（引导 + Add-on）→ B 凭据引导页 → C 品牌接入卡片（纯后台 / 半后台 / 必须人工）；5 分钟承诺只覆盖「纯后台」档，OAuth 类授权不在承诺内。
 
 ---
 

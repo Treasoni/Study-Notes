@@ -201,7 +201,7 @@ entities:
 | `Dockerfile` | `python:3.12-slim`，`uvicorn main:app --host 0.0.0.0 --port 8000`，`EXPOSE 8000` |
 | `.env.example` | `DEEPSEEK_MODEL=deepseek-v4-flash`、`DEEPSEEK_THINKING=disabled`、`HA_BASE_URL=http://127.0.0.1:8123` |
 
-配合第 3 章的 `docker-compose`，Agent 以 sidecar 形式跑在 `network: host` 下，容器内直接 `127.0.0.1:8123` 连 HA，`depends_on: homeassistant: condition: service_healthy` 保证 HA 先就绪。
+部署到哪：**HAOS 主路径**下，Agent 打包为自定义 Add-on（第 3 章 3.3），由 Supervisor 托管——Add-on 本质是 Supervisor 管理的 Docker 容器，容器内访问 HA 用 `http://homeassistant:8123` 或 Supervisor API 代理，HA 与 Add-on 的启动顺序由 Supervisor 的依赖声明保证。**Container 次级渠道**下，才用第 3 章 3.4 的 compose sidecar（`network: host` 内直连 `127.0.0.1:8123` + `depends_on: condition: service_healthy`）。
 
 ## 本章小结
 
