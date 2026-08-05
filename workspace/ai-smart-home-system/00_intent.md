@@ -26,13 +26,14 @@
 
 ### 探索方向
 1. 系统架构与四层设计：用户交互层（微信 / Web / 语音）→ 智能体层（Python Agent + DeepSeek Function Calling）→ 核心平台层（Home Assistant）→ 基础设施层（Docker Compose）
-2. 环境搭建与国内适配：Docker Container 部署（HA Core + Agent 容器化编排）、阿里云 ACR 镜像、Gitee 镜像、Xiaomi Miot Auto 预置集成（不依赖 HACS）；说明为何不选已弃用的 Supervised，以及 HAOS 作为"专机专用"替代的取舍
-3. 智能体实现：轻量 Python + FastAPI + DeepSeek API 的 Function Calling，实现自然语言 → 设备控制
-4. HA 自动化与场景模板：Blueprint、packages 场景（回家/离家/睡眠）、模板化复制（三层分离 + entity_map 映射）
-5. 产品化与复制策略：git clone + install.sh / HA Blueprint 导入 / Docker 预打包镜像
+2. 环境搭建与国内适配：Docker Container 部署（HA Core + Agent 容器化编排）、阿里云 ACR 镜像、Gitee 镜像、预置 custom_components（不依赖 HACS）；说明为何不选已弃用的 Supervised，以及 HAOS 作为"专机专用"替代的取舍
+3. 跨品牌主流接入：市面上主流品牌都可接入——米家（Xiaomi Miot Auto）、涂鸦（LocalTuya / Tuya Local）、美的（Midea AC LAN）、海尔、格力、华为鸿蒙，及通用标准（Matter / MQTT / Zigbee）的接入矩阵与 MVP 优先级
+4. 智能体实现：轻量 Python + FastAPI + DeepSeek API 的 Function Calling，实现自然语言 → 设备控制
+5. HA 自动化与场景模板：Blueprint、packages 场景（回家/离家/睡眠）、模板化复制（三层分离 + entity_map 映射）
+6. 产品化与复制策略：git clone + install.sh / HA Blueprint 导入 / Docker 预打包镜像
 
 ### 重点收集
-- **核心概念**: Home Assistant Supervised、Docker Compose 编排、Xiaomi Miot Auto、LLM Function Calling、HA Blueprint、custom_components
+- **核心概念**: Home Assistant Container、Docker Compose 编排、跨品牌集成矩阵（Xiaomi Miot Auto / LocalTuya / Midea AC LAN / Matter / MQTT / Zigbee）、LLM Function Calling、HA Blueprint、custom_components
 - **实战代码**: install.sh 一键部署脚本、docker-compose.yml、Agent main.py（FastAPI + DeepSeek tool calling）、场景 YAML（packages/blueprints）、entity_map.yaml 映射
 - **常见坑**: Supervised 宿主系统检测、Docker Hub / GitHub 国内网络卡点、米家 API 变更、DeepSeek API 稳定性、非技术用户安装卡点
 - **工具链**: Docker CLI/compose、阿里云 ACR、Gitee、DeepSeek API、FastAPI、HA Blueprint、Xiaomi Miot Auto
@@ -48,5 +49,6 @@
 - **参考报告**: `C:\Users\zhqzn\Desktop\智能家居系统报告.html`（实施方案 / 决策方案 / 市场调研 / 竞争优势 4 部分）
 - **部署方式修正（用户已确认）**: 报告决策二选 **HA Supervised**，但官方已于 **2025.12 弃用**（公告 2025-05-22）。本项目核心约束是「面向非技术用户一键部署」，最终决策：**Docker Container 为主 + HAOS 为辅**。Container 是官方正式路径，HA Core + Agent 由 docker-compose 一起编排，install.sh 一条命令完成部署；HAOS 作为「专机专用 / 完全非技术用户」场景的替代分发渠道。详见 [[Home Assistant 三种部署方式对比与选型.md]]
 - **素材策略**: 以报告为基础 + research-collector 深度收集，补充官方文档、最新代码示例与踩坑经验
+- **跨品牌接入（用户明确要求）**: 核心价值是「跨品牌统一」，不止米家——市面主流品牌（涂鸦/美的/海尔/格力/华为等）都要可接入；MVP 按设备保有量排优先级，通用标准（Matter/MQTT/Zigbee）兜底
 - **与已有笔记关系**: 部署方式选型（Supervised）与 `homeassistant/Home Assistant 三种部署方式对比与选型.md` 直接相关，成稿后互相双链
 - **Obsidian 规则**: 表格不嵌套在列表内；YAML frontmatter 中含特殊字符（`[]`、`:`）的值必须正确引用
