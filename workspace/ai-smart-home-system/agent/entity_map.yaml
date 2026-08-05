@@ -1,0 +1,44 @@
+# 实体映射表：把用户口吻的名称/别名解析为 Home Assistant 的 entity_id。
+# name / aliases 会参与 rapidfuzz 模糊匹配（WRatio，阈值 80）。
+# 请按实际设备修改；domain 用于 main.py 的运行时白名单校验。
+
+entities:
+  - entity_id: light.living_room
+    name: 客厅灯
+    aliases: [客厅主灯, living room light, living_room]
+    domain: light
+
+  - entity_id: light.bedroom_light
+    name: 卧室灯
+    aliases: [bedroom light, 床头灯]
+    domain: light
+
+  - entity_id: switch.ac_power
+    name: 空调电源
+    aliases: [空调开关, air conditioner, 插座]
+    domain: switch
+
+  - entity_id: climate.bedroom_ac
+    name: 卧室空调
+    aliases: [空调, bedroom ac]
+    domain: climate
+
+  - entity_id: fan.hall_ceiling_fan
+    name: 客厅吊扇
+    aliases: [吊扇, ceiling fan, 风扇]
+    domain: fan
+
+  - entity_id: cover.living_room_curtain
+    name: 客厅窗帘
+    aliases: [窗帘, curtain]
+    domain: cover
+
+  - entity_id: sensor.hall_temperature
+    name: 客厅温度
+    aliases: [室温, 温度传感器, temperature]
+    domain: sensor
+
+  - entity_id: media_player.living_room_speaker
+    name: 客厅音箱
+    aliases: [音箱, 播放器, speaker]
+    domain: media_player
