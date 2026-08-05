@@ -10,10 +10,10 @@ topic: "Home Assistant 中 HAOS 虚拟机、Docker Container、HA Supervised 这
 project_slug: "home-assistant-deployment-methods"
 created_at: "2026-08-05"
 last_updated: "2026-08-05"
-current_phase: P5
+current_phase: P6
 current_status: in_progress
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4"
+confirmed_phases: "P0,P1,P2,P3,P4,P5"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：home-assistant-deployment-methods
 > 项目标识：home-assistant-deployment-methods
 > 创建时间：2026-08-05
-> 当前阶段：阶段 5
+> 当前阶段：阶段 6
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -111,7 +111,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中
+> [P5] ✅ 已完成
 
 ---
 
@@ -121,7 +121,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] 🔲 进行中
 
 ---
 
@@ -139,6 +139,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P5 | 用户确认组装结果（8章完整，76KB），输出位置 homeassistant/ 已确认 | 2026-08-05 23:00 |
 | P4 | 用户指示连续写作无需逐章确认；8 章全部完成 | 2026-08-05 22:43 |
 | P3 | 用户确认大纲顺序与深度（8章选型决策主线） | 2026-08-05 22:34 |
 | P2 | 用户确认素材质量（官方+社区交叉验证，含弃用时间线与决策树） | 2026-08-05 22:32 |
