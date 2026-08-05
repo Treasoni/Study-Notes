@@ -33,3 +33,7 @@ __pycache__/
 # LLM usage telemetry (local only, may drift from schema)
 .llm/prompt-cache/*.jsonl
 .llm/prompt-cache/.collect-state.json
+
+# Obsidian local UI state (device-specific; causes conflicts on every pull)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
