@@ -615,4 +615,596 @@ sudo ufw allow 8123/tcp
 
 *接下来：第五章补上第三条旧路径 HA Supervised——它曾在完整 Linux 上提供 Core + Supervisor，因宿主约束严苛、官方已于 2025.12 终止支持，社区普遍不再推荐。*
 
-<!-- CONTINUE -->
+## 第五章：HA Supervised 详解（含弃用现状）
+
+前两章讲完了官方两条正式路径——HAOS（全托管）与 Container（轻量 Core）。这一章补上第三条：HA Supervised。它曾在完整 Linux 上同时提供 Supervisor 与 Add-on，理论上兼得「全功能」与「宿主控制权」，但官方支持已于 2025.12 终止。这一章回答：它到底是什么、安装器在做什么、为什么被弃用、社区怎么看，以及它是否还有保留价值。
+
+> [!warning] 先记住结论
+> HA Supervised 已于 **2025.12 官方支持终止**，本文按「一条弃用中的旧路径」对待：不推荐新用户使用，仅在需要 Add-ons 又要宿主控制权时作过渡。读本章的目的是理解原理与迁移，而不是获得推荐。
+
+### 5.1 历史定位与 ADR-0014（已 revert）
+
+**定义**：Supervised = 在你自己管理的 Linux 上，用安装器部署 Supervisor + Core，从而获得「完整 HA 组件（除 HAOS 之外）」[素材 §一.3]。它保留了宿主 OS 的控制权——apt、systemd、自定义服务都可以继续用——同时拥有 HAOS 才有的 Supervisor 与 Add-on 商店。正因如此，历史上官方定位是 **「only for advanced users」**，要求精通 Linux / Docker / 网络，维护难度列为 Expert [素材 §一.3]。
+
+**ADR-0014 与 revert**：Supervised 的官方支持曾由一份架构决策记录（ADR）正式定义，编号 ADR-0014。但该 ADR 状态已标记 **reverted（已撤销）**，官方不再承认 Supervised 是受支持的安装方式 [素材 §一.3]。网上大量 Supervised 教程写于 ADR 有效期内，内容基于这份已撤销的正式支持——阅读这类教程前，先给它打个问号。
+
+官方定位的演进脉络：
+
+| 阶段 | 官方态度 |
+|------|---------|
+| ADR-0014 有效期 | 正式支持；「only for advanced users」 |
+| ADR-0014 revert 后 | 不再列为正式安装方式 |
+| 2025-05-22 起 | 公告弃用，进入倒计时 |
+| 2025.12 起 | 官方支持终止 |
+
+> [!warning] 过时教程警告
+> 2025 年后仍宣称 Supervised「官方支持」的教程，基本都基于已 revert 的 ADR-0014 或更早材料。先核实发布日期，再决定是否采信。
+
+### 5.2 官方支持约束（历史定义）
+
+Supervised 的「全功能」代价，是一长串对宿主系统的硬性要求。这些约束是官方支持的前提条件（即 ADR 有效期内，满足才算「受支持」）；如今虽然已弃用，理解它们仍是判断「自己装不装得起来」的关键。
+
+#### 宿主 OS：仅 Debian 12，无衍生版
+
+官方唯一支持的宿主操作系统是 **Debian 12 Bookworm**，且**不接受任何衍生版**——Raspberry Pi OS、Ubuntu 等都会被安装器直接拦截 [素材 §一.3]。注意这是硬性检查，不是「强烈建议」：树莓派用户想跑 Supervised，必须先刷纯 Debian 12，而不是常见的 Raspberry Pi OS，否则安装器第一步就过不去。
+
+#### 依赖清单
+
+| 依赖 | 最低版本 |
+|------|---------|
+| Docker CE | ≥ 20.10.17 |
+| systemd | ≥ 239 |
+| NetworkManager | ≥ 1.14.6 |
+| udisks2 | ≥ 2.8 |
+| AppArmor | 内核启用 |
+| cgroup | v1 |
+| 文件系统 | overlayfs2 |
+| journald | systemd 自带 |
+
+这张表本质上是「Supervisor 在宿主上运行的运行时环境」：Docker 提供容器、systemd 管理服务、NetworkManager 处理网络（HA 的网络管理依赖它）、udisks2 负责磁盘与 USB 存储、AppArmor 做容器安全、cgroup v1 是 Supervisor 容器资源控制的必需版本、overlayfs2 是 Docker 存储驱动。
+
+#### 宿主必须「专用于 HA」
+
+比依赖清单更苛刻的是一条隐含约束：**宿主必须专用于 HA，不得安装额外软件**。因为几乎任何对系统状态的改动，都可能让 Supervised 的自检从 Healthy 变成 Unsupported / Unhealthy [素材 §一.3]。这带来一个反直觉的结论：Supervised 虽然跑在你的 Linux 上，但你想在它旁边装别的服务，恰恰是最容易触发 Unsupported 的行为之一。
+
+### 5.3 安装原理与脚本步骤
+
+官方曾维护安装脚本仓库 `supervised-installer`，负责把一套 Debian 12 系统变成 Supervised 宿主。安装分四步 [素材 §一.3]：
+
+```bash
+# 1. 安装 network-manager + systemd-resolved
+#    注意：这一步会切换网络服务，宿主的 IP 可能变化
+apt install network-manager systemd-resolved
+
+# 2. 安装 curl、udisks2，并安装 Docker CE
+apt install curl udisks2
+curl -fsSL get.docker.com | sh
+
+# 3. 安装 OS-Agent（Supervisor 与宿主通信的守护进程）
+#    从 GitHub releases 下载 os-agent_*_linux_*.deb
+dpkg -i os-agent_*_linux_*.deb
+
+# 4. 下载并安装 homeassistant-supervised.deb（核心包）
+#    装完即部署 Supervisor + Core，并注册为 systemd 服务
+dpkg -i homeassistant-supervised.deb
+```
+
+四步各司其职：
+
+| 步骤 | 装了什么 | 为什么需要 |
+|------|---------|-----------|
+| 1 | network-manager + systemd-resolved | Supervisor 接管网络配置，两者必须存在；切换服务时 IP 可能变化 |
+| 2 | curl、udisks2、Docker CE | Docker 是 Supervisor 的容器运行时；udisks2 负责磁盘 / USB 管理 |
+| 3 | OS-Agent | 宿主机与 Supervisor 之间通信的守护进程，负责上报系统状态 |
+| 4 | homeassistant-supervised.deb | 主安装包，部署 Supervisor + Core 并注册为 systemd 服务 |
+
+两个补充细节：
+
+- **数据目录**：默认 `/var/lib/homeassistant`，可用环境变量 `DATA_SHARE` 自定义 [素材 §一.3]。
+- **支持机型**：列表有限——generic-x86-64、qemux86-64、qemuarm-64、odroid-c2 / c4 / n2、khadas-vim3、raspberrypi3-64 / 4-64 / 5-64 等 [素材 §一.3]。注意树莓派条目只认 64 位，且必须跑纯 Debian。
+
+> [!warning] 弃用后的安装器
+> `supervised-installer` 仓库顶部已标注「unsupported with HA OS 2025.12.0」——即该安装器对 2025.12 之后的 HA 版本不再提供支持 [素材 §二]。照抄上面命令之前，先确认你接受「无人维护」的现实。
+
+### 5.4 弃用时间线与现状
+
+官方对 Supervised（连同 Core、32 位系统）的弃用，有一条清晰的时间线 [素材 §二]：
+
+| 时间 | 事件 |
+|------|------|
+| 2025-05-22 | 官方公告弃用 Core、Supervised 安装方式及 32 位系统 |
+| 2025.6 版本起 | 受影响系统更新后显示「支持将在六个月后结束」通知 |
+| 2025.12 版本 | **官方支持终止**；supervised-installer 同步标注 unsupported |
+
+弃用之后，Supervised 仍可继续使用和更新，但官方不再接受问题报告、并移除了端用户文档。换句话说：用下去没人拦你，但出了 bug 官方不会管，连官方排障指南都没了。
+
+官方公告里用使用率数据解释了清理动因 [素材 §二]：
+
+| 安装方式 | 使用率 |
+|---------|--------|
+| Core | 约 2.5% |
+| Supervised | 约 3.3% |
+| i386 / armhf | < 0.5% |
+| armv7 | 约 0.95%（其中过半实际支持 64 位） |
+
+Supervised 约 3.3% 的使用率，叠加宿主约束带来的高维护成本，让官方认为不值得持续投入维护资源。
+
+### 5.5 社区立场与 BYPASS_OS_CHECK 风险
+
+#### 社区共识：「less supported (and liked)」
+
+早在弃用之前，社区对 Supervised 的评价就是 **「less supported (and liked)」**——处于受支持边缘地带，选它等于自负维护责任 [素材 §二]。弃用公告之后这个立场更明确：多数老用户的实际选择是「Proxmox 上跑 HAOS VM，杂项服务用独立 LXC/VM 跑，不塞进 HA」[素材 §二]。社区并不是讨厌 Supervised 的功能，而是厌倦了它与宿主系统之间脆弱的耦合。
+
+#### BYPASS_OS_CHECK：社区流传，官方不背书
+
+Supervised 的安装器会做宿主 OS 检查（非 Debian 12 / 衍生版直接拦截）。社区流传一种绕过方式：设置环境变量 **BYPASS_OS_CHECK**，跳过检查把包强装上去。关于它，必须把话说清楚：
+
+> [!warning] 不要臆造细节，也不要指望官方兜底
+> BYPASS_OS_CHECK 的记载主要来自社区指南，**官方文档不背书、不保证、不负责** [素材 §五]。目前能确认的事实只有两点：一是这个变量确实被社区多次提及；二是即使绕过成功，系统也几乎必然被判 Unsupported / Unhealthy，官方支持随之失效。至于它在某个具体版本怎么生效、会不会被新版本移除，**没有官方口径**——任何声称「详细教程」的帖子都应视为社区经验，需自行验证。
+
+换句话说：BYPASS_OS_CHECK 不是「解锁官方支持的钥匙」，恰恰相反，它是「主动放弃官方支持」的按钮。
+
+### 5.6 优点 / 缺点 / 适用场景
+
+| 维度 | 结论 |
+|------|------|
+| 优点 | 兼具 Add-on 商店与宿主 OS 控制权；Thread / Z-Wave 可用（由 Add-on 提供） |
+| 缺点 | 安装繁琐；维护成本高（Expert）；易被判 Unsupported / Unhealthy；仅支持纯 Debian 12；已弃用（2025.12 终止） |
+| 适用 | 基本不推荐新用户；仅在需要 Add-ons 又要宿主控制权时作过渡 |
+
+理论上，Supervised 是「功能完整性」与「灵活性」两条权衡轴上的理想折中：它有 HAOS 的 Supervisor / Add-on / Thread / Z-Wave，又有 Container 那样的宿主控制权。但它的成立前提——宿主必须专用于 HA、仅支持纯 Debian、任何改动都可能触发 Unsupported——让这个折中名存实亡：真把宿主「专用」了，与独占一台 HAOS 没有本质区别；真在共享宿主上跑，又必然触碰 Unsupported 红线 [素材 §三]。
+
+> [!tip] 一句话判断
+> 需要 Add-on 生态，选 HAOS（第三章）；需要宿主控制权且愿意手动维护，选 Container（第四章）。Supervised 夹在中间两头都想要，却两头都难做好——而且已经失去官方支持。
+
+### 本章小结
+
+- Supervised = 在完整 Linux 上装 Supervisor + Core；曾由 ADR-0014 定义官方支持，现已 revert。
+- 官方约束极严：仅纯 Debian 12、依赖清单长、宿主必须专用，否则易被判 Unsupported / Unhealthy。
+- 安装器四步：network-manager + systemd-resolved → Docker CE / curl / udisks2 → OS-Agent → dpkg -i homeassistant-supervised.deb。
+- 弃用时间线：2025-05-22 公告 → 2025.6 六个月倒计时通知 → 2025.12 官方支持终止；使用率仅约 3.3%。
+- BYPASS_OS_CHECK 是社区流传、官方不背书的绕过手段，强装必然 Unsupported，不构成推荐理由。
+
+---
+
+*接下来：第六章把三种部署方式浓缩成一张选型决策树，按硬件条件与维护偏好一步步走到推荐答案，并给出不推荐组合清单。*
+
+## 第六章：选型决策树与建议
+
+前五章把 HAOS、Docker Container、Supervised 各自的特性、维护方式和适用场景都拆开了，但「知道区别」和「做出选择」之间还差一步：当三者的信息同时摆在面前，该按什么顺序问自己问题、哪些组合其实是陷阱？这一章把前面拆散的信息收拢成一张完整的决策树，配合典型用户画像与不推荐组合，最后落到三条权衡原则，帮你得到一个可执行的选型答案。
+
+### 6.1 决策树（完整版）
+
+选型不是选「最好的方式」，而是选「最适合你的方式」。先把问题按重要性排序：省心程度 > 资源约束 > 特殊需求。下面是完整决策树 [素材 §四]：
+
+```text
+开始：先想清楚你更在意「省心的功能完整」还是「灵活的控制权」
+
+┌─ 主线一：想省心、功能完整，愿意让一台设备专职跑 HA？
+│   ├─ 是 → HAOS
+│   │       ├─ 已有 Proxmox / VMware / VirtualBox 等平台 → HAOS 虚拟机（社区主流）
+│   │       ├─ 有闲置专用硬件（树莓派 / 工控机 / NUC）   → HAOS 直接刷机
+│   │       └─ 都没有 → 专门为 HA 开一台 VM，跑 HAOS
+│   └─ 否 → 进入主线二
+│
+├─ 主线二：已有一台常开的 Docker 主机（NAS / VPS），想与其他服务共存？
+│   ├─ 是 → Docker Container（只跑 Core）
+│   │       ├─ 需要 Add-on / Thread / Z-Wave？→ 此路没有这些，回到主线一
+│   │       └─ 能接受手动备份 / 反代 / 更新  → 就是它
+│   └─ 否 → 进入主线三
+│
+└─ 主线三：必须保留 Add-on，又坚持要宿主的系统控制权？
+    ├─ 是 → 谨慎评估 Supervised（官方已弃用）
+    │       ⚠️ 仅支持 Debian 12 无衍生版、宿主须专机专用、易被标 Unsupported
+    │       → 现实最优解：Proxmox 里跑 HAOS VM，宿主控制权交给物理机
+    └─ 否 → 默认回到主线一 → HAOS
+```
+
+#### 主线一：省心与功能完整优先 → HAOS
+
+这一支的回答是「愿意为 HA 专门准备一台设备（物理机或 VM）」。得到的是最完整的体验：Add-on 商店、Thread / Z-Wave 开箱支持、自动更新、托管快照备份，全由 Supervisor 包办 [素材 §一.1]。剩下的分叉只取决于你手头有什么：有虚拟化平台就建 HAOS VM，有闲置硬件就刷机，两者都没有就为 HA 开一台 VM——VM 的好处是以后还能用宿主机的快照做整机备份（第三章 3.5 节）。
+
+#### 主线二：已有 Docker 主机 → Container
+
+如果你的 NAS / VPS 上已经跑着其他容器，不想再开一台设备，Container 是唯一让 HA 与其他服务共存的方式 [素材 §一.2]。代价是功能减配：无 Add-on、无自动更新、无托管备份，Thread / Z-Wave 开箱不支持。走这条线的前提是你能接受「自己维护」——定期备份 /config、手动拉镜像更新、自己配反代。
+
+#### 主线三：Add-on 与宿主控制权都要 → 谨慎评估 Supervised
+
+这是决策树里唯一的「陷阱分支」。Supervised 曾在完整 Linux 上同时提供 Add-on 与宿主控制权，但它已被官方弃用（2025.12 终止支持）、仅支持 Debian 12 无衍生版、宿主稍有改动就易被判 Unsupported/Unhealthy [素材 §一.3]。如果你确实两者都要，社区的现实解法不是硬上 Supervised，而是在 Proxmox 等虚拟化平台上跑 HAOS VM——把「宿主系统控制权」放在 HAOS 所在 VM 的物理机层面，HA 内部仍享受完整的 Add-on 生态 [素材 §二]。
+
+> [!warning] 决策树的关键提醒
+> 三条主线不是并列的「三选一」，而是有优先级的漏斗：**先问能否接受独占设备，再问是否有 Docker 主机，最后才轮到 Supervised**。绝大多数人会落在主线一或主线二。
+
+### 6.2 典型用户画像建议
+
+| 用户画像 | 推荐方式 | 一句话理由 |
+|---------|---------|-----------|
+| NAS / 已有 Docker 主机的用户 | Container | 复用现有资源、空闲仅约 300-400MB、可共存 [素材 §一.2] |
+| 有 Proxmox / VMware 环境的用户 | HAOS VM | 社区主流做法，功能完整 + 虚拟化快照 / 迁移优势 [素材 §二] |
+| 有专用硬件（树莓派 / 工控机 / NUC） | HAOS 刷机 | 刷完即用、零维护，硬件物尽其用 |
+| 只想零维护跑 HA 的用户 | HAOS VM | 全托管，自动更新 + 一键备份，无需 Docker 技能 |
+| 老 Supervised 用户 | 迁移到 HAOS / Container | 官方支持已终止，需主动迁移（第七章详述） |
+
+逐类展开：
+
+- **NAS / 已有 Docker 主机的用户** → Container。群晖、威联通或自建 NAS 上通常已经跑着大量容器，HA 作为其中一个即可。Core 空闲占用约 300-400MB，几乎无感 [素材 §一.2]。前提是你已经具备 Docker 操作习惯，愿意手动处理备份与更新。
+- **有 Proxmox / VMware 环境的用户** → HAOS VM。这是社区老用户的主流做法：在虚拟化平台里给 HA 一个专用 VM，其他杂项服务放独立的 LXC / VM，不塞进 HA [素材 §二]。既享受 HAOS 的功能完整，又用 VM 隔离性保住宿主机的可控性。
+- **有专用硬件的用户** → HAOS 直接刷机。闲置树莓派 4/5、工控机或 NUC 直接刷 HAOS 镜像，开机即用。适合不想折腾虚拟化、有一台设备愿意专职跑 HA 的人。
+- **只想零维护跑 HA 的用户** → HAOS VM。不论硬件从哪来，只要目标是「装上就不管」，HAOS 的全托管就是最短路径。
+- **老 Supervised 用户** → 尽快规划迁移。Supervised 官方支持已于 2025.12 终止，弃用后仍可继续使用与更新，但官方不再接受问题报告 [素材 §二]。目标状态：需要宿主控制权就迁到 Proxmox 上的 HAOS VM，否则迁到 Container（第七章给完整路径）。
+
+### 6.3 不推荐的组合与原因
+
+三种典型「看上去合理、实际踩坑」的组合：
+
+| 组合 | 为什么不推荐 |
+|------|-------------|
+| 新用户直接上 Supervised | 已弃用、仅支持 Debian 12、维护难度 Expert，新手极易在安装与合规上耗尽耐心 [素材 §一.3] |
+| 在共享宿主上跑 Supervised | Supervisor 要求宿主「专用于 HA」，共享宿主上几乎必然被判 Unsupported/Unhealthy [素材 §一.3] |
+| 要 Add-on / Thread / Z-Wave 却选 Container | Container 没有 Supervisor，这些功能开箱不支持，选了就是功能缺失 [素材 §一.2] |
+
+逐个说明：
+
+- **新用户直接上 Supervised**。Supervised 的定位一直是「only for advanced users」，现在更是官方弃用状态 [素材 §一.3]。新用户没有 Docker / Linux 排障经验，在安装（纯 Debian、依赖清单）、维护（宿主改动即 Unsupported）、更新（Supervisor 已停更）三个环节都会受挫。新用户的两个正确答案是 HAOS（要省心）或 Container（要共存），没有第三个。
+- **在共享宿主上跑 Supervised**。Supervised 的宿主约束非常严格：必须专用于 HA，不得安装额外软件 [素材 §一.3]。你不可能在一台既跑 Plex 又跑 NAS 服务的机器上装 Supervised 还保持 Supported 状态。如果你的目标是「和其他服务共存」，Container 才是为此设计的。
+- **要 Add-on / Thread / Z-Wave 却选 Container**。这是最常见的「功能预期错配」。Add-on 商店、Thread、Z-Wave 都是 Supervisor 层提供的，Container 只有裸 Core，这些开箱不支持 [素材 §一.2]。想要这些能力，选 HAOS；能放弃这些能力，才轮到 Container。
+
+> [!tip] 反推选型法
+> 与其正向背决策树，不如反向排除：先问「我绝对不能失去什么」。如果答案是 Add-on 生态 → 排除 Container；如果答案是宿主共存 → 排除 HAOS；如果两者都要 → 排除 Supervised，改用「物理机 + HAOS VM」的组合。
+
+### 6.4 决策背后的权衡原则
+
+前面所有建议，底层都是三条权衡原则在起作用。理解它们，才能在遇到「画像没覆盖到的情况」时自己推答案。
+
+#### 功能完整性 ↔ 灵活可控
+
+这是最核心的一条轴 [素材 §二]。HAOS 站在功能完整一端：Add-on 生态、自动更新、托管备份全部内置，代价是系统只读、独占整机、不可自由扩展。Container 站在灵活可控一端：宿主是你的、想跑什么跑什么，代价是 HA 的功能要靠自己一点点补齐。**没有「既完整又灵活」的免费午餐**——Supervised 曾经试图兼得，结果是在宿主约束和弃用状态中两边都不讨好。
+
+#### 省心程度 ↔ 资源占用
+
+第二条轴是运维成本与硬件成本的交换。HAOS 用约 4GB 内存换「装上就不管」，Container 用约 300-400MB 内存换「样样自己来」 [素材 §二]。注意这条轴不是「越省心越好」：如果你的宿主资源紧张，省心的代价可能反过来变成性能瓶颈；如果你的时间紧张，省内存的代价可能变成每周一次的维护负担。选型的本质是**拿你富余的资源，换你稀缺的资源**——富余的是硬件，就换省心；富余的是时间，就换轻量。
+
+#### 官方支持生命周期
+
+第三条原则最容易被忽略，但对长期选择影响最大。官方对安装方式的支持会随时间变化：ADR-0014 被 revert、Supervised / Core 在 2025.12 终止支持，都是活生生的例子 [素材 §二]。**选择时应优先落在官方正式路径内**（HAOS / Container），因为弃用状态意味着：不再有问题修复、端用户文档移除、社区与生态逐渐离心。反过来，当官方文档说某条路「recommended」时，选它的长期风险最低。
+
+> [!summary] 三条原则合起来看
+> 功能完整与灵活可控不可兼得；省心与轻量不可兼得；而「官方是否长期支持」决定了前两条权衡是否值得下注。落点：默认 HAOS，除非你有明确的共存需求 → Container；Supervised 只作为理解历史与迁移的参照。
+
+### 本章小结
+
+- 决策树是有优先级的漏斗：先问能否接受独占设备（→HAOS），再问是否有 Docker 主机（→Container），最后才评估 Supervised（默认不选）。
+- 典型画像：NAS / Docker 用户 → Container；Proxmox / VMware 用户 → HAOS VM；专用硬件 → 刷机；零维护需求 → HAOS VM；老 Supervised 用户 → 主动迁移。
+- 三大不推荐组合：新用户直接 Supervised、共享宿主跑 Supervised、要 Add-on 却选 Container。
+- 三条权衡原则：功能完整 ↔ 灵活可控、省心 ↔ 资源占用、官方支持生命周期决定长期风险。
+- 核心落点：默认 HAOS；有共存需求再考虑 Container；Supervised 作为弃用旧路径仅作参考。
+
+---
+
+*接下来：第七章讲官方迁移三步走（备份 → 下载 → 初始化时恢复）、各路径迁移详解与跨架构恢复注意事项，帮助从旧方式迁移过来。*
+
+## 第七章：迁移路径与操作
+
+第六章帮你做出了部署方式选型，但如果你已经跑着一套 Home Assistant，换方式不是「删掉重装」，而是一次有讲究的迁移。官方给出的原则出奇地简单——备份、下载、在新系统初始化时恢复。这一章把这条官方原则落到每条迁移路径上，讲清 Core→Container、Supervised→HAOS、32 位→64 位分别怎么走，以及跨架构迁移的可行性边界和迁移前后的注意事项。
+
+### 7.1 官方迁移原则
+
+官方对「换系统」这件事的定义非常轻量：
+
+> "Switching systems is as easy as making a backup, downloading it, and restoring it during the initialization of your new system."
+> —— Home Assistant 官方文档 [素材 §二]
+
+翻译成操作就是三步：
+
+1. **备份（making a backup）**：在旧系统上做一份完整快照备份。HAOS 用 Supervisor 的托管快照，Container 则需手动备份 /config。
+2. **下载（downloading it）**：把备份文件下载到本地或上传云端，供新系统使用。
+3. **初始化时恢复（restoring it during the initialization）**：装好新系统后，在首次初始化向导里选择「从备份恢复」，而不是登录后再手动导入。
+
+关键在第三步：**恢复动作发生在初始化阶段**。新系统第一次引导时，向导会让你选择「全新初始化」还是「从备份恢复」，选后者并上传备份文件即可，后续配置、集成、Add-on 会一并还原。
+
+> [!note] 迁移的本质
+> 迁移 ≠ 复制文件。官方把换系统简化为「备份 → 下载 → 初始化时恢复」三件事，意味着你的全部状态（配置、数据库、集成、Add-on）都被封装在备份里，新系统只需在初始化时解包一次。
+
+### 7.2 各路径迁移详解
+
+官方根据迁移起点不同给出了三条推荐路径 [素材 §二]：
+
+| 迁移起点 | 官方推荐去向 | 适合的场景 |
+|---------|------------|-----------|
+| Core（Container） | Container（独占设备则 HAOS） | 已有 Docker 主机继续容器化；想零维护则转 HAOS |
+| Supervised | HAOS（可在 Proxmox 等 VM 里跑，或用 Container） | 需要宿主控制权 → VM 里跑 HAOS；能接受无 Add-on → Container |
+| 32 位设备 | 装 64 位系统后恢复备份 | 想保留旧硬件 |
+
+#### Core 用户：首选 Container，独占设备则 HAOS
+
+Core 用户本就在自己管理的 Linux 上跑，官方首选目标是换用官方 Container 方式——本质是「同一套 Core，换成官方 compose 模板」。迁移时把原 /config 目录接回新容器即可，配置与数据基本原样可用 [素材 §二]。
+
+如果你愿意为 HA 独占一台设备、想要零维护体验，则直接上 HAOS：新系统初始化时恢复备份即可。
+
+#### Supervised 用户：推荐 HAOS，需要宿主控制权则 VM 里跑
+
+Supervised 已弃用（2025.12 终止官方支持），官方推荐迁移到 HAOS [素材 §二]。当年选 Supervised 多半是为了「既要有 Add-on 又要宿主控制权」，这两个诉求在 HAOS VM 上都能保留：
+
+- **想要宿主控制权** → 在 Proxmox 等虚拟化平台上跑 HAOS VM（见 3.5 节），宿主控制权收敛到虚拟化层，HA 内部仍是全托管的 HAOS；
+- **能接受无 Add-on** → 改用 Container，但会失去 Add-on 商店与 Thread / Z-Wave 开箱支持。
+
+#### 32 位设备：重装 64 位系统，恢复备份保留硬件
+
+32 位系统与 Core、Supervised 一同于 2025.12 被终止支持 [素材 §二]。若硬件本身是 64 位 CPU、只是系统装成了 32 位，官方路径是：**重装 64 位系统 → 在初始化时恢复备份**，硬件无需更换。
+
+### 7.3 跨架构迁移可行性
+
+官方明确：**备份可以在任意安装方式之间、甚至跨架构恢复** [素材 §二]。换句话说，x86 的 HAOS 备份恢复到 ARM 的树莓派上，或 Container 的备份恢复到 HAOS 上，都是受支持的路径。
+
+原因在于 HA 的备份是自包含归档，恢复时新系统会按当前架构重新解析并拉取对应架构的 Add-on 容器镜像。少数依赖原生二进制的自编译组件可能需要在新架构下重新构建，但常规配置、数据库与集成不受影响。
+
+另外，**Home Assistant Cloud 订阅用户支持异地凭密码恢复** [素材 §二]：备份可上传到 HA Cloud，在新设备初始化时凭账号密码直接拉取，无需手动搬运文件——这对异地重建、换设备时格外省事。
+
+> [!tip] 跨架构恢复的边界
+> 官方保证的是「配置、数据库、集成」可跨架构恢复；个别 Add-on 或自定义组件若依赖特定架构的原生二进制，首次启动可能要重新拉取或重建。迁移后在设置里确认各 Add-on 均正常启动即可。
+
+### 7.4 迁移注意事项
+
+#### 备份完整性：不止 configuration.yaml
+
+HAOS 的托管快照面向的是完整状态，会把配置、数据库、Add-on 及其配置、设备集成一并封装，而不仅是单个配置文件 [素材 §一.1]。迁移前请确认：
+
+- 快照备份**完整成功**，包含 Add-on 与设备集成，而不是只导出了 configuration.yaml；
+- Container 用户无托管快照，务必连同 /config 下的数据库、custom_components 一起备份；
+- 有条件时先做一次「备份可恢复性」验证，避免迁移中途才发现备份损坏。
+
+#### 迁移后验证硬件直通
+
+恢复只是第一步，硬件接入需要在新环境重新确认 [素材 §一.1][素材 §一.2]：
+
+| 硬件 | 验证要点 |
+|------|---------|
+| USB / Zigbee / Z-Wave | 适配器是否被识别。HAOS VM 需配置 USB 直通（Proxmox 上 `qm set <VMID> -usb0 host=10c4:ea60`）；Container 需在 `devices` 中映射 `/dev/ttyUSB0`。对应集成应显示设备在线 |
+| 蓝牙 | Container 依赖 `/run/dbus` 挂载、HAOS 由 Supervisor 托管。验证蓝牙集成能发现并控制设备 |
+| 网络 / mDNS | 新系统接入同一网段后，设备自动发现是否恢复（依赖 host 网络 / 同网段广播） |
+
+```bash
+# 以 Proxmox 上的 HAOS VM 为例，确认 USB 直通已配置
+qm set <VMID> -usb0 host=10c4:ea60   # 先停 VM，用 lsusb 查 vendor:product
+qm stop <VMID> && qm start <VMID>
+```
+
+#### 并行期数据一致性
+
+新旧系统并行的窗口期内，要防止两个实例写同一份数据：
+
+- **同一时间只让一个实例接管**。HA 的数据库与设备状态由单一实例维护，迁移完成后旧系统应尽快停用，避免两套系统同时连接同一设备，导致自动化重复触发或状态互踩。
+- **正式切换前做最后一次备份**。从首次备份到正式切换之间新增的配置，用切换前的最终备份兜底，避免丢失最后一段改动。
+
+### 本章小结
+
+- 官方迁移原则：备份 → 下载 → 初始化时恢复，恢复动作发生在新系统首次初始化向导。
+- Core 用户首选 Container，独占设备则 HAOS；Supervised 用户推荐 HAOS，需要宿主控制权就在 VM 里跑。
+- 32 位设备：重装 64 位系统后恢复备份即可保留硬件。
+- 备份可在任意安装方式之间、甚至跨架构恢复；HA Cloud 订阅用户可凭密码异地恢复。
+- 迁移前验证备份完整性（含 Add-on 与设备集成），迁移后验证 USB / Zigbee / 蓝牙直通，并行期保持单实例接管。
+
+---
+
+*接下来：第八章（附录）是实操收尾——Docker Compose 完整模板、Proxmox 部署 HAOS VM、HAOS 直接刷机与 Supervised 安装脚本（附弃用警告）、初始化引导与备份恢复，迁移部署所需的每条命令都可直接复制使用。*
+
+## 第八章（附录）：部署实操步骤
+
+前三章把 HAOS、Container、Supervised 的机制和取舍讲透了，但「知道怎么选」和「真能部署起来」之间还差一步。这一章把全文涉及的可复制命令集中成一份实操附录：Docker Compose 完整模板与启停、Proxmox 部署 HAOS VM 全流程、专用硬件直接刷机概述、Supervised 旧安装脚本（存档）以及首次初始化与备份恢复。命令按「复制 → 替换占位符 → 运行」组织，供你部署时逐节查阅。
+
+> [!note] 使用前提
+> 本章是实操参考，不是选型指南。选型逻辑看第一、二、六章；三种方式的机制拆解看第三、四、五章。命令中的占位符（如 `<VMID>`、`<STORAGE>`、`/PATH_TO_YOUR_CONFIG`）必须替换为你环境里的真实值。
+
+### 8.1 Docker Compose 完整模板与启动
+
+适用 Container 方式（第四章）。前提：一台 Linux 主机或 NAS，Docker Engine ≥ 23.0.0；Docker Desktop 不可用 [素材 §一.2]。
+
+#### 完整 compose 模板（官方原样）
+
+把下面内容保存为 `docker-compose.yml`，其中蓝牙挂载、时区、USB 直通、特权模式都已包含 [素材 §一.2]：
+
+```yaml
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    volumes:
+      - /PATH_TO_YOUR_CONFIG:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro      # 蓝牙集成必需
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    environment:
+      TZ: Europe/Amsterdam          # 必须是 tz database 名称
+    devices:                        # USB 直通 Zigbee/Z-Wave
+      - /dev/ttyUSB0:/dev/ttyUSB0
+```
+
+部署前替换三处：
+
+| 占位符 | 替换为 | 说明 |
+|------|--------|------|
+| `/PATH_TO_YOUR_CONFIG` | 宿主上存放 HA 配置的绝对路径 | `/config` 内是 configuration.yaml、数据库、custom_components 等全部数据 |
+| `Europe/Amsterdam` | 你的 tz database 时区（如 `Asia/Shanghai`） | 不能写 `UTC+8` 这种偏移写法 |
+| `/dev/ttyUSB0` | 你的 Zigbee / Z-Wave 适配器设备路径 | 可先用 `lsusb` 确认 |
+
+模板没有 `ports:` 段，因为 `network_mode: host` 直接共享宿主网络，8123 端口已经暴露在宿主所有网卡上，而 mDNS / 蓝牙发现也依赖这个模式，不要擅自改成 bridge [素材 §一.2]。
+
+#### 启动、状态与日志
+
+```bash
+docker compose up -d          # 首次启动 / 按模板创建容器
+docker compose ps             # 查看容器状态是否为 Up
+docker logs -f homeassistant  # 跟随日志，直到出现初始化就绪
+docker compose stop           # 停止容器（配置保留）
+docker compose down           # 停止并删除容器（/config 数据仍在）
+```
+
+首次启动后浏览器访问 `http://<宿主IP>:8123`，进入初始化向导（见 8.5）。
+
+#### 防火墙放行
+
+Ubuntu 的 ufw 默认拦截入站端口，外部访问不了时先放行 [素材 §一.2]：
+
+```bash
+sudo ufw allow 8123/tcp
+```
+
+#### 升级与回滚
+
+Container 没有 OTA，升级 = 拉新镜像 + 重建容器，`/config` 挂载数据不受影响 [素材 §一.2]。compose 方式：
+
+```bash
+docker compose pull
+docker compose up -d
+```
+
+纯 `docker run` 方式则先拉新镜像、删旧容器、再用与首次启动完全相同的参数重新 run（参数见第四章 4.3 方式 B）。
+
+> [!tip] 回滚
+> 新版翻车时，把镜像 tag 指回上一个可用版本（如 `2025.7.4`），再走一遍重建流程即可。HA 配置文件向后兼容，回滚不丢 /config 数据。
+
+### 8.2 Proxmox 部署 HAOS VM 完整步骤
+
+适用场景：有 Proxmox 环境，想用社区主流的「HAOS VM」方式。q35 / UEFI / virtio-scsi-pci 等参数的含义见第三章 3.5。
+
+#### 方式 A：一键脚本（推荐）
+
+社区脚本自动完成「下载镜像 → 建 VM → 导入磁盘 → 配 UEFI」，直接运行 [素材 §一.1]：
+
+```bash
+bash -c "$(wget -qO - https://github.com/community-scripts/ProxmoxVE/raw/main/vm/haos-vm.sh)"
+```
+
+#### 方式 B：手动（下载 → 解压 → 导入 → 创建 VM）
+
+手动流程需要先建一台空 VM，再把磁盘镜像导入并设为启动盘。以下命令把 3.5 节的社区推荐配置翻译成 `qm` CLI，占位符按实际环境替换（`<VMID>` 是 VM 编号，`<STORAGE>` 是 Proxmox 存储名，如 `local-lvm`）：
+
+```bash
+# 1) 下载 HAOS 镜像（qcow2 对应 KVM/Proxmox，官方命名 haos_ova-{version}，需解压）
+wget <OFFICIAL_RELEASE_URL>/haos_ova-<VERSION>.qcow2.xz
+
+# 2) 解压（.qcow2.xz 是压缩包，必须解压后才能导入）
+xz -d haos_ova-<VERSION>.qcow2.xz
+
+# 3) 创建空 VM：q35 机型 + OVMF(UEFI) + EFI 盘 + virtio-scsi-pci + 社区推荐资源
+qm create <VMID> --name haos --machine q35 --bios ovmf \
+  --efidisk0 <STORAGE>:4,efitype=4m,pre-enrolled-keys=0 \
+  --scsihw virtio-scsi-pci --cpu cputype=host \
+  --cores 2 --memory 4096 --balloon 2048 \
+  --net0 virtio,bridge=vmbr0 --ostype l26
+
+# 4) 导入磁盘并设为启动盘
+qm importdisk <VMID> haos_ova-<VERSION>.qcow2 <STORAGE>
+qm set <VMID> --scsi0 <STORAGE>:<导入后生成的卷ID> --boot order=scsi0
+
+# 5) 启动
+qm start <VMID>
+```
+
+> [!note] 手动流程说明
+> 第 3 步的 `qm create` 参数是对素材 §一.1「Proxmox 推荐配置」表（q35 / UEFI / virtio-scsi-pci / kvm64·host / 4096MB+balloon / vmbr0）的直接翻译；`qm importdisk` 是 Proxmox 导入磁盘的标准命令。`--cpu cputype=host` 性能最好但不可跨节点迁移，需要迁移改为 `cputype=kvm64` [素材 §一.1]。
+
+启动后浏览器访问 `http://homeassistant.local:8123`，进入 8.5 的初始化。
+
+#### USB 直通（Zigbee / Z-Wave / 蓝牙适配器）
+
+```bash
+# 先 stop VM，用 lsusb 查 vendor:product，再直通
+qm set <VMID> -usb0 host=10c4:ea60
+qm stop <VMID> && qm start <VMID>
+```
+
+> [!warning] 必须先停机再挂 USB
+> USB 直通要求在 VM **停止**状态下执行 `qm set`，否则设备可能无法正确枚举；直通后重启 VM 才生效。Zigbee / Z-Wave 协调器必须被 HAOS VM 独占访问 [素材 §一.1]。
+
+> [!warning] 不要在 Proxmox 侧「升级」HAOS
+> HAOS 是家电式只读系统，OS / 内核 / Supervisor 的升级由 HA 设置里的 Supervisor 自动 OTA 完成（约每 8 小时检查一次）[素材 §一.1]。从宿主机侧强行升级镜像或改引导配置可能破坏系统；日常升级一律在 HA 的「设置 → 系统 → 更新」里进行。
+
+#### 快照备份
+
+```bash
+# snapshot 模式：VM 运行时也能做一致性备份；zstd 压缩显著减小体积
+vzdump <VMID> --mode snapshot --compress zstd --storage local
+```
+
+配合 Supervisor 的 HA 配置快照，形成「宿主机整机备份 + HA 配置快照」双保险。
+
+#### 扩容磁盘
+
+```bash
+qm resize <VMID> scsi0 +32G
+```
+
+扩容后重启 VM，HAOS 系统内会自动识别并扩大分区。
+
+### 8.3 HAOS 直接刷机简述（专用硬件）
+
+如果你有一台专用硬件（树莓派、x86 工控机、NUC 等），可以不走虚拟机，直接把 HAOS 镜像烧写到 SD 卡或 eMMC。HAOS 镜像按硬件架构分平台提供，下载后写入介质、插到机器上开机即可 [素材 §一.1]。
+
+烧写属于通用镜像烧写流程：用常见的镜像写入工具（如 BalenaEtcher、Raspberry Pi Imager）把下载的 HAOS 镜像写到目标介质即可，不需要额外配置分区。写入时注意目标盘会被整个覆盖，别选错盘。
+
+首次引导后与虚拟机方式完全一致：机器启动后浏览器访问 `http://homeassistant.local:8123`，进入 8.5 的初始化向导。第三章 3.3 的虚拟机部署要求（2GB / 2vCPU / 32GB、UEFI 等）主要针对虚拟机场景；专用硬件按官方为该硬件提供的镜像直接刷即可。
+
+### 8.4 HA Supervised 安装脚本（附弃用警告）
+
+> [!warning] 该方式已于 2025.12 终止官方支持
+> 官方于 2025-05-22 公告弃用 Core 与 Supervised，2025.12 版本起官方支持终止 [素材 §二]。以下步骤仅存档参考：官方不再接受问题报告、端用户文档已移除。**新部署请走 HAOS 或 Container**。
+
+Supervised 的安装脚本来自 `supervised-installer` 仓库，核心是四步 [素材 §一.3]：
+
+```bash
+# 1. 安装 network-manager + systemd-resolved（会切换网络服务，IP 可能变化）
+# 2. 安装 curl、udisks2，并用官方脚本安装 Docker CE
+curl -fsSL get.docker.com | sh
+# 3. 安装 OS-Agent（os-agent_*_linux_*.deb，从 supervised-installer 仓库获取）
+# 4. 下载 homeassistant-supervised.deb 并安装
+dpkg -i homeassistant-supervised.deb
+```
+
+安装约束（历史定义，务必知晓）：
+
+| 约束 | 内容 |
+|------|------|
+| 唯一支持的宿主 OS | Debian 12 Bookworm，不接受任何衍生版（Raspberry Pi OS、Ubuntu 会被安装器拦截） |
+| 关键依赖 | Docker CE ≥20.10.17、systemd ≥239、NetworkManager ≥1.14.6、udisks2 ≥2.8、AppArmor、cgroup v1、overlayfs2、journald |
+| 宿主专用 | 必须「专用于 HA」，不得安装额外软件，否则易被判 Unsupported / Unhealthy |
+| 数据目录 | 默认 `/var/lib/homeassistant`，可用 `DATA_SHARE` 自定义 |
+| 支持机型 | generic-x86-64、qemux86-64、qemuarm-64、odroid-c2/c4/n2、khadas-vim3、raspberrypi3-64/4-64/5-64 |
+
+> [!warning] 不要绕过 OS 检查
+> 社区流传可用 `BYPASS_OS_CHECK` 环境变量绕过宿主 OS 校验，但会导致 Unsupported / Unhealthy 状态。此为社区流传信息，官方文档不背书，绕过后的问题官方不负责 [素材 §五]。
+
+### 8.5 初始化引导与备份恢复
+
+无论 HAOS VM、直接刷机还是（已弃用的）Supervised，首次启动后的入口都是同一个地址：
+
+```
+http://homeassistant.local:8123
+```
+
+打开后进入初始化向导：第一步创建本地账户（设置用户名、密码），第二步选择初始化方式，二选一：
+
+| 初始化方式 | 操作 | 结果 |
+|-----------|------|------|
+| 全新初始化 | 创建账户后直接进入配置 | 从零添加集成、设备与自动化 |
+| 从备份恢复 | 上传 Supervisor 快照文件（或从云备份恢复） | 一键还原配置、Add-on、集成状态 |
+
+官方迁移原则原话是："Switching systems is as easy as making a backup, downloading it, and restoring it during the initialization of your new system" [素材 §二]。这句话对三条路径都成立：
+
+- **跨安装方式**：任意方式之间（HAOS ↔ Container ↔ Supervised）都能通过「旧机做备份 → 新机初始化时恢复」迁移 [素材 §二]。
+- **甚至跨架构**：32 位设备装 64 位系统后恢复备份，可保留硬件继续用 [素材 §二]。
+- **异地恢复**：Home Assistant Cloud 订阅用户可凭密码异地恢复备份 [素材 §二]。
+
+因此「从备份恢复」和「全新初始化」并不冲突：就算现在选了全新初始化，以后任何时候都可以用快照一键还原到某个历史状态。
+
+### 本章小结
+
+- 8.1：官方 compose 模板原样可用，蓝牙 / 时区 / USB 直通 / privileged 全在一份 yaml 里；升级 = `docker compose pull && up -d`，回滚 = 改 tag 重建。
+- 8.2：Proxmox 部署 HAOS VM 首选一键脚本；手动流程 = 下载 → `xz -d` 解压 → `qm create`（q35 + OVMF + EFI 盘）→ `qm importdisk` → 启动；USB 直通必须先停 VM。
+- 8.3：专用硬件直接刷机走通用镜像烧写工具，首次引导入口与虚拟机相同。
+- 8.4：Supervised 四步安装脚本仅为存档，2025.12 已终止官方支持，新部署勿选。
+- 8.5：所有路径统一从 `homeassistant.local:8123` 初始化，备份可在任意方式、任意架构间恢复。
+
+到这里，三种部署方式「是什么、怎么选、怎么部署」的闭环已经完成：前七章负责判断，这一章负责落地。
