@@ -10,10 +10,10 @@ topic: "Home Assistant 中 HAOS 虚拟机、Docker Container、HA Supervised 这
 project_slug: "home-assistant-deployment-methods"
 created_at: "2026-08-05"
 last_updated: "2026-08-05"
-current_phase: P6
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4,P5"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6,P7"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：home-assistant-deployment-methods
 > 项目标识：home-assistant-deployment-methods
 > 创建时间：2026-08-05
-> 当前阶段：阶段 6
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -116,22 +116,22 @@ blocked_reason: ""
 ---
 
 ## 阶段 6：Obsidian 美化与发布
-- [ ] 已读取 Obsidian 输出规则
-- [ ] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
-- [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
-- [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
+- [✅] 已读取 Obsidian 输出规则
+- [✅] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
+- [✅] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
+- [✅] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md` → **拆分发布到 homeassistant/**
 
-> [P6] 🔲 进行中
+> [P6] ✅ 已完成
 
 ---
 
 ## 阶段 7：MOC 同步
-- [ ] 已定位或创建 MOC 文件
-- [ ] 新笔记双链已加入 MOC
-- [ ] 已去重并更新摘要/标签
-- [ ] MOC 只保留索引，不复制正文
+- [✅] 已定位或创建 MOC 文件
+- [✅] 新笔记双链已加入 MOC
+- [✅] 已去重并更新摘要/标签
+- [✅] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成
 
 ---
 
@@ -139,6 +139,8 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P7 | 用户确认同步 MOC（新建 homeassistant/Home Assistant MOC.md 并加入索引项） | 2026-08-05 23:06 |
+| P6 | 用户确认拆分多文件发布（索引页+8章节）到 homeassistant/；不生成 Canvas | 2026-08-05 23:05 |
 | P5 | 用户确认组装结果（8章完整，76KB），输出位置 homeassistant/ 已确认 | 2026-08-05 23:00 |
 | P4 | 用户指示连续写作无需逐章确认；8 章全部完成 | 2026-08-05 22:43 |
 | P3 | 用户确认大纲顺序与深度（8章选型决策主线） | 2026-08-05 22:34 |
@@ -176,10 +178,10 @@ oteStudy-Noteshomeassistant | 2026-08-05 22:26 |
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：对比 + 实战指南（侧重选型决策）
+- **总字数**：约 4.3 万字符（原组装稿约 7.7 万字节 / 8 章）
+- **章节数**：8（含附录）
+- **输出格式**：Obsidian Markdown（拆分多文件）
+- **文件路径**：`homeassistant/`（索引页 + `三种部署方式对比与选型/` 8 个章节文件）
+- **Obsidian Vault**：`C:\note\Study-Notes`
+- **MOC 路径**：`homeassistant/Home Assistant MOC.md`
