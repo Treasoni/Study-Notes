@@ -10,10 +10,10 @@ topic: "Home Assistant 中 HAOS 虚拟机、Docker Container、HA Supervised 这
 project_slug: "home-assistant-deployment-methods"
 created_at: "2026-08-05"
 last_updated: "2026-08-05"
-current_phase: P3
+current_phase: P4
 current_status: in_progress
 mode: outline
-confirmed_phases: "P0,P1,P2"
+confirmed_phases: "P0,P1,P2,P3"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：home-assistant-deployment-methods
 > 项目标识：home-assistant-deployment-methods
 > 创建时间：2026-08-05
-> 当前阶段：阶段 3
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -75,26 +75,26 @@ blocked_reason: ""
 ---
 
 ## 阶段 3：大纲生成（大纲模式）
-- [ ] 已读取意图文件和深度素材
-- [ ] 已根据笔记类型选择大纲结构
-- [ ] 大纲已生成（≤3级层级）
-- [ ] 每章已标注：篇幅、素材引用、代码示例
-- [ ] 大纲已展示给用户确认
-- [ ] 大纲已保存：`./03_outline.md`
+- [✅] 已读取意图文件和深度素材
+- [✅] 已根据笔记类型选择大纲结构
+- [✅] 大纲已生成（≤3级层级）
+- [✅] 每章已标注：篇幅、素材引用、代码示例
+- [✅] 大纲已展示给用户确认
+- [✅] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中
+> [P3] ✅ 已完成
 
 ---
 
 ## 阶段 4：逐章写作
-- [ ] 第 1 章已写完并确认
+- [x] 第 1 章已写完并确认
 - [ ] 第 2 章已写完并确认
 - [ ] 第 3 章已写完并确认
 - [ ] ...（根据实际章节数添加）
 
-**进度**：0/待大纲确定
+**进度**：1/8
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中
 
 ---
 
@@ -135,6 +135,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P3 | 用户确认大纲顺序与深度（8章选型决策主线） | 2026-08-05 22:34 |
 | P2 | 用户确认素材质量（官方+社区交叉验证，含弃用时间线与决策树） | 2026-08-05 22:32 |
 | P1 | 用户确认方向：侧重选型决策（对比表+决策树为主线，部署步骤作附录） | 2026-08-05 22:29 |
 | P0 | 用户确认意图文件与研究计划；输出位置 C:
