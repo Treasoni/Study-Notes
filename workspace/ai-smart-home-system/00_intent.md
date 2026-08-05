@@ -46,7 +46,7 @@
 ## 备注
 
 - **参考报告**: `C:\Users\zhqzn\Desktop\智能家居系统报告.html`（实施方案 / 决策方案 / 市场调研 / 竞争优势 4 部分）
-- **部署方式修正**: 报告决策二选 **HA Supervised**，但官方已于 **2025.12 弃用** Supervised（公告 2025-05-22）。本笔记改用 **Docker Container 部署**（官方正式路径之一，HA Core + Agent 由 docker-compose 一起编排，最贴合本项目架构）；HAOS 作为"专机专用"场景的替代。详见 [[Home Assistant 三种部署方式对比与选型.md]]
+- **部署方式修正（用户已确认）**: 报告决策二选 **HA Supervised**，但官方已于 **2025.12 弃用**（公告 2025-05-22）。本项目核心约束是「面向非技术用户一键部署」，最终决策：**Docker Container 为主 + HAOS 为辅**。Container 是官方正式路径，HA Core + Agent 由 docker-compose 一起编排，install.sh 一条命令完成部署；HAOS 作为「专机专用 / 完全非技术用户」场景的替代分发渠道。详见 [[Home Assistant 三种部署方式对比与选型.md]]
 - **素材策略**: 以报告为基础 + research-collector 深度收集，补充官方文档、最新代码示例与踩坑经验
 - **与已有笔记关系**: 部署方式选型（Supervised）与 `homeassistant/Home Assistant 三种部署方式对比与选型.md` 直接相关，成稿后互相双链
 - **Obsidian 规则**: 表格不嵌套在列表内；YAML frontmatter 中含特殊字符（`[]`、`:`）的值必须正确引用
