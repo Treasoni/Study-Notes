@@ -10,10 +10,10 @@ topic: "Home Assistant 中 HAOS 虚拟机、Docker Container、HA Supervised 这
 project_slug: "home-assistant-deployment-methods"
 created_at: "2026-08-05"
 last_updated: "2026-08-05"
-current_phase: P0
+current_phase: P1
 current_status: in_progress
 mode: outline
-confirmed_phases: ""
+confirmed_phases: "P0"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,21 +28,24 @@ blocked_reason: ""
 > 运行标识：home-assistant-deployment-methods
 > 项目标识：home-assistant-deployment-methods
 > 创建时间：2026-08-05
-> 当前阶段：阶段 0
+> 当前阶段：阶段 1
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
 
 ## 阶段 0：意图澄清
-- [ ] 用户输入已分析
-- [ ] 笔记类型已确定（实战/概念/心得/对比）
-- [ ] 学习深度已确定（入门/上手/精通）
-- [ ] 用户基础已确定（零基础/有了解/熟悉）
-- [ ] 输出位置策略已确定（项目 output / 用户指定 Obsidian vault）
-- [ ] 如发布到 Obsidian，vault_path、note_folder、moc_path 已确认或标记待补
-- [ ] 意图文件已生成：`./00_intent.md`
+- [✅] 用户输入已分析
+- [✅] 笔记类型已确定（实战/概念/心得/对比）→ **对比 + 实战指南（practice + compare）**
+- [✅] 学习深度已确定（入门/上手/精通）→ **精通**
+- [✅] 用户基础已确定（零基础/有了解/熟悉）→ **熟悉**
+- [✅] 输出位置策略已确定（项目 output / 用户指定 Obsidian vault）→ **Obsidian vault**
+- [✅] 如发布到 Obsidian，vault_path、note_folder、moc_path 已确认或标记待补
+  - vault_path：`C:\note\Study-Notes`
+  - note_folder：`homeassistant/`
+  - moc_path：`homeassistant/Home Assistant MOC.md`
+- [✅] 意图文件已生成：`./00_intent.md`
 
-> [P0] 🔲 进行中
+> [P0] ✅ 已完成
 
 ---
 
@@ -53,7 +56,7 @@ blocked_reason: ""
 - [ ] 用户已选择学习方向
 - [ ] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] ⬜ 未开始
+> [P1] 🔲 进行中
 
 ---
 
@@ -132,6 +135,8 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P0 | 用户确认意图文件与研究计划；输出位置 C:
+oteStudy-Noteshomeassistant | 2026-08-05 22:26 |
 | | | |
 
 ---
