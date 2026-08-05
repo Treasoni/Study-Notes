@@ -37,13 +37,13 @@ source_project: ai-smart-home-system
 ## 目录
 
 - [[#第一章 系统架构与部署选型：为什么是 Container 为主 + HAOS 为辅|第一章 系统架构与部署选型]]
-- [[#第二章 国内镜像链与 Docker 基础设施准备|第二章 国内镜像链与 Docker 基础设施准备]]
-- [[#第三章 一键部署：install.sh 与 docker-compose 编排|第三章 一键部署：install.sh 与 docker-compose 编排]]
-- [[#第四章 无头 onboarding：让 HA 首次启动不再需要浏览器|第四章 无头 onboarding：让 HA 首次启动不再需要浏览器]]
-- [[#第五章 跨品牌接入矩阵|第五章 跨品牌接入矩阵]]
-- [[#第六章 AI 智能体：FastAPI + DeepSeek Function Calling|第六章 AI 智能体：FastAPI + DeepSeek Function Calling]]
-- [[#第七章 场景模板与自动化：packages 与 Blueprint|第七章 场景模板与自动化：packages 与 Blueprint]]
-- [[#第八章 产品化复制与时效性风险|第八章 产品化复制与时效性风险]]
+- [[_part02#第二章 国内镜像链与 Docker 基础设施准备|第二章 国内镜像链与 Docker 基础设施准备]]
+- [[_part02#第三章 一键部署：install.sh 与 docker-compose 编排|第三章 一键部署：install.sh 与 docker-compose 编排]]
+- [[_part03#第四章 无头 onboarding：让 HA 首次启动不再需要浏览器|第四章 无头 onboarding：让 HA 首次启动不再需要浏览器]]
+- [[_part03#第五章 跨品牌接入矩阵|第五章 跨品牌接入矩阵]]
+- [[_part03#第六章 AI 智能体：FastAPI + DeepSeek Function Calling|第六章 AI 智能体：FastAPI + DeepSeek Function Calling]]
+- [[_part04#第七章 场景模板与自动化：packages 与 Blueprint|第七章 场景模板与自动化：packages 与 Blueprint]]
+- [[_part04#第八章 产品化复制与时效性风险|第八章 产品化复制与时效性风险]]
 
 ---
 
@@ -183,3 +183,9 @@ Home Assistant 官方安装方式在 2025 年发生了结构性变化[深度收�
 ---
 
 下一章从第一道真实卡点开始：在国内网络环境下，官方镜像 `ghcr.io` 经常拉不动。你会弄明白为什么 `daemon.json` 的 `registry-mirrors` 对 ghcr 无效，以及如何用「镜像名前缀整体替换 + 回退链」把它稳定拉下来。
+
+![[_part02]]
+
+![[_part03]]
+
+![[_part04]]
