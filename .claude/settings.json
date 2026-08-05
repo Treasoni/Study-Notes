@@ -6,7 +6,18 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 '.claude/hooks/read_learnings.py'"
+            "command": "PYTHONUTF8=1 python '.claude/hooks/read_learnings.py'"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "PYTHONUTF8=1 python .llm/prompt-cache/collect-usage.py"
           }
         ]
       }

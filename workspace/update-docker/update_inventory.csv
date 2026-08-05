@@ -1,0 +1,13 @@
+id,relative_path,title,updated,status,reason,priority,size_bytes
+mirror-config,docker/DockerDesktop镜像加速器配置.md,Docker Desktop Mac 镜像加速器配置,2026-03-04,ready,镜像源已失效且 registry-mirrors 机制被弃用,high,14591
+windows-install,docker/Windows-DockerDesktop安装指南-国内网络版.md,Windows Docker Desktop 安装指南（国内网络版）,2026-03-29,ready,国内下载链接与 WSL2/镜像源配置时效性强,high,23729
+proxy,docker/docker进行代理.md,Docker 代理配置,未记录,ready,无 frontmatter 且 daemon/容器代理配置需核对 2026 现状,medium-high,5470
+compare,docker/镜像加速器vs代理-概念对比.md,Docker 镜像加速器 vs 代理 - 概念对比,2026-03-28,candidate,镜像加速器现状描述需随 mirror-config 同步,medium,15503
+network,docker/Docker网络结构详解.md,Docker 网络结构详解,2026-03-29,candidate,网络原理稳定但引用 Docker 25.0 过时,medium,44575
+container-update,docker/docker容器如何更新.md,Docker 容器如何更新,2026-02-09,candidate,流程稳定但缺 frontmatter 日期可补充新特性,medium,11447
+gid-uid,docker/docker里的GID和UID.md,Docker 里的 UID/GID,未记录,candidate,概念稳定缺 frontmatter 日期,low,2215
+build-errors,docker/docker容器搭建错误的知识讲解.md,Docker 容器搭建错误知识,未记录,candidate,内容稳定缺 frontmatter 日期,low,1800
+comic-library,docker/如何搭建漫画库.md,如何搭建漫画库,未记录,needs-review,无 frontmatter 且与 Docker 更新目标相关度低,low,1000
+github-raw,docker/github文件直链方式.md,GitHub 文件直链方式,未记录,skip,与 Docker 更新目标无关,skip,1688
+docker-moc,docker/Docker MOC.md,Docker 知识索引,2026-05-14,skip,MOC 索引由 P5 统一同步,skip,6471
+sortspec,docker/sortspec.md,sortspec,未记录,skip,Obsidian 排序插件内部文件,skip,371

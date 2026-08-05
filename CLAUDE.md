@@ -106,3 +106,11 @@ Named workflow state files are the source of truth for every routed workflow.
 - Use one unique phase status line per phase, for example `> [P0] ⬜ 未开始`.
 - On resume after interruption, inspect the YAML frontmatter and current phase before acting.
 - Each workflow directory must contain a `routing.yaml`. After creating, changing, renaming, or deleting a workflow, run `.claude/scripts/sync-workflow-routing.sh`; the update is incomplete until `.claude/scripts/sync-workflow-routing.sh --check` passes.
+
+<!-- prompt-cache-bootstrap:begin -->
+## Prompt Cache
+
+- Follow `.claude/rules/common/prompt-cache.md` for high-frequency prompt design.
+- Keep stable instructions and output formats before dynamic user input, file excerpts, dates, IDs, and runtime state.
+- Reuse canonical templates and load long context only when needed.
+<!-- prompt-cache-bootstrap:end -->

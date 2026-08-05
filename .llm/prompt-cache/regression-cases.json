@@ -1,0 +1,140 @@
+{
+  "version": "1",
+  "description": "Stable, sanitized regression cases for the Study System's high-frequency request groups. Baselines are collected on first run after each template/model change.",
+  "cases": [
+    {
+      "id": "workflow-instantiate",
+      "enabled": true,
+      "request_type": "workflow_instantiate",
+      "template_id": "workflow-orchestrator.skill",
+      "template_version": "v1",
+      "input_fixture": "fixtures/workflow-instantiate.md",
+      "parameters": {
+        "workflow_id": "learning-note-flow",
+        "topic": "Docker 部署",
+        "project_slug": "docker-deploy",
+        "output_decision": "project-output-first"
+      },
+      "quality_checks": [
+        "Creates workspace/workflow-runs/docker-deploy.workflow.md from the workflow's state-template.md",
+        "Phase status lines use the exact [PN] ⬜/🔲/✅ pattern, one per phase",
+        "YAML frontmatter recovery metadata matches the template",
+        "No phase state changed without .claude/scripts/todo-state.sh"
+      ],
+      "baseline": {
+        "input_tokens": null,
+        "cache_read_tokens": null,
+        "output_tokens": null,
+        "latency_ms": null,
+        "cost_usd": null,
+        "quality_score": null
+      }
+    },
+    {
+      "id": "intent-clarify",
+      "enabled": true,
+      "request_type": "intent_clarify",
+      "template_id": "research-planner.skill",
+      "template_version": "v1",
+      "input_fixture": "fixtures/intent-clarify.md",
+      "parameters": {
+        "user_request": "想学 Docker 部署，零基础，实战笔记",
+        "direction": "explicit",
+        "workflow_route": "learning-note-flow"
+      },
+      "quality_checks": [
+        "00_intent.md created with 学习主题/笔记类型/学习深度/现有基础/输出位置 fields",
+        "Planner triggers workflow-orchestrator with the matching workflow_id",
+        "No research collection started before intent file exists"
+      ],
+      "baseline": {
+        "input_tokens": null,
+        "cache_read_tokens": null,
+        "output_tokens": null,
+        "latency_ms": null,
+        "cost_usd": null,
+        "quality_score": null
+      }
+    },
+    {
+      "id": "chapter-write",
+      "enabled": true,
+      "request_type": "chapter_write",
+      "template_id": "chapter-writer.agent",
+      "template_version": "v1",
+      "input_fixture": "fixtures/chapter-write.md",
+      "parameters": {
+        "workflow_state_file": "workspace/workflow-runs/docker-deploy.workflow.md",
+        "chapter_number": 3,
+        "note_type": "实战笔记"
+      },
+      "quality_checks": [
+        "Chapter saved to chapters/3_{title}.md per the outline naming convention",
+        "Structure has opening, body with ##/### sections, closing with 3-5 bullets and next-chapter preview",
+        "Code examples complete with language identifiers and expected output",
+        "Agent waits for user confirmation before writing the next chapter"
+      ],
+      "baseline": {
+        "input_tokens": null,
+        "cache_read_tokens": null,
+        "output_tokens": null,
+        "latency_ms": null,
+        "cost_usd": null,
+        "quality_score": null
+      }
+    },
+    {
+      "id": "note-update-patch",
+      "enabled": true,
+      "request_type": "note_update_patch",
+      "template_id": "note-updater.skill",
+      "template_version": "v1",
+      "input_fixture": "fixtures/note-update-patch.md",
+      "parameters": {
+        "note_path": "docker/README.md",
+        "stale_sections": ["安装步骤", "版本对比"],
+        "new_sources": ["fixtures/note-update-patch.md"]
+      },
+      "quality_checks": [
+        "Only the listed stale sections are replaced, no full-note rewrite",
+        "frontmatter updated field refreshed, created untouched",
+        "New content cites the provided sources",
+        "Original file layout and other sections byte-identical"
+      ],
+      "baseline": {
+        "input_tokens": null,
+        "cache_read_tokens": null,
+        "output_tokens": null,
+        "latency_ms": null,
+        "cost_usd": null,
+        "quality_score": null
+      }
+    },
+    {
+      "id": "moc-sync",
+      "enabled": true,
+      "request_type": "moc_sync",
+      "template_id": "moc-organizer.skill",
+      "template_version": "v1",
+      "input_fixture": "fixtures/moc-sync.md",
+      "parameters": {
+        "note_title": "Docker 部署实战",
+        "moc_path": "Maps/Docker MOC.md",
+        "tags": ["docker", "部署"]
+      },
+      "quality_checks": [
+        "One index line appended: - [[Docker 部署实战]] - 一句话说明 #docker #部署",
+        "Index line grouped under the correct existing heading",
+        "No note body content copied into the MOC"
+      ],
+      "baseline": {
+        "input_tokens": null,
+        "cache_read_tokens": null,
+        "output_tokens": null,
+        "latency_ms": null,
+        "cost_usd": null,
+        "quality_score": null
+      }
+    }
+  ]
+}

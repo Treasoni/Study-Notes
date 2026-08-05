@@ -1,7 +1,7 @@
 ---
 title: Docker 知识索引
 created: 2026-04-06
-updated: 2026-05-14
+updated: 2026-08-04
 tags: [docker, MOC, 索引]
 ---
 
@@ -16,7 +16,8 @@ tags: [docker, MOC, 索引]
 
 | 我想... | 推荐阅读 |
 |---------|----------|
-| 安装 Docker Desktop | [[Windows-DockerDesktop安装指南-国内网络版]] |
+| 安装 Docker Desktop (Windows) | [[Windows-DockerDesktop安装指南-国内网络版]] |
+| 安装 Docker (Linux) | [[Linux-Docker与DockerCompose安装指南-国内网络版]] |
 | 加速拉取镜像 | [[DockerDesktop镜像加速器配置]] \| [[镜像加速器vs代理-概念对比]] |
 | 配置容器代理 | [[docker进行代理]] |
 | 理解 Docker 网络 | [[Docker网络结构详解]] |
@@ -29,7 +30,8 @@ tags: [docker, MOC, 索引]
 ## 一、入门与安装
 
 ### 安装指南
-- [[Windows-DockerDesktop安装指南-国内网络版]] - 国内网络环境下的完整安装指南
+- [[Windows-DockerDesktop安装指南-国内网络版]] - Windows Docker Desktop 国内网络环境安装指南
+- [[Linux-Docker与DockerCompose安装指南-国内网络版]] - Linux 服务器 Docker + Docker Compose 国内安装实战指南（Ubuntu/Debian + CentOS/RHEL 双轨） #docker
 
 ### 基础概念
 - [[docker里的GID和UID]] - 容器用户权限映射，解决文件权限问题
@@ -130,5 +132,6 @@ tags: [docker, MOC, 索引]
 
 ## 更新日志
 
+- 2026-08-04：新增 [[Linux-Docker与DockerCompose安装指南-国内网络版]]（12 篇笔记）
 - 2026-05-14：更新索引（11 篇笔记）
 - 2026-04-06：创建 MOC 索引

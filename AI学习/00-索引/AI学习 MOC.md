@@ -2,7 +2,7 @@
 title: "AI学习 MOC"
 tags: [moc]
 created: 2026-05-14
-updated: 2026-07-27
+updated: 2026-07-31
 ---
 
 # AI学习 MOC
@@ -23,6 +23,7 @@ graph TB
         Topics[📁 03-技术专题]
         Projects[📁 04-项目实践]
         Claude[📁 Claude Code 教程]
+        CodexNode[📁 Codex]
     end
 
     Basics --> A1[AI Agents]
@@ -47,6 +48,11 @@ graph TB
     OC --> OC5[选型层]
 
     Claude --> C1[高级功能]
+
+    CodexNode --> CX1[配置哲学]
+    CodexNode --> CX2[核心配置]
+    CodexNode --> CX3[Skills 共享]
+    CodexNode --> CX4[对照迁移]
 ```
 
 ---
@@ -133,8 +139,6 @@ graph TB
 - [[Claude Code 模型与推理设置]]
 - [[Claude Code 高级功能]]
 - [[Claude MCP 使用指南]]
-- [[Claude-Code-多Agent流程设计]]
-- [[Subagent 实战练习]]
 - [[如何使用Claude code]]
 
 #### 高级功能
@@ -143,12 +147,26 @@ graph TB
 - [[Claude Code Dynamic Workflows 使用指南]]
 - [[如何编写Skills]]
 
+### Codex 配置体系
+
+> [[Codex 配置体系 MOC]] — 完整目录与导航入口
+
+- [[01 配置哲学概览]] — TOML vs JSON、目录结构、五层优先级
+- [[02 config.toml 核心配置]] — sandbox、approval、permissions、profiles
+- [[03 AGENTS.md 分层体系]] — 层级级联、CLAUDE.md fallback、Starlark 规则
+- [[04 Skills 技能系统]] — 创建、注册、渐进加载、跨工具共享
+- [[05 Agents 与 MCP]] — 子代理定义、MCP STDIO/HTTP、审批模式
+- [[06 Hooks 与插件]] — 11 种生命周期事件、插件体系
+- [[07 CLI 与调试]] — 核心命令、环境变量、故障排查
+- [[08 对照表与迁移实战]] — 21 维对照、四步迁移、陷阱与最佳实践
+- [[附录 快速参考卡片]] — 路径速查、命令速记、默认值
+
 ---
 
 ## 概览
 
 - 📂 目录：`AI学习`
-- 📝 笔记总数：57
-- 📁 子目录数：12
+- 📝 笔记总数：67
+- 📁 子目录数：13
 - 📅 生成日期：2026-05-14
-- 📅 更新日期：2026-07-27
+- 📅 更新日期：2026-07-31

@@ -85,12 +85,12 @@ status: seedling
 
 1. 打开 VMware Workstation Player
 2. 点击主页的 **"Create a New Virtual Machine"**
-3. 选择安装方式：
+3. 选择安装方式（参考下方表格）：
 
-   | 选项 | 说明 |
-   |------|------|
-   | **Installer disc image file (iso)** | 直接选择下载的 Windows ISO（推荐） |
-   | **I will install the operating system later** | 先创建空虚拟机，稍后安装 |
+| 选项 | 说明 |
+|------|------|
+| **Installer disc image file (iso)** | 直接选择下载的 Windows ISO（推荐） |
+| **I will install the operating system later** | 先创建空虚拟机，稍后安装 |
 
 > [!tip] 推荐方式
 > 选择 **"I will install the operating system later"** 更方便后续调整硬件配置，不会跳过 Windows 安装的硬件检测。
@@ -185,21 +185,21 @@ status: seedling
 
 1. 点击 **"Play virtual machine"** 启动
 2. 看到 "Press any key to boot from CD or DVD..." 时按任意键
-3. 进入 Windows 安装界面：
+3. 进入 Windows 安装界面（安装步骤和注意事项见下方）
 
-   #### Windows 10 安装关键步骤
+#### Windows 10 安装关键步骤
 
-   | 步骤 | 操作 |
-   |------|------|
-   | 语言选择 | 中文或 English，按需选择 |
-   | **Install now** | 点击安装 |
-   | 激活 | 可先跳过（点击 "I don't have a product key"） |
-   | 版本选择 | 一般选 **Windows 10 Pro** 或 **Windows 10 Home** |
-   | 许可条款 | 勾选后下一步 |
-   | 安装类型 | 选 **Custom: Install Windows only (advanced)** |
-   | 磁盘 | 选中未分配空间 → 下一步（无需手动分区） |
+| 步骤 | 操作 |
+|------|------|
+| 语言选择 | 中文或 English，按需选择 |
+| **Install now** | 点击安装 |
+| 激活 | 可先跳过（点击 "I don't have a product key"） |
+| 版本选择 | 一般选 **Windows 10 Pro** 或 **Windows 10 Home** |
+| 许可条款 | 勾选后下一步 |
+| 安装类型 | 选 **Custom: Install Windows only (advanced)** |
+| 磁盘 | 选中未分配空间 → 下一步（无需手动分区） |
 
-   #### Windows 11 额外注意
+#### Windows 11 额外注意
 
    > [!warning] Windows 11 TPM 检查
    > Windows 11 安装时会检查 TPM 2.0 和安全启动。VMware Workstation 17 Player **默认支持虚拟 TPM**，但需要手动启用：
@@ -342,12 +342,12 @@ NAT 模式下虚拟机拥有私有 IP（通常为 `192.168.x.x`），局域网�
 2. **Edit → Virtual Network Editor**（需要管理员权限）
 3. 选择 **VMnet8（NAT 模式）**
 4. 点击 **NAT Settings...**
-5. 添加端口转发规则：
+5. 添加端口转发规则（示例见下方表格）：
 
-   | 宿主机端口 | 虚拟机 IP | 虚拟机端口 | 说明 |
-   |------------|-----------|------------|------|
-   | 3389 | 192.168.xxx.xxx | 3389 | 远程桌面（RDP） |
-   | 8080 | 192.168.xxx.xxx | 80 | HTTP Web 服务 |
+| 宿主机端口 | 虚拟机 IP | 虚拟机端口 | 说明 |
+|------------|-----------|------------|------|
+| 3389 | 192.168.xxx.xxx | 3389 | 远程桌面（RDP） |
+| 8080 | 192.168.xxx.xxx | 80 | HTTP Web 服务 |
 
 ### 7.3 Windows 防火墙注意
 
