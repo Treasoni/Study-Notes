@@ -17,10 +17,10 @@ note_folder: "项目实战/git实战"
 moc_path: "项目实战/项目实战 MOC.md"
 created_at: "2026-08-05"
 last_updated: "2026-08-05"
-current_phase: P5
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6,P7"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -35,7 +35,7 @@ blocked_reason: ""
 > 运行标识：git-branch-worktree
 > 项目标识：git-branch-worktree
 > 创建时间：2026-08-05
-> 当前阶段：阶段 5
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -113,7 +113,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中
+> [P5] ✅ 已完成
 
 ---
 
@@ -123,7 +123,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成
 
 ---
 
@@ -133,7 +133,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成
 
 ---
 
@@ -141,6 +141,9 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P7 | 用户授权免确认，更新 MOC：项目实战/项目实战 MOC.md | 2026-08-05 19:06 |
+| P6 | 用户授权免确认，发布到 项目实战/git实战/Git branch 与 worktree 实战指南.md | 2026-08-05 19:06 |
+| P5 | 用户授权免确认，组装方式A按序拼接 | 2026-08-05 19:05 |
 | P4 | 用户授权逐章写作免确认，全部 6 章完成 | 2026-08-05 19:02 |
 | P3 | 用户确认大纲结构 | 2026-08-05 18:58 |
 | P2 | 用户确认素材足够，选择大纲模式 | 2026-08-05 18:56 |
@@ -176,10 +179,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战笔记
+- **总字数**：约 4.6 万字符（final_note.md 45875）
+- **章节数**：6
+- **输出格式**：Obsidian Markdown（YAML frontmatter + Callout + 双链）
+- **文件路径**：项目实战/git实战/Git branch 与 worktree 实战指南.md
+- **Obsidian Vault**：/Users/zhqznc/Documents/项目
+- **MOC 路径**：项目实战/项目实战 MOC.md（已更新）

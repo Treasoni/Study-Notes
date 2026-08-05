@@ -2,7 +2,7 @@
 title: 项目实战 MOC
 tags: [moc, 索引]
 created: 2026-08-04
-updated: 2026-08-04
+updated: 2026-08-05
 type: moc
 status: active
 ---
@@ -22,6 +22,7 @@ status: active
 
 ### Git 实战
 - [[git实战/Git与资产管理实战]] - Git 与资产管理实战 #git #运维
+- [[git实战/Git branch 与 worktree 实战指南]] - git branch 与 worktree 的区别与使用场景，AI 开发并行实战 #git #worktree #AI开发 #实战
 
 ### 数字员工智能体
 - [[数字员工智能体/数字员工智能体-开源平台选型与实现]] - 数字员工智能体开源平台选型与实现 #AI #智能体
@@ -29,6 +30,6 @@ status: active
 ## 概览
 
 - 📂 目录：`项目实战`
-- 📝 笔记总数：4（含 1 个子 MOC）
+- 📝 笔记总数：5（含 1 个子 MOC）
 - 📅 创建日期：2026-08-04
 - 📅 更新日期：2026-08-04
