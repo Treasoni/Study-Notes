@@ -2,6 +2,7 @@
   "customOrder": {
     "/": {
       "children": [
+        "homeassistant",
         "计算机网络",
         "软路由教程",
         "项目实战",
@@ -116,6 +117,7 @@
     },
     "项目实战/git实战": {
       "children": [
+        "项目实战/git实战/Git branch 与 worktree 实战指南.md",
         "项目实战/git实战/Git与资产管理实战.md"
       ],
       "sortOrder": "custom"
@@ -1298,6 +1300,7 @@
     },
     "workspace": {
       "children": [
+        "workspace/git-branch-worktree",
         "workspace/debian-practice",
         "workspace/docker-compose-linux-install",
         "workspace/update-docker",
@@ -2037,6 +2040,7 @@
     },
     "workspace/workflow-runs": {
       "children": [
+        "workspace/workflow-runs/git-branch-worktree.workflow.md",
         "workspace/workflow-runs/debian-practice.workflow.md",
         "workspace/workflow-runs/docker-compose-linux-install.workflow.md",
         "workspace/workflow-runs/update-docker.workflow.md",
@@ -2052,6 +2056,38 @@
         "workspace/workflow-runs/nodejs-ai-application.workflow.md",
         "workspace/workflow-runs/superpowers.workflow.md"
       ],
+      "sortOrder": "custom"
+    },
+    "workspace/git-branch-worktree": {
+      "children": [
+        "workspace/git-branch-worktree/output",
+        "workspace/git-branch-worktree/chapters",
+        "workspace/git-branch-worktree/03_outline.md",
+        "workspace/git-branch-worktree/02_deep_research.md",
+        "workspace/git-branch-worktree/01_explore_result.md",
+        "workspace/git-branch-worktree/00_intent.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/git-branch-worktree/chapters": {
+      "children": [
+        "workspace/git-branch-worktree/chapters/06_最终结论.md",
+        "workspace/git-branch-worktree/chapters/05_命令手册与常见坑.md",
+        "workspace/git-branch-worktree/chapters/04_AI开发实战.md",
+        "workspace/git-branch-worktree/chapters/03_决策框架.md",
+        "workspace/git-branch-worktree/chapters/02_核心差异对比.md",
+        "workspace/git-branch-worktree/chapters/01_branch与worktree概念本质.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/git-branch-worktree/output": {
+      "children": [
+        "workspace/git-branch-worktree/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant": {
+      "children": [],
       "sortOrder": "custom"
     }
   },
