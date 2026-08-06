@@ -94,10 +94,17 @@ updated: 2026-08-06
 |------|------|------|
 | 小米 | 官方 `xiaomi_home`（预置 v0.4.7） | OAuth 扫码登录，需人工；LAN 控制靠中枢网关 |
 | Aqara（Zigbee） | 走中枢网关 → `xiaomi_home` | 无需独立集成 |
-| 涂鸦 | `tuya` 云 + `localtuya` 本地 | 云 keys 有时效；国内区 `openapi.tuyacn.com` 需 IP 白名单 |
+| 涂鸦（杜亚/公牛/温湿度） | `tuya` 云 + `localtuya` 本地 | 云 keys 有时效；窗帘/插座有 localKey；国内区 `openapi.tuyacn.com` 需 IP 白名单 |
+| 德施曼（米家版） | `xiaomi_home` | 采购米家版，接入最顺，展示专业锁品牌 |
+| 萤石（海康系） | RTSP/ONVIF → Frigate | 开 RTSP + 本地账号；ONVIF 兜底 |
+| 石头 Roborock | `roborock` 集成 或 米家版 | 优先独立集成，二选一 |
+| 飞利浦 Hue | Hue Bridge + `hue` 集成 | 桥接方式，国际品牌展示最稳 |
 | 美的 | `midea_ac_lan` | V3 需一次性 token；V1 token API 已关，新设备走 V3 |
 | 格力 | 内置 `gree` | 需先格力+ App 配对；建议换社区增强版拿完整状态 |
+| 海尔 | `hon-revived` | 云 API 脆弱，仅进阶展示 |
 | 华为 | **无路径** | 仅 Matter/反向控制，按设备评估，不进 MVP |
+
+品牌接入后按房间建立实体命名规范（`light.living_room_ceiling` 等），写入 `entity_map.yaml`，并在 3D 面板/演示脚本中做「品牌速览」展示。
 
 品牌接入后按房间建立实体命名规范：`light.living_room_ceiling` 等，写入 `entity_map.yaml`。
 
