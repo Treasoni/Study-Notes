@@ -13,6 +13,7 @@ updated: 2026-08-06
 - [[Home Assistant 三种部署方式对比与选型]] - HAOS 虚拟机 / Docker Container / HA Supervised 三种部署方式对比与选型指南 #智能家居/HomeAssistant
 - [[基于 Home Assistant 的跨品牌 AI 智能家居一键部署系统]] - 跨品牌 AI 智能家居一键部署系统实战构建指南（HAOS 部署 + DeepSeek Agent + 主流品牌接入） #智能家居/HomeAssistant
 - [[部署 HAOS 详细教程]] - HAOS 部署专项实操教程（官方原版+手动国内源 vs HAOS-CN 极速版双路线对比），含稳定运行与排障手册 #智能家居/HomeAssistant
+- [[Home Assistant ha 命令使用]] - HAOS/HA Supervised 下 ha 命令（Home Assistant CLI）实战速查手册：19 命令组速查表 + 升级/备份/排障 #智能家居/HomeAssistant
 
 ## 客户项目
 

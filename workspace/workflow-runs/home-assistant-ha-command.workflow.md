@@ -10,10 +10,10 @@ topic: "Home Assistant 中 ha 命令的使用"
 project_slug: "home-assistant-ha-command"
 created_at: "2026-08-06"
 last_updated: "2026-08-06"
-current_phase: P5
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6,P7"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：home-assistant-ha-command
 > 项目标识：home-assistant-ha-command
 > 创建时间：2026-08-06
-> 当前阶段：阶段 5
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -108,7 +108,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中
+> [P5] ✅ 已完成
 
 ---
 
@@ -118,7 +118,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成
 
 ---
 
@@ -128,7 +128,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成
 
 ---
 
@@ -136,6 +136,9 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P7 | MOC 已同步：部署指南分组新增 Home Assistant ha 命令使用 索引行 | 2026-08-06 23:36 |
+| P6 | 拆分发布完成：索引页+8章节已发布到 homeassistant/ha-command/（P0/P5 已确认位置） | 2026-08-06 23:36 |
+| P5 | 用户确认组装方式 B：拆分发布（索引页+8章节+前后导航），不需要 Canvas/Dataview | 2026-08-06 23:33 |
 | P4 | 用户预授权连续写作，8 章全部完成 | 2026-08-06 23:29 |
 | P3 | 用户确认大纲（8章） | 2026-08-06 23:26 |
 | P2 | 用户确认素材质量达标，选择大纲模式 | 2026-08-06 23:24 |
@@ -171,10 +174,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战速查手册（concept + cheat_sheet）
+- **总字数**：约 5.3 万字符（8 章）
+- **章节数**：8
+- **输出格式**：Obsidian Markdown（拆分：索引页 + 8 章节文件 + 前后导航 + 返回索引）
+- **文件路径**：`homeassistant/ha-command/`（`Home Assistant ha 命令使用.md` 索引页 + `01_认识 ha 命令` ~ `08_完整速查表` 8 个章节文件）
+- **Obsidian Vault**：`C:\note\Study-Notes`
+- **MOC 路径**：`homeassistant/Home Assistant MOC.md`（部署指南分组已追加索引行）
