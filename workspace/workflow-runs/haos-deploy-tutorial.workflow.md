@@ -10,10 +10,10 @@ topic: "部署 HAOS 详细教程：国内源 + 稳定运行"
 project_slug: "haos-deploy-tutorial"
 created_at: "2026-08-06"
 last_updated: "2026-08-06"
-current_phase: P5
+current_phase: P6
 current_status: in_progress
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4"
+confirmed_phases: "P0,P1,P2,P3,P4,P5"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：haos-deploy-tutorial
 > 项目标识：haos-deploy-tutorial
 > 创建时间：2026-08-06
-> 当前阶段：阶段 5
+> 当前阶段：阶段 6
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -108,7 +108,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中
+> [P5] ✅ 已完成
 
 ---
 
@@ -118,7 +118,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] 🔲 进行中
 
 ---
 
@@ -136,6 +136,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P5 | 用户确认组装结果（8章约1.9万字）与发布方式：拆分（索引页+8章节文件） | 2026-08-06 22:08 |
 | P4 | 用户授权连续写作，8 章全部完成（第 3 章由本章 agent 完成并确认） | 2026-08-06 22:01 |
 | P3 | 用户确认大纲（8章双路线对比，连续写作授权） | 2026-08-06 21:58 |
 | P2 | 用户确认深度收集素材质量（官方+社区交叉验证，含时效性标注） | 2026-08-06 21:54 |
