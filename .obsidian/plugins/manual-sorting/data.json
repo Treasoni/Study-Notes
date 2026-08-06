@@ -667,6 +667,10 @@
     },
     "homeassistant": {
       "children": [
+        "homeassistant/商业部署标准",
+        "homeassistant/customers",
+        "homeassistant/ha-command",
+        "homeassistant/haos-deploy",
         "homeassistant/三种部署方式对比与选型",
         "homeassistant/ai-smart-home-system",
         "homeassistant/Home Assistant 三种部署方式对比与选型.md",
@@ -687,6 +691,12 @@
       ],
       "sortOrder": "custom"
     },
+    "homeassistant/商业部署标准": {
+      "children": [
+        "homeassistant/商业部署标准/商业部署标准 runbook.md"
+      ],
+      "sortOrder": "custom"
+    },
     "homeassistant/ai-smart-home-system": {
       "children": [
         "homeassistant/ai-smart-home-system/01_系统架构与部署选型.md",
@@ -700,6 +710,93 @@
         "homeassistant/ai-smart-home-system/基于 Home Assistant 的跨品牌 AI 智能家居一键部署系统.md",
         "homeassistant/ai-smart-home-system/系统架构图.md",
         "homeassistant/ai-smart-home-system/HAOS交付流程图.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/customers": {
+      "children": [
+        "homeassistant/customers/客户A"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/customers/客户A": {
+      "children": [
+        "homeassistant/customers/客户A/实施",
+        "homeassistant/customers/客户A/提案",
+        "homeassistant/customers/客户A/客户A MOC.md",
+        "homeassistant/customers/客户A/客户A_方案介绍.html"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/customers/客户A/实施": {
+      "children": [
+        "homeassistant/customers/客户A/实施/3d-panel",
+        "homeassistant/customers/客户A/实施/00_部署架构.md",
+        "homeassistant/customers/客户A/实施/01_部署runbook.md",
+        "homeassistant/customers/客户A/实施/02_设备点位表.md",
+        "homeassistant/customers/客户A/实施/03_自动化实现.md",
+        "homeassistant/customers/客户A/实施/04_3D面板方案与骨架.md",
+        "homeassistant/customers/客户A/实施/05_远程运维手册.md",
+        "homeassistant/customers/客户A/实施/06_维护手册.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/customers/客户A/实施/3d-panel": {
+      "children": [
+        "homeassistant/customers/客户A/实施/3d-panel/index.html"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/customers/客户A/提案": {
+      "children": [
+        "homeassistant/customers/客户A/提案/00_方案总览.md",
+        "homeassistant/customers/客户A/提案/01_系统架构.md",
+        "homeassistant/customers/客户A/提案/02_设备清单.md",
+        "homeassistant/customers/客户A/提案/03_界面设计.md",
+        "homeassistant/customers/客户A/提案/04_语音与智能体.md",
+        "homeassistant/customers/客户A/提案/05_自动化清单.md",
+        "homeassistant/customers/客户A/提案/06_维护与质保.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/ha-command": {
+      "children": [
+        "homeassistant/ha-command/01_认识 ha 命令.md",
+        "homeassistant/ha-command/02_核心命令组实战.md",
+        "homeassistant/ha-command/03_系统级命令组.md",
+        "homeassistant/ha-command/04_诊断命令组.md",
+        "homeassistant/ha-command/05_备份与恢复.md",
+        "homeassistant/ha-command/06_升级与运维流程.md",
+        "homeassistant/ha-command/07_常见坑与排障.md",
+        "homeassistant/ha-command/08_完整速查表.md",
+        "homeassistant/ha-command/Home Assistant ha 命令使用.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/haos-deploy": {
+      "children": [
+        "homeassistant/haos-deploy/assets",
+        "homeassistant/haos-deploy/01_绪论.md",
+        "homeassistant/haos-deploy/02_部署前置准备.md",
+        "homeassistant/haos-deploy/03_官方原版HAOS安装实战.md",
+        "homeassistant/haos-deploy/04_手动配置国内源.md",
+        "homeassistant/haos-deploy/05_HAOS-CN极速版.md",
+        "homeassistant/haos-deploy/06_双路线对比与选型建议.md",
+        "homeassistant/haos-deploy/07_稳定运行保障.md",
+        "homeassistant/haos-deploy/08_故障排查手册与长期运维.md",
+        "homeassistant/haos-deploy/部署 HAOS 详细教程.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/haos-deploy/assets": {
+      "children": [
+        "homeassistant/haos-deploy/assets/08_故障排查手册与长期运维"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/haos-deploy/assets/08_故障排查手册与长期运维": {
+      "children": [
+        "homeassistant/haos-deploy/assets/08_故障排查手册与长期运维/file-20260807000941023.png"
       ],
       "sortOrder": "custom"
     },
@@ -1348,6 +1445,8 @@
     },
     "workspace": {
       "children": [
+        "workspace/haos-deploy-tutorial",
+        "workspace/home-assistant-ha-command",
         "workspace/ai-smart-home-system",
         "workspace/home-assistant-deployment-methods",
         "workspace/git-branch-worktree",
@@ -1795,6 +1894,36 @@
       ],
       "sortOrder": "custom"
     },
+    "workspace/haos-deploy-tutorial": {
+      "children": [
+        "workspace/haos-deploy-tutorial/chapters",
+        "workspace/haos-deploy-tutorial/output",
+        "workspace/haos-deploy-tutorial/00_intent.md",
+        "workspace/haos-deploy-tutorial/01_explore_result.md",
+        "workspace/haos-deploy-tutorial/02_deep_research.md",
+        "workspace/haos-deploy-tutorial/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/haos-deploy-tutorial/chapters": {
+      "children": [
+        "workspace/haos-deploy-tutorial/chapters/01_绪论.md",
+        "workspace/haos-deploy-tutorial/chapters/02_部署前置准备.md",
+        "workspace/haos-deploy-tutorial/chapters/03_官方原版HAOS安装实战.md",
+        "workspace/haos-deploy-tutorial/chapters/04_手动配置国内源.md",
+        "workspace/haos-deploy-tutorial/chapters/05_HAOS-CN极速版.md",
+        "workspace/haos-deploy-tutorial/chapters/06_双路线对比与选型建议.md",
+        "workspace/haos-deploy-tutorial/chapters/07_稳定运行保障.md",
+        "workspace/haos-deploy-tutorial/chapters/08_故障排查手册与长期运维.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/haos-deploy-tutorial/output": {
+      "children": [
+        "workspace/haos-deploy-tutorial/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
     "workspace/home-assistant-deployment-methods": {
       "children": [
         "workspace/home-assistant-deployment-methods/chapters",
@@ -1822,6 +1951,29 @@
     "workspace/home-assistant-deployment-methods/output": {
       "children": [
         "workspace/home-assistant-deployment-methods/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/home-assistant-ha-command": {
+      "children": [
+        "workspace/home-assistant-ha-command/chapters",
+        "workspace/home-assistant-ha-command/00_intent.md",
+        "workspace/home-assistant-ha-command/01_explore_result.md",
+        "workspace/home-assistant-ha-command/02_deep_research.md",
+        "workspace/home-assistant-ha-command/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/home-assistant-ha-command/chapters": {
+      "children": [
+        "workspace/home-assistant-ha-command/chapters/01_认识 ha 命令.md",
+        "workspace/home-assistant-ha-command/chapters/02_核心命令组实战.md",
+        "workspace/home-assistant-ha-command/chapters/03_系统级命令组.md",
+        "workspace/home-assistant-ha-command/chapters/04_诊断命令组.md",
+        "workspace/home-assistant-ha-command/chapters/05_备份与恢复.md",
+        "workspace/home-assistant-ha-command/chapters/06_升级与运维流程.md",
+        "workspace/home-assistant-ha-command/chapters/07_常见坑与排障.md",
+        "workspace/home-assistant-ha-command/chapters/08_完整速查表.md"
       ],
       "sortOrder": "custom"
     },
@@ -2202,6 +2354,8 @@
     },
     "workspace/workflow-runs": {
       "children": [
+        "workspace/workflow-runs/haos-deploy-tutorial.workflow.md",
+        "workspace/workflow-runs/home-assistant-ha-command.workflow.md",
         "workspace/workflow-runs/ai-smart-home-system.workflow.md",
         "workspace/workflow-runs/home-assistant-deployment-methods.workflow.md",
         "workspace/workflow-runs/git-branch-worktree.workflow.md",
