@@ -12,13 +12,35 @@ updated: 2026-08-06
 # 客户A · 部署 Runbook
 
 > 一键部署是「成品交付」不是「一条脚本」：NAS 建虚拟机 → 引导 → 配置。分步执行，每步验证。技术细节复用笔记：镜像链 [[ai-smart-home-system/02_国内镜像链与Docker基础设施]]、无头 onboarding [[ai-smart-home-system/04_无头onboarding自动化]]、Agent [[ai-smart-home-system/06_AI智能体FastAPI与DeepSeek]]、品牌矩阵 [[ai-smart-home-system/05_跨品牌接入矩阵]]。
+>
+> 本 runbook 已纳入公司标准流程：[[商业部署标准 runbook]]（黄金模板 + 交付检查清单 + 维护 SLA）。本节以下保留客户A 特有细节，标准化部分直接复用标准 runbook。
 
 ## 0. 前置条件
 
 - 绿联 DXP4800 Plus（16GB）到货，2×4TB HDD + M.2 SSD 装好
 - 小米 BE6500 Pro Mesh 已布好，NAS 有线接入
 - 宿主 BIOS 确认 **VT-x/AMD-V 开启**
-- 准备：HAOS 镜像（qcow2）、Agent 仓库、场景 packages
+- 准备：**HAOS 黄金模板**（见 [[商业部署标准 runbook]] §2）、Agent 仓库、场景 packages
+
+## 0.5 商业模板化部署（标准化版本）
+
+> 客户A 部署按公司标准流程走：**官方原版 HAOS + 预置国内源黄金模板**。模板已内置国内镜像链与基础组件，本 runbook 只需处理「模板化之外」的客户特有部分。
+
+**直接复用模板（无需重新配置）**：
+- 国内镜像链：Docker/ghcr/NTP 加速（模板已预置，见标准 runbook §2.3）
+- 基础组件：Terminal & SSH、Samba Backup、Google Drive Backup（模板已预装）
+- 升级策略：逐大版本 + 升级前快照（标准 SLA，见标准 runbook §4.2）
+- 远程访问：Tailscale 组网通道（标准交付项）
+
+**客户A 特有（本 runbook 覆盖）**：
+- 宿主环境：绿联 DXP4800 Plus + 小米 BE6500 Pro Mesh（见 §1）
+- 品牌接入组合：小米/Aqara/涂鸦/德施曼/萤石/石头/飞利浦/美的/格力/海尔（见 §6）
+- 无头 onboarding 自动初始化（见 §4）
+- Agent Add-on + `entity_map.yaml` 设备语义映射（见 §5）
+- NAS 宿主 Docker 服务：Jellyfin / Frigate / Immich（见 §7）
+
+> [!note] 模板优先
+> §2 创建 HAOS 虚拟机时，**优先从黄金模板克隆**（克隆后改名、调 IP），避免重复配置国内源；无模板时再按 §2 手动建 + §3 配镜像链。
 
 ## 1. 绿联 NAS 初始化
 
@@ -31,7 +53,10 @@ updated: 2026-08-06
 
 > ⚠️ **UEFI 建后不可改**，一次建对。
 
-1. 下载 HAOS qcow2 镜像（国内走 HAOS-CN 分发，见下）
+> [!tip] 模板优先
+> 若已有黄金模板（见 [[商业部署标准 runbook]] §2）：**直接「从模板克隆」** → 调整 IP/主机名 → 跳过本节手动建机与 §3 镜像链配置。本节参数为手动建 VM 时的底线。
+
+1. 下载 HAOS qcow2 镜像（国内走 HAOS-CN 分发，见下；**模板化部署可跳过**）
 2. 虚拟机应用 → 新建：
    - 操作系统：Linux / Other
    - **主板类型：Q35**
@@ -45,6 +70,9 @@ updated: 2026-08-06
 4. 访问 `http://<HA-IP>:8123`（或 `homeassistant.local:8123`）
 
 ## 3. 国内镜像链（关键）
+
+> [!note] 模板已预置
+> 若走黄金模板（§0.5），本节的镜像链已在模板内预置，无需重复配置。本节保留为**手动建机 / 排障参考**。
 
 > 官方镜像/组件拉取在国内必须走镜像链，见笔记 ch2。核心结论：
 > - **Docker Hub `registry-mirrors` 只对 Docker Hub 生效，对 ghcr.io 无效** → 需前缀整体替换
