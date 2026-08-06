@@ -2,6 +2,8 @@
   "customOrder": {
     "/": {
       "children": [
+        "homeassistant",
+        "skills-lock.json",
         "计算机网络",
         "软路由教程",
         "项目实战",
@@ -531,6 +533,7 @@
     },
     "docs": {
       "children": [
+        "docs/agents",
         "docs/architecture.md",
         "docs/changelog.md",
         "docs/error-handling.md",
@@ -541,6 +544,14 @@
         "docs/todo-state-machine.md",
         "docs/updating-notes.md",
         "docs/superpowers"
+      ],
+      "sortOrder": "custom"
+    },
+    "docs/agents": {
+      "children": [
+        "docs/agents/domain.md",
+        "docs/agents/issue-tracker.md",
+        "docs/agents/triage-labels.md"
       ],
       "sortOrder": "custom"
     },
@@ -651,6 +662,44 @@
     "GitHub项目/superpowers": {
       "children": [
         "GitHub项目/superpowers/superpowers-agentic-skills-framework.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant": {
+      "children": [
+        "homeassistant/三种部署方式对比与选型",
+        "homeassistant/ai-smart-home-system",
+        "homeassistant/Home Assistant 三种部署方式对比与选型.md",
+        "homeassistant/Home Assistant MOC.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/三种部署方式对比与选型": {
+      "children": [
+        "homeassistant/三种部署方式对比与选型/01_三种部署方式全景.md",
+        "homeassistant/三种部署方式对比与选型/02_核心对比表.md",
+        "homeassistant/三种部署方式对比与选型/03_HAOS虚拟机详解.md",
+        "homeassistant/三种部署方式对比与选型/04_DockerContainer详解.md",
+        "homeassistant/三种部署方式对比与选型/05_HASupervised详解.md",
+        "homeassistant/三种部署方式对比与选型/06_选型决策树与建议.md",
+        "homeassistant/三种部署方式对比与选型/07_迁移路径与操作.md",
+        "homeassistant/三种部署方式对比与选型/08_部署实操附录.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/ai-smart-home-system": {
+      "children": [
+        "homeassistant/ai-smart-home-system/01_系统架构与部署选型.md",
+        "homeassistant/ai-smart-home-system/02_国内镜像链与Docker基础设施.md",
+        "homeassistant/ai-smart-home-system/03_一键部署install脚本与docker编排.md",
+        "homeassistant/ai-smart-home-system/04_无头onboarding自动化.md",
+        "homeassistant/ai-smart-home-system/05_跨品牌接入矩阵.md",
+        "homeassistant/ai-smart-home-system/06_AI智能体FastAPI与DeepSeek.md",
+        "homeassistant/ai-smart-home-system/07_场景模板与自动化.md",
+        "homeassistant/ai-smart-home-system/08_产品化复制与时效性风险.md",
+        "homeassistant/ai-smart-home-system/基于 Home Assistant 的跨品牌 AI 智能家居一键部署系统.md",
+        "homeassistant/ai-smart-home-system/系统架构图.md",
+        "homeassistant/ai-smart-home-system/HAOS交付流程图.md"
       ],
       "sortOrder": "custom"
     },
@@ -1299,6 +1348,8 @@
     },
     "workspace": {
       "children": [
+        "workspace/ai-smart-home-system",
+        "workspace/home-assistant-deployment-methods",
         "workspace/debian-practice",
         "workspace/docker-compose-linux-install",
         "workspace/git-branch-worktree",
@@ -1317,6 +1368,51 @@
         "workspace/nodejs-ai-application",
         "workspace/superpowers",
         "workspace/workflow-runs"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/ai-smart-home-system": {
+      "children": [
+        "workspace/ai-smart-home-system/agent",
+        "workspace/ai-smart-home-system/chapters",
+        "workspace/ai-smart-home-system/output",
+        "workspace/ai-smart-home-system/00_intent.md",
+        "workspace/ai-smart-home-system/01_explore_result.md",
+        "workspace/ai-smart-home-system/02_deep_research.md",
+        "workspace/ai-smart-home-system/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/ai-smart-home-system/agent": {
+      "children": [
+        "workspace/ai-smart-home-system/agent/Dockerfile",
+        "workspace/ai-smart-home-system/agent/entity_map.py",
+        "workspace/ai-smart-home-system/agent/entity_map.yaml",
+        "workspace/ai-smart-home-system/agent/main.py",
+        "workspace/ai-smart-home-system/agent/requirements.txt",
+        "workspace/ai-smart-home-system/agent/tools.py"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/ai-smart-home-system/chapters": {
+      "children": [
+        "workspace/ai-smart-home-system/chapters/01_系统架构与部署选型.md",
+        "workspace/ai-smart-home-system/chapters/02_国内镜像链与Docker基础设施.md",
+        "workspace/ai-smart-home-system/chapters/03_一键部署install脚本与docker编排.md",
+        "workspace/ai-smart-home-system/chapters/04_无头onboarding自动化.md",
+        "workspace/ai-smart-home-system/chapters/05_跨品牌接入矩阵.md",
+        "workspace/ai-smart-home-system/chapters/06_AI智能体FastAPI与DeepSeek.md",
+        "workspace/ai-smart-home-system/chapters/07_场景模板与自动化.md",
+        "workspace/ai-smart-home-system/chapters/08_产品化复制与时效性风险.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/ai-smart-home-system/output": {
+      "children": [
+        "workspace/ai-smart-home-system/output/_part02.md",
+        "workspace/ai-smart-home-system/output/_part03.md",
+        "workspace/ai-smart-home-system/output/_part04.md",
+        "workspace/ai-smart-home-system/output/final_note.md"
       ],
       "sortOrder": "custom"
     },
@@ -1687,6 +1783,36 @@
     "workspace/git安装配置教程/output": {
       "children": [
         "workspace/git安装配置教程/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/home-assistant-deployment-methods": {
+      "children": [
+        "workspace/home-assistant-deployment-methods/chapters",
+        "workspace/home-assistant-deployment-methods/output",
+        "workspace/home-assistant-deployment-methods/00_intent.md",
+        "workspace/home-assistant-deployment-methods/01_explore_result.md",
+        "workspace/home-assistant-deployment-methods/02_deep_research.md",
+        "workspace/home-assistant-deployment-methods/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/home-assistant-deployment-methods/chapters": {
+      "children": [
+        "workspace/home-assistant-deployment-methods/chapters/01_三种部署方式全景.md",
+        "workspace/home-assistant-deployment-methods/chapters/02_核心对比表.md",
+        "workspace/home-assistant-deployment-methods/chapters/03_HAOS虚拟机详解.md",
+        "workspace/home-assistant-deployment-methods/chapters/04_DockerContainer详解.md",
+        "workspace/home-assistant-deployment-methods/chapters/05_HASupervised详解.md",
+        "workspace/home-assistant-deployment-methods/chapters/06_选型决策树与建议.md",
+        "workspace/home-assistant-deployment-methods/chapters/07_迁移路径与操作.md",
+        "workspace/home-assistant-deployment-methods/chapters/08_部署实操附录.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/home-assistant-deployment-methods/output": {
+      "children": [
+        "workspace/home-assistant-deployment-methods/output/final_note.md"
       ],
       "sortOrder": "custom"
     },
@@ -2067,6 +2193,8 @@
     },
     "workspace/workflow-runs": {
       "children": [
+        "workspace/workflow-runs/ai-smart-home-system.workflow.md",
+        "workspace/workflow-runs/home-assistant-deployment-methods.workflow.md",
         "workspace/workflow-runs/debian-practice.workflow.md",
         "workspace/workflow-runs/docker-compose-linux-install.workflow.md",
         "workspace/workflow-runs/git-branch-worktree.workflow.md",

@@ -1,0 +1,19 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: git-guardrails-claude-code
+  version: 1.0.0
+  description: "Set up Claude Code hooks to block dangerous git commands before they execute."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - git.guardrails
+  permissions:
+    filesystem: write
+    network: none
+    subprocess: allow
+    git: none
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false
