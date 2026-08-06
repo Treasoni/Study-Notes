@@ -114,3 +114,17 @@ Named workflow state files are the source of truth for every routed workflow.
 - Keep stable instructions and output formats before dynamic user input, file excerpts, dates, IDs, and runtime state.
 - Reuse canonical templates and load long context only when needed.
 <!-- prompt-cache-bootstrap:end -->
+
+## Agent skills
+
+### Issue tracker
+
+Issues and specs live in this repo's GitHub issues, operated via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Five default triage labels: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context layout — root `CONTEXT.md` + `docs/adr/`. See `docs/agents/domain.md`.
