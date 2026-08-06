@@ -11,6 +11,17 @@
         ]
       }
     ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "PYTHONUTF8=1 python '.claude/hooks/post_conversation.py'"
+          }
+        ]
+      }
+    ],
     "SessionEnd": [
       {
         "matcher": "",

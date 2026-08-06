@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>客户A · 全屋智能家居方案介绍</title>
+<style>
+  :root{
+    --bg:#f7f8fb;
+    --surface:#ffffff;
+    --ink:#1a2233;
+    --ink-soft:#4a5568;
+    --ink-mute:#8893a7;
+    --line:#e8ecf3;
+    --brand:#0d9488;
+    --brand-deep:#0f766e;
+    --brand-soft:#ccfbf1;
+    --gold:#d97706;
+    --gold-soft:#fef3c7;
+    --rose:#e11d48;
+    --rose-soft:#ffe4e6;
+    --indigo:#4338ca;
+    --indigo-soft:#e0e7ff;
+    --shadow:0 1px 3px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.06);
+    --shadow-lg:0 4px 12px rgba(16,24,40,.08),0 24px 48px rgba(16,24,40,.10);
+    --radius:16px;
+    --radius-sm:10px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ===== 顶部导航 ===== */
+  .nav{
+    position:sticky;top:0;z-index:100;
+    background:rgba(255,255,255,.85);
+    backdrop-filter:saturate(180%) blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1120px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 24px;
+  }
+  .nav-brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px}
+  .nav-brand .dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--indigo))}
+  .nav-links{display:flex;gap:6px;flex-wrap:wrap}
+  .nav-links a{
+    text-decoration:none;color:var(--ink-soft);font-size:13.5px;font-weight:500;
+    padding:6px 12px;border-radius:8px;transition:.2s;
+  }
+  .nav-links a:hover{background:var(--brand-soft);color:var(--brand-deep)}
+  @media(max-width:760px){.nav-links{display:none}}
+
+  /* ===== Hero ===== */
+  .hero{
+    background:
+      radial-gradient(1200px 500px at 80% -10%,rgba(13,148,136,.10),transparent),
+      radial-gradient(900px 400px at 10% 110%,rgba(67,56,202,.08),transparent),
+      linear-gradient(180deg,#0f172a 0%,#1e293b 100%);
+    color:#fff;padding:72px 24px 64px;text-align:center;
+  }
+  .hero-tag{
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);
+    padding:7px 16px;border-radius:999px;font-size:13px;color:#a7f3d0;margin-bottom:24px;
+  }
+  .hero h1{font-size:clamp(26px,4.4vw,42px);line-height:1.3;font-weight:800;letter-spacing:-.5px}
+  .hero h1 .hl{background:linear-gradient(90deg,#5eead4,#a7f3d0);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.sub{margin:18px auto 0;max-width:680px;font-size:16px;color:#cbd5e1;line-height:1.8}
+  .hero-stats{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;margin-top:36px}
+  .hero-stat{text-align:center}
+  .hero-stat .num{font-size:30px;font-weight:800;color:#5eead4}
+  .hero-stat .lbl{font-size:13px;color:#94a3b8;margin-top:2px}
+
+  /* ===== 通用 ===== */
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  section{padding:64px 0}
+  section + section{border-top:1px solid var(--line)}
+  .sec-head{text-align:center;max-width:680px;margin:0 auto 44px}
+  .sec-head .kicker{color:var(--brand);font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase}
+  .sec-head h2{font-size:clamp(22px,3.2vw,30px);font-weight:800;margin-top:8px;letter-spacing:-.3px}
+  .sec-head p{color:var(--ink-soft);margin-top:12px;font-size:15.5px}
+
+  /* ===== 样板房横幅 ===== */
+  .banner{
+    background:linear-gradient(135deg,var(--gold-soft) 0%,#fffbeb 100%);
+    border:1px solid #fde68a;border-radius:var(--radius);
+    padding:24px 28px;display:flex;gap:18px;align-items:flex-start;
+  }
+  .banner .ico{font-size:28px;flex-shrink:0}
+  .banner h3{font-size:16px;color:#92400e}
+  .banner p{color:#78350f;font-size:14px;margin-top:4px}
+
+  /* ===== 需求映射 ===== */
+  .need-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+  .need-card{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;box-shadow:var(--shadow);transition:.25s;position:relative;overflow:hidden;
+  }
+  .need-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--brand-soft)}
+  .need-card .n-num{
+    position:absolute;top:18px;right:20px;font-size:38px;font-weight:800;color:var(--line);
+  }
+  .need-card h4{font-size:15px;color:var(--ink-mute);font-weight:600;margin-bottom:8px}
+  .need-card .arrow{color:var(--brand);font-weight:700;margin:8px 0;font-size:13px}
+  .need-card .sol{font-size:14.5px;color:var(--ink);line-height:1.65}
+
+  /* ===== 架构 ===== */
+  .arch{display:flex;flex-direction:column;gap:14px;max-width:860px;margin:0 auto}
+  .arch-layer{
+    display:flex;align-items:stretch;gap:0;border-radius:var(--radius);overflow:hidden;
+    box-shadow:var(--shadow);border:1px solid var(--line);
+  }
+  .arch-tag{
+    width:130px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;
+    padding:18px;color:#fff;font-weight:700;font-size:14px;
+  }
+  .arch-body{flex:1;background:var(--surface);padding:18px 22px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .arch-chip{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 13px;font-size:13px;color:var(--ink-soft);font-weight:500}
+  .arch-chip strong{color:var(--ink)}
+  .arch-note{font-size:13px;color:var(--ink-mute);width:100%;margin-top:4px}
+  .l1 .arch-tag{background:linear-gradient(135deg,#0d9488,#14b8a6)}
+  .l2 .arch-tag{background:linear-gradient(135deg,#4338ca,#6366f1)}
+  .l3 .arch-tag{background:linear-gradient(135deg,#1e293b,#334155)}
+  .l4 .arch-tag{background:linear-gradient(135deg,#d97706,#f59e0b)}
+
+  /* ===== NAS ===== */
+  .nas-box{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;
+  }
+  .nas-card{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;box-shadow:var(--shadow);text-align:center;
+  }
+  .nas-card .em{font-size:34px}
+  .nas-card h4{font-size:16px;margin:10px 0 6px}
+  .nas-card p{font-size:13.5px;color:var(--ink-soft)}
+  .nas-card .svc{display:inline-block;margin-top:10px;font-size:12px;color:var(--brand-deep);background:var(--brand-soft);padding:3px 10px;border-radius:6px;font-weight:600}
+
+  /* ===== 品牌矩阵 ===== */
+  .brand-intro{text-align:center;background:var(--surface);border:1px dashed var(--brand);border-radius:var(--radius);padding:28px;margin-bottom:32px}
+  .brand-intro .quote{font-size:17px;color:var(--ink);font-weight:600;line-height:1.8}
+  .brand-intro .quote span{color:var(--brand-deep)}
+  .brand-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+  .brand-card{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px 16px;text-align:center;box-shadow:var(--shadow);transition:.25s;
+  }
+  .brand-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--brand-soft)}
+  .brand-card .b-name{font-size:16px;font-weight:700}
+  .brand-card .b-cat{font-size:12.5px;color:var(--ink-mute);margin-top:3px}
+  .brand-card .b-way{font-size:11.5px;color:var(--brand-deep);background:var(--brand-soft);display:inline-block;padding:2px 8px;border-radius:5px;margin-top:10px;font-weight:600}
+
+  /* ===== 界面 ===== */
+  .ui-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+  .ui-card{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;box-shadow:var(--shadow);
+  }
+  .ui-card .ui-top{padding:22px 24px 0}
+  .ui-card .ui-top .em{font-size:30px}
+  .ui-card h4{font-size:17px;margin:8px 0 4px}
+  .ui-card .ui-sub{font-size:13px;color:var(--brand-deep);font-weight:600}
+  .ui-card ul{list-style:none;padding:16px 24px 24px}
+  .ui-card ul li{font-size:14px;color:var(--ink-soft);padding:6px 0 6px 22px;position:relative}
+  .ui-card ul li::before{content:"";position:absolute;left:0;top:13px;width:7px;height:7px;border-radius:50%;background:var(--brand)}
+  .ui-card.feature{border:2px solid var(--brand);position:relative}
+  .ui-card.feature .badge{position:absolute;top:14px;right:14px;background:var(--gold);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px}
+
+  /* ===== 语音 ===== */
+  .voice-wrap{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:720px){.voice-wrap{grid-template-columns:1fr}}
+  .voice-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+  .voice-card.ai{border-top:4px solid var(--indigo)}
+  .voice-card.xiao{border-top:4px solid var(--brand)}
+  .voice-card h4{font-size:18px;display:flex;align-items:center;gap:8px}
+  .voice-card .role{font-size:13px;color:var(--ink-mute);margin:4px 0 16px}
+  .voice-card .v-good{font-size:13.5px;color:var(--brand-deep);background:var(--brand-soft);padding:8px 12px;border-radius:8px;margin-bottom:8px}
+  .voice-card .v-bad{font-size:13.5px;color:#9f1239;background:var(--rose-soft);padding:8px 12px;border-radius:8px}
+  .chat-list{margin-top:18px;display:flex;flex-direction:column;gap:10px}
+  .chat{display:flex;gap:10px;align-items:flex-start;font-size:13.5px}
+  .chat .you{flex-shrink:0;background:#f1f5f9;color:var(--ink-soft);padding:4px 10px;border-radius:8px;font-weight:600;font-size:12px}
+  .chat .do{color:var(--ink-soft)}
+
+  /* ===== 自动化 ===== */
+  .auto-tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:28px}
+  .auto-tab{padding:8px 18px;border-radius:999px;font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);transition:.2s}
+  .auto-tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .auto-panels{}
+  .auto-panel{display:none}
+  .auto-panel.active{display:block;animation:fade .3s}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .auto-table{width:100%;border-collapse:separate;border-spacing:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+  .auto-table th{background:#f8fafc;text-align:left;padding:14px 18px;font-size:13px;color:var(--ink-mute);font-weight:600;border-bottom:1px solid var(--line)}
+  .auto-table td{padding:14px 18px;font-size:14px;border-bottom:1px solid var(--line);vertical-align:top}
+  .auto-table tr:last-child td{border-bottom:none}
+  .auto-table .trig{font-weight:600;color:var(--ink)}
+  .auto-table .act{color:var(--ink-soft)}
+
+  /* ===== 报价 ===== */
+  .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:720px){.price-grid{grid-template-columns:1fr}}
+  .price-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);position:relative}
+  .price-card.pop{border:2px solid var(--brand)}
+  .price-card .p-head{padding:24px 28px;text-align:center}
+  .price-card.b .p-head{background:linear-gradient(135deg,#1e293b,#334155);color:#fff}
+  .price-card.a .p-head{background:linear-gradient(135deg,#0d9488,#14b8a6);color:#fff}
+  .price-card .p-tier{font-size:13px;opacity:.85;font-weight:600;letter-spacing:1px}
+  .price-card .p-name{font-size:22px;font-weight:800;margin-top:4px}
+  .price-card .p-price{font-size:30px;font-weight:800;margin-top:10px}
+  .price-card .p-price small{font-size:14px;font-weight:500;opacity:.8}
+  .price-card .p-desc{font-size:13px;opacity:.85;margin-top:6px}
+  .price-card ul{list-style:none;padding:20px 28px}
+  .price-card ul li{font-size:14px;color:var(--ink-soft);padding:8px 0 8px 24px;position:relative;border-bottom:1px solid var(--line)}
+  .price-card ul li:last-child{border-bottom:none}
+  .price-card ul li::before{content:"✓";position:absolute;left:0;color:var(--brand);font-weight:700}
+  .price-card .p-note{padding:0 28px 24px;font-size:12.5px;color:var(--ink-mute)}
+
+  .price-extra{margin-top:24px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px 28px;box-shadow:var(--shadow)}
+  .price-extra h4{font-size:15px;margin-bottom:14px}
+  .timeline{display:flex;flex-wrap:wrap;gap:0}
+  .tl-item{flex:1;min-width:140px;text-align:center;position:relative;padding:0 8px}
+  .tl-item .tl-dot{width:36px;height:36px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin:0 auto 10px}
+  .tl-item .tl-title{font-size:13.5px;font-weight:600}
+  .tl-item .tl-time{font-size:12.5px;color:var(--ink-mute);margin-top:2px}
+
+  /* ===== 维护 ===== */
+  .maint-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .maint-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+  .maint-card .em{font-size:26px}
+  .maint-card h4{font-size:15px;margin:8px 0 6px}
+  .maint-card p{font-size:13.5px;color:var(--ink-soft)}
+  .maint-card .meta{margin-top:10px;font-size:12px;color:var(--brand-deep);font-weight:600}
+  .backup-box{margin-top:24px;background:linear-gradient(135deg,var(--indigo-soft),#fff);border:1px solid #c7d2fe;border-radius:var(--radius);padding:24px 28px}
+  .backup-box h4{font-size:15px;color:var(--indigo);margin-bottom:14px}
+  .backup-row{display:flex;gap:14px;flex-wrap:wrap}
+  .backup-item{flex:1;min-width:150px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
+  .backup-item .b-num{font-size:22px;font-weight:800;color:var(--indigo)}
+  .backup-item .b-lbl{font-size:12.5px;color:var(--ink-soft);margin-top:2px}
+
+  /* ===== CTA / footer ===== */
+  .cta{background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff;text-align:center;padding:64px 24px}
+  .cta h2{font-size:clamp(22px,3.2vw,30px);font-weight:800}
+  .cta p{color:#cbd5e1;margin:14px auto 0;max-width:560px;font-size:15px}
+  .cta .status{display:inline-flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:24px}
+  .cta .status span{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);padding:6px 14px;border-radius:999px;font-size:12.5px;color:#a7f3d0}
+  .cta .status span.todo{color:#fcd34d}
+  footer{background:#0f172a;color:#64748b;text-align:center;padding:24px;font-size:12.5px;border-top:1px solid #1e293b}
+
+  .small{font-size:13px;color:var(--ink-mute)}
+  .pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 10px;border-radius:6px}
+</style>
+</head>
+<body>
+
+<!-- 导航 -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand"><span class="dot"></span>全屋智能家居方案</div>
+    <div class="nav-links">
+      <a href="#needs">需求</a>
+      <a href="#arch">架构</a>
+      <a href="#nas">数据中心</a>
+      <a href="#brands">品牌矩阵</a>
+      <a href="#ui">界面</a>
+      <a href="#voice">语音</a>
+      <a href="#auto">自动化</a>
+      <a href="#price">报价</a>
+      <a href="#maint">维护</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+  <div class="hero-tag">🏠 全屋智能 · 多品牌统一 · 一键部署</div>
+  <h1>一台数据中心 + 一个平台，<br>把全屋 <span class="hl">12+ 个品牌</span> 统一管理</h1>
+  <p class="sub">易来 / Aqara / 杜亚 / 德施曼 / 萤石 / 美的 / 格力 / 海尔 / 石头 / 涂鸦 / 飞利浦 / 小米——一个 App、一句话语音、一个 AI 助手，全屋联动、出门放心。</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">12+</div><div class="lbl">品牌统一控制</div></div>
+    <div class="hero-stat"><div class="num">4</div><div class="lbl">层系统架构</div></div>
+    <div class="hero-stat"><div class="num">3D</div><div class="lbl">户型图可视化</div></div>
+    <div class="hero-stat"><div class="num">7×24</div><div class="lbl">稳定运行</div></div>
+  </div>
+</header>
+
+<!-- 样板房定位 -->
+<section>
+  <div class="wrap">
+    <div class="banner">
+      <div class="ico">⭐</div>
+      <div>
+        <h3>本住宅兼作样板房 —— 全面打散多品牌展示</h3>
+        <p>设备矩阵刻意<strong>全面打散多品牌</strong>，让访客现场体验「互不相识的品牌在一个平台协同工作」。这是本方案区别于「XX 全家桶」的核心卖点——灯是易来的、开关是绿米的、窗帘是杜亚的，但它们在同一个界面里，不需要切换任何 App。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 需求映射 -->
+<section id="needs">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">你的需求 → 我们的方案</div>
+      <h2>每一项需求，都有明确落点</h2>
+      <p>从「有 NAS 当数据中心」到「常用自动化」，六项需求逐一对应到具体方案。</p>
+    </div>
+    <div class="need-grid">
+      <div class="need-card">
+        <div class="n-num">01</div>
+        <h4>有 NAS 作为数据中心</h4>
+        <div class="arrow">→ 方案落点</div>
+        <div class="sol"><strong>绿联 DXP4800 Plus</strong>：照片/文件备份 + 影音媒体库 + 安防录像 + 智能家居中枢，一机承载。</div>
+      </div>
+      <div class="need-card">
+        <div class="n-num">02</div>
+        <h4>Home Assistant + 小白可维护</h4>
+        <div class="arrow">→ 方案落点</div>
+        <div class="sol"><strong>HAOS 虚拟机</strong>（跑在 NAS 内），国内镜像加速，装完即用、每月顾问远程维护。</div>
+      </div>
+      <div class="need-card">
+        <div class="n-num">03</div>
+        <h4>常用设备智能化 + 品牌推荐</h4>
+        <div class="arrow">→ 方案落点</div>
+        <div class="sol"><strong>全面打散多品牌</strong>——每品类不同品牌，12+ 品牌一个平台统一控制。</div>
+      </div>
+      <div class="need-card">
+        <div class="n-num">04</div>
+        <h4>好看好用的界面 + 3D 户型图</h4>
+        <div class="arrow">→ 方案落点</div>
+        <div class="sol">客厅壁挂平板 + 手机 App + <strong>3D 可视化户型图</strong>总览页，5 秒上手。</div>
+      </div>
+      <div class="need-card">
+        <div class="n-num">05</div>
+        <h4>智能体操控 + 智能音箱</h4>
+        <div class="arrow">→ 方案落点</div>
+        <div class="sol">小爱音箱控制小米设备 + <strong>AI 智能体</strong>自然语言控制全屋所有品牌。</div>
+      </div>
+      <div class="need-card">
+        <div class="n-num">06</div>
+        <h4>常用自动化</h4>
+        <div class="arrow">→ 方案落点</div>
+        <div class="sol">离家回家、安防联动、灯光感应、温控窗帘，共<strong>四大类自动化</strong>场景。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 系统架构 -->
+<section id="arch">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">系统架构</div>
+      <h2>四层架构，各司其职</h2>
+      <p>系统分四层，每层只管自己该管的事——从你日常接触的界面，到底层的数据中心。</p>
+    </div>
+    <div class="arch">
+      <div class="arch-layer l1">
+        <div class="arch-tag">用户交互层<div style="font-size:11px;opacity:.8;margin-top:4px">你日常接触的</div></div>
+        <div class="arch-body">
+          <span class="arch-chip"><strong>壁挂平板</strong> 客厅常驻</span>
+          <span class="arch-chip"><strong>手机 App</strong> 全家成员</span>
+          <span class="arch-chip"><strong>小爱音箱</strong> 语音</span>
+          <span class="arch-chip"><strong>AI 智能体</strong> 聊天</span>
+        </div>
+      </div>
+      <div class="arch-layer l2">
+        <div class="arch-tag">智能体层<div style="font-size:11px;opacity:.8;margin-top:4px">听懂人话</div></div>
+        <div class="arch-body">
+          <span class="arch-chip"><strong>AI 智能体</strong>（DeepSeek 大模型）</span>
+          <span class="arch-chip">语义理解 + 安全白名单</span>
+          <div class="arch-note">听懂「把客厅灯调暗」这种自然语言，翻译成设备动作；只允许控制安全设备，关键操作（如开锁）不开放。</div>
+        </div>
+      </div>
+      <div class="arch-layer l3">
+        <div class="arch-tag">核心平台层<div style="font-size:11px;opacity:.8;margin-top:4px">统一调度</div></div>
+        <div class="arch-body">
+          <span class="arch-chip"><strong>Home Assistant</strong> 平台</span>
+          <span class="arch-chip">场景自动化</span>
+          <span class="arch-chip">跨品牌接入 · 12+ 品牌</span>
+          <span class="arch-chip">安防 Frigate</span>
+        </div>
+      </div>
+      <div class="arch-layer l4">
+        <div class="arch-tag">基础设施层<div style="font-size:11px;opacity:.8;margin-top:4px">数据底座</div></div>
+        <div class="arch-body">
+          <span class="arch-chip"><strong>HAOS 虚拟机</strong></span>
+          <span class="arch-chip"><strong>NAS 数据中心</strong></span>
+          <span class="arch-chip">Docker 服务（Jellyfin / Tailscale / Immich）</span>
+        </div>
+      </div>
+    </div>
+    <p class="small" style="text-align:center;margin-top:20px">💡 一个典型操作：「把客厅灯调暗一点」→ AI 理解意图 → 找到设备 → 安全校验 → 执行调暗到 60%，整个过程 1–2 秒。</p>
+  </div>
+</section>
+
+<!-- NAS 数据中心 -->
+<section id="nas">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">NAS 数据中心</div>
+      <h2>一台 NAS，承担四件事</h2>
+      <p>智能家居只是「数据中心」的一个职责。照片备份、影音库、安防录像和智能家居共用一台常开设备，省一台机器、统一管理、统一备份。</p>
+    </div>
+    <div class="nas-box">
+      <div class="nas-card">
+        <div class="em">🏠</div>
+        <h4>智能家居中枢</h4>
+        <p>Home Assistant 跑在 NAS 内的虚拟机里，7×24 稳定运行</p>
+        <span class="svc">HAOS VM</span>
+      </div>
+      <div class="nas-card">
+        <div class="em">📸</div>
+        <h4>照片/文件备份</h4>
+        <p>全家手机相册自动备份、电脑文件同步</p>
+        <span class="svc">系统相册 + Immich</span>
+      </div>
+      <div class="nas-card">
+        <div class="em">🎬</div>
+        <h4>影音媒体库</h4>
+        <p>电影/电视剧/家庭录像统一管理，平板电视随时看</p>
+        <span class="svc">Jellyfin</span>
+      </div>
+      <div class="nas-card">
+        <div class="em">🔒</div>
+        <h4>安防录像</h4>
+        <p>摄像头录像集中存储，本地存储不外传</p>
+        <span class="svc">Frigate</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 品牌矩阵 -->
+<section id="brands">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">品牌矩阵 · 12+ 品牌</div>
+      <h2>全屋 12+ 个品牌，一个 App 全控制</h2>
+      <p>每个品类用不同品牌，访客一眼看到「互不相识的品牌在一个平台协同工作」。</p>
+    </div>
+    <div class="brand-intro">
+      <div class="quote">灯是<span>易来</span>的、开关是<span>绿米</span>的、窗帘是<span>杜亚</span>的、门锁是<span>德施曼</span>的、摄像头是<span>萤石</span>的、空调是<span>美的格力</span>的、扫地是<span>石头</span>的、插座是<span>涂鸦</span>的——<br>它们互不相识，但在这个平台上协同工作。</div>
+    </div>
+    <div class="brand-grid">
+      <div class="brand-card"><div class="b-name">Yeelight 易来</div><div class="b-cat">灯泡 / 筒灯 / 灯带</div><div class="b-way">局域网直连</div></div>
+      <div class="brand-card"><div class="b-name">飞利浦 Hue</div><div class="b-cat">氛围灯（可选）</div><div class="b-way">Hue Bridge</div></div>
+      <div class="brand-card"><div class="b-name">Aqara 绿米</div><div class="b-cat">开关 / 人体 / 门窗磁</div><div class="b-way">Zigbee → 中枢网关</div></div>
+      <div class="brand-card"><div class="b-name">杜亚 Dooya</div><div class="b-cat">窗帘电机</div><div class="b-way">涂鸦协议</div></div>
+      <div class="brand-card"><div class="b-name">德施曼</div><div class="b-cat">智能门锁</div><div class="b-way">米家版接入</div></div>
+      <div class="brand-card"><div class="b-name">萤石 EZVIZ</div><div class="b-cat">摄像头 / 门铃</div><div class="b-way">RTSP → Frigate</div></div>
+      <div class="brand-card"><div class="b-name">美的</div><div class="b-cat">空调</div><div class="b-way">局域网直控</div></div>
+      <div class="brand-card"><div class="b-name">格力</div><div class="b-cat">空调</div><div class="b-way">局域网直控</div></div>
+      <div class="brand-card"><div class="b-name">海尔</div><div class="b-cat">白电（可选）</div><div class="b-way">hon 云接入</div></div>
+      <div class="brand-card"><div class="b-name">石头 Roborock</div><div class="b-cat">扫地机器人</div><div class="b-way">roborock 集成</div></div>
+      <div class="brand-card"><div class="b-name">涂鸦 Tuya</div><div class="b-cat">温湿度 / 插座 / 晾衣架</div><div class="b-way">tuya + localtuya</div></div>
+      <div class="brand-card"><div class="b-name">小米</div><div class="b-cat">中枢 / 音箱 / 网络 / 安全</div><div class="b-way">xiaomi_home + WiFi</div></div>
+    </div>
+    <p class="small" style="text-align:center;margin-top:20px">不用为了智能放弃喜欢的品牌——白电双品牌（美的 + 格力）同时接入，专业安防锁（德施曼）、专业监控（萤石）也都能联动。</p>
+  </div>
+</section>
+
+<!-- 界面设计 -->
+<section id="ui">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">界面设计</div>
+      <h2>好看、好用、小白 5 秒上手</h2>
+      <p>三个界面载体：客厅壁挂平板（主）、手机 App（随身）、3D 户型图（亮点）。</p>
+    </div>
+    <div class="ui-grid">
+      <div class="ui-card feature">
+        <div class="badge">亮点</div>
+        <div class="ui-top">
+          <div class="em">🏠</div>
+          <h4>3D 可视化户型图</h4>
+          <div class="ui-sub">立体总览页 · 一眼看懂全屋</div>
+        </div>
+        <ul>
+          <li>客户提供户型图后，做成 3D 立体户型图</li>
+          <li>设备实时状态直接在 3D 模型上显示</li>
+          <li>点击房间进入控制，点设备直接操作</li>
+          <li>灯亮时房间发光、窗帘动画开合</li>
+          <li>布防时房子显示「保护中」</li>
+        </ul>
+      </div>
+      <div class="ui-card">
+        <div class="ui-top">
+          <div class="em">📱</div>
+          <h4>客厅壁挂平板</h4>
+          <div class="ui-sub">主界面 · 回家一眼看到全屋状态</div>
+        </div>
+        <ul>
+          <li>顶部：时间、天气、全屋温度、安防状态</li>
+          <li>中部：回家 / 离家 / 睡眠 / 影音 四个大按钮</li>
+          <li>底部：房间切换（客厅/餐厅/主卧/书房…）</li>
+          <li>房间页：灯、窗帘、空调一目了然</li>
+          <li>夜间自动变暗，跟随日落</li>
+        </ul>
+      </div>
+      <div class="ui-card">
+        <div class="ui-top">
+          <div class="em">📲</div>
+          <h4>手机 App</h4>
+          <div class="ui-sub">随身 · 出门在外也能看能控</div>
+        </div>
+        <ul>
+          <li>同一套界面在手机上自动适配</li>
+          <li>推送通知：安防告警、漏水/烟雾、家人回家</li>
+          <li>多账号：全家人各自登录，控制自己的房间</li>
+          <li>与平板同源，数据实时同步</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 语音与智能体 -->
+<section id="voice">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">语音与智能体</div>
+      <h2>两套声音入口，互补使用</h2>
+      <p>小爱音箱负责日常快指令，AI 智能体负责复杂跨品牌指令——稳定与智能兼得。</p>
+    </div>
+    <div class="voice-wrap">
+      <div class="voice-card xiao">
+        <h4>🔊 小爱音箱</h4>
+        <div class="role">日常快指令 · 秒响应</div>
+        <div class="v-good">✓ 擅长：开灯、关窗帘、调空调、放音乐（小米设备秒响应）</div>
+        <div class="v-bad">✗ 不擅长：跨品牌复杂指令、多设备组合</div>
+        <div class="small" style="margin-top:14px">放在客厅、主卧等常待区域（1–3 台），控制已绑进米家 App 的设备，离线也能控本地设备。</div>
+      </div>
+      <div class="voice-card ai">
+        <h4>🤖 AI 智能体 <span class="pill" style="background:var(--gold-soft);color:var(--gold)">核心亮点</span></h4>
+        <div class="role">基于 DeepSeek 大模型 · 自研</div>
+        <div class="v-good">✓ 擅长：「我出门了，全屋关灯关窗帘启动扫地机布防」</div>
+        <div class="v-bad" style="color:var(--brand-deep);background:var(--brand-soft)">✓ 跨品牌调度：12+ 品牌全部统一指挥，多设备组合一句话搞定</div>
+        <div class="chat-list">
+          <div class="chat"><span class="you">你说</span><span class="do">「回家模式」→ 开门锁 → 玄关/客厅灯亮 → 撤防 → 空调按习惯预冷</span></div>
+          <div class="chat"><span class="you">你说</span><span class="do">「全屋检查一遍有什么异常」→ 巡检门锁/门窗/摄像头，汇报异常</span></div>
+          <div class="chat"><span class="you">你说</span><span class="do">「我睡觉了」→ 全屋关灯 → 窗帘关闭 → 安防布防 → 夜灯亮起</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="small" style="text-align:center;margin-top:20px">🔒 数据与隐私：智能体仅传输「设备名 + 控制指令」语义，不传输音视频；摄像头录像只存本地 NAS，不上传公网；系统账号由客户持有。</p>
+  </div>
+</section>
+
+<!-- 自动化 -->
+<section id="auto">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">自动化清单</div>
+      <h2>系统替你做事，不用每次手动操作</h2>
+      <p>分四大类，按房间与场景组合。每一条都可单独开关、单独调参，验收时逐条演示。</p>
+    </div>
+    <div class="auto-tabs">
+      <div class="auto-tab active" data-tab="t1">🚪 离家 / 回家</div>
+      <div class="auto-tab" data-tab="t2">🛡️ 安防联动</div>
+      <div class="auto-tab" data-tab="t3">💡 照明感应</div>
+      <div class="auto-tab" data-tab="t4">🌡️ 温控 / 场景</div>
+    </div>
+    <div class="auto-panels">
+      <div class="auto-panel active" id="t1">
+        <table class="auto-table">
+          <tr><th style="width:35%">触发</th><th>自动执行</th></tr>
+          <tr><td class="trig">离家（出门 / 手动按「离家」）</td><td class="act">全屋关灯 → 窗帘关闭 → 安防布防 → 扫地机开始清扫 → 非必要电器断电</td></tr>
+          <tr><td class="trig">回家（开门锁 / 进门传感器 / 手动）</td><td class="act">撤防 → 玄关+客厅灯亮 → 空调按季节与习惯预冷/预热 → 播放欢迎语音（可选）</td></tr>
+          <tr><td class="trig">家人先回（部分人离家状态判断）</td><td class="act">只执行「回家」的安全部分，不打扰已休息区域</td></tr>
+        </table>
+      </div>
+      <div class="auto-panel" id="t2">
+        <table class="auto-table">
+          <tr><th style="width:35%">触发</th><th>自动执行</th></tr>
+          <tr><td class="trig">布防状态下门/窗被打开</td><td class="act">全屋报警声（可选）→ 手机推送告警 → 摄像头开始录像 → 灯光全亮威慑</td></tr>
+          <tr><td class="trig">有人体出现在布防区域</td><td class="act">同上，可设置「延迟布防」避免误报</td></tr>
+          <tr><td class="trig">烟雾 / 燃气浓度异常</td><td class="act">声光报警 + 手机推送 + 联动开窗（如有）</td></tr>
+          <tr><td class="trig">漏水（阳台/厨房/卫生间）</td><td class="act">手机推送 + 关闭水阀（如安装）</td></tr>
+          <tr><td class="trig">摄像头侦测到人形</td><td class="act">推送抓拍截图，夜间联动门口灯</td></tr>
+        </table>
+      </div>
+      <div class="auto-panel" id="t3">
+        <table class="auto-table">
+          <tr><th style="width:35%">场景</th><th>自动执行</th></tr>
+          <tr><td class="trig">人来灯亮、人走灯灭</td><td class="act">走廊/卫生间/阳台装人体传感器，人来亮灯（夜间低亮度），人走 2 分钟后关灯</td></tr>
+          <tr><td class="trig">晨间</td><td class="act">卧室窗帘按日出渐开，亮度缓缓提升</td></tr>
+          <tr><td class="trig">晚间</td><td class="act">按日落自动开灯，客厅亮、走廊低亮度夜灯</td></tr>
+          <tr><td class="trig">阅读 / 观影</td><td class="act">一键：客厅主灯关闭，灯带开启，窗帘关闭</td></tr>
+          <tr><td class="trig">夜起</td><td class="act">夜间起身，床底/走廊低亮度灯带亮起，不刺眼不吵醒他人</td></tr>
+        </table>
+      </div>
+      <div class="auto-panel" id="t4">
+        <table class="auto-table">
+          <tr><th style="width:35%">场景</th><th>自动执行</th></tr>
+          <tr><td class="trig">空调联动</td><td class="act">温度高于设定 → 自动开空调；离家自动关；回家前预冷</td></tr>
+          <tr><td class="trig">窗帘定时</td><td class="act">主卧早晨日出渐开、晚间日落关闭；客厅白天自动收起保持采光</td></tr>
+          <tr><td class="trig">睡眠模式</td><td class="act">一键：全屋关灯、窗帘关闭、安防布防、夜灯亮、空调切睡眠曲线</td></tr>
+          <tr><td class="trig">影音模式</td><td class="act">降窗帘、关主灯、开投影/电视、灯带进入氛围色</td></tr>
+          <tr><td class="trig">来客模式</td><td class="act">全屋亮灯、客厅窗帘开、安防临时撤防</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 报价与工期 -->
+<section id="price">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">报价与工期</div>
+      <h2>两档方案，按需选择</h2>
+      <p>价格为 2026-08 估算，采购前复核。不含中央空调/地暖主机、大家电（如客户已有）、家具软装。</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card b">
+        <div class="p-head">
+          <div class="p-tier">B 档</div>
+          <div class="p-name">精简核心</div>
+          <div class="p-price">¥6–8 <small>万</small></div>
+          <div class="p-desc">入户 + 客厅 + 主卧 + 安防 + 基础自动化</div>
+        </div>
+        <ul>
+          <li>重点房间智能化（多品牌不减）</li>
+          <li>安防摄像头 + 门锁联动</li>
+          <li>基础自动化（离家/回家/感应灯）</li>
+          <li>NAS 数据中心 + Home Assistant</li>
+          <li>壁挂平板 + 手机 App</li>
+          <li>首年维护含</li>
+        </ul>
+        <div class="p-note">每个品类仍保留独立品牌，多品牌展示不缩水，只缩点位。</div>
+      </div>
+      <div class="price-card a pop">
+        <div class="p-head">
+          <div class="p-tier">A 档 · 推荐</div>
+          <div class="p-name">主流覆盖</div>
+          <div class="p-price">¥12–16 <small>万</small></div>
+          <div class="p-desc">全屋智能化 + 舒适层 + 安防 + 3D 户型图</div>
+        </div>
+        <ul>
+          <li>全屋智能化（12+ 品牌完整展示）</li>
+          <li>舒适层：空调/窗帘/温控全家桶</li>
+          <li>完整安防（室外+室内+门铃）</li>
+          <li>3D 可视化户型图（亮点）</li>
+          <li>AI 智能体 + 全套自动化</li>
+          <li>飞利浦 Hue 氛围灯（可选）</li>
+          <li>首年维护含</li>
+        </ul>
+        <div class="p-note">样板房完整展示，多品牌矩阵全面打散。</div>
+      </div>
+    </div>
+
+    <div class="price-extra">
+      <h4>📅 工期预估</h4>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot">1</div><div class="tl-title">方案确认 + 采购</div><div class="tl-time">1–2 周</div></div>
+        <div class="tl-item"><div class="tl-dot">2</div><div class="tl-title">现场施工 + 网络改造</div><div class="tl-time">3–5 天</div></div>
+        <div class="tl-item"><div class="tl-dot">3</div><div class="tl-title">系统配置 + 设备接入</div><div class="tl-time">3–5 天</div></div>
+        <div class="tl-item"><div class="tl-dot">4</div><div class="tl-title">自动化 + 界面 + 3D</div><div class="tl-time">1–2 周</div></div>
+        <div class="tl-item"><div class="tl-dot">5</div><div class="tl-title">验收 + 培训</div><div class="tl-time">1 天</div></div>
+      </div>
+      <p class="small" style="margin-top:16px">💡 暖通情况确认后细化报价（中央空调需加 VRF 控制模块，费用另计）；户型图确认后输出精确点位与 3D 建模工时。样板房场景可申请品牌方样机支持或陈列补贴，降低硬件成本。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 维护与质保 -->
+<section id="maint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">维护与质保</div>
+      <h2>交付只是开始，系统一直有人管</h2>
+      <p>全包交付 + 长期维护：每月远程维护、季度巡检、三份备份、快速响应。</p>
+    </div>
+    <div class="maint-grid">
+      <div class="maint-card">
+        <div class="em">📦</div>
+        <h4>交付物</h4>
+        <p>全套设备安装调试、使用培训（含「常用操作一页纸」）、系统手册、远程维护通道。</p>
+      </div>
+      <div class="maint-card">
+        <div class="em">🔧</div>
+        <h4>每月例行维护</h4>
+        <p>先备份再更新，检查设备在线、验证备份、检查告警日志，输出当月维护简报。</p>
+        <div class="meta">每月 15–30 分钟 · 包含在维护服务内</div>
+      </div>
+      <div class="maint-card">
+        <div class="em">🔍</div>
+        <h4>季度巡检</h4>
+        <p>复核安全风险、校准空调季节曲线、检查 NAS 硬盘健康、抽查录像、更新手册。</p>
+        <div class="meta">每季度一次深度巡检</div>
+      </div>
+      <div class="maint-card">
+        <div class="em">⚡</div>
+        <h4>故障响应</h4>
+        <p>紧急故障（无网络/安防失效）工作日 4 小时响应；一般问题 24 小时内。</p>
+        <div class="meta">维护服务期内包含</div>
+      </div>
+    </div>
+
+    <div class="backup-box">
+      <h4>💾 三份备份原则 —— 防「数据全没了」</h4>
+      <div class="backup-row">
+        <div class="backup-item"><div class="b-num">1</div><div class="b-lbl">设备内一份<br>（NAS 内）</div></div>
+        <div class="backup-item"><div class="b-num">2</div><div class="b-lbl">NAS 内 RAID<br>一份保护</div></div>
+        <div class="backup-item"><div class="b-num">3</div><div class="b-lbl">异地兜底<br>每周备份</div></div>
+      </div>
+      <p class="small" style="margin-top:14px">智能家居配置每周快照备份；照片/文件实时备份（RAID 保护）；安防录像持续滚动保留。任一单点损坏都能恢复。</p>
+    </div>
+
+    <div class="price-extra" style="margin-top:24px">
+      <h4>💰 维护费用模式（两档，待确认）</h4>
+      <div class="backup-row">
+        <div class="backup-item"><div class="b-num" style="font-size:18px">年度套餐</div><div class="b-lbl">每月例行 + 季度巡检 + 备份管理 + 故障响应<br><strong style="color:var(--brand-deep)">¥8,000–12,000/年</strong></div></div>
+        <div class="backup-item"><div class="b-num" style="font-size:18px">月度订阅</div><div class="b-lbl">同上，按月付<br><strong style="color:var(--brand-deep)">¥800–1,200/月</strong></div></div>
+      </div>
+      <p class="small" style="margin-top:14px">质保：设备厂家质保（1–2 年）+ 施工质量 1 年免费上门 + 维护期内免费调整自动化/场景。维护费不含硬件更换（按实结算）及客户自行改线导致的维修。</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>让全屋 12+ 品牌，在一个平台上协同工作</h2>
+  <p>下一步：确认户型图 → 细化设备点位与 3D 建模 → 确认暖通情况 → 精确化报价。</p>
+  <div class="status">
+    <span>✓ 需求澄清（6 轮）</span>
+    <span>✓ 方案决策定稿</span>
+    <span class="todo">☐ 客户户型图</span>
+    <span class="todo">☐ 暖通确认</span>
+    <span class="todo">☐ 预算确认</span>
+  </div>
+</section>
+
+<footer>
+  本方案为初步估算，最终报价以户型图与暖通确认为准 · 2026-08
+</footer>
+
+<script>
+  // 自动化标签切换
+  document.querySelectorAll('.auto-tab').forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      document.querySelectorAll('.auto-tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.auto-panel').forEach(p=>p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>

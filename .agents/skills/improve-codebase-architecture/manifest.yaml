@@ -1,0 +1,19 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: improve-codebase-architecture
+  version: 1.0.0
+  description: "Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - architecture.deepen
+  permissions:
+    filesystem: write
+    network: none
+    subprocess: allow
+    git: read
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

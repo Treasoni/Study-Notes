@@ -1,0 +1,19 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: research
+  version: 1.0.0
+  description: "Investigate a question against high-trust primary sources and capture the findings as a Markdown file in the repo."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - research.investigate
+  permissions:
+    filesystem: write
+    network: allow
+    subprocess: none
+    git: none
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

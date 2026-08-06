@@ -3,6 +3,7 @@
     "/": {
       "children": [
         "homeassistant",
+        "skills-lock.json",
         "计算机网络",
         "软路由教程",
         "项目实战",
@@ -532,6 +533,7 @@
     },
     "docs": {
       "children": [
+        "docs/agents",
         "docs/architecture.md",
         "docs/changelog.md",
         "docs/error-handling.md",
@@ -542,6 +544,14 @@
         "docs/todo-state-machine.md",
         "docs/updating-notes.md",
         "docs/superpowers"
+      ],
+      "sortOrder": "custom"
+    },
+    "docs/agents": {
+      "children": [
+        "docs/agents/domain.md",
+        "docs/agents/issue-tracker.md",
+        "docs/agents/triage-labels.md"
       ],
       "sortOrder": "custom"
     },
