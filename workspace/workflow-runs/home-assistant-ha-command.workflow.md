@@ -10,10 +10,10 @@ topic: "Home Assistant 中 ha 命令的使用"
 project_slug: "home-assistant-ha-command"
 created_at: "2026-08-06"
 last_updated: "2026-08-06"
-current_phase: P2
+current_phase: P5
 current_status: in_progress
 mode: outline
-confirmed_phases: "P0,P1"
+confirmed_phases: "P0,P1,P2,P3,P4"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：home-assistant-ha-command
 > 项目标识：home-assistant-ha-command
 > 创建时间：2026-08-06
-> 当前阶段：阶段 2
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -67,7 +67,7 @@ blocked_reason: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] 🔲 进行中
+> [P2] ✅ 已完成
 
 ---
 
@@ -79,19 +79,23 @@ blocked_reason: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] ⬜ 未开始
+> [P3] ✅ 已完成
 
 ---
 
 ## 阶段 4：逐章写作
-- [ ] 第 1 章已写完并确认
-- [ ] 第 2 章已写完并确认
-- [ ] 第 3 章已写完并确认
-- [ ] ...（根据实际章节数添加）
+- [x] 第 1 章已写完并确认（01_认识 ha 命令.md）
+- [x] 第 2 章已写完并确认（02_核心命令组实战.md）
+- [x] 第 3 章已写完并确认（03_系统级命令组.md）
+- [x] 第 4 章已写完并确认（04_诊断命令组.md）
+- [x] 第 5 章已写完并确认（05_备份与恢复.md）
+- [x] 第 6 章已写完并确认（06_升级与运维流程.md）
+- [x] 第 7 章已写完并确认（07_常见坑与排障.md）
+- [x] 第 8 章已写完并确认（08_完整速查表.md）
 
-**进度**：0/待大纲确定
+**进度**：8/8
 
-> [P4] ⬜ 未开始
+> [P4] ✅ 已完成
 
 ---
 
@@ -104,7 +108,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中
 
 ---
 
@@ -132,6 +136,9 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P4 | 用户预授权连续写作，8 章全部完成 | 2026-08-06 23:29 |
+| P3 | 用户确认大纲（8章） | 2026-08-06 23:26 |
+| P2 | 用户确认素材质量达标，选择大纲模式 | 2026-08-06 23:24 |
 | P1 | 用户选择方向 A：完整命令速查手册 | 2026-08-06 23:16 |
 | P0 | 用户确认意图文件和研究计划 | 2026-08-06 23:11 |
 | | | |
