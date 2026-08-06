@@ -10,10 +10,10 @@ topic: "部署 HAOS 详细教程：国内源 + 稳定运行"
 project_slug: "haos-deploy-tutorial"
 created_at: "2026-08-06"
 last_updated: "2026-08-06"
-current_phase: P6
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4,P5"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6,P7"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：haos-deploy-tutorial
 > 项目标识：haos-deploy-tutorial
 > 创建时间：2026-08-06
-> 当前阶段：阶段 6
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -118,7 +118,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] 🔲 进行中
+> [P6] ✅ 已完成
 
 ---
 
@@ -128,7 +128,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成
 
 ---
 
@@ -136,6 +136,8 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P7 | 用户确认同步 MOC（Home Assistant MOC 部署指南分组新增索引行） | 2026-08-06 22:15 |
+| P6 | 用户确认拆分美化发布结果（索引页+8章节到 homeassistant/haos-deploy/） | 2026-08-06 22:15 |
 | P5 | 用户确认组装结果（8章约1.9万字）与发布方式：拆分（索引页+8章节文件） | 2026-08-06 22:08 |
 | P4 | 用户授权连续写作，8 章全部完成（第 3 章由本章 agent 完成并确认） | 2026-08-06 22:01 |
 | P3 | 用户确认大纲（8章双路线对比，连续写作授权） | 2026-08-06 21:58 |
@@ -171,10 +173,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战教程 practice（双路线对比：官方原版+手动国内源 vs HAOS-CN 极速版）
+- **总字数**：约 1.9 万字
+- **章节数**：8
+- **输出格式**：Obsidian Markdown（拆分：索引页 + 8 章节文件 + 章节导航）
+- **文件路径**：`homeassistant/haos-deploy/`（`部署 HAOS 详细教程.md` 索引页 + `01_绪论` ~ `08_故障排查手册与长期运维` 8 个章节文件）
+- **Obsidian Vault**：`C:\note\Study-Notes`
+- **MOC 路径**：`homeassistant/Home Assistant MOC.md`（部署指南分组已追加索引）
