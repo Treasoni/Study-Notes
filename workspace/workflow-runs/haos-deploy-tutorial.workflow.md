@@ -10,10 +10,10 @@ topic: "部署 HAOS 详细教程：国内源 + 稳定运行"
 project_slug: "haos-deploy-tutorial"
 created_at: "2026-08-06"
 last_updated: "2026-08-06"
-current_phase: P3
+current_phase: P4
 current_status: in_progress
 mode: outline
-confirmed_phases: "P0,P1,P2"
+confirmed_phases: "P0,P1,P2,P3"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：haos-deploy-tutorial
 > 项目标识：haos-deploy-tutorial
 > 创建时间：2026-08-06
-> 当前阶段：阶段 3
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -79,7 +79,7 @@ blocked_reason: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中
+> [P3] ✅ 已完成
 
 ---
 
@@ -89,9 +89,9 @@ blocked_reason: ""
 - [ ] 第 3 章已写完并确认
 - [ ] ...（根据实际章节数添加）
 
-**进度**：0/待大纲确定
+**进度**：0/8
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中
 
 ---
 
@@ -132,6 +132,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P3 | 用户确认大纲（8章双路线对比，连续写作授权） | 2026-08-06 21:58 |
 | P2 | 用户确认深度收集素材质量（官方+社区交叉验证，含时效性标注） | 2026-08-06 21:54 |
 | P1 | 用户选择方向 C：双路线对比（官方原版+手动国内源 vs HAOS-CN 极速版） | 2026-08-06 21:49 |
 | P0 | 用户确认意图文件和研究计划 | 2026-08-06 21:45 |
