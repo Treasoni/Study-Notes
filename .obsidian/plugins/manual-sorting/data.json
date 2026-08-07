@@ -784,6 +784,7 @@
         "homeassistant/haos-deploy/06_双路线对比与选型建议.md",
         "homeassistant/haos-deploy/07_稳定运行保障.md",
         "homeassistant/haos-deploy/08_故障排查手册与长期运维.md",
+        "homeassistant/haos-deploy/09_HACS安装与国内源.md",
         "homeassistant/haos-deploy/部署 HAOS 详细教程.md"
       ],
       "sortOrder": "custom"
