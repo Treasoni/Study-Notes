@@ -2,7 +2,7 @@
 title: Claude Code 模型与推理设置
 tags: [claude, ai, 工具使用, 模型配置]
 created: 2026-03-08
-updated: 2026-07-12
+updated: 2026-08-07
 status: updated
 source_project: claude-code-tutorial
 ---
@@ -310,59 +310,33 @@ export ANTHROPIC_DEFAULT_OPUS_MODEL='claude-opus-4-6[1m]'
 
 #### 自定义 API 端点配置
 
-通过 `providers` 字段配置第三方兼容 API：
+官方通过 `env` 字段配置第三方 Anthropic 兼容 API（一次只能有一个上游）：
 
 **配置示例** (`~/.claude/settings.json`)：
 
 ```json
 {
-  "providers": {
-    "deepseek": {
-      "baseUrl": "https://api.deepseek.com",
-      "apiKey": "sk-xxx",
-      "defaultModel": "deepseek-chat"
-    },
-    "volces": {
-      "baseUrl": "https://ark.cn-beijing.volces.com/v1",
-      "apiKey": "ep-xxxxx",
-      "defaultModel": "ep-xxxxx"
-    },
-    "aliyun": {
-      "baseUrl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
-      "apiKey": "sk-xxx",
-      "defaultModel": "qwen-max"
-    },
-    "zhipu": {
-      "baseUrl": "https://open.bigmodel.cn/api/paas/v4",
-      "apiKey": "xxx",
-      "defaultModel": "glm-4-plus"
-    },
-    "ollama": {
-      "baseUrl": "http://localhost:11434/v1",
-      "apiKey": "ollama",
-      "defaultModel": "llama3.2"
-    },
-    "openrouter": {
-      "baseUrl": "https://openrouter.ai/api/v1",
-      "apiKey": "sk-or-xxx",
-      "defaultModel": "anthropic/claude-sonnet-4"
-    }
-  },
-  "defaultProvider": "deepseek"
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://api.deepseek.com",
+    "ANTHROPIC_AUTH_TOKEN": "sk-xxx",
+    "ANTHROPIC_MODEL": "deepseek-chat"
+  }
 }
 ```
 
+> [!warning] 网传的 `providers` / `defaultProvider` 不是官方配置
+> `"providers"` + `"defaultProvider"` 在 Claude Code 原生里**不存在**，写在 settings.json 里会被**静默忽略**。多 provider 路由是[未实现的官方 feature request](https://github.com/anthropics/claude-code/issues/74073)。官方只支持一个上游，用上面的 `env` 字段配置。
+
 **使用第三方模型**：
 ```bash
-# 启动时指定
+# 启动时指定模型
 claude --model deepseek-chat
 
-# 会话中切换
+# 会话中切换模型（同一上游内）
 /model deepseek-chat
-
-# 设置默认 provider 后，直接使用别名
-/model sonnet
 ```
+
+**多平台切换**：原生不支持「一份 settings.json 配多个平台、改开关切换」。可改用 `--settings` 多份文件，或 CC-Switch / LiteLLM 等工具（见 [[如何使用Claude code#多平台一键切换（官方不原生支持）]]）。
 
 #### LLM Gateway / 自定义模型选项
 
@@ -784,7 +758,7 @@ A: 不一定。opusplan 在规划阶段使用 Opus（更贵），执行阶段使
 
 **Q: 第三方平台可以用模型别名吗？**
 
-A: 可以，但需要配置 providers。配置后可以直接使用 `/model` 切换，或设置 `defaultProvider`。
+A: 可以。在 `env` 里设 `ANTHROPIC_MODEL` 指定第三方模型（如 `deepseek-chat`），之后可用 `/model` 在同一上游内切换。原生不支持「配置多个 provider 再一键切换」；网传的 `providers` / `defaultProvider` 写法无效，会被忽略。
 
 **Q: Effort Level 和 Extended Thinking 有什么区别？**
 
@@ -822,3 +796,11 @@ A: 配置优先级为：VSCode 工作区设置 > VSCode 用户设置 > `~/.claud
 
 ### GitHub 资源
 - [claude-task-master - Claude Code usage examples](https://github.com/eyaltoledano/claude-task-master/blob/main/docs/examples/claude-code-usage.md) - 使用示例和限制说明
+
+---
+
+## 更新记录
+
+| 日期 | 变更 |
+|------|------|
+| 2026-08-07 | 修正「自定义 API 端点配置」：`providers` / `defaultProvider` 为非官方写法、会被静默忽略，改为官方 `env`（`ANTHROPIC_BASE_URL` / `ANTHROPIC_AUTH_TOKEN` / `ANTHROPIC_MODEL`）；FAQ「第三方模型别名」同步修正 |
