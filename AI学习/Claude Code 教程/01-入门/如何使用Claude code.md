@@ -1,7 +1,7 @@
 ---
 title: Claude Code 使用指南
 tags: [ai, 工具使用, claude-code, 入门]
-updated: 2026-08-03
+updated: 2026-08-07
 status: updated
 source_project: claude-code-tutorial
 ---
@@ -116,7 +116,7 @@ curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del in
 
 > [!tip] 原生安装器优势
 > - 自动更新 · 无需 Node.js · 体积约 60-80MB
-> - 安装后执行 `claude --version` 验证，当前 latest 为 **v2.1.220**（2026-07-31），stable 为 v2.1.212
+> - 安装后执行 `claude --version` 验证，当前 latest 为 **v2.1.224**（2026-08-07），stable 为 v2.1.220
 
 ### 2️⃣ 其他安装方式（备选）
 
@@ -318,28 +318,26 @@ export CLAUDE_CODE_OAUTH_TOKEN=your-token
 
 配置文件位置：**`~/.claude/settings.json`**
 
-### 完整配置模板（复制粘贴即可用）
+### 完整配置模板（官方 env 写法，复制粘贴即可用）
+
+> [!warning] 先别用网上流传的 `providers` / `defaultProvider`
+> `"providers"` + `"defaultProvider"` **不是官方配置**。Claude Code 原生不支持多 provider 路由（[官方 issue #74073](https://github.com/anthropics/claude-code/issues/74073)），这两个 key 写在 settings.json 里会被**静默忽略**。官方方式只有一个上游：在 `env` 里设 `ANTHROPIC_BASE_URL` + `ANTHROPIC_AUTH_TOKEN`。
 
 ```json
 {
-  "providers": {
-    "deepseek": {
-      "baseUrl": "https://api.deepseek.com",
-      "apiKey": "sk-xxx",
-      "defaultModel": "deepseek-chat"
-    }
-  },
-  "defaultProvider": "deepseek",
   "env": {
+    "ANTHROPIC_BASE_URL": "https://api.deepseek.com",
+    "ANTHROPIC_AUTH_TOKEN": "sk-xxx",
+    "ANTHROPIC_MODEL": "deepseek-chat",
     "HTTP_PROXY": "http://127.0.0.1:7890",
     "HTTPS_PROXY": "http://127.0.0.1:7890"
   }
 }
 ```
 
-### 支持的第三方平台
+### 支持的第三方平台（填进 env）
 
-| 平台 | baseUrl | defaultModel |
+| 平台 | ANTHROPIC_BASE_URL | ANTHROPIC_MODEL |
 |------|---------|--------------|
 | 火山引擎 | `https://ark.cn-beijing.volces.com/v1` | `ep-xxxxx` |
 | 通义千问 | `https://dashscope.aliyuncs.com/compatible-mode/v1` | `qwen-max` |
@@ -349,34 +347,20 @@ export CLAUDE_CODE_OAUTH_TOKEN=your-token
 
 > **配置优先级**：环境变量 > settings.json > 默认值
 
-### 多平台一键切换（纯配置）
+### 多平台一键切换（官方不原生支持）
 
-在 `settings.json` 配好多个 provider，改 `defaultProvider` 就行：
+原生没有「配多个 provider、改一个开关切换」的机制。可行的替代方案：
 
-```json
-{
-  "providers": {
-    "deepseek": {
-      "baseUrl": "https://api.deepseek.com",
-      "apiKey": "sk-xxx",
-      "defaultModel": "deepseek-chat"
-    },
-    "volc": {
-      "baseUrl": "https://ark.cn-beijing.volces.com/v1",
-      "apiKey": "ep-xxxxx",
-      "defaultModel": "ep-xxxxx"
-    },
-    "qwen": {
-      "baseUrl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
-      "apiKey": "sk-xxx",
-      "defaultModel": "qwen-max"
-    }
-  },
-  "defaultProvider": "deepseek"
-}
-```
+1. **按平台存多份 settings 文件，用 `--settings` 启动**（推荐）
+   ```bash
+   claude --settings ~/.claude/settings.deepseek.json
+   claude --settings ~/.claude/settings.volc.json
+   ```
+   每份文件只含对应的 `env`（`ANTHROPIC_BASE_URL` + `ANTHROPIC_AUTH_TOKEN` + `ANTHROPIC_MODEL`）。
 
-想换平台？把 `defaultProvider` 改成 `"volc"` 或 `"qwen"` 就行，保存后重启 Claude Code 生效。
+2. **第三方切换工具**：CC-Switch（见 [[#方式六：CC-Switch ⭐ 可视化方案]]）等，本质也是改写 `env` 或替换配置文件。
+
+3. **本地代理桥接**：用 LiteLLM 把多个上游合并成一个 Anthropic 兼容端点（见 [[#方式二：env 字段（走第三方 API，无需命令行）⭐ 最常用]]）。
 
 ### 取消代理
 
@@ -386,7 +370,7 @@ export CLAUDE_CODE_OAUTH_TOKEN=your-token
 
 > [!tip] 配置常见坑
 > - JSON 格式错误、路径不对、环境变量覆盖 → 重启 Claude Code 生效
-> - 切换 Provider 时同时改 `defaultProvider` 和对应 key
+> - 切换第三方平台时，**同时**改 `ANTHROPIC_BASE_URL`、`ANTHROPIC_AUTH_TOKEN`、`ANTHROPIC_MODEL` 三个 env
 
 ---
 
@@ -602,7 +586,7 @@ npm install -g @anthropic-ai/claude-code --include=optional --foreground-scripts
 > 全局安装时输出：
 > ```text
 > npm warn allow-scripts 1 package has install scripts not yet covered by allowScripts:
-> npm warn allow-scripts   @anthropic-ai/claude-code@2.1.220 (postinstall: node install.cjs)
+> npm warn allow-scripts   @anthropic-ai/claude-code@2.1.224 (postinstall: node install.cjs)
 > npm warn allow-scripts
 > npm warn allow-scripts Run `npm approve-scripts --allow-scripts-pending` to review, or `npm approve-scripts <pkg>` to allow.
 > ```
@@ -630,7 +614,7 @@ npm config set foreground-scripts true
 > `allow-scripts` 是**包名列表**（逗号分隔字符串），不是布尔开关；写 `true` 只是加了一条名为 `true` 的包名，不会放行 claude-code。真要全放行用 `--dangerously-allow-all-scripts`，全禁止用 `--ignore-scripts`。
 
 > [!tip] 成功判定
-> 日志中出现 `> @anthropic-ai/claude-code@2.1.220 postinstall` / `> node install.cjs` 即代表脚本已执行；末尾的 `npm warn allow-scripts` 只是例行提示，不影响结果。最终以 `claude --version` 输出版本号为准；若提示 `'claude' 不是内部或外部命令`，把 `C:\Users\<用户名>\AppData\Roaming\npm` 加入系统 Path 并重启终端。
+> 日志中出现 `> @anthropic-ai/claude-code@2.1.224 postinstall` / `> node install.cjs` 即代表脚本已执行；末尾的 `npm warn allow-scripts` 只是例行提示，不影响结果。最终以 `claude --version` 输出版本号为准；若提示 `'claude' 不是内部或外部命令`，把 `C:\Users\<用户名>\AppData\Roaming\npm` 加入系统 Path 并重启终端。
 
 ### 代理问题
 
@@ -958,3 +942,4 @@ CLAUDE_CODE_DISABLE_AUTO_MEMORY=0 claude
 | 2026-07-31 | 新增「国内网络安装」专题（0️⃣）：代理+官方安装器 / npm+npmmirror 镜像 / Homebrew / GitHub 加速 + 需放行域名表；纠正 npm「已废弃」为「官方仍支持」；Node.js 要求 v18+ → v22+（v2.1.198 起）；版本号更新至 v2.1.220；新增 npm 安装「native binary not installed」FAQ |
 | 2026-07-31 | 新增 FAQ「npm 安装被 allow-scripts 拦截（postinstall 未执行）」：npm 11.16+ allowScripts 策略、全局安装放行用 `--allow-scripts=<pkg>` / `allow-scripts=<pkg>`；方案 B 增加交叉引用 |
 | 2026-08-03 | 更新「跳过登录（免认证启动）」章节：新增官方 6 层认证优先级表、`hasCompletedOnboarding` 免首启引导、`claude setup-token` CI 长期 token；primaryApiKey 标记为旧方案已不可靠（官方已不列，v2.0.37+ 失效）；apiKeyHelper 补充 TTL / 失败报错 / 适用面；env 字段补充 `ANTHROPIC_BASE_URL` 副作用；CC-Switch 更新至 124K+ Star / v3.16.1 / 8 工具 |
+| 2026-08-07 | 修正「三、配置文件」：`providers` / `defaultProvider` 为非官方写法、会被静默忽略，改为官方 `env`（`ANTHROPIC_BASE_URL` / `ANTHROPIC_AUTH_TOKEN` / `ANTHROPIC_MODEL`）方案；多平台切换改为 `--settings` 多文件 / CC-Switch / LiteLLM；版本号更新至 latest v2.1.224 / stable v2.1.220 |
