@@ -43,6 +43,9 @@ source_project: ghcr-push-permission
 
 它本质上是一个「随运行环境走」的短期凭据。它的权限范围取决于两件事：仓库/组织/企业层的默认设置，以及 workflow 内的 `permissions:` 块。
 
+> [!tip] 大白话
+> 把 `GITHUB_TOKEN` 想成 GitHub 给每次 CI 跑批发的**临时工牌**：不用你申请，跑起来自动发，跑完自动作废。工牌上能干什么（读代码、推镜像）由两件事决定——公司（仓库/组织）的默认规矩，加上你在 workflow 里写的 `permissions:` 授权清单。
+
 > [!note] 核心概念
 > `GITHUB_TOKEN` 不是用户的身份，而是「这一次 workflow 运行」的身份。它代表当前仓库在 Actions 环境下能做什么，权限上限由「默认策略 + `permissions:` 块」共同决定。
 
@@ -66,6 +69,9 @@ source_project: ghcr-push-permission
 1. **只影响新对象**：变更不回溯，2023-02-02 之前创建的仓库/组织不受影响
 2. **`packages: read` 意味着不能写包**：`GITHUB_TOKEN` 只能读包，不能创建（`create_package`）或推送（`write_package`）
 
+> [!tip] 大白话
+> 2023 年起 GitHub 把"新房子默认上锁"了：以前新建仓库默认给你一把啥都能开的钥匙，现在默认只给"看"的权限（能看代码、能看包），想"写"（推包）必须在 workflow 里明确申请 `packages: write`。老房子不受影响，所以同样的配置在新老仓库表现不一样。
+
 > [!warning] 易错点
 > 如果你的仓库是 2023 年前创建、且从未改过默认权限，可能一直「看似正常」地推送成功。但新仓库（或新组织下的仓库）默认就是只读——同一份 workflow 换到新仓库立刻 `create_package` 被拒。问题不在你的 YAML，而在默认策略。
 
@@ -87,6 +93,9 @@ jobs:
 ```
 
 `packages: write` 是推送到 GHCR 的关键：它允许这个 job 的 `GITHUB_TOKEN` 对包做写操作（创建 + 推送）。
+
+> [!tip] 大白话
+> `permissions:` 就是这次运行的**授权清单**。GitHub 的规矩是"只认清单、不认默认"：清单里列了哪几项就有哪几项权限，**没列的一律没有**（降到 none）。所以只写 `packages: write` 而漏了 `contents: read`，连最前面的"拉代码"都会失败。
 
 ### 3.2 铁律：未列出即 none
 
@@ -192,6 +201,9 @@ LABEL org.opencontainers.image.source=https://github.com/<owner>/<repo>
 ---
 
 ## 1. 两种 PAT：Classic 与 Fine-grained 的分界
+
+> [!tip] 大白话
+> 把 PAT 想成**门禁卡**。Classic PAT 是"万能卡"：一勾 `write:packages` 就能进出该账号/组织下所有包的门。Fine-grained PAT 是"按房间授权"的卡，本来更安全——但 GitHub 根本没给"包"这个房间配刷卡口，权限列表里翻遍也找不到 Packages 这一项。所以推 GHCR 镜像，只能拿 Classic 万能卡。
 
 ### 1.1 Classic PAT（传统令牌）
 
@@ -429,6 +441,9 @@ Scopes 是这页的核心，直接决定这个 PAT 能做什么。对照下表�
 
 PAT 不能直接写死在 workflow 里，要存进仓库的 Secret。这样 workflow 用 `secrets.XXX` 引用，GitHub 负责加密存储，日志里也不会泄露明文。
 
+> [!tip] 大白话
+> Secret 就是仓库的**保险箱**：把 PAT 这类敏感值锁进去，workflow 要用时用 `secrets.GHCR_TOKEN` 取。GitHub 负责加密存储，还会在日志里把值打码成 `***`，别人翻工作流日志也看不到明文。
+
 ### 2.1 UI 路径
 
 UI 路径：
@@ -503,6 +518,9 @@ password: ${{ secrets.GHCR_TOKEN || secrets.GITHUB_TOKEN }}
 - `||` 是 GitHub Actions 表达式里的「或」运算符，**返回第一个 truthy 操作数**（JS 短路语义）
 - **未定义的 secret 在表达式里求值为空字符串**，空字符串是 falsy，会自动落到下一个候选
 - 合起来就是：**配了 `GHCR_TOKEN`（Classic PAT）就用它；没配就回退到临时 `GITHUB_TOKEN`**
+
+> [!tip] 大白话
+> 这是"双保险"：有自己配的门禁卡（`GHCR_TOKEN`）就刷自己的，没配就用前台发的临时卡（`GITHUB_TOKEN`）。两种都没有就空着，登录必然失败——但正常情况至少有一种。
 
 不同场景下实际用哪个凭据，看这张表：
 
@@ -681,6 +699,9 @@ The push refers to repository [ghcr.io/<owner>/<repo>]
 
 - 新建被拒（`create_package`）
 - 写入也被拒（`write_package`）
+
+> [!tip] 大白话
+> 想象第一次装修：工头先砌了墙（layer 上传成功、GHCR 建了包），结果物业以"你还没办装修许可"为由不让继续（manifest 被拒）。墙已经砌了——想重新装修？"不能新建"；想接着装？"这是违章建筑，没权限"。进退两难，只能**拆墙重来**（删孤立包），或**补办手续**（在包设置里给仓库授权）。
 
 同一个仓库删除重建后也会复现同样的场景——旧包权限作废、留下孤立包，社区讨论 #166194 记录的正是「仓库重建 + 孤立包 write_package」这一组合 [Community Discussion #166194](https://github.com/orgs/community/discussions/166194)。
 
