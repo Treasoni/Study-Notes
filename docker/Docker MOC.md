@@ -1,7 +1,7 @@
 ---
 title: Docker 知识索引
 created: 2026-04-06
-updated: 2026-08-04
+updated: 2026-08-08
 tags: [docker, MOC, 索引]
 ---
 
@@ -24,6 +24,7 @@ tags: [docker, MOC, 索引]
 | 更新容器版本 | [[docker容器如何更新]] |
 | 解决权限问题 | [[docker里的GID和UID]] |
 | 排查常见错误 | [[docker容器搭建错误的知识讲解]] |
+| 向 GHCR 推送镜像 | [[GHCR 推送镜像权限配置]] |
 
 ---
 
@@ -67,6 +68,9 @@ tags: [docker, MOC, 索引]
 
 ### 技巧与工具
 - [[github文件直链方式]] - GitHub raw 链接的格式和用途
+
+### CI 与镜像推送
+- [[GHCR 推送镜像权限配置]] - GitHub Actions 向 GHCR 推送镜像的权限配置完整指南（Classic PAT + Secret + Workflow 兜底 + 排错） #docker #GitHub-Actions #GHCR
 
 ---
 
@@ -132,6 +136,7 @@ tags: [docker, MOC, 索引]
 
 ## 更新日志
 
+- 2026-08-08：新增 [[GHCR 推送镜像权限配置]]（CI 推送 GHCR 权限配置指南）
 - 2026-08-04：新增 [[Linux-Docker与DockerCompose安装指南-国内网络版]]（12 篇笔记）
 - 2026-05-14：更新索引（11 篇笔记）
 - 2026-04-06：创建 MOC 索引
