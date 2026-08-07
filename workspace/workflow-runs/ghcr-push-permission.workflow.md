@@ -173,6 +173,6 @@ blocked_reason: ""
 - **总字数**：约 1.8 万字符（估算，环境无 shell 未做精确统计）
 - **章节数**：4
 - **输出格式**：Markdown（Obsidian 友好：Callout + 代码块语言标识已保留）
-- **文件路径**：`docker/GHCR 推送镜像权限配置.md`（源：`workspace/ghcr-push-permission/output/final_note.md`）
+- **文件路径**：`GitHub项目/GHCR 推送镜像权限配置.md`（源：`workspace/ghcr-push-permission/output/final_note.md`）
 - **Obsidian Vault**：`C:\note\Study-Notes`
 - **MOC 路径**：`docker/Docker MOC.md`

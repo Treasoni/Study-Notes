@@ -10,7 +10,7 @@ source_project: ghcr-push-permission
 # GHCR 推送镜像权限配置
 
 > [!info] 相关目录
-> 本笔记属于 [[Docker MOC]]。这份笔记是一份「GHCR 推送镜像权限配置」的完整指南。它从权限模型讲起，先解释为什么 GitHub Actions 的默认 `GITHUB_TOKEN` 往往推不了包；再讲清为什么给 GHCR 用只能选 Classic PAT；随后给出一套可照做的落地配置（生成 Classic PAT → 存入 Repository Secret → workflow 兜底登录）；最后用一张排错对照表和一份自查清单，帮你把第一次推包稳稳跑通。全文以官方文档为依据，配合真实 Issue 实证与业界项目实践（rust-lang / flux2），覆盖从「为什么推不动」到「首推成功」的完整链路。
+> 本笔记已交叉索引至 [[Docker MOC]]（GHCR 属容器注册表主题）。这份笔记是一份「GHCR 推送镜像权限配置」的完整指南。它从权限模型讲起，先解释为什么 GitHub Actions 的默认 `GITHUB_TOKEN` 往往推不了包；再讲清为什么给 GHCR 用只能选 Classic PAT；随后给出一套可照做的落地配置（生成 Classic PAT → 存入 Repository Secret → workflow 兜底登录）；最后用一张排错对照表和一份自查清单，帮你把第一次推包稳稳跑通。全文以官方文档为依据，配合真实 Issue 实证与业界项目实践（rust-lang / flux2），覆盖从「为什么推不动」到「首推成功」的完整链路。
 
 ---
 
