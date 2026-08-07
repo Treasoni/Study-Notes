@@ -8,7 +8,7 @@
 - **当前阶段**: 阶段 0
 - **输出目标**: obsidian
 - **Vault 路径**: C:\note\Study-Notes
-- **笔记目录**: GitHub项目
+- **笔记目录**: docker
 - **MOC 路径**: 待阶段 7 确认
 
 ## 学习目标
