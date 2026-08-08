@@ -3,17 +3,17 @@ workflow_id: learning-note-flow
 workflow_name: 学习笔记工作流
 workflow_version: 1
 state_file_type: workflow-run
-run_id: "docker-compose-commands"
-task: "Docker 与 Docker Compose 命令的使用"
+run_id: "docker-ha-tutorial"
+task: "用 Docker 配置 Home Assistant（HA）详细教程：HACS、国内环境稳定使用与更新、Docker 部署 addon"
 created_from: ".claude/workflows/learning-note-flow/state-template.md"
-topic: "Docker 与 Docker Compose 命令的使用"
-project_slug: "docker-compose-commands"
+topic: "用 Docker 配置 Home Assistant（HA）详细教程：HACS、国内环境稳定使用与更新、Docker 部署 addon"
+project_slug: "docker-ha-tutorial"
 created_at: "2026-08-08"
 last_updated: "2026-08-08"
-current_phase: P2
+current_phase: P1
 current_status: in_progress
 mode: outline
-confirmed_phases: "P0,P1"
+confirmed_phases: "P0"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -24,11 +24,11 @@ blocked_reason: ""
 # 学习笔记工作流 - 执行检查清单
 
 > 工作流：learning-note-flow
-> 主题：Docker 与 Docker Compose 命令的使用
-> 运行标识：docker-compose-commands
-> 项目标识：docker-compose-commands
+> 主题：用 Docker 配置 Home Assistant（HA）详细教程：HACS、国内环境稳定使用与更新、Docker 部署 addon
+> 运行标识：docker-ha-tutorial
+> 项目标识：docker-ha-tutorial
 > 创建时间：2026-08-08
-> 当前阶段：阶段 2
+> 当前阶段：阶段 1
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -53,7 +53,7 @@ blocked_reason: ""
 - [ ] 用户已选择学习方向
 - [ ] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] ✅ 已完成
+> [P1] 🔲 进行中
 
 ---
 
@@ -67,7 +67,7 @@ blocked_reason: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] 🔲 进行中
+> [P2] ⬜ 未开始
 
 ---
 
@@ -132,8 +132,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
-| P1 | 用户确认研究覆盖 A+B+C 全部方向 | 2026-08-08 21:04 |
-| P0 | 用户确认意图文件和研究计划 | 2026-08-08 21:02 |
+| P0 | 用户确认意图文件和研究计划 | 2026-08-08 21:04 |
 | | | |
 
 ---
