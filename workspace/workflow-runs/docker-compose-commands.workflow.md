@@ -13,7 +13,7 @@ last_updated: "2026-08-08"
 current_phase: P4
 current_status: in_progress
 mode: outline
-confirmed_phases: "P0,P1,P2,P3"
+confirmed_phases: "P0,P1,P2,P3,P4"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -134,6 +134,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P4 | 用户确认第 1 章，授权连续写完剩余章节 | 2026-08-08 21:14 |
 | P3 | 用户确认大纲（原大纲，不加改动） | 2026-08-08 21:11 |
 | P2 | 用户确认素材质量（官方文档 8 篇为主） | 2026-08-08 21:08 |
 | P1 | 用户确认研究覆盖 A+B+C 全部方向 | 2026-08-08 21:04 |
