@@ -4,15 +4,15 @@
 
 ## 目录
 
-1. [第 1 章：认识 Home Assistant 自定义集成](#第1章认识-home-assistant-自定义集成)
-2. [第 2 章：开发环境搭建](#第2章开发环境搭建)
-3. [第 3 章：集成骨架与 manifest.json](#第3章集成骨架与-manifestjson)
-4. [第 4 章：Config Flow 配置流程](#第4章-config-flow-配置流程)
-5. [第 5 章：Entity 平台与 Sensor 实体](#第5章-entity-平台与-sensor-实体)
-6. [第 6 章：DataUpdateCoordinator 数据轮询](#第6章-dataupdatecoordinator-数据轮询)
-7. [第 7 章：测试与调试](#第7章测试与调试)
-8. [第 8 章：HACS 分发](#第8章-hacs-分发)
-9. [第 9 章：常见坑与最佳实践](#第9章常见坑与最佳实践)
+1. [第 1 章：认识 Home Assistant 自定义集成](#第-1-章-认识-home-assistant-自定义集成)
+2. [第 2 章：开发环境搭建](#第-2-章-开发环境搭建)
+3. [第 3 章：集成骨架与 manifest.json](#第-3-章-集成骨架与-manifestjson)
+4. [第 4 章：Config Flow 配置流程](#第-4-章-config-flow-配置流程)
+5. [第 5 章：Entity 平台与 Sensor 实体](#第-5-章-entity-平台与-sensor-实体)
+6. [第 6 章：DataUpdateCoordinator 数据轮询](#第-6-章-dataupdatecoordinator-数据轮询)
+7. [第 7 章：测试与调试](#第-7-章-测试与调试)
+8. [第 8 章：HACS 分发](#第-8-章-hacs-分发)
+9. [第 9 章：常见坑与最佳实践](#第-9-章-常见坑与最佳实践)
 
 ---
 
