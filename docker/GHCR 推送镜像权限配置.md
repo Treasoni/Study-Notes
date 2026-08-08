@@ -16,10 +16,50 @@ source_project: ghcr-push-permission
 
 ## 目录
 
+0. [[#什么是 GHCR（前置知识）]]
 1. [[#第一章：GHCR 权限模型与 GITHUB_TOKEN 的限制]]
 2. [[#第二章：PAT 选型——为什么 GHCR 只能用 Classic PAT]]
 3. [[#第三章：落地配置——Classic PAT + Secret + Workflow 兜底登录]]
 4. [[#第四章：实战排错——首推成功与常见坑]]
+
+---
+
+## 什么是 GHCR（前置知识）
+
+> [!tip] 大白话
+> 把 Docker 镜像想成一个**打包好的搬家箱子**（软件 + 运行环境 + 配置都装好了）。GHCR 就是 GitHub 提供的**货架**：把箱子推上去（push），别人就能按地址取走（pull）。本笔记讲的「推送权限配置」，解决的就是「怎么把箱子成功搬上这个货架」。
+
+### GHCR 是什么
+
+GHCR = **GitHub Container Registry（GitHub 容器镜像仓库）**，地址为 `ghcr.io`，是 GitHub 官方提供的 Docker 镜像托管服务，相当于「GitHub 版的 Docker Hub」。
+
+### 为什么用它而不是 Docker Hub
+
+| 优势 | 说明 |
+|------|------|
+| 与 GitHub 账号/仓库打通 | 权限直接复用 GitHub 的组织、团队、角色体系 |
+| 与 GitHub Actions 无缝配合 | 代码 push → 自动构建 → 自动推镜像，一个平台走完 |
+| 私有镜像免费 | Docker Hub 私有仓库收费，GHCR 私有包可免费存放 |
+| 与代码仓库关联 | 仓库主页 Packages 区直接展示该仓库产出的镜像 |
+
+### 什么时候会用到它
+
+典型场景是「构建 → 存储 → 部署」流水线：
+
+```text
+代码推送到 GitHub
+    ↓  GitHub Actions 自动触发
+构建 Docker 镜像
+    ↓
+推到 GHCR（ghcr.io/<owner>/<repo>）   ← 本笔记的权限配置解决这一步
+    ↓
+服务器 / 其他人从 GHCR 拉取镜像运行
+```
+
+如果你不写 Docker、不做容器化部署，就用不上 GHCR；一旦用 Docker 做项目部署，它会是主力镜像仓库之一。
+
+> [!note] 和本笔记的关系
+> 本笔记全程在讲「如何把镜像成功推上 `ghcr.io`」——因为 GHCR 有权限模型，默认凭据（`GITHUB_TOKEN`）往往推不动，需要理解权限规则并正确配置。第一章就从权限模型讲起。
 
 ---
 

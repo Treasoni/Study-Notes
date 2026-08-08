@@ -115,6 +115,15 @@ Every chapter must follow this structure:
 - Clearly state which scenario each option is best for
 - Include a decision framework or recommendation criteria
 
+#### 通俗化要求（所有笔记类型通用，用户明确偏好）
+
+每个章节必须为**核心概念**添加 `[!tip] 大白话` Callout，用生活化类比让零基础读者也能看懂：
+
+- 选 2-5 个本章最关键的概念，各配一个 `[!tip] 大白话` 通俗解释
+- 格式：一句"把 X 想成……"的类比 + 一句"所以……"回到实际意义
+- 技术正文保持原有准确度；大白话是叠加解释层，不替代正文
+- 常用类比素材（按需选用）：临时工牌（token）、授权清单（permissions 块）、门禁卡（PAT）、保险箱（Secret）、双保险（兜底表达式）、装修被叫停（bootstrap 死结）
+
 ### Code Examples (when applicable)
 - Every code example must be complete and runnable
 - Add comments on key lines explaining non-obvious logic
@@ -174,6 +183,7 @@ Before presenting each chapter, verify:
 - [ ] Code examples (if any) are complete and have comments
 - [ ] Sources are cited properly
 - [ ] Chapter summary captures key takeaways
+- [ ] Core concepts have `[!tip] 大白话` plain-language callouts (analogy + back to practical meaning)
 - [ ] Next chapter preview creates a natural bridge
 - [ ] Consistent tone and terminology with previous chapters
 - [ ] File is saved to the correct path
