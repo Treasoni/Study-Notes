@@ -10,10 +10,10 @@ topic: "从零开发 Home Assistant 自定义集成（custom integration）"
 project_slug: "home-assistant-integration"
 created_at: "2026-08-08"
 last_updated: "2026-08-08"
-current_phase: P5
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6,P7"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：home-assistant-integration
 > 项目标识：home-assistant-integration
 > 创建时间：2026-08-08
-> 当前阶段：阶段 5
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -109,7 +109,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中
+> [P5] ✅ 已完成
 
 ---
 
@@ -119,7 +119,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成
 
 ---
 
@@ -129,7 +129,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成
 
 ---
 
@@ -137,6 +137,9 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P7 | 用户确认同步 MOC（P0 已指定 MOC 路径） | 2026-08-08 17:27 |
+| P6 | 用户确认拆分章节+索引页发布，输出到 homeassistant/ha-integration/ | 2026-08-08 17:27 |
+| P5 | 用户确认组装结果和 Obsidian 输出位置，选择拆分章节+索引页 | 2026-08-08 17:25 |
 | P4 | 用户指示连续写作（一直写），9 章全部完成 | 2026-08-08 17:12 |
 | P3 | 用户确认大纲顺序和深度 | 2026-08-08 17:06 |
 | P2 | 用户确认深度素材质量 | 2026-08-08 17:04 |
@@ -172,10 +175,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战笔记（practice）
+- **总字数**：约 25000 字（9 章 + 索引页）
+- **章节数**：9
+- **输出格式**：Obsidian Markdown（拆分 9 章文件 + 索引页，带前后导航双链）
+- **文件路径**：homeassistant/ha-integration/（01_认识HomeAssistant自定义集成.md ~ 09_常见坑与最佳实践.md + HA集成开发指南.md）
+- **Obsidian Vault**：C:\note\Study-Notes
+- **MOC 路径**：homeassistant/Home Assistant MOC.md（已加入「开发集成」分组）
