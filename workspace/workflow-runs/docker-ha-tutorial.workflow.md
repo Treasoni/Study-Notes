@@ -10,10 +10,10 @@ topic: "用 Docker 配置 Home Assistant（HA）详细教程：HACS、国内环�
 project_slug: "docker-ha-tutorial"
 created_at: "2026-08-08"
 last_updated: "2026-08-08"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
-confirmed_phases: "P0,P1,P2,P3"
+confirmed_phases: "P0,P1,P2,P3,P4"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：docker-ha-tutorial
 > 项目标识：docker-ha-tutorial
 > 创建时间：2026-08-08
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -90,13 +90,13 @@ blocked_reason: ""
 - [x] 第 4 章已写完（HACS 安装 —— Docker 三种路径与国内加速）
 - [x] 第 5 章已写完（HACS 首次配置与常用仓库实战）
 - [x] 第 6 章已写完（待用户确认）
-- [ ] 第 7 章已写完并确认
+- [x] 第 7 章已写完（更新、回滚与备份 —— 运维三件套，待用户确认）
 - [x] 第 8 章已写完（Docker 部署 addon —— 把 Docker Hub 变成你的 Addon Store）
-- [ ] 第 9 章已写完并确认
+- [x] 第 9 章已写完并确认（addon 通信、网络架构与权限避坑）
 
-**进度**：7/9（第 1-6、8 章已写入 chapters/）
+**进度**：9/9（第 1-9 章已写入 chapters/，第 7 章待确认）
 
-> [P4] 🔲 进行中
+> [P4] ✅ 已完成
 
 ---
 
@@ -109,7 +109,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中
 
 ---
 
@@ -137,6 +137,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P4 | 用户预授权连续写作，9章全部完成 | 2026-08-08 21:16 |
 | P3 | 用户确认大纲顺序与深度（9章主线） | 2026-08-08 21:13 |
 | P2 | 用户确认深度收集素材质量 | 2026-08-08 21:10 |
 | P1 | 用户确认方向 A/B/C/D 全选 | 2026-08-08 21:06 |
