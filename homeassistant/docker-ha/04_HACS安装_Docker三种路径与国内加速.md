@@ -115,12 +115,12 @@ docker restart homeassistant
 
 三个加速手段：
 
-1. **gh-proxy 前缀代理**：在原始 GitHub 地址前拼代理前缀。注意 `ghproxy.com` 已于 2025 年起失效，改用 `gh-proxy.com`、`mirror.ghproxy.com`、`ghfast.top` 等替代。写法是把原 URL 整个拼在代理域名后面，例如 `wget https://gh-proxy.com/https://github.com/hacs/integration/releases/latest/download/hacs.zip`，配合路径二/三使用。
-2. **hacs-china 极速版**：把官方脚本域名换成 `get.hacs.vip`，即 `wget -O - https://get.hacs.vip | bash -`，内置 gitmirror/fastgit/ghproxy 多重加速。注意它是第三方 fork（最后发布 2025-08，可用性待实测），且同样只加速下载。
-3. **GitHub API 代理**：HACS 3.x 的「选项」UI 里填自定义 API 地址（不是 configuration.yaml），如 `ghapi.hacs.vip/api`、`ghapi-cf.hacs.vip/api`，解决集成列表/版本检查加载失败。
+1. **gh-proxy 前缀代理**：在原始 GitHub 地址前拼代理前缀。`ghproxy.com` 已于 2025 年起失效；截至 2026-08 实测可用的是 `gh-proxy.com`、`ghproxy.net`（`mirror.ghproxy.com`、`ghfast.top` 也已失效）。写法是把原 URL 整个拼在代理域名后面，例如 `wget https://gh-proxy.com/https://github.com/hacs/integration/releases/latest/download/hacs.zip`，配合路径二/三使用。
+2. **hacs-china 极速版**：一键安装脚本 `wget -O - https://get.hacs.vip | bash -` 已于 2026-08-08 失效（443 拒连），勿再使用。极速版项目本身仍活跃：可从 Gitee 镜像 [hacs-china](https://gitee.com/hacs-china) 手动下载安装包放入 `custom_components/hacs/`，或干脆用官方 HACS + 第 1 条的 gh-proxy 前缀代理。注意它是第三方 fork，且同样只加速下载。
+3. **GitHub API 代理**：HACS 3.x 的「选项」UI 里填自定义 API 地址（不是 configuration.yaml），如 `ghapi-cf.hacs.vip/api`、`hacs-china.chrome7.com/api`，解决集成列表/版本检查加载失败。注意 `ghapi.hacs.vip/api` 已随 `get.hacs.vip` 一并失效，勿填。
 
 > [!warning] 两个高频坑
-> 代理域名（gh-proxy.com、get.hacs.vip 等）可用性易变，实操前先实测再配置。另外小容器常缺 `unzip`（Synology 会报 `'unzip' is not installed`），此时走路径二用宿主机 unzip 更稳；解压后如权限不对，`chown -R 1000:1000 custom_components/hacs` 修正属主。
+> 代理域名（gh-proxy.com、ghproxy.net、ghapi-cf.hacs.vip 等）可用性易变，实操前先实测再配置。另外小容器常缺 `unzip`（Synology 会报 `'unzip' is not installed`），此时走路径二用宿主机 unzip 更稳；解压后如权限不对，`chown -R 1000:1000 custom_components/hacs` 修正属主。
 
 ### 本章小结
 
@@ -131,3 +131,9 @@ docker restart homeassistant
 - 国内加速只解决「下载」，GitHub 首次授权必须直连
 
 HACS 文件放好了，但还没真正「开通」——第五章我们完成首次配置和 GitHub 授权，再装一批常用的卡片与集成。
+
+## 更新记录
+
+| 日期 | 变更 |
+|------|------|
+| 2026-08-08 | 4.4 更新：`get.hacs.vip` 一键脚本与 `ghapi.hacs.vip/api` 已失效（443 拒连），标注勿用；代理前缀实测可用名单改为 `gh-proxy.com` / `ghproxy.net`，移除已失效的 `mirror.ghproxy.com`、`ghfast.top`；补充 Gitee 手动安装兜底 |
