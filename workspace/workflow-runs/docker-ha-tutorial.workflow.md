@@ -10,10 +10,10 @@ topic: "用 Docker 配置 Home Assistant（HA）详细教程：HACS、国内环�
 project_slug: "docker-ha-tutorial"
 created_at: "2026-08-08"
 last_updated: "2026-08-08"
-current_phase: P5
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6,P7"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：docker-ha-tutorial
 > 项目标识：docker-ha-tutorial
 > 创建时间：2026-08-08
-> 当前阶段：阶段 5
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -109,7 +109,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中
+> [P5] ✅ 已完成
 
 ---
 
@@ -119,7 +119,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成
 
 ---
 
@@ -129,7 +129,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成
 
 ---
 
@@ -137,6 +137,9 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P7 | 用户确认同步MOC（部署指南分组新增Docker部署HA索引项） | 2026-08-08 21:27 |
+| P6 | 用户确认拆分发布到 homeassistant/docker-ha/（索引页+9章节，无Canvas） | 2026-08-08 21:27 |
+| P5 | 用户确认组装结果和Obsidian输出位置 homeassistant/docker-ha/ | 2026-08-08 21:25 |
 | P4 | 用户预授权连续写作，9章全部完成 | 2026-08-08 21:16 |
 | P3 | 用户确认大纲顺序与深度（9章主线） | 2026-08-08 21:13 |
 | P2 | 用户确认深度收集素材质量 | 2026-08-08 21:10 |
