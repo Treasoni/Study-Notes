@@ -502,6 +502,7 @@
     },
     "docker": {
       "children": [
+        "docker/GHCR 推送镜像权限配置.md",
         "docker/Linux-Docker与DockerCompose安装指南-国内网络版.md",
         "docker/assets",
         "docker/镜像加速器vs代理-概念对比.md",
@@ -743,7 +744,32 @@
     },
     "homeassistant/customers/客户A/实施/3d-panel": {
       "children": [
+        "homeassistant/customers/客户A/实施/3d-panel/homeassistant",
         "homeassistant/customers/客户A/实施/3d-panel/index.html"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/customers/客户A/实施/3d-panel/homeassistant": {
+      "children": [
+        "homeassistant/customers/客户A/实施/3d-panel/homeassistant/customers"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/customers/客户A/实施/3d-panel/homeassistant/customers": {
+      "children": [
+        "homeassistant/customers/客户A/实施/3d-panel/homeassistant/customers/客户A"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/customers/客户A/实施/3d-panel/homeassistant/customers/客户A": {
+      "children": [
+        "homeassistant/customers/客户A/实施/3d-panel/homeassistant/customers/客户A/实施"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/customers/客户A/实施/3d-panel/homeassistant/customers/客户A/实施": {
+      "children": [
+        "homeassistant/customers/客户A/实施/3d-panel/homeassistant/customers/客户A/实施/04_3D面板方案与骨架.md"
       ],
       "sortOrder": "custom"
     },
@@ -775,6 +801,8 @@
     },
     "homeassistant/haos-deploy": {
       "children": [
+        "homeassistant/haos-deploy/update_plan.md",
+        "homeassistant/haos-deploy/update_report.md",
         "homeassistant/haos-deploy/assets",
         "homeassistant/haos-deploy/01_绪论.md",
         "homeassistant/haos-deploy/02_部署前置准备.md",
@@ -1446,6 +1474,8 @@
     },
     "workspace": {
       "children": [
+        "workspace/ghcr-push-permission",
+        "workspace/home-assistant-integration",
         "workspace/haos-deploy-tutorial",
         "workspace/home-assistant-ha-command",
         "workspace/ai-smart-home-system",
@@ -1838,6 +1868,32 @@
       ],
       "sortOrder": "custom"
     },
+    "workspace/ghcr-push-permission": {
+      "children": [
+        "workspace/ghcr-push-permission/chapters",
+        "workspace/ghcr-push-permission/output",
+        "workspace/ghcr-push-permission/00_intent.md",
+        "workspace/ghcr-push-permission/01_explore_result.md",
+        "workspace/ghcr-push-permission/02_deep_research.md",
+        "workspace/ghcr-push-permission/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/ghcr-push-permission/chapters": {
+      "children": [
+        "workspace/ghcr-push-permission/chapters/01_ghcr-权限模型与-github_token-限制.md",
+        "workspace/ghcr-push-permission/chapters/02_pat-选型-为什么-ghcr-只能用-classic-pat.md",
+        "workspace/ghcr-push-permission/chapters/03_落地配置-classic-pat-secret-workflow-兜底登录.md",
+        "workspace/ghcr-push-permission/chapters/04_实战排错-首推成功与常见坑.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/ghcr-push-permission/output": {
+      "children": [
+        "workspace/ghcr-push-permission/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
     "workspace/git-branch-worktree": {
       "children": [
         "workspace/git-branch-worktree/output",
@@ -1975,6 +2031,13 @@
         "workspace/home-assistant-ha-command/chapters/06_升级与运维流程.md",
         "workspace/home-assistant-ha-command/chapters/07_常见坑与排障.md",
         "workspace/home-assistant-ha-command/chapters/08_完整速查表.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/home-assistant-integration": {
+      "children": [
+        "workspace/home-assistant-integration/00_intent.md",
+        "workspace/home-assistant-integration/01_explore_result.md"
       ],
       "sortOrder": "custom"
     },
@@ -2355,6 +2418,8 @@
     },
     "workspace/workflow-runs": {
       "children": [
+        "workspace/workflow-runs/ghcr-push-permission.workflow.md",
+        "workspace/workflow-runs/home-assistant-integration.workflow.md",
         "workspace/workflow-runs/haos-deploy-tutorial.workflow.md",
         "workspace/workflow-runs/home-assistant-ha-command.workflow.md",
         "workspace/workflow-runs/ai-smart-home-system.workflow.md",
