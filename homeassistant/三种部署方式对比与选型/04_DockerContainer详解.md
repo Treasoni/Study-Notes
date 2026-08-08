@@ -5,7 +5,7 @@ tags:
   - 学习笔记
   - 部署方式
 created: 2026-08-05
-updated: 2026-08-05
+updated: 2026-08-08
 status: 已完成
 source_project: home-assistant-deployment-methods
 ---
@@ -56,7 +56,7 @@ services:
     privileged: true
     network_mode: host
     environment:
-      TZ: Europe/Amsterdam          # 必须是 tz database 名称
+      TZ: Asia/Shanghai             # 中国标准时间（北京时间，UTC+8），必须是 tz database 名称
     devices:                        # USB 直通 Zigbee/Z-Wave
       - /dev/ttyUSB0:/dev/ttyUSB0
 ```
