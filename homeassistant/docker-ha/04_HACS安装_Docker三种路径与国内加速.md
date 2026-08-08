@@ -119,6 +119,17 @@ docker restart homeassistant
 2. **hacs-china 极速版**：一键安装脚本 `wget -O - https://get.hacs.vip | bash -` 已于 2026-08-08 失效（443 拒连），勿再使用。极速版项目本身仍活跃：可从 Gitee 镜像 [hacs-china](https://gitee.com/hacs-china) 手动下载安装包放入 `custom_components/hacs/`，或干脆用官方 HACS + 第 1 条的 gh-proxy 前缀代理。注意它是第三方 fork，且同样只加速下载。
 3. **GitHub API 代理**：HACS 3.x 的「选项」UI 里填自定义 API 地址（不是 configuration.yaml），如 `ghapi-cf.hacs.vip/api`、`hacs-china.chrome7.com/api`，解决集成列表/版本检查加载失败。注意 `ghapi.hacs.vip/api` 已随 `get.hacs.vip` 一并失效，勿填。
 
+> [!example] 实测命令（2026-08-08）
+> 国内网络走「路径二（宿主机解压）」+ `gh-proxy.com` 前缀，一条龙完成下载 → 解压 → 重启：
+
+```bash
+cd /path/to/your/config          # 换成你挂载到容器 /config 的目录
+mkdir -p custom_components/hacs
+wget -O /tmp/hacs.zip "https://gh-proxy.com/https://github.com/hacs/integration/releases/latest/download/hacs.zip"
+unzip -o /tmp/hacs.zip -d custom_components/hacs && rm /tmp/hacs.zip
+docker restart homeassistant
+```
+
 > [!warning] 两个高频坑
 > 代理域名（gh-proxy.com、ghproxy.net、ghapi-cf.hacs.vip 等）可用性易变，实操前先实测再配置。另外小容器常缺 `unzip`（Synology 会报 `'unzip' is not installed`），此时走路径二用宿主机 unzip 更稳；解压后如权限不对，`chown -R 1000:1000 custom_components/hacs` 修正属主。
 
@@ -137,3 +148,4 @@ HACS 文件放好了，但还没真正「开通」——第五章我们完成首
 | 日期 | 变更 |
 |------|------|
 | 2026-08-08 | 4.4 更新：`get.hacs.vip` 一键脚本与 `ghapi.hacs.vip/api` 已失效（443 拒连），标注勿用；代理前缀实测可用名单改为 `gh-proxy.com` / `ghproxy.net`，移除已失效的 `mirror.ghproxy.com`、`ghfast.top`；补充 Gitee 手动安装兜底 |
+| 2026-08-08 | 4.4 增加「实测命令」：路径二 + `gh-proxy.com` 前缀的一条龙安装命令（下载 → 解压 → 重启） |
