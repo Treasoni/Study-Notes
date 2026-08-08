@@ -10,10 +10,10 @@ topic: 镜像加速器笔记过时信息批量修复
 project_slug: update-mirror-config
 created_at: "2026-08-08"
 last_updated: "2026-08-08"
-current_phase: P2
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: standard
-confirmed_phases: "P0,P1"
+confirmed_phases: "P0,P1,P2,P3,P4,P5"
 skippable_phases: "P3"
 mode_dependent_skips: ""
 allowed_modes: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：update-mirror-config
 > 项目标识：update-mirror-config
 > 创建时间：2026-08-08
-> 当前阶段：阶段 2
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -64,7 +64,7 @@ blocked_reason: ""
 - [ ] 批量更新计划已保存：`./02_batch_update_plan.md`
 - [ ] 用户已确认计划后才进入下一阶段
 
-> [P2] 🔲 进行中
+> [P2] ✅ 已完成
 
 ---
 
@@ -74,7 +74,7 @@ blocked_reason: ""
 - [ ] 每条资料已记录 URL、日期、适用范围和摘要
 - [ ] 来源库已保存：`./shared_research/source_bank.md`
 
-> [P3] ⬜ 未开始
+> [P3] ✅ 已完成
 
 ---
 
@@ -85,7 +85,7 @@ blocked_reason: ""
 - [ ] 原文未被覆盖，除非 destination_mode 为 patch-in-place 且用户已确认
 - [ ] 批处理日志已追加：`./03_batch_update_log.md`
 
-> [P4] ⬜ 未开始
+> [P4] ✅ 已完成
 
 ---
 
@@ -95,7 +95,7 @@ blocked_reason: ""
 - [ ] 如提供 MOC，已同步索引且未复制正文
 - [ ] 批量更新报告已保存：`./04_batch_update_report.md`
 
-> [P5] ⬜ 未开始
+> [P5] ✅ 已完成
 
 ---
 
@@ -103,6 +103,10 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P5 | 汇总报告与 MOC 已完成 | 2026-08-08 20:57 |
+| P4 | 用户已确认计划；2 篇 patch-in-place 完成，无 needs-review | 2026-08-08 20:57 |
+| P3 | 来源库可信：官方文档 + 社区持续更新列表 + 实测 | 2026-08-08 20:55 |
+| P2 | 用户确认：直接 patch-in-place，不额外备份 | 2026-08-08 20:55 |
 | P1 | 清单可信：2 update + 2 skip，与已确认范围一致 | 2026-08-08 18:52 |
 | P0 | 范围与输出模式已确认 | 2026-08-08 18:51 |
 | P0 | 范围=docker/ 镜像加速器笔记；输出=patch-in-place | 2026-08-08 |

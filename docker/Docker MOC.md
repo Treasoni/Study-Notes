@@ -136,6 +136,7 @@ tags: [docker, MOC, 索引]
 
 ## 更新日志
 
+- 2026-08-08：更新镜像加速器相关笔记（修正 `~/.docker/daemon.json` 对 Docker Desktop 无效的误导；标记 USTC/NJU 等失效镜像源）
 - 2026-08-08：新增 [[GHCR 推送镜像权限配置]]（CI 推送 GHCR 权限配置指南）
 - 2026-08-04：新增 [[Linux-Docker与DockerCompose安装指南-国内网络版]]（12 篇笔记）
 - 2026-05-14：更新索引（11 篇笔记）

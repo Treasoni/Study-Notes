@@ -1,7 +1,7 @@
 ---
 tags: [docker, windows, 安装指南, wsl2, 国内网络, 镜像加速]
 created: 2026-03-29
-updated: 2026-03-29
+updated: 2026-08-08
 ---
 
 # Windows Docker Desktop 安装指南（国内网络版）
@@ -254,23 +254,25 @@ docker run hello-world
 └─────────────────────────────────────────────────────────────┘
 ```
 
-#### 方法二：命令行配置
+#### 方法二：命令行配置（仅 Linux 原生 dockerd）
 
-```powershell
-# 创建/编辑配置文件
-notepad %USERPROFILE%\.docker\daemon.json
-```
+> [!warning] ⚠️ Docker Desktop 不读取 `%USERPROFILE%\.docker\daemon.json`
+>
+> Docker Desktop for Windows 的 dockerd 运行在 WSL2/虚拟机里，宿主机的 `%USERPROFILE%\.docker\daemon.json` **不会被读取**（`%USERPROFILE%\.docker\` 只是 Docker CLI 的配置目录）。Windows 上请用**方法一** GUI 配置（Settings → Docker Engine → Apply & Restart）。
+>
+> 命令行 `daemon.json` 方式只适用于 Linux 原生 dockerd：
 
-写入以下内容：
-```json
+```bash
+sudo tee /etc/docker/daemon.json > /dev/null << 'EOF'
 {
   "registry-mirrors": [
-    "https://docker.1panel.live",
-    "https://docker.xuanyuan.me",
+    "https://docker.1ms.run",
     "https://docker.m.daocloud.io",
-    "https://docker.mirrors.ustc.edu.cn"
+    "https://docker.xuanyuan.me"
   ]
 }
+EOF
+sudo systemctl restart docker
 ```
 
 #### 验证配置
@@ -289,15 +291,16 @@ docker info | Select-String "Registry Mirrors" -Context 0,5
 > - [2025年12月最新Docker镜像源加速列表](https://post.smzdm.com/p/a655x5wz) - 什么值得买
 > - [Docker镜像加速器配置](https://juejin.cn/post/7476410894355185718) - 掘金
 
-### 4.2 可用镜像源列表（2026年3月更新）
+### 4.2 可用镜像源列表（2026-08 更新）
 
 | 镜像源 | 地址 | 状态 |
 |--------|------|------|
+| **1ms.run** | `https://docker.1ms.run` | ✅ 可用 |
 | **1Panel** | `https://docker.1panel.live` | ✅ 可用 |
 | **XuanYuan** | `https://docker.xuanyuan.me` | ✅ 可用 |
 | **DaoCloud** | `https://docker.m.daocloud.io` | ✅ 可用 |
-| **中科大** | `https://docker.mirrors.ustc.edu.cn` | ⚠️ 时好时坏 |
-| **南京大学** | `https://docker.nju.edu.cn` | ⚠️ 需验证 |
+| **中科大** | `https://docker.mirrors.ustc.edu.cn` | ❌ 已失效 |
+| **南京大学** | `https://docker.nju.edu.cn` | ❌ 已失效 |
 
 > [!warning] 注意
 > 镜像源可用性会变化！如果某个源不可用，请：
@@ -495,14 +498,16 @@ docker pull alpine:latest
 **排查步骤**：
 
 ```powershell
-# 1. 检查配置文件格式
-# 打开配置文件
-notepad %USERPROFILE%\.docker\daemon.json
+# 1. 确认配置填在 Docker Desktop 的 GUI 里（Settings → Docker Engine）
+#    Docker Desktop 不读取 %USERPROFILE%\.docker\daemon.json
 
-# 2. 验证 JSON 格式（使用在线工具或 PowerShell）
-Get-Content %USERPROFILE%\.docker\daemon.json | ConvertFrom-Json
+# 2. 确认点了 Apply & Restart，并等 Docker 完全重启
 
-# 3. 确保重启了 Docker Desktop
+# 3. 检查配置是否加载
+docker info | Select-String "Registry Mirrors"
+
+# 4. 确认当前 context 指向 Docker Desktop
+docker context ls
 ```
 
 **常见配置错误**：
@@ -674,4 +679,12 @@ Settings → Resources
 
 ---
 
-**最后更新**：2026-03-29
+## 更新记录
+
+- 2026-08-08：修正配置说明与失效镜像源
+  - ⚠️ Docker Desktop for Windows **不读取** `%USERPROFILE%\.docker\daemon.json`（仅 Docker CLI 配置目录）；命令行 daemon.json 只适用于 Linux 原生 dockerd。Windows 请在 GUI `Settings → Docker Engine` 配置。
+  - 移除已失效镜像源 `docker.mirrors.ustc.edu.cn` / `docker.nju.edu.cn`，新增 `docker.1ms.run`。
+
+---
+
+**最后更新**：2026-08-08
