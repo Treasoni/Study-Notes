@@ -10,10 +10,10 @@ topic: "从零开发 Home Assistant 自定义集成（custom integration）"
 project_slug: "home-assistant-integration"
 created_at: "2026-08-08"
 last_updated: "2026-08-08"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
-confirmed_phases: "P0,P1,P2,P3"
+confirmed_phases: "P0,P1,P2,P3,P4"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：home-assistant-integration
 > 项目标识：home-assistant-integration
 > 创建时间：2026-08-08
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -85,18 +85,18 @@ blocked_reason: ""
 
 ## 阶段 4：逐章写作
 - [x] 第 1 章已写完并确认：认识 Home Assistant 自定义集成
-- [ ] 第 2 章已写完并确认：开发环境搭建
-- [ ] 第 3 章已写完并确认：集成骨架与 manifest.json
-- [ ] 第 4 章已写完并确认：Config Flow 配置流程
-- [ ] 第 5 章已写完并确认：Entity 平台与 Sensor 实体
-- [ ] 第 6 章已写完并确认：DataUpdateCoordinator 数据轮询
-- [ ] 第 7 章已写完并确认：测试与调试
-- [ ] 第 8 章已写完并确认：HACS 分发
-- [ ] 第 9 章已写完并确认：常见坑与最佳实践
+- [x] 第 2 章已写完并确认：开发环境搭建
+- [x] 第 3 章已写完并确认：集成骨架与 manifest.json
+- [x] 第 4 章已写完并确认：Config Flow 配置流程
+- [x] 第 5 章已写完并确认：Entity 平台与 Sensor 实体
+- [x] 第 6 章已写完并确认：DataUpdateCoordinator 数据轮询
+- [x] 第 7 章已写完并确认：测试与调试
+- [x] 第 8 章已写完并确认：HACS 分发
+- [x] 第 9 章已写完并确认：常见坑与最佳实践
 
-**进度**：1/9
+**进度**：9/9
 
-> [P4] 🔲 进行中
+> [P4] ✅ 已完成
 
 ---
 
@@ -109,7 +109,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中
 
 ---
 
@@ -137,6 +137,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P4 | 用户指示连续写作（一直写），9 章全部完成 | 2026-08-08 17:12 |
 | P3 | 用户确认大纲顺序和深度 | 2026-08-08 17:06 |
 | P2 | 用户确认深度素材质量 | 2026-08-08 17:04 |
 | P1 | 用户确认素材质量，方向 A：从零开发自定义集成 | 2026-08-08 16:59 |
