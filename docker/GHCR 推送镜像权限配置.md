@@ -438,12 +438,12 @@ UI 路径：
 
 进入「Generate new token (classic)」页面后，从上到下依次是 Note、Expiration、Scopes，以及组织启用 SSO 时才出现的授权区块。推荐配置如下 [About permissions for GitHub Packages — GitHub Docs](https://docs.github.com/en/packages/learn-github-packages/about-permissions-for-github-packages)：
 
-| 配置项 | 推荐值 | 说明 |
-|--------|--------|------|
-| Note | `ghcr-push-<project>` | 语义化命名，例如 `ghcr-push-my-app`，方便日后识别与回收 |
-| Expiration | 30 / 60 / 90 天 | 短期 + 纳入轮换，不要把过期时间设为 No expiration |
-| Scopes | 见 1.3 | 推送 `write:packages`；私有仓库加 `repo`；删除镜像加 `delete:packages`（可选） |
-| SSO | 见 1.4 | 目标组织启用 SSO 时，点 **Configure SSO → Authorize** |
+| 配置项        | 推荐值                   | 说明                                                           |
+| ---------- | --------------------- | ------------------------------------------------------------ |
+| Note       | `ghcr-push-<project>` | 语义化命名，例如 `ghcr-push-my-app`，方便日后识别与回收                        |
+| Expiration | 30 / 60 / 90 天        | 短期 + 纳入轮换，不要把过期时间设为 No expiration                            |
+| Scopes     | 见 1.3                 | 推送 `write:packages`；私有仓库加 `repo`；删除镜像加 `delete:packages`（可选） |
+| SSO        | 见 1.4                 | 目标组织启用 SSO 时，点 **Configure SSO → Authorize**                 |
 
 - **Note**：给这个 token 起一个一眼能看出用途的名字。你很可能在半年内生成好多个 PAT，`ghcr-push-<project>` 这种命名能让你在「个人设置 → Tokens」列表里快速定位，也方便到期前找到并轮换。
 - **Expiration**：GitHub 支持最长不过期，但**不建议**。CI 用的静态凭据一旦泄露，影响面很大；把过期时间压到 30/60/90 天，等于强制自己定期轮换。如果组织策略允许的最短过期时间更短，以组织策略为准。
