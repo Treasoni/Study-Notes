@@ -10,10 +10,10 @@ topic: "Docker 与 Docker Compose 命令的使用"
 project_slug: "docker-compose-commands"
 created_at: "2026-08-08"
 last_updated: "2026-08-08"
-current_phase: P5
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6,P7"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：docker-compose-commands
 > 项目标识：docker-compose-commands
 > 创建时间：2026-08-08
-> 当前阶段：阶段 5
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -106,7 +106,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中
+> [P5] ✅ 已完成
 
 ---
 
@@ -116,7 +116,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成
 
 ---
 
@@ -126,7 +126,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成
 
 ---
 
@@ -134,6 +134,9 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P7 | 用户之前确认同步 MOC | 2026-08-08 21:22 |
+| P6 | 用户确认组装结果与 docker/ 发布位置 | 2026-08-08 21:21 |
+| P5 | 用户确认组装结果与 Obsidian 输出位置（docker/ 目录） | 2026-08-08 21:21 |
 | P4 | 用户确认第 1 章，授权连续写完剩余章节 | 2026-08-08 21:14 |
 | P3 | 用户确认大纲（原大纲，不加改动） | 2026-08-08 21:11 |
 | P2 | 用户确认素材质量（官方文档 8 篇为主） | 2026-08-08 21:08 |
