@@ -1,0 +1,644 @@
+---
+title: Claude Code 常用功能
+tags: ["claude", "ai", "工具使用", "claude-code"]
+updated: 2026-08-10
+status: updated
+source_project: claude-code-tutorial
+---
+
+# Claude Code 常用功能
+
+> [!info] 文档定位
+> **本文档是功能速查手册** - 快速查找常用命令和操作。完整安装配置指南请参阅 [[如何使用Claude code]]
+
+> [!info] 概述
+> **Claude Code 是开发者的智能助手 CLI** - 集成了文件操作、代码编辑、Git 管理、任务追踪等功能，让你在终端中直接使用 Claude 进行软件工程任务。
+
+## CLI 启动模式 🚀
+
+Claude Code 有三种使用模式，适用不同场景：
+
+| 模式 | 命令 | 特点 | 适用场景 |
+|------|------|------|----------|
+| **交互模式** | `claude` | 保持对话，有上下文 | 日常开发、多轮对话 |
+| **单次执行** | `claude "query"` | 执行完自动退出 | 快速查询、脚本调用 |
+| **打印模式** | `claude -p "query"` | 输出纯文本，可管道 | CI/CD、数据处理 |
+
+```bash
+# 交互模式 - 最常用
+claude
+claude "解释这个项目"          # 带初始提示启动
+
+# 单次执行 - 执行完退出
+claude "分析 auth.js 的安全问题" > review.txt
+
+# 打印模式 - 适合管道处理
+claude -p "生成10条测试数据" | jq '.users'
+cat logs.txt | claude -p "分析错误原因"
+
+# 常用启动参数
+claude -c                      # 继续上次对话
+claude -r "session-id"         # 恢复指定会话
+claude --model opus            # 指定模型
+claude --add-dir ../lib        # 添加额外目录
+claude --permission-mode manual  # 权限模式：manual / acceptEdits / plan / bypassPermissions
+```
+
+> [!tip] 权限模式（大白话）
+> 权限模式决定 Claude 干活时「哪些操作直接做、哪些要问你」。2026-07 起，原来的 **Default** 模式改名为 **Manual**：
+> - CLI：`claude --permission-mode manual`
+> - settings.json：`"defaultMode": "manual"`
+> - 常用模式：`manual`（逐次询问）、`acceptEdits`（自动接受文件编辑）、`plan`（只规划不执行）、`bypassPermissions`（跳过全部确认）
+> - 会话中按 `Shift + Tab` 可快速切换权限模式
+
+### 安装快速参考
+
+```bash
+# Slash Commands - 15 分钟
+mkdir -p .claude/commands
+cp 01-slash-commands/*.md .claude/commands/
+
+# Memory - 15 分钟
+cp 02-memory/project-CLAUDE.md ./CLAUDE.md
+
+# Skills - 15 分钟
+cp -r 03-skills/code-review ~/.claude/skills/
+
+# Subagents - 15 分钟
+cp 04-subagents/*.md .claude/agents/
+
+# MCP - 需要配置环境变量
+export GITHUB_TOKEN="your_token"
+claude mcp add github -- npx -y @modelcontextprotocol/server-github
+
+# Hooks - 15 分钟
+mkdir -p ~/.claude/hooks
+cp 06-hooks/*.sh ~/.claude/hooks/
+chmod +x ~/.claude/hooks/*.sh
+
+# Plugins
+/plugin install pr-review
+
+# Checkpoints - 自动启用，配置见 08-checkpoints/
+# Advanced Features - 配置 settings.json，见 09-advanced-features/
+```
+
+> [!info] 📚 来源
+> - [claude-howto - Installation Quick Reference](https://github.com/luongnv89/claude-howto#installation-quick-reference)
+
+## 快捷键速查 ⌨️
+
+| 快捷键 | 功能 |
+|--------|------|
+| `Tab` | 切换扩展思考模式 |
+| `Shift + Tab` | 切换权限模式 |
+| `Esc + Esc` | 打开 Rewind 回滚菜单 |
+| `Ctrl + C` | 中断当前操作 |
+| `Ctrl + D` | 退出会话 |
+| `Ctrl + L` | 清屏（不清除对话） |
+| `Ctrl + R` | 搜索历史输入 |
+| `Ctrl + V` | 粘贴图片给 AI 分析 |
+| `Ctrl + B` | 将任务移到后台 |
+| `↑ / ↓` | 浏览历史命令 |
+
+## 功能特性总览 📊
+
+### 功能对比表
+
+| 功能 | 调用方式 | 持久化 | 最佳适用场景 | 学习难度 |
+|------|----------|--------|--------------|----------|
+| **Slash Commands** | 手动 (`/cmd`) | 仅会话 | 快速快捷操作 | ⭐ 简单 |
+| **Memory** | 自动加载 | 跨会话 | 长期项目学习 | ⭐ 简单 |
+| **Skills** | 自动触发 | 文件系统 | 自动化工作流 | ⭐⭐ 中等 |
+| **Subagents** | 自动委托 | 独立上下文 | 任务分发 | ⭐⭐ 中等 |
+| **MCP Protocol** | 自动查询 | 实时 | 外部数据访问 | ⭐⭐⭐ 进阶 |
+| **Hooks** | 事件触发 | 配置 | 自动化与验证 | ⭐⭐⭐ 进阶 |
+| **Plugins** | 单条命令 | 全部功能 | 完整解决方案 | ⭐⭐⭐⭐ 高级 |
+| **Checkpoints** | 手动/自动 | 会话级 | 安全实验 | ⭐ 简单 |
+| **Planning Mode** | 手动/自动 | 规划阶段 | 复杂实现 | ⭐⭐ 中等 |
+| **Background Tasks** | 手动 | 任务期间 | 长时间操作 | ⭐⭐ 中等 |
+
+### 使用场景与功能组合
+
+| 使用场景 | 功能组合 | 说明 |
+|----------|----------|------|
+| **自动化代码审查** | Slash Commands + Subagents + Memory + MCP | `/review-pr` 触发代码审查工作流 |
+| **团队入职培训** | Memory + Slash Commands + Plugins | 共享项目规范，快速上手 |
+| **CI/CD 自动化** | CLI Reference + Hooks + Background Tasks | 集成到流水线自动执行 |
+| **文档生成** | Skills + Subagents + Plugins | 自动创建 API 文档 |
+| **安全审计** | Subagents + Skills + Hooks (只读模式) | 安全聚焦的代码审查 |
+| **DevOps 流水线** | Plugins + MCP + Hooks + Background Tasks | 部署与监控自动化 |
+| **复杂重构** | Checkpoints + Planning Mode + Hooks | 安全的多文件重构 |
+
+> [!info] 📚 来源
+> - [claude-howto - 功能对比](https://github.com/luongnv89/claude-howto#quick-navigation--all-features)
+
+## 核心功能 💡
+
+### 文件操作
+
+**是什么**：直接读取、编辑、写入代码文件
+
+**为什么需要**：
+- 无需手动编辑文件
+- 精确修改代码片段
+- 批量处理多个文件
+
+**常用工具**：
+| 工具 | 功能 | 示例 |
+|------|------|------|
+| Read | 读取文件 | `读取 src/app.js` |
+| Edit | 精确替换文本 | `将 console.log 替换为 logger.info` |
+| Write | 创建/覆写文件 | `创建 config.yaml` |
+
+### 代码搜索
+
+**是什么**：快速定位代码和文件
+
+**为什么需要**：
+- 高效查找相关代码
+- 理解项目结构
+- 定位问题所在
+
+**搜索方式**：
+- **Glob** - 按模式匹配文件：`**/*.js`
+- **Grep** - 搜索文件内容：`grep "TODO"`
+
+### Git 集成
+
+**是什么**：自动化代码提交流程
+
+**为什么需要**：
+- 自动生成 commit 消息
+- 智能添加相关文件
+- 遵循仓库提交风格
+
+**常用操作**：
+```bash
+/commit                    # 创建提交
+/commit -m "修复bug"       # 指定消息
+```
+
+### Checkpoint/Rewind 回滚机制 ⭐
+
+**是什么**：Claude Code 的"时光机"功能，可以回退到之前的代码和对话状态
+
+**为什么需要**：
+- AI 改坏了代码，想撤回
+- 尝试不同方案，不满意就重来
+- 对话跑偏了，想重置 AI 记忆
+
+**核心概念**：
+> Checkpoint 就像游戏的"自动存档点" —— 每次你发送提示后，Claude 会自动创建一个快照，保存当前代码状态和对话记忆。
+
+#### 如何触发回滚
+
+```bash
+# 方式一：命令
+/rewind
+
+# 方式二：快捷键（推荐，更快）
+Esc + Esc（连按两下 Esc）
+```
+
+#### 三种回滚模式
+
+| 模式 | 效果 | 适用场景 |
+|------|------|----------|
+| **仅代码** | 代码回滚，AI 记忆保留 | 代码改坏了，但 AI 理解你的意图 |
+| **仅对话** | 代码保留，AI 记忆重置 | 对话跑偏了，代码没问题 |
+| **代码和对话** | 完全回到过去 | 彻底推倒重来 |
+
+#### 实战演示
+
+**场景一：代码改坏了，保留理解**
+```bash
+你: "把 AuthService 重构成依赖注入模式"
+Claude: [修改了 4 个文件，报错了]
+
+# 回滚代码，保留对话
+/rewind → 选择重构前 → 选择 "仅代码"
+
+# AI 还知道你想做依赖注入，换个方式实现
+你: "这次一步一步来，先只改 AuthService.java"
+```
+
+**场景二：对话跑偏，重置记忆**
+```bash
+# Claude 一直在提你拒绝的方案（比如 Redis）
+你: "不用 Redis，就用 MySQL"
+Claude: "好的，那我们加个 Redis 备用..."
+
+# 回滚对话，保留代码
+/rewind → 选择跑偏前 → 选择 "仅对话"
+
+# AI "忘记" 之前的对话，不会再提 Redis
+你: "继续优化，只用 MySQL"
+```
+
+**场景三：探索式重构，无畏试错**
+```bash
+你: "把所有 Controller 改成 WebFlux 响应式"
+Claude: [15分钟改完 8 个文件]
+你: "太复杂了，不要这个方案"
+
+# 完全回滚
+/rewind → 选择开始前 → 选择 "代码和对话"
+
+# 瞬间回到原点，换方案
+你: "这次用装饰器模式实现..."
+```
+
+#### 重要限制 ⚠️
+
+| 会跟踪 ✅ | 不会跟踪 ❌ |
+|----------|------------|
+| Claude 通过编辑工具修改的文件 | Bash 命令（`rm`、`mv`、`cp`） |
+| 当前会话内的修改 | 外部工具（VS Code、终端）的修改 |
+
+```bash
+# ❌ 无法通过 checkpoint 回滚
+! rm -rf dist/           # Bash 删除
+! mv old.js new.js       # Bash 移动
+
+# ✅ 可以回滚
+"帮我修改 auth.js"       # Claude 编辑工具
+```
+
+#### Checkpoint vs Git
+
+| 特性 | Checkpoint | Git |
+|------|------------|-----|
+| 创建方式 | 自动（每次对话） | 手动 commit |
+| 回滚速度 | 秒级 | 需手动操作 |
+| AI 记忆 | ✅ 同步回滚 | ❌ 只回滚代码 |
+| 持久性 | 30 天后清理 | 永久保存 |
+
+**最佳实践**：两者配合使用
+```bash
+# 开始新功能 → Git 存档
+git commit -m "开始做用户偏好设置"
+
+# Claude 干活（自动创建 checkpoints）
+
+# 中途改坏了 → Checkpoint 快速回滚
+/rewind
+
+# 功能完成 → Git 存档
+git commit -m "完成用户偏好设置"
+```
+
+### Extended Thinking 扩展思考 ⭐
+
+**是什么**：让 Claude "想得更久"，展示完整推理过程，适合复杂任务
+
+**如何触发**：
+```bash
+# 方法一：按 Tab 键切换
+
+# 方法二：在提示词中使用关键词
+think              # ~1,500 tokens，5-10秒
+think hard         # ~3,000 tokens，10-20秒
+think harder       # ~8,000 tokens，20-30秒
+ultrathink         # ~16,000 tokens，30-60秒
+```
+
+**使用场景**：
+```bash
+# 一般分析
+"think about how to optimize this database query"
+
+# 复杂推理
+"think hard about the authentication system architecture"
+
+# 架构决策
+"ultrathink this microservice migration strategy"
+```
+
+> [!tip] 建议
+> 简单语法查询无需开启扩展思考，避免浪费 Token
+
+### CLAUDE.md 项目记忆文件
+
+**是什么**：项目级别的"说明书"，Claude 每次启动都会自动读取
+
+**如何创建**：
+```bash
+/init    # 自动分析项目并生成 CLAUDE.md
+```
+
+**文件结构示例**：
+```markdown
+# 项目说明
+- 技术栈：React + TypeScript
+- 包管理器：pnpm
+
+## 代码规范
+- 使用 ES modules
+- 函数命名：camelCase
+- 组件命名：PascalCase
+
+## 测试要求
+- 单元测试：Jest
+- 覆盖率 > 80%
+
+## Git 工作流
+- 分支命名：feature/功能名
+- 提交信息：中文描述
+```
+
+**记忆文件层级**：
+| 位置 | 作用范围 |
+|------|----------|
+| `~/.claude/CLAUDE.md` | 全局（所有项目） |
+| `./CLAUDE.md` | 项目级 |
+| `./CLAUDE.local.md` | 本地（不提交 Git） |
+
+## 操作步骤
+
+### 基本工作流
+
+#### 修复 Bug
+```bash
+# 1. 描述问题
+"登录功能报错，错误信息是 'Invalid token'"
+
+# 2. Claude 会自动
+# - 读取相关代码
+# - 分析问题
+# - 提出修复方案
+# - 实施修复
+
+# 3. 验证
+"运行测试确保修复有效"
+```
+
+#### 添加新功能
+```bash
+# 1. 进入规划模式
+/plan
+
+# 2. Claude 分析
+# - 探索代码库
+# - 设计方案
+# - 提交计划
+
+# 3. 确认后执行
+"按照计划实现"
+
+# 4. 提交更改
+/commit
+```
+
+#### 代码审查
+```bash
+# 方式一：使用命令
+/review-pr 123
+
+# 方式二：直接贴代码
+"帮我审查这段代码的质量"
+```
+
+### Slash 命令速查
+
+> [!tip] 新交互细节
+> - **Slash / Skill 叠加**：可连续加载最多 5 个前置，如 `/skill-a /skill-b do XYZ`
+> - **emoji 短码补全**：输入 `:thumbsup:` 会自动补全成 👍
+> - **会话类型**：`/status` 现在会显示会话类型（interactive / attached / unattended）
+
+**基础操作**：
+| 命令 | 功能 | 使用场景 |
+|------|------|----------|
+| `/help` | 显示所有可用命令 | 查看帮助信息 |
+| `/clear` | 清空对话历史 | 切换到全新任务 |
+| `/compact` | 压缩对话，保留摘要 | 对话太长时节省 Token |
+| `/exit` | 退出 Claude Code | 结束工作 |
+
+**项目与上下文**：
+| 命令 | 功能 | 使用场景 |
+|------|------|----------|
+| `/init` | 生成 CLAUDE.md 项目文档 | 新项目首次接入 |
+| `/memory` | 编辑项目记忆文件 | 修改项目规则 |
+| `/context` | 可视化上下文占用 | 检查"脑容量"使用 |
+| `/add-dir <路径>` | 添加额外工作目录 | 多模块项目 |
+| `/resume` | 恢复之前的会话 | 继续中断的任务 |
+
+**代码与 Git**：
+| 命令 | 功能 | 使用场景 |
+|------|------|----------|
+| `/commit` | 创建 git commit | 提交代码变更 |
+| `/review` | 审查当前代码变更（`/code-review` 的别名，不会自动运行，需手动调用） | 代码审查 |
+| `/review-pr` | 审查 Pull Request | PR 代码审查 |
+| `/rewind` | 回滚到之前状态 | 撤销 AI 的错误修改 |
+
+**系统与监控**：
+| 命令 | 功能 | 使用场景 |
+|------|------|----------|
+| `/cost` | 查看 Token 和费用 | 成本控制 |
+| `/status` | 查看模型和账户状态 | 检查配置 |
+| `/doctor` | 全量环境体检（`/checkup` 为别名） | 排查问题、清理配置 |
+| `/model` | 切换 AI 模型 | 更换模型 |
+| `/permissions` | 权限管理 | 控制操作需确认 |
+
+**高级功能**：
+| 命令 | 功能 | 使用场景 |
+|------|------|----------|
+| `/plan` | 进入规划模式 | 复杂任务预先规划 |
+| `/agents` | 管理后台子智能体 | 并行任务 |
+| `/subtask` | 在会话内启动子代理 | 会话内任务拆分 |
+| `/fork` | 把当前对话复制到新后台会话 | 并行分支任务 |
+| `/mcp` | 管理 MCP 服务 | 扩展能力 |
+| `/hooks` | 查看当前配置的 Hook | 查看自动化规则 |
+| `/cd` | 切换工作目录（不重建缓存） | 多模块项目 |
+| `/code-review` | 报告正确性错误（作为后台子代理运行，需手动触发），`--fix` 直接修复 | 代码审查 |
+| `/usage` | 查看配额使用明细 | 成本追溯 |
+| `/effort` | 设置努力级别 | 控制推理深度 |
+| `/fast` | 切换速度优化模式 | 快速迭代 |
+| `/goal` | 保持工作直到完成 | 长任务自动执行 |
+| `/todos` | 跨会话任务列表 | 项目管理 |
+
+> [!tip] Hook 详解
+> `/hooks` 命令显示当前会话中所有已配置的 Hook（事件钩子）。Hook 是事件驱动的自动化机制，可以在特定时间点（如工具执行前后、会话开始/结束时）自动执行自定义逻辑。
+>
+> **常用场景**：
+> - 自动格式化代码
+> - 阻止危险命令
+> - 保护敏感文件
+> - 发送桌面通知
+>
+> 详细配置请参阅 [[Claude Code Hooks 使用指南]]
+
+## 注意事项 ⚠️
+
+### 常见错误
+
+**文件操作失败**：
+- ❌ 没有指定明确路径
+- ❌ 文件权限不足
+- ❌ 路径格式错误
+
+**搜索无结果**：
+- ❌ 搜索模式不准确
+- ❌ 文件扩展名不匹配
+- ❌ 关键词拼写错误
+
+**Git 提交问题**：
+- ❌ 没有未暂存的更改
+- ❌ 提交信息格式不正确
+- ❌ 忽略了敏感文件
+
+### 关键配置点
+
+**提供清晰上下文**：
+```bash
+# ❌ 不够清晰
+"修复这个文件"
+
+# ✅ 清晰明确
+"修复 auth.js 中的登录 bug，错误信息是 'Invalid token'"
+```
+
+**使用 Plan Mode**：
+- ✅ 添加新功能
+- ✅ 重构现有代码
+- ✅ 修改多个文件的架构
+- ✅ 有多种实现方案的任务
+
+**充分利用 Git 集成**：
+- 让 Claude 帮你管理提交
+- 自动分析变更
+- 生成合适的 commit 消息
+
+## 常见问题 ❓
+
+**Q: 如何查看当前使用的模型？**
+
+A: 在 Claude Code 会话中询问："我当前使用的是什么模型？"
+
+**Q: Plan Mode 什么时候用？**
+
+A: 复杂、多步骤的任务，比如：
+- 添加新功能
+- 重构代码
+- 修改架构
+- 有多种实现方案时
+
+**Q: 如何让 Claude 记住项目信息？**
+
+A: 编辑项目根目录的 `CLAUDE.md` 文件，或使用 `/init` 自动生成。Claude Code 每次启动会自动读取。也可以用 `/memory` 命令在会话中直接编辑。
+
+**Q: Claude 能同时处理多个任务吗？**
+
+A: 可以。Claude 可以并行执行独立任务，比如同时搜索多个不相关的话题。
+
+**Q: 如何中断当前操作？**
+
+A: 按 `Ctrl+C` 停止当前操作。
+
+---
+
+## 概念辨析 📖
+
+### `/clear` vs `/compact` vs `/rewind`
+
+| 命令 | 效果 | 使用场景 |
+|------|------|----------|
+| `/clear` | **完全清空**对话历史 | 切换到完全不同的任务 |
+| `/compact` | **压缩**对话，保留摘要 | 想继续当前任务但对话太长 |
+| `/rewind` | **回滚**到历史状态 | 撤销代码修改或重置对话方向 |
+
+**通俗理解**：
+- `/clear` = 换一个新牛马，没有任何记忆
+- `/compact` = 让牛马"整理笔记"，删掉废话保留重点
+- `/rewind` = 时光机，回到过去某个时间点
+
+### Checkpoint vs Git
+
+| 特性 | Checkpoint | Git |
+|------|------------|-----|
+| **用途** | 会话内实验 | 正式存档 |
+| **创建** | 自动 | 手动 commit |
+| **回滚** | 代码 + AI记忆 | 仅代码 |
+| **持久性** | 30天清理 | 永久保存 |
+
+**最佳实践**：两者配合
+- Checkpoint → 快速试错、临时回滚
+- Git → 里程碑存档、长期历史
+
+### 什么是"上下文"？
+
+**通俗理解**：Claude 的"脑容量"是有限的（200K~1M tokens，取决于模型）
+
+- 对话历史、读取的文件、系统提示都占用"脑容量"
+- 用 `/context` 可以查看占用情况
+- 占用太多时 Claude 会"变笨"，需要 `/compact` 或 `/clear`
+
+```
+┌─────────────────────────────────────────┐
+│           Claude 脑容量 (200K)           │
+├─────────────────────────────────────────┤
+│ ████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░ │
+│   已用 60K (30%)    剩余 140K (70%)      │
+│                                         │
+│   📄 对话历史: 40K                       │
+│   📁 读取的文件: 15K                     │
+│   ⚙️ 系统提示: 5K                        │
+└─────────────────────────────────────────┘
+```
+
+## 最佳实践
+
+### Do's（推荐做法）
+
+| 实践 | 说明 |
+|------|------|
+| 从简单开始 | 先用 Slash Commands，逐步添加其他功能 |
+| 增量添加 | 一次添加一个功能，测试后再继续 |
+| 团队共享 Memory | 使用 CLAUDE.md 存储团队编码标准 |
+| 本地测试配置 | 先在本地测试配置，再推广到团队 |
+| 文档化自定义实现 | 记录自定义配置和修改 |
+| 版本控制配置 | 将项目级配置提交到 git |
+| 共享 Plugins | 与团队分享有用的插件 |
+
+### Don'ts（避免做法）
+
+| 避免 | 原因 |
+|------|------|
+| 创建冗余功能 | 避免功能重复，保持简洁 |
+| 硬编码凭证 | 使用环境变量存储敏感信息 |
+| 跳过文档 | 文档帮助团队协作 |
+| 过度复杂化 | 简单任务不需要复杂配置 |
+| 忽视安全 | 遵循安全最佳实践 |
+| 提交敏感数据 | 不要提交 API 密钥、密码等到 git |
+
+> [!info] 📚 来源
+> - [claude-howto - Best Practices](https://github.com/luongnv89/claude-howto#best-practices)
+
+## 相关文档
+[[如何使用Claude code]] | [[Skills 是什么]] | [[人工智能重要的六大概念体系]]
+
+## 参考资料
+
+### 官方资源
+- [Claude Code Documentation](https://code.claude.com/docs/en/overview) - 官方文档
+
+### 社区资源
+- [claude-howto GitHub](https://github.com/luongnv89/claude-howto) - 21,800+ stars 完整学习指南
+  - [01-Slash Commands](https://github.com/luongnv89/claude-howto/tree/main/01-slash-commands)
+  - [02-Memory](https://github.com/luongnv89/claude-howto/tree/main/02-memory)
+  - [03-Skills](https://github.com/luongnv89/claude-howto/tree/main/03-skills)
+  - [04-Subagents](https://github.com/luongnv89/claude-howto/tree/main/04-subagents)
+  - [05-MCP](https://github.com/luongnv89/claude-howto/tree/main/05-mcp)
+  - [06-Hooks](https://github.com/luongnv89/claude-howto/tree/main/06-hooks)
+  - [07-Plugins](https://github.com/luongnv89/claude-howto/tree/main/07-plugins)
+  - [08-Checkpoints](https://github.com/luongnv89/claude-howto/tree/main/08-checkpoints)
+  - [09-Advanced Features](https://github.com/luongnv89/claude-howto/tree/main/09-advanced-features)
+  - [10-CLI](https://github.com/luongnv89/claude-howto/tree/main/10-cli)
+
+## 更新记录
+
+### 2026-08-10
+- 权限模式「Default」改名「Manual」：CLI `--permission-mode manual`、settings `"defaultMode": "manual"`，并新增权限模式大白话说明。
+- 命令更新：`/doctor`（=`/checkup` 全量环境体检，原 `/checkup` 主名调整）；新增 `/fork`（复制到新后台会话）、`/subtask`（会话内子代理）；`/review` 为 `/code-review` 别名且不再自动运行。
+- 交互细节：Slash/Skill 可叠加加载（最多 5 个前置）；emoji 短码自动补全（`:thumbsup:`）；`/status` 显示会话类型。
+- 本次仅局部 patch 过时段落，未重写全文。
