@@ -7,3 +7,6 @@
 | 2026-08-10 | 1 | cc01 如何使用Claude code | update + 写回 | updates/cc01/updated_note.md → 原文件 | stable 版本号待核；促销价 8/31 时效 |
 | 2026-08-10 | 1 | cc06 settings.json 配置详解 | update + 写回 | updates/cc06/updated_note.md → 原文件 | 3 个新配置键 schema 为示意值 |
 | 2026-08-10 | 1 | cc12 Claude Code 高级功能 | update + 写回 | updates/cc12/updated_note.md → 原文件 | credentialMasking.mode 路径为推断 |
+| 2026-08-10 | 2 | cc02 Claude Code 常用功能 | update + 写回 | updates/cc02/updated_note.md → 原文件 | 快捷键速查无来源未核 |
+| 2026-08-10 | 2 | cc03 Claude Code CLI 完整参考 | update + 写回 | updates/cc03/updated_note.md → 原文件 | 模型表 Opus 4.8 待后续统一核对 |
+| 2026-08-10 | 2 | cc04 Claude Code 会话管理 | update + 写回（修 /doctor 别名方向） | updates/cc04/updated_note.md → 原文件 | .claude.local/settings.json 路径规范待核 |

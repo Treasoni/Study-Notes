@@ -2,7 +2,7 @@
 title: Claude Code 会话管理
 tags: [claude, ai, 工具使用, 会话管理]
 created: 2026-04-05
-updated: 2026-07-12
+updated: 2026-08-10
 status: updated
 source_project: claude-code-tutorial
 ---
@@ -66,6 +66,9 @@ graph TD
     E --> F[优先级最高]
     B --> G[优先级最低]
 ```
+
+> [!note] 完整优先级（2026-08）
+> 高 → 低：托管设置（Managed）> 命令行参数（CLI args）> 本地项目设置（Local）> 项目设置（Project）> 用户设置（User）。
 
 **配置文件位置**：
 ```bash
@@ -173,10 +176,32 @@ CLAUDE.md > .claude/rules/ (路径匹配) > 内置规则
 
 # 查看当前会话状态
 /status
+# 显示会话类型：interactive / attached / unattended
 
 # 查看Token使用和成本
 /cost
+
+# 复制当前对话到新后台会话
+/fork
+
+# 回退到 /clear 之前的对话
+/rewind
 ```
+
+### Subagents 与后台会话
+
+> [!tip] 大白话
+> Subagent（子代理）就像你派的“临时工”，默认在后台自己干活，干完不打断你，结果留在 `/tasks` 里等你去收。
+
+- **默认后台运行**：Subagents 默认在后台运行，主会话可以继续处理其他事，不再阻塞等待。
+- **`/subtask`**：在当前会话内创建子代理，取代旧的 in-session 子代理方式。
+- **`/tasks`**：查看所有后台代理（含已完成的），已完成的保留在此直到手动清理。
+- 并发上限默认 20。
+
+### 交互对话框（AskUserQuestion）
+
+> [!note] 2026-08 行为变化
+> Claude 的提问对话框（AskUserQuestion，如权限确认、澄清问题）默认**不再自动继续**，必须人工响应。如需超时自动继续，可在 `/config` 中设置 idle timeout。
 
 ### 记忆管理命令
 
@@ -225,15 +250,16 @@ CLAUDE.md > .claude/rules/ (路径匹配) > 内置规则
 | `/add-dir` | 添加目录到上下文 |
 | `/bug` | 报告 Bug |
 | `/cd` | 切换工作目录 |
-| `/checkup` | 自诊断工具（清理无用 skills/MCPs/插件） |
+| `/checkup` | `/doctor` 的别名（全量环境体检） |
 | `/clear` | 清理会话历史 |
 | `/code-review` | 代码正确性审查 |
 | `/compact` | 压缩会话内容 |
 | `/config` | 编辑配置文件 |
 | `/cost` | 查看 Token 成本 |
-| `/doctor` | 诊断工具（2026 Q2 起已重命名为 `/checkup`） |
+| `/doctor` | 全量环境体检诊断工具（别名 `/checkup`） |
 | `/effort` | 设置努力级别 |
 | `/fast` | 速度优化 API 设置切换 |
+| `/fork` | 复制当前对话到新后台会话 |
 | `/goal` | 保持工作直到条件满足 |
 | `/help` | 显示帮助信息（包括所有可用技能） |
 | `/init` | 初始化 Claude Code |
@@ -245,7 +271,10 @@ CLAUDE.md > .claude/rules/ (路径匹配) > 内置规则
 | `/permissions` | 权限管理 |
 | `/plan` | 进入规划模式 |
 | `/pr_comments` | PR 评论 |
-| `/status` | 会话状态 |
+| `/rewind` | 回退到 `/clear` 之前的对话（不再通过符号链接/硬链接恢复或删除文件） |
+| `/status` | 会话状态（含会话类型 interactive / attached / unattended） |
+| `/subtask` | 在当前会话中创建子代理（取代旧 in-session 子代理） |
+| `/tasks` | 查看/管理后台代理，已完成的保留在此直到清理 |
 | `/terminal-setup` | 终端设置 |
 | `/todos` | 跨会话持久化任务列表 |
 | `/usage` | 查看配额明细 |
@@ -372,7 +401,7 @@ claude --search "关键词"
 claude --directory /path/to/project
 
 # 指定模型启动
-claude --model claude-opus-4-8
+claude --model claude-opus-5
 
 # 静默模式（减少输出）
 claude --quiet
@@ -380,6 +409,9 @@ claude --quiet
 # 详细模式（显示更多信息）
 claude --verbose
 ```
+
+> [!note] Agent 视图会话恢复
+> 在 agent 视图（Agent view）中，`/resume` 打开历史会话选择器，选择后将历史会话**以后台会话恢复**。它与终端 CLI 的 `claude --resume`（在终端中恢复历史会话）是两种不同的恢复入口。
 
 ## 会话操作流程
 
@@ -415,6 +447,19 @@ claude
 /status
 /cost
 ```
+
+### 会话恢复与复制
+
+| 操作 | 命令 | 说明 |
+|------|------|------|
+| 恢复上次会话 | `claude --continue` / `claude -c` | 终端恢复最近一次会话 |
+| 从历史选择恢复 | `claude --resume` | 终端中从历史列表选择 |
+| Agent 视图恢复 | `/resume` | agent 视图历史会话选择器，以后台会话恢复 |
+| 复制当前会话 | `/fork` | 把当前对话复制到新的后台会话 |
+| 回退对话 | `/rewind` | 恢复到 `/clear` 之前的对话，不受符号链接/硬链接影响 |
+
+> [!tip] 大白话
+> `/fork` 就像给当前对话“复制一份存档”到后台继续；`/rewind` 则是把对话“回退”到 `/clear` 之前的某个点，但不会再去动符号链接/硬链接这类文件。
 
 ### 记忆管理最佳实践
 
@@ -736,6 +781,10 @@ cp ~/.claude/templates/web-app.md ./CLAUDE.md
 - ❌ 会话历史过长
 - ❌ 读取了过多文件
 
+**transcript 写入失败 / 登录过期**：
+- ⚠️ 磁盘已满等原因导致会话 transcript 写入失败时，Claude Code 会显示警告
+- ⚠️ 登录过期时会出现警告，避免后台会话因鉴权失效而中断
+
 ### 最佳实践
 
 **记忆文件维护**：
@@ -833,6 +882,10 @@ cp ~/.claude/settings.json backup/
 
 A: 会话期间的对话需要通过 `/memory` 手动保存到记忆文件。配置文件修改后自动保存。
 
+**Q: 子代理现在如何运行？**
+
+A: Subagents 默认在后台运行，主会话不阻塞。用 `/subtask` 在当前会话内创建子代理，用 `/tasks` 查看所有后台代理（含已完成）并清理。
+
 ## 相关文档
 - [[如何使用Claude code]] | [[Claude MCP 使用指南]]
 - [[Claude Code 高级功能]] - 规划模式、扩展思考、自动模式、后台任务等高级功能
@@ -853,3 +906,9 @@ A: 会话期间的对话需要通过 `/memory` 手动保存到记忆文件。配
 
 ### GitHub 资源
 - [GitHub Issue #14227 - Memory feature discussion](https://github.com/anthropics/claude-code/issues/14227) - 记忆功能讨论
+
+## 更新记录
+
+| 日期 | 变更摘要 |
+|------|----------|
+| 2026-08-10 | 同步 2026-08 会话管理行为：新增 `/fork`、`/rewind`、`/subtask`、`/tasks`；`/status` 显示会话类型；Subagents 默认后台运行；AskUserQuestion 默认不再自动继续；transcript 写入失败与登录过期警告；更新 Opus 模型示例；补充配置优先级说明。 |

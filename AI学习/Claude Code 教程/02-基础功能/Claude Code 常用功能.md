@@ -1,7 +1,7 @@
 ---
 title: Claude Code 常用功能
-tags: [claude, ai, 工具使用, claude-code]
-updated: 2026-07-12
+tags: ["claude", "ai", "工具使用", "claude-code"]
+updated: 2026-08-10
 status: updated
 source_project: claude-code-tutorial
 ---
@@ -41,7 +41,15 @@ claude -c                      # 继续上次对话
 claude -r "session-id"         # 恢复指定会话
 claude --model opus            # 指定模型
 claude --add-dir ../lib        # 添加额外目录
+claude --permission-mode manual  # 权限模式：manual / acceptEdits / plan / bypassPermissions
 ```
+
+> [!tip] 权限模式（大白话）
+> 权限模式决定 Claude 干活时「哪些操作直接做、哪些要问你」。2026-07 起，原来的 **Default** 模式改名为 **Manual**：
+> - CLI：`claude --permission-mode manual`
+> - settings.json：`"defaultMode": "manual"`
+> - 常用模式：`manual`（逐次询问）、`acceptEdits`（自动接受文件编辑）、`plan`（只规划不执行）、`bypassPermissions`（跳过全部确认）
+> - 会话中按 `Shift + Tab` 可快速切换权限模式
 
 ### 安装快速参考
 
@@ -393,6 +401,11 @@ ultrathink         # ~16,000 tokens，30-60秒
 
 ### Slash 命令速查
 
+> [!tip] 新交互细节
+> - **Slash / Skill 叠加**：可连续加载最多 5 个前置，如 `/skill-a /skill-b do XYZ`
+> - **emoji 短码补全**：输入 `:thumbsup:` 会自动补全成 👍
+> - **会话类型**：`/status` 现在会显示会话类型（interactive / attached / unattended）
+
 **基础操作**：
 | 命令 | 功能 | 使用场景 |
 |------|------|----------|
@@ -414,7 +427,7 @@ ultrathink         # ~16,000 tokens，30-60秒
 | 命令 | 功能 | 使用场景 |
 |------|------|----------|
 | `/commit` | 创建 git commit | 提交代码变更 |
-| `/review` | 审查当前代码变更 | 代码审查 |
+| `/review` | 审查当前代码变更（`/code-review` 的别名，不会自动运行，需手动调用） | 代码审查 |
 | `/review-pr` | 审查 Pull Request | PR 代码审查 |
 | `/rewind` | 回滚到之前状态 | 撤销 AI 的错误修改 |
 
@@ -423,7 +436,7 @@ ultrathink         # ~16,000 tokens，30-60秒
 |------|------|----------|
 | `/cost` | 查看 Token 和费用 | 成本控制 |
 | `/status` | 查看模型和账户状态 | 检查配置 |
-| `/checkup` | 系统诊断（`/doctor` 别名） | 排查问题、清理配置 |
+| `/doctor` | 全量环境体检（`/checkup` 为别名） | 排查问题、清理配置 |
 | `/model` | 切换 AI 模型 | 更换模型 |
 | `/permissions` | 权限管理 | 控制操作需确认 |
 
@@ -432,14 +445,15 @@ ultrathink         # ~16,000 tokens，30-60秒
 |------|------|----------|
 | `/plan` | 进入规划模式 | 复杂任务预先规划 |
 | `/agents` | 管理后台子智能体 | 并行任务 |
+| `/subtask` | 在会话内启动子代理 | 会话内任务拆分 |
+| `/fork` | 把当前对话复制到新后台会话 | 并行分支任务 |
 | `/mcp` | 管理 MCP 服务 | 扩展能力 |
 | `/hooks` | 查看当前配置的 Hook | 查看自动化规则 |
 | `/cd` | 切换工作目录（不重建缓存） | 多模块项目 |
-| `/code-review` | 报告正确性错误，`--fix` 直接修复 | 代码审查 |
+| `/code-review` | 报告正确性错误（作为后台子代理运行，需手动触发），`--fix` 直接修复 | 代码审查 |
 | `/usage` | 查看配额使用明细 | 成本追溯 |
 | `/effort` | 设置努力级别 | 控制推理深度 |
 | `/fast` | 切换速度优化模式 | 快速迭代 |
-| `/checkup` | 自诊断与优化 | 清理/优化配置 |
 | `/goal` | 保持工作直到完成 | 长任务自动执行 |
 | `/todos` | 跨会话任务列表 | 项目管理 |
 
@@ -620,3 +634,11 @@ A: 按 `Ctrl+C` 停止当前操作。
   - [08-Checkpoints](https://github.com/luongnv89/claude-howto/tree/main/08-checkpoints)
   - [09-Advanced Features](https://github.com/luongnv89/claude-howto/tree/main/09-advanced-features)
   - [10-CLI](https://github.com/luongnv89/claude-howto/tree/main/10-cli)
+
+## 更新记录
+
+### 2026-08-10
+- 权限模式「Default」改名「Manual」：CLI `--permission-mode manual`、settings `"defaultMode": "manual"`，并新增权限模式大白话说明。
+- 命令更新：`/doctor`（=`/checkup` 全量环境体检，原 `/checkup` 主名调整）；新增 `/fork`（复制到新后台会话）、`/subtask`（会话内子代理）；`/review` 为 `/code-review` 别名且不再自动运行。
+- 交互细节：Slash/Skill 可叠加加载（最多 5 个前置）；emoji 短码自动补全（`:thumbsup:`）；`/status` 显示会话类型。
+- 本次仅局部 patch 过时段落，未重写全文。

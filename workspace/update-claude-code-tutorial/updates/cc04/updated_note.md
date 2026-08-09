@@ -250,13 +250,13 @@ CLAUDE.md > .claude/rules/ (路径匹配) > 内置规则
 | `/add-dir` | 添加目录到上下文 |
 | `/bug` | 报告 Bug |
 | `/cd` | 切换工作目录 |
-| `/checkup` | 自诊断工具（清理无用 skills/MCPs/插件） |
+| `/checkup` | `/doctor` 的别名（全量环境体检） |
 | `/clear` | 清理会话历史 |
 | `/code-review` | 代码正确性审查 |
 | `/compact` | 压缩会话内容 |
 | `/config` | 编辑配置文件 |
 | `/cost` | 查看 Token 成本 |
-| `/doctor` | 诊断工具（2026 Q2 起已重命名为 `/checkup`） |
+| `/doctor` | 全量环境体检诊断工具（别名 `/checkup`） |
 | `/effort` | 设置努力级别 |
 | `/fast` | 速度优化 API 设置切换 |
 | `/fork` | 复制当前对话到新后台会话 |

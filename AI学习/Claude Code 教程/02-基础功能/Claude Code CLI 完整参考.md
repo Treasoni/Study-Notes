@@ -2,7 +2,7 @@
 title: Claude Code CLI 完整参考
 tags: [ai, 工具使用, cli, claude-code]
 created: 2026-04-05
-updated: 2026-07-12
+updated: 2026-08-10
 status: updated
 source_project: claude-code-tutorial
 ---
@@ -12,7 +12,7 @@ source_project: claude-code-tutorial
 > [!info] 概述
 > **一句话定义**：Claude Code CLI 是在终端中与 Claude 交互的命令行工具，支持交互式会话和脚本化自动化两种模式。
 > **🎯 比喻**：就像一个住在终端里的 AI 编程助手，既能和你聊天对话，也能像 Unix 管道一样处理自动化任务。
-> **版本**：Claude Code v2.1.207（2026-07-11）
+> **版本**：Claude Code v2.1.226（2026-08-10）
 
 ## 核心概念
 
@@ -153,7 +153,7 @@ claude -p "列出待办事项" | grep "紧急"
 |------|------|------|
 | `claude mcp` | 配置 MCP 服务器 | 详见 MCP 文档 |
 | `claude mcp serve` | 将 Claude Code 作为 MCP 服务器运行 | `claude mcp serve` |
-| `claude agents` | 列出所有配置的子代理 | `claude agents` |
+| `claude agents` | 列出所有配置的子代理；会话内 `/status` 可查看会话类型（interactive / attached / unattended） | `claude agents` |
 | `claude auto-mode defaults` | 打印自动模式默认规则（JSON） | `claude auto-mode defaults` |
 | `claude remote-control` | 启动远程控制服务器 | `claude remote-control` |
 | `claude plugin` | 管理插件（安装、启用、禁用） | `claude plugin install my-plugin` |
@@ -318,9 +318,12 @@ claude -p --system-prompt-file ./prompts/code-reviewer.txt "审查 main.py"
 | `--allowedTools` | 无需提示即可执行的工具 | `"Bash(git log:*)" "Read"` |
 | `--disallowedTools` | 从上下文中移除的工具 | `"Bash(rm:*)" "Edit"` |
 | `--dangerously-skip-permissions` | 跳过所有权限提示 | `claude --dangerously-skip-permissions` |
-| `--permission-mode` | 以指定权限模式开始 | `claude --permission-mode auto` |
+| `--permission-mode` | 以指定权限模式开始（`manual`、`acceptEdits`、`plan`、`auto` 等） | `claude --permission-mode manual` |
 | `--permission-prompt-tool` | 用于权限处理的 MCP 工具 | `claude -p --permission-prompt-tool mcp_auth "query"` |
 | `--enable-auto-mode` | 解锁自动权限模式 | `claude --enable-auto-mode` |
+
+> [!tip] 大白话：权限模式改名
+> 原来的 `default`（默认）权限模式已改名为 `manual`（手动）。含义没变：不自动批准工具调用，每次需要时都会询问你。CLI 用 `--permission-mode manual`，settings.json 里对应 `"defaultMode": "manual"`。
 
 ### 权限配置示例
 
@@ -361,7 +364,8 @@ claude -p --max-turns 2 \
 | `--verbose` | 启用详细日志 | | `claude --verbose` |
 | `--include-partial-messages` | 包含流式事件 | 需要 `stream-json` | `claude -p --output-format stream-json --include-partial-messages "query"` |
 | `--json-schema` | 获取匹配 schema 的验证 JSON | | `claude -p --json-schema '{"type":"object"}' "query"` |
-| `--max-budget-usd` | Print 模式的最大花费 | | `claude -p --max-budget-usd 5.00 "query"` |
+| `--max-budget-usd` | 最大花费预算；达到上限时停止后台子代理 | | `claude -p --max-budget-usd 5.00 "query"` |
+| `--forward-subagent-text` | stream-json 模式下透传子代理文本 | 需要 `stream-json` | `claude -p --output-format stream-json --forward-subagent-text "query"` |
 
 ### 输出格式示例
 
@@ -511,6 +515,9 @@ claude -p --agents "$(cat agents.json)" --model sonnet "分析性能"
 2. **用户级别**（`~/.claude/agents/`）- 所有项目
 3. **项目级别**（`.claude/agents/`）- 当前项目
 
+> [!note] 会话类型
+> 在 `claude agents` 会话内输入 `/status` 可查看当前会话类型：`interactive`（交互式）、`attached`（附加式）或 `unattended`（无人值守）。
+
 > [!info] 📚 来源
 > - [GitHub - claude-howto Agents Configuration](https://github.com/luongnv89/claude-howto/tree/main/10-cli#agents-configuration)
 
@@ -554,6 +561,7 @@ claude --strict-mcp-config --mcp-config ./production-mcp.json "部署到预发�
 | `--debug` | 启用带过滤的调试模式 | `claude --debug "api,mcp"` |
 | `--enable-lsp-logging` | 启用详细 LSP 日志 | `claude --enable-lsp-logging` |
 | `--betas` | API 请求的 Beta 头 | `claude --betas interleaved-thinking` |
+| `--ax-screen-reader` | 屏幕阅读器模式（终端转线性纯文本，供 VoiceOver/NVDA 使用） | `claude --ax-screen-reader` |
 | `--init` / `--init-only` | 运行初始化 hooks | `claude --init` |
 | `--maintenance` | 运行维护 hooks 并退出 | `claude --maintenance` |
 
@@ -587,6 +595,11 @@ claude --ide "帮我处理这个文件"
 | `CLAUDE_CODE_ENABLE_TASKS` | 启用任务列表功能 |
 | `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` | 启用实验性代理团队 |
 | `CLAUDE_CODE_SUBAGENT_MODEL` | 子代理执行的模型 |
+| `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` | 后台子代理最大并发数（默认 20） |
+| `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` | 子代理嵌套深度上限（设为 `1` 禁用嵌套） |
+| `CLAUDE_CODE_DISABLE_1M_CONTEXT` | 对原生 1M 上下文模型强制 200K 自动压缩 |
+| `CLAUDE_AX_SCREEN_READER` | 设为 `1` 启用屏幕阅读器模式 |
+| `CLAUDE_CODE_DISABLE_MOUSE_CLICKS` | 禁用鼠标点击，仅保留滚轮 |
 
 ---
 
@@ -814,3 +827,11 @@ export ANTHROPIC_API_KEY=your-key
 - [[Claude Code 常用功能]]
 - [[Claude Code 会话管理]]
 - [[Claude MCP 使用指南]]
+
+---
+
+## 更新记录
+
+| 日期 | 变更摘要 |
+|------|---------|
+| 2026-08-10 | 同步 Claude Code v2.1.226：权限模式 `default` 改名 `manual`（`--permission-mode manual`）；新增 `--ax-screen-reader`、`--forward-subagent-text` 标志并更新 `--max-budget-usd`（达到上限停止后台子代理）；新增 5 个环境变量（`CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` 默认 20、`CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1` 禁用嵌套、`CLAUDE_CODE_DISABLE_1M_CONTEXT`、`CLAUDE_AX_SCREEN_READER=1`、`CLAUDE_CODE_DISABLE_MOUSE_CLICKS`）；`claude agents` 会话内 `/status` 显示会话类型（interactive / attached / unattended）。 |
