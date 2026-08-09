@@ -13,3 +13,9 @@
 | 2026-08-10 | 3 | cc05 Claude Code 模型与推理设置 | update + 写回 | updates/cc05/updated_note.md → 原文件 | opusplan 别名 200K 待核；促销价时效 |
 | 2026-08-10 | 3 | cc07 Claude Code Checkpoints 使用指南 | update + 写回 | updates/cc07/updated_note.md → 原文件 | /checkpoint 与 autoCheckpoint 移除为推断 |
 | 2026-08-10 | 3 | cc08 Claude Code Hooks 使用指南 | update + 写回 | updates/cc08/updated_note.md → 原文件 | 子类型版本归属为 v2.1.198+ 粗略 |
+| 2026-08-10 | 4 | cc09 Claude Code Memory 完整指南 | update + 写回 | updates/cc09/updated_note.md → 原文件 | 移除 DISABLE_AUTO_MEMORY=0 语义待核；修 3 处乱码 |
+| 2026-08-10 | 4 | cc10 Claude Code Subagents 完整指南 | update + 写回 | updates/cc10/updated_note.md → 原文件 | 版本号/数值建议对照官方文档 |
+| 2026-08-10 | 4 | cc11 Claude Code 插件系统使用指南 | update + 写回 | updates/cc11/updated_note.md → 原文件 | breaking 安全变更版本归属待核 |
+| 2026-08-10 | 5 | cc13 Claude Code Slash Commands 完整参考 | update + 写回 | updates/cc13/updated_note.md → 原文件 | /branch 与 /fork 关系待核 |
+| 2026-08-10 | 5 | cc14 Claude MCP 使用指南 | update + 写回 | updates/cc14/updated_note.md → 原文件 | 版本号精确归属待核 |
+| 2026-08-10 | 5 | cc15 如何编写Skills | update + 写回 | updates/cc15/updated_note.md → 原文件 | 叠加数量(5 vs 6)措辞按官方 docs |
