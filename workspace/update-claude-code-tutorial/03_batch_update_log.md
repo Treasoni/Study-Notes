@@ -10,3 +10,6 @@
 | 2026-08-10 | 2 | cc02 Claude Code 常用功能 | update + 写回 | updates/cc02/updated_note.md → 原文件 | 快捷键速查无来源未核 |
 | 2026-08-10 | 2 | cc03 Claude Code CLI 完整参考 | update + 写回 | updates/cc03/updated_note.md → 原文件 | 模型表 Opus 4.8 待后续统一核对 |
 | 2026-08-10 | 2 | cc04 Claude Code 会话管理 | update + 写回（修 /doctor 别名方向） | updates/cc04/updated_note.md → 原文件 | .claude.local/settings.json 路径规范待核 |
+| 2026-08-10 | 3 | cc05 Claude Code 模型与推理设置 | update + 写回 | updates/cc05/updated_note.md → 原文件 | opusplan 别名 200K 待核；促销价时效 |
+| 2026-08-10 | 3 | cc07 Claude Code Checkpoints 使用指南 | update + 写回 | updates/cc07/updated_note.md → 原文件 | /checkpoint 与 autoCheckpoint 移除为推断 |
+| 2026-08-10 | 3 | cc08 Claude Code Hooks 使用指南 | update + 写回 | updates/cc08/updated_note.md → 原文件 | 子类型版本归属为 v2.1.198+ 粗略 |

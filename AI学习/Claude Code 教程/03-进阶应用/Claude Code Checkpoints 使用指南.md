@@ -2,7 +2,7 @@
 title: Claude Code Checkpoints 使用指南
 tags: [ai, claude-code, checkpoints, session-management]
 created: 2026-04-05
-updated: 2026-07-12
+updated: 2026-08-10
 status: updated
 source_project: claude-code-tutorial
 ---
@@ -29,6 +29,9 @@ source_project: claude-code-tutorial
 | **Git Commit** | 代码版本记录，但更细粒度、自动创建 |
 | **时光机** | 可以回到对话的任意时刻 |
 
+> [!tip] 大白话
+> 把 Checkpoint 想成游戏里的「存档点」或一台「时光机」：Claude 每走一步都会自动存一档，走错路随时读档重来，不用怕把代码和对话搞乱。
+
 ### Checkpoint 包含什么？
 
 ```
@@ -36,7 +39,7 @@ source_project: claude-code-tutorial
 │              Checkpoint 内容                │
 ├─────────────────────────────────────────────┤
 │                                             │
-│  📝 ���息历史  - 所有用户和 Claude 的对话    │
+│  📝 信息历史  - 所有用户和 Claude 的对话    │
 │                                             │
 │  📁 文件修改  - Claude 编辑过的所有文件     │
 │                                             │
@@ -78,8 +81,8 @@ Checkpoint 1        2        3        4        5
 
 **特点**：
 - ✅ **全自动**：无需手动保存，每条消息都是一个检查点
-- ✅ **跨会话持久**：重启后仍然可以访问之前的检查点
-- ✅ **自动清理**：30 天后自动删除（可配置）
+- ✅ **跨会话持久**：Checkpoint 与会话一起保存，重启或恢复会话后仍然可以访问之前的检查点
+- ✅ **自动清理**：默认 30 天后自动删除（可用 `cleanupPeriodDays` 配置），单个会话内保留最近 100 个 checkpoint 的文件快照
 
 ### 追踪的文件操作
 
@@ -93,6 +96,14 @@ Checkpoint 1        2        3        4        5
 > [!warning] 重要限制
 > Checkpoints **不追踪** Bash 命令对文件系统的修改。如果 Claude 用 `rm file.txt` 删除了文件，这个操作无法通过 rewind 恢复。
 
+> [!warning] 符号链接 / 硬链接文件不回滚
+> `/rewind` **不会**通过符号链接或硬链接恢复或删除文件。选择 **Restore code** 或 **Restore code and conversation** 时，Claude Code 会跳过这类路径，并提示 `Restored the code, but skipped N files`，被跳过的文件保持当前内容。
+> - 典型场景：被 dotfile 管理器符号链接进项目的配置文件、被 pnpm 硬链接到位的文件。
+> - v2.1.216 之前 `/rewind` 会无警告地读写链接指向的路径；现版本已改为安全跳过（防逃逸）。
+
+> [!warning] 子代理（subagent）的修改不一定能回滚
+> 只有前台运行的 fork 技能（`context: fork` 且 `background: false`）的编辑会被当前会话的 checkpoint 记录并可回滚；其它后台子代理（含默认后台 fork、后台 `/code-review --fix`）的编辑不会被回滚，需要时用 Git 还原。
+
 ---
 
 ## 3. 如何使用
@@ -101,18 +112,21 @@ Checkpoint 1        2        3        4        5
 
 **方式一：键盘快捷键**
 ```
-Esc + Esc    （连按两次 Esc 键）
+Esc + Esc    （连按两次 Esc 键，需在输入框为空时）
 ```
+
+> [!note] 输入框有文字时
+> 如果输入框里有内容，连按两次 Esc 会先**清空输入**（文字会保存到输入历史，按 `↑` 可召回），不会打开 rewind 菜单。
 
 **方式二：斜杠命令**
 ```bash
-/rewind      # 主命令
-/checkpoint  # 别名
+/rewind      # 主命令：回滚代码和/或对话，或压缩部分对话
+/resume      # 跨会话：返回之前的会话（配合 /clear 后的恢复）
 ```
 
 ### Rewind 选项详解
 
-打开界面后，选择一个 checkpoint，会看到 5 个选项：
+打开界面后，选择一个 checkpoint，会看到 6 个选项：
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -131,11 +145,32 @@ Esc + Esc    （连按两次 Esc 键）
 │  4. 📋 Summarize from here                         │
 │     从此点开始压缩对话为摘要                       │
 │                                                     │
-│  5. ❌ Never mind                                   │
+│  5. 📋 Summarize up to here                        │
+│     压缩此点之前的对话，保留之后的消息             │
+│                                                     │
+│  6. ❌ Never mind                                   │
 │     取消操作                                        │
 │                                                     │
 └─────────────────────────────────────────────────────┘
 ```
+
+> [!note] 选项随场景变化
+> 两个恢复代码的选项（Restore code / Restore code and conversation）只在所选 checkpoint 之后**存在被追踪的文件修改**时才出现；若没有文件改动，菜单只提供 Restore conversation、两个 Summarize 和 Never mind。
+>
+> 选择 Restore conversation 或 Summarize from here 后，选中消息的原始 prompt 会恢复到输入框，方便重新发送或修改。
+
+### 恢复 /clear 之前的对话
+
+> [!tip] 大白话
+> 相当于「先存档再清场」：之前那盘对话记录还留着，随时可以读回来继续。
+
+如果你在**同一个 Claude Code 进程**里执行过 `/clear`，打开 rewind 菜单时顶部会多出一项：
+
+```
+/resume <session-id> (previous session)
+```
+
+选中它即可恢复到 `/clear` 之前的对话。该入口在退出 Claude Code 或恢复其它会话之前一直可用；需要 Claude Code **v2.1.191 或更高版本**。旧版本请改用 `/resume` 从会话列表中选择。
 
 ### 选项对比
 
@@ -143,15 +178,16 @@ Esc + Esc    （连按两次 Esc 键）
 |------|------|------|----------|
 | **Restore both** | 回滚 | 回滚 | 完全重来，放弃之后所有工作 |
 | **Restore conversation** | 保留 | 回滚 | 保留代码改动，重新提问 |
-| **Restore code** | 回滚 | 保留 | 代码改坏了，但想保留对话上下 |
-| **Summarize** | 保留 | 压缩 | 释放上下文空间，但保留关键信息 |
+| **Restore code** | 回滚 | 保留 | 代码改坏了，但想保留对话上下文 |
+| **Summarize from here** | 保留 | 压缩（此点之后） | 释放上下文空间，但保留关键信息 |
+| **Summarize up to here** | 保留 | 压缩（此点之前） | 保留后续消息，压缩之前的长对话 |
 
 ### Summarize 详解
 
 > [!note] 何时使用 Summarize
 > 当对话变得很长，上下文窗口紧张时，可以用 Summarize 压缩中间的对话。
 
-**工作原理**：
+**工作原理（Summarize from here）**：
 ```
 Before Summarize:
 ┌────────────────────────────────────────┐
@@ -176,6 +212,17 @@ After Summarize:
 - 选中点之前的消息保持完整
 - 选中点及之后的消息被压缩为摘要
 - **原始消息保留在会话记录中**，需要时 Claude 仍可参考
+
+### Summarize up to here
+
+与 Summarize from here 相反，它把选中点**之前**的对话压缩成摘要，之后的后续消息保持完整。压缩完成后光标停在对话末尾，输入框为空。
+
+### 引导摘要
+
+选中某个 Summarize 选项后，可以在菜单中「add context (optional)」行输入提示，引导摘要聚焦于特定内容；直接按选项数字键则不附加提示、立即压缩。
+
+> [!note] 与 /compact 的关系
+> Summarize 留在同一会话里压缩上下文，类似更精准的 `/compact`。如果想保留原会话完整并开新分支尝试别的思路，用 `/branch` 或 `claude --continue --fork-session`。
 
 ---
 
@@ -301,22 +348,17 @@ Claude: 已将中间对话压缩为摘要，上下文空间已释放
 
 ### 开关自动 Checkpoint
 
-在设置中配置：
-
-```json
-{
-  "autoCheckpoint": true
-}
-```
-
-| 值 | 说明 |
-|---|------|
-| `true` | 每条用户消息自动创建（默认） |
-| `false` | 禁用自动创建 |
+Checkpoint 默认开启，随每条用户消息自动创建；单个会话内保留最近 100 个 checkpoint 的文件快照。可在 `/config` 中查看与调整。
 
 ### 清理周期
 
-Checkpoints 默认保留 30 天，之后自动清理。
+Checkpoints 默认保留 30 天，之后随会话一起自动清理。可用 `cleanupPeriodDays` 设置调整保留天数：
+
+```json
+{
+  "cleanupPeriodDays": 30
+}
+```
 
 ---
 
@@ -355,6 +397,18 @@ A: 可以。回滚只是切换到某个历史状态，之前的状态仍然保�
 
 A: 不能。Checkpoint 不追踪 Bash 对文件系统的直接操作。重要操作前建议用 Git 或手动备份。
 
+**Q: 执行过 `/clear` 之后，还能找回之前的对话吗？**
+
+A: 可以。在同一个 Claude Code 进程里打开 rewind 菜单，顶部会出现 `/resume <session-id> (previous session)`，选中即可恢复到 `/clear` 之前的对话（需要 v2.1.191+）。旧版本用 `/resume` 从会话列表选择。
+
+**Q: 符号链接或硬链接的文件能通过 rewind 恢复吗？**
+
+A: 不能。`/rewind` 会跳过这类路径并提示 `Restored the code, but skipped N files`，文件保持当前内容。需要的话让 Claude 反向修改或自己编辑文件。
+
+**Q: 子代理（subagent）做的修改能回滚吗？**
+
+A: 只有前台运行的 fork 技能可以；其它后台子代理的编辑不会被 checkpoint 记录，回滚不生效，需用 Git 还原。
+
 **Q: Checkpoint 和 Git 怎么配合？**
 
 A:
@@ -368,9 +422,11 @@ A:
 
 | 问题 | 解决方案 |
 |------|----------|
-| **找不到期望的 checkpoint** | 检查是否被清理、确认 `autoCheckpoint` 开启、检查磁盘空间 |
+| **找不到期望的 checkpoint** | 检查是否被清理、确认 Checkpoint 已开启、检查磁盘空间 |
 | **无法回滚** | 检查是否有未提交的冲突、尝试其他 checkpoint |
 | **回滚后文件异常** | 可能是外部修改导致，检查 Git 状态 |
+| **回滚后提示 skipped N files** | 说明所选 checkpoint 之后存在符号链接/硬链接文件被跳过；用 Git 或手动编辑处理 |
+| **子代理修改回滚后没恢复** | 后台子代理的编辑不在 checkpoint 内，用 Git revert 还原 |
 
 ---
 
@@ -392,3 +448,16 @@ A:
 - [Checkpointing - Claude Code 官方文档](https://code.claude.com/docs/en/checkpointing)
 - [Claude HowTo - Checkpoints](https://github.com/luongnv89/claude-howto/tree/main/08-checkpoints) - 可视化教程和示例
 - [Rewind file changes with checkpointing - Claude API Docs](https://platform.claude.com/docs/en/agent-sdk/file-checkpointing)
+
+---
+
+## 更新记录
+
+- **2026-08-10**：同步 Checkpoints / Rewind 到 2026-08 最新行为。
+  - `/rewind` 现可恢复到 `/clear` 之前的对话（rewind 菜单出现 `/resume <session-id> (previous session)`，需 v2.1.191+）。
+  - `/rewind` 不再通过符号链接/硬链接恢复或删除文件，改为安全跳过并提示（v2.1.216+ 防逃逸）。
+  - Rewind 菜单新增 **Summarize up to here**（压缩此点之前的对话），选项由 5 个变为 6 个。
+  - 补充子代理（subagent）编辑不一定能回滚、前台 fork 技能除外等限制。
+  - 移除未在官方命令列表中出现的 `/checkpoint` 别名，补充 `/resume`。
+  - 配置项更新：清理周期改用官方 `cleanupPeriodDays` 设置，去掉未验证的 `autoCheckpoint`。
+  - 核心概念补充「大白话」解释；修复正文一个乱码字符（信息历史）。

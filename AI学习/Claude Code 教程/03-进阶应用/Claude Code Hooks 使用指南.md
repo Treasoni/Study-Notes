@@ -2,7 +2,7 @@
 title: Claude Code Hooks 使用指南
 tags: [claude, ai, 工具使用, hook, 自动化]
 created: 2026-03-22
-updated: 2026-07-12
+updated: 2026-08-10
 status: updated
 source_project: claude-code-tutorial
 ---
@@ -16,6 +16,9 @@ source_project: claude-code-tutorial
 > **一句话定义**：通过配置文件定义自动化规则，在 Claude Code 生命周期的特定时间点执行自定义逻辑。
 >
 > **通俗比喻**：就像给 Claude Code 设置"触发器"，当特定事件发生时自动执行你预设的操作。
+
+> [!tip] 大白话
+> Hook 就像给 Claude Code 装了一排"传感器 + 自动开关"：它每次开始干活（SessionStart）、要动工具（PreToolUse）、干完活（PostToolUse）、结束回合（Stop），都会按你的设定自动触发一段小程序——可以放行、拦下、改参数，或顺手跑个通知、格式化、安全检查。你只需把规则写进配置文件，剩下的交给它自动执行。
 
 ---
 
@@ -102,6 +105,10 @@ source_project: claude-code-tutorial
 "matcher": "Bash(rm)"                // 匹配包含 rm 的 Bash 命令
 "matcher": "Edit", "pathMatcher": "\\.env$"  // 匹配 .env 文件的编辑
 ```
+
+> [!warning] Matcher 行为更新（v2.1.198+）
+> - **单段 `dir/**` 的 `if:` 条件**：现在只匹配 `<cwd>/dir` 下的路径，不再匹配其他位置的同名目录。若需匹配项目其他路径，请显式写完整相对路径。
+> - **带连字符的 hook 标识符**（如 `my-hook`）：使用**精确匹配**，不做通配或正则展开。
 
 ---
 
@@ -193,7 +200,10 @@ Claude Code 支持 **5 种 Hook 类型**：
 
 ## Hook 事件完整列表
 
-Claude Code 支持 **24+ 个 Hook 事件**（v2.1.83+ 新增文件系统事件）：
+Claude Code 支持 **25+ 个 Hook 事件**（v2.1.83+ 新增文件系统事件；v2.1.198+ 新增 `DirectoryAdded` 与 `Notification` 子事件）：
+
+> [!tip] 大白话
+> 这些事件就是 Claude Code 的"人生节点"：出生（SessionStart）、听到你说话（UserPromptSubmit）、拿起工具（PreToolUse）、放下工具（PostToolUse）、收工（Stop）、加了个目录（DirectoryAdded）。你在哪个节点挂了 hook，它就在那一刻自动响应。
 
 ### 核心事件
 
@@ -208,7 +218,7 @@ Claude Code 支持 **24+ 个 Hook 事件**（v2.1.83+ 新增文件系统事件�
 | 事件 | 触发时机 | 可阻止 | 用途 |
 |------|----------|--------|------|
 | **UserPromptSubmit** | 用户提交提示词 | ✅ | 验证提示词 |
-| **Notification** | 发送通知时 | ❌ | 自定义处理 |
+| **Notification** | 发送通知时（含 `agent_needs_input` / `agent_completed` 子类型） | ❌ | 自定义处理 |
 
 ### 工具执行
 
@@ -242,6 +252,7 @@ Claude Code 支持 **24+ 个 Hook 事件**（v2.1.83+ 新增文件系统事件�
 |------|----------|--------|------|
 | **ConfigChange** | 配置文件变更 | ✅ | 响应更新 |
 | **CwdChanged** | 工作目录变更 | ❌ | 目录初始化 |
+| **DirectoryAdded** | `/add-dir` 或 SDK `register_repo_root` 后 | ❌ | 新目录初始化 |
 | **FileChanged** | 监视文件变更 | ❌ | 文件监控 |
 
 ### 上下文压缩
@@ -334,6 +345,9 @@ if [ -n "$CLAUDE_ENV_FILE" ]; then
 fi
 exit 0
 ```
+
+> [!note] Headless 会话修复（v2.1.198+）
+> SessionStart hook 在 headless（无头 / unattended，如 CI 或后台会话）中的事件流已修复，事件不再丢失。依赖 SessionStart 做环境初始化的场景现在可以放心使用。
 
 ---
 
@@ -634,6 +648,10 @@ echo $?  # 0=通过, 2=阻止
 
 组织级 `disableAllHooks` 设置可以**强制禁用 Hook**，个人用户无法覆盖。
 
+### 插件 Hook 注入防护（v2.1.207+）
+
+插件中的 shell 形式 hooks、monitors、`headersHelper` **拒绝 `${user_config.*}` 引用**（shell 注入修复）。若插件原先依赖 `headersHelper:${user_config.apiKey}` 之类写法，请改用其他配置传递方式，否则该 hook 会被拒绝。
+
 ---
 
 ## 环境变量参考
@@ -709,3 +727,15 @@ A: 运行一次性脚本种子 `~/.claude/settings.json`，添加约 67 条安�
 - [Automate workflows with hooks - Claude Code Docs](https://code.claude.com/docs/en/hooks-guide) - 使用指南
 - [claude-howto/06-hooks - GitHub](https://github.com/luongnv89/claude-howto/tree/main/06-hooks) - 社区视觉化示例
 - [anthropics/claude-code GitHub](https://github.com/anthropics/claude-code) - 官方仓库
+
+---
+
+## 更新记录
+
+- **2026-08-10**：同步到 2026-08 现状。
+  - 新增 `Notification` hook 事件子类型 `agent_needs_input` / `agent_completed` 说明。
+  - 新增 `DirectoryAdded` hook 事件（`/add-dir` 或 SDK `register_repo_root` 后触发）。
+  - matcher 行为更新：单段 `dir/**` 的 `if:` 条件只匹配 `<cwd>/dir`；带连字符的 hook 标识符精确匹配。
+  - 补充 SessionStart 在 headless 会话中的事件流修复说明。
+  - 补充插件 shell 形式 hooks / monitors / `headersHelper` 拒绝 `${user_config.*}` 的安全提醒。
+  - 核对 PreToolUse / PostToolUse / Stop 等事件章节，未发现过时描述；核心概念补充 `[!tip] 大白话`。

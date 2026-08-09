@@ -2,7 +2,7 @@
 title: Claude Code 模型与推理设置
 tags: [claude, ai, 工具使用, 模型配置]
 created: 2026-03-08
-updated: 2026-08-07
+updated: 2026-08-10
 status: updated
 source_project: claude-code-tutorial
 ---
@@ -51,6 +51,9 @@ source_project: claude-code-tutorial
 └─────────────────────────────────────────────────────────────┘
 ```
 
+> [!tip] 大白话（2026-08 更新）
+> 打开 Claude Code 默认就是 **Sonnet 5**（日常主力）；想要最强推理就 `/model opus` 切到 **Opus 5**。别被旧教程里的 Opus 4.x 带偏——默认模型早已升级。
+
 ---
 
 ## CLI 模型配置
@@ -61,12 +64,15 @@ Claude Code 使用**模型别名**来简化模型选择，别名总是指向最�
 
 | 别名 | 对应模型 | 使用场景 | Token 上下文 |
 |------|----------|----------|-------------|
-| `default` | 根据账户自动选择（Max: Opus 4.8, 其他: Sonnet 5） | 系统推荐 | 1M |
+| `default` | 根据账户自动选择（Max: Opus 5, 其他: Sonnet 5） | 系统推荐 | 1M |
 | `sonnet` | Claude Sonnet 5 | 日常编码任务 | 1M |
-| `opus` | Claude Opus 4.8 | 复杂推理任务 | 1M |
-| `haiku` | Claude Haiku 4.5 | 简单快速任务 | 1M |
+| `opus` | Claude Opus 5 | 复杂推理任务 | 1M |
+| `haiku` | Claude Haiku 4.5 | 简单快速任务 | 200K |
 | `sonnet[1m]` | Sonnet + 1M 上下文 | 长会话/大型代码库 | 1M |
 | `opusplan` | 智能混合模式 | 规划用 Opus，执行用 Sonnet | 200K |
+
+> [!tip] 大白话
+> 什么都不用配就用 `default`：高级账户（Max）默认 **Opus 5**，普通账户默认 **Sonnet 5**。`opus` / `sonnet` 别名永远指向各自系列的最新版本。
 
 > [!info] 📚 来源
 > - [Model configuration - Claude Code Docs](https://code.claude.com/docs/en/model-config) - 官方模型配置文档
@@ -119,8 +125,8 @@ claude --model haiku
 claude -m opusplan
 
 # 指定完整模型名称（固定版本）
-claude --model claude-opus-4-6
-claude --model claude-sonnet-4-6
+claude --model claude-opus-5
+claude --model claude-sonnet-5
 ```
 
 #### 方式三：环境变量
@@ -133,6 +139,9 @@ claude
 # 永久设置（添加到 ~/.zshrc 或 ~/.bashrc）
 echo 'export ANTHROPIC_MODEL=sonnet' >> ~/.zshrc
 source ~/.zshrc
+
+# 也可直接指定完整模型名
+export ANTHROPIC_MODEL=claude-opus-5
 ```
 
 #### 方式四：配置文件
@@ -184,10 +193,13 @@ claude --model opus --fallback-model sonnet "分析架构"
 | 级别 | 说明 | Token 预算 | 适用场景 |
 |------|------|-----------|----------|
 | `low` | 快速响应 | 最少 | 简单问答、代码补全 |
-| `medium` | 标准思考（Opus/Sonnet 默认） | 平衡 | 日常开发任务 |
+| `medium` | 标准思考 | 平衡 | 日常开发任务 |
 | `high` | 深度推理 | 多 | 复杂架构设计、调试 |
-| `xhigh` | 极深推理（Opus 4.7/4.8 支持） | 更多 | 高难度架构决策 |
-| `max` | 最大推理（Opus 4.6+ 支持） | 最多 | 最难的问题 |
+| `xhigh` | 极深推理（Opus 5 / Opus 4.7+ / Sonnet 5；Claude Code 默认档） | 更多 | 高难度架构决策 |
+| `max` | 最大推理（Opus 5 / Opus 4.6+ / Sonnet 5） | 最多 | 最难的问题 |
+
+> [!tip] 大白话
+> Effort Level 就是「让模型多想多久」：`low` 秒回，`medium` 常规，越往上思考越深、越费 token。Claude Code 默认已是 `xhigh`，日常不用手动改。
 
 **设置方式**：
 
@@ -268,21 +280,24 @@ Claude Code 支持多种第三方平台配置方式，分为**官方支持的云
 
 支持通过环境变量或 `modelOverrides` 将模型路由到云平台：
 
+> [!info] 2026-08 更新
+> 自 v2.1.207 起，**Amazon Bedrock、Google Vertex AI、Claude Platform on AWS** 的默认模型为 **Opus 4.8**。在这些平台 **Auto mode 无需 `CLAUDE_CODE_ENABLE_AUTO_MODE` 即可用**；如需关闭，在 settings.json 设置 `"disableAutoMode": true`。
+
 **方式一：环境变量固定模型版本**
 
 ```bash
 # Amazon Bedrock - 使用推理配置文件 ARN
-export ANTHROPIC_DEFAULT_OPUS_MODEL='us.anthropic.claude-opus-4-6-v1'
-export ANTHROPIC_DEFAULT_SONNET_MODEL='us.anthropic.claude-sonnet-4-6-v1'
+export ANTHROPIC_DEFAULT_OPUS_MODEL='us.anthropic.claude-opus-4-8-v1'
+export ANTHROPIC_DEFAULT_SONNET_MODEL='us.anthropic.claude-sonnet-5-v1'
 
 # Google Vertex AI - 使用版本名称
-export ANTHROPIC_DEFAULT_OPUS_MODEL='claude-opus-4-6'
+export ANTHROPIC_DEFAULT_OPUS_MODEL='claude-opus-4-8'
 
 # Azure AI Foundry - 使用部署名称
-export ANTHROPIC_DEFAULT_OPUS_MODEL='claude-opus-4-6'
+export ANTHROPIC_DEFAULT_OPUS_MODEL='claude-opus-4-8'
 
 # 启用 1M 上下文
-export ANTHROPIC_DEFAULT_OPUS_MODEL='claude-opus-4-6[1m]'
+export ANTHROPIC_DEFAULT_OPUS_MODEL='claude-opus-4-8[1m]'
 ```
 
 **方式二：modelOverrides 配置**
@@ -292,8 +307,8 @@ export ANTHROPIC_DEFAULT_OPUS_MODEL='claude-opus-4-6[1m]'
 ```json
 {
   "modelOverrides": {
-    "claude-opus-4-6": "arn:aws:bedrock:us-east-2:123456789012:application-inference-profile/opus-prod",
-    "claude-sonnet-4-6": "arn:aws:bedrock:us-east-2:123456789012:application-inference-profile/sonnet-prod",
+    "claude-opus-4-8": "arn:aws:bedrock:us-east-2:123456789012:application-inference-profile/opus-prod",
+    "claude-sonnet-5": "arn:aws:bedrock:us-east-2:123456789012:application-inference-profile/sonnet-prod",
     "claude-haiku-4-5": "arn:aws:bedrock:us-east-2:123456789012:application-inference-profile/haiku-prod"
   }
 }
@@ -344,7 +359,7 @@ claude --model deepseek-chat
 
 ```bash
 # 配置自定义模型选项
-export ANTHROPIC_CUSTOM_MODEL_OPTION="my-gateway/claude-opus-4-6"
+export ANTHROPIC_CUSTOM_MODEL_OPTION="my-gateway/claude-opus-5"
 export ANTHROPIC_CUSTOM_MODEL_OPTION_NAME="Opus via Gateway"
 export ANTHROPIC_CUSTOM_MODEL_OPTION_DESCRIPTION="Custom deployment routed through the internal LLM gateway"
 ```
@@ -377,7 +392,7 @@ export ANTHROPIC_API_KEY="your-api-key"
 ```bash
 export ANTHROPIC_DEFAULT_OPUS_MODEL='arn:aws:bedrock:us-east-1:123456789012:custom-model/abc'
 export ANTHROPIC_DEFAULT_OPUS_MODEL_NAME='Opus via Bedrock'
-export ANTHROPIC_DEFAULT_OPUS_MODEL_DESCRIPTION='Opus 4.6 routed through a Bedrock custom endpoint'
+export ANTHROPIC_DEFAULT_OPUS_MODEL_DESCRIPTION='Opus 4.8 routed through a Bedrock custom endpoint'
 export ANTHROPIC_DEFAULT_OPUS_MODEL_SUPPORTED_CAPABILITIES='effort,max_effort,thinking,adaptive_thinking,interleaved_thinking'
 ```
 
@@ -397,7 +412,7 @@ export ANTHROPIC_DEFAULT_OPUS_MODEL_SUPPORTED_CAPABILITIES='effort,max_effort,th
 
 ```bash
 export ANTHROPIC_DEFAULT_OPUS_MODEL_NAME='Opus via Bedrock'
-export ANTHROPIC_DEFAULT_OPUS_MODEL_DESCRIPTION='Opus 4.6 routed through a Bedrock custom endpoint'
+export ANTHROPIC_DEFAULT_OPUS_MODEL_DESCRIPTION='Opus 4.8 routed through a Bedrock custom endpoint'
 ```
 
 > [!info] 📚 来源
@@ -415,7 +430,7 @@ export ANTHROPIC_DEFAULT_OPUS_MODEL_DESCRIPTION='Opus 4.6 routed through a Bedro
 
 ### 扩展上下文（1M Tokens）
 
-Opus 4.6 和 Sonnet 4.6 支持 **100 万 token 上下文窗口**，适用于大型代码库。
+**Opus 5 / Sonnet 5 / Opus 4.8 原生支持 100 万 token 上下文窗口**，适用于大型代码库。
 
 **使用方式**：
 ```bash
@@ -424,19 +439,24 @@ Opus 4.6 和 Sonnet 4.6 支持 **100 万 token 上下文窗口**，适用于大�
 /model opus[1m]
 
 # 或附加到完整模型名
-/model claude-sonnet-4-6[1m]
-/model claude-opus-4-6[1m]
+/model claude-sonnet-5[1m]
+/model claude-opus-5[1m]
 ```
 
+> [!tip] 大白话
+> 1M 上下文 = 一次能塞进整个大型代码仓库的对话。Sonnet 5 / Opus 5 开箱即用，无需额外开启；`sonnet[1m]` 这类带 `[1m]` 后缀的别名更多是向后兼容的写法。
+
 **计费说明**：
-- 前 200K tokens：标准费率
-- 超过 200K tokens：长上下文定价 + 独立速率限制
-- 订阅用户：超出部分按额外使用计费
+- Sonnet 5 促销价 **$2/$10 每 Mtok**（至 2026-08-31，之后 $3/$15）
+- Opus 5 标准价 $5/$25 每 Mtok（fast 模式 $10/$50）
+- 1M 上下文是模型原生能力，按标准费率计费，不再区分「前 200K / 长上下文」两段定价
+- 订阅用户：超出订阅额度部分按额外使用计费
 
 **禁用 1M 上下文**：
 ```bash
 export CLAUDE_CODE_DISABLE_1M_CONTEXT=1
 ```
+> 设置后会对所有原生 1M 模型（Sonnet 5 / Opus 5 / Opus 4.8 等）强制回退到 200K，超出部分自动压缩。
 
 > [!info] 📚 来源
 > - [Model configuration - Extended context](https://code.claude.com/docs/en/model-config#extended-context) - 官方文档
@@ -513,8 +533,8 @@ VSCode 插件通过 VS Code 的 `settings.json` 进行配置，支持**用户级
 | 别名 | 说明 |
 |------|------|
 | `default` | 账户默认（根据订阅类型自动选择） |
-| `sonnet` | Claude Sonnet 4.6，日常编码任务 |
-| `opus` | Claude Opus 4.6，复杂推理任务 |
+| `sonnet` | Claude Sonnet 5，日常编码任务 |
+| `opus` | Claude Opus 5，复杂推理任务 |
 | `haiku` | Claude Haiku 4.5，简单快速任务 |
 | `sonnet[1m]` | Sonnet + 1M 上下文，大型代码库 |
 | `opusplan` | 智能混合模式，规划用 Opus，执行用 Sonnet |
@@ -553,7 +573,7 @@ VSCode 插件通过 VS Code 的 `settings.json` 进行配置，支持**用户级
 | `high` | with high effort | 复杂推理、深度分析 |
 
 > [!info] 注意
-> Effort Level 仅支持 Opus 4.6 和 Sonnet 4.6。当前设置会显示在 logo 和 spinner 旁边，方便确认。
+> Effort Level 支持 Opus 5 / Sonnet 5 及 Opus 4.6+ 系列；`xhigh` 档需 Opus 4.7+ / Opus 5 / Sonnet 5。当前设置会显示在 logo 和 spinner 旁边，方便确认。
 
 #### Permission Mode 切换
 
@@ -656,13 +676,13 @@ VSCode 工作区设置 > VSCode 用户设置 > ~/.claude/settings.json
 │  Plan Mode（规划阶段）                                      │
 │       │                                                     │
 │       ▼                                                     │
-│  使用 Opus 4.6 ──────→ 深度推理、架构设计、任务分解        │
+│  使用 Opus 5 ──────→ 深度推理、架构设计、任务分解        │
 │       │                                                     │
 │       ▼                                                     │
 │  Execution Mode（执行阶段）                                 │
 │       │                                                     │
 │       ▼                                                     │
-│  使用 Sonnet 4.6 ────→ 代码生成、实现、编辑                │
+│  使用 Sonnet 5 ────→ 代码生成、实现、编辑                │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -737,8 +757,8 @@ Claude Code 自动使用 prompt caching 优化性能和成本，可以按需禁�
    - 规划阶段深度推理，执行阶段高效编码
 
 3. **启用 1M 上下文**：
-   - 大型代码库使用 `sonnet[1m]`
-   - 注意 200K 后的额外计费
+   - 大型代码库使用 `sonnet[1m]`（Sonnet 5 / Opus 5 原生支持 1M）
+   - 1M 是模型原生能力，按标准费率计费，无额外长上下文附加费
 
 ---
 
@@ -804,3 +824,4 @@ A: 配置优先级为：VSCode 工作区设置 > VSCode 用户设置 > `~/.claud
 | 日期 | 变更 |
 |------|------|
 | 2026-08-07 | 修正「自定义 API 端点配置」：`providers` / `defaultProvider` 为非官方写法、会被静默忽略，改为官方 `env`（`ANTHROPIC_BASE_URL` / `ANTHROPIC_AUTH_TOKEN` / `ANTHROPIC_MODEL`）；FAQ「第三方模型别名」同步修正 |
+| 2026-08-10 | 同步 2026-08 模型现状：默认模型更新为 Sonnet 5 / Opus 5（原生 1M 上下文）；第三方平台（Bedrock/Vertex/AWS）默认 Opus 4.8 且 Auto mode 免 opt-in；Effort 档位标注更新（xhigh 为 Claude Code 默认档）；`CLAUDE_CODE_DISABLE_1M_CONTEXT` 强制回 200K 自动压缩；Haiku 上下文修正为 200K |
