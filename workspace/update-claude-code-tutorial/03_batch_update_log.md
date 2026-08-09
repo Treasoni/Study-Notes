@@ -19,3 +19,7 @@
 | 2026-08-10 | 5 | cc13 Claude Code Slash Commands 完整参考 | update + 写回 | updates/cc13/updated_note.md → 原文件 | /branch 与 /fork 关系待核 |
 | 2026-08-10 | 5 | cc14 Claude MCP 使用指南 | update + 写回 | updates/cc14/updated_note.md → 原文件 | 版本号精确归属待核 |
 | 2026-08-10 | 5 | cc15 如何编写Skills | update + 写回 | updates/cc15/updated_note.md → 原文件 | 叠加数量(5 vs 6)措辞按官方 docs |
+| 2026-08-10 | 6 | cc16 CLAUDE.md 使用指南 | update + 写回 | updates/cc16/updated_note.md → 原文件 | 工作区信任表述待对照 docs |
+| 2026-08-10 | 6 | cc17 Claude Code 定时任务自动化指南 | update + 写回 | updates/cc17/updated_note.md → 原文件 | /loop cron 兼容性待核；launchctl 未改 |
+| 2026-08-10 | 6 | cc18 Claude Code Dynamic Workflows 使用指南 | update + 写回 | updates/cc18/updated_note.md → 原文件 | OTel/SendMessage 为 spec 转述；无「6种模式」章节 |
+| 2026-08-10 | 7 | cc19 LLM-Prompt-Caching-提示缓存 | update + 写回（draft→updated） | updates/cc19/updated_note.md → 原文件 | 促销定价 8/31 时效；缓存参数沿用原文 |

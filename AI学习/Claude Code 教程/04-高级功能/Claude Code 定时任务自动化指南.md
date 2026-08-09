@@ -2,13 +2,13 @@
 title: Claude Code 定时任务自动化指南
 tags: [claude-code, 自动化, 定时任务, launchd, hooks, 调度, macos, loop]
 created: 2026-03-07
-updated: 2026-07-12
+updated: 2026-08-10
 status: updated
 source_project: claude-code-tutorial
 ---
 
 > [!tip] 更新说明
-> **🚀 重大更新（2026年3月）**：Claude Code 现已内置 **`/loop` 命令**，支持官方定时任务功能！任务可运行最长 **3 天**，使用 cron 风格调度。详见 [[#10-官方方案-loop-命令推荐]]
+> **🚀 重大更新（2026年3月）**：Claude Code 现已内置 **`/loop` 命令**，支持官方定时任务功能！任务最长运行 **7 天**，支持固定间隔或让 Claude 自定节奏（self-paced）。详见 [[#9-官方方案-loop-命令推荐]]
 >
 > **macOS 用户注意**：对于需要长期运行或系统级的定时任务，仍推荐使用 **launchd**（详见 [[#6-macos-定时任务使用-launchd-替代-cron]]）
 
@@ -27,8 +27,11 @@ source_project: claude-code-tutorial
 
 | 方案 | 适用场景 | 特点 |
 |------|----------|------|
-| **`/loop` 命令**（官方推荐） | 会话内短期任务、代码监控、状态轮询 | 内置功能、最长运行 3 天、cron 风格调度 |
+| **`/loop` 命令**（官方推荐） | 会话内短期任务、代码监控、状态轮询 | 内置功能、最长运行 7 天、固定间隔或自定节奏 |
 | **launchd/cron**（系统级） | 长期运行、跨会话、夜间批处理 | 系统原生、无时间限制、需手动配置 |
+
+> [!tip] 大白话
+> **定时任务 = 给 Claude Code 设个"智能闹钟"**。`/loop` 是 Claude 自带的闹钟（适合短期、开发时用），launchd/cron 是操作系统级的闹钟（适合长期、夜间批处理）。两者的区别就像「手机上的提醒事项」vs「家里挂的自动定时插座」——前者依赖人在场，后者独立运行。
 
 **核心能力**：
 - **定时执行**：每天、每周、每月自动运行任务
@@ -678,6 +681,7 @@ Claude Code 的 Hooks 功能可以在特定生命周期事件触发时执行自�
 | `PostCompact` | 上下文压缩后 | 恢复关键数据 |
 | `TaskCompleted` | 任务标记完成时 | 通知、报告生成 |
 | `ConfigChange` | 配置文件变更时 | 响应更新 |
+| `Notification` | 后台代理需要输入/完成时 | `agent_needs_input` / `agent_completed`，配合无人值守通知 |
 
 完整列表含 24+ 个事件，涵盖会话生命周期、工具执行、Agent/团队、上下文压缩、MCP 交互等 7 个类别。
 
@@ -714,34 +718,49 @@ Claude Code 的 Hooks 功能可以在特定生命周期事件触发时执行自�
 > - [Claude Code Scheduled Tasks: Complete Setup Guide (2026)](https://claudefa.st/blog/guide/development/scheduled-tasks) - 完整教程
 
 > [!success] 🎉 原生支持
-> Claude Code 现已内置 `/loop` 命令，无需再依赖外部调度工具即可实现定时任务！
+> Claude Code 现已内置 `/loop` 命令（捆绑 Skill，别名 `/proactive`），无需再依赖外部调度工具即可实现定时任务！
 
 #### 核心特性
 
 | 特性 | 说明 |
 |------|------|
-| **最长运行时间** | 3 天（任务自动过期并删除） |
-| **调度方式** | Cron 风格时间表达式 |
-| **运行范围** | 会话级（会话结束后任务终止） |
+| **最长运行时间** | 7 天（任务到期前触发最后一次执行后自动删除） |
+| **调度方式** | 间隔 token（`5m`/`2h`，支持 s/m/h/d）或让 Claude 自定节奏 |
+| **运行范围** | 会话级（但后台化会话可延续；`--resume`/`--continue` 可恢复未过期任务） |
 | **后台执行** | 支持，可最小化窗口 |
+| **别名** | `/proactive` |
+
+> [!tip] 大白话
+> `/loop` 就是「每隔一阵子把同一个任务再跑一遍」。两种节奏：**固定间隔**（你告诉它「每 5 分钟」）或**自定节奏**（你只说「盯着这个部署」，Claude 自己决定隔多久再看一次——任务忙就隔得短，没动静就隔得长）。
 
 #### 基本语法
 
-```bash
-# 基本用法
-/loop <cron表达式> <任务描述>
+```text
+/loop [间隔] [提示词]
+```
 
+间隔和提示词都可选，三种组合对应三种行为：
+
+| 写法 | 行为 |
+|------|------|
+| `/loop 5m <提示词>` | 固定间隔循环（Claude 把间隔换算成 cron 表达式并确认节律与任务 ID） |
+| `/loop <提示词>` | **自定节奏（self-paced）**：每次迭代后 Claude 根据观察选 1 分钟 ~ 1 小时的下次间隔 |
+| `/loop` | 运行内置维护 prompt（继续未完成工作、处理 PR、清理），或在 `.claude/loop.md` 中自定义 |
+
+间隔可前置为裸 token（`30m`），也可后置为从句（`every 2 hours`）。支持单位：`s`/`m`/`h`/`d`（秒/分/时/天）；秒会被向上取整到分钟，无法整除 cron 步长的间隔（如 `7m`、`90m`）会被就近取整，Claude 会告诉你选了什么。也可以把 skill 当提示词传入，例如 `/loop 20m /review-pr 1234`。
+
+```text
 # 示例
-/loop "0 9 * * *" "检查所有 PR 状态，测试通过后自动合并"
-/loop "*/30 * * * *" "每 30 分钟检查服务健康状态"
-/loop "0 0 * * 1" "每周一早上生成周报"
+/loop 5m 检查所有 PR 状态，测试通过后自动合并
+/loop 30m 每 30 分钟检查服务健康状态
+/loop "every 2 hours" 检查部署是否完成
 ```
 
 #### 实用示例
 
 **示例一：PR 自动监控与合并**
 ```
-/loop "0 */2 * * *" "
+/loop 2h "
 检查我所有待处理的 PR：
 1. 查看测试状态
 2. 检查代码审查进度
@@ -752,7 +771,7 @@ Claude Code 的 Hooks 功能可以在特定生命周期事件触发时执行自�
 
 **示例二：服务健康检查**
 ```
-/loop "*/15 * * * *" "
+/loop 15m "
 每 15 分钟检查：
 - API 响应时间
 - 错误日志
@@ -764,7 +783,7 @@ Claude Code 的 Hooks 功能可以在特定生命周期事件触发时执行自�
 
 **示例三：每日代码质量报告**
 ```
-/loop "0 8 * * *" "
+/loop "every day at 8am" "
 每天早上 8 点：
 1. 分析昨天的代码提交
 2. 检查测试覆盖率变化
@@ -773,13 +792,20 @@ Claude Code 的 Hooks 功能可以在特定生命周期事件触发时执行自�
 "
 ```
 
+**示例四：自定节奏监控（不指定间隔）**
+```
+/loop 检查 CI 是否通过，有新的 review 评论就处理
+```
+Claude 会在构建进行中时等得短一些，PR 安静下来后等得长一些。
+
 #### `/loop` vs 系统级调度对比
 
 | 维度 | `/loop` 命令 | launchd/cron |
 |------|-------------|--------------|
 | **配置复杂度** | 简单，自然语言 | 需编写配置文件 |
-| **最长运行** | 3 天 | 无限制 |
-| **会话依赖** | 依赖会话存在 | 独立运行 |
+| **最长运行** | 7 天（自动过期） | 无限制 |
+| **会话依赖** | 会话级；后台化可延续、`--resume` 可恢复 | 独立运行 |
+| **调度方式** | 固定间隔或自定节奏（self-paced） | 固定 cron 表达式 |
 | **适用场景** | 开发时辅助、短期监控 | 生产环境、长期任务 |
 | **调试便利** | 即时反馈 | 需查看日志 |
 | **推荐用途** | 日常开发辅助 | 夜间批处理、CI/CD |
@@ -793,7 +819,7 @@ Claude Code 的 Hooks 功能可以在特定生命周期事件触发时执行自�
 ```bash
 # 组合示例：白天用 /loop 监控，晚上用 launchd 做深度分析
 # /loop 命令（开发时）
-/loop "*/30 * * * *" "快速检查服务状态"
+/loop 30m 快速检查服务状态
 
 # launchd 任务（夜间深度分析）
 # 配置在 ~/Library/LaunchAgents/ 中，凌晨 2 点执行完整代码审查
@@ -802,12 +828,13 @@ Claude Code 的 Hooks 功能可以在特定生命周期事件触发时执行自�
 #### 注意事项
 
 > [!warning] 会话限制
-> - `/loop` 任务在会话结束后会终止
-> - 如果关闭 Claude Code，任务不会继续运行
-> - 需要长期运行的任务仍应使用系统级调度
+> - `/loop` 任务只在 Claude Code 运行时触发；关闭终端或让会话退出后不会继续触发
+> - **后台化会话**（把会话转入后台）会把 `/loop` 任务一起带过去，无需终端也能继续运行
+> - 用 `--resume` / `--continue` 恢复会话时，未过期的循环任务会自动带回来（过期后不再恢复）
+> - 需要独立于任何会话、长期稳定的调度，应使用系统级调度（launchd/cron）、Routines 或 Desktop 定时任务
 
-> [!tip] 3 天限制的意义
-> 这个限制是为了防止"遗忘的循环"无限运行。任务到期后会自动触发最后一次执行然后删除。
+> [!tip] 7 天限制的意义
+> 这个限制是为了防止"遗忘的循环"无限运行。任务到期前会触发最后一次执行，然后自动删除。`CLAUDE_CODE_DISABLE_CRON=1` 可完全关闭调度器（`/loop` 与 cron 工具都会失效）。
 
 ## 与其他概念的关系
 
@@ -972,6 +999,19 @@ WORKDIR /workspace
 
 ENTRYPOINT ["claude"]
 ```
+
+### 2026 年无人值守相关行为变化（重要）
+
+> [!warning] AskUserQuestion 不再自动继续
+> 从 v2.1.200 起，`AskUserQuestion` 对话框**默认不再自动继续**，需要时在 `/config` 里开启 idle timeout。这意味着**无人值守（cron/launchd 后台触发）会话一旦弹出提问对话框就会卡住等待人工输入**，不会像以前那样自动继续。无人值守任务要么结合 `--dangerously-skip-permissions` 避免提问，要么显式配置 `askUserQuestionTimeout`。
+>
+> 相关环境变量：`CLAUDE_AFK_TIMEOUT_MS`（空闲多久后自动继续，仅在开启 auto-continue 时生效）、`CLAUDE_AFK_COUNTDOWN_MS`（自动继续前的倒计时显示时长，默认 20000ms）。
+
+> [!note] 后台代理行为（2026-07/08）
+> - **后台自动升级**（v2.1.206）：Claude Code 更新后，后台代理会直接在后台升级到新版本，不再在 attach 时走一次缓慢的旧会话升级。
+> - **任务通知声明「尚未发生人工输入」**（v2.1.205）：后台任务通知会明确标注**尚未发生人工输入**，防止伪造的 transcript 批准被当成真实授权执行。配合 `Notification` hook（`agent_needs_input`/`agent_completed`）可以区分「需要人工」与「已完成」。
+> - **内存压力回收**（v2.1.193）：空闲的后台 shell 命令在系统内存压力下会被自动回收；设置 `CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP=1` 可关闭此行为。
+> - **`/status` 显示会话类型**（v2.1.221）：`/status` 现在会显示当前会话类型 `interactive`，或后台任务 `attached`/`unattached`，可用于区分前台/后台会话。
 
 ### 完整的定时任务自动化脚本模板
 
@@ -1230,7 +1270,7 @@ chmod 644 ~/Library/LaunchAgents/com.user.claude.plist
 
 **Q: Claude Code 有原生定时任务支持吗？**
 
-A: **有了！** 2026 年 Claude Code 新增了 **`/loop` 命令**，支持 cron 风格的定时调度，任务最长运行 3 天。详见 [[#9-官方方案-loop-命令推荐]]
+A: **有了！** 2026 年 Claude Code 新增了 **`/loop` 命令**（别名 `/proactive`），支持固定间隔或自定节奏调度，任务最长运行 7 天。详见 [[#9-官方方案-loop-命令推荐]]
 
 ---
 
@@ -1244,7 +1284,7 @@ A:
 
 **Q: `/loop` 任务会话关闭后还会继续运行吗？**
 
-A: **不会**。`/loop` 是会话级的，关闭 Claude Code 后任务终止。需要长期运行的任务应使用 launchd（macOS）或 cron（Linux）。
+A: **默认不会**。`/loop` 是会话级的，关闭 Claude Code 后任务停止触发；但如果**把会话转入后台**，任务会跟着后台会话继续运行；用 `--resume`/`--continue` 恢复会话时，未过期的任务也会带回来。需要独立于任何会话长期运行的任务应使用 launchd（macOS）、cron（Linux）、Routines 或 Desktop 定时任务。
 
 ## 相关文档
 - [[如何使用Claude code|Claude Code 使用指南]]
@@ -1256,6 +1296,7 @@ A: **不会**。`/loop` 是会话级的，关闭 Claude Code 后任务终止。�
 - [Run prompts on a schedule - Claude Code Docs](https://code.claude.com/docs/en/scheduled-tasks) - 官方定时任务文档 ⭐ **新增**
 - [Claude Code Hooks 官方文档](https://code.claude.com/docs/en/hooks) - Hooks 参考文档
 - [Claude Code Hooks 入门指南](https://code.claude.com/docs/en/hooks-guide) - 入门教程
+- [Environment variables 官方文档](https://code.claude.com/docs/en/env-vars) - 环境变量参考（`CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP` 等）⭐ **新增**
 - [GitHub Issue #30649 - Scheduled/Cron Support](https://github.com/anthropics/claude-code/issues/30649) - 功能请求
 - [GitHub Issue #581 - Non-interactive permissions bug](https://github.com/anthropics/claude-code/issues/581) - 权限已知问题
 
@@ -1283,3 +1324,10 @@ A: **不会**。`/loop` 是会话级的，关闭 Claude Code 后任务终止。�
 ### 视频教程
 - [The AI Agent Cron Job Inception Strategy](https://www.youtube.com/watch?v=0Y0jbaoREHc) - YouTube
 - [Claude Code Commands & Cron Jobs Tutorial](https://www.youtube.com/watch?v=l6V0u3ZIgDI) - YouTube
+
+## 更新记录
+
+- **2026-08-10**：同步到 2026-08 现状。
+  - `/loop` 更新：改为捆绑 Skill（`/loop [间隔] [提示词]`，别名 `/proactive`），最长运行 **3 天 → 7 天**；新增自定节奏（self-paced）模式与内置维护 prompt；调度语法从 cron 表达式改为间隔 token（s/m/h/d）。
+  - 新增「2026 年无人值守相关行为变化」小节：AskUserQuestion 默认不再自动继续（v2.1.200，无人值守会卡提问）；后台代理后台自动升级（v2.1.206）；后台任务通知声明「尚未发生人工输入」防伪造批准（v2.1.205）；内存压力下自动回收后台 shell + `CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP=1`（v2.1.193）；`/status` 显示会话类型 interactive/attached/unattached（v2.1.221）。
+  - 核心概念新增 `[!tip] 大白话`；参考资料补充官方 scheduled-tasks 与 env-vars 链接。

@@ -13,7 +13,7 @@ tags:
   - workflow
   - ai-coding
 created: 2026-06-18
-updated: 2026-07-12
+updated: 2026-08-10
 status: updated
 source_project: claude-code-tutorial
 sources:
@@ -26,6 +26,7 @@ sources:
   - R7: "Dynamic Workflows community issues & feedback (GitHub, 2026-06) https://github.com/anthropics/claude-code/issues?q=is%3Aissue+ultracode+workflow"
   - R8: "Claude Code overview (Anthropic, 2026) https://code.claude.com/docs/en/overview.md"
   - R9: "Commands reference (Anthropic, 2026) https://code.claude.com/docs/en/commands.md"
+  - R10: "Claude Code changelog（v2.1.198–v2.1.225, Anthropic, 2026-07/08) https://code.claude.com/docs/en/changelog.md"
 concepts:
   - dynamic-workflow
   - subagent
@@ -62,6 +63,9 @@ related_notes:
 **Dynamic Workflow** 是一段由 Claude 帮你写的 JavaScript 脚本，由运行时在后台执行，用来同时编排几十到几百个 [[Claude Code Subagents 完整指南|subagent]] 去完成一项超出单次对话协调能力的任务。[来源: R1]
 
 把它类比成现实世界：**subagent** 就像一个能干活的工人；**workflow** 就像一份由总指挥（Claude）写好、交给项目经理（运行时）执行的项目计划书。计划书里写明谁先干、谁后干、怎么汇总——而不是让每个工人在现场临时决定下一步。
+
+> [!tip] 大白话
+> 说白了，Dynamic Workflow 就是让 Claude 帮你写一份「自动化流水线脚本」：脚本里规定好要开哪些 agent、谁先谁后、怎么汇总，然后交给后台运行时一次性跑完。你不用在对话里一个个盯着派活——脚本就是你的项目计划书，可读、可重跑、可 diff。
 
 ### 它诞生的背景
 
@@ -102,7 +106,7 @@ flowchart LR
 
 有四种触发方式，由"你希望 Claude 主动多大程度参与规划"决定 [来源: R1][来源: R9]：
 
-1. **运行内置 workflow**：`/deep-research <问题>` —— 内置的 workflow 之一，会扇出多个 web 搜索 agent、交叉验证后输出带引用的报告 [来源: R1][来源: R9]
+1. **运行内置 workflow**：`/deep-research <问题>` —— 内置的 workflow 之一，会扇出多个 web 搜索 agent、交叉验证后输出带引用的报告。v2.1.218 起 `/deep-research` 只在你主动调用时运行，Claude 不会再自行启动 [来源: R1][来源: R9][来源: R10]
 2. **用关键词触发**：在 prompt 前面加 `ultracode:`（v2.1.160 前叫 `workflow`，现在改为 `ultracode`），输入框里这个关键词会高亮成紫色；Mac 按 `Option+W` / Windows/Linux 按 `Alt+W` 可以取消高亮 [来源: R1][来源: R5]
 3. **让 Claude 自己做决定**：`/effort ultracode` —— 开启后每个实质性任务 Claude 都会自动规划一个 workflow；它是会话级开关，新开会话会重置 [来源: R1][来源: R9]
 4. **运行已保存的 workflow**：保存到 `.claude/workflows/` 或 `~/.claude/workflows/` 后，会自动出现在 `/` 自动补全里 [来源: R1]
@@ -115,6 +119,7 @@ Workflow 脚本运行在一个**与你的对话隔离的运行时**里 [来源: 
 - 每次运行都会把脚本写到 `~/.claude/projects/` 下
 - 运行时跟踪每个 agent 的结果——所以一次失败的 run 可以在同一 session 内恢复
 - 在 `/workflows` 视图里能看到每个 phase 的 agent 数量、token 用量、耗时
+- workflow 派生的 agent 在 OpenTelemetry（OTel）追踪里自带 `workflow.run_id` 与 `workflow.name` 属性，方便把多个 agent 的 trace 聚合到同一次 workflow run [来源: R10]
 
 ```mermaid
 flowchart TB
@@ -135,14 +140,39 @@ flowchart TB
 
 [来源: R1]
 
+### 工作流规模（Dynamic workflow size）
+
+`workflowSizeGuideline` 是给 Claude 写 workflow 时参考的**规模建议**（不是硬上限，任务描述需要更大规模时会被覆盖）[来源: R1][来源: R10]：
+
+| 值 | Claude 目标 agent 数 | 说明 |
+|---|---|---|
+| `unrestricted` | 无约束 | 不做限制，Claude 按任务自行决定（v2.1.219 之前的默认） |
+| `small` | < 5 | 小型任务 |
+| `medium` | < 15 | 中等规模（**v2.1.219 起默认**） |
+| `large` | < 50 | 大型任务 |
+
+设置方式 [来源: R1][来源: R10]：
+
+- `/config` 里的 **Dynamic workflow size** 选择；未选时显示 `medium (default)`
+- 也可用命令：`/config workflowSizeGuideline=small`
+- v2.1.219 起可在 settings 文件里设 `"workflowSizeGuideline": "medium"`——该值**优先于** `/config`，设置后 `/config` 里的对应行会隐藏
+- 规模只影响 Claude 写脚本时的目标，**运行时上限（16 并发 / 每 run 1000）仍然生效**
+
+> [!tip] 大白话
+> 规模建议就像给 Claude 说"这次任务打算开多少人的会"。`medium`（默认）≈ 少于 15 个 agent，够大多数任务用；`small` 适合"先小切片试跑"省 token；`large` 才放开来扇出几十个。它只是建议——真要开 500 个，脚本照写，只是会触发下面的 `Large workflow` 预警。
+
 ### 关键限制（务必记住）
 
 | 限制 | 原因 |
 |---|---|
 | **不支持运行中用户输入** | 唯一能暂停 run 的是 agent 权限弹窗；如需阶段间签收，把每个阶段写成独立 workflow [来源: R1] |
 | **workflow 本身不能直接读写文件或执行 shell** | 这些都让 agent 做，脚本只负责协调 [来源: R1] |
-| **最多 16 个并发 agent** | 约束本地资源 [来源: R1] |
+| **脚本不能加载模块** | 含 `import()` 的脚本在 run 开始前就会失败；需要库的工作交给 agent 的任务 [来源: R1] |
+| **最多 16 个并发 agent** | 约束本地资源；CPU 核少的机器会更少 [来源: R1] |
 | **每次 run 最多 1000 个 agent** | 防止失控循环 [来源: R1] |
+
+> [!note] 大型 run 预警
+> v2.1.203+ 当一次 workflow 调度超过 **25 个 agent**、或预计 token 总量超过 **150 万**时，任务面板会显示 `Large workflow` 警告（仅提示，不暂停不限额）。选择自定义 size guideline 后，阈值会换成该档的 agent 数。[来源: R1][来源: R10]
 
 > [!warning] 重要边界
 > 脚本只负责协调；文件 IO 与 shell 执行必须由 agent 完成。如需"运行中签收"，把流程拆成多个独立 workflow。
@@ -154,6 +184,7 @@ Workflow 保存为脚本后，等同于一个可重用的 [[Claude Code Slash Co
 - `.claude/workflows/`：项目级，团队共享 [来源: R1]
 - `~/.claude/workflows/`：个人级，所有项目可用 [来源: R1]
 - v2.1.178 之后：项目级会沿"工作目录到 repo 根"路径上查找最接近的 `.claude/workflows/` [来源: R5]
+- v2.1.216 起：保存前会检查目标路径是否为符号链接，是则报错而不写入（防止脚本被写到仓库外）[来源: R10]
 - 同名冲突时，项目级优先于个人级 [来源: R9]
 
 ---
@@ -242,9 +273,10 @@ classDiagram
 无论你当前 session 在什么权限模式：
 
 - workflow 派生的 subagent **始终运行在 `acceptEdits` 模式**[来源: R1]
+- workflow 派生的 subagent **默认在后台运行**（v2.1.198+，与普通 subagent 一致，无需显式 `background: true`）[来源: R10]
 - 派生 agent **继承 session 的工具白名单**[来源: R1]
 - 文件编辑**自动批准**，但 shell / web fetch / 未在白名单的 MCP 工具仍可能中途弹权限 [来源: R1]
-- 在 v2.1.172 之前，workflow 内的 subagent **不能**派生嵌套 subagent [来源: R7]
+- 嵌套规则：v2.1.217 曾默认禁止 workflow 内 subagent 派生嵌套 subagent，v2.1.219 起恢复为默认最多 **3 层**嵌套；如需完全禁用，设 `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1` [来源: R7][来源: R10]
 
 ### 5. 关闭 workflow 的三种方法
 
@@ -270,8 +302,9 @@ classDiagram
   - subagent：只回主对话
   - agent view：只回你
   - agent team：共享 task list + 直接互发消息
+  - v2.1.198+ 子代理默认后台运行后，**`SendMessage` 可跨会话/跨机器发送消息**：发送方与接收方不必在同一进程，接收方由 `ListAgents` 按名称发现（名字与注册表一致即可）[来源: R10]
 - **是否改同一批文件？**
-  - 必须用 worktree 隔离；subagent / agent view / 5 层嵌套 subagent 都支持
+  - 必须用 worktree 隔离；subagent / agent view / 3 层嵌套 subagent 都支持（v2.1.219 起默认深度）
   - agent team 的队友不隔离在 worktree，需要划分"每人管不同文件" [来源: R2]
 
 ### 7. 一个实操示例
@@ -307,7 +340,7 @@ classDiagram
 
 | 触发方式 | 用法 | 备注 |
 |---|---|---|
-| 内置 workflow | `/deep-research <问题>` | 需要 WebSearch 工具 [来源: R1] |
+| 内置 workflow | `/deep-research <问题>` | 需要 WebSearch 工具；v2.1.218 起仅主动调用 [来源: R1][来源: R10] |
 | 关键词触发 | `ultracode: <任务描述>` | v2.1.160 后；旧版用 `workflow` [来源: R5] |
 | 自动模式 | `/effort ultracode` | 会话级；`xhigh` + 自动编排 [来源: R9] |
 | 自然语言 | "请用 workflow 做……" | 两个版本都支持 [来源: R1] |
@@ -327,6 +360,7 @@ classDiagram
 | 返回上一层 | `Esc` [来源: R1] |
 | 上下移动 | `↑` / `↓` [来源: R1] |
 | 在 phase 内滚动 | `j` / `k` [来源: R1] |
+| 按状态过滤 agent 列表 | `f`（再按一次循环切换）[来源: R1] |
 | 暂停 / 恢复 | `p` [来源: R1] |
 | 停止 agent（焦点在 agent） | `x` [来源: R1] |
 | 停止整个 workflow（焦点在 run） | `x` [来源: R1] |
@@ -342,16 +376,31 @@ classDiagram
 | `~/.claude/workflows/` | 个人 | 跨项目私人脚本 [来源: R1] |
 | `~/.claude/projects/` | 每次 run | 脚本副本 + 运行时 journal（可调试缓存 key）[来源: R1][来源: R7] |
 
+### 规模设置速查
+
+| 值 | agent 目标数 | 说明 |
+|---|---|---|
+| `unrestricted` | 无约束 | Claude 按任务自行决定（v2.1.219 之前的默认） |
+| `small` | < 5 | 小型任务 |
+| `medium` | < 15 | 中等规模（v2.1.219 起默认） |
+| `large` | < 50 | 大型任务 |
+
+- 设置入口：`/config` → **Dynamic workflow size**；或 `/config workflowSizeGuideline=small` [来源: R1]
+- v2.1.219 起 settings 文件可设 `"workflowSizeGuideline": "medium"`，该值优先于 `/config`，且会隐藏 `/config` 对应行 [来源: R10]
+- 规模是**建议**不是上限；运行时 16 并发 / 每 run 1000 上限仍生效 [来源: R1]
+
 ### 关键限制
 
 | 限制 | 数值 / 行为 |
 |---|---|
-| 并发 agent | 16 [来源: R1] |
+| 并发 agent | 16（CPU 核少的机器更少）[来源: R1] |
 | 单次 run agent 数 | 1000 [来源: R1] |
 | 运行中用户输入 | **不支持**（仅 agent 权限弹窗可暂停）[来源: R1] |
 | workflow 自身 IO | **不允许**直接读写文件 / 执行 shell [来源: R1] |
-| 派生 agent 模式 | 固定 `acceptEdits` [来源: R1] |
-| 嵌套 subagent | 5 层（v2.1.172+）[来源: R5] |
+| 脚本加载模块 | **不允许**（含 `import()` 直接失败）[来源: R1] |
+| 大型 run 预警 | v2.1.203+：>25 agent 或 >1.5M token 显示 `Large workflow`（仅提示）[来源: R1][来源: R10] |
+| 派生 agent 模式 | 固定 `acceptEdits`；默认后台运行（v2.1.198+）[来源: R1][来源: R10] |
+| 嵌套 subagent | 3 层（v2.1.219 恢复；v2.1.217 曾默认禁用）[来源: R10] |
 
 ### 关闭 workflow
 
@@ -372,6 +421,12 @@ classDiagram
 | 2.1.160 | 2026-06-02 | 关键词从 `workflow` 改为 `ultracode` [来源: R5] |
 | 2.1.172 | 2026-06-10 | subagent 可派生嵌套 subagent（5 层）[来源: R5] |
 | 2.1.178 | — | 项目 workflow 沿"工作目录到根"路径解析 [来源: R5] |
+| 2.1.198 | 2026-07 | 子代理默认后台运行；普通 subagent 并发默认 20 [来源: R10] |
+| 2.1.202 | 2026-07 | 引入 `workflowSizeGuideline` 规模建议 [来源: R10] |
+| 2.1.203 | 2026-07 | `Large workflow` 预警（>25 agent 或 >1.5M token）[来源: R10] |
+| 2.1.217 | 2026-08 | 默认禁止嵌套 subagent [来源: R10] |
+| 2.1.219 | 2026-08 | 恢复嵌套深度 3；size guideline 默认 `medium`，settings 键可用 [来源: R10] |
+| 2.1.224 | 2026-08 | 移除每会话 200 spawn 上限 [来源: R10] |
 
 ### 与其它功能的关系（一句话版本）
 
@@ -415,6 +470,7 @@ classDiagram
 | R7 | Dynamic Workflows community issues & feedback | https://github.com/anthropics/claude-code/issues?q=is%3Aissue+ultracode+workflow | 社区反馈 |
 | R8 | Claude Code overview | https://code.claude.com/docs/en/overview.md | 官方文档 |
 | R9 | Commands reference | https://code.claude.com/docs/en/commands.md | 官方文档 |
+| R10 | Claude Code changelog（v2.1.198–v2.1.225） | https://code.claude.com/docs/en/changelog.md | 官方更新日志 |
 
 ## 文档元信息
 
@@ -423,3 +479,13 @@ classDiagram
 - **难度等级**：intermediate（需要先理解 subagent / skill / slash command / hook 的基础概念）
 - **学习目的**：兴趣探索 + 入门 + 快速回顾
 - **目标读者**：自己
+
+## 更新记录
+
+- 2026-08-10：同步到 2026-08 现状（覆盖 v2.1.198–v2.1.225，来源库 SB-06/SB-12，并核实官方 workflows 文档）。
+  - **规模建议**：新增 `workflowSizeGuideline` 设置与 `/config`「Dynamic workflow size」（small <5 / medium <15 / large <50，默认 `medium`，v2.1.219+）；规模只是建议，运行时上限仍生效。
+  - **可观测性**：workflow 派生的 agent 在 OTel 中带 `workflow.run_id` / `workflow.name` 属性。
+  - **后台与跨会话通信**：子代理默认后台运行（v2.1.198+）；`SendMessage` 可跨会话/跨机器，`ListAgents` 按名称发现。
+  - **限制更新**：新增「脚本不能加载模块（含 `import()` 直接失败）」；新增 `Large workflow` 预警（>25 agent 或 >1.5M token，v2.1.203+）；并发 16 / 每 run 1000 上限经官方文档核实仍生效。
+  - **嵌套规则**：5 层 → v2.1.219 恢复的默认 3 层（v2.1.217 曾默认禁用）；`CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1` 可禁用。
+  - **`/deep-research`**：v2.1.218 起仅在主动调用时运行，Claude 不再自行启动。

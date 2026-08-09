@@ -10,10 +10,10 @@ topic: "Claude Code 教程 同步到 2026-08 最新版"
 project_slug: "update-claude-code-tutorial"
 created_at: "2026-08-09"
 last_updated: "2026-08-10"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: standard
-confirmed_phases: "P0,P1,P2,P3"
+confirmed_phases: "P0,P1,P2,P3,P4"
 skippable_phases: "P3"
 mode_dependent_skips: ""
 allowed_modes: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：update-claude-code-tutorial
 > 项目标识：update-claude-code-tutorial
 > 创建时间：2026-08-09
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -85,7 +85,7 @@ blocked_reason: ""
 - [ ] 原文未被覆盖，除非 destination_mode 为 patch-in-place 且用户已确认
 - [ ] 批处理日志已追加：`./03_batch_update_log.md`
 
-> [P4] 🔲 进行中
+> [P4] ✅ 已完成
 
 ---
 
@@ -95,7 +95,7 @@ blocked_reason: ""
 - [ ] 如提供 MOC，已同步索引且未复制正文
 - [ ] 批量更新报告已保存：`./04_batch_update_report.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中
 
 ---
 
@@ -103,6 +103,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P4 | 用户授权自主继续（不再逐批询问）；全部19篇已更新并写回原文件(git可回滚) | 2026-08-10 00:35 |
 | P3 | 用户确认共享资料库足够且来源可信(source_bank 23条) | 2026-08-10 00:07 |
 | P2 | 用户确认批量计划:分组A/B/C、19篇update、第一批cc01/cc06/cc12 | 2026-08-10 00:01 |
 | P1 | 用户确认更新清单可信(19篇ready+4篇skip) | 2026-08-10 00:00 |

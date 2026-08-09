@@ -2,8 +2,8 @@
 title: Claude Code 教程 MOC
 tags: [claude-code, ai, MOC, 索引]
 created: 2026-07-31
-updated: 2026-07-31
-status: draft
+updated: 2026-08-10
+status: updated
 source_project: claude-code-tutorial
 ---
 
