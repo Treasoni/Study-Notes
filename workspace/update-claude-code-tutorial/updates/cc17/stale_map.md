@@ -26,13 +26,14 @@
 
 ## 新增（ADD）
 1. §核心概念 大白话 `[!tip] 大白话`（是什么 / `/loop` 两种模式）
-2. §非交互模式权限 新小节「2026 年无人值守相关行为变化（重要）」：
+2. §8 Hooks 事件列表：补充 `Notification` 行（`agent_needs_input` / `agent_completed`），与无人值守通知相呼应【SB-16 语境】
+3. §非交互模式权限 新小节「2026 年无人值守相关行为变化（重要）」：
    - AskUserQuestion 默认不再自动继续（v2.1.200），无人值守任务会卡在提问对话框 → 结合 `--dangerously-skip-permissions` 或 `askUserQuestionTimeout`；`CLAUDE_AFK_TIMEOUT_MS` / `CLAUDE_AFK_COUNTDOWN_MS`【SB-14 / SB-21 + 官方 env-vars】
    - 后台代理后台自动升级（v2.1.206）【专项】
    - 后台任务通知明确声明「尚未发生人工输入」，防止伪造批准（v2.1.205）+ `Notification` hook（`agent_needs_input`/`agent_completed`）【专项 / SB-16 语境】
    - 空闲后台 shell 命令在内存压力下自动回收；`CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP=1` 可关（v2.1.193）【专项】
    - `/status` 显示会话类型 interactive / attached / unattended（v2.1.221）【SB-10】
-3. `## 更新记录` 章节
+4. `## 更新记录` 章节
 
 ## 删除（DELETE）
 - 无整段删除；仅局部替换过时的 `/loop` 时长（3 天）、调度语法（cron 表达式）与运行范围描述（会话结束即终止）。
