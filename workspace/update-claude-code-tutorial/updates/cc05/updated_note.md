@@ -1,0 +1,827 @@
+---
+title: Claude Code 模型与推理设置
+tags: [claude, ai, 工具使用, 模型配置]
+created: 2026-03-08
+updated: 2026-08-10
+status: updated
+source_project: claude-code-tutorial
+---
+
+# Claude Code 模型与推理设置
+
+> [!info] 概述
+> **模型与推理设置是 Claude Code 的核心配置** - 控制使用哪个 Claude 模型（Opus、Sonnet、Haiku）以及推理行为（Effort Level、Extended Thinking）。
+
+> [!info] 文档定位
+> **本文档聚焦于模型选择和推理参数配置** - CLI 和 VSCode 插件的模型设置、推理参数调整、第三方平台配置。完整安装配置请参阅 [[如何使用Claude code]]
+
+---
+
+## 核心概念
+
+### 是什么
+
+**模型配置** = 选择使用哪个 AI 模型来处理你的请求
+**推理设置** = 控制 AI 如何"思考"（思考深度、上下文长度等）
+
+### 为什么需要
+
+- **不同任务需要不同模型**：简单任务用快速模型，复杂推理用强力模型
+- **成本控制**：按需选择合适的模型，避免不必要的开销
+- **性能优化**：调整推理参数以获得最佳响应质量和速度
+
+### 通俗理解
+
+**🎯 比喻**：选择模型就像选择不同专业度的专家
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    模型选择类比                              │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Haiku    →  实习生：快速、便宜，适合简单任务              │
+│  Sonnet   →  资深工程师：平衡性能和成本，日常工作首选        │
+│  Opus     →  首席架构师：最强推理能力，解决复杂问题          │
+│                                                             │
+│  Effort Level → 思考深度：                                   │
+│    low   →  快速反应                                        │
+│    medium →  标准思考                                       │
+│    high   →  深度推理                                       │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+> [!tip] 大白话（2026-08 更新）
+> 打开 Claude Code 默认就是 **Sonnet 5**（日常主力）；想要最强推理就 `/model opus` 切到 **Opus 5**。别被旧教程里的 Opus 4.x 带偏——默认模型早已升级。
+
+---
+
+## CLI 模型配置
+
+### 模型别名系统
+
+Claude Code 使用**模型别名**来简化模型选择，别名总是指向最新版本：
+
+| 别名 | 对应模型 | 使用场景 | Token 上下文 |
+|------|----------|----------|-------------|
+| `default` | 根据账户自动选择（Max: Opus 5, 其他: Sonnet 5） | 系统推荐 | 1M |
+| `sonnet` | Claude Sonnet 5 | 日常编码任务 | 1M |
+| `opus` | Claude Opus 5 | 复杂推理任务 | 1M |
+| `haiku` | Claude Haiku 4.5 | 简单快速任务 | 200K |
+| `sonnet[1m]` | Sonnet + 1M 上下文 | 长会话/大型代码库 | 1M |
+| `opusplan` | 智能混合模式 | 规划用 Opus，执行用 Sonnet | 200K |
+
+> [!tip] 大白话
+> 什么都不用配就用 `default`：高级账户（Max）默认 **Opus 5**，普通账户默认 **Sonnet 5**。`opus` / `sonnet` 别名永远指向各自系列的最新版本。
+
+> [!info] 📚 来源
+> - [Model configuration - Claude Code Docs](https://code.claude.com/docs/en/model-config) - 官方模型配置文档
+
+### 模型切换方式
+
+配置优先级从高到低：
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                  模型配置优先级（高→低）                       │
+├─────────────────────────────────────────────────────────────┤
+│  1. 会话中 /model 命令                    │
+│  2. 启动时 --model 参数                           │
+│  3. 环境变量 ANTHROPIC_MODEL                          │
+│  4. settings.json 中的 model 字段                         │
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### 方式一：会话中切换
+
+```bash
+# 交互式选择（显示可用模型列表）
+/model
+
+# 直接切换到指定别名
+/model sonnet
+/model opus
+/model haiku
+
+# 切换到 1M 上下文版本
+/model sonnet[1m]
+
+# 切换到 opusplan 混合模式
+/model opusplan
+
+# 查看当前使用的模型
+/status
+```
+
+#### 方式二：启动时指定
+
+```bash
+# 使用 --model 参数（推荐）
+claude --model opus
+claude --model sonnet
+claude --model haiku
+
+# 使用 -m 简写
+claude -m opusplan
+
+# 指定完整模型名称（固定版本）
+claude --model claude-opus-5
+claude --model claude-sonnet-5
+```
+
+#### 方式三：环境变量
+
+```bash
+# 临时设置（当前终端会话）
+export ANTHROPIC_MODEL=opus
+claude
+
+# 永久设置（添加到 ~/.zshrc 或 ~/.bashrc）
+echo 'export ANTHROPIC_MODEL=sonnet' >> ~/.zshrc
+source ~/.zshrc
+
+# 也可直接指定完整模型名
+export ANTHROPIC_MODEL=claude-opus-5
+```
+
+#### 方式四：配置文件
+
+**全局配置** (`~/.claude/settings.json`)：
+```json
+{
+  "model": "sonnet"
+}
+```
+
+**项目配置** (`.claude/settings.json`)：
+```json
+{
+  "model": "opusplan"
+}
+```
+
+> [!tip] 配置建议
+> - 全局设置：使用 `sonnet` 作为默认（平衡性能和成本）
+> - 项目设置：复杂项目使用 `opusplan`，大型代码库使用 `sonnet[1m]`
+
+### Fallback 模型（2026 新增）
+
+> [!tip] Fallback 模型
+> 配置最多 3 个 fallback 模型，当主模型过载时自动按顺序尝试。
+
+```bash
+# CLI 启动时指定
+claude --model opus --fallback-model sonnet "分析架构"
+
+# settings.json 配置
+{
+  "model": "opus",
+  "fallbackModels": ["sonnet", "haiku"]
+}
+```
+
+**工作原理**：主模型不可用时 → 尝试第一个 fallback → 仍不可用则尝试下一个 → 全部失败时报错。
+
+---
+
+### 推理参数配置
+
+#### Effort Level（推理努力级别）
+
+控制自适应推理的深度，影响模型分配多少"思考 budget"：
+
+| 级别 | 说明 | Token 预算 | 适用场景 |
+|------|------|-----------|----------|
+| `low` | 快速响应 | 最少 | 简单问答、代码补全 |
+| `medium` | 标准思考 | 平衡 | 日常开发任务 |
+| `high` | 深度推理 | 多 | 复杂架构设计、调试 |
+| `xhigh` | 极深推理（Opus 5 / Opus 4.7+ / Sonnet 5；Claude Code 默认档） | 更多 | 高难度架构决策 |
+| `max` | 最大推理（Opus 5 / Opus 4.6+ / Sonnet 5） | 最多 | 最难的问题 |
+
+> [!tip] 大白话
+> Effort Level 就是「让模型多想多久」：`low` 秒回，`medium` 常规，越往上思考越深、越费 token。Claude Code 默认已是 `xhigh`，日常不用手动改。
+
+**设置方式**：
+
+```bash
+# 方式一：/effort 命令（推荐）
+/effort high
+
+# 方式二：在 /model 命令中使用左右箭头调整滑块
+/model
+# 使用箭头键选择 Effort Level
+
+# 方式三：环境变量
+export CLAUDE_CODE_EFFORT_LEVEL=medium
+export CLAUDE_CODE_EFFORT_LEVEL=high
+export CLAUDE_CODE_EFFORT_LEVEL=xhigh
+
+# 方式四：settings.json
+{
+  "effortLevel": "high"
+}
+```
+
+> [!info] 当前状态显示
+> 当前 Effort Level 会显示在 logo 和 spinner 旁边，如 "with low effort"，方便确认当前设置。
+
+#### 禁用自适应推理
+
+```bash
+# 禁用后使用固定 thinking budget
+export CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING=1
+```
+
+#### Extended Thinking（扩展思考）
+
+通过关键词触发不同级别的深度思考：
+
+| 关键词 | Token 预算 | 触发词 |
+|--------|-----------|--------|
+| ~1.5K | `think` | 在提示中包含 "think" |
+| ~3K | `think hard` | 在提示中包含 "think hard" |
+| ~8K | `think harder` | 在提示中包含 "think harder" |
+| ~16K | `ultrathink` | 在提示中包含 "ultrathink" |
+
+**示例**：
+```bash
+# 触发深度思考
+"请 think hard 分析这个架构设计"
+"使用 ultrathink 模式重构这段代码"
+```
+
+> [!tip] 技能中的使用
+> 在 Skills 文件中包含 "ultrathink" 可启用扩展思考模式。
+
+### 第三方平台配置
+
+Claude Code 支持多种第三方平台配置方式，分为**官方支持的云平台**和**自定义 API 端点**两类。
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                 第三方平台配置架构                            │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  官方云平台                    自定义 API                    │
+│  ───────────                  ──────────                    │
+│  • Amazon Bedrock            • OpenRouter                   │
+│  • Google Vertex AI          • 国内大模型（阿里、智谱等）     │
+│  • Azure AI Foundry          • 本地模型（Ollama）            │
+│                              • LLM Gateway                  │
+│                                                             │
+│  配置方式：                   配置方式：                      │
+│  modelOverrides              ANTHROPIC_BASE_URL             │
+│  环境变量                     providers 字段                 │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### 官方云平台配置
+
+支持通过环境变量或 `modelOverrides` 将模型路由到云平台：
+
+> [!info] 2026-08 更新
+> 自 v2.1.207 起，**Amazon Bedrock、Google Vertex AI、Claude Platform on AWS** 的默认模型为 **Opus 4.8**。在这些平台 **Auto mode 无需 `CLAUDE_CODE_ENABLE_AUTO_MODE` 即可用**；如需关闭，在 settings.json 设置 `"disableAutoMode": true`。
+
+**方式一：环境变量固定模型版本**
+
+```bash
+# Amazon Bedrock - 使用推理配置文件 ARN
+export ANTHROPIC_DEFAULT_OPUS_MODEL='us.anthropic.claude-opus-4-8-v1'
+export ANTHROPIC_DEFAULT_SONNET_MODEL='us.anthropic.claude-sonnet-5-v1'
+
+# Google Vertex AI - 使用版本名称
+export ANTHROPIC_DEFAULT_OPUS_MODEL='claude-opus-4-8'
+
+# Azure AI Foundry - 使用部署名称
+export ANTHROPIC_DEFAULT_OPUS_MODEL='claude-opus-4-8'
+
+# 启用 1M 上下文
+export ANTHROPIC_DEFAULT_OPUS_MODEL='claude-opus-4-8[1m]'
+```
+
+**方式二：modelOverrides 配置**
+
+在 `~/.claude/settings.json` 中配置模型覆盖：
+
+```json
+{
+  "modelOverrides": {
+    "claude-opus-4-8": "arn:aws:bedrock:us-east-2:123456789012:application-inference-profile/opus-prod",
+    "claude-sonnet-5": "arn:aws:bedrock:us-east-2:123456789012:application-inference-profile/sonnet-prod",
+    "claude-haiku-4-5": "arn:aws:bedrock:us-east-2:123456789012:application-inference-profile/haiku-prod"
+  }
+}
+```
+
+**方式三：AWS 高级凭据配置**
+
+```json
+{
+  "awsAuthRefresh": "aws sso login --profile myprofile",
+  "awsCredentialExport": "/bin/generate_aws_grant.sh"
+}
+```
+
+#### 自定义 API 端点配置
+
+官方通过 `env` 字段配置第三方 Anthropic 兼容 API（一次只能有一个上游）：
+
+**配置示例** (`~/.claude/settings.json`)：
+
+```json
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://api.deepseek.com",
+    "ANTHROPIC_AUTH_TOKEN": "sk-xxx",
+    "ANTHROPIC_MODEL": "deepseek-chat"
+  }
+}
+```
+
+> [!warning] 网传的 `providers` / `defaultProvider` 不是官方配置
+> `"providers"` + `"defaultProvider"` 在 Claude Code 原生里**不存在**，写在 settings.json 里会被**静默忽略**。多 provider 路由是[未实现的官方 feature request](https://github.com/anthropics/claude-code/issues/74073)。官方只支持一个上游，用上面的 `env` 字段配置。
+
+**使用第三方模型**：
+```bash
+# 启动时指定模型
+claude --model deepseek-chat
+
+# 会话中切换模型（同一上游内）
+/model deepseek-chat
+```
+
+**多平台切换**：原生不支持「一份 settings.json 配多个平台、改开关切换」。可改用 `--settings` 多份文件，或 CC-Switch / LiteLLM 等工具（见 [[如何使用Claude code#多平台一键切换（官方不原生支持）]]）。
+
+#### LLM Gateway / 自定义模型选项
+
+适用于企业内部 LLM 网关部署：
+
+```bash
+# 配置自定义模型选项
+export ANTHROPIC_CUSTOM_MODEL_OPTION="my-gateway/claude-opus-5"
+export ANTHROPIC_CUSTOM_MODEL_OPTION_NAME="Opus via Gateway"
+export ANTHROPIC_CUSTOM_MODEL_OPTION_DESCRIPTION="Custom deployment routed through the internal LLM gateway"
+```
+
+#### 自定义 API 端点（ANTHROPIC_BASE_URL）
+
+直接指定 API 端点，适用于代理或自定义服务：
+
+```bash
+# 环境变量方式
+export ANTHROPIC_BASE_URL="https://your-custom-endpoint.com"
+export ANTHROPIC_API_KEY="your-api-key"
+
+# 或在 settings.json 中配置
+```
+
+```json
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://your-custom-endpoint.com",
+    "ANTHROPIC_API_KEY": "your-api-key"
+  }
+}
+```
+
+#### 模型能力声明
+
+当使用自定义模型或云平台端点时，需要声明模型支持的能力：
+
+```bash
+export ANTHROPIC_DEFAULT_OPUS_MODEL='arn:aws:bedrock:us-east-1:123456789012:custom-model/abc'
+export ANTHROPIC_DEFAULT_OPUS_MODEL_NAME='Opus via Bedrock'
+export ANTHROPIC_DEFAULT_OPUS_MODEL_DESCRIPTION='Opus 4.8 routed through a Bedrock custom endpoint'
+export ANTHROPIC_DEFAULT_OPUS_MODEL_SUPPORTED_CAPABILITIES='effort,max_effort,thinking,adaptive_thinking,interleaved_thinking'
+```
+
+**支持的能力声明**：
+
+| 能力 | 说明 |
+|------|------|
+| `effort` | 启用努力级别和 `/effort` 命令 |
+| `max_effort` | 启用 `max` 努力级别 |
+| `thinking` | 启用扩展思考 |
+| `adaptive_thinking` | 启用自适应推理 |
+| `interleaved_thinking` | 启用工具调用之间的思考 |
+
+#### 自定义模型显示名称
+
+为自定义端点配置友好的显示名称：
+
+```bash
+export ANTHROPIC_DEFAULT_OPUS_MODEL_NAME='Opus via Bedrock'
+export ANTHROPIC_DEFAULT_OPUS_MODEL_DESCRIPTION='Opus 4.8 routed through a Bedrock custom endpoint'
+```
+
+> [!info] 📚 来源
+> - [Model configuration - Claude Code Docs](https://code.claude.com/docs/en/model-config) - 官方模型配置文档
+> - [Claude Code settings - Claude Code Docs](https://code.claude.com/docs/en/settings) - 官方设置文档
+> - [Cloud Providers - GitHub](https://github.com/anthropics/claude-code-action/blob/main/docs/cloud-providers.md) - 云平台集成指南
+
+> [!warning] 重要说明
+> 根据 [claude-task-master 文档](https://github.com/eyaltoledano/claude-task-master/blob/main/docs/examples/claude-code-usage.md)，**部分 AI SDK 参数（如 temperature、maxTokens）在 Claude Code CLI 中不被支持或会被忽略**。
+
+> [!tip] 配置验证
+> - 运行 `/status` 命令查看当前活动的配置来源
+> - 使用 `/model` 命令测试模型切换
+> - 检查环境变量：`echo $ANTHROPIC_DEFAULT_OPUS_MODEL`
+
+### 扩展上下文（1M Tokens）
+
+**Opus 5 / Sonnet 5 / Opus 4.8 原生支持 100 万 token 上下文窗口**，适用于大型代码库。
+
+**使用方式**：
+```bash
+# 使用别名
+/model sonnet[1m]
+/model opus[1m]
+
+# 或附加到完整模型名
+/model claude-sonnet-5[1m]
+/model claude-opus-5[1m]
+```
+
+> [!tip] 大白话
+> 1M 上下文 = 一次能塞进整个大型代码仓库的对话。Sonnet 5 / Opus 5 开箱即用，无需额外开启；`sonnet[1m]` 这类带 `[1m]` 后缀的别名更多是向后兼容的写法。
+
+**计费说明**：
+- Sonnet 5 促销价 **$2/$10 每 Mtok**（至 2026-08-31，之后 $3/$15）
+- Opus 5 标准价 $5/$25 每 Mtok（fast 模式 $10/$50）
+- 1M 上下文是模型原生能力，按标准费率计费，不再区分「前 200K / 长上下文」两段定价
+- 订阅用户：超出订阅额度部分按额外使用计费
+
+**禁用 1M 上下文**：
+```bash
+export CLAUDE_CODE_DISABLE_1M_CONTEXT=1
+```
+> 设置后会对所有原生 1M 模型（Sonnet 5 / Opus 5 / Opus 4.8 等）强制回退到 200K，超出部分自动压缩。
+
+> [!info] 📚 来源
+> - [Model configuration - Extended context](https://code.claude.com/docs/en/model-config#extended-context) - 官方文档
+
+---
+
+## VSCode 插件配置
+
+### 通过 settings.json 配置
+
+VSCode 插件通过 VS Code 的 `settings.json` 进行配置，支持**用户级**和**工作区级**配置。
+
+**用户级配置** (`~/.config/Code/User/settings.json` 或 `~/Library/Application Support/Code/User/settings.json`)：
+```json
+{
+  "claudeCode.enabled": true,
+  "claudeCode.model": "sonnet"
+}
+```
+
+**工作区配置** (`.vscode/settings.json`)：
+```json
+{
+  "claudeCode.model": "opusplan",
+  "claudeCode.environmentVariables": [
+    {
+      "name": "API_KEY",
+      "value": "sk-xxx"
+    },
+    {
+      "name": "HTTP_PROXY",
+      "value": "http://127.0.0.1:7890"
+    }
+  ]
+}
+```
+
+### VSCode 插件特有配置项
+
+根据官方文档，VSCode 插件的主要配置项：
+
+| 配置项 | 默认值 | 说明 |
+|--------|--------|------|
+| `selectedModel` | `default` | 新对话使用的模型 |
+| `useTerminal` | `false` | 使用终端模式而非图形面板 |
+| `initialPermissionMode` | `default` | 初始权限模式控制 |
+| `preferredLocation` | `panel` | Claude 面板打开位置 |
+| `environmentVariables` | `[]` | Claude 进程的环境变量 |
+
+> [!info] 📚 来源
+> - [Visual Studio Code - Claude Code Docs](https://code.claude.com/docs/en/vs-code) - 官方 VSCode 文档
+
+### VSCode 插件操作步骤
+
+> [!warning] 注意
+> VSCode 插件提供图形界面，操作方式可能与 CLI 的终端界面不同。以下内容基于官方文档整理。
+
+#### 模型切换
+
+**方式一：通过命令菜单 `/`**
+
+1. 在 Claude Code 对话框中输入 `/`
+2. 在命令列表中找到 **Switch Models** 选项
+3. 选择想要使用的模型
+
+**方式二：通过 `/model` 命令**
+
+在对话框中直接输入 `/model`，会打开模型选择界面。
+
+**方式三：通过 settings.json 配置**
+
+在 VSCode 设置中搜索 `claudeCode.selectedModel`，输入模型别名：
+
+| 别名 | 说明 |
+|------|------|
+| `default` | 账户默认（根据订阅类型自动选择） |
+| `sonnet` | Claude Sonnet 5，日常编码任务 |
+| `opus` | Claude Opus 5，复杂推理任务 |
+| `haiku` | Claude Haiku 4.5，简单快速任务 |
+| `sonnet[1m]` | Sonnet + 1M 上下文，大型代码库 |
+| `opusplan` | 智能混合模式，规划用 Opus，执行用 Sonnet |
+
+#### Extended Thinking 切换
+
+**方式一：通过命令菜单**
+
+1. 在对话框中输入 `/`
+2. 在命令列表中找到 **Extended Thinking** 选项
+3. 使用 **Space** 或 **Enter** 切换开关状态
+
+**方式二：在提示中使用关键词**
+
+直接在对话中包含关键词即可触发：
+```
+请 think 帮我分析这段代码
+使用 think hard 模式设计这个架构
+用 ultrathink 深度思考这个问题
+```
+
+#### Effort Level 调整
+
+**设置方式**：
+
+| 方式 | 说明 |
+|------|------|
+| **通过 `/model` 命令** | CLI 中使用左右箭头键调整 effort slider（VSCode 插件可能支持类似操作） |
+| **环境变量** | 设置 `CLAUDE_CODE_EFFORT_LEVEL=low\|medium\|high` |
+| **settings.json** | 在 Claude Code 设置中添加 `"effortLevel": "low\|medium\|high"` |
+
+| 级别 | 显示标识 | 适用场景 |
+|------|----------|----------|
+| `low` | with low effort | 简单问答、快速响应 |
+| `medium` | with medium effort | 日常开发（Opus 默认） |
+| `high` | with high effort | 复杂推理、深度分析 |
+
+> [!info] 注意
+> Effort Level 支持 Opus 5 / Sonnet 5 及 Opus 4.6+ 系列；`xhigh` 档需 Opus 4.7+ / Opus 5 / Sonnet 5。当前设置会显示在 logo 和 spinner 旁边，方便确认。
+
+#### Permission Mode 切换
+
+Claude Code VSCode 插件支持三种权限模式：
+
+| 模式 | 说明 | 使用场景 |
+|------|------|----------|
+| **Normal** | 每次操作需确认 | 学习、了解 AI 行为 |
+| **Plan** | 先规划后执行 | 复杂任务、架构设计 |
+| **Auto-accept** | 自动批准 | 信任环境、快速迭代 |
+
+**切换方式**：
+1. 点击对话框右上角的 **权限模式图标**
+2. 或通过命令面板 (`Cmd/Ctrl + Shift + P`) 搜索 "Claude Code Permission Mode"
+
+#### 常用快捷操作
+
+| 操作 | 快捷方式 |
+|------|----------|
+| 打开命令面板 | `Cmd/Ctrl + Shift + P` |
+| 切换侧边栏 | `Cmd/Ctrl + B` |
+| 新建对话 | 点击 "+" 按钮 |
+| 清空对话 | 点击垃圾桶图标 |
+| 查看当前状态 | 输入 `/status` |
+
+#### VSCode 特有配置项
+
+根据官方文档，VSCode 插件的设置项（在 VS Code 设置中搜索 "Claude Code"）：
+
+| 设置项 | 默认值 | 说明 |
+|--------|--------|------|
+| `selectedModel` | `default` | 新对话使用的模型 |
+| `useTerminal` | `false` | 是否使用终端模式而非图形面板 |
+| `initialPermissionMode` | `default` | 初始权限模式：`default`/`plan`/`acceptEdits`/`bypassPermissions` |
+| `preferredLocation` | `panel` | Claude 打开位置：`sidebar`（右侧）或 `panel`（新标签） |
+| `autosave` | `true` | 读写文件前自动保存 |
+| `useCtrlEnterToSend` | `false` | 使用 Ctrl/Cmd+Enter 发送消息 |
+| `enableNewConversationShortcut` | `true` | 启用 Cmd/Ctrl+N 新建对话 |
+| `respectGitIgnore` | `true` | 文件搜索时排除 .gitignore 模式 |
+| `environmentVariables` | `[]` | 为 Claude 进程设置环境变量 |
+
+**配置示例** (VSCode `settings.json`):
+
+```json
+{
+  // 模型选择（注意：VSCode 插件使用 selectedModel，不是 model）
+  "claudeCode.selectedModel": "sonnet",
+
+  // 初始权限模式
+  "claudeCode.initialPermissionMode": "plan",
+
+  // 面板位置
+  "claudeCode.preferredLocation": "sidebar",
+
+  // 环境变量（用于设置 Effort Level 等）
+  "claudeCode.environmentVariables": [
+    {
+      "name": "CLAUDE_CODE_EFFORT_LEVEL",
+      "value": "medium"
+    }
+  ]
+}
+```
+
+> [!warning] 重要区别
+> - **VSCode 插件设置**: `claudeCode.selectedModel`（仅 VSCode）
+> - **Claude Code 共享设置**: `~/.claude/settings.json` 中的 `model` 字段（CLI 和 VSCode 共享）
+>
+> 两者配置优先级：VSCode 工作区设置 > VSCode 用户设置 > `~/.claude/settings.json`
+
+### 与 CLI 的配置共享
+
+VSCode 插件与 CLI **共享以下配置**：
+
+1. **用户级设置**：`~/.claude/settings.json`
+2. **MCP 服务器配置**：可从 Claude Desktop 导入
+3. **API 密钥和认证**：通过 Keychain 共享
+
+**配置优先级**：
+```
+VSCode 工作区设置 > VSCode 用户设置 > ~/.claude/settings.json
+```
+
+> [!info] 📚 来源
+> - [Visual Studio Code - Claude Code Docs](https://code.claude.com/docs/en/vs-code) - 官方 VSCode 文档
+
+---
+
+## 推理模式详解
+
+### opusplan 混合模式
+
+`opusplan` 是一个智能混合模式，自动在不同阶段使用不同模型：
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    opusplan 工作流程                         │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Plan Mode（规划阶段）                                      │
+│       │                                                     │
+│       ▼                                                     │
+│  使用 Opus 5 ──────→ 深度推理、架构设计、任务分解        │
+│       │                                                     │
+│       ▼                                                     │
+│  Execution Mode（执行阶段）                                 │
+│       │                                                     │
+│       ▼                                                     │
+│  使用 Sonnet 5 ────→ 代码生成、实现、编辑                │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**适用场景**：
+- 需要深度规划但大量编码的项目
+- 架构设计 + 实现的混合任务
+- 想要 Opus 的推理能力但不想承担全部成本
+
+### Prompt Caching 配置
+
+Claude Code 自动使用 prompt caching 优化性能和成本，可以按需禁用：
+
+| 环境变量 | 作用 |
+|----------|------|
+| `DISABLE_PROMPT_CACHING=1` | 禁用所有模型的 prompt caching |
+| `DISABLE_PROMPT_CACHING_HAIKU=1` | 仅禁用 Haiku |
+| `DISABLE_PROMPT_CACHING_SONNET=1` | 仅禁用 Sonnet |
+| `DISABLE_PROMPT_CACHING_OPUS=1` | 仅禁用 Opus |
+
+> [!tip] 全局优先
+> `DISABLE_PROMPT_CACHING` 优先级高于按模型的设置。
+
+---
+
+## 配置最佳实践
+
+### 不同场景的模型选择
+
+| 场景 | 推荐模型 | 理由 |
+|------|----------|------|
+| **日常编码** | `sonnet` | 平衡性能和成本 |
+| **复杂调试** | `opus` | 更强的推理能力 |
+| **快速补全** | `haiku` | 响应最快 |
+| **架构设计** | `opusplan` | 规划深度，执行高效 |
+| **大型代码库** | `sonnet[1m]` | 1M 上下文支持 |
+
+### 成本优化策略
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    成本优化金字塔                            │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│                        ┌─────────┐                          │
+│       Haiku (最便宜)    │         │                          │
+│       日常简单任务        └─────────┘                          │
+│           │                                                 │
+│      ┌────▼─────┐                                            │
+│      │  Sonnet  │         (平衡点)                          │
+│      │  日常开发  │                                            │
+│      └────┬─────┘                                            │
+│           │                                                 │
+│      ┌────▼─────┐                                            │
+│      │  Opus    │         (按需使用)                          │
+│      │  复杂任务  │                                            │
+│      └─────────┘                                            │
+│                                                             │
+│  建议：默认 Sonnet，复杂任务升级 Opus，简单任务降级 Haiku    │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### 性能调优建议
+
+1. **使用 Effort Level**：
+   - 简单任务用 `low` 快速完成
+   - 复杂任务用 `high` 获得更好结果
+
+2. **利用 opusplan**：
+   - 大型项目自动优化模型使用
+   - 规划阶段深度推理，执行阶段高效编码
+
+3. **启用 1M 上下文**：
+   - 大型代码库使用 `sonnet[1m]`（Sonnet 5 / Opus 5 原生支持 1M）
+   - 1M 是模型原生能力，按标准费率计费，无额外长上下文附加费
+
+---
+
+## 常见问题
+
+**Q: temperature 参数支持吗？**
+
+A: 根据社区文档，Claude Code CLI 对 `temperature` 等 AI SDK 参数的支持**有限或会被忽略**。建议使用 Effort Level 来控制输出行为。
+
+**Q: 如何查看当前使用的模型？**
+
+A: 使用 `/status` 命令，会显示当前模型和 Effort Level。
+
+**Q: opusplan 一定会省钱吗？**
+
+A: 不一定。opusplan 在规划阶段使用 Opus（更贵），执行阶段使用 Sonnet。对于规划简单、执行复杂的任务可能更贵；对于规划复杂的任务可能更省。需根据实际场景评估。
+
+**Q: 第三方平台可以用模型别名吗？**
+
+A: 可以。在 `env` 里设 `ANTHROPIC_MODEL` 指定第三方模型（如 `deepseek-chat`），之后可用 `/model` 在同一上游内切换。原生不支持「配置多个 provider 再一键切换」；网传的 `providers` / `defaultProvider` 写法无效，会被忽略。
+
+**Q: Effort Level 和 Extended Thinking 有什么区别？**
+
+A:
+- **Effort Level**: 控制模型分配多少"思考 budget"来处理任务
+- **Extended Thinking**: 触发特定级别的深度思考（1.5K~16K tokens）
+
+两者可以同时使用：设置 `effortLevel: high` 并使用 `think hard` 会同时生效。
+
+**Q: VSCode 插件和 CLI 的配置有冲突怎么办？**
+
+A: 配置优先级为：VSCode 工作区设置 > VSCode 用户设置 > `~/.claude/settings.json`。如需统一，建议在 `~/.claude/settings.json` 中配置，两者都会读取。
+
+---
+
+## 相关文档
+
+- [[如何使用Claude code]] - 完整安装配置指南
+- [[Claude Code 常用功能]] - 功能速查手册
+- [[Claude Code 会话管理]] - 会话管理技巧
+- [[Claude MCP 使用指南]] - MCP 配置教程
+
+---
+
+## 参考资料
+
+### 官方资源
+- [Model configuration - Claude Code Docs](https://code.claude.com/docs/en/model-config) - 模型配置文档
+- [Claude Code settings - Claude Code Docs](https://code.claude.com/docs/en/settings) - 设置文档
+- [Visual Studio Code - Claude Code Docs](https://code.claude.com/docs/en/vs-code) - VSCode 插件文档
+
+### 社区资源
+- [How to Setup Claude Code in VSCode (2026)](https://www.youtube.com/watch?v=m2xE5O81mSg) - YouTube 教程
+- [Claude Code Complete Guide 2026]((https://www.jitendrazaa.com/blog/ai/claude-code-complete-guide-2026-from-basics-to-advanced-mcp-2/) - 完整指南
+
+### GitHub 资源
+- [claude-task-master - Claude Code usage examples](https://github.com/eyaltoledano/claude-task-master/blob/main/docs/examples/claude-code-usage.md) - 使用示例和限制说明
+
+---
+
+## 更新记录
+
+| 日期 | 变更 |
+|------|------|
+| 2026-08-07 | 修正「自定义 API 端点配置」：`providers` / `defaultProvider` 为非官方写法、会被静默忽略，改为官方 `env`（`ANTHROPIC_BASE_URL` / `ANTHROPIC_AUTH_TOKEN` / `ANTHROPIC_MODEL`）；FAQ「第三方模型别名」同步修正 |
+| 2026-08-10 | 同步 2026-08 模型现状：默认模型更新为 Sonnet 5 / Opus 5（原生 1M 上下文）；第三方平台（Bedrock/Vertex/AWS）默认 Opus 4.8 且 Auto mode 免 opt-in；Effort 档位标注更新（xhigh 为 Claude Code 默认档）；`CLAUDE_CODE_DISABLE_1M_CONTEXT` 强制回 200K 自动压缩；Haiku 上下文修正为 200K |
