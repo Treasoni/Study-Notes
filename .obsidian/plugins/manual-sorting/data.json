@@ -667,6 +667,7 @@
     },
     "homeassistant": {
       "children": [
+        "homeassistant/customers",
         "homeassistant/三种部署方式对比与选型",
         "homeassistant/ai-smart-home-system",
         "homeassistant/Home Assistant 三种部署方式对比与选型.md",
@@ -700,6 +701,52 @@
         "homeassistant/ai-smart-home-system/基于 Home Assistant 的跨品牌 AI 智能家居一键部署系统.md",
         "homeassistant/ai-smart-home-system/系统架构图.md",
         "homeassistant/ai-smart-home-system/HAOS交付流程图.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/customers": {
+      "children": [
+        "homeassistant/customers/客户A"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/customers/客户A": {
+      "children": [
+        "homeassistant/customers/客户A/实施",
+        "homeassistant/customers/客户A/提案",
+        "homeassistant/customers/客户A/客户A MOC.md",
+        "homeassistant/customers/客户A/客户A_方案介绍.html"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/customers/客户A/实施": {
+      "children": [
+        "homeassistant/customers/客户A/实施/3d-panel",
+        "homeassistant/customers/客户A/实施/00_部署架构.md",
+        "homeassistant/customers/客户A/实施/01_部署runbook.md",
+        "homeassistant/customers/客户A/实施/02_设备点位表.md",
+        "homeassistant/customers/客户A/实施/03_自动化实现.md",
+        "homeassistant/customers/客户A/实施/04_3D面板方案与骨架.md",
+        "homeassistant/customers/客户A/实施/05_远程运维手册.md",
+        "homeassistant/customers/客户A/实施/06_维护手册.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/customers/客户A/实施/3d-panel": {
+      "children": [
+        "homeassistant/customers/客户A/实施/3d-panel/index.html"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/customers/客户A/提案": {
+      "children": [
+        "homeassistant/customers/客户A/提案/00_方案总览.md",
+        "homeassistant/customers/客户A/提案/01_系统架构.md",
+        "homeassistant/customers/客户A/提案/02_设备清单.md",
+        "homeassistant/customers/客户A/提案/03_界面设计.md",
+        "homeassistant/customers/客户A/提案/04_语音与智能体.md",
+        "homeassistant/customers/客户A/提案/05_自动化清单.md",
+        "homeassistant/customers/客户A/提案/06_维护与质保.md"
       ],
       "sortOrder": "custom"
     },
