@@ -2,7 +2,7 @@
 title: settings.json 配置详解
 tags: [claude, ai, 工具使用, claude-code, 配置]
 created: 2026-07-27
-updated: 2026-07-27
+updated: 2026-08-07
 status: draft
 source_project: claude-code-tutorial
 ---
@@ -46,14 +46,14 @@ Claude Code 按优先级从低到高合并多个位置的 settings.json：
 ```json
 {
   "model": "sonnet",
-  "fallbackModels": ["haiku"]
+  "fallbackModel": ["haiku"]
 }
 ```
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
 | `model` | string | 默认使用的模型（`sonnet`、`opus`、`haiku` 等） |
-| `fallbackModels` | string[] | 主模型不可用时的备选列表，最多 3 个 |
+| `fallbackModel` | string[] | 主模型不可用时的备选模型链，按顺序尝试，最多 3 个 |
 
 模型设置支持多种方式覆盖：settings.json → 环境变量 `ANTHROPIC_MODEL` → CLI 参数 `--model`，后者的优先级更高。
 
@@ -124,22 +124,23 @@ Claude Code 按优先级从低到高合并多个位置的 settings.json：
 > - 不要放行 `rm -rf`、`sudo`、`chmod 777` 等危险命令
 > - 不熟悉时保持默认，让 Claude Code 每次询问，更安全
 
-### 4. 自动压缩阈值
+### 4. 自动压缩
 
 ```json
 {
-  "autoCompactThreshold": 80
+  "autoCompactEnabled": true
 }
 ```
 
-控制上下文使用率超过多少百分比时自动触发压缩：
+控制上下文接近上限时是否自动压缩：
 
 | 值 | 行为 |
 |----|------|
-| `0` | 禁用自动压缩 |
-| `50`-`70` | 激进压缩（适合长会话） |
-| `80` | 默认值，平衡体验 |
-| `90`-`100` | 延迟压缩（适合需要保持完整上下文的场景） |
+| `true` | 开启自动压缩（默认） |
+| `false` | 关闭自动压缩，需要手动 `/compact` |
+
+> [!warning] 旧配置已变更
+> 旧版 `autoCompactThreshold`（按百分比设置阈值）已废弃。压缩窗口改为**按 token 数**控制：用会话内 `/autocompact` 命令、CLI 参数 `--autocompact` 或环境变量 `CLAUDE_CODE_AUTO_COMPACT_WINDOW` 调整（范围 100000–1000000 token）。
 
 > 手动压缩用 `/compact` 命令，比自动压缩更可控。
 
@@ -237,11 +238,12 @@ Hooks 是 settings.json 中最复杂的功能，支持多个事件点和多种�
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "verbose": false,
-  "maxTokens": 4096,
-  "systemPrompt": "你是一个资深工程师，回答简洁直接。",
   "plugins": ["@anthropic/claude-code-plugin-pull-request"]
 }
 ```
+
+> [!note] 已移除的字段
+> `maxTokens` 已不在当前 schema 中；自定义系统提示词应通过 CLAUDE.md 文件管理，settings.json 不再支持 `systemPrompt`。
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -258,7 +260,6 @@ Hooks 是 settings.json 中最复杂的功能，支持多个事件点和多种�
 ```json
 {
   "model": "sonnet",
-  "autoCompactThreshold": 80,
   "permissions": {
     "allow": [
       "Read", "Write", "Edit", "Grep", "Glob",
@@ -301,8 +302,7 @@ Hooks 是 settings.json 中最复杂的功能，支持多个事件点和多种�
 
 ```json
 {
-  "model": "sonnet",
-  "autoCompactThreshold": 80
+  "model": "sonnet"
 }
 ```
 
@@ -382,3 +382,9 @@ Hooks 是 settings.json 中最复杂的功能，支持多个事件点和多种�
 - [Claude Code Settings Documentation](https://code.claude.com/docs/en/settings)
 - [JSON Schema for settings.json](https://json.schemastore.org/claude-code-settings.json)
 - [Claude Code Overview](https://code.claude.com/docs/en/overview)
+
+---
+
+## 更新记录
+
+- 2026-08-07：同步官方 schema 与文档。`autoCompactThreshold` 废弃 → `autoCompactEnabled` + `/autocompact`；`fallbackModels` → `fallbackModel`；移除 `maxTokens`、`systemPrompt`。

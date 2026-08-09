@@ -13,14 +13,16 @@
   .on{background:#ffd54a;box-shadow:0 0 8px #ffd54a;}
   .off{background:#3a3f4a;}
   #status{position:fixed;right:16px;top:16px;font-size:12px;color:#888;z-index:10;}
-  #roombar{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;}
+  #roombar{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;flex-wrap:wrap;justify-content:center;max-width:92vw;}
   #roombar button{background:#1b1f29;color:#ccc;border:1px solid #333;border-radius:8px;padding:8px 14px;cursor:pointer;}
   #roombar button.active{background:#2b3;color:#061;border-color:#2b3;font-weight:700;}
+  #newdevices{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:rgba(255,180,0,.12);border:1px solid #ffb400;color:#ffd54a;padding:8px 16px;border-radius:10px;font-size:13px;z-index:20;display:none;cursor:pointer;}
 </style>
 </head>
 <body>
 <div id="legend"><b>全屋状态</b><span class="dot on"></span> 开 &nbsp;<span class="dot off"></span> 关</div>
 <div id="status">未连接 HA · 模拟数据</div>
+<div id="newdevices"></div>
 <div id="roombar"></div>
 <div id="scene"></div>
 
@@ -35,17 +37,22 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-// ---------- 配置：房间 + 设备绑定 ----------
-// 正式阶段：换成 Sweet Home 3D 导出的 GLB + 用 HA 实体映射到模型节点
+// ============================================================
+// 一、房间几何配置（兜底）
+// 说明：这里只定义"房间长什么样"（中心点/尺寸/颜色）。设备成员不再手写——
+// 连接 HA 后按区域注册表自动绑定；无 HA / mock 时用下面 devices 兜底演示。
+// 正式阶段把房间盒换成 Sweet Home 3D 导出的 GLB，房间节点按 area_id 命名。
+// 每个房间可用 area_id 指定对应 HA 区域 id（默认等于 id）。
+// ============================================================
 const ROOMS = [
-  { id:'living', name:'客厅', center:[-4,0,0], size:[4.5,0.1,3.5], color:0x2b3b52,
+  { id:'living', area_id:'living_room', name:'客厅', center:[-4,0,0], size:[4.5,0.1,3.5], color:0x2b3b52,
     devices:[ {id:'light.living_room_ceiling', type:'light', pos:[-4,0.55,0]},
               {id:'cover.living_room_curtain_l', type:'cover', pos:[-2,0.3,-1.7]},
               {id:'climate.living_room_ac', type:'climate', pos:[-6,0.35,1.5]} ] },
-  { id:'master', name:'主卧', center:[3.5,0,0], size:[4,0.1,3], color:0x4a3a52,
+  { id:'master', area_id:'master_bedroom', name:'主卧', center:[3.5,0,0], size:[4,0.1,3], color:0x4a3a52,
     devices:[ {id:'light.master_bed_bedside_l', type:'light', pos:[3.5,0.5,1.4]},
               {id:'cover.master_bed_curtain_l', type:'cover', pos:[3.5,0.3,-1.5]} ] },
-  { id:'entry',  name:'玄关', center:[0,0,3.2], size:[2.5,0.1,1.8], color:0x3a4a3a,
+  { id:'entry',  area_id:'entryway', name:'玄关', center:[0,0,3.2], size:[2.5,0.1,1.8], color:0x3a4a3a,
     devices:[ {id:'light.entry_ceiling', type:'light', pos:[0,0.5,3.2]},
               {id:'lock.entry_main', type:'lock', pos:[1.1,0.3,4.1]} ] }
 ];
@@ -57,7 +64,40 @@ const mock = {
   'climate.living_room_ac': 'on', 'lock.entry_main': 'locked'
 };
 
-// ---------- 场景 ----------
+const SHOW_LABELS = true;      // 设备上方显示中文/友好名标签
+const domainOf  = e => e.domain || e.entity_id.split('.')[0];
+const friendlyName = e => e.name || e.original_name || e.entity_id;
+const shortName = name => {
+  const base = name.includes('.') ? name.split('.').slice(1).join('.') : name;
+  return base.replace(/_/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 16) || name;
+};
+
+// ============================================================
+// 二、设备域 → 几何/颜色 映射（可复用，所有客户共享）
+// y 是该类型设备的默认悬挂高度；on 是点亮色
+// ============================================================
+const DOMAIN_META = {
+  light:         { kind:'sphere', size:null,      y:0.55, on:0xffd54a },
+  switch:        { kind:'cube',   size:[0.18,0.22,0.1], y:0.5,  on:0xffd54a },
+  cover:         { kind:'cover',  size:[1.6,0.06,0.08], y:0.3,  on:0x9ccc65 },
+  climate:       { kind:'cube',   size:[0.4,0.5,0.2],   y:0.35, on:0x4fc3f7 },
+  lock:          { kind:'cube',   size:[0.4,0.5,0.2],   y:0.3,  on:0x2e7d32 },
+  fan:           { kind:'cube',   size:[0.35,0.12,0.35],y:0.55, on:0x80cbc4 },
+  media_player:  { kind:'cube',   size:[0.7,0.25,0.12],  y:0.45, on:0xce93d8 },
+  humidifier:    { kind:'cube',   size:[0.3,0.4,0.3],    y:0.4,  on:0x4dd0e1 },
+  sensor:        { kind:'cube',   size:[0.1,0.1,0.1],    y:0.35, on:0x90a4ae },
+  binary_sensor: { kind:'cube',   size:[0.1,0.1,0.1],    y:0.35, on:0xef5350 }
+};
+const DEFAULT_META = { kind:'cube', size:[0.2,0.2,0.2], y:0.4, on:0xffffff };
+const metaFor = t => DOMAIN_META[t] || DEFAULT_META;
+
+// 只渲染"看得见、值得看"的域
+const VISIBLE_DOMAINS = new Set(
+  ['light','switch','cover','climate','lock','fan','media_player','humidifier','sensor','binary_sensor','vacuum']);
+
+// ============================================================
+// 三、场景
+// ============================================================
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0f1115);
 const camera = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 0.1, 100);
@@ -77,48 +117,210 @@ controls.target.set(0,0,0);
 // 地面网格
 const grid = new THREE.GridHelper(20, 20, 0x333b48, 0x232833); grid.position.y = -0.05; scene.add(grid);
 
-// 房间 + 设备对象表
-const deviceMeshes = {};
+const roomMeshes = [];
+const deviceMeshes = {};   // entity_id -> { mesh, device, type }
+
+function makeDeviceMesh(type){
+  const m = metaFor(type);
+  const geo = m.kind === 'sphere'
+    ? new THREE.SphereGeometry(0.22, 16, 16)
+    : m.kind === 'cover'
+      ? new THREE.BoxGeometry(m.size[0], m.size[1], m.size[2])
+      : new THREE.BoxGeometry(m.size[0], m.size[1], m.size[2]);
+  return new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color:0x3a3f4a, emissive:0x000000 }));
+}
+
+function makeLabel(text){
+  const canvas = document.createElement('canvas');
+  canvas.width = 256; canvas.height = 64;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = 'rgba(10,12,16,0.72)';
+  ctx.fillRect(0, 0, 256, 64);
+  ctx.font = '30px system-ui, sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillStyle = '#e6e6e6';
+  ctx.fillText(text, 128, 32);
+  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+    map: new THREE.CanvasTexture(canvas), transparent:true, depthTest:false }));
+  sprite.scale.set(1.6, 0.4, 1);
+  sprite.position.set(0, 0.9, 0);
+  return sprite;
+}
+
+function addDevice(d){
+  const type = d.type || domainOf(d);
+  const mesh = makeDeviceMesh(type);
+  if (SHOW_LABELS){
+    const label = makeLabel(shortName(d.name || d.friendly_name || d.id || d.entity_id));
+    mesh.add(label);
+  }
+  mesh.position.set(d.pos[0], d.pos[1], d.pos[2]);
+  scene.add(mesh);
+  deviceMeshes[d.entity_id || d.id] = { mesh, device:d, type };
+}
+
 function makeRoom(r){
   const geo = new THREE.BoxGeometry(r.size[0], r.size[1], r.size[2]);
   const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color:r.color, transparent:true, opacity:0.55 }));
-  mesh.position.set(r.center[0], r.center[1], r.center[2]); scene.add(mesh);
-  r.devices.forEach(d => {
-    const g = d.type==='light' ? new THREE.SphereGeometry(0.22, 16, 16)
-         : d.type==='cover' ? new THREE.BoxGeometry(1.6, 0.06, 0.08)
-         : new THREE.BoxGeometry(0.4, 0.5, 0.2);
-    const m = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ color:0x3a3f4a, emissive:0x000000 }));
-    m.position.set(d.pos[0], d.pos[1], d.pos[2]); scene.add(m);
-    deviceMeshes[d.id] = { mesh:m, device:d };
+  mesh.position.set(r.center[0], r.center[1], r.center[2]);
+  scene.add(mesh);
+  roomMeshes.push(mesh);
+  (r.devices||[]).forEach(addDevice);
+}
+
+function clearScene(){
+  roomMeshes.forEach(m => scene.remove(m));
+  for (const k in deviceMeshes){ scene.remove(deviceMeshes[k].mesh); delete deviceMeshes[k]; }
+  roomMeshes.length = 0;
+  document.getElementById('roombar').innerHTML = '';
+}
+
+function buildRoombar(rooms){
+  const bar = document.getElementById('roombar');
+  rooms.forEach(r => {
+    const b = document.createElement('button'); b.textContent = r.name;
+    b.onclick = () => { controls.target.set(r.center[0], 0, r.center[2]); };
+    bar.appendChild(b);
   });
 }
-ROOMS.forEach(makeRoom);
 
-// ---------- 状态驱动 ----------
+// 房间内默认位置：按房间长宽比排网格，每类设备挂在不同高度
+function arrangeDevices(room, list){
+  const n = list.length;
+  if (!n) return;
+  const aspect = Math.max(room.size[0], 0.5) / Math.max(room.size[2], 0.5);
+  const cols = Math.max(1, Math.ceil(Math.sqrt(n * aspect)));
+  const rows = Math.ceil(n / cols);
+  const sx = Math.max(room.size[0] - 1.2, 0.5);
+  const sz = Math.max(room.size[2] - 1.2, 0.5);
+  list.forEach((d, i) => {
+    const col = i % cols, row = Math.floor(i / cols);
+    const x = room.center[0] - sx/2 + (cols === 1 ? sx/2 : (col + 0.5) * sx / cols);
+    const z = room.center[2] - sz/2 + (rows === 1 ? sz/2 : (row + 0.5) * sz / rows);
+    d.pos = [x, metaFor(d.type || domainOf(d)).y, z];
+  });
+}
+
+// ============================================================
+// 四、状态驱动
+// ============================================================
 function applyState(entityId, state){
   const e = deviceMeshes[entityId]; if(!e) return;
-  const isOn = state === 'on' || state === 'open' || state === 'locked';
-  if (e.device.type === 'light'){
-    e.mesh.material.emissive.setHex(isOn ? 0xffd54a : 0x000000);
-    if (isOn){ e.mesh.material.color.setHex(0xffd54a); }
-  } else if (e.device.type === 'cover'){
-    e.mesh.rotation.z = state==='open' ? 0 : Math.PI/2;
-  } else if (e.device.type === 'climate'){
-    e.mesh.material.emissive.setHex(isOn ? 0x4fc3f7 : 0x000000);
-  } else if (e.device.type === 'lock'){
-    e.mesh.material.emissive.setHex(state==='unlocked' ? 0xff6f3a : 0x2e7d32);
+  const isOn = state === 'on' || state === 'open' || state === 'locked' || state === 'playing';
+  const m = e.mesh.material;
+  switch (e.type){
+    case 'light':
+    case 'switch':
+    case 'fan':
+      m.emissive.setHex(isOn ? 0xffd54a : 0x000000);
+      if (isOn) m.color.setHex(0xffd54a);
+      break;
+    case 'cover':
+      e.mesh.rotation.z = state === 'open' ? 0 : Math.PI/2;
+      break;
+    case 'climate':
+      m.emissive.setHex(isOn ? 0x4fc3f7 : 0x000000);
+      break;
+    case 'lock':
+      m.emissive.setHex(state === 'unlocked' ? 0xff6f3a : 0x2e7d32);
+      break;
+    case 'media_player':
+      m.emissive.setHex(isOn ? 0xce93d8 : 0x000000);
+      break;
+    case 'binary_sensor':
+      m.emissive.setHex(state === 'on' ? 0xef5350 : 0x000000);
+      break;
+    default:
+      m.emissive.setHex(isOn ? 0x9ccc65 : 0x000000);
   }
 }
 
-// ---------- 房间栏 ----------
-const bar = document.getElementById('roombar');
-ROOMS.forEach(r => {
-  const b = document.createElement('button'); b.textContent = r.name;
-  b.onclick = () => { controls.target.set(r.center[0], 0, r.center[2]); };
-  bar.appendChild(b);
-});
+// ============================================================
+// 五、HA 区域驱动自动绑定（可复用核心）
+// 事实源：HA 的 area/device/entity 注册表。
+// 设备归属 = entity.area_id，若为空再回退到其所属 device 的 area_id。
+// ============================================================
+const STATE = {};        // entity_id -> state 缓存（防止事件先于场景构建）
+let areas = [];
+let deviceAreaMap = {};
+let sceneBuilt = false;
 
-// ---------- HA WebSocket 客户端 ----------
+const status = t => document.getElementById('status').textContent = t;
+
+function resolveEntityArea(ent){
+  if (ent.area_id) return ent.area_id;
+  if (ent.device_id && deviceAreaMap[ent.device_id]) return deviceAreaMap[ent.device_id];
+  return null;
+}
+
+function buildFromHA(areas, entities, deviceAreaMap){
+  // 1) 解析每个实体的区域，统计未分配设备
+  const entityArea = {};
+  const unassigned = [];
+  entities.forEach(ent => {
+    const aid = resolveEntityArea(ent);
+    entityArea[ent.entity_id] = aid;
+    if (!aid) unassigned.push(ent);
+  });
+
+  // 2) 按区域分组
+  const byArea = {};
+  entities.forEach(ent => {
+    const aid = entityArea[ent.entity_id];
+    if (aid) (byArea[aid] = byArea[aid] || []).push(ent);
+  });
+
+  // 3) 组房间：优先复用 ROOMS 的几何（area_id 命中），其余 HA 区域自动网格布局
+  const rooms = [];
+  const usedArea = new Set();
+  ROOMS.forEach(r => {
+    const list = byArea[r.area_id] || [];
+    rooms.push({ ...r, devices: list.map(ent => ({ entity_id:ent.entity_id, type:domainOf(ent), name:friendlyName(ent) })) });
+    if (list.length) usedArea.add(r.area_id);
+  });
+  let autoIndex = 0;
+  areas.forEach(a => {
+    const list = byArea[a.area_id] || [];
+    if (usedArea.has(a.area_id) || !list.length) return;
+    const col = autoIndex % 3, row = Math.floor(autoIndex / 3);
+    rooms.push({
+      id:a.area_id, area_id:a.area_id, name:a.name,
+      center:[-6 + col*6, 0, 6 - row*5], size:[4.2,0.1,3.2], color:0x33445a,
+      devices:list.map(ent => ({ entity_id:ent.entity_id, type:domainOf(ent), name:friendlyName(ent) }))
+    });
+    autoIndex++;
+  });
+
+  // 4) 生成默认位置 → 重建场景
+  rooms.forEach(r => arrangeDevices(r, r.devices || []));
+  clearScene();
+  rooms.forEach(makeRoom);
+  buildRoombar(rooms);
+
+  // 5) 未分配设备提示（中期：点这里用向导选房间并写回 HA）
+  const badge = document.getElementById('newdevices');
+  if (unassigned.length){
+    badge.style.display = 'block';
+    badge.textContent = `🔔 发现 ${unassigned.length} 个未分配房间的新设备`;
+    badge.onclick = () => alert('未分配设备：\n' +
+      unassigned.map(e => `· ${friendlyName(e)}（${e.entity_id}）`).join('\n') +
+      '\n\n（中期版本：这里做成"选房间→写回 HA"的图形向导）');
+  } else {
+    badge.style.display = 'none';
+  }
+
+  sceneBuilt = true;
+  applyAllStates();
+  status(`已连接 HA · ${areas.length} 区域 · ${entities.length} 实体 · 未分配 ${unassigned.length}`);
+}
+
+function applyAllStates(){
+  for (const id in STATE) applyState(id, STATE[id]);
+}
+
+// ============================================================
+// 六、HA WebSocket 客户端
+// ============================================================
 function connectHA(token){
   const scheme = location.protocol === 'https:' ? 'wss' : 'ws';
   const ws = new WebSocket(`${scheme}://${location.hostname}:8123/api/websocket`);
@@ -126,26 +328,44 @@ function connectHA(token){
   ws.onmessage = ev => {
     const msg = JSON.parse(ev.data);
     if (msg.type === 'auth_ok'){
-      document.getElementById('status').textContent = '已连接 HA';
-      // 订阅所有状态变化
+      status('已连接 HA，拉取区域/设备…');
+      // 按请求顺序：订阅事件 → 区域 → 设备 → 实体 → 全量状态
+      // （注册表先返回并完成建场景，get_states 最后到，直接应用）
       ws.send(JSON.stringify({ id:1, type:'subscribe_events', event_type:'state_changed' }));
-      // 拉取全量状态
+      ws.send(JSON.stringify({ id:3, type:'config/area_registry/list' }));
+      ws.send(JSON.stringify({ id:4, type:'config/device_registry/list' }));
+      ws.send(JSON.stringify({ id:5, type:'config/entity_registry/list' }));
       ws.send(JSON.stringify({ id:2, type:'get_states' }));
+    } else if (msg.id === 3){
+      areas = msg.result || [];
+    } else if (msg.id === 4){
+      deviceAreaMap = {};
+      (msg.result||[]).forEach(d => { deviceAreaMap[d.id] = d.area_id; });
+    } else if (msg.id === 5){
+      const entities = (msg.result||[]).filter(e => !e.disabled_by && !e.hidden_by && VISIBLE_DOMAINS.has(domainOf(e)));
+      buildFromHA(areas, entities, deviceAreaMap);
     } else if (msg.id === 2){
-      msg.result.forEach(s => applyState(s.entity_id, s.state));
+      (msg.result||[]).forEach(s => { STATE[s.entity_id] = s.state; });
+      if (sceneBuilt) applyAllStates();
     } else if (msg.type === 'event'){
       const e = msg.event.data;
-      applyState(e.entity_id, e.new_state.state);
+      STATE[e.entity_id] = e.new_state.state;
+      if (sceneBuilt) applyState(e.entity_id, e.new_state.state);
     }
   };
-  ws.onerror = () => document.getElementById('status').textContent = 'HA 连接失败（请确认地址/令牌）';
-  ws.onclose = () => document.getElementById('status').textContent = '连接已断开';
+  ws.onerror = () => status('HA 连接失败（请确认地址/令牌）');
+  ws.onclose = () => status('连接已断开');
 }
 
-// ---------- Mock 模式 ----------
+// ============================================================
+// 七、启动：mock 模式 或 连接 HA
+// ============================================================
 if (new URLSearchParams(location.search).get('mock') !== null){
+  clearScene();
+  ROOMS.forEach(makeRoom);
+  buildRoombar(ROOMS);
   Object.entries(mock).forEach(([id,state]) => applyState(id, state));
-  document.getElementById('status').textContent = '模拟数据模式';
+  status('模拟数据模式');
 } else {
   const token = localStorage.getItem('ha_token') || prompt('输入 HA 长生命周期令牌：');
   if (token){ localStorage.setItem('ha_token', token); connectHA(token); }

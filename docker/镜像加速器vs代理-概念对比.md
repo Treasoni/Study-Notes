@@ -1,7 +1,7 @@
 ---
 tags: [docker, 镜像加速器, 代理, proxy, registry-mirror, 对比]
 created: 2026-03-28
-updated: 2026-03-28
+updated: 2026-08-08
 ---
 
 # Docker 镜像加速器 vs 代理 - 概念对比
@@ -18,7 +18,7 @@ updated: 2026-03-28
 | **一句话定义** | Docker Hub 的镜像缓存服务器 | 通用网络流量转发服务器 |
 | **解决问题** | 拉镜像慢/失败 | 所有网络访问问题 |
 | **作用范围** | 仅 `docker pull` | 拉镜像 + 容器内网络 + API 访问 |
-| **配置位置** | `daemon.json` 的 `registry-mirrors` | 环境变量 `HTTP_PROXY` 等 |
+| **配置位置** | Docker Desktop 用 GUI（Settings → Docker Engine）；Linux 用 `daemon.json` 的 `registry-mirrors` | 环境变量 `HTTP_PROXY` 等 |
 | **工作方式** | 只缓存 Docker Hub 的镜像 | 转发所有 HTTP/HTTPS/TCP 流量 |
 | **需要自己搭建？** | ❌ 用公共服务即可 | ✅ 需要自己的代理软件 (如 Clash) |
 
@@ -145,11 +145,13 @@ services:
 
 #### 镜像加速器配置
 ```json
-// ~/.docker/daemon.json 或 /etc/docker/daemon.json
+// Docker Desktop (Mac/Windows) 用 GUI：Settings → Docker Engine
+// 仅 Linux 原生 dockerd 读取 /etc/docker/daemon.json
 {
   "registry-mirrors": [
+    "https://docker.1ms.run",
     "https://docker.m.daocloud.io",
-    "https://docker.1ms.run"
+    "https://docker.xuanyuan.me"
   ]
 }
 ```
@@ -250,13 +252,13 @@ Daemon 代理只影响 Docker 守护进程（即 `docker pull`、`docker build`�
 ### 6.1 镜像加速器配置
 
 ```json
-// ~/.docker/daemon.json (Mac Docker Desktop)
-// 或 /etc/docker/daemon.json (Linux)
+// Docker Desktop (Mac/Windows) 用 GUI：Settings → Docker Engine
+// 仅 Linux 原生 dockerd 读取 /etc/docker/daemon.json
 {
   "registry-mirrors": [
-    "https://docker.m.daocloud.io",
     "https://docker.1ms.run",
-    "https://docker.mirrors.ustc.edu.cn"
+    "https://docker.m.daocloud.io",
+    "https://docker.xuanyuan.me"
   ]
 }
 ```
@@ -379,4 +381,12 @@ docker exec -it app sh -c "curl -I https://www.google.com"
 
 ---
 
-**最后更新**：2026-03-28
+## 更新记录
+
+- 2026-08-08：修正配置说明与失效镜像源
+  - ⚠️ Docker Desktop（Mac/Windows）**不读取** `~/.docker/daemon.json` / `%USERPROFILE%\.docker\daemon.json`；该文件仅 Linux 原生 dockerd（`/etc/docker/daemon.json`）有效。Docker Desktop 请在 GUI `Settings → Docker Engine` 配置。
+  - 移除已失效镜像源 `docker.mirrors.ustc.edu.cn`，新增 `docker.xuanyuan.me`。
+
+---
+
+**最后更新**：2026-08-08

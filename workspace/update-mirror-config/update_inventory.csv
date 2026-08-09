@@ -1,0 +1,5 @@
+id,relative_path,title,updated,status,reason,priority,size_bytes
+mirror-vs-proxy,docker/镜像加速器vs代理-概念对比.md,Docker 镜像加速器 vs 代理 - 概念对比,2026-03-28,ready,"~/.docker/daemon.json 误导 + USTC 失效源",high,15503
+windows-desktop-guide,docker/Windows-DockerDesktop安装指南-国内网络版.md,Windows Docker Desktop 安装指南（国内网络版）,2026-03-29,ready,"%USERPROFILE%\.docker\daemon.json 误导 + USTC/NJU 失效源",high,23729
+mac-mirror-config,docker/DockerDesktop镜像加速器配置.md,Docker Desktop Mac 镜像加速器配置,2026-08-08,skip,"本轮已 patch-in-place 更新完成",,18781
+linux-install-guide,docker/Linux-Docker与DockerCompose安装指南-国内网络版.md,Docker 与 Docker Compose 安装（国内环境）,2026-08-04,skip,"已准确：Linux daemon.json 正确，失效源已标注",,86985

@@ -2,6 +2,7 @@
   "customOrder": {
     "/": {
       "children": [
+        "coord.json",
         "homeassistant",
         "skills-lock.json",
         "计算机网络",
@@ -502,6 +503,8 @@
     },
     "docker": {
       "children": [
+        "docker/Docker与DockerCompose命令速查.md",
+        "docker/GHCR 推送镜像权限配置.md",
         "docker/Linux-Docker与DockerCompose安装指南-国内网络版.md",
         "docker/assets",
         "docker/镜像加速器vs代理-概念对比.md",
@@ -667,7 +670,12 @@
     },
     "homeassistant": {
       "children": [
+        "homeassistant/docker-ha",
+        "homeassistant/ha-integration",
+        "homeassistant/商业部署标准",
         "homeassistant/customers",
+        "homeassistant/ha-command",
+        "homeassistant/haos-deploy",
         "homeassistant/三种部署方式对比与选型",
         "homeassistant/ai-smart-home-system",
         "homeassistant/Home Assistant 三种部署方式对比与选型.md",
@@ -685,6 +693,12 @@
         "homeassistant/三种部署方式对比与选型/06_选型决策树与建议.md",
         "homeassistant/三种部署方式对比与选型/07_迁移路径与操作.md",
         "homeassistant/三种部署方式对比与选型/08_部署实操附录.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/商业部署标准": {
+      "children": [
+        "homeassistant/商业部署标准/商业部署标准 runbook.md"
       ],
       "sortOrder": "custom"
     },
@@ -734,7 +748,32 @@
     },
     "homeassistant/customers/客户A/实施/3d-panel": {
       "children": [
+        "homeassistant/customers/客户A/实施/3d-panel/homeassistant",
         "homeassistant/customers/客户A/实施/3d-panel/index.html"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/customers/客户A/实施/3d-panel/homeassistant": {
+      "children": [
+        "homeassistant/customers/客户A/实施/3d-panel/homeassistant/customers"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/customers/客户A/实施/3d-panel/homeassistant/customers": {
+      "children": [
+        "homeassistant/customers/客户A/实施/3d-panel/homeassistant/customers/客户A"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/customers/客户A/实施/3d-panel/homeassistant/customers/客户A": {
+      "children": [
+        "homeassistant/customers/客户A/实施/3d-panel/homeassistant/customers/客户A/实施"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/customers/客户A/实施/3d-panel/homeassistant/customers/客户A/实施": {
+      "children": [
+        "homeassistant/customers/客户A/实施/3d-panel/homeassistant/customers/客户A/实施/04_3D面板方案与骨架.md"
       ],
       "sortOrder": "custom"
     },
@@ -747,6 +786,82 @@
         "homeassistant/customers/客户A/提案/04_语音与智能体.md",
         "homeassistant/customers/客户A/提案/05_自动化清单.md",
         "homeassistant/customers/客户A/提案/06_维护与质保.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/docker-ha": {
+      "children": [
+        "homeassistant/docker-ha/01_为什么是Docker版_部署架构与能力边界.md",
+        "homeassistant/docker-ha/02_快速起跑_docker-run部署与config目录结构.md",
+        "homeassistant/docker-ha/03_工程化部署_docker-compose完整配置与三大关键决策.md",
+        "homeassistant/docker-ha/04_HACS安装_Docker三种路径与国内加速.md",
+        "homeassistant/docker-ha/05_HACS首次配置与常用仓库实战.md",
+        "homeassistant/docker-ha/06_国内稳定运行_版本锁定与镜像加速策略.md",
+        "homeassistant/docker-ha/07_更新回滚与备份_运维三件套.md",
+        "homeassistant/docker-ha/08_Docker部署addon_把DockerHub变成你的AddonStore.md",
+        "homeassistant/docker-ha/09_addon通信网络架构与权限避坑.md",
+        "homeassistant/docker-ha/Docker 部署 Home Assistant 完全指南.md",
+        "homeassistant/docker-ha/update_plan.md",
+        "homeassistant/docker-ha/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/ha-command": {
+      "children": [
+        "homeassistant/ha-command/01_认识 ha 命令.md",
+        "homeassistant/ha-command/02_核心命令组实战.md",
+        "homeassistant/ha-command/03_系统级命令组.md",
+        "homeassistant/ha-command/04_诊断命令组.md",
+        "homeassistant/ha-command/05_备份与恢复.md",
+        "homeassistant/ha-command/06_升级与运维流程.md",
+        "homeassistant/ha-command/07_常见坑与排障.md",
+        "homeassistant/ha-command/08_完整速查表.md",
+        "homeassistant/ha-command/Home Assistant ha 命令使用.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/ha-integration": {
+      "children": [
+        "homeassistant/ha-integration/01_认识HomeAssistant自定义集成.md",
+        "homeassistant/ha-integration/02_开发环境搭建.md",
+        "homeassistant/ha-integration/03_集成骨架与manifest.md",
+        "homeassistant/ha-integration/04_ConfigFlow配置流程.md",
+        "homeassistant/ha-integration/05_Entity平台与Sensor实体.md",
+        "homeassistant/ha-integration/06_DataUpdateCoordinator数据轮询.md",
+        "homeassistant/ha-integration/07_测试与调试.md",
+        "homeassistant/ha-integration/08_HACS分发.md",
+        "homeassistant/ha-integration/09_常见坑与最佳实践.md",
+        "homeassistant/ha-integration/HA集成开发指南.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/haos-deploy": {
+      "children": [
+        "homeassistant/haos-deploy/update_plan.md",
+        "homeassistant/haos-deploy/update_report.md",
+        "homeassistant/haos-deploy/assets",
+        "homeassistant/haos-deploy/01_绪论.md",
+        "homeassistant/haos-deploy/02_部署前置准备.md",
+        "homeassistant/haos-deploy/03_官方原版HAOS安装实战.md",
+        "homeassistant/haos-deploy/04_手动配置国内源.md",
+        "homeassistant/haos-deploy/05_HAOS-CN极速版.md",
+        "homeassistant/haos-deploy/06_双路线对比与选型建议.md",
+        "homeassistant/haos-deploy/07_稳定运行保障.md",
+        "homeassistant/haos-deploy/08_故障排查手册与长期运维.md",
+        "homeassistant/haos-deploy/09_HACS安装与国内源.md",
+        "homeassistant/haos-deploy/部署 HAOS 详细教程.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/haos-deploy/assets": {
+      "children": [
+        "homeassistant/haos-deploy/assets/08_故障排查手册与长期运维"
+      ],
+      "sortOrder": "custom"
+    },
+    "homeassistant/haos-deploy/assets/08_故障排查手册与长期运维": {
+      "children": [
+        "homeassistant/haos-deploy/assets/08_故障排查手册与长期运维/file-20260807000941023.png"
       ],
       "sortOrder": "custom"
     },
@@ -1395,11 +1510,18 @@
     },
     "workspace": {
       "children": [
+        "workspace/docker-compose-commands",
+        "workspace/docker-ha-tutorial",
+        "workspace/update-mirror-config",
+        "workspace/ghcr-push-permission",
+        "workspace/home-assistant-integration",
+        "workspace/haos-deploy-tutorial",
+        "workspace/home-assistant-ha-command",
         "workspace/ai-smart-home-system",
         "workspace/home-assistant-deployment-methods",
+        "workspace/git-branch-worktree",
         "workspace/debian-practice",
         "workspace/docker-compose-linux-install",
-        "workspace/git-branch-worktree",
         "workspace/update-docker",
         "workspace/matt-pocock-skills-usage-guide",
         "workspace/git安装配置教程",
@@ -1432,12 +1554,21 @@
     },
     "workspace/ai-smart-home-system/agent": {
       "children": [
+        "workspace/ai-smart-home-system/agent/__pycache__",
         "workspace/ai-smart-home-system/agent/Dockerfile",
         "workspace/ai-smart-home-system/agent/entity_map.py",
         "workspace/ai-smart-home-system/agent/entity_map.yaml",
         "workspace/ai-smart-home-system/agent/main.py",
         "workspace/ai-smart-home-system/agent/requirements.txt",
         "workspace/ai-smart-home-system/agent/tools.py"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/ai-smart-home-system/agent/__pycache__": {
+      "children": [
+        "workspace/ai-smart-home-system/agent/__pycache__/entity_map.cpython-314.pyc",
+        "workspace/ai-smart-home-system/agent/__pycache__/main.cpython-314.pyc",
+        "workspace/ai-smart-home-system/agent/__pycache__/tools.cpython-314.pyc"
       ],
       "sortOrder": "custom"
     },
@@ -1746,6 +1877,34 @@
       ],
       "sortOrder": "custom"
     },
+    "workspace/docker-compose-commands": {
+      "children": [
+        "workspace/docker-compose-commands/chapters",
+        "workspace/docker-compose-commands/output",
+        "workspace/docker-compose-commands/00_intent.md",
+        "workspace/docker-compose-commands/01_explore_result.md",
+        "workspace/docker-compose-commands/02_deep_research.md",
+        "workspace/docker-compose-commands/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/docker-compose-commands/chapters": {
+      "children": [
+        "workspace/docker-compose-commands/chapters/01_初识docker-镜像与容器.md",
+        "workspace/docker-compose-commands/chapters/02_docker命令速查-镜像与容器管理.md",
+        "workspace/docker-compose-commands/chapters/03_docker命令速查-网络卷与系统管理.md",
+        "workspace/docker-compose-commands/chapters/04_docker-compose-v1v2与核心命令.md",
+        "workspace/docker-compose-commands/chapters/05_compose-yaml配置语法与常用工作流.md",
+        "workspace/docker-compose-commands/chapters/06_常见坑与排错.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/docker-compose-commands/output": {
+      "children": [
+        "workspace/docker-compose-commands/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
     "workspace/docker-compose-linux-install": {
       "children": [
         "workspace/docker-compose-linux-install/chapters",
@@ -1776,25 +1935,82 @@
       ],
       "sortOrder": "custom"
     },
+    "workspace/docker-ha-tutorial": {
+      "children": [
+        "workspace/docker-ha-tutorial/chapters",
+        "workspace/docker-ha-tutorial/output",
+        "workspace/docker-ha-tutorial/00_intent.md",
+        "workspace/docker-ha-tutorial/01_explore_result.md",
+        "workspace/docker-ha-tutorial/02_deep_research.md",
+        "workspace/docker-ha-tutorial/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/docker-ha-tutorial/chapters": {
+      "children": [
+        "workspace/docker-ha-tutorial/chapters/01_为什么是Docker版_部署架构与能力边界.md",
+        "workspace/docker-ha-tutorial/chapters/02_快速起跑_docker-run部署与config目录结构.md",
+        "workspace/docker-ha-tutorial/chapters/03_工程化部署_docker-compose完整配置与三大关键决策.md",
+        "workspace/docker-ha-tutorial/chapters/04_HACS安装_Docker三种路径与国内加速.md",
+        "workspace/docker-ha-tutorial/chapters/05_HACS首次配置与常用仓库实战.md",
+        "workspace/docker-ha-tutorial/chapters/06_国内稳定运行_版本锁定与镜像加速策略.md",
+        "workspace/docker-ha-tutorial/chapters/07_更新回滚与备份_运维三件套.md",
+        "workspace/docker-ha-tutorial/chapters/08_Docker部署addon_把DockerHub变成你的AddonStore.md",
+        "workspace/docker-ha-tutorial/chapters/09_addon通信网络架构与权限避坑.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/docker-ha-tutorial/output": {
+      "children": [
+        "workspace/docker-ha-tutorial/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/ghcr-push-permission": {
+      "children": [
+        "workspace/ghcr-push-permission/chapters",
+        "workspace/ghcr-push-permission/output",
+        "workspace/ghcr-push-permission/00_intent.md",
+        "workspace/ghcr-push-permission/01_explore_result.md",
+        "workspace/ghcr-push-permission/02_deep_research.md",
+        "workspace/ghcr-push-permission/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/ghcr-push-permission/chapters": {
+      "children": [
+        "workspace/ghcr-push-permission/chapters/01_ghcr-权限模型与-github_token-限制.md",
+        "workspace/ghcr-push-permission/chapters/02_pat-选型-为什么-ghcr-只能用-classic-pat.md",
+        "workspace/ghcr-push-permission/chapters/03_落地配置-classic-pat-secret-workflow-兜底登录.md",
+        "workspace/ghcr-push-permission/chapters/04_实战排错-首推成功与常见坑.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/ghcr-push-permission/output": {
+      "children": [
+        "workspace/ghcr-push-permission/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
     "workspace/git-branch-worktree": {
       "children": [
-        "workspace/git-branch-worktree/chapters",
         "workspace/git-branch-worktree/output",
-        "workspace/git-branch-worktree/00_intent.md",
-        "workspace/git-branch-worktree/01_explore_result.md",
+        "workspace/git-branch-worktree/chapters",
+        "workspace/git-branch-worktree/03_outline.md",
         "workspace/git-branch-worktree/02_deep_research.md",
-        "workspace/git-branch-worktree/03_outline.md"
+        "workspace/git-branch-worktree/01_explore_result.md",
+        "workspace/git-branch-worktree/00_intent.md"
       ],
       "sortOrder": "custom"
     },
     "workspace/git-branch-worktree/chapters": {
       "children": [
-        "workspace/git-branch-worktree/chapters/01_branch与worktree概念本质.md",
-        "workspace/git-branch-worktree/chapters/02_核心差异对比.md",
-        "workspace/git-branch-worktree/chapters/03_决策框架.md",
-        "workspace/git-branch-worktree/chapters/04_AI开发实战.md",
+        "workspace/git-branch-worktree/chapters/06_最终结论.md",
         "workspace/git-branch-worktree/chapters/05_命令手册与常见坑.md",
-        "workspace/git-branch-worktree/chapters/06_最终结论.md"
+        "workspace/git-branch-worktree/chapters/04_AI开发实战.md",
+        "workspace/git-branch-worktree/chapters/03_决策框架.md",
+        "workspace/git-branch-worktree/chapters/02_核心差异对比.md",
+        "workspace/git-branch-worktree/chapters/01_branch与worktree概念本质.md"
       ],
       "sortOrder": "custom"
     },
@@ -1833,6 +2049,36 @@
       ],
       "sortOrder": "custom"
     },
+    "workspace/haos-deploy-tutorial": {
+      "children": [
+        "workspace/haos-deploy-tutorial/chapters",
+        "workspace/haos-deploy-tutorial/output",
+        "workspace/haos-deploy-tutorial/00_intent.md",
+        "workspace/haos-deploy-tutorial/01_explore_result.md",
+        "workspace/haos-deploy-tutorial/02_deep_research.md",
+        "workspace/haos-deploy-tutorial/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/haos-deploy-tutorial/chapters": {
+      "children": [
+        "workspace/haos-deploy-tutorial/chapters/01_绪论.md",
+        "workspace/haos-deploy-tutorial/chapters/02_部署前置准备.md",
+        "workspace/haos-deploy-tutorial/chapters/03_官方原版HAOS安装实战.md",
+        "workspace/haos-deploy-tutorial/chapters/04_手动配置国内源.md",
+        "workspace/haos-deploy-tutorial/chapters/05_HAOS-CN极速版.md",
+        "workspace/haos-deploy-tutorial/chapters/06_双路线对比与选型建议.md",
+        "workspace/haos-deploy-tutorial/chapters/07_稳定运行保障.md",
+        "workspace/haos-deploy-tutorial/chapters/08_故障排查手册与长期运维.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/haos-deploy-tutorial/output": {
+      "children": [
+        "workspace/haos-deploy-tutorial/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
     "workspace/home-assistant-deployment-methods": {
       "children": [
         "workspace/home-assistant-deployment-methods/chapters",
@@ -1860,6 +2106,61 @@
     "workspace/home-assistant-deployment-methods/output": {
       "children": [
         "workspace/home-assistant-deployment-methods/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/home-assistant-ha-command": {
+      "children": [
+        "workspace/home-assistant-ha-command/chapters",
+        "workspace/home-assistant-ha-command/00_intent.md",
+        "workspace/home-assistant-ha-command/01_explore_result.md",
+        "workspace/home-assistant-ha-command/02_deep_research.md",
+        "workspace/home-assistant-ha-command/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/home-assistant-ha-command/chapters": {
+      "children": [
+        "workspace/home-assistant-ha-command/chapters/01_认识 ha 命令.md",
+        "workspace/home-assistant-ha-command/chapters/02_核心命令组实战.md",
+        "workspace/home-assistant-ha-command/chapters/03_系统级命令组.md",
+        "workspace/home-assistant-ha-command/chapters/04_诊断命令组.md",
+        "workspace/home-assistant-ha-command/chapters/05_备份与恢复.md",
+        "workspace/home-assistant-ha-command/chapters/06_升级与运维流程.md",
+        "workspace/home-assistant-ha-command/chapters/07_常见坑与排障.md",
+        "workspace/home-assistant-ha-command/chapters/08_完整速查表.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/home-assistant-integration": {
+      "children": [
+        "workspace/home-assistant-integration/chapters",
+        "workspace/home-assistant-integration/output",
+        "workspace/home-assistant-integration/_split_obsidian.py",
+        "workspace/home-assistant-integration/02_deep_research.md",
+        "workspace/home-assistant-integration/03_outline.md",
+        "workspace/home-assistant-integration/00_intent.md",
+        "workspace/home-assistant-integration/01_explore_result.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/home-assistant-integration/chapters": {
+      "children": [
+        "workspace/home-assistant-integration/chapters/01_认识HomeAssistant自定义集成.md",
+        "workspace/home-assistant-integration/chapters/02_开发环境搭建.md",
+        "workspace/home-assistant-integration/chapters/03_集成骨架与manifest.md",
+        "workspace/home-assistant-integration/chapters/04_ConfigFlow配置流程.md",
+        "workspace/home-assistant-integration/chapters/05_Entity平台与Sensor实体.md",
+        "workspace/home-assistant-integration/chapters/06_DataUpdateCoordinator数据轮询.md",
+        "workspace/home-assistant-integration/chapters/07_测试与调试.md",
+        "workspace/home-assistant-integration/chapters/08_HACS分发.md",
+        "workspace/home-assistant-integration/chapters/09_常见坑与最佳实践.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/home-assistant-integration/output": {
+      "children": [
+        "workspace/home-assistant-integration/output/final_note.md"
       ],
       "sortOrder": "custom"
     },
@@ -2176,6 +2477,48 @@
       ],
       "sortOrder": "custom"
     },
+    "workspace/update-mirror-config": {
+      "children": [
+        "workspace/update-mirror-config/shared_research",
+        "workspace/update-mirror-config/updates",
+        "workspace/update-mirror-config/00_batch_update_intent.md",
+        "workspace/update-mirror-config/01_update_inventory.md",
+        "workspace/update-mirror-config/02_batch_update_plan.md",
+        "workspace/update-mirror-config/03_batch_update_log.md",
+        "workspace/update-mirror-config/04_batch_update_report.md",
+        "workspace/update-mirror-config/update_inventory.csv"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-mirror-config/shared_research": {
+      "children": [
+        "workspace/update-mirror-config/shared_research/source_bank.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-mirror-config/updates": {
+      "children": [
+        "workspace/update-mirror-config/updates/mirror-vs-proxy",
+        "workspace/update-mirror-config/updates/windows-desktop-guide"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-mirror-config/updates/mirror-vs-proxy": {
+      "children": [
+        "workspace/update-mirror-config/updates/mirror-vs-proxy/stale_map.md",
+        "workspace/update-mirror-config/updates/mirror-vs-proxy/update_plan.md",
+        "workspace/update-mirror-config/updates/mirror-vs-proxy/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-mirror-config/updates/windows-desktop-guide": {
+      "children": [
+        "workspace/update-mirror-config/updates/windows-desktop-guide/stale_map.md",
+        "workspace/update-mirror-config/updates/windows-desktop-guide/update_plan.md",
+        "workspace/update-mirror-config/updates/windows-desktop-guide/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
     "workspace/virtual-networking": {
       "children": [
         "workspace/virtual-networking/output",
@@ -2240,11 +2583,18 @@
     },
     "workspace/workflow-runs": {
       "children": [
+        "workspace/workflow-runs/docker-compose-commands.workflow.md",
+        "workspace/workflow-runs/docker-ha-tutorial.workflow.md",
+        "workspace/workflow-runs/update-mirror-config.workflow.md",
+        "workspace/workflow-runs/ghcr-push-permission.workflow.md",
+        "workspace/workflow-runs/home-assistant-integration.workflow.md",
+        "workspace/workflow-runs/haos-deploy-tutorial.workflow.md",
+        "workspace/workflow-runs/home-assistant-ha-command.workflow.md",
         "workspace/workflow-runs/ai-smart-home-system.workflow.md",
         "workspace/workflow-runs/home-assistant-deployment-methods.workflow.md",
+        "workspace/workflow-runs/git-branch-worktree.workflow.md",
         "workspace/workflow-runs/debian-practice.workflow.md",
         "workspace/workflow-runs/docker-compose-linux-install.workflow.md",
-        "workspace/workflow-runs/git-branch-worktree.workflow.md",
         "workspace/workflow-runs/update-docker.workflow.md",
         "workspace/workflow-runs/matt-pocock-skills-usage-guide.workflow.md",
         "workspace/workflow-runs/git安装配置教程.workflow.md",

@@ -64,3 +64,54 @@
 - 下次做法：所有表格必须放在列表之外（无缩进），列表项中需要引用表格时用"见下方表格"过渡
 
 ---
+
+## [2026-08-08] GHCR 推送镜像权限配置 - Session Learnings
+
+### 用户偏好：笔记默认加"大白话"通俗解释
+
+**类别**：best_practice
+**优先级**：high
+**状态**：pending
+**范围**：note-beautifier / chapter-writer / workflow
+
+**摘要**：用户明确要求"以后生成笔记都这样"——学习笔记为每个核心概念添加 `[!tip] 大白话` Callout + 打比方类比，正文技术讲解保留。
+
+**详情**：
+- 事实：GHCR 笔记（4 章 / 51KB）技术性较强，用户问"这些概念可不可以写的通俗易懂一点？"，随后要求"以后生成笔记都这样"
+- 根因：默认输出面向"有了解"读者，缺少面向普通读者的通俗解释层
+- 下次做法：写作每章时为核心概念预留 `[!tip] 大白话` 通俗解释（可用类比：临时工牌 / 授权清单 / 门禁卡 / 保险箱 / 双保险 / 装修死结）
+
+---
+
+### GitHub Packages 认证只支持 Classic PAT
+
+**类别**：knowledge_gap
+**优先级**：high
+**状态**：pending
+**范围**：research-collector / 内容领域
+
+**摘要**：GitHub Packages（含 GHCR）只支持 Classic PAT 认证（`write:packages` 等 scope）；Fine-grained PAT 没有 packages 权限项，无法用于推镜像。
+
+**详情**：
+- 事实：用户原指南用 Fine-grained PAT + "Packages: Read and Write"；P1 探测一度误判"2026 已支持"，P2 深读 + 直接核实官方文档后确认仅 Classic PAT 可用
+- 根因：Fine-grained PAT 于 2025-03-18 GA，当时明确 Packages/Checks API 为缺口；截至 2026-08 仍未落地（roadmap#558）；部分旧资料/教程误导
+- 依据：官方文档原句 "GitHub Packages only supports authentication using a personal access token (classic)"；docker/login-action#331 实证（全权限 fine-grained 仍报 scope 不匹配）；github/docs#33900
+- 下次做法：涉及 GitHub 能力支持问题，先查官方文档原句 + 可复现 Issue；多信源冲突时以官方文档和实测为准
+
+---
+
+### 并行章节写作的衔接竞态 + 状态机确认顺序
+
+**类别**：workflow
+**优先级**：medium
+**状态**：pending
+**范围**：chapter-writer / note-assembler / todo-state.sh
+
+**摘要**：并行派发 chapter-writer 时，后续章节读不到"上一章文件"（竞态）；todo-state.sh 完成阶段前必须先记录用户确认。
+
+**详情**：
+- 事实：并行写 3 章，第 3/4 章作者报"上一章文件不存在"，只能按大纲写过渡；另一次直接 `complete P4` 被 todo-state.sh 拒绝（需先 confirm）
+- 根因：章节间有内容依赖（"上一章讲了 X"），并行时读取依赖文件存在竞态；状态机强制"已记录用户确认才可完成"
+- 下次做法：① 并行章节写作时明确要求各章过渡语自包含、不依赖读取上一章文件（或改为串行）；② 用户整体授权时先 `todo-state.sh confirm PN "…"` 再 `complete PN`
+
+---
