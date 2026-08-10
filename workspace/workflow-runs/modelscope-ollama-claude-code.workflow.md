@@ -13,7 +13,7 @@ last_updated: "2026-08-10"
 current_phase: P4
 current_status: in_progress
 mode: outline
-confirmed_phases: "P0,P1,P2,P3"
+confirmed_phases: "P0,P1,P2,P3,P4"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -89,11 +89,11 @@ blocked_reason: ""
 - [x] 第 3 章已写完并确认
 - [x] 第 4 章已写完并确认
 - [x] 第 5 章已写完并确认
-- [ ] 第 6 章已写完并确认
+- [x] 第 6 章已写完并确认
 
-**进度**：5/6
+**进度**：6/6
 
-> [P4] 🔲 进行中
+> [P4] ✅ 已完成
 
 ---
 
@@ -134,6 +134,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P4 | 用户确认 6 章全部完成（一次性授权写作） | 2026-08-10 22:39 |
 | P3 | 用户确认大纲（6 章实战步骤指南结构） | 2026-08-10 22:29 |
 | P2 | 用户确认素材质量（官方信源充足，三环节链路完整） | 2026-08-10 22:26 |
 | P1 | 用户选择方向 A：全流程主线（ModelScope 下载 → Ollama 部署 → Claude Code 接入） | 2026-08-10 22:19 |
