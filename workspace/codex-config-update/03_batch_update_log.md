@@ -14,3 +14,6 @@
 | 2026-08-10 | 批次 2 | cdx04 Skills 技能系统 | update | `AI学习/Codex/03-进阶应用/Skills 技能系统.md` | 无；旧 flat 保留待 P5 |
 | 2026-08-10 | 批次 2 | cdx05 Agents 与 MCP | update | `AI学习/Codex/03-进阶应用/Agents 与 MCP.md` | 无；旧 flat 保留待 P5 |
 | 2026-08-10 | 批次 2 | cdx06 Hooks 与插件 | update | `AI学习/Codex/03-进阶应用/Hooks 与插件.md` | 无；旧 flat 保留待 P5 |
+| 2026-08-10 | 批次 3 | cdx07 Codex CLI 与调试 | update | `AI学习/Codex/02-基础功能/Codex CLI 与调试.md` | 无；旧 flat 保留待 P5 |
+| 2026-08-10 | 批次 3 | cdx08 对照表与迁移实战 | update | `AI学习/Codex/04-高级功能/对照表与迁移实战.md` | 无；旧 flat 保留待 P5 |
+| 2026-08-10 | 批次 3 | cdx09 快速参考卡片 | update | `AI学习/Codex/04-高级功能/快速参考卡片.md` | 无；旧 flat 保留待 P5 |
