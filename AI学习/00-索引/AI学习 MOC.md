@@ -96,6 +96,7 @@ graph TB
 - [[GLM系列模型完整对比]]
 - [[ModelScope-Ollama-ClaudeCode部署指南]] - 从 ModelScope 拉取 GGUF 模型 → Ollama 本地部署 → Claude Code 免 Key 接入全流程实战指南 #LLM #本地模型 #实战指南
 - [[OCR概念笔记]]
+- [[Ollama 使用指南]] - Ollama 本地大模型入门到上手使用文档 #Ollama #本地LLM
 - [[RAG技术入门指南]]
 
 ### 04-项目实践
