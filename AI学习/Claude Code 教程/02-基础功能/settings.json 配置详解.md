@@ -143,19 +143,20 @@ Claude Code 按优先级从低到高合并多个位置的 settings.json：
 
 ```json
 {
-  "autoCompactEnabled": true
+  "autoCompactEnabled": true,
+  "autoCompactWindow": 200000,
+  "precomputeCompactionEnabled": true
 }
 ```
 
-控制上下文接近上限时是否自动压缩：
-
-| 值 | 行为 |
-|----|------|
-| `true` | 开启自动压缩（默认） |
-| `false` | 关闭自动压缩，需要手动 `/compact` |
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| `autoCompactEnabled` | boolean | 是否自动压缩（默认 `true`；`false` 关闭，需手动 `/compact`） |
+| `autoCompactWindow` | integer | 自动压缩窗口，范围 **100000–1000000 token**；值越小压缩越频繁、越省上下文，值越大压得越少 |
+| `precomputeCompactionEnabled` | boolean | 后台预计算压缩摘要，压缩发生时更快（默认 `false`） |
 
 > [!warning] 旧配置已变更
-> 旧版 `autoCompactThreshold`（按百分比设置阈值）已废弃。压缩窗口改为**按 token 数**控制：用会话内 `/autocompact` 命令、CLI 参数 `--autocompact` 或环境变量 `CLAUDE_CODE_AUTO_COMPACT_WINDOW` 调整（范围 100000–1000000 token）。
+> 旧版 `autoCompactThreshold`（按百分比设置阈值）已废弃。压缩窗口改为**按 token 数**控制：可用 settings.json 的 `autoCompactWindow`、会话内 `/autocompact` 命令、CLI 参数 `--autocompact` 或环境变量 `CLAUDE_CODE_AUTO_COMPACT_WINDOW` 调整（范围 100000–1000000 token）。
 
 > 手动压缩用 `/compact` 命令，比自动压缩更可控。
 
@@ -342,7 +343,8 @@ Hooks 是 settings.json 中最复杂的功能，支持多个事件点和多种�
   "vimInsertModeRemaps": {
     "jj": "Esc"
   },
-  "workflowSizeGuideline": "medium"
+  "workflowSizeGuideline": "medium",
+  "language": "chinese"
 }
 ```
 
@@ -350,6 +352,7 @@ Hooks 是 settings.json 中最复杂的功能，支持多个事件点和多种�
 |------|------|------|
 | `emojiCompletionEnabled` | boolean | 开启 emoji 短码自动补全（如输入 `:thumbsup:` 自动补全 👍） |
 | `vimInsertModeRemaps` | object | 自定义 Vim 插入模式按键映射，如把 `jj` 映射为 `Esc` 快速退出插入模式 |
+| `language` | string | 设定 Claude 回复的语言，如 `"chinese"`（中文）、`"japanese"`（日语）；不设置则跟随提问语言 |
 
 `workflowSizeGuideline` 用于给动态工作流提供规模建议：
 
@@ -527,3 +530,4 @@ settings.json 是 Claude Code 的"总控面板"：模型、推理级别、权限
 
 - 2026-08-07：同步官方 schema 与文档。`autoCompactThreshold` 废弃 → `autoCompactEnabled` + `/autocompact`；`fallbackModels` → `fallbackModel`；移除 `maxTokens`、`systemPrompt`。
 - 2026-08-10：同步 2026-08 现状。权限模式「Default」改名「Manual」（`defaultMode: "manual"`）；新增沙盒（`sandbox.filesystem.disabled` / `sandbox.network.strictAllowlist`）、Auto mode（`disableAutoMode` / `autoMode.classifyAllShell`）、无障碍（`axScreenReader`）、输入与工作流体验（`emojiCompletionEnabled` / `vimInsertModeRemaps` / `workflowSizeGuideline`）、跨会话消息（`crossSessionInbound` / `dialogExpiry`）等配置键说明；补齐小结结语；`status` 从 draft 改为 updated。
+- 2026-08-10：补充自动压缩直接配置字段 `autoCompactWindow`（token 窗口，100000–1000000）与 `precomputeCompactionEnabled`（预压缩摘要），以及 `language`（回复语言）字段；本项目 `.claude/settings.local.json` 已同步从废弃的 `autoCompactThreshold` 迁移到新版配置。
