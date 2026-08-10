@@ -10,7 +10,7 @@ topic: "使用 ModelScope 拉取模型并用 Ollama 部署接入 Claude Code"
 project_slug: "modelscope-ollama-claude-code"
 created_at: "2026-08-10"
 last_updated: "2026-08-10"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 confirmed_phases: "P0,P1,P2,P3,P4"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：modelscope-ollama-claude-code
 > 项目标识：modelscope-ollama-claude-code
 > 创建时间：2026-08-10
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -106,7 +106,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中
 
 ---
 
