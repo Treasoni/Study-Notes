@@ -149,17 +149,17 @@ graph TB
 
 ### Codex 配置体系
 
-> [[Codex 配置体系 MOC]] — 完整目录与导航入口
+> [[Codex MOC]] — 完整目录与导航入口
 
-- [[01 配置哲学概览]] — TOML vs JSON、目录结构、五层优先级
-- [[02 config.toml 核心配置]] — sandbox、approval、permissions、profiles
-- [[03 AGENTS.md 分层体系]] — 层级级联、CLAUDE.md fallback、Starlark 规则
-- [[04 Skills 技能系统]] — 创建、注册、渐进加载、跨工具共享
-- [[05 Agents 与 MCP]] — 子代理定义、MCP STDIO/HTTP、审批模式
-- [[06 Hooks 与插件]] — 11 种生命周期事件、插件体系
-- [[07 CLI 与调试]] — 核心命令、环境变量、故障排查
-- [[08 对照表与迁移实战]] — 21 维对照、四步迁移、陷阱与最佳实践
-- [[附录 快速参考卡片]] — 路径速查、命令速记、默认值
+- [[Codex 配置哲学概览]] — TOML vs JSON、目录结构、五层优先级
+- [[config.toml 核心配置]] — sandbox、approval、permissions、profiles
+- [[AGENTS.md 分层体系]] — 层级级联、CLAUDE.md fallback、Starlark 规则
+- [[Skills 技能系统]] — 创建、注册、渐进加载、跨工具共享
+- [[Agents 与 MCP]] — 子代理定义、MCP STDIO/HTTP、审批模式
+- [[Hooks 与插件]] — 11 种生命周期事件、插件体系
+- [[Codex CLI 与调试]] — 核心命令、环境变量、故障排查
+- [[对照表与迁移实战]] — 21 维对照、四步迁移、陷阱与最佳实践
+- [[快速参考卡片]] — 路径速查、命令速记、默认值
 
 ---
 
