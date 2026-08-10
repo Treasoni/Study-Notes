@@ -1510,6 +1510,7 @@
     },
     "workspace": {
       "children": [
+        "workspace/update-claude-code-tutorial",
         "workspace/docker-compose-commands",
         "workspace/docker-ha-tutorial",
         "workspace/update-mirror-config",
@@ -1554,21 +1555,12 @@
     },
     "workspace/ai-smart-home-system/agent": {
       "children": [
-        "workspace/ai-smart-home-system/agent/__pycache__",
         "workspace/ai-smart-home-system/agent/Dockerfile",
         "workspace/ai-smart-home-system/agent/entity_map.py",
         "workspace/ai-smart-home-system/agent/entity_map.yaml",
         "workspace/ai-smart-home-system/agent/main.py",
         "workspace/ai-smart-home-system/agent/requirements.txt",
         "workspace/ai-smart-home-system/agent/tools.py"
-      ],
-      "sortOrder": "custom"
-    },
-    "workspace/ai-smart-home-system/agent/__pycache__": {
-      "children": [
-        "workspace/ai-smart-home-system/agent/__pycache__/entity_map.cpython-314.pyc",
-        "workspace/ai-smart-home-system/agent/__pycache__/main.cpython-314.pyc",
-        "workspace/ai-smart-home-system/agent/__pycache__/tools.cpython-314.pyc"
       ],
       "sortOrder": "custom"
     },
@@ -2365,6 +2357,221 @@
       ],
       "sortOrder": "custom"
     },
+    "workspace/update-claude-code-tutorial": {
+      "children": [
+        "workspace/update-claude-code-tutorial/shared_research",
+        "workspace/update-claude-code-tutorial/updates",
+        "workspace/update-claude-code-tutorial/00_batch_update_intent.md",
+        "workspace/update-claude-code-tutorial/01_update_inventory.md",
+        "workspace/update-claude-code-tutorial/02_batch_update_plan.md",
+        "workspace/update-claude-code-tutorial/03_batch_update_log.md",
+        "workspace/update-claude-code-tutorial/04_batch_update_report.md",
+        "workspace/update-claude-code-tutorial/update_inventory.csv"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/shared_research": {
+      "children": [
+        "workspace/update-claude-code-tutorial/shared_research/research_plan.md",
+        "workspace/update-claude-code-tutorial/shared_research/source_bank.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/updates": {
+      "children": [
+        "workspace/update-claude-code-tutorial/updates/cc01",
+        "workspace/update-claude-code-tutorial/updates/cc02",
+        "workspace/update-claude-code-tutorial/updates/cc03",
+        "workspace/update-claude-code-tutorial/updates/cc04",
+        "workspace/update-claude-code-tutorial/updates/cc05",
+        "workspace/update-claude-code-tutorial/updates/cc06",
+        "workspace/update-claude-code-tutorial/updates/cc07",
+        "workspace/update-claude-code-tutorial/updates/cc08",
+        "workspace/update-claude-code-tutorial/updates/cc09",
+        "workspace/update-claude-code-tutorial/updates/cc10",
+        "workspace/update-claude-code-tutorial/updates/cc11",
+        "workspace/update-claude-code-tutorial/updates/cc12",
+        "workspace/update-claude-code-tutorial/updates/cc13",
+        "workspace/update-claude-code-tutorial/updates/cc14",
+        "workspace/update-claude-code-tutorial/updates/cc15",
+        "workspace/update-claude-code-tutorial/updates/cc16",
+        "workspace/update-claude-code-tutorial/updates/cc17",
+        "workspace/update-claude-code-tutorial/updates/cc18",
+        "workspace/update-claude-code-tutorial/updates/cc19"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/updates/cc01": {
+      "children": [
+        "workspace/update-claude-code-tutorial/updates/cc01/stale_map.md",
+        "workspace/update-claude-code-tutorial/updates/cc01/update_plan.md",
+        "workspace/update-claude-code-tutorial/updates/cc01/update_report.md",
+        "workspace/update-claude-code-tutorial/updates/cc01/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/updates/cc02": {
+      "children": [
+        "workspace/update-claude-code-tutorial/updates/cc02/stale_map.md",
+        "workspace/update-claude-code-tutorial/updates/cc02/update_plan.md",
+        "workspace/update-claude-code-tutorial/updates/cc02/update_report.md",
+        "workspace/update-claude-code-tutorial/updates/cc02/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/updates/cc03": {
+      "children": [
+        "workspace/update-claude-code-tutorial/updates/cc03/stale_map.md",
+        "workspace/update-claude-code-tutorial/updates/cc03/update_plan.md",
+        "workspace/update-claude-code-tutorial/updates/cc03/update_report.md",
+        "workspace/update-claude-code-tutorial/updates/cc03/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/updates/cc04": {
+      "children": [
+        "workspace/update-claude-code-tutorial/updates/cc04/stale_map.md",
+        "workspace/update-claude-code-tutorial/updates/cc04/update_plan.md",
+        "workspace/update-claude-code-tutorial/updates/cc04/update_report.md",
+        "workspace/update-claude-code-tutorial/updates/cc04/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/updates/cc05": {
+      "children": [
+        "workspace/update-claude-code-tutorial/updates/cc05/stale_map.md",
+        "workspace/update-claude-code-tutorial/updates/cc05/update_plan.md",
+        "workspace/update-claude-code-tutorial/updates/cc05/update_report.md",
+        "workspace/update-claude-code-tutorial/updates/cc05/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/updates/cc06": {
+      "children": [
+        "workspace/update-claude-code-tutorial/updates/cc06/stale_map.md",
+        "workspace/update-claude-code-tutorial/updates/cc06/update_plan.md",
+        "workspace/update-claude-code-tutorial/updates/cc06/update_report.md",
+        "workspace/update-claude-code-tutorial/updates/cc06/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/updates/cc07": {
+      "children": [
+        "workspace/update-claude-code-tutorial/updates/cc07/stale_map.md",
+        "workspace/update-claude-code-tutorial/updates/cc07/update_plan.md",
+        "workspace/update-claude-code-tutorial/updates/cc07/update_report.md",
+        "workspace/update-claude-code-tutorial/updates/cc07/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/updates/cc08": {
+      "children": [
+        "workspace/update-claude-code-tutorial/updates/cc08/stale_map.md",
+        "workspace/update-claude-code-tutorial/updates/cc08/update_plan.md",
+        "workspace/update-claude-code-tutorial/updates/cc08/update_report.md",
+        "workspace/update-claude-code-tutorial/updates/cc08/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/updates/cc09": {
+      "children": [
+        "workspace/update-claude-code-tutorial/updates/cc09/stale_map.md",
+        "workspace/update-claude-code-tutorial/updates/cc09/update_plan.md",
+        "workspace/update-claude-code-tutorial/updates/cc09/update_report.md",
+        "workspace/update-claude-code-tutorial/updates/cc09/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/updates/cc10": {
+      "children": [
+        "workspace/update-claude-code-tutorial/updates/cc10/stale_map.md",
+        "workspace/update-claude-code-tutorial/updates/cc10/update_plan.md",
+        "workspace/update-claude-code-tutorial/updates/cc10/update_report.md",
+        "workspace/update-claude-code-tutorial/updates/cc10/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/updates/cc11": {
+      "children": [
+        "workspace/update-claude-code-tutorial/updates/cc11/stale_map.md",
+        "workspace/update-claude-code-tutorial/updates/cc11/update_plan.md",
+        "workspace/update-claude-code-tutorial/updates/cc11/update_report.md",
+        "workspace/update-claude-code-tutorial/updates/cc11/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/updates/cc12": {
+      "children": [
+        "workspace/update-claude-code-tutorial/updates/cc12/stale_map.md",
+        "workspace/update-claude-code-tutorial/updates/cc12/update_plan.md",
+        "workspace/update-claude-code-tutorial/updates/cc12/update_report.md",
+        "workspace/update-claude-code-tutorial/updates/cc12/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/updates/cc13": {
+      "children": [
+        "workspace/update-claude-code-tutorial/updates/cc13/stale_map.md",
+        "workspace/update-claude-code-tutorial/updates/cc13/update_plan.md",
+        "workspace/update-claude-code-tutorial/updates/cc13/update_report.md",
+        "workspace/update-claude-code-tutorial/updates/cc13/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/updates/cc14": {
+      "children": [
+        "workspace/update-claude-code-tutorial/updates/cc14/stale_map.md",
+        "workspace/update-claude-code-tutorial/updates/cc14/update_plan.md",
+        "workspace/update-claude-code-tutorial/updates/cc14/update_report.md",
+        "workspace/update-claude-code-tutorial/updates/cc14/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/updates/cc15": {
+      "children": [
+        "workspace/update-claude-code-tutorial/updates/cc15/stale_map.md",
+        "workspace/update-claude-code-tutorial/updates/cc15/update_plan.md",
+        "workspace/update-claude-code-tutorial/updates/cc15/update_report.md",
+        "workspace/update-claude-code-tutorial/updates/cc15/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/updates/cc16": {
+      "children": [
+        "workspace/update-claude-code-tutorial/updates/cc16/stale_map.md",
+        "workspace/update-claude-code-tutorial/updates/cc16/update_plan.md",
+        "workspace/update-claude-code-tutorial/updates/cc16/update_report.md",
+        "workspace/update-claude-code-tutorial/updates/cc16/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/updates/cc17": {
+      "children": [
+        "workspace/update-claude-code-tutorial/updates/cc17/stale_map.md",
+        "workspace/update-claude-code-tutorial/updates/cc17/update_plan.md",
+        "workspace/update-claude-code-tutorial/updates/cc17/update_report.md",
+        "workspace/update-claude-code-tutorial/updates/cc17/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/updates/cc18": {
+      "children": [
+        "workspace/update-claude-code-tutorial/updates/cc18/stale_map.md",
+        "workspace/update-claude-code-tutorial/updates/cc18/update_plan.md",
+        "workspace/update-claude-code-tutorial/updates/cc18/update_report.md",
+        "workspace/update-claude-code-tutorial/updates/cc18/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/updates/cc19": {
+      "children": [
+        "workspace/update-claude-code-tutorial/updates/cc19/stale_map.md",
+        "workspace/update-claude-code-tutorial/updates/cc19/update_plan.md",
+        "workspace/update-claude-code-tutorial/updates/cc19/update_report.md",
+        "workspace/update-claude-code-tutorial/updates/cc19/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
     "workspace/update-docker": {
       "children": [
         "workspace/update-docker/shared_research",
@@ -2583,6 +2790,7 @@
     },
     "workspace/workflow-runs": {
       "children": [
+        "workspace/workflow-runs/update-claude-code-tutorial.workflow.md",
         "workspace/workflow-runs/docker-compose-commands.workflow.md",
         "workspace/workflow-runs/docker-ha-tutorial.workflow.md",
         "workspace/workflow-runs/update-mirror-config.workflow.md",
