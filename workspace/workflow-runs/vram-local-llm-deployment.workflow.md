@@ -3,17 +3,17 @@ workflow_id: learning-note-flow
 workflow_name: 学习笔记工作流
 workflow_version: 1
 state_file_type: workflow-run
-run_id: "ollama-usage"
-task: "Ollama 使用文档"
+run_id: "vram-local-llm-deployment"
+task: "显存（VRAM）与本地部署大模型"
 created_from: ".claude/workflows/learning-note-flow/state-template.md"
-topic: "Ollama 使用文档"
-project_slug: "ollama-usage"
+topic: "显存（VRAM）与本地部署大模型"
+project_slug: "vram-local-llm-deployment"
 created_at: "2026-08-10"
 last_updated: "2026-08-10"
-current_phase: P2
+current_phase: P0
 current_status: in_progress
 mode: outline
-confirmed_phases: "P0,P1"
+confirmed_phases: ""
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -24,11 +24,11 @@ blocked_reason: ""
 # 学习笔记工作流 - 执行检查清单
 
 > 工作流：learning-note-flow
-> 主题：Ollama 使用文档
-> 运行标识：ollama-usage
-> 项目标识：ollama-usage
+> 主题：显存（VRAM）与本地部署大模型
+> 运行标识：vram-local-llm-deployment
+> 项目标识：vram-local-llm-deployment
 > 创建时间：2026-08-10
-> 当前阶段：阶段 2
+> 当前阶段：阶段 0
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -42,7 +42,7 @@ blocked_reason: ""
 - [ ] 如发布到 Obsidian，vault_path、note_folder、moc_path 已确认或标记待补
 - [ ] 意图文件已生成：`./00_intent.md`
 
-> [P0] ✅ 已完成
+> [P0] 🔲 进行中
 
 ---
 
@@ -53,7 +53,7 @@ blocked_reason: ""
 - [ ] 用户已选择学习方向
 - [ ] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] ✅ 已完成
+> [P1] ⬜ 未开始
 
 ---
 
@@ -67,7 +67,7 @@ blocked_reason: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] 🔲 进行中
+> [P2] ⬜ 未开始
 
 ---
 
@@ -132,8 +132,6 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
-| P1 | 用户选择方向 A：全流程主线（是什么→安装→命令/模型管理→进阶→常见坑） | 2026-08-10 22:32 |
-| P0 | 用户确认意图文件和研究计划 | 2026-08-10 22:29 |
 | | | |
 
 ---
