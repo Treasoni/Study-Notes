@@ -10,10 +10,10 @@ topic: "显存（VRAM）与本地部署大模型"
 project_slug: "vram-local-llm-deployment"
 created_at: "2026-08-10"
 last_updated: "2026-08-10"
-current_phase: P2
+current_phase: P4
 current_status: in_progress
 mode: outline
-confirmed_phases: "P0,P1"
+confirmed_phases: "P0,P1,P2,P3"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：vram-local-llm-deployment
 > 项目标识：vram-local-llm-deployment
 > 创建时间：2026-08-10
-> 当前阶段：阶段 2
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -67,7 +67,7 @@ blocked_reason: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] 🔲 进行中
+> [P2] ✅ 已完成
 
 ---
 
@@ -79,19 +79,19 @@ blocked_reason: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] ⬜ 未开始
+> [P3] ✅ 已完成
 
 ---
 
 ## 阶段 4：逐章写作
-- [ ] 第 1 章已写完并确认
+- [x] 第 1 章已写完并确认
 - [ ] 第 2 章已写完并确认
 - [ ] 第 3 章已写完并确认
 - [ ] ...（根据实际章节数添加）
 
-**进度**：0/待大纲确定
+**进度**：1/5
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中
 
 ---
 
@@ -132,6 +132,8 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P3 | 用户确认大纲（5 章） | 2026-08-10 22:43 |
+| P2 | 用户确认素材质量，选择大纲模式 | 2026-08-10 22:40 |
 | P1 | 用户选择完整路线：显存基础→为什么吃显存→本地部署实战 | 2026-08-10 22:36 |
 | P0 | 用户确认意图文件和研究计划 | 2026-08-10 22:34 |
 | | | |

@@ -94,6 +94,7 @@ graph TB
 
 - [[Codex手动配置指南]]
 - [[GLM系列模型完整对比]]
+- [[ModelScope-Ollama-ClaudeCode部署指南]] - 从 ModelScope 拉取 GGUF 模型 → Ollama 本地部署 → Claude Code 免 Key 接入全流程实战指南 #LLM #本地模型 #实战指南
 - [[OCR概念笔记]]
 - [[RAG技术入门指南]]
 
@@ -197,7 +198,7 @@ graph TB
 ## 概览
 
 - 📂 目录：`AI学习`
-- 📝 笔记总数：81
+- 📝 笔记总数：82
 - 📁 子目录数：14
 - 📅 生成日期：2026-05-14
 - 📅 更新日期：2026-08-10
