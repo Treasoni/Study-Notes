@@ -66,11 +66,50 @@ def first_user_text(session_path: Path) -> str:
     return ""
 
 
+def default_project_dir() -> str:
+    """Locate this vault's Claude Code transcript directory.
+
+    The project slug is derived from the vault path by the harness (CJK paths
+    are slugified into dashes), so it cannot be reconstructed from the vault
+    path here. Resolution order:
+      1. Known current slug for this vault (from the real transcript dir).
+      2. Legacy slug used before the vault path changed.
+      3. Fallback: the directory under ~/.claude/projects containing the
+         most recently modified *.jsonl (the SessionEnd hook runs right after
+         a session in this vault ends, so its transcript is the newest).
+    """
+    candidates = [
+        Path.home() / ".claude" / "projects" / "-Users-zhqznc-Documents-----",
+        Path.home() / ".claude" / "projects" / "c--note-Study-Notes",
+    ]
+    for c in candidates:
+        if c.is_dir():
+            return str(c)
+
+    proj_root = Path.home() / ".claude" / "projects"
+    best_dir, best_mtime = None, -1.0
+    if proj_root.is_dir():
+        for p in sorted(proj_root.iterdir()):
+            if not p.is_dir():
+                continue
+            for f in p.glob("*.jsonl"):
+                try:
+                    mtime = f.stat().st_mtime
+                except OSError:
+                    continue
+                if mtime > best_mtime:
+                    best_mtime, best_dir = mtime, p
+        if best_dir is not None:
+            return str(best_dir)
+
+    return str(Path.home() / ".claude" / "projects" / "c--note-Study-Notes")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--project",
-        default=str(Path.home() / ".claude" / "projects" / "c--note-Study-Notes"),
+        default=default_project_dir(),
         help="Directory of Claude Code session transcripts (default: this project's transcripts).",
     )
     parser.add_argument(

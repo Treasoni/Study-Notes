@@ -22,6 +22,8 @@
   "command": "python .llm/prompt-cache/collect-usage.py" }] }]
 ```
 
+> ⚠️ `collect-usage.py` 的默认 `--project` 已改为自动定位本项目 transcript 目录（`~/.claude/projects/-Users-zhqznc-Documents-----`），修复了此前默认路径指向不存在目录导致 hook 空跑的问题。若 vault 迁移导致目录名变化，脚本会回退到「最近修改的 *.jsonl 所在目录」。
+
 **手动**：
 
 ```bash
@@ -44,8 +46,10 @@ python .llm/prompt-cache/collect-usage.py --dry-run  # 只报告将新增数量
 
 ## 基线
 
-- 首次采集基线（2026-08-03，26 会话 / 844 条唯一消息；按消息 id 去重，JSONL 为 append-only 存在重复记录）：
-  - 新鲜输入 1.88M tokens，缓存读取 71.6M tokens（有效输入缓存占比 ~97.4%）
-  - 平均新鲜输入/消息 2,222 tokens；缓存读取/消息 ~85k tokens
+- **历史基线（2026-08-03，已丢失）**：26 会话 / 844 条消息，新鲜输入 1.88M tokens，缓存读取 71.6M（有效占比 ~97.4%）。该批次事件于 08-06 因采集路径失效被清空，`usage-events.jsonl` 与 `.collect-state.json` 重置。
+- **当前基线（2026-08-10，管道修复后重新采集）**：99 会话 / 2,436 条事件（按消息 id 去重，JSONL 为 append-only）：
+  - 新鲜输入 11.4M tokens，缓存读取 223M tokens（有效输入缓存占比 ~95.1%）
+  - 平均新鲜输入/请求 4,682 tokens；缓存读取/请求 ~91.7k tokens
+  - **冷启动主导成本**：每会话前 5 个请求占全部新鲜输入的 ~67%（7.6M）；首个请求 ≈ system prompt 大小（平均 ~36k）。稳态请求新鲜输入中位数仅 ~500 tokens。
 - 回归样本逐例基线待下次自然运行对应工作流时回填（`baseline.*` 字段）。
 - 模板/模型/工具定义变更后：运行同一批回归样本，只有质量检查通过时缓存指标变化才算有效优化。
