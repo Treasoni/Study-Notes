@@ -10,10 +10,10 @@ topic: "DeepSeek-Reasonix 配置教程"
 project_slug: "deepseek-reasonix-tutorial"
 created_at: "2026-08-10"
 last_updated: "2026-08-10"
-current_phase: P6
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4,P5"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6,P7"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：deepseek-reasonix-tutorial
 > 项目标识：deepseek-reasonix-tutorial
 > 创建时间：2026-08-10
-> 当前阶段：阶段 6
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -124,7 +124,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] 🔲 进行中
+> [P6] ✅ 已完成
 
 ---
 
@@ -134,7 +134,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成
 
 ---
 
@@ -142,6 +142,8 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P7 | DeepSeek-Reasonix MOC + sortspec 已生成，父级 AI学习 MOC 与 sortspec 已同步 | 2026-08-10 20:53 |
+| P6 | 14 篇已美化发布到 AI学习/DeepSeek-Reasonix 教程/ 四个分册目录，用户已授权自动同步 MOC | 2026-08-10 20:52 |
 | P5 | 组装模式 C 完成，14 篇独立笔记已就位，用户已授权自动发布 | 2026-08-10 20:46 |
 | P4 | 14 章全部写完，用户已授权全流程自动执行，不逐章确认 | 2026-08-10 20:40 |
 | P3 | 大纲已生成（14 篇四层结构），用户已授权全流程自动执行 | 2026-08-10 20:30 |

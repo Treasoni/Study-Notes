@@ -16,7 +16,7 @@ status: new
 source_project: deepseek-reasonix-tutorial
 sources:
   - R1: "DeepSeek-Reasonix 官方仓库（README.zh-CN / GUIDE.zh-CN / reasonix.example.toml / CLI 参考）(esengine, 2026) https://github.com/esengine/DeepSeek-Reasonix"
-  - R2: "配置示例 reasonix.example.toml：[[providers]] effort、[agent] planner_model / subagent_model 字段来源 (esengine, 2026) https://github.com/esengine/DeepSeek-Reasonix/blob/main-v2/reasonix.example.toml"
+  - R2: "配置示例 reasonix.example.toml：providers effort、[agent] planner_model / subagent_model 字段来源 (esengine, 2026) https://github.com/esengine/DeepSeek-Reasonix/blob/main-v2/reasonix.example.toml"
   - R3: "配置指南 GUIDE.zh-CN：profile 三档（economy/balanced/delivery）与双模型协同语义 (esengine, 2026) https://github.com/esengine/DeepSeek-Reasonix/blob/main-v2/docs/GUIDE.zh-CN.md"
   - R4: "CLI 参考 CLI-REFERENCE / CLI.zh-CN：--profile、--effort、--model 等启动参数 (esengine, 2026) https://github.com/esengine/DeepSeek-Reasonix/blob/v1/docs/CLI-REFERENCE.md"
   - R5: "Claude Code 对齐 PR #6431：/model、/provider、/resume 与 picker 交互对齐 (esengine, 2026) https://github.com/esengine/DeepSeek-Reasonix/pull/6431"

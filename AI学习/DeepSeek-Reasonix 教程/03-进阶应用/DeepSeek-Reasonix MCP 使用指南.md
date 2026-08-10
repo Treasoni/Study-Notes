@@ -10,7 +10,7 @@ status: new
 source_project: deepseek-reasonix-tutorial
 sources:
   - R1: "DeepSeek-Reasonix 官方仓库 (esengine, 2026) https://github.com/esengine/DeepSeek-Reasonix"
-  - R2: "配置示例 reasonix.example.toml：[[plugins]] 声明示例 (esengine, 2026) https://github.com/esengine/DeepSeek-Reasonix/blob/main-v2/reasonix.example.toml"
+  - R2: "配置示例 reasonix.example.toml：plugins 声明示例 (esengine, 2026) https://github.com/esengine/DeepSeek-Reasonix/blob/main-v2/reasonix.example.toml"
   - R3: "配置指南 GUIDE.zh-CN (esengine, 2026) https://github.com/esengine/DeepSeek-Reasonix/blob/main-v2/docs/GUIDE.zh-CN.md"
   - R4: "CLI 参考 CLI.zh-CN 与 CLI-REFERENCE：reasonix mcp 命令 (esengine, 2026) https://github.com/esengine/DeepSeek-Reasonix/blob/main-v2/docs/CLI.zh-CN.md"
   - R5: "ACP 文档 ACP.md：MCP over ACP 与 mcpServers (esengine, 2026) https://github.com/esengine/DeepSeek-Reasonix/blob/main-v2/docs/ACP.md"

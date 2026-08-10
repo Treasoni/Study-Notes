@@ -53,7 +53,7 @@ default_model = "deepseek"     # 顶层：默认 provider（名或 "provider/mod
 [bot]                          # QQ/飞书/微信多通道机器人
 ```
 
-## 二、顶层与 [[providers]]
+## 二、顶层与 `[[providers]]`
 
 `[[providers]]` 是配置的入口：Reasonix 的 provider 体系是**插件式声明**，内核没有硬编码模型。你可以声明多个 provider，并用顶层 `default_model` 指定默认。
 
@@ -180,7 +180,7 @@ allow = ["Bash(go test:*)"]     # 白名单：放行
 > 把 `[permissions]` 想成一张门禁卡：`mode = "ask"` 是默认规则「进门要刷卡审批」，`deny` 是黑名单（永远不放行），`allow` 是白名单（放行）。
 > 所以黑名单永远压过白名单——哪怕你在命令行临时用 `--allowed-tools` 放行了某个工具，配置里的 `deny` 照样拦住（详见[[DeepSeek-Reasonix 权限模式指南]]）。
 
-## 五、[sandbox] / [skills] / [[plugins]] / [ui] / [notifications] / [bot] 概览
+## 五、[sandbox] / [skills] / `[[plugins]]` / [ui] / [notifications] / [bot] 概览
 
 这些节在示例文件中大多以注释形式给出，本节做速览；详细语义按分工散落在后续章节。
 

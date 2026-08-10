@@ -2,7 +2,7 @@
 title: "AI学习 MOC"
 tags: [moc]
 created: 2026-05-14
-updated: 2026-07-31
+updated: 2026-08-10
 ---
 
 # AI学习 MOC
@@ -23,7 +23,8 @@ graph TB
         Topics[📁 03-技术专题]
         Projects[📁 04-项目实践]
         Claude[📁 Claude Code 教程]
-        CodexNode[📁 Codex]
+    CodexNode[📁 Codex]
+    DeepSeek[📁 DeepSeek-Reasonix 教程]
     end
 
     Basics --> A1[AI Agents]
@@ -53,6 +54,8 @@ graph TB
     CodexNode --> CX2[核心配置]
     CodexNode --> CX3[Skills 共享]
     CodexNode --> CX4[对照迁移]
+
+    DeepSeek --> DR1[配置详解]
 ```
 
 ---
@@ -161,12 +164,40 @@ graph TB
 - [[对照表与迁移实战]] — 21 维对照、四步迁移、陷阱与最佳实践
 - [[快速参考卡片]] — 路径速查、命令速记、默认值
 
+### DeepSeek-Reasonix 教程
+
+> [[DeepSeek-Reasonix MOC]] — 完整目录与导航入口
+
+- [[DeepSeek-Reasonix 使用指南]] — 安装 4 路径、setup 向导、第一个会话
+- [[DeepSeek-Reasonix 是什么]] — 定位、前缀缓存原理、与 Claude Code 关系
+
+#### 基础功能
+
+- [[DeepSeek-Reasonix CLI 完整参考]] — 命令全集、启动参数、结构化输出
+- [[DeepSeek-Reasonix 会话与交互]] — 会话管理、斜杠命令、/init 记忆
+- [[reasonix.toml 配置详解]] — 配置全字段、优先级、API Key 安全
+- [[DeepSeek-Reasonix 权限模式指南]] — 6 种权限模式、YOLO、fail-closed
+
+#### 进阶应用
+
+- [[DeepSeek-Reasonix 模型与运行模式]] — profile 三档、effort、双模型协同
+- [[DeepSeek-Reasonix MCP 使用指南]] — stdio/HTTP/SSE、CLI 管理
+- [[DeepSeek-Reasonix 前缀缓存与成本优化]] — 缓存原理、命中率实测、预算控制
+- [[DeepSeek-Reasonix 自动化与 CI]] — run 无头、json 输出、事件遥测
+
+#### 高级功能
+
+- [[DeepSeek-Reasonix ACP 协议指南]] — ACP v1、session 生命周期
+- [[DeepSeek-Reasonix 插件与扩展开发]] — Extension Protocol Sidecar
+- [[从 Claude Code 迁移到 DeepSeek-Reasonix]] — 命令/概念对照、迁移步骤
+- [[DeepSeek-Reasonix 沙箱与安全]] — 沙箱、凭据保护、权限兜底
+
 ---
 
 ## 概览
 
 - 📂 目录：`AI学习`
-- 📝 笔记总数：67
-- 📁 子目录数：13
+- 📝 笔记总数：81
+- 📁 子目录数：14
 - 📅 生成日期：2026-05-14
-- 📅 更新日期：2026-07-31
+- 📅 更新日期：2026-08-10
