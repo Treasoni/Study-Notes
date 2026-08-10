@@ -10,10 +10,10 @@ topic: "显存（VRAM）与本地部署大模型"
 project_slug: "vram-local-llm-deployment"
 created_at: "2026-08-10"
 last_updated: "2026-08-10"
-current_phase: P6
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4,P5"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：vram-local-llm-deployment
 > 项目标识：vram-local-llm-deployment
 > 创建时间：2026-08-10
-> 当前阶段：阶段 6
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -115,7 +115,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] 🔲 进行中
+> [P6] ✅ 已完成
 
 ---
 
@@ -125,7 +125,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ⏭️ 跳过
 
 ---
 
@@ -133,6 +133,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P6 | 用户确认 Obsidian 美化发布结果（vault 根目录） | 2026-08-10 23:00 |
 | P5 | 用户确认组装结果，发布位置=vault 根目录(C:
 oteStudy-Notes) | 2026-08-10 22:58 |
 | P4 | 用户确认全部 5 章写作完成 | 2026-08-10 22:54 |
@@ -148,6 +149,7 @@ oteStudy-Notes) | 2026-08-10 22:58 |
 
 | 阶段 | 确认内容 | 原因 | 时间 |
 |------|----------|------|------|
+| P7 | user approved skip | 用户选择不同步 MOC | 2026-08-10 23:00 |
 | | | | |
 
 ---
@@ -156,6 +158,7 @@ oteStudy-Notes) | 2026-08-10 22:58 |
 
 | 时间 | 阶段 | 问题描述 | 处理方式 |
 |------|------|---------|---------|
+| 2026-08-10 23:00 | P7 | 跳过阶段：用户选择不同步 MOC | 继续推进到下一未完成阶段 |
 | | | | |
 
 ---
@@ -170,10 +173,10 @@ oteStudy-Notes) | 2026-08-10 22:58 |
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：概念 + 实战混合
+- **总字数**：约 25,000 字（46.7KB）
+- **章节数**：5
+- **输出格式**：Obsidian Markdown
+- **文件路径**：`显存（VRAM）与本地部署大模型.md`（vault 根目录）
+- **Obsidian Vault**：`C:\note\Study-Notes`
+- **MOC 路径**：无（用户选择不同步 MOC）
