@@ -160,6 +160,17 @@ Claude Code 按优先级从低到高合并多个位置的 settings.json：
 
 > 手动压缩用 `/compact` 命令，比自动压缩更可控。
 
+> [!tip] 窗口大小怎么选
+> `autoCompactWindow` 要**按模型上下文窗口的约 80%** 设置，不能超过模型硬上限，否则自动压缩来不及触发就会直接撞上限报错：
+>
+> | 模型上下文 | 建议窗口 |
+> |---|---|
+> | 128K | 120000–140000 |
+> | 200K | 180000–200000 |
+> | 1M | 400000–600000 |
+>
+> 先用会话内 `/autocompact` 临时微调，找到合适的值再写回 settings.json。
+
 ### 5. 环境变量
 
 ```json
@@ -358,6 +369,9 @@ Hooks 是 settings.json 中最复杂的功能，支持多个事件点和多种�
 | `fileCheckpointingEnabled` | boolean | 编辑前自动快照文件，可用 `/rewind` 回滚恢复，防手滑改坏内容 |
 | `cleanupPeriodDays` | integer | 会话记录保留天数（默认 30，最小 1）；调大可长期保留历史会话，调小则更快清理 |
 
+> [!tip] `cleanupPeriodDays` 怎么选
+> 30 天是均衡默认：磁盘紧张用 7–14；想长期回顾历史会话用 60–90。如果会话精华已经通过 Hook / `.learnings/` 沉淀，原始 transcript 不必留太久，30–60 足够，避免 `~/.claude/projects/` 和 `file-history` 占用过多磁盘。
+
 `workflowSizeGuideline` 用于给动态工作流提供规模建议：
 
 | 值 | 说明 |
@@ -536,3 +550,4 @@ settings.json 是 Claude Code 的"总控面板"：模型、推理级别、权限
 - 2026-08-10：同步 2026-08 现状。权限模式「Default」改名「Manual」（`defaultMode: "manual"`）；新增沙盒（`sandbox.filesystem.disabled` / `sandbox.network.strictAllowlist`）、Auto mode（`disableAutoMode` / `autoMode.classifyAllShell`）、无障碍（`axScreenReader`）、输入与工作流体验（`emojiCompletionEnabled` / `vimInsertModeRemaps` / `workflowSizeGuideline`）、跨会话消息（`crossSessionInbound` / `dialogExpiry`）等配置键说明；补齐小结结语；`status` 从 draft 改为 updated。
 - 2026-08-10：补充自动压缩直接配置字段 `autoCompactWindow`（token 窗口，100000–1000000）与 `precomputeCompactionEnabled`（预压缩摘要），以及 `language`（回复语言）字段；本项目 `.claude/settings.local.json` 已同步从废弃的 `autoCompactThreshold` 迁移到新版配置。
 - 2026-08-10：补充常用工作流配置 `fileCheckpointingEnabled`（编辑前快照，支持 `/rewind` 回滚）与 `cleanupPeriodDays`（会话记录保留天数）。
+- 2026-08-10：补充 `autoCompactWindow` 与 `cleanupPeriodDays` 的取值建议（窗口按模型上下文约 80% 设置；保留天数按使用习惯选择）。
