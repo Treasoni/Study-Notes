@@ -1,0 +1,311 @@
+---
+title: Codex 配置哲学概览
+tags: [codex, ai, 工具使用, 入门, 配置]
+created: 2026-07-31
+updated: 2026-08-10
+status: updated
+source_project: codex-config
+---
+
+# Codex 配置哲学概览
+
+> [!info] 文档定位
+> **一句话定位** - 本篇以 Claude Code 为参照系，全景对比 Codex 的配置哲学与配置体系：两种配置哲学、TOML vs JSON 格式差异、五层优先级、安全限定与目录结构。适合从 Claude Code 迁移到 Codex、需要快速建立 Codex 配置全局认知的读者。
+
+---
+
+## 两种配置哲学
+
+Claude Code 的配置设计偏"应用惯例"：JSON 格式、扁平的目录结构、单文件指令系统。它追求的是**低门槛、快速上手**。
+
+Codex 的配置设计则偏"工程体系"：TOML 格式带来的更强可读性、五层优先级带来的灵活覆盖、分层级联的指令系统和 Starlark 规则引擎。它追求的是**可维护性、安全可控、细粒度扩展**。
+
+> [!abstract] 核心认知
+> 这两种哲学的差异并非优劣之分，而是面向不同场景的设计权衡。理解为"Codex 比 Claude Code 更复杂"是片面的——更准确的理解是"Codex 给了你更多主动控制权，但这也意味着你需要做更多的配置决策"。
+
+这两种哲学的差异并非优劣之分，而是面向不同场景的设计权衡。下表从宏观维度给出全景对照：
+
+| 维度 | Codex | Claude Code |
+|------|-------|-------------|
+| 配置格式 | TOML（也支持 YAML/JSON） | JSON |
+| 全局配置 | `~/.codex/config.toml` | `~/.claude/settings.json` |
+| 项目配置 | `.codex/config.toml` | `.claude/settings.json` |
+| 运行时覆盖 | `-c key=val` CLI 参数 | `.claude/settings.local.json` 文件 |
+| 指令文件 | AGENTS.md（分层级联，从全局到当前目录逐级拼接） | CLAUDE.md（单文件，路径作用域 rules/） |
+| 规则系统 | `.codex/rules/*.rules`（Starlark 语言） | `.claude/rules/*.md`（路径作用域） |
+| Skills 目录 | `.agents/skills/` | `.claude/skills/` |
+| Skills 标准 | Agent Skills Standard（**完全相同**） | Agent Skills Standard（**完全相同**） |
+| 子代理配置 | `.codex/agents/*.toml`（TOML 格式） | `.claude/agents/*.md`（Markdown + frontmatter） |
+| MCP 配置 | `[mcp_servers]` TOML 区块 | `mcpServers` JSON 字段 |
+| Hooks 事件 | 11 种事件（含 PreCompact、SubagentStart 等） | 4 种核心事件 |
+| 权限模型 | sandbox_mode + approval_policy + permissions 区块 | allow/deny/ask 细粒度 |
+| 多环境配置档 | 内置 `[profiles]` 支持 | 无内置 |
+| 插件系统 | 独立 `.codex-plugin/` 体系 | 无 |
+| 多模型提供商 | 内置 openai/ollama/lmstudio + 自定义 | 主要 Anthropic |
+
+> 这张表是全篇的"地图"。后续每章将深入其中一个或几个维度，逐一展开细节和实操。你现在不需要记住所有行，只需建立"Codex 的配置维度比 Claude Code 更丰富"的认知即可。
+
+---
+
+## 配置格式差异：TOML vs JSON
+
+### 为什么是 TOML？
+
+如果你打开过 Claude Code 的 `settings.json`，你会发现它是一份典型的 JSON 配置文件 —— 机器友好，但对于人类来说，缺少注释支持、结尾逗号严格、层级一深可读性就下降。
+
+Codex 选择 TOML 作为主配置格式，核心原因有三：
+
+1. **原生支持注释**：TOML 使用 `#` 注释，可以直接在配置文件中写说明文档
+2. **隐式表结构**：`[section]` 语法让配置分节一目了然
+3. **更宽松的语法**：允许尾部逗号、多行字符串、多种数据类型
+
+### 基本语法对照
+
+来看一个直接对比。Claude Code 的 JSON 配置：
+
+```json
+{
+  "model": "claude-sonnet-4-20250514",
+  "maxTokens": 8192,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'running bash'"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+对应的 Codex TOML 配置：
+
+```toml
+model = "gpt-5.4"
+
+[hooks.PreToolUse]
+matcher = "Bash"
+
+  [[hooks.PreToolUse.hooks]]
+  type = "command"
+  command = "echo 'running bash'"
+```
+
+差异很明显：
+- JSON 的嵌套通过花括号和缩进表达，TOML 通过**节头（section header）** 表达
+- TOML 使用 `[section]` 表示一个节，`[[array]]` 表示一个数组元素
+- TOML 不需要在最后一个键值对后面加逗号，JSON 严格禁止尾部逗号
+- TOML 的键值对使用 `=` 而非 `:`
+
+### TOML 常用数据类型速览
+
+如果你是第一次接触 TOML，下面这张速查表可以帮助你快速上手：
+
+```toml
+# 字符串
+name = "Codex"
+path = 'raw string'  # 单引号不转义
+
+# 整数 / 浮点数
+timeout = 60
+rate = 3.14
+
+# 布尔值
+enabled = true
+debug_enabled = false
+
+# 日期时间
+created = 2026-07-31T10:00:00Z
+
+# 数组（方括号）
+skills = ["code-review", "testing"]
+
+# 表/节
+[permissions.network]
+enabled = true
+
+# 数组表（多个相同结构的节）
+[[skills.config]]
+path = "/path/to/skill1"
+enabled = true
+
+[[skills.config]]
+path = "/path/to/skill2"
+enabled = false
+```
+
+---
+
+## 配置层级与优先级
+
+这是 Codex 配置体系中最核心的设计之一 —— **五层优先级**。理解它，你就理解了"一个配置项最终取什么值"的决策路径。
+
+### 五层优先级（从高到低）
+
+```toml
+# 层级 1：托管配置（requirements.toml）
+# 企业级强制配置，由管理员管理，写入后不可被下层覆盖
+
+# 层级 2：CLI 运行时参数
+# 临时覆盖，只对当前会话生效
+# 用法：codex -c sandbox_mode="danger-full-access"
+
+# 层级 3：Profile 配置档（--profile NAME）
+# 按场景切换的命名配置集
+
+# 层级 4：项目配置（.codex/config.toml）
+# 仓库级默认配置，团队成员共享
+
+# 层级 5：用户全局配置（~/.codex/config.toml）
+# 个人偏好默认值，优先级最低
+```
+
+> 层级数字越小优先级越高。层级 1（托管配置）最高，层级 5（用户配置）最低。
+
+这里有一个 Claude Code 用户会感到熟悉但又不同的设计：
+
+- **Claude Code** 用 `.claude/settings.local.json` 做本地覆盖，**不参与层级**，而是直接合并
+- **Codex** 用 `-c` 参数做运行时覆盖，**明确属于优先级层级**，且是第二高的层级
+
+### 安全限定：哪些配置只能在用户级设置？
+
+Codex 有一个重要的安全机制：**部分敏感配置键只能写在用户级 `~/.codex/config.toml` 中**，如果写在项目级 `.codex/config.toml`，会被静默忽略。这是为了防止仓库中的恶意配置文件危害你的系统。
+
+这些受限制的键包括：
+
+```toml
+# 以下配置只能在用户级 ~/.codex/config.toml 中设置
+openai_base_url       # OpenAI API 地址
+chatgpt_base_url      # ChatGPT 地址
+model_provider        # 模型提供商
+model_providers       # 多提供商配置（自定义提供商）
+approval_policy       # 审批策略（untrusted / on-request / never）
+sandbox_mode          # 沙箱模式
+sandbox_workspace_write.*  # 沙箱可写目录配置
+notify                # 通知
+profile               # 默认 profile
+profiles              # 多环境配置档定义
+otel.*                # 遥测配置
+```
+
+> 这一点与 Claude Code 差异很大。Claude Code 的项目级 settings.json 和用户级 settings.json 在安全策略上没有硬性隔离，而 Codex 做了明确的**静默忽略** —— 项目配置写了也不生效，且不会给出错误提示。
+
+---
+
+## 配置文件目录结构对比
+
+### 顶层对比
+
+```
+Claude Code 项目结构                  Codex 项目结构
+======================                ==================
+
+.claude/                              .codex/
+├── settings.json                     ├── config.toml        ← 核心配置
+├── settings.local.json               ├── agents/            ← 子代理定义
+├── skills/                           │   └── *.toml
+│   └── <name>/                      ├── rules/             ← Starlark 规则
+├── agents/                           │   └── *.rules
+│   └── *.md                         ├── hooks.json         ← 生命周期钩子
+├── rules/                            └── plugins/          ← 插件目录
+│   └── *.md
+└── CLAUDE.md                         .agents/              ← Skills 目录
+                                      └── skills/
+```
+
+### 用户级全局目录对比
+
+```
+~/.claude/                            ~/.codex/（或 $CODEX_HOME）
+├── settings.json                     ├── config.toml
+├── skills/                           ├── AGENTS.override.md
+│   └── <name>/                      ├── AGENTS.md
+├── agents/                           ├── agents/
+│   └── *.md                         │   └── *.toml
+└── CLAUDE.md                         ├── hooks.json
+                                      └── skills/
+```
+
+从目录结构可以直观感受到两套体系的差异：
+
+| 对比项 | Claude Code | Codex |
+|--------|-------------|-------|
+| 顶层目录名 | `.claude/` | `.codex/` |
+| 核心配置格式 | JSON 文件（settings.json） | TOML 文件（config.toml） |
+| 指令文件 | `CLAUDE.md`（项目根，单文件） | `AGENTS.md`（全局+多级级联） |
+| 规则机制 | `.claude/rules/*.md`（Markdown 说明） | `.codex/rules/*.rules`（Starlark 编程语言） |
+| Skills 发现 | `.claude/skills/` | `.agents/skills/` |
+| 子代理定义 | `.claude/agents/*.md` | `.codex/agents/*.toml` |
+| 钩子配置 | 内嵌在 settings.json 中 | 独立 `hooks.json` 或内嵌 TOML |
+| 多环境配置 | 无内置 | `[profiles]` 配置档 |
+| 插件系统 | 无 | `.codex/plugins/` 独立体系 |
+
+> **本章小结**：Codex 的配置体系比 Claude Code 更丰富和工程化，覆盖了配置格式、层级优先级、安全限制、多环境配置档等更多维度。TOML 提供原生注释、更直观的节结构、更宽松的语法。五层优先级机制是 Codex 配置的骨架，安全敏感配置只能在用户级设置。`.codex/` 对应 `.claude/`、`AGENTS.md` 对应 `CLAUDE.md`、`.agents/skills/` 对应 `.claude/skills/`，但每个维度在 Codex 中都有延伸和增强。
+
+---
+
+## 常见问题
+
+### Q: Codex 与 Claude Code 的配置哲学差异是"优劣之分"吗？
+
+**回答**：不是。两者是面向不同场景的设计权衡：Claude Code 偏"应用惯例"，追求低门槛、快速上手；Codex 偏"工程体系"，追求可维护性、安全可控、细粒度扩展。更准确的理解是"Codex 给了你更多主动控制权，但这也意味着你需要做更多的配置决策"。
+
+### Q: 为什么部分敏感配置键写在项目级 config.toml 里不生效？
+
+**回答**：这是 Codex 的安全机制。像 `openai_base_url`、`model_provider`、`approval_policy`、`sandbox_mode` 等敏感配置键只能写在用户级 `~/.codex/config.toml` 中；如果写在项目级 `.codex/config.toml`，会被**静默忽略**且不给出错误提示，目的是防止仓库中的恶意配置文件危害系统。这与 Claude Code 的 settings.json 没有硬性安全隔离的设计差异很大。
+
+### Q: 一个配置项最终取什么值？Codex 的优先级如何决定？
+
+**回答**：按**五层优先级**从高到低决定：层级 1 托管配置（`requirements.toml`，企业级强制）→ 层级 2 CLI 运行时参数（`-c key=val`，仅当前会话）→ 层级 3 Profile 配置档（`--profile NAME`）→ 层级 4 项目配置（`.codex/config.toml`）→ 层级 5 用户全局配置（`~/.codex/config.toml`）。层级数字越小优先级越高。
+
+---
+
+## 最佳实践
+
+### Do's
+
+- 使用 TOML 的 `#` 注释在配置文件中写说明文档，让配置自解释、易维护。
+- 敏感配置键（`sandbox_mode`、`approval_policy`、`model_provider` 等）只写在用户级 `~/.codex/config.toml`，不要放进项目级配置。
+- 需要临时覆盖时使用 `-c key=val` CLI 参数，它明确属于第二高优先级且只对当前会话生效。
+- 按场景用 `--profile NAME` 配置档隔离不同环境，利用 Codex 内置的 `[profiles]` 支持。
+
+### Don'ts
+
+- 不要把敏感配置键写进项目级 `.codex/config.toml`，会被静默忽略且没有任何错误提示，排查时极易踩坑。
+- 不要误以为"Codex 比 Claude Code 更复杂"是缺陷——它是更多主动控制权的代价，需要你做更多配置决策。
+- 不要把 `AGENTS.md` 当作 `CLAUDE.md` 那样的单文件指令系统；AGENTS.md 是分层级联的，从全局到当前目录逐级拼接。
+
+---
+
+## 小结
+
+Codex 的配置体系比 Claude Code 更丰富和工程化，但两者的差异是设计场景的权衡而非优劣。TOML 以原生注释、直观的节结构和更宽松的语法提升可读性；五层优先级机制（托管配置 → CLI 参数 → Profile → 项目配置 → 用户配置）是 Codex 配置的骨架；安全敏感配置只能在用户级设置，防止仓库恶意配置危害系统。目录结构上，`.codex/` 对应 `.claude/`、`AGENTS.md` 对应 `CLAUDE.md`、`.agents/skills/` 对应 `.claude/skills/`，但每个维度在 Codex 中都有延伸和增强。
+
+---
+
+## 相关文档
+
+| 文档 | 说明 |
+|------|------|
+| [[config.toml 核心配置]] | 核心配置文件逐区块解读 |
+| [[AGENTS.md 分层体系]] | 指令与规则系统 |
+| [[对照表与迁移实战]] | 完整配置对照表与迁移策略 |
+| [[Codex MOC]] | 返回目录 |
+
+---
+
+## 参考资料
+
+- [OpenAI Codex 文档](https://developers.openai.com/codex/)
+- [OpenAI Codex GitHub](https://github.com/openai/codex)
+
+---
+
+## 更新记录
+
+- 2026-08-10：重构为 Claude Code 教程风格，重排分节并补齐 FAQ/最佳实践/相关文档。

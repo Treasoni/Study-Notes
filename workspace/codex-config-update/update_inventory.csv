@@ -1,0 +1,11 @@
+id,relative_path,title,updated,status,reason,priority,size_bytes
+cdx01,AI学习/Codex/01 配置哲学概览.md,Codex 完整配置体系,2026-07-31,ready,重排套模板+去序号改名,1,10169
+cdx02,AI学习/Codex/02 config.toml 核心配置.md,Codex 完整配置体系,2026-07-31,ready,重排套模板+去序号改名,2,13477
+cdx03,AI学习/Codex/03 AGENTS.md 分层体系.md,Codex 完整配置体系,2026-07-31,ready,重排套模板+去序号改名,3,8488
+cdx04,AI学习/Codex/04 Skills 技能系统.md,Codex 完整配置体系,2026-07-31,ready,重排套模板+去序号改名,4,7651
+cdx05,AI学习/Codex/05 Agents 与 MCP.md,Codex 完整配置体系,2026-07-31,ready,重排套模板+去序号改名,5,6066
+cdx06,AI学习/Codex/06 Hooks 与插件.md,Codex 完整配置体系,2026-07-31,ready,重排套模板+去序号改名,6,7599
+cdx07,AI学习/Codex/07 CLI 与调试.md,Codex 完整配置体系,2026-07-31,ready,重排套模板+去序号改名,7,4252
+cdx08,AI学习/Codex/08 对照表与迁移实战.md,Codex 完整配置体系,2026-07-31,ready,重排套模板+去序号改名,8,11612
+cdx09,AI学习/Codex/附录 快速参考卡片.md,Codex 完整配置体系,2026-07-31,ready,重排套模板+去序号改名,9,2975
+cdx10,AI学习/Codex/Codex 配置体系 MOC.md,Codex 配置体系 MOC,2026-07-31,ready,重命名+按Claude Code MOC模板重写,10,1076
