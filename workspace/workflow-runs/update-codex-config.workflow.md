@@ -10,10 +10,10 @@ topic: "Codex 笔记重构为 Claude Code 教程风格"
 project_slug: "codex-config-update"
 created_at: "2026-08-10"
 last_updated: "2026-08-10"
-current_phase: P5
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: standard
-confirmed_phases: "P0,P1,P2,P4"
+confirmed_phases: "P0,P1,P2,P4,P5"
 skippable_phases: "P3"
 mode_dependent_skips: ""
 allowed_modes: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：update-codex-config
 > 项目标识：codex-config-update
 > 创建时间：2026-08-10
-> 当前阶段：阶段 5
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -95,7 +95,7 @@ blocked_reason: ""
 - [ ] 如提供 MOC，已同步索引且未复制正文
 - [ ] 批量更新报告已保存：`./04_batch_update_report.md`
 
-> [P5] 🔲 进行中
+> [P5] ✅ 已完成
 
 ---
 
@@ -103,6 +103,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P5 | 用户确认 P5 汇总结果：9 篇+1 MOC 全部完成，旧 flat 文件已删除，MOC/索引已同步 | 2026-08-10 20:41 |
 | P4 | 用户确认 9 篇逐篇更新结果：六区块齐全、title 唯一、updated/status 正确 | 2026-08-10 20:40 |
 | P2 | 用户确认批量更新计划：分组/映射/patch-in-place/批次正确，开始 P4 | 2026-08-10 20:30 |
 | P1 | 更新清单已生成：10 篇全部 ready，无 skip/needs-review | 2026-08-10 20:28 |
