@@ -344,7 +344,9 @@ Hooks 是 settings.json 中最复杂的功能，支持多个事件点和多种�
     "jj": "Esc"
   },
   "workflowSizeGuideline": "medium",
-  "language": "chinese"
+  "language": "chinese",
+  "fileCheckpointingEnabled": true,
+  "cleanupPeriodDays": 30
 }
 ```
 
@@ -353,6 +355,8 @@ Hooks 是 settings.json 中最复杂的功能，支持多个事件点和多种�
 | `emojiCompletionEnabled` | boolean | 开启 emoji 短码自动补全（如输入 `:thumbsup:` 自动补全 👍） |
 | `vimInsertModeRemaps` | object | 自定义 Vim 插入模式按键映射，如把 `jj` 映射为 `Esc` 快速退出插入模式 |
 | `language` | string | 设定 Claude 回复的语言，如 `"chinese"`（中文）、`"japanese"`（日语）；不设置则跟随提问语言 |
+| `fileCheckpointingEnabled` | boolean | 编辑前自动快照文件，可用 `/rewind` 回滚恢复，防手滑改坏内容 |
+| `cleanupPeriodDays` | integer | 会话记录保留天数（默认 30，最小 1）；调大可长期保留历史会话，调小则更快清理 |
 
 `workflowSizeGuideline` 用于给动态工作流提供规模建议：
 
@@ -531,3 +535,4 @@ settings.json 是 Claude Code 的"总控面板"：模型、推理级别、权限
 - 2026-08-07：同步官方 schema 与文档。`autoCompactThreshold` 废弃 → `autoCompactEnabled` + `/autocompact`；`fallbackModels` → `fallbackModel`；移除 `maxTokens`、`systemPrompt`。
 - 2026-08-10：同步 2026-08 现状。权限模式「Default」改名「Manual」（`defaultMode: "manual"`）；新增沙盒（`sandbox.filesystem.disabled` / `sandbox.network.strictAllowlist`）、Auto mode（`disableAutoMode` / `autoMode.classifyAllShell`）、无障碍（`axScreenReader`）、输入与工作流体验（`emojiCompletionEnabled` / `vimInsertModeRemaps` / `workflowSizeGuideline`）、跨会话消息（`crossSessionInbound` / `dialogExpiry`）等配置键说明；补齐小结结语；`status` 从 draft 改为 updated。
 - 2026-08-10：补充自动压缩直接配置字段 `autoCompactWindow`（token 窗口，100000–1000000）与 `precomputeCompactionEnabled`（预压缩摘要），以及 `language`（回复语言）字段；本项目 `.claude/settings.local.json` 已同步从废弃的 `autoCompactThreshold` 迁移到新版配置。
+- 2026-08-10：补充常用工作流配置 `fileCheckpointingEnabled`（编辑前快照，支持 `/rewind` 回滚）与 `cleanupPeriodDays`（会话记录保留天数）。
