@@ -10,10 +10,10 @@ topic: "搭建并学会使用 AI API 中转站（new-api）"
 project_slug: "new-api-relay-station"
 created_at: "2026-08-11"
 last_updated: "2026-08-12"
-current_phase: P7
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4,P5,P6"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6,P7"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：new-api-relay-station
 > 项目标识：new-api-relay-station
 > 创建时间：2026-08-11
-> 当前阶段：阶段 7
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -127,7 +127,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] 🔲 进行中
+> [P7] ✅ 已完成
 
 ---
 
@@ -135,7 +135,8 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
-| P6 | 用户确认进入美化发布；frontmatter/双链/Callout 已按 Obsidian 规则处理，已保存到项目 output/ | 2026-08-12 00:34 |
+| P7 | 已创建 GitHub项目 MOC 并加入新笔记索引项（索引双链全部校验唯一有效） | 2026-08-12 00:39 |
+| P6 | 用户确认进入美化发布；frontmatter/双链/Callout 已按 Obsidian 规则处理，已发布到 vault：GitHub项目/new-api中转站搭建与使用指南.md | 2026-08-12 00:34 |
 | P5 | 用户确认组装结果，输出位置先存项目 output/ | 2026-08-12 00:33 |
 | P4 | 用户要求直接写完全部章节，跳过逐章确认 | 2026-08-12 00:23 |
 | P3 | 用户确认大纲（7 章） | 2026-08-12 00:14 |
@@ -172,10 +173,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战笔记
+- **总字数**：约 12,300 字
+- **章节数**：7 章
+- **输出格式**：Obsidian Markdown
+- **文件路径**：`GitHub项目/new-api中转站搭建与使用指南.md`（项目内副本：`workspace/new-api-relay-station/output/final_note.md`）
+- **Obsidian Vault**：`D:\Study-Notes`
+- **MOC 路径**：`GitHub项目/GitHub项目 MOC.md`
