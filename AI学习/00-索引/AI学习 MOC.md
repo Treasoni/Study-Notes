@@ -2,7 +2,7 @@
 title: "AI学习 MOC"
 tags: [moc]
 created: 2026-05-14
-updated: 2026-08-10
+updated: 2026-08-11
 ---
 
 # AI学习 MOC
@@ -95,6 +95,7 @@ graph TB
 - [[Codex手动配置指南]]
 - [[GLM系列模型完整对比]]
 - [[ModelScope-Ollama-ClaudeCode部署指南]] - 从 ModelScope 拉取 GGUF 模型 → Ollama 本地部署 → Claude Code 免 Key 接入全流程实战指南 #LLM #本地模型 #实战指南
+- [[ModelScope 模型文件类型]] - 看懂模型仓库四类文件、四种权重格式（safetensors/bin/GGUF/ONNX）与三条使用路径的概念指南 #LLM #ModelScope #模型文件
 - [[OCR概念笔记]]
 - [[Ollama 使用指南]] - Ollama 本地大模型入门到上手使用文档 #Ollama #本地LLM
 - [[RAG技术入门指南]]
@@ -199,7 +200,7 @@ graph TB
 ## 概览
 
 - 📂 目录：`AI学习`
-- 📝 笔记总数：82
+- 📝 笔记总数：83
 - 📁 子目录数：14
 - 📅 生成日期：2026-05-14
-- 📅 更新日期：2026-08-10
+- 📅 更新日期：2026-08-11
