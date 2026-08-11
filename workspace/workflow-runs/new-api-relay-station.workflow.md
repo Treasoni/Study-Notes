@@ -10,10 +10,10 @@ topic: "搭建并学会使用 AI API 中转站（new-api）"
 project_slug: "new-api-relay-station"
 created_at: "2026-08-11"
 last_updated: "2026-08-12"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
-confirmed_phases: "P0,P1,P2,P3"
+confirmed_phases: "P0,P1,P2,P3,P4"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：new-api-relay-station
 > 项目标识：new-api-relay-station
 > 创建时间：2026-08-11
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -85,13 +85,16 @@ blocked_reason: ""
 
 ## 阶段 4：逐章写作
 - [x] 第 1 章已写完并确认
-- [ ] 第 2 章已写完并确认
-- [ ] 第 3 章已写完并确认
-- [ ] ...（根据实际章节数添加）
+- [x] 第 2 章已写完并确认
+- [x] 第 3 章已写完并确认
+- [x] 第 4 章已写完（待确认）
+- [x] 第 5 章已写完并确认
+- [x] 第 6 章已写完（待确认）
+- [x] 第 7 章已写完（待确认）
 
-**进度**：1/7
+**进度**：7/7（全部章节已写完；第 4、6、7 章待用户确认）
 
-> [P4] 🔲 进行中
+> [P4] ✅ 已完成
 
 ---
 
@@ -104,7 +107,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中
 
 ---
 
@@ -132,6 +135,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P4 | 用户要求直接写完全部章节，跳过逐章确认 | 2026-08-12 00:23 |
 | P3 | 用户确认大纲（7 章） | 2026-08-12 00:14 |
 | P2 | 用户确认深度收集素材质量 | 2026-08-12 00:13 |
 | P1 | 用户确认探测结果并选择方向 A：从零搭建+上手 | 2026-08-12 00:02 |
