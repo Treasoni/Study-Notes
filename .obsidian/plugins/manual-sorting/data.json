@@ -2,6 +2,7 @@
   "customOrder": {
     "/": {
       "children": [
+        "显存（VRAM）与本地部署大模型.md",
         "coord.json",
         "homeassistant",
         "skills-lock.json",
@@ -172,6 +173,7 @@
     },
     "AI学习": {
       "children": [
+        "AI学习/DeepSeek-Reasonix 教程",
         "AI学习/Codex",
         "AI学习/00-索引",
         "AI学习/01-基础概念",
@@ -246,6 +248,8 @@
     },
     "AI学习/03-技术专题": {
       "children": [
+        "AI学习/03-技术专题/ModelScope-Ollama-ClaudeCode部署指南.md",
+        "AI学习/03-技术专题/Ollama 使用指南.md",
         "AI学习/03-技术专题/AI模型对比",
         "AI学习/03-技术专题/Codex手动配置指南.md",
         "AI学习/03-技术专题/knowledge-cards.json",
@@ -430,16 +434,86 @@
     },
     "AI学习/Codex": {
       "children": [
-        "AI学习/Codex/01 配置哲学概览.md",
-        "AI学习/Codex/02 config.toml 核心配置.md",
-        "AI学习/Codex/03 AGENTS.md 分层体系.md",
-        "AI学习/Codex/04 Skills 技能系统.md",
-        "AI学习/Codex/05 Agents 与 MCP.md",
-        "AI学习/Codex/06 Hooks 与插件.md",
-        "AI学习/Codex/07 CLI 与调试.md",
-        "AI学习/Codex/08 对照表与迁移实战.md",
-        "AI学习/Codex/附录 快速参考卡片.md",
-        "AI学习/Codex/Codex 配置体系 MOC.md"
+        "AI学习/Codex/01-入门",
+        "AI学习/Codex/02-基础功能",
+        "AI学习/Codex/03-进阶应用",
+        "AI学习/Codex/04-高级功能",
+        "AI学习/Codex/Codex MOC.md",
+        "AI学习/Codex/sortspec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/Codex/01-入门": {
+      "children": [
+        "AI学习/Codex/01-入门/Codex 配置哲学概览.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/Codex/02-基础功能": {
+      "children": [
+        "AI学习/Codex/02-基础功能/Codex CLI 与调试.md",
+        "AI学习/Codex/02-基础功能/config.toml 核心配置.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/Codex/03-进阶应用": {
+      "children": [
+        "AI学习/Codex/03-进阶应用/Agents 与 MCP.md",
+        "AI学习/Codex/03-进阶应用/AGENTS.md 分层体系.md",
+        "AI学习/Codex/03-进阶应用/Hooks 与插件.md",
+        "AI学习/Codex/03-进阶应用/Skills 技能系统.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/Codex/04-高级功能": {
+      "children": [
+        "AI学习/Codex/04-高级功能/对照表与迁移实战.md",
+        "AI学习/Codex/04-高级功能/快速参考卡片.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/DeepSeek-Reasonix 教程": {
+      "children": [
+        "AI学习/DeepSeek-Reasonix 教程/01-入门",
+        "AI学习/DeepSeek-Reasonix 教程/02-基础功能",
+        "AI学习/DeepSeek-Reasonix 教程/03-进阶应用",
+        "AI学习/DeepSeek-Reasonix 教程/04-高级功能",
+        "AI学习/DeepSeek-Reasonix 教程/DeepSeek-Reasonix MOC.md",
+        "AI学习/DeepSeek-Reasonix 教程/sortspec.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/DeepSeek-Reasonix 教程/01-入门": {
+      "children": [
+        "AI学习/DeepSeek-Reasonix 教程/01-入门/DeepSeek-Reasonix 使用指南.md",
+        "AI学习/DeepSeek-Reasonix 教程/01-入门/DeepSeek-Reasonix 是什么.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/DeepSeek-Reasonix 教程/02-基础功能": {
+      "children": [
+        "AI学习/DeepSeek-Reasonix 教程/02-基础功能/DeepSeek-Reasonix 会话与交互.md",
+        "AI学习/DeepSeek-Reasonix 教程/02-基础功能/DeepSeek-Reasonix 权限模式指南.md",
+        "AI学习/DeepSeek-Reasonix 教程/02-基础功能/DeepSeek-Reasonix CLI 完整参考.md",
+        "AI学习/DeepSeek-Reasonix 教程/02-基础功能/reasonix.toml 配置详解.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/DeepSeek-Reasonix 教程/03-进阶应用": {
+      "children": [
+        "AI学习/DeepSeek-Reasonix 教程/03-进阶应用/DeepSeek-Reasonix 模型与运行模式.md",
+        "AI学习/DeepSeek-Reasonix 教程/03-进阶应用/DeepSeek-Reasonix 前缀缓存与成本优化.md",
+        "AI学习/DeepSeek-Reasonix 教程/03-进阶应用/DeepSeek-Reasonix 自动化与 CI.md",
+        "AI学习/DeepSeek-Reasonix 教程/03-进阶应用/DeepSeek-Reasonix MCP 使用指南.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/DeepSeek-Reasonix 教程/04-高级功能": {
+      "children": [
+        "AI学习/DeepSeek-Reasonix 教程/04-高级功能/从 Claude Code 迁移到 DeepSeek-Reasonix.md",
+        "AI学习/DeepSeek-Reasonix 教程/04-高级功能/DeepSeek-Reasonix 插件与扩展开发.md",
+        "AI学习/DeepSeek-Reasonix 教程/04-高级功能/DeepSeek-Reasonix 沙箱与安全.md",
+        "AI学习/DeepSeek-Reasonix 教程/04-高级功能/DeepSeek-Reasonix ACP 协议指南.md"
       ],
       "sortOrder": "custom"
     },
@@ -1510,6 +1584,12 @@
     },
     "workspace": {
       "children": [
+        "workspace/codex-config-update",
+        "workspace/deepseek-reasonix-tutorial",
+        "workspace/modelscope-model-file-types",
+        "workspace/modelscope-ollama-claude-code",
+        "workspace/ollama-usage",
+        "workspace/vram-local-llm-deployment",
         "workspace/update-claude-code-tutorial",
         "workspace/docker-compose-commands",
         "workspace/docker-ha-tutorial",
@@ -1555,12 +1635,21 @@
     },
     "workspace/ai-smart-home-system/agent": {
       "children": [
+        "workspace/ai-smart-home-system/agent/__pycache__",
         "workspace/ai-smart-home-system/agent/Dockerfile",
         "workspace/ai-smart-home-system/agent/entity_map.py",
         "workspace/ai-smart-home-system/agent/entity_map.yaml",
         "workspace/ai-smart-home-system/agent/main.py",
         "workspace/ai-smart-home-system/agent/requirements.txt",
         "workspace/ai-smart-home-system/agent/tools.py"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/ai-smart-home-system/agent/__pycache__": {
+      "children": [
+        "workspace/ai-smart-home-system/agent/__pycache__/entity_map.cpython-314.pyc",
+        "workspace/ai-smart-home-system/agent/__pycache__/main.cpython-314.pyc",
+        "workspace/ai-smart-home-system/agent/__pycache__/tools.cpython-314.pyc"
       ],
       "sortOrder": "custom"
     },
@@ -1809,6 +1898,104 @@
       ],
       "sortOrder": "custom"
     },
+    "workspace/codex-config-update": {
+      "children": [
+        "workspace/codex-config-update/updates",
+        "workspace/codex-config-update/00_batch_update_intent.md",
+        "workspace/codex-config-update/01_update_inventory.md",
+        "workspace/codex-config-update/02_batch_update_plan.md",
+        "workspace/codex-config-update/03_batch_update_log.md",
+        "workspace/codex-config-update/04_batch_update_report.md",
+        "workspace/codex-config-update/update_inventory.csv"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/codex-config-update/updates": {
+      "children": [
+        "workspace/codex-config-update/updates/cdx01",
+        "workspace/codex-config-update/updates/cdx02",
+        "workspace/codex-config-update/updates/cdx03",
+        "workspace/codex-config-update/updates/cdx04",
+        "workspace/codex-config-update/updates/cdx05",
+        "workspace/codex-config-update/updates/cdx06",
+        "workspace/codex-config-update/updates/cdx07",
+        "workspace/codex-config-update/updates/cdx08",
+        "workspace/codex-config-update/updates/cdx09"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/codex-config-update/updates/cdx01": {
+      "children": [
+        "workspace/codex-config-update/updates/cdx01/stale_map.md",
+        "workspace/codex-config-update/updates/cdx01/update_report.md",
+        "workspace/codex-config-update/updates/cdx01/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/codex-config-update/updates/cdx02": {
+      "children": [
+        "workspace/codex-config-update/updates/cdx02/stale_map.md",
+        "workspace/codex-config-update/updates/cdx02/update_report.md",
+        "workspace/codex-config-update/updates/cdx02/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/codex-config-update/updates/cdx03": {
+      "children": [
+        "workspace/codex-config-update/updates/cdx03/stale_map.md",
+        "workspace/codex-config-update/updates/cdx03/update_report.md",
+        "workspace/codex-config-update/updates/cdx03/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/codex-config-update/updates/cdx04": {
+      "children": [
+        "workspace/codex-config-update/updates/cdx04/stale_map.md",
+        "workspace/codex-config-update/updates/cdx04/update_report.md",
+        "workspace/codex-config-update/updates/cdx04/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/codex-config-update/updates/cdx05": {
+      "children": [
+        "workspace/codex-config-update/updates/cdx05/stale_map.md",
+        "workspace/codex-config-update/updates/cdx05/update_report.md",
+        "workspace/codex-config-update/updates/cdx05/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/codex-config-update/updates/cdx06": {
+      "children": [
+        "workspace/codex-config-update/updates/cdx06/stale_map.md",
+        "workspace/codex-config-update/updates/cdx06/update_report.md",
+        "workspace/codex-config-update/updates/cdx06/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/codex-config-update/updates/cdx07": {
+      "children": [
+        "workspace/codex-config-update/updates/cdx07/stale_map.md",
+        "workspace/codex-config-update/updates/cdx07/update_report.md",
+        "workspace/codex-config-update/updates/cdx07/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/codex-config-update/updates/cdx08": {
+      "children": [
+        "workspace/codex-config-update/updates/cdx08/stale_map.md",
+        "workspace/codex-config-update/updates/cdx08/update_report.md",
+        "workspace/codex-config-update/updates/cdx08/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/codex-config-update/updates/cdx09": {
+      "children": [
+        "workspace/codex-config-update/updates/cdx09/stale_map.md",
+        "workspace/codex-config-update/updates/cdx09/update_report.md",
+        "workspace/codex-config-update/updates/cdx09/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
     "workspace/debian-practice": {
       "children": [
         "workspace/debian-practice/chapters",
@@ -1866,6 +2053,55 @@
     "workspace/debian系统安装教程/output": {
       "children": [
         "workspace/debian系统安装教程/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-reasonix-tutorial": {
+      "children": [
+        "workspace/deepseek-reasonix-tutorial/chapters",
+        "workspace/deepseek-reasonix-tutorial/output",
+        "workspace/deepseek-reasonix-tutorial/00_intent.md",
+        "workspace/deepseek-reasonix-tutorial/01_explore_result.md",
+        "workspace/deepseek-reasonix-tutorial/02_deep_research.md",
+        "workspace/deepseek-reasonix-tutorial/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-reasonix-tutorial/chapters": {
+      "children": [
+        "workspace/deepseek-reasonix-tutorial/chapters/01_使用指南.md",
+        "workspace/deepseek-reasonix-tutorial/chapters/02_是什么.md",
+        "workspace/deepseek-reasonix-tutorial/chapters/03_CLI完整参考.md",
+        "workspace/deepseek-reasonix-tutorial/chapters/04_会话与交互.md",
+        "workspace/deepseek-reasonix-tutorial/chapters/05_reasonix配置详解.md",
+        "workspace/deepseek-reasonix-tutorial/chapters/06_权限模式指南.md",
+        "workspace/deepseek-reasonix-tutorial/chapters/07_模型与运行模式.md",
+        "workspace/deepseek-reasonix-tutorial/chapters/08_MCP使用指南.md",
+        "workspace/deepseek-reasonix-tutorial/chapters/09_前缀缓存与成本优化.md",
+        "workspace/deepseek-reasonix-tutorial/chapters/10_自动化与CI.md",
+        "workspace/deepseek-reasonix-tutorial/chapters/11_ACP协议指南.md",
+        "workspace/deepseek-reasonix-tutorial/chapters/12_插件与扩展开发.md",
+        "workspace/deepseek-reasonix-tutorial/chapters/13_从ClaudeCode迁移.md",
+        "workspace/deepseek-reasonix-tutorial/chapters/14_沙箱与安全.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-reasonix-tutorial/output": {
+      "children": [
+        "workspace/deepseek-reasonix-tutorial/output/01_使用指南.md",
+        "workspace/deepseek-reasonix-tutorial/output/02_是什么.md",
+        "workspace/deepseek-reasonix-tutorial/output/03_CLI完整参考.md",
+        "workspace/deepseek-reasonix-tutorial/output/04_会话与交互.md",
+        "workspace/deepseek-reasonix-tutorial/output/05_reasonix配置详解.md",
+        "workspace/deepseek-reasonix-tutorial/output/06_权限模式指南.md",
+        "workspace/deepseek-reasonix-tutorial/output/07_模型与运行模式.md",
+        "workspace/deepseek-reasonix-tutorial/output/08_MCP使用指南.md",
+        "workspace/deepseek-reasonix-tutorial/output/09_前缀缓存与成本优化.md",
+        "workspace/deepseek-reasonix-tutorial/output/10_自动化与CI.md",
+        "workspace/deepseek-reasonix-tutorial/output/11_ACP协议指南.md",
+        "workspace/deepseek-reasonix-tutorial/output/12_插件与扩展开发.md",
+        "workspace/deepseek-reasonix-tutorial/output/13_从ClaudeCode迁移.md",
+        "workspace/deepseek-reasonix-tutorial/output/14_沙箱与安全.md"
       ],
       "sortOrder": "custom"
     },
@@ -2294,6 +2530,61 @@
       ],
       "sortOrder": "custom"
     },
+    "workspace/modelscope-model-file-types": {
+      "children": [
+        "workspace/modelscope-model-file-types/chapters",
+        "workspace/modelscope-model-file-types/output",
+        "workspace/modelscope-model-file-types/00_intent.md",
+        "workspace/modelscope-model-file-types/01_explore_result.md",
+        "workspace/modelscope-model-file-types/02_deep_research.md",
+        "workspace/modelscope-model-file-types/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/modelscope-model-file-types/chapters": {
+      "children": [
+        "workspace/modelscope-model-file-types/chapters/01_一个模型仓库里到底有什么.md",
+        "workspace/modelscope-model-file-types/chapters/02_权重文件格式safetensors_bin_gguf_onnx.md",
+        "workspace/modelscope-model-file-types/chapters/03_配置与分词器文件模型的说明书.md",
+        "workspace/modelscope-model-file-types/chapters/04_拿到非GGUF文件怎么用三条路径.md",
+        "workspace/modelscope-model-file-types/chapters/05_怎么选怎么避坑怎么衔接既有指南.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/modelscope-model-file-types/output": {
+      "children": [
+        "workspace/modelscope-model-file-types/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/modelscope-ollama-claude-code": {
+      "children": [
+        "workspace/modelscope-ollama-claude-code/chapters",
+        "workspace/modelscope-ollama-claude-code/output",
+        "workspace/modelscope-ollama-claude-code/00_intent.md",
+        "workspace/modelscope-ollama-claude-code/01_explore_result.md",
+        "workspace/modelscope-ollama-claude-code/02_deep_research.md",
+        "workspace/modelscope-ollama-claude-code/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/modelscope-ollama-claude-code/chapters": {
+      "children": [
+        "workspace/modelscope-ollama-claude-code/chapters/01_准备工作与环境总览.md",
+        "workspace/modelscope-ollama-claude-code/chapters/02_环节一_用ModelScope拉取GGUF模型.md",
+        "workspace/modelscope-ollama-claude-code/chapters/03_环节二_用Ollama部署模型.md",
+        "workspace/modelscope-ollama-claude-code/chapters/04_环节三_让ClaudeCode接入本地Ollama.md",
+        "workspace/modelscope-ollama-claude-code/chapters/05_端到端速通.md",
+        "workspace/modelscope-ollama-claude-code/chapters/06_常见问题与避坑清单速查.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/modelscope-ollama-claude-code/output": {
+      "children": [
+        "workspace/modelscope-ollama-claude-code/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
     "workspace/nodejs-ai-application": {
       "children": [
         "workspace/nodejs-ai-application/chapters",
@@ -2323,6 +2614,33 @@
       "children": [
         "workspace/nodejs-ai-application/output/final_note.md",
         "workspace/nodejs-ai-application/output/final_note_obsidian.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/ollama-usage": {
+      "children": [
+        "workspace/ollama-usage/chapters",
+        "workspace/ollama-usage/output",
+        "workspace/ollama-usage/00_intent.md",
+        "workspace/ollama-usage/01_explore_result.md",
+        "workspace/ollama-usage/02_deep_research.md",
+        "workspace/ollama-usage/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/ollama-usage/chapters": {
+      "children": [
+        "workspace/ollama-usage/chapters/01_Ollama是什么.md",
+        "workspace/ollama-usage/chapters/02_安装与快速开始.md",
+        "workspace/ollama-usage/chapters/03_CLI命令与模型管理.md",
+        "workspace/ollama-usage/chapters/04_进阶用法API与定制.md",
+        "workspace/ollama-usage/chapters/05_常见坑与最佳实践.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/ollama-usage/output": {
+      "children": [
+        "workspace/ollama-usage/output/final_note.md"
       ],
       "sortOrder": "custom"
     },
@@ -2788,8 +3106,41 @@
       ],
       "sortOrder": "custom"
     },
+    "workspace/vram-local-llm-deployment": {
+      "children": [
+        "workspace/vram-local-llm-deployment/chapters",
+        "workspace/vram-local-llm-deployment/output",
+        "workspace/vram-local-llm-deployment/00_intent.md",
+        "workspace/vram-local-llm-deployment/01_explore_result.md",
+        "workspace/vram-local-llm-deployment/02_deep_research.md",
+        "workspace/vram-local-llm-deployment/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/vram-local-llm-deployment/chapters": {
+      "children": [
+        "workspace/vram-local-llm-deployment/chapters/01_显存是什么_GPU的专属工作台.md",
+        "workspace/vram-local-llm-deployment/chapters/02_大模型为什么吃显存.md",
+        "workspace/vram-local-llm-deployment/chapters/03_量化_把大模型塞进显存的钥匙.md",
+        "workspace/vram-local-llm-deployment/chapters/04_本地部署实战_看显存选模型跑起来.md",
+        "workspace/vram-local-llm-deployment/chapters/05_选卡速查表与进阶方向.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/vram-local-llm-deployment/output": {
+      "children": [
+        "workspace/vram-local-llm-deployment/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
     "workspace/workflow-runs": {
       "children": [
+        "workspace/workflow-runs/deepseek-reasonix-tutorial.workflow.md",
+        "workspace/workflow-runs/modelscope-model-file-types.workflow.md",
+        "workspace/workflow-runs/modelscope-ollama-claude-code.workflow.md",
+        "workspace/workflow-runs/ollama-usage.workflow.md",
+        "workspace/workflow-runs/update-codex-config.workflow.md",
+        "workspace/workflow-runs/vram-local-llm-deployment.workflow.md",
         "workspace/workflow-runs/update-claude-code-tutorial.workflow.md",
         "workspace/workflow-runs/docker-compose-commands.workflow.md",
         "workspace/workflow-runs/docker-ha-tutorial.workflow.md",
