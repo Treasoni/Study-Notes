@@ -10,10 +10,10 @@ topic: "搭建并学会使用 AI API 中转站（new-api）"
 project_slug: "new-api-relay-station"
 created_at: "2026-08-11"
 last_updated: "2026-08-12"
-current_phase: P5
+current_phase: P7
 current_status: in_progress
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：new-api-relay-station
 > 项目标识：new-api-relay-station
 > 创建时间：2026-08-11
-> 当前阶段：阶段 5
+> 当前阶段：阶段 7
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -107,7 +107,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中
+> [P5] ✅ 已完成
 
 ---
 
@@ -117,7 +117,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成
 
 ---
 
@@ -127,7 +127,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] 🔲 进行中
 
 ---
 
@@ -135,6 +135,8 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P6 | 用户确认进入美化发布；frontmatter/双链/Callout 已按 Obsidian 规则处理，已保存到项目 output/ | 2026-08-12 00:34 |
+| P5 | 用户确认组装结果，输出位置先存项目 output/ | 2026-08-12 00:33 |
 | P4 | 用户要求直接写完全部章节，跳过逐章确认 | 2026-08-12 00:23 |
 | P3 | 用户确认大纲（7 章） | 2026-08-12 00:14 |
 | P2 | 用户确认深度收集素材质量 | 2026-08-12 00:13 |

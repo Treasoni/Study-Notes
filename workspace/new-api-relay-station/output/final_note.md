@@ -4,12 +4,14 @@ tags: [AI, 中转站, new-api, Docker, 实战笔记]
 created: 2026-08-12
 updated: 2026-08-12
 status: draft
+source_project: new-api-relay-station
 ---
 
 # 搭建并学会使用 AI API 中转站（new-api）
 
 ## 笔记总览
 
+> [!abstract] 笔记简介
 > 这是一份面向**零基础读者**的实战笔记，目标是从零搭建并学会使用 AI API 中转站（new-api）。笔记主线是「概念 → 部署 → 初始化与安全 → 渠道配置 → 令牌与客户端接入 → 避坑运维 → 总结与进阶」，全程手把手、可照做。
 
 - **目标读者**：零基础（未搭过 Web 服务、未用过 Docker，从环境准备讲起）
@@ -152,6 +154,8 @@ df -h /      # 看磁盘剩余空间，建议 10G+
 
 以 Ubuntu 为例，官方提供了一键安装脚本[官方 Docker 安装脚本](https://get.docker.com)，把下面三行依次执行：
 
+> 如果你在国内网络环境下安装 Docker 遇到困难，可参考 [[docker/Linux-Docker与DockerCompose安装指南-国内网络版]]。
+
 ```bash
 # 1. 用官方脚本安装 Docker 和 Docker Compose（会自动装最新版）
 curl -fsSL https://get.docker.com | sudo sh
@@ -286,7 +290,7 @@ docker compose up -d
 
 ### 2.5 常用管理命令与部署验证
 
-启动之后，最常用的几条管理命令如下（都要在 `docker-compose.yml` 所在目录执行）[官方 compose 部署文档](https://docs.newapi.pro/zh/docs/installation/deployment-methods/docker-compose-installation)：
+启动之后，最常用的几条管理命令如下（都要在 `docker-compose.yml` 所在目录执行）[官方 compose 部署文档](https://docs.newapi.pro/zh/docs/installation/deployment-methods/docker-compose-installation)；更完整的命令速查可看 [[docker/Docker与DockerCompose命令速查]]：
 
 ```bash
 docker compose ps                # 查看所有服务状态（UP / healthy）
@@ -794,7 +798,7 @@ docker compose down
 docker compose up -d
 ```
 
-单容器部署同理：`docker pull calciumion/new-api:latest` 后，用**和之前一模一样**的挂载参数重建容器（`-v ./data:/data` 必须带上）。
+单容器部署同理：`docker pull calciumion/new-api:latest` 后，用**和之前一模一样**的挂载参数重建容器（`-v ./data:/data` 必须带上）。容器更新的一般方法可参考 [[docker/docker容器如何更新]]。
 
 #### 6.3.3 升级不丢数据的关键：挂载 volume
 
