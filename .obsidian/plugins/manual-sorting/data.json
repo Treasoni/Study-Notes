@@ -1635,21 +1635,12 @@
     },
     "workspace/ai-smart-home-system/agent": {
       "children": [
-        "workspace/ai-smart-home-system/agent/__pycache__",
         "workspace/ai-smart-home-system/agent/Dockerfile",
         "workspace/ai-smart-home-system/agent/entity_map.py",
         "workspace/ai-smart-home-system/agent/entity_map.yaml",
         "workspace/ai-smart-home-system/agent/main.py",
         "workspace/ai-smart-home-system/agent/requirements.txt",
         "workspace/ai-smart-home-system/agent/tools.py"
-      ],
-      "sortOrder": "custom"
-    },
-    "workspace/ai-smart-home-system/agent/__pycache__": {
-      "children": [
-        "workspace/ai-smart-home-system/agent/__pycache__/entity_map.cpython-314.pyc",
-        "workspace/ai-smart-home-system/agent/__pycache__/main.cpython-314.pyc",
-        "workspace/ai-smart-home-system/agent/__pycache__/tools.cpython-314.pyc"
       ],
       "sortOrder": "custom"
     },
