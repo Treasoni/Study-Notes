@@ -10,10 +10,10 @@ topic: "tcp协议"
 project_slug: "tcp-protocol"
 created_at: "2026-08-12"
 last_updated: "2026-08-12"
-current_phase: P5
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：tcp-protocol
 > 项目标识：tcp-protocol
 > 创建时间：2026-08-12
-> 当前阶段：阶段 5
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -104,7 +104,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中
+> [P5] ✅ 已完成
 
 ---
 
@@ -114,7 +114,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成
 
 ---
 
@@ -124,7 +124,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ⏭️ 跳过
 
 ---
 
@@ -132,6 +132,8 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P6 | 用户确认发布到 Obsidian vault 根目录 /Users/zhqznc/Documents/项目/TCP协议基础.md | 2026-08-12 16:12 |
+| P5 | 用户确认组装结果；输出位置改为 Obsidian vault 根目录 | 2026-08-12 16:12 |
 | P4 | 用户要求直接写完所有章节（7/7） | 2026-08-12 16:08 |
 | P3 | 用户确认大纲 | 2026-08-12 16:06 |
 | P2 | 用户确认深度素材质量 | 2026-08-12 16:04 |
@@ -145,6 +147,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 原因 | 时间 |
 |------|----------|------|------|
+| P7 | user approved skip | 用户选择跳过 MOC 同步（笔记已在 vault 根目录，与现有根目录概念笔记一致） | 2026-08-12 16:13 |
 | | | | |
 
 ---
@@ -153,6 +156,7 @@ blocked_reason: ""
 
 | 时间 | 阶段 | 问题描述 | 处理方式 |
 |------|------|---------|---------|
+| 2026-08-12 16:13 | P7 | 跳过阶段：用户选择跳过 MOC 同步（笔记已在 vault 根目录，与现有根目录概念笔记一致） | 继续推进到下一未完成阶段 |
 | | | | |
 
 ---
