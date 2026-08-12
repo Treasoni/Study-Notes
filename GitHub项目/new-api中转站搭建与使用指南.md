@@ -276,6 +276,23 @@ services:
 volumes:
   pg_data:                        # 声明命名卷
 ```
+> [!warning] 密码配置必须成对修改
+> 这里的 `123456` 只是示例密码，生产环境不要直接使用。`SQL_DSN=postgresql://root:123456@postgres:5432/new-api` 可以拆开理解为：数据库类型 `postgresql`、用户名 `root`、密码 `123456`、数据库容器 `postgres`、端口 `5432`、数据库名 `new-api`。
+>
+> `SQL_DSN` 中的密码必须和下面 PostgreSQL 服务的 `POSTGRES_PASSWORD` 完全一致：
+> ```yaml
+> POSTGRES_PASSWORD: 你的数据库密码
+> SQL_DSN=postgresql://root:你的数据库密码@postgres:5432/new-api
+> ```
+>
+> Redis 也一样：如果写成 `REDIS_CONN_STRING=redis://:你的Redis密码@redis:6379`，Redis 服务必须同时启用同一个密码，例如：
+> ```yaml
+> redis:
+>   command: redis-server --requirepass 你的Redis密码
+> ```
+> 当前示例中的 Redis 使用 `redis://redis`，表示没有启用 Redis 密码；不要只修改连接串，否则 new-api 会连接失败。
+>
+> **全新部署**可以直接修改配置后启动；如果 PostgreSQL 已经用旧密码初始化过，只修改 `POSTGRES_PASSWORD` 通常不会改变数据库内部密码，需要先执行 `ALTER USER root WITH PASSWORD '新密码';`，或在确认不要旧数据后删除数据卷重新初始化。密码建议使用字母、数字和下划线，避免连接串中的 `@`、`:`、`/` 等特殊字符。
 
 在 `docker-compose.yml` 所在目录执行：
 
