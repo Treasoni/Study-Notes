@@ -2,7 +2,7 @@
 title: settings.json 配置详解
 tags: [claude, ai, 工具使用, claude-code, 配置]
 created: 2026-07-27
-updated: 2026-08-10
+updated: 2026-08-12
 status: updated
 source_project: claude-code-tutorial
 ---
@@ -158,6 +158,21 @@ Claude Code 按优先级从低到高合并多个位置的 settings.json：
 > [!warning] 旧配置已变更
 > 旧版 `autoCompactThreshold`（按百分比设置阈值）已废弃。压缩窗口改为**按 token 数**控制：可用 settings.json 的 `autoCompactWindow`、会话内 `/autocompact` 命令、CLI 参数 `--autocompact` 或环境变量 `CLAUDE_CODE_AUTO_COMPACT_WINDOW` 调整（范围 100000–1000000 token）。
 
+> [!note] `/autocompact`、`--autocompact` 与 `CLAUDE_CODE_AUTO_COMPACT_WINDOW` 的区别
+> 同一个窗口值有多个设置入口，作用范围和优先级不同：
+>
+> | 方式 | 作用范围 | 是否写入文件 | 能否覆盖更高优先级 settings |
+> |------|---------|-------------|---------------------------|
+> | settings.json `autoCompactWindow` | 按配置层级生效 | ✅ 手动编辑 | 视层级而定 |
+> | `/autocompact 500k` | 当前会话 + 以后 | ✅ 写入 `~/.claude/settings.json` | ❌ 被项目/托管配置拦截 |
+> | `--autocompact 500k` | 单次启动 | ❌ | ✅ 不被更高优先级抢占 |
+> | `CLAUDE_CODE_AUTO_COMPACT_WINDOW=500000` | 单次启动/脚本 | ❌ | ✅ 优先级最高 |
+>
+> - `/autocompact <值>`：立即生效并保存到用户设置 `~/.claude/settings.json`；若更高优先级作用域（`.claude/settings.json`、`.claude/settings.local.json`、组织托管）已设置该键，命令会保存你的值，但当前会话保持高优先级窗口，并会提示你。
+> - `/autocompact auto`：恢复为按当前模型自动调优的窗口（如 1M 模型默认约 967K token）。
+> - `--autocompact <值>`：仅本次启动临时覆盖，不修改配置文件；`claude --autocompact auto` 在已保存值的情况下也按模型调优窗口运行。
+> - 环境变量设置期间优先于命令、flag 和配置；此时 `/autocompact` 只报告被覆盖，不改变窗口。
+
 > 手动压缩用 `/compact` 命令，比自动压缩更可控。
 
 > [!tip] 窗口大小怎么选
@@ -169,7 +184,7 @@ Claude Code 按优先级从低到高合并多个位置的 settings.json：
 > | 200K | 180000–200000 |
 > | 1M | 400000–600000 |
 >
-> 先用会话内 `/autocompact` 临时微调，找到合适的值再写回 settings.json。
+> 想临时试值：单次启动用 `claude --autocompact <值>` 或环境变量 `CLAUDE_CODE_AUTO_COMPACT_WINDOW`，不改任何配置文件；确认合适后再写回项目 settings.json。注意：会话内 `/autocompact` 会写入用户设置，且项目/托管配置优先级更高时当前会话不生效。
 
 ### 5. 环境变量
 
@@ -546,6 +561,7 @@ settings.json 是 Claude Code 的"总控面板"：模型、推理级别、权限
 
 ## 更新记录
 
+- 2026-08-12：澄清 `/autocompact`、`--autocompact`、`CLAUDE_CODE_AUTO_COMPACT_WINDOW` 三种设置方式的作用域与优先级：`/autocompact` 会写入用户设置 `~/.claude/settings.json`，且被项目/托管配置拦截时当前会话不生效；临时放大窗口应使用 `--autocompact` 或环境变量。
 - 2026-08-07：同步官方 schema 与文档。`autoCompactThreshold` 废弃 → `autoCompactEnabled` + `/autocompact`；`fallbackModels` → `fallbackModel`；移除 `maxTokens`、`systemPrompt`。
 - 2026-08-10：同步 2026-08 现状。权限模式「Default」改名「Manual」（`defaultMode: "manual"`）；新增沙盒（`sandbox.filesystem.disabled` / `sandbox.network.strictAllowlist`）、Auto mode（`disableAutoMode` / `autoMode.classifyAllShell`）、无障碍（`axScreenReader`）、输入与工作流体验（`emojiCompletionEnabled` / `vimInsertModeRemaps` / `workflowSizeGuideline`）、跨会话消息（`crossSessionInbound` / `dialogExpiry`）等配置键说明；补齐小结结语；`status` 从 draft 改为 updated。
 - 2026-08-10：补充自动压缩直接配置字段 `autoCompactWindow`（token 窗口，100000–1000000）与 `precomputeCompactionEnabled`（预压缩摘要），以及 `language`（回复语言）字段；本项目 `.claude/settings.local.json` 已同步从废弃的 `autoCompactThreshold` 迁移到新版配置。
