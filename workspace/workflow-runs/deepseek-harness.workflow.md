@@ -10,10 +10,10 @@ topic: "DeepSeek-Harness 配置使用教程"
 project_slug: "deepseek-harness"
 created_at: "2026-08-13"
 last_updated: "2026-08-13"
-current_phase: P7
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4,P5,P6"
+confirmed_phases: "P0,P1,P2,P3,P4,P5,P6,P7"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：deepseek-harness
 > 项目标识：deepseek-harness
 > 创建时间：2026-08-13
-> 当前阶段：阶段 7
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -124,7 +124,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] 🔲 进行中
+> [P7] ✅ 已完成
 
 ---
 
@@ -132,6 +132,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P7 | user approved MOC sync | 2026-08-13 23:37 |
 | P6 | user confirmed P6 beautification results | 2026-08-13 23:36 |
 | P5 | 用户确认组装结果（模式 C：5 篇零散分册 + 系列导览），输出位置 AI学习/DeepSeek-Harness 教程 | 2026-08-13 23:33 |
 | P4 | 用户授权自动写剩余章节（第 2-5 章），不逐章确认 | 2026-08-13 23:24 |
@@ -169,10 +170,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战配置教程（快速上手 + 从 Claude Code 对照迁移）
+- **总字数**：约 11,000 字（5 篇分册 + 系列导览）
+- **章节数**：5
+- **输出格式**：Obsidian Markdown（YAML frontmatter + Callout + 双链 + 代码块语言标识）
+- **文件路径**：`AI学习/DeepSeek-Harness 教程/`（6 个文件）
+- **Obsidian Vault**：`D:\Study-Notes`
+- **MOC 路径**：`AI学习/DeepSeek-Harness 教程/DeepSeek-Harness MOC.md`；已同步父级 `AI学习/00-索引/AI学习 MOC.md`
