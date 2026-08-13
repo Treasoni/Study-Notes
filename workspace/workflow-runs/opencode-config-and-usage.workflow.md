@@ -10,10 +10,10 @@ topic: "配置和使用 opencode"
 project_slug: "opencode-config-and-usage"
 created_at: "2026-08-13"
 last_updated: "2026-08-13"
-current_phase: P3
+current_phase: P5
 current_status: in_progress
 mode: outline
-confirmed_phases: "P0,P1,P2"
+confirmed_phases: "P0,P1,P2,P3,P4"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：opencode-config-and-usage
 > 项目标识：opencode-config-and-usage
 > 创建时间：2026-08-13
-> 当前阶段：阶段 3
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -79,19 +79,24 @@ blocked_reason: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中
+> [P3] ✅ 已完成
 
 ---
 
 ## 阶段 4：逐章写作
-- [ ] 第 1 章已写完并确认
-- [ ] 第 2 章已写完并确认
-- [ ] 第 3 章已写完并确认
-- [ ] ...（根据实际章节数添加）
+- [x] 第 1 章已写完（用户要求直接写完，跳过逐章确认）
+- [x] 第 2 章已写完
+- [x] 第 3 章已写完
+- [x] 第 4 章已写完
+- [x] 第 5 章已写完
+- [x] 第 6 章已写完
+- [x] 第 7 章已写完
+- [x] 第 8 章已写完
+- [x] 第 9 章已写完
 
-**进度**：0/待大纲确定
+**进度**：9/9
 
-> [P4] ⬜ 未开始
+> [P4] ✅ 已完成
 
 ---
 
@@ -104,7 +109,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中
 
 ---
 
@@ -132,6 +137,8 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P4 | 9 章全部写作完成（用户要求直接写完） | 2026-08-13 16:02 |
+| P3 | 用户确认大纲（9 章结构） | 2026-08-13 16:00 |
 | P2 | 用户确认素材质量，选择大纲模式 | 2026-08-13 15:54 |
 | P1 | 用户选择全面覆盖，五维全覆盖 | 2026-08-13 15:46 |
 | P0 | 用户确认意图文件和研究计划（Claude Code → opencode 迁移主线） | 2026-08-13 15:42 |
