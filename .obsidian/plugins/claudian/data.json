@@ -7,8 +7,9 @@
         "conversationId": null
       },
       {
+        "draftModel": "gpt-5.6-luna",
         "tabId": "tab-1778492346086-rk6c0kv",
-        "conversationId": "conv-1786504634188-yukxgilgs"
+        "conversationId": null
       },
       {
         "draftModel": "deepseek-v4-flash",
