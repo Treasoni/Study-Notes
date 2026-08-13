@@ -20,16 +20,17 @@
 精通（深入配置细节、权限模型、高级定制）
 
 ### 用户基础
-有了解（熟悉其他 AI 编码工具，如 Claude Code / Codex 等）
+熟悉（熟练使用 Claude Code，深入了解其配置与使用，正在转向 opencode）
 
 ## 研究计划
 
 ### 探索方向
-1. opencode 是什么、核心概念与架构（CLI、provider、Agent 模式）
-2. 安装与初始化配置（多平台安装方式、配置文件、环境变量、认证）
-3. 常用命令与日常工作流（交互/非交互模式、模型选择、多文件编辑）
-4. 高级定制与进阶（自定义 provider/模型、权限系统、MCP、Skills、集成）
-5. 常见坑、性能与故障排查
+以「Claude Code → opencode 迁移」为主线，突出概念对照：
+1. opencode 是什么、核心概念与架构（CLI、provider、Agent 模式），与 Claude Code 的整体定位对比
+2. 安装与初始化配置：opencode 的配置文件体系，与 Claude Code（settings.json / CLAUDE.md）的对应关系
+3. 常用命令与日常工作流：交互/非交互模式、Slash 命令、模型选择、多文件编辑，映射 Claude Code 常用命令
+4. 高级定制与进阶：自定义 provider/模型、权限系统、MCP、Skills/AGENTS 等机制与 Claude Code 的差异
+5. 常见坑与故障排查：认证、token 消耗、权限误配，以及从 Claude Code 迁移时的典型差异与坑
 
 ### 重点收集
 - **核心概念**: opencode CLI、provider 配置、agent 模式、权限模型、config 文件体系
@@ -45,5 +46,6 @@
 
 ## 备注
 
-- 用户已有其他 AI 编码工具使用经验，笔记可适当对比，突出 opencode 特有机制。
+- 用户非常熟悉 Claude Code 的配置与使用，笔记主线是「Claude Code → opencode 迁移」，大量使用概念对照，帮助快速上手。
+- 学习深度为精通，但重点放在 opencode 特有机制与和 Claude Code 的差异上，不重复讲解已有 AI 编码工具常识。
 - 目标输出为 Obsidian 笔记，阶段 6 前需确认 vault_path 与 note_folder。
