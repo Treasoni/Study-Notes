@@ -10,10 +10,10 @@ topic: "配置和使用 opencode"
 project_slug: "opencode-config-and-usage"
 created_at: "2026-08-13"
 last_updated: "2026-08-13"
-current_phase: P5
+current_phase: P6
 current_status: in_progress
 mode: outline
-confirmed_phases: "P0,P1,P2,P3,P4"
+confirmed_phases: "P0,P1,P2,P3,P4,P5"
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：opencode-config-and-usage
 > 项目标识：opencode-config-and-usage
 > 创建时间：2026-08-13
-> 当前阶段：阶段 5
+> 当前阶段：阶段 6
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -109,7 +109,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中
+> [P5] ✅ 已完成
 
 ---
 
@@ -119,7 +119,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] 🔲 进行中
 
 ---
 
@@ -137,6 +137,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P5 | 用户确认组装结果，发布位置 AI学习/OpenCode/ + MOC | 2026-08-13 16:10 |
 | P4 | 9 章全部写作完成（用户要求直接写完） | 2026-08-13 16:02 |
 | P3 | 用户确认大纲（9 章结构） | 2026-08-13 16:00 |
 | P2 | 用户确认素材质量，选择大纲模式 | 2026-08-13 15:54 |
