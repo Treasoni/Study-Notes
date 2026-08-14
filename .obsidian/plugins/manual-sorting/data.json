@@ -2,6 +2,7 @@
   "customOrder": {
     "/": {
       "children": [
+        "TCP协议基础.md",
         "显存（VRAM）与本地部署大模型.md",
         "coord.json",
         "homeassistant",
@@ -173,6 +174,7 @@
     },
     "AI学习": {
       "children": [
+        "AI学习/OpenCode",
         "AI学习/DeepSeek-Reasonix 教程",
         "AI学习/Codex",
         "AI学习/00-索引",
@@ -248,6 +250,7 @@
     },
     "AI学习/03-技术专题": {
       "children": [
+        "AI学习/03-技术专题/ModelScope 模型文件类型.md",
         "AI学习/03-技术专题/ModelScope-Ollama-ClaudeCode部署指南.md",
         "AI学习/03-技术专题/Ollama 使用指南.md",
         "AI学习/03-技术专题/AI模型对比",
@@ -529,6 +532,13 @@
       ],
       "sortOrder": "custom"
     },
+    "AI学习/OpenCode": {
+      "children": [
+        "AI学习/OpenCode/配置和使用 opencode.md",
+        "AI学习/OpenCode/OpenCode MOC.md"
+      ],
+      "sortOrder": "custom"
+    },
     "assets": {
       "children": [
         "assets/如何安装window系统",
@@ -705,6 +715,8 @@
     },
     "GitHub项目": {
       "children": [
+        "GitHub项目/GitHub项目 MOC.md",
+        "GitHub项目/new-api中转站搭建与使用指南.md",
         "GitHub项目/Matt Pocock Skills — 实操使用指南.md",
         "GitHub项目/comet",
         "GitHub项目/ECC",
@@ -1584,6 +1596,9 @@
     },
     "workspace": {
       "children": [
+        "workspace/new-api-relay-station",
+        "workspace/opencode-config-and-usage",
+        "workspace/tcp-protocol",
         "workspace/codex-config-update",
         "workspace/deepseek-reasonix-tutorial",
         "workspace/modelscope-model-file-types",
@@ -2576,6 +2591,35 @@
       ],
       "sortOrder": "custom"
     },
+    "workspace/new-api-relay-station": {
+      "children": [
+        "workspace/new-api-relay-station/chapters",
+        "workspace/new-api-relay-station/output",
+        "workspace/new-api-relay-station/00_intent.md",
+        "workspace/new-api-relay-station/01_explore_result.md",
+        "workspace/new-api-relay-station/02_deep_research.md",
+        "workspace/new-api-relay-station/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/new-api-relay-station/chapters": {
+      "children": [
+        "workspace/new-api-relay-station/chapters/01_认识中转站与new-api.md",
+        "workspace/new-api-relay-station/chapters/02_环境准备与Docker部署.md",
+        "workspace/new-api-relay-station/chapters/03_首次初始化与安全加固.md",
+        "workspace/new-api-relay-station/chapters/04_渠道配置.md",
+        "workspace/new-api-relay-station/chapters/05_令牌管理与客户端接入.md",
+        "workspace/new-api-relay-station/chapters/06_常见坑与运维.md",
+        "workspace/new-api-relay-station/chapters/07_总结与进阶.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/new-api-relay-station/output": {
+      "children": [
+        "workspace/new-api-relay-station/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
     "workspace/nodejs-ai-application": {
       "children": [
         "workspace/nodejs-ai-application/chapters",
@@ -2635,6 +2679,37 @@
       ],
       "sortOrder": "custom"
     },
+    "workspace/opencode-config-and-usage": {
+      "children": [
+        "workspace/opencode-config-and-usage/chapters",
+        "workspace/opencode-config-and-usage/output",
+        "workspace/opencode-config-and-usage/00_intent.md",
+        "workspace/opencode-config-and-usage/01_explore_result.md",
+        "workspace/opencode-config-and-usage/02_deep_research.md",
+        "workspace/opencode-config-and-usage/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/opencode-config-and-usage/chapters": {
+      "children": [
+        "workspace/opencode-config-and-usage/chapters/01_opencode定位架构与CC对比.md",
+        "workspace/opencode-config-and-usage/chapters/02_安装升级与认证.md",
+        "workspace/opencode-config-and-usage/chapters/03_配置体系opencode.json.md",
+        "workspace/opencode-config-and-usage/chapters/04_常用命令与工作流.md",
+        "workspace/opencode-config-and-usage/chapters/05_权限系统.md",
+        "workspace/opencode-config-and-usage/chapters/06_自定义provider与模型路由.md",
+        "workspace/opencode-config-and-usage/chapters/07_MCP集成.md",
+        "workspace/opencode-config-and-usage/chapters/08_Skills自定义Agent与AGENTS.md.md",
+        "workspace/opencode-config-and-usage/chapters/09_常见坑与故障排查.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/opencode-config-and-usage/output": {
+      "children": [
+        "workspace/opencode-config-and-usage/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
     "workspace/superpowers": {
       "children": [
         "workspace/superpowers/chapters",
@@ -2663,6 +2738,35 @@
     "workspace/superpowers/output": {
       "children": [
         "workspace/superpowers/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/tcp-protocol": {
+      "children": [
+        "workspace/tcp-protocol/chapters",
+        "workspace/tcp-protocol/output",
+        "workspace/tcp-protocol/00_intent.md",
+        "workspace/tcp-protocol/01_explore_result.md",
+        "workspace/tcp-protocol/02_deep_research.md",
+        "workspace/tcp-protocol/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/tcp-protocol/chapters": {
+      "children": [
+        "workspace/tcp-protocol/chapters/01_站在协议栈看TCP.md",
+        "workspace/tcp-protocol/chapters/02_读懂TCP报文头.md",
+        "workspace/tcp-protocol/chapters/03_连接管理.md",
+        "workspace/tcp-protocol/chapters/04_可靠传输.md",
+        "workspace/tcp-protocol/chapters/05_工具链实操.md",
+        "workspace/tcp-protocol/chapters/06_高频连接异常排查.md",
+        "workspace/tcp-protocol/chapters/07_速查与进阶.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/tcp-protocol/output": {
+      "children": [
+        "workspace/tcp-protocol/output/final_note.md"
       ],
       "sortOrder": "custom"
     },
@@ -3126,6 +3230,9 @@
     },
     "workspace/workflow-runs": {
       "children": [
+        "workspace/workflow-runs/new-api-relay-station.workflow.md",
+        "workspace/workflow-runs/opencode-config-and-usage.workflow.md",
+        "workspace/workflow-runs/tcp-protocol.workflow.md",
         "workspace/workflow-runs/deepseek-reasonix-tutorial.workflow.md",
         "workspace/workflow-runs/modelscope-model-file-types.workflow.md",
         "workspace/workflow-runs/modelscope-ollama-claude-code.workflow.md",
