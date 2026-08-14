@@ -1,6 +1,6 @@
 ---
 paths:
-  - ".claude/skills/tool-discovery"
+  - ".codex/skills/tool-discovery"
 ---
 
 # 资料收集工具指南

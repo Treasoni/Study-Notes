@@ -1,0 +1,19 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: tool-discovery
+  version: 1.0.0
+  description: "Discover available tools and project skills for research work."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - tools.discover
+  permissions:
+    filesystem: read
+    network: none
+    subprocess: none
+    git: none
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

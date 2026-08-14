@@ -2,7 +2,7 @@
 title: 项目实战 MOC
 tags: [moc, 索引]
 created: 2026-08-04
-updated: 2026-08-05
+updated: 2026-08-14
 type: moc
 status: active
 ---
@@ -27,9 +27,12 @@ status: active
 ### 数字员工智能体
 - [[数字员工智能体/数字员工智能体-开源平台选型与实现]] - 数字员工智能体开源平台选型与实现 #AI #智能体
 
+### Claude Code / Agent
+- [[WebFetch vs Skill vs MCP]] - WebFetch vs Skill vs MCP 概念辨析与开源工具选型，含资料收集与 AI/Agent 工作流方向开源项目推荐 #ClaudeCode #MCP #工具选型 #资料收集
+
 ## 概览
 
 - 📂 目录：`项目实战`
-- 📝 笔记总数：5（含 1 个子 MOC）
+- 📝 笔记总数：6（含 1 个子 MOC）
 - 📅 创建日期：2026-08-04
-- 📅 更新日期：2026-08-04
+- 📅 更新日期：2026-08-14

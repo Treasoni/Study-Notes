@@ -1,0 +1,20 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: security-secret-audit
+  version: 1.1.0
+  description: "Audit a repository for exposed secrets and high-confidence project risks without revealing sensitive values."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - security.secrets.audit
+    - security.risks.audit
+  permissions:
+    filesystem: write
+    network: none
+    subprocess: allow
+    git: read
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

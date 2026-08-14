@@ -1,0 +1,19 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: resolving-merge-conflicts
+  version: 1.0.0
+  description: "Resolve an in-progress git merge or rebase conflict by intent, preserving both sides where possible, then finish the operation."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - git.merge-conflict-resolution
+  permissions:
+    filesystem: write
+    network: none
+    subprocess: allow
+    git: write
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

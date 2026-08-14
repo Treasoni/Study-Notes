@@ -5,7 +5,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "$ROOT"
 
 this_dir=".codex"
-skills_dir=".claude/skills"
+skills_dir=".codex/skills"
 
 status=0
 

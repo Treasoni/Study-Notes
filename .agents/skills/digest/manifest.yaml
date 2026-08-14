@@ -1,0 +1,20 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: digest
+  version: 0.1.0
+  description: "自我学习阶段。回顾本次会话，记录真实发生的学习点和错误到 .learnings/。"
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - self-learning.digest
+    - self-learning.compress
+  permissions:
+    filesystem: write
+    network: none
+    subprocess: none
+    git: none
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

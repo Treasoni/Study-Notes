@@ -1,0 +1,4 @@
+interface:
+  display_name: "Batch Note Updater"
+  short_description: "Update multiple notes with per-note patch plans"
+  default_prompt: "Use $batch-note-updater to plan and update multiple existing notes safely."

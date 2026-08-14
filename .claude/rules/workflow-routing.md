@@ -15,6 +15,9 @@ workspace/workflow-runs/*.workflow.md                   # active run state
 <!-- workflow-routing:generated:start -->
 | Workflow ID | Required | When To Use | Positive Triggers | Excludes | Definition | State File Pattern |
 | --- | --- | --- | --- | --- | --- | --- |
+| `batch-note-update-flow` | yes | 多篇既有笔记批量更新、逐篇局部 patch | 批量更新旧笔记；多篇笔记过时；更新一个目录的笔记；refresh multiple notes | 只更新单篇笔记；仅生成 MOC | `.claude/workflows/batch-note-update-flow/workflow.md` | `workspace/workflow-runs/update-{scope}.workflow.md` |
+| `learning-note-flow` | yes | 新主题学习笔记生产、资料收集、逐章写作、Obsidian 发布 | 想学；帮我整理；研究一下；了解一下；不知道从哪开始；research planning；explore topic | 仅回答一般知识问题；仅修改既有笔记；仅生成 MOC | `.claude/workflows/learning-note-flow/workflow.md` | `workspace/workflow-runs/{topic}.workflow.md` |
+| `legacy-note-import-flow` | yes | 旧笔记批量导入、盘点、规范化、可选更新 | 旧笔记导入；已有笔记；一堆笔记；批量整理；迁移到这个项目；按项目规范；import existing notes；normalize notes | 仅更新已有笔记内容；仅生成 MOC | `.claude/workflows/legacy-note-import-flow/workflow.md` | `workspace/workflow-runs/import-{source}.workflow.md` |
 <!-- workflow-routing:generated:end -->
 
 ## Routing Rules

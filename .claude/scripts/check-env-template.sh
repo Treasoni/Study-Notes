@@ -64,6 +64,7 @@ assigned_vars_file="${TMP_DIR}/assigned-vars.txt"
 cat > "$ignored_vars_file" <<'EOF'
 BASH_SOURCE
 AGENT_DIR
+ANTHROPIC_API_KEY
 CUSTOM_AGENTS
 END_MARKER
 ENTRY_FILE
@@ -80,6 +81,8 @@ PHASE_NUM
 PROJECT_DIR
 PROJECT_ROOT
 PROJECT_SLUG
+PROMPT_CACHE_ASSET_DIR
+PYTHON
 PWD
 REASON
 ROOT
@@ -102,6 +105,7 @@ TOTAL_CHAPTERS
 USER
 WORKFLOW_DIR
 WORKFLOW_ID
+WORKFLOW_PROFILE_ROOT
 WORKFLOW_STATE_FILE
 EOF
 
@@ -116,6 +120,10 @@ rg -n --hidden --no-heading \
   -g '!.codebuddy/**' \
   -g '!.learnings/**' \
   -g '!.workbuddy/**' \
+  -g '!.agent-sync/**' \
+  -g '!.llm/**' \
+  -g '!.obsidian/**' \
+  -g '!.smart-env/**' \
   -g '!node_modules/**' \
   -g '!dist/**' \
   -g '!build/**' \
@@ -128,8 +136,16 @@ rg -n --hidden --no-heading \
   -g '!.env' \
   -g '!.env.*' \
   -g '!.env.example' \
-  -g '!.codex/rules/common/env.md' \
+  -g '!.claude/rules/common/env.md' \
   -g '!templates/env/**' \
+  -g '*.py' \
+  -g '*.js' \
+  -g '*.ts' \
+  -g '*.sh' \
+  -g '*.json' \
+  -g '*.yaml' \
+  -g '*.yml' \
+  -g '*.toml' \
   '^[[:space:]]*(local[[:space:]]+)?[A-Z][A-Z0-9_]*[[:space:]]*=' \
   "$PROJECT_ROOT" \
   | perl -ne 's/^[^:]*:\d+://; print "$1\n" if /^[[:space:]]*(?:local[[:space:]]+)?([A-Z][A-Z0-9_]*)[[:space:]]*=/;' \
@@ -166,6 +182,10 @@ rg -n --hidden --no-heading \
   -g '!.codebuddy/**' \
   -g '!.learnings/**' \
   -g '!.workbuddy/**' \
+  -g '!.agent-sync/**' \
+  -g '!.llm/**' \
+  -g '!.obsidian/**' \
+  -g '!.smart-env/**' \
   -g '!node_modules/**' \
   -g '!dist/**' \
   -g '!build/**' \
@@ -180,6 +200,14 @@ rg -n --hidden --no-heading \
   -g '!.env.example' \
   -g '!.claude/rules/common/env.md' \
   -g '!templates/env/**' \
+  -g '*.py' \
+  -g '*.js' \
+  -g '*.ts' \
+  -g '*.sh' \
+  -g '*.json' \
+  -g '*.yaml' \
+  -g '*.yml' \
+  -g '*.toml' \
   'process\.env|import\.meta\.env|os\.getenv|os\.environ|\$\{[A-Z][A-Z0-9_]*|[A-Z][A-Z0-9_]*(?:_API_KEY|_TOKEN|_SECRET|_PASSWORD|_DSN|_URL|_PATH|_MODEL|_PROVIDER|_ENABLED|_ENV|_PORT)' \
   "$PROJECT_ROOT" \
   | extract_vars \

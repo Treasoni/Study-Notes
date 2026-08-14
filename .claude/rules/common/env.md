@@ -17,7 +17,7 @@
 
 当用户要求创建、优化、迁移或审计 `.env` / `.env.example` / 环境变量规则时，先按以下流程处理：
 
-1. **识别项目类型**：读取根目录清单和入口文件，例如 `package.json`、`pnpm-lock.yaml`、`pyproject.toml`、`requirements.txt`、`Cargo.toml`、`go.mod`、`Dockerfile`、`docker-compose.yml`、`README.md`、`AGENTS.md`。
+1. **识别项目类型**：读取根目录清单和入口文件，例如 `package.json`、`pnpm-lock.yaml`、`pyproject.toml`、`requirements.txt`、`Cargo.toml`、`go.mod`、`Dockerfile`、`docker-compose.yml`、`README.md`、`CLAUDE.md`。
 2. **扫描真实引用**：用 `rg` 查找环境变量读取点，默认排除 `.git/`、`.claude/`、`node_modules/`、`dist/`、`build/`、`.next/`、`coverage/`、`workspace/`。
    - JavaScript/TypeScript: `process.env.`, `import.meta.env`, `PUBLIC_`, `VITE_`, `NEXT_PUBLIC_`
    - Python: `os.getenv`, `os.environ`, `pydantic.BaseSettings`, `dotenv`
@@ -57,7 +57,7 @@ rg -n --hidden \
 
 ## 路径规范
 
-1. **禁止**在代码中硬编码绝对路径（如 `/Users/xxx/data/`、`C:\Users\xxx\`）
+1. **禁止**在代码中硬编码绝对路径；使用项目相对路径或由环境变量提供的路径
 2. **文件路径**应通过 `.env` 中的环境变量定义，使用相对路径（如 `./workspace`）
 3. **示例**：路径变量统一在 `.env` 中管理，代码中通过 `process.env.WORKSPACE_PATH` + `path.resolve()` 引用
 4. **自动配置**：运行项目时，路径基于当前工作目录自动解析，无需手动设置绝对路径

@@ -30,23 +30,10 @@
 | `excalidraw-diagram` | 生成 Excalidraw 流程图、思维导图、架构图 | 画图、流程图、思维导图、Excalidraw、可视化、diagram |
 | `json-canvas` | 生成 JSON Canvas 格式的可视化画布 | canvas、画布、JSON Canvas |
 
-#### 资料研究
-
-| 技能 | 触发场景 | 关键触发词 |
-|------|----------|-----------|
-| `research-collector` | 使用多策略进行高效资料收集：Fork Subagent 隔离收集、两阶段粗筛+精读、格式约束优化 token 消耗、本地缓存复用。 | 收集资料、研究资料、搜集信息、资料整理、research、gather information、collect资料 |
-| `research-planner` | 学习笔记需求澄清与引导。分析用户学习需求，引导明确学习目标和方向，调用 workflow-orchestrator 生成项目结构。 | 想学、帮我整理、研究一下、了解一下、不知道从哪开始、research planning、explore topic |
-
 #### 学习笔记工作流
 
 | 技能 | 触发场景 | 关键触发词 |
 |------|----------|-----------|
-| `batch-note-updater` | 多篇既有学习笔记的批量更新编排。用于用户想一次更新一个目录、文件列表、Obsidian vault 子目录或多篇旧笔记 | 批量更新这些笔记、多篇笔记过时了、把一组笔记更新到新版本、refresh multiple notes |
-| `legacy-note-importer` | 旧笔记批量导入、盘点和规范化。用于用户已经有一堆 Markdown/Obsidian/零散学习笔记 | 旧笔记导入、已有笔记、一堆笔记、批量整理、迁移到这个项目、按项目规范、import existing notes、normalize notes |
-| `moc-organizer` | 为 Obsidian 生成或更新 MOC（Map of Content）目录笔记。 | 生成 MOC、整理目录、把新笔记加入目录、每次加入笔记自动更新索引 |
-| `note-beautifier` | Obsidian 笔记智能美化与发布。用于将最终学习笔记处理成 Obsidian Markdown，补 frontmatter、标签、Callout、双链 | 美化、Obsidian、优化格式、笔记美化、发布到 vault、beautify |
-| `note-updater` | 更新过时的既有学习笔记。用于用户说“更新这篇笔记”“这篇笔记过时了”“根据新资料刷新旧笔记”“同步到 Obsidian 旧笔记”等场景。先定位旧笔记、判断… | 更新这篇笔记、这篇笔记过时了、根据新资料刷新旧笔记、同步到 Obsidian 旧笔记 |
-| `workflow-orchestrator` | 业务工作流实例化器。由 planner 技能调用，接收 workflow_id、topic、project_slug 等参数 | 业务工作流实例化器 |
 | `workflow-todo-state` | Create or retrofit reusable named workflow state machines for multi-step agen… | Create or retrofit reusable named workfl… |
 | `note-assembler` | 将章节组装成完整笔记（由 agent 调用） | 组装、合并章节、收尾、拼装、assemble |
 
@@ -61,7 +48,6 @@
 | 技能 | 触发场景 | 关键触发词 |
 |------|----------|-----------|
 | `sync-skill-registry` | 技能注册表同步工具。扫描任意 agent skill 目录中的 */SKILL.md 并自动更新对应 skill-invocation.md 中的技能列表… | 同步注册表、更新技能列表、sync skill registry、update skill registration、刷新技能列表、同步技能表格 |
-| `tool-discovery` | 查看当前环境中可用于资料收集的工具，包括内置工具、MCP 工具和已安装的 skills。当用户想了解有哪些工具可以用来搜索、提取、分析资料时使用此技能。 | 可用工具、有哪些工具、工具列表、收集工具、search tools、available tools |
 
 #### 自我学习
 
@@ -81,11 +67,12 @@
 | 技能 | 触发场景 | 关键触发词 |
 |------|----------|-----------|
 | `ask-matt` | Ask which skill or flow fits your situation. A router over the skills in this… | Ask which skill or flow fits your situat… |
+| `batch-note-updater` | 多篇既有学习笔记的批量更新编排。用于用户想一次更新一个目录、文件列表、Obsidian vault 子目录或多篇旧笔记 | 批量更新这些笔记、多篇笔记过时了、把一组笔记更新到新版本、refresh multiple notes |
 | `claude-handoff` | Hand the current conversation off to a fresh background agent that picks up t… | Hand the current conversation off to a f… |
 | `code-review` | Review the changes since a fixed point (commit, branch, tag | review since X |
 | `codebase-design` | Shared vocabulary for designing deep modules. Use when the user wants to desi… | Shared vocabulary for designing deep mod… |
 | `diagnosing-bugs` | Diagnosis loop for hard bugs and performance regressions. Use when the user s… | diagnose、debug this |
-| `domain-modeling` | Build and sharpen a project's domain model. Use when the user wants to pin do… | Build and sharpen a project's domain mod… |
+| `domain-modeling` | Build and sharpen a project's domain model. Use when discussing codebase term… | Build and sharpen a project's domain mod… |
 | `git-guardrails-claude-code` | Set up Claude Code hooks to block dangerous git commands (push, reset --hard | Set up Claude Code hooks to block danger… |
 | `grill-me` | A relentless interview to sharpen a plan or design. | A relentless interview to sharpen a plan… |
 | `grill-with-docs` | A relentless interview to sharpen a plan or design | A relentless interview to sharpen a plan… |
@@ -93,12 +80,18 @@
 | `handoff` | Compact the current conversation into a handoff document for another agent to… | Compact the current conversation into a … |
 | `implement` | "Implement a piece of work based on a spec or set of tickets." | Implement a piece of work based on a spec or set of tickets. |
 | `improve-codebase-architecture` | Scan a codebase for deepening opportunities | Scan a codebase for deepening opportunit… |
+| `legacy-note-importer` | 旧笔记批量导入、盘点和规范化。用于用户已经有一堆 Markdown/Obsidian/零散学习笔记 | 旧笔记导入、已有笔记、一堆笔记、批量整理、迁移到这个项目、按项目规范、import existing notes、normalize notes |
 | `loop-me` | Grill me about specs for the workflows I want to build, within this workspace. | Grill me about specs for the workflows I… |
 | `maintain-learnings` | 维护 .learnings/ 经验库，把过多或反复出现的学习记录、错误日志、规则失效问题聚类诊断，追溯并修改对应 skill、模板、hook、校验脚本或项目规则； | 维护 .learnings/ 经验库，把过多或反复出现的学习记录、错误日志、规则… |
 | `migrate-to-shoehorn` | Migrate test files from `as` type assertions to @total-typescript/shoehorn. U… | Migrate test files from `as` type assert… |
+| `moc-organizer` | 为 Obsidian 生成或更新 MOC（Map of Content）目录笔记。 | 生成 MOC、整理目录、把新笔记加入目录、每次加入笔记自动更新索引 |
+| `note-beautifier` | Obsidian 笔记智能美化与发布。用于将最终学习笔记处理成 Obsidian Markdown，补 frontmatter、标签、Callout、双链 | 美化、Obsidian、优化格式、笔记美化、发布到 vault、beautify |
 | `note-starter` | 启动新主题学习笔记。用于用户说“开始写笔记”“启动写笔记”“创建学习笔记”或明确想为新主题建立学习笔记时。检查可恢复运行后 | 开始写笔记、启动写笔记、创建学习笔记 |
+| `note-updater` | 更新过时的既有学习笔记。用于用户说“更新这篇笔记”“这篇笔记过时了”“根据新资料刷新旧笔记”“同步到 Obsidian 旧笔记”等场景。先定位旧笔记、判断… | 更新这篇笔记、这篇笔记过时了、根据新资料刷新旧笔记、同步到 Obsidian 旧笔记 |
 | `prototype` | Build a throwaway prototype to answer a design question. Use when the user wa… | Build a throwaway prototype to answer a … |
 | `research` | Investigate a question against high-trust primary sources and capture the fin… | Investigate a question against high-trus… |
+| `research-collector` | Collect and curate technical research in two gated stages with compact source… | Collect and curate technical research in… |
+| `research-planner` | 学习笔记需求澄清与引导。分析用户学习需求，引导明确学习目标和方向，调用 workflow-orchestrator 生成项目结构。 | 想学、帮我整理、研究一下、了解一下、不知道从哪开始、research planning、explore topic |
 | `resolving-merge-conflicts` | "Use when you need to resolve an in-progress git merge/rebase conflict." | Use when you need to resolve an in-progress git merge/rebase conflict. |
 | `scaffold-exercises` | Create exercise directory structures with sections, problems, solutions | Create exercise directory structures wit… |
 | `security-secret-audit` | Audit a Git repository for exposed API keys, tokens, passwords, private keys | Audit a Git repository for exposed API k… |
@@ -110,10 +103,12 @@
 | `to-questionnaire` | Turn a decision you can't fully answer into a questionnaire for someone else … | Turn a decision you can't fully answer i… |
 | `to-spec` | Turn the current conversation into a spec and publish it to the project issue… | Turn the current conversation into a spe… |
 | `to-tickets` | Break a plan, spec, or the current conversation into a set of tracer-bullet t… | Break a plan, spec, or the current conve… |
+| `tool-discovery` | 查看当前环境中可用于资料收集的工具，包括内置工具、MCP 工具和已安装的 skills。当用户想了解有哪些工具可以用来搜索、提取、分析资料时使用此技能。 | 可用工具、有哪些工具、工具列表、收集工具、search tools、available tools |
 | `triage` | Move issues and external PRs through a state machine of triage roles — catego… | Move issues and external PRs through a s… |
 | `wait-what` | Stop. That last message did not land — re-pitch it. | Stop |
 | `wayfinder` | Plan a huge chunk of work — more than one agent session can hold — as a share… | Plan a huge chunk of work — more than on… |
 | `wizard` | Generate an interactive bash wizard that walks a human through steps only the… | Generate an interactive bash wizard that… |
+| `workflow-orchestrator` | 业务工作流实例化器。由 planner 技能调用，接收 workflow_id、topic、project_slug 等参数 | 业务工作流实例化器 |
 | `writing-beats` | Writing, exploit — assemble raw material into a journey of beats | Writing, exploit — assemble raw material… |
 | `writing-for-agents` | Writing documents for agents. Use when creating or editing skills | Writing documents for agents |
 | `writing-fragments` | Writing, explore — mine raw fragments, no structure yet. | Writing, explore — mine raw fragments, n… |

@@ -1,312 +1,48 @@
 ---
 name: research-collector
-description: 使用多策略进行高效资料收集：Fork Subagent 隔离收集、两阶段粗筛+精读、格式约束优化 token 消耗、本地缓存复用。触发词：收集资料、研究资料、搜集信息、资料整理、research、gather information、collect资料。
+description: Collect and curate technical research in two gated stages with compact source records. Use for systematic research, source gathering, research materials, or when a learning-note workflow is at collection phase P1 or P2.
 ---
 
-# Research Collector - 高效资料收集器
+# Research Collector
 
-使用多种策略进行高效资料收集，优化 token 消耗并支持本地缓存复用。
+Produce reusable, source-backed research without repeatedly loading page bodies or reopening settled decisions.
 
-## 触发条件
+## Contract
 
-当用户提出以下类型的请求时，调用此技能:
+- Read `.claude/rules/common/prompt-cache.md` and the active `WORKFLOW_STATE_FILE` before work.
+- The YAML frontmatter in the state file is authoritative. Use `.claude/scripts/todo-state.sh` for every phase transition.
+- Run only P1 when P1 is pending; run only P2 when P1 is complete and P2 is pending. Stop at every user gate.
+- Write artifacts under `${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}/`; never require a vault path.
 
-- "帮我收集关于 XX 的资料"
-- "搜集 XX 领域的信息"
-- "研究 XX 主题"
-- "XX 相关的资料有哪些"
-- "帮我调研 XX"
-- 任何涉及批量搜索、系统性资料收集的请求
+## Source policy
 
-## 核心策略
+Rank sources: official documentation and primary research first; reputable implementation reports second; community material only for labelled operational experience. Record URL, publisher, publication/update date when available, source tier, claim support, and retrieval date. Do not invent facts or silently merge conflicting claims.
 
-### 策略 1: Fork Subagent 隔离收集
+## P1 — Explore
 
-**原理**: 主 Agent 派发多个 fork subagent 并行搜索不同关键词/信源，每个 subagent 只返回结构化摘要，避免原始网页全文污染主上下文。
+1. Read the intent artifact and select at most three independent research lenses.
+2. Dispatch the smallest useful parallel set. Each delegate receives the same immutable role, output schema, source policy, and a final `Parameters` block containing only the lens and query.
+3. Require 3–5 compact candidates per lens: title, URL, source tier, one-sentence relevance, date, and a 1–5 score. Delegates must return records, not copied page text.
+4. Deduplicate by canonical URL and publish `01_explore_result.md` with a direction menu, coverage gaps, and estimated P2 scope.
+5. Complete P1 and wait for the user's direction choice.
 
-**实现**:
-```
-主 Agent
-  ├── Fork Subagent 1: 搜索 "关键词 A + 来源1"
-  ├── Fork Subagent 2: 搜索 "关键词 B + 来源2"
-  ├── Fork Subagent 3: 搜索 "关键词 C + 来源3"
-  └── ...
-       ↓
-  每个 Subagent 返回：结构化摘要（<150 字）
-       ↓
-  主 Agent 聚合：提炼后的结果
-```
+## P2 — Deep research
 
-**优势**:
-- Token 消耗极低：每个 subagent 独立上下文，不共享原始内容
-- 并行执行：多路搜索同时进行
-- 隔离安全：一个 subagent 失败不影响其他
+1. Reuse the accepted P1 candidates. Fetch only the selected 3–5 core sources and add sources solely to fill explicit gaps.
+2. Extract claim-level notes with anchors or section names; keep quotations short and preserve source attribution.
+3. Write `02_deep_research.md` with: scope, source table, claim/source map, contradictions, practical guidance, open questions, and a concise downstream handoff.
+4. Keep full source bodies in local cache only when necessary for reproducibility; downstream stages receive paths, anchors, summaries, and source IDs.
+5. Complete P2 and present source counts, tier mix, unresolved gaps, and the next user decision.
 
-### 策略 2: 两阶段收集法
+## Token and cache discipline
 
-**第一阶段: 批量粗筛**
-- 并行搜索多个关键词
-- 每个结果只返回：标题 + URL + 一句话摘要 + 相关性评分 (1-5)
-- 目标：快速发现候选资料
+- Keep role, schema, quality bar, and tool set byte-stable within a request family; put query, dates, file excerpts, state, and URLs in the final parameter block.
+- Read only the relevant sections of `01_explore_result.md` and `02_deep_research.md`; do not paste them into subagent prompts.
+- Cap delegate output at 150 Chinese characters per source record and return source IDs plus conclusions to the parent.
+- Reuse the same `template_id`, `template_version`, model, and fixed tool set for comparable runs. Record usage only through the project telemetry contract when the runtime supplies it.
 
-**第二阶段: 定向精读**
-- 主 Agent 根据评分筛选 3-5 篇核心资料
-- 使用 `WebFetch` 定向深读
-- 提取：核心观点、关键数据、引用来源
-- 目标：获取高质量详细内容
+## Completion criteria
 
-### 策略 3: 强制输出格式约束
-
-给 subagent 的 prompt 中严格限定输出格式，避免冗余:
-
-```markdown
-## 返回格式（严格遵守）
-
-每条资料格式：
-- **标题**: [文章标题]
-- **URL**: [链接]
-- **摘要**: [核心观点，不超过 150 字]
-- **相关性评分**: [1-5，5 为高度相关]
-- **关键数据**: [如有，列出 1-3 个关键数据点]
-- **来源类型**: [官方文档/技术博客/学术论文/社区讨论/新闻报道]
-
-禁止返回:
-- ❌ 完整段落
-- ❌ 页面导航信息
-- ❌ 广告内容
-- ❌ Cookie 提示
-- ❌ 无关的侧边栏内容
-```
-
-### 策略 4: 本地缓存复用
-
-**缓存目录**: `${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}/`（项目专属文件夹）
-
-**文件命名**: `02_deep_research.md`（固定命名，供下游组件读取）
-
-**缓存结构**:
-```markdown
-# {主题} - 资料收集
-
-收集时间: YYYY-MM-DD HH:MM
-搜索关键词: [关键词列表]
-
-## 第一阶段: 粗筛结果
-
-| # | 标题 | URL | 相关性 | 摘要 |
-|---|------|-----|--------|------|
-| 1 | ... | ... | 5/5 | ... |
-
-## 第二阶段: 精读笔记
-
-### 资料 1: {标题}
-- **URL**: ...
-- **核心观点**: ...
-- **关键数据**: ...
-- **我的笔记**: ...
-
-## 综合分析
-
-[总结关键发现、趋势、共识与分歧]
-```
-
-## 工作流程
-
-### Step 0: 读取 workflow state file（必须执行）
-
-**启动时必须确定当前命名 workflow state file 并读取它：**
-
-```bash
-WORKSPACE_PATH="${WORKSPACE_PATH:-./workspace}"
-WORKFLOW_STATE_FILE="${WORKFLOW_STATE_FILE:-${RUN_STATE_FILE:-}}"
-
-if [ -z "$WORKFLOW_STATE_FILE" ]; then
-  echo "请提供 WORKFLOW_STATE_FILE，路径应位于 workspace/workflow-runs/*.workflow.md"
-  exit 1
-fi
-
-if [ ! -f "$WORKFLOW_STATE_FILE" ]; then
-  echo "workflow state file 不存在：$WORKFLOW_STATE_FILE"
-  exit 1
-fi
-
-cat "$WORKFLOW_STATE_FILE"
-
-PROJECT_SLUG="$(awk -F': *' '/^project_slug:/ {gsub(/^"|"$/, "", $2); print $2; exit}' "$WORKFLOW_STATE_FILE")"
-PROJECT_DIR="${WORKSPACE_PATH}/${PROJECT_SLUG}"
-```
-
-**状态检查：**
-- 如果 workflow state file 不存在：提示用户先运行 `/research-planner` 创建运行状态文件。
-- 如果阶段 0 未 `✅ 已完成`：提示用户先完成 `/research-planner`。
-- 如果阶段 1 为 `⬜ 未开始`：允许执行探测式收集，并用状态脚本启动 P1。
-- 如果阶段 1 已 `✅ 已完成` 且阶段 2 为 `⬜ 未开始`：允许执行深度收集，并用状态脚本启动 P2。
-
-**更新 workflow state：**
-```bash
-# 将当前阶段标记为进行中（根据实际执行的阶段选择 [P1] 或 [P2]）
-# 阶段 1（探测式收集）：
-.claude/scripts/todo-state.sh "$WORKFLOW_STATE_FILE" start P1
-# 阶段 2（深度收集）：
-.claude/scripts/todo-state.sh "$WORKFLOW_STATE_FILE" start P2
-```
-
-**完成后更新状态：**
-```bash
-# 将当前阶段标记为完成（根据实际执行的阶段选择 [P1] 或 [P2]）
-# 阶段 1 完成：
-.claude/scripts/todo-state.sh "$WORKFLOW_STATE_FILE" complete P1
-# 阶段 2 完成：
-.claude/scripts/todo-state.sh "$WORKFLOW_STATE_FILE" complete P2
-```
-
----
-
-### Step 1: 理解需求
-
-1. 识别用户的**研究主题**
-2. 确定**搜索关键词** (3-5 个不同角度)
-3. 选择**信源偏好** (官方文档/博客/论文/社区)
-4. 确认**输出格式**要求
-
-### Step 2: 两阶段并行收集
-
-**Phase 1: 粗筛 (并行)**
-
-使用 `Agent` 工具创建多个 subagent，每个负责不同搜索维度:
-
-```
-Subagent 1: 搜索 "{关键词1} site:官方文档"
-Subagent 2: 搜索 "{关键词2} 最佳实践"
-Subagent 3: 搜索 "{关键词3} 教程 入门"
-Subagent 4: 搜索 "{关键词4} 常见问题 问题排查"
-```
-
-每个 subagent 的 prompt 模板:
-```
-你是一个资料收集助手。只返回关于指定主题的结构化资料摘要。
-
-返回格式（严格遵守，每条不超过 150 字）:
-1. **标题**: ...
-   **URL**: ...
-   **摘要**: [核心观点，150 字内]
-   **相关性评分**: [1-5]
-   **关键数据**: [1-3 个]
-   **来源类型**: [官方文档/博客/论文/社区/新闻]
-
-禁止返回: 完整段落、导航、广告、Cookie 提示。
-
-请搜索并返回 3-5 条最相关的资料。
-
-参数：
-- 主题: {主题}
-- 搜索关键词: {关键词}
-- 信源限制: {信源类型}
-```
-
-**Phase 2: 精读 (按需)**
-
-从粗筛结果中筛选评分 ≥4 的资料:
-```
-使用 WebFetch 深度阅读:
-- URL: {选中的 URL}
-- Prompt: "提取文章的核心观点、关键数据、主要结论。忽略广告、导航、侧边栏。"
-```
-
-### Step 3: 结果整合
-
-1. 聚合所有 subagent 返回的结构化摘要
-2. 按相关性评分排序
-3. 对高评分资料进行精读
-4. 生成综合分析
-
-### Step 4: 缓存写入
-
-将结果写入本地文件:
-```
-${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}/02_deep_research.md
-```
-
-**注意**: 使用固定文件名 `02_deep_research.md`，方便下游组件（outline-generator、chapter-writer）直接读取。
-
-**更新 workflow state：**
-```bash
-# 将当前阶段标记为完成，推进到下一阶段
-.claude/scripts/todo-state.sh "$WORKFLOW_STATE_FILE" complete P2
-```
-
-## 输出示例
-
-```
-## 📚 资料收集完成
-
-### 第一阶段: 粗筛结果 (共发现 12 条)
-
-| # | 标题 | 评分 | 来源 |
-|---|------|------|------|
-| 1 | React 18 新特性详解 | 5/5 | 官方文档 |
-| 2 | React 并发模式最佳实践 | 4/5 | 技术博客 |
-| 3 | React 18 迁移指南 | 4/5 | 官方博客 |
-| ... | ... | ... | ... |
-
-### 第二阶段: 精读笔记
-
-#### 1. React 18 新特性详解 (官方文档)
-- **核心观点**: React 18 引入并发渲染、自动批处理、Suspense 改进
-- **关键数据**:
-  - 性能提升 2-3 倍 (复杂应用)
-  - 自动批处理减少 60% 渲染次数
-- **我的笔记**: [根据精读内容生成]
-
-### 综合分析
-
-[总结关键发现、最佳实践、常见问题]
-
----
-✅ 资料已缓存到: ${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}/02_deep_research.md
-```
-
-## 高级用法
-
-### 1. 递归深入收集
-
-```bash
-# 第一轮: 宏观了解
-/research-collector "React 状态管理"
-
-# 第二轮: 针对特定工具深入
-/research-collector "Zustand vs Jotai vs Redux Toolkit 对比"
-
-# 第三轮: 实战案例
-/research-collector "React 状态管理 项目实战 最佳实践"
-```
-
-### 2. 多维度并行
-
-同时从多个维度收集:
-- **维度 1**: 官方文档 (权威性)
-- **维度 2**: 技术博客 (实践经验)
-- **维度 3**: GitHub Issues (常见问题)
-- **维度 4**: Stack Overflow (社区解答)
-
-### 3. 缓存复用
-
-```bash
-# 检查是否已有相关缓存
-ls research_notes/*react*
-
-# 读取已有缓存
-cat research_notes/react-2025-01-15.md
-
-# 基于缓存补充收集
-/research-collector "React 性能优化" (补充之前未覆盖的方面)
-```
-
-## 注意事项
-
-1. **相关性评分**: 严格按 1-5 评分，避免所有资料都标高分
-2. **摘要字数**: 每条摘要控制在 150 字内，超长会截断
-3. **缓存命名**: 使用有意义的文件名，便于后续查找
-4. **并行限制**: 同时最多 5 个 subagent，避免过载
-5. **源质量**: 优先官方文档 > 技术博客 > 社区讨论 > 新闻报道
-6. **时效性**: 标注资料发布日期，优先选择近 2 年的内容
+- Every material claim maps to a source record or is explicitly marked as an inference.
+- P1 or P2 output is present, compact, and matches the active state phase.
+- The next phase is not started without the user gate.

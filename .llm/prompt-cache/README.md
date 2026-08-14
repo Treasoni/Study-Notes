@@ -15,20 +15,20 @@
 
 ## 采集
 
-**自动**：`.claude/settings.json` 注册了 `SessionEnd` hook，每次 Claude Code 会话结束时自动增量采集：
+**自动**：`.claude/settings.json` 注册了 `SessionEnd` hook。Claude Code 会通过 stdin 提供当前 `transcript_path`，采集器只处理该会话，避免扫描其他项目或依赖本机目录名：
 
 ```json
 "SessionEnd": [{ "matcher": "", "hooks": [{ "type": "command",
   "command": "python .llm/prompt-cache/collect-usage.py" }] }]
 ```
 
-> ⚠️ `collect-usage.py` 的默认 `--project` 已改为自动定位本项目 transcript 目录（`~/.claude/projects/-Users-zhqznc-Documents-----`），修复了此前默认路径指向不存在目录导致 hook 空跑的问题。若 vault 迁移导致目录名变化，脚本会回退到「最近修改的 *.jsonl 所在目录」。
+> 采集器不会把转录路径、原始提示词或输出写入事件日志；事件仅保存文件名、消息 ID 和 provider usage 字段。
 
 **手动**：
 
 ```bash
-python .llm/prompt-cache/collect-usage.py            # 增量追加新事件
-python .llm/prompt-cache/collect-usage.py --dry-run  # 只报告将新增数量
+python .llm/prompt-cache/collect-usage.py --project /path/to/claude-project
+python .llm/prompt-cache/collect-usage.py --project /path/to/claude-project --dry-run
 ```
 
 幂等：按（会话文件, 消息 id）去重，重复运行不会产生重复事件。hook 失败只记日志、不阻断会话。
@@ -41,7 +41,7 @@ python .llm/prompt-cache/collect-usage.py --dry-run  # 只报告将新增数量
 | `template_id` | `claude-code.session`（每次请求即会话级提示） |
 | `cache_read_tokens` | `usage.cache_read_input_tokens` |
 | `cache_write_tokens` | `usage.cache_creation_input_tokens`（本环境恒为 0） |
-| `latency_ms` | **恒为 `null`** — Claude Code transcripts 不记录逐请求延迟 |
+| `latency_ms` | **恒为 `null`** — Claude Code transcripts 不记录逐请求延迟，schema 显式允许该值 |
 | `input_reference` | 会话文件名（安全，不含内容） |
 
 ## 基线
@@ -53,3 +53,4 @@ python .llm/prompt-cache/collect-usage.py --dry-run  # 只报告将新增数量
   - **冷启动主导成本**：每会话前 5 个请求占全部新鲜输入的 ~67%（7.6M）；首个请求 ≈ system prompt 大小（平均 ~36k）。稳态请求新鲜输入中位数仅 ~500 tokens。
 - 回归样本逐例基线待下次自然运行对应工作流时回填（`baseline.*` 字段）。
 - 模板/模型/工具定义变更后：运行同一批回归样本，只有质量检查通过时缓存指标变化才算有效优化。
+- Codex 桌面未提供可由项目自动读取的 provider usage 边界，因此不写入或混入 Claude 的缓存指标；它只复用同一份提示缓存规则。

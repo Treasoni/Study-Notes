@@ -147,6 +147,7 @@ def transform(text: str, source: dict[str, Any], target: dict[str, Any]) -> str:
         if source_path != target_path:
             output = output.replace(source_path, target_path)
     output = output.replace(f":{source['id']}:", f":{target['id']}:")
+    output = output.replace(source["name"], target["name"])
     output = output.replace(f"{source['name']} hook", f"{target['name']} hook")
     output = output.replace(f"{source['id']}-hook", f"{target['id']}-hook")
     return output

@@ -1,0 +1,14 @@
+name: codex
+description: Built-in profile for Codex-style projects.
+agent_dir: .codex
+skills_dir: .claude/skills
+rules_dir: .claude/rules
+scripts_dir: .claude/scripts
+hooks_dir: .claude/hooks
+entry_file: CLAUDE.md
+hook_config: .claude/settings.json
+hook_template: claude-hooks.json.template
+include_openai_yaml: true
+env_template: codex
+skill_registry: .claude/rules/common/skill-invocation.md
+prompt_cache_rule: .claude/rules/common/prompt-cache.md
