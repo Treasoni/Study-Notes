@@ -35,7 +35,7 @@ resolve_conda() {
 
 if ! CONDA_EXE="$(resolve_conda)"; then
   echo "错误: 找不到 conda。请先运行 setup.sh 安装 crawl4ai 环境，或设置 CONDA_EXE。" >&2
-  exit 1
+  exit 2
 fi
 
 # ---------------------------------------------------------------------------
@@ -43,7 +43,7 @@ fi
 # ---------------------------------------------------------------------------
 if ! BASE_WIN="$("$CONDA_EXE" info --base 2>/dev/null)"; then
   echo "错误: conda 不可用（conda info --base 失败）。请先运行 setup.sh。" >&2
-  exit 1
+  exit 2
 fi
 if command -v cygpath >/dev/null 2>&1; then
   BASE="$(cygpath -u "$BASE_WIN")"
@@ -54,7 +54,7 @@ ENV_PY="$BASE/envs/crawl4ai/python.exe"
 
 if [ ! -x "$ENV_PY" ]; then
   echo "错误: 未找到 crawl4ai 环境（$ENV_PY）。请先运行 $SCRIPT_DIR/setup.sh 安装。" >&2
-  exit 1
+  exit 2
 fi
 
 # ---------------------------------------------------------------------------

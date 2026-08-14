@@ -68,7 +68,11 @@ if [ ! -d "$ENV_DIR" ]; then
         [ -z "$url" ] && continue
         "$CONDA_EXE" tos accept --override-channels --channel "$url" >/dev/null 2>&1 || true
       done
-      "$CONDA_EXE" create -n crawl4ai python=3.12 -y
+      if ! RETRY_OUT="$("$CONDA_EXE" create -n crawl4ai python=3.12 -y 2>&1)"; then
+        echo "自动接受 TOS 后创建仍失败:" >&2
+        echo "$RETRY_OUT" >&2
+        exit 1
+      fi
     else
       echo "创建失败（非 TOS 错误）:" >&2
       echo "$CREATE_OUT" >&2

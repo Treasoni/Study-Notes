@@ -30,7 +30,16 @@ from datetime import datetime, timezone
 from importlib import metadata as _imeta
 from urllib.parse import urlparse
 
-from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
+try:
+    from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
+except ImportError:
+    # 环境未就绪时给出明确指引并以 exit 2 退出（对应 docstring「环境问题」）
+    print(
+        "错误: 未安装 crawl4ai。请先运行 "
+        ".claude/skills/research-collector/scripts/setup.sh 安装环境，再重试。",
+        file=sys.stderr,
+    )
+    sys.exit(2)
 
 # 内容过滤（生成更干净的 fit_markdown，去除导航/广告噪声）。版本不兼容时降级为默认生成器。
 try:
@@ -75,18 +84,31 @@ def extract_markdown(result) -> str:
 # 元数据 / frontmatter
 # ---------------------------------------------------------------------------
 def _title_of(container) -> str:
-    """从 result.metadata 里取标题（可能没有，返回空串）。"""
+    """从 result.metadata 里取标题（可能没有，返回空串）。
+
+    兼容 dict（部分版本）与 dataclass（0.9.x 常见）两种 metadata 形态。
+    """
     meta = _mark(container, "metadata")
     if isinstance(meta, dict):
         title = meta.get("title")
-        if isinstance(title, str) and title.strip():
-            return title.strip()[:200]
+    else:
+        title = getattr(meta, "title", None)
+    if isinstance(title, str) and title.strip():
+        return title.strip()[:200]
     return ""
 
 
 def _yaml_quote(s: str) -> str:
-    """YAML 双引号标量转义（标题/URL 含冒号、引号时保持可解析）。"""
-    return '"' + s.replace("\\", "\\\\").replace('"', '\\"') + '"'
+    """YAML 双引号标量转义（标题/URL 含引号、反斜杠、控制字符时保持可解析）。"""
+    return (
+        '"'
+        + s.replace("\\", "\\\\")
+        .replace('"', '\\"')
+        .replace("\n", "\\n")
+        .replace("\r", "\\r")
+        .replace("\t", "\\t")
+        + '"'
+    )
 
 
 def build_frontmatter(url: str, title: str) -> str:
@@ -103,7 +125,7 @@ def build_frontmatter(url: str, title: str) -> str:
 # ---------------------------------------------------------------------------
 # 抓取
 # ---------------------------------------------------------------------------
-async def crawl_one(crawler, url: str, run_config) -> tuple[str, str]:
+async def crawl_one(crawler, url: str, run_config) -> tuple[str, str, str]:
     result = await crawler.arun(url=url, config=run_config)
     if not getattr(result, "success", False):
         err = getattr(result, "error_message", None) or "unknown error"
@@ -111,7 +133,7 @@ async def crawl_one(crawler, url: str, run_config) -> tuple[str, str]:
     md = extract_markdown(result)
     if not md.strip():
         raise RuntimeError(f"抓取结果为空（可能是反爬拦截或无正文）: {url}")
-    return url, md
+    return url, md, _title_of(result)
 
 
 def _mark(container, attr: str):
@@ -143,8 +165,8 @@ async def crawl_many(crawler, urls: list[str], run_config) -> list[tuple[str, st
     except Exception as exc:  # noqa: BLE001 - arun_many 整体失败，退化为逐 URL
         for url in urls:
             try:
-                _, md = await crawl_one(crawler, url, run_config)
-                results.append((url, md, None, ""))
+                _, md, title = await crawl_one(crawler, url, run_config)
+                results.append((url, md, None, title))
             except Exception as e2:  # noqa: BLE001 - 单 URL 失败不影响批量
                 results.append((url, None, str(e2), ""))
     return results

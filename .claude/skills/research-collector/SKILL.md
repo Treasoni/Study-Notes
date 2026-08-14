@@ -17,7 +17,7 @@ bash .claude/skills/research-collector/scripts/setup.sh
 
 脚本会创建 conda env `crawl4ai`（python 3.12），安装 `crawl4ai` 与 Playwright Chromium（约 150MB），可重复执行、幂等。
 
-> 若未安装或 `crawl.sh` 失败，精读自动回退到 **WebFetch** 深读，功能不中断。
+> 若未安装或 `crawl.sh` 失败，精读按退出码回退到 **WebFetch**：exit 2（环境/参数）先跑 `setup.sh`；exit 1（部分失败）仅对失败 URL 补读。功能不中断。
 
 ## 触发条件
 
@@ -50,7 +50,7 @@ bash .claude/skills/research-collector/scripts/setup.sh
 ```
 
 **优势**:
-- Token 消耗极低：每个 subagent 独立上下文，不共享原始内容
+- 主上下文 Token 显著下降：每个 subagent 独立上下文，不共享原始内容（全局 token 大致持平，换取主上下文干净）
 - 并行执行：多路搜索同时进行
 - 隔离安全：一个 subagent 失败不影响其他
 
@@ -63,8 +63,8 @@ bash .claude/skills/research-collector/scripts/setup.sh
 
 **第二阶段: 定向精读**
 - 主 Agent 根据评分筛选 3-5 篇核心资料
-- **主路径（Crawl4AI）**：批量跑 `crawl.sh` 并发抓取，输出干净 Markdown 到 `--output-dir`，再读取生成的 `.md` 提取内容
-- **回退路径（WebFetch）**：`crawl.sh` 失败（未安装 / 网络失败 / 反爬拦截）时，改用 `WebFetch` 定向深读
+- **主路径（Crawl4AI）**：批量跑 `crawl.sh` 并发抓取，输出干净 Markdown 到 `--output-dir`；再由 fork subagent 逐篇读 `.md` 提炼 ≤150 字结构化摘要（主 agent 不读全文，见 Phase 2）
+- **回退路径（WebFetch）**：`crawl.sh` 失败时按退出码回退——exit 2（未安装/环境）先跑 `setup.sh`；exit 1（部分失败）仅对失败 URL 定向深读
 - 提取：核心观点、关键数据、引用来源
 - 目标：获取高质量详细内容
 
@@ -96,6 +96,8 @@ bash .claude/skills/research-collector/scripts/setup.sh
 **缓存目录**: `${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}/`（项目专属文件夹）
 
 **文件命名**: `02_deep_research.md`（固定命名，供下游组件读取）
+
+> 抓取级缓存位于 `deep_read/*.md`；复用需显式加 `--cache`（默认总是重抓，见 Phase 2）。`02_deep_research.md` 是聚合摘要，不是可复用的抓取缓存。
 
 **缓存结构**:
 ```markdown
@@ -236,17 +238,28 @@ bash .claude/skills/research-collector/scripts/crawl.sh \
 #    每个 .md 派一个 subagent，读文件 → 返回结构化摘要（≤150 字）。
 ```
 
-**Subagent 提炼模板**（每篇 .md 一个，隔离上下文）：
+**Subagent 提炼模板**（每篇 .md 一个，隔离上下文；文件 <2K token 时可直接主 agent 读，不必派 subagent）：
 ```
-你是一个精读助手。读取文件 {DEEP_READ_FILE}（跳过开头的 YAML frontmatter，只读正文），
-按以下格式返回结构化摘要（每条 ≤150 字）：
+你是一个精读助手。
+
+任务边界:
+- 读取待读文件，跳过文件开头的 YAML frontmatter（若正文自身还带一层 frontmatter，也只跳过最前面注入的那一层）
+- 围绕研究问题提炼，不泛泛总结
+
+输出格式（严格遵守，每条 ≤150 字）:
 - **标题**: ...
-- **URL**: {frontmatter 里的 url}
+- **URL**: ...
 - **核心观点**: ...
 - **关键数据**: [1-3 个]
 - **主要结论**: ...
 - **我的笔记**: ...
+
 禁止返回: 完整段落、导航、广告、侧边栏。
+
+Parameters:
+- 待读文件: {DEEP_READ_FILE}
+- URL（取自 frontmatter）: {URL}
+- 研究问题/目标: {RESEARCH_QUESTION}
 ```
 
 > **回退到 WebFetch（按退出码区分）**：
@@ -267,7 +280,7 @@ bash .claude/skills/research-collector/scripts/crawl.sh \
 
 1. 聚合所有 subagent 返回的结构化摘要
 2. 按相关性评分排序
-3. 对高评分资料进行精读
+3. 精读已在 Phase 2 完成（crawl.sh + 提炼 subagent），直接复用 `deep_read/` 与摘要
 4. 生成综合分析
 
 ### Step 4: 缓存写入
@@ -341,16 +354,18 @@ ${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}/02_deep_research.md
 
 ### 3. 缓存复用
 
+Crawl4AI 抓取级缓存默认不读（总是重抓，产出干净 fit 正文）。需要复用时显式加 `--cache`：
+
 ```bash
-# 检查是否已有相关缓存
-ls research_notes/*react*
+# 复用已抓取的 deep_read/*.md（crawl4ai 0.9.x 缓存只存 raw，命中可能含导航噪声）
+bash .claude/skills/research-collector/scripts/crawl.sh --cache \
+  --url "<URL>" --output-dir "${PROJECT_DIR:-./workspace/<slug>}/deep_read"
 
-# 读取已有缓存
-cat research_notes/react-2025-01-15.md
-
-# 基于缓存补充收集
+# 基于已有素材补充收集
 /research-collector "React 性能优化" (补充之前未覆盖的方面)
 ```
+
+> 注：`02_deep_research.md` 是聚合摘要（最终产出），不是可复用的抓取缓存。
 
 ## 注意事项
 
