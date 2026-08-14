@@ -1,20 +1,48 @@
 ---
-title: "DeepSeek-Harness 配置体系"
-tags: [deepseek-harness, ai, agent, 教程, 配置]
+title: "DeepSeek-Harness 插件开发核心"
+tags: [deepseek-harness, ai, agent, 插件, 教程, 开发]
 created: 2026-08-13
-updated: 2026-08-14
+updated: 2026-08-15
 status: updated
 source_project: deepseek-harness
 ---
 
-# DeepSeek-Harness 配置体系：从 settings.json 到 YAML 补丁树
+# DeepSeek-Harness 插件开发核心：从 apply(ctx) 到发布
 
 > [!summary] 本章导读
-> Claude Code 用 `settings.json` / `CLAUDE.md` 这种「声明式文件」管理配置；dsh 完全不同——它是「多层 YAML 补丁树 + Profile + Agent Preset」。这是全书的配置核心，也是从 [[Claude Code MOC|Claude Code]] 迁移时最需要扭转的心智模型。
+> 这是全书核心。用你熟悉的 Claude Code 作参照：在 Claude Code 里写「扩展」靠改配置文件 + 少量钩子；在 dsh 里写插件 = 写 TypeScript 模块 + 用 patch 装进插件树。本章按「是什么 → 怎么注册 → 生命周期 → 依赖 → 配置 → 写工具 → 策略 → 发布」完整讲清插件开发。
 
-## 3.1 配置机制：多层 YAML 补丁树
+## 3.1 插件是什么：apply(ctx) + name
 
-dsh 的配置不是 `config.toml`，也不是单文件，而是在空根上按顺序叠加的 **YAML 补丁树**[^1]：
+插件是导出 `apply` 函数的 TypeScript 模块。框架加载时调用 `apply` 并传入 `ctx`（上下文对象），通过 `ctx` 注册能力[^1]：
+
+```ts
+import type { Context } from '@deepseek-ai/cordis'
+
+export const name = 'hello-plugin'   // 仅诊断用，可省
+export function apply(ctx: Context) {
+  // Register capabilities here.
+}
+```
+
+`name` 只是诊断元数据；真正的逻辑都在 `apply(ctx)` 里。**没有框架样板代码**——插件只描述自己贡献什么，`cordis.yml` 负责组合应用[^2]。
+
+> [!tip] 大白话
+> 插件像一个「应聘者」，`apply(ctx)` 是入职第一天：公司（框架）把工牌（ctx）发给你，你在工牌上挂上你的能力（工具、事件、服务）。离职时（插件卸载），挂上去的自动摘下来。
+
+### 三种形态
+
+| 形态 | 写法 | 适用 |
+|---|---|---|
+| 函数 | `export function apply(ctx) {}` | 多数情况足够 |
+| 对象 | `export default { name, inject, apply(ctx) {} }` | 需要集中声明元数据 |
+| 类（Service） | `class X extends Service { constructor(ctx){ super(ctx,'name') } }` | 向其他插件提供服务 |
+
+函数形式直到你需要对外提供 service 都够用；类形式见 3.5[^2]。
+
+## 3.2 注册机制：多层 YAML 补丁树
+
+插件不是放进某个目录就生效，而是通过 **YAML 补丁树**装配。dsh 的配置在空根上按顺序叠加[^1]：
 
 1. **bundle 补丁**：profile manifest 中 `dsh.profile.bundles` 列表命名的每个 bundle 补丁；
 2. **profile 自身 `cordis.patch.yml`**；
@@ -23,135 +51,22 @@ dsh 的配置不是 `config.toml`，也不是单文件，而是在空根上按�
 
 补丁语义：**"Later layers win per row"**——后层按行覆盖，**替换目标行的完整 config 值，不做深合并**，可插入新行。
 
-检查合成配置[^1]：
-
-```bash
-dsh --profile web --dump-default-config          # 只看 bundle 层
-dsh --profile web --patch ./extra.yml --dump-config  # 含 profile/home 补丁与 --patch 覆盖层
-```
-
 > [!tip] 大白话
 > 把补丁树想成一层层铺在桌上的透明纸。后铺的纸会盖住先铺的同一位置，但不会去改下面那层的其他内容——「整行替换，不做深合并」。
 
-## 3.2 两级配置：Profile 与 Agent Preset
+### 开发期注册：cordis.yml patch（路径必须绝对）
 
-- **Profile（进程级）**：决定装哪些 bundle。`web`（base + web-app）与 `headless`（base + headless）首次使用自动从模板初始化；其他缺失 profile 需 `dsh plugin --profile <name> add <package>`[^1]。
-- **Agent Preset（会话级）**：决定工具/提示词/skill/子代理。内置 4 个预设：`minimal` / `standard` / `code` / `cordis`。作用域解析：`agent → preset → global`[^1]。
-
-其中 `minimal` 固定系统提示 "You are a helpful software engineer assistant."，只组合 `bash` + `str_replace_editor` 两个工具。
-
-## 3.3 权限与安全
-
-- 新会话默认 **`workspace-write`** 权限预设；
-- Bash 与文件系统变更限制在**会话工作区与平台临时根**；读、网络访问、进程可见性不加限制；
-- `DSH_PERMISSION_MODE` 改变进程级回退预设；
-- 权限审批弹窗 + `ctx.sandbox` 进程隔离 + fs provider + 启动命令 env 清洗（`*KEY*/*SECRET*/*TOKEN*/*PASSWORD*`）+ 0700 临时目录；
-- 核心不变量：**"Model-visible means logged"**（模型可见即已记录）——会话日志是模型上下文的唯一来源[^1]。
-
-> [!tip] 大白话
-> dsh 的权限像一张「授权清单」：默认给写工作区的权利，读文件、联网不设限；密钥类环境变量会被自动清洗，模型看不到明文。
-
-## 3.4 模型 / Provider / API 配置
-
-- **默认模型**：DeepSeek **V4-Flash** / **V4-Pro**（1M 上下文，maxTokens 默认 256,000），字段含 thinking、reasoningEffort（off/high/max）、retryPolicy；
-- **API Key**：Web UI Settings→Models 填（write-only）；CLI 用 `apiKeyEnv` 引用环境变量，默认 `DEEPSEEK_API_KEY`；config 中**不存字面 key**；
-- **凭据解析顺序**：inherited env → `$DSH_HOME/.credentials.yaml` → 调用目录 `.env` → `$DSH_HOME/.env`；
-- **Base URL**：默认 `https://api.deepseek.com`，可被 `DEEPSEEK_BASE_URL` 覆盖（接入兼容网关/本地代理）；
-- **第三方 Provider**（约 40 家目录内）：Add provider 挑 Anthropic/OpenAI 等填 key 即可；Bedrock/Vertex/Azure/Codex 走各自原生认证，不能只填 key；
-- **自定义 OpenAI-compatible provider**：写 `$DSH_HOME/settings.yaml` 的 `llm-pi-ai.providers` 下[^1]：
+官方第一个插件教程的做法：在仓库根建 `scratch-plugin/src/`，写插件文件后，用 `cordis.yml` 插入插件行[^1]：
 
 ```yaml
-providers:
-  my-gateway:
-    displayName: My Gateway
-    apiKeyEnv: GATEWAY_API_KEY
-    api: openai-completions
-    baseURL: https://gateway.example/v1
-    models:
-      - id: my-model
-        input: [text, image]   # 省略则纯文本
-    defaultInput: [text]
-```
-
-Provider ID **永久**（请求/会话/默认值/凭据引用都用它），重命名只能新建再删旧。
-
-> [!warning] 常见模型错误
-> - `MISSING_CREDENTIAL`：未配 key，检查凭据解析顺序；
-> - `UNKNOWN_MODEL`：模型未配置，检查 provider models；
-> - 模型发现返回 401：检查 key；发现逻辑调 OpenAI 兼容的 `GET /models`。
-
-## 3.5 环境变量速查
-
-| 变量 | 作用 |
-|---|---|
-| `DSH_HOME` | profile 目录根（`$DSH_HOME/profiles/<name>`）；含 `cordis.patch.yml`、`.credentials.yaml`、`.env` |
-| `DEEPSEEK_API_KEY` | DeepSeek API Key |
-| `DEEPSEEK_BASE_URL` | 覆盖默认 `https://api.deepseek.com` |
-| `DEEPSEEK_SEARCH_BASE_URL` | 搜索可用的替代 base URL |
-| `DSH_PERMISSION_MODE` | 改变进程权限回退 |
-| `DSH_TOOLS_MODE` | `native` / `code` / `both`；其他值启动失败 |
-| `DSH_TELEMETRY_MODE=FULL` | 每个 session 事件以 OTLP/HTTP 日志流出 |
-| `DSH_TELEMETRY_DISABLED` | 任意非空值即硬性退出遥测 |
-| `NODE_USE_ENV_PROXY=1` | 让 Node 遵循 `HTTP_PROXY`/`HTTPS_PROXY` |
-
-## 3.6 默认装载与边界
-
-- 基础 bundle 装载：原生 DeepSeek 适配器、settings/credentials provider、稳定的 `web_search`、遥测默认关闭；
-- **`web_fetch` 默认禁用**，除非 patch 层插入 provider 并启用；
-- [[MCP协议|MCP]] 客户端 `@deepseek-ai/dsh-mcp-client` 作为依赖存在，但**默认不启用任何 MCP server**（server 命令是沙箱外受信可执行代码）；
-- 会话内容索引使用内存 SQLite；**所有模式**将**调用目录作为默认工作区根**，加载适用的 `AGENTS.md` 或 `CLAUDE.md`，渲染预算 65,536 字节[^1]。
-
-## 3.7 CLI 完整参考
-
-- **launcher 规则**：launcher 标志必须在 app 参数之前；launcher 解析器消费一个 `--`（app 参数要字面 `--` 需写 `-- --`）；launcher 标志在第一个无法识别的 token 处结束，其余原样交给 profile（`ctx.cmdlineArgs`）。首个 app 参数等于 `web` 或 `plugin` 时选择对应子命令[^1]。
-
-| 命令 | 用途 |
-|---|---|
-| `dsh web` | 硬编码别名 `--profile web`；参数 `--host`、`--port`、可重复 `--trusted-host`；**刻意不支持 `--host 0.0.0.0`** |
-| `dsh --profile headless "任务"` | 一次性任务，适合 CI；退出码 0/1 |
-| `dsh --profile <name>` | 启动指定 profile |
-| `dsh plugin --profile <name> <args...>` | 转发给 pnpm（以 profile 目录为工作目录），支持 `add`/`remove`/`why`/`update` 等 |
-| `dsh --dump-config` / `--dump-default-config` | 打印合成配置（含来源文件注释）；`!!js` 表达式保持未求值 |
-| `dsh --help` / `-V` / `--version` | 帮助/版本 |
-
-- **插件管理后协调**：每次 pnpm 成功后，`dsh.profile.bundles` 与已安装状态对齐；声明了 `dsh.bundle.patch` 的依赖加入层栈，被移除的依赖离开层栈；
-- **热重载**：profile 启动时监听 profile 与 home 两个 `cordis.patch.yml` 的编辑并事务性重放；但活动编辑不能重置已占用的端口；
-- **关闭行为**：进程关闭给插件树最多 5 秒清理；首个 SIGINT/SIGTERM 触发优雅排空（SIGTERM 退出码 0，SIGINT 报 130），第二个信号强制立即退出。
-
-## 3.8 插件开发基础：第一个插件
-
-dsh 的「一切皆插件」不是口号——官方用一整页教你写第一个插件[^2]。前提：已完成源码运行路径（README 的 run from source）。
-
-### 插件是什么
-
-插件是导出 `apply` 函数的 TypeScript 模块。框架加载时调用 `apply` 并传入 `ctx`（上下文对象），通过 `ctx` 注册能力[^2]：
-
-```ts
-import type { Context } from '@deepseek-ai/cordis'
-
-export const name = 'my-plugin'
-
-export function apply(ctx: Context) {
-  // Register capabilities here.
-}
-```
-
-### 创建并注册
-
-```bash
-mkdir -p scratch-plugin/src          # 在仓库根创建临时项目
-```
-
-创建 `scratch-plugin/src/my-plugin.ts` 后，在仓库根运行 `pwd` 拿绝对路径，写 `scratch-plugin/cordis.yml`：
-
-```yaml
+# scratch-plugin/cordis.yml
 - insert:
     - id: hello
       name: '/absolute/path/to/deepseek-harness/scratch-plugin/src/my-plugin.ts'
 ```
 
 > [!warning] 插件路径必须是绝对路径
-> patch 文件只贡献配置，不会改变 loader 解析模块路径时使用的 profile 目录——相对路径会失效。
+> patch 文件只贡献配置，不会改变 loader 解析模块路径时使用的 profile 目录——相对路径会失效。这是新手第一坑。
 
 启动并验证：
 
@@ -160,23 +75,230 @@ pnpm dsh web --patch ./scratch-plugin/cordis.yml
 # 打开 http://127.0.0.1:3080，终端应打印 [hello-plugin] plugin loaded!
 ```
 
-### 自动清理与依赖
+检查合成配置（排查利器）：
 
-- 通过 `ctx` 注册的任何东西（事件监听、工具、定时器）在插件卸载时自动清理，无需手动 removeListener / clearInterval；
-- 需要手动清理的资源用 `ctx.effect()`；
-- 使用其他服务（如 `tools`、`llm`）时声明 `inject`，框架保证依赖就绪后才加载插件。
+```bash
+pnpm dsh --profile web --dump-default-config          # 只看 bundle 层
+pnpm dsh --profile web --patch ./extra.yml --dump-config  # 含 profile/home 补丁与 --patch 覆盖层
+```
 
-### 插件的三种形态
+## 3.3 两级配置：Profile 与 Agent Preset
 
-- **函数形式**：具名导出 `name` + `apply`（多数情况足够）；
-- **对象形式**：`export default { name, inject, apply(ctx) { ... } }`；
-- **类形式**：继承 `Service`，`static inject = ['tools']`，构造函数同步初始化，`super(ctx, 'myService')`——适用于向其他插件提供服务的场景。
+- **Profile（进程级）**：决定装哪些 bundle。`web`（base + web-app）与 `headless`（base + headless）首次使用自动从模板初始化；其他缺失 profile 需 `dsh plugin --profile <name> add <package>`[^1]。
+- **Agent Preset（会话级）**：决定工具/提示词/skill/子代理。内置 4 个预设：`minimal` / `standard` / `code` / `cordis`。作用域解析：`agent → preset → global`[^1]。
 
-## 3.9 system-prompt 子系统：系统提示词如何组装
+其中 `minimal` 固定系统提示 "You are a helpful software engineer assistant."，只组合 `bash` + `str_replace_editor` 两个工具。
 
-`system-prompt` 包（`packages/core/system-prompt`）是负责**在每次模型调用前组装最终系统提示词**的注册表服务 `ctx.systemPrompt`[^3]。想理解 dsh 的提示词体系，这是权威参考。
+## 3.4 生命周期与 effects：fiber 状态机
 
-### 提示词段落 PromptSection
+每个加载的插件实例持有一个 **fiber**（运行时句柄），状态机[^2]：
+
+```
+PENDING → LOADING → ACTIVE → UNLOADING → DISPOSED
+                 ↘ FAILED
+```
+
+- **PENDING** — 声明了但必需服务（3.5）尚未就绪；
+- **FAILED** — `apply` 或配置校验抛错；
+- **UNLOADING / DISPOSED** — disposer 运行 / 全部拆除。
+
+插件会因配置编辑、热重载、显式 dispose、依赖消失而卸载。**通过 `ctx` 注册的一切都是 effect**：事件监听、工具、定时器、子插件、service 注册——卸载时自动清理，无需手动 removeListener / clearInterval[^2]。
+
+框架不管理的资源（网络连接、文件 watcher）用 `ctx.effect()` 包一层：
+
+```ts
+export function apply(ctx: Context) {
+  ctx.effect(() => {
+    const timer = setInterval(() => console.log('heartbeat'), 5000)
+    return () => clearInterval(timer)   // 卸载时运行
+  })
+}
+```
+
+> [!tip] 大白话
+> 「效果（effect）」像门禁卡的自动失效：离职那天门禁卡自动作废，你不用自己去前台注销。凡是走 `ctx` 挂的能力都自动失效；自己额外申请的资源（网络连接）用 `ctx.effect()` 声明「我离职时要做这些清理」。
+
+## 3.5 服务与依赖：inject 与 Service
+
+**Service** 是具名能力，一个插件提供、其他插件经 `ctx` 消费——`ctx.tools` / `ctx.llm` / `ctx.agents` 都是服务[^2]。
+
+### 消费依赖：inject
+
+```ts
+export const name = 'my-tool-plugin'
+export const inject = ['tools']          // 依赖就绪前不加载
+
+export function apply(ctx: Context) {
+  ctx.tools.register(/* ... */)          // ctx.tools 一定可用
+}
+```
+
+`inject` 不是一次性启动检查：如果依赖运行中消失，依赖它的插件会一起被卸载，等服务恢复再重载。**文件顺序不决定加载序，依赖才决定**。
+
+可选依赖：跳过 inject，用 `ctx.get('name')` 探测（拿不到返回 undefined，插件照常运行）。
+
+### 提供服务：类形态
+
+```ts
+import { Service, type Context } from '@deepseek-ai/cordis'
+
+declare module '@deepseek-ai/cordis' {
+  interface Context { greeter: GreeterService }   // 类型合并，让 ctx.greeter 有类型
+}
+
+export class GreeterService extends Service {
+  constructor(ctx: Context) {
+    super(ctx, 'greeter')                          // 注册为 ctx.greeter
+  }
+  greet(who: string) { return `Hello, ${who}!` }
+}
+
+export function apply(ctx: Context) {
+  ctx.plugin(GreeterService)                       // 类本身也是插件
+}
+```
+
+## 3.6 插件配置：Config schema
+
+插件可接受 `cordis.yml` 传入的配置。导出同名 `Config` 接口 + **Schemastery** schema（不能用普通对象），默认值写在 schema 上[^1][^2]：
+
+```ts
+import Schema from '@deepseek-ai/schemastery'
+
+export interface Config {
+  greeting: string
+  maxRetries: number
+}
+export const Config: Schema<Config> = Schema.object({
+  greeting: Schema.string().default('Hello'),
+  maxRetries: Schema.number().default(3),
+})
+
+export function apply(ctx: Context, config: Config) {
+  console.log(config.greeting)   // 用户值或 schema 默认值
+}
+```
+
+在 `cordis.yml` 里配：
+
+```yaml
+- insert:
+    - id: hello
+      name: './src/my-plugin.ts'
+      config:
+        greeting: 'Hi there'
+        maxRetries: 5
+```
+
+- **原则**：两个部署可能想设不同的值，就做成配置字段（测试：`cordis.yml` 能否不改代码改值）[^1]；
+- **失效即响亮失败**：无效配置让 fiber 进 FAILED，报错精确；
+- **HMR**：配置编辑热替换插件，旧实例注册自动清理，不残留。
+
+## 3.7 开发一个 Tool：defineTool DSL
+
+工具是模型能调用的能力。用 `defineTool` 定义，经 `ctx.tools.register` 注册[^3]：
+
+```ts
+import { defineTool } from '@deepseek-ai/dsh-tools'
+
+export const name = 'greet-tool'
+export const inject = ['tools']
+
+export function apply(ctx: Context) {
+  ctx.tools.register(defineTool({
+    name: 'greet',
+    description: 'Greet someone by name.',        // 模型看到的描述
+    parameters: {
+      name: { type: 'string', required: true, description: 'The name to greet' },
+    },
+    output: {
+      schema: { type: 'string' },                  // canonical 返回值
+      render: (_args, value) => [{ type: 'text', text: value }],  // 模型可见内容
+    },
+    async execute(args) {
+      return `Hello, ${args.name}!`               // args 已按 parameters 校验并推断类型
+    },
+  }))
+}
+```
+
+关键契约（完整参考见第 5 章 5.3）：
+- **args 自动校验**：`defineTool` 在 `execute` 前校验模型生成的参数；
+- **返回值**：`execute` 只返回 `output.schema` 声明的单一 canonical JSON 值，`output.render` 负责转成模型可见的文本——别在返回值里塞给人看的 prose；
+- **抛错 = isError**：基础设施失败就 throw，业务成功态放进 canonical 值；
+- **`exec.signal`**：需要时可取消进行中的工作；
+- **注册即 effect**：插件卸载自动注销工具，schema 自动流入系统提示词组装[^4]。
+
+## 3.8 工具策略与观察：hook 扩展点
+
+工具不是黑盒——dsh 提供一组**扩展点**，让插件在工具执行前后插入策略[^4]：
+
+| 扩展点 | 用途 |
+|---|---|
+| `tools/pre-execute` | allow / deny / ask 决策（权限门） |
+| `ctx.tools.guard()` | 单调最终拒绝，后面的监听者无法撤销 |
+| `tools/execute` | 包 dispatch 加超时、重试、指标 |
+| `tools/post-execute` | 替换展示内容或返回值、附加上下文 |
+| `tools/result` | 只读观察不可变的最终结果 |
+
+示例（权限门 hook 插件）[^4]：
+
+```ts
+ctx.on('tools/pre-execute', async (exec, next): Promise<PreToolDecision> => {
+  if (!(await isAllowed(exec))) {
+    return { kind: 'deny', reason: 'Denied by policy.' }
+  }
+  return next()
+})
+```
+
+> [!note] 与 Claude Code 对照
+> 这就是「hook 插件」：Claude Code 的 `PreToolUse` hook ≈ `tools/pre-execute` 监听；官方 `dsh-hooks-claude-code` 桥能把 Claude Code 的 hook 配置文件直接映射到这些扩展点[^4]。
+
+## 3.9 打包与安装：bundle 与 profile
+
+开发期用 `--patch` 加载本地插件；要给别人用时打包成 **bundle**（npm 包）[^5]。
+
+两个概念（都由 `package.json` 描述，但 manifest 不同）：
+- **bundle**：携带配置层的 npm 包，声明 `dsh.bundle.patch`——回答「这个包贡献什么」；
+- **profile**：`$DSH_HOME/profiles/<name>` 目录，声明 `dsh.profile.bundles` 有序列表——回答「装哪些 bundle、什么顺序」。你从不手写 profile，`dsh plugin` 自动维护。
+
+最小 bundle：
+
+```json
+{
+  "name": "dsh-hello-plugin",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "index.js",
+  "files": ["index.js", "cordis.patch.yml"],
+  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } }
+}
+```
+
+```yaml
+# cordis.patch.yml（插件行按包名引用，不用相对路径）
+- insert:
+    - id: hello
+      name: dsh-hello-plugin
+```
+
+安装进 profile：
+
+```bash
+dsh plugin --profile demo add ./hello-plugin     # 转发 pnpm，自动追加 bundle
+dsh --profile demo --dump-config                  # 验证层
+dsh --profile demo
+```
+
+> [!warning] git 安装的 build 坑
+> `dsh plugin add github:you/hello-plugin` 拉的是**源码不是构建产物**。作者必须提供 `prepare` 脚本（pnpm 在 git 安装后运行），用户还需在 profile 的 `pnpm-workspace.yaml` 里 `allowBuilds` 放行——这等于「授权在安装时执行该包的代码」，只放行你信任的包，并 `#<sha>` 钉住 commit[^5]。
+
+## 3.10 system-prompt 子系统：提示词怎么组装
+
+写提示词类插件（加人格、加指令）直接相关的参考。`system-prompt` 包负责**在每次模型调用前组装最终系统提示词**，注册表服务 `ctx.systemPrompt`[^6]。
+
+### PromptSection
 
 ```ts
 interface PromptSection {
@@ -189,46 +311,48 @@ interface PromptSection {
 
 **order 约定**：`-100` harness 身份 → `0` 部署人格（persona）→ 其他负数在人格前 → `100–199` 工具指导。
 
-**complete 语义**：`complete: true` 的段表示「贡献就是完整系统提示词」。组装仍会跑协作瀑布（解析工具/上下文/变量），随后把该段恢复为唯一提示词段；多个生效 complete 段 → 组装失败。
+**complete 语义**：`complete: true` 的段表示「贡献就是完整系统提示词」。组装仍会跑协作瀑布，随后把该段恢复为唯一提示词段；多个生效 complete 段 → 组装失败。
 
 ### 作用域与遮蔽
 
 - 作用域级段落/变量/动态上下文**遮蔽**（shadow）全局同名项；
 - 工具提供方例外：全局与匹配作用域**共同贡献**；
-- 变量名匹配 `[a-z][a-z0-9_]*`，`{{variable}}` 在渲染期由 `renderPrompt` 插值，不是组装期。
+- 变量名匹配 `[a-z][a-z0-9_]*`，`{{variable}}` 在渲染期由 `renderPrompt` 插值。
 
-### 事件
+### 事件与防错
 
-- `system-prompt/assemble`（waterfall）：返回值权威，监听者可修改 assembly；已注册 complete 段在瀑布后恢复，监听者不能再向该系统提示词增删内容；
-- `system-prompt/change`（emit）：任何提示词提供方变化时发出，未过滤。
-
-### 关键防错与持久化
-
-- `knownNames`：区分「配置名拼写错误」与「已知工具在作用域内被有意隐藏」；
-- `PromptContext`：缓存安全的动态上下文，物化为 durable user-role snapshot，仅当快照变化或被 compaction 移除时才追加到模型历史——避免每回合重复写入。
+- `system-prompt/assemble`（waterfall）：返回值权威，监听者可修改 assembly；
+- `system-prompt/change`（emit）：任何提示词提供方变化时发出；
+- `knownNames`：区分「配置名拼写错误」与「已知工具被有意隐藏」；
+- `PromptContext`：缓存安全的动态上下文，物化为 durable user-role snapshot，避免每回合重复写入[^6]。
 
 ---
 
 ## 本章小结
 
 > [!summary]
-> - 配置是**多层 YAML 补丁树**：bundle → profile → home → `--patch`，后层整行替换、不做深合并，用 `--dump-config` 排查；
-> - **两级配置**：Profile（进程级，决定 bundle）与 Agent Preset（会话级，内置 `minimal`/`standard`/`code`/`cordis` 四预设）；
-> - 权限默认 `workspace-write`，密钥 env 自动清洗，核心不变量「模型可见即已记录」；
-> - 模型层默认 V4-Flash/Pro，可换约 40 家第三方 provider 或自定义 OpenAI-compatible provider；
-> - CLI 有严格 launcher 规则：标志须在 app 参数前；
-> - 进阶：插件开发走 `cordis.yml` patch + `apply(ctx)`（三种形态）；系统提示词由 `ctx.systemPrompt` 注册表按 order 组装，`complete` 段可独占。
+> - 插件 = 导出 `apply(ctx)` 的 TS 模块；三种形态：函数 / 对象 / 类（Service）；
+> - 注册靠**多层 YAML 补丁树**（bundle → profile → home → `--patch`，后层整行替换）；开发期用 `cordis.yml` patch，**路径必须绝对**，`--dump-config` 排查；
+> - 生命周期：fiber 状态机；`ctx` 注册的一切都是 effect，自动清理；手动资源用 `ctx.effect()`；
+> - 依赖：`inject` 声明硬依赖（未就绪保持 PENDING），`ctx.get()` 探测可选依赖；Service 类对外提供服务；
+> - 插件配置：`Config` 接口 + Schemastery schema，坏配置响亮失败，HMR 热替换；
+> - 工具：`ctx.tools.register(defineTool({...}))`，args 自动校验、canonical 返回值、注册即 effect；策略用 `tools/pre-execute` 等 hook 扩展点；
+> - 发布：bundle（`dsh.bundle`）vs profile（`dsh.profile`），`dsh plugin add` 安装，git 安装注意 prepare + allowBuilds；
+> - 提示词类插件看 `ctx.systemPrompt`：PromptSection 按 order 组装，`complete` 段可独占。
 
-下一章做迁移决策：[[DeepSeek-Harness 与ClaudeCode对照迁移|换还是留？]]
+下一章动手写一个完整插件：[[DeepSeek-Harness 与ClaudeCode对照迁移|实战：自定义工具插件]]。
 
 ---
 
 ## 更新记录
 
-- 2026-08-14：新增 3.8 插件开发基础（第一个插件）、3.9 system-prompt 子系统参考，依据官方文档 develop/basic 与 reference/subsystems/system-prompt。
+- 2026-08-15：全套重构为「写自己的 dsh 插件」主线。插件开发内容从 3.8 一节扩展为全书核心章节；新增 3.4 生命周期 / 3.5 服务依赖 / 3.6 插件配置 / 3.7 工具 DSL / 3.8 策略扩展点 / 3.9 打包发布；原权限、模型、环境变量、CLI 内容精简移入第 5 章速查。
 
 ---
 
-[^1]: 素材来源：DeepSeek Harness 官方仓库与文档（2026-08-13 收集）。
-[^2]: 素材来源：DeepSeek Harness 官方文档「开发基础：第一个插件」（2026-08-14 收集）。
-[^3]: 素材来源：DeepSeek Harness 官方文档「system-prompt 子系统参考」（2026-08-14 收集）。
+[^1]: 素材来源：DeepSeek Harness 官方文档「第一个插件 / 插件配置」（2026-08-15 收集）。
+[^2]: 素材来源：官方 Cordis 教程 01–03/05（2026-08-15 收集）。
+[^3]: 素材来源：官方「开发一个 Tool」（2026-08-15 收集）。
+[^4]: 素材来源：官方「Tool authoring reference」与「扩展插件形态 Cookbook」（2026-08-15 收集）。
+[^5]: 素材来源：官方「打包并安装插件」（2026-08-15 收集）。
+[^6]: 素材来源：官方「system-prompt 子系统参考」（2026-08-14 收集）。
