@@ -1,0 +1,19 @@
+apiVersion: agent-platform/v1
+kind: Subagent
+metadata:
+  name: chapter-writer
+  version: 1.0.0
+  description: "Write one confirmed learning-note chapter at a time."
+spec:
+  entrypoint: ../chapter-writer.md
+  capabilities:
+    - notes.chapter.write
+  permissions:
+    filesystem: write
+    network: none
+    subprocess: none
+    git: none
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

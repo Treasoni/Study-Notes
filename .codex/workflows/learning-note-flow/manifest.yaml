@@ -1,0 +1,28 @@
+apiVersion: agent-platform/v1
+kind: Workflow
+metadata:
+  name: learning-note-flow
+  version: 1.1.0
+  description: "Produce a learning note from intent clarification through Obsidian publication."
+spec:
+  entrypoint: workflow.md
+  capabilities:
+    - workflow.notes.learning
+  permissions:
+    filesystem: write
+    network: allow
+    subprocess: allow
+    git: none
+  dependsOn:
+    - Skill/research-planner
+    - Skill/research-collector
+    - Skill/note-beautifier
+    - Skill/moc-organizer
+    - Skill/workflow-orchestrator
+    - Skill/workflow-todo-state
+    - Subagent/outline-generator
+    - Subagent/chapter-writer
+    - Subagent/note-assembler
+  lifecycle:
+    discoverable: true
+    deprecated: false

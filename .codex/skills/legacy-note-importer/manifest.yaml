@@ -1,0 +1,20 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: legacy-note-importer
+  version: 1.0.0
+  description: "Inventory and normalize existing Markdown or Obsidian notes without overwriting sources."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - notes.legacy-import
+  permissions:
+    filesystem: write
+    network: none
+    subprocess: none
+    git: none
+  dependsOn:
+    - Skill/note-beautifier
+  lifecycle:
+    discoverable: true
+    deprecated: false

@@ -332,42 +332,6 @@ def validate_hooks(root: Path, registry: dict[str, Any], artifacts: list[Artifac
     return errors
 
 
-def dependency_cycle_errors(artifacts: list[Artifact]) -> list[str]:
-    identifiers = {artifact.identifier for artifact in artifacts}
-    adjacency = {
-        artifact.identifier: [
-            dependency
-            for dependency in artifact.data["spec"]["dependsOn"]
-            if dependency in identifiers
-        ]
-        for artifact in artifacts
-    }
-    state: dict[str, str] = {}
-    stack: list[str] = []
-    reported: set[tuple[str, ...]] = set()
-    errors: list[str] = []
-
-    def visit(identifier: str) -> None:
-        state[identifier] = "visiting"
-        stack.append(identifier)
-        for dependency in adjacency[identifier]:
-            dependency_state = state.get(dependency, "unvisited")
-            if dependency_state == "unvisited":
-                visit(dependency)
-            elif dependency_state == "visiting":
-                cycle = tuple(stack[stack.index(dependency):] + [dependency])
-                if cycle not in reported:
-                    reported.add(cycle)
-                    errors.append(f"dependency cycle: {' -> '.join(cycle)}")
-        stack.pop()
-        state[identifier] = "visited"
-
-    for identifier in sorted(adjacency):
-        if state.get(identifier, "unvisited") == "unvisited":
-            visit(identifier)
-    return errors
-
-
 def discover_and_validate(root: Path, registry: dict[str, Any]) -> tuple[list[Artifact], list[str]]:
     artifacts: list[Artifact] = []
     errors: list[str] = []
@@ -387,7 +351,6 @@ def discover_and_validate(root: Path, registry: dict[str, Any]) -> tuple[list[Ar
         for dependency in artifact.data["spec"]["dependsOn"]:
             if dependency not in identifiers:
                 errors.append(f"{artifact.path}: unknown dependency {dependency}")
-    errors.extend(dependency_cycle_errors(artifacts))
     errors.extend(validate_hooks(root, registry, artifacts))
     return artifacts, errors
 

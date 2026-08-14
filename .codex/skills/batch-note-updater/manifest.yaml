@@ -1,0 +1,20 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: batch-note-updater
+  version: 1.0.0
+  description: "Plan and orchestrate safe partial updates across multiple existing notes."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - notes.batch-update
+  permissions:
+    filesystem: write
+    network: allow
+    subprocess: none
+    git: none
+  dependsOn:
+    - Skill/note-updater
+  lifecycle:
+    discoverable: true
+    deprecated: false

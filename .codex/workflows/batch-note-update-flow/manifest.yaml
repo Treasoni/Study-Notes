@@ -1,0 +1,23 @@
+apiVersion: agent-platform/v1
+kind: Workflow
+metadata:
+  name: batch-note-update-flow
+  version: 1.1.0
+  description: "Safely plan and apply minimal updates to a collection of existing notes."
+spec:
+  entrypoint: workflow.md
+  capabilities:
+    - workflow.notes.batch-update
+  permissions:
+    filesystem: write
+    network: allow
+    subprocess: allow
+    git: none
+  dependsOn:
+    - Skill/batch-note-updater
+    - Skill/note-updater
+    - Skill/moc-organizer
+    - Skill/workflow-todo-state
+  lifecycle:
+    discoverable: true
+    deprecated: false

@@ -1,0 +1,19 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: grilling
+  version: 1.0.0
+  description: "Grill the user relentlessly about a plan, decision, or idea until a shared understanding is reached."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - grill.interview
+  permissions:
+    filesystem: read
+    network: none
+    subprocess: none
+    git: none
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

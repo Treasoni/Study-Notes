@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "PYTHONUTF8=1 python '.claude/hooks/read_learnings.py'"
+            "command": "python3 '.claude/hooks/read_learnings.py'"
           }
         ]
       }

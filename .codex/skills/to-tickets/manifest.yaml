@@ -1,0 +1,19 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: to-tickets
+  version: 1.0.0
+  description: "Break a plan, spec, or conversation into tracer-bullet tickets, each declaring its blocking edges, published to the configured tracker."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - planning.tickets
+  permissions:
+    filesystem: write
+    network: allow
+    subprocess: allow
+    git: none
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

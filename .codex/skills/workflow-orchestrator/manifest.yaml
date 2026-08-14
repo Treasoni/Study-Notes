@@ -1,0 +1,20 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: workflow-orchestrator
+  version: 1.0.0
+  description: "Instantiate named study workflow state files from workflow definitions."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - workflow.instantiate
+  permissions:
+    filesystem: write
+    network: none
+    subprocess: allow
+    git: none
+  dependsOn:
+    - Skill/workflow-todo-state
+  lifecycle:
+    discoverable: false
+    deprecated: false
