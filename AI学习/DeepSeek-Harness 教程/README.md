@@ -32,6 +32,9 @@ source_project: deepseek-harness
 | 04 | [[DeepSeek-Harness 与ClaudeCode对照迁移]] | 实战项目：从零写一个自定义工具插件，每步对照 Claude Code | 独立完成一个自定义工具插件并打包 |
 | 05 | [[DeepSeek-Harness 常见坑与速查]] | 插件开发速查：坑 / 命令 / 工具契约 / 配置引用 / 生态 | 写插件时遇到问题快速定位 |
 
+> [!example] 配套脚手架
+> `example-plugin/` 是本系列的完整示例插件（`repo_status` 自定义工具），可直接跑通并改成你自己的工具。
+
 ## 推荐阅读顺序
 
 **主路径（推荐）**：第 1 → 2 → 3 → 4 → 5 章顺序阅读。

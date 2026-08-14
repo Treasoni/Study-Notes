@@ -1,0 +1,7 @@
+# 打包层 patch：插件行按包名引用（Node resolution 从 profile node_modules 找已安装代码）
+- insert:
+    - id: repo-status
+      name: dsh-repo-status-plugin
+      config:
+        defaultMaxEntries: 10
+        includeUntracked: true

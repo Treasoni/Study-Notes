@@ -18,6 +18,9 @@ source_project: deepseek-harness
 
 **前提**：已完成第 2 章的源码构建（clone → `pnpm install` → `pnpm run build`），在仓库根目录工作[^1]。
 
+> [!example] 配套脚手架
+> 本系列附带完整可跑的插件脚手架 **`example-plugin/`**（与本例同代码）：源码环境就绪后，把 `dev-cordis.yml` 的 `name` 改成你机器上的绝对路径即可跑通；想做成自己的插件，只换 `src/tools/repo-status.ts` 的 `execute`。
+
 **路线图**：
 
 | 步 | 做什么 | 产出 | 这在 Claude Code 里相当于 |

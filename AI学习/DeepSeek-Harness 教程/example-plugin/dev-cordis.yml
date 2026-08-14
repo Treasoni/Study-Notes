@@ -1,0 +1,9 @@
+# 开发层 patch：插件路径必须是【绝对路径】（dsh 要求，相对路径会失效）
+# 把 name 改成你机器上 example-plugin 的实际位置，例如：
+#   /Users/you/deepseek-harness/example-plugin/src/index.ts
+- insert:
+    - id: repo-status
+      name: '/absolute/path/to/example-plugin/src/index.ts'
+      config:
+        defaultMaxEntries: 10
+        includeUntracked: true
