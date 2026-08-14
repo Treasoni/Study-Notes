@@ -11,7 +11,7 @@ spec:
   permissions:
     filesystem: write
     network: allow
-    subprocess: none
+    subprocess: allow
     git: none
   dependsOn: []
   lifecycle:

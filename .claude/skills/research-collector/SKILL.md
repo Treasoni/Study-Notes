@@ -7,6 +7,18 @@ description: 使用多策略进行高效资料收集：Fork Subagent 隔离收�
 
 使用多种策略进行高效资料收集，优化 token 消耗并支持本地缓存复用。
 
+## 前置依赖（一次性安装）
+
+Phase 2 精读主路径依赖 **Crawl4AI**（渲染 JS 动态页面、输出干净 Markdown、批量并发、本地缓存）。使用前需先安装一次环境：
+
+```bash
+bash .claude/skills/research-collector/scripts/setup.sh
+```
+
+脚本会创建 conda env `crawl4ai`（python 3.12），安装 `crawl4ai` 与 Playwright Chromium（约 150MB），可重复执行、幂等。
+
+> 若未安装或 `crawl.sh` 失败，精读自动回退到 **WebFetch** 深读，功能不中断。
+
 ## 触发条件
 
 当用户提出以下类型的请求时，调用此技能:
@@ -51,7 +63,8 @@ description: 使用多策略进行高效资料收集：Fork Subagent 隔离收�
 
 **第二阶段: 定向精读**
 - 主 Agent 根据评分筛选 3-5 篇核心资料
-- 使用 `WebFetch` 定向深读
+- **主路径（Crawl4AI）**：批量跑 `crawl.sh` 并发抓取，输出干净 Markdown 到 `--output-dir`，再读取生成的 `.md` 提取内容
+- **回退路径（WebFetch）**：`crawl.sh` 失败（未安装 / 网络失败 / 反爬拦截）时，改用 `WebFetch` 定向深读
 - 提取：核心观点、关键数据、引用来源
 - 目标：获取高质量详细内容
 
@@ -206,12 +219,49 @@ Subagent 4: 搜索 "{关键词4} 常见问题 问题排查"
 
 **Phase 2: 精读 (按需)**
 
-从粗筛结果中筛选评分 ≥4 的资料:
+从粗筛结果中筛选评分 ≥4 的 3-5 篇核心资料，**优先用 Crawl4AI 批量并发抓取**：
+
+```bash
+# 1) 主路径：Crawl4AI 批量精读（渲染 JS、输出干净 Markdown，默认重抓并刷新缓存）
+CRAWL_DIR="${PROJECT_DIR:-${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG:-.}}/deep_read"
+bash .claude/skills/research-collector/scripts/crawl.sh \
+  --url "<URL1>" --url "<URL2>" --url "<URL3>" \
+  --output-dir "$CRAWL_DIR"
+# 可选 --cache：复用本地缓存（crawl4ai 0.9.x 缓存只存 raw，命中可能含导航噪声）
+
+# 2) 每篇 .md 带 YAML frontmatter（url / title / scraped_at）用于溯源；
+#    正文在 `---` 之后，读取时跳过 frontmatter。
+
+# 3) 用 fork subagent 逐篇提炼——主 agent 不读全文，保持上下文干净：
+#    每个 .md 派一个 subagent，读文件 → 返回结构化摘要（≤150 字）。
 ```
-使用 WebFetch 深度阅读:
-- URL: {选中的 URL}
-- Prompt: "提取文章的核心观点、关键数据、主要结论。忽略广告、导航、侧边栏。"
+
+**Subagent 提炼模板**（每篇 .md 一个，隔离上下文）：
 ```
+你是一个精读助手。读取文件 {DEEP_READ_FILE}（跳过开头的 YAML frontmatter，只读正文），
+按以下格式返回结构化摘要（每条 ≤150 字）：
+- **标题**: ...
+- **URL**: {frontmatter 里的 url}
+- **核心观点**: ...
+- **关键数据**: [1-3 个]
+- **主要结论**: ...
+- **我的笔记**: ...
+禁止返回: 完整段落、导航、广告、侧边栏。
+```
+
+> **回退到 WebFetch（按退出码区分）**：
+> - `crawl.sh` **exit 2**（参数 / 环境问题，含「请先运行 setup.sh」）→ 先执行 `bash .claude/skills/research-collector/scripts/setup.sh` 再重试；仍失败则全部改用 WebFetch。
+> - **exit 1**（部分 URL 失败）→ 从 stderr 的 `[失败]` 行取出失败 URL，**只对失败项**用 WebFetch 补读，已成功的 `.md` 保留。
+> - 正文为空（可能反爬拦截）同样视为失败项，用 WebFetch 补读。
+> ```
+> WebFetch 深读（仅失败的 URL）:
+> - URL: {失败的 URL}
+> - Prompt: "提取文章的核心观点、关键数据、主要结论。忽略广告、导航、侧边栏。"
+> ```
+
+**注意**：
+- 把精读素材作为背景，正文仍按 ≤150 字摘要约束回写 `02_deep_research.md`，不要整篇搬运。
+- Crawl4AI 0.9.x 缓存只保存 raw markdown；默认总是重抓（WRITE_ONLY），产出干净 fit 正文。显式加 `--cache` 复用缓存时，命中输出可能含少量导航噪声。
 
 ### Step 3: 结果整合
 

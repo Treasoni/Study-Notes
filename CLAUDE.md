@@ -45,6 +45,7 @@ ${WORKSPACE_PATH:-./workspace}/
 │   ├── 00_intent.md
 │   ├── 01_explore_result.md
 │   ├── 02_deep_research.md
+│   ├── deep_read/            # research-collector Phase 2 精读抓取缓存（每篇带 url frontmatter）
 │   ├── 03_outline.md
 │   ├── chapters/
 │   └── output/

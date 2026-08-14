@@ -21,7 +21,6 @@ resolve_conda() {
   for c in \
     "$HOME/miniconda3/Scripts/conda.exe" \
     "$HOME/anaconda3/Scripts/conda.exe" \
-    "/c/Users/zhq/miniconda3/Scripts/conda.exe" \
     "/c/ProgramData/miniconda3/Scripts/conda.exe" \
     "/c/ProgramData/anaconda3/Scripts/conda.exe"
   do
@@ -61,15 +60,20 @@ echo "[2/4] 目标环境: $ENV_DIR"
 # ---------------------------------------------------------------------------
 if [ ! -d "$ENV_DIR" ]; then
   echo "[3/4] 创建 conda env: crawl4ai (python=3.12) ..."
-  if ! "$CONDA_EXE" create -n crawl4ai python=3.12 -y 2>"$TMPDIR/crawl4ai-setup-create.log" \
-    || grep -qi "CondaToSNonInteractiveError" "$TMPDIR/crawl4ai-setup-create.log" 2>/dev/null; then
-    echo "      检测到 Anaconda TOS 未接受，尝试自动接受后重试 ..."
-    # shellcheck disable=SC2013
-    for url in $("$CONDA_EXE" config --show channels 2>/dev/null | awk -F"'" '/- /{gsub(/^ *- /,"");print}'); do
-      [ -z "$url" ] && continue
-      "$CONDA_EXE" tos accept --override-channels --channel "$url" >/dev/null 2>&1 || true
-    done
-    "$CONDA_EXE" create -n crawl4ai python=3.12 -y
+  if ! CREATE_OUT="$("$CONDA_EXE" create -n crawl4ai python=3.12 -y 2>&1)"; then
+    if echo "$CREATE_OUT" | grep -qi "CondaToSNonInteractiveError"; then
+      echo "      检测到 Anaconda TOS 未接受，尝试自动接受后重试 ..."
+      # shellcheck disable=SC2013
+      for url in $("$CONDA_EXE" config --show channels 2>/dev/null | awk -F"'" '/- /{gsub(/^ *- /,"");print}'); do
+        [ -z "$url" ] && continue
+        "$CONDA_EXE" tos accept --override-channels --channel "$url" >/dev/null 2>&1 || true
+      done
+      "$CONDA_EXE" create -n crawl4ai python=3.12 -y
+    else
+      echo "创建失败（非 TOS 错误）:" >&2
+      echo "$CREATE_OUT" >&2
+      exit 1
+    fi
   fi
 else
   echo "[3/4] env 已存在，跳过创建。"
@@ -79,11 +83,12 @@ fi
 # 4. 安装 / 升级依赖
 # ---------------------------------------------------------------------------
 echo "[4/4] 安装/升级 crawl4ai ..."
-"$ENV_PY" -m pip install -U crawl4ai
+# 范围锁定 <1.0：crawl4ai 0.9.x 已大改 API，升级到 1.x 会破坏 crawl.py 兼容层
+"$ENV_PY" -m pip install -U "crawl4ai>=0.9,<1"
 
 echo "      安装 Playwright Chromium（若未安装会下载 ~150MB）..."
 "$ENV_PY" -m playwright install chromium
 
 echo
 echo "✅ crawl4ai 环境就绪: $ENV_PY"
-echo "   校验: \"$ENV_PY\" -c \"import crawl4ai; print(crawl4ai.__version__)\""
+echo "   校验: \"$ENV_PY\" -c \"import importlib.metadata as m; print(m.version('crawl4ai'))\""

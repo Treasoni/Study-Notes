@@ -22,7 +22,6 @@ resolve_conda() {
   for c in \
     "$HOME/miniconda3/Scripts/conda.exe" \
     "$HOME/anaconda3/Scripts/conda.exe" \
-    "/c/Users/zhq/miniconda3/Scripts/conda.exe" \
     "/c/ProgramData/miniconda3/Scripts/conda.exe" \
     "/c/ProgramData/anaconda3/Scripts/conda.exe"
   do
@@ -57,6 +56,12 @@ if [ ! -x "$ENV_PY" ]; then
   echo "错误: 未找到 crawl4ai 环境（$ENV_PY）。请先运行 $SCRIPT_DIR/setup.sh 安装。" >&2
   exit 1
 fi
+
+# ---------------------------------------------------------------------------
+# 强制 UTF-8 输出（Windows 控制台默认 GBK 会乱码中文正文）
+# ---------------------------------------------------------------------------
+export PYTHONUTF8=1
+export PYTHONIOENCODING=utf-8
 
 # ---------------------------------------------------------------------------
 # 透传全部参数给 crawl.py
