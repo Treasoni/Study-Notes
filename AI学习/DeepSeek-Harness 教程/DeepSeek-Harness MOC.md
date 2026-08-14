@@ -2,16 +2,16 @@
 title: DeepSeek-Harness 教程 MOC
 tags: [deepseek-harness, ai, MOC, 索引]
 created: 2026-08-13
-updated: 2026-08-13
-status: new
+updated: 2026-08-15
+status: updated
 source_project: deepseek-harness
 ---
 
 # DeepSeek-Harness 教程 MOC
 
 > [!info] 目录导航
-> **DeepSeek-Harness（dsh）全套配置教程**，面向「熟悉 Claude Code 的用户」，按「快速上手 + 对照迁移」视角组织。共 5 篇独立分册 + 系列导览，零散分册模式，每篇可独立阅读。
-> 读者定位：已熟悉 Claude Code，重点讲解 dsh 的定位、安装、配置体系、迁移决策与日常速查。
+> **DeepSeek-Harness（dsh）插件开发教程**，面向「熟悉 Claude Code 的用户」，以「写自己的 dsh 插件」为主线。共 5 篇独立分册 + 系列导览，零散分册模式，每篇可独立阅读。
+> 读者定位：已熟悉 Claude Code，用其扩展体系（hooks / CLAUDE.md / MCP / Skills）作桥，讲解 dsh 插件开发。
 > 系列入口：[[DeepSeek-Harness 教程/README|系列导览]]
 
 ---
@@ -19,43 +19,43 @@ source_project: deepseek-harness
 ## 📖 学习路径
 
 ```
-01 是什么 → 02 安装上手 → 03 配置体系 → 04 对照迁移 → 05 常见坑与速查
-                                      ↘ 概念基础（AI学习/01-基础概念/）
+01 心智模型 → 02 环境准备 → 03 插件开发核心 → 04 实战项目 → 05 速查与排错
+                                            ↘ 概念基础（AI学习/01-基础概念/）
 ```
 
 ---
 
 ## 分册索引
 
-### 01 定位
+### 01 心智模型
 
 | 笔记 | 说明 |
 |------|------|
-| [[DeepSeek-Harness 是什么]] | 建立心智模型：Model + Harness = Agent、一切皆插件、与 Claude Code 的关系 |
+| [[DeepSeek-Harness 是什么]] | 插件树 vs 单体 + 扩展：Model+Harness=Agent、一切皆插件、Claude Code 扩展模型对照表 |
 
-### 02 安装上手
-
-| 笔记 | 说明 |
-|------|------|
-| [[DeepSeek-Harness 安装与快速上手]] | 安装三路径、Web UI 首次配置、headless 一次性任务、高频坑 |
-
-### 03 配置体系（全书核心）
+### 02 环境准备
 
 | 笔记 | 说明 |
 |------|------|
-| [[DeepSeek-Harness 配置体系]] | 多层 YAML 补丁树 + Profile + Agent Preset、权限安全、模型/Provider、CLI 完整参考、插件开发、系统提示词组装 |
+| [[DeepSeek-Harness 安装与快速上手]] | 源码运行路径（写插件前提）、Web UI 首配、headless 验证、npm 快跑边界 |
 
-### 04 对照迁移
-
-| 笔记 | 说明 |
-|------|------|
-| [[DeepSeek-Harness 与ClaudeCode对照迁移]] | 概念/成本/性能三张对照表、三选迁移策略、按复杂度路由建议 |
-
-### 05 日常速查
+### 03 插件开发核心（全书核心）
 
 | 笔记 | 说明 |
 |------|------|
-| [[DeepSeek-Harness 常见坑与速查]] | 坑清单、命令速查、V4 协议坑、生态资源与下一步 |
+| [[DeepSeek-Harness 配置体系]] | apply(ctx) 三形态、多层 YAML 补丁树注册、fiber 生命周期、inject 依赖、Config schema、defineTool 工具 DSL、hook 扩展点、bundle 发布、system-prompt 子系统 |
+
+### 04 实战项目
+
+| 笔记 | 说明 |
+|------|------|
+| [[DeepSeek-Harness 与ClaudeCode对照迁移]] | 从零写自定义工具插件 walkthrough：骨架→greet→repo_status→配置→打包，每步对照 Claude Code |
+
+### 05 速查与排错
+
+| 笔记 | 说明 |
+|------|------|
+| [[DeepSeek-Harness 常见坑与速查]] | 插件开发高频坑、命令速查（含 dsh plugin 全家族）、工具契约、配置引用、模型协议参考、生态 |
 
 ---
 
@@ -63,15 +63,15 @@ source_project: deepseek-harness
 
 ```
 ▸ 主路径（约 2.5–3.5 小时）
-  ├── DeepSeek-Harness 是什么          ← 建立心智模型
-  ├── DeepSeek-Harness 安装与快速上手   ← 5 分钟跑通
+  ├── DeepSeek-Harness 是什么          ← 转心智模型（插件树 vs 单体+扩展）
+  ├── DeepSeek-Harness 安装与快速上手   ← 源码环境，5 分钟跑通
   ├── DeepSeek-Harness 配置体系        ← 全书核心，篇幅最长
-  ├── DeepSeek-Harness 与ClaudeCode对照迁移  ← 换还是留
+  ├── DeepSeek-Harness 与ClaudeCode对照迁移  ← 实战：写第一个自定义工具插件
   └── DeepSeek-Harness 常见坑与速查     ← 日常速查
 
 ▸ 急用路径
-  ├── 安装与快速上手  → 跑通环境
-  ├── 与ClaudeCode对照迁移 → 做「换还是留」决策
+  ├── 安装与快速上手  → 跑通源码环境
+  ├── 与ClaudeCode对照迁移 → 照猫画虎写第一个工具
   └── 回头补 配置体系 + 常见坑与速查
 ```
 
@@ -80,4 +80,4 @@ source_project: deepseek-harness
 ## 相关索引
 
 - [[AI学习 MOC]] — 整个 AI 学习目录的总入口
-- [[Claude Code MOC]] — 对照迁移的参照系列
+- [[Claude Code MOC]] — 本系列用作桥接的参照系列
