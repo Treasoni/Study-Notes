@@ -10,8 +10,8 @@ topic: "DeepSeek-Harness 教程重写（插件开发导向）"
 project_slug: "deepseek-harness-update"
 created_at: "2026-08-15"
 last_updated: "2026-08-15"
-current_phase: P4
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: standard
 confirmed_phases: ""
 skippable_phases: "P3"
@@ -19,6 +19,7 @@ mode_dependent_skips: ""
 allowed_modes: ""
 mode_change_phase: ""
 blocked_reason: ""
+quality_gate: passed
 ---
 
 # 批量旧笔记更新工作流 - 执行检查清单
@@ -28,7 +29,7 @@ blocked_reason: ""
 > 运行标识：update-deepseek-harness
 > 项目标识：deepseek-harness-update
 > 创建时间：2026-08-15
-> 当前阶段：阶段 4
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -85,7 +86,7 @@ blocked_reason: ""
 - [ ] 原文未被覆盖，除非 destination_mode 为 patch-in-place 且用户已确认
 - [ ] 批处理日志已追加：`./03_batch_update_log.md`
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -95,7 +96,7 @@ blocked_reason: ""
 - [ ] 如提供 MOC，已同步索引且未复制正文
 - [ ] 批量更新报告已保存：`./04_batch_update_report.md`
 
-> [P5] ⬜ 未开始
+> [P5] ✅ 已完成 {complete}
 
 ---
 
@@ -104,6 +105,7 @@ blocked_reason: ""
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
 | P4-批次1 | 确认 Ch1–Ch3 重写结果，继续批次 2 | 2026-08-15 |
+| P4-全批 | 确认全部 7 篇重写结果，进入 P5 | 2026-08-15 |
 
 ---
 
@@ -138,10 +140,10 @@ blocked_reason: ""
 - **源路径**：`AI学习/DeepSeek-Harness 教程/`
 - **更新目标**：以「写自己的 dsh 插件」为目标重构整套教程，用 Claude Code 经验做桥接
 - **处理文件数**：7（README + 5 分册 + MOC）
-- **更新文件数**：
-- **跳过文件数**：
-- **需复核文件数**：
-- **输出模式**：
-- **文件路径**：
+- **更新文件数**：7
+- **跳过文件数**：0
+- **需复核文件数**：0
+- **输出模式**：patch-in-place（原地覆盖，保留文件名）
+- **文件路径**：`AI学习/DeepSeek-Harness 教程/`（7 篇原地覆盖）
 - **Obsidian Vault**：`/Users/zhqznc/Documents/项目`
-- **MOC 路径**：`AI学习/DeepSeek-Harness 教程/DeepSeek-Harness MOC.md`
+- **MOC 路径**：`AI学习/DeepSeek-Harness 教程/DeepSeek-Harness MOC.md`（已同步）+ 父级 `AI学习/00-索引/AI学习 MOC.md`（描述行已同步）

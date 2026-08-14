@@ -2,7 +2,7 @@
 title: "AI学习 MOC"
 tags: [moc]
 created: 2026-05-14
-updated: 2026-08-13
+updated: 2026-08-15
 ---
 
 # AI学习 MOC
@@ -59,7 +59,7 @@ graph TB
 
     DeepSeek --> DR1[配置详解]
 
-    DeepSeekHarness --> DH1[对照迁移]
+    DeepSeekHarness --> DH1[插件开发]
 
     OpenCode --> Opn1[配置迁移实战]
 ```
@@ -211,11 +211,11 @@ graph TB
 
 > [[DeepSeek-Harness MOC]] — 完整目录与导航入口
 
-- [[DeepSeek-Harness 是什么]] — 定位、一切皆插件、与 Claude Code 的关系
-- [[DeepSeek-Harness 安装与快速上手]] — 安装三路径、Web UI 首次配置、headless 一次性任务
-- [[DeepSeek-Harness 配置体系]] — 多层 YAML 补丁树、Profile/Agent Preset、权限安全、CLI 参考、插件开发、提示词组装
-- [[DeepSeek-Harness 与ClaudeCode对照迁移]] — 概念/成本/性能三表、三选迁移策略
-- [[DeepSeek-Harness 常见坑与速查]] — 坑清单、命令速查、V4 协议坑
+- [[DeepSeek-Harness 是什么]] — 心智模型：插件树 vs 单体+扩展、Claude Code 扩展对照表
+- [[DeepSeek-Harness 安装与快速上手]] — 环境准备：源码运行路径（写插件前提）、Web UI/headless 验证
+- [[DeepSeek-Harness 配置体系]] — 插件开发核心：apply(ctx)/patch 注册/生命周期/inject/Config/defineTool/hook/发布
+- [[DeepSeek-Harness 与ClaudeCode对照迁移]] — 实战：从零写自定义工具插件（每步对照 Claude Code）
+- [[DeepSeek-Harness 常见坑与速查]] — 插件开发速查：坑/命令/工具契约/配置引用
 
 ---
 
@@ -225,4 +225,4 @@ graph TB
 - 📝 笔记总数：152
 - 📁 子目录数：72
 - 📅 生成日期：2026-05-14
-- 📅 更新日期：2026-08-13
+- 📅 更新日期：2026-08-15
