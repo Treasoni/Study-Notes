@@ -65,6 +65,7 @@
     },
     "项目实战": {
       "children": [
+        "项目实战/WebFetch vs Skill vs MCP.md",
         "项目实战/项目实战 MOC.md",
         "项目实战/debian实战",
         "项目实战/数字员工智能体",

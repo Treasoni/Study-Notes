@@ -1,7 +1,6 @@
 ---
 title: WebFetch vs Skill vs MCP 概念辨析与开源工具选型
 tags:
-  - Claude Code
   - MCP
   - Skill
   - WebFetch
@@ -48,7 +47,7 @@ source_project: study-system
 | **Crawl4AI** | 强化 research-collector 精读：批量并发、干净 Markdown、结构化提取、本地缓存（最终选定） |
 | **Trafilatura** | 轻量正文净化，不想上重型爬虫时的备选 |
 | **Firecrawl** | 自托管 API 服务，自带反爬，可作 MCP 接入 |
-| **RSSHub** | 万物转 RSS，配合 [[N8N定时抓取热点资讯指南]] 扩展数据源 |
+| **RSSHub** | 万物转 RSS，配合 [[../N8N定时抓取热点资讯指南]] 扩展数据源 |
 | **ScrapeGraphAI** | AI 驱动爬虫，自然语言指定提取字段的备选 |
 
 ### AI / Agent 工作流工具

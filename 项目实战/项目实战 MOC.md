@@ -28,7 +28,7 @@ status: active
 - [[数字员工智能体/数字员工智能体-开源平台选型与实现]] - 数字员工智能体开源平台选型与实现 #AI #智能体
 
 ### Claude Code / Agent
-- [[Crawl4AI实战笔记]] - WebFetch vs Skill vs MCP 概念辨析与开源工具选型，含资料收集与 AI/Agent 工作流方向开源项目推荐 #ClaudeCode #MCP #工具选型 #资料收集
+- [[WebFetch vs Skill vs MCP]] - WebFetch vs Skill vs MCP 概念辨析与开源工具选型，含资料收集与 AI/Agent 工作流方向开源项目推荐 #ClaudeCode #MCP #工具选型 #资料收集
 
 ## 概览
 
