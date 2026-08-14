@@ -213,7 +213,7 @@ graph TB
 
 - [[DeepSeek-Harness 是什么]] — 定位、一切皆插件、与 Claude Code 的关系
 - [[DeepSeek-Harness 安装与快速上手]] — 安装三路径、Web UI 首次配置、headless 一次性任务
-- [[DeepSeek-Harness 配置体系]] — 多层 YAML 补丁树、Profile/Agent Preset、权限安全、CLI 参考
+- [[DeepSeek-Harness 配置体系]] — 多层 YAML 补丁树、Profile/Agent Preset、权限安全、CLI 参考、插件开发、提示词组装
 - [[DeepSeek-Harness 与ClaudeCode对照迁移]] — 概念/成本/性能三表、三选迁移策略
 - [[DeepSeek-Harness 常见坑与速查]] — 坑清单、命令速查、V4 协议坑
 

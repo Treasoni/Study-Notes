@@ -43,7 +43,7 @@ source_project: deepseek-harness
 
 | 笔记 | 说明 |
 |------|------|
-| [[DeepSeek-Harness 配置体系]] | 多层 YAML 补丁树 + Profile + Agent Preset、权限安全、模型/Provider、CLI 完整参考 |
+| [[DeepSeek-Harness 配置体系]] | 多层 YAML 补丁树 + Profile + Agent Preset、权限安全、模型/Provider、CLI 完整参考、插件开发、系统提示词组装 |
 
 ### 04 对照迁移
 

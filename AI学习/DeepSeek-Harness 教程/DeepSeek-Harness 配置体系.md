@@ -2,8 +2,8 @@
 title: "DeepSeek-Harness 配置体系"
 tags: [deepseek-harness, ai, agent, 教程, 配置]
 created: 2026-08-13
-updated: 2026-08-13
-status: new
+updated: 2026-08-14
+status: updated
 source_project: deepseek-harness
 ---
 
@@ -118,6 +118,95 @@ Provider ID **永久**（请求/会话/默认值/凭据引用都用它），重�
 - **热重载**：profile 启动时监听 profile 与 home 两个 `cordis.patch.yml` 的编辑并事务性重放；但活动编辑不能重置已占用的端口；
 - **关闭行为**：进程关闭给插件树最多 5 秒清理；首个 SIGINT/SIGTERM 触发优雅排空（SIGTERM 退出码 0，SIGINT 报 130），第二个信号强制立即退出。
 
+## 3.8 插件开发基础：第一个插件
+
+dsh 的「一切皆插件」不是口号——官方用一整页教你写第一个插件[^2]。前提：已完成源码运行路径（README 的 run from source）。
+
+### 插件是什么
+
+插件是导出 `apply` 函数的 TypeScript 模块。框架加载时调用 `apply` 并传入 `ctx`（上下文对象），通过 `ctx` 注册能力[^2]：
+
+```ts
+import type { Context } from '@deepseek-ai/cordis'
+
+export const name = 'my-plugin'
+
+export function apply(ctx: Context) {
+  // Register capabilities here.
+}
+```
+
+### 创建并注册
+
+```bash
+mkdir -p scratch-plugin/src          # 在仓库根创建临时项目
+```
+
+创建 `scratch-plugin/src/my-plugin.ts` 后，在仓库根运行 `pwd` 拿绝对路径，写 `scratch-plugin/cordis.yml`：
+
+```yaml
+- insert:
+    - id: hello
+      name: '/absolute/path/to/deepseek-harness/scratch-plugin/src/my-plugin.ts'
+```
+
+> [!warning] 插件路径必须是绝对路径
+> patch 文件只贡献配置，不会改变 loader 解析模块路径时使用的 profile 目录——相对路径会失效。
+
+启动并验证：
+
+```bash
+pnpm dsh web --patch ./scratch-plugin/cordis.yml
+# 打开 http://127.0.0.1:3080，终端应打印 [hello-plugin] plugin loaded!
+```
+
+### 自动清理与依赖
+
+- 通过 `ctx` 注册的任何东西（事件监听、工具、定时器）在插件卸载时自动清理，无需手动 removeListener / clearInterval；
+- 需要手动清理的资源用 `ctx.effect()`；
+- 使用其他服务（如 `tools`、`llm`）时声明 `inject`，框架保证依赖就绪后才加载插件。
+
+### 插件的三种形态
+
+- **函数形式**：具名导出 `name` + `apply`（多数情况足够）；
+- **对象形式**：`export default { name, inject, apply(ctx) { ... } }`；
+- **类形式**：继承 `Service`，`static inject = ['tools']`，构造函数同步初始化，`super(ctx, 'myService')`——适用于向其他插件提供服务的场景。
+
+## 3.9 system-prompt 子系统：系统提示词如何组装
+
+`system-prompt` 包（`packages/core/system-prompt`）是负责**在每次模型调用前组装最终系统提示词**的注册表服务 `ctx.systemPrompt`[^3]。想理解 dsh 的提示词体系，这是权威参考。
+
+### 提示词段落 PromptSection
+
+```ts
+interface PromptSection {
+  readonly name: string        // 必须唯一，重复注册抛错
+  readonly order: number       // 升序拼接
+  readonly text: string | ((context) => string)  // 可含 {{variable}} 占位符
+  readonly complete?: boolean  // true = 该段即完整系统提示词
+}
+```
+
+**order 约定**：`-100` harness 身份 → `0` 部署人格（persona）→ 其他负数在人格前 → `100–199` 工具指导。
+
+**complete 语义**：`complete: true` 的段表示「贡献就是完整系统提示词」。组装仍会跑协作瀑布（解析工具/上下文/变量），随后把该段恢复为唯一提示词段；多个生效 complete 段 → 组装失败。
+
+### 作用域与遮蔽
+
+- 作用域级段落/变量/动态上下文**遮蔽**（shadow）全局同名项；
+- 工具提供方例外：全局与匹配作用域**共同贡献**；
+- 变量名匹配 `[a-z][a-z0-9_]*`，`{{variable}}` 在渲染期由 `renderPrompt` 插值，不是组装期。
+
+### 事件
+
+- `system-prompt/assemble`（waterfall）：返回值权威，监听者可修改 assembly；已注册 complete 段在瀑布后恢复，监听者不能再向该系统提示词增删内容；
+- `system-prompt/change`（emit）：任何提示词提供方变化时发出，未过滤。
+
+### 关键防错与持久化
+
+- `knownNames`：区分「配置名拼写错误」与「已知工具在作用域内被有意隐藏」；
+- `PromptContext`：缓存安全的动态上下文，物化为 durable user-role snapshot，仅当快照变化或被 compaction 移除时才追加到模型历史——避免每回合重复写入。
+
 ---
 
 ## 本章小结
@@ -127,10 +216,19 @@ Provider ID **永久**（请求/会话/默认值/凭据引用都用它），重�
 > - **两级配置**：Profile（进程级，决定 bundle）与 Agent Preset（会话级，内置 `minimal`/`standard`/`code`/`cordis` 四预设）；
 > - 权限默认 `workspace-write`，密钥 env 自动清洗，核心不变量「模型可见即已记录」；
 > - 模型层默认 V4-Flash/Pro，可换约 40 家第三方 provider 或自定义 OpenAI-compatible provider；
-> - CLI 有严格 launcher 规则：标志须在 app 参数前。
+> - CLI 有严格 launcher 规则：标志须在 app 参数前；
+> - 进阶：插件开发走 `cordis.yml` patch + `apply(ctx)`（三种形态）；系统提示词由 `ctx.systemPrompt` 注册表按 order 组装，`complete` 段可独占。
 
 下一章做迁移决策：[[DeepSeek-Harness 与ClaudeCode对照迁移|换还是留？]]
 
 ---
 
+## 更新记录
+
+- 2026-08-14：新增 3.8 插件开发基础（第一个插件）、3.9 system-prompt 子系统参考，依据官方文档 develop/basic 与 reference/subsystems/system-prompt。
+
+---
+
 [^1]: 素材来源：DeepSeek Harness 官方仓库与文档（2026-08-13 收集）。
+[^2]: 素材来源：DeepSeek Harness 官方文档「开发基础：第一个插件」（2026-08-14 收集）。
+[^3]: 素材来源：DeepSeek Harness 官方文档「system-prompt 子系统参考」（2026-08-14 收集）。

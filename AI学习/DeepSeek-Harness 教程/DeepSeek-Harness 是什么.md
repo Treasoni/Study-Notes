@@ -2,8 +2,8 @@
 title: "DeepSeek-Harness 是什么"
 tags: [deepseek-harness, ai, agent, harness, 教程]
 created: 2026-08-13
-updated: 2026-08-13
-status: new
+updated: 2026-08-14
+status: updated
 source_project: deepseek-harness
 ---
 
@@ -23,7 +23,7 @@ source_project: deepseek-harness
 
 ## 1.2 核心架构：一切皆插件（无特权核心）
 
-dsh 由 Cordis 框架驱动，核心原则是「一切皆插件」：模型适配器、工具注册表、会话日志、Agent loop、沙箱均可替换，无特权核心[^1]。对比 Claude Code 的「单体核心 + 扩展」，dsh 是「空壳 + 插件树」——插件约 300 个，用 `dsh plugin --profile <name> add <package>` 管理。
+dsh 由 Cordis 框架驱动，核心原则是「一切皆插件」：模型适配器、工具注册表、会话日志、Agent loop、沙箱均可替换，无特权核心[^1]。对比 Claude Code 的「单体核心 + 扩展」，dsh 是「空壳 + 插件树」——插件约 300 个，用 `dsh plugin --profile <name> add <package>` 管理。想自己写第一个插件，官方有「开发基础」入门（`apply(ctx)` + `cordis.yml` patch 注册），见 [[DeepSeek-Harness 配置体系|配置体系 3.8 插件开发基础]]。
 
 > [!tip] 大白话
 > dsh 像没有「核心引擎」的乐高车，方向盘、轮子全是可插拔积木块。嫌轮子不好就整个换掉，不必换车。
@@ -50,6 +50,12 @@ dsh 处于 developer preview（v0.1，2026-08-13 发布），README 明确 "THER
 > - 状态：developer preview，有破坏性变更，反馈走 GitHub Discussions；认准官方包名 `@deepseek-ai/dsh` 与 `deepseek-harness-sdk`。
 
 下一章直接动手：[[DeepSeek-Harness 安装与快速上手]]——安装三路径、Web UI 首次配置，5 分钟跑通第一个会话。
+
+---
+
+## 更新记录
+
+- 2026-08-14：在 1.2「一切皆插件」补充第一个插件开发入口引用（双链到配置体系 3.8），依据官方文档 develop/basic。
 
 ---
 
