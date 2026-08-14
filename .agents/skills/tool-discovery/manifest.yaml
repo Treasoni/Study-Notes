@@ -2,12 +2,13 @@ apiVersion: agent-platform/v1
 kind: Skill
 metadata:
   name: tool-discovery
-  version: 1.0.0
-  description: "Discover available tools and project skills for research work."
+  version: 1.1.0
+  description: "Discover verified runtime tools, MCP services, and project skills for research work."
 spec:
   entrypoint: SKILL.md
   capabilities:
     - tools.discover
+    - research.tools.catalog
   permissions:
     filesystem: read
     network: none

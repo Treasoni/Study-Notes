@@ -1,0 +1,8 @@
+id,relative_path,title,updated,status,reason,priority,size_bytes
+01,AI学习/DeepSeek-Harness 教程/README.md,DeepSeek-Harness 配置使用教程,2026-08-13,ready,系列导览重构为插件开发导向,high,3656
+02,AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 是什么.md,DeepSeek-Harness 是什么,2026-08-14,ready,Ch1 心智模型：插件树 vs 单体+扩展,high,3977
+03,AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 安装与快速上手.md,DeepSeek-Harness 安装与快速上手,2026-08-13,ready,Ch2 环境准备：源码运行路径+基础配置,high,4270
+04,AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 配置体系.md,DeepSeek-Harness 配置体系,2026-08-14,ready,Ch3 插件开发核心（全书核心）,high,12706
+05,AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 与ClaudeCode对照迁移.md,DeepSeek-Harness 与ClaudeCode对照迁移,2026-08-13,ready,Ch4 实战项目：写一个完整示例插件,high,5695
+06,AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 常见坑与速查.md,DeepSeek-Harness 常见坑与速查,2026-08-13,ready,Ch5 插件开发速查与排错,high,3975
+07,AI学习/DeepSeek-Harness 教程/DeepSeek-Harness MOC.md,DeepSeek-Harness 教程 MOC,2026-08-13,ready,索引更新,medium,2655

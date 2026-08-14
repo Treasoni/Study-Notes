@@ -103,7 +103,7 @@
 | `to-questionnaire` | Turn a decision you can't fully answer into a questionnaire for someone else … | Turn a decision you can't fully answer i… |
 | `to-spec` | Turn the current conversation into a spec and publish it to the project issue… | Turn the current conversation into a spe… |
 | `to-tickets` | Break a plan, spec, or the current conversation into a set of tracer-bullet t… | Break a plan, spec, or the current conve… |
-| `tool-discovery` | 查看当前环境中可用于资料收集的工具，包括内置工具、MCP 工具和已安装的 skills。当用户想了解有哪些工具可以用来搜索、提取、分析资料时使用此技能。 | 可用工具、有哪些工具、工具列表、收集工具、search tools、available tools |
+| `tool-discovery` | 发现当前运行时可用于资料收集的网页、浏览器、MCP 与研究技能，并刷新项目资料工具指南。用于询问可用工具、搜索工具、研究能力或资料收集方案时。 | 发现当前运行时可用于资料收集的网页、浏览器、MCP 与研究技能，并刷新项目资料工… |
 | `triage` | Move issues and external PRs through a state machine of triage roles — catego… | Move issues and external PRs through a s… |
 | `wait-what` | Stop. That last message did not land — re-pitch it. | Stop |
 | `wayfinder` | Plan a huge chunk of work — more than one agent session can hold — as a share… | Plan a huge chunk of work — more than on… |
