@@ -2,7 +2,7 @@
 title: "AI学习 MOC"
 tags: [moc]
 created: 2026-05-14
-updated: 2026-08-11
+updated: 2026-08-13
 ---
 
 # AI学习 MOC
@@ -25,6 +25,7 @@ graph TB
         Claude[📁 Claude Code 教程]
     CodexNode[📁 Codex]
     DeepSeek[📁 DeepSeek-Reasonix 教程]
+    DeepSeekHarness[📁 DeepSeek-Harness 教程]
     OpenCode[📁 OpenCode]
     end
 
@@ -57,6 +58,8 @@ graph TB
     CodexNode --> CX4[对照迁移]
 
     DeepSeek --> DR1[配置详解]
+
+    DeepSeekHarness --> DH1[对照迁移]
 
     OpenCode --> Opn1[配置迁移实战]
 ```
@@ -203,6 +206,16 @@ graph TB
 - [[DeepSeek-Reasonix 插件与扩展开发]] — Extension Protocol Sidecar
 - [[从 Claude Code 迁移到 DeepSeek-Reasonix]] — 命令/概念对照、迁移步骤
 - [[DeepSeek-Reasonix 沙箱与安全]] — 沙箱、凭据保护、权限兜底
+
+### DeepSeek-Harness 教程
+
+> [[DeepSeek-Harness MOC]] — 完整目录与导航入口
+
+- [[DeepSeek-Harness 是什么]] — 定位、一切皆插件、与 Claude Code 的关系
+- [[DeepSeek-Harness 安装与快速上手]] — 安装三路径、Web UI 首次配置、headless 一次性任务
+- [[DeepSeek-Harness 配置体系]] — 多层 YAML 补丁树、Profile/Agent Preset、权限安全、CLI 参考
+- [[DeepSeek-Harness 与ClaudeCode对照迁移]] — 概念/成本/性能三表、三选迁移策略
+- [[DeepSeek-Harness 常见坑与速查]] — 坑清单、命令速查、V4 协议坑
 
 ---
 
