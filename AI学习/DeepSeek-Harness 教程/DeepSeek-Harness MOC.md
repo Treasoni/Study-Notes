@@ -51,6 +51,7 @@ source_project: deepseek-harness
 | 笔记 | 说明 |
 |------|------|
 | [[DeepSeek-Harness 与ClaudeCode对照迁移]] | 从零写自定义工具插件 walkthrough：骨架→greet→repo_status→配置→打包，每步对照 Claude Code |
+| [[DeepSeek-Harness 配置实战]] | 像 Claude Code 一样接入 skills/hooks/mcp/rules：rules/skills 零迁移，hooks/mcp 走 cordis.yml，附照搬四步清单 |
 
 ### 05 速查与排错
 
@@ -69,11 +70,13 @@ source_project: deepseek-harness
   ├── DeepSeek-Harness 插件开发核心    ← 全书核心，篇幅最长
   ├── DeepSeek-Harness 配置体系        ← 配置专册（读核心时配套查）
   ├── DeepSeek-Harness 与ClaudeCode对照迁移  ← 实战：写第一个自定义工具插件
+  ├── DeepSeek-Harness 配置实战        ← 实战：接入现成 skills/hooks/mcp/rules
   └── DeepSeek-Harness 常见坑与速查     ← 日常速查
 
 ▸ 急用路径
   ├── 安装与快速上手  → 跑通源码环境
   ├── 与ClaudeCode对照迁移 → 照猫画虎写第一个工具
+  ├── 配置实战 → 把现成 Claude Code 配置搬进 dsh
   └── 回头补 插件开发核心 + 配置体系 + 常见坑与速查
 ```
 
