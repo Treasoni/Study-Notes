@@ -198,7 +198,7 @@ pnpm dsh web --patch ./git-log-plugin/dev-cordis.patch.yml
 三个必须讲清的要点：
 
 1. **为什么命令必须在仓库根目录执行**：`--patch` 的相对路径按 **dsh 源码仓库根目录**解析（`loadOverlayPatches` 直接把它当文件系统路径），不是相对当前 shell 目录。所以即使文件在 `git-log-plugin/dev-cordis.patch.yml`，从插件目录里跑 `--patch ./dev-cordis.patch.yml` 也会解析成 `<仓库根>/dev-cordis.patch.yml` 而 `ENOENT`；正确写法是在根目录给全相对路径 `--patch ./git-log-plugin/dev-cordis.patch.yml`。开发期**不用 npx**——`pnpm dsh` 会向上找到 workspace 根部的 dsh CLI（即使从插件目录发起也能找到命令本体），但这只保证「命令找得到」，不保证「补丁路径指得对」。反过来，如果插件目录建在源码仓库**外面**，`pnpm dsh` 就连命令都找不到了[^S11]。
-2. **`dsh web` 是 `dsh --profile web` 的硬编码别名**：`web` 不是某个参数值，是 CLI 层写死的快捷方式，含义是「用 web 这个 profile 跑起来并开 Web 服务」。想换 profile 就写 `dsh --profile <名字> --patch ...`，第 5 章会用到。
+2. **`dsh web` 是 `dsh --profile web` 的硬编码别名**：`web` 不是某个参数值，是 CLI 层写死的快捷方式，含义是「用 web 这个 profile 跑起来并开 Web 服务」。想换 profile 就写 `pnpm dsh --profile <名字> --patch ...`，第 5 章会用到。
 3. **为什么 patch 文件叫 `dev-cordis.patch.yml`**：大纲落定的命名——第一步就用 `dev-` 前缀，给第 5 步的打包 patch（bundle patch，`cordis.patch.yml`）留好命名空间，避免以后改名。现在这份就是「开发期手工挂载」的 dev patch，用 `--patch` 指定路径加载。
 
 ### 2.5 校准认知：「plugin loaded!」是插件自己的日志
@@ -651,14 +651,14 @@ pnpm dsh web --patch ./git-log-plugin/dev-cordis.patch.yml
 
 注意：这条日志是 `src/index.ts` 里 `console.log` 打出来的，不是 dsh 框架/CLI 的功能（第 2 章校准过）。`dsh web` 是 `--profile web` 的硬编码别名，方便本地起一个带 Web UI 的开发实例[^S8]。看到日志只说明「模块被加载了」，工具和配置到底对不对，要靠下面三条命令。
 
-### 5.2 `dsh --profile demo --dump-config`：分层打印（bundle 各层 → profile patch → home 级 → `--patch` 叠加）
+### 5.2 `pnpm dsh --profile demo --dump-config`：分层打印（bundle 各层 → profile patch → home 级 → `--patch` 叠加）
 
 dsh 的配置不是单个文件，而是**四层补丁树**叠出来的：bundle 各层（按列表序）→ profile patch → home 级 → `--patch` 叠加，后层对前层做整行替换、不做字段级深合并[^S8]。想知道某条配置最终从哪一层来、合并成什么样，用 `--dump-config` 看全量：
 
 ```bash
 # --dump-config 打印全量分层；加 --patch 把开发期补丁作为最顶层叠进来
 # （不加的话，还在开发中的 git-log 层看不到）
-dsh --profile demo --dump-config --patch ./git-log-plugin/dev-cordis.patch.yml
+pnpm dsh --profile demo --dump-config --patch ./git-log-plugin/dev-cordis.patch.yml
 ```
 
 输出按层打印，每层都带来源文件注释，大致长这样（示意，实际输出以你的环境为准）：
@@ -680,12 +680,12 @@ dsh --profile demo --dump-config --patch ./git-log-plugin/dev-cordis.patch.yml
 > [!tip] 大白话
 > 把 `--dump-config` 想成「验房验收单」——每层配置像每道工序（水电、木工、油漆），验收单按施工顺序一层层打勾，最后这张单子就是房子的最终状态。所以它能直接告诉你：`git-log` 是哪个文件贡献的、`maxCommits` 最终等于几。
 
-### 5.3 `dsh --profile demo --dump-default-config`：只看 bundle 层（不含 profile/home/patch）
+### 5.3 `pnpm dsh --profile demo --dump-default-config`：只看 bundle 层（不含 profile/home/patch）
 
 这条和 5.2 一字之差，含义**相反**。`--dump-default-config` 只看 bundle 层，不含 profile patch、home 级，也不含 `--patch` 叠加[^S8]：
 
 ```bash
-dsh --profile demo --dump-default-config
+pnpm dsh --profile demo --dump-default-config
 ```
 
 它回答的是「各 bundle 作者默认贡献了什么配置」，与用户侧任何定制无关。开发期你的 `dev-cordis.patch.yml` 还没打进 bundle，所以这条命令里看不到 `git-log` 是**正常的**；等第 6 章工程化、把补丁打进包之后，再跑它就能核对「我这个包到底声明了哪一层配置」。
@@ -696,12 +696,12 @@ dsh --profile demo --dump-default-config
 > [!note] 这在 Claude Code 里相当于
 > `--dump-config` / `--dump-default-config` 类似 `claude config list` 这类「看合并后配置」的调试手段——排查「我改的配置到底生效没有」时，先看合并结果，而不是凭感觉猜。
 
-### 5.4 `dsh --profile headless "<task>"`：一次性任务端到端，stdout 打印文本，退出码 **0 = completed / 1 = otherwise**；无任务文本 = usage 错误
+### 5.4 `pnpm dsh --profile headless "<task>"`：一次性任务端到端，stdout 打印文本，退出码 **0 = completed / 1 = otherwise**；无任务文本 = usage 错误
 
 前三条验「加载」和「配置」，这条验「端到端能不能用」。headless 模式直接执行一个一次性任务，结果文本打印到 stdout：
 
 ```bash
-dsh --profile headless "用 git_log 工具查看当前仓库最近的 5 次提交"
+pnpm dsh --profile headless "用 git_log 工具查看当前仓库最近的 5 次提交"
 echo $?
 # 0  ← 上一条命令的退出码
 ```
@@ -716,12 +716,12 @@ echo $?
 headless 也是 dsh 自动初始化 profile 的入口之一（缺 profile 时按模板建），所以就算 `demo` profile 还没手动建过，这一条也能直接跑通[^S8]。**关键坑：无任务文本是 usage 错误**，不是「正常返回」：
 
 ```bash
-dsh --profile headless
+pnpm dsh --profile headless
 # usage 错误：缺少任务文本，退出码为 1（otherwise）
 ```
 
 > [!tip] 大白话
-> headless 的退出码 0/1 像验收时盖的章——0 是「验收合格」，1 是「不合格」。脚本里可以直接 `if dsh --profile headless "任务"; then ...` 当布尔判断用，放进 CI 或批处理都很顺手。
+> headless 的退出码 0/1 像验收时盖的章——0 是「验收合格」，1 是「不合格」。脚本里可以直接 `if pnpm dsh --profile headless "任务"; then ...` 当布尔判断用，放进 CI 或批处理都很顺手。
 
 > [!note] 这在 Claude Code 里相当于
 > headless 的 0/1 退出码约定，和所有 CLI 命令一致——脚本判断成功失败看退出码，而不是去解析 stdout 文本。
@@ -739,13 +739,13 @@ dsh --profile headless
 | 要验证什么          | 用哪条命令                                                                            |
 | -------------- | -------------------------------------------------------------------------------- |
 | 插件被加载          | `pnpm dsh web --patch ./git-log-plugin/dev-cordis.patch.yml`                     |
-| 配置合并成什么样       | `dsh --profile demo --dump-config --patch ./git-log-plugin/dev-cordis.patch.yml` |
-| bundle 默认贡献了什么 | `dsh --profile demo --dump-default-config`                                       |
-| 端到端能不能用        | `dsh --profile headless "<task>"`                                                |
+| 配置合并成什么样       | `pnpm dsh --profile demo --dump-config --patch ./git-log-plugin/dev-cordis.patch.yml` |
+| bundle 默认贡献了什么 | `pnpm dsh --profile demo --dump-default-config`                                       |
+| 端到端能不能用        | `pnpm dsh --profile headless "<task>"`                                                |
 
 ### 本章小结
 
-- 四条验证命令分工明确：`dsh web --patch` 验「加载」，`--dump-config` 验「配置落在哪一层」，`--dump-default-config` 验「bundle 默认贡献」，headless 验「端到端」。
+- 四条验证命令分工明确：`pnpm dsh web --patch` 验「加载」，`--dump-config` 验「配置落在哪一层」，`--dump-default-config` 验「bundle 默认贡献」，headless 验「端到端」。
 - `--dump-config` 是全层（bundle → profile → home → `--patch`），`--dump-default-config` 只看 bundle 层——别搞反。
 - headless 退出码 0 = completed、1 = otherwise；无任务文本是 usage 错误，不是正常返回。
 - dump 输出带文件名注释、`!!js` 不求值、未命中配置走 stderr。
@@ -755,7 +755,7 @@ dsh --profile headless
 
 ## 第 6 章：第 5 步——工程化补齐
 
-前四步我们从空目录一路写到了 `src/index.ts`（注册中心）、`src/tools/git-log.ts`（工具）和 `dev-cordis.patch.yml`（开发期补丁），插件已经能在 `dsh web --patch` 下加载。但严格说，它还是一堆能跑的 TypeScript 文件——没有 `package.json` 的目录不具备「被安装、被打包、被发布」的资格。第 5 步就是补上工程化三件套：`package.json`（含依赖双份与 files 白名单）、`tsconfig.json`、双 patch（dev + bundle），让项目从「手工作坊」升级成「流水线」。
+前四步我们从空目录一路写到了 `src/index.ts`（注册中心）、`src/tools/git-log.ts`（工具）和 `dev-cordis.patch.yml`（开发期补丁），插件已经能在 `pnpm dsh web --patch` 下加载。但严格说，它还是一堆能跑的 TypeScript 文件——没有 `package.json` 的目录不具备「被安装、被打包、被发布」的资格。第 5 步就是补上工程化三件套：`package.json`（含依赖双份与 files 白名单）、`tsconfig.json`、双 patch（dev + bundle），让项目从「手工作坊」升级成「流水线」。
 
 > [!note] 本章要创建 / 生成哪些文件
 > 手写 **3 个新文件** + **2 个生成物**，全部落在 `git-log-plugin/` 目录内：
@@ -940,7 +940,7 @@ dist/
     └── git-log.d.ts
 ```
 
-看到这个结构，说明 `main: dist/index.js` 和 `types: dist/index.d.ts` 指向的文件真实存在了，插件已具备被 `pnpm pack` 打包、被 `dsh plugin add` 安装的资格。下一步（第 7 章）进入打包安装。
+看到这个结构，说明 `main: dist/index.js` 和 `types: dist/index.d.ts` 指向的文件真实存在了，插件已具备被 `pnpm pack` 打包、被 `pnpm dsh plugin add` 安装的资格。下一步（第 7 章）进入打包安装。
 
 ## 本章小结
 
@@ -1099,7 +1099,7 @@ allowBuilds:
 - **profile 由 `pnpm dsh plugin` 自动对账，永不手写**；缺 dsh 声明的包只装为普通依赖 + 一次告警，不激活层。[^S12]
 - **git 源安装三坑（未实测）**：prepare 自包含构建、pnpm≥10 的 `allowBuilds` 放行、`#sha` 钉 commit。[^S3]
 
-下一章把全篇压缩成一张「从零到装好」的路线图，串起 `dsh web --patch` → `--dump-config` → headless → `pnpm pack` → `dsh plugin add` 这条完整命令链。
+下一章把全篇压缩成一张「从零到装好」的路线图，串起 `pnpm dsh web --patch` → `--dump-config` → headless → `pnpm pack` → `pnpm dsh plugin add` 这条完整命令链。
 
 ## 第 8 章：小结与下一步
 
@@ -1116,23 +1116,23 @@ allowBuilds:
 | ③ 加配置 | 第 4 章 | 不新增 | `src/index.ts` 加 `Config` schema；两份 patch 加 `config` 块 |
 | ④ 验证 | 第 5 章 | 不新增 | 四条验证命令 |
 | ⑤ 工程化 | 第 6 章 | 新增 3 个 | `package.json` + `tsconfig.json` + `cordis.patch.yml`；build 产出 `dist/` |
-| ⑥ 打包安装 | 第 7 章 | 不新增 | `pnpm pack` → `dsh plugin add` |
+| ⑥ 打包安装 | 第 7 章 | 不新增 | `pnpm pack` → `pnpm dsh plugin add` |
 
 起点是最小 2 文件骨架 [^S1]。第 ⑤ 步定型双 patch：`dev-cordis.patch.yml`（开发期绝对路径）与 `cordis.patch.yml`（bundle，`name = dsh-git-log-plugin`）。文件归属沿用 [[DeepSeek-Harness 插件开发核心]]：工具进 `src/tools/`，`src/index.ts` 做注册中心。
 
-### 8.2 一条命令链串起来：`dsh web --patch` → `--dump-config` → headless → `pnpm pack` → `dsh plugin add`
+### 8.2 一条命令链串起来：`pnpm dsh web --patch` → `--dump-config` → headless → `pnpm pack` → `pnpm dsh plugin add`
 
 从开发到交付，五条命令按顺序就是整条流水线：
 
 | 顺序 | 命令 | 作用 | 章节 |
 | --- | --- | --- | --- |
 | 1 | `pnpm dsh web --patch ./git-log-plugin/dev-cordis.patch.yml` | 开发期加载，看 `[git-log-plugin] plugin loaded!` | 第 2 章 |
-| 2 | `dsh --profile demo --dump-config` | 分层打印合并后配置 | 第 5 章 |
-| 3 | `dsh --profile headless "<task>"` | 一次性任务端到端（退出码 0/1） | 第 5 章 |
+| 2 | `pnpm dsh --profile demo --dump-config` | 分层打印合并后配置 | 第 5 章 |
+| 3 | `pnpm dsh --profile headless "<task>"` | 一次性任务端到端（退出码 0/1） | 第 5 章 |
 | 4 | `pnpm pack` | 打成 tarball | 第 7 章 |
-| 5 | `dsh plugin --profile demo add <tarball>` | 装进 profile 并对账 | 第 7 章 |
+| 5 | `pnpm dsh plugin --profile demo add <tarball>` | 装进 profile 并对账 | 第 7 章 |
 
-前三条在 dsh 源码仓库根目录执行，后两条在插件工程里执行；打包安装机制来自官方 bundle/profile 文档 [^S3]。
+`pnpm dsh ...` 命令（第 1/2/3/5 条）在 dsh 源码仓库根目录执行，只有第 4 条 `pnpm pack` 在插件工程目录执行；打包安装机制来自官方 bundle/profile 文档 [^S3]。
 
 ### 8.3 下一步：更多工具 / 配置实战 / 发布到 npm registry / 官方模板 `dsh-plugin-*`
 
@@ -1140,7 +1140,7 @@ allowBuilds:
 
 1. **更多工具**：按第 3 章 defineTool 五件套继续加，一个插件可注册多个工具。
 2. **配置实战**：按第 4 章扩展 Schema 类型，把参数做成可配，对照 [[DeepSeek-Harness 配置实战]]。
-3. **发布到 npm registry**：第 7 章只演示 `pnpm pack`，改走 `npm publish`，任何 profile 即可 `dsh plugin add dsh-git-log-plugin` 安装。
+3. **发布到 npm registry**：第 7 章只演示 `pnpm pack`，改走 `npm publish`，任何 profile 即可 `pnpm dsh plugin add dsh-git-log-plugin` 安装。
 4. **官方模板 `dsh-plugin-*`**：现在回头看脚手架能读懂每个文件为何存在——从零练理解，模板提速度，与 [[DeepSeek-Harness 插件实战]] 对照读。
 
 > [!tip] 大白话
@@ -1154,7 +1154,7 @@ allowBuilds:
 ## 本章小结
 
 - 从零到装好共 6 次增量，手写文件 2 → 6 个，加 `dist/` 产物共 8 个文件。
-- 一条命令链覆盖开发到交付：`web --patch` → `--dump-config` → headless → `pnpm pack` → `dsh plugin add`。
+- 一条命令链覆盖开发到交付：`web --patch` → `--dump-config` → headless → `pnpm pack` → `pnpm dsh plugin add`。
 - 四名分离（`git-log-plugin` / `dsh-git-log-plugin` / `git-log` / `git_log`）与「bundle patch name = 包名」是唯一要回翻的坑。
 - 下一步四条路：更多工具、配置实战、npm 发布、官方模板 `dsh-plugin-*`。
 - 至此你能脱离脚手架，从空目录独立造出带 `git_log` 工具与 `maxCommits` 配置的 dsh 插件。
@@ -1238,3 +1238,4 @@ allowBuilds:
 - 2026-08-15 第 6 章补章首「要创建/生成哪些文件」清单：手写 3（package.json / tsconfig.json / cordis.patch.yml）+ 生成 2（pnpm-lock.yaml / dist/），标明落点与所属小节，并列出沿用不新建的文件
 - 2026-08-15 第 6 章结构重构：原 §6.2（依赖双份）与 §6.4（files 白名单）并入 §6.1 package.json 大节，作为子节 6.1.2 / 6.1.3；后续小节顺延为 §6.2 tsconfig / §6.3 双 patch / §6.4 校准注记
 - 2026-08-15 第 7 章命令规范：统一为 `pnpm dsh ...`（在 dsh 源码仓库根目录执行），`pnpm pack` 明确标注在 `git-log-plugin/` 执行；章首新增「本章命令一览」表；7.2/7.4/7.5/7.6 的命令块与正文补上运行位置注释
+- 2026-08-15 第 5、8 章命令对齐：§5.2/5.3/5.4 标题、§5.5 验证表、§8.1/§8.2 命令链表、§8.3 与章节过渡语中的裸 `dsh` 统一为 `pnpm dsh`；修正 §8.2 表格下方「后两条在插件工程里执行」的错误表述（第 5 条 `pnpm dsh plugin` 也在 dsh 源码仓库根目录执行）；顺带统一第 6 章章首 `dsh web --patch` → `pnpm dsh web --patch`
