@@ -1,135 +1,61 @@
 # LEARNINGS.md
 
-## [2026-07-31] Codex 配置笔记 — 笔记拆分策略
+## [LRN-20260815-001] correction — 教程章节结构「一章一节一文件」
 
-### 大笔记必须主动建议拆分
+**Logged**: 2026-08-15T23:21:14+0800
+**Priority**: high
+**Status**: pending
+**Area**: docs
 
-**类别**：best_practice
-**优先级**：high
-**状态**：pending
-**范围**：note-beautifier / note-assembler / workflow
+### Summary
+教程类笔记章节必须「一章一节一文件」：顶级小节只对应一个文件/产物；同一文件的多个字段（如 package.json 的 name / dependencies / files）只能是该文件小节下的子节（####），不能升格成与文件平级的顶级小节。
 
-**摘要**：长篇笔记（>~30KB 或多章节）默认不应输出为单一 Monolithic 文件；应在组装或美化阶段主动向用户建议拆分方案。
+### Details
+- 事实：用户指出 §6.2（依赖双份）和 §6.4（files 白名单）本质是 `package.json` 的字段，却被设成与 §6.1 package.json 平级的顶级小节，破坏「一个顶级小节对应一个文件」的结构。同样逻辑下 §6.2 应在 §6.1 之下。
+- 根因：组织章节时按「主题」而非「产物（文件）」切分，把字段级内容当独立主题展开，导致读者目录里「文件」与「文件的字段」层级混乱。
+- 正确做法：写/改教程时先列出「本章涉及哪些文件/产物」，以文件为顶级小节；文件内的字段/子主题用 `####` 子节（如 6.1.1 最小字段 / 6.1.2 依赖双份 / 6.1.3 files 白名单）。
 
-**详情**：
-- 事实：用户要求写 Codex 配置笔记，完整流程生成了 75KB / 1876 行的单文件笔记。用户反问"你不拆分吗？"
-- 根因：工作流默认产出单一 final_note.md，note-beautifier 和 note-assembler 均未检测文件大小或多章节结构并提示拆分
-- 下次做法：P5 组装后 / P6 美化前，检测笔记是否 > 30KB 或包含 3+ 章节；若是，主动给出拆分方案（独立章节 + 前后导航 + MOC 索引），让用户选择
-
----
-
-## [2026-06-01] OpenSpec 学习笔记 - Session Learnings
-
-### 流程方面
-- Phase 0 需求发现：对于 GitHub 项目类主题，先快速了解项目基本信息再问问题，能提出更精准的需求问题
-- 混合笔记类型 concept + cheat_sheet 适合"入门 + 速查"场景，实战示例部分用教学性场景更灵活
-- Canvas 知识地图对项目类笔记很有价值，能直观展示概念关系
-
-### 工具方面
-- 对于 GitHub 项目无法用 WebFetch 时，可通过 GitHub API (`api.github.com/repos/...`) 获取项目信息
-- opencli 提供丰富的搜索源（google/search, github 等），但 collector subagent 需要明确指定可用源
-- beautify 阶段应主动询问用户是否需要 Canvas/Base 作为可选配置
-
-### 内容方面
-- OpenSpec 的核心是 Spec-Driven Development（SDD），与当前 Study System 的 phase-based workflow 有理念上的共鸣
-- OpenSpec 对比线：vs Spec Kit（重但灵活度低）、vs Kiro（锁定生态）、vs 无规范（不可预测）
-
-## [2026-07-11] Codex 手动配置指南 - Session Learnings
-
-### 流程方面
-- `practice + compare` 混合笔记类型在工具对比类主题中效果很好——每个领域同时提供实操步骤和对比表，特别适合有同类工具经验的读者
-- Codex 相关资料分布在 `learn.chatgpt.com` 域名下（已从 `developers.openai.com` 迁移），收集时需注意域名变更
-
-### 工具方面
-- Codex 官方 hooks 文档缺失，需依赖社区资源（GitHub 仓库），这个缺口应在前置搜索策略中就考虑进去
-
-### 内容方面
-- Codex 与 Claude Code 的核心差异：TOML vs JSON 配置格式、AGENTS.md vs CLAUDE.md、不支持自定义 slash 命令、内置 OS 级 sandbox
-- Codex 的 Skills 与 Claude Code 格式兼容（Agent Skills 开放标准），这是迁移的重要优势
-
-## [2026-07-31] 虚拟机教程修表 - Session Learnings
-
-### Obsidian 兼容性
-
-**类别**：knowledge_gap
-**优先级**：medium
-**状态**：pending
-**范围**：Obsidian 笔记编写
-
-**摘要**：Obsidian 的 Markdown 解析器不支持在编号/项目列表内渲染表格，嵌套在列表中的表格会显示异常（变成纯文本或错乱）。
-
-**详情**：
-- 事实：[[虚拟机/VMware Workstation Player 安装 Windows 虚拟机.md]] 中步骤 3 后面的表格因有 3 空格缩进被解析为列表嵌套，预览模式不渲染为表格
-- 根因：CommonMark / Obsidian 规范中列表项内的内容如果有缩进会被视为列表项的延续，而表格语法在列表项内不被识别
-- 下次做法：所有表格必须放在列表之外（无缩进），列表项中需要引用表格时用"见下方表格"过渡
+### Suggested Action
+- 每次教程章节结构定稿前自检：每个顶级 `###` 是否都对应一个文件/命令/产物？凡属同一文件的字段一律收进该文件小节的 `####`。
 
 ---
 
-## [2026-08-08] GHCR 推送镜像权限配置 - Session Learnings
+## [LRN-20260815-002] best_practice — 代码片段标注文件 + 先完整后分块
 
-### 用户偏好：笔记默认加"大白话"通俗解释
+**Logged**: 2026-08-15T23:21:14+0800
+**Priority**: high
+**Status**: pending
+**Area**: docs
 
-**类别**：best_practice
-**优先级**：high
-**状态**：pending
-**范围**：note-beautifier / chapter-writer / workflow
+### Summary
+教程里的每个代码块必须标明所属文件/目录（文件头注释），且先展示完整文件（先睹为快）再逐段讲解，不让读者猜「这段代码放哪个文件夹」。
 
-**摘要**：用户明确要求"以后生成笔记都这样"——学习笔记为每个核心概念添加 `[!tip] 大白话` Callout + 打比方类比，正文技术讲解保留。
+### Details
+- 事实：用户对 §3.3/§3.4 只给零散片段提出：「这里的 3.3 和 3.4 中的代码放哪个文件夹你不说？不先把完整代码给我再解释？」
+- 根因：默认按「讲解顺序」切代码块，忽略读者需要先见全貌、再入细节，也需要知道每个片段在文件里的落点。
+- 正确做法：① 代码块首行加文件路径注释（`// git-log-plugin/src/tools/git-log.ts`）；② 讲解多段前先整文件展示一次；③ 文件归属变化处（新建/切换文件）用命令或文字点明。
 
-**详情**：
-- 事实：GHCR 笔记（4 章 / 51KB）技术性较强，用户问"这些概念可不可以写的通俗易懂一点？"，随后要求"以后生成笔记都这样"
-- 根因：默认输出面向"有了解"读者，缺少面向普通读者的通俗解释层
-- 下次做法：写作每章时为核心概念预留 `[!tip] 大白话` 通俗解释（可用类比：临时工牌 / 授权清单 / 门禁卡 / 保险箱 / 双保险 / 装修死结）
-
----
-
-### GitHub Packages 认证只支持 Classic PAT
-
-**类别**：knowledge_gap
-**优先级**：high
-**状态**：pending
-**范围**：research-collector / 内容领域
-
-**摘要**：GitHub Packages（含 GHCR）只支持 Classic PAT 认证（`write:packages` 等 scope）；Fine-grained PAT 没有 packages 权限项，无法用于推镜像。
-
-**详情**：
-- 事实：用户原指南用 Fine-grained PAT + "Packages: Read and Write"；P1 探测一度误判"2026 已支持"，P2 深读 + 直接核实官方文档后确认仅 Classic PAT 可用
-- 根因：Fine-grained PAT 于 2025-03-18 GA，当时明确 Packages/Checks API 为缺口；截至 2026-08 仍未落地（roadmap#558）；部分旧资料/教程误导
-- 依据：官方文档原句 "GitHub Packages only supports authentication using a personal access token (classic)"；docker/login-action#331 实证（全权限 fine-grained 仍报 scope 不匹配）；github/docs#33900
-- 下次做法：涉及 GitHub 能力支持问题，先查官方文档原句 + 可复现 Issue；多信源冲突时以官方文档和实测为准
+### Suggested Action
+- 写或更新教程代码段落时套用「先完整文件 → 标注路径 → 逐段拆讲」三步；代码块归属不明的，先补路径再继续。
 
 ---
 
-### 并行章节写作的衔接竞态 + 状态机确认顺序
+## [LRN-20260815-003] correction — 修复命令类错误先核实再改笔记
 
-**类别**：workflow
-**优先级**：medium
-**状态**：pending
-**范围**：chapter-writer / note-assembler / todo-state.sh
+**Logged**: 2026-08-15T23:21:14+0800
+**Priority**: high
+**Status**: pending
+**Area**: docs
 
-**摘要**：并行派发 chapter-writer 时，后续章节读不到"上一章文件"（竞态）；todo-state.sh 完成阶段前必须先记录用户确认。
+### Summary
+用户报命令/路径错误时，先沿真实代码路径核实「路径相对哪里解析、文件实际在哪」，一次改对再写入笔记；不要凭 shell 直觉假设、改一次错一次。
 
-**详情**：
-- 事实：并行写 3 章，第 3/4 章作者报"上一章文件不存在"，只能按大纲写过渡；另一次直接 `complete P4` 被 todo-state.sh 拒绝（需先 confirm）
-- 根因：章节间有内容依赖（"上一章讲了 X"），并行时读取依赖文件存在竞态；状态机强制"已记录用户确认才可完成"
-- 下次做法：① 并行章节写作时明确要求各章过渡语自包含、不依赖读取上一章文件（或改为串行）；② 用户整体授权时先 `todo-state.sh confirm PN "…"` 再 `complete PN`
+### Details
+- 事实：`pnpm dsh web --patch` ENOENT 修复中，我第一轮把笔记改成「patch 文件在仓库根、用 `./dev-cordis.patch.yml`」，用户在仓库根复跑仍 ENOENT；第二轮才按用户纠正改为「文件在 `git-log-plugin/`，仓库根执行 `./git-log-plugin/dev-cordis.patch.yml`」。
+- 根因：`loadOverlayPatches` 直接把 `--patch` 的 overlay 路径当文件系统路径解析（相对 dsh 仓库根，而非 shell 当前目录）；我此前没读源码、也没确认 patch 文件实际所在目录就下笔。
+- 正确做法：① 先读命令实现源码确认路径解析基准；② 确认被引用文件真实位置；③ 再统一改写笔记全文（含标题、表格、示例命令的所有副本）。
 
----
-
-## [2026-08-15] DeepSeek-Harness 配置笔记 - 大白话偏好第三次确认
-
-### 用户偏好：大白话解释不只是写作时加，更新旧笔记也要补
-
-**类别**：best_practice
-**优先级**：high
-**状态**：pending
-**范围**：update skill / note-beautifier / chapter-writer / workflow
-
-**摘要**：用户对技术性笔记再次表示"看的不是很懂，好多专业的东西"，再次确认"以后生成的笔记都这样"——`[!tip] 大白话` 通俗解释不只在新笔记写作阶段加，更新既有技术性笔记时也要主动补。
-
-**详情**：
-- 事实：[[AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 配置体系.md]]（4 节技术内容）用户反馈看不懂；我用类比整篇翻译后，用户同意以 `[!tip] 大白话` Callout 补进第 2/3/4 节（第 1 节原有），通过 update 技能 insert 模式完成，只做加法不动技术正文
-- 根因：默认笔记面向"有了解"读者、术语密度高；既有笔记生成时未配大白话层，而该偏好此前只被应用到新写章节
-- 下次做法：① 用户说某笔记"看不懂 / 太专业 / 术语多"时，主动提议用 update 技能（insert 模式）补 `[!tip] 大白话` Callout，只做加法、匹配原排版；② 新笔记写作仍按 RULES.md 为核心概念预置大白话；③ 类比库新增可用项：千层饼（分层补丁树）、装了什么 App vs 叫哪个角色的员工（Profile vs Agent Preset）、岗位说明书（schema 校验）、料理包 vs 上菜顺序单（bundle vs profile）、门禁卡（allowBuilds 放行）
+### Suggested Action
+- 任何「命令应该怎么写」的断言进入笔记前，用源码 + 文件系统实况验证一次；改动涉及多处引用时，改完 grep 全文确认无残留旧表述。
 
 ---

@@ -46,3 +46,26 @@
 - 并行章节写作时，明确要求各章作者"过渡语自包含、按大纲写，不读取上一章文件"
 - 或改为串行派发，保证每章都能读到已完成的上一章
 - P5 组装阶段必须复核章节边界衔接
+
+## [ERR-20260815-002] 教程更新：patch 路径修复一次改错
+
+### 错误：`pnpm dsh web --patch` 修复时未核实文件位置，改完仍 ENOENT
+
+**错误**：用户报在 `git-log-plugin/` 里跑 `pnpm dsh web --patch ./dev-cordis.patch.yml` 报 ENOENT（`/home/zhq/deepseek-harness/dev-cordis.patch.yml` 不存在）。我未核实 patch 文件真实位置，第一轮把笔记改成「patch 文件在仓库根、用 `./dev-cordis.patch.yml`」，用户从仓库根复跑仍 ENOENT。
+
+**Logged**: 2026-08-15T23:21:14+0800
+**Priority**: high
+**Status**: pending
+**Area**: docs
+
+**触发场景**：更新教程命令章节，用户贴出首个报错，我直接改笔记而非先核实。
+
+**根因**：凭 shell 直觉假设 `--patch` 路径相对 shell 当前目录解析；实际 `loadOverlayPatches` 把 overlay 路径当文件系统路径、相对 dsh 仓库根解析，且 patch 文件实际在 `git-log-plugin/`。没读源码、没确认文件实况就下笔。
+
+**修复**：
+- 用户纠正后改为：文件在 `git-log-plugin/`，仓库根执行 `pnpm dsh web --patch ./git-log-plugin/dev-cordis.patch.yml`。
+- 全文统一该命令（标题、正文、表格、示例），并回滚第一轮错误表述（保留 §2.4 中作为「错误做法」对比示例的一处）。
+
+**预防措施**：
+- 命令/路径断言进入笔记前，先读命令实现源码确认路径解析基准，并确认被引用文件真实位置；一次改对。
+- 涉及多处引用时，改完 `grep` 全文确认无残留旧表述。

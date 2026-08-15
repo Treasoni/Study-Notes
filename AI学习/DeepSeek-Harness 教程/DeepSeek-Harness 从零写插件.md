@@ -975,12 +975,12 @@ dist/
 
 上一章你已经在 `--dump-config` 里见过"分层打印"。补丁树完整地有**四层**，按序叠加：
 
-| 层序 | 层 | 内容 |
-| --- | --- | --- |
-| ① | bundles 各层 | 按 profile 声明的列表顺序，逐 bundle 应用各自的 `cordis.patch.yml` |
-| ② | profile 的 `cordis.patch.yml` | profile 目录里自己的 patch，覆盖 bundle 层 |
-| ③ | home 级 | Harness home 层面的通用配置 |
-| ④ | `--patch` 叠加 | 命令行临时追加的 patch，优先级最高 |
+| 层序  | 层                            | 内容                                                  |
+| --- | ---------------------------- | --------------------------------------------------- |
+| ①   | bundles 各层                   | 按 profile 声明的列表顺序，逐 bundle 应用各自的 `cordis.patch.yml` |
+| ②   | profile 的 `cordis.patch.yml` | profile 目录里自己的 patch，覆盖 bundle 层                    |
+| ③   | home 级                       | Harness home 层面的通用配置                                |
+| ④   | `--patch` 叠加                 | 命令行临时追加的 patch，优先级最高                                |
 
 关键语义：**每层都作用于一张空条目表，后层按 id 定位目标行、整行替换，不做字段级深合并**。[^S9] 意思是——配置不是"一层叠一层地做字段合并"，而是按 patch 条目的 `id` 找到那一行，整个替换掉。如果 bundle 层给 `git-log` 写了 `config: { maxCommits: 5 }`，profile 层想改成 10，它必须写**同一 id 的完整行**（含要保留的所有字段），而不是只写 `maxCommits: 10` 指望"合并"。
 
