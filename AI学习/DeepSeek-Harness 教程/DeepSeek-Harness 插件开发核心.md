@@ -25,6 +25,8 @@ export function apply(ctx: Context) {
 }
 ```
 
+> **代码放哪**：这个文件就是 `src/index.ts`——插件入口骨架（目录结构参照同目录 `example-plugin/`）。通用原则：`src/index.ts` 是**注册中心**（所有 `apply(ctx)` 里的动作都在这），工具/服务本体各自成文件放 `src/tools/`、`src/services/`。
+
 `name` 只是诊断元数据；真正的逻辑都在 `apply(ctx)` 里。**没有框架样板代码**——插件只描述自己贡献什么，`cordis.yml` 负责组合应用[^2]（怎么装进插件树见 [[DeepSeek-Harness 配置体系|配置体系]]）。
 
 > [!tip] 大白话
@@ -61,6 +63,8 @@ dsh.skills      → 技能包（SKILL.md 发现）
 dsh.client      → 带浏览器 UI 的插件
 ```
 
+> **代码放哪**：这些 `dsh.*` 字段写在 `package.json` 的 `dsh` 下（发布清单），与 `src/` 里的 TS 代码无关。
+
 > [!note] 两个易混点
 > - ①②③④ 大多是**不加修改被接纳**，只有⑤需要移植——所以市场里「不是 DeepSeek 格式」很正常；
 > - 2026-08 起旧的 `dsh.plugin.json` / `dsh registry` CLI 已移除，只认 `dsh` 字段这套。
@@ -91,6 +95,8 @@ export function apply(ctx: Context) {
 }
 ```
 
+> **代码放哪**：写在 `src/index.ts` 的 `apply(ctx)` 里（与工具注册同级）。
+
 > [!tip] 大白话
 > 「效果（effect）」像门禁卡的自动失效：离职那天门禁卡自动作废，你不用自己去前台注销。凡是走 `ctx` 挂的能力都自动失效；自己额外申请的资源（网络连接）用 `ctx.effect()` 声明「我离职时要做这些清理」。
 
@@ -108,6 +114,8 @@ export function apply(ctx: Context) {
   ctx.tools.register(/* ... */)          // ctx.tools 一定可用
 }
 ```
+
+> **代码放哪**：`name` / `inject` 写在 `src/index.ts` 顶部；`apply(ctx)` 里的 `ctx.tools.register(...)` 也在 `src/index.ts`。
 
 `inject` 不是一次性启动检查：如果依赖运行中消失，依赖它的插件会一起被卸载，等服务恢复再重载。**文件顺序不决定加载序，依赖才决定**。
 
@@ -137,6 +145,8 @@ export function apply(ctx: Context) {
 }
 ```
 
+> **代码放哪**：类（Service）本体单独放 `src/services/greeter.ts`；`apply(ctx)` 里的 `ctx.plugin(GreeterService)` 放 `src/index.ts`。
+
 ## 3.4 开发一个 Tool：defineTool DSL
 
 工具是模型能调用的能力。用 `defineTool` 定义，经 `ctx.tools.register` 注册[^3]：
@@ -164,6 +174,8 @@ export function apply(ctx: Context) {
   }))
 }
 ```
+
+> **代码放哪**：`defineTool({...})` 本体放 `src/tools/greet.ts`；`name` / `inject` / `ctx.tools.register(...)` 放 `src/index.ts`。
 
 > [!tip] 大白话
 > 工具 = 教给模型的一个**新招式**。`defineTool` 是一张「技能登记表」：`name` 是招名，`description` 说清何时用（模型读这段决定要不要调你），`parameters` 是要什么料，`execute` 是真干活。系统会**自动检查模型填的参数**，填错就不进 `execute`；干砸了（基础设施故障）就 `throw`，业务上没成功不算错，作为正常结果放返回值，让模型自己判断。
@@ -201,6 +213,8 @@ ctx.on('tools/pre-execute', async (exec, next): Promise<PreToolDecision> => {
 })
 ```
 
+> **代码放哪**：写在 `src/index.ts` 的 `apply(ctx)` 里（与工具注册同级）。
+
 > [!note] 与 Claude Code 对照
 > 这就是「hook 插件」：Claude Code 的 `PreToolUse` hook ≈ `tools/pre-execute` 监听；官方 `dsh-hooks-claude-code` 桥能把 Claude Code 的 hook 配置文件直接映射到这些扩展点[^4]。
 
@@ -218,6 +232,8 @@ interface PromptSection {
   readonly complete?: boolean  // true = 该段即完整系统提示词
 }
 ```
+
+> **代码放哪**：这个接口是 `@deepseek-ai/system-prompt` 包提供的类型定义，**不用自己写**；你的注册动作 `ctx.systemPrompt.register({...})` 写在 `src/index.ts` 的 `apply(ctx)` 里。
 
 **order 约定**：`-100` harness 身份 → `0` 部署人格（persona）→ 其他负数在人格前 → `100–199` 工具指导。
 
@@ -257,6 +273,7 @@ interface PromptSection {
 
 ## 更新记录
 
+- 2026-08-15：各代码块补充「代码放哪」文件归属提示（`src/index.ts` 注册中心 / `src/tools/` 工具 / `package.json` 发布字段）。
 - 2026-08-15：3.3–3.6 补充 `[!tip] 大白话` 通俗解释与类比，降低阅读门槛。
 - 2026-08-15：全套重构为「写自己的 dsh 插件」主线。
 - 2026-08-15：拆分「配置体系」：原 3.2（补丁树）/ 3.3（两级配置）/ 3.6（Config schema）/ 3.9（bundle 发布）移入新专册 [[DeepSeek-Harness 配置体系]]；本节重排为 3.1–3.6（形态 / 生命周期 / 依赖 / 工具 / 策略 / 提示词）。
