@@ -109,6 +109,9 @@ dsh 的 hooks 有两套完全不同的玩法[^5]：
 
 「原生 hook」就是普通的 cordis 插件，监听类型化扩展点并返回决策[^5]：
 
+> [!note] 插件 vs hook：包含关系
+> 别把两者划等号——**hook ⊂ 插件**。dsh 里一切能力都是 cordis 插件（容器），hook 只是其中「监听扩展点、返回决策」的那一类职责。判断标准看它做什么：监听 `ctx.on(...)` 生命周期/执行类扩展点并返回决策 → 是 hook；干别的（连 MCP server、桥接 Claude Code hooks、提供工具）→ 是插件但不是 hook。4.1 的桥接插件和第 5 节的 MCP client 都是插件，不是 hook。
+
 | 扩展点 | 用途 |
 |---|---|
 | `tools/pre-execute` | 权限门：allow / deny / ask |
@@ -214,6 +217,7 @@ pnpm dsh --profile <name>          # Web 模式
 
 ## 更新记录
 
+- 2026-08-15：4.2 补充「插件 vs hook」包含关系说明（hook ⊂ 插件，MCP client / 桥接插件是插件但不是 hook）。
 - 2026-08-15：4.1 补充「这段写进哪个文件」落点说明（试跑 `--patch` / profile `cordis.patch.yml` / home `cordis.patch.yml` 三层 + 两个前提坑）。
 - 2026-08-15：新建。基于官方源码（agent-instructions / skills subsystem / extension-cookbook / config-catalog / mcp-client）核对。
 

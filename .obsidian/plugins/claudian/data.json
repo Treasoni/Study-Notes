@@ -8,11 +8,12 @@
       },
       {
         "tabId": "tab-1778492346086-rk6c0kv",
-        "conversationId": "conv-1786781893845-4yp8flg9q"
+        "conversationId": "conv-1786785430860-9yxbif6tp"
       },
       {
+        "draftModel": "deepseek-v4-flash",
         "tabId": "tab-1779448736943-hq3dr8b",
-        "conversationId": "conv-1786775105580-qpw8tcyva"
+        "conversationId": null
       }
     ],
     "activeTabId": "tab-1778492346086-rk6c0kv"
