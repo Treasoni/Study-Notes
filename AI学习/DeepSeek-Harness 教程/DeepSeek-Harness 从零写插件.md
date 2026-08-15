@@ -234,6 +234,12 @@ pnpm dsh web --patch ./git-log-plugin/dev-cordis.patch.yml
 - `src/index.ts`：**注册中心**。负责 `apply(ctx)`、声明 `inject`、把工具注册进 `ctx.tools`，以及打加载日志。它只做"组装"，不做具体业务。
 - `src/tools/git-log.ts`：**工具工厂**。导出一个返回 `defineTool({...})` 结果的函数，例如 `gitLogTool()`。一个文件一个工具，工厂每次调用返回一个新实例，状态天然隔离。
 
+先建目录（第 2 章只建过 `src/`，现在要新增 `tools/` 子目录，和 §2.2 的 `mkdir -p src` 一个套路）：
+
+```bash
+mkdir -p src/tools
+```
+
 为什么工具本体要写成"工厂函数"，而不是直接导出一个 defineTool 对象？因为注册发生在 `apply` 阶段，工厂把"定义"和"注册"分开：`git-log.ts` 只负责"这个工具长什么样"，`index.ts` 负责"在什么时候把它装进去"。这也是第 4 章把配置传进工厂的入口。
 
 > [!note] 这在 Claude Code 里相当于
@@ -255,13 +261,6 @@ pnpm dsh web --patch ./git-log-plugin/dev-cordis.patch.yml
 
 > [!note] 先睹为快：完整 `src/tools/git-log.ts`
 > 下面整份代码就是这一章要写进 `git-log-plugin/src/tools/git-log.ts` 的**完整文件**。先整体扫一遍，看清五件套长在同一个 `defineTool({...})` 对象里；§3.3、§3.4 再逐段拆开讲，**每段都出自这份文件**。
-
-先建目录，再保存整份文件：
-
-```bash
-# 在 git-log-plugin/ 下新建目录
-mkdir -p src/tools
-```
 
 ```ts
 // git-log-plugin/src/tools/git-log.ts
@@ -1204,4 +1203,4 @@ allowBuilds:
 - 2026-08-15 创建（学习笔记工作流 P5 组装）
 - 2026-08-15 美化发布（P6：补 frontmatter / 导读 Callout，同步系列 README 与 MOC）
 - 2026-08-15 修正 2.3/2.4/2.5/5/8 与本章小结：`--patch` 相对路径按 dsh 源码仓库根目录解析，命令须在仓库根目录执行；补丁文件在 `git-log-plugin/` 下，路径要写成 `./git-log-plugin/dev-cordis.patch.yml`（在插件目录内跑或直接写 `./dev-cordis.patch.yml` 都报 `ENOENT`）
-- 2026-08-15 第 3 章结构优化：§3.2 新增完整 `src/tools/git-log.ts`「先睹为快」（含 `mkdir -p src/tools` 与可运行全代码），§3.3/§3.4 逐段拆解均标注所属文件位置
+- 2026-08-15 第 3 章结构优化：§3.1 补「先建 `src/tools/` 目录」命令（与 §2.2 的 `mkdir -p src` 一致）；§3.2 新增完整 `src/tools/git-log.ts`「先睹为快」（可运行全代码），§3.3/§3.4 逐段拆解均标注所属文件位置
