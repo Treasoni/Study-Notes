@@ -760,13 +760,13 @@ dsh --profile headless
 > [!note] 本章要创建 / 生成哪些文件
 > 手写 **3 个新文件** + **2 个生成物**，全部落在 `git-log-plugin/` 目录内：
 
-| 文件 | 类型 | 作用 | 小节 |
-| --- | --- | --- | --- |
-| `package.json` | 新增手写 | 工程声明：name / main / types / `dsh.bundle.patch` / scripts | §6.1 |
-| `tsconfig.json` | 新增手写 | 编译配置：ES2022 / ESNext / Bundler / strict | §6.3 |
-| `cordis.patch.yml` | 新增手写 | bundle patch：`name` = 包名，随包发布 | §6.5 |
-| `pnpm-lock.yaml` | 生成 | 依赖锁文件（`pnpm install` 产出） | 构建一节 |
-| `dist/` | 生成 | 构建产物（`pnpm run build` 产出） | 构建一节 |
+| 文件                 | 类型   | 作用                                                      | 小节   |
+| ------------------ | ---- | ------------------------------------------------------- | ---- |
+| `package.json`     | 新增手写 | 工程声明：name / main / types / `dsh.bundle.patch` / scripts | §6.1 |
+| `tsconfig.json`    | 新增手写 | 编译配置：ES2022 / ESNext / Bundler / strict                 | §6.3 |
+| `cordis.patch.yml` | 新增手写 | bundle patch：`name` = 包名，随包发布                           | §6.5 |
+| `pnpm-lock.yaml`   | 生成   | 依赖锁文件（`pnpm install` 产出）                                | 构建一节 |
+| `dist/`            | 生成   | 构建产物（`pnpm run build` 产出）                               | 构建一节 |
 
 **沿用不新建**：`src/index.ts`（第 2/3 章）、`src/tools/git-log.ts`（第 3 章）、`dev-cordis.patch.yml`（第 2 章，§6.5 定型为 dev 版）。
 
