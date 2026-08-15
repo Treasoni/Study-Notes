@@ -33,3 +33,4 @@ Read before starting any new Study System task.
 - 并行派发 chapter-writer 时，章节过渡语必须自包含（按大纲），不要依赖读取上一章文件；todo-state.sh 完成阶段前先 `confirm PN` 再 `complete PN`
 - note-assembler 等 writer 子 agent 无 Bash/Edit 且 Write 有输出上限；>100KB 长文档组装预判拆分，由父进程合并
 - 并行子 agent 不得直接修改共享 workflow state file；状态推进由 orchestrator 集中经 todo-state.sh 处理
+- P6 发布前先校验最终产物：>30KB 或多于 3 章必须拆分（分册子目录 + README + 每章独立文件 + 前后导航 + MOC 指向 README）后再发布

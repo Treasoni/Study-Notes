@@ -174,6 +174,6 @@ quality_gate: passed
 - **总字数**：
 - **章节数**：7（第 1-7 章）
 - **输出格式**：Obsidian Markdown
-- **文件路径**：AI学习/DeepSeek-Harness 教程/DeepSeek-Harness Subagent 开发.md
+- **文件路径**：AI学习/DeepSeek-Harness 教程/DeepSeek-Harness Subagent 教程/（README + 7 章，拆分版）
 - **Obsidian Vault**：D:\Study-Notes
 - **MOC 路径**：AI学习/DeepSeek-Harness 教程/DeepSeek-Harness MOC.md

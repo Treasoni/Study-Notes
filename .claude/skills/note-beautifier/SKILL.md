@@ -220,6 +220,10 @@ PROJECT_DIR="${WORKSPACE_PATH}/${PROJECT_SLUG}"
 4. **表格格式优化**
    - 统一对齐格式
    - 添加适当的 emoji 增强可读性
+   - 表格不得嵌套在列表项内（不要缩进），Obsidian 不渲染列表内表格；列表步骤需引用表格时用「见下方表格」文字过渡
+
+5. **frontmatter 引用校验**
+   - `sources` 等字段中所有含特殊字符（`[]`、`:`）的值必须加双引号或改纯字符串列表，否则 Obsidian 解析失败
 ```
 
 #### 3.2 Vault 发布
@@ -258,6 +262,10 @@ PROJECT_DIR="${WORKSPACE_PATH}/${PROJECT_SLUG}"
 - [ ] frontmatter 标签完整
 - [ ] 分类标签准确
 - [ ] 标签层级清晰
+
+### 表格 / frontmatter
+- [ ] 表格未嵌套在列表项内（无缩进）
+- [ ] `sources` 等含特殊字符（`[]`、`:`）的值已正确引用
 
 ### 发布位置
 - [ ] 已保存到用户指定位置，或项目 output

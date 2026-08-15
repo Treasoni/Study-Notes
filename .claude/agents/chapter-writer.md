@@ -43,7 +43,7 @@ PROJECT_DIR="${WORKSPACE_PATH}/${PROJECT_SLUG}"
 ```
 
 **After Each Chapter Completion:**
-- Record the corresponding chapter checklist item in the workflow state file using a targeted edit.
+- Do NOT edit the workflow state file yourself. Parallel writers editing the same file race and corrupt the chapter checklist order; the orchestrator (parent) collects completion receipts and updates the checklist centrally via `.claude/scripts/todo-state.sh`.
 - Do not manually edit phase status lines; phase status belongs to `todo-state.sh`.
 
 **After All Chapters Complete:**
@@ -74,6 +74,7 @@ Before writing any chapter, read these files to understand the full picture:
 2. Read `03_outline.md` to understand the current chapter's scope and key points
 3. Read `02_deep_research.md` to find relevant research content for this chapter
 4. Check if previous chapters exist in `${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}/chapters/` to ensure continuity
+   - 并行派发（同一消息启动多个 writer）时：不要读取上一章文件（存在竞态），过渡语按 `03_outline.md` 自包含撰写
 
 ### Step 2: Write the Chapter
 
@@ -129,11 +130,13 @@ Every chapter must follow this structure:
 - Add comments on key lines explaining non-obvious logic
 - Show the expected output or result after the code block
 - Use fenced code blocks with language identifiers (```python, ```javascript, etc.)
+- 教程/实战章节：代码块首行加文件路径注释标明归属（`// src/foo.ts`）；讲解多段前先完整展示一次该文件（先睹为快），再逐段拆讲
 
 ### Source Citations
 - Use footnote format for references: `[Source Name](URL)`
 - Place citations inline where the information is referenced
 - Cite research materials from `02_deep_research.md`
+- 若用脚注编号（`[^ID]`），本文章节统一加章节前缀 `[^cN-ID]`（N=章节号），避免多章合并后脚注 ID 冲突
 
 ### Step 3: Save the Chapter
 Save the completed chapter to:
@@ -155,7 +158,7 @@ Then wait for the user's response.
 
 **If user confirms (继续下一章)**:
 - Proceed to write the next chapter
-- Ensure continuity by referencing the previous chapter's ending
+- Ensure continuity by referencing the previous chapter's ending（串行时可直接读上一章文件；并行派发时按大纲自包含衔接，不读上一章文件）
 
 **If user wants direction adjustment (想调整方向)**:
 1. Ask the user to describe the new direction in detail

@@ -147,4 +147,23 @@
 - 子 agent 提示里明确「不修改 workflow state file；章节状态由 orchestrator 集中更新」。
 - 并行写作时父进程收集各章完成回执，一次性用 todo-state.sh 更新状态。
 
+## [ERR-20260816-005] P6 发布：135KB 单文件未按 RULES.md 主动拆分
+
+### 错误：发布 135KB / 7 章单文件，违反「>30KB 或 >3 章主动建议拆分」规则，用户事后指出
+
+**错误**：P6 note-beautifier 把 7 章合并后的 135KB 长文直接发布为单个 `DeepSeek-Harness Subagent 开发.md`，未按 RULES.md 既有规则主动建议拆分为独立章节文件 + 导航双链 + MOC 索引页。
+
+**触发场景**：learning-note-flow P6 Obsidian 发布阶段，产物 135KB / 7 章。
+
+**根因**：RULES.md 有规则但无执行检查点——P6 发布前没有「校验最终笔记体积/章节数并触发拆分」的强制步骤，beautifier 直接按单文件输出。
+
+**修复**：
+- 用户指出后按方案 A 拆分：`DeepSeek-Harness Subagent 教程/` 子目录 = README 首页 + 7 章独立文件。
+- 每章补 frontmatter + 前后导航双链 + 返回首页链接；MOC 索引项改指向分册 README。
+- 拆分后脚本校验：74 条脚注逐章配对、Callout 61+7、7 个章节 H1、全部 wikilink 可解析。
+
+**预防措施**：
+- P6 发布前必须检查最终产物大小与章节数：>30KB 或 >3 章，先拆分再发布（把 RULES.md Do 规则落成 beautifier 的硬检查点）。
+- 拆分方案固定为「分册子目录 + README 首页 + 每章独立文件 + 前后导航 + MOC 指向 README」。
+
 ---

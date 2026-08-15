@@ -73,7 +73,7 @@ source_project: deepseek-harness
 
 | 笔记 | 说明 |
 |------|------|
-| [[DeepSeek-Harness Subagent 开发]] | 子系统开发：subagent 能力缝与三层结构、ctx.subagents 契约、写自己的 provider（三段式）、one-shot/continuable、工具化暴露，7 章概念+实战分册 |
+| [[DeepSeek-Harness Subagent 教程/README\|DeepSeek-Harness Subagent 开发]] | 子系统开发：subagent 能力缝与三层结构、ctx.subagents 契约、写自己的 provider（三段式）、one-shot/continuable、工具化暴露，7 章概念+实战分册 |
 
 ---
 
