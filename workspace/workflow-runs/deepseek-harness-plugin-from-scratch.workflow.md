@@ -10,7 +10,7 @@ topic: "DeepSeek-Harness 从零写插件（空目录手写全文件）"
 project_slug: "deepseek-harness-plugin-from-scratch"
 created_at: "2026-08-15"
 last_updated: "2026-08-15"
-current_phase: P2
+current_phase: P3
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：deepseek-harness-plugin-from-scratch
 > 项目标识：deepseek-harness-plugin-from-scratch
 > 创建时间：2026-08-15
-> 当前阶段：阶段 2
+> 当前阶段：阶段 3
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -58,16 +58,16 @@ blocked_reason: ""
 ---
 
 ## 阶段 2：深度收集
-- [ ] 已根据用户选择的方向启动深度收集
-- [ ] 核心概念/理论素材已收集
-- [ ] 实战代码/项目案例已收集
-- [ ] 常见坑/最佳实践已收集
-- [ ] 工具链/生态已收集
-- [ ] 进阶路径/学习资源已收集
-- [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
-- [ ] 深度素材已保存：`./02_deep_research.md`
+- [x] 已根据用户选择的方向启动深度收集（3 路并行：骨架+工程化 / 工具DSL+Config / 打包安装验证）
+- [x] 核心概念/理论素材已收集（apply/inject/defineTool/Config/bundle/profile/patch 树）
+- [x] 实战代码/项目案例已收集（最小 2 文件骨架 + 独立插件 package.json/tsconfig + git_log）
+- [x] 常见坑/最佳实践已收集（绝对路径 / 四名分离 / allowBuilds / #sha / 整行替换）
+- [x] 工具链/生态已收集（pnpm / tsc / dsh CLI 命令链 / pnpm pack）
+- [x] 进阶路径/学习资源已收集（官方模板 dsh-plugin-* / hello-dsh 社区实例）
+- [x] 素材质量已确认（14 来源：9 官方 + 5 vault，全部核实存在；纠正 advanced/bundle.md 404）
+- [x] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] 🔲 进行中 {in_progress}
+> [P2] ✅ 已完成 {complete}
 
 ---
 
@@ -79,7 +79,7 @@ blocked_reason: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] ⬜ 未开始
+> [P3] 🔲 进行中 {in_progress}
 
 ---
 
@@ -134,6 +134,7 @@ blocked_reason: ""
 |------|----------|------|
 | P0 | 用户确认意图：新写一篇「从零写 dsh 插件」教学分册；「从零」=空目录手写所有文件、不用 example-plugin 脚手架；Obsidian 输出到 AI学习/DeepSeek-Harness 教程/；示范工具沿用 git_log 与《插件实战》可对照 | 2026-08-15 |
 | P1 | 用户确认素材质量（9 官方 + 3 vault + 社区线索）并选择方向 A「渐进式从零」：先最小 2 文件跑通，再补工程化 | 2026-08-15 |
+| P2 | 用户确认深度素材（14 来源：9 官方 + 5 vault；含 .required() 口径校准、O2 monorepo 规范排除）；并选择执行模式：大纲模式（逐章写） | 2026-08-15 |
 
 ---
 
