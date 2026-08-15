@@ -40,6 +40,31 @@ export function apply(ctx: Context) {
 
 函数形式直到你需要对外提供 service 都够用；类形式见 3.3[^2]。
 
+### 市场里的 5 种分发形态（分发形态 ≠ 代码形态）
+
+上面三种是**代码怎么写**；插件市场里看到的花样是**包怎么分发、loader 怎么对待它**——两个维度，别混。市场里的插件按分发归为 5 种[^6]：
+
+| 分发形态 | 本质 | 接入方式 | 例子 |
+|---|---|---|---|
+| ① 纯 Cordis 插件 | TS 模块导出 `apply(ctx)` | `cordis.yml` insert 一行直接挂载 | `dsh-plugin-deepeye`（视觉工具） |
+| ② Bundle | npm 包带 `dsh.bundle.patch` | `dsh plugin add <pkg>` 进 bundle 层 | 官方 `dsh-tool-bash` / `dsh-web-search` |
+| ③ MCP server | 语言无关独立进程 | `dsh.mcpServers` 声明或 mcp-client 包装，工具变 `mcp__<server>__<tool>` | `@modelcontextprotocol/server-*` |
+| ④ Skill | `SKILL.md` 技能包 | `dsh.skills` 声明或适配器扫描 `.claude/skills/` | 你的 Claude Code skills |
+| ⑤ Koishi/Cordis v3 插件 | 4000+ 机器人生态插件 | **不能直接用**，需按 Cordis v4 + `@deepseek-ai/cordis` 移植 | Koishi 市场插件 |
+
+loader 看 `package.json` 的 `dsh` 字段决定怎么对待一个包：
+
+```
+dsh.bundle      → 组合层补丁包（插入插件树）
+dsh.mcpServers  → MCP server 集合（包装注册工具）
+dsh.skills      → 技能包（SKILL.md 发现）
+dsh.client      → 带浏览器 UI 的插件
+```
+
+> [!note] 两个易混点
+> - ①②③④ 大多是**不加修改被接纳**，只有⑤需要移植——所以市场里「不是 DeepSeek 格式」很正常；
+> - 2026-08 起旧的 `dsh.plugin.json` / `dsh registry` CLI 已移除，只认 `dsh` 字段这套。
+
 ## 3.2 生命周期与 effects：fiber 状态机
 
 每个加载的插件实例持有一个 **fiber**（运行时句柄），状态机[^2]：
@@ -222,6 +247,7 @@ interface PromptSection {
 
 - 2026-08-15：全套重构为「写自己的 dsh 插件」主线。
 - 2026-08-15：拆分「配置体系」：原 3.2（补丁树）/ 3.3（两级配置）/ 3.6（Config schema）/ 3.9（bundle 发布）移入新专册 [[DeepSeek-Harness 配置体系]]；本节重排为 3.1–3.6（形态 / 生命周期 / 依赖 / 工具 / 策略 / 提示词）。
+- 2026-08-15：3.1 新增「市场里的 5 种分发形态」——区分代码形态与分发形态，补 `dsh` 字段路由机制（bundle / mcpServers / skills / client）。
 
 ---
 
@@ -230,3 +256,4 @@ interface PromptSection {
 [^3]: 素材来源：官方「开发一个 Tool」（2026-08-15 收集）。
 [^4]: 素材来源：官方「Tool authoring reference」与「扩展插件形态 Cookbook」（2026-08-15 收集）。
 [^5]: 素材来源：官方「system-prompt 子系统参考」（2026-08-14 收集）。
+[^6]: 素材来源：官方「架构」文档 + `plugin-registry/make-dsh-plugin`（2026-08-15 收集）。
