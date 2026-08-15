@@ -1012,13 +1012,11 @@ dist/
 > ```
 >
 > 注意：`demo` 是 **profile 的名字**（你自己起的，教程全程用 `--profile demo`），一个 profile 一个目录、**不是**每个 bundle 一个目录。一个 profile 能装多个 bundle——`node_modules/` 下有几个包、`dsh.profile.bundles` 就按顺序列几个（本例只装了 `dsh-git-log-plugin` 一个，所以只有一层）。想要另一套组合，就另建一个 profile——不用 mkdir、不用手写任何文件：`web` / `headless` 是 dsh 内置 preset，首次使用按模板自动初始化（`base + web-app` / `base + headless`）；自定义名字（如 `demo` / `work`）首次 `pnpm dsh plugin --profile <名字> add <包>` 也会自动建目录[^S12]。`demo` 和 `web` 是两个独立目录，各装各的包：
-
 > ```text
 > profiles/
 > ├── demo/      # bundles: ["dsh-git-log-plugin"]   → dsh --profile demo 有 git_log
 > └── web/       # bundles: 不含它                   → dsh --profile web 没有 git_log
 > ```
-
 > 同一个 tarball 想在哪几个 profile 里用，就分别 add 到哪几个；各自的 `dsh.profile.bundles`、`node_modules`、`cordis.patch.yml` 互不污染。
 >
 > 把四层对回这张树：
