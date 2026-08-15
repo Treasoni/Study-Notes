@@ -736,12 +736,12 @@ dsh --profile headless
 
 把四条命令串起来，就是这张验证速查表：
 
-| 要验证什么 | 用哪条命令 |
-| --- | --- |
-| 插件被加载 | `pnpm dsh web --patch ./git-log-plugin/dev-cordis.patch.yml` |
-| 配置合并成什么样 | `dsh --profile demo --dump-config --patch ./git-log-plugin/dev-cordis.patch.yml` |
-| bundle 默认贡献了什么 | `dsh --profile demo --dump-default-config` |
-| 端到端能不能用 | `dsh --profile headless "<task>"` |
+| 要验证什么          | 用哪条命令                                                                            |
+| -------------- | -------------------------------------------------------------------------------- |
+| 插件被加载          | `pnpm dsh web --patch ./git-log-plugin/dev-cordis.patch.yml`                     |
+| 配置合并成什么样       | `dsh --profile demo --dump-config --patch ./git-log-plugin/dev-cordis.patch.yml` |
+| bundle 默认贡献了什么 | `dsh --profile demo --dump-default-config`                                       |
+| 端到端能不能用        | `dsh --profile headless "<task>"`                                                |
 
 ### 本章小结
 
