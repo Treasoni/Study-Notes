@@ -10,7 +10,7 @@ topic: "DeepSeek-Harness 插件实战教学"
 project_slug: "deepseek-harness-plugin-workshop"
 created_at: "2026-08-15"
 last_updated: "2026-08-15"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：deepseek-harness-plugin-workshop
 > 项目标识：deepseek-harness-plugin-workshop
 > 创建时间：2026-08-15
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -84,14 +84,17 @@ blocked_reason: ""
 ---
 
 ## 阶段 4：逐章写作
-- [x] 第 1 章已写完并确认
-- [ ] 第 2 章已写完并确认
-- [ ] 第 3 章已写完并确认
-- [ ] ...（根据实际章节数添加）
+- [x] 第 1 节已写完并确认：`chapters/01_result_preview.md`
+- [x] 第 2 节已写完并确认：`chapters/02_env_and_scaffold.md`
+- [x] 第 3 节已写完并确认：`chapters/03_write_git_log.md`
+- [x] 第 4 节已写完并确认：`chapters/04_config_and_patch.md`
+- [x] 第 5 节已写完并确认：`chapters/05_verify.md`
+- [x] 第 6 节已写完并确认：`chapters/06_package_install.md`
+- [x] 第 7 节已写完并确认：`chapters/07_summary_next.md`
 
-**进度**：1/7 节（第一节已写，待用户确认后进入第二节）
+**进度**：7/7 节（用户授权「直接写完」，7 节全部完成；脚注统一为标准 Markdown `[^Sx]`）
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -104,7 +107,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
@@ -136,6 +139,7 @@ blocked_reason: ""
 | P1 | 用户选择方向 A→C 完整链路（改造 example-plugin 出新工具 + 打包发布收尾） | 2026-08-15 |
 | P2 | 用户确认深度素材质量（12 来源：6 官方 + 5 vault + 1 社区），选择大纲模式逐章写 | 2026-08-15 |
 | P3 | 用户确认大纲（7 节，示范工具 git_log，A→C 改造+打包链路，与第 4 章互补） | 2026-08-15 |
+| P4 | 用户授权「直接写完」：7 节全部一次性写作，不再逐节确认 | 2026-08-15 |
 
 ---
 
