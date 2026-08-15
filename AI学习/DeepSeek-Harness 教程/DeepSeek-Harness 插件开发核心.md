@@ -113,6 +113,9 @@ export function apply(ctx: Context) {
 
 可选依赖：跳过 inject，用 `ctx.get('name')` 探测（拿不到返回 undefined，插件照常运行）。
 
+> [!tip] 大白话
+> 依赖像「入职时的部门声明」：`inject: ['tools']` 就是填表说"我需要工具部才能开工"——工具部没就绪我就不入职（PENDING），工具部中途解散我也跟着被"裁员"，等它重建我再回来。**可选依赖**则是"有就蹭，没有也能自己干"：用 `ctx.get('name')` 试一下，拿不到就算了。而 Service 类 = 当部门主管，把能力注册成 `ctx.xxx`，别人按名字来领。
+
 ### 提供服务：类形态
 
 ```ts
@@ -162,6 +165,9 @@ export function apply(ctx: Context) {
 }
 ```
 
+> [!tip] 大白话
+> 工具 = 教给模型的一个**新招式**。`defineTool` 是一张「技能登记表」：`name` 是招名，`description` 说清何时用（模型读这段决定要不要调你），`parameters` 是要什么料，`execute` 是真干活。系统会**自动检查模型填的参数**，填错就不进 `execute`；干砸了（基础设施故障）就 `throw`，业务上没成功不算错，作为正常结果放返回值，让模型自己判断。
+
 关键契约（完整参考见第 5 章 5.3）：
 - **args 自动校验**：`defineTool` 在 `execute` 前校验模型生成的参数；
 - **返回值**：`execute` 只返回 `output.schema` 声明的单一 canonical JSON 值，`output.render` 负责转成模型可见的文本——别在返回值里塞给人看的 prose；
@@ -180,6 +186,9 @@ export function apply(ctx: Context) {
 | `tools/execute` | 包 dispatch 加超时、重试、指标 |
 | `tools/post-execute` | 替换展示内容或返回值、附加上下文 |
 | `tools/result` | 只读观察不可变的最终结果 |
+
+> [!tip] 大白话
+> 工具不是黑盒，门口能站保安：`tools/pre-execute` 是**门卫**——执行前先问"放行 / 拒绝 / 请示用户"；`ctx.tools.guard()` 是**一票否决**（保安说不行，后面的人改不了）；`tools/post-execute` 是**改汇报**（干完活换一份给模型看的内容）；`tools/result` 是**围观记录**（只看不改）。
 
 示例（权限门 hook 插件）[^4]：
 
@@ -214,6 +223,9 @@ interface PromptSection {
 
 **complete 语义**：`complete: true` 的段表示「贡献就是完整系统提示词」。组装仍会跑协作瀑布，随后把该段恢复为唯一提示词段；多个生效 complete 段 → 组装失败。
 
+> [!tip] 大白话
+> 每次调模型前，系统要**拼一份发言稿**：各插件的提示词段按 `order` 编号从小到大排（`-100` 身份 → `0` 人格 → `100–199` 工具指导）。`complete: true` = 有人说"别拼了，我这篇就是全部发言"（多个这样的人 → 会开不下去）。「遮蔽」= 部门规则盖过公司规则：作用域级段落/变量盖掉全局同名项。
+
 ### 作用域与遮蔽
 
 - 作用域级段落/变量/动态上下文**遮蔽**（shadow）全局同名项；
@@ -245,6 +257,7 @@ interface PromptSection {
 
 ## 更新记录
 
+- 2026-08-15：3.3–3.6 补充 `[!tip] 大白话` 通俗解释与类比，降低阅读门槛。
 - 2026-08-15：全套重构为「写自己的 dsh 插件」主线。
 - 2026-08-15：拆分「配置体系」：原 3.2（补丁树）/ 3.3（两级配置）/ 3.6（Config schema）/ 3.9（bundle 发布）移入新专册 [[DeepSeek-Harness 配置体系]]；本节重排为 3.1–3.6（形态 / 生命周期 / 依赖 / 工具 / 策略 / 提示词）。
 - 2026-08-15：3.1 新增「市场里的 5 种分发形态」——区分代码形态与分发形态，补 `dsh` 字段路由机制（bundle / mcpServers / skills / client）。
