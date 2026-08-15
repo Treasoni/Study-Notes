@@ -968,7 +968,7 @@ dist/
 先说两个最容易混的概念，它们**互斥**，各管一件事：
 
 - **bundle**：一个 npm 包，作者在里面声明 `dsh.bundle.patch`（即上一章定型的 `cordis.patch.yml`），等于"这个包贡献一层配置"。作者造 bundle，负责把配置随包分发出去。
-- **profile**：Harness home 下的一个命名目录，里面声明 `dsh.profile.bundles` 的**有序列表**，决定"这台机器要激活哪些 bundle、按什么顺序"。用户 boot profile，负责组装自己的环境。
+- **profile**：Harness home 下的一个命名目录，里面声明 `dsh.profile.bundles` 的**有序列表**，决定"这台机器要激活哪些 bundle、按什么顺序"。用户 boot profile，负责组装自己的环境。它的目录长什么样，见 §7.2「落到磁盘」示例。
 
 我们第 6 章做的事就是"作者面"：把 `dsh-git-log-plugin` 的 `cordis.patch.yml` 挂在 `dsh.bundle.patch` 字段上，包一装、profile 一激活，这一层配置就进来了。[^S3] 官方架构文档把 profile 描述为"命名配置集合"，bundle 是它的一个来源，两者正交。[^S9]
 
@@ -984,12 +984,50 @@ dist/
 
 上一章你已经在 `--dump-config` 里见过"分层打印"。补丁树完整地有**四层**，按序叠加：
 
-| 层序  | 层                            | 内容                                                  |
-| --- | ---------------------------- | --------------------------------------------------- |
-| ①   | bundles 各层                   | 按 profile 声明的列表顺序，逐 bundle 应用各自的 `cordis.patch.yml` |
-| ②   | profile 的 `cordis.patch.yml` | profile 目录里自己的 patch，覆盖 bundle 层                    |
-| ③   | home 级                       | Harness home 层面的通用配置                                |
-| ④   | `--patch` 叠加                 | 命令行临时追加的 patch，优先级最高                                |
+| 层序  | 层                            | 内容                                                  |     |
+| --- | ---------------------------- | --------------------------------------------------- | --- |
+| ①   | bundles 各层                   | 按 profile 声明的列表顺序，逐 bundle 应用各自的 `cordis.patch.yml` |     |
+| ②   | profile 的 `cordis.patch.yml` | profile 目录里自己的 patch，覆盖 bundle 层                    |     |
+| ③   | home 级                       | Harness home 层面的通用配置                                |     |
+| ④   | `--patch` 叠加                 | 命令行临时追加的 patch，优先级最高                                |     |
+
+> [!example] 落到磁盘：一个装好 `dsh-git-log-plugin` 的 `demo` profile
+> 四层不是抽象概念，对应 `<harness-home>` 下真实存在的文件。`pnpm dsh plugin --profile demo add` 装完后，目录大致长这样（示意，具体以你的环境为准）：
+>
+> ```text
+> <harness-home>/
+> ├── cordis.yml
+> └── profiles/
+>     └── demo/
+>         ├── package.json
+>         ├── cordis.patch.yml
+>         ├── pnpm-workspace.yaml
+>         └── node_modules/
+>             └── dsh-git-log-plugin/
+>                 ├── dist/
+>                 │   └── index.js
+>                 └── cordis.patch.yml
+> ```
+>
+> 把四层对回这张树：
+>
+> | 层 | 落到磁盘就是 |
+> | --- | --- |
+> | ① bundles 各层 | `profiles/demo/node_modules/dsh-git-log-plugin/cordis.patch.yml`——profile 点名几个 bundle 就叠几层，按 `dsh.profile.bundles` 顺序 |
+> | ② profile 的 `cordis.patch.yml` | `profiles/demo/cordis.patch.yml` |
+> | ③ home 级 | `<harness-home>/cordis.yml` |
+> | ④ `--patch` 叠加 | 磁盘上没有它——是你命令行临时传的 `--patch ./git-log-plugin/dev-cordis.patch.yml` |
+>
+> 树里 `package.json` 那条「点了哪些包、什么顺序」的清单就是 `dsh.profile.bundles`（示意，由 `dsh plugin` 自动写，**永不手写**）：
+>
+> ```json
+> // <harness-home>/profiles/demo/package.json
+> {
+>   "dsh.profile.bundles": [
+>     "dsh-git-log-plugin"
+>   ]
+> }
+> ```
 
 关键语义：**每层都作用于一张空条目表，后层按 id 定位目标行、整行替换，不做字段级深合并**。[^S9] 意思是——配置不是"一层叠一层地做字段合并"，而是按 patch 条目的 `id` 找到那一行，整个替换掉。如果 bundle 层给 `git-log` 写了 `config: { maxCommits: 5 }`，profile 层想改成 10，它必须写**同一 id 的完整行**（含要保留的所有字段），而不是只写 `maxCommits: 10` 指望"合并"。
 
@@ -1239,3 +1277,4 @@ allowBuilds:
 - 2026-08-15 第 6 章结构重构：原 §6.2（依赖双份）与 §6.4（files 白名单）并入 §6.1 package.json 大节，作为子节 6.1.2 / 6.1.3；后续小节顺延为 §6.2 tsconfig / §6.3 双 patch / §6.4 校准注记
 - 2026-08-15 第 7 章命令规范：统一为 `pnpm dsh ...`（在 dsh 源码仓库根目录执行），`pnpm pack` 明确标注在 `git-log-plugin/` 执行；章首新增「本章命令一览」表；7.2/7.4/7.5/7.6 的命令块与正文补上运行位置注释
 - 2026-08-15 第 5、8 章命令对齐：§5.2/5.3/5.4 标题、§5.5 验证表、§8.1/§8.2 命令链表、§8.3 与章节过渡语中的裸 `dsh` 统一为 `pnpm dsh`；修正 §8.2 表格下方「后两条在插件工程里执行」的错误表述（第 5 条 `pnpm dsh plugin` 也在 dsh 源码仓库根目录执行）；顺带统一第 6 章章首 `dsh web --patch` → `pnpm dsh web --patch`
+- 2026-08-15 第 7 章补「profile 落到磁盘」实物示例（§7.2）：`<harness-home>` 目录树 + 四层对文件映射表 + `dsh.profile.bundles` 清单示意，并在 §7.1 profile 定义后加跳转指引
