@@ -46,16 +46,16 @@ example-plugin 脚手架把文件都配好了，这既是方便也是陷阱。�
 
 本篇终点是一个可构建、可打包、可安装的独立插件工程，到第 6 章成型时共 8 个文件（6 个手写 + 2 个生成）：
 
-| # | 文件 | 作用 | 首次出现 |
-| --- | --- | --- | --- |
-| 1 | `src/index.ts` | 插件入口 + 注册中心（name / apply / inject / Config / register） | 第 2 章 |
-| 2 | `src/tools/git-log.ts` | 工具本体：defineTool 工厂 | 第 3 章 |
-| 3 | `dev-cordis.patch.yml` | 开发期 patch：`name` 用绝对路径，`--patch` 加载 | 第 2 章 |
-| 4 | `cordis.patch.yml` | bundle patch：`name` = 包名，打包激活用 | 第 6 章 |
-| 5 | `package.json` | 工程声明：name / main / types / dsh.bundle.patch / scripts | 第 6 章 |
-| 6 | `tsconfig.json` | 编译配置：ES2022 / ESNext / Bundler / strict | 第 6 章 |
-| 7 | `pnpm-lock.yaml` | 依赖锁文件（`pnpm install` 生成） | 第 6 章 |
-| 8 | `dist/` | 构建产物（`pnpm run build` 生成） | 第 6 章 |
+| #   | 文件                     | 作用                                                     | 首次出现  |
+| --- | ---------------------- | ------------------------------------------------------ | ----- |
+| 1   | `src/index.ts`         | 插件入口 + 注册中心（name / apply / inject / Config / register） | 第 2 章 |
+| 2   | `src/tools/git-log.ts` | 工具本体：defineTool 工厂                                     | 第 3 章 |
+| 3   | `dev-cordis.patch.yml` | 开发期 patch：`name` 用绝对路径，`--patch` 加载                    | 第 2 章 |
+| 4   | `cordis.patch.yml`     | bundle patch：`name` = 包名，打包激活用                         | 第 6 章 |
+| 5   | `package.json`         | 工程声明：name / main / types / dsh.bundle.patch / scripts  | 第 6 章 |
+| 6   | `tsconfig.json`        | 编译配置：ES2022 / ESNext / Bundler / strict                | 第 6 章 |
+| 7   | `pnpm-lock.yaml`       | 依赖锁文件（`pnpm install` 生成）                               | 第 6 章 |
+| 8   | `dist/`                | 构建产物（`pnpm run build` 生成）                              | 第 6 章 |
 
 文件归属沿袭 [[DeepSeek-Harness 插件开发核心]]：`src/index.ts` 是注册中心，工具本体放 `src/tools/*.ts`。最值得注意的是 4 个名字各管各的、不能混，这是全系列最高频的坑：
 
