@@ -115,3 +115,21 @@
 - 下次做法：① 并行章节写作时明确要求各章过渡语自包含、不依赖读取上一章文件（或改为串行）；② 用户整体授权时先 `todo-state.sh confirm PN "…"` 再 `complete PN`
 
 ---
+
+## [2026-08-15] DeepSeek-Harness 配置笔记 - 大白话偏好第三次确认
+
+### 用户偏好：大白话解释不只是写作时加，更新旧笔记也要补
+
+**类别**：best_practice
+**优先级**：high
+**状态**：pending
+**范围**：update skill / note-beautifier / chapter-writer / workflow
+
+**摘要**：用户对技术性笔记再次表示"看的不是很懂，好多专业的东西"，再次确认"以后生成的笔记都这样"——`[!tip] 大白话` 通俗解释不只在新笔记写作阶段加，更新既有技术性笔记时也要主动补。
+
+**详情**：
+- 事实：[[AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 配置体系.md]]（4 节技术内容）用户反馈看不懂；我用类比整篇翻译后，用户同意以 `[!tip] 大白话` Callout 补进第 2/3/4 节（第 1 节原有），通过 update 技能 insert 模式完成，只做加法不动技术正文
+- 根因：默认笔记面向"有了解"读者、术语密度高；既有笔记生成时未配大白话层，而该偏好此前只被应用到新写章节
+- 下次做法：① 用户说某笔记"看不懂 / 太专业 / 术语多"时，主动提议用 update 技能（insert 模式）补 `[!tip] 大白话` Callout，只做加法、匹配原排版；② 新笔记写作仍按 RULES.md 为核心概念预置大白话；③ 类比库新增可用项：千层饼（分层补丁树）、装了什么 App vs 叫哪个角色的员工（Profile vs Agent Preset）、岗位说明书（schema 校验）、料理包 vs 上菜顺序单（bundle vs profile）、门禁卡（allowBuilds 放行）
+
+---
