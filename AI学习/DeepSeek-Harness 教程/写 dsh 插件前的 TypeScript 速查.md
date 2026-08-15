@@ -15,15 +15,15 @@ source_project: deepseek-harness
 
 ## 你已有的基础：C/Python → TS 迁移对照表
 
-| 你已经会的 | TS 里对应 | 例子（来自本系列） |
-|---|---|---|
-| Python dict | 对象字面量 `{}` | `{ name: 'greet', description: '...' }` |
-| Python list | 数组 `[]` | `inject: ['tools']` |
-| Python f-string | 模板字符串 `` `...${name}` `` | `` `[${name}] plugin loaded!` `` |
-| Python async/await | async/await + Promise | `async execute(args) { ... }` |
-| Python class / super() | class / extends / super() | `class GreeterService extends Service` |
-| C struct | interface | `export interface Config { maxCommits: number }` |
-| C 的静态类型直觉 | TS 类型标注 | `function apply(ctx: Context)` |
+| 你已经会的                  | TS 里对应                    | 例子（来自本系列）                                        |
+| ---------------------- | ------------------------- | ------------------------------------------------ |
+| Python dict            | 对象字面量 `{}`                | `{ name: 'greet', description: '...' }`          |
+| Python list            | 数组 `[]`                   | `inject: ['tools']`                              |
+| Python f-string        | 模板字符串 `` `...${name}` ``  | `` `[${name}] plugin loaded!` ``                 |
+| Python async/await     | async/await + Promise     | `async execute(args) { ... }`                    |
+| Python class / super() | class / extends / super() | `class GreeterService extends Service`           |
+| C struct               | interface                 | `export interface Config { maxCommits: number }` |
+| C 的静态类型直觉              | TS 类型标注                   | `function apply(ctx: Context)`                   |
 
 ## P0 · 必须学（每个插件文件都出现）
 
