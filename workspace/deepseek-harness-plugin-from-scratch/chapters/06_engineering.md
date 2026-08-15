@@ -115,22 +115,20 @@
 
 ```yaml
 - insert:
-    id: git-log
-    plugins:
-      - name: /absolute/path/to/git-log-plugin/src
-        config:
-          maxCommits: 5
+    - id: git-log
+      name: '/absolute/path/to/git-log-plugin/src/index.ts'   # 绝对路径（同第 2 章）
+      config:
+        maxCommits: 5
 ```
 
 `cordis.patch.yml`（bundle 补丁，随包发布，`dsh.bundle.patch` 指向它）：
 
 ```yaml
 - insert:
-    id: git-log
-    plugins:
-      - name: dsh-git-log-plugin
-        config:
-          maxCommits: 5
+    - id: git-log
+      name: dsh-git-log-plugin
+      config:
+        maxCommits: 5
 ```
 
 两个关键点：

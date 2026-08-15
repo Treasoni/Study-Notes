@@ -56,19 +56,14 @@ export function apply(ctx: Context) {
 ```yaml
 # dev-cordis.patch.yml
 - insert:
-    index: 0
-    items:
-      - type: 'cordis'
-        id: 'git-log'
-        name: '<你的 deepseek-harness 仓库绝对路径>/git-log-plugin/src/index.ts'
+    - id: git-log
+      name: '<你的 deepseek-harness 仓库绝对路径>/git-log-plugin/src/index.ts'
 ```
 
 逐行看：
 
 - `- insert:` — patch 的最小编排动作：「往配置表里插一行」。patch 文件就是一个动作列表，`- insert:` 是其中一种；这一章只用得到它。具体字段以官方最小骨架为准，见脚注 [^S1]。
-- `index: 0` — 插到表头。只插一个插件时插哪都行，0 最直观。
-- `type: 'cordis'` — 标记这一行是一个 cordis 插件条目，告诉加载器「这是一个插件，不是别的配置」。
-- `id: 'git-log'` — 这一条目的实例 id，也就是四名分离的**第三个名字（patch id）**。它标识「这个实例」，和 `export const name` 的 `git-log-plugin` 是两回事：一个是「这个插件叫什么」，一个是「这张登记表里这一行叫什么」。
+- `- id: git-log` — 这一条目的实例 id，也就是四名分离的**第三个名字（patch id）**。它标识「这个实例」，和 `export const name` 的 `git-log-plugin` 是两回事：一个是「这个插件叫什么」，一个是「这张登记表里这一行叫什么」。
 - `name:` — **关键**：必须填 `src/index.ts` 的**绝对路径**。把 `<你的 deepseek-harness 仓库绝对路径>` 换成你机器上的真实路径（macOS 形如 `/Users/你/deepseek-harness/git-log-plugin/src/index.ts`，Linux 形如 `/home/你/deepseek-harness/...`）。
 
 为什么必须绝对路径：patch 的 `name` 会被加载器**直接当文件系统路径**去定位模块，它不会相对工作目录做任何换算[^S14]。写相对路径等于指了一个「在加载器眼里不存在」的地址。

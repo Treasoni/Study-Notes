@@ -36,10 +36,10 @@ dsh --profile demo --dump-config --patch ./dev-cordis.patch.yml
 # from <harness-home>/cordis.yml                        ← home 级
 # from ./dev-cordis.patch.yml                          ← --patch 叠加（最顶层）
 - insert:
-    id: git-log
-    name: <绝对路径>/src/index.ts
-    config:
-      maxCommits: 5
+    - id: git-log
+      name: <绝对路径>/src/index.ts
+      config:
+        maxCommits: 5
 ```
 
 逐层核对下来，你能看到 `git-log` 这条来自 `--patch` 层、`maxCommits` 最终等于 5。四层补丁树的完整心智模型见 [[DeepSeek-Harness 配置体系]]。
