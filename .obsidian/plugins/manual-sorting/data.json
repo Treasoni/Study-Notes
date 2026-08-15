@@ -2,6 +2,7 @@
   "customOrder": {
     "/": {
       "children": [
+        "CONTEXT.md",
         "TCP协议基础.md",
         "显存（VRAM）与本地部署大模型.md",
         "coord.json",
@@ -175,6 +176,7 @@
     },
     "AI学习": {
       "children": [
+        "AI学习/DeepSeek-Harness 教程",
         "AI学习/OpenCode",
         "AI学习/DeepSeek-Reasonix 教程",
         "AI学习/Codex",
@@ -473,6 +475,18 @@
       "children": [
         "AI学习/Codex/04-高级功能/对照表与迁移实战.md",
         "AI学习/Codex/04-高级功能/快速参考卡片.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/DeepSeek-Harness 教程": {
+      "children": [
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 安装与快速上手.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 常见坑与速查.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 配置体系.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 是什么.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 与ClaudeCode对照迁移.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness MOC.md",
+        "AI学习/DeepSeek-Harness 教程/README.md"
       ],
       "sortOrder": "custom"
     },
@@ -1597,6 +1611,7 @@
     },
     "workspace": {
       "children": [
+        "workspace/deepseek-harness",
         "workspace/new-api-relay-station",
         "workspace/opencode-config-and-usage",
         "workspace/tcp-protocol",
@@ -2060,6 +2075,46 @@
     "workspace/debian系统安装教程/output": {
       "children": [
         "workspace/debian系统安装教程/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness": {
+      "children": [
+        "workspace/deepseek-harness/chapters",
+        "workspace/deepseek-harness/output",
+        "workspace/deepseek-harness/update",
+        "workspace/deepseek-harness/00_intent.md",
+        "workspace/deepseek-harness/01_explore_result.md",
+        "workspace/deepseek-harness/02_deep_research.md",
+        "workspace/deepseek-harness/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness/chapters": {
+      "children": [
+        "workspace/deepseek-harness/chapters/01_dsh是什么.md",
+        "workspace/deepseek-harness/chapters/02_安装与快速上手.md",
+        "workspace/deepseek-harness/chapters/03_配置体系.md",
+        "workspace/deepseek-harness/chapters/04_与ClaudeCode对照迁移.md",
+        "workspace/deepseek-harness/chapters/05_常见坑与速查.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness/output": {
+      "children": [
+        "workspace/deepseek-harness/output/01_dsh是什么.md",
+        "workspace/deepseek-harness/output/02_安装与快速上手.md",
+        "workspace/deepseek-harness/output/03_配置体系.md",
+        "workspace/deepseek-harness/output/04_与ClaudeCode对照迁移.md",
+        "workspace/deepseek-harness/output/05_常见坑与速查.md",
+        "workspace/deepseek-harness/output/README_系列导览.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness/update": {
+      "children": [
+        "workspace/deepseek-harness/update/update_plan.md",
+        "workspace/deepseek-harness/update/update_report.md"
       ],
       "sortOrder": "custom"
     },
@@ -3231,6 +3286,7 @@
     },
     "workspace/workflow-runs": {
       "children": [
+        "workspace/workflow-runs/deepseek-harness.workflow.md",
         "workspace/workflow-runs/new-api-relay-station.workflow.md",
         "workspace/workflow-runs/opencode-config-and-usage.workflow.md",
         "workspace/workflow-runs/tcp-protocol.workflow.md",
