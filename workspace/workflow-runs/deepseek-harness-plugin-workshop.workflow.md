@@ -10,7 +10,7 @@ topic: "DeepSeek-Harness 插件实战教学"
 project_slug: "deepseek-harness-plugin-workshop"
 created_at: "2026-08-15"
 last_updated: "2026-08-15"
-current_phase: P3
+current_phase: P4
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：deepseek-harness-plugin-workshop
 > 项目标识：deepseek-harness-plugin-workshop
 > 创建时间：2026-08-15
-> 当前阶段：阶段 3
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -79,7 +79,7 @@ blocked_reason: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中 {in_progress}
+> [P3] ✅ 已完成 {complete}
 
 ---
 
@@ -91,7 +91,7 @@ blocked_reason: ""
 
 **进度**：0/待大纲确定
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中 {in_progress}
 
 ---
 
@@ -135,6 +135,7 @@ blocked_reason: ""
 | P0 | 用户确认意图文件和研究计划：新写实战分册《DeepSeek-Harness 插件实战教学》，完整上手（写+配+打包），Obsidian 输出到 AI学习/DeepSeek-Harness 教程/ | 2026-08-15 |
 | P1 | 用户选择方向 A→C 完整链路（改造 example-plugin 出新工具 + 打包发布收尾） | 2026-08-15 |
 | P2 | 用户确认深度素材质量（12 来源：6 官方 + 5 vault + 1 社区），选择大纲模式逐章写 | 2026-08-15 |
+| P3 | 用户确认大纲（7 节，示范工具 git_log，A→C 改造+打包链路，与第 4 章互补） | 2026-08-15 |
 
 ---
 
