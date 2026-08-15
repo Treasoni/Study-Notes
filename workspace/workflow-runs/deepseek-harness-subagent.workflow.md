@@ -10,7 +10,7 @@ topic: "如何写 subagent（DeepSeek-Harness）"
 project_slug: "deepseek-harness-subagent"
 created_at: "2026-08-16"
 last_updated: "2026-08-16"
-current_phase: P1
+current_phase: P2
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：deepseek-harness-subagent
 > 项目标识：deepseek-harness-subagent
 > 创建时间：2026-08-16
-> 当前阶段：阶段 1
+> 当前阶段：阶段 2
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -53,7 +53,7 @@ blocked_reason: ""
 - [ ] 用户已选择学习方向
 - [ ] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] 🔲 进行中 {in_progress}
+> [P1] ✅ 已完成 {complete}
 
 ---
 
@@ -67,7 +67,7 @@ blocked_reason: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] ⬜ 未开始
+> [P2] 🔲 进行中 {in_progress}
 
 ---
 
@@ -133,6 +133,7 @@ blocked_reason: ""
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
 | P0 | 用户确认意图文件与研究计划（概念理解+上手；归属=补进 DeepSeek-Harness 教程系列；输出=vault AI学习/DeepSeek-Harness 教程/） | 2026-08-16 |
+| P1 | 用户选择方向 A+B 组合（全流程概念 → 写 provider → 工具化，并深度覆盖 provider 插件写作） | 2026-08-16 |
 
 ---
 
