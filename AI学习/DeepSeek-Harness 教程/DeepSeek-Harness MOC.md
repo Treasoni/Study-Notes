@@ -2,7 +2,7 @@
 title: DeepSeek-Harness 教程 MOC
 tags: [deepseek-harness, ai, MOC, 索引]
 created: 2026-08-13
-updated: 2026-08-15
+updated: 2026-08-16
 status: updated
 source_project: deepseek-harness
 ---
@@ -10,7 +10,7 @@ source_project: deepseek-harness
 # DeepSeek-Harness 教程 MOC
 
 > [!info] 目录导航
-> **DeepSeek-Harness（dsh）插件开发教程**，面向「熟悉 Claude Code 的用户」，以「写自己的 dsh 插件」为主线。共 5 篇主章分册 + 2 篇配置专册 + 2 篇实战分册 + 系列导览，零散分册模式，每篇可独立阅读。
+> **DeepSeek-Harness（dsh）插件开发教程**，面向「熟悉 Claude Code 的用户」，以「写自己的 dsh 插件」为主线。共 5 篇主章分册 + 2 篇配置专册 + 2 篇实战分册 + 1 篇子系统开发分册 + 系列导览，零散分册模式，每篇可独立阅读。
 > 读者定位：已熟悉 Claude Code，用其扩展体系（hooks / CLAUDE.md / MCP / Skills）作桥，讲解 dsh 插件开发。
 > 系列入口：[[DeepSeek-Harness 教程/README|系列导览]]
 
@@ -21,6 +21,7 @@ source_project: deepseek-harness
 ```
 01 心智模型 → 02 环境准备 → 03 插件开发核心 → 04 实战项目 → 05 速查与排错
                                         （03/04 各含 1 篇配置专册；04 另含 2 篇实战分册）
+                                        （06 子系统开发：Subagent 能力缝 + provider）
                                             ↘ 概念基础（AI学习/01-基础概念/）
 ```
 
@@ -68,12 +69,18 @@ source_project: deepseek-harness
 |------|------|
 | [[DeepSeek-Harness 常见坑与速查]] | 插件开发高频坑、命令速查（含 dsh plugin 全家族）、工具契约、配置引用、模型协议参考、生态 |
 
+### 06 子系统开发
+
+| 笔记 | 说明 |
+|------|------|
+| [[DeepSeek-Harness Subagent 开发]] | 子系统开发：subagent 能力缝与三层结构、ctx.subagents 契约、写自己的 provider（三段式）、one-shot/continuable、工具化暴露，7 章概念+实战分册 |
+
 ---
 
 ## 🗺️ 推荐阅读顺序
 
 ```
-▸ 主路径（约 2.5–3.5 小时）
+▸ 主路径（约 3.5–4.5 小时）
   ├── DeepSeek-Harness 是什么          ← 转心智模型（插件树 vs 单体+扩展）
   ├── DeepSeek-Harness 安装与快速上手   ← 源码环境，5 分钟跑通
   ├── DeepSeek-Harness 插件开发核心    ← 全书核心，篇幅最长
@@ -82,6 +89,7 @@ source_project: deepseek-harness
   ├── DeepSeek-Harness 配置实战        ← 实战：接入现成 skills/hooks/mcp/rules
   ├── DeepSeek-Harness 插件实战        ← 实战：把脚手架改造成自己的工具并打包发布
   ├── DeepSeek-Harness 从零写插件      ← 实战：从空目录手写全部文件，与插件实战互为对照
+  ├── DeepSeek-Harness Subagent 开发    ← 进阶：写 subagent 能力缝（provider + 工具），概念+实战
   └── DeepSeek-Harness 常见坑与速查     ← 日常速查
 
 ▸ 急用路径

@@ -69,3 +69,82 @@
 **预防措施**：
 - 命令/路径断言进入笔记前，先读命令实现源码确认路径解析基准，并确认被引用文件真实位置；一次改对。
 - 涉及多处引用时，改完 `grep` 全文确认无残留旧表述。
+
+## [ERR-20260816-001] P5 组装：note-assembler 无 Bash/Edit 且 Write 有输出上限，产物被拆分
+
+### 错误：note-assembler 组装 135KB 长笔记时 Write 输出上限，产物被拆成 final_note.md + final_note_part2.md
+
+**错误**：P5 组装时 note-assembler（工具集仅 Read/Write/Glob）写 `output/final_note.md` 触发 Write 输出上限，自行把内容拆到 `final_note_part2.md`，留下两个文件和一个 `.write-test.tmp` 测试文件。
+
+**触发场景**：长章节（7 章）合并组装，总产物 >130KB。
+
+**根因**：agent 工具约束（无 Bash/Edit、Write 输出 cap），子 agent 无法自行合并或追加。
+
+**修复**：
+- 父进程用 Bash `cat final_note_part2.md >> final_note.md` 合并。
+- 删除 `final_note_part2.md` 与 `.write-test.tmp`。
+
+**预防措施**：
+- 组装前预判产物大小；长文档要求 writer 分章写入，由父进程/脚本合并。
+- 派发 note-assembler 时提示「Write 有输出上限，超长拆文件后由父进程合并」。
+
+---
+
+## [ERR-20260816-002] P5 组装：合并文档脚注 ID 冲突，后定义覆盖先定义
+
+### 错误：7 章合并后 19 个重复脚注 ID，引用错位
+
+**错误**：合并后的 final_note.md 里 S2/S3/S5/S6/S7/S8/6.3 等脚注 ID 在多个章节重复，Markdown 语义下后定义覆盖先定义，导致前文引用指向错误来源。
+
+**触发场景**：独立写作的章节各自从同一来源集编号，P5 拼接。
+
+**根因**：无全局脚注命名空间约定。
+
+**修复**：
+- perl 脚本按章命名空间化：第 N 章全部 `[^ID]` → `[^cN-ID]`。
+- 全文档核对 ref/def 配对：74 对，0 重复。
+
+**预防措施**：
+- 章节写作模板加「脚注用 `[^cN-...]` 前缀」约定，或在组装阶段固定加命名空间化步骤并 grep 校验。
+
+---
+
+## [ERR-20260816-003] 文本处理：perl 中文正则静默失败（no-op 无报错）
+
+### 错误：perl 脚本按中文章节号拆分文档，执行后报告无变化，实为字符类未匹配
+
+**错误**：第一次 perl 拆分脚本用 `-CSD` 但未 `use utf8`，`[一二三四五六七]` 字符类按字节匹配，匹配数为 0，脚本无任何报错地空跑。
+
+**触发场景**：用 perl 处理含中文的 Markdown 文本拆分。
+
+**根因**：perl 源码字面量默认按字节处理；中文字符类匹配不到 UTF-8 字节流；脚本逻辑在「匹配为 0」时输出无变化并成功退出。
+
+**修复**：
+- 脚本头部加 `use utf8;` 与 `use open ":std", ":encoding(UTF-8)"`。
+- 文件句柄显式 `:encoding(UTF-8)`。
+- 成功：8 段、74 defs、0 重复。
+
+**预防措施**：
+- perl 处理非 ASCII：必须 `use utf8` + 标准 IO/句柄 `:encoding(UTF-8)`；对含中文的脚本先跑小样本断言匹配数>0。
+
+---
+
+## [ERR-20260816-004] P4 并行写作：多个 chapter-writer 直接手改共享 workflow state file
+
+### 错误：5 个并行 chapter-writer 各自直接编辑同一份 state file 的章节 checklist
+
+**错误**：P4「直接写完」并行派发后，多个 writer 同时编辑 `workspace/workflow-runs/deepseek-harness-subagent.workflow.md`，章节完成状态乱序写入（1,2,3,5,6,7,4）。
+
+**触发场景**：同一消息并行启动多个 chapter-writer，每个被告知完成后更新状态文件。
+
+**根因**：状态变更规则（只能经 todo-state.sh）没有同步到子 agent 提示；并行写同一文件天然竞态。
+
+**修复**：
+- 本次各 writer 恰好都先读后写、保留了他人修改，无实际丢失。
+- orchestrator 事后统一核对 7/7 完成状态。
+
+**预防措施**：
+- 子 agent 提示里明确「不修改 workflow state file；章节状态由 orchestrator 集中更新」。
+- 并行写作时父进程收集各章完成回执，一次性用 todo-state.sh 更新状态。
+
+---
