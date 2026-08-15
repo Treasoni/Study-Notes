@@ -28,6 +28,12 @@ source_project: deepseek-harness
 
 ## 分册索引
 
+### 00 前置准备
+
+| 笔记 | 说明 |
+|------|------|
+| [[写 dsh 插件前的 TypeScript 速查]] | 前置速查：Python+C 背景读者补 TS，P0/P1/P2 + C/Python 对照表 |
+
 ### 01 心智模型
 
 | 笔记 | 说明 |
