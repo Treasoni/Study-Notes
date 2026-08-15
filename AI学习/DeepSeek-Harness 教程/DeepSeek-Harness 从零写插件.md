@@ -486,12 +486,12 @@ export function apply(ctx: Context) {
 
 现在你的工程里已经有多个名字在同时流动，把它们钉死才不会在第 6、7 章打包安装时翻车。这一章真正"活"的名字有两个，另外两个会在后续章节出现，先建立完整心智模型[^S11]：
 
-| 名字 | 固定值 | 出现位置 | 本章状态 |
-| --- | --- | --- | --- |
-| 诊断名 | `git-log-plugin` | `export const name`，加载日志 `[git-log-plugin]` | ✅ 已用（第 2 章） |
-| 包名 | `dsh-git-log-plugin` | package.json `name` | ⏳ 第 6 章 |
-| patch id | `git-log` | patch yml 的 `- insert: id` | ✅ 已用（第 2 章） |
-| 工具名 | `git_log` | `defineTool.name`，模型可见 | ✅ 本章新增 |
+| 名字       | 固定值                  | 出现位置                                        | 本章状态        |
+| -------- | -------------------- | ------------------------------------------- | ----------- |
+| 诊断名      | `git-log-plugin`     | `export const name`，加载日志 `[git-log-plugin]` | ✅ 已用（第 2 章） |
+| 包名       | `dsh-git-log-plugin` | package.json `name`                         | ⏳ 第 6 章     |
+| patch id | `git-log`            | patch yml 的 `- insert: id`                  | ✅ 已用（第 2 章） |
+| 工具名      | `git_log`            | `defineTool.name`，模型可见                      | ✅ 本章新增      |
 
 记住一句话：**`git-log-plugin` ≠ `dsh-git-log-plugin` ≠ `git-log` ≠ `git_log`**。前三个连字符命名各管各的（日志 / 包 / 补丁实例），只有 `git_log` 是下划线命名且直接暴露给模型。工具名是模型和你的代码之间的协议，一旦发布再改，所有依赖它的对话历史都会失效——所以 `git_log` 从这一章起就是冻结值，和 [[DeepSeek-Harness 插件实战]] 保持同一基线[^S11]。
 
