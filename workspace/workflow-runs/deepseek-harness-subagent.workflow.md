@@ -10,8 +10,8 @@ topic: "如何写 subagent（DeepSeek-Harness）"
 project_slug: "deepseek-harness-subagent"
 created_at: "2026-08-16"
 last_updated: "2026-08-16"
-current_phase: P6
-current_status: in_progress
+current_phase: P7
+current_status: ready
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：deepseek-harness-subagent
 > 项目标识：deepseek-harness-subagent
 > 创建时间：2026-08-16
-> 当前阶段：阶段 6
+> 当前阶段：阶段 7
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -118,7 +118,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] 🔲 进行中 {in_progress}
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -171,8 +171,8 @@ blocked_reason: ""
 
 - **笔记类型**：概念理解 + 实战
 - **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
+- **章节数**：7（第 1-7 章）
+- **输出格式**：Obsidian Markdown
+- **文件路径**：AI学习/DeepSeek-Harness 教程/DeepSeek-Harness Subagent 开发.md
 - **Obsidian Vault**：D:\Study-Notes
 - **MOC 路径**：AI学习/DeepSeek-Harness 教程/DeepSeek-Harness MOC.md
