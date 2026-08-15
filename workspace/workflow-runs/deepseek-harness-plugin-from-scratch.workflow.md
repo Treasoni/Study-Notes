@@ -10,7 +10,7 @@ topic: "DeepSeek-Harness 从零写插件（空目录手写全文件）"
 project_slug: "deepseek-harness-plugin-from-scratch"
 created_at: "2026-08-15"
 last_updated: "2026-08-15"
-current_phase: P3
+current_phase: P4
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：deepseek-harness-plugin-from-scratch
 > 项目标识：deepseek-harness-plugin-from-scratch
 > 创建时间：2026-08-15
-> 当前阶段：阶段 3
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -72,14 +72,14 @@ blocked_reason: ""
 ---
 
 ## 阶段 3：大纲生成（大纲模式）
-- [ ] 已读取意图文件和深度素材
-- [ ] 已根据笔记类型选择大纲结构
-- [ ] 大纲已生成（≤3级层级）
-- [ ] 每章已标注：篇幅、素材引用、代码示例
-- [ ] 大纲已展示给用户确认
-- [ ] 大纲已保存：`./03_outline.md`
+- [x] 已读取意图文件和深度素材
+- [x] 已根据笔记类型选择大纲结构
+- [x] 大纲已生成（≤3级层级）
+- [x] 每章已标注：篇幅、素材引用、代码示例
+- [x] 大纲已展示给用户确认
+- [x] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中 {in_progress}
+> [P3] ✅ 已完成 {complete}
 
 ---
 
@@ -91,7 +91,7 @@ blocked_reason: ""
 
 **进度**：0/待大纲确定
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中 {in_progress}
 
 ---
 
@@ -135,6 +135,7 @@ blocked_reason: ""
 | P0 | 用户确认意图：新写一篇「从零写 dsh 插件」教学分册；「从零」=空目录手写所有文件、不用 example-plugin 脚手架；Obsidian 输出到 AI学习/DeepSeek-Harness 教程/；示范工具沿用 git_log 与《插件实战》可对照 | 2026-08-15 |
 | P1 | 用户确认素材质量（9 官方 + 3 vault + 社区线索）并选择方向 A「渐进式从零」：先最小 2 文件跑通，再补工程化 | 2026-08-15 |
 | P2 | 用户确认深度素材（14 来源：9 官方 + 5 vault；含 .required() 口径校准、O2 monorepo 规范排除）；并选择执行模式：大纲模式（逐章写） | 2026-08-15 |
+| P3 | 用户确认大纲（9 章渐进式从零结构；一致性基线 git_log/maxCommits=5；dev-cordis.patch.yml 命名；.required() 官方口径；与《插件实战》互补第 9 章）；并确认篇幅压缩到中量 12,000–15,000 字 | 2026-08-15 |
 
 ---
 

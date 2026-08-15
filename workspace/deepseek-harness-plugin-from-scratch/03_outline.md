@@ -10,7 +10,7 @@ note_type: 实战教学分册
 # 《DeepSeek-Harness 从零写插件：空目录手写全文件》
 
 > 笔记类型：实战教学分册（learning-note / outline 模式）
-> 预计总篇幅：约 31,000–32,000 字
+> 预计总篇幅：约 12,000–15,000 字（用户已确认压缩到中量：核心章 2/3/4/6/7 保详细，过渡章 1/8/9 精简）
 > 章节数：9 章（8 章教学 + 1 章分工说明）
 > 核心承诺：**不依赖 example-plugin 脚手架**，从一个空目录手写所有文件，走通 写→配→验证→打包→安装
 
@@ -39,7 +39,7 @@ note_type: 实战教学分册
 - 1.2 终点长什么样：8 个文件的清单 + 4 个名字 + 基线表
 - 1.3 双路线对照表：《插件实战》改造（example-plugin）vs 本篇从零（空目录）
 
-**篇幅**：中（约 2,500 字）
+**篇幅**：短（约 600 字）——过渡章，终点清单 + 对照表为主
 
 **素材引用**：S11（V2）、S1（O1）、S13（V4）
 
@@ -70,7 +70,7 @@ note_type: 实战教学分册
 - 2.4 加载命令：`pnpm dsh web --patch ./dev-cordis.patch.yml` → 开 http://127.0.0.1:3080 看日志
 - 2.5 校准认知：「plugin loaded!」是插件自身的 `console.log`，不是 dsh 框架/CLI 的特性
 
-**篇幅**：长（约 4,500 字）——全篇第一个关键里程碑，逐行讲解
+**篇幅**：长（约 2,300 字）——全篇第一个关键里程碑，逐行讲解
 
 **素材引用**：S1（O1）、S14（V5）、S11（V2§5.1）
 
@@ -105,7 +105,7 @@ note_type: 实战教学分册
 - 3.5 `index.ts` 升级：`inject = ['tools']` + `ctx.tools.register(defineTool({...}))`
 - 3.6 四名分离落地：`git-log-plugin` / `dsh-git-log-plugin` / `git-log` / `git_log`
 
-**篇幅**：长（约 5,000 字）——五件套 + 契约是本篇核心，需配合真实代码
+**篇幅**：长（约 2,600 字）——五件套 + 契约是本篇核心，需配合真实代码
 
 **素材引用**：S4（O4）、S5（O5）、S13（V4）、S11（V2）
 
@@ -139,7 +139,7 @@ note_type: 实战教学分册
 - 4.5 apply 里读取完整校验后的 config：`ctx.config.maxCommits`
 - 4.6 坏配置行为：插件加载时跑 schema → ValidationError / fiber FAILED / 永不半启动
 
-**篇幅**：中（约 4,000 字）
+**篇幅**：中（约 1,900 字）
 
 **素材引用**：S6（O6）、S7（O7）、S11（V2）
 
@@ -172,7 +172,7 @@ note_type: 实战教学分册
 - 5.4 `dsh --profile headless "<task>"`：一次性任务端到端，stdout 打印文本，退出码 **0 = completed / 1 = otherwise**；无任务文本 = usage 错误
 - 5.5 读 dump 输出的要点：文件名注释、`!!js` 不求值、stderr 报未命中
 
-**篇幅**：中（约 3,500 字）
+**篇幅**：中（约 1,600 字）
 
 **素材引用**：S8（O8）、S11（V2§5）
 
@@ -208,7 +208,7 @@ note_type: 实战教学分册
 - 6.5 双 patch 定型：`dev-cordis.patch.yml`（绝对路径，开发期 `--patch`）vs `cordis.patch.yml`（`name = dsh-git-log-plugin`，打包用）；把第 4 章的 config 块同步复制到 bundle patch
 - 6.6 **校准注记**：O2 的 monorepo 内建包规范（lib/types、extends 根 tsconfig、references、constraints，**不含 dsh.bundle.patch**）不适用于独立插件，本篇只教独立插件规范
 
-**篇幅**：长（约 4,500 字）
+**篇幅**：长（约 2,000 字）
 
 **素材引用**：S10（V1）、S2（O2 校准）、S3（O3）、S11（V2§6）
 
@@ -242,7 +242,7 @@ note_type: 实战教学分册
 - 7.5 跑通已装插件：`dsh --profile demo`（profile 由 `dsh plugin` 自动维护对账，**永不手写**）
 - 7.6 git 源安装三坑：①拉源码不拉产物 → 作者须 `prepare` 自包含构建；②pnpm≥10 拒跑 git 依赖 prepare → 把打印的包 key 抄进 profile 的 pnpm-workspace.yaml `allowBuilds` 再重跑；③`#sha` 钉 commit
 
-**篇幅**：长（约 5,000 字）
+**篇幅**：长（约 2,200 字）
 
 **素材引用**：S3（O3）、S9（O9）、S12（V3）、S14（V5）、S11（V2§6）
 
@@ -276,7 +276,7 @@ note_type: 实战教学分册
 - 8.2 一条命令链串起来：`dsh web --patch` → `--dump-config` → headless → `pnpm pack` → `dsh plugin add`
 - 8.3 下一步：更多工具 / 配置实战 / 发布到 npm registry / 官方模板 `dsh-plugin-*`
 
-**篇幅**：短（约 1,500 字）
+**篇幅**：短（约 500 字）
 
 **素材引用**：S1（O1）、S3（O3）
 
@@ -304,7 +304,7 @@ note_type: 实战教学分册
 - 9.3 两篇配合的读法：已有《插件实战》基础 → 跳过第 1 章直接上手；从零读者 → 本篇为主、插件实战做对照验证
 - 9.4 共同基线保证可对照：同一 `git_log` / 同一四名分离 / 同一 `maxCommits=5`
 
-**篇幅**：短（约 1,200 字）
+**篇幅**：短（约 500 字）
 
 **素材引用**：S11（V2）、S12（V3）
 
@@ -374,3 +374,4 @@ note_type: 实战教学分册
 | git 安装坑是否真机复现 | 以官方文档为准，教学标注「未实测」 | 第 7 章 |
 | `.required()` 口径 | 以官方 O6 为准写 `.required()`；保留「无 `.optional()`、可选靠 TS `?`」；校准注记标注与《插件实战》§4（`.required(true)`）差异 | 第 4 章 |
 | O2 与独立插件两套规范 | 只教独立插件规范（V1）；O2 仅作校准注记排除 | 第 6 章 |
+| 预计篇幅（用户确认压缩） | 压缩到中量：总约 12,000–15,000 字；核心章（2/3/4/6/7）保详细，过渡章（1/8/9）精简 | 全篇 |
