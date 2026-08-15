@@ -970,6 +970,8 @@ dist/
 - **bundle**：一个 npm 包，作者在里面声明 `dsh.bundle.patch`（即上一章定型的 `cordis.patch.yml`），等于"这个包贡献一层配置"。作者造 bundle，负责把配置随包分发出去。
 - **profile**：Harness home 下的一个命名目录，里面声明 `dsh.profile.bundles` 的**有序列表**，决定"这台机器要激活哪些 bundle、按什么顺序"。用户 boot profile，负责组装自己的环境。它的目录长什么样，见 §7.2「落到磁盘」示例。
 
+用咱们的例子对齐三个词：`git_log` 是**工具**（零件，在 `src/tools/git-log.ts` 里 defineTool）；`dsh-git-log-plugin` 是**装工具的包**——bundle，一个包可以含多个工具；`demo` 是**你装进环境的一组包**——profile，它组合的是 bundle 而不是工具本身。profile 最终决定这台机器上哪些工具可用。
+
 我们第 6 章做的事就是"作者面"：把 `dsh-git-log-plugin` 的 `cordis.patch.yml` 挂在 `dsh.bundle.patch` 字段上，包一装、profile 一激活，这一层配置就进来了。[^S3] 官方架构文档把 profile 描述为"命名配置集合"，bundle 是它的一个来源，两者正交。[^S9]
 
 这里有个决定成败的硬规则，务必记牢：**bundle patch 里的 `name` 必须等于 package.json 的 `name`**。对我们是 `dsh-git-log-plugin` 对 `dsh-git-log-plugin`。原因是 dsh 安装时把 bundle 装进 profile 的 `node_modules`，加载 patch 时 Node 靠这个 `name` 去 `node_modules` 里解析已装代码——对不上，层就静默不激活。[^S11]
@@ -1310,3 +1312,4 @@ allowBuilds:
 - 2026-08-15 第 5、8 章命令对齐：§5.2/5.3/5.4 标题、§5.5 验证表、§8.1/§8.2 命令链表、§8.3 与章节过渡语中的裸 `dsh` 统一为 `pnpm dsh`；修正 §8.2 表格下方「后两条在插件工程里执行」的错误表述（第 5 条 `pnpm dsh plugin` 也在 dsh 源码仓库根目录执行）；顺带统一第 6 章章首 `dsh web --patch` → `pnpm dsh web --patch`
 - 2026-08-15 第 7 章补「profile 落到磁盘」实物示例（§7.2）：`<harness-home>` 目录树 + 四层对文件映射表 + `dsh.profile.bundles` 清单示意，并在 §7.1 profile 定义后加跳转指引；树后点明 `demo` 是 profile 名（一个 profile 一个目录、可装多 bundle，非每 bundle 一个目录）
 - 2026-08-15 第 7 章 §7.2 补「数字走一遍」示例：profile 层整行覆盖 bundle 层的 YAML 前/后对照（含只写单字段导致 `outputStyle` 丢失的坑）
+- 2026-08-15 第 7 章 §7.1 补「工具 / bundle / profile」三词对齐：工具住在 bundle 里（一个包可含多工具），profile 装配 bundle 组合而非直接组合工具
