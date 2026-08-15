@@ -984,12 +984,12 @@ dist/
 
 上一章你已经在 `--dump-config` 里见过"分层打印"。补丁树完整地有**四层**，按序叠加：
 
-| 层序  | 层                            | 内容                                                  |     |
-| --- | ---------------------------- | --------------------------------------------------- | --- |
-| ①   | bundles 各层                   | 按 profile 声明的列表顺序，逐 bundle 应用各自的 `cordis.patch.yml` |     |
-| ②   | profile 的 `cordis.patch.yml` | profile 目录里自己的 patch，覆盖 bundle 层                    |     |
-| ③   | home 级                       | Harness home 层面的通用配置                                |     |
-| ④   | `--patch` 叠加                 | 命令行临时追加的 patch，优先级最高                                |     |
+| 层序  | 层                            | 内容                                                  |
+| --- | ---------------------------- | --------------------------------------------------- |
+| ①   | bundles 各层                   | 按 profile 声明的列表顺序，逐 bundle 应用各自的 `cordis.patch.yml` |
+| ②   | profile 的 `cordis.patch.yml` | profile 目录里自己的 patch，覆盖 bundle 层                    |
+| ③   | home 级                       | Harness home 层面的通用配置                                |
+| ④   | `--patch` 叠加                 | 命令行临时追加的 patch，优先级最高                                |
 
 > [!example] 落到磁盘：一个装好 `dsh-git-log-plugin` 的 `demo` profile
 > 四层不是抽象概念，对应 `<harness-home>` 下真实存在的文件。`pnpm dsh plugin --profile demo add` 装完后，目录大致长这样（示意，具体以你的环境为准）：
@@ -1030,6 +1030,35 @@ dist/
 > ```
 
 关键语义：**每层都作用于一张空条目表，后层按 id 定位目标行、整行替换，不做字段级深合并**。[^S9] 意思是——配置不是"一层叠一层地做字段合并"，而是按 patch 条目的 `id` 找到那一行，整个替换掉。如果 bundle 层给 `git-log` 写了 `config: { maxCommits: 5 }`，profile 层想改成 10，它必须写**同一 id 的完整行**（含要保留的所有字段），而不是只写 `maxCommits: 10` 指望"合并"。
+
+> [!example] 数字走一遍：profile 层怎么把 bundle 层"盖掉"
+> 两层都写了同一 id `git-log`，结果**不是字段合并**，而是 ② 把 ① 的整行盖掉（两层都要写完整行）：
+>
+> **① bundle 层**（`node_modules/dsh-git-log-plugin/cordis.patch.yml`，作者写的）：
+>
+> ```yaml
+> - insert:
+>     - id: git-log
+>       name: dsh-git-log-plugin
+>       config:
+>         maxCommits: 5
+>         outputStyle: table
+> ```
+>
+> **② profile 层**（`profiles/demo/cordis.patch.yml`，你想把 maxCommits 改成 10）：
+>
+> ```yaml
+> - insert:
+>     - id: git-log
+>       name: dsh-git-log-plugin
+>       config:
+>         maxCommits: 10
+>         outputStyle: table
+> ```
+>
+> **最终**（`--dump-config` 看到的）：`config: { maxCommits: 10, outputStyle: table }`——`outputStyle` 还在，是因为 ② 把整行（name + config）写全了。
+>
+> 反过来，如果 ② 只写 `maxCommits: 10`，结果就是 `config: { maxCommits: 10 }`，`outputStyle` 静默消失——这才是"整行替换、不做字段级深合并"的坑：你以为只改了 5→10，实际是把那一行整个换掉了。
 
 > [!tip] 大白话
 > 四层补丁树像「千层饼」：每层饼都是独立的，后压上去的层不是跟下面融合，而是把同一块位置整个盖住。你以为"只改了一个参数"，实际是把那一整行配置都换掉了。
@@ -1278,3 +1307,4 @@ allowBuilds:
 - 2026-08-15 第 7 章命令规范：统一为 `pnpm dsh ...`（在 dsh 源码仓库根目录执行），`pnpm pack` 明确标注在 `git-log-plugin/` 执行；章首新增「本章命令一览」表；7.2/7.4/7.5/7.6 的命令块与正文补上运行位置注释
 - 2026-08-15 第 5、8 章命令对齐：§5.2/5.3/5.4 标题、§5.5 验证表、§8.1/§8.2 命令链表、§8.3 与章节过渡语中的裸 `dsh` 统一为 `pnpm dsh`；修正 §8.2 表格下方「后两条在插件工程里执行」的错误表述（第 5 条 `pnpm dsh plugin` 也在 dsh 源码仓库根目录执行）；顺带统一第 6 章章首 `dsh web --patch` → `pnpm dsh web --patch`
 - 2026-08-15 第 7 章补「profile 落到磁盘」实物示例（§7.2）：`<harness-home>` 目录树 + 四层对文件映射表 + `dsh.profile.bundles` 清单示意，并在 §7.1 profile 定义后加跳转指引
+- 2026-08-15 第 7 章 §7.2 补「数字走一遍」示例：profile 层整行覆盖 bundle 层的 YAML 前/后对照（含只写单字段导致 `outputStyle` 丢失的坑）
