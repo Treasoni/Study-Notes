@@ -1,5 +1,5 @@
 ---
-title: "DeepSeek-Harness 插件开发速查与排错"
+title: "DeepSeek-Harness 插件开发 · 第 5 章：速查与排错"
 tags: [deepseek-harness, ai, agent, 插件, 教程, 速查]
 created: 2026-08-13
 updated: 2026-08-15
@@ -7,7 +7,7 @@ status: updated
 source_project: deepseek-harness
 ---
 
-# DeepSeek-Harness 插件开发速查与排错
+# DeepSeek-Harness 插件开发 · 第 5 章：速查与排错
 
 > [!summary] 本章导读
 > 最后一章是写插件时的常驻速查：按环节排的高频坑、命令速查（含 `dsh plugin` 全家族）、工具契约速查、配置引用与 launcher 规则。遇到问题先翻这里，再决定回看哪一章。

@@ -1,5 +1,5 @@
 ---
-title: "DeepSeek-Harness 插件开发核心"
+title: "DeepSeek-Harness 插件开发 · 第 3 章：插件开发核心——从 apply(ctx) 到发布"
 tags: [deepseek-harness, ai, agent, 插件, 教程, 开发]
 created: 2026-08-13
 updated: 2026-08-15
@@ -7,7 +7,7 @@ status: updated
 source_project: deepseek-harness
 ---
 
-# DeepSeek-Harness 插件开发核心：从 apply(ctx) 到发布
+# DeepSeek-Harness 插件开发 · 第 3 章：插件开发核心——从 apply(ctx) 到发布
 
 > [!summary] 本章导读
 > 这是全书核心。用你熟悉的 Claude Code 作参照：在 Claude Code 里写「扩展」靠改配置文件 + 少量钩子；在 dsh 里写插件 = 写 TypeScript 模块 + 用 patch 装进插件树。本章讲插件**怎么写**：形态 → 生命周期 → 依赖 → 写工具 → 策略 → 提示词。插件怎么**注册 / 装配 / 发布**（补丁树、Profile、Config schema、bundle）见配套专册 [[DeepSeek-Harness 配置体系|配置体系]]。

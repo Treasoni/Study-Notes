@@ -1,5 +1,5 @@
 ---
-title: "DeepSeek-Harness 配置体系"
+title: "DeepSeek-Harness 配置专册 · 配置体系——补丁树、Profile 与 bundle"
 tags: [deepseek-harness, ai, agent, 配置, 教程]
 created: 2026-08-13
 updated: 2026-08-15
@@ -7,7 +7,7 @@ status: updated
 source_project: deepseek-harness
 ---
 
-# DeepSeek-Harness 配置体系：补丁树、Profile 与 bundle
+# DeepSeek-Harness 配置专册 · 配置体系——补丁树、Profile 与 bundle
 
 > [!summary] 本章导读
 > 这是 [[DeepSeek-Harness 插件开发核心|插件开发核心]] 的配套专册。dsh **没有「一份完整配置文件」**——配置是**多层 YAML 补丁**按顺序叠加的结果。本册讲清四件事：① 补丁树怎么叠加（1）；② 两级配置 Profile 与 Agent Preset（2）；③ 插件怎么声明并接收配置（3）；④ 打包发布时 bundle 与 profile 各管什么（4）。

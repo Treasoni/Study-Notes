@@ -1,5 +1,5 @@
 ---
-title: "DeepSeek-Harness 插件开发：环境准备"
+title: "DeepSeek-Harness 插件开发 · 第 2 章：环境准备——源码运行路径"
 tags: [deepseek-harness, ai, agent, 插件, 教程, 安装]
 created: 2026-08-13
 updated: 2026-08-15
@@ -7,7 +7,7 @@ status: updated
 source_project: deepseek-harness
 ---
 
-# DeepSeek-Harness 插件开发：环境准备——源码运行路径
+# DeepSeek-Harness 插件开发 · 第 2 章：环境准备——源码运行路径
 
 > [!summary] 本章导读
 > 写插件和「只使用 dsh」要求不一样：官方插件文档的第一步就是「从源码运行」（run from source）。这一章带你把源码仓库克隆、构建、跑通，并验证 Web UI 与 headless 两条通路——它们是后续写插件时的调试环境。

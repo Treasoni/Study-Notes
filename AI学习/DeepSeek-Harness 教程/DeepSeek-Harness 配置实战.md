@@ -1,5 +1,5 @@
 ---
-title: "DeepSeek-Harness 配置实战：像 Claude Code 一样接入 skills/hooks/mcp/rules"
+title: "DeepSeek-Harness 配置专册 · 配置实战——像 Claude Code 一样接入 skills/hooks/mcp/rules"
 tags: [deepseek-harness, ai, agent, 配置, 教程, claude-code, skills, hooks, mcp, rules]
 created: 2026-08-15
 updated: 2026-08-15
@@ -7,7 +7,7 @@ status: new
 source_project: deepseek-harness
 ---
 
-# DeepSeek-Harness 配置实战：像 Claude Code 一样接入 skills/hooks/mcp/rules
+# DeepSeek-Harness 配置专册 · 配置实战——像 Claude Code 一样接入 skills/hooks/mcp/rules
 
 > [!summary] 本章导读
 > 前面几章教你怎么「**写**」dsh 插件。这一章反过来：你已经有一整套 Claude Code 配置（CLAUDE.md、skills、hooks、MCP），怎么让 dsh **直接用起来**。核心答案一句话：**rules 和 skills 几乎零迁移，hooks 和 mcp 要绕一下 cordis.yml**。先说清 `.dsh` 到底管什么，再逐块给操作，最后给一份「照搬 Claude Code」的四步清单。

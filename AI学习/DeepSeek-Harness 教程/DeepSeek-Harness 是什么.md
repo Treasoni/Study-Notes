@@ -1,5 +1,5 @@
 ---
-title: "DeepSeek-Harness 插件开发：心智模型"
+title: "DeepSeek-Harness 插件开发 · 第 1 章：心智模型——插件树 vs 单体 + 扩展"
 tags: [deepseek-harness, ai, agent, 插件, 教程, 心智模型]
 created: 2026-08-13
 updated: 2026-08-15
@@ -7,7 +7,7 @@ status: updated
 source_project: deepseek-harness
 ---
 
-# DeepSeek-Harness 插件开发：心智模型——插件树 vs 单体 + 扩展
+# DeepSeek-Harness 插件开发 · 第 1 章：心智模型——插件树 vs 单体 + 扩展
 
 > [!summary] 本章导读
 > 你想写自己的 dsh 插件，又熟悉 Claude Code。开始写之前最该先做的不是装环境，而是把心智模型转过来：**Claude Code 是「单体核心 + 扩展」，dsh 是「空壳 + 插件树」**。这一章用你已会的 Claude Code 概念作桥，讲清 dsh 插件体系，让你理解「为什么我写的插件能像官方插件一样有地位」。

@@ -1,5 +1,5 @@
 ---
-title: "DeepSeek-Harness 插件开发实战：自定义工具插件"
+title: "DeepSeek-Harness 插件开发 · 第 4 章：实战——从零写一个自定义工具插件（每一步对照 Claude Code）"
 tags: [deepseek-harness, ai, agent, 插件, 教程, 实战, claude-code]
 created: 2026-08-13
 updated: 2026-08-15
@@ -7,7 +7,7 @@ status: updated
 source_project: deepseek-harness
 ---
 
-# 实战：从零写一个自定义工具插件（每一步对照 Claude Code）
+# DeepSeek-Harness 插件开发 · 第 4 章：实战——从零写一个自定义工具插件（每一步对照 Claude Code）
 
 > [!summary] 本章导读
 > 前三章把 dsh 插件的零件讲完了。这一章把它们装成一辆车：从零写一个**自定义工具插件**，走完「搭骨架 → 写工具 → 加配置 → 加载跑通 → 打包发布」全程。每一步都标注「这在 Claude Code 里相当于」，让已经熟悉 Claude Code 的你不用二次建模。
