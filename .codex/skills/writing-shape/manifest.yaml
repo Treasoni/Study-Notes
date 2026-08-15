@@ -1,0 +1,19 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: writing-shape
+  version: 1.0.0
+  description: "Writing, exploit — shape raw material into an article, paragraph by paragraph, with the user confirming each block."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - writing.shape
+  permissions:
+    filesystem: write
+    network: none
+    subprocess: none
+    git: none
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

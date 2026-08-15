@@ -1,0 +1,19 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: moc-organizer
+  version: 1.0.0
+  description: "Maintain Obsidian Map of Content indexes without copying note bodies."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - obsidian.moc.organize
+  permissions:
+    filesystem: write
+    network: none
+    subprocess: none
+    git: none
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

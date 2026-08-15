@@ -1,0 +1,4 @@
+interface:
+  display_name: "Legacy Note Importer"
+  short_description: "Import existing notes into project standards"
+  default_prompt: "Use $legacy-note-importer to inventory and normalize my existing notes for this project."

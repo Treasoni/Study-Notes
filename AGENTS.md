@@ -3,18 +3,18 @@
 本项目同时保留 Claude Code 与 Codex 两套配置。Codex 工作时必须遵守下面的隔离规则：
 
 1. 默认不要搜索或读取 `.claude/` 下的任何文件，除非用户明确要求维护 Claude Code 配置，或执行本项目规定的同步操作。
-2. Codex 专用配置、规则、技能、hooks 和脚本只放在本项目 `.codex/` 下，不写入 `~/.codex/`。
+2. Codex 专用配置、规则、hooks 和脚本只放在本项目 `.codex/` 下；可跨 runtime 的 Codex skill 放在 `.agents/skills/`。两者都不写入 `~/.codex/`。
 3. 项目级长期规则以本文件为入口；更细规则见 `.codex/rules/`。
-4. 需要使用技能时，优先读取 `.codex/skills/{skill-name}/SKILL.md` 作为入口，完整理解后再执行；只在任务需要时继续读取其引用的模板、示例和资料，避免预加载无关内容。
+4. 需要使用技能时，优先读取 `.agents/skills/{skill-name}/SKILL.md` 作为入口，完整理解后再执行；只在任务需要时继续读取其引用的模板、示例和资料，避免预加载无关内容。
 5. 需要模拟原 Claude agent 时，读取 `.codex/agents/{agent-name}.md`，按其中角色、输入、输出和检查点执行。
-6. 修改 `.codex/skills`、`.codex/agents`、`.codex/rules` 或 `.codex/scripts` 后，运行 `.codex/scripts/sync-codex-to-claude.sh`，保持 Claude Code 配置同步。
+6. `.agents/skills` 与 `.codex/{agents,rules,hooks,scripts,workflows}` 是跨 runtime 的 canonical source。修改后，先运行 `.agent-sync/sync_agents.py --root . --check --scope <area>`，再 `--apply`，最后运行全量 `--check`。Claude Code 目录是生成目标，不手工编辑；hook 变更后额外运行 `.agent-sync/bootstrap.py --root . --apply` 与 `--check`。
 
 ## Agent Platform Manifest
 
-Workflow、Skill、Subagent 和 Hook 都必须在各自 `.codex/{workflows,skills,agents,hooks}/{name}/manifest.yaml` 中声明统一契约。manifest 负责自动发现、版本、入口、能力、依赖和请求权限；它不自行授予任何工具权限，运行时仍以平台策略和用户授权为准。
+Workflow、Skill、Subagent 和 Hook 都必须在各自 `.codex/{workflows,agents,hooks}/{name}/manifest.yaml` 或 `.agents/skills/{name}/manifest.yaml` 中声明统一契约。manifest 负责自动发现、版本、入口、能力、依赖和请求权限；它不自行授予任何工具权限，运行时仍以平台策略和用户授权为准。
 
 - 新增、删除、重命名或实质修改上述工件时，同步更新其 manifest 的版本、依赖和最小权限。
-- 入口路径相对 manifest 目录解析，且不得离开 `.codex/`。
+- 入口路径相对 manifest 目录解析，且不得离开该工件的配置根目录。
 - 变更后运行 `python3 .codex/platform/manifest-registry.py --root . validate`；Hook 还必须继续在 `.codex/hooks.json` 中注册。
 - 复用到其他项目时，使用项目内 `manifest-platform` Skill 的安装脚本，不把该平台配置写入全局 `~/.codex/`。
 
@@ -74,12 +74,13 @@ batch-note-updater -> note-updater
 | `tool-discovery` | 可用工具、工具列表、收集工具 |
 | `digest` | 记录学习、总结经验、消化、digest |
 
-如果用户要求创建或优化 skill，使用 Codex 自带的 `skill-creator`；不要把新 skill 写回 `.claude/skills`，除非用户明确要求同步 Claude Code。
+如果用户要求创建或优化 skill，使用 Codex 自带的 `skill-creator`；将跨 runtime skill 写入 `.agents/skills`，再由 `.agent-sync` 生成 Claude Code 副本。
 
 ## Rules
 
 执行任务时按需读取：
 
+- `.agents/skills/{skill-name}/SKILL.md`
 - `.codex/rules/common/skill-invocation.md`
 - `.codex/rules/common/agent-invocation.md`
 - `.codex/rules/common/git-workflow.md`
@@ -90,7 +91,7 @@ batch-note-updater -> note-updater
 - `.codex/rules/obsidian/note-system.md`
 - `.codex/rules/research-tools.md`
 
-项目本地 hooks 使用 `.codex/hooks.json` 注册，脚本放在 `.codex/hooks/`。不要把本项目 hooks 写到全局 `~/.codex/config.toml`；如果 Codex 提示信任 hook，仅信任本项目路径。
+项目本地 hooks 使用 `.codex/hooks.json` 注册，脚本放在 `.codex/hooks/`。`hooks.json` 由 `.agent-sync/bootstrap.py` 在当前机器生成；不要把本项目 hooks 写到全局 `~/.codex/config.toml`；如果 Codex 提示信任 hook，仅信任本项目路径。
 
 ## Project Safety
 
@@ -98,3 +99,38 @@ batch-note-updater -> note-updater
 - 不硬编码用户机器绝对路径到项目产物中。
 - 编辑前先检查 `git status --short`，不要覆盖用户未提交改动。
 - Git 提交消息遵守 `.codex/rules/common/git-workflow.md`。
+
+<!-- env-template:codex:begin -->
+## Environment Variables
+
+- Follow `.codex/rules/common/env.md` whenever creating, updating, migrating, or auditing `.env`, `.env.example`, or environment-variable documentation.
+- Keep committed env templates minimal, project-specific, and free of real secrets or machine-local absolute paths.
+- After env template changes, run `.codex/scripts/check-env-template.sh`. Use `--strict` when you want unused documented variables to fail the check.
+<!-- env-template:codex:end -->
+
+<!-- prompt-cache-bootstrap:codex:begin -->
+## Prompt Cache
+
+- Follow `.codex/rules/common/prompt-cache.md` for high-frequency prompt design.
+- Keep stable instructions and output formats before dynamic user input, file excerpts, dates, IDs, and runtime state.
+- Reuse canonical templates and load long context only when needed.
+<!-- prompt-cache-bootstrap:codex:end -->
+
+<!-- workflow-todo-state:start -->
+## Workflow Todo State
+
+Named workflow state files are the source of truth while a routed workflow is active.
+
+- Workflow definitions live under `.codex/workflows/{workflow-id}/`.
+- Workflow state files live under `workspace/workflow-runs/` and should be named after the task, for example `payment-refactor.workflow.md`.
+- Before any action that changes project files, runs project commands, or calls external services, read `.codex/rules/workflow-routing.md` and match the user's original request against its triggers and exclusions.
+- When a `Required: yes` workflow matches, read its `workflow.md`, create or resume its state file, and start the current phase before doing the work. Do not take the ordinary execution path instead.
+- If the route is ambiguous, ask the user before acting.
+- Read the active workflow state file before starting any phase; do not skip prerequisite phases.
+- Change phase state only through `.codex/scripts/todo-state.sh`.
+- Use one unique phase status line per phase, for example `> [P0] ⬜ 未开始 {not_started}`.
+- The final phase requires `quality_gate: passed`; a temporary waiver also requires an owner and due date.
+- Completed run states follow the repository retention policy and do not replace changelogs or release records.
+- On resume after interruption, inspect the YAML frontmatter and current phase before acting.
+- Each workflow directory must contain a `routing.yaml`. After creating, changing, renaming, or deleting a workflow, run `.codex/scripts/sync-workflow-routing.sh`; the update is incomplete until `.codex/scripts/sync-workflow-routing.sh --check` passes.
+<!-- workflow-todo-state:end -->

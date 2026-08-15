@@ -51,8 +51,9 @@
       "minimum": 0
     },
     "latency_ms": {
-      "type": "number",
-      "minimum": 0
+      "type": ["number", "null"],
+      "minimum": 0,
+      "description": "Null when the provider transcript does not expose per-request latency."
     },
     "cost_usd": {
       "type": "number",
@@ -78,4 +79,3 @@
   },
   "additionalProperties": true
 }
-

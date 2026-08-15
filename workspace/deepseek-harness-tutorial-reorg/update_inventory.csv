@@ -1,0 +1,10 @@
+file,role,status,action,updated
+README.md,series-guide,ready,update,2026-08-15
+DeepSeek-Harness MOC.md,moc,ready,update,2026-08-15
+DeepSeek-Harness 是什么.md,chapter-01,ready,update,2026-08-15
+DeepSeek-Harness 安装与快速上手.md,chapter-02,ready,update,2026-08-15
+DeepSeek-Harness 插件开发核心.md,chapter-03,ready,update,2026-08-15
+DeepSeek-Harness 配置体系.md,companion-03,ready,update,2026-08-15
+DeepSeek-Harness 与ClaudeCode对照迁移.md,chapter-04,ready,update,2026-08-15
+DeepSeek-Harness 配置实战.md,companion-04,ready,update,2026-08-15
+DeepSeek-Harness 常见坑与速查.md,chapter-05,ready,update,2026-08-15

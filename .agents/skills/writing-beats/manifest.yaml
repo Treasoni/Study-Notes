@@ -1,0 +1,19 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: writing-beats
+  version: 1.0.0
+  description: "Writing, exploit — assemble raw material into a journey of beats, grounding each term before a beat leans on it."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - writing.beats
+  permissions:
+    filesystem: write
+    network: none
+    subprocess: none
+    git: none
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

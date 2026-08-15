@@ -1,0 +1,19 @@
+apiVersion: agent-platform/v1
+kind: Subagent
+metadata:
+  name: outline-generator
+  version: 1.0.0
+  description: "Generate a confirmed learning-note outline from prepared research material."
+spec:
+  entrypoint: ../outline-generator.md
+  capabilities:
+    - notes.outline.generate
+  permissions:
+    filesystem: write
+    network: none
+    subprocess: none
+    git: none
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

@@ -1,0 +1,19 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: ask-matt
+  version: 1.0.0
+  description: "Ask which skill or flow fits your situation. A router over the skills in this repo."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - skill.routing
+  permissions:
+    filesystem: read
+    network: none
+    subprocess: none
+    git: none
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

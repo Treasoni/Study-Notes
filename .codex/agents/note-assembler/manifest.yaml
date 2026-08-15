@@ -1,0 +1,19 @@
+apiVersion: agent-platform/v1
+kind: Subagent
+metadata:
+  name: note-assembler
+  version: 1.0.0
+  description: "Assemble confirmed chapters into one coherent learning note."
+spec:
+  entrypoint: ../note-assembler.md
+  capabilities:
+    - notes.assemble
+  permissions:
+    filesystem: write
+    network: none
+    subprocess: none
+    git: none
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

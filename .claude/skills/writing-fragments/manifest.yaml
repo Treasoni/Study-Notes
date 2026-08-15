@@ -1,0 +1,19 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: writing-fragments
+  version: 1.0.0
+  description: "Writing, explore — mine raw fragments through interview, no structure yet, appending to a single markdown file."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - writing.fragments
+  permissions:
+    filesystem: write
+    network: none
+    subprocess: none
+    git: none
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

@@ -1,0 +1,180 @@
+---
+workflow_id: learning-note-flow
+workflow_name: 学习笔记工作流
+workflow_version: 1
+state_file_type: workflow-run
+run_id: "deepseek-harness-plugin-from-scratch"
+task: "DeepSeek-Harness 从零写插件（空目录手写全文件）"
+created_from: ".claude/workflows/learning-note-flow/state-template.md"
+topic: "DeepSeek-Harness 从零写插件（空目录手写全文件）"
+project_slug: "deepseek-harness-plugin-from-scratch"
+created_at: "2026-08-15"
+last_updated: "2026-08-15"
+current_phase: P5
+current_status: in_progress
+mode: outline
+confirmed_phases: ""
+skippable_phases: "P7"
+mode_dependent_skips: "P3,P4"
+allowed_modes: "outline,freeform"
+mode_change_phase: "P2"
+blocked_reason: ""
+---
+
+# 学习笔记工作流 - 执行检查清单
+
+> 工作流：learning-note-flow
+> 主题：DeepSeek-Harness 从零写插件（空目录手写全文件）
+> 运行标识：deepseek-harness-plugin-from-scratch
+> 项目标识：deepseek-harness-plugin-from-scratch
+> 创建时间：2026-08-15
+> 当前阶段：阶段 5
+> 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
+
+---
+
+## 阶段 0：意图澄清
+- [x] 用户输入已分析（「写一个新的，从零开始」）
+- [x] 笔记类型已确定（实战教学分册 / learning-note）
+- [x] 学习深度已确定（上手：写→配→验证→打包→安装）
+- [x] 用户基础已确定（有了解：理论已读、源码环境已跑通、读过《插件实战》）
+- [x] 输出位置策略已确定（Obsidian vault：AI学习/DeepSeek-Harness 教程/）
+- [x] 如发布到 Obsidian，vault_path、note_folder、moc_path 已确认（AI学习 / DeepSeek-Harness 教程 / DeepSeek-Harness MOC.md）
+- [x] 意图文件已生成：`./00_intent.md`
+
+> [P0] ✅ 已完成 {complete}
+
+---
+
+## 阶段 1：探测式收集
+- [x] 已派出 2-3 个 subagent 并行探测（3 lens：工程骨架 / 工具 DSL / 打包安装验证）
+- [x] 探测结果已汇总（去重后 9 官方 + 3 vault + 社区线索；纠正 advanced/bundle.md 不存在）
+- [x] 方向菜单已展示给用户（A 渐进式 / B 六文件 / C 打包优先）
+- [x] 用户已选择学习方向（A. 渐进式从零）
+- [x] 探测结果已保存：`./01_explore_result.md`
+
+> [P1] ✅ 已完成 {complete}
+
+---
+
+## 阶段 2：深度收集
+- [x] 已根据用户选择的方向启动深度收集（3 路并行：骨架+工程化 / 工具DSL+Config / 打包安装验证）
+- [x] 核心概念/理论素材已收集（apply/inject/defineTool/Config/bundle/profile/patch 树）
+- [x] 实战代码/项目案例已收集（最小 2 文件骨架 + 独立插件 package.json/tsconfig + git_log）
+- [x] 常见坑/最佳实践已收集（绝对路径 / 四名分离 / allowBuilds / #sha / 整行替换）
+- [x] 工具链/生态已收集（pnpm / tsc / dsh CLI 命令链 / pnpm pack）
+- [x] 进阶路径/学习资源已收集（官方模板 dsh-plugin-* / hello-dsh 社区实例）
+- [x] 素材质量已确认（14 来源：9 官方 + 5 vault，全部核实存在；纠正 advanced/bundle.md 404）
+- [x] 深度素材已保存：`./02_deep_research.md`
+
+> [P2] ✅ 已完成 {complete}
+
+---
+
+## 阶段 3：大纲生成（大纲模式）
+- [x] 已读取意图文件和深度素材
+- [x] 已根据笔记类型选择大纲结构
+- [x] 大纲已生成（≤3级层级）
+- [x] 每章已标注：篇幅、素材引用、代码示例
+- [x] 大纲已展示给用户确认
+- [x] 大纲已保存：`./03_outline.md`
+
+> [P3] ✅ 已完成 {complete}
+
+---
+
+## 阶段 4：逐章写作
+- [x] 第 1 章已写完并确认
+- [x] 第 2 章已写完并确认（用户授权直接写完）
+- [x] 第 3 章已写完并确认
+- [x] 第 4 章已写完并确认（用户授权直接写完）
+- [x] 第 5 章已写完并确认（用户授权直接写完）
+- [x] 第 6 章已写完并确认（用户授权直接写完）
+- [x] 第 7 章已写完并确认（打包发布安装，用户授权直接写完）
+- [x] 第 8 章已写完并确认
+- [x] 第 9 章已写完（与《插件实战》分工，用户授权直接写完）
+
+**进度**：9/9（全部章节完成）
+
+> [P4] ✅ 已完成 {complete}
+
+---
+
+## 阶段 5：收尾组装
+- [ ] 所有章节文件已检查
+- [ ] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
+- [ ] 过渡语已添加
+- [ ] 目录已生成
+- [ ] 标题层级已统一
+- [ ] 引用已检查
+- [ ] 完整笔记已保存：`./output/final_note.md`
+
+> [P5] 🔲 进行中 {in_progress}
+
+---
+
+## 阶段 6：Obsidian 美化与发布
+- [ ] 已读取 Obsidian 输出规则
+- [ ] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
+- [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
+- [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
+
+> [P6] ⬜ 未开始
+
+---
+
+## 阶段 7：MOC 同步
+- [ ] 已定位或创建 MOC 文件
+- [ ] 新笔记双链已加入 MOC
+- [ ] 已去重并更新摘要/标签
+- [ ] MOC 只保留索引，不复制正文
+
+> [P7] ⬜ 未开始
+
+---
+
+## 用户确认记录
+
+| 阶段 | 确认内容 | 时间 |
+|------|----------|------|
+| P0 | 用户确认意图：新写一篇「从零写 dsh 插件」教学分册；「从零」=空目录手写所有文件、不用 example-plugin 脚手架；Obsidian 输出到 AI学习/DeepSeek-Harness 教程/；示范工具沿用 git_log 与《插件实战》可对照 | 2026-08-15 |
+| P1 | 用户确认素材质量（9 官方 + 3 vault + 社区线索）并选择方向 A「渐进式从零」：先最小 2 文件跑通，再补工程化 | 2026-08-15 |
+| P2 | 用户确认深度素材（14 来源：9 官方 + 5 vault；含 .required() 口径校准、O2 monorepo 规范排除）；并选择执行模式：大纲模式（逐章写） | 2026-08-15 |
+| P3 | 用户确认大纲（9 章渐进式从零结构；一致性基线 git_log/maxCommits=5；dev-cordis.patch.yml 命名；.required() 官方口径；与《插件实战》互补第 9 章）；并确认篇幅压缩到中量 12,000–15,000 字 | 2026-08-15 |
+| P4 | 用户授权「直接写完」：9 章全部一次性写作，不再逐章确认；第 4 章 config 读取按官方 `apply(ctx, config)` 第二参数校准（替代大纲旧写 `ctx.config`） | 2026-08-15 |
+
+---
+
+## 跳过记录
+
+| 阶段 | 确认内容 | 原因 | 时间 |
+|------|----------|------|------|
+| | | | |
+
+---
+
+## 异常记录
+
+| 时间 | 阶段 | 问题描述 | 处理方式 |
+|------|------|---------|---------|
+| 2026-08-15 | P4 | 大纲 4.5 写 `ctx.config.maxCommits`，与官方 config.md 不符（Context 无 .config） | 第 4 章 agent 核实本地官方 docs + cordis 源码后改用 `apply(ctx, config)` 第二参数；已同步修正大纲 4.5 并采纳章节写法 |
+
+---
+
+## 方向调整记录
+
+| 时间 | 原方向 | 新方向 | 是否需要补充收集 |
+|------|--------|--------|-----------------|
+| | | | |
+
+---
+
+## 最终产出
+
+- **笔记类型**：
+- **总字数**：
+- **章节数**：
+- **输出格式**：
+- **文件路径**：
+- **Obsidian Vault**：
+- **MOC 路径**：

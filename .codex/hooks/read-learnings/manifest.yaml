@@ -1,0 +1,20 @@
+apiVersion: agent-platform/v1
+kind: Hook
+metadata:
+  name: read-learnings
+  version: 1.0.0
+  description: "Load local learning notes at Codex session start."
+spec:
+  entrypoint: ../read_learnings.py
+  event: SessionStart
+  capabilities:
+    - lifecycle.read-learnings
+  permissions:
+    filesystem: read
+    network: none
+    subprocess: none
+    git: none
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

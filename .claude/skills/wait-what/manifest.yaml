@@ -1,0 +1,19 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: wait-what
+  version: 1.0.0
+  description: "Stop. Re-pitch a message that did not land, with context and Simplified Technical English."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - communication.repitch
+  permissions:
+    filesystem: read
+    network: none
+    subprocess: none
+    git: none
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

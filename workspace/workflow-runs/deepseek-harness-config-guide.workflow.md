@@ -1,0 +1,179 @@
+---
+workflow_id: learning-note-flow
+workflow_name: 学习笔记工作流
+workflow_version: 1
+state_file_type: workflow-run
+run_id: "deepseek-harness-config-guide"
+task: "DeepSeek-Harness 配置接入：skills/hooks/mcp/rules 指南"
+created_from: ".claude/workflows/learning-note-flow/state-template.md"
+topic: "DeepSeek-Harness 配置接入：skills/hooks/mcp/rules 指南"
+project_slug: "deepseek-harness-config-guide"
+created_at: "2026-08-15"
+last_updated: "2026-08-15"
+current_phase: done
+current_status: complete
+mode: freeform
+confirmed_phases: ""
+skippable_phases: "P3,P4,P7"
+mode_dependent_skips: "P3,P4"
+allowed_modes: "outline,freeform"
+mode_change_phase: "P2"
+blocked_reason: ""
+quality_gate: passed
+---
+
+# 学习笔记工作流 - 执行检查清单
+
+> 工作流：learning-note-flow
+> 主题：DeepSeek-Harness 配置接入：skills/hooks/mcp/rules 指南
+> 运行标识：deepseek-harness-config-guide
+> 项目标识：deepseek-harness-config-guide
+> 创建时间：2026-08-15
+> 当前阶段：完成
+> 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
+
+---
+
+## 阶段 0：意图澄清
+- [ ] 用户输入已分析
+- [ ] 笔记类型已确定（实战/概念/心得/对比）
+- [ ] 学习深度已确定（入门/上手/精通）
+- [ ] 用户基础已确定（零基础/有了解/熟悉）
+- [ ] 输出位置策略已确定（项目 output / 用户指定 Obsidian vault）
+- [ ] 如发布到 Obsidian，vault_path、note_folder、moc_path 已确认或标记待补
+- [ ] 意图文件已生成：`./00_intent.md`
+
+> [P0] ✅ 已完成 {complete}
+
+---
+
+## 阶段 1：探测式收集
+- [ ] 已派出 2-3 个 subagent 并行探测
+- [ ] 探测结果已汇总
+- [ ] 方向菜单已展示给用户
+- [ ] 用户已选择学习方向
+- [ ] 探测结果已保存：`./01_explore_result.md`
+
+> [P1] ✅ 已完成 {complete}
+
+---
+
+## 阶段 2：深度收集
+- [ ] 已根据用户选择的方向启动深度收集
+- [ ] 核心概念/理论素材已收集
+- [ ] 实战代码/项目案例已收集
+- [ ] 常见坑/最佳实践已收集
+- [ ] 工具链/生态已收集
+- [ ] 进阶路径/学习资源已收集
+- [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
+- [ ] 深度素材已保存：`./02_deep_research.md`
+
+> [P2] ✅ 已完成 {complete}
+
+---
+
+## 阶段 3：大纲生成（大纲模式）
+- [ ] 已读取意图文件和深度素材
+- [ ] 已根据笔记类型选择大纲结构
+- [ ] 大纲已生成（≤3级层级）
+- [ ] 每章已标注：篇幅、素材引用、代码示例
+- [ ] 大纲已展示给用户确认
+- [ ] 大纲已保存：`./03_outline.md`
+
+> [P3] ⏭️ 跳过 {skipped}
+
+---
+
+## 阶段 4：逐章写作
+- [ ] 第 1 章已写完并确认
+- [ ] 第 2 章已写完并确认
+- [ ] 第 3 章已写完并确认
+- [ ] ...（根据实际章节数添加）
+
+**进度**：0/1
+
+> [P4] ⏭️ 跳过 {skipped}
+
+---
+
+## 阶段 5：收尾组装
+- [ ] 所有章节文件已检查
+- [ ] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
+- [ ] 过渡语已添加
+- [ ] 目录已生成
+- [ ] 标题层级已统一
+- [ ] 引用已检查
+- [ ] 完整笔记已保存：`./output/final_note.md`
+
+> [P5] ✅ 已完成 {complete}
+
+---
+
+## 阶段 6：Obsidian 美化与发布
+- [ ] 已读取 Obsidian 输出规则
+- [ ] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
+- [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
+- [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
+
+> [P6] ✅ 已完成 {complete}
+
+---
+
+## 阶段 7：MOC 同步
+- [ ] 已定位或创建 MOC 文件
+- [ ] 新笔记双链已加入 MOC
+- [ ] 已去重并更新摘要/标签
+- [ ] MOC 只保留索引，不复制正文
+
+> [P7] ✅ 已完成 {complete}
+
+---
+
+## 用户确认记录
+
+| 阶段 | 确认内容 | 时间 |
+|------|----------|------|
+| P0 | 用户要求生成笔记（"生成笔记啊"），意图文件已建：单篇配置接入分册 | 2026-08-15 15:56 |
+| P1 | 用户确认方向：像 Claude Code 一样接入 skills/hooks/mcp/rules（沿用系列对照迁移思路） | 2026-08-15 15:56 |
+| P2 | 官方源码/文档已核对（extension-cookbook / skills subsystem / config-catalog / agent-instructions），素材质量确认；freeform 模式 | 2026-08-15 15:57 |
+| P5 | 单篇分册正文已产出（output/final_note.md），组装方式 C：保持零散 | 2026-08-15 15:58 |
+| P6 | 用户要求生成笔记，输出位置沿用系列 AI学习/DeepSeek-Harness 教程/ | 2026-08-15 15:58 |
+| P7 | MOC 同步完成，新增分册索引 | 2026-08-15 15:59 |
+
+---
+
+## 跳过记录
+
+| 阶段 | 确认内容 | 原因 | 时间 |
+|------|----------|------|------|
+| | | | |
+
+---
+
+## 异常记录
+
+| 时间 | 阶段 | 问题描述 | 处理方式 |
+|------|------|---------|---------|
+| 2026-08-15 15:57 | P4 | 跳过阶段：freeform 模式：单篇独立分册，不逐章写作 | 继续推进到下一未完成阶段 |
+| 2026-08-15 15:57 | P3 | 跳过阶段：freeform 模式：单篇独立分册，不生成大纲 | 继续推进到下一未完成阶段 |
+| | | | |
+
+---
+
+## 方向调整记录
+
+| 时间 | 原方向 | 新方向 | 是否需要补充收集 |
+|------|--------|--------|-----------------|
+| | | | |
+
+---
+
+## 最终产出
+
+- **笔记类型**：实战配置指南（对照 Claude Code 接入 skills/hooks/mcp/rules）
+- **总字数**：约 2,900 字（单篇独立分册）
+- **章节数**：1（freeform 模式，单篇）
+- **输出格式**：Obsidian Markdown（YAML frontmatter + Callout + 双链 + 代码块语言标识）
+- **文件路径**：`AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 配置实战.md`
+- **Obsidian Vault**：`AI学习/`（vault 内路径）
+- **MOC 路径**：`AI学习/DeepSeek-Harness 教程/DeepSeek-Harness MOC.md`（04 实战项目 + 推荐阅读顺序已更新）

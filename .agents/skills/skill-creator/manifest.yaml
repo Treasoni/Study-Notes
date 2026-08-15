@@ -1,0 +1,20 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: skill-creator
+  version: 1.0.0
+  description: "Create new skills, modify and improve existing skills, and measure skill performance with evals."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - skill.creation
+    - skill.evaluation
+  permissions:
+    filesystem: write
+    network: allow
+    subprocess: allow
+    git: none
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

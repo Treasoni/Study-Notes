@@ -1,0 +1,6 @@
+workflow_id: learning-note-flow
+required: true
+when_to_use: "新主题学习笔记生产、资料收集、逐章写作、Obsidian 发布"
+triggers: "想学；帮我整理；研究一下；了解一下；不知道从哪开始；research planning；explore topic"
+excludes: "仅回答一般知识问题；仅修改既有笔记；仅生成 MOC"
+state_file_pattern: "workspace/workflow-runs/{topic}.workflow.md"

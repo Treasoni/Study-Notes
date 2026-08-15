@@ -1,0 +1,19 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: prompt-cache-optimizer
+  version: 1.0.0
+  description: "Audit and improve LLM prompt cache use, token cost, and latency."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - llm.cache.optimize
+  permissions:
+    filesystem: write
+    network: none
+    subprocess: allow
+    git: none
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

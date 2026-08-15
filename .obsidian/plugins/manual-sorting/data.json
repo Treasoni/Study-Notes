@@ -1612,6 +1612,7 @@
     "workspace": {
       "children": [
         "workspace/deepseek-harness",
+        "workspace/deepseek-harness-update",
         "workspace/new-api-relay-station",
         "workspace/opencode-config-and-usage",
         "workspace/tcp-protocol",
@@ -2115,6 +2116,106 @@
       "children": [
         "workspace/deepseek-harness/update/update_plan.md",
         "workspace/deepseek-harness/update/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-update": {
+      "children": [
+        "workspace/deepseek-harness-update/shared_research",
+        "workspace/deepseek-harness-update/updates",
+        "workspace/deepseek-harness-update/00_batch_update_intent.md",
+        "workspace/deepseek-harness-update/01_update_inventory.md",
+        "workspace/deepseek-harness-update/02_batch_update_plan.md",
+        "workspace/deepseek-harness-update/03_batch_update_log.md",
+        "workspace/deepseek-harness-update/04_batch_update_report.md",
+        "workspace/deepseek-harness-update/update_inventory.csv"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-update/shared_research": {
+      "children": [
+        "workspace/deepseek-harness-update/shared_research/raw",
+        "workspace/deepseek-harness-update/shared_research/source_bank.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-update/shared_research/raw": {
+      "children": [
+        "workspace/deepseek-harness-update/shared_research/raw/01-first-plugin.md",
+        "workspace/deepseek-harness-update/shared_research/raw/02-lifecycle-and-effects.md",
+        "workspace/deepseek-harness-update/shared_research/raw/03-services.md",
+        "workspace/deepseek-harness-update/shared_research/raw/05-config.md",
+        "workspace/deepseek-harness-update/shared_research/raw/adding-a-tool.md",
+        "workspace/deepseek-harness-update/shared_research/raw/basic-config.md",
+        "workspace/deepseek-harness-update/shared_research/raw/basic-index.md",
+        "workspace/deepseek-harness-update/shared_research/raw/basic-publish.md",
+        "workspace/deepseek-harness-update/shared_research/raw/basic-tool.md",
+        "workspace/deepseek-harness-update/shared_research/raw/development.md",
+        "workspace/deepseek-harness-update/shared_research/raw/extension-cookbook.md",
+        "workspace/deepseek-harness-update/shared_research/raw/framework-events.md",
+        "workspace/deepseek-harness-update/shared_research/raw/framework-service.md",
+        "workspace/deepseek-harness-update/shared_research/raw/README.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-update/updates": {
+      "children": [
+        "workspace/deepseek-harness-update/updates/01",
+        "workspace/deepseek-harness-update/updates/02",
+        "workspace/deepseek-harness-update/updates/03",
+        "workspace/deepseek-harness-update/updates/04",
+        "workspace/deepseek-harness-update/updates/05",
+        "workspace/deepseek-harness-update/updates/06",
+        "workspace/deepseek-harness-update/updates/07"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-update/updates/01": {
+      "children": [
+        "workspace/deepseek-harness-update/updates/01/stale_map.md",
+        "workspace/deepseek-harness-update/updates/01/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-update/updates/02": {
+      "children": [
+        "workspace/deepseek-harness-update/updates/02/stale_map.md",
+        "workspace/deepseek-harness-update/updates/02/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-update/updates/03": {
+      "children": [
+        "workspace/deepseek-harness-update/updates/03/stale_map.md",
+        "workspace/deepseek-harness-update/updates/03/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-update/updates/04": {
+      "children": [
+        "workspace/deepseek-harness-update/updates/04/stale_map.md",
+        "workspace/deepseek-harness-update/updates/04/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-update/updates/05": {
+      "children": [
+        "workspace/deepseek-harness-update/updates/05/stale_map.md",
+        "workspace/deepseek-harness-update/updates/05/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-update/updates/06": {
+      "children": [
+        "workspace/deepseek-harness-update/updates/06/stale_map.md",
+        "workspace/deepseek-harness-update/updates/06/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-update/updates/07": {
+      "children": [
+        "workspace/deepseek-harness-update/updates/07/stale_map.md",
+        "workspace/deepseek-harness-update/updates/07/update_report.md"
       ],
       "sortOrder": "custom"
     },
@@ -3287,6 +3388,7 @@
     "workspace/workflow-runs": {
       "children": [
         "workspace/workflow-runs/deepseek-harness.workflow.md",
+        "workspace/workflow-runs/update-deepseek-harness.workflow.md",
         "workspace/workflow-runs/new-api-relay-station.workflow.md",
         "workspace/workflow-runs/opencode-config-and-usage.workflow.md",
         "workspace/workflow-runs/tcp-protocol.workflow.md",

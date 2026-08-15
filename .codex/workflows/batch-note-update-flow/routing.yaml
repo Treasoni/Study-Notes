@@ -1,0 +1,6 @@
+workflow_id: batch-note-update-flow
+required: true
+when_to_use: "多篇既有笔记批量更新、逐篇局部 patch"
+triggers: "批量更新旧笔记；多篇笔记过时；更新一个目录的笔记；refresh multiple notes"
+excludes: "只更新单篇笔记；仅生成 MOC"
+state_file_pattern: "workspace/workflow-runs/update-{scope}.workflow.md"

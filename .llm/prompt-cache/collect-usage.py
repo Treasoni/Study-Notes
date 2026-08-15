@@ -15,10 +15,9 @@ Known mapping (documented compatible equivalent):
 from __future__ import annotations
 
 import argparse
-import glob
 import json
-import os
 import re
+import sys
 from pathlib import Path
 
 REQUIRED_FIELDS = [
@@ -66,51 +65,28 @@ def first_user_text(session_path: Path) -> str:
     return ""
 
 
-def default_project_dir() -> str:
-    """Locate this vault's Claude Code transcript directory.
-
-    The project slug is derived from the vault path by the harness (CJK paths
-    are slugified into dashes), so it cannot be reconstructed from the vault
-    path here. Resolution order:
-      1. Known current slug for this vault (from the real transcript dir).
-      2. Legacy slug used before the vault path changed.
-      3. Fallback: the directory under ~/.claude/projects containing the
-         most recently modified *.jsonl (the SessionEnd hook runs right after
-         a session in this vault ends, so its transcript is the newest).
-    """
-    candidates = [
-        Path.home() / ".claude" / "projects" / "-Users-zhqznc-Documents-----",
-        Path.home() / ".claude" / "projects" / "c--note-Study-Notes",
-    ]
-    for c in candidates:
-        if c.is_dir():
-            return str(c)
-
-    proj_root = Path.home() / ".claude" / "projects"
-    best_dir, best_mtime = None, -1.0
-    if proj_root.is_dir():
-        for p in sorted(proj_root.iterdir()):
-            if not p.is_dir():
-                continue
-            for f in p.glob("*.jsonl"):
-                try:
-                    mtime = f.stat().st_mtime
-                except OSError:
-                    continue
-                if mtime > best_mtime:
-                    best_mtime, best_dir = mtime, p
-        if best_dir is not None:
-            return str(best_dir)
-
-    return str(Path.home() / ".claude" / "projects" / "c--note-Study-Notes")
+def hook_transcript_path() -> str | None:
+    """Return Claude Code's current transcript path when invoked as a hook."""
+    if sys.stdin.isatty():
+        return None
+    try:
+        payload = json.load(sys.stdin)
+    except (json.JSONDecodeError, OSError):
+        return None
+    transcript_path = payload.get("transcript_path") if isinstance(payload, dict) else None
+    return transcript_path if isinstance(transcript_path, str) and transcript_path else None
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--project",
-        default=default_project_dir(),
-        help="Directory of Claude Code session transcripts (default: this project's transcripts).",
+        help="Directory containing Claude Code session transcripts.",
+    )
+    parser.add_argument(
+        "--transcript",
+        default=hook_transcript_path(),
+        help="One Claude Code transcript; supplied automatically by a hook.",
     )
     parser.add_argument(
         "--out",
@@ -120,14 +96,26 @@ def main() -> int:
     parser.add_argument("--dry-run", action="store_true", help="Report how many events would be added without writing.")
     args = parser.parse_args()
 
+    if args.transcript:
+        transcript_path = Path(args.transcript).expanduser()
+        if not transcript_path.is_file() or transcript_path.suffix != ".jsonl":
+            parser.error("--transcript must name an existing .jsonl file")
+        session_paths = [transcript_path]
+    elif args.project:
+        project_path = Path(args.project).expanduser()
+        if not project_path.is_dir():
+            parser.error("--project must name an existing transcript directory")
+        session_paths = sorted(project_path.glob("*.jsonl"))
+    else:
+        parser.error("provide --project, --transcript, or invoke from a Claude Code hook")
+
     out_path = Path(args.out)
     state_path = out_path.with_name(".collect-state.json")
     state: dict = json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else {}
 
     new_events = []
     processed_pairs = 0
-    for source_file in sorted(glob.glob(os.path.join(args.project, "*.jsonl"))):
-        session_path = Path(source_file)
+    for session_path in session_paths:
         rel_name = session_path.name
         request_type = classify_request_type(first_user_text(session_path))
         done_keys = set(state.get(rel_name, []))
@@ -168,7 +156,7 @@ def main() -> int:
         state[rel_name] = sorted(done_keys)
 
     if args.dry_run:
-        print(f"would add {processed_pairs} events ({processed_pairs} new messages scanned, {len(state)} sessions tracked)")
+        print(f"would add {processed_pairs} events ({processed_pairs} new messages scanned, {len(session_paths)} transcript(s) scanned)")
         return 0
 
     with open(out_path, "a", encoding="utf-8") as fh:

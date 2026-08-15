@@ -1,0 +1,20 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: note-starter
+  version: 1.0.0
+  description: "Start a new-topic learning note through the existing planner and workflow."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - notes.start
+  permissions:
+    filesystem: read
+    network: none
+    subprocess: none
+    git: none
+  dependsOn:
+    - Skill/research-planner
+  lifecycle:
+    discoverable: true
+    deprecated: false

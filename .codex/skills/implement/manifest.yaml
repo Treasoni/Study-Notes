@@ -1,0 +1,19 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: implement
+  version: 1.0.0
+  description: "Implement a piece of work based on a spec or set of tickets, using TDD and code review, then commit."
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - implementation.execute
+  permissions:
+    filesystem: write
+    network: none
+    subprocess: allow
+    git: write
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

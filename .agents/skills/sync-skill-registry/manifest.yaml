@@ -1,0 +1,20 @@
+apiVersion: agent-platform/v1
+kind: Skill
+metadata:
+  name: sync-skill-registry
+  version: 0.1.0
+  description: "技能注册表同步工具。扫描任意 agent skill 目录中的 */SKILL.md 并自动更新对应 skill-invocation.md 中的技能列表表格。"
+spec:
+  entrypoint: SKILL.md
+  capabilities:
+    - registry.sync
+    - registry.discover
+  permissions:
+    filesystem: write
+    network: none
+    subprocess: allow
+    git: none
+  dependsOn: []
+  lifecycle:
+    discoverable: true
+    deprecated: false

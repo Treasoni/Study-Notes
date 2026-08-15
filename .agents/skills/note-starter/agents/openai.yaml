@@ -1,0 +1,4 @@
+interface:
+  display_name: "Note Starter"
+  short_description: "Start a structured note for a new topic"
+  default_prompt: "Use $note-starter to start a learning note about a new topic."
