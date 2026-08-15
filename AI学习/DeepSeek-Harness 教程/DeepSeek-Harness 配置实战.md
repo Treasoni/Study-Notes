@@ -92,6 +92,17 @@ dsh 的 hooks 有两套完全不同的玩法[^5]：
     # projectDir 省略时，默认把 CLAUDE_PROJECT_DIR 导出为 session 工作目录
 ```
 
+> [!note] 这段写进哪个文件？
+> 这个 `- id: hooks-cc` 块是 **cordis.yml 补丁文件里的插件行**，不是丢进 `.dsh/` 目录的独立文件。dsh 没有「一份完整配置」，是四层补丁树叠加（见 [[DeepSeek-Harness 配置体系]]），按生效范围选落点：
+
+| 生效范围 | 写进哪个文件 | 怎么生效 |
+|---|---|---|
+| 项目里先试跑 | 项目根新建 `./cordis.yml` | `pnpm dsh web --patch ./cordis.yml` |
+| 某个 profile 长期 | `~/.dsh/profiles/<name>/cordis.patch.yml` | 随该 profile 自动叠加（补丁树第②层） |
+| 机器全局 | `~/.dsh/cordis.patch.yml` | 所有 profile 共享（补丁树第③层） |
+
+> 两个前提：① 插件包要能解析——`name` 引用 npm 包 `@deepseek-ai/dsh-hooks-claude-code`，未安装先 `dsh plugin --profile <name> add @deepseek-ai/dsh-hooks-claude-code`；② `configPath: ./hooks.json` 是进程级、按启动 cwd 解析（见第 7 节坑 2），要么写绝对路径，要么在 `hooks.json` 所在目录启动。
+
 支持的 hook 点：`SessionStart` / `UserPromptSubmit` / `PreToolUse` / `PostToolUse` / `Stop` / `SubagentStart` / `SubagentStop`[^6]。`CLAUDE_PROJECT_DIR` 会自动注入给 hook 进程，常见项目相对路径的 hook 不用改就能跑。
 
 ### 4.2 原生插件（更强大，但要点编程）
@@ -203,6 +214,7 @@ pnpm dsh --profile <name>          # Web 模式
 
 ## 更新记录
 
+- 2026-08-15：4.1 补充「这段写进哪个文件」落点说明（试跑 `--patch` / profile `cordis.patch.yml` / home `cordis.patch.yml` 三层 + 两个前提坑）。
 - 2026-08-15：新建。基于官方源码（agent-instructions / skills subsystem / extension-cookbook / config-catalog / mcp-client）核对。
 
 ---
