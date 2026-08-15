@@ -755,7 +755,7 @@ dsh --profile headless
 
 ## 第 6 章：第 5 步——工程化补齐
 
-前四步我们从空目录一路写到了 `src/index.ts`（注册中心）、`src/tools/git-log.ts`（工具）和 `dev-cordis.patch.yml`（开发期补丁），插件已经能在 `dsh web --patch` 下加载。但严格说，它还是一堆能跑的 TypeScript 文件——没有 `package.json` 的目录不具备「被安装、被打包、被发布」的资格。第 5 步就是补上工程化四件套：`package.json`、`tsconfig.json`、`files` 白名单和双 patch，让项目从「手工作坊」升级成「流水线」。
+前四步我们从空目录一路写到了 `src/index.ts`（注册中心）、`src/tools/git-log.ts`（工具）和 `dev-cordis.patch.yml`（开发期补丁），插件已经能在 `dsh web --patch` 下加载。但严格说，它还是一堆能跑的 TypeScript 文件——没有 `package.json` 的目录不具备「被安装、被打包、被发布」的资格。第 5 步就是补上工程化三件套：`package.json`（含依赖双份与 files 白名单）、`tsconfig.json`、双 patch（dev + bundle），让项目从「手工作坊」升级成「流水线」。
 
 > [!note] 本章要创建 / 生成哪些文件
 > 手写 **3 个新文件** + **2 个生成物**，全部落在 `git-log-plugin/` 目录内：
@@ -763,17 +763,21 @@ dsh --profile headless
 | 文件                 | 类型   | 作用                                                      | 小节   |
 | ------------------ | ---- | ------------------------------------------------------- | ---- |
 | `package.json`     | 新增手写 | 工程声明：name / main / types / `dsh.bundle.patch` / scripts | §6.1 |
-| `tsconfig.json`    | 新增手写 | 编译配置：ES2022 / ESNext / Bundler / strict                 | §6.3 |
-| `cordis.patch.yml` | 新增手写 | bundle patch：`name` = 包名，随包发布                           | §6.5 |
+| `tsconfig.json`    | 新增手写 | 编译配置：ES2022 / ESNext / Bundler / strict                 | §6.2 |
+| `cordis.patch.yml` | 新增手写 | bundle patch：`name` = 包名，随包发布                           | §6.3 |
 | `pnpm-lock.yaml`   | 生成   | 依赖锁文件（`pnpm install` 产出）                                | 构建一节 |
 | `dist/`            | 生成   | 构建产物（`pnpm run build` 产出）                               | 构建一节 |
 
-**沿用不新建**：`src/index.ts`（第 2/3 章）、`src/tools/git-log.ts`（第 3 章）、`dev-cordis.patch.yml`（第 2 章，§6.5 定型为 dev 版）。
+**沿用不新建**：`src/index.ts`（第 2/3 章）、`src/tools/git-log.ts`（第 3 章）、`dev-cordis.patch.yml`（第 2 章，§6.3 定型为 dev 版）。
 
 > [!tip] 大白话
 > 工程化像给手工作坊上流水线：`package.json` 是营业执照（注册身份、声明经营范围），`tsconfig` 是生产标准（统一怎么编译），`npm run build` 是出厂质检（产出 `dist/` 合格品）。没有这些，产品再能用也进不了市场。
 
-### 6.1 package.json 最小字段
+### 6.1 package.json：工程声明（最小字段 / 依赖双份 / files 白名单）
+
+package.json 一个文件里装三件事：**最小字段**（身份与入口）、**依赖双份**（peer + dev）、**files 白名单**（发布带什么）。下面依次讲。
+
+#### 6.1.1 最小字段
 
 在插件目录根新建 `package.json`。独立插件的最小字段（[^S10]）如下：
 
@@ -817,12 +821,12 @@ dsh --profile headless
 
 `dsh.bundle.patch` 是这个包能被 dsh 识别为 bundle 的关键：dsh 安装一个 bundle 时读这个字段找到补丁文件，把它作为一层配置合并进去。没有它，包只是普通 npm 依赖。
 
-注意这里出现的是四名分离里的第二个名字：`export const name = 'git-log-plugin'`（诊断 / 日志）≠ `dsh-git-log-plugin`（包，本节）≠ `git-log`（patch id / 实例）≠ `git_log`（defineTool 的模型可见工具名）。四个名字各管一段，后面两节会逐个用到。
+注意这里出现的是四名分离里的第二个名字：`export const name = 'git-log-plugin'`（诊断 / 日志）≠ `dsh-git-log-plugin`（包，本节）≠ `git-log`（patch id / 实例）≠ `git_log`（defineTool 的模型可见工具名）。四个名字各管一段，后面小节会逐个用到（尤其 §6.3 双 patch 定型时的包名）。
 
 > [!note] 这在 Claude Code 里相当于
 > 任何 npm 插件 / CLI 工程都有的 `main` / `types` / `files` 字段，Claude Code 插件同样要声明入口；`dsh.bundle.patch` ≈ 在包里写一句「我是 dsh 插件，这是我的激活清单」，相当于 Claude Code 插件里的激活 / manifest 声明。
 
-### 6.2 依赖双份：cordis / dsh-tools / schemastery
+#### 6.1.2 依赖双份：cordis / dsh-tools / schemastery
 
 插件源码里用到三个核心包：`cordis`（插件框架运行时）、`dsh-tools`（工具 DSL / 注册辅助）、`schemastery`（Config schema）。它们**同时出现在 peerDependencies 和 devDependencies**（[^S10]）：
 
@@ -834,7 +838,20 @@ dsh --profile headless
 
 版本号不要照抄：`*` 是占位，要和你的 dsh 源码仓库 `pnpm-lock.yaml` 实际解析到的版本对齐（源码仓库内 `dsh-tools` 通常以 `workspace:*` 形式存在）。另外 `scripts.build` 用的是 `tsc`，所以 `typescript` 进 `devDependencies`（生产环境不需要编译器，不进 peer）；如果工具用到 Node 内置模块（如 `child_process` 跑 `git log`），再补 `@types/node`。
 
-### 6.3 tsconfig：一份能产出 dist/ 的编译配置
+#### 6.1.3 files 白名单：只发布该带的
+
+`files: ["dist", "cordis.patch.yml"]` 声明「打进 tarball 的只有这两样」（[^S10]）：
+
+- `dist/`：编译产物，`main` / `types` 都指向这里，消费者只需要产物，不需要 `src/`。
+- `cordis.patch.yml`：bundle patch，`dsh.bundle.patch` 指向的文件必须在包里。
+- **不在**白名单里的 `dev-cordis.patch.yml`、`src/`、`tsconfig.json` 都不会进包：dev patch 里是机器相关的绝对路径，打进包既无意义，装到别的机器还容易误触发。
+
+> [!tip] 大白话
+> files 白名单像登机行李清单：只带 `dist/`（成品）和 `cordis.patch.yml`（激活卡）上飞机，`src/`（图纸）和 `dev-cordis.patch.yml`（本地临时工牌）留在家里。清单外一律不托运，装包体积小、也少泄密。
+
+`package.json` 的三个子节到此齐了：**最小字段（6.1.1）→ 依赖双份（6.1.2）→ files 白名单（6.1.3）**。下一个文件是 `tsconfig.json`——它决定 `dist/` 怎么从 `src/` 产出。
+
+### 6.2 tsconfig：一份能产出 dist/ 的编译配置
 
 新建 `tsconfig.json`。独立插件的最小配置（[^S10]）：
 
@@ -864,18 +881,7 @@ dsh --profile headless
 > [!note] 这在 Claude Code 里相当于
 > `tsconfig` 就是项目的「生产标准」，Claude Code 插件的工程化同样需要 `tsconfig` + `tsc` 构建链；`declaration` 产出的 `.d.ts` 相当于给插件 API 留了类型文档。
 
-### 6.4 files 白名单：只发布该带的
-
-`files: ["dist", "cordis.patch.yml"]` 声明「打进 tarball 的只有这两样」（[^S10]）：
-
-- `dist/`：编译产物，`main` / `types` 都指向这里，消费者只需要产物，不需要 `src/`。
-- `cordis.patch.yml`：bundle patch，`dsh.bundle.patch` 指向的文件必须在包里。
-- **不在**白名单里的 `dev-cordis.patch.yml`、`src/`、`tsconfig.json` 都不会进包：dev patch 里是机器相关的绝对路径，打进包既无意义，装到别的机器还容易误触发。
-
-> [!tip] 大白话
-> files 白名单像登机行李清单：只带 `dist/`（成品）和 `cordis.patch.yml`（激活卡）上飞机，`src/`（图纸）和 `dev-cordis.patch.yml`（本地临时工牌）留在家里。清单外一律不托运，装包体积小、也少泄密。
-
-### 6.5 双 patch 定型：dev 用绝对路径，bundle 用包名
+### 6.3 双 patch 定型：dev 用绝对路径，bundle 用包名
 
 第 2 章只用了 `dev-cordis.patch.yml`，现在补第二份 `cordis.patch.yml`。两者结构完全一致，**唯一实质区别是插件条目的 `name`**：
 
@@ -909,7 +915,7 @@ dsh --profile headless
 > [!note] 这在 Claude Code 里相当于
 > `dsh.bundle.patch` + `cordis.patch.yml` 的 `name` ≈ 包里声明「我是 dsh 插件」并给出激活清单；`name` 必须等于包名，相当于激活记录里的标识符必须能对应到 `node_modules` 里真实存在的那个包。
 
-### 6.6 校准注记：独立插件 ≠ monorepo 内建包
+### 6.4 校准注记：独立插件 ≠ monorepo 内建包
 
 dsh 仓库的 `docs/cookbook/adding-a-package.md` 讲的是**在 deepseek-harness 仓库内部新增内建包**的规范：用 `lib/`、`types/` 目录结构、`extends` 根 tsconfig、`references` 项目引用、`constraints` 依赖约束——这套规范**不适用于**独立插件，也不会用 `dsh.bundle.patch`（[^S2]）。
 
@@ -1218,3 +1224,4 @@ allowBuilds:
 - 2026-08-15 修正 2.3/2.4/2.5/5/8 与本章小结：`--patch` 相对路径按 dsh 源码仓库根目录解析，命令须在仓库根目录执行；补丁文件在 `git-log-plugin/` 下，路径要写成 `./git-log-plugin/dev-cordis.patch.yml`（在插件目录内跑或直接写 `./dev-cordis.patch.yml` 都报 `ENOENT`）
 - 2026-08-15 第 3 章结构优化：§3.1 补「先建 `src/tools/` 目录」命令（与 §2.2 的 `mkdir -p src` 一致）；§3.2 新增完整 `src/tools/git-log.ts`「先睹为快」（可运行全代码），§3.3/§3.4 逐段拆解均标注所属文件位置
 - 2026-08-15 第 6 章补章首「要创建/生成哪些文件」清单：手写 3（package.json / tsconfig.json / cordis.patch.yml）+ 生成 2（pnpm-lock.yaml / dist/），标明落点与所属小节，并列出沿用不新建的文件
+- 2026-08-15 第 6 章结构重构：原 §6.2（依赖双份）与 §6.4（files 白名单）并入 §6.1 package.json 大节，作为子节 6.1.2 / 6.1.3；后续小节顺延为 §6.2 tsconfig / §6.3 双 patch / §6.4 校准注记
