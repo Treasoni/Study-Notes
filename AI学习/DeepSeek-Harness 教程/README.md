@@ -14,12 +14,12 @@ source_project: deepseek-harness
 
 ## 这是什么
 
-《DeepSeek-Harness 插件开发教程》是一套面向「熟悉 [[Claude Code MOC|Claude Code]] 的用户」的**插件开发教程**，共 5 篇独立分册，覆盖 dsh（deepseek-harness）的心智模型、环境准备、插件开发核心、实战项目与日常速查。整套笔记以「**写你自己的 dsh 插件**」为核心视角，用 Claude Code 的扩展体系（hooks / CLAUDE.md / MCP / Skills）作桥。
+《DeepSeek-Harness 插件开发教程》是一套面向「熟悉 [[Claude Code MOC|Claude Code]] 的用户」的**插件开发教程**，共 5 篇独立分册 + 1 篇配置专册，覆盖 dsh（deepseek-harness）的心智模型、环境准备、插件开发核心、配置体系、实战项目与日常速查。整套笔记以「**写你自己的 dsh 插件**」为核心视角，用 Claude Code 的扩展体系（hooks / CLAUDE.md / MCP / Skills）作桥。
 
 - **主题**：deepseek-harness（dsh）——DeepSeek 官方开源的 agent harness
 - **核心公式**：`Model + Harness = Agent`；`一切皆插件`，无特权核心
 - **目标读者**：熟悉 Claude Code、想写自己的 dsh 插件（工具 / 提示词 / 服务）的用户
-- **产出形态**：5 篇分册 + 本导览（每篇约 1,800–3,000 字，整套约 11,000 字）
+- **产出形态**：5 篇分册 + 1 篇配置专册 + 本导览（每篇约 1,800–3,000 字，整套约 12,000 字）
 - **发布目标**：Obsidian vault `AI学习/DeepSeek-Harness 教程/`
 
 ## 分册清单
@@ -28,7 +28,8 @@ source_project: deepseek-harness
 |---|---|---|---|
 | 01 | [[DeepSeek-Harness 是什么]] | 心智模型：dsh 是「插件树 vs 单体 + 扩展」，你写的插件与官方对等 | 理解「为什么我写的插件能像官方插件一样有地位」 |
 | 02 | [[DeepSeek-Harness 安装与快速上手]] | 环境准备：写插件必须走源码运行路径，5 分钟跑通 | 有能跑 `pnpm dsh web --patch` 的开发环境 |
-| 03 | [[DeepSeek-Harness 配置体系]] | 全书核心：apply(ctx) / patch 注册 / 生命周期 / 依赖 / 工具 DSL / 发布 | 看懂并写插件核心机制，能注册工具与发布 bundle |
+| 03 | [[DeepSeek-Harness 插件开发核心]] | 全书核心：apply(ctx) / 生命周期 / 依赖 / 工具 DSL / 策略 / 提示词 | 看懂并写插件核心机制，能注册工具 |
+| 03·配套 | [[DeepSeek-Harness 配置体系]] | 配置专册：补丁树 / Profile 与 Agent Preset / Config schema / bundle 发布 | 搞懂 dsh 配置怎么叠加、怎么装插件 |
 | 04 | [[DeepSeek-Harness 与ClaudeCode对照迁移]] | 实战项目：从零写一个自定义工具插件，每步对照 Claude Code | 独立完成一个自定义工具插件并打包 |
 | 05 | [[DeepSeek-Harness 常见坑与速查]] | 插件开发速查：坑 / 命令 / 工具契约 / 配置引用 / 生态 | 写插件时遇到问题快速定位 |
 
@@ -41,7 +42,7 @@ source_project: deepseek-harness
 
 - 第 1 章转心智模型（Claude Code 单体+扩展 → dsh 插件树）；
 - 第 2 章搭源码开发环境；
-- 第 3 章深入插件开发核心（全书核心，篇幅最长）；
+- 第 3 章深入插件开发核心（全书核心，篇幅最长；配套 [[DeepSeek-Harness 配置体系|配置体系]] 专册随时查）；
 - 第 4 章动手写一个自定义工具插件；
 - 第 5 章作为日常速查随时翻阅。
 - 每章阅读 + 实操约 30–40 分钟。

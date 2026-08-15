@@ -43,7 +43,8 @@ source_project: deepseek-harness
 
 | 笔记 | 说明 |
 |------|------|
-| [[DeepSeek-Harness 配置体系]] | apply(ctx) 三形态、多层 YAML 补丁树注册、fiber 生命周期、inject 依赖、Config schema、defineTool 工具 DSL、hook 扩展点、bundle 发布、system-prompt 子系统 |
+| [[DeepSeek-Harness 插件开发核心]] | apply(ctx) 三形态、fiber 生命周期、inject 依赖、defineTool 工具 DSL、hook 扩展点、system-prompt 子系统 |
+| [[DeepSeek-Harness 配置体系]]（配套专册） | 配置：多层 YAML 补丁树、Profile 与 Agent Preset、Config schema、bundle 发布 |
 
 ### 04 实战项目
 
@@ -65,14 +66,15 @@ source_project: deepseek-harness
 ▸ 主路径（约 2.5–3.5 小时）
   ├── DeepSeek-Harness 是什么          ← 转心智模型（插件树 vs 单体+扩展）
   ├── DeepSeek-Harness 安装与快速上手   ← 源码环境，5 分钟跑通
-  ├── DeepSeek-Harness 配置体系        ← 全书核心，篇幅最长
+  ├── DeepSeek-Harness 插件开发核心    ← 全书核心，篇幅最长
+  ├── DeepSeek-Harness 配置体系        ← 配置专册（读核心时配套查）
   ├── DeepSeek-Harness 与ClaudeCode对照迁移  ← 实战：写第一个自定义工具插件
   └── DeepSeek-Harness 常见坑与速查     ← 日常速查
 
 ▸ 急用路径
   ├── 安装与快速上手  → 跑通源码环境
   ├── 与ClaudeCode对照迁移 → 照猫画虎写第一个工具
-  └── 回头补 配置体系 + 常见坑与速查
+  └── 回头补 插件开发核心 + 配置体系 + 常见坑与速查
 ```
 
 ---

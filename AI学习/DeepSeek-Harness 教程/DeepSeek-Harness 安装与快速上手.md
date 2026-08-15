@@ -104,7 +104,7 @@ pip install deepseek-harness-sdk
 > - 只使用不开发时用 `npx @deepseek-ai/dsh web`；写插件时回到源码路径；
 > - 常见坑：端口占用、ERESOLVE、Windows `ctx.bash` 重复注册。
 
-下一章进入全书核心：[[DeepSeek-Harness 配置体系]]——插件到底是什么、怎么注册、怎么依赖、怎么发布。
+下一章进入全书核心：[[DeepSeek-Harness 插件开发核心]]——插件到底是什么、怎么写、怎么依赖、怎么发布（注册与装配细节见配套 [[DeepSeek-Harness 配置体系|配置体系]]）。
 
 ---
 

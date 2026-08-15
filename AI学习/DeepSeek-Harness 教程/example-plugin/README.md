@@ -51,18 +51,19 @@ dsh --profile demo --dump-config   # 应看到 "# == dsh-repo-status-plugin" 层
 dsh --profile demo
 ```
 
-- git 安装（`dsh plugin --profile demo add github:you/dsh-repo-status-plugin`）拉的是源码，靠 `prepare` 脚本构建；用户需在 profile 的 `pnpm-workspace.yaml` 里 `allowBuilds` 放行（详见第 3 章 3.9 / 第 4 章 4.6）。
+- git 安装（`dsh plugin --profile demo add github:you/dsh-repo-status-plugin`）拉的是源码，靠 `prepare` 脚本构建；用户需在 profile 的 `pnpm-workspace.yaml` 里 `allowBuilds` 放行（详见 [[../DeepSeek-Harness 配置体系|配置体系]] / 第 4 章 4.6）。
 - `@deepseek-ai/*` 三个包声明为 peerDependencies：宿主 dsh 安装已内置；若你的发布环境解析不到，把它们挪到 `dependencies` 即可。
 
 ## 换成你自己的工具
 
 1. 在 `src/tools/` 新建 `my-tool.ts`，用 `defineTool` 描述 `name / description / parameters / output.{schema,render} / execute`；
 2. `src/index.ts` 里 `ctx.tools.register(myTool(config))` 注册；
-3. 想加权限门/审计，用 `tools/pre-execute` 等 hook 扩展点（第 3 章 3.8）；
-4. 可调参数都做成 `Config` schema 字段（第 3 章 3.6），`dev-cordis.yml` 的 `config:` 传值。
+3. 想加权限门/审计，用 `tools/pre-execute` 等 hook 扩展点（第 3 章 3.5）；
+4. 可调参数都做成 `Config` schema 字段（[[../DeepSeek-Harness 配置体系|配置体系]]），`dev-cordis.yml` 的 `config:` 传值。
 
 ## 关联笔记
 
-- [[../DeepSeek-Harness 配置体系|第 3 章 插件开发核心]]
+- [[../DeepSeek-Harness 插件开发核心|第 3 章 插件开发核心]]
+- [[../DeepSeek-Harness 配置体系|配置体系专册]]
 - [[../DeepSeek-Harness 与ClaudeCode对照迁移|第 4 章 实战]]
 - [[../DeepSeek-Harness 常见坑与速查|第 5 章 速查与排错]]
