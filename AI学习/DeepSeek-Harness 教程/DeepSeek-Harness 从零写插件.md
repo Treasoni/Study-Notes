@@ -1009,6 +1009,8 @@ dist/
 >                 └── cordis.patch.yml
 > ```
 >
+> 注意：`demo` 是 **profile 的名字**（你自己起的，教程全程用 `--profile demo`），一个 profile 一个目录、**不是**每个 bundle 一个目录。一个 profile 能装多个 bundle——`node_modules/` 下有几个包、`dsh.profile.bundles` 就按顺序列几个（本例只装了 `dsh-git-log-plugin` 一个，所以只有一层）。想要另一套组合，就另建一个 profile（如 `web`、`headless`），`profiles/` 下每个 profile 各占一个目录、互不影响。
+>
 > 把四层对回这张树：
 >
 > | 层 | 落到磁盘就是 |
@@ -1306,5 +1308,5 @@ allowBuilds:
 - 2026-08-15 第 6 章结构重构：原 §6.2（依赖双份）与 §6.4（files 白名单）并入 §6.1 package.json 大节，作为子节 6.1.2 / 6.1.3；后续小节顺延为 §6.2 tsconfig / §6.3 双 patch / §6.4 校准注记
 - 2026-08-15 第 7 章命令规范：统一为 `pnpm dsh ...`（在 dsh 源码仓库根目录执行），`pnpm pack` 明确标注在 `git-log-plugin/` 执行；章首新增「本章命令一览」表；7.2/7.4/7.5/7.6 的命令块与正文补上运行位置注释
 - 2026-08-15 第 5、8 章命令对齐：§5.2/5.3/5.4 标题、§5.5 验证表、§8.1/§8.2 命令链表、§8.3 与章节过渡语中的裸 `dsh` 统一为 `pnpm dsh`；修正 §8.2 表格下方「后两条在插件工程里执行」的错误表述（第 5 条 `pnpm dsh plugin` 也在 dsh 源码仓库根目录执行）；顺带统一第 6 章章首 `dsh web --patch` → `pnpm dsh web --patch`
-- 2026-08-15 第 7 章补「profile 落到磁盘」实物示例（§7.2）：`<harness-home>` 目录树 + 四层对文件映射表 + `dsh.profile.bundles` 清单示意，并在 §7.1 profile 定义后加跳转指引
+- 2026-08-15 第 7 章补「profile 落到磁盘」实物示例（§7.2）：`<harness-home>` 目录树 + 四层对文件映射表 + `dsh.profile.bundles` 清单示意，并在 §7.1 profile 定义后加跳转指引；树后点明 `demo` 是 profile 名（一个 profile 一个目录、可装多 bundle，非每 bundle 一个目录）
 - 2026-08-15 第 7 章 §7.2 补「数字走一遍」示例：profile 层整行覆盖 bundle 层的 YAML 前/后对照（含只写单字段导致 `outputStyle` 丢失的坑）
