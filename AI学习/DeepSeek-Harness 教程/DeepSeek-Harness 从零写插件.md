@@ -1019,7 +1019,7 @@ dist/
 > └── web/       # bundles: 不含它                   → dsh --profile web 没有 git_log
 > ```
 
-同一个 tarball 想在哪几个 profile 里用，就分别 add 到哪几个；各自的 `dsh.profile.bundles`、`node_modules`、`cordis.patch.yml` 互不污染。
+> 同一个 tarball 想在哪几个 profile 里用，就分别 add 到哪几个；各自的 `dsh.profile.bundles`、`node_modules`、`cordis.patch.yml` 互不污染。
 >
 > 把四层对回这张树：
 >
