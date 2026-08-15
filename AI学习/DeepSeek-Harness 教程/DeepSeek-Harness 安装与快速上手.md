@@ -91,7 +91,8 @@ pip install deepseek-harness-sdk
 > 3. **Windows 多插件重复注册 `ctx.bash`**：报 "service bash has been registered" 启动失败；
 > 4. 官方不开 Issues，问题走 GitHub Discussions；
 > 5. developer preview 期，升级注意破坏性变更；
-> 6. 谨防与官方同名的第三方包（认准 `@deepseek-ai/dsh`）。
+> 6. 谨防与官方同名的第三方包（认准 `@deepseek-ai/dsh`）；
+> 7. **`pnpm not found`**：新环境常没装 pnpm。先 `node --version` 确认满足 `^22.19 || >=24`，再 `npm install -g pnpm`（最简单）或 `brew install pnpm` 安装，装完 `pnpm --version` 验证；npm 也不可用时走官方脚本 `curl -fsSL https://get.pnpm.io/install.sh | sh -`。
 
 ---
 
@@ -110,6 +111,7 @@ pip install deepseek-harness-sdk
 ## 更新记录
 
 - 2026-08-15：全套重构为「写自己的 dsh 插件」主线；源码运行路径升级为主路径，npm 快跑降为次选；明确「写插件别用 npx」的边界。
+- 2026-08-15：2.5 高频坑新增 `pnpm not found` 排查与安装方法。
 
 ---
 
