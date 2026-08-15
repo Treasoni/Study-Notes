@@ -43,6 +43,31 @@ flowchart TD
 > [!tip] 大白话
 > 把补丁树想成一层层铺在桌上的透明纸。后铺的纸会盖住先铺的同一位置，但不会去改下面那层的其他内容——「整行替换，不做深合并」。
 
+### 四层补丁：在哪、谁写的、管多宽
+
+| 层 | 文件在哪 | 谁写的 | 管多宽 |
+|---|---|---|---|
+| ① bundle 补丁 | 每个插件包内部自带一份（包声明 `dsh.bundle.patch` 指向它） | 插件作者 | 这个包贡献的配置；profile 点名几个包就按顺序叠几份 |
+| ② profile 自身 `cordis.patch.yml` | `$DSH_HOME/profiles/<名字>/cordis.patch.yml` | 你/本地 | 只对这个 profile 生效 |
+| ③ home 级 `cordis.patch.yml` | `$DSH_HOME/cordis.patch.yml` | 你/机器 | 这台机器所有 profile 共享 |
+| ④ `--patch <path>` | 命令行临时指定的任意文件 | 命令行 | 只影响这一次运行，优先级最高 |
+
+> [!example] 数字走一遍
+> 假设 profile `web` 点名装 `base`、`web-app` 两个包，各层都写了插件 `hello`：
+>
+> | 层 | 给 hello 设置的 |
+> |---|---|
+> | ① base 包补丁 | `greeting: 'Hello'`、`maxRetries: 3` |
+> | ① web-app 包补丁 | `greeting: 'Hi'`、`maxRetries: 5` |
+> | ② profile 自己的 patch | `greeting: 'Hi'`、`maxRetries: 4` |
+> | ③ home 级 patch | `greeting: 'Hi'`、`maxRetries: 6` |
+> | ④ `--patch` | `greeting: 'Yo'`、`maxRetries: 6` |
+>
+> 同一字段越晚越赢：`greeting` 被第 ④ 层压成 `'Yo'`，`maxRetries` 被第 ③/④ 层压成 `6`。只被某一层写过的插件保持那一层的值；后层也可以插入全新插件行。
+
+> [!warning] 按行替换，不做深合并
+> 补丁不是 Git 式的字段深合并：后层写**同一行**（同一插件 id）时，是拿这行的内容**整体替换**目标行，而不是逐字段拼接。拿不准某层盖出了什么，用 `--dump-config` 摊开看合成结果。
+
 ### 检查合成配置（排查利器）
 
 ```bash
