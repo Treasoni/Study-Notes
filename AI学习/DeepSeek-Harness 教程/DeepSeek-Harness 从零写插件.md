@@ -952,7 +952,16 @@ dist/
 
 ## 第 7 章：第 6 步——打包发布安装
 
-前几章我们一直在 dsh 源码仓库里用 `--patch` 跑插件，插件活得好好的，但这是"临时工"状态：换台机器、或想分享给别人，都无从谈起。这一章把 `dsh-git-log-plugin` 收尾成能分发的产物：先讲清 **bundle**（作者造包）与 **profile**（用户搭家）的分工，再走一遍四层补丁树如何决定"最终配置长什么样"，最后用 `pnpm pack` 打 tarball、用 `dsh plugin` 装进 profile 并跑通，并单独交代 git 源安装的三道坎。
+前几章我们一直在 dsh 源码仓库里用 `--patch` 跑插件，插件活得好好的，但这是"临时工"状态：换台机器、或想分享给别人，都无从谈起。这一章把 `dsh-git-log-plugin` 收尾成能分发的产物：先讲清 **bundle**（作者造包）与 **profile**（用户搭家）的分工，再走一遍四层补丁树如何决定"最终配置长什么样"，最后用 `pnpm pack` 打 tarball、用 `pnpm dsh plugin` 装进 profile 并跑通，并单独交代 git 源安装的三道坎。
+
+**本章命令一览**（除 `pnpm pack` 在插件工程目录执行外，`pnpm dsh ...` 都在 **dsh 源码仓库根目录**执行）：
+
+| 命令 | 小节 | 用途 |
+| --- | --- | --- |
+| `pnpm pack` | 7.3 | 在 `git-log-plugin/` 根目录打 tarball（受第 6 章 `files` 白名单约束） |
+| `pnpm dsh plugin --profile demo add <tarball>` | 7.4 | 把 tarball 装进 demo profile，由命令自动对账 |
+| `pnpm dsh --profile demo` | 7.5 | 带 profile 启动，确认插件作为 bundle 被激活 |
+| `pnpm dsh plugin --profile demo add git+...#sha` | 7.6 | git 源安装（未实测，三坑见 7.6） |
 
 ### 7.1 bundle vs profile：作者造包，用户搭家
 
@@ -987,13 +996,14 @@ dist/
 > [!tip] 大白话
 > 四层补丁树像「千层饼」：每层饼都是独立的，后压上去的层不是跟下面融合，而是把同一块位置整个盖住。你以为"只改了一个参数"，实际是把那一整行配置都换掉了。
 
-这也解释了最常见的排查盲区：改完配置发现不生效——不是没加载，而是**前层被后层整行顶掉**，或者你改的是 bundle 层、被 profile/home 层覆盖了。遇到"我以为改了但被覆盖"，先去 `dsh --profile demo --dump-config` 看 `git-log` 那一行最终落在哪层。另外注意：如果 profile 里声明了一个**没有 `dsh.bundle.patch` 声明**的普通包，dsh 只把它装成普通依赖、给一次告警，**不会**把它当成配置层激活。[^S3]
+这也解释了最常见的排查盲区：改完配置发现不生效——不是没加载，而是**前层被后层整行顶掉**，或者你改的是 bundle 层、被 profile/home 层覆盖了。遇到"我以为改了但被覆盖"，先去 `pnpm dsh --profile demo --dump-config` 看 `git-log` 那一行最终落在哪层。另外注意：如果 profile 里声明了一个**没有 `dsh.bundle.patch` 声明**的普通包，dsh 只把它装成普通依赖、给一次告警，**不会**把它当成配置层激活。[^S3]
 
 ### 7.3 打包：pnpm pack 打 tarball
 
-发布有两条路：推到 npm registry（长期分享），或 `pnpm pack` 打个 tarball（临时分发 / 自用）。后者不用注册表，最适合验证流程。在第 6 章工程目录根目录执行：
+发布有两条路：推到 npm registry（长期分享），或 `pnpm pack` 打个 tarball（临时分发 / 自用）。后者不用注册表，最适合验证流程。在 `git-log-plugin/`（第 6 章的插件工程目录，位于 dsh 源码仓库根目录下）根目录执行：
 
 ```bash
+# 在 git-log-plugin/ 插件工程目录根目录执行
 pnpm pack
 ```
 
@@ -1032,20 +1042,22 @@ npm notice == Tarball Contents ==
 拿到 tarball（路径记作 `/path/to/dsh-git-log-plugin-0.1.0.tgz`），用 `dsh plugin` 命令族装进一个名为 `demo` 的 profile：
 
 ```bash
-dsh plugin --profile demo add /path/to/dsh-git-log-plugin-0.1.0.tgz
+# 在 dsh 源码仓库根目录执行
+pnpm dsh plugin --profile demo add /path/to/dsh-git-log-plugin-0.1.0.tgz
 ```
 
-`dsh plugin` 内部**转发 pnpm 的完整动词**（add / remove 等），所以语法基本可以按 pnpm 的习惯写：装 tarball 写文件路径，装 registry 包写包名，装 git 源写 `git+https://...#sha`（见 7.6）。tarball 和本地目录两种安装方式**不需要** `allowBuilds` 放行——因为产物已经在那里，没有"装完再跑构建脚本"这一步。[^S14][^S8] 从源码仓库根目录跑 `dsh plugin` 依旧成立。
+`dsh plugin` 内部**转发 pnpm 的完整动词**（add / remove 等），所以语法基本可以按 pnpm 的习惯写：装 tarball 写文件路径，装 registry 包写包名，装 git 源写 `git+https://...#sha`（见 7.6）。tarball 和本地目录两种安装方式**不需要** `allowBuilds` 放行——因为产物已经在那里，没有"装完再跑构建脚本"这一步。[^S14][^S8] 从源码仓库根目录跑 `pnpm dsh plugin` 依旧成立。
 
 > [!tip] 大白话
-> `dsh plugin add` 像「物业帮你把包装进门」——你不需要自己研究入户线路、强弱电怎么走，物业（dsh plugin 命令）按规矩把包放进正确的位置（profile 的 node_modules 和 bundles 列表）并登记在册。
+> `pnpm dsh plugin add` 像「物业帮你把包装进门」——你不需要自己研究入户线路、强弱电怎么走，物业（dsh plugin 命令）按规矩把包放进正确的位置（profile 的 node_modules 和 bundles 列表）并登记在册。
 
 ### 7.5 跑通已装插件：dsh --profile demo
 
 装完后直接带 profile 启动，看插件自身的加载日志：
 
 ```bash
-dsh --profile demo
+# 在 dsh 源码仓库根目录执行
+pnpm dsh --profile demo
 ```
 
 正常会看到类似输出（诊断名是第 1 章定的 `git-log-plugin`）：
@@ -1056,15 +1068,15 @@ dsh --profile demo
 [info] Harness is running. Press Ctrl+C to exit.
 ```
 
-此刻插件已不再是"开发期 `--patch` 注入"，而是真正作为 bundle 从 profile 激活。这里有一条贯穿全章的纪律：**profile 永不手写**——它的 `dsh.profile.bundles` 列表、`node_modules`、`pnpm-workspace.yaml` 全由 `dsh plugin` 命令自动维护对账。你想加包、换版本、删包，都走 `dsh plugin --profile demo <add|remove|...>`，而不是去改 profile 目录里的文件；手写很容易写坏对账关系，装进去却不激活。[^S3][^S12]
+此刻插件已不再是"开发期 `--patch` 注入"，而是真正作为 bundle 从 profile 激活。这里有一条贯穿全章的纪律：**profile 永不手写**——它的 `dsh.profile.bundles` 列表、`node_modules`、`pnpm-workspace.yaml` 全由 `dsh plugin` 命令自动维护对账。你想加包、换版本、删包，都走 `pnpm dsh plugin --profile demo <add|remove|...>`，而不是去改 profile 目录里的文件；手写很容易写坏对账关系，装进去却不激活。[^S3][^S12]
 
 ### 7.6 git 源安装三坑（未实测）
 
-`dsh plugin --profile demo add git+https://github.com/you/dsh-git-log-plugin.git#v0.1.0` 这类 git 源安装很方便，但有三道坎。**以下内容以官方 publish 文档为准，本篇教学未真机复现，动手时以实际报错为准**[^S3]：
+`pnpm dsh plugin --profile demo add git+https://github.com/you/dsh-git-log-plugin.git#v0.1.0` 这类 git 源安装很方便，但有三道坎。**以下内容以官方 publish 文档为准，本篇教学未真机复现，动手时以实际报错为准**[^S3]：
 
 **坑①：git 源拉的是源码，不是产物。** git 依赖只 clone 仓库源码，不会带上 `dist/`。所以作者必须在 package.json 里提供 `scripts.prepare`（第 6 章已配：`"prepare": "npm run build"`），让安装方 clone 后自动自包含构建。没有 prepare，装进来只有源码、没有可加载的 `dist/index.js`。
 
-**坑②：pnpm ≥ 10 默认拒跑 git 依赖的 prepare 构建脚本。** 这是 pnpm 的安全策略：外来 git 依赖要跑任意构建脚本，必须先显式放行。当你 `dsh plugin add` 一个 git 源包时，pnpm 会在终端打印一串需要放行的包 key（如 `dsh-git-log-plugin`）并拒绝继续；你要把打印的包 key 抄进 profile 的 `pnpm-workspace.yaml` 的 `allowBuilds` 列表，再重跑安装命令：
+**坑②：pnpm ≥ 10 默认拒跑 git 依赖的 prepare 构建脚本。** 这是 pnpm 的安全策略：外来 git 依赖要跑任意构建脚本，必须先显式放行。当你 `pnpm dsh plugin add` 一个 git 源包时，pnpm 会在终端打印一串需要放行的包 key（如 `dsh-git-log-plugin`）并拒绝继续；你要把打印的包 key 抄进 profile 的 `pnpm-workspace.yaml` 的 `allowBuilds` 列表，再重跑安装命令：
 
 ```yaml
 # profile 的 pnpm-workspace.yaml（由 dsh plugin 维护，此处仅示意放行字段）
@@ -1072,7 +1084,7 @@ allowBuilds:
   dsh-git-log-plugin: true
 ```
 
-放行后重跑 `dsh plugin --profile demo add git+...#sha`，prepare 才会被允许执行。tarball / 本地目录安装没有这一步，因为产物不需要现场构建。
+放行后重跑 `pnpm dsh plugin --profile demo add git+...#sha`，prepare 才会被允许执行。tarball / 本地目录安装没有这一步，因为产物不需要现场构建。
 
 **坑③：用 `#sha` 钉 commit。** git 依赖默认跟着分支走，哪天仓库变了你本地就悄悄升级，配置可能突然对不上。规范做法是钉死一个 commit 或 tag：`git+...#<40 位 commit sha>` 或 `...#v0.1.0`，保证每次安装的是同一份代码。[^S3]
 
@@ -1083,8 +1095,8 @@ allowBuilds:
 
 - **bundle（作者造包，贡献一层配置）与 profile（用户搭家，声明有序 bundles）互斥**；bundle patch 的 `name` 必须等于 package.json 的 `name`，Node 才能从 profile 的 `node_modules` 解析到已装代码。[^S3][^S11]
 - **四层补丁树**：bundles 各层 → profile patch → home 级 → `--patch`；后层按 id **整行替换**、不做字段级深合并，排查"配置没生效"先 `--dump-config` 看目标行落在哪层。[^S9]
-- **打包用 `pnpm pack`**（受 `files` 白名单约束）或 `npm publish`；**安装用 `dsh plugin --profile demo add <tarball>`**，tarball / 本地目录无需 `allowBuilds`。[^S3]
-- **profile 由 `dsh plugin` 自动对账，永不手写**；缺 dsh 声明的包只装为普通依赖 + 一次告警，不激活层。[^S12]
+- **打包用 `pnpm pack`**（受 `files` 白名单约束）或 `npm publish`；**安装用 `pnpm dsh plugin --profile demo add <tarball>`**，tarball / 本地目录无需 `allowBuilds`。[^S3]
+- **profile 由 `pnpm dsh plugin` 自动对账，永不手写**；缺 dsh 声明的包只装为普通依赖 + 一次告警，不激活层。[^S12]
 - **git 源安装三坑（未实测）**：prepare 自包含构建、pnpm≥10 的 `allowBuilds` 放行、`#sha` 钉 commit。[^S3]
 
 下一章把全篇压缩成一张「从零到装好」的路线图，串起 `dsh web --patch` → `--dump-config` → headless → `pnpm pack` → `dsh plugin add` 这条完整命令链。
@@ -1225,3 +1237,4 @@ allowBuilds:
 - 2026-08-15 第 3 章结构优化：§3.1 补「先建 `src/tools/` 目录」命令（与 §2.2 的 `mkdir -p src` 一致）；§3.2 新增完整 `src/tools/git-log.ts`「先睹为快」（可运行全代码），§3.3/§3.4 逐段拆解均标注所属文件位置
 - 2026-08-15 第 6 章补章首「要创建/生成哪些文件」清单：手写 3（package.json / tsconfig.json / cordis.patch.yml）+ 生成 2（pnpm-lock.yaml / dist/），标明落点与所属小节，并列出沿用不新建的文件
 - 2026-08-15 第 6 章结构重构：原 §6.2（依赖双份）与 §6.4（files 白名单）并入 §6.1 package.json 大节，作为子节 6.1.2 / 6.1.3；后续小节顺延为 §6.2 tsconfig / §6.3 双 patch / §6.4 校准注记
+- 2026-08-15 第 7 章命令规范：统一为 `pnpm dsh ...`（在 dsh 源码仓库根目录执行），`pnpm pack` 明确标注在 `git-log-plugin/` 执行；章首新增「本章命令一览」表；7.2/7.4/7.5/7.6 的命令块与正文补上运行位置注释
