@@ -10,7 +10,7 @@ topic: "DeepSeek-Harness 从零写插件（空目录手写全文件）"
 project_slug: "deepseek-harness-plugin-from-scratch"
 created_at: "2026-08-15"
 last_updated: "2026-08-15"
-current_phase: P1
+current_phase: P2
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：deepseek-harness-plugin-from-scratch
 > 项目标识：deepseek-harness-plugin-from-scratch
 > 创建时间：2026-08-15
-> 当前阶段：阶段 1
+> 当前阶段：阶段 2
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -47,13 +47,13 @@ blocked_reason: ""
 ---
 
 ## 阶段 1：探测式收集
-- [ ] 已派出 2-3 个 subagent 并行探测
-- [ ] 探测结果已汇总
-- [ ] 方向菜单已展示给用户
-- [ ] 用户已选择学习方向
-- [ ] 探测结果已保存：`./01_explore_result.md`
+- [x] 已派出 2-3 个 subagent 并行探测（3 lens：工程骨架 / 工具 DSL / 打包安装验证）
+- [x] 探测结果已汇总（去重后 9 官方 + 3 vault + 社区线索；纠正 advanced/bundle.md 不存在）
+- [x] 方向菜单已展示给用户（A 渐进式 / B 六文件 / C 打包优先）
+- [x] 用户已选择学习方向（A. 渐进式从零）
+- [x] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] 🔲 进行中 {in_progress}
+> [P1] ✅ 已完成 {complete}
 
 ---
 
@@ -67,7 +67,7 @@ blocked_reason: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] ⬜ 未开始
+> [P2] 🔲 进行中 {in_progress}
 
 ---
 
@@ -133,6 +133,7 @@ blocked_reason: ""
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
 | P0 | 用户确认意图：新写一篇「从零写 dsh 插件」教学分册；「从零」=空目录手写所有文件、不用 example-plugin 脚手架；Obsidian 输出到 AI学习/DeepSeek-Harness 教程/；示范工具沿用 git_log 与《插件实战》可对照 | 2026-08-15 |
+| P1 | 用户确认素材质量（9 官方 + 3 vault + 社区线索）并选择方向 A「渐进式从零」：先最小 2 文件跑通，再补工程化 | 2026-08-15 |
 
 ---
 
