@@ -150,7 +150,7 @@ export function apply(ctx: Context) {
 
 ### 2.3 写最小 patch yml：`- insert:` 注册
 
-模块写好了，但 dsh 还不知道它的存在——`src/index.ts` 只是躺在文件系统里的一份文件。patch 文件就是「登记表」：用 `- insert:` 把插件注册进运行时的那张配置表。把 `dev-cordis.patch.yml` 写在 **dsh 源码仓库根目录**（和 `git-log-plugin/` 平级；当前在插件目录里就先 `cd ..` 回根目录）——`--patch` 的相对路径按仓库根目录解析，命令在根目录执行时写 `./dev-cordis.patch.yml` 才指得到它：
+模块写好了，但 dsh 还不知道它的存在——`src/index.ts` 只是躺在文件系统里的一份文件。patch 文件就是「登记表」：用 `- insert:` 把插件注册进运行时的那张配置表。在 `git-log-plugin/` 根目录写 `dev-cordis.patch.yml`——文件放在插件目录里没问题，只要命令里给的是相对**仓库根目录**的完整路径（即 2.4 的 `./git-log-plugin/dev-cordis.patch.yml`）：
 
 > [!tip] 大白话
 > 把两个文件的分工想成「员工本人」和「前台登记表」：`src/index.ts` 是员工本人（会干活），patch yml 是登记表（写上「这号人今天来上班」）。只有登记过（`- insert:`），员工才会被叫去 apply；没登记，本事再大也白搭。
@@ -176,13 +176,13 @@ export function apply(ctx: Context) {
 > [!tip] 大白话
 > patch 里的绝对路径 `name` 像门禁卡必须写门牌号：你得写「楼栋 + 房间号」这种绝对地址。写相对路径等于拿一张写着「自己屋里」的门禁卡去刷——这栋楼里根本没有一间叫「自己屋里」的房间，刷了没反应，还不报错。所以：要么写 `src/index.ts` 的完整绝对路径，要么等第 6 章换成按包名安装的写法（bundle patch），那条路不用绝对路径。
 
-### 2.4 加载命令：`pnpm dsh web --patch ./dev-cordis.patch.yml`
+### 2.4 加载命令：在仓库根目录跑 `pnpm dsh web --patch`
 
-**先切回 dsh 源码仓库根目录**（`git-log-plugin/` 的上一级）再运行。`--patch` 的 `./dev-cordis.patch.yml` 是相对**仓库根目录**解析的，不是相对当前 shell 目录；在插件目录里跑，它找的是 `<仓库根>/dev-cordis.patch.yml`（文件在插件目录里就会报 `ENOENT`）：
+**先切回 dsh 源码仓库根目录**（`git-log-plugin/` 的上一级）再运行。`--patch` 的相对路径按**仓库根目录**解析，不是相对当前 shell 目录——文件在 `git-log-plugin/` 里，就得写相对根目录的完整路径 `./git-log-plugin/dev-cordis.patch.yml`；直接写 `./dev-cordis.patch.yml` 会去找 `<仓库根>/dev-cordis.patch.yml`，报 `ENOENT`：
 
 ```bash
 # 在 dsh 源码仓库根目录执行（git-log-plugin/ 的上一级）
-pnpm dsh web --patch ./dev-cordis.patch.yml
+pnpm dsh web --patch ./git-log-plugin/dev-cordis.patch.yml
 ```
 
 期望输出（时间戳/日志级别格式随版本略有差异，关键是那行 `[git-log-plugin] plugin loaded!`）：
@@ -197,7 +197,7 @@ pnpm dsh web --patch ./dev-cordis.patch.yml
 
 三个必须讲清的要点：
 
-1. **为什么命令必须在仓库根目录执行**：`--patch` 的 `./dev-cordis.patch.yml` 是相对 **dsh 源码仓库根目录**解析的（`loadOverlayPatches` 直接把它当文件系统路径），不是相对当前 shell 目录。所以在 `git-log-plugin/` 里跑，它找的是 `<仓库根>/dev-cordis.patch.yml`，找不到就报 `ENOENT`。开发期**不用 npx**——`pnpm dsh` 会向上找到 workspace 根部的 dsh CLI（即使从插件目录发起也能找到命令本体），但这只保证「命令找得到」，不保证「补丁路径指得对」。反过来，如果插件目录建在源码仓库**外面**，`pnpm dsh` 就连命令都找不到了[^S11]。
+1. **为什么命令必须在仓库根目录执行**：`--patch` 的相对路径按 **dsh 源码仓库根目录**解析（`loadOverlayPatches` 直接把它当文件系统路径），不是相对当前 shell 目录。所以即使文件在 `git-log-plugin/dev-cordis.patch.yml`，从插件目录里跑 `--patch ./dev-cordis.patch.yml` 也会解析成 `<仓库根>/dev-cordis.patch.yml` 而 `ENOENT`；正确写法是在根目录给全相对路径 `--patch ./git-log-plugin/dev-cordis.patch.yml`。开发期**不用 npx**——`pnpm dsh` 会向上找到 workspace 根部的 dsh CLI（即使从插件目录发起也能找到命令本体），但这只保证「命令找得到」，不保证「补丁路径指得对」。反过来，如果插件目录建在源码仓库**外面**，`pnpm dsh` 就连命令都找不到了[^S11]。
 2. **`dsh web` 是 `dsh --profile web` 的硬编码别名**：`web` 不是某个参数值，是 CLI 层写死的快捷方式，含义是「用 web 这个 profile 跑起来并开 Web 服务」。想换 profile 就写 `dsh --profile <名字> --patch ...`，第 5 章会用到。
 3. **为什么 patch 文件叫 `dev-cordis.patch.yml`**：大纲落定的命名——第一步就用 `dev-` 前缀，给第 5 步的打包 patch（bundle patch，`cordis.patch.yml`）留好命名空间，避免以后改名。现在这份就是「开发期手工挂载」的 dev patch，用 `--patch` 指定路径加载。
 
@@ -208,7 +208,7 @@ pnpm dsh web --patch ./dev-cordis.patch.yml
 这个认知直接决定排错方向：
 
 - **看到这行** → 模块被加载了，`apply` 被调了，链路通。
-- **没看到这行** → 先别怀疑 dsh，大概率是模块根本没被加载：检查 patch 的 `name` 绝对路径是否写对、`--patch ./dev-cordis.patch.yml` 相对路径是否在正确的目录下执行。对照 [[DeepSeek-Harness 常见坑与速查]] 里的排错顺序，第一步先查「登记表」，而不是查「dsh」。
+- **没看到这行** → 先别怀疑 dsh，大概率是模块根本没被加载：检查 patch 的 `name` 绝对路径是否写对、`--patch` 是否在仓库根目录执行且路径写全（文件在插件目录下要带 `git-log-plugin/` 前缀，如 `./git-log-plugin/dev-cordis.patch.yml`）。对照 [[DeepSeek-Harness 常见坑与速查]] 里的排错顺序，第一步先查「登记表」，而不是查「dsh」。
 
 > [!note] 这在 Claude Code 里相当于
 > 插件被 require 时打的那条启动日志本来就是你写的，宿主不会替你发明日志——同理，`plugin loaded!` 这个文本是你 `console.log` 出来的，别把它当成 dsh 自带能力去依赖。哪天你想改这行字，改的是自己插件里的 `console.log`，而不是 dsh 的任何配置。
@@ -218,7 +218,7 @@ pnpm dsh web --patch ./dev-cordis.patch.yml
 - 最小 2 文件 = 插件模块 `src/index.ts` + 注册 patch `dev-cordis.patch.yml`，不依赖脚手架、不需要 `package.json`。
 - `export const name`（`git-log-plugin`）是四名分离的**诊断名**；patch 的 `id`（`git-log`）是实例 id，两个名字不是一回事。
 - patch 的 `name` 必须写 `src/index.ts` 的**绝对路径**，相对路径静默失效（无报错无警告）——第一步就写对，能避开最经典的排查陷阱。
-- 加载命令在 **dsh 源码仓库根目录**执行 `pnpm dsh web --patch ./dev-cordis.patch.yml`：`--patch` 相对路径按仓库根目录解析，从插件目录里跑会 `ENOENT`；开发期不用 npx；`dsh web` 是 `--profile web` 的硬编码别名。
+- 加载命令在 **dsh 源码仓库根目录**执行 `pnpm dsh web --patch ./git-log-plugin/dev-cordis.patch.yml`：`--patch` 相对路径按仓库根目录解析，文件在插件目录里就要写相对根目录的完整路径，直接写 `./dev-cordis.patch.yml` 会 `ENOENT`；开发期不用 npx；`dsh web` 是 `--profile web` 的硬编码别名。
 - `[git-log-plugin] plugin loaded!` 是插件自身的 `console.log`，不是 dsh 的特性；看不到它时先查 patch 路径，而不是怀疑 dsh。
 
 下一步：插件能被加载了，但它还没有任何「能力」。第 3 章给它加第一个工具 `git_log`——把 `apply(ctx)` 升级成真正的注册中心，用 `ctx.tools.register` 把工具挂给模型。这两个文件会升级成三个文件，四名分离也从「知道」变成「落地」。
@@ -556,12 +556,12 @@ ValidationError: invalid config:
 
 写到这里，`git_log` 工具和 `maxCommits` 配置都「写出来了」，但**写出来不等于跑通了**。这一章用 dsh 自带的四条验证命令，把三件事分别验清楚：插件有没有被加载、配置最终落在哪一层、端到端能不能用。这是全篇最值得真机完整跑一遍的部分——后面第 6 步打包、安装出了问题，都要回到这几条命令来定位。
 
-### 5.1 `pnpm dsh web --patch ./dev-cordis.patch.yml` 复跑：确认 `[git-log-plugin] plugin loaded!`
+### 5.1 复跑 `pnpm dsh web --patch ./git-log-plugin/dev-cordis.patch.yml`：确认 `[git-log-plugin] plugin loaded!`
 
 从第 2 章到第 4 章，`src/index.ts` 里已经注册了 `git_log` 工具、加了 `maxCommits` 配置，`dev-cordis.patch.yml` 里也补上了对应的 `config` 块。加载命令和之前完全一样，仍然在 **dsh 源码仓库根目录**执行（开发期不用 npx；命令根目录、绝对路径这些坑清单见 [[DeepSeek-Harness 常见坑与速查]]）[^S11]：
 
 ```bash
-pnpm dsh web --patch ./dev-cordis.patch.yml
+pnpm dsh web --patch ./git-log-plugin/dev-cordis.patch.yml
 ```
 
 启动后终端应再次看到插件自身的加载日志：
@@ -579,7 +579,7 @@ dsh 的配置不是单个文件，而是**四层补丁树**叠出来的：bundle
 ```bash
 # --dump-config 打印全量分层；加 --patch 把开发期补丁作为最顶层叠进来
 # （不加的话，还在开发中的 git-log 层看不到）
-dsh --profile demo --dump-config --patch ./dev-cordis.patch.yml
+dsh --profile demo --dump-config --patch ./git-log-plugin/dev-cordis.patch.yml
 ```
 
 输出按层打印，每层都带来源文件注释，大致长这样（示意，实际输出以你的环境为准）：
@@ -588,7 +588,7 @@ dsh --profile demo --dump-config --patch ./dev-cordis.patch.yml
 # from bundle 层（列表序，最低）
 # from <harness-home>/profiles/demo/cordis.patch.yml   ← profile patch 层
 # from <harness-home>/cordis.yml                        ← home 级
-# from ./dev-cordis.patch.yml                          ← --patch 叠加（最顶层）
+# from ./git-log-plugin/dev-cordis.patch.yml              ← --patch 叠加（最顶层）
 - insert:
     - id: git-log
       name: <绝对路径>/src/index.ts
@@ -659,8 +659,8 @@ dsh --profile headless
 
 | 要验证什么 | 用哪条命令 |
 | --- | --- |
-| 插件被加载 | `pnpm dsh web --patch ./dev-cordis.patch.yml` |
-| 配置合并成什么样 | `dsh --profile demo --dump-config --patch ./dev-cordis.patch.yml` |
+| 插件被加载 | `pnpm dsh web --patch ./git-log-plugin/dev-cordis.patch.yml` |
+| 配置合并成什么样 | `dsh --profile demo --dump-config --patch ./git-log-plugin/dev-cordis.patch.yml` |
 | bundle 默认贡献了什么 | `dsh --profile demo --dump-default-config` |
 | 端到端能不能用 | `dsh --profile headless "<task>"` |
 
@@ -1016,7 +1016,7 @@ allowBuilds:
 
 | 顺序 | 命令 | 作用 | 章节 |
 | --- | --- | --- | --- |
-| 1 | `pnpm dsh web --patch ./dev-cordis.patch.yml` | 开发期加载，看 `[git-log-plugin] plugin loaded!` | 第 2 章 |
+| 1 | `pnpm dsh web --patch ./git-log-plugin/dev-cordis.patch.yml` | 开发期加载，看 `[git-log-plugin] plugin loaded!` | 第 2 章 |
 | 2 | `dsh --profile demo --dump-config` | 分层打印合并后配置 | 第 5 章 |
 | 3 | `dsh --profile headless "<task>"` | 一次性任务端到端（退出码 0/1） | 第 5 章 |
 | 4 | `pnpm pack` | 打成 tarball | 第 7 章 |
@@ -1123,4 +1123,4 @@ allowBuilds:
 
 - 2026-08-15 创建（学习笔记工作流 P5 组装）
 - 2026-08-15 美化发布（P6：补 frontmatter / 导读 Callout，同步系列 README 与 MOC）
-- 2026-08-15 修正 2.1/2.3/2.4 与本章小结：`--patch` 相对路径按 dsh 源码仓库根目录解析，加载命令须在仓库根目录执行（在 `git-log-plugin/` 内跑会 `ENOENT`），`dev-cordis.patch.yml` 也改写在仓库根目录
+- 2026-08-15 修正 2.3/2.4/2.5/5/8 与本章小结：`--patch` 相对路径按 dsh 源码仓库根目录解析，命令须在仓库根目录执行；补丁文件在 `git-log-plugin/` 下，路径要写成 `./git-log-plugin/dev-cordis.patch.yml`（在插件目录内跑或直接写 `./dev-cordis.patch.yml` 都报 `ENOENT`）
