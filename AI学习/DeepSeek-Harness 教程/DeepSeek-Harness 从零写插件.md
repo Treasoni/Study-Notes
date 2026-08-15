@@ -792,15 +792,15 @@ dsh --profile headless
 
 逐字段看，最关键的是前五个：
 
-| 字段 | 值 | 作用 |
-| --- | --- | --- |
-| `name` | `dsh-git-log-plugin` | 包名，全篇四名分离里的「包」；**bundle patch 的 `name` 必须等于它** |
-| `version` | `0.1.0` | 语义化版本，打包 / 发布必需 |
-| `main` | `dist/index.js` | Node 解析这个包的入口——必须是**编译产物**，不是 `src/index.ts` |
-| `types` | `dist/index.d.ts` | 类型入口，配合 `declaration` 由 tsc 自动产出 |
-| `dsh.bundle.patch` | `./cordis.patch.yml` | **声明自己是 dsh 插件**的字段，指向随包发布的 bundle 补丁 |
-| `scripts.build` | `tsc` | 编译命令 |
-| `scripts.prepare` | `npm run build` | 安装 / 发布前自动先构建——这是第 7 章 git 源安装「自包含构建」的前提 |
+| 字段                 | 值                    | 作用                                             |
+| ------------------ | -------------------- | ---------------------------------------------- |
+| `name`             | `dsh-git-log-plugin` | 包名，全篇四名分离里的「包」；**bundle patch 的 `name` 必须等于它** |
+| `version`          | `0.1.0`              | 语义化版本，打包 / 发布必需                                |
+| `main`             | `dist/index.js`      | Node 解析这个包的入口——必须是**编译产物**，不是 `src/index.ts`   |
+| `types`            | `dist/index.d.ts`    | 类型入口，配合 `declaration` 由 tsc 自动产出               |
+| `dsh.bundle.patch` | `./cordis.patch.yml` | **声明自己是 dsh 插件**的字段，指向随包发布的 bundle 补丁          |
+| `scripts.build`    | `tsc`                | 编译命令                                           |
+| `scripts.prepare`  | `npm run build`      | 安装 / 发布前自动先构建——这是第 7 章 git 源安装「自包含构建」的前提       |
 
 `dsh.bundle.patch` 是这个包能被 dsh 识别为 bundle 的关键：dsh 安装一个 bundle 时读这个字段找到补丁文件，把它作为一层配置合并进去。没有它，包只是普通 npm 依赖。
 
