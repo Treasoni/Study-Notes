@@ -757,6 +757,19 @@ dsh --profile headless
 
 前四步我们从空目录一路写到了 `src/index.ts`（注册中心）、`src/tools/git-log.ts`（工具）和 `dev-cordis.patch.yml`（开发期补丁），插件已经能在 `dsh web --patch` 下加载。但严格说，它还是一堆能跑的 TypeScript 文件——没有 `package.json` 的目录不具备「被安装、被打包、被发布」的资格。第 5 步就是补上工程化四件套：`package.json`、`tsconfig.json`、`files` 白名单和双 patch，让项目从「手工作坊」升级成「流水线」。
 
+> [!note] 本章要创建 / 生成哪些文件
+> 手写 **3 个新文件** + **2 个生成物**，全部落在 `git-log-plugin/` 目录内：
+
+| 文件 | 类型 | 作用 | 小节 |
+| --- | --- | --- | --- |
+| `package.json` | 新增手写 | 工程声明：name / main / types / `dsh.bundle.patch` / scripts | §6.1 |
+| `tsconfig.json` | 新增手写 | 编译配置：ES2022 / ESNext / Bundler / strict | §6.3 |
+| `cordis.patch.yml` | 新增手写 | bundle patch：`name` = 包名，随包发布 | §6.5 |
+| `pnpm-lock.yaml` | 生成 | 依赖锁文件（`pnpm install` 产出） | 构建一节 |
+| `dist/` | 生成 | 构建产物（`pnpm run build` 产出） | 构建一节 |
+
+**沿用不新建**：`src/index.ts`（第 2/3 章）、`src/tools/git-log.ts`（第 3 章）、`dev-cordis.patch.yml`（第 2 章，§6.5 定型为 dev 版）。
+
 > [!tip] 大白话
 > 工程化像给手工作坊上流水线：`package.json` 是营业执照（注册身份、声明经营范围），`tsconfig` 是生产标准（统一怎么编译），`npm run build` 是出厂质检（产出 `dist/` 合格品）。没有这些，产品再能用也进不了市场。
 
@@ -1204,3 +1217,4 @@ allowBuilds:
 - 2026-08-15 美化发布（P6：补 frontmatter / 导读 Callout，同步系列 README 与 MOC）
 - 2026-08-15 修正 2.3/2.4/2.5/5/8 与本章小结：`--patch` 相对路径按 dsh 源码仓库根目录解析，命令须在仓库根目录执行；补丁文件在 `git-log-plugin/` 下，路径要写成 `./git-log-plugin/dev-cordis.patch.yml`（在插件目录内跑或直接写 `./dev-cordis.patch.yml` 都报 `ENOENT`）
 - 2026-08-15 第 3 章结构优化：§3.1 补「先建 `src/tools/` 目录」命令（与 §2.2 的 `mkdir -p src` 一致）；§3.2 新增完整 `src/tools/git-log.ts`「先睹为快」（可运行全代码），§3.3/§3.4 逐段拆解均标注所属文件位置
+- 2026-08-15 第 6 章补章首「要创建/生成哪些文件」清单：手写 3（package.json / tsconfig.json / cordis.patch.yml）+ 生成 2（pnpm-lock.yaml / dist/），标明落点与所属小节，并列出沿用不新建的文件
