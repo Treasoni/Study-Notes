@@ -59,12 +59,12 @@ example-plugin 脚手架把文件都配好了，这既是方便也是陷阱。�
 
 文件归属沿袭 [[DeepSeek-Harness 插件开发核心]]：`src/index.ts` 是注册中心，工具本体放 `src/tools/*.ts`。最值得注意的是 4 个名字各管各的、不能混，这是全系列最高频的坑：
 
-| 名字 | 写在哪 | 职责 |
-| --- | --- | --- |
-| `git-log-plugin` | `export const name` | 诊断名 / 加载日志 `[git-log-plugin] plugin loaded!` |
-| `dsh-git-log-plugin` | package.json `name` | 包名；bundle patch 的 `name` 必须等于它 |
-| `git-log` | patch yml 的 `- insert:` id | patch id / 实例名 |
-| `git_log` | defineTool 的 `name` | 模型可见的工具名 |
+| 名字                   | 写在哪                        | 职责                                           |
+| -------------------- | -------------------------- | -------------------------------------------- |
+| `git-log-plugin`     | `export const name`        | 诊断名 / 加载日志 `[git-log-plugin] plugin loaded!` |
+| `dsh-git-log-plugin` | package.json `name`        | 包名；bundle patch 的 `name` 必须等于它               |
+| `git-log`            | patch yml 的 `- insert:` id | patch id / 实例名                               |
+| `git_log`            | defineTool 的 `name`        | 模型可见的工具名                                     |
 
 四名分离：`git-log-plugin` ≠ `dsh-git-log-plugin` ≠ `git-log` ≠ `git_log`。加上 config 默认值，就是与 [[DeepSeek-Harness 插件实战]] 可对照、与 [[DeepSeek-Harness 配置体系]] 的 Schema 口径一致的全篇一致性基线：[^S11]
 
