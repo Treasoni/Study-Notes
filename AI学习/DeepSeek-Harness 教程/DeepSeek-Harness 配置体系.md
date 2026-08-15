@@ -21,6 +21,23 @@ source_project: deepseek-harness
 3. **home 级 `$DSH_HOME/cordis.patch.yml`**（机器级偏好，所有 profile 共享）；
 4. **`--patch <path>` 覆盖层**（按 argv 顺序）。
 
+```mermaid
+flowchart TD
+    ROOT["空白配置（空根）"] --> L1["第①层 bundle 补丁<br/>profile.bundles 命名的每个包"]
+    L1 --> L2["第②层 profile 自身 cordis.patch.yml"]
+    L2 --> L3["第③层 home 级 $DSH_HOME/cordis.patch.yml<br/>机器级偏好"]
+    L3 --> L4["第④层 --patch 覆盖层<br/>按 argv 顺序"]
+    L4 --> FINAL["最终配置<br/>--dump-config 摊开看"]
+
+    classDef root fill:#f5f5f5,stroke:#9e9e9e
+    classDef patch fill:#e3f2fd,stroke:#1976d2
+    classDef final fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+
+    class ROOT root
+    class L1,L2,L3,L4 patch
+    class FINAL final
+```
+
 补丁语义：**"Later layers win per row"**——后层按行覆盖，**替换目标行的完整 config 值，不做深合并**，可插入新行。
 
 > [!tip] 大白话
