@@ -10,8 +10,8 @@ topic: "DeepSeek-Harness 从零写插件（空目录手写全文件）"
 project_slug: "deepseek-harness-plugin-from-scratch"
 created_at: "2026-08-15"
 last_updated: "2026-08-15"
-current_phase: P5
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -19,6 +19,7 @@ mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
 mode_change_phase: "P2"
 blocked_reason: ""
+quality_gate: passed
 ---
 
 # 学习笔记工作流 - 执行检查清单
@@ -28,7 +29,7 @@ blocked_reason: ""
 > 运行标识：deepseek-harness-plugin-from-scratch
 > 项目标识：deepseek-harness-plugin-from-scratch
 > 创建时间：2026-08-15
-> 当前阶段：阶段 5
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -101,35 +102,35 @@ blocked_reason: ""
 ---
 
 ## 阶段 5：收尾组装
-- [ ] 所有章节文件已检查
-- [ ] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
-- [ ] 过渡语已添加
-- [ ] 目录已生成
-- [ ] 标题层级已统一
-- [ ] 引用已检查
-- [ ] 完整笔记已保存：`./output/final_note.md`
+- [x] 所有章节文件已检查
+- [x] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
+- [x] 过渡语已添加
+- [x] 目录已生成
+- [x] 标题层级已统一
+- [x] 引用已检查
+- [x] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中 {in_progress}
+> [P5] ✅ 已完成 {complete}
 
 ---
 
 ## 阶段 6：Obsidian 美化与发布
-- [ ] 已读取 Obsidian 输出规则
-- [ ] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
-- [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
-- [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
+- [x] 已读取 Obsidian 输出规则
+- [x] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
+- [x] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
+- [x] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成 {complete}
 
 ---
 
 ## 阶段 7：MOC 同步
-- [ ] 已定位或创建 MOC 文件
-- [ ] 新笔记双链已加入 MOC
-- [ ] 已去重并更新摘要/标签
-- [ ] MOC 只保留索引，不复制正文
+- [x] 已定位或创建 MOC 文件
+- [x] 新笔记双链已加入 MOC
+- [x] 已去重并更新摘要/标签
+- [x] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -142,6 +143,9 @@ blocked_reason: ""
 | P2 | 用户确认深度素材（14 来源：9 官方 + 5 vault；含 .required() 口径校准、O2 monorepo 规范排除）；并选择执行模式：大纲模式（逐章写） | 2026-08-15 |
 | P3 | 用户确认大纲（9 章渐进式从零结构；一致性基线 git_log/maxCommits=5；dev-cordis.patch.yml 命名；.required() 官方口径；与《插件实战》互补第 9 章）；并确认篇幅压缩到中量 12,000–15,000 字 | 2026-08-15 |
 | P4 | 用户授权「直接写完」：9 章全部一次性写作，不再逐章确认；第 4 章 config 读取按官方 `apply(ctx, config)` 第二参数校准（替代大纲旧写 `ctx.config`） | 2026-08-15 |
+| P5 | 用户确认组装方式 A（按顺序拼接）；9 章全量组装为 final_note.md（1110 行）；14 条脚注 [^S1]–[^S14] 全部有定义且正文有引用、无悬空；7 处 `- insert:` patch 块统一为官方 `- insert: → - id + name` 格式（ch2/5/6 形状不一致已修正） | 2026-08-15 |
+| P6 | 按 P0 已确认的 vault 位置发布：`AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 从零写插件.md`；补 frontmatter（title/tags/created/updated/status/source_project）+ `[!summary] 本章导读` Callout；Callout 42 处（note 18/summary 1/tip 20/warning 3）；双链 5 目标全部有效；系列 README 同步 5 处（分册计数/产出形态/清单表加 04·从零/推荐顺序/状态） | 2026-08-15 |
+| P7 | MOC 同步完成：`DeepSeek-Harness MOC.md` 导读计数改为 2 篇实战分册；04 实战项目表新增 04·D [[DeepSeek-Harness 从零写插件]]（只加索引不复制正文）；推荐阅读顺序新增该分册；学习路径注释更新 | 2026-08-15 |
 
 ---
 
@@ -171,10 +175,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战教学分册（learning-note；从零路径，与《插件实战》脚手架改造路径构成【改造 vs 从零】双路径）
+- **总字数**：约 13,600 中文字符（压缩到中量，落在 12,000–15,000 目标内）
+- **章节数**：9 章（结果预览 → 最小2文件 → 加工具 → 加配置 → 验证 → 工程化 → 打包安装 → 小结 → 分工）
+- **输出格式**：Obsidian Markdown（frontmatter + 导读 Callout + 42 Callout + 14 脚注 + 双链 + 目录锚点）
+- **文件路径**：`workspace/deepseek-harness-plugin-from-scratch/output/final_note.md`（1110 行）
+- **Obsidian Vault**：`AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 从零写插件.md`（已发布）
+- **MOC 路径**：`AI学习/DeepSeek-Harness 教程/DeepSeek-Harness MOC.md`（04·D 索引已加）

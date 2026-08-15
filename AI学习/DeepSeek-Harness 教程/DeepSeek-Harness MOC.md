@@ -10,7 +10,7 @@ source_project: deepseek-harness
 # DeepSeek-Harness 教程 MOC
 
 > [!info] 目录导航
-> **DeepSeek-Harness（dsh）插件开发教程**，面向「熟悉 Claude Code 的用户」，以「写自己的 dsh 插件」为主线。共 5 篇主章分册 + 2 篇配置专册 + 1 篇实战分册 + 系列导览，零散分册模式，每篇可独立阅读。
+> **DeepSeek-Harness（dsh）插件开发教程**，面向「熟悉 Claude Code 的用户」，以「写自己的 dsh 插件」为主线。共 5 篇主章分册 + 2 篇配置专册 + 2 篇实战分册 + 系列导览，零散分册模式，每篇可独立阅读。
 > 读者定位：已熟悉 Claude Code，用其扩展体系（hooks / CLAUDE.md / MCP / Skills）作桥，讲解 dsh 插件开发。
 > 系列入口：[[DeepSeek-Harness 教程/README|系列导览]]
 
@@ -20,7 +20,7 @@ source_project: deepseek-harness
 
 ```
 01 心智模型 → 02 环境准备 → 03 插件开发核心 → 04 实战项目 → 05 速查与排错
-                                        （03/04 各含 1 篇配置专册；04 另含 1 篇实战分册）
+                                        （03/04 各含 1 篇配置专册；04 另含 2 篇实战分册）
                                             ↘ 概念基础（AI学习/01-基础概念/）
 ```
 
@@ -54,6 +54,7 @@ source_project: deepseek-harness
 | 04·A [[DeepSeek-Harness 与ClaudeCode对照迁移]] | 写插件实战：从零写自定义工具插件 walkthrough，骨架→greet→repo_status→配置→打包，每步对照 Claude Code |
 | 04·B [[DeepSeek-Harness 配置实战]] | 配置接入实战：像 Claude Code 一样接入 skills/hooks/mcp/rules，rules/skills 零迁移，hooks/mcp 走 cordis.yml |
 | 04·C [[DeepSeek-Harness 插件实战]] | 实战分册：把 example-plugin 脚手架改造成你自己的工具（git_log），走通写→配→验证→打包→安装全链路 |
+| 04·D [[DeepSeek-Harness 从零写插件]] | 实战分册：从空目录手写全部文件（git_log），走通写→配→验证→打包→安装，与插件实战构成【改造 vs 从零】双路径 |
 
 ### 05 速查与排错
 
@@ -74,6 +75,7 @@ source_project: deepseek-harness
   ├── DeepSeek-Harness 与ClaudeCode对照迁移  ← 实战：写第一个自定义工具插件
   ├── DeepSeek-Harness 配置实战        ← 实战：接入现成 skills/hooks/mcp/rules
   ├── DeepSeek-Harness 插件实战        ← 实战：把脚手架改造成自己的工具并打包发布
+  ├── DeepSeek-Harness 从零写插件      ← 实战：从空目录手写全部文件，与插件实战互为对照
   └── DeepSeek-Harness 常见坑与速查     ← 日常速查
 
 ▸ 急用路径

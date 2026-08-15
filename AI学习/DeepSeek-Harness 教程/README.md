@@ -14,12 +14,12 @@ source_project: deepseek-harness
 
 ## 这是什么
 
-《DeepSeek-Harness 插件开发教程》是一套面向「熟悉 [[Claude Code MOC|Claude Code]] 的用户」的**插件开发教程**，共 5 篇主章分册 + 2 篇配置专册 + 1 篇实战分册，覆盖 dsh（deepseek-harness）的心智模型、环境准备、插件开发核心、配置体系、实战项目与日常速查。整套笔记以「**写你自己的 dsh 插件**」为核心视角，用 Claude Code 的扩展体系（hooks / CLAUDE.md / MCP / Skills）作桥。
+《DeepSeek-Harness 插件开发教程》是一套面向「熟悉 [[Claude Code MOC|Claude Code]] 的用户」的**插件开发教程**，共 5 篇主章分册 + 2 篇配置专册 + 2 篇实战分册，覆盖 dsh（deepseek-harness）的心智模型、环境准备、插件开发核心、配置体系、实战项目与日常速查。整套笔记以「**写你自己的 dsh 插件**」为核心视角，用 Claude Code 的扩展体系（hooks / CLAUDE.md / MCP / Skills）作桥。
 
 - **主题**：deepseek-harness（dsh）——DeepSeek 官方开源的 agent harness
 - **核心公式**：`Model + Harness = Agent`；`一切皆插件`，无特权核心
 - **目标读者**：熟悉 Claude Code、想写自己的 dsh 插件（工具 / 提示词 / 服务）的用户
-- **产出形态**：5 篇主章分册 + 2 篇配置专册 + 1 篇实战分册 + 本导览（每篇约 1,800–3,000 字，整套约 16,000 字）
+- **产出形态**：5 篇主章分册 + 2 篇配置专册 + 2 篇实战分册 + 本导览（主章每篇约 1,000–2,500 字，实战专册篇幅较长，整套正文约 3 万字）
 - **发布目标**：Obsidian vault `AI学习/DeepSeek-Harness 教程/`
 
 ## 分册清单
@@ -33,6 +33,7 @@ source_project: deepseek-harness
 | 04 | [[DeepSeek-Harness 与ClaudeCode对照迁移]] | 实战项目：从零写一个自定义工具插件，每步对照 Claude Code | 独立完成一个自定义工具插件并打包 |
 | 04·配套 | [[DeepSeek-Harness 配置实战]] | 配置接入：像 Claude Code 一样接入 skills/hooks/mcp/rules | 把现成 Claude Code 配置搬进 dsh |
 | 04·实战 | [[DeepSeek-Harness 插件实战]] | 实战分册：把 example-plugin 脚手架改造成你自己的工具，走通写→配→验证→打包→安装 | 独立改造脚手架并打包发布一个可复用插件 |
+| 04·从零 | [[DeepSeek-Harness 从零写插件]] | 实战分册：从空目录手写全部文件，渐进式走通写→配→验证→打包→安装，与插件实战构成【改造 vs 从零】双路径 | 独立从零写一个可打包插件 |
 | 05 | [[DeepSeek-Harness 常见坑与速查]] | 插件开发速查：坑 / 命令 / 工具契约 / 配置引用 / 生态 | 写插件时遇到问题快速定位 |
 
 > [!example] 配套脚手架
@@ -47,6 +48,7 @@ source_project: deepseek-harness
 - 第 3 章深入插件开发核心（全书核心，篇幅最长；配套 [[DeepSeek-Harness 配置体系|配置体系]] 专册随时查）；
 - 第 4 章动手写一个自定义工具插件（配套 [[DeepSeek-Harness 配置实战|配置实战]] 专册：把现成 Claude Code 配置搬进 dsh）；
 - **实战分册** [[DeepSeek-Harness 插件实战|插件实战]]（读完第 4 章后食用）：不从头写，直接把 example-plugin 改造成你自己的工具，走通写→配→验证→打包→安装全链路；
+- **实战分册** [[DeepSeek-Harness 从零写插件|从零写插件]]（读完第 4 章后食用）：从空目录手写全部文件，与插件实战互为对照（改造 vs 从零）；
 - 第 5 章作为日常速查随时翻阅。
 - 每章阅读 + 实操约 30–40 分钟。
 
@@ -67,4 +69,4 @@ source_project: deepseek-harness
 
 - 组装模式：C（保持零散分册）
 - 组装时间：2026-08-13
-- 美化发布：2026-08-15（含实战分册 [[DeepSeek-Harness 插件实战|插件实战]] 新增入册）
+- 美化发布：2026-08-15（含实战分册 [[DeepSeek-Harness 插件实战|插件实战]]、[[DeepSeek-Harness 从零写插件|从零写插件]] 新增入册）
