@@ -253,6 +253,86 @@ pnpm dsh web --patch ./git-log-plugin/dev-cordis.patch.yml
 
 `name` 就是我们一致性基线里模型可见的 `git_log`；`description` 写得越清楚，模型越不会在错误场景调用它；`parameters` / `output` 负责把"模型侧契约"和"代码侧契约"对齐；`execute` 是唯一有副作用的字段。
 
+> [!note] 先睹为快：完整 `src/tools/git-log.ts`
+> 下面整份代码就是这一章要写进 `git-log-plugin/src/tools/git-log.ts` 的**完整文件**。先整体扫一遍，看清五件套长在同一个 `defineTool({...})` 对象里；§3.3、§3.4 再逐段拆开讲，**每段都出自这份文件**。
+
+先建目录，再保存整份文件：
+
+```bash
+# 在 git-log-plugin/ 下新建目录
+mkdir -p src/tools
+```
+
+```ts
+// git-log-plugin/src/tools/git-log.ts
+import { defineTool } from 'dsh-tools'
+import { execFile } from 'node:child_process'
+import { promisify } from 'node:util'
+
+const execFileAsync = promisify(execFile)
+
+export function gitLogTool() {
+  return defineTool({
+    name: 'git_log',
+    description: '查看指定 Git 仓库最近的 5 次提交',
+    parameters: {
+      type: 'object',
+      properties: {
+        path: {
+          type: 'string',
+          description: '目标 Git 仓库的绝对路径',
+          required: true, // 属性级 required 布尔
+        },
+      },
+    },
+    output: {
+      schema: {
+        type: 'object',
+        properties: {
+          commits: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                hash: { type: 'string' },
+                message: { type: 'string' },
+              },
+            },
+          },
+        },
+      },
+      render(value) {
+        // value 是 execute 返回的 canonical 值；这里才做"给人看"的排版
+        const lines = value.commits.map((c) => `${c.hash} ${c.message}`)
+        return [{ type: 'text', text: lines.join('\n') || '(no commits)' }]
+      },
+    },
+    async execute(args) {
+      try {
+        const { stdout } = await execFileAsync('git', ['log', '--oneline', '-n', '5'], {
+          cwd: args.path,
+        })
+        const commits = stdout
+          .trim()
+          .split('\n')
+          .filter(Boolean)
+          .map((line) => {
+            const [hash, ...rest] = line.split(' ')
+            return { hash, message: rest.join(' ') }
+          })
+        // ✅ 业务成功态：返回 canonical 值，框架按 output.schema 序列化
+        return { commits }
+      } catch (err) {
+        // ✅ 基础设施失败：throw = isError，注册表捕获，不泄漏给模型
+        throw new Error(`git log 执行失败: ${(err as Error).message}`)
+      }
+    },
+  })
+}
+```
+
+这一章要新建的文件只有这一个：`src/tools/git-log.ts`（先建 `tools/` 子目录）。它**只导出 `gitLogTool` 工厂**，不含任何注册逻辑——怎么把它装进插件，由 §3.5 的 `src/index.ts` 完成。
+
 > [!tip] 大白话：defineTool 是给机器人写岗位说明书
 > 把 defineTool 想成「给机器人写一份岗位说明书」：名字（`name`）写在工牌上，职责（`description`）写清楚什么时候叫它，输入输出格式（`parameters`/`output`）是交接班的单据模板。机器人读到说明书就知道自己是什么岗位。而 `execute` 是「真干活的人」——它不需要操心怎么排版汇报，只要把结果按单据格式交回去就行。
 
@@ -261,7 +341,7 @@ pnpm dsh web --patch ./git-log-plugin/dev-cordis.patch.yml
 
 ### 3.3 parameters 与 output：类 JSON-schema；output.schema + output.render
 
-`parameters` 是**类 JSON-schema** 结构：顶层 `type: 'object'`，`properties` 里每个属性用 `{ type, description, required }` 描述，其中 `required` 是**属性级的布尔值**，而不是 JSON-schema 传统的数组[^S4]：
+`parameters` 写在 `src/tools/git-log.ts` 的 `defineTool({...})` 里（完整文件见 §3.2「先睹为快」）。它是**类 JSON-schema** 结构：顶层 `type: 'object'`，`properties` 里每个属性用 `{ type, description, required }` 描述，其中 `required` 是**属性级的布尔值**，而不是 JSON-schema 传统的数组[^S4]：
 
 ```ts
 parameters: {
@@ -276,7 +356,7 @@ parameters: {
 },
 ```
 
-`output` 由两部分组成[^S4]：
+`output` 同样写在 `defineTool({...})` 里，由两部分组成[^S4]：
 
 - `output.schema`：声明 `execute` 返回的 **canonical 值**长什么样，同样用类 JSON-schema。框架用它对返回值做校验与序列化。
 - `output.render(value)`：把 canonical 值**转换**成给模型/界面展示的文本块 `[{ type: 'text', text: value }]`。canonical 值负责"机器可读"，render 负责"人可读"，两者职责分开。
@@ -313,7 +393,7 @@ output: {
 
 ### 3.4 execute(args) 契约：返回唯一 canonical JSON 值；抛错 / 非法值 = isError
 
-`execute` 是五件套里唯一"干活"的字段，它的契约是整个框架正确性的关键[^S4][^S5]：
+`execute` 是五件套里唯一"干活"的字段，写在 `src/tools/git-log.ts` 的 `defineTool({...})` 里（完整文件见 §3.2「先睹为快」），它的契约是整个框架正确性的关键[^S4][^S5]：
 
 1. **返回唯一 canonical JSON 值**：`execute(args)` 必须返回 `output.schema` 声明的那一个 JSON 值（我们的例子是 `{ commits: [...] }`），**不返回内容块**。框架拿到返回值后按 `output.schema` 序列化，再丢给 `output.render` 渲染。你如果在 `execute` 里提前返回 `[{ type: 'text', ... }]`，那是个数组，和 `output.schema` 对不上，会被判为非法值。
 2. **`args` 是只读、已校验的**：框架根据 `parameters` schema 推断 `args` 类型、调用前自动校验；你的代码里不要改它。
@@ -1124,3 +1204,4 @@ allowBuilds:
 - 2026-08-15 创建（学习笔记工作流 P5 组装）
 - 2026-08-15 美化发布（P6：补 frontmatter / 导读 Callout，同步系列 README 与 MOC）
 - 2026-08-15 修正 2.3/2.4/2.5/5/8 与本章小结：`--patch` 相对路径按 dsh 源码仓库根目录解析，命令须在仓库根目录执行；补丁文件在 `git-log-plugin/` 下，路径要写成 `./git-log-plugin/dev-cordis.patch.yml`（在插件目录内跑或直接写 `./dev-cordis.patch.yml` 都报 `ENOENT`）
+- 2026-08-15 第 3 章结构优化：§3.2 新增完整 `src/tools/git-log.ts`「先睹为快」（含 `mkdir -p src/tools` 与可运行全代码），§3.3/§3.4 逐段拆解均标注所属文件位置
