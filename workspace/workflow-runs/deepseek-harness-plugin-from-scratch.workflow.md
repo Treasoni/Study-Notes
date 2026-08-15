@@ -10,7 +10,7 @@ topic: "DeepSeek-Harness 从零写插件（空目录手写全文件）"
 project_slug: "deepseek-harness-plugin-from-scratch"
 created_at: "2026-08-15"
 last_updated: "2026-08-15"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：deepseek-harness-plugin-from-scratch
 > 项目标识：deepseek-harness-plugin-from-scratch
 > 创建时间：2026-08-15
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -84,14 +84,19 @@ blocked_reason: ""
 ---
 
 ## 阶段 4：逐章写作
-- [ ] 第 1 章已写完并确认
-- [ ] 第 2 章已写完并确认
-- [ ] 第 3 章已写完并确认
-- [ ] ...（根据实际章节数添加）
+- [x] 第 1 章已写完并确认
+- [x] 第 2 章已写完并确认（用户授权直接写完）
+- [x] 第 3 章已写完并确认
+- [x] 第 4 章已写完并确认（用户授权直接写完）
+- [x] 第 5 章已写完并确认（用户授权直接写完）
+- [x] 第 6 章已写完并确认（用户授权直接写完）
+- [x] 第 7 章已写完并确认（打包发布安装，用户授权直接写完）
+- [x] 第 8 章已写完并确认
+- [x] 第 9 章已写完（与《插件实战》分工，用户授权直接写完）
 
-**进度**：0/待大纲确定
+**进度**：9/9（全部章节完成）
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -104,7 +109,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
@@ -136,6 +141,7 @@ blocked_reason: ""
 | P1 | 用户确认素材质量（9 官方 + 3 vault + 社区线索）并选择方向 A「渐进式从零」：先最小 2 文件跑通，再补工程化 | 2026-08-15 |
 | P2 | 用户确认深度素材（14 来源：9 官方 + 5 vault；含 .required() 口径校准、O2 monorepo 规范排除）；并选择执行模式：大纲模式（逐章写） | 2026-08-15 |
 | P3 | 用户确认大纲（9 章渐进式从零结构；一致性基线 git_log/maxCommits=5；dev-cordis.patch.yml 命名；.required() 官方口径；与《插件实战》互补第 9 章）；并确认篇幅压缩到中量 12,000–15,000 字 | 2026-08-15 |
+| P4 | 用户授权「直接写完」：9 章全部一次性写作，不再逐章确认；第 4 章 config 读取按官方 `apply(ctx, config)` 第二参数校准（替代大纲旧写 `ctx.config`） | 2026-08-15 |
 
 ---
 
@@ -151,7 +157,7 @@ blocked_reason: ""
 
 | 时间 | 阶段 | 问题描述 | 处理方式 |
 |------|------|---------|---------|
-| | | | |
+| 2026-08-15 | P4 | 大纲 4.5 写 `ctx.config.maxCommits`，与官方 config.md 不符（Context 无 .config） | 第 4 章 agent 核实本地官方 docs + cordis 源码后改用 `apply(ctx, config)` 第二参数；已同步修正大纲 4.5 并采纳章节写法 |
 
 ---
 

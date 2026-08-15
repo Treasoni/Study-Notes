@@ -136,7 +136,7 @@ note_type: 实战教学分册
 - 4.2 默认值写 schema：`maxCommits: Schema.number().default(5)`
 - 4.3 **校准注记**：必填用 `.required()`（官方从不用 `.required(true)` 或 `.optional()`，可选用 TS `?`）；标注与《插件实战》§4 旧口径（`.required(true)`）的差异，本篇以官方为准
 - 4.4 在 patch 的 `config` 块传值（第 2 章的 dev patch 先加；bundle patch 在第 5 步定型时复制同一 config 块）——两份 patch 传值位置一致
-- 4.5 apply 里读取完整校验后的 config：`ctx.config.maxCommits`
+- 4.5 apply 里读取完整校验后的 config：`apply(ctx, config)` 第二参数取 `config.maxCommits`（官方签名；大纲原写的 `ctx.config` 已按本地官方 config.md 校准，Context 无 .config 属性）
 - 4.6 坏配置行为：插件加载时跑 schema → ValidationError / fiber FAILED / 永不半启动
 
 **篇幅**：中（约 1,900 字）
