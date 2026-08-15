@@ -65,6 +65,9 @@ pnpm dsh --profile web --patch ./extra.yml --dump-config  # 含 profile/home 补
 
 其中 `minimal` 固定系统提示 "You are a helpful software engineer assistant."，只组合 `bash` + `str_replace_editor` 两个工具。
 
+> [!tip] 大白话
+> Profile 和 Agent Preset 不是「同一个东西的两个名字」，而是**两条独立的轴**。**Profile 像「你电脑上装了哪些 App」**——决定这次启动能干什么；**Agent Preset 像「你叫的是哪个角色的员工」**——决定他手上有哪些工具、按什么人设干活。装了什么 ≠ 用了什么，两条都要设。
+
 ## 3. 插件如何接收配置：Config schema
 
 插件可接受 `cordis.yml` 传入的配置。导出同名 `Config` 接口 + **Schemastery** schema（不能用普通对象），默认值写在 schema 上[^1][^2]：
@@ -100,6 +103,9 @@ export function apply(ctx: Context, config: Config) {
 - **原则**：两个部署可能想设不同的值，就做成配置字段（测试：`cordis.yml` 能否不改代码改值）[^1]；
 - **失效即响亮失败**：无效配置让 fiber 进 FAILED，报错精确；
 - **HMR**：配置编辑热替换插件，旧实例注册自动清理，不残留。
+
+> [!tip] 大白话
+> 插件像一个**新入职的员工**，`Config` schema 就是他的**岗位说明书**：上面写清楚有哪些字段、每格填什么类型、不填时用什么默认值。用说明书而不是随便一张纸，是因为说明书能做「入职审核」——填错了当场打回（响亮失败），不会糊弄过去。改完配置不用重启进程，原地换血（HMR 热替换）。
 
 ## 4. 打包与发布：bundle 与 profile
 
@@ -140,6 +146,9 @@ dsh --profile demo
 
 > [!warning] git 安装的 build 坑
 > `dsh plugin add github:you/hello-plugin` 拉的是**源码不是构建产物**。作者必须提供 `prepare` 脚本（pnpm 在 git 安装后运行），用户还需在 profile 的 `pnpm-workspace.yaml` 里 `allowBuilds` 放行——这等于「授权在安装时执行该包的代码」，只放行你信任的包，并 `#<sha>` 钉住 commit[^3]。
+
+> [!tip] 大白话
+> **bundle 是「料理包」**——每个 npm 包自己声明「我贡献哪一层配置」；**profile 是「上菜顺序单」**——决定按什么顺序装哪些料理包，这单子不用你手写，`dsh plugin` 命令自动维护。git 安装那个坑再补一句：`allowBuilds` 放行 = 你亲手递给这个包一张「在我机器上跑代码」的门禁卡，只发给信任的包，还要用 `#<sha>` 把版本钉死。
 
 ---
 
