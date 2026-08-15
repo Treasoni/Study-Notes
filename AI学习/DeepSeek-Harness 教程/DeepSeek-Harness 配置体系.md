@@ -45,12 +45,12 @@ flowchart TD
 
 ### 四层补丁：在哪、谁写的、管多宽
 
-| 层 | 文件在哪 | 谁写的 | 管多宽 |
-|---|---|---|---|
-| ① bundle 补丁 | 每个插件包内部自带一份（包声明 `dsh.bundle.patch` 指向它） | 插件作者 | 这个包贡献的配置；profile 点名几个包就按顺序叠几份 |
-| ② profile 自身 `cordis.patch.yml` | `$DSH_HOME/profiles/<名字>/cordis.patch.yml` | 你/本地 | 只对这个 profile 生效 |
-| ③ home 级 `cordis.patch.yml` | `$DSH_HOME/cordis.patch.yml` | 你/机器 | 这台机器所有 profile 共享 |
-| ④ `--patch <path>` | 命令行临时指定的任意文件 | 命令行 | 只影响这一次运行，优先级最高 |
+| 层                               | 文件在哪                                       | 谁写的  | 管多宽                           |
+| ------------------------------- | ------------------------------------------ | ---- | ----------------------------- |
+| ① bundle 补丁                     | 每个插件包内部自带一份（包声明 `dsh.bundle.patch` 指向它）    | 插件作者 | 这个包贡献的配置；profile 点名几个包就按顺序叠几份 |
+| ② profile 自身 `cordis.patch.yml` | `$DSH_HOME/profiles/<名字>/cordis.patch.yml` | 你/本地 | 只对这个 profile 生效               |
+| ③ home 级 `cordis.patch.yml`     | `$DSH_HOME/cordis.patch.yml`               | 你/机器 | 这台机器所有 profile 共享             |
+| ④ `--patch <path>`              | 命令行临时指定的任意文件                               | 命令行  | 只影响这一次运行，优先级最高                |
 
 > [!example] 数字走一遍
 > 假设 profile `web` 点名装 `base`、`web-app` 两个包，各层都写了插件 `hello`：
