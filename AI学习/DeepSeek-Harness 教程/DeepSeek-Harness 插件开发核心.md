@@ -34,10 +34,10 @@ export function apply(ctx: Context) {
 
 ### 三种形态
 
-| 形态 | 写法 | 适用 |
-|---|---|---|
-| 函数 | `export function apply(ctx) {}` | 多数情况足够 |
-| 对象 | `export default { name, inject, apply(ctx) {} }` | 需要集中声明元数据 |
+| 形态         | 写法                                                                  | 适用        |
+| ---------- | ------------------------------------------------------------------- | --------- |
+| 函数         | `export function apply(ctx) {}`                                     | 多数情况足够    |
+| 对象         | `export default { name, inject, apply(ctx) {} }`                    | 需要集中声明元数据 |
 | 类（Service） | `class X extends Service { constructor(ctx){ super(ctx,'name') } }` | 向其他插件提供服务 |
 
 函数形式直到你需要对外提供 service 都够用；类形式见 3.3[^2]。
