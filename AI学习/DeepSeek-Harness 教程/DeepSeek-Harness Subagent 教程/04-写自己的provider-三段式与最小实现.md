@@ -61,7 +61,7 @@ export function apply(ctx: Context) {
 > [!tip] 大白话
 > 把三件套想成「打印机生态」：定义包是 USB 接口标准（我的接口长这样、数据怎么传）；provider 是各家驱动（惠普的、佳能的，都实现同一个标准）；consumer/tool 是你电脑上的「打印」按钮。所以……换驱动不用换按钮，按钮只认标准——这就是「provider 与 consumer 只依赖定义包」的实际手感。
 
-### 4.1.2 命名律：dsh-<cap> / <cap>-local / dsh-tool-<cap>
+### 4.1.2 命名律：`dsh-<cap>` / `<cap>-local` / `dsh-tool-<cap>`
 
 三件套的包名不是随便起的，官方命名律如下：[^c4-S4-4.9-2]
 
