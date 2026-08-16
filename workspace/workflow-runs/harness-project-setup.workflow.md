@@ -10,8 +10,8 @@ topic: "从零搭建 Agent Harness 工程：项目脚手架与 skills/hooks/suba
 project_slug: "harness-project-setup"
 created_at: "2026-08-16"
 last_updated: "2026-08-16"
-current_phase: P4
-current_status: ready
+current_phase: P2
+current_status: in_progress
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：harness-project-setup
 > 项目标识：harness-project-setup
 > 创建时间：2026-08-16
-> 当前阶段：阶段 4
+> 当前阶段：阶段 2
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -67,7 +67,7 @@ blocked_reason: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] ✅ 已完成 {complete}
+> [P2] 🔲 进行中 {in_progress}
 
 ---
 
@@ -79,7 +79,7 @@ blocked_reason: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] ✅ 已完成 {complete}
+> [P3] ⬜ 未开始 {not_started}
 
 ---
 
@@ -156,7 +156,7 @@ blocked_reason: ""
 
 | 时间 | 原方向 | 新方向 | 是否需要补充收集 |
 |------|--------|--------|-----------------|
-| | | | |
+| 2026-08-16 | 通用 Agent Harness 脚手架（以 Claude Code 官方文档为主干） | 专门针对 DeepSeek-Harness 的工程脚手架（先建哪些文件 + skills/hooks/subagents/rules/AGENTS 的 dsh 配置） | 是（P2/P3 需按 dsh 方向重做；复用 P1 视角 B 官方源 B1-B5 + 用户 vault dsh 笔记） |
 
 ---
 
