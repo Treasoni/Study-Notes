@@ -6,10 +6,10 @@
 - **项目标识**: harness-project-setup
 - **创建时间**: 2026-08-16
 - **当前阶段**: 阶段 0
-- **输出目标**: obsidian（待阶段 0 确认）
-- **Vault 路径**: 待确认（默认当前 vault `D:\Study-Notes`）
-- **笔记目录**: `AI学习/Harness工程实战`（待阶段 0 确认）
-- **MOC 路径**: 待指定（候选：`AI学习/DeepSeek-Harness 教程/DeepSeek-Harness MOC.md` 或独立 MOC）
+- **输出目标**: obsidian（已确认）
+- **Vault 路径**: `D:\Study-Notes`（已确认）
+- **笔记目录**: `AI学习/Harness工程实战`（已确认）
+- **MOC 路径**: `AI学习/DeepSeek-Harness 教程/DeepSeek-Harness MOC.md`（已确认）
 
 ## 学习目标
 
