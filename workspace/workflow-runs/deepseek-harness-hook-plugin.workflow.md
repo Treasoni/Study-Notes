@@ -10,7 +10,7 @@ topic: "如何写 DeepSeek-Harness hook 扩展点插件"
 project_slug: "deepseek-harness-hook-plugin"
 created_at: "2026-08-16"
 last_updated: "2026-08-16"
-current_phase: P2
+current_phase: P3
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：deepseek-harness-hook-plugin
 > 项目标识：deepseek-harness-hook-plugin
 > 创建时间：2026-08-16
-> 当前阶段：阶段 2
+> 当前阶段：阶段 3
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -58,16 +58,16 @@ blocked_reason: ""
 ---
 
 ## 阶段 2：深度收集
-- [ ] 已根据用户选择的方向启动深度收集
-- [ ] 核心概念/理论素材已收集
-- [ ] 实战代码/项目案例已收集
-- [ ] 常见坑/最佳实践已收集
-- [ ] 工具链/生态已收集
-- [ ] 进阶路径/学习资源已收集
-- [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
-- [ ] 深度素材已保存：`./02_deep_research.md`
+- [x] 已根据用户选择的方向启动深度收集（D 组合 A→B→C，3 并行深研代理）
+- [x] 核心概念/理论素材已收集（流水线顺序 + 5 扩展点语义 + PreToolDecision/PostToolDecision）
+- [x] 实战代码/项目案例已收集（S2 permission-gate 官方示例 + S7 dsh-guardian 佐证；guard/post-execute/result 无官方示例→标注依 S1 构造）
+- [x] 常见坑/最佳实践已收集（pre-execute 不能改 exec.arguments；guard 单调否决；CC updatedInput 无对应能力；验证链复用 08 章）
+- [x] 工具链/生态已收集（dsh-hooks-claude-code 桥、@deepseek-ai/dsh-tools 类型、DSH 0.1.0-rc.6）
+- [x] 进阶路径/学习资源已收集（S2 选择规则 + S7 社区样板 + 开放问题 4 项）
+- [x] 素材质量已确认（9 源：5 官方 + 4 社区；6 核心深读带锚点；2 矛盾已记录）
+- [x] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] 🔲 进行中 {in_progress}
+> [P2] ✅ 已完成 {complete}
 
 ---
 
@@ -79,7 +79,7 @@ blocked_reason: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] ⬜ 未开始
+> [P3] 🔲 进行中 {in_progress}
 
 ---
 
@@ -134,6 +134,7 @@ blocked_reason: ""
 |------|----------|------|
 | P0 | 用户确认意图文件与研究计划：如何写 dsh hook 扩展点插件（实战·上手·中量 12-15k 字·Obsidian 发布到插件开发教程分册·MOC 同步） | 2026-08-16 |
 | P1 | 用户确认探测结果与方向：9 源（5 官方 + 4 社区）通过验证，选方向 D（组合 A→B→C：语义模型→实战→迁移对照） | 2026-08-16 |
+| P2 | 用户确认深度素材质量（9 源 5官方+4社区，6 核心深读）并选择执行模式：大纲模式 | 2026-08-16 |
 
 ---
 
