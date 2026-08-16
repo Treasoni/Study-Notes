@@ -17,16 +17,16 @@ source_project: deepseek-harness
 
 ## 章节目录
 
-| 章 | 笔记 | 一句话定位 |
-|----|------|-----------|
-| 1 | [[11-实战-写hook扩展点插件/01-导读与定位|第 1 章：导读与定位]] | 本章在系列中的坐标：插件开发教程第 11 章，是 01 章 3.5「hook 扩展点」速览的教学落地；01 只给目录表格，本篇把 5 个扩展点逐个写给你看 |
-| 2 | [[11-实战-写hook扩展点插件/02-语义模型|第 2 章：语义模型]] | 固定流水线顺序（引用 S3 权威顺序）：`tools/pre-execute` → 单调 guard →（ask 经 `ctx.approval`）→ `tools/execute` → 工具体 → `tools/post-execute` → 归一化 → `finalizeContent` → `tools/result` → durable `tool/result` 事件 |
-| 3 | [[11-实战-写hook扩展点插件/03-扩展点拆解|第 3 章：扩展点拆解]] | `tools/pre-execute`：权限门决策点，`PreToolDecision` allow/deny/ask；**不能改写 `exec.arguments`**（记录/渲染参数会与实际运行脱同步，与 CC `updatedInput` 的关键差异） |
-| 4 | [[11-实战-写hook扩展点插件/04-permission-gate|第 4 章：permission-gate]] | 官方唯一 hook 插件示例逐行拆解：`ctx.on('tools/pre-execute', async (exec, next): Promise<PreToolDecision> => …)`（引用 S2 权威代码） |
-| 5 | [[11-实战-写hook扩展点插件/05-实战进阶|第 5 章：实战进阶]] | guard 单调否决示例：`ctx.tools.guard()` 返回 string=拒绝、undefined=弃权；agent-scoped 用 `agent.ctx`；演示「后面监听者无法翻案」 |
-| 6 | [[11-实战-写hook扩展点插件/06-验证命令链|第 6 章：验证命令链]] | 复用 08 章验证四连（S1–S9 无验证链，需显式标注从本教程 08 章复用）：`pnpm dsh web --patch` 验加载 → `--dump-config` 验配置层 → `--dump-default-config` 验 bundle 默认 → `pnpm dsh --profile headless` 验端到端 |
-| 7 | [[11-实战-写hook扩展点插件/07-迁移对照|第 7 章：迁移对照]] | 官方映射表（引用 S5）：`PreToolUse → tools/pre-execute`、`PostToolUse → tools/post-execute`、`UserPromptSubmit → agent/pre-step`、`Stop → agent/turn-stopping`、`SessionStart → agent/session-start`、`SubagentStart/SubagentStop → subagent/start\|end` |
-| 8 | [[11-实战-写hook扩展点插件/08-小结与下一步|第 8 章：小结与下一步]] | 五扩展点选型口诀收口：权限门→`pre-execute`；单调最终拒绝→`guard()`；超时/重试/指标→`execute`；改结果/附 context→`post-execute`；只看不改→`result` |
+| 章   | 笔记                                    | 一句话定位                   |                                                                                                                                                                                                                                           |
+| --- | ------------------------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | [[11-实战-写hook扩展点插件/01-导读与定位           | 第 1 章：导读与定位]]           | 本章在系列中的坐标：插件开发教程第 11 章，是 01 章 3.5「hook 扩展点」速览的教学落地；01 只给目录表格，本篇把 5 个扩展点逐个写给你看                                                                                                                                                             |
+| 2   | [[11-实战-写hook扩展点插件/02-语义模型            | 第 2 章：语义模型]]            | 固定流水线顺序（引用 S3 权威顺序）：`tools/pre-execute` → 单调 guard →（ask 经 `ctx.approval`）→ `tools/execute` → 工具体 → `tools/post-execute` → 归一化 → `finalizeContent` → `tools/result` → durable `tool/result` 事件                                            |
+| 3   | [[11-实战-写hook扩展点插件/03-扩展点拆解           | 第 3 章：扩展点拆解]]           | `tools/pre-execute`：权限门决策点，`PreToolDecision` allow/deny/ask；**不能改写 `exec.arguments`**（记录/渲染参数会与实际运行脱同步，与 CC `updatedInput` 的关键差异）                                                                                                         |
+| 4   | [[11-实战-写hook扩展点插件/04-permission-gate | 第 4 章：permission-gate]] | 官方唯一 hook 插件示例逐行拆解：`ctx.on('tools/pre-execute', async (exec, next): Promise<PreToolDecision> => …)`（引用 S2 权威代码）                                                                                                                           |
+| 5   | [[11-实战-写hook扩展点插件/05-实战进阶            | 第 5 章：实战进阶]]            | guard 单调否决示例：`ctx.tools.guard()` 返回 string=拒绝、undefined=弃权；agent-scoped 用 `agent.ctx`；演示「后面监听者无法翻案」                                                                                                                                       |
+| 6   | [[11-实战-写hook扩展点插件/06-验证命令链           | 第 6 章：验证命令链]]           | 复用 08 章验证四连（S1–S9 无验证链，需显式标注从本教程 08 章复用）：`pnpm dsh web --patch` 验加载 → `--dump-config` 验配置层 → `--dump-default-config` 验 bundle 默认 → `pnpm dsh --profile headless` 验端到端                                                                     |
+| 7   | [[11-实战-写hook扩展点插件/07-迁移对照            | 第 7 章：迁移对照]]            | 官方映射表（引用 S5）：`PreToolUse → tools/pre-execute`、`PostToolUse → tools/post-execute`、`UserPromptSubmit → agent/pre-step`、`Stop → agent/turn-stopping`、`SessionStart → agent/session-start`、`SubagentStart/SubagentStop → subagent/start\|end` |
+| 8   | [[11-实战-写hook扩展点插件/08-小结与下一步          | 第 8 章：小结与下一步]]          | 五扩展点选型口诀收口：权限门→`pre-execute`；单调最终拒绝→`guard()`；超时/重试/指标→`execute`；改结果/附 context→`post-execute`；只看不改→`result`                                                                                                                               |
 
 > 建议从第 1 章开始顺序通读，第 2–3 章是语义地基，第 4–6 章动手写码，第 7 章迁移对照按需精读。
 
