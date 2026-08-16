@@ -12,9 +12,9 @@ source_project: deepseek-harness
 > - **系列归属**：DeepSeek-Harness 教程系列 · 插件开发分册
 > - **笔记类型**：概念理解 + 实战（上手）
 > - **读者画像**：熟悉 Claude Code 扩展体系、想写自己的 dsh 插件（工具 / 配置 / 发布）的用户
-> - **预计篇幅**：约 40-50 页（中长篇分册，12 章 + 本导览）
+> - **预计篇幅**：约 40-50 页（中长篇分册，13 章 + 本导览）
 > - **版本锚点**：developer preview（2026-08-13 锚点）
-> - **分册结构**：`DeepSeek-Harness 插件开发教程/` 目录（本首页 + 00–10 章独立文件 + 11 章「写 hook 扩展点插件」子分册 + 12 章「写自己的 Agent Preset」，由原 6 篇插件 / 配置笔记合并重构：TS 速查 + 插件开发核心 + 配置体系 + 配置实战 + 两篇实战分册）
+> - **分册结构**：`DeepSeek-Harness 插件开发教程/` 目录（本首页 + 00–10 章独立文件 + 11 章「写 hook 扩展点插件」子分册 + 12 章「写自己的 Agent Preset」+ 13 章「写 system-prompt 插件」，由原 6 篇插件 / 配置笔记合并重构：TS 速查 + 插件开发核心 + 配置体系 + 配置实战 + 多篇实战分册）
 > - **系列入口**：[[DeepSeek-Harness 教程/README|系列导览]] · [[DeepSeek-Harness MOC|教程 MOC]]
 
 ## 学习路径摘要
@@ -59,6 +59,7 @@ source_project: deepseek-harness
 | 10 | [[10-小结与下一步|小结与下一步]] | 全文件清单、命令链收口、换成你自己的工具、双起点收尾 |
 | 11 | [[11-实战-写hook扩展点插件/README|实战：写 hook 扩展点插件]] | 在 dsh 代码里实现 hook 扩展点：语义模型（流水线+next 瀑布）→ permission-gate → 手写 guard/post-execute/result → 验证四连 → 与 CC hooks 迁移对照（8 章子分册） |
 | 12 | [[12-实战-写自己的AgentPreset|实战：写自己的 Agent Preset]] | 选/换/造 preset：4 预设真实身份、切换与默认、复制目录 / copy API、真实自定义示例 + 验证步骤（配置体系 §2.1 的实操展开） |
+| 13 | [[13-实战-写system-prompt插件|实战：写 system-prompt 插件]] | 代码级加人格/指令：`ctx.systemPrompt.section`、order 三档、text 三写法、`complete` 独占、作用域遮蔽、事件与避坑（3.6 概念图的实操展开） |
 
 > 建议从 [[04-实战-结果预览与选路|第四章]] 开始顺序动手，写工具时回翻 01 / 02 两章查概念，卡壳时对照 08 / 09 的验证与排查。
 

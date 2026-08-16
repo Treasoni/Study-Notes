@@ -233,7 +233,10 @@ interface PromptSection {
 }
 ```
 
-> **代码放哪**：这个接口是 `@deepseek-ai/system-prompt` 包提供的类型定义，**不用自己写**；你的注册动作 `ctx.systemPrompt.register({...})` 写在 `src/index.ts` 的 `apply(ctx)` 里。
+> **代码放哪**：这个接口是 `@deepseek-ai/system-prompt` 包提供的类型定义，**不用自己写**；你的注册动作 `ctx.systemPrompt.section({...})` 写在 `src/index.ts` 的 `apply(ctx)` 里。
+
+> [!warning] 方法名更正
+> 早期版本写作 `ctx.systemPrompt.register({...})`，官方实际方法是 **`ctx.systemPrompt.section({...})`**（2026-08-16 核对）。完整可抄示例见 [[DeepSeek-Harness 插件开发教程/13-实战-写system-prompt插件|第 13 章]]。
 
 **order 约定**：`-100` harness 身份 → `0` 部署人格（persona）→ 其他负数在人格前 → `100–199` 工具指导。
 
@@ -273,6 +276,7 @@ interface PromptSection {
 
 ## 更新记录
 
+- 2026-08-16：3.6 方法名更正 `register` → `section`（官方 system-prompt 参考核对）；新增配套实战章节 [[DeepSeek-Harness 插件开发教程/13-实战-写system-prompt插件|第 13 章]]。
 - 2026-08-15：各代码块补充「代码放哪」文件归属提示（`src/index.ts` 注册中心 / `src/tools/` 工具 / `package.json` 发布字段）。
 - 2026-08-15：3.3–3.6 补充 `[!tip] 大白话` 通俗解释与类比，降低阅读门槛。
 - 2026-08-15：全套重构为「写自己的 dsh 插件」主线。

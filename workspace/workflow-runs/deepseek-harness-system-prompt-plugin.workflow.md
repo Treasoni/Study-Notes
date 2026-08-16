@@ -10,8 +10,8 @@ topic: "DeepSeek-Harness system-prompt 插件实战"
 project_slug: "deepseek-harness-system-prompt-plugin"
 created_at: "2026-08-16"
 last_updated: "2026-08-16"
-current_phase: P5
-current_status: ready
+current_phase: done
+current_status: complete
 mode: freeform
 confirmed_phases: ""
 skippable_phases: "P3,P4,P7"
@@ -29,7 +29,7 @@ quality_gate: passed
 > 运行标识：deepseek-harness-system-prompt-plugin
 > 项目标识：deepseek-harness-system-prompt-plugin
 > 创建时间：2026-08-16
-> 当前阶段：阶段 5
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -105,7 +105,7 @@ quality_gate: passed
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] ✅ 已完成 {complete}
 
 ---
 
@@ -115,7 +115,7 @@ quality_gate: passed
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -125,7 +125,7 @@ quality_gate: passed
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -133,7 +133,11 @@ quality_gate: passed
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
-| | | |
+| P0 | 用户确认新建第 13 章实战笔记（「新建第 13 章（推荐）」）；3.6 的 register→section 顺手修正 | 2026-08-16 |
+| P2 | 官方 system-prompt 子系统参考已抓取核对（2026-08-16），API 细节确认：section() 而非 register() | 2026-08-16 |
+| P5 | 单篇分册正文已产出（output/final_note.md），组装方式 C：保持零散 | 2026-08-16 |
+| P6 | 输出位置沿用系列 AI学习/DeepSeek-Harness 教程/，并入插件开发教程第 13 章 | 2026-08-16 |
+| P7 | MOC 同步完成，插件开发分册 00-13 章 + 学习路径 + README 章节表更新 | 2026-08-16 |
 
 ---
 
@@ -165,10 +169,10 @@ quality_gate: passed
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战分册（learning-note，模式 freeform）
+- **总字数**：正文约 3,500+ 字（单篇独立分册，约 14 KB）
+- **章节数**：1（freeform 模式，单篇）
+- **输出格式**：Obsidian Markdown（YAML frontmatter + Callout + 双链 + 代码块语言标识 + 表格）
+- **文件路径**：`AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/13-实战-写system-prompt插件.md`
+- **Obsidian Vault**：AI学习/（vault 内路径）
+- **MOC 路径**：`AI学习/DeepSeek-Harness 教程/DeepSeek-Harness MOC.md`（03 插件开发分册 00-13 章 + 学习路径已更新）；分册 README 已登记第 13 章
