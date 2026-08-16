@@ -54,7 +54,7 @@ export function apply(ctx: Context) {
 
 三段的职责（对照第 1 章的三层结构图）：
 
-- **① 定义包 `dsh-my-cap`**：`MyCapService` 是一个 cordis `Service` 子类，`super(ctx, 'myCap')` 把服务注册成 `ctx.myCap`；`execute(request): Promise<MyCapResult>` 是抽象签名，定义「调用方要传什么、会拿回什么」。[^c4-S4-4.9-1] 6.2 代码里没展开但属于定义包的还有两样：`MyCapRequest` / `MyCapResult` 类型定义，以及 `declare module` 把 `ctx.myCap` 扩展进 `Context` 类型（这样消费方写 `ctx.myCap.execute(...)` 有类型提示）。这三样合起来才是「契约」。这套 cordis Service + `defineTool` 的写法与 [[DeepSeek-Harness 插件开发核心]] 里的插件结构同源。
+- **① 定义包 `dsh-my-cap`**：`MyCapService` 是一个 cordis `Service` 子类，`super(ctx, 'myCap')` 把服务注册成 `ctx.myCap`；`execute(request): Promise<MyCapResult>` 是抽象签名，定义「调用方要传什么、会拿回什么」。[^c4-S4-4.9-1] 6.2 代码里没展开但属于定义包的还有两样：`MyCapRequest` / `MyCapResult` 类型定义，以及 `declare module` 把 `ctx.myCap` 扩展进 `Context` 类型（这样消费方写 `ctx.myCap.execute(...)` 有类型提示）。这三样合起来才是「契约」。这套 cordis Service + `defineTool` 的写法与 [[DeepSeek-Harness 插件开发教程/01-插件开发核心-从apply到system-prompt|插件开发核心]] 里的插件结构同源。
 - **② Provider 实现包 `dsh-my-cap-local`**：`MyCapLocal extends MyCapService` 真把 `execute` 实现了（这里就是 `input.toUpperCase()`）；`export function apply(ctx) { ctx.plugin(MyCapLocal) }` 是 cordis 插件入口，把实现挂上服务点。换实现 = 换这个包，定义和消费不动。
 - **③ Consumer/Tool 包 `dsh-tool-my-cap`**：`export const inject = ['tools', 'myCap']` 声明这个插件要注入 `tools` 服务（用于注册工具）和 `myCap` 服务（用于调能力）；`defineTool({...})` 描述工具的形状；`ctx.tools.register(...)` 把它挂进工具表，模型就能调了。[^c4-S4-4.9-1]
 
@@ -239,7 +239,7 @@ out-of-process 的 provider（`acp` / `dsh-sdk`）走另一条路：[^c4-S5][^c4
 3. 把 md 里的**system prompt** → `start()` 创建 child 时注入的 prompt（配合 `request.prompt`）。
 4. 把「模型怎么叫它」→ 复用 `dsh-tool-subagent`，`config.provider` 指到你的 `name`。
 
-这一步映射做完，你对「写 dsh provider」的心智就和「写 Claude Code subagent」对上了——只是多了一层你要自己实现的 `start()`。挂载与配置细节（`cordis.patch.yml` 怎么插）见 [[DeepSeek-Harness 配置体系]] 与第 3 章。
+这一步映射做完，你对「写 dsh provider」的心智就和「写 Claude Code subagent」对上了——只是多了一层你要自己实现的 `start()`。挂载与配置细节（`cordis.patch.yml` 怎么插）见 [[DeepSeek-Harness 插件开发教程/02-配置体系-补丁树Profile与bundle|配置体系]] 与第 03 章。
 
 ## 本章小结
 

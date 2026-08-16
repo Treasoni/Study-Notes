@@ -213,8 +213,7 @@ graph TB
 
 - [[DeepSeek-Harness 是什么]] — 心智模型：插件树 vs 单体+扩展、Claude Code 扩展对照表
 - [[DeepSeek-Harness 安装与快速上手]] — 环境准备：源码运行路径（写插件前提）、Web UI/headless 验证
-- [[DeepSeek-Harness 插件开发核心]] — 插件开发核心：apply(ctx)/生命周期/inject/defineTool/hook/提示词
-- [[DeepSeek-Harness 配置体系]] — 配置专册：补丁树/Profile 与 Agent Preset/Config schema/bundle 发布
+- [[DeepSeek-Harness 插件开发教程/README]] — 插件开发分册：00 速查 + 01 核心 + 02-03 配置 + 04-10 实战路径（git_log 写→配→验证→打包→安装）
 - [[DeepSeek-Harness 与ClaudeCode对照迁移]] — 实战：从零写自定义工具插件（每步对照 Claude Code）
 - [[DeepSeek-Harness 常见坑与速查]] — 插件开发速查：坑/命令/工具契约/配置引用
 

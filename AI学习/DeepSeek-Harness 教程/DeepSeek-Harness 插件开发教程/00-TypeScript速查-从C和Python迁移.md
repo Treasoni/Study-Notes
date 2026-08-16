@@ -11,7 +11,7 @@ source_project: deepseek-harness
 
 > [!summary] 本篇导读
 > 面向**学过 Python + C、没学过 TypeScript**、想写 [[01-插件开发核心-从apply到system-prompt|dsh 插件]] 的读者。一句话结论：你的已有基础覆盖写插件所需 TS 的 **80%**，真正要补的是三件事——**ESM 模块语法、结构化类型（interface + 泛型）、「编译期类型 ≠ 运行时校验」的心智模型**。
-> 本篇按优先级分 P0（必学）/ P1（常碰）/ P2（用到再学），每项都从本系列笔记抽真实代码做例子。配套正文见 [[01-插件开发核心-从apply到system-prompt|插件开发核心]] 与 [[04-实战-结果预览与选路|从零写插件]]。
+> 本篇按优先级分 P0（必学）/ P1（常碰）/ P2（用到再学），每项都从本系列笔记抽真实代码做例子。配套正文见 [[01-插件开发核心-从apply到system-prompt|插件开发核心]] 与 [[04-实战-结果预览与选路|结果预览与选路]]。
 
 ## 你已有的基础：C/Python → TS 迁移对照表
 
@@ -68,7 +68,7 @@ ctx.tools.register(defineTool({
 }))
 ```
 
-数组解构（来自 [[06-实战-写工具-git_log与四名分离|从零写插件]] 的 `git_log` 工具）：
+数组解构（来自 [[06-实战-写工具-git_log与四名分离|写工具 git_log]] 的 `git_log` 工具）：
 
 ```ts
 const [hash, ...rest] = line.split(' ')
@@ -166,7 +166,7 @@ throw new Error(`git log 执行失败: ${(err as Error).message}`)
 ## 学习路径建议
 
 1. 过一遍 TS 官方手册前几章：**Modules → Basic Types → Interfaces → Functions → Classes → Generics**（1~2 天）；
-2. 打开 [[05-实战-起步-最小骨架与脚手架|从零写插件]]，**从第 2 章最小 2 文件开始**边写边查——会同时遇到 P0+P1 里 80% 的语法；
+2. 打开 [[05-实战-起步-最小骨架与脚手架|第 05 章 起步]]，**从 §2 最小 2 文件开始**边写边查——会同时遇到 P0+P1 里 80% 的语法；
 3. 卡住时对照 [[01-插件开发核心-从apply到system-prompt|插件开发核心]] 的 defineTool 五件套和 Service 例子；
 4. 编译报错先看是不是 `strict` 的 undefined/null 问题——新手最高频的坑。
 

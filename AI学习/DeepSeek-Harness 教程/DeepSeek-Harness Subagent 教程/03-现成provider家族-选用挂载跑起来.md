@@ -168,7 +168,7 @@ cwd 的优先级是一句背下来的规则：[^c3-S5-4.7-7][^c3-S6-4.7-7]
 两点诚实标注（本分册约定，成稿时保留）：
 
 1. **acp 命令参数以 02 素材 6.3 为准**（示例里是一个 demo bin 路径），**需对照 S5 README 核实**后再用于你的项目；
-2. **手动 insert 的精确语法**标注为**需对照配置体系笔记 + C1 第三方插件示例核实**——`cordis.patch.yml` 的完整 schema 细节见 [[DeepSeek-Harness 配置体系]]。
+2. **手动 insert 的精确语法**标注为**需对照配置体系笔记 + C1 第三方插件示例核实**——`cordis.patch.yml` 的完整 schema 细节见 [[DeepSeek-Harness 插件开发教程/02-配置体系-补丁树Profile与bundle|配置体系]]。
 
 ## 3.5 选择 provider：一张决策表
 
@@ -214,7 +214,7 @@ cwd 的优先级是一句背下来的规则：[^c3-S5-4.7-7][^c3-S6-4.7-7]
 
 ## 更新记录
 
-- **2026-08-16（成稿）**：本章基于 developer preview（2026-08-13 锚点）官方文档。provider 特性对照引自 S8 / S1/S2 / S5 / S6 README 与子系统文档；`cordis.patch.yml` 底稿来自 02 素材 6.3，acp 命令参数需对照 S5 README 核实、手动 insert 精确语法需对照 [[DeepSeek-Harness 配置体系]] + C1 第三方插件示例核实。若 preview 更新改变 provider 的 capabilities 声明、子进程环境/cwd 语义或配置 schema，本章 3.2-3.4 是受影响区域，优先对照检查。codex / claude-code 配置表未抓取，留待后续分册扩展。
+- **2026-08-16（成稿）**：本章基于 developer preview（2026-08-13 锚点）官方文档。provider 特性对照引自 S8 / S1/S2 / S5 / S6 README 与子系统文档；`cordis.patch.yml` 底稿来自 02 素材 6.3，acp 命令参数需对照 S5 README 核实、手动 insert 精确语法需对照 [[DeepSeek-Harness 插件开发教程/02-配置体系-补丁树Profile与bundle|配置体系]] + C1 第三方插件示例核实。若 preview 更新改变 provider 的 capabilities 声明、子进程环境/cwd 语义或配置 schema，本章 3.2-3.4 是受影响区域，优先对照检查。codex / claude-code 配置表未抓取，留待后续分册扩展。
 
 ---
 

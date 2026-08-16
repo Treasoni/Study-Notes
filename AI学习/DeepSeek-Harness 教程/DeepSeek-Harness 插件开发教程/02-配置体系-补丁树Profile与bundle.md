@@ -226,7 +226,7 @@ dsh --profile demo
 > - 插件接受配置：`Config` 接口 + Schemastery schema，默认值写 schema 上，坏配置响亮失败，HMR 热替换；
 > - 发布：**bundle 贡献配置层**（`dsh.bundle.patch`）vs **profile 决定装哪些 bundle 及顺序**（`dsh.profile.bundles`）；`dsh plugin add` 安装，git 安装注意 prepare + allowBuilds。
 
-相关：[[01-插件开发核心-从apply到system-prompt|第 3 章 插件开发核心]] → [[DeepSeek-Harness 教程/DeepSeek-Harness 与ClaudeCode对照迁移|实战：自定义工具插件]]。
+相关：[[01-插件开发核心-从apply到system-prompt|插件开发核心]] → [[DeepSeek-Harness 教程/DeepSeek-Harness 与ClaudeCode对照迁移|实战：自定义工具插件]]。
 
 ---
 
