@@ -8,7 +8,7 @@
 - **当前阶段**: 阶段 2（方向调整后）
 - **输出目标**: obsidian（已确认）
 - **Vault 路径**: `D:\Study-Notes`（已确认）
-- **笔记目录**: `AI学习/Harness工程实战`（已确认）
+- **笔记目录**: `AI学习/DeepSeek-Harness 教程/Harness工程实战`（已确认，发布前按用户要求移入 DeepSeek-Harness 教程）
 - **MOC 路径**: `AI学习/DeepSeek-Harness 教程/DeepSeek-Harness MOC.md`（已确认）
 
 ## 学习目标

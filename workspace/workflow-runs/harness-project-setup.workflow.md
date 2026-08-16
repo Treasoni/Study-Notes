@@ -168,5 +168,5 @@ blocked_reason: ""
 - **章节数**：8 章 + README 首页
 - **输出格式**：Obsidian Markdown（分册模式）
 - **文件路径**：`workspace/harness-project-setup/output/final_note.md`（组装稿）；发布稿 `AI学习/Harness工程实战/`
-- **Obsidian Vault**：`D:\Study-Notes\AI学习\Harness工程实战\`
+- **Obsidian Vault**：`D:\Study-Notes\AI学习\DeepSeek-Harness 教程\Harness工程实战\`
 - **MOC 路径**：`AI学习/DeepSeek-Harness 教程/DeepSeek-Harness MOC.md`（已加「07 工程脚手架」索引项）

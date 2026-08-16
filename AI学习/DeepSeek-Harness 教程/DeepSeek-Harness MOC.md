@@ -75,7 +75,7 @@ source_project: deepseek-harness
 
 | 笔记 | 说明 |
 |------|------|
-| [[AI学习/Harness工程实战/README\|从零搭建 DeepSeek-Harness 工程]] | 工程脚手架实战：「使用 dsh」路线——先建哪些文件、skills 六扫描根、hooks 桥接/原生、subagents 挂载、rules/AGENTS 指令体系、补丁树/Profile/Agent Preset/MCP 与 11 条坑清单，全程 dsh↔Claude Code 对照 |
+| [[AI学习/DeepSeek-Harness 教程/Harness工程实战/README\|从零搭建 DeepSeek-Harness 工程]] | 工程脚手架实战：「使用 dsh」路线——先建哪些文件、skills 六扫描根、hooks 桥接/原生、subagents 挂载、rules/AGENTS 指令体系、补丁树/Profile/Agent Preset/MCP 与 11 条坑清单，全程 dsh↔Claude Code 对照 |
 
 ---
 
