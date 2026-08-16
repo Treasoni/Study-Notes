@@ -10,7 +10,7 @@ topic: "如何写 DeepSeek-Harness hook 扩展点插件"
 project_slug: "deepseek-harness-hook-plugin"
 created_at: "2026-08-16"
 last_updated: "2026-08-16"
-current_phase: P3
+current_phase: P4
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：deepseek-harness-hook-plugin
 > 项目标识：deepseek-harness-hook-plugin
 > 创建时间：2026-08-16
-> 当前阶段：阶段 3
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -72,14 +72,14 @@ blocked_reason: ""
 ---
 
 ## 阶段 3：大纲生成（大纲模式）
-- [ ] 已读取意图文件和深度素材
-- [ ] 已根据笔记类型选择大纲结构
-- [ ] 大纲已生成（≤3级层级）
-- [ ] 每章已标注：篇幅、素材引用、代码示例
-- [ ] 大纲已展示给用户确认
-- [ ] 大纲已保存：`./03_outline.md`
+- [x] 已读取意图文件和深度素材（00_intent.md + 02_deep_research.md + 系列 README 与 01 章格式参照）
+- [x] 已根据笔记类型选择大纲结构（实战教学分册，方向 D：A 语义模型→B 实战→C 迁移对照）
+- [x] 大纲已生成（≤3级层级，8 内部章 `### 第 N 章`）
+- [x] 每章已标注：篇幅、素材引用、代码示例（篇幅占比 5–20%，素材 S1–S9，代码示例标注）
+- [x] 大纲已展示给用户确认（用户授权「直接写完」）
+- [x] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中 {in_progress}
+> [P3] ✅ 已完成 {complete}
 
 ---
 
@@ -89,9 +89,9 @@ blocked_reason: ""
 - [ ] 第 3 章已写完并确认
 - [ ] ...（根据实际章节数添加）
 
-**进度**：0/待大纲确定
+**进度**：0/8
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中 {in_progress}
 
 ---
 
@@ -135,6 +135,7 @@ blocked_reason: ""
 | P0 | 用户确认意图文件与研究计划：如何写 dsh hook 扩展点插件（实战·上手·中量 12-15k 字·Obsidian 发布到插件开发教程分册·MOC 同步） | 2026-08-16 |
 | P1 | 用户确认探测结果与方向：9 源（5 官方 + 4 社区）通过验证，选方向 D（组合 A→B→C：语义模型→实战→迁移对照） | 2026-08-16 |
 | P2 | 用户确认深度素材质量（9 源 5官方+4社区，6 核心深读）并选择执行模式：大纲模式 | 2026-08-16 |
+| P3 | 用户确认大纲（8 内部章，方向 D：语义模型→实战→迁移对照；guard/post-execute/result 依 S1 构造已标注）并授权「直接写完」不再逐章确认 | 2026-08-16 |
 
 ---
 
