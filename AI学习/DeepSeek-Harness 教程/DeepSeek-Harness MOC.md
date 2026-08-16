@@ -10,7 +10,7 @@ source_project: deepseek-harness
 # DeepSeek-Harness 教程 MOC
 
 > [!info] 目录导航
-> **DeepSeek-Harness（dsh）插件开发教程**，面向「熟悉 Claude Code 的用户」，以「写自己的 dsh 插件」为主线。共 4 篇主章分册 + 1 篇插件开发分册（00-11 章）+ 1 篇子系统开发分册 + 系列导览，零散分册模式，每篇可独立阅读。
+> **DeepSeek-Harness（dsh）插件开发教程**，面向「熟悉 Claude Code 的用户」，以「写自己的 dsh 插件」为主线。共 4 篇主章分册 + 1 篇插件开发分册（00-12 章）+ 1 篇子系统开发分册 + 系列导览，零散分册模式，每篇可独立阅读。
 > 读者定位：已熟悉 Claude Code，用其扩展体系（hooks / CLAUDE.md / MCP / Skills）作桥，讲解 dsh 插件开发。
 > 系列入口：[[DeepSeek-Harness 教程/README|系列导览]]
 
@@ -20,7 +20,7 @@ source_project: deepseek-harness
 
 ```
 01 心智模型 → 02 环境准备 → 03 插件开发核心 → 04 实战项目 → 05 速查与排错
-                                        （03 插件开发分册 00-11 章：速查/核心/配置/实战路径 + 写 hook 扩展点插件）
+                                        （03 插件开发分册 00-12 章：速查/核心/配置/实战路径 + 写 hook 扩展点插件 + 写自己的 Agent Preset）
                                         （06 子系统开发：Subagent 能力缝 + provider）
                                             ↘ 概念基础（AI学习/01-基础概念/）
 ```
@@ -51,7 +51,7 @@ source_project: deepseek-harness
 
 | 笔记 | 说明 |
 |------|------|
-| [[DeepSeek-Harness 插件开发教程/README\|DeepSeek-Harness 插件开发]] | 插件开发分册（00-11 章）：00 前置 TS 速查 · 01 核心（apply 三形态/生命周期/inject/defineTool/hook/提示词）· 02-03 配置专册（补丁树/Profile 与 Agent Preset/Config schema/bundle 发布/接入 skills-hooks-mcp-rules）· 04-10 实战渐进路径（git_log 写→配→验证→打包→安装，改造/从零双入口）· 11 写 hook 扩展点插件（8 章子分册） |
+| [[DeepSeek-Harness 插件开发教程/README\|DeepSeek-Harness 插件开发]] | 插件开发分册（00-12 章）：00 前置 TS 速查 · 01 核心（apply 三形态/生命周期/inject/defineTool/hook/提示词）· 02-03 配置专册（补丁树/Profile 与 Agent Preset/Config schema/bundle 发布/接入 skills-hooks-mcp-rules）· 04-10 实战渐进路径（git_log 写→配→验证→打包→安装，改造/从零双入口）· 11 写 hook 扩展点插件（8 章子分册）· 12 写自己的 Agent Preset（选/换/造 + copy API + 示例验证） |
 
 ### 04 实战项目
 
