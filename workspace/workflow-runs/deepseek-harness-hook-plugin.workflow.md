@@ -10,7 +10,7 @@ topic: "如何写 DeepSeek-Harness hook 扩展点插件"
 project_slug: "deepseek-harness-hook-plugin"
 created_at: "2026-08-16"
 last_updated: "2026-08-16"
-current_phase: P5
+current_phase: P6
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：deepseek-harness-hook-plugin
 > 项目标识：deepseek-harness-hook-plugin
 > 创建时间：2026-08-16
-> 当前阶段：阶段 5
+> 当前阶段：阶段 6
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -100,15 +100,15 @@ blocked_reason: ""
 ---
 
 ## 阶段 5：收尾组装
-- [ ] 所有章节文件已检查
-- [ ] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
-- [ ] 过渡语已添加
-- [ ] 目录已生成
-- [ ] 标题层级已统一
-- [ ] 引用已检查
-- [ ] 完整笔记已保存：`./output/final_note.md`
+- [x] 所有章节文件已检查
+- [x] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
+- [x] 过渡语已添加
+- [x] 目录已生成
+- [x] 标题层级已统一
+- [x] 引用已检查
+- [x] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中 {in_progress}
+> [P5] ✅ 已完成 {complete}
 
 ---
 
@@ -118,7 +118,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] 🔲 进行中 {in_progress}
 
 ---
 
