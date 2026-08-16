@@ -14,7 +14,7 @@ source_project: deepseek-harness
 > - **读者画像**：熟悉 Claude Code 扩展体系、想写自己的 dsh 插件（工具 / 配置 / 发布）的用户
 > - **预计篇幅**：约 40-50 页（中长篇分册，11 章 + 本导览）
 > - **版本锚点**：developer preview（2026-08-13 锚点）
-> - **分册结构**：`DeepSeek-Harness 插件开发教程/` 目录（本首页 + 11 章独立文件，由原 6 篇插件 / 配置笔记合并重构：TS 速查 + 插件开发核心 + 配置体系 + 配置实战 + 两篇实战分册）
+> - **分册结构**：`DeepSeek-Harness 插件开发教程/` 目录（本首页 + 00–10 章独立文件 + 11 章「写 hook 扩展点插件」子分册，由原 6 篇插件 / 配置笔记合并重构：TS 速查 + 插件开发核心 + 配置体系 + 配置实战 + 两篇实战分册）
 > - **系列入口**：[[DeepSeek-Harness 教程/README|系列导览]] · [[DeepSeek-Harness MOC|教程 MOC]]
 
 ## 学习路径摘要
@@ -57,6 +57,7 @@ source_project: deepseek-harness
 | 08 | [[08-实战-验证命令链|实战：验证命令链]] | 加载 → dump-config → dump-default-config → headless，验证四连 |
 | 09 | [[09-实战-工程化与打包发布|实战：工程化与打包发布]] | package.json / tsconfig / bundle / profile / pnpm pack / 安装 |
 | 10 | [[10-小结与下一步|小结与下一步]] | 全文件清单、命令链收口、换成你自己的工具、双起点收尾 |
+| 11 | [[11-实战-写hook扩展点插件/README|实战：写 hook 扩展点插件]] | 在 dsh 代码里实现 hook 扩展点：语义模型（流水线+next 瀑布）→ permission-gate → 手写 guard/post-execute/result → 验证四连 → 与 CC hooks 迁移对照（8 章子分册） |
 
 > 建议从 [[04-实战-结果预览与选路|第四章]] 开始顺序动手，写工具时回翻 01 / 02 两章查概念，卡壳时对照 08 / 09 的验证与排查。
 
