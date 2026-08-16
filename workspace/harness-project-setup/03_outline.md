@@ -1,89 +1,87 @@
-## 学习笔记大纲：《从零搭建 Agent Harness 工程：项目脚手架与 skills/hooks/subagents/rules/AGENTS 配置实战》
+## 学习笔记大纲：《从零搭建 DeepSeek-Harness 工程：项目脚手架与 skills/hooks/subagents/rules/AGENTS 配置实战》
 
-> 笔记类型：实战笔记（动手搭建 + 结构对照）
-> 预计总篇幅：约 25 页
-> 章节数：9
+> 笔记类型：实战笔记（动手搭建 + dsh ↔ Claude Code 结构对照）
+> 预计总篇幅：约 22-26 页
+> 章节数：8
+> 目标读者：已会 Claude Code 扩展、已读 dsh 插件开发/配置体系/Subagent 教程的"有了解"用户
 
-### 第一章：从空目录开始——先建哪 4 个文件
+### 第一章：先从心智模型开始——dsh 工程和 Claude Code 工程差在哪
 - **篇幅**：中
-- **覆盖要点**：最小入口集合的 4 个文件（根 `CLAUDE.md`、`AGENTS.md`、`.gitignore`、`.claude/settings.json`）；指令加载顺序（托管策略 → `~/.claude/CLAUDE.md` → 项目 `./CLAUDE.md` 或 `./.claude/CLAUDE.md` → `./CLAUDE.local.md`）；`@path` import 机制与递归层级（最深 4 层）；settings 分层（`settings.json` 共享 / `settings.local.json` 个人 / managed 强制）；为什么先建这 4 个文件
-- **素材引用**：S1, S2, D
-- **代码示例**：有（4 个文件的骨架内容 + 最小目录树）
+- **覆盖要点**：dsh = `Model + Harness = Agent` 的可组装运行时；"一切皆插件"、无特权核心（vs Claude Code 单体核心+扩展）；写能力 = 写 TypeScript 代码，`cordis.yml` patch 只是装载手段；"使用 dsh" vs "开发 dsh 插件" 两条路线的分野（决定后面所有文件放哪）
+- **素材引用**：D5（是什么）、B1
+- **代码示例**：无（心智对照表 + 路线决策表）
 
-### 第二章：Skills——往哪放、怎么写
+### 第二章：开始一个项目——先创建哪些文件
 - **篇幅**：中
-- **覆盖要点**：skills 放置层级（企业 managed → `~/.claude/skills/` → 项目 `.claude/skills/` → 插件）；目录名即命令名、description 决定自动加载；SKILL.md frontmatter（`allowed-tools`、`context: fork`、`disable-model-invocation`）；按需加载与长参考拆分（`scripts/`、`reference.md`）；manifest.yaml 的一句话职责（本地范本特有）
-- **素材引用**：S3, D
-- **代码示例**：有（SKILL.md frontmatter 示例 + skills 目录树）
+- **覆盖要点**：两条路线的最小文件集
+  - 只用 dsh：`npx @deepseek-ai/dsh web` + Web UI 首配（API Key + workspace），项目根只需一个 `AGENTS.md`（或直接复用 CLAUDE.md）
+  - 要写插件/自定义 hooks/mcp：源码路径（clone → `pnpm install` → `pnpm run build`）+ 最小插件 2 文件（`src/index.ts` + `dev-cordis.patch.yml`）
+  - 目录职责总览：`AGENTS.md`/`CLAUDE.md`（指令）、`.dsh/skills/`（项目技能）、`cordis.yml`（hooks/mcp/自定义插件配置）、`~/.dsh/`（用户级 harness home：AGENTS.md/skills/profiles/.agent-presets）
+- **素材引用**：D5（安装/最小骨架）、B3、D1
+- **代码示例**：有（最小目录树 + 两个文件的骨架内容）
 
-### 第三章：Hooks——事件、退出码与注册
+### 第三章：Rules/指令体系——AGENTS.md、CLAUDE.md 与 workspaceContext
 - **篇幅**：中
-- **覆盖要点**：注册位置（全局 / 项目 / `settings.local.json` / 插件）；`hooks.<Event>[]` 结构与 handler 键（type/command/args/timeout/async）；生命周期事件（SessionStart/UserPromptSubmit/PreToolUse/PostToolUse/Stop/SessionEnd）；退出码语义（0 成功、2 阻塞、其他非零非阻塞）；stdin JSON 输入与 stdout 决策输出；`${CLAUDE_PROJECT_DIR}` 引用与脚本统一放 `.claude/hooks/`
-- **素材引用**：S5, D
-- **代码示例**：有（settings.json hooks 片段 + 一个极简脚本）
+- **覆盖要点**：`instructionFileCandidates` 默认 `['AGENTS.md','CLAUDE.md']` 零迁移；项目根 = 最近含 `.git` 的祖先，逐目录向上加载；本地覆盖 `AGENTS.local.md`/`CLAUDE.local.md`；用户级 `~/.dsh/AGENTS.md`；`workspaceContext` 配置（`maxBytes` 字节预算、`projectRootMarkers`、设 `false` 关闭 = hermetic prompts）；官方仓库自身 `CLAUDE.md` symlink `AGENTS.md` 的惯例
+- **素材引用**：B3、D1、B1
+- **代码示例**：有（cordis.yml workspaceContext 片段 + AGENTS.md 最小样例）
 
-### 第四章：Subagents——收窄工具与上下文隔离
+### 第四章：Skills——往哪放、怎么写、扫描优先级
 - **篇幅**：中
-- **覆盖要点**：agents 层级（托管 settings → `--agents` CLI → 项目 `.claude/agents/` → `~/.claude/agents/` → 插件）；YAML frontmatter + markdown 正文（正文即系统提示词）；name/description/tools/model/permissionMode 字段；子代理上下文干净（只收自身系统提示词，不含完整系统提示词）；调用方式（自然语言 / `@agent-<name>` / `claude --agent` / settings `agent` 字段）
-- **素材引用**：S4, D
-- **代码示例**：有（一个完整 agent .md 示例）
+- **覆盖要点**：六个扫描根 rank 表（`.dsh/skills` 100 → `.agents/skills` 200 → custom 300 → user-dsh 400 → user-agents 500 → bundled 600），first-wins；目录 bundle `<name>/SKILL.md` 或单文件 `<name>.md`，kebab-case 命名，不支持嵌套递归发现；frontmatter 只强两键（`disable-model-invocation`/`user-invocable`）；热加载（watcher + 模型侧 `skill({name})` 工具按需读正文，渐进式披露）；把现成 Claude Code skills 复制过来的迁移清单
+- **素材引用**：B2、D1
+- **代码示例**：有（最小 SKILL.md + 迁移命令 `cp -r ~/.claude/skills/* .dsh/skills/`）
 
-### 第五章：Rules——一文件一主题与渐进式披露
+### 第五章：Hooks——桥接复用 vs 原生插件
+- **篇幅**：中
+- **覆盖要点**：hook ⊂ 插件的心智；桥接插件 `@deepseek-ai/dsh-hooks-claude-code`（`configPath` 指向 hooks.json、`projectDir` 注入 `${CLAUDE_PROJECT_DIR}`、支持 SessionStart/UserPromptSubmit/PreToolUse/PostToolUse/Stop/SubagentStart/SubagentStop；**只跑 shell command**、`configPath` 进程级两个坑）；原生 cordis 插件监听 `tools/pre-execute` 等扩展点（返回 deny/next、更强大）；选择建议 + cordis.yml 落点三层（试跑 `--patch` / profile / home）
+- **素材引用**：D1、B3
+- **代码示例**：有（桥接插件 cordis.yml 片段 + 原生 hook 的 `ctx.on` 代码）
+
+### 第六章：Subagents——ctx.subagents 与 SubagentProvider（指路+关键契约）
+- **篇幅**：短-中
+- **覆盖要点**：Claude Code `.claude/agents/*.md` 自动发现 vs dsh `ctx.subagents.registerProvider` 显式注册；provider 契约五块（name/capabilities 四 flag/inheritsParentContext/start/prepareContinuable）；现成 provider 选型（spawn/fork/acp/dsh-sdk）；`dsh-tool-subagent` 暴露给模型 + maxDepth 默认 3；3 个核心坑（UNSUPPORTED_CAPABILITY、outputSchema 不保证、inheritsParentContext 名不副实）；**指向 vault 既有 Subagent 分册**做深度展开
+- **素材引用**：D4、D1（桥接表）
+- **代码示例**：有（注册 provider 最小代码 + provider 选型速查表）
+
+### 第七章：配置体系与常见坑清单
+- **篇幅**：中
+- **覆盖要点**：补丁树四层（bundle → profile `cordis.patch.yml` → home `$DSH_HOME/cordis.patch.yml` → `--patch`），"Later layers win per row"整行替换不做深合并，`--dump-config` 排查；Profile（装哪些 bundle）vs Agent Preset（会话用什么能力），preset 即目录（`~/.dsh/.agent-presets/<id>/`）、内置 standard/code/cordis/minimal、自定义=复制改；MCP 每 server 一实例（`mcp__<serverName>__<tool>`，只桥接 Tools）；坑清单汇总（patch name 绝对路径、--patch 仓库根解析、hooks 桥接只跑 shell、configPath 进程级、内置 preset 只读、同名第三方包、developer preview 破坏性变更）
+- **素材引用**：D2、D3、B3、D5
+- **代码示例**：有（补丁树图示 + cordis.yml 配置片段 + preset 目录树）
+
+### 第八章：最小可运行骨架总览 + 发布到 Obsidian
 - **篇幅**：短
-- **覆盖要点**：`.claude/rules/` 目录组织；无 `paths` 的常驻加载 vs 带 `paths` frontmatter 的按文件匹配触发；文件命名即主题（如 `testing.md`，可建子目录）；与 CLAUDE.md 的分工；渐进式披露原则（入口只做地图，避免"陈规坟场"）
-- **素材引用**：S1, D
-- **代码示例**：有（rules 目录树 + frontmatter 片段）
-
-### 第六章：AGENTS.md 体系——canonical source 与跨 runtime 桥接
-- **篇幅**：中
-- **覆盖要点**：Claude Code 读 CLAUDE.md 不读 AGENTS.md 的矛盾；AGENTS.md 作 canonical source；`@AGENTS.md` import 桥接（Windows 建议 import 而非符号链接）；双套隔离策略；`.codex/` 镜像与 `.agent-sync` 同步的进阶简述
-- **素材引用**：S1, D
-- **代码示例**：有（CLAUDE.md 中 `@` import AGENTS.md + 双轨目录对照）
-
-### 第七章：常见坑清单
-- **篇幅**：短
-- **覆盖要点**：7 个坑——CLAUDE.md vs AGENTS.md 双份维护；settings 不随祖先继承（monorepo 每个子包必须自包含）；版本依赖（import v2.1.213+、/subtask v2.1.212+ 等）；强制策略必须 exit 2；skills 命令名来自目录名而非 name；SessionEnd 共享 1.5s 预算；自动记忆（机器本地） vs 项目文件（版本控制）互补
-- **素材引用**：S1, S2, S3, S4, S5（对应 §四）
-- **代码示例**：无（避坑清单为主）
-
-### 第八章：最小可运行骨架总览
-- **篇幅**：短
-- **覆盖要点**：完整目录树（从 D 提取精简版）；每个文件一句话职责；从空目录到跑起来的验证步骤；渐进式扩展顺序（实际搭建按 rules → skills → agents → hooks 按需添加，与章节学习顺序不同）；进阶扩展方向（workflow 状态机、manifest 平台注册）
-- **素材引用**：D, S1, S2
+- **覆盖要点**：完整目录树（从 D1-D5 提取精简版）+ 每文件一句话职责 + 从空目录到跑起来的验证步骤（`pnpm dsh web` → Web UI 首配 → 会话跑通 / headless 退出码 0/1）+ 渐进式扩展顺序；Obsidian 发布：frontmatter（title/tags/created/updated/status/sources）、Callout/双链规范、保存位置 `AI学习/Harness工程实战/`、挂载到 `AI学习/DeepSeek-Harness 教程/DeepSeek-Harness MOC.md`
+- **素材引用**：D5、D1-D3；本章发布部分来自 Obsidian 输出规范 + 意图文件确认的 vault 路径
 - **代码示例**：有（最终目录树 + 验证命令）
-
-### 第九章：发布到 Obsidian
-- **篇幅**：短
-- **覆盖要点**：frontmatter（title/tags/created/updated/status/sources）；Callout 与双链规范；保存位置 `AI学习/Harness工程实战/`；挂载到既有 `AI学习/DeepSeek-Harness 教程/DeepSeek-Harness MOC.md`；不硬编码路径、sources 含特殊字符需加引号
-- **素材引用**：D（本 vault 范本 + 意图文件确认的 vault 路径）；此章内容主要来自 Obsidian 输出规范，而非 S1-S5 深度素材
-- **代码示例**：无
 
 ## 设计决策与待确认点
 
-深度素材 §六 的 4 个开放问题，按"实战笔记 + 上手深度"给出如下建议，请在确认大纲时逐项敲定：
+深度素材 §六 的 4 个开放问题，按"实战笔记 + 上手深度 + dsh 专属"给出如下建议，请在确认大纲时逐项敲定：
 
 | # | 开放问题 | 建议 | 理由 |
 |---|---------|------|------|
-| 1 | 纯 Claude Code 还是跨 runtime（.codex/.agent-sync）？ | 以纯 Claude Code 为主干（第 1-7 章）；跨 runtime 只作为第 6 章"进阶延伸"简述，不展开镜像同步脚本细节 | 官方文档 S1-S5 全是 Claude Code；跨 runtime 是本 vault 特有复杂度，与"上手"深度不符 |
-| 2 | 是否包含 workflow 状态机（.claude/workflows/ + todo-state.sh）？ | 不纳入正文主体，只在第 8 章"进阶扩展方向"一句话提及 | 属本 vault 自研、官方无对应；任务标题聚焦 skills/hooks/subagents/rules/AGENTS |
-| 3 | 是否深入 manifest.yaml（agent-platform/v1）？ | 第 2 章与第 4 章各用一小段说明其职责（声明入口/能力/权限/依赖），不深入 schema | 官方无对应；对纯 Claude Code 骨架非必需 |
-| 4 | 笔记粒度？ | 清单 + 每文件骨架级示例内容，不做长参考文档；长参考链接官方文档 | 匹配"上手"深度（能独立搭出骨架） |
+| 1 | 笔记定位是"使用 dsh 的工程脚手架"还是"写 dsh 插件"？ | **以"使用 dsh 的工程脚手架"为主干**（项目里建 AGENTS.md/.dsh/skills/cordis.yml 配 hooks/mcp/subagent）；写插件只作为第二章"要自定义时的分支"简述，深挖指路既有插件开发分册 | 你的问题问的是"开始一个项目先建哪些文件"，是工程脚手架视角；写插件细节 vault 已有完整分册 |
+| 2 | subagent 是否单独成章展开？ | **第六章"短-中篇幅"**，讲清 dsh 版契约与选型速查 + 指路 vault Subagent 分册，不重复深挖 | 你的问题点名要 subagent；但 vault 已有 7 章分册，笔记做"工程骨架怎么挂 + 关键契约"即可 |
+| 3 | 是否保留"对照 Claude Code 迁移表"贯穿？ | **保留为每章的小节/速查**（每节 dsh 配置 ↔ Claude Code 等价物），体现你 vault 笔记的风格 | 你是从 Claude Code 迁移过来的用户，对照表是最大加速器 |
+| 4 | 笔记粒度？ | 清单 + 每文件骨架级示例内容，不做长参考文档；长参考指路既有 dsh 分册与官方 docs | 匹配"上手"深度（能独立搭出 dsh 骨架） |
 
 ## 学习路径说明
 
 ### 前置要求
 - 已了解 Harness Engineering 基本概念（可先读本 vault `AI学习/01-基础概念/Harness-Engineering-系统治理工程.md`）
-- 会用 Claude Code 基础操作（会话、授权、CLAUDE.md 作用）
-- 准备一个空的测试目录用于动手搭建；Claude Code 版本满足最低要求（import 需 v2.1.213+，详见第 7 章）
-- 对照阅读本 vault `AI学习/DeepSeek-Harness 教程/` 系列
+- 熟悉 Claude Code 扩展体系（`.claude/skills`、hooks、`.claude/agents`、CLAUDE.md）
+- 已读 dsh 基础（`AI学习/DeepSeek-Harness 教程/`：是什么、安装与快速上手、插件开发 01-05、配置实战 03）
+- 准备一个空测试目录用于动手搭建；Node `^22.19 || >=24` + pnpm
 
 ### 学完能做什么
-- 从空目录独立搭出最小可用的 harness 工程骨架（CLAUDE.md + AGENTS.md + .claude/settings.json + rules/skills/agents/hooks）
-- 能正确放置并编写 SKILL.md、subagent、hooks 配置
-- 能识别并避开 7 类常见坑（版本依赖、exit 2、settings 不继承等）
-- 能把骨架发布到 Obsidian 并挂载到既有 MOC
+- 从空目录独立搭出最小可用的 dsh 工程骨架（AGENTS.md + .dsh/skills/ + cordis.yml 配 hooks/mcp）
+- 能正确放置并编写 dsh 版 SKILL.md、接入现成 hooks、挂载 subagent provider、理解补丁树配置
+- 能识别并避开 dsh 专属常见坑（patch 绝对路径、--patch 仓库根、hooks 桥接限制等）
+- 能把骨架发布到 Obsidian 并挂载到既有 DeepSeek-Harness MOC
 
 ### 建议学习顺序
-- 按第 1→9 章顺序学习；建议先扫一眼第 8 章的"目标骨架树"再回头逐章搭建
-- 第 2-4 章按 skills → hooks → subagents 顺序阅读；实际搭建子目录时按第 8 章提示的 rules → skills → agents → hooks 按需添加
-- 每章结束在测试目录动手验证；预计总耗时 3-5 小时（含动手）
+- 按第 1→8 章顺序学习；建议先扫一眼第 8 章的"目标骨架树"再回头逐章搭建
+- 第 4-6 章按 skills → hooks → subagents 顺序阅读；实际搭建子目录时按第 8 章提示按需添加
+- 每章结束在测试目录动手验证；预计总耗时 3-4 小时（含动手）
