@@ -229,9 +229,10 @@ PROJECT_DIR="${WORKSPACE_PATH}/${PROJECT_SLUG}"
 #### 3.2 Vault 发布
 
 ```markdown
-1. 如果用户指定 vault_path 和 note_folder，将最终 Markdown 保存到该目录。
-2. 如果未指定，保存到 `${PROJECT_DIR}/output/final_note.md`。
-3. 发布前不要覆盖同名文件；除非 publish_mode 为 overwrite 或 patch。
+1. 发布前先校验最终笔记体积与章节数：>30KB 或多于 3 章必须拆分后再发布（分册子目录 + README 首页 + 每章独立文件 + 前后导航双链 + MOC 指向 README）。
+2. 如果用户指定 vault_path 和 note_folder，将最终 Markdown 保存到该目录。
+3. 如果未指定，保存到 `${PROJECT_DIR}/output/final_note.md`。
+4. 发布前不要覆盖同名文件；除非 publish_mode 为 overwrite 或 patch。
 ```
 
 #### 3.3 MOC 同步
