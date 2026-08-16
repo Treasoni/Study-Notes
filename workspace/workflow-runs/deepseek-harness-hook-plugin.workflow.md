@@ -10,7 +10,7 @@ topic: "如何写 DeepSeek-Harness hook 扩展点插件"
 project_slug: "deepseek-harness-hook-plugin"
 created_at: "2026-08-16"
 last_updated: "2026-08-16"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：deepseek-harness-hook-plugin
 > 项目标识：deepseek-harness-hook-plugin
 > 创建时间：2026-08-16
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -84,14 +84,18 @@ blocked_reason: ""
 ---
 
 ## 阶段 4：逐章写作
-- [ ] 第 1 章已写完并确认
-- [ ] 第 2 章已写完并确认
-- [ ] 第 3 章已写完并确认
-- [ ] ...（根据实际章节数添加）
+- [x] 第 1 章已写完并确认
+- [x] 第 2 章已写完并确认
+- [x] 第 3 章已写完并确认
+- [x] 第 4 章已写完并确认
+- [x] 第 5 章已写完并确认
+- [x] 第 6 章已写完并确认
+- [x] 第 7 章已写完并确认
+- [x] 第 8 章已写完并确认
 
-**进度**：0/8
+**进度**：8/8
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -104,7 +108,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
