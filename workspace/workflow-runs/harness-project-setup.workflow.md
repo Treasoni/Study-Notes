@@ -10,14 +10,15 @@ topic: "从零搭建 Agent Harness 工程：项目脚手架与 skills/hooks/suba
 project_slug: "harness-project-setup"
 created_at: "2026-08-16"
 last_updated: "2026-08-16"
-current_phase: P6
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
 mode_change_phase: "P2"
+quality_gate: passed
 blocked_reason: ""
 ---
 
@@ -28,7 +29,7 @@ blocked_reason: ""
 > 运行标识：harness-project-setup
 > 项目标识：harness-project-setup
 > 创建时间：2026-08-16
-> 当前阶段：阶段 6
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -114,7 +115,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] 🔲 进行中 {in_progress}
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -124,7 +125,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -162,10 +163,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战
+- **总字数**：约 49KB / 984 行（含代码块与表格）
+- **章节数**：8 章 + README 首页
+- **输出格式**：Obsidian Markdown（分册模式）
+- **文件路径**：`workspace/harness-project-setup/output/final_note.md`（组装稿）；发布稿 `AI学习/Harness工程实战/`
+- **Obsidian Vault**：`D:\Study-Notes\AI学习\Harness工程实战\`
+- **MOC 路径**：`AI学习/DeepSeek-Harness 教程/DeepSeek-Harness MOC.md`（已加「07 工程脚手架」索引项）

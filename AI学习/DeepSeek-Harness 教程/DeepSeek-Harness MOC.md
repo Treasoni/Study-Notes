@@ -10,7 +10,7 @@ source_project: deepseek-harness
 # DeepSeek-Harness 教程 MOC
 
 > [!info] 目录导航
-> **DeepSeek-Harness（dsh）插件开发教程**，面向「熟悉 Claude Code 的用户」，以「写自己的 dsh 插件」为主线。共 4 篇主章分册 + 1 篇插件开发分册（00-12 章）+ 1 篇子系统开发分册 + 系列导览，零散分册模式，每篇可独立阅读。
+> **DeepSeek-Harness（dsh）插件开发教程**，面向「熟悉 Claude Code 的用户」，以「写自己的 dsh 插件」为主线。共 4 篇主章分册 + 1 篇插件开发分册（00-12 章）+ 1 篇子系统开发分册 + 1 篇工程脚手架分册 + 系列导览，零散分册模式，每篇可独立阅读。
 > 读者定位：已熟悉 Claude Code，用其扩展体系（hooks / CLAUDE.md / MCP / Skills）作桥，讲解 dsh 插件开发。
 > 系列入口：[[DeepSeek-Harness 教程/README|系列导览]]
 
@@ -71,6 +71,12 @@ source_project: deepseek-harness
 |------|------|
 | [[DeepSeek-Harness Subagent 教程/README\|DeepSeek-Harness Subagent 开发]] | 子系统开发：subagent 能力缝与三层结构、ctx.subagents 契约、写自己的 provider（三段式）、one-shot/continuable、工具化暴露，7 章概念+实战分册 |
 
+### 07 工程脚手架（使用 dsh 路线）
+
+| 笔记 | 说明 |
+|------|------|
+| [[AI学习/Harness工程实战/README\|从零搭建 DeepSeek-Harness 工程]] | 工程脚手架实战：「使用 dsh」路线——先建哪些文件、skills 六扫描根、hooks 桥接/原生、subagents 挂载、rules/AGENTS 指令体系、补丁树/Profile/Agent Preset/MCP 与 11 条坑清单，全程 dsh↔Claude Code 对照 |
+
 ---
 
 ## 🗺️ 推荐阅读顺序
@@ -82,6 +88,7 @@ source_project: deepseek-harness
   ├── DeepSeek-Harness 插件开发        ← 核心+配置+实战：00 速查 → 01 核心 → 02-03 配置 → 04-10 渐进路径
   ├── DeepSeek-Harness 与ClaudeCode对照迁移  ← 实战：写第一个自定义工具插件
   ├── DeepSeek-Harness Subagent 开发    ← 进阶：写 subagent 能力缝（provider + 工具），概念+实战
+  ├── 从零搭建 DeepSeek-Harness 工程   ← 工程脚手架：把 dsh 配置进你自己的项目（使用路线）
   └── DeepSeek-Harness 常见坑与速查     ← 日常速查
 
 ▸ 急用路径
