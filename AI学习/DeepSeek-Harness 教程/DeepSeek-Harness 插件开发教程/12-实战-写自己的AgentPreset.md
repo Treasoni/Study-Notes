@@ -23,12 +23,12 @@ source_project: deepseek-harness
 
 四个内置预设不是四个代码分支，而是 `apps/cli/config/agent-presets/` 下的四个目录。它们的关系一句话：**`standard` 是唯一母版，`code` 与 `cordis` 是它的完整副本，`minimal` 是独立构造的双工具极简版**。
 
-| 预设 | 官方中文名 | 本质 | 一句话适用 |
-|---|---|---|---|
-| `standard` | 标准模式 | 全量编码 Agent（母版） | 日常默认，什么都能干 |
-| `code` | PTC 模式 | standard 完整副本 + Code Mode SDK | 重工程：模型用 TS 程序组合多步操作 |
-| `cordis` | 创造模式 | standard 完整副本 + 自指创作能力 | 造 preset：运行时检查 + 内存试验插件 |
-| `minimal` | 极简模式 | 双工具固定提示词（独立构造） | 测试 / RL 对齐；**仅 POSIX，Windows 不可用** |
+| 预设         | 官方中文名  | 本质                            | 一句话适用                              |
+| ---------- | ------ | ----------------------------- | ---------------------------------- |
+| `standard` | 标准模式   | 全量编码 Agent（母版）                | 日常默认，什么都能干                         |
+| `code`     | PTC 模式 | standard 完整副本 + Code Mode SDK | 重工程：模型用 TS 程序组合多步操作                |
+| `cordis`   | 创造模式   | standard 完整副本 + 自指创作能力        | 造 preset：运行时检查 + 内存试验插件            |
+| `minimal`  | 极简模式   | 双工具固定提示词（独立构造）                | 测试 / RL 对齐；**仅 POSIX，Windows 不可用** |
 
 > [!tip] 怎么选
 > 拿不准就用 `standard`。想「轻一点」**不要**选 minimal（它连 compaction 都没有，是给模型测试用的），而是复制 standard 自己裁掉工具——这正是这篇专册要教的事。
@@ -37,20 +37,20 @@ source_project: deepseek-harness
 
 `standard/agent.cordis.yml` 是插件行的顶层列表，几大类[^1]：
 
-| 类 | 插件行（id → 包名） | 关键 config |
-|---|---|---|
-| 身份 | `persona` → `@deepseek-ai/dsh-persona` | 文本模板含 `{{model}}` / `{{cwd}}` |
-| 指令 | `agent-instructions` → `@deepseek-ai/dsh-agent-instructions` | `maxBytes: 65536` |
-| Shell | `tool-bash` → `@deepseek-ai/dsh-tool-bash` | win32 禁用 |
-| Shell | `tool-pwsh` → `@deepseek-ai/dsh-tool-pwsh` | 非 win32 禁用 |
-| 文件 | `tool-fs` / `tool-fs-search` | fs-search `sampleOverCapGlobResults: false` |
-| 后台任务 | `tool-jobs` | — |
-| Skills | `skill-filesystem` / `tool-skill` | — |
-| 目标 | `tool-goal` | — |
-| 计划组 | `plan-mode` → `@deepseek-ai/dsh-plan-mode` | `isolate: { planMode: true }` |
-| 压缩组 | `compaction-basic` / `command-compact` / `tool-result-pruner` | pruner `thresholdChars: 8192 / headChars: 4096 / tailChars: 1024` |
-| 委派组 | `tool-subagent-control` / `tool-subagent` / `tool-subagent-fork` / `tool-subagent-codex`(禁用) / `tool-subagent-claude-code`(禁用) / `workflow-worker-thread` / `tool-workflow` / `tool-ralph` | `isolate: { workflowEngine: true }`；subagent `provider: spawn, backgroundMode: continuable` |
-| 其余 | `tool-ask-user` / `tool-todo` / `tool-web` | todo `allowParallelInProgress: true`；web `fetch: false, searchTimeoutMs: 60000` |
+| 类      | 插件行（id → 包名）                                                                                                                                                                               | 关键 config                                                                                   |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
+| 身份     | `persona` → `@deepseek-ai/dsh-persona`                                                                                                                                                     | 文本模板含 `{{model}}` / `{{cwd}}`                                                               |
+| 指令     | `agent-instructions` → `@deepseek-ai/dsh-agent-instructions`                                                                                                                               | `maxBytes: 65536`                                                                           |
+| Shell  | `tool-bash` → `@deepseek-ai/dsh-tool-bash`                                                                                                                                                 | win32 禁用                                                                                    |
+| Shell  | `tool-pwsh` → `@deepseek-ai/dsh-tool-pwsh`                                                                                                                                                 | 非 win32 禁用                                                                                  |
+| 文件     | `tool-fs` / `tool-fs-search`                                                                                                                                                               | fs-search `sampleOverCapGlobResults: false`                                                 |
+| 后台任务   | `tool-jobs`                                                                                                                                                                                | —                                                                                           |
+| Skills | `skill-filesystem` / `tool-skill`                                                                                                                                                          | —                                                                                           |
+| 目标     | `tool-goal`                                                                                                                                                                                | —                                                                                           |
+| 计划组    | `plan-mode` → `@deepseek-ai/dsh-plan-mode`                                                                                                                                                 | `isolate: { planMode: true }`                                                               |
+| 压缩组    | `compaction-basic` / `command-compact` / `tool-result-pruner`                                                                                                                              | pruner `thresholdChars: 8192 / headChars: 4096 / tailChars: 1024`                           |
+| 委派组    | `tool-subagent-control` / `tool-subagent` / `tool-subagent-fork` / `tool-subagent-codex`(禁用) / `tool-subagent-claude-code`(禁用) / `workflow-worker-thread` / `tool-workflow` / `tool-ralph` | `isolate: { workflowEngine: true }`；subagent `provider: spawn, backgroundMode: continuable` |
+| 其余     | `tool-ask-user` / `tool-todo` / `tool-web`                                                                                                                                                 | todo `allowParallelInProgress: true`；web `fetch: false, searchTimeoutMs: 60000`             |
 
 ### 1.2 code 与 cordis：都是 standard 的完整副本
 
