@@ -10,7 +10,7 @@ topic: "如何写 DeepSeek-Harness hook 扩展点插件"
 project_slug: "deepseek-harness-hook-plugin"
 created_at: "2026-08-16"
 last_updated: "2026-08-16"
-current_phase: P1
+current_phase: P2
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：deepseek-harness-hook-plugin
 > 项目标识：deepseek-harness-hook-plugin
 > 创建时间：2026-08-16
-> 当前阶段：阶段 1
+> 当前阶段：阶段 2
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -47,13 +47,13 @@ blocked_reason: ""
 ---
 
 ## 阶段 1：探测式收集
-- [ ] 已派出 2-3 个 subagent 并行探测
-- [ ] 探测结果已汇总
-- [ ] 方向菜单已展示给用户
-- [ ] 用户已选择学习方向
-- [ ] 探测结果已保存：`./01_explore_result.md`
+- [x] 已派出 2-3 个 subagent 并行探测（3 透镜：语义模型 / 实战代码 / 迁移对照）
+- [x] 探测结果已汇总（去重后 9 源：5 官方 + 4 社区；确认 github.io 镜像 404，docs 以仓库内 raw 路径为准）
+- [x] 方向菜单已展示给用户（A 语义模型 / B 实战 / C 迁移对照 / D 组合）
+- [x] 用户已选择学习方向（D. 组合 A→B→C）
+- [x] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] 🔲 进行中 {in_progress}
+> [P1] ✅ 已完成 {complete}
 
 ---
 
@@ -67,7 +67,7 @@ blocked_reason: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] ⬜ 未开始
+> [P2] 🔲 进行中 {in_progress}
 
 ---
 
@@ -133,6 +133,7 @@ blocked_reason: ""
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
 | P0 | 用户确认意图文件与研究计划：如何写 dsh hook 扩展点插件（实战·上手·中量 12-15k 字·Obsidian 发布到插件开发教程分册·MOC 同步） | 2026-08-16 |
+| P1 | 用户确认探测结果与方向：9 源（5 官方 + 4 社区）通过验证，选方向 D（组合 A→B→C：语义模型→实战→迁移对照） | 2026-08-16 |
 
 ---
 
