@@ -46,13 +46,13 @@ export function apply(ctx: Context) {
 
 上面三种是**代码怎么写**；插件市场里看到的花样是**包怎么分发、loader 怎么对待它**——两个维度，别混。市场里的插件按分发归为 5 种[^6]：
 
-| 分发形态 | 本质 | 接入方式 | 例子 |
-|---|---|---|---|
-| ① 纯 Cordis 插件 | TS 模块导出 `apply(ctx)` | `cordis.yml` insert 一行直接挂载 | `dsh-plugin-deepeye`（视觉工具） |
-| ② Bundle | npm 包带 `dsh.bundle.patch` | `dsh plugin add <pkg>` 进 bundle 层 | 官方 `dsh-tool-bash` / `dsh-web-search` |
-| ③ MCP server | 语言无关独立进程 | `dsh.mcpServers` 声明或 mcp-client 包装，工具变 `mcp__<server>__<tool>` | `@modelcontextprotocol/server-*` |
-| ④ Skill | `SKILL.md` 技能包 | `dsh.skills` 声明或适配器扫描 `.claude/skills/` | 你的 Claude Code skills |
-| ⑤ Koishi/Cordis v3 插件 | 4000+ 机器人生态插件 | **不能直接用**，需按 Cordis v4 + `@deepseek-ai/cordis` 移植 | Koishi 市场插件 |
+| 分发形态                  | 本质                        | 接入方式                                                           | 例子                                    |
+| --------------------- | ------------------------- | -------------------------------------------------------------- | ------------------------------------- |
+| ① 纯 Cordis 插件         | TS 模块导出 `apply(ctx)`      | `cordis.yml` insert 一行直接挂载                                     | `dsh-plugin-deepeye`（视觉工具）            |
+| ② Bundle              | npm 包带 `dsh.bundle.patch` | `dsh plugin add <pkg>` 进 bundle 层                              | 官方 `dsh-tool-bash` / `dsh-web-search` |
+| ③ MCP server          | 语言无关独立进程                  | `dsh.mcpServers` 声明或 mcp-client 包装，工具变 `mcp__<server>__<tool>` | `@modelcontextprotocol/server-*`      |
+| ④ Skill               | `SKILL.md` 技能包            | `dsh.skills` 声明或适配器扫描 `.claude/skills/`                        | 你的 Claude Code skills                 |
+| ⑤ Koishi/Cordis v3 插件 | 4000+ 机器人生态插件             | **不能直接用**，需按 Cordis v4 + `@deepseek-ai/cordis` 移植              | Koishi 市场插件                           |
 
 loader 看 `package.json` 的 `dsh` 字段决定怎么对待一个包：
 
