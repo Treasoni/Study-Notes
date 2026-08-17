@@ -374,7 +374,6 @@
         "AI学习/Claude Code 教程/03-进阶应用",
         "AI学习/Claude Code 教程/04-高级功能",
         "AI学习/Claude Code 教程/Claude Code MOC.md",
-        "AI学习/Claude Code 教程/高级功能",
         "AI学习/Claude Code 教程/assets",
         "AI学习/Claude Code 教程/sortspec.md"
       ],
@@ -382,7 +381,6 @@
     },
     "AI学习/Claude Code 教程/01-入门": {
       "children": [
-        "AI学习/Claude Code 教程/01-入门/如何使用Claude code-update_report.md",
         "AI学习/Claude Code 教程/01-入门/如何使用Claude code.md"
       ],
       "sortOrder": "custom"
@@ -417,12 +415,6 @@
         "AI学习/Claude Code 教程/04-高级功能/Claude MCP 使用指南.md",
         "AI学习/Claude Code 教程/04-高级功能/CLAUDE.md 使用指南.md",
         "AI学习/Claude Code 教程/04-高级功能/LLM-Prompt-Caching-提示缓存.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/Claude Code 教程/高级功能": {
-      "children": [
-        "AI学习/Claude Code 教程/高级功能/CLAUDE.md 使用指南-update_report.md"
       ],
       "sortOrder": "custom"
     },
@@ -480,6 +472,11 @@
     },
     "AI学习/DeepSeek-Harness 教程": {
       "children": [
+        "AI学习/DeepSeek-Harness 教程/example-plugin",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发核心.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件实战.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 从零写插件.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 配置实战.md",
         "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 安装与快速上手.md",
         "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 常见坑与速查.md",
         "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 配置体系.md",
@@ -487,6 +484,30 @@
         "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 与ClaudeCode对照迁移.md",
         "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness MOC.md",
         "AI学习/DeepSeek-Harness 教程/README.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/DeepSeek-Harness 教程/example-plugin": {
+      "children": [
+        "AI学习/DeepSeek-Harness 教程/example-plugin/src",
+        "AI学习/DeepSeek-Harness 教程/example-plugin/cordis.patch.yml",
+        "AI学习/DeepSeek-Harness 教程/example-plugin/dev-cordis.yml",
+        "AI学习/DeepSeek-Harness 教程/example-plugin/package.json",
+        "AI学习/DeepSeek-Harness 教程/example-plugin/README.md",
+        "AI学习/DeepSeek-Harness 教程/example-plugin/tsconfig.json"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/DeepSeek-Harness 教程/example-plugin/src": {
+      "children": [
+        "AI学习/DeepSeek-Harness 教程/example-plugin/src/tools",
+        "AI学习/DeepSeek-Harness 教程/example-plugin/src/index.ts"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/DeepSeek-Harness 教程/example-plugin/src/tools": {
+      "children": [
+        "AI学习/DeepSeek-Harness 教程/example-plugin/src/tools/repo-status.ts"
       ],
       "sortOrder": "custom"
     },
@@ -1611,6 +1632,10 @@
     },
     "workspace": {
       "children": [
+        "workspace/deepseek-harness-config-guide",
+        "workspace/deepseek-harness-plugin-from-scratch",
+        "workspace/deepseek-harness-plugin-workshop",
+        "workspace/deepseek-harness-tutorial-reorg",
         "workspace/deepseek-harness",
         "workspace/deepseek-harness-update",
         "workspace/new-api-relay-station",
@@ -2116,6 +2141,91 @@
       "children": [
         "workspace/deepseek-harness/update/update_plan.md",
         "workspace/deepseek-harness/update/update_report.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-config-guide": {
+      "children": [
+        "workspace/deepseek-harness-config-guide/output",
+        "workspace/deepseek-harness-config-guide/00_intent.md",
+        "workspace/deepseek-harness-config-guide/02_deep_research.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-config-guide/output": {
+      "children": [
+        "workspace/deepseek-harness-config-guide/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-plugin-from-scratch": {
+      "children": [
+        "workspace/deepseek-harness-plugin-from-scratch/chapters",
+        "workspace/deepseek-harness-plugin-from-scratch/output",
+        "workspace/deepseek-harness-plugin-from-scratch/00_intent.md",
+        "workspace/deepseek-harness-plugin-from-scratch/01_explore_result.md",
+        "workspace/deepseek-harness-plugin-from-scratch/02_deep_research.md",
+        "workspace/deepseek-harness-plugin-from-scratch/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-plugin-from-scratch/chapters": {
+      "children": [
+        "workspace/deepseek-harness-plugin-from-scratch/chapters/01_result_preview.md",
+        "workspace/deepseek-harness-plugin-from-scratch/chapters/02_min_two_files.md",
+        "workspace/deepseek-harness-plugin-from-scratch/chapters/03_tool_git_log.md",
+        "workspace/deepseek-harness-plugin-from-scratch/chapters/04_config.md",
+        "workspace/deepseek-harness-plugin-from-scratch/chapters/05_verify.md",
+        "workspace/deepseek-harness-plugin-from-scratch/chapters/06_engineering.md",
+        "workspace/deepseek-harness-plugin-from-scratch/chapters/07_packaging_install.md",
+        "workspace/deepseek-harness-plugin-from-scratch/chapters/08_summary_next.md",
+        "workspace/deepseek-harness-plugin-from-scratch/chapters/09_division_of_labor.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-plugin-from-scratch/output": {
+      "children": [
+        "workspace/deepseek-harness-plugin-from-scratch/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-plugin-workshop": {
+      "children": [
+        "workspace/deepseek-harness-plugin-workshop/chapters",
+        "workspace/deepseek-harness-plugin-workshop/output",
+        "workspace/deepseek-harness-plugin-workshop/00_intent.md",
+        "workspace/deepseek-harness-plugin-workshop/01_explore_result.md",
+        "workspace/deepseek-harness-plugin-workshop/02_deep_research.md",
+        "workspace/deepseek-harness-plugin-workshop/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-plugin-workshop/chapters": {
+      "children": [
+        "workspace/deepseek-harness-plugin-workshop/chapters/01_result_preview.md",
+        "workspace/deepseek-harness-plugin-workshop/chapters/02_env_and_scaffold.md",
+        "workspace/deepseek-harness-plugin-workshop/chapters/03_write_git_log.md",
+        "workspace/deepseek-harness-plugin-workshop/chapters/04_config_and_patch.md",
+        "workspace/deepseek-harness-plugin-workshop/chapters/05_verify.md",
+        "workspace/deepseek-harness-plugin-workshop/chapters/06_package_install.md",
+        "workspace/deepseek-harness-plugin-workshop/chapters/07_summary_next.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-plugin-workshop/output": {
+      "children": [
+        "workspace/deepseek-harness-plugin-workshop/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-tutorial-reorg": {
+      "children": [
+        "workspace/deepseek-harness-tutorial-reorg/00_batch_update_intent.md",
+        "workspace/deepseek-harness-tutorial-reorg/01_update_inventory.md",
+        "workspace/deepseek-harness-tutorial-reorg/02_batch_update_plan.md",
+        "workspace/deepseek-harness-tutorial-reorg/03_batch_update_log.md",
+        "workspace/deepseek-harness-tutorial-reorg/04_batch_update_report.md",
+        "workspace/deepseek-harness-tutorial-reorg/update_inventory.csv"
       ],
       "sortOrder": "custom"
     },
@@ -2929,6 +3039,7 @@
     },
     "workspace/update-claude-code-tutorial": {
       "children": [
+        "workspace/update-claude-code-tutorial/historical",
         "workspace/update-claude-code-tutorial/shared_research",
         "workspace/update-claude-code-tutorial/updates",
         "workspace/update-claude-code-tutorial/00_batch_update_intent.md",
@@ -2937,6 +3048,13 @@
         "workspace/update-claude-code-tutorial/03_batch_update_log.md",
         "workspace/update-claude-code-tutorial/04_batch_update_report.md",
         "workspace/update-claude-code-tutorial/update_inventory.csv"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/update-claude-code-tutorial/historical": {
+      "children": [
+        "workspace/update-claude-code-tutorial/historical/如何使用Claude code-update_report.md",
+        "workspace/update-claude-code-tutorial/historical/CLAUDE.md 使用指南-update_report.md"
       ],
       "sortOrder": "custom"
     },
@@ -3387,6 +3505,10 @@
     },
     "workspace/workflow-runs": {
       "children": [
+        "workspace/workflow-runs/deepseek-harness-config-guide.workflow.md",
+        "workspace/workflow-runs/deepseek-harness-plugin-from-scratch.workflow.md",
+        "workspace/workflow-runs/deepseek-harness-plugin-workshop.workflow.md",
+        "workspace/workflow-runs/update-deepseek-harness-tutorial.workflow.md",
         "workspace/workflow-runs/deepseek-harness.workflow.md",
         "workspace/workflow-runs/update-deepseek-harness.workflow.md",
         "workspace/workflow-runs/new-api-relay-station.workflow.md",
