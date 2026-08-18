@@ -265,7 +265,11 @@ body.theme-dark .claudian-provider-icon-variant--dark {
   border-color: var(--claudian-brand-grok, #ffffff);
 }
 
-.claudian-tab-badge-attention {
+.claudian-tab-badge-review {
+  border-color: var(--color-green);
+}
+
+.claudian-tab-badge-action-required {
   border-color: var(--text-error);
 }
 
@@ -1094,6 +1098,22 @@ body.theme-dark .claudian-session-metadata-popover {
 
 .claudian-open-new-tab-btn:hover {
   color: var(--interactive-accent);
+}
+
+.claudian-history-menu .claudian-history-item-actions .claudian-action-btn {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: var(--text-muted);
+  transition: color 0.15s ease;
+}
+
+.claudian-history-menu .claudian-history-item-actions .claudian-action-btn:hover,
+.claudian-history-menu .claudian-history-item-actions .claudian-action-btn:focus-visible {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: var(--text-normal);
 }
 
 .claudian-rename-input {
@@ -4646,8 +4666,6 @@ code .claudian-file-link:hover {
   right: 0;
   margin-bottom: 4px;
   background: var(--background-secondary);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--background-modifier-border);
   border-radius: 6px;
   box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.2);

@@ -1,16 +1,16 @@
 ---
-title: "DeepSeek-Harness 配置专册 · 配置体系——补丁树、Profile 与 bundle"
+title: "配置体系——补丁树、Profile 与 bundle"
 tags: [deepseek-harness, ai, agent, 配置, 教程]
 created: 2026-08-13
-updated: 2026-08-15
+updated: 2026-08-16
 status: updated
 source_project: deepseek-harness
 ---
 
-# DeepSeek-Harness 配置专册 · 配置体系——补丁树、Profile 与 bundle
+# 配置体系——补丁树、Profile 与 bundle
 
 > [!summary] 本章导读
-> 这是 [[DeepSeek-Harness 插件开发核心|插件开发核心]] 的配套专册。dsh **没有「一份完整配置文件」**——配置是**多层 YAML 补丁**按顺序叠加的结果。本册讲清四件事：① 补丁树怎么叠加（1）；② 两级配置 Profile 与 Agent Preset（2）；③ 插件怎么声明并接收配置（3）；④ 打包发布时 bundle 与 profile 各管什么（4）。
+> 这是 [[01-插件开发核心-从apply到system-prompt|插件开发核心]] 的配套专册。dsh **没有「一份完整配置文件」**——配置是**多层 YAML 补丁**按顺序叠加的结果。本册讲清四件事：① 补丁树怎么叠加（1）；② 两级配置 Profile 与 Agent Preset（2）；③ 插件怎么声明并接收配置（3）；④ 打包发布时 bundle 与 profile 各管什么（4）。
 
 ## 1. 配置心智模型：多层 YAML 补丁树
 
@@ -92,6 +92,46 @@ pnpm dsh --profile web --patch ./extra.yml --dump-config  # 含 profile/home 补
 
 > [!tip] 大白话
 > Profile 和 Agent Preset 不是「同一个东西的两个名字」，而是**两条独立的轴**。**Profile 像「你电脑上装了哪些 App」**——决定这次启动能干什么；**Agent Preset 像「你叫的是哪个角色的员工」**——决定他手上有哪些工具、按什么人设干活。装了什么 ≠ 用了什么，两条都要设。
+
+### 2.1 Agent Preset 实操：选、换、造
+
+**四个预设的真实身份**：`standard` 是唯一的全量母版，`code` 与 `cordis` 都是 `standard` 的完整副本[^4]，`minimal` 是双工具极简版：
+
+| 预设 | 官方中文名 | 本质 | persona | 工具面 |
+|---|---|---|---|---|
+| `standard` | 标准模式 | 全量编码 Agent（母版） | `You are a coding agent powered by the {{model}} model...`（含 `{{cwd}}` 模板） | persona + agent-instructions + bash/pwsh + fs + fs-search + jobs + skill + goal + ask-user + todo + web + 计划/压缩/委派三组 |
+| `code` | PTC 模式 | standard 完整副本 | 同 standard | 全量工具，但经 Code Mode SDK 呈现，模型用 TS 程序组合多步操作 |
+| `cordis` | 创造模式 | standard 完整副本 | 同 standard | 全量 + 运行时检查 + 插件实验 + preset 创作指导 |
+| `minimal` | 极简模式 | 双工具最小集 | `You are a helpful software engineer assistant.`（`complete: true`） | 持久 bash + `str_replace_editor`，仅两个模型工具 |
+
+> [!note] `minimal` 为什么只有一句提示词
+> 官方 minimal 的 persona 是 `text: "You are a helpful software engineer assistant."` + `complete: true` + `includeRuntimeContext: false`。`complete: true` = 组装后这个人设被恢复为**唯一**系统提示段，其他装配监听器插不进提示文本；`includeRuntimeContext: false` = 不注入运行时上下文快照。「极简」是靠少组装几行做出来的，不是靠关一堆开关[^4]。
+
+**preset 就是一个目录**：内含一份 `agent.cordis.yml`（Cordis 组合：插件行列表）+ 可选 `preset.yml`（只放展示文本 name/description）[^4]：
+
+- 内置预设（只读）：部署随附，**不要直接改**——升级会覆盖；想改就复制一份再改；
+- 用户预设：`$DSH_HOME/.agent-presets/<id>/`（`$DSH_HOME` 默认 `~/.dsh`）。id 必须匹配 `[a-z0-9][a-z0-9-]*`，非法目录名会被跳过；目录发现**不缓存**，新写的 preset 立即可见。
+
+**怎么选（切换）**：
+
+- 会话创建时：会话选择器列出各预设摘要；`resolveSessionPreset(session)` 解析出会话**实际运行**的 preset（读的是解析结果，不是创建头）；
+- 改默认：配置层写 `agent-presets: default: <id>`（默认 preset 是一项用户设置）；清空该字段即回继承组装默认值[^4]；
+- 空 agent 重链：`ctx.agentPresets.recompose(agentCtx, id)` 可重链一个尚未产出任何内容的 agent；一旦产出过，网关返回 `agent-preset-locked`。
+
+**怎么造（自定义）**：创作即复制——新 preset 是既有 preset 的整目录副本（组装、元数据、skill 目录、附带资产），落在首个用户根目录下[^4]。
+
+```bash
+# 社区通用做法：复制到用户根目录，改副本
+mkdir -p ~/.dsh/.agent-presets
+cp -R <官方或他人 preset 目录> ~/.dsh/.agent-presets/my-preset/
+# 编辑 ~/.dsh/.agent-presets/my-preset/agent.cordis.yml
+# 完全重启 dsh，在会话选择器中选用
+```
+
+规范做法用 `ctx.agentPresets.copy(from, id, name?)`（校验 id 合法性/占用、收紧权限、重写 `preset.yml`）；`cordis`（创造模式）就是干这个的——运行时检查、内存里试验插件、据此组合新 preset。
+
+> [!tip] 大白话
+> **Profile 管「装哪些 App」，Preset 管「叫哪个角色」。** 选 preset = 在员工列表里挑人：默认配置 `agent-presets: default: xxx` 决定默认叫谁，会话选择器临时改主意，造新 preset = 复制老员工的档案夹再改技能表。`minimal` 的 `complete: true` 值得记住——它让这个人设独占话筒，谁都插不进话。
 
 ## 3. 插件如何接收配置：Config schema
 
@@ -182,19 +222,23 @@ dsh --profile demo
 > [!summary]
 > - dsh 没有「一份完整配置」，配置是**多层 YAML 补丁树**（bundle → profile → home → `--patch`）在空根上叠加的结果，后层整行替换、不做深合并；`--dump-config` 可摊开看最终配置；
 > - **Profile（进程级）管装哪些 bundle；Agent Preset（会话级）管会话用什么能力**（minimal / standard / code / cordis）；
+> - Agent Preset 实操：preset 即目录（`agent.cordis.yml` + 可选 `preset.yml`），用户预设放 `~/.dsh/.agent-presets/<id>/`；会话选择器选用、`agent-presets: default: <id>` 配默认、复制目录即造新预设；`minimal` 靠 persona `complete: true` 做到单句提示；
 > - 插件接受配置：`Config` 接口 + Schemastery schema，默认值写 schema 上，坏配置响亮失败，HMR 热替换；
 > - 发布：**bundle 贡献配置层**（`dsh.bundle.patch`）vs **profile 决定装哪些 bundle 及顺序**（`dsh.profile.bundles`）；`dsh plugin add` 安装，git 安装注意 prepare + allowBuilds。
 
-相关：[[DeepSeek-Harness 插件开发核心|第 3 章 插件开发核心]] → [[DeepSeek-Harness 与ClaudeCode对照迁移|实战：自定义工具插件]]。
+相关：[[01-插件开发核心-从apply到system-prompt|插件开发核心]] → [[DeepSeek-Harness 教程/DeepSeek-Harness 与ClaudeCode对照迁移|实战：自定义工具插件]]。
 
 ---
 
 ## 更新记录
 
 - 2026-08-15：从原《配置体系》（插件开发核心）中拆出配置专册，独立成篇；原 3.2（补丁树）/ 3.3（两级配置）/ 3.6（Config schema）/ 3.9（bundle 发布）整合为本册 1–4 节。
+- 2026-08-16：补 §2.1 Agent Preset 实操（四个预设真实身份 / preset 目录结构与用户根 / 选择与切换 / 复制造新 preset），依据官方 preset 文档与内置 standard/minimal 的 `agent.cordis.yml` 核对。
+- 2026-08-16：迁移入 [[DeepSeek-Harness 插件开发教程/README|插件开发教程]] 分册第 02 章，更新内部双链。
 
 ---
 
 [^1]: 素材来源：DeepSeek Harness 官方文档「第一个插件 / 插件配置」（2026-08-15 收集）。
 [^2]: 素材来源：官方 Cordis 教程 01–03/05（2026-08-15 收集）。
 [^3]: 素材来源：官方「打包并安装插件」（2026-08-15 收集）。
+[^4]: 素材来源：DeepSeek Harness 官方 preset 文档 `packages/preset/agent-presets/README.zh.md`、内置 `standard` / `minimal` 的 `agent.cordis.yml`、官方 Harness 页（2026-08-16 收集）。

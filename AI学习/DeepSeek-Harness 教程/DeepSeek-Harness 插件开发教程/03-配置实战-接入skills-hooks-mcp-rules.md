@@ -1,13 +1,13 @@
 ---
-title: "DeepSeek-Harness 配置专册 · 配置实战——像 Claude Code 一样接入 skills/hooks/mcp/rules"
+title: "配置实战——接入 skills/hooks/mcp/rules"
 tags: [deepseek-harness, ai, agent, 配置, 教程, claude-code, skills, hooks, mcp, rules]
 created: 2026-08-15
-updated: 2026-08-15
+updated: 2026-08-16
 status: new
 source_project: deepseek-harness
 ---
 
-# DeepSeek-Harness 配置专册 · 配置实战——像 Claude Code 一样接入 skills/hooks/mcp/rules
+# 配置实战——接入 skills/hooks/mcp/rules
 
 > [!summary] 本章导读
 > 前面几章教你怎么「**写**」dsh 插件。这一章反过来：你已经有一整套 Claude Code 配置（CLAUDE.md、skills、hooks、MCP），怎么让 dsh **直接用起来**。核心答案一句话：**rules 和 skills 几乎零迁移，hooks 和 mcp 要绕一下 cordis.yml**。先说清 `.dsh` 到底管什么，再逐块给操作，最后给一份「照搬 Claude Code」的四步清单。
@@ -93,7 +93,7 @@ dsh 的 hooks 有两套完全不同的玩法[^5]：
 ```
 
 > [!note] 这段写进哪个文件？
-> 这个 `- id: hooks-cc` 块是 **cordis.yml 补丁文件里的插件行**，不是丢进 `.dsh/` 目录的独立文件。dsh 没有「一份完整配置」，是四层补丁树叠加（见 [[DeepSeek-Harness 配置体系]]），按生效范围选落点：
+> 这个 `- id: hooks-cc` 块是 **cordis.yml 补丁文件里的插件行**，不是丢进 `.dsh/` 目录的独立文件。dsh 没有「一份完整配置」，是四层补丁树叠加（见 [[02-配置体系-补丁树Profile与bundle|配置体系]]），按生效范围选落点：
 
 | 生效范围 | 写进哪个文件 | 怎么生效 |
 |---|---|---|
@@ -129,7 +129,7 @@ ctx.on('tools/pre-execute', async (exec, next): Promise<PreToolDecision> => {
 })
 ```
 
-桥接是「兼容适配器，不是威力工具」——原生插件有类型化返回、完整 `ctx`、无序列化边界，更强大[^6]。你已经会写插件（见 [[DeepSeek-Harness 插件开发核心]]），需要自定义策略时走这条。
+桥接是「兼容适配器，不是威力工具」——原生插件有类型化返回、完整 `ctx`、无序列化边界，更强大[^6]。你已经会写插件（见 [[01-插件开发核心-从apply到system-prompt|插件开发核心]]），需要自定义策略时走这条。
 
 > [!note] 选择建议
 > 想「原样跑起现有 hooks」→ 桥接；想「写新的、复杂的策略」→ 原生插件。
@@ -211,7 +211,7 @@ pnpm dsh --profile <name>          # Web 模式
 > - **Hooks**：桥接插件 `dsh-hooks-claude-code` 直接复用 hooks.json（只跑 shell command、无入参改写）；原生 cordis 插件监听 `tools/pre-execute` 等扩展点更强大；
 > - **MCP**：每 server 一个 `dsh-mcp-client` 实例配在 `cordis.yml`，工具名 `mcp__<serverName>__<tool>`，只桥接 Tools。
 
-相关：[[DeepSeek-Harness 配置体系]] · [[DeepSeek-Harness 与ClaudeCode对照迁移]] · [[DeepSeek-Harness 插件开发核心]] · [[Claude Code MOC]]
+相关：[[02-配置体系-补丁树Profile与bundle|配置体系]] · [[DeepSeek-Harness 教程/DeepSeek-Harness 与ClaudeCode对照迁移|与ClaudeCode对照迁移]] · [[01-插件开发核心-从apply到system-prompt|插件开发核心]] · [[Claude Code MOC]]
 
 ---
 
@@ -220,6 +220,7 @@ pnpm dsh --profile <name>          # Web 模式
 - 2026-08-15：4.2 补充「插件 vs hook」包含关系说明（hook ⊂ 插件，MCP client / 桥接插件是插件但不是 hook）。
 - 2026-08-15：4.1 补充「这段写进哪个文件」落点说明（试跑 `--patch` / profile `cordis.patch.yml` / home `cordis.patch.yml` 三层 + 两个前提坑）。
 - 2026-08-15：新建。基于官方源码（agent-instructions / skills subsystem / extension-cookbook / config-catalog / mcp-client）核对。
+- 2026-08-16：迁移入 [[DeepSeek-Harness 插件开发教程/README|插件开发教程]] 分册第 03 章，更新内部双链。
 
 ---
 

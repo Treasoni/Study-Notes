@@ -18,6 +18,8 @@ Produce reusable, source-backed research without repeatedly loading page bodies 
 
 Rank sources: official documentation and primary research first; reputable implementation reports second; community material only for labelled operational experience. Record URL, publisher, publication/update date when available, source tier, claim support, and retrieval date. Do not invent facts or silently merge conflicting claims.
 
+GitHub 项目取文档优先 `raw.githubusercontent.com/{owner}/{repo}/{branch}/{path}`；`github.io` Pages 镜像可能只发布部分页面（深层路径 404），确认可用后再用。
+
 ## P1 — Explore
 
 1. Read the intent artifact and select at most three independent research lenses.

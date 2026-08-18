@@ -129,7 +129,7 @@ profile 启动时监听 profile 与 home 两个 `cordis.patch.yml` 的编辑并�
 - **社区**：Discord 与微信群；
 - **插件生态**：约 300 个，通过 `dsh plugin --profile <name> add <package>` 安装；
 - **官方包名清单**：npm `@deepseek-ai/dsh`、Python `deepseek-harness-sdk`、MCP 客户端 `@deepseek-ai/dsh-mcp-client`；
-- **下一步**：回顾 [[DeepSeek-Harness 是什么|第 1 章]]心智模型 → [[DeepSeek-Harness 安装与快速上手|第 2 章]]环境 → [[DeepSeek-Harness 插件开发核心|第 3 章]]核心（配置细节见 [[DeepSeek-Harness 配置体系|配置专册]]）→ [[DeepSeek-Harness 与ClaudeCode对照迁移|第 4 章]]实战，把例子换成你自己的工具（API 封装 / 笔记检索 / 构建脚本），流程不变。
+- **下一步**：回顾 [[DeepSeek-Harness 是什么|第 1 章]]心智模型 → [[DeepSeek-Harness 安装与快速上手|第 2 章]]环境 → [[DeepSeek-Harness 插件开发教程/01-插件开发核心-从apply到system-prompt|第 03 章]]核心（配置细节见 [[DeepSeek-Harness 插件开发教程/02-配置体系-补丁树Profile与bundle|配置专册]]）→ [[DeepSeek-Harness 与ClaudeCode对照迁移|第 4 章]]实战，把例子换成你自己的工具（API 封装 / 笔记检索 / 构建脚本），流程不变。
 
 ---
 

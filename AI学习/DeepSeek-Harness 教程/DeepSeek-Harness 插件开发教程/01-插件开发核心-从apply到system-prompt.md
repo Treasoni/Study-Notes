@@ -1,16 +1,16 @@
 ---
-title: "DeepSeek-Harness 插件开发 · 第 3 章：插件开发核心——从 apply(ctx) 到发布"
+title: "插件开发核心——从 apply(ctx) 到 system-prompt"
 tags: [deepseek-harness, ai, agent, 插件, 教程, 开发]
 created: 2026-08-13
-updated: 2026-08-15
+updated: 2026-08-16
 status: updated
 source_project: deepseek-harness
 ---
 
-# DeepSeek-Harness 插件开发 · 第 3 章：插件开发核心——从 apply(ctx) 到发布
+# 插件开发核心——从 apply(ctx) 到 system-prompt
 
 > [!summary] 本章导读
-> 这是全书核心。用你熟悉的 Claude Code 作参照：在 Claude Code 里写「扩展」靠改配置文件 + 少量钩子；在 dsh 里写插件 = 写 TypeScript 模块 + 用 patch 装进插件树。本章讲插件**怎么写**：形态 → 生命周期 → 依赖 → 写工具 → 策略 → 提示词。插件怎么**注册 / 装配 / 发布**（补丁树、Profile、Config schema、bundle）见配套专册 [[DeepSeek-Harness 配置体系|配置体系]]。
+> 这是全书核心。用你熟悉的 Claude Code 作参照：在 Claude Code 里写「扩展」靠改配置文件 + 少量钩子；在 dsh 里写插件 = 写 TypeScript 模块 + 用 patch 装进插件树。本章讲插件**怎么写**：形态 → 生命周期 → 依赖 → 写工具 → 策略 → 提示词。插件怎么**注册 / 装配 / 发布**（补丁树、Profile、Config schema、bundle）见配套专册 [[02-配置体系-补丁树Profile与bundle|配置体系]]。
 
 ## 3.1 插件是什么：apply(ctx) + name
 
@@ -27,17 +27,17 @@ export function apply(ctx: Context) {
 
 > **代码放哪**：这个文件就是 `src/index.ts`——插件入口骨架（目录结构参照同目录 `example-plugin/`）。通用原则：`src/index.ts` 是**注册中心**（所有 `apply(ctx)` 里的动作都在这），工具/服务本体各自成文件放 `src/tools/`、`src/services/`。
 
-`name` 只是诊断元数据；真正的逻辑都在 `apply(ctx)` 里。**没有框架样板代码**——插件只描述自己贡献什么，`cordis.yml` 负责组合应用[^2]（怎么装进插件树见 [[DeepSeek-Harness 配置体系|配置体系]]）。
+`name` 只是诊断元数据；真正的逻辑都在 `apply(ctx)` 里。**没有框架样板代码**——插件只描述自己贡献什么，`cordis.yml` 负责组合应用[^2]（怎么装进插件树见 [[02-配置体系-补丁树Profile与bundle|配置体系]]）。
 
 > [!tip] 大白话
 > 插件像一个「应聘者」，`apply(ctx)` 是入职第一天：公司（框架）把工牌（ctx）发给你，你在工牌上挂上你的能力（工具、事件、服务）。离职时（插件卸载），挂上去的自动摘下来。
 
 ### 三种形态
 
-| 形态 | 写法 | 适用 |
-|---|---|---|
-| 函数 | `export function apply(ctx) {}` | 多数情况足够 |
-| 对象 | `export default { name, inject, apply(ctx) {} }` | 需要集中声明元数据 |
+| 形态         | 写法                                                                  | 适用        |
+| ---------- | ------------------------------------------------------------------- | --------- |
+| 函数         | `export function apply(ctx) {}`                                     | 多数情况足够    |
+| 对象         | `export default { name, inject, apply(ctx) {} }`                    | 需要集中声明元数据 |
 | 类（Service） | `class X extends Service { constructor(ctx){ super(ctx,'name') } }` | 向其他插件提供服务 |
 
 函数形式直到你需要对外提供 service 都够用；类形式见 3.3[^2]。
@@ -46,13 +46,13 @@ export function apply(ctx: Context) {
 
 上面三种是**代码怎么写**；插件市场里看到的花样是**包怎么分发、loader 怎么对待它**——两个维度，别混。市场里的插件按分发归为 5 种[^6]：
 
-| 分发形态 | 本质 | 接入方式 | 例子 |
-|---|---|---|---|
-| ① 纯 Cordis 插件 | TS 模块导出 `apply(ctx)` | `cordis.yml` insert 一行直接挂载 | `dsh-plugin-deepeye`（视觉工具） |
-| ② Bundle | npm 包带 `dsh.bundle.patch` | `dsh plugin add <pkg>` 进 bundle 层 | 官方 `dsh-tool-bash` / `dsh-web-search` |
-| ③ MCP server | 语言无关独立进程 | `dsh.mcpServers` 声明或 mcp-client 包装，工具变 `mcp__<server>__<tool>` | `@modelcontextprotocol/server-*` |
-| ④ Skill | `SKILL.md` 技能包 | `dsh.skills` 声明或适配器扫描 `.claude/skills/` | 你的 Claude Code skills |
-| ⑤ Koishi/Cordis v3 插件 | 4000+ 机器人生态插件 | **不能直接用**，需按 Cordis v4 + `@deepseek-ai/cordis` 移植 | Koishi 市场插件 |
+| 分发形态                  | 本质                        | 接入方式                                                           | 例子                                    |
+| --------------------- | ------------------------- | -------------------------------------------------------------- | ------------------------------------- |
+| ① 纯 Cordis 插件         | TS 模块导出 `apply(ctx)`      | `cordis.yml` insert 一行直接挂载                                     | `dsh-plugin-deepeye`（视觉工具）            |
+| ② Bundle              | npm 包带 `dsh.bundle.patch` | `dsh plugin add <pkg>` 进 bundle 层                              | 官方 `dsh-tool-bash` / `dsh-web-search` |
+| ③ MCP server          | 语言无关独立进程                  | `dsh.mcpServers` 声明或 mcp-client 包装，工具变 `mcp__<server>__<tool>` | `@modelcontextprotocol/server-*`      |
+| ④ Skill               | `SKILL.md` 技能包            | `dsh.skills` 声明或适配器扫描 `.claude/skills/`                        | 你的 Claude Code skills                 |
+| ⑤ Koishi/Cordis v3 插件 | 4000+ 机器人生态插件             | **不能直接用**，需按 Cordis v4 + `@deepseek-ai/cordis` 移植              | Koishi 市场插件                           |
 
 loader 看 `package.json` 的 `dsh` 字段决定怎么对待一个包：
 
@@ -180,7 +180,7 @@ export function apply(ctx: Context) {
 > [!tip] 大白话
 > 工具 = 教给模型的一个**新招式**。`defineTool` 是一张「技能登记表」：`name` 是招名，`description` 说清何时用（模型读这段决定要不要调你），`parameters` 是要什么料，`execute` 是真干活。系统会**自动检查模型填的参数**，填错就不进 `execute`；干砸了（基础设施故障）就 `throw`，业务上没成功不算错，作为正常结果放返回值，让模型自己判断。
 
-关键契约（完整参考见第 5 章 5.3）：
+关键契约（完整参考见 [[DeepSeek-Harness 教程/DeepSeek-Harness 常见坑与速查|第 5 章 5.3]]）：
 - **args 自动校验**：`defineTool` 在 `execute` 前校验模型生成的参数；
 - **返回值**：`execute` 只返回 `output.schema` 声明的单一 canonical JSON 值，`output.render` 负责转成模型可见的文本——别在返回值里塞给人看的 prose；
 - **抛错 = isError**：基础设施失败就 throw，业务成功态放进 canonical 值；
@@ -233,7 +233,10 @@ interface PromptSection {
 }
 ```
 
-> **代码放哪**：这个接口是 `@deepseek-ai/system-prompt` 包提供的类型定义，**不用自己写**；你的注册动作 `ctx.systemPrompt.register({...})` 写在 `src/index.ts` 的 `apply(ctx)` 里。
+> **代码放哪**：这个接口是 `@deepseek-ai/system-prompt` 包提供的类型定义，**不用自己写**；你的注册动作 `ctx.systemPrompt.section({...})` 写在 `src/index.ts` 的 `apply(ctx)` 里。
+
+> [!warning] 方法名更正
+> 早期版本写作 `ctx.systemPrompt.register({...})`，官方实际方法是 **`ctx.systemPrompt.section({...})`**（2026-08-16 核对）。完整可抄示例见 [[DeepSeek-Harness 插件开发教程/13-实战-写system-prompt插件|第 13 章]]。
 
 **order 约定**：`-100` harness 身份 → `0` 部署人格（persona）→ 其他负数在人格前 → `100–199` 工具指导。
 
@@ -265,19 +268,21 @@ interface PromptSection {
 > - 依赖：`inject` 声明硬依赖（未就绪保持 PENDING），`ctx.get()` 探测可选依赖；Service 类对外提供服务；
 > - 工具：`ctx.tools.register(defineTool({...}))`，args 自动校验、canonical 返回值、注册即 effect；策略用 `tools/pre-execute` 等 hook 扩展点；
 > - 提示词类插件看 `ctx.systemPrompt`：PromptSection 按 order 组装，`complete` 段可独占；
-> - 注册 / 装配 / 发布（补丁树、Profile、Config schema、bundle）见 [[DeepSeek-Harness 配置体系|配置体系专册]]。
+> - 注册 / 装配 / 发布（补丁树、Profile、Config schema、bundle）见 [[02-配置体系-补丁树Profile与bundle|配置体系专册]]。
 
-下一章动手写一个完整插件：[[DeepSeek-Harness 与ClaudeCode对照迁移|实战：自定义工具插件]]。
+下一章动手写一个完整插件：[[DeepSeek-Harness 教程/DeepSeek-Harness 与ClaudeCode对照迁移|实战：自定义工具插件]]。
 
 ---
 
 ## 更新记录
 
+- 2026-08-16：3.6 方法名更正 `register` → `section`（官方 system-prompt 参考核对）；新增配套实战章节 [[DeepSeek-Harness 插件开发教程/13-实战-写system-prompt插件|第 13 章]]。
 - 2026-08-15：各代码块补充「代码放哪」文件归属提示（`src/index.ts` 注册中心 / `src/tools/` 工具 / `package.json` 发布字段）。
 - 2026-08-15：3.3–3.6 补充 `[!tip] 大白话` 通俗解释与类比，降低阅读门槛。
 - 2026-08-15：全套重构为「写自己的 dsh 插件」主线。
-- 2026-08-15：拆分「配置体系」：原 3.2（补丁树）/ 3.3（两级配置）/ 3.6（Config schema）/ 3.9（bundle 发布）移入新专册 [[DeepSeek-Harness 配置体系]]；本节重排为 3.1–3.6（形态 / 生命周期 / 依赖 / 工具 / 策略 / 提示词）。
+- 2026-08-15：拆分「配置体系」：原 3.2（补丁树）/ 3.3（两级配置）/ 3.6（Config schema）/ 3.9（bundle 发布）移入新专册 [[02-配置体系-补丁树Profile与bundle|配置体系]]；本节重排为 3.1–3.6（形态 / 生命周期 / 依赖 / 工具 / 策略 / 提示词）。
 - 2026-08-15：3.1 新增「市场里的 5 种分发形态」——区分代码形态与分发形态，补 `dsh` 字段路由机制（bundle / mcpServers / skills / client）。
+- 2026-08-16：迁移入 [[DeepSeek-Harness 插件开发教程/README|插件开发教程]] 分册第 01 章，更新内部双链。
 
 ---
 

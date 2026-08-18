@@ -2,7 +2,7 @@
 title: "DeepSeek-Harness 插件开发 · 第 2 章：环境准备——源码运行路径"
 tags: [deepseek-harness, ai, agent, 插件, 教程, 安装]
 created: 2026-08-13
-updated: 2026-08-15
+updated: 2026-08-16
 status: updated
 source_project: deepseek-harness
 ---
@@ -21,7 +21,78 @@ source_project: deepseek-harness
 
 ## 2.2 源码构建四步
 
-前置要求：Node `^22.19 || >=24` + pnpm[^1]。
+前置要求：Node `^22.19 || >=24` + pnpm[^1]。环境不满足时，先补齐下面的环境再回来跑构建。
+
+### 安装 Node.js（^22.19 或 >=24）
+
+两条 LTS 线都满足：`^22.19` = 22.19 及以上（22.x 内），`>=24` = 24 及以上（当前 LTS 线）。开发期推荐用**版本管理器**安装，方便后续切换版本：
+
+**Windows（nvm-windows）**
+
+```powershell
+nvm install 22.19.0
+nvm use 22.19.0
+# 图省事也可用 winget 装官方 LTS：
+# winget install OpenJS.NodeJS.LTS
+```
+
+**macOS（Homebrew 或 nvm）**
+
+```bash
+brew install node          # Node 24 LTS，满足 >=24
+# brew install node@22     # 或装 22.x
+# 已用 nvm 时：
+# nvm install 22 && nvm use 22
+```
+
+**Linux（nvm）**
+
+```bash
+nvm install 22 && nvm use 22
+```
+
+> [!tip] 装完新开终端
+> 安装后**新开一个终端**再验证，PATH 才会刷新。官网 https://nodejs.org 的 LTS 安装包一路「下一步」也可以。
+
+验证：
+
+```bash
+node -v   # 输出 v22.19.0+ 或 v24.x 即满足
+```
+
+### 安装 pnpm
+
+三选一，推荐前两种：
+
+```bash
+# 方式一：npm 全局安装（最简单，Node 装好即可用）
+npm install -g pnpm
+
+# 方式二：corepack（Node 22/24 自带；Node 25+ 已移除，见下方警告）
+corepack enable && corepack prepare pnpm@latest --activate
+```
+
+```powershell
+# 方式三：独立安装脚本（npm 也不可用时）
+# Windows PowerShell
+iwr https://get.pnpm.io/install.ps1 -useb | iex
+```
+
+```bash
+# macOS / Linux 独立脚本
+curl -fsSL https://get.pnpm.io/install.sh | sh -
+```
+
+> [!warning] corepack 注意
+> Node 25 起官方发行版不再捆绑 corepack，`corepack enable` 会报 command not found。Node 22/24 仍自带，但为了统一与将来升级，建议直接走方式一 `npm install -g pnpm`。
+
+验证：
+
+```bash
+pnpm -v   # 打印版本号即成功
+```
+
+### 执行源码构建
 
 ```bash
 # 1. 克隆官方仓库
@@ -104,12 +175,13 @@ pip install deepseek-harness-sdk
 > - 只使用不开发时用 `npx @deepseek-ai/dsh web`；写插件时回到源码路径；
 > - 常见坑：端口占用、ERESOLVE、Windows `ctx.bash` 重复注册。
 
-下一章进入全书核心：[[DeepSeek-Harness 插件开发核心]]——插件到底是什么、怎么写、怎么依赖、怎么发布（注册与装配细节见配套 [[DeepSeek-Harness 配置体系|配置体系]]）。
+下一章进入全书核心：[[DeepSeek-Harness 插件开发教程/01-插件开发核心-从apply到system-prompt|插件开发核心]]——插件到底是什么、怎么写、怎么依赖、怎么发布（注册与装配细节见配套 [[DeepSeek-Harness 插件开发教程/02-配置体系-补丁树Profile与bundle|配置体系]]）。
 
 ---
 
 ## 更新记录
 
+- 2026-08-16：2.2 前置要求补充 Node `^22.19 || >=24` 与 pnpm 的安装配置（版本管理器/官网装 Node，npm/corepack/独立脚本装 pnpm；提醒 corepack 在 Node 25+ 已移除）。
 - 2026-08-15：全套重构为「写自己的 dsh 插件」主线；源码运行路径升级为主路径，npm 快跑降为次选；明确「写插件别用 npx」的边界。
 - 2026-08-15：2.5 高频坑新增 `pnpm not found` 排查与安装方法。
 
