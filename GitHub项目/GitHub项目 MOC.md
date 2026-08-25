@@ -29,7 +29,7 @@ updated: 2026-08-25
 
 - [[CodeGraph实战笔记]] - CodeGraph 实战记录
 - [[comet]] - comet 项目笔记
-- [[LunaTV导入影视网站/README|LunaTV 导入影视网站]] - 把自选影视站导入本地部署的 lunatv：源机制、订阅导入、排错与进阶 #lunatv #影视聚合 #苹果CMS
+- [[LunaTV导入影视网站/README|LunaTV 导入影视网站]] - 把自选影视站导入本地部署的 lunatv：源机制、订阅导入、排错、进阶与画质优化 #lunatv #影视聚合 #苹果CMS
 
 ## API 中转站
 
