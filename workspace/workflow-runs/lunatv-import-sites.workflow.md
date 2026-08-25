@@ -10,7 +10,7 @@ topic: "如何把影视网站导入到本地部署的 lunatv"
 project_slug: "lunatv-import-sites"
 created_at: "2026-08-25"
 last_updated: "2026-08-25"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：lunatv-import-sites
 > 项目标识：lunatv-import-sites
 > 创建时间：2026-08-25
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -91,7 +91,7 @@ blocked_reason: ""
 
 **进度**：0/5
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -104,7 +104,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
