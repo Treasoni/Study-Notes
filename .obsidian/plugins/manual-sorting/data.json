@@ -116,6 +116,10 @@
       ],
       "sortOrder": "custom"
     },
+    "项目实战/AI实战/deepseek harness实战": {
+      "children": [],
+      "sortOrder": "custom"
+    },
     "项目实战/debian实战": {
       "children": [
         "项目实战/debian实战/Debian 最小化安装后 sudo 权限配置.md"
@@ -486,6 +490,40 @@
       ],
       "sortOrder": "custom"
     },
+    "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程": {
+      "children": [
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/13-实战-写system-prompt插件.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/12-实战-写自己的AgentPreset.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/10-小结与下一步.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/09-实战-工程化与打包发布.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/08-实战-验证命令链.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/07-实战-加Config可调参数.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/06-实战-写工具-git_log与四名分离.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/05-实战-起步-最小骨架与脚手架.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/04-实战-结果预览与选路.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/03-配置实战-接入skills-hooks-mcp-rules.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/02-配置体系-补丁树Profile与bundle.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/01-插件开发核心-从apply到system-prompt.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/00-TypeScript速查-从C和Python迁移.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/README.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件": {
+      "children": [
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件/README.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件/08-小结与下一步.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件/07-迁移对照.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件/06-验证命令链.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件/05-实战进阶.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件/04-permission-gate.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件/03-扩展点拆解.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件/02-语义模型.md",
+        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件/01-导读与定位.md"
+      ],
+      "sortOrder": "custom"
+    },
     "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness Subagent 教程": {
       "children": [
         "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness Subagent 教程/01-心智模型-能力缝与三层结构.md",
@@ -520,6 +558,20 @@
     "AI学习/DeepSeek-Harness 教程/example-plugin/src/tools": {
       "children": [
         "AI学习/DeepSeek-Harness 教程/example-plugin/src/tools/repo-status.ts"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/DeepSeek-Harness 教程/Harness工程实战": {
+      "children": [
+        "AI学习/DeepSeek-Harness 教程/Harness工程实战/README.md",
+        "AI学习/DeepSeek-Harness 教程/Harness工程实战/08-最小骨架与发布.md",
+        "AI学习/DeepSeek-Harness 教程/Harness工程实战/07-配置体系与坑清单.md",
+        "AI学习/DeepSeek-Harness 教程/Harness工程实战/06-Subagents.md",
+        "AI学习/DeepSeek-Harness 教程/Harness工程实战/05-Hooks桥接与原生.md",
+        "AI学习/DeepSeek-Harness 教程/Harness工程实战/04-Skills放置与结构.md",
+        "AI学习/DeepSeek-Harness 教程/Harness工程实战/03-Rules指令体系.md",
+        "AI学习/DeepSeek-Harness 教程/Harness工程实战/02-先创建哪些文件.md",
+        "AI学习/DeepSeek-Harness 教程/Harness工程实战/01-心智模型.md"
       ],
       "sortOrder": "custom"
     },
@@ -1644,6 +1696,7 @@
     },
     "workspace": {
       "children": [
+        "workspace/deepseek-harness-system-prompt-plugin",
         "workspace/harness-project-setup",
         "workspace/deepseek-harness-agent-preset",
         "workspace/output",
@@ -2161,6 +2214,20 @@
       ],
       "sortOrder": "custom"
     },
+    "workspace/deepseek-harness-agent-preset": {
+      "children": [
+        "workspace/deepseek-harness-agent-preset/02_deep_research.md",
+        "workspace/deepseek-harness-agent-preset/00_intent.md",
+        "workspace/deepseek-harness-agent-preset/output"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-agent-preset/output": {
+      "children": [
+        "workspace/deepseek-harness-agent-preset/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
     "workspace/deepseek-harness-config-guide": {
       "children": [
         "workspace/deepseek-harness-config-guide/output",
@@ -2172,6 +2239,29 @@
     "workspace/deepseek-harness-config-guide/output": {
       "children": [
         "workspace/deepseek-harness-config-guide/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-hook-plugin": {
+      "children": [
+        "workspace/deepseek-harness-hook-plugin/chapters",
+        "workspace/deepseek-harness-hook-plugin/03_outline.md",
+        "workspace/deepseek-harness-hook-plugin/02_deep_research.md",
+        "workspace/deepseek-harness-hook-plugin/01_explore_result.md",
+        "workspace/deepseek-harness-hook-plugin/00_intent.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-hook-plugin/chapters": {
+      "children": [
+        "workspace/deepseek-harness-hook-plugin/chapters/02_语义模型.md",
+        "workspace/deepseek-harness-hook-plugin/chapters/01_导读与定位.md",
+        "workspace/deepseek-harness-hook-plugin/chapters/04_permission-gate.md",
+        "workspace/deepseek-harness-hook-plugin/chapters/06_验证命令链.md",
+        "workspace/deepseek-harness-hook-plugin/chapters/05_实战进阶.md",
+        "workspace/deepseek-harness-hook-plugin/chapters/03_扩展点拆解.md",
+        "workspace/deepseek-harness-hook-plugin/chapters/08_小结与下一步.md",
+        "workspace/deepseek-harness-hook-plugin/chapters/07_迁移对照.md"
       ],
       "sortOrder": "custom"
     },
@@ -2261,6 +2351,18 @@
     "workspace/deepseek-harness-subagent/output": {
       "children": [
         "workspace/deepseek-harness-subagent/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-system-prompt-plugin": {
+      "children": [
+        "workspace/deepseek-harness-system-prompt-plugin/output"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/deepseek-harness-system-prompt-plugin/output": {
+      "children": [
+        "workspace/deepseek-harness-system-prompt-plugin/output/final_note.md"
       ],
       "sortOrder": "custom"
     },
@@ -2623,6 +2725,36 @@
     "workspace/haos-deploy-tutorial/output": {
       "children": [
         "workspace/haos-deploy-tutorial/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/harness-project-setup": {
+      "children": [
+        "workspace/harness-project-setup/output",
+        "workspace/harness-project-setup/chapters",
+        "workspace/harness-project-setup/03_outline.md",
+        "workspace/harness-project-setup/02_deep_research.md",
+        "workspace/harness-project-setup/01_explore_result.md",
+        "workspace/harness-project-setup/00_intent.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/harness-project-setup/chapters": {
+      "children": [
+        "workspace/harness-project-setup/chapters/08-最小骨架与发布.md",
+        "workspace/harness-project-setup/chapters/07-配置体系与坑清单.md",
+        "workspace/harness-project-setup/chapters/06-Subagents.md",
+        "workspace/harness-project-setup/chapters/05-Hooks桥接与原生.md",
+        "workspace/harness-project-setup/chapters/04-Skills放置与结构.md",
+        "workspace/harness-project-setup/chapters/03-Rules指令体系.md",
+        "workspace/harness-project-setup/chapters/02-先创建哪些文件.md",
+        "workspace/harness-project-setup/chapters/01-心智模型.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/harness-project-setup/output": {
+      "children": [
+        "workspace/harness-project-setup/output/final_note.md"
       ],
       "sortOrder": "custom"
     },
@@ -3020,6 +3152,12 @@
     "workspace/opencode-config-and-usage/output": {
       "children": [
         "workspace/opencode-config-and-usage/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/output": {
+      "children": [
+        "workspace/output/final_note.md"
       ],
       "sortOrder": "custom"
     },
@@ -3597,130 +3735,6 @@
         "workspace/workflow-runs/nodejs-ai-application.workflow.md",
         "workspace/workflow-runs/superpowers.workflow.md"
       ],
-      "sortOrder": "custom"
-    },
-    "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程": {
-      "children": [
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/12-实战-写自己的AgentPreset.md",
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件",
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/10-小结与下一步.md",
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/09-实战-工程化与打包发布.md",
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/08-实战-验证命令链.md",
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/07-实战-加Config可调参数.md",
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/06-实战-写工具-git_log与四名分离.md",
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/05-实战-起步-最小骨架与脚手架.md",
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/04-实战-结果预览与选路.md",
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/03-配置实战-接入skills-hooks-mcp-rules.md",
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/02-配置体系-补丁树Profile与bundle.md",
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/01-插件开发核心-从apply到system-prompt.md",
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/00-TypeScript速查-从C和Python迁移.md",
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/README.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "workspace/deepseek-harness-hook-plugin": {
-      "children": [
-        "workspace/deepseek-harness-hook-plugin/chapters",
-        "workspace/deepseek-harness-hook-plugin/03_outline.md",
-        "workspace/deepseek-harness-hook-plugin/02_deep_research.md",
-        "workspace/deepseek-harness-hook-plugin/01_explore_result.md",
-        "workspace/deepseek-harness-hook-plugin/00_intent.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "workspace/deepseek-harness-hook-plugin/chapters": {
-      "children": [
-        "workspace/deepseek-harness-hook-plugin/chapters/02_语义模型.md",
-        "workspace/deepseek-harness-hook-plugin/chapters/01_导读与定位.md",
-        "workspace/deepseek-harness-hook-plugin/chapters/04_permission-gate.md",
-        "workspace/deepseek-harness-hook-plugin/chapters/06_验证命令链.md",
-        "workspace/deepseek-harness-hook-plugin/chapters/05_实战进阶.md",
-        "workspace/deepseek-harness-hook-plugin/chapters/03_扩展点拆解.md",
-        "workspace/deepseek-harness-hook-plugin/chapters/08_小结与下一步.md",
-        "workspace/deepseek-harness-hook-plugin/chapters/07_迁移对照.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "workspace/output": {
-      "children": [
-        "workspace/output/final_note.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件": {
-      "children": [
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件/README.md",
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件/08-小结与下一步.md",
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件/07-迁移对照.md",
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件/06-验证命令链.md",
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件/05-实战进阶.md",
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件/04-permission-gate.md",
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件/03-扩展点拆解.md",
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件/02-语义模型.md",
-        "AI学习/DeepSeek-Harness 教程/DeepSeek-Harness 插件开发教程/11-实战-写hook扩展点插件/01-导读与定位.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "workspace/deepseek-harness-agent-preset": {
-      "children": [
-        "workspace/deepseek-harness-agent-preset/02_deep_research.md",
-        "workspace/deepseek-harness-agent-preset/00_intent.md",
-        "workspace/deepseek-harness-agent-preset/output"
-      ],
-      "sortOrder": "custom"
-    },
-    "workspace/deepseek-harness-agent-preset/output": {
-      "children": [
-        "workspace/deepseek-harness-agent-preset/output/final_note.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "workspace/harness-project-setup": {
-      "children": [
-        "workspace/harness-project-setup/output",
-        "workspace/harness-project-setup/chapters",
-        "workspace/harness-project-setup/03_outline.md",
-        "workspace/harness-project-setup/02_deep_research.md",
-        "workspace/harness-project-setup/01_explore_result.md",
-        "workspace/harness-project-setup/00_intent.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "workspace/harness-project-setup/chapters": {
-      "children": [
-        "workspace/harness-project-setup/chapters/08-最小骨架与发布.md",
-        "workspace/harness-project-setup/chapters/07-配置体系与坑清单.md",
-        "workspace/harness-project-setup/chapters/06-Subagents.md",
-        "workspace/harness-project-setup/chapters/05-Hooks桥接与原生.md",
-        "workspace/harness-project-setup/chapters/04-Skills放置与结构.md",
-        "workspace/harness-project-setup/chapters/03-Rules指令体系.md",
-        "workspace/harness-project-setup/chapters/02-先创建哪些文件.md",
-        "workspace/harness-project-setup/chapters/01-心智模型.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "workspace/harness-project-setup/output": {
-      "children": [
-        "workspace/harness-project-setup/output/final_note.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "AI学习/DeepSeek-Harness 教程/Harness工程实战": {
-      "children": [
-        "AI学习/DeepSeek-Harness 教程/Harness工程实战/README.md",
-        "AI学习/DeepSeek-Harness 教程/Harness工程实战/08-最小骨架与发布.md",
-        "AI学习/DeepSeek-Harness 教程/Harness工程实战/07-配置体系与坑清单.md",
-        "AI学习/DeepSeek-Harness 教程/Harness工程实战/06-Subagents.md",
-        "AI学习/DeepSeek-Harness 教程/Harness工程实战/05-Hooks桥接与原生.md",
-        "AI学习/DeepSeek-Harness 教程/Harness工程实战/04-Skills放置与结构.md",
-        "AI学习/DeepSeek-Harness 教程/Harness工程实战/03-Rules指令体系.md",
-        "AI学习/DeepSeek-Harness 教程/Harness工程实战/02-先创建哪些文件.md",
-        "AI学习/DeepSeek-Harness 教程/Harness工程实战/01-心智模型.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "项目实战/AI实战/deepseek harness实战": {
-      "children": [],
       "sortOrder": "custom"
     }
   },
