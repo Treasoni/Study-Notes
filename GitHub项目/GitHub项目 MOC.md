@@ -2,7 +2,7 @@
 title: GitHub项目 MOC
 tags: [moc, 索引]
 created: 2026-08-12
-updated: 2026-08-12
+updated: 2026-08-25
 ---
 
 # GitHub项目 MOC
@@ -29,6 +29,7 @@ updated: 2026-08-12
 
 - [[CodeGraph实战笔记]] - CodeGraph 实战记录
 - [[comet]] - comet 项目笔记
+- [[LunaTV导入影视网站/README|LunaTV 导入影视网站]] - 把自选影视站导入本地部署的 lunatv：源机制、订阅导入、排错与进阶 #lunatv #影视聚合 #苹果CMS
 
 ## API 中转站
 
@@ -40,4 +41,4 @@ updated: 2026-08-12
 
 - 📂 目录：`GitHub项目`
 - 📅 创建日期：2026-08-12
-- 📅 更新日期：2026-08-12
+- 📅 更新日期：2026-08-25
