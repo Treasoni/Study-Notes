@@ -342,7 +342,7 @@ docker run -d \
 
 ## 8.2 Portainer
 
-可视化管理界面，可以在网页上查看和管理所有容器、镜像、卷；它自己本身也是一个容器。**更新 Portainer = 换掉它的容器、数据卷保留**，你的配置和账号不会丢。
+可视化管理界面，可以在网页上查看和管理所有容器、镜像、卷，也能直接在网页上更新容器——**不用记 docker 命令**。Portainer 自己也是一个容器。
 
 部署（Docker run 方式）：
 
@@ -359,21 +359,44 @@ docker run -d -p 8000:8000 -p 9443:9443 --name portainer \
 访问 `https://你的IP:9443` 即可管理（HTTPS 默认在 9443；需要 HTTP 访问再加 `-p 9000:9000`）。
 
 > [!tip] 大白话
-> 更新 Portainer 就像**换个新手机壳**：手机（`portainer_data` 数据卷）里的照片、联系人、App 全都在，只是把外壳（容器）换成新的。所以删容器、重建容器都不心疼，关键是别动数据卷。
+> Portainer 就是容器的「网页管理后台」：更新容器就像在手机 App Store 里点「更新」，勾一下、点两下就完成，不用记命令。
 
-### 8.2.1 Docker run 部署的更新方法（官方推荐四步）
+### 8.2.1 用 Portainer 更新单个容器（docker run 部署的容器）
+
+1. 登录 Portainer，左侧菜单进入 **Containers**
+2. 找到要更新的容器，勾选它前面的复选框
+3. 顶部工具栏点 **Recreate**（重建容器）
+4. 在弹出的确认框里**勾选 Re-pull image**（重新拉取最新镜像）
+5. 点 **Recreate** 确认
+
+Portainer 会自动完成：拉取新镜像 → 停止旧容器 → 用相同配置重建容器。只要 volume 挂载正确，数据不会丢。
+
+> [!warning] 注意
+> - 更新后回 **Containers** 看状态是否为 `running`，或进容器页面看 **Logs** 确认没报错。
+> - 只是修改环境变量或端口时，**不用勾选** Re-pull image（镜像没变就不用重拉），直接 Recreate 即可。
+
+### 8.2.2 用 Portainer 更新 Stack（docker compose 部署）
+
+1. 左侧菜单进入 **Stacks**
+2. 点进目标 Stack
+3. 点 **Update the stack**（更新 Stack）
+4. 确认 compose 内容，勾选 **Pull latest image**（部分版本有该选项）
+5. 点 **Update** 重新部署
+
+Stack 里的服务会按新镜像重建，volume 不变，数据不丢。
+
+### 8.2.3 批量更新
+
+Portainer **没有「一键更新全部」按钮**。批量更新多个容器需要逐个 Recreate；想全自动就搭配第 8.1 节的 **Watchtower**。
+
+### 8.2.4 顺带：更新 Portainer 自身
+
+Portainer 自己也是容器，但它**不推荐**用 UI 里的 Recreate 更新自身（可能半重建），用命令行四步更稳：
 
 ```bash
-# 1. 停止旧容器
 docker stop portainer
-
-# 2. 删除旧容器（数据在数据卷里，不会丢）
 docker rm portainer
-
-# 3. 拉取最新镜像
 docker pull portainer/portainer-ce:lts
-
-# 4. 用完全相同的参数重新创建
 docker run -d -p 8000:8000 -p 9443:9443 --name portainer \
   --restart=always \
   -v /var/run/docker.sock:/var/run/docker.sock \
@@ -381,45 +404,10 @@ docker run -d -p 8000:8000 -p 9443:9443 --name portainer \
   portainer/portainer-ce:lts
 ```
 
-启动后打开 `https://你的IP:9443`，左下角版本号变成新的、页面顶部的更新提示消失，即更新成功。
-
-### 8.2.2 docker compose 部署的更新方法
-
-如果当初是用 `docker-compose.yml` 部署的，和本文第 1 节完全一样：
-
-```bash
-cd /你的Portainer项目目录
-docker compose pull
-docker compose up -d
-```
-
-数据卷由 compose 里的 `volumes` 定义（通常还是 `portainer_data`），同样不会丢。
-
-### 8.2.3 UI 一键更新（Business Edition 专有）
-
-Portainer **商业版（BE）** 内置了一键升级：登录后在左侧菜单 **Settings → Upgrade** 点 Upgrade，它会自动拉镜像、重建容器，License 存在数据卷里会自动保留。
-
-> [!warning] 注意
-> - **社区版（CE）没有这个一键升级按钮**，CE 请用上面的命令行四步。
-> - 不要用 UI 里的 **Recreate** 去更新 Portainer 自身容器，可能造成半重建状态；Portainer 本体建议用终端更新。
-
-### 8.2.4 更新注意事项
-
-| 事项 | 说明 |
-|------|------|
-| 更新前备份 | 强烈建议先备份 `portainer_data` 卷（命令见下） |
-| 标签不要混用 | `latest` / `lts` / `sts` 不要混拉，可能变成"降级"；Portainer 数据库只能向前升级，不支持降级 |
-| Agent 版本一致 | 如果装了 Portainer Agent，Server 和 Agent 的版本要相同 |
-| 从 1.x 升级 | 必须先升到 `2.0.0`，再升到新版 |
-
-备份数据卷：
-
-```bash
-docker run --rm -v portainer_data:/data -v $(pwd):/backup alpine \
-  tar czf /backup/portainer_backup_$(date +%Y%m%d).tar.gz -C /data .
-```
+数据都在 `portainer_data` 卷里，删容器重建不会丢。
 
 > [!info] 来源
+> - [Portainer 官方文档](https://docs.portainer.io/)
 > - [Portainer 官方文档 - Updating on Docker Standalone](https://docs.portainer.io/start/upgrade/docker)
 
 ---
@@ -630,4 +618,4 @@ docker image prune -a
 
 ## 更新记录
 
-- 2026-08-26：扩充 8.2 Portainer 章节，新增更新方法（Docker run 四步 / compose / BE 一键升级）、更新注意事项与数据卷备份命令；部署镜像源改为官方推荐的 `portainer/portainer-ce:lts`。
+- 2026-08-26：扩充 8.2 Portainer 章节，新增「用 Portainer 网页界面更新容器」的操作步骤（单个容器 Recreate + Re-pull / Stack 更新 / 批量说明），并附更新 Portainer 自身的方法；部署镜像源改为官方推荐的 `portainer/portainer-ce:lts`。
