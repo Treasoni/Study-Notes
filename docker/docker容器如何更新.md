@@ -385,6 +385,18 @@ Portainer 会自动完成：拉取新镜像 → 停止旧容器 → 用相同配
 
 Stack 里的服务会按新镜像重建，volume 不变，数据不丢。
 
+> [!warning] 外部创建的 Stack 显示 unmanaged（未托管）怎么办
+> 如果容器是你自己在本机用 `docker compose up` 创建的（没经过 Portainer），Portainer 的 Stacks 里会把它标成 **unmanaged**，不能编辑或 Update——因为 Portainer 数据库里没有这份 compose 文件。
+>
+> 两种处理办法：
+> - **只是偶尔更新**：不用管 stack，直接按上面 8.2.1 用 **Containers → Recreate → Re-pull image** 逐个更新容器，一样能更新。
+> - **让 Portainer 完全接管**：
+>   1. 先记录 compose 文件、`.env`、项目名（`docker compose ls` 可查）
+>   2. 命名卷在 compose 里声明为 `external: true`（复用旧卷，不新建），并先备份数据
+>   3. 在原目录执行 `docker compose down`（**绝不能加 `--volumes`**，否则删数据卷）
+>   4. 在 Portainer **Stacks → Add stack** 粘贴同一份 compose，**栈名填原项目名**，点部署
+>   5. 部署后 Portainer 就有编辑 / Update 的完整控制了
+
 ### 8.2.3 批量更新
 
 Portainer **没有「一键更新全部」按钮**。批量更新多个容器需要逐个 Recreate；想全自动就搭配第 8.1 节的 **Watchtower**。
@@ -618,4 +630,4 @@ docker image prune -a
 
 ## 更新记录
 
-- 2026-08-26：扩充 8.2 Portainer 章节，新增「用 Portainer 网页界面更新容器」的操作步骤（单个容器 Recreate + Re-pull / Stack 更新 / 批量说明），并附更新 Portainer 自身的方法；部署镜像源改为官方推荐的 `portainer/portainer-ce:lts`。
+- 2026-08-26：扩充 8.2 Portainer 章节，新增「用 Portainer 网页界面更新容器」的操作步骤（单个容器 Recreate + Re-pull / Stack 更新 / 批量说明），并附外部创建 Stack（unmanaged）的处理办法与更新 Portainer 自身的方法；部署镜像源改为官方推荐的 `portainer/portainer-ce:lts`。
