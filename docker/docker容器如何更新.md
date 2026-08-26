@@ -1,6 +1,6 @@
 ---
 created: 2026-02-09
-updated: 2026-02-09
+updated: 2026-08-26
 tags:
   - docker
 ---
@@ -342,7 +342,9 @@ docker run -d \
 
 ## 8.2 Portainer
 
-可视化管理界面，支持一键更新：
+可视化管理界面，可以在网页上查看和管理所有容器、镜像、卷；它自己本身也是一个容器。**更新 Portainer = 换掉它的容器、数据卷保留**，你的配置和账号不会丢。
+
+部署（Docker run 方式）：
 
 ```bash
 docker volume create portainer_data
@@ -351,10 +353,74 @@ docker run -d -p 8000:8000 -p 9443:9443 --name portainer \
   --restart=always \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v portainer_data:/data \
-  cr.portainer.io/portainer/portainer-ce:latest
+  portainer/portainer-ce:lts
 ```
 
-访问 `https://你的IP:9443` 即可管理。
+访问 `https://你的IP:9443` 即可管理（HTTPS 默认在 9443；需要 HTTP 访问再加 `-p 9000:9000`）。
+
+> [!tip] 大白话
+> 更新 Portainer 就像**换个新手机壳**：手机（`portainer_data` 数据卷）里的照片、联系人、App 全都在，只是把外壳（容器）换成新的。所以删容器、重建容器都不心疼，关键是别动数据卷。
+
+### 8.2.1 Docker run 部署的更新方法（官方推荐四步）
+
+```bash
+# 1. 停止旧容器
+docker stop portainer
+
+# 2. 删除旧容器（数据在数据卷里，不会丢）
+docker rm portainer
+
+# 3. 拉取最新镜像
+docker pull portainer/portainer-ce:lts
+
+# 4. 用完全相同的参数重新创建
+docker run -d -p 8000:8000 -p 9443:9443 --name portainer \
+  --restart=always \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v portainer_data:/data \
+  portainer/portainer-ce:lts
+```
+
+启动后打开 `https://你的IP:9443`，左下角版本号变成新的、页面顶部的更新提示消失，即更新成功。
+
+### 8.2.2 docker compose 部署的更新方法
+
+如果当初是用 `docker-compose.yml` 部署的，和本文第 1 节完全一样：
+
+```bash
+cd /你的Portainer项目目录
+docker compose pull
+docker compose up -d
+```
+
+数据卷由 compose 里的 `volumes` 定义（通常还是 `portainer_data`），同样不会丢。
+
+### 8.2.3 UI 一键更新（Business Edition 专有）
+
+Portainer **商业版（BE）** 内置了一键升级：登录后在左侧菜单 **Settings → Upgrade** 点 Upgrade，它会自动拉镜像、重建容器，License 存在数据卷里会自动保留。
+
+> [!warning] 注意
+> - **社区版（CE）没有这个一键升级按钮**，CE 请用上面的命令行四步。
+> - 不要用 UI 里的 **Recreate** 去更新 Portainer 自身容器，可能造成半重建状态；Portainer 本体建议用终端更新。
+
+### 8.2.4 更新注意事项
+
+| 事项 | 说明 |
+|------|------|
+| 更新前备份 | 强烈建议先备份 `portainer_data` 卷（命令见下） |
+| 标签不要混用 | `latest` / `lts` / `sts` 不要混拉，可能变成"降级"；Portainer 数据库只能向前升级，不支持降级 |
+| Agent 版本一致 | 如果装了 Portainer Agent，Server 和 Agent 的版本要相同 |
+| 从 1.x 升级 | 必须先升到 `2.0.0`，再升到新版 |
+
+备份数据卷：
+
+```bash
+docker run --rm -v portainer_data:/data -v $(pwd):/backup alpine \
+  tar czf /backup/portainer_backup_$(date +%Y%m%d).tar.gz -C /data .
+```
+
+> [!info] 来源
+> - [Portainer 官方文档 - Updating on Docker Standalone](https://docs.portainer.io/start/upgrade/docker)
 
 ---
 
@@ -559,3 +625,9 @@ docker image prune -a
 > - [Docker 官方文档 - docker image pull](https://docs.docker.com/reference/cli/docker/image/pull/)
 > - [Docker Blog - Using Tags and Labels](https://www.docker.com/blog/docker-best-practices-using-tags-and-labels-to-manage-docker-image-sprawl/)
 > - [Docker Hub - Managing Tags](https://docs.docker.com/docker-hub/repos/manage/hub-images/tags/)
+
+---
+
+## 更新记录
+
+- 2026-08-26：扩充 8.2 Portainer 章节，新增更新方法（Docker run 四步 / compose / BE 一键升级）、更新注意事项与数据卷备份命令；部署镜像源改为官方推荐的 `portainer/portainer-ce:lts`。
