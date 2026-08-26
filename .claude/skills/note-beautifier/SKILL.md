@@ -220,19 +220,14 @@ PROJECT_DIR="${WORKSPACE_PATH}/${PROJECT_SLUG}"
 4. **表格格式优化**
    - 统一对齐格式
    - 添加适当的 emoji 增强可读性
-   - 表格不得嵌套在列表项内（不要缩进），Obsidian 不渲染列表内表格；列表步骤需引用表格时用「见下方表格」文字过渡
-
-5. **frontmatter 引用校验**
-   - `sources` 等字段中所有含特殊字符（`[]`、`:`）的值必须加双引号或改纯字符串列表，否则 Obsidian 解析失败
 ```
 
 #### 3.2 Vault 发布
 
 ```markdown
-1. 发布前先校验最终笔记体积与章节数：>30KB 或多于 3 章必须拆分后再发布（分册子目录 + README 首页 + 每章独立文件 + 前后导航双链 + MOC 指向 README）。
-2. 如果用户指定 vault_path 和 note_folder，将最终 Markdown 保存到该目录。
-3. 如果未指定，保存到 `${PROJECT_DIR}/output/final_note.md`。
-4. 发布前不要覆盖同名文件；除非 publish_mode 为 overwrite 或 patch。
+1. 如果用户指定 vault_path 和 note_folder，将最终 Markdown 保存到该目录。
+2. 如果未指定，保存到 `${PROJECT_DIR}/output/final_note.md`。
+3. 发布前不要覆盖同名文件；除非 publish_mode 为 overwrite 或 patch。
 ```
 
 #### 3.3 MOC 同步
@@ -263,10 +258,6 @@ PROJECT_DIR="${WORKSPACE_PATH}/${PROJECT_SLUG}"
 - [ ] frontmatter 标签完整
 - [ ] 分类标签准确
 - [ ] 标签层级清晰
-
-### 表格 / frontmatter
-- [ ] 表格未嵌套在列表项内（无缩进）
-- [ ] `sources` 等含特殊字符（`[]`、`:`）的值已正确引用
 
 ### 发布位置
 - [ ] 已保存到用户指定位置，或项目 output

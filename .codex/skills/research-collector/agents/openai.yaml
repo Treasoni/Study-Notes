@@ -1,0 +1,4 @@
+interface:
+  display_name: "Research Collector"
+  short_description: "Collect staged, source-backed research efficiently"
+  default_prompt: "Use $research-collector to explore and curate research sources for this topic."

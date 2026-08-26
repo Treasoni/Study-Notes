@@ -18,6 +18,17 @@ Produce reusable, source-backed research without repeatedly loading page bodies 
 
 Rank sources: official documentation and primary research first; reputable implementation reports second; community material only for labelled operational experience. Record URL, publisher, publication/update date when available, source tier, claim support, and retrieval date. Do not invent facts or silently merge conflicting claims.
 
+## Environment preparation
+
+P2 deep reading depends on the `crawl4ai` conda environment managed by `scripts/setup.sh` (idempotent; safe to re-run). The crawler entry point is `scripts/crawl.sh`.
+
+Before the first crawl of a run:
+
+1. Probe the environment with a lightweight call: `bash scripts/crawl.sh --help`.
+2. If it exits 2 (conda missing, or the `crawl4ai` env missing), bootstrap once with `bash scripts/setup.sh`, then retry the crawl. Do not ask the user to install manually.
+3. `setup.sh` pins `crawl4ai>=0.9,<1`; keep the pin — `crawl.py` is a 0.x compatibility layer and 1.x breaks its API.
+4. If the crawl still exits 2 after a fresh setup, report the error to the user instead of retrying blindly.
+
 ## P1 — Explore
 
 1. Read the intent artifact and select at most three independent research lenses.

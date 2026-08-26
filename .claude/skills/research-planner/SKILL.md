@@ -248,5 +248,5 @@ research-planner → workflow-orchestrator → research-collector
 
 1. **必须调用 workflow-orchestrator**: 不要手动创建 workflow state file
 2. **保持意图文件简洁**: 只记录关键信息，不要过度详细
-3. **等待用户确认**: 关键选择需要用户确认；用紧凑文本菜单 + 推荐默认值，不用多问题 AskUserQuestion 对话框（用户偏好低摩擦文本交互）
+3. **等待用户确认**: 关键选择需要用户确认
 4. **支持中断恢复**: 如果用户中途退出，下次可以继续

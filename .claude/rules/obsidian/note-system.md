@@ -19,7 +19,6 @@ publish_mode: copy | overwrite | patch
 ## Obsidian Formatting
 
 1. 使用 YAML frontmatter 管理 `title`、`tags`、`created`、`updated`、`status`、`source_project`。
-   - `sources` 等字段中所有含特殊字符（`[]`、`:`）的值必须加双引号或改纯字符串列表，否则 Obsidian 解析失败。
 2. 双链只添加高价值概念，不要把每个名词都变成链接。
 3. Callout 用于结构意义，不作为装饰：
    - `[!summary]` 总结
@@ -28,8 +27,7 @@ publish_mode: copy | overwrite | patch
    - `[!warning]` 易错点
    - `[!example]` 示例
 4. 代码块必须带语言标识。
-5. 表格不得嵌套在列表项内（带缩进），Obsidian 不渲染列表内表格；列表步骤需要引用表格时用「见下方表格」文字过渡。
-6. Dataview/Bases 只在用户 vault 支持时加入；不确定时保持普通 Markdown。
+5. Dataview/Bases 只在用户 vault 支持时加入；不确定时保持普通 Markdown。
 
 ## MOC Rules
 
