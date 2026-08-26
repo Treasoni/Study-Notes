@@ -320,6 +320,17 @@ docker exec 容器名 chown -R 用户:组 /path/to/data
 ```
 
 
+### Q: 镜像已经是最新的，为什么容器还是旧版本？
+
+A: 因为 `docker pull` 只是把新镜像下载到本地，**不会影响正在运行的容器**。容器是从「它被创建那一刻的镜像」启动的，想用新镜像必须**重建容器**：
+
+- **compose 部署**：`docker compose pull && docker compose up -d`
+- **docker run 部署**：`docker stop 容器名 && docker rm 容器名`，再用新镜像重新 `docker run ...`
+- **Portainer**：Containers → 勾选容器 → **Recreate** → 勾选 **Re-pull image**
+
+验证方法：`docker ps` 里容器使用的镜像 ID，要和 `docker images` 里最新标签对应的 ID 一致；不确定时用 `docker inspect 容器名` 看 `Image` 字段对比。
+
+
 ---
 
 # 8. 自动更新工具
@@ -630,4 +641,4 @@ docker image prune -a
 
 ## 更新记录
 
-- 2026-08-26：扩充 8.2 Portainer 章节，新增「用 Portainer 网页界面更新容器」的操作步骤（单个容器 Recreate + Re-pull / Stack 更新 / 批量说明），并附外部创建 Stack（unmanaged）的处理办法与更新 Portainer 自身的方法；部署镜像源改为官方推荐的 `portainer/portainer-ce:lts`。
+- 2026-08-26：扩充 8.2 Portainer 章节，新增「用 Portainer 网页界面更新容器」的操作步骤（单个容器 Recreate + Re-pull / Stack 更新 / 批量说明），并附外部创建 Stack（unmanaged）的处理办法与更新 Portainer 自身的方法；第 7 节新增 FAQ「镜像已是最新但容器仍旧版本」；部署镜像源改为官方推荐的 `portainer/portainer-ce:lts`。
