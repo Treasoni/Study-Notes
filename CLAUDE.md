@@ -1,22 +1,22 @@
 # Study System - Claude Code Project Guidance
 
-本项目同时保留 Claude Code 与 Claude Code 两套配置。Claude Code 工作时必须遵守下面的隔离规则：
+本项目同时保留两套 runtime 配置。Claude Code 工作时必须遵守下面的隔离规则：
 
 1. 默认不要搜索或读取 `.claude/` 下的任何文件，除非用户明确要求维护 Claude Code 配置，或执行本项目规定的同步操作。
-2. Claude Code 专用配置、规则、hooks 和脚本只放在本项目 `.codex/` 下；可跨 runtime 的 Claude Code skill 放在 `.claude/skills/`。两者都不写入 `~/.codex/`。
+2. 专用配置、规则、hooks 和脚本只放在本项目对应 runtime 的配置目录（目录映射见 `.agent-sync/agents/*.yaml` 的 `paths`）；可跨 runtime 的 skill 放在 canonical skills 目录（见 `.codex/platform/registry.yaml` 的 `discovery.Skill`）。两者都不写入全局 runtime 配置目录。
 3. 项目级长期规则以本文件为入口；更细规则见 `.claude/rules/`。
 4. 需要使用技能时，优先读取 `.claude/skills/{skill-name}/SKILL.md` 作为入口，完整理解后再执行；只在任务需要时继续读取其引用的模板、示例和资料，避免预加载无关内容。
 5. 需要模拟原 Claude agent 时，读取 `.codex/agents/{agent-name}.md`，按其中角色、输入、输出和检查点执行。
-6. `.claude/skills` 与 `.codex/{agents,rules,hooks,scripts,workflows}` 是跨 runtime 的 canonical source。修改后，先运行 `.agent-sync/sync_agents.py --root . --check --scope <area>`，再 `--apply`，最后运行全量 `--check`。Claude Code 目录是生成目标，不手工编辑；hook 变更后额外运行 `.agent-sync/bootstrap.py --root . --apply` 与 `--check`。
+6. 各区域 canonical source 由 `.agent-sync/agents/*.yaml` 的 `paths` 定义（skills canonical 见 `.codex/platform/registry.yaml` 的 `discovery.Skill`；rules/hooks/scripts/workflows canonical 在 `.codex/` 下对应目录）。修改后，先运行 `.agent-sync/sync_agents.py --root . --check --scope <area>`，再 `--apply`，最后运行全量 `--check`。生成目标目录（如 `.claude/`）不手工编辑；hook 变更后额外运行 `.agent-sync/bootstrap.py --root . --apply` 与 `--check`。
 
 ## Agent Platform Manifest
 
-Workflow、Skill、Subagent 和 Hook 都必须在各自 `.codex/{workflows,agents,hooks}/{name}/manifest.yaml` 或 `.claude/skills/{name}/manifest.yaml` 中声明统一契约。manifest 负责自动发现、版本、入口、能力、依赖和请求权限；它不自行授予任何工具权限，运行时仍以平台策略和用户授权为准。
+Workflow、Skill、Subagent 和 Hook 都必须在各自工件目录下的 `manifest.yaml` 中声明统一契约（工件目录由 `.codex/platform/registry.yaml` 的 `discovery` 定义，跨 runtime 共享）。manifest 负责自动发现、版本、入口、能力、依赖和请求权限；它不自行授予任何工具权限，运行时仍以平台策略和用户授权为准。
 
 - 新增、删除、重命名或实质修改上述工件时，同步更新其 manifest 的版本、依赖和最小权限。
 - 入口路径相对 manifest 目录解析，且不得离开该工件的配置根目录。
 - 变更后运行 `python3 .codex/platform/manifest-registry.py --root . validate`；Hook 还必须继续在 `.claude/settings.json` 中注册。
-- 复用到其他项目时，使用项目内 `manifest-platform` Skill 的安装脚本，不把该平台配置写入全局 `~/.codex/`。
+- 复用到其他项目时，使用项目内 `manifest-platform` Skill 的安装脚本，不把该平台配置写入全局配置目录（如 `~/.codex/`、`~/.claude/`）。
 
 ## Core Workflow
 
@@ -74,7 +74,7 @@ batch-note-updater -> note-updater
 | `tool-discovery` | 可用工具、工具列表、收集工具 |
 | `digest` | 记录学习、总结经验、消化、digest |
 
-如果用户要求创建或优化 skill，使用 Claude Code 自带的 `skill-creator`；将跨 runtime skill 写入 `.claude/skills`，再由 `.agent-sync` 生成 Claude Code 副本。
+如果用户要求创建或优化 skill，使用 `skill-creator`；将跨 runtime skill 写入 canonical skills 目录（`.agent-sync/agents/*.yaml` 的 `paths.skills`，见 `.codex/platform/registry.yaml` 的 `discovery.Skill`），再由 `.agent-sync` 生成各 runtime 副本。
 
 ## Rules
 
@@ -91,7 +91,7 @@ batch-note-updater -> note-updater
 - `.claude/rules/obsidian/note-system.md`
 - `.claude/rules/research-tools.md`
 
-项目本地 hooks 使用 `.claude/settings.json` 注册，脚本放在 `.claude/hooks/`。`hooks.json` 由 `.agent-sync/bootstrap.py` 在当前机器生成；不要把本项目 hooks 写到全局 `~/.codex/config.toml`；如果 Claude Code 提示信任 hook，仅信任本项目路径。
+项目本地 hooks 使用本 runtime 的 hook 注册文件（见 `.agent-sync/agents/*.yaml` 的 `paths.hook_config`）注册，脚本放在本 runtime 的 hooks 目录。该注册文件由 `.agent-sync/bootstrap.py` 在当前机器生成；不要把本项目 hooks 写到全局配置目录；如果当前 runtime 提示信任 hook，仅信任本项目路径。
 
 ## Project Safety
 

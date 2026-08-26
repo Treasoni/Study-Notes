@@ -1,44 +1,49 @@
-# Codex / Codex Sync Workflow
+# Agent 配置同步工作流
 
-本项目以 `.codex/` 作为新功能编辑入口，但 Codex 也必须保持可用。
+本项目以 `.agent-sync/` 作为跨 runtime 配置同步的唯一入口。canonical 源与生成目标由 `.agent-sync/agents/*.yaml` 的 profile 定义；不再维护独立的单向同步脚本。
 
 ## When To Sync
 
 修改以下内容后必须运行同步：
 
-- `.codex/skills/**`
-- `.codex/agents/**`
-- `.codex/rules/**`
-- `.codex/scripts/**`
-- `.codex/platform/**`
-- `.codex/workflows/**`
-- `CLAUDE.md` 中改变了工作流、skill 路由或规则路径
+- `.agent-sync/agents/*.yaml`（profile 映射本身）
+- 任一区域 canonical source：skills / rules / hooks / scripts / workflows / instructions（目录与文件见 `.agent-sync/agents/codex.yaml` 的 `paths`）
+- canonical 目录下的新增、删除、重命名或实质修改
+- instructions canonical（`paths.instructions`）中改变了工作流、skill 路由或规则路径
 
 ## Command
 
+先以只读模式检查差异：
+
 ```bash
-.codex/scripts/sync-codex-to-claude.sh
+python3 .agent-sync/sync_agents.py --root . --check --scope <area>
 ```
 
-同步后必须验证镜像没有漂移：
+`<area>` 取值：`skills` / `rules` / `hooks` / `scripts` / `workflows` / `mcp`。
+
+确认差异符合预期后应用：
 
 ```bash
-.codex/scripts/sync-codex-to-claude.sh --check
+python3 .agent-sync/sync_agents.py --root . --apply --scope <area>
+```
+
+同步后必须验证镜像没有漂移（全量 check）：
+
+```bash
+python3 .agent-sync/sync_agents.py --root . --check
 ```
 
 ## What It Does
 
-1. 将可迁移资源从 `.codex/` 复制到 `.codex/`，并删除非例外的陈旧镜像文件。
-2. 自动把复制后文件里的 `.codex` 路径改成 `.codex`。
-3. 保留 Codex 专属 hooks 文档，不用 Codex hooks 覆盖。
-4. 保留 Codex 专属 `skill-creator`（如存在）。
-5. 同步 `.codex/platform/` 到 `.codex/platform/`，保持 manifest 注册表和策略可用。
-6. 同步 `.codex/workflows/` 到 `.codex/workflows/`，保持命名工作流定义可用。
+1. 读取 canonical profile（`.agent-sync/agents/codex.yaml`，`canonical: true`）与 target profile（`.agent-sync/agents/claude.yaml`）的 `paths` 映射。
+2. 把 canonical 源复制到 target 的 `paths` 目录，并对文本做路径替换（source `paths` → target `paths`）与 runtime 名替换（source `name` → target `name`）。
+3. 保留 target 专属文件（如 target 专属 hooks 文档、`skill-creator`），不被 canonical 镜像覆盖。
+4. `rules` 区域同步时还会同步 instructions 文件（`paths.instructions`），生成 target 的入口文档。
 
-`--check` 会在临时目录构建预期镜像并只报告差异，不会修改 `.codex/`。它保留 Codex 专属的 `skill-creator` 和 hooks 文件，包括其中的符号链接。
+`--check` 只报告差异，不修改任何文件。
 
 ## Boundary
 
-- `.codex/settings.json` 和 `.codex/hooks/` 不同步到 `.codex/`。
-- Codex hooks 继续由 `.codex/rules/common/hooks.md` 和 Codex 自己的 settings 管理。
-- 如果用户明确要求 Codex hooks 也变更，再单独维护。
+- 各区域 canonical / target 的目录映射以 `.agent-sync/agents/*.yaml` 的 `paths` 为准，本文件不重复列出具体路径，避免与 profile 漂移。
+- `.agent-sync/bootstrap.py` 负责生成当前机器的 hook 注册文件（见 profile `paths.hook_config`），并注册到 target 的 settings。
+- 生成目标目录是同步产物，不手工编辑；如需修改，先改 canonical 再同步。
