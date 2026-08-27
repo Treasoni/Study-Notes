@@ -10,8 +10,8 @@ topic: "fnOS Docker 部署 Tailscale 子网路由器（Subnet Router）实战教
 project_slug: "tailscale-subnet-router-fnos"
 created_at: "2026-08-28"
 last_updated: "2026-08-28"
-current_phase: P4
-current_status: in_progress
+current_phase: P5
+current_status: ready
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：tailscale-subnet-router-fnos
 > 项目标识：tailscale-subnet-router-fnos
 > 创建时间：2026-08-28
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -91,7 +91,7 @@ blocked_reason: ""
 
 **进度**：0/6
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
