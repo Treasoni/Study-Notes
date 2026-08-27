@@ -83,6 +83,7 @@
     },
     "项目实战/AI实战": {
       "children": [
+        "项目实战/AI实战/deepseek harness实战",
         "项目实战/AI实战/工程实践",
         "项目实战/AI实战/架构设计",
         "项目实战/AI实战/AI实战 MOC.md",
@@ -814,6 +815,8 @@
     },
     "GitHub项目": {
       "children": [
+        "GitHub项目/LunaTV导入影视网站",
+        "GitHub项目/Stremio-Web实战",
         "GitHub项目/GitHub项目 MOC.md",
         "GitHub项目/new-api中转站搭建与使用指南.md",
         "GitHub项目/Matt Pocock Skills — 实操使用指南.md",
@@ -840,10 +843,33 @@
       ],
       "sortOrder": "custom"
     },
+    "GitHub项目/LunaTV导入影视网站": {
+      "children": [
+        "GitHub项目/LunaTV导入影视网站/01_搞懂lunatv的源机制.md",
+        "GitHub项目/LunaTV导入影视网站/02_找到能导入的影视站.md",
+        "GitHub项目/LunaTV导入影视网站/03_把影视站导入lunatv.md",
+        "GitHub项目/LunaTV导入影视网站/04_常见坑与排错.md",
+        "GitHub项目/LunaTV导入影视网站/05_进阶_被墙源中转与扩展生态.md",
+        "GitHub项目/LunaTV导入影视网站/README.md"
+      ],
+      "sortOrder": "custom"
+    },
     "GitHub项目/OpenSpec": {
       "children": [
         "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.canvas",
         "GitHub项目/OpenSpec/OpenSpec-使用入门与速查.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "GitHub项目/Stremio-Web实战": {
+      "children": [
+        "GitHub项目/Stremio-Web实战/01_认识stremio-web.md",
+        "GitHub项目/Stremio-Web实战/02_客户端选型.md",
+        "GitHub项目/Stremio-Web实战/03_自托管部署.md",
+        "GitHub项目/Stremio-Web实战/04_Addon与Torrentio.md",
+        "GitHub项目/Stremio-Web实战/05_Real-Debrid链路.md",
+        "GitHub项目/Stremio-Web实战/06_画质对比与结论.md",
+        "GitHub项目/Stremio-Web实战/README.md"
       ],
       "sortOrder": "custom"
     },
@@ -1695,6 +1721,8 @@
     },
     "workspace": {
       "children": [
+        "workspace/lunatv-import-sites",
+        "workspace/stremio-web",
         "workspace/deepseek-harness-system-prompt-plugin",
         "workspace/harness-project-setup",
         "workspace/deepseek-harness-agent-preset",
@@ -2920,6 +2948,33 @@
       ],
       "sortOrder": "custom"
     },
+    "workspace/lunatv-import-sites": {
+      "children": [
+        "workspace/lunatv-import-sites/chapters",
+        "workspace/lunatv-import-sites/output",
+        "workspace/lunatv-import-sites/00_intent.md",
+        "workspace/lunatv-import-sites/01_explore_result.md",
+        "workspace/lunatv-import-sites/02_deep_research.md",
+        "workspace/lunatv-import-sites/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/lunatv-import-sites/chapters": {
+      "children": [
+        "workspace/lunatv-import-sites/chapters/01_搞懂lunatv的源机制.md",
+        "workspace/lunatv-import-sites/chapters/02_找到能导入的影视站.md",
+        "workspace/lunatv-import-sites/chapters/03_把影视站导入lunatv.md",
+        "workspace/lunatv-import-sites/chapters/04_常见坑与排错.md",
+        "workspace/lunatv-import-sites/chapters/05_进阶_被墙源中转与扩展生态.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/lunatv-import-sites/output": {
+      "children": [
+        "workspace/lunatv-import-sites/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
     "workspace/matt-pocock-skills": {
       "children": [
         "workspace/matt-pocock-skills/chapters",
@@ -3157,6 +3212,35 @@
     "workspace/output": {
       "children": [
         "workspace/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/stremio-web": {
+      "children": [
+        "workspace/stremio-web/chapters",
+        "workspace/stremio-web/output",
+        "workspace/stremio-web/00_intent.md",
+        "workspace/stremio-web/01_explore_result.md",
+        "workspace/stremio-web/02_deep_research.md",
+        "workspace/stremio-web/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/stremio-web/chapters": {
+      "children": [
+        "workspace/stremio-web/chapters/_count.py",
+        "workspace/stremio-web/chapters/01_认识stremio-web.md",
+        "workspace/stremio-web/chapters/02_客户端选型.md",
+        "workspace/stremio-web/chapters/03_自托管部署.md",
+        "workspace/stremio-web/chapters/04_Addon与Torrentio.md",
+        "workspace/stremio-web/chapters/05_Real-Debrid链路.md",
+        "workspace/stremio-web/chapters/06_画质对比与结论.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/stremio-web/output": {
+      "children": [
+        "workspace/stremio-web/output/final_note.md"
       ],
       "sortOrder": "custom"
     },
@@ -3688,6 +3772,8 @@
     },
     "workspace/workflow-runs": {
       "children": [
+        "workspace/workflow-runs/lunatv-import-sites.workflow.md",
+        "workspace/workflow-runs/stremio-web.workflow.md",
         "workspace/workflow-runs/deepseek-harness-system-prompt-plugin.workflow.md",
         "workspace/workflow-runs/harness-project-setup.workflow.md",
         "workspace/workflow-runs/deepseek-harness-agent-preset.workflow.md",
