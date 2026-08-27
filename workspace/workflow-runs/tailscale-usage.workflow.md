@@ -10,8 +10,8 @@ topic: "Tailscale 使用教程"
 project_slug: "tailscale-usage"
 created_at: "2026-08-28"
 last_updated: "2026-08-28"
-current_phase: P7
-current_status: ready
+current_phase: done
+current_status: complete
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：tailscale-usage
 > 项目标识：tailscale-usage
 > 创建时间：2026-08-28
-> 当前阶段：阶段 7
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -124,7 +124,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ⏭️ 跳过 {skipped}
 
 ---
 
@@ -154,6 +154,7 @@ blocked_reason: ""
 
 | 时间 | 阶段 | 问题描述 | 处理方式 |
 |------|------|---------|---------|
+| 2026-08-28 00:43 | P7 | 跳过阶段：用户选择跳过 MOC（内网穿透目录未指定 MOC 路径，与上一篇笔记处理一致） | 继续推进到下一未完成阶段 |
 | | | | |
 
 ---
