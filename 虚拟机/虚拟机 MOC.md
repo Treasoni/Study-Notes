@@ -2,7 +2,7 @@
 type: moc
 status: active
 created: 2026-07-30
-updated: 2026-07-30
+updated: 2026-08-27
 tags:
   - moc
   - 虚拟机
@@ -25,6 +25,10 @@ tags:
 ## 虚拟网络原理
 
 - [[虚拟机/虚拟网络模式/00_索引.md]] - 虚拟网络模式系列笔记入口（10 章，从 VLAN 到 CNI） #virtual-networking #index
+
+## 镜像与磁盘格式
+
+- [[iso和img.md]] - 镜像文件格式介绍（ISO / IMG / qcow2 / raw 区别） #镜像 #虚拟机
 
 ---
 
