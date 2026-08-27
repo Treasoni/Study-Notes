@@ -10,7 +10,7 @@ topic: "Tailscale 使用教程"
 project_slug: "tailscale-usage"
 created_at: "2026-08-28"
 last_updated: "2026-08-28"
-current_phase: P3
+current_phase: P4
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：tailscale-usage
 > 项目标识：tailscale-usage
 > 创建时间：2026-08-28
-> 当前阶段：阶段 3
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -79,7 +79,7 @@ blocked_reason: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中 {in_progress}
+> [P3] ✅ 已完成 {complete}
 
 ---
 
@@ -91,7 +91,7 @@ blocked_reason: ""
 
 **进度**：0/待大纲确定
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中 {in_progress}
 
 ---
 
@@ -135,6 +135,7 @@ blocked_reason: ""
 | P0 | 用户确认意图文件与研究计划（4 方向，含进阶用法；实战/上手/有了解，输出至 Obsidian 内网穿透目录） | 2026-08-28 |
 | P1 | 用户确认素材质量并选择 P2 方向：全部深挖 | 2026-08-28 |
 | P2 | 用户确认深度素材质量（17 篇源，4 方向全部深挖） | 2026-08-28 |
+| P3 | 用户确认大纲（5 章，约 10,000 字） | 2026-08-28 |
 
 ---
 
