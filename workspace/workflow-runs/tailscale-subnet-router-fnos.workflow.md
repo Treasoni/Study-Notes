@@ -10,7 +10,7 @@ topic: "fnOS Docker 部署 Tailscale 子网路由器（Subnet Router）实战教
 project_slug: "tailscale-subnet-router-fnos"
 created_at: "2026-08-28"
 last_updated: "2026-08-28"
-current_phase: P5
+current_phase: P7
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：tailscale-subnet-router-fnos
 > 项目标识：tailscale-subnet-router-fnos
 > 创建时间：2026-08-28
-> 当前阶段：阶段 5
+> 当前阶段：阶段 7
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -104,7 +104,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中 {in_progress}
+> [P5] ✅ 已完成 {complete}
 
 ---
 
@@ -114,7 +114,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -124,7 +124,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] 🔲 进行中 {in_progress}
 
 ---
 
@@ -137,6 +137,8 @@ blocked_reason: ""
 | P2 | 用户确认 P2 深度素材质量（11 源：官方 5 + 一手 issue 4 + 官方社区 2 + 用户草稿；未决问题待实机确认） | 2026-08-28 |
 | P3 | 用户确认大纲（6 章，约 18-22 页；原理独立第 1 章，Compose 两版，sysctl/iptables 拆分，排错表扩充） | 2026-08-28 |
 | P4 | 用户确认 6 章全部写作完成（约 16,570 汉字；抽查第 1/6 章质量合格；用户回复"可以"，无裁剪需求） | 2026-08-28 |
+| P5 | 用户确认组装结果（方式 A 按序拼接；约 18KB/~18,000 字符；目录+过渡语+总结合格）并确定发布文件名：内网穿透/Tailscale子网路由器部署教程.md | 2026-08-28 |
+| P6 | Obsidian 美化与发布完成：补 frontmatter（title/tags/created/updated/status/source_project）、tags 5 个、双链统一为短式 [[Tailscale使用教程]] 6 处；已发布 内网穿透/Tailscale子网路由器部署教程.md（35KB，6 章） | 2026-08-28 |
 
 ---
 
@@ -167,9 +169,9 @@ blocked_reason: ""
 ## 最终产出
 
 - **笔记类型**：实战笔记（上手）
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
+- **总字数**：约 18,000 字符（6 章正文约 16,570 汉字 + 引言/目录/过渡语/总结）
+- **章节数**：6
+- **输出格式**：Obsidian Markdown
+- **文件路径**：内网穿透/Tailscale子网路由器部署教程.md
 - **Obsidian Vault**：D:\Study-Notes
-- **MOC 路径**：待指定
+- **MOC 路径**：待定（P7 由用户决定是否创建 内网穿透 MOC）
