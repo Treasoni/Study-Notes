@@ -1,3 +1,17 @@
+---
+title: Tailscale使用教程
+tags:
+  - 内网穿透
+  - Tailscale
+  - WireGuard
+  - VPN
+  - MagicDNS
+created: 2026-08-28
+updated: 2026-08-28
+status: 完成
+source_project: tailscale-usage
+---
+
 # Tailscale 使用教程
 
 这篇笔记是「上手级」的 Tailscale 实战指南：假设你已经了解 NAT、P2P/中继、上行带宽等内网穿透概念（可对照同系列笔记 [[内网穿透带宽性能分析]]），目标是看完就能自己把 Tailscale 用起来。正文按「接入 → 常用功能 → 端口暴露与 SSH → 选型排错 → 进阶」五章推进，每章都有可直接照抄的命令示例与「易错点」提醒。第 1–3 章覆盖日常绝大多数场景，第 4–5 章在需要选型、排错或掌控权时按需查阅。
