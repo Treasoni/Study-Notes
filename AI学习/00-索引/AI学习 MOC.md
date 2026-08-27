@@ -2,7 +2,7 @@
 title: "AI学习 MOC"
 tags: [moc]
 created: 2026-05-14
-updated: 2026-08-15
+updated: 2026-08-28
 ---
 
 # AI学习 MOC
@@ -27,6 +27,7 @@ graph TB
     DeepSeek[📁 DeepSeek-Reasonix 教程]
     DeepSeekHarness[📁 DeepSeek-Harness 教程]
     OpenCode[📁 OpenCode]
+    Hermes[📁 Hermes Agent]
     end
 
     Basics --> A1[AI Agents]
@@ -62,6 +63,8 @@ graph TB
     DeepSeekHarness --> DH1[插件开发]
 
     OpenCode --> Opn1[配置迁移实战]
+
+    Hermes --> H1[上手实战]
 ```
 
 ---
@@ -179,6 +182,12 @@ graph TB
 
 - [[配置和使用 opencode]] — 从 Claude Code 迁移到 opencode 的 9 章实战指南：定位对比、安装认证、配置迁移、命令对照、权限、Provider、MCP、Skills/Agent 与排错
 
+### Hermes Agent
+
+> [[Hermes Agent MOC]] — 完整目录与导航入口
+
+- [[Hermes Agent 上手实战]] — 9 章实战笔记：定位理念、安装第一跑、模型 Provider 配置、记忆与学习闭环、技能体系、多平台接入与定时任务、委派与 execute_code、Docker 部署、常见坑与命令速查 #AI学习 #Agent #Hermes
+
 ### DeepSeek-Reasonix 教程
 
 > [[DeepSeek-Reasonix MOC]] — 完整目录与导航入口
@@ -222,7 +231,7 @@ graph TB
 ## 概览
 
 - 📂 目录：`AI学习`
-- 📝 笔记总数：152
-- 📁 子目录数：72
+- 📝 笔记总数：153
+- 📁 子目录数：73
 - 📅 生成日期：2026-05-14
-- 📅 更新日期：2026-08-15
+- 📅 更新日期：2026-08-28

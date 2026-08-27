@@ -10,8 +10,8 @@ topic: "Hermes Agent（Nous Research）上手实战"
 project_slug: "hermes-agent"
 created_at: "2026-08-28"
 last_updated: "2026-08-28"
-current_phase: P6
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -19,6 +19,7 @@ mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
 mode_change_phase: "P2"
 blocked_reason: ""
+quality_gate: passed
 ---
 
 # 学习笔记工作流 - 执行检查清单
@@ -28,7 +29,7 @@ blocked_reason: ""
 > 运行标识：hermes-agent
 > 项目标识：hermes-agent
 > 创建时间：2026-08-28
-> 当前阶段：阶段 6
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -120,7 +121,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] 🔲 进行中 {in_progress}
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -130,7 +131,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -142,6 +143,8 @@ blocked_reason: ""
 | P1 | 用户选择 P2 收集焦点：全部方向综合 | 2026-08-28 |
 | P2 | 用户确认深度素材质量与执行模式 | 2026-08-28 |
 | P3 | 用户确认大纲：9 章 + 文末命令速查附录 | 2026-08-28 |
+| P4 | 用户要求跳过逐章确认，批量写完 9 章 + 附录 | 2026-08-28 |
+| P6 | 用户确认发布位置：AI学习/Hermes Agent/ | 2026-08-28 |
 
 ---
 
@@ -165,16 +168,16 @@ blocked_reason: ""
 
 | 时间 | 原方向 | 新方向 | 是否需要补充收集 |
 |------|--------|--------|-----------------|
-| | | | |
+| 2026-08-28 | 逐章确认（大纲模式） | 用户要求全部写完，跳过逐章确认门 | 否 |
 
 ---
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战笔记
+- **总字数**：约 2.8 万字（57,874 字符含代码）
+- **章节数**：9 章 + 命令速查附录
+- **输出格式**：Obsidian Markdown（frontmatter + Callout + 双链）
+- **文件路径**：`AI学习/Hermes Agent/Hermes Agent 上手实战.md`
+- **Obsidian Vault**：D:\Study-Notes
+- **MOC 路径**：`AI学习/Hermes Agent/Hermes Agent MOC.md`（已同步至 `AI学习/00-索引/AI学习 MOC.md`）
