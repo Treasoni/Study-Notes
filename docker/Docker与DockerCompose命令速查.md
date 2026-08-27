@@ -171,20 +171,20 @@ docker run -d -p 8080:80 --name web --restart=always nginx
 
 镜像命令管菜谱，容器命令管那盘菜。一条生命周期走完：**开 → 看 → 停 → 再开 → 扔**。
 
-| 命令 | 做什么 | 厨房比喻 |
-|------|-------|---------|
-| `docker ps` | 列出运行中的容器 | 看桌上现在摆了几盘 |
-| `docker ps -a` | 列出所有容器（含已停止） | 连收走的盘子一起看 |
-| `docker start CONTAINER` | 启动一个已存在的容器 | 把收走的菜重新端上桌 |
-| `docker stop CONTAINER` | 优雅停止容器 | 收盘子，给几秒收拾时间 |
-| `docker restart CONTAINER` | 重启容器 | 撤下去重新端上来 |
-| `docker rm [-f] [-v] CONTAINER` | 删除容器 | 倒掉这盘菜，盘子也扔 |
-| `docker exec [-it] CONTAINER CMD` | 在运行中的容器里执行命令 | 到后厨那盘菜旁边加调料 |
-| `docker logs [-f] [--tail N] CONTAINER` | 查看容器日志 | 看这盘菜出锅后的流水账 |
-| `docker inspect CONTAINER\|IMAGE` | 查看底层详情（IP、挂载、环境变量） | 翻后厨台账，查完整记录 |
-| `docker cp 容器:路径 宿主路径` | 与容器双向复制文件 | 从菜盘夹走 / 放进配料 |
-| `docker stats` | 实时看 CPU / 内存 / 网络占用 | 盯后厨火力、用水用电 |
-| `docker top CONTAINER` | 看容器内进程 | 看这道菜正在被哪些工序处理 |
+| 命令                                      | 做什么                 | 厨房比喻          |
+| --------------------------------------- | ------------------- | ------------- |
+| `docker ps`                             | 列出运行中的容器            | 看桌上现在摆了几盘     |
+| `docker ps -a`                          | 列出所有容器（含已停止）        | 连收走的盘子一起看     |
+| `docker start CONTAINER`                | 启动一个已存在的容器          | 把收走的菜重新端上桌    |
+| `docker stop CONTAINER`                 | 优雅停止容器              | 收盘子，给几秒收拾时间   |
+| `docker restart CONTAINER`              | 重启容器                | 撤下去重新端上来      |
+| `docker rm [-f] [-v] CONTAINER`         | 删除容器                | 倒掉这盘菜，盘子也扔    |
+| `docker exec [-it] CONTAINER CMD`       | 在运行中的容器里执行命令        | 到后厨那盘菜旁边加调料   |
+| `docker logs [-f] [--tail N] CONTAINER` | 查看容器日志              | 看这盘菜出锅后的流水账   |
+| `docker inspect CONTAINER\|IMAGE`       | 查看底层详情（IP、挂载、环境变量）  | 翻后厨台账，查完整记录   |
+| `docker cp 容器:路径 宿主路径`                  | 与容器双向复制文件           | 从菜盘夹走 / 放进配料  |
+| `docker stats`                          | 实时看 CPU / 内存 / 网络占用 | 盯后厨火力、用水用电    |
+| `docker top CONTAINER`                  | 看容器内进程              | 看这道菜正在被哪些工序处理 |
 
 > [!tip] 大白话
 > `logs -f` 是"跟随"日志——像盯着锅盖，新冒出的蒸汽（日志）实时刷出来；加 `--tail 100` 表示只从最后 100 行开始看，避免刷屏。排错时它的出场率最高。
