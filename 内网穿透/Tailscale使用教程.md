@@ -885,7 +885,9 @@ volumes:
 
 #### 5.4.3 容器作子网路由 / Exit Node
 
-思路与第二章完全一致，只是把 CLI flag 换成环境变量：
+思路与第二章完全一致，只是把 CLI flag 换成环境变量。`docker run` 与 docker compose 是同一部署的两种写法——compose 只是把 flags 声明成 YAML，完全等价。核心配置都少不了：**host 网络 + `NET_ADMIN`/`NET_RAW` 权限 + 内核态（`TS_USERSPACE=false` + `/dev/net/tun`）+ 状态目录持久化**。
+
+`docker run` 写法：
 
 ```bash
 # 子网路由：广播本机可达的网段（用 host 网络）
@@ -893,22 +895,62 @@ docker run -d \
   --name ts-subnet-router \
   --network=host \
   --cap-add=net_admin \
+  --cap-add=net_raw \
+  -v /dev/net/tun:/dev/net/tun \
   -e TS_AUTHKEY=<tskey-YOUR-AUTH-KEY> \
+  -e TS_STATE_DIR=/var/lib/tailscale \
+  -e TS_USERSPACE=false \
   -e TS_ROUTES=192.168.1.0/24,192.168.2.0/24 \
   -e TS_EXTRA_ARGS=--accept-routes \
   tailscale/tailscale:latest
 
-# Exit node：整台设备当公网出口
+# Exit node：整台设备当公网出口（差别只在 TS_EXTRA_ARGS）
 docker run -d \
   --name ts-exit-node \
   --network=host \
   --cap-add=net_admin \
+  --cap-add=net_raw \
+  -v /dev/net/tun:/dev/net/tun \
   -e TS_AUTHKEY=<tskey-YOUR-AUTH-KEY> \
+  -e TS_STATE_DIR=/var/lib/tailscale \
+  -e TS_USERSPACE=false \
   -e TS_EXTRA_ARGS=--advertise-exit-node \
   tailscale/tailscale:latest
 ```
 
+docker compose 写法（子网路由示例；Exit node 把 `TS_ROUTES` 换成 `TS_EXTRA_ARGS=--advertise-exit-node` 即可）：
+
+```yaml
+# compose.yaml
+services:
+  tailscale:
+    image: tailscale/tailscale:latest
+    container_name: ts-subnet-router
+    hostname: ts-subnet-router    # MagicDNS 里显示的名字
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_USERSPACE=false
+      - TS_ROUTES=192.168.1.0/24,192.168.2.0/24
+      # 想同时接收其它节点广播的路由，取消下面注释：
+      # - TS_EXTRA_ARGS=--accept-routes
+    volumes:
+      - ts-state:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun
+    restart: unless-stopped
+
+volumes:
+  ts-state:
+```
+
 广播后照例要去 admin console **审批路由**，客户端再 `tailscale set --accept-routes`（子网）或用 `--exit-node=<设备名>`（出口）使用[^c5-6][^c5-7]。
+
+> [!warning] 易错点：subnet router 依赖宿主机 IP 转发
+> 容器里的 Tailscale 只负责 tailnet 侧；「tailnet 流量 → 局域网」要靠宿主机内核转发。记得在宿主机开启 IP 转发（`net.ipv4.ip_forward=1`，同 2.3 节）；如果客户端能连到节点但访问子网超时，优先检查宿主机转发是否开启、容器权限是否给够。
 
 #### 5.4.4 Kubernetes 部署
 
@@ -963,3 +1005,4 @@ env:
 ## 更新记录
 
 - 2026-08-28：补充 5.4 节 Docker 部署内容（standalone `docker run`、Compose Sidecar、容器作 subnet router / exit node），节标题改为「Docker 与 Kubernetes 集成」，并新增 `TS_*` 环境变量速查表与官方文档来源。
+- 2026-08-28：按反馈为 5.4.3 补充 docker compose 等价写法（subnet router / exit node），修正为内核态（`TS_USERSPACE=false` + `/dev/net/tun`），并补宿主机 IP 转发易错点。

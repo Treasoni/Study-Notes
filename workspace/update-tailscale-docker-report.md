@@ -15,6 +15,7 @@
 3. **本章小结**：最后一条扩充 Docker 部署要点（状态目录持久化、sidecar 共享网络栈、`TS_USERSPACE=false`、`TS_ROUTES`/`TS_EXTRA_ARGS`、`TS_ACCEPT_DNS`）。
 4. **参考来源**：追加 `[^c5-6]`（Docker standalone 官方文档）、`[^c5-7]`（Docker 配置参数）。
 5. **更新记录**：末尾追加 `## 更新记录`（2026-08-28）。
+6. **（补充）5.4.3 容器作子网路由 / Exit Node**：应反馈补充 docker compose 等价写法（compose.yaml 示例），并将 `docker run` 示例修正为内核态（`TS_USERSPACE=false` + `/dev/net/tun` 挂载），新增宿主机 IP 转发易错点。
 
 ## 来源
 
