@@ -11,7 +11,7 @@ project_slug: "tailscale-usage"
 created_at: "2026-08-28"
 last_updated: "2026-08-28"
 current_phase: P2
-current_status: ready
+current_status: in_progress
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -67,7 +67,7 @@ blocked_reason: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] ⬜ 未开始
+> [P2] 🔲 进行中 {in_progress}
 
 ---
 
@@ -133,6 +133,7 @@ blocked_reason: ""
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
 | P0 | 用户确认意图文件与研究计划（4 方向，含进阶用法；实战/上手/有了解，输出至 Obsidian 内网穿透目录） | 2026-08-28 |
+| P1 | 用户确认素材质量并选择 P2 方向：全部深挖 | 2026-08-28 |
 
 ---
 
