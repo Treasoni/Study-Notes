@@ -10,7 +10,7 @@ topic: "内网穿透带宽性能分析"
 project_slug: "intranet-penetration-bandwidth"
 created_at: "2026-08-27"
 last_updated: "2026-08-27"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：intranet-penetration-bandwidth
 > 项目标识：intranet-penetration-bandwidth
 > 创建时间：2026-08-27
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -89,9 +89,9 @@ blocked_reason: ""
 - [ ] 第 3 章已写完并确认
 - [ ] ...（根据实际章节数添加）
 
-**进度**：0/5
+**进度**：5/5
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -104,7 +104,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
@@ -136,6 +136,7 @@ blocked_reason: ""
 | P1 | 用户确认素材质量并选择方向：全部深挖 | 2026-08-27 |
 | P2 | 用户确认深度素材质量 | 2026-08-27 |
 | P3 | 用户确认大纲（5 章） | 2026-08-27 |
+| P4 | 用户指示直接写完，跳过逐章确认（5 章全部完成） | 2026-08-27 |
 
 ---
 
