@@ -3,14 +3,14 @@ workflow_id: learning-note-flow
 workflow_name: 学习笔记工作流
 workflow_version: 1
 state_file_type: workflow-run
-run_id: "tailscale-usage"
-task: "Tailscale 使用教程"
+run_id: "hermes-agent"
+task: "Hermes Agent（Nous Research）上手实战"
 created_from: ".claude/workflows/learning-note-flow/state-template.md"
-topic: "Tailscale 使用教程"
-project_slug: "tailscale-usage"
+topic: "Hermes Agent（Nous Research）上手实战"
+project_slug: "hermes-agent"
 created_at: "2026-08-28"
 last_updated: "2026-08-28"
-current_phase: P1
+current_phase: P0
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -24,11 +24,11 @@ blocked_reason: ""
 # 学习笔记工作流 - 执行检查清单
 
 > 工作流：learning-note-flow
-> 主题：Tailscale 使用教程
-> 运行标识：tailscale-usage
-> 项目标识：tailscale-usage
+> 主题：Hermes Agent（Nous Research）上手实战
+> 运行标识：hermes-agent
+> 项目标识：hermes-agent
 > 创建时间：2026-08-28
-> 当前阶段：阶段 1
+> 当前阶段：阶段 0
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -42,7 +42,7 @@ blocked_reason: ""
 - [ ] 如发布到 Obsidian，vault_path、note_folder、moc_path 已确认或标记待补
 - [ ] 意图文件已生成：`./00_intent.md`
 
-> [P0] ✅ 已完成 {complete}
+> [P0] 🔲 进行中 {in_progress}
 
 ---
 
@@ -53,7 +53,7 @@ blocked_reason: ""
 - [ ] 用户已选择学习方向
 - [ ] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] 🔲 进行中 {in_progress}
+> [P1] ⬜ 未开始
 
 ---
 
@@ -132,7 +132,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
-| P0 | 用户确认意图文件与研究计划（4 方向，含进阶用法；实战/上手/有了解，输出至 Obsidian 内网穿透目录） | 2026-08-28 |
+| | | |
 
 ---
 
