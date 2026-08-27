@@ -10,7 +10,7 @@ topic: "Hermes Agent（Nous Research）上手实战"
 project_slug: "hermes-agent"
 created_at: "2026-08-28"
 last_updated: "2026-08-28"
-current_phase: P1
+current_phase: P2
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：hermes-agent
 > 项目标识：hermes-agent
 > 创建时间：2026-08-28
-> 当前阶段：阶段 1
+> 当前阶段：阶段 2
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -53,7 +53,7 @@ blocked_reason: ""
 - [ ] 用户已选择学习方向
 - [ ] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] 🔲 进行中 {in_progress}
+> [P1] ✅ 已完成 {complete}
 
 ---
 
@@ -67,7 +67,7 @@ blocked_reason: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] ⬜ 未开始
+> [P2] 🔲 进行中 {in_progress}
 
 ---
 
