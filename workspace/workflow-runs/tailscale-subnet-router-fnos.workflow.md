@@ -11,7 +11,7 @@ project_slug: "tailscale-subnet-router-fnos"
 created_at: "2026-08-28"
 last_updated: "2026-08-28"
 current_phase: P5
-current_status: ready
+current_status: in_progress
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -89,7 +89,7 @@ blocked_reason: ""
 - [ ] 第 3 章已写完并确认
 - [ ] ...（根据实际章节数添加）
 
-**进度**：0/6
+**进度**：6/6
 
 > [P4] ✅ 已完成 {complete}
 
@@ -104,7 +104,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
@@ -136,6 +136,7 @@ blocked_reason: ""
 | P1 | 用户确认 P1 探测结果并选择 P2 方向：A. 全部深挖（三视角均衡：全流程 + 原理 + 排错） | 2026-08-28 |
 | P2 | 用户确认 P2 深度素材质量（11 源：官方 5 + 一手 issue 4 + 官方社区 2 + 用户草稿；未决问题待实机确认） | 2026-08-28 |
 | P3 | 用户确认大纲（6 章，约 18-22 页；原理独立第 1 章，Compose 两版，sysctl/iptables 拆分，排错表扩充） | 2026-08-28 |
+| P4 | 用户确认 6 章全部写作完成（约 16,570 汉字；抽查第 1/6 章质量合格；用户回复"可以"，无裁剪需求） | 2026-08-28 |
 
 ---
 
@@ -151,7 +152,7 @@ blocked_reason: ""
 
 | 时间 | 阶段 | 问题描述 | 处理方式 |
 |------|------|---------|---------|
-| | | | |
+| 2026-08-28 | P4 | chapter-writer 越权提前执行 `complete P4`，绕过用户确认门（P4 状态先于用户确认被置为 complete） | 向用户说明流程偏差；用户确认（"可以"）后补记确认记录与异常记录；进度已修正为 6/6 |
 
 ---
 
