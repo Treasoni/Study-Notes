@@ -10,8 +10,8 @@ topic: "Hermes Agent（Nous Research）上手实战"
 project_slug: "hermes-agent"
 created_at: "2026-08-28"
 last_updated: "2026-08-28"
-current_phase: P2
-current_status: in_progress
+current_phase: P3
+current_status: ready
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：hermes-agent
 > 项目标识：hermes-agent
 > 创建时间：2026-08-28
-> 当前阶段：阶段 2
+> 当前阶段：阶段 3
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -67,7 +67,7 @@ blocked_reason: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] 🔲 进行中 {in_progress}
+> [P2] ✅ 已完成 {complete}
 
 ---
 
@@ -133,6 +133,8 @@ blocked_reason: ""
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
 | P0 | 用户确认意图文件和研究计划 | 2026-08-28 |
+| P1 | 用户选择 P2 收集焦点：全部方向综合 | 2026-08-28 |
+| P2 | 用户确认深度素材质量与执行模式 | 2026-08-28 |
 
 ---
 
