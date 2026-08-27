@@ -664,7 +664,7 @@ tailscale netcheck
 
 ## 进阶用法
 
-前四章我们一直在把 Tailscale 当「开箱即用的内网穿透」工具：装上、登录、用名字访问，剩下的交给官方云。这一章回答一个更实际的问题——**当默认策略不够用，或者你想把控制权握在自己手里时，应该怎么配**。你会学到 Policy 文件的高级写法（tags / groups / 自动审批 / 自定义 DERP），以及 Headscale 自建控制面、自建 DERP、容器与 Kubernetes 集成的「能用级」配置。
+前四章我们一直在把 Tailscale 当「开箱即用的内网穿透」工具：装上、登录、用名字访问，剩下的交给官方云。这一章回答一个更实际的问题——**当默认策略不够用，或者你想把控制权握在自己手里时，应该怎么配**。你会学到 Policy 文件的高级写法（tags / groups / 自动审批 / 自定义 DERP），以及 Headscale 自建控制面、自建 DERP、Docker 与 Kubernetes 容器集成的「能用级」配置。
 
 ### 5.1 Tailnet Policy 进阶
 
@@ -790,13 +790,131 @@ sudo derper --hostname=example.com
 sudo derper --hostname=example.com --verify-clients
 ```
 
-### 5.4 容器与 Kubernetes
+### 5.4 Docker 与 Kubernetes 集成
 
-Tailscale 官方支持在容器和 K8s 里运行，形态分四种：**operator / sidecar / proxy / subnet router**，用途覆盖 Service 入口（ingress）、tailnet 出站（egress）、安全访问 kube-apiserver[^c5-4]。
+Tailscale 官方支持在容器和 K8s 里运行，形态分四种：**operator / sidecar / proxy / subnet router**，用途覆盖 Service 入口（ingress）、tailnet 出站（egress）、安全访问 kube-apiserver[^c5-4]。Docker 是上手成本最低的一类：官方镜像 `tailscale/tailscale`（GitHub Container Registry 对应 `ghcr.io/tailscale/tailscale`）把 `tailscaled` 与启动脚本 containerboot 打包在一起，用环境变量驱动[^c5-6]。
 
-**认证**：容器里用 auth key 认证——一次性（ephemeral）或可复用（reusable），存到 K8s Secret `TS_AUTHKEY`；如果没配 key，也能从容器日志里拿到登录 URL 完成认证。ephemeral 节点关机后自动从 tailnet 移除[^c5-4]。
+#### 5.4.1 单机部署：`docker run`
 
-**Subnet router**：跟第二章节的步骤一致，只是改用环境变量 `TS_ROUTES` 声明要广播的网段，例如 `TS_ROUTES=10.20.0.0/16,10.42.0.0/15`，然后在 admin console 启用、客户端 `--accept-routes`[^c5-4][^c5-5]。
+先到 admin console → **Keys** → Generate auth key 生成一次性密钥，然后启动：
+
+```bash
+docker pull tailscale/tailscale:latest
+
+docker run -d \
+  --name tailscale \
+  --hostname tailscale-nginx \
+  -e TS_AUTHKEY=<tskey-YOUR-AUTH-KEY> \
+  -e TS_STATE_DIR=/var/lib/tailscale \
+  -v ./tailscale-state:/var/lib/tailscale \
+  --cap-add=net_admin \
+  --cap-add=net_raw \
+  --restart unless-stopped \
+  tailscale/tailscale:latest
+```
+
+启动后在 admin console 的 Machines 页看到 `tailscale-nginx`，说明节点已加入 tailnet。常用环境变量速查[^c5-6][^c5-7]：
+
+| 变量 | 作用 | 等价 CLI |
+|------|------|----------|
+| `TS_AUTHKEY` | 认证密钥，容器自动登录 | `tailscale login --auth-key=` |
+| `TS_STATE_DIR` | 状态目录，必须持久化 | `tailscaled --statedir=` |
+| `TS_USERSPACE` | user-space 网络开关（默认 true） | `tailscaled --tun=userspace-networking` |
+| `TS_HOSTNAME` | 自定义 tailnet 主机名 | `tailscale set --hostname=` |
+| `TS_ROUTES` | 广播子网路由 | `tailscale set --advertise-routes=` |
+| `TS_ACCEPT_DNS` | 接受 MagicDNS 配置（默认不接收） | `tailscale up --accept-dns` |
+| `TS_EXTRA_ARGS` | 附加 `tailscale up` 参数 | 如 `--advertise-exit-node --ssh` |
+| `TS_TAILSCALED_EXTRA_ARGS` | 附加 `tailscaled` 参数 | 如 `--verbose=2` |
+
+> [!warning] 易错点：状态目录必须持久化
+> 容器默认把状态放在临时目录，**不挂载 volume 的话，每次重启都会注册成新节点**，admin console 里会堆满重复设备。`-v ./tailscale-state:/var/lib/tailscale` 就是为了保住节点身份（私钥），这条不能省。
+
+**user-space 与内核态**：镜像默认 `TS_USERSPACE=true`（user-space networking），不需要 `/dev/net/tun`，适合「只让这台容器自己入网」；但性能略低，且共享命名空间的其它容器无法透明访问 tailnet。要用内核态 WireGuard（sidecar 模式必需），设 `TS_USERSPACE=false` 并挂载 TUN 设备：
+
+```bash
+docker run -d \
+  --name tailscale \
+  --hostname my-node \
+  -e TS_AUTHKEY=<tskey-YOUR-AUTH-KEY> \
+  -e TS_STATE_DIR=/var/lib/tailscale \
+  -e TS_USERSPACE=false \
+  -v ./tailscale-state:/var/lib/tailscale \
+  -v /dev/net/tun:/dev/net/tun \
+  --cap-add=net_admin \
+  --cap-add=net_raw \
+  --restart unless-stopped \
+  tailscale/tailscale:latest
+```
+
+#### 5.4.2 Sidecar 模式：把应用容器接进 tailnet
+
+最常见的需求是「我有个容器服务（nginx、Grafana、Home Assistant…），只想让 tailnet 内的人访问」。做法是让应用容器共享 Tailscale 容器的网络命名空间，应用本身不用改任何代码：
+
+```yaml
+# docker-compose.yml
+services:
+  tailscale:
+    image: tailscale/tailscale:latest
+    hostname: my-app          # MagicDNS 里显示的名字
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_USERSPACE=false    # sidecar 模式必须内核态
+    volumes:
+      - ts-state:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:latest
+    network_mode: service:tailscale   # 共享 tailscale 容器的网络栈
+    depends_on:
+      - tailscale
+
+volumes:
+  ts-state:
+```
+
+`network_mode: service:tailscale` 让 nginx 与 tailscale 共用同一套网络栈：nginx 监听 `80`，就直接出现在 Tailscale 容器的 `100.x` IP 与 MagicDNS 主机名上，tailnet 成员用 `http://my-app` 就能访问。数据路径：加密包 → tailscaled 解密 → `tailscale0` 虚拟网卡 → 共享命名空间内的 nginx[^c5-6]。
+
+> [!warning] 易错点：容器默认没有 DNS
+> 容器不继承宿主机 DNS 配置，**MagicDNS 在容器里默认不生效**。要用机器名访问其它设备，必须显式设 `TS_ACCEPT_DNS=true`，否则只能写 `100.x` IP（K8s 里同理，见 5.4.4）。
+
+#### 5.4.3 容器作子网路由 / Exit Node
+
+思路与第二章完全一致，只是把 CLI flag 换成环境变量：
+
+```bash
+# 子网路由：广播本机可达的网段（用 host 网络）
+docker run -d \
+  --name ts-subnet-router \
+  --network=host \
+  --cap-add=net_admin \
+  -e TS_AUTHKEY=<tskey-YOUR-AUTH-KEY> \
+  -e TS_ROUTES=192.168.1.0/24,192.168.2.0/24 \
+  -e TS_EXTRA_ARGS=--accept-routes \
+  tailscale/tailscale:latest
+
+# Exit node：整台设备当公网出口
+docker run -d \
+  --name ts-exit-node \
+  --network=host \
+  --cap-add=net_admin \
+  -e TS_AUTHKEY=<tskey-YOUR-AUTH-KEY> \
+  -e TS_EXTRA_ARGS=--advertise-exit-node \
+  tailscale/tailscale:latest
+```
+
+广播后照例要去 admin console **审批路由**，客户端再 `tailscale set --accept-routes`（子网）或用 `--exit-node=<设备名>`（出口）使用[^c5-6][^c5-7]。
+
+#### 5.4.4 Kubernetes 部署
+
+容器认证方式与 Docker 相同：用 auth key——一次性（ephemeral）或可复用（reusable）——存到 K8s Secret `TS_AUTHKEY`；如果没配 key，也能从容器日志里拿到登录 URL 完成认证。ephemeral 节点关机后自动从 tailnet 移除[^c5-4]。
+
+K8s 下的 subnet router 与 5.4.3 一致，只是把路由声明放进 `TS_ROUTES`，例如 `TS_ROUTES=10.20.0.0/16,10.42.0.0/15`，然后在 admin console 启用、客户端 `--accept-routes`[^c5-4][^c5-5]。
 
 ```yaml
 # K8s 部署 tailscale 时注入的环境变量（以 sidecar / subnet router 为例）
@@ -820,7 +938,7 @@ env:
 - `autoApprovers` 只对首次广播的路由生效，重认证会停播；`randomizeClientPort` 用随机端口替代固定 UDP 41641。
 - Headscale 自托管控制面只替换「前台」，数据面仍走节点间 WireGuard；不鼓励反代/容器部署，必须按发布版本选 GitHub tag。
 - 自建 DERP 处于 alpha，必须直连公网（不能 NAT/LB）、开放 443+3478；region ID 900–999 留给自定义，`--verify-clients` 防蹭、`cmd/derpprobe` 监控。
-- 容器/K8s 有四种形态，auth key 放 Secret `TS_AUTHKEY`，subnet router 用 `TS_ROUTES`；容器默认无 DNS，MagicDNS 需 `TS_ACCEPT_DNS=true`。
+- Docker 单机部署用官方镜像 `tailscale/tailscale` + `TS_*` 环境变量；**状态目录必须挂 volume 持久化**，否则每次重启都是新节点。Sidecar 用 `network_mode: service:tailscale` 共享网络栈（需 `TS_USERSPACE=false`），容器作 subnet router / exit node 用 `TS_ROUTES` / `TS_EXTRA_ARGS`。容器默认无 DNS，MagicDNS 需 `TS_ACCEPT_DNS=true`。
 
 到这里，五章正文全部完成。下一步会把全部分章节拼成一篇完整的《Tailscale 使用教程》，统一标题层级、检查引用，并做 Obsidian 美化发布。
 
@@ -831,9 +949,17 @@ env:
 [^c5-3]: 自定义 DERP 服务器 — https://tailscale.com/docs/reference/derp-servers/custom-derp-servers
 [^c5-4]: Tailscale on Kubernetes — https://tailscale.com/docs/kubernetes
 [^c5-5]: Tailscale CLI 参考 — https://tailscale.com/docs/reference/tailscale-cli
+[^c5-6]: Tailscale Docs：在 Docker 中连接容器（standalone） — https://tailscale.com/docs/features/containers/docker/how-to/connect-docker-standalone
+[^c5-7]: Tailscale Docs：Docker 配置参数（环境变量） — https://tailscale.com/docs/features/containers/docker/docker-params
 
 ---
 
 ## 结语
 
 到这里，五章内容就走完了：从把第一台设备接入 tailnet，到用名字访问、ACL 收紧权限，再到 serve/funnel 暴露服务、Tailscale SSH 免密登录，最后落到选型排错与进阶能力。整个学习路径可以概括为「先会用，再会修，最后把控制权握在自己手里」。如果只是想上手，前两章就能覆盖大部分日常场景；第四、五章可以在遇到性能、合规或扩容需求时回来精读。下一步，不妨挑一台设备把全文的命令从头到尾跑一遍，再回到 [[内网穿透带宽性能分析]] 对照理解带宽与打洞原理。
+
+---
+
+## 更新记录
+
+- 2026-08-28：补充 5.4 节 Docker 部署内容（standalone `docker run`、Compose Sidecar、容器作 subnet router / exit node），节标题改为「Docker 与 Kubernetes 集成」，并新增 `TS_*` 环境变量速查表与官方文档来源。
