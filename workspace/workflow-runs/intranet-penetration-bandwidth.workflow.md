@@ -173,5 +173,5 @@ blocked_reason: ""
 - **输出格式**：Obsidian Markdown（YAML frontmatter + Callout + 双链 + 脚注）
 - **文件路径**：workspace/intranet-penetration-bandwidth/output/final_note.md
 - **Obsidian Vault**：D:\Study-Notes
-- **已发布**：D:\Study-Notes\虚拟机\内网穿透带宽性能分析.md
+- **已发布**：D:\Study-Notes\内网穿透\内网穿透带宽性能分析.md
 - **MOC 路径**：待指定（用户可在 Obsidian 中指定后执行 moc-organizer）

@@ -2,6 +2,7 @@
   "customOrder": {
     "/": {
       "children": [
+        "内网穿透",
         "CONTEXT.md",
         "TCP协议基础.md",
         "显存（VRAM）与本地部署大模型.md",
@@ -135,6 +136,7 @@
     },
     "虚拟机": {
       "children": [
+        "虚拟机/内网穿透带宽性能分析.md",
         "虚拟机/VMware 启动出现 No Media 报错.md",
         "虚拟机/虚拟机 MOC.md",
         "虚拟机/VMware Workstation Player 安装 Windows 虚拟机.md",
@@ -1721,6 +1723,8 @@
     },
     "workspace": {
       "children": [
+        "workspace/intranet-penetration-bandwidth",
+        "workspace/iso-img-update",
         "workspace/lunatv-import-sites",
         "workspace/stremio-web",
         "workspace/deepseek-harness-system-prompt-plugin",
@@ -3772,6 +3776,7 @@
     },
     "workspace/workflow-runs": {
       "children": [
+        "workspace/workflow-runs/intranet-penetration-bandwidth.workflow.md",
         "workspace/workflow-runs/lunatv-import-sites.workflow.md",
         "workspace/workflow-runs/stremio-web.workflow.md",
         "workspace/workflow-runs/deepseek-harness-system-prompt-plugin.workflow.md",
@@ -3820,6 +3825,44 @@
         "workspace/workflow-runs/nodejs-ai-application.workflow.md",
         "workspace/workflow-runs/superpowers.workflow.md"
       ],
+      "sortOrder": "custom"
+    },
+    "workspace/iso-img-update": {
+      "children": [
+        "workspace/iso-img-update/update_report.md",
+        "workspace/iso-img-update/update_plan.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/intranet-penetration-bandwidth": {
+      "children": [
+        "workspace/intranet-penetration-bandwidth/output",
+        "workspace/intranet-penetration-bandwidth/chapters",
+        "workspace/intranet-penetration-bandwidth/03_outline.md",
+        "workspace/intranet-penetration-bandwidth/02_deep_research.md",
+        "workspace/intranet-penetration-bandwidth/01_explore_result.md",
+        "workspace/intranet-penetration-bandwidth/00_intent.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/intranet-penetration-bandwidth/chapters": {
+      "children": [
+        "workspace/intranet-penetration-bandwidth/chapters/04_实战用iPerf3测自家隧道带宽并选型.md",
+        "workspace/intranet-penetration-bandwidth/chapters/02_固定带宽套餐能干什么.md",
+        "workspace/intranet-penetration-bandwidth/chapters/05_常见坑FAQ与进阶方向.md",
+        "workspace/intranet-penetration-bandwidth/chapters/03_ZeroTier和Tailscale的带宽怎么看.md",
+        "workspace/intranet-penetration-bandwidth/chapters/01_内网穿透的带宽从哪来.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/intranet-penetration-bandwidth/output": {
+      "children": [
+        "workspace/intranet-penetration-bandwidth/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "内网穿透": {
+      "children": [],
       "sortOrder": "custom"
     }
   },
