@@ -13,7 +13,7 @@ source_project: hermes-agent
 
 # Hermes Agent（Nous Research）上手实战
 
-这份笔记围绕 Nous Research 出品的开源 AI agent——Hermes Agent 整理而成。与"装好即定型"的传统 agent 不同，Hermes 的核心卖点是内置学习回路：越用越懂你、越用越能干活。全篇按 定位 → 安装 → 模型配置 → 记忆闭环 → 技能体系 → 多平台自动化 → 委派并行 → 部署进阶 → 常见坑 → 命令速查 的顺序展开，九章正文加一个附录，帮助你从零跑通 Hermes，并理解它"用着用着自己变强"的机制。
+这份笔记围绕 Nous Research 出品的开源 AI agent——Hermes Agent 整理而成。与"装好即定型"的传统 agent 不同，Hermes 的核心卖点是内置学习回路：越用越懂你、越用越能干活。全篇按 定位 → 安装 → 模型配置 → 记忆闭环 → 技能体系 → 多平台自动化 → 委派并行 → 部署进阶 → 常见坑 → 身份定制与多 Agent → 命令速查 的顺序展开，十章正文加一个附录，帮助你从零跑通 Hermes，并理解它"用着用着自己变强"的机制。
 
 ## 目录
 
@@ -26,7 +26,8 @@ source_project: hermes-agent
 7. [委派与并行：子代理与 execute_code](#委派与并行子代理与-executecode)
 8. [部署进阶：Docker、多后端与安全基线](#部署进阶docker多后端与安全基线)
 9. [常见坑与最佳实践](#常见坑与最佳实践)
-10. [附录：Hermes Agent 常用命令速查](#附录hermes-agent-常用命令速查)
+10. [身份定制与多 Agent：SOUL.md、Profiles 与 Bot Mode](#身份定制与多-agentsoulmdprofiles-与-bot-mode)
+11. [附录：Hermes Agent 常用命令速查](#附录hermes-agent-常用命令速查)
 
 ## 定位与核心理念：一个会自我改进的 agent
 
@@ -59,7 +60,7 @@ Hermes Agent 是 Nous Research 出品的开源 AI agent，标语 "The agent that
 
 ### 营销口径与版本提示
 
-"唯一带内置学习回路的 agent"是官方营销表述；官方访谈也承认竞品为 OpenClaw（技能可迁移）、Claude Code 和 Codex（来源 S1、S16）。判断强弱要看机制而非口号；本笔记涉及后端数量、Vercel Sandbox 的内容均以 v0.18+ 文档为准。
+"唯一带内置学习回路的 agent"是官方营销表述；官方访谈也承认竞品为 OpenClaw（技能可迁移）、Claude Code 和 Codex（来源 S1、S16）。判断强弱要看机制而非口号；本笔记涉及后端数量、Vercel Sandbox 的内容均以 v0.20.x 文档为准。
 
 ### 本章小结
 
@@ -117,7 +118,7 @@ hermes setup --portal
 
 ### 2.5 Windows 原生 vs WSL2
 
-官方口径有矛盾 [^c2-1][^c2-2]：README 称原生"无需 WSL"；providers 文档称需 Unix 环境、应在 WSL2 内运行；安装文档把原生标为 early beta（以 v0.18+ 文档为准）。**推荐**：原生可跑，但模型服务与稳定性以 WSL2 为准，求稳选 WSL2。
+官方口径有矛盾 [^c2-1][^c2-2]：README 称原生"无需 WSL"；providers 文档称需 Unix 环境、应在 WSL2 内运行；安装文档把原生标为 early beta（以 v0.20.x 文档为准）。**推荐**：原生可跑，但模型服务与稳定性以 WSL2 为准，求稳选 WSL2。
 
 预提示：Defender / Bitdefender / 腾讯管家常把 uv.exe（Astral 未签名 Rust 二进制）误报为病毒 [^c2-3][^c2-4]；白名单加**整个文件夹**而非文件哈希（uv 每版本哈希都变），必要时 `gh attestation verify` 校验。
 
@@ -247,7 +248,7 @@ Hermes 的内置记忆是文件式的，存在 `~/.hermes/memories/`，只有两
 `memory` 工具只有三个动作：`add` / `replace` / `remove`，**没有 read**——因为记忆已在会话启动时自动注入 system prompt，agent 不需要（也不能）主动去查。`replace` 和 `remove` 用 `old_text` 做**唯一子串匹配**定位旧条目：
 
 ```json
-// 示意：memory 工具调用（精确字段以 v0.18+ 文档为准）
+// 示意：memory 工具调用（精确字段以 v0.20.x 文档为准）
 { "action": "add",     "kind": "memory", "text": "用户偏好 TypeScript，禁止 any" }
 { "action": "replace", "old_text": "用户偏好 TypeScript",
   "text": "用户偏好 TypeScript 且用 pnpm" }
@@ -272,7 +273,7 @@ Hermes 的内置记忆是文件式的，存在 `~/.hermes/memories/`，只有两
 
 ### 4.5 外置记忆与 Honcho：从"记住"到"理解"
 
-内置记忆之外，Hermes 支持外置 memory provider。注意一个数字矛盾：memory-providers 页面自称提供 **8 个**，实际对比表列了 **9 个**（Honcho/OpenViking/Mem0/Hindsight/Holographic/RetainDB/ByteRover/Supermemory/Memori），以 v0.18+ 文档为准。无论选哪个，**同一时刻只激活一个外置 provider，而内置记忆始终并行**。[^c4-2]
+内置记忆之外，Hermes 支持外置 memory provider。注意一个数字矛盾：memory-providers 页面自称提供 **8 个**，实际对比表列了 **9 个**（Honcho/OpenViking/Mem0/Hindsight/Holographic/RetainDB/ByteRover/Supermemory/Memori），以 v0.20.x 文档为准。无论选哪个，**同一时刻只激活一个外置 provider，而内置记忆始终并行**。[^c4-2]
 
 其中最值得单独说的是 Honcho（plastic-labs 的 AI-native 记忆后端）：它采用 **dialectic（辩证）建模**，在每次对话后推理"用户是谁"，存的是**"结论而非对话"**——对用户画像做增量提炼，而不是流水账。[^c4-3]
 
@@ -282,7 +283,7 @@ Hermes 的内置记忆是文件式的，存在 `~/.hermes/memories/`，只有两
 它有三个正交旋钮，控制"多快推理、多深推理、上下文怎么注入"：
 
 ```yaml
-# ~/.hermes/config.yaml 片段（取值语义以 v0.18+ 文档为准）
+# ~/.hermes/config.yaml 片段（取值语义以 v0.20.x 文档为准）
 memory:
   provider: honcho
   honcho:
@@ -360,7 +361,7 @@ Hermes 用三级加载把"有哪些技能"到"精读技能细节"拆成三档成
 ### 5.4 SKILL.md 规范：frontmatter + 正文五段
 
 ```yaml
-# SKILL.md（以 v0.18+ 文档为准）
+# SKILL.md（以 v0.20.x 文档为准）
 ---
 name: my-deploy
 description: 用 Docker 部署 Hermes 并保持配置持久化
@@ -391,7 +392,7 @@ metadata:
 ### 5.6 Skills Hub 多源安装与安全扫描
 
 ```bash
-# 从 Skills Hub 安装（具体子命令以 v0.18+ 文档为准）
+# 从 Skills Hub 安装（具体子命令以 v0.20.x 文档为准）
 hermes skills install <skill-name>        # 默认全量安全扫描后加载
 hermes skills install <skill-name> --force  # ⚠️ dangerous 判定下 --force 也无法绕过
 ```
@@ -536,7 +537,7 @@ cron 能力通过统一的 `cronjob` 工具暴露，在对话里用自然语言�
 并行批处理有三个默认行为：最多 **3 个并发**、结果**按输入顺序返回**、**顶层委托在后台自动运行**（主对话可继续，不必干等）。成本策略是经典的"frontier 规划 + 廉价 worker"：让贵模型负责拆任务派活，子代理统一用一个便宜模型执行——通过 `delegation.model` 全局 pin 住，子代理自己不能选工具集和模型。[^c7-S10]
 
 ```python
-# delegate_task 并行委派示意（调用格式以 v0.18+ 文档为准）
+# delegate_task 并行委派示意（调用格式以 v0.20.x 文档为准）
 delegate_task(
     prompt=[
         "总结 02_deep_research.md 3.3 节的委派要点",
@@ -555,7 +556,7 @@ delegate_task(
 > 把 execute_code 想成一条自动流水线：你把原料（Python 脚本）丢进流水线入口，它自己调用搜索、读写、跑命令完成中间工序，只有末端打好标签的成品（print 出来的内容）送到你眼前。中间半成品不经过你的办公桌，自然不占地方（token）。
 
 ```python
-# execute_code 脚本（工具签名示意，以 v0.18+ 文档为准）
+# execute_code 脚本（工具签名示意，以 v0.20.x 文档为准）
 def main():
     hits = web_search("hermes-agent delegation")   # 搜索结果只留在脚本内
     content = read_file("notes.md")                # 读文件，不进主上下文
@@ -568,10 +569,10 @@ def main():
 
 ### 7.3 资源限制与安全不变量
 
-execute_code 有默认资源上限：超时 **300s**（SIGTERM → 5s 宽限 → SIGKILL）、stdout **50KB**、stderr **10KB**、工具调用 **50 次**，均可配置（以 v0.18+ 文档为准）。全局 pin 与限制的配置示意：
+execute_code 有默认资源上限：超时 **300s**（SIGTERM → 5s 宽限 → SIGKILL）、stdout **50KB**、stderr **10KB**、工具调用 **50 次**，均可配置（以 v0.20.x 文档为准）。全局 pin 与限制的配置示意：
 
 ```yaml
-# ~/.hermes/config.yaml（片段，以 v0.18+ 文档为准）
+# ~/.hermes/config.yaml（片段，以 v0.20.x 文档为准）
 delegation:
   model: <worker-model-id>   # 全局 pin：所有子代理统一用这个廉价模型
 # execute_code 默认限制：超时 300s / stdout 50KB / stderr 10KB / 工具调用 50 次，均可配置
@@ -582,7 +583,7 @@ delegation:
 > [!tip] 大白话
 > 第一条像给脚本发"限权工牌"：名字带 KEY、TOKEN、SECRET 的保险箱统统上锁，脚本想看也看不到。第二条像"外包不能再转包"：脚本能调工具，但不能自己再雇一批子代理，防止一层层套娃把系统拖垮。
 
-一个重要的可靠性提醒：**委托结果跨重启不可靠**——进程重启不会续跑未完成的子代理。需要持久执行的场景（如定时巡检）请用第六章的 `cronjob` 或 background terminal，而不是依赖一次性的顶层委托。
+一个重要的可靠性提醒（**分版本**）：v0.18 及之前，**委托结果跨重启不可靠**——进程重启不会续跑未完成的子代理；需要持久执行的场景（如定时巡检）请用第六章的 `cronjob` 或 background terminal。**v0.19 起**，后台委托已支持跨重启持久化：子代理结果经 ownership-checked ledger 恢复并在重启后继续投递；gateway 若在发送中途崩溃，交付义务账本会在下次启动补发，堵住消息静默丢失 [^c7-S19]。因此新版本下顶层委托可作轻量并行手段，但周期调度仍以 `cronjob` 为持久方案。
 
 ### 本章小结
 
@@ -596,6 +597,7 @@ delegation:
 
 [^c7-S10]: S10：Hermes Agent 官方文档 *Delegation*（`docs/user-guide/features/delegation`）。
 [^c7-S12]: S12：Hermes Agent 官方文档 *Code Execution*（`docs/user-guide/features/code-execution`）。
+[^c7-S19]: S19：Hermes Agent v0.19.0（Quicksilver）发布说明，https://github.com/NousResearch/hermes-agent/releases/tag/v2026.7.20
 
 ## 部署进阶：Docker、多后端与安全基线
 
@@ -893,7 +895,7 @@ terminal:
 
 ### 安全硬性要求：一次真实事故
 
-把 API 绑到 `0.0.0.0` 意味着暴露公网，因此安全要求是硬性的：`API_SERVER_ENABLED=true` + `API_SERVER_HOST=0.0.0.0` + `API_SERVER_KEY` ≥8 位，三者缺一不可（来源 S11）。dashboard（`HERMES_DASHBOARD=1`，端口 9119）同理：非环回绑定必须配认证，否则 fail-closed 拒绝启动。这不是危言耸听——2026-06 就曾发生未认证仪表盘被扫描器发现、植入 SSH 后门的事件（来源 S11）。部署到公网前，把这条当检查清单逐项打勾；起容器后先用健康端点做一次存活探活，确认 API 正常再放行流量（来源 S11）。把原则记成一句话：**凡是暴露到非 loopback 的入口，要么有认证，要么 fail-closed 拒绝启动**——宁可不服务，也不裸奔（来源 S11）。
+把 API 绑到 `0.0.0.0` 意味着暴露公网，因此安全要求是硬性的：`API_SERVER_ENABLED=true` + `API_SERVER_HOST=0.0.0.0` + `API_SERVER_KEY` ≥8 位，三者缺一不可（来源 S11）。dashboard（`HERMES_DASHBOARD=1`，端口 9119）同理：非环回绑定必须配认证，否则 fail-closed 拒绝启动。dashboard 内置三种认证方式：basic auth（`HERMES_DASHBOARD_BASIC_AUTH_USERNAME` + `HERMES_DASHBOARD_BASIC_AUTH_PASSWORD`，可加 `HERMES_DASHBOARD_BASIC_AUTH_SECRET` 固定会话）、Nous Portal OAuth（设 `HERMES_DASHBOARD_OAUTH_CLIENT_ID` 即启用）、自建 OIDC（`HERMES_DASHBOARD_OIDC_ISSUER` + `HERMES_DASHBOARD_OIDC_CLIENT_ID`）；旧的 `HERMES_DASHBOARD_INSECURE=1` 已废弃为 no-op。这不是危言耸听——2026-06 就曾发生未认证仪表盘被扫描器发现、植入 SSH 后门的事件（来源 S11）。部署到公网前，把这条当检查清单逐项打勾；起容器后先用健康端点做一次存活探活，确认 API 正常再放行流量（来源 S11）。把原则记成一句话：**凡是暴露到非 loopback 的入口，要么有认证，要么 fail-closed 拒绝启动**——宁可不服务，也不裸奔（来源 S11）。
 
 ### 多容器 / 多 profile：数据目录是排他锁
 
@@ -908,7 +910,7 @@ terminal:
 
 README 宣称支持 7 种终端后端：local / Docker / SSH / Singularity / Modal / Daytona / Vercel Sandbox（来源 S1）。其中 Modal / Daytona 提供 serverless 持久化——空闲休眠、按需唤醒，适合不想常驻 VPS 的场景（来源 S17）。
 
-但这份清单**会漂移**：v0.15.0 曾移除 Vercel Sandbox 后又回归，`terminal-backends` 文档页也已 404。所有涉及后端数量、Vercel 的内容一律**以 v0.18+ 文档为准**（来源 S1）。把后端同步到远程（Docker/SSH/Modal/Daytona）时还要防凭据泄露：`~/.hermes` 同时含 `.env` 密钥与 `auth.json` OAuth token，必须配置 ignore 排除，否则凭据进入不受控基础设施（来源 S17）。
+但这份清单**会漂移**：v0.15.0 曾移除 Vercel Sandbox 后又回归，`terminal-backends` 文档页也已 404。所有涉及后端数量、Vercel 的内容一律**以 v0.20.x 文档为准**（来源 S1）。把后端同步到远程（Docker/SSH/Modal/Daytona）时还要防凭据泄露：`~/.hermes` 同时含 `.env` 密钥与 `auth.json` OAuth token，必须配置 ignore 排除，否则凭据进入不受控基础设施（来源 S17）。
 
 Docker terminal 后端配置示例（作为第二种用途，来源 S11/S12）：
 
@@ -940,7 +942,7 @@ skills 目录与凭据文件会被自动**只读 bind-mount** 进沙箱，避免
 - Gateway 模式 `-p 8642:8642` 暴露 OpenAI 兼容 API + 健康端点，s6-overlay 崩溃自重启。
 - 安全三件套：`API_SERVER_ENABLED=true` + `API_SERVER_HOST=0.0.0.0` + `API_SERVER_KEY` ≥8 位；dashboard 非环回绑定必须认证。
 - 禁止两个 gateway 共用一个数据目录；多 profile 各设独立 `API_SERVER_PORT`；容器以 hermes（UID 10000）运行。
-- 后端数量与 Vercel 相关描述以 v0.18+ 文档为准。
+- 后端数量与 Vercel 相关描述以 v0.20.x 文档为准。
 - 首次配置跑一次 `setup` 向导（Quick setup 选 provider/model/messaging）；日常 `docker run -it ... hermes` 进容器开聊，排错先 `hermes doctor`。
 
 下一章收尾：把前八章散落的坑集中成一张清单——Windows 杀软误报、文件锁、凭据泄露、systemd 反模式与版本漂移总原则。
@@ -994,7 +996,7 @@ Issue #16201 记录了 Windows/Git Bash 下 uv.exe、hermes.exe 更新替换时�
 
 ### 版本漂移总原则
 
-后端数量、Vercel Sandbox、`terminal-backends` 页面路径等都在随版本变动（v0.15.0 曾移除 Vercel 后端、文档页 404 后迁移）[^c9-s1][^c9-s14]。凡涉及上述内容，一律标注"以 v0.18+ 文档为准"，并留意版本号变化导致的旧配置（如 `VERCEL_TOKEN`）失效。
+后端数量、Vercel Sandbox、`terminal-backends` 页面路径等都在随版本变动（v0.15.0 曾移除 Vercel 后端、文档页 404 后迁移）[^c9-s1][^c9-s14]。凡涉及上述内容，一律标注"以 v0.20.x 文档为准"，并留意版本号变化导致的旧配置（如 `VERCEL_TOKEN`）失效。
 
 ### 安全基线速查
 
@@ -1010,9 +1012,9 @@ Issue #16201 记录了 Windows/Git Bash 下 uv.exe、hermes.exe 更新替换时�
 - `~/.hermes` 是保险箱：同步远程后端必须先 exclude 密钥文件。
 - systemd 勿加 `ExecStopPost` kill；无头 VM 用 user service + `loginctl enable-linger`。
 - 熔断器、后台进程都有"不自动恢复 / 不真正保活"的边界，别依赖它们兜底。
-- 版本敏感信息一律标注"以 v0.18+ 文档为准"。
+- 版本敏感信息一律标注"以 v0.20.x 文档为准"。
 
-下一章是附录：常用命令速查表，把全书高频命令收拢成一张可随时查阅的表。
+下一章进入身份定制与多 Agent：用 SOUL.md 定义全局人格、用 Profiles 拆出多套隔离实例、用 Bot Mode 把多个 agent 编排成能协作的 bot。
 
 [^c9-s1]: GitHub README — NousResearch/hermes-agent
 [^c9-s5]: 官方文档 /docs/integrations/providers
@@ -1021,9 +1023,81 @@ Issue #16201 记录了 Windows/Git Bash 下 uv.exe、hermes.exe 更新替换时�
 [^c9-s17]: 阿里云开发者社区：Hermes 多后端部署运维
 [^c9-s18]: CSDN：Hermes Agent Windows 实操经验
 
+## 身份定制与多 Agent：SOUL.md、Profiles 与 Bot Mode
+
+前九章把 Hermes 当"一个 agent"在用。这一章把它变成"任意多个、每个性格不同"的 agent：用 `SOUL.md` 定义全局人格、用 Profiles 拆出多套完全隔离的实例、用 Bot Mode（v0.20.3+）把这些实例编排成能互相协作的命名 bot。[^c10-1][^c10-2][^c10-3]
+
+### SOUL.md：全局人格定制
+
+Hermes 的"我是谁、怎么说话"由 `SOUL.md` 决定：它作为 system prompt 的 **slot #1** 被**原样注入、无任何包装文字**，并**完全替换**内置默认人格（"You are Hermes Agent..."）。文件缺失、为空或加载失败时才回退内置人格 [^c10-1]。
+
+- **位置**：只读全局文件 `~/.hermes/SOUL.md`（自定义 home 时为 `$HERMES_HOME/SOUL.md`）；Docker 部署对应 `/opt/data/SOUL.md`
+- **生命周期**：首次运行自动播种初始文件，之后**永不覆盖**；编辑只在**新会话**生效（进行中的会话不变，保住前缀缓存）
+- **安全**：注入前过 prompt-injection 扫描（经典注入、promptware/C2、角色劫持模式一律阻断）
+- **与 AGENTS.md 分工**：SOUL.md 放"处处适用"的人格与语气（如"说话直接"、"不写营销腔"）；AGENTS.md 放"只属于某项目"的约定（如"用 pytest 不用 unittest"、"API 跑在 8000 端口"）。规则一句话：**处处适用 → SOUL.md；单项目专属 → AGENTS.md**[^c10-1]
+
+```markdown
+# ~/.hermes/SOUL.md（内容示意；以 v0.20.x 文档为准）
+你是 Hermes Agent，但说话直接、不写营销腔。
+不确定时明确说"我不确定"，并把推测与证据分开。
+```
+
+官方提供 4 套起步人格模板：**Pragmatic Engineer**（直接、简洁、拒绝奉承）、**Research Partner**（好奇、诚实标注不确定性）、**Teacher/Explainer**（耐心、从直觉讲到细节）、**Tough Reviewer**（严格、直白优于外交）[^c10-1]。建议流程：先修剪种子文件、写 4-8 行语气与默认值，跑几轮对话再迭代，别一次性堆满。`/personality` 与 SOUL.md 互补：SOUL.md 是持久基线，`/personality` 只做临时切换。
+
+> [!tip] 大白话
+> SOUL.md 像"入职时签的性格说明书"：它决定 agent 是毒舌工程师还是耐心老师，全局生效、跨项目不变。想换性格就改这一份文件，重启会话生效；AGENTS.md 则是"每个项目的工作手册"，只在那个项目里生效。
+
+### Profiles：一套 Hermes 变多套
+
+Profiles 让一台机器上跑**多套完全隔离**的 Hermes 实例，每套拥有独立的 `HERMES_HOME` 目录：自己的 config.yaml（模型/工具）、.env（密钥）、SOUL.md（人格），以及 memories/sessions/skills/cron/gateway 状态 [^c10-2][^c10-4]。
+
+```bash
+hermes profile create coder               # 新建空白 profile
+hermes profile create research --clone    # 复制当前 config / SOUL / .env
+hermes profile create writing --clone-all # 全量快照（含记忆 / 技能）
+hermes profile use coder                  # 设为默认（粘性生效）
+coder chat                                # 直接以该 profile 开聊（自动生成别名）
+hermes -p coder chat                      # 或显式指定
+hermes profile list | show | rename | delete
+hermes profile export coder               # 打包 tar.gz 用于迁移
+hermes profile import coder.tar.gz
+```
+
+官方推荐的典型组合：`coder`（技术/简洁）、`personal`（日常/友好）、`research`（细致/谨慎）、`writing`（文档创作），每个 profile 配一份契合的 SOUL.md [^c10-4]。
+
+**v0.19 起还能做 profile 级消息路由**：一个 gateway、一个 bot token，把不同 guild/频道/线程路由到不同 profile，彼此 config/技能/记忆/密钥完全隔离——例如同一个 bot 同时服务 `work` 与 `personal` 两套身份 [^c10-2]。
+
+> [!tip] 大白话
+> 把 Profiles 想成"同一套软件开多个用户账号"：每个账号有自己的桌面（配置）、钥匙串（密钥）、人设（SOUL.md）和聊天记录（记忆）。想切就切，互不串台；想搬家就 `export` 打个包带走。
+
+### Bot Mode（v0.20.3+）：把 Profiles 变成能协作的 Bot
+
+Bot Mode 从桌面版 v0.20.3 起默认开启：把 Profiles 升级成一张**命名 Bot 花名册**——每个 bot 可设头像、pin 模型、启用技能、配独立 SOUL.md、挂调度计划 [^c10-3]。Bot 之间通过持久的 **Agent Inbox** 通信，支持 2-6 个 bot 的**多 agent 协作房间**，并可跨 bot `@mention` 交接任务：
+
+```bash
+hermes -p <bot> chat -c "Agent Inbox"     # 以某 bot 身份进 Inbox 频道协作
+```
+
+> [!tip] 大白话
+> 把 Bot Mode 想成"给每个分身起名字、发工牌、组项目群"：以前的 Profiles 是互不认识的同事，Bot Mode 让它们能拉群、@人、交接活。
+
+### 本章小结
+
+- `SOUL.md` 是全局人格：system prompt slot #1、原样注入、替换默认身份；只读 `~/.hermes/SOUL.md`，永不覆盖、新会话生效、注入前过扫描。
+- SOUL.md 管"处处适用的人格"，AGENTS.md 管"单项目约定"；官方给 4 套人格模板，`/personality` 做临时切换。
+- Profiles 是完全隔离的实例：`hermes profile create/use/export/import` 等；v0.19 起支持一个 gateway 按频道路由到不同 profile。
+- Bot Mode（v0.20.3+）把 Profiles 变成命名 bot 花名册：头像、模型 pin、SOUL、调度；Agent Inbox + 2-6 bot 协作房间，`@mention` 交接。
+
+下一章是附录：常用命令速查表，把全书高频命令收拢成一张可随时查阅的表。
+
+[^c10-1]: 官方 SOUL.md 指南：https://github.com/NousResearch/hermes-agent/blob/main/website/docs/guides/use-soul-with-hermes.md
+[^c10-2]: Hermes Agent v0.19.0（Quicksilver）发布说明：https://github.com/NousResearch/hermes-agent/releases/tag/v2026.7.20
+[^c10-3]: Hermes Agent v0.20.x 发布说明（Bot Mode、桌面工作台、A2A、webhook）：https://github.com/NousResearch/hermes-agent/releases/tag/v2026.8.27
+[^c10-4]: 掘金：Hermes Profiles 多 Agent 配置指南 https://juejin.cn/post/7631497675088740387
+
 ## 附录：Hermes Agent 常用命令速查
 
-> 面向已读完正文、需要回查的读者。命令/指令全部来自研究素材与正文各章；涉及后端数量、页面路径等易漂移内容以 v0.18+ 文档为准。
+> 面向已读完正文、需要回查的读者。命令/指令全部来自研究素材与正文各章；涉及后端数量、页面路径等易漂移内容以 v0.20.x 文档为准。
 
 ### 安装与配置
 
@@ -1090,6 +1164,19 @@ Issue #16201 记录了 Windows/Git Bash 下 uv.exe、hermes.exe 更新替换时�
 | --- | --- | --- |
 | `cronjob` | 工具：自然语言建/停/改/删定时任务（相对延迟 30m/2h、间隔 every 2h、cron 表达式、ISO 时间戳） | ch6 |
 
+### 身份定制与多 Agent
+
+| 命令/指令 | 用途 | 所在章节 |
+| --- | --- | --- |
+| `~/.hermes/SOUL.md` | 全局人格文件（system prompt slot #1，原样注入、新会话生效） | ch10 |
+| `/personality` | 临时切换人格（SOUL.md 是持久基线，此命令只做临时覆盖） | ch10 |
+| `hermes profile create <name> [--clone\|--clone-all]` | 新建隔离 profile（可选复制配置 / 全量快照） | ch10 |
+| `hermes -p <name> chat` | 以指定 profile 开聊 | ch10 |
+| `hermes profile use <name>` | 设为默认 profile（粘性生效） | ch10 |
+| `hermes profile list/show/rename/delete` | 管理 profile 生命周期 | ch10 |
+| `hermes profile export <name>` / `import <file.tar.gz>` | 打包 / 导入 profile（跨机器迁移） | ch10 |
+| `hermes -p <bot> chat -c "Agent Inbox"` | Bot Mode：以命名 bot 身份进 Inbox 协作（v0.20.3+） | ch10 |
+
 ### 部署与安全
 
 | 命令/指令 | 用途 | 所在章节 |
@@ -1109,4 +1196,4 @@ Issue #16201 记录了 Windows/Git Bash 下 uv.exe、hermes.exe 更新替换时�
 | `gh attestation verify <binary>` | 校验安装器/uv.exe 的 GitHub 签名（应对杀软误报） | ch9 |
 | `loginctl enable-linger` | 无头 VM 保持 user systemd service 常驻 | ch9 |
 
-> 提示：涉及后端数量、Vercel Sandbox、页面路径（如 `terminal-backends`）等易漂移项，务必以 v0.18+ 文档为准；版本漂移与防坑细节见第九章。
+> 提示：涉及后端数量、Vercel Sandbox、页面路径（如 `terminal-backends`）等易漂移项，务必以 v0.20.x 文档为准；版本漂移与防坑细节见第九章。
