@@ -683,10 +683,40 @@ docker compose logs -f hermes
 
 如果要接 Open WebUI 或其他 OpenAI-compatible 客户端，先在 `~/.hermes/.env` 中加入：
 
+先生成一串随机密钥：
+
+```bash
+openssl rand -hex 32
+```
+
+复制命令输出的 **64 位字符串**，再编辑配置文件：
+
+```bash
+nano ~/.hermes/.env
+```
+
+加入下面三行，把 `API_SERVER_KEY` 等号后的内容替换成刚才复制的字符串：
+
 ```env
 API_SERVER_ENABLED=true
 API_SERVER_HOST=0.0.0.0
-API_SERVER_KEY=<使用 openssl rand -hex 32 生成的强密钥>
+API_SERVER_KEY=把刚才生成的64位字符串粘贴到这里
+```
+
+保存后收紧文件权限：
+
+```bash
+chmod 600 ~/.hermes/.env
+```
+
+> [!warning] 密钥不是占位文本
+> 不要把 `把刚才生成的64位字符串粘贴到这里` 或尖括号原样写入；它只是示意。该密钥是 Hermes API 的 Bearer Token，不是模型 Provider 的 API Key，也不要发到聊天、Git 或截图中。
+
+然后重新创建服务使配置生效：
+
+```bash
+cd ~/hermes-stack
+docker compose up -d --force-recreate
 ```
 
 宿主机客户端使用 `http://127.0.0.1:8642/v1`；API Key 填 `API_SERVER_KEY`。API server 具有终端等完整工具权限，不能无认证暴露公网（来源 S11）。
