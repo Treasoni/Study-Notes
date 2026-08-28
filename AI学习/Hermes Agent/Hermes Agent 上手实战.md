@@ -637,6 +637,57 @@ docker run -d \
 
 镜像本身内置得很全：基于 debian:13.4，带 Python 3.13（uv 管理）、Node 26、Playwright/Chromium、openssh-client 与 s6-overlay；还附带 docker-cli，可把 `/var/run/docker.sock` 挂进容器去驱动宿主 Docker——相当于"容器里的 agent 再调 Docker"的嵌套玩法（来源 S11）。
 
+### 首次配置：跑一遍 setup 向导
+
+镜像无状态，配置全在数据卷里，所以第一次运行先建目录、挂载并跑配置向导——**这一步只做一次**，之后所有配置与密钥都落在宿主机 `~/.hermes`：
+
+```bash
+mkdir -p ~/.hermes
+docker run -it --rm \
+  -v ~/.hermes:/opt/data \
+  nousresearch/hermes-agent setup
+```
+
+向导交互项（来源 S11）：
+
+- **Setup mode**：选 Quick setup（provider、model 与 messaging 一次配完）
+- **Model provider**：OpenAI / Anthropic / DeepSeek / xAI / 阿里云 等，任选一家
+- **Messaging platform**：本地先跳过，之后要接 Telegram / Discord 再跑 `hermes gateway setup`
+
+向导结束会写两个文件：`~/.hermes/config.yaml` 存"模型在哪、怎么连"，`~/.hermes/.env` 存 API key——与第三章"配置与密钥分离"同一套基线；容器内路径对应 `/opt/data/config.yaml` 与 `/opt/data/.env`（来源 S11）。
+
+> [!tip] 大白话
+> 向导像"办入住手续"：选好模型供应商、登记门禁（API key）。钥匙进保险箱（.env）、房号进登记本（config.yaml），办完一次，之后每次开容器都认这个身份。
+
+### 日常使用：进容器开聊
+
+配好后最直接的用法是交互式开聊（来源 S11）：
+
+```bash
+docker run -it --rm \
+  -v ~/.hermes:/opt/data \
+  nousresearch/hermes-agent
+```
+
+容器已在后台跑（gateway 模式）时，也可进容器直接调 hermes 二进制 `/opt/hermes/.venv/bin/hermes`（来源 S11）：
+
+```bash
+docker exec -it hermes /opt/hermes/.venv/bin/hermes
+```
+
+容器内排错与配置命令与本地 CLI 一致，入口是 `hermes doctor`（来源 S11）：
+
+```bash
+hermes doctor                  # 诊断配置与密钥是否齐全，排错第一步
+hermes model                   # 会话外完整模型向导（增删 provider、设默认）
+hermes tools                   # 查看已启用工具
+hermes config get <key>        # 读 config.yaml
+hermes config set <key> <val>  # 写 config.yaml
+```
+
+> [!tip] 大白话
+> 把容器里的 hermes 命令想成酒店客房服务电话：房间（容器）可以换，拨号方式（命令）不变。数据卷在，身份和家当就一直在。
+
 ### Docker Compose：推荐的长期部署方式
 
 如果要长期运行，建议用 Compose 管理容器生命周期。先在宿主机创建 `~/hermes-stack/compose.yaml`：
@@ -890,6 +941,7 @@ skills 目录与凭据文件会被自动**只读 bind-mount** 进沙箱，避免
 - 安全三件套：`API_SERVER_ENABLED=true` + `API_SERVER_HOST=0.0.0.0` + `API_SERVER_KEY` ≥8 位；dashboard 非环回绑定必须认证。
 - 禁止两个 gateway 共用一个数据目录；多 profile 各设独立 `API_SERVER_PORT`；容器以 hermes（UID 10000）运行。
 - 后端数量与 Vercel 相关描述以 v0.18+ 文档为准。
+- 首次配置跑一次 `setup` 向导（Quick setup 选 provider/model/messaging）；日常 `docker run -it ... hermes` 进容器开聊，排错先 `hermes doctor`。
 
 下一章收尾：把前八章散落的坑集中成一张清单——Windows 杀软误报、文件锁、凭据泄露、systemd 反模式与版本漂移总原则。
 
