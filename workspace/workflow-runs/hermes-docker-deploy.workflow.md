@@ -10,7 +10,7 @@ topic: "用 Docker 部署 Hermes 并配置消息平台接入（Telegram / Discor
 project_slug: "hermes-docker-deploy"
 created_at: "2026-08-28"
 last_updated: "2026-08-28"
-current_phase: P3
+current_phase: P4
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：hermes-docker-deploy
 > 项目标识：hermes-docker-deploy
 > 创建时间：2026-08-28
-> 当前阶段：阶段 3
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -79,7 +79,7 @@ blocked_reason: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中 {in_progress}
+> [P3] ✅ 已完成 {complete}
 
 ---
 
@@ -91,7 +91,7 @@ blocked_reason: ""
 
 **进度**：0/待大纲确定
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中 {in_progress}
 
 ---
 
