@@ -10,8 +10,8 @@ topic: "hermes 的 tool 如何配置"
 project_slug: "hermes-tool-config"
 created_at: "2026-08-28"
 last_updated: "2026-08-28"
-current_phase: P1
-current_status: in_progress
+current_phase: P2
+current_status: ready
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：hermes-tool-config
 > 项目标识：hermes-tool-config
 > 创建时间：2026-08-28
-> 当前阶段：阶段 1
+> 当前阶段：阶段 2
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -53,7 +53,7 @@ blocked_reason: ""
 - [ ] 用户已选择学习方向
 - [ ] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] 🔲 进行中 {in_progress}
+> [P1] ✅ 已完成 {complete}
 
 ---
 
