@@ -721,6 +721,64 @@ docker compose up -d --force-recreate
 
 宿主机客户端使用 `http://127.0.0.1:8642/v1`；API Key 填 `API_SERVER_KEY`。API server 具有终端等完整工具权限，不能无认证暴露公网（来源 S11）。
 
+### 排查 `PermissionError: /opt/hermes/.env`
+
+如果启动时出现：
+
+```text
+PermissionError: [Errno 13] Permission denied: '/opt/hermes/.env'
+```
+
+这通常不是 `API_SERVER_KEY` 的格式问题，而是 Hermes 误读了镜像内部的安装目录。用户配置和密钥应位于宿主机 `~/.hermes/.env`，容器内对应 `/opt/data/.env`；`/opt/hermes` 是镜像的只读安装树，不要对它执行 `chmod` 或写入密钥（来源 S11）。
+
+先检查容器挂载，输出中不要包含 `.env` 文件内容：
+
+```bash
+cd ~/hermes-stack
+docker inspect hermes --format \
+  '{{range .Mounts}}{{println .Source " -> " .Destination}}{{end}}'
+```
+
+正常应看到：
+
+```text
+宿主机的 ~/.hermes -> /opt/data
+```
+
+不应出现任何指向 `/opt/hermes` 或 `/opt/hermes/.env` 的挂载。Compose 的核心挂载应保持为：
+
+```yaml
+volumes:
+  - ${HOME}/.hermes:/opt/data
+```
+
+修正挂载后，拉取镜像并重建：
+
+```bash
+docker compose pull
+docker compose down --remove-orphans
+docker compose up -d --force-recreate
+docker compose logs -f hermes
+```
+
+如果仍然报错，可用临时 shell 检查两个路径是否存在及权限，不要打印文件内容：
+
+```bash
+docker compose run --rm --no-deps \
+  --entrypoint /bin/sh hermes -lc '
+    for f in /opt/hermes/.env /opt/data/.env; do
+      if [ -e "$f" ]; then ls -l "$f"; else echo "MISSING: $f"; fi
+    done
+  '
+```
+
+日志中的 `config predates version 12` 是独立的旧配置警告。先备份配置，再按向导重新生成：
+
+```bash
+cp ~/.hermes/config.yaml ~/.hermes/config.yaml.backup
+docker compose run --rm hermes setup
+```
+
 升级时执行：
 
 ```bash
