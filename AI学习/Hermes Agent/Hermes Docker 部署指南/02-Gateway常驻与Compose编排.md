@@ -6,7 +6,7 @@ tags:
   - Hermes
   - Docker
 created: 2026-08-28
-updated: 2026-08-28
+updated: 2026-08-29
 status: 完成
 source_project: hermes-docker-deploy
 ---
@@ -302,6 +302,59 @@ docker run -d ... --shm-size=1g nousresearch/hermes-agent:latest gateway run
 # compose 方式（见 2.2 的 shm_size 字段）
 docker compose up -d --force-recreate   # 让 shm_size 生效
 ```
+
+## 2.7 初始化清单：Compose 就绪后如何初始化与配置
+
+`docker-compose.yaml` 只是「常驻启动」的说明书，它**不会替你初始化**——`.env` 与 `config.yaml` 必须先就绪，gateway 才有东西可读。第 1 章已跑过 setup 的，下面四步可压缩成两步（③+④）；从零开始的新机器，按顺序走完即可。
+
+### ① 首次 setup（产出 `.env`）
+
+```bash
+mkdir -p ~/.hermes
+docker run -it --rm -v ~/.hermes:/opt/data nousresearch/hermes-agent setup
+```
+
+- `-it` **必须**：setup 是交互式向导，无 TTY 无法回答提问。
+- 向导依次问：默认模型 provider → API Key → 是否启用消息平台。
+- 产物：`~/.hermes/.env`（密钥 + 平台变量，保险箱见第 1 章）。
+- 第 1 章已跑过 setup、`.env` 已落盘的，跳过此步。
+
+### ② 配置模型 provider（可选）
+
+setup 没配好，或要加 provider：
+
+```bash
+docker run -it --rm -v ~/.hermes:/opt/data nousresearch/hermes-agent model
+```
+
+手工改也行：`~/.hermes/config.yaml` 写模型 / provider / base_url，key 只进 `.env`（详见 [[03-模型 Provider 配置|模型 Provider 配置]]）。
+
+### ③ 验证配置齐全
+
+```bash
+docker run -it --rm -v ~/.hermes:/opt/data nousresearch/hermes-agent doctor
+```
+
+缺 key、provider 拼错都会在这里暴露，`doctor` 过了再启动，避免一启动就退出。
+
+### ④ compose 常驻启动
+
+```bash
+cd ~/hermes-stack
+docker compose up -d
+docker compose ps
+docker compose logs -f hermes
+```
+
+日志出现 gateway 开始轮询各平台 / 等待连接即成功。
+
+[!note] 初始化前先处理权限
+权限问题（2.4）要在初始化**之前**解决，否则 setup 第一步就撞 `PermissionError /opt/hermes/.env`。推荐 `chmod -R 755 ~/.hermes`，或在 compose 里配 `HERMES_UID` / `HERMES_GID` 对齐宿主 UID。
+
+[!warning] 三条红线（对应 2.6 三大坑）
+1. CLI 一律用一次性容器，不要 `docker exec hermes hermes ...`；
+2. 一个数据卷只能一个 gateway，别让手动 `docker run` 与 `docker compose up` 抢同一个 `~/.hermes`；
+3. 接平台时逐个在 `.env` 取消注释填 key、不重建容器，平台变量见第 3~8 章。
 
 ## 小结
 
