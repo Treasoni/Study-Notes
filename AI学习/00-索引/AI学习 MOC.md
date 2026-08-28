@@ -186,7 +186,7 @@ graph TB
 
 > [[Hermes Agent MOC]] — 完整目录与导航入口
 
-- [[Hermes Agent 上手实战]] — 9 章实战笔记：定位理念、安装第一跑、模型 Provider 配置、记忆与学习闭环、技能体系、多平台接入与定时任务、委派与 execute_code、Docker 部署、常见坑与命令速查 #AI学习 #Agent #Hermes
+- [[Hermes Agent 上手实战/README|Hermes Agent 上手实战]] — 10 章实战笔记：定位理念、安装第一跑、模型 Provider 配置、记忆与学习闭环、技能体系、多平台接入与定时任务、委派与 execute_code、Docker 部署、常见坑、身份定制与多 Agent + 命令速查附录 #AI学习 #Agent #Hermes
 
 ### DeepSeek-Reasonix 教程
 
