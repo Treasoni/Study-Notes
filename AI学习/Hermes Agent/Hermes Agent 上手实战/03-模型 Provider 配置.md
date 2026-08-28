@@ -6,7 +6,7 @@ tags:
   - Hermes
   - 上手实战
 created: 2026-08-28
-updated: 2026-08-28
+updated: 2026-08-29
 status: 已完成
 source_project: hermes-agent
 ---
@@ -23,9 +23,10 @@ Hermes 的模型配置只有一个权威位置：`~/.hermes/config.yaml`。三�
 
 ```yaml
 # ~/.hermes/config.yaml（最小示意，键名以 hermes doctor 输出为准）
-model: my-default-model   # 默认模型名
-provider: nous-portal     # 走哪个 provider
-base_url: ""              # custom / 直连端点时填
+model:
+  default: my-default-model   # 默认模型名
+  provider: nous              # 走哪个 provider（Nous Portal 的 ID 是 nous）
+  base_url: ""                # custom / 直连端点时填
 ```
 
 ```bash
@@ -46,12 +47,12 @@ ANTHROPIC_API_KEY=sk-ant-xxxx
 
 | Provider | 配置要点 |
 |---|---|
-| Nous Portal | OAuth 登录，推荐；覆盖 300+ 模型 + Tool Gateway |
+| Nous Portal | OAuth 登录，推荐；覆盖 300+ 模型 + Tool Gateway；provider 用 `nous` |
 | OpenRouter | `.env` 放 `OPENROUTER_API_KEY` |
 | OpenAI 直连 | `.env` 放 `OPENAI_API_KEY`，provider 用 `openai-api` |
 | Anthropic | 三种认证：Claude Max OAuth / `ANTHROPIC_API_KEY` / `ANTHROPIC_TOKEN`；**Claude Pro 订阅不能走 OAuth** |
 | custom | 任意 OpenAI-compatible 端点，配 `base_url` |
-| 本地 Ollama | `base_url: http://localhost:11434/v1`，且 `context_length ≥ 64000` |
+| 本地 Ollama | 本质是 `provider: custom` + `base_url: http://localhost:11434/v1`，`context_length ≥ 64000`；需在服务端设 `OLLAMA_CONTEXT_LENGTH`（API 设不了） |
 
 选型没有对错，只有场景：追求省事选 Nous Portal；已有 OpenAI / OpenRouter 额度直接填 key；隐私敏感或离线场景用本地 Ollama；公司自建网关只要是 OpenAI-compatible 就能当 custom 接进来。注意 Anthropic 的认证分三种，Claude Max 订阅可走 OAuth，Claude Pro 不行，得用 `ANTHROPIC_API_KEY` 或 `ANTHROPIC_TOKEN`。
 
@@ -114,7 +115,7 @@ model:
   provider: custom
   base_url: https://api.中转域名.com/v1   # 一定要带 /v1
   default: gpt-4o              # 中转站文档给的模型 ID
-  context_length: 128000       # custom 端点无法自动探测，按模型官方上下文手填
+  context_length: 128000       # 建议手填；Hermes 也能通过 /models 自动探测
   api_key: ${ZHONGZHUAN_API_KEY}
 ```
 
@@ -131,7 +132,7 @@ docker run -it --rm -v ~/.hermes:/opt/data nousresearch/hermes-agent doctor
 | 坑 | 说明 |
 |---|---|
 | `base_url` 漏 `/v1` | 中转站端点通常是 `https://域名/v1`，漏了连不上 |
-| `context_length` 不填 | custom 端点无法自动探测，必须手填；agent 功能建议 ≥ 64000 |
+| `context_length` 不填 | 部分端点/代理不暴露 `/models` 时无法自动探测，建议手填；agent 功能建议 ≥ 64000 |
 | key 放 `OPENAI_API_KEY` | 部分版本对 custom provider 不读它，会 401；用 `api_key: ${XXX_API_KEY}` 显式指定 |
 | 模型名 | 用中转站文档给的 ID，填错会 404 / model not found |
 
@@ -143,13 +144,14 @@ docker run -it --rm -v ~/.hermes:/opt/data nousresearch/hermes-agent doctor
 在 WSL2 里跑 Hermes、想连 Windows 上运行的 Ollama 等服务时（来源 S5）：
 
 - Win11 22H2+ 推荐开 **mirrored 模式**，网络共享，直接 `localhost` 即可，无需改配置；
-- NAT 模式要用**主机 IP**（不是 localhost），且服务必须绑定 `0.0.0.0` 才能被 WSL2 访问，例如启动 Ollama 时设 `OLLAMA_HOST=0.0.0.0:11434`。
+- NAT 模式要用**主机 IP**（不是 localhost），且服务必须绑定 `0.0.0.0` 才能被 WSL2 访问，例如启动 Ollama 时设 `OLLAMA_HOST=0.0.0.0`（端口默认 11434）。
 
 ```yaml
 # ~/.hermes/config.yaml（WSL2 → Windows 宿主 Ollama，NAT 模式）
-provider: custom
-base_url: http://<主机IP>:11434/v1
-context_length: 64000
+model:
+  provider: custom
+  base_url: http://<主机IP>:11434/v1
+  context_length: 64000
 ```
 
 注意两处 `base_url` 不同：纯 Linux 本机是 `localhost:11434`；WSL2 连 Windows 宿主时要用主机 IP。mirrored 模式省心但要求 Win11 22H2+；NAT 模式通用性更强，代价是多配一步。
@@ -163,7 +165,7 @@ context_length: 64000
 - Nous Portal OAuth 一条龙最省事；OpenRouter / OpenAI / Anthropic / custom / Ollama 各有接法，Claude Pro 不能走 OAuth。
 - 会话外 `hermes model` 管增删与默认，会话内 `/model` 管快速切换。
 - 新增 Provider 实操（Docker 三步）：`.env` 放 key → `hermes model` 向导 → `hermes doctor` 验证 → 会话内 `/model` 切换。
-- 中转站 / custom 端点：`base_url` 带 `/v1` + 显式 `api_key: ${XXX_API_KEY}` + 手填 `context_length`；key 别放 `OPENAI_API_KEY`。
+- 中转站 / custom 端点：`base_url` 带 `/v1` + 显式 `api_key: ${XXX_API_KEY}` + `context_length` 建议手填；key 别放 `OPENAI_API_KEY`。
 - WSL2 连 Windows 模型服务：mirrored 模式直连 localhost；NAT 模式用主机 IP + 服务绑 0.0.0.0（如 `OLLAMA_HOST`）。
 
 下一章进入 Hermes 最核心的差异化——记忆与学习闭环，看它如何跨会话"用着用着自己变强"。
