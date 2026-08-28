@@ -82,24 +82,28 @@ CONTAINER ID   IMAGE                                STATUS         PORTS
 ### 先睹为快
 
 ```yaml
-# ~/hermes-stack/docker-compose.yaml
 services:
   hermes:
-    image: nousresearch/hermes-agent:latest   # 官方镜像；生产可 pin 日期 tag
+    image: nousresearch/hermes-agent:latest
     container_name: hermes
-    restart: unless-stopped                   # 开机自启 + 崩溃自愈
+    restart: unless-stopped
+    command: gateway run
     ports:
-      - "8642:8642"   # Hermes API Server（第 10 章再开鉴权三件套）
-      - "9119:9119"   # Hermes Dashboard（配 HERMES_DASHBOARD=1 生效）
+      - "8642:8642"   # gateway API
+      - "9119:9119"   # dashboard（仅在 HERMES_DASHBOARD=1 时生效）
     volumes:
-      - ~/.hermes:/opt/data   # 数据卷：唯一状态源
+      - ~/.hermes:/opt/data
     environment:
-      - HERMES_DASHBOARD=1    # 打开 9119 仪表盘
-      # 纯聊天平台且不用 Dashboard/API，可只留 volumes 这一段
-      # API Server 安全三件套见第 10 章，默认不开避免公网裸奔
-    mem_limit: 4g             # 内存上限 4G
-    cpus: 2.0                 # CPU 上限 2 核
-    shm_size: 1g              # /dev/shm 升到 1G：浏览器工具（Playwright）需要
+      - HERMES_DASHBOARD=1
+      # 取消注释以直接转发特定环境变量而非使用 .env 文件：
+      # - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      # - OPENAI_API_KEY=${OPENAI_API_KEY}
+      # - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+          cpus: "2.0"
 ```
 
 [!tip] 大白话：Compose 是什么
