@@ -10,8 +10,8 @@ topic: "hermes 的 tool 如何配置"
 project_slug: "hermes-tool-config"
 created_at: "2026-08-28"
 last_updated: "2026-08-28"
-current_phase: P4
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -19,6 +19,7 @@ mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
 mode_change_phase: "P2"
 blocked_reason: ""
+quality_gate: passed
 ---
 
 # 学习笔记工作流 - 执行检查清单
@@ -28,7 +29,7 @@ blocked_reason: ""
 > 运行标识：hermes-tool-config
 > 项目标识：hermes-tool-config
 > 创建时间：2026-08-28
-> 当前阶段：阶段 4
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -91,7 +92,7 @@ blocked_reason: ""
 
 **进度**：0/待大纲确定
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -104,7 +105,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] ✅ 已完成 {complete}
 
 ---
 
@@ -114,7 +115,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -124,7 +125,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -162,10 +163,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战笔记（上手实战）
+- **总字数**：约 6.9 万可见字符（6 章 + README）
+- **章节数**：6 章
+- **输出格式**：Obsidian 分册（README + 每章独立文件 + 前后导航）
+- **文件路径**：`AI学习/Hermes Agent/Hermes Tool 配置指南/`
+- **Obsidian Vault**：/Users/zhqznc/Documents/项目
+- **MOC 路径**：`AI学习/Hermes Agent/Hermes Agent MOC.md`（已追加索引项）
