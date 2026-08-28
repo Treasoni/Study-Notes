@@ -172,6 +172,7 @@ docker info | grep -A 10 "Registry Mirrors"
 - [[DockerDesktop镜像加速器配置]] - 镜像加速器配置方法、可用源列表、常见误区
 - [[镜像加速器vs代理-概念对比]] - 镜像加速器与代理的区别与选择
 - [[Linux-Docker与DockerCompose安装指南-国内网络版]] - Linux 安装 Docker/Compose（国内网络版）
+- [[虚拟机/VMware NAT 模式静态 IP 网关错误排错.md]] - 同一事故的底层根因：VMware NAT 网关误配 `.1`（应为 `.2`）导致整机外网断连
 
 ---
 
