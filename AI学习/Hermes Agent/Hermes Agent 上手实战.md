@@ -651,6 +651,8 @@ services:
 
     volumes:
       - ${HOME}/.hermes:/opt/data
+      # 按需挂载宿主机项目目录；路径替换为实际目录
+      # - /path/to/your/project:/work:rw
 
     # 只绑定到宿主机本地；只使用 Telegram/Discord 时可以删除这一段
     ports:
@@ -698,6 +700,43 @@ docker compose up -d
 ```
 
 `~/.hermes` 是持久化数据目录，删除或更新容器不会丢失配置、记忆和会话。Compose 的完整部署方式以官方 Docker 文档为准（来源 S11）。
+
+### 让容器访问宿主机目录：bind mount
+
+容器默认看不到宿主机上的其他目录。若要让 Hermes 读取或修改宿主机项目，在 Compose 的 `volumes` 下增加一条挂载：
+
+```yaml
+volumes:
+  - ${HOME}/.hermes:/opt/data
+  - /path/to/your/project:/work:rw
+```
+
+其中 `/path/to/your/project` 是宿主机路径，`/work` 是容器内路径。只读场景使用 `:ro`：
+
+```yaml
+- /path/to/your/project:/work:ro
+```
+
+挂载后重新创建容器并验证：
+
+```bash
+cd ~/hermes-stack
+docker compose up -d --force-recreate
+docker exec hermes sh -lc 'ls -la /work'
+```
+
+如果希望 Gateway 默认在该目录工作，可在 `~/.hermes/config.yaml` 中设置：
+
+```yaml
+terminal:
+  backend: local
+  cwd: /work
+```
+
+这里的 `local` 指 Hermes 容器内部，而不是宿主机。之后应让 Hermes 使用 `/work/...` 路径，不要使用宿主机原始路径。macOS Docker Desktop 可能需要先在 **Settings → Resources → File Sharing** 中允许该目录；Linux 下若出现权限错误，应为专用工作目录授予容器用户相应权限，不要直接使用 `chmod 777`。
+
+> [!warning] 挂载权限
+> `:rw` 允许 agent 修改甚至删除宿主机文件。只需要分析内容时优先使用 `:ro`，不要把整个宿主机 Home 目录或 `/` 挂载进容器。
 
 ### Gateway 模式：暴露 OpenAI 兼容 API
 
@@ -919,6 +958,7 @@ Issue #16201 记录了 Windows/Git Bash 下 uv.exe、hermes.exe 更新替换时�
 | `docker compose run --rm hermes setup` | Compose 首次初始化配置向导 | ch8 |
 | `docker compose up -d` | Compose 后台启动 Hermes Gateway | ch8 |
 | `docker compose pull && docker compose up -d` | 拉取新镜像并升级，保留宿主持久化数据 | ch8 |
+| `-v /path/to/your/project:/work:rw` | 将宿主机项目目录挂载到容器内 `/work` | ch8 |
 | `-p 8642:8642` | Gateway 模式暴露 OpenAI 兼容 API + 健康端点 | ch8 |
 | `API_SERVER_ENABLED=true` + `API_SERVER_HOST=0.0.0.0` + `API_SERVER_KEY`（≥8 位） | API 服务器安全基线（dashboard 非环回绑定必须配认证） | ch8 |
 
