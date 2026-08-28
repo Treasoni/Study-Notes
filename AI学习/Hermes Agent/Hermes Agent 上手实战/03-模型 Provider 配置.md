@@ -93,6 +93,51 @@ docker run -it --rm -v ~/.hermes:/opt/data nousresearch/hermes-agent doctor
 > [!tip] 大白话
 > 三步对应三件事：先往保险箱放钥匙（.env），再在图纸上画新水管（`hermes model`），最后请师傅检查全屋水路（`hermes doctor`）。不想跑向导也可以：直接在宿主机改 `~/.hermes/config.yaml` 加 provider 段 + `~/.hermes/.env` 加 key，效果一样，只是容易手滑。
 
+## 实战：中转站 / custom 端点
+
+第三方 API 中转站本质就是一个 OpenAI-compatible 端点，对应上面的 `custom` provider：只要给你 `Base URL`、`API Key`、`模型 ID` 三样就能接。以中转站 `https://api.中转域名.com/v1`、key `sk-xxxx`、模型 `gpt-4o` 为例：
+
+**第一步：放钥匙到 `.env`（用自定义变量名）**
+
+```bash
+echo 'ZHONGZHUAN_API_KEY=sk-xxxx' >> ~/.hermes/.env
+```
+
+> ⚠️ 别把中转站 key 放 `OPENAI_API_KEY`。custom provider 下 Hermes 可能把 `OPENAI_API_KEY` 当占位符发送，结果 401；用自定义名 + 显式引用最稳。
+
+**第二步：config.yaml 配 custom 端点**
+
+```yaml
+# ~/.hermes/config.yaml
+model:
+  api_mode: chat_completions   # 中转站基本都走 chat_completions
+  provider: custom
+  base_url: https://api.中转域名.com/v1   # 一定要带 /v1
+  default: gpt-4o              # 中转站文档给的模型 ID
+  context_length: 128000       # custom 端点无法自动探测，按模型官方上下文手填
+  api_key: ${ZHONGZHUAN_API_KEY}
+```
+
+（键名以 `hermes doctor` 输出为准。）
+
+**第三步：验证 + 会话内切换**
+
+```bash
+docker run -it --rm -v ~/.hermes:/opt/data nousresearch/hermes-agent doctor
+```
+
+`hermes doctor` 过了之后，进对话输 `/model` 选 `gpt-4o` 即可。
+
+| 坑 | 说明 |
+|---|---|
+| `base_url` 漏 `/v1` | 中转站端点通常是 `https://域名/v1`，漏了连不上 |
+| `context_length` 不填 | custom 端点无法自动探测，必须手填；agent 功能建议 ≥ 64000 |
+| key 放 `OPENAI_API_KEY` | 部分版本对 custom provider 不读它，会 401；用 `api_key: ${XXX_API_KEY}` 显式指定 |
+| 模型名 | 用中转站文档给的 ID，填错会 404 / model not found |
+
+> [!tip] 大白话
+> 中转站相当于「第三方加油站，但也是同一种油」——格式还是 OpenAI-compatible，只是站不归你管。配法和自建 custom 端点完全一样：base_url 填它家地址、key 用自定义变量名、模型名照它招牌点单。
+
 ## WSL2 访问 Windows 宿主模型服务
 
 在 WSL2 里跑 Hermes、想连 Windows 上运行的 Ollama 等服务时（来源 S5）：
@@ -118,6 +163,7 @@ context_length: 64000
 - Nous Portal OAuth 一条龙最省事；OpenRouter / OpenAI / Anthropic / custom / Ollama 各有接法，Claude Pro 不能走 OAuth。
 - 会话外 `hermes model` 管增删与默认，会话内 `/model` 管快速切换。
 - 新增 Provider 实操（Docker 三步）：`.env` 放 key → `hermes model` 向导 → `hermes doctor` 验证 → 会话内 `/model` 切换。
+- 中转站 / custom 端点：`base_url` 带 `/v1` + 显式 `api_key: ${XXX_API_KEY}` + 手填 `context_length`；key 别放 `OPENAI_API_KEY`。
 - WSL2 连 Windows 模型服务：mirrored 模式直连 localhost；NAT 模式用主机 IP + 服务绑 0.0.0.0（如 `OLLAMA_HOST`）。
 
 下一章进入 Hermes 最核心的差异化——记忆与学习闭环，看它如何跨会话"用着用着自己变强"。
