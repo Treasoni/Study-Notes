@@ -92,6 +92,8 @@ iex (irm https://hermes-agent.nousresearch.com/install.ps1)
 
 macOS / Windows 也可用官方 Desktop 安装器；纯 CLI 用户之后随时 `hermes desktop` 补装图形界面。
 
+已有 Python 环境的用户也可直接 `pip install hermes-agent`（v2026.5.16「Foundation」起官方支持），装进现有 venv/poetry，适合想把 Hermes 托管进自己 Python 环境或做二次开发的场景（来源：发布说明）。
+
 > [!tip] 大白话：装 Hermes 像"全包装修队"——你只管下订单，uv、Python、Node、ripgrep、ffmpeg 它自己搬，不用一件件采购。
 
 ### 2.2 安装器做了什么
@@ -131,6 +133,8 @@ hermes setup           # 重走设置向导
 hermes tools           # 查看工具配置
 hermes gateway setup   # 多平台网关配置
 hermes config set|get  # 读写 config.yaml
+hermes import-agent    # 从 Claude Code/Codex 迁移配置（v0.20+）
+hermes -z "<prompt>"   # 一次性模式，跑完即退
 ```
 
 ### 本章小结
@@ -577,6 +581,8 @@ delegation:
   model: <worker-model-id>   # 全局 pin：所有子代理统一用这个廉价模型
 # execute_code 默认限制：超时 300s / stdout 50KB / stderr 10KB / 工具调用 50 次，均可配置
 ```
+
+**v0.20 起主循环工具调用迭代上限从 90 提到 500**，并内置自愈机制：输出截断自动溢写文件、`patch` 诊断空白字符不匹配、`write_file` 写后落盘校验、搜索近失配自动恢复；压缩策略改为主动裁剪工具结果 + 逐轮微压缩 + 保证尾部最新消息（来源 v0.20 发布说明）。
 
 安全上两条不变量：一是子进程环境会**剔除 KEY/TOKEN/SECRET/PASSWORD/CREDENTIAL/PASSWD/AUTH 等敏感变量**，防止密钥泄漏给脚本；二是工具白名单**禁止递归调用 execute_code / delegate_task / [[MCP协议|MCP]]**，防止脚本再开子代理造成失控级联。[^c7-S12]
 
@@ -1111,6 +1117,11 @@ hermes -p <bot> chat -c "Agent Inbox"     # 以某 bot 身份进 Inbox 频道协
 | `hermes doctor` | 环境诊断（配置最小集的第一步） | ch2 |
 | `hermes desktop` | 纯 CLI 安装后随时补装桌面版 | ch2 |
 | `hermes model` | 会话外模型完整向导（切换/新增 provider，不锁定） | ch3 |
+| `pip install hermes-agent` | 已有 Python 环境直装（v2026.5.16 起官方支持） | ch2 |
+| `hermes import-agent` | 从 Claude Code / Codex CLI 迁移配置（v0.20+） | ch2 |
+| `hermes -z "<prompt>"` | 一次性（one-shot）模式，跑完即退（v0.12+） | ch2 |
+| `hermes backup` / `hermes import` | 备份 / 导入 Hermes 数据（v0.9+） | ch2 |
+| `hermes update --check` | 检查新版本（v0.12+） | ch2 |
 
 ### 配置管理
 
@@ -1119,6 +1130,19 @@ hermes -p <bot> chat -c "Agent Inbox"     # 以某 bot 身份进 Inbox 频道协
 | `hermes config get <key>` | 读取配置（唯一来源 `~/.hermes/config.yaml`） | ch3 |
 | `hermes config set <key> <value>` | 写入配置项 | ch3 |
 | `/model` | 会话内切换已配置的模型 | ch3 |
+
+### 会话内快捷命令（v0.20+）
+
+| 命令/指令 | 用途 | 所在章节 |
+| --- | --- | --- |
+| `!command` | 会话内直接跑 shell 命令，免退出（v0.20+） | — |
+| `/init` | 生成项目 AGENTS.md（v0.20+） | — |
+| `/diff` | 查看当前改动 diff（v0.20+） | — |
+| `/context` | 查看上下文占用（v0.20+） | — |
+| `/focus` | 聚焦当前任务 / 文件（v0.20+） | — |
+| `/undo` | 撤销上一步操作（v0.20+） | — |
+| `/reasoning` | 会话级推理强度（low/medium/high/max/ultra，v0.19+） | — |
+| `/fast` | 快速模式（OpenAI Priority + Anthropic fast 档，v0.9+） | — |
 
 ### 工具与网关
 
