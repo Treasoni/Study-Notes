@@ -4,14 +4,14 @@ workflow_name: 学习笔记工作流
 workflow_version: 1
 state_file_type: workflow-run
 run_id: "hermes-docker-deploy"
-task: "用 Docker 部署 Hermes 并配置消息平台接入（Telegram / Discord）"
+task: "用 Docker 部署 Hermes 并配置国内消息平台接入（微信 / 企业微信 / 飞书 / QQ）"
 created_from: ".claude/workflows/learning-note-flow/state-template.md"
-topic: "用 Docker 部署 Hermes 并配置消息平台接入（Telegram / Discord）"
+topic: "用 Docker 部署 Hermes 并配置国内消息平台接入（微信 / 企业微信 / 飞书 / QQ）"
 project_slug: "hermes-docker-deploy"
 created_at: "2026-08-28"
 last_updated: "2026-08-28"
-current_phase: P4
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -19,16 +19,17 @@ mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
 mode_change_phase: "P2"
 blocked_reason: ""
+quality_gate: passed
 ---
 
 # 学习笔记工作流 - 执行检查清单
 
 > 工作流：learning-note-flow
-> 主题：用 Docker 部署 Hermes 并配置消息平台接入（Telegram / Discord）
+> 主题：用 Docker 部署 Hermes 并配置国内消息平台接入（微信 / 企业微信 / 飞书 / QQ）
 > 运行标识：hermes-docker-deploy
 > 项目标识：hermes-docker-deploy
 > 创建时间：2026-08-28
-> 当前阶段：阶段 4
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -91,7 +92,7 @@ blocked_reason: ""
 
 **进度**：0/待大纲确定
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -104,7 +105,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] ✅ 已完成 {complete}
 
 ---
 
@@ -114,7 +115,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -124,7 +125,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -132,7 +133,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
-| P0 | 用户确认主题方向：用 Docker 部署 Hermes 并配置消息平台接入（Telegram / Discord）；深度=上手；输出=AI学习/Hermes Agent/ 第三册 | 2026-08-28 |
+| P0 | 用户确认主题方向：用 Docker 部署 Hermes 并配置国内消息平台接入（微信 / 企业微信 / 飞书 / QQ）；深度=上手；输出=AI学习/Hermes Agent/ 第三册 | 2026-08-28 |
 
 ---
 
@@ -163,8 +164,8 @@ blocked_reason: ""
 ## 最终产出
 
 - **笔记类型**：实战笔记
-- **总字数**：
-- **章节数**：
+- **总字数**：正文约 21,000 汉字（不含代码块；10 章 + README 共 ~107KB）
+- **章节数**：10 章 + README
 - **输出格式**：Obsidian 分册（README + 每章独立文件 + 前后导航）
 - **文件路径**：`AI学习/Hermes Agent/Hermes Docker 部署指南/`
 - **Obsidian Vault**：/Users/zhqznc/Documents/项目
