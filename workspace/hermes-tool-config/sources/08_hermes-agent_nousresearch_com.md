@@ -1,0 +1,435 @@
+---
+url: "https://hermes-agent.nousresearch.com/docs/user-guide/features/tools"
+title: "Tools & Toolsets | Hermes Agent"
+scraped_at: 2026-08-28T11:06:01+00:00
+---
+
+[Skip to main content](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#__docusaurus_skipToContent_fallback)
+On this page
+Tools are functions that extend the agent's capabilities. They're organized into logical **toolsets** that can be enabled or disabled per platform.
+## Available Tools[​](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#available-tools "Direct link to Available Tools")
+Hermes ships with a broad built-in tool registry covering web search, browser automation, terminal execution, file editing, memory, delegation, scheduled tasks, Home Assistant, and more.
+note
+**Honcho cross-session memory** is available as a memory provider plugin (`plugins/memory/honcho/`), not as a built-in toolset. See [Plugins](https://hermes-agent.nousresearch.com/docs/user-guide/features/plugins) for installation.
+High-level categories:  
+| Category  | Examples  | Description  |  
+| --- | --- | --- |  
+| **Web**  |  `web_search`, `web_extract`  | Search the web and extract page content.  |  
+| **X Search**  | `x_search`  | Search X (Twitter) posts and threads via xAI's built-in `x_search` Responses tool — gated on xAI credentials (SuperGrok OAuth or `XAI_API_KEY`); off by default, opt in via `hermes tools` → 🐦 X (Twitter) Search.  |  
+| **Terminal & Files**  |  `terminal`, `process`, `read_file`, `patch`  | Execute commands and manipulate files.  |  
+| **Browser**  |  `browser_navigate`, `browser_snapshot`, `browser_vision`  | Interactive browser automation with text and vision support.  |  
+| **Media**  |  `vision_analyze`, `image_generate`, `text_to_speech`  | Multimodal analysis and generation.  |  
+| **Agent orchestration**  |  `todo`, `clarify`, `execute_code`, `delegate_task`  | Planning, clarification, code execution, and subagent delegation.  |  
+| **Memory & recall**  |  `memory`, `session_search`  | Persistent memory and session search.  |  
+| **Automation**  | `cronjob`  | Scheduled tasks with create/list/update/pause/resume/run/remove actions. Outbound delivery is handled by cron's own delivery, the `hermes send` CLI, and the gateway notifier — not by an agent-callable tool.  |  
+| **Integrations**  |  `ha_*`, MCP server tools  | Home Assistant, MCP, and other integrations.  |  
+For the authoritative code-derived registry, see [Built-in Tools Reference](https://hermes-agent.nousresearch.com/docs/reference/tools-reference) and [Toolsets Reference](https://hermes-agent.nousresearch.com/docs/reference/toolsets-reference).
+Nous Tool Gateway
+Paid [Nous Portal](https://portal.nousresearch.com) subscribers can use web search, image generation, TTS, and browser automation through the — no separate API keys needed. Run `hermes model` to enable it, or configure individual tools with `hermes tools`.
+## Using Toolsets[​](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#using-toolsets "Direct link to Using Toolsets")
+
+```
+
+
+# Use specific toolsets
+
+
+
+
+hermes chat --toolsets"web,terminal"
+
+
+
+
+
+# See all available tools
+
+
+
+
+hermes tools
+
+
+
+
+
+# Configure tools per platform (interactive)
+
+
+
+
+hermes tools
+
+
+```
+
+Common toolsets include `web`, `search`, `terminal`, `file`, `browser`, `vision`, `image_gen`, `skills`, `tts`, `todo`, `memory`, `session_search`, `cronjob`, `code_execution`, `delegation`, `clarify`, `homeassistant`, `messaging`, `spotify`, `discord`, `discord_admin`, `debugging`, and `safe`.
+See [Toolsets Reference](https://hermes-agent.nousresearch.com/docs/reference/toolsets-reference) for the full set, including platform presets such as `hermes-cli`, `hermes-telegram`, and dynamic MCP toolsets like `mcp-<server>`.
+## Tool result annotations[​](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#tool-result-annotations "Direct link to Tool result annotations")
+A few tool behaviors are worth knowing when you read agent transcripts:
+  * **Signal deaths are explained.** When a terminal command is killed by a signal, the result carries a human-readable note instead of a bare numeric code — e.g. exit `-9`/`137` becomes "terminated by signal 9: SIGKILL — often the kernel OOM killer on memory exhaustion, or an explicit kill -9", and segfaults, aborts, SIGTERM, broken pipes, and CPU/file-size limits are labeled the same way. Negative codes (subprocess semantics) are stated definitively; the shell's `128+signum` convention is hedged with "usually" since an application can legitimately exit with those codes.
+  * **UTF-16 text files are transcoded, not refused.** `read_file` detects UTF-16 (BOM or byte-pattern heuristic, either endianness — common for Windows Notepad files and PowerShell redirects) and transcodes it to UTF-8 for display instead of flagging the file as binary. The result includes a hint disclosing the conversion; edits via `patch`/`write_file` re-encode as UTF-8. Files over 10 MB and genuinely binary files still get the binary-file refusal.
+
+
+## Terminal Backends[​](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#terminal-backends "Direct link to Terminal Backends")
+The terminal tool can execute commands in different environments:  
+| Backend  | Description  | Use Case  |  
+| --- | --- | --- |  
+| `local`  | Run on your machine (default)  | Development, trusted tasks  |  
+| `docker`  | Isolated containers  | Security, reproducibility  |  
+| `ssh`  | Remote server  | Sandboxing, keep agent away from its own code  |  
+| `singularity`  | HPC containers  | Cluster computing, rootless  |  
+| `modal`  | Cloud execution  | Serverless, scale  |  
+| `daytona`  | Cloud sandbox workspace  | Persistent remote dev environments  |  
+| `vercel_sandbox`  | Vercel Sandbox cloud microVM  | Cloud execution with snapshot-backed filesystem persistence  |  
+### Configuration[​](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#configuration "Direct link to Configuration")
+
+```
+
+
+# In ~/.hermes/config.yaml
+
+
+
+
+terminal:
+
+
+
+
+backend: local    # or: docker, ssh, singularity, modal, daytona, vercel_sandbox
+
+
+
+
+cwd:"."# Working directory
+
+
+
+
+timeout:180# Command timeout in seconds
+
+
+```
+
+### Shell startup files and non-interactive commands[​](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#shell-startup-files-and-non-interactive-commands "Direct link to Shell startup files and non-interactive commands")
+Agent terminal calls run your shell **non-interactively** — there is no TTY and no human at the prompt. Heavy or interactive shell initialisation that you never notice in a normal terminal can break or badly slow every command the agent runs:
+  * **Slow init (`nvm` , version managers, network-touching prompts):** the classic `nvm.sh` sourcing adds noticeable latency to _every_ shell start, and the agent starts many shells. Multi-second rc files turn a quick `git status` into a timeout risk.
+  * **TTY-expecting blocks:** anything in `.bashrc`/`.zshrc` that prompts, runs `tmux`/`screen` attach, calls `read`, or prints a menu will hang a non-interactive shell — the command appears to run forever and then times out.
+  * **Unconditional output:** rc files that `echo` banners pollute every command's output the agent has to parse.
+
+
+The fix is the standard guard most distros already ship at the top of `.bashrc` — return early when the shell is non-interactive, and keep anything heavy or interactive below it:
+
+```
+
+
+# ~/.bashrc — keep this guard near the top
+
+
+
+
+case $- in
+
+
+
+
+  *i*);;# interactive: continue
+
+
+
+
+)return;;# non-interactive: stop here
+
+
+
+
+
+
+# heavy/interactive init goes BELOW the guard
+
+
+
+
+exportNVM_DIR="$HOME/.nvm"
+
+
+
+
+[-s"$NVM_DIR/nvm.sh"]\. "$NVM_DIR/nvm.sh"
+
+
+```
+
+Zsh users: put login-only setup in `.zprofile` and interactive-only setup in `.zshrc`; keep `.zshenv` minimal, since it runs for every shell including non-interactive ones. If the agent genuinely needs a tool that only your rc file puts on `PATH`, export the `PATH` change _above_ the guard (path exports are cheap) or symlink the binary into `~/.local/bin`.
+If agent terminal commands hang or time out immediately after working in your own terminal, your shell init is the first suspect.
+### Docker Backend[​](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#docker-backend "Direct link to Docker Backend")
+
+```
+
+
+terminal:
+
+
+
+
+backend: docker
+
+
+
+
+docker_image: python:3.11-slim
+
+
+```
+
+**One persistent container, shared across the whole process.** Hermes starts a single long-lived container on first use (`docker run -d ... sleep infinity`) and routes every terminal, file, and `execute_code` call through `docker exec` into that same container. Working-directory changes, installed packages, environment tweaks, and files written to `/workspace` all carry over from one tool call to the next, across `/new`, `/reset`, and `delegate_task` subagents, for the lifetime of the Hermes process. The container is stopped and removed on shutdown.
+This means the Docker backend behaves like a persistent sandbox VM, not a fresh container per command. If you `pip install foo` once, it's there for the rest of the session. If you `cd /workspace/project`, subsequent `ls` calls see that directory. See [Configuration → Docker Backend](https://hermes-agent.nousresearch.com/docs/user-guide/configuration#docker-backend) for the full lifecycle details and the `container_persistent` flag that controls whether `/workspace` and `/root` survive across Hermes restarts.
+### SSH Backend[​](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#ssh-backend "Direct link to SSH Backend")
+Recommended for security — agent can't modify its own code:
+
+```
+
+
+terminal:
+
+
+
+
+backend: ssh
+
+
+```
+
+
+```
+
+
+# Set credentials in ~/.hermes/.env
+
+
+
+
+TERMINAL_SSH_HOST=my-server.example.com
+
+
+
+
+TERMINAL_SSH_USER=myuser
+
+
+
+
+TERMINAL_SSH_KEY=~/.ssh/id_rsa
+
+
+```
+
+### Singularity/Apptainer[​](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#singularityapptainer "Direct link to Singularity/Apptainer")
+
+```
+
+
+# Pre-build SIF for parallel workers
+
+
+
+
+apptainer build ~/python.sif docker://python:3.11-slim
+
+
+
+
+
+# Configure
+
+
+
+
+hermes config set terminal.backend singularity
+
+
+
+
+hermes config set terminal.singularity_image ~/python.sif
+
+
+```
+
+### Modal (Serverless Cloud)[​](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#modal-serverless-cloud "Direct link to Modal \(Serverless Cloud\)")
+
+```
+
+
+uv pip install modal
+
+
+
+
+modal setup
+
+
+
+
+hermes config set terminal.backend modal
+
+
+```
+
+### Vercel Sandbox[​](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#vercel-sandbox "Direct link to Vercel Sandbox")
+
+```
+
+
+pip install'hermes-agent[vercel]'
+
+
+
+
+hermes config set terminal.backend vercel_sandbox
+
+
+
+
+hermes config set terminal.vercel_runtime node24
+
+
+```
+
+Authenticate with all three of `VERCEL_TOKEN`, `VERCEL_PROJECT_ID`, and `VERCEL_TEAM_ID`. This access-token setup is the supported path for deployments and normal long-running Hermes processes on Render, Railway, Docker, and similar hosts. Supported runtimes are `node24`, `node22`, and `python3.13`; Hermes defaults to `/vercel/sandbox` as the remote workspace root.
+For one-off local development, Hermes also accepts short-lived Vercel OIDC tokens:
+
+```
+
+
+VERCEL_OIDC_TOKEN="$(vc project token project-name)" hermes chat
+
+
+```
+
+From a linked Vercel project directory:
+
+```
+
+
+VERCEL_OIDC_TOKEN="$(vc project token)" hermes chat
+
+
+```
+
+With `container_persistent: true`, Hermes uses Vercel snapshots to preserve filesystem state across sandbox recreation for the same task. This can include Hermes-synced credentials, skills, and cache files inside the sandbox. Snapshots do not preserve live processes, PID space, or the same live sandbox identity.
+Background terminal commands use Hermes' generic non-local process flow: spawn, poll, wait, log, and kill work through the normal process tool while the sandbox is alive, but Hermes does not provide native Vercel detached-process recovery after cleanup or restart.
+Leave `container_disk` unset or at the shared default `51200`; custom disk sizing is unsupported for Vercel Sandbox and will fail diagnostics/backend creation.
+### Container Resources[​](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#container-resources "Direct link to Container Resources")
+Configure CPU, memory, disk, and persistence for all container backends:
+
+```
+
+
+terminal:
+
+
+
+
+backend: docker  # or singularity, modal, daytona, vercel_sandbox
+
+
+
+
+container_cpu:1# CPU cores (default: 1)
+
+
+
+
+container_memory:5120# Memory in MB (default: 5GB)
+
+
+
+
+container_disk:51200# Disk in MB (default: 50GB)
+
+
+
+
+container_persistent:true# Persist filesystem across sessions (default: true)
+
+
+```
+
+When `container_persistent: true`, installed packages, files, and config survive across sessions.
+### Container Security[​](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#container-security "Direct link to Container Security")
+All container backends run with security hardening:
+  * Read-only root filesystem (Docker)
+  * All Linux capabilities dropped
+  * No privilege escalation
+  * PID limits (256 processes)
+  * Full namespace isolation
+  * Persistent workspace via volumes, not writable root layer
+
+
+Docker can optionally receive an explicit env allowlist via `terminal.docker_forward_env`, but forwarded variables are visible to commands inside the container and should be treated as exposed to that session.
+## Background Process Management[​](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#background-process-management "Direct link to Background Process Management")
+Start background processes and manage them:
+
+```
+
+
+terminal(command="pytest -v tests/", background=true)
+
+
+
+
+# Returns: {"session_id": "proc_abc123", "pid": 12345}
+
+
+
+
+
+# Then manage with the process tool:
+
+
+
+
+process(action="list")# Show all running processes
+
+
+
+
+process(action="poll", session_id="proc_abc123")# Check status
+
+
+
+
+process(action="wait", session_id="proc_abc123")# Block until done
+
+
+
+
+process(action="log", session_id="proc_abc123")# Full output
+
+
+
+
+process(action="kill", session_id="proc_abc123")# Terminate
+
+
+
+
+process(action="write", session_id="proc_abc123", data="y")# Send input
+
+
+```
+
+PTY mode (`pty=true`) enables interactive CLI tools like Codex and Claude Code.
+## Sudo Support[​](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#sudo-support "Direct link to Sudo Support")
+If a command needs sudo, you'll be prompted for your password (cached for the session). Or set `SUDO_PASSWORD` in `~/.hermes/.env`.
+warning
+On messaging platforms, if sudo fails, the output includes a tip to add `SUDO_PASSWORD` to `~/.hermes/.env`.
+  * [Tool result annotations](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#tool-result-annotations)
+  * [Terminal Backends](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#terminal-backends)
+    * [Shell startup files and non-interactive commands](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#shell-startup-files-and-non-interactive-commands)
+    * [Singularity/Apptainer](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#singularityapptainer)
+    * [Modal (Serverless Cloud)](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#modal-serverless-cloud)
+  * [Background Process Management](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools#background-process-management)
+
+
