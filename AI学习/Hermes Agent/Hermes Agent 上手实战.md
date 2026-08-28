@@ -618,17 +618,86 @@ Docker 里跑 Hermes 有两种诉求完全不同，别混为一谈（来源 S11�
 跑本体的关键是一条挂载：容器内 `/opt/data` 挂到宿主 `~/.hermes`，里面是全部状态——`.env`、`config.yaml`、`SOUL.md`、`sessions/`、`memories/`、`skills/`、`home/`、`cron/`、`hooks/`、`logs/` 等。镜像本身无状态，升级只换镜像、不碰数据卷，配置自然保留（来源 S11）：
 
 ```bash
-# docker run 跑 Hermes 本体：数据卷挂载 + 暴露 API 端口
-docker run -d --name hermes \
-  -p 8642:8642 \
+# 首次初始化：只做一次
+mkdir -p ~/.hermes
+docker run --rm -it \
   -v ~/.hermes:/opt/data \
-  hermes-agent:latest        # 以实际官方镜像名为准
+  nousresearch/hermes-agent:latest setup
+
+# 常驻运行 Gateway
+docker run -d \
+  --name hermes \
+  --restart unless-stopped \
+  -v ~/.hermes:/opt/data \
+  nousresearch/hermes-agent:latest gateway run
 ```
 
 > [!tip] 大白话
 > 把数据卷想成外接保险箱：容器是随时可拆换的装修房，保险箱（`~/.hermes`）里的东西一直留着。所以不用慌"升级丢配置"——pull 新镜像重装修即可。
 
 镜像本身内置得很全：基于 debian:13.4，带 Python 3.13（uv 管理）、Node 26、Playwright/Chromium、openssh-client 与 s6-overlay；还附带 docker-cli，可把 `/var/run/docker.sock` 挂进容器去驱动宿主 Docker——相当于"容器里的 agent 再调 Docker"的嵌套玩法（来源 S11）。
+
+### Docker Compose：推荐的长期部署方式
+
+如果要长期运行，建议用 Compose 管理容器生命周期。先在宿主机创建 `~/hermes-stack/compose.yaml`：
+
+```yaml
+services:
+  hermes:
+    image: nousresearch/hermes-agent:latest
+    container_name: hermes
+    restart: unless-stopped
+    command: gateway run
+
+    volumes:
+      - ${HOME}/.hermes:/opt/data
+
+    # 只绑定到宿主机本地；只使用 Telegram/Discord 时可以删除这一段
+    ports:
+      - "127.0.0.1:8642:8642"
+
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+          cpus: "2.0"
+```
+
+初始化并启动：
+
+```bash
+mkdir -p ~/.hermes ~/hermes-stack
+cd ~/hermes-stack
+
+# 首次运行配置向导
+docker compose run --rm hermes setup
+
+# 后台启动
+docker compose up -d
+
+# 查看日志
+docker compose logs -f hermes
+```
+
+如果要接 Open WebUI 或其他 OpenAI-compatible 客户端，先在 `~/.hermes/.env` 中加入：
+
+```env
+API_SERVER_ENABLED=true
+API_SERVER_HOST=0.0.0.0
+API_SERVER_KEY=<使用 openssl rand -hex 32 生成的强密钥>
+```
+
+宿主机客户端使用 `http://127.0.0.1:8642/v1`；API Key 填 `API_SERVER_KEY`。API server 具有终端等完整工具权限，不能无认证暴露公网（来源 S11）。
+
+升级时执行：
+
+```bash
+cd ~/hermes-stack
+docker compose pull
+docker compose up -d
+```
+
+`~/.hermes` 是持久化数据目录，删除或更新容器不会丢失配置、记忆和会话。Compose 的完整部署方式以官方 Docker 文档为准（来源 S11）。
 
 ### Gateway 模式：暴露 OpenAI 兼容 API
 
@@ -846,7 +915,10 @@ Issue #16201 记录了 Windows/Git Bash 下 uv.exe、hermes.exe 更新替换时�
 
 | 命令/指令 | 用途 | 所在章节 |
 | --- | --- | --- |
-| `docker run`（`-v ~/.hermes:/opt/data`） | Docker 部署 Hermes，挂载宿主配置持久化、升级不丢 | ch8 |
+| `docker run`（`-v ~/.hermes:/opt/data`） | 使用官方镜像部署 Hermes，挂载宿主配置持久化、升级不丢 | ch8 |
+| `docker compose run --rm hermes setup` | Compose 首次初始化配置向导 | ch8 |
+| `docker compose up -d` | Compose 后台启动 Hermes Gateway | ch8 |
+| `docker compose pull && docker compose up -d` | 拉取新镜像并升级，保留宿主持久化数据 | ch8 |
 | `-p 8642:8642` | Gateway 模式暴露 OpenAI 兼容 API + 健康端点 | ch8 |
 | `API_SERVER_ENABLED=true` + `API_SERVER_HOST=0.0.0.0` + `API_SERVER_KEY`（≥8 位） | API 服务器安全基线（dashboard 非环回绑定必须配认证） | ch8 |
 
