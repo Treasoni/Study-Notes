@@ -1,10 +1,10 @@
 ---
 title: "身份定制与多 Agent：SOUL.md、Profiles 与 Bot Mode"
 tags:
-  - I学习
-  - gent
-  - ermes
-  - 手实战
+  - AI学习
+  - Agent
+  - Hermes
+  - 上手实战
 created: 2026-08-28
 updated: 2026-08-28
 status: 已完成

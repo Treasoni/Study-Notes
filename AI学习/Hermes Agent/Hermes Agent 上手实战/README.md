@@ -1,10 +1,10 @@
 ---
 title: "Hermes Agent（Nous Research）上手实战"
 tags:
-  - I学习
-  - gent
-  - ermes
-  - 手实战
+  - AI学习
+  - Agent
+  - Hermes
+  - 上手实战
 created: 2026-08-28
 updated: 2026-08-28
 status: 已完成
@@ -13,7 +13,6 @@ source_project: hermes-agent
 
 # Hermes Agent（Nous Research）上手实战
 
-# Hermes Agent（Nous Research）上手实战
 这份笔记围绕 Nous Research 出品的开源 AI agent——Hermes Agent 整理而成。与"装好即定型"的传统 agent 不同，Hermes 的核心卖点是内置学习回路：越用越懂你、越用越能干活。全篇按 定位 → 安装 → 模型配置 → 记忆闭环 → 技能体系 → 多平台自动化 → 委派并行 → 部署进阶 → 常见坑 → 身份定制与多 Agent → 命令速查 的顺序展开，十章正文加一个附录，帮助你从零跑通 Hermes，并理解它"用着用着自己变强"的机制。
 
 ## 目录
@@ -32,7 +31,7 @@ source_project: hermes-agent
 
 ## 快速上手
 
-\`\`\`bash
+```bash
 # 一键安装（Linux/macOS/WSL2/Termux）
 curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
 source ~/.bashrc
@@ -44,7 +43,7 @@ pip install hermes-agent
 # Docker 部署
 mkdir -p ~/.hermes
 docker run -it --rm -v ~/.hermes:/opt/data nousresearch/hermes-agent setup
-\`\`\`
+```
 
 ## 更新记录
 
