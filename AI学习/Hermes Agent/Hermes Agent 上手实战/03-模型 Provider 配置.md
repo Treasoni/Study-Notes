@@ -62,6 +62,37 @@ ANTHROPIC_API_KEY=sk-ant-xxxx
 
 两个入口要分清（来源 S5）：会话外运行 `hermes model`，是完整向导，可增删 provider、改默认模型；会话内输入 `/model`，只在"已配置项"之间快速切换，不能新增。换句话说，`hermes model` 是"配管工"（新增、删除、设默认），`/model` 是"换开关"（已装好的水龙头之间切换）。新 provider 配好后，会话内就能立刻用 `/model` 切过去。
 
+## 实战：新增一个 Provider（Docker 三步走）
+
+把「加一个新模型」拆成可照做的三步。宿主机 `~/.hermes/` 就是容器里的 `/opt/data/`，以下命令都在宿主机执行。
+
+**第一步：放钥匙到 `.env`**
+
+```bash
+echo 'OPENAI_API_KEY=sk-xxxx' >> ~/.hermes/.env   # 以 OpenAI 为例，其余 provider 的 key 变量名见上方「Provider 全家桶」表
+```
+
+钥匙只进 `.env`，永远不写进 `config.yaml`。
+
+**第二步：跑向导新增 provider**
+
+```bash
+docker run -it --rm -v ~/.hermes:/opt/data nousresearch/hermes-agent model
+```
+
+交互式选 provider、填模型名、设默认模型，向导写回 `config.yaml`。这是唯一能「新增」provider 的入口；已配好的项之间切换用会话内 `/model`。
+
+**第三步：验证配置齐全**
+
+```bash
+docker run -it --rm -v ~/.hermes:/opt/data nousresearch/hermes-agent doctor
+```
+
+`hermes doctor` 同时诊断 config 与密钥是否齐全：缺 key、provider 拼写错都会在这里暴露。
+
+> [!tip] 大白话
+> 三步对应三件事：先往保险箱放钥匙（.env），再在图纸上画新水管（`hermes model`），最后请师傅检查全屋水路（`hermes doctor`）。不想跑向导也可以：直接在宿主机改 `~/.hermes/config.yaml` 加 provider 段 + `~/.hermes/.env` 加 key，效果一样，只是容易手滑。
+
 ## WSL2 访问 Windows 宿主模型服务
 
 在 WSL2 里跑 Hermes、想连 Windows 上运行的 Ollama 等服务时（来源 S5）：
@@ -86,6 +117,7 @@ context_length: 64000
 - 配置唯一来源是 `~/.hermes/config.yaml` + `~/.hermes/.env`，密钥永不进配置文件；`LLM_MODEL` 已移除。
 - Nous Portal OAuth 一条龙最省事；OpenRouter / OpenAI / Anthropic / custom / Ollama 各有接法，Claude Pro 不能走 OAuth。
 - 会话外 `hermes model` 管增删与默认，会话内 `/model` 管快速切换。
+- 新增 Provider 实操（Docker 三步）：`.env` 放 key → `hermes model` 向导 → `hermes doctor` 验证 → 会话内 `/model` 切换。
 - WSL2 连 Windows 模型服务：mirrored 模式直连 localhost；NAT 模式用主机 IP + 服务绑 0.0.0.0（如 `OLLAMA_HOST`）。
 
 下一章进入 Hermes 最核心的差异化——记忆与学习闭环，看它如何跨会话"用着用着自己变强"。
