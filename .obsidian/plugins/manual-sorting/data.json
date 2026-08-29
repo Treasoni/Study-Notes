@@ -145,6 +145,7 @@
     },
     "虚拟机": {
       "children": [
+        "虚拟机/VMware NAT 模式静态 IP 网关错误排错.md",
         "虚拟机/VMware 启动出现 No Media 报错.md",
         "虚拟机/虚拟机 MOC.md",
         "虚拟机/VMware Workstation Player 安装 Windows 虚拟机.md",
@@ -633,8 +634,55 @@
     },
     "AI学习/Hermes Agent": {
       "children": [
-        "AI学习/Hermes Agent/Hermes Agent 上手实战.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南",
+        "AI学习/Hermes Agent/Hermes Tool 配置指南",
         "AI学习/Hermes Agent/Hermes Agent MOC.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/Hermes Agent/Hermes Agent 上手实战": {
+      "children": [
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/01-定位与核心理念.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/02-安装与第一跑.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/03-模型 Provider 配置.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/04-记忆与学习闭环.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/05-技能体系.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/06-多平台接入与定时任务.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/07-委派与并行.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/08-部署进阶.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/09-常见坑与最佳实践.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/10-身份定制与多 Agent.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/11-附录-命令速查.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/README.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/Hermes Agent/Hermes Docker 部署指南": {
+      "children": [
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/01-镜像数据卷与首次setup.md",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/02-Gateway常驻与Compose编排.md",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/03-微信个人号iLink接入.md",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/04-企业微信AI Bot与回调.md",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/05-飞书建应用与WebSocket.md",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/06-飞书事件订阅与消息收发.md",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/07-QQ官方Bot基础接入.md",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/08-QQ进阶配置与NapCat替代.md",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/09-多平台运维与日志.md",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/10-安全基线.md",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/README.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/Hermes Agent/Hermes Tool 配置指南": {
+      "children": [
+        "AI学习/Hermes Agent/Hermes Tool 配置指南/01-工具体系总览与配置入口.md",
+        "AI学习/Hermes Agent/Hermes Tool 配置指南/02-内置工具与toolsets全解.md",
+        "AI学习/Hermes Agent/Hermes Tool 配置指南/03-Tool Gateway 接入与权限审批.md",
+        "AI学习/Hermes Agent/Hermes Tool 配置指南/04-自定义工具开发与注册.md",
+        "AI学习/Hermes Agent/Hermes Tool 配置指南/05-MCP 接入与排错.md",
+        "AI学习/Hermes Agent/Hermes Tool 配置指南/06-Skills与工具关系-安全基线.md",
+        "AI学习/Hermes Agent/Hermes Tool 配置指南/README.md"
       ],
       "sortOrder": "custom"
     },
@@ -705,6 +753,7 @@
     },
     "docker": {
       "children": [
+        "docker/docker镜像拉取DNS解析超时排错.md",
         "docker/Docker与DockerCompose命令速查.md",
         "docker/GHCR 推送镜像权限配置.md",
         "docker/Linux-Docker与DockerCompose安装指南-国内网络版.md",
@@ -1739,6 +1788,8 @@
     },
     "workspace": {
       "children": [
+        "workspace/hermes-docker-deploy",
+        "workspace/hermes-tool-config",
         "workspace/hermes-agent",
         "workspace/tailscale-subnet-router-fnos",
         "workspace/tailscale-usage",
@@ -2812,6 +2863,8 @@
     },
     "workspace/hermes-agent": {
       "children": [
+        "workspace/hermes-agent/update_plan_06_homeassistant.md",
+        "workspace/hermes-agent/update_report_06_homeassistant.md",
         "workspace/hermes-agent/chapters",
         "workspace/hermes-agent/output",
         "workspace/hermes-agent/research",
@@ -2866,6 +2919,75 @@
         "workspace/hermes-agent/research/gaps/05_hermes-agent_nousresearch_com.md",
         "workspace/hermes-agent/research/gaps/06_hermes-agent_nousresearch_com.md",
         "workspace/hermes-agent/research/gaps/07_hermes-agent_nousresearch_com.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/hermes-docker-deploy": {
+      "children": [
+        "workspace/hermes-docker-deploy/chapters",
+        "workspace/hermes-docker-deploy/00_intent.md",
+        "workspace/hermes-docker-deploy/01_explore_result.md",
+        "workspace/hermes-docker-deploy/02_deep_research.md",
+        "workspace/hermes-docker-deploy/03_outline.md",
+        "workspace/hermes-docker-deploy/README.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/hermes-docker-deploy/chapters": {
+      "children": [
+        "workspace/hermes-docker-deploy/chapters/01-镜像数据卷与首次setup.md",
+        "workspace/hermes-docker-deploy/chapters/02-Gateway常驻与Compose编排.md",
+        "workspace/hermes-docker-deploy/chapters/03-微信个人号iLink接入.md",
+        "workspace/hermes-docker-deploy/chapters/04-企业微信AI Bot与回调.md",
+        "workspace/hermes-docker-deploy/chapters/05-飞书建应用与WebSocket.md",
+        "workspace/hermes-docker-deploy/chapters/06-飞书事件订阅与消息收发.md",
+        "workspace/hermes-docker-deploy/chapters/07-QQ官方Bot基础接入.md",
+        "workspace/hermes-docker-deploy/chapters/08-QQ进阶配置与NapCat替代.md",
+        "workspace/hermes-docker-deploy/chapters/09-多平台运维与日志.md",
+        "workspace/hermes-docker-deploy/chapters/10-安全基线.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/hermes-tool-config": {
+      "children": [
+        "workspace/hermes-tool-config/chapters",
+        "workspace/hermes-tool-config/sources",
+        "workspace/hermes-tool-config/00_intent.md",
+        "workspace/hermes-tool-config/01_explore_result.md",
+        "workspace/hermes-tool-config/02_deep_research.md",
+        "workspace/hermes-tool-config/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/hermes-tool-config/chapters": {
+      "children": [
+        "workspace/hermes-tool-config/chapters/01-工具体系总览与配置入口.md",
+        "workspace/hermes-tool-config/chapters/02-内置工具与toolsets全解.md",
+        "workspace/hermes-tool-config/chapters/03-Tool Gateway 接入与权限审批.md",
+        "workspace/hermes-tool-config/chapters/04-自定义工具开发与注册.md",
+        "workspace/hermes-tool-config/chapters/05-MCP 接入与排错.md",
+        "workspace/hermes-tool-config/chapters/06-Skills与工具关系-安全基线.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/hermes-tool-config/sources": {
+      "children": [
+        "workspace/hermes-tool-config/sources/01_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-tool-config/sources/02_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-tool-config/sources/03_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-tool-config/sources/04_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-tool-config/sources/05_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-tool-config/sources/06_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-tool-config/sources/07_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-tool-config/sources/08_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-tool-config/sources/S06_CONTRIBUTING.md",
+        "workspace/hermes-tool-config/sources/S08_release-latest.txt",
+        "workspace/hermes-tool-config/sources/S08_release-notes.txt",
+        "workspace/hermes-tool-config/sources/S08_release-v0.20.0.txt",
+        "workspace/hermes-tool-config/sources/S08_release-v0.20.0-full.txt",
+        "workspace/hermes-tool-config/sources/S09_FAQ.md",
+        "workspace/hermes-tool-config/sources/S10_mcp-config-reference.md",
+        "workspace/hermes-tool-config/sources/S11_configuration.md"
       ],
       "sortOrder": "custom"
     },
@@ -3945,6 +4067,8 @@
     },
     "workspace/workflow-runs": {
       "children": [
+        "workspace/workflow-runs/hermes-docker-deploy.workflow.md",
+        "workspace/workflow-runs/hermes-tool-config.workflow.md",
         "workspace/workflow-runs/hermes-agent.workflow.md",
         "workspace/workflow-runs/tailscale-subnet-router-fnos.workflow.md",
         "workspace/workflow-runs/tailscale-usage.workflow.md",
