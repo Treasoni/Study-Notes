@@ -7,7 +7,7 @@ tags:
   - 运维
   - 实战
 created: 2026-08-04
-updated: 2026-08-04
+updated: 2026-08-29
 status: 已完成
 source_project: debian-practice
 type: 实战笔记
@@ -16,7 +16,7 @@ type: 实战笔记
 # Debian 最小化安装后 sudo 权限配置
 
 > [!summary] 笔记速览
-> 一份从零配置 Debian 最小化系统 sudo 权限的实战指南。先弄清「最小化安装为什么没有 sudo」以及 su/sudo 与 sudo 组机制的原理，再走一遍「安装 sudo → 加组授权 → 验证」三步标准流程，随后进阶到 visudo 与 sudoers 语法、NOPASSWD 免密，最后覆盖三类常见故障的排错与安全最佳实践。共八章，按顺序阅读即可完整掌握。
+> 一份从零配置 Debian 最小化系统 sudo 权限的实战指南。先弄清「最小化安装为什么没有 sudo」以及 su/sudo 与 sudo 组机制的原理，再走一遍「安装 sudo → 加组授权 → 验证」三步标准流程（含 sudo 密码机制），随后进阶到 visudo 与 sudoers 语法、NOPASSWD 免密，最后覆盖三类常见故障的排错与安全最佳实践。共八章，按顺序阅读即可完整掌握。
 
 ---
 
@@ -251,6 +251,54 @@ root
 
 `sudo whoami` 输出 `root`，说明 sudo 已安装、授权已生效、凭据缓存已建立（默认 15 分钟），标准配置完成。
 
+### 3.5 密码机制：sudo 要的密码是什么
+
+**结论先行**：`sudo whoami` 敲下去后提示的密码，是**当前用户的登录密码**，不是 root 密码。Debian 默认 sudoers 没有开 `rootpw`/`targetpw`，sudo 拿你的身份去认证——密码对，才继续查你有没有提权规则。所以「配置 sudo 密码」改的是自己账号的密码；root 密码由 `su -` 单独使用、单独管理。
+
+#### 3.5.1 修改 sudo 要的密码
+
+改你自己账号的密码即可：
+
+```bash
+passwd
+```
+
+会先要旧密码，再输两遍新密码；改完以后 `sudo` 就用新密码。用有 sudo 权限的账号重置别人的密码：
+
+```bash
+sudo passwd <用户名>
+```
+
+#### 3.5.2 设置 / 修改 root 密码
+
+`su -` 用的 root 密码和 sudo 无关。最小化安装走「root 密码已设置」分支时，装系统时已定好；要改或当初留空，执行：
+
+```bash
+sudo passwd root
+```
+
+#### 3.5.3 让 sudo 改问 root 密码（可选）
+
+一般不需要，但语法上支持——在 sudoers 里加：
+
+```text
+Defaults rootpw        # 一律问 root 密码
+# Defaults targetpw     # 问目标用户（提权到 root 就问 root）密码
+```
+
+必须经 `visudo` 改（第 4 章红线）。
+
+#### 3.5.4 密码缓存时长
+
+sudo 会缓存认证结果，默认 15 分钟（`timestamp_timeout`）内免密重复执行：
+
+```text
+Defaults timestamp_timeout=10   # 10 分钟；0 表示每次都要输；负数永不超时
+```
+
+> [!note] 免密是另一回事
+> 「让 sudo 不输密码」是第 5 章的 `NOPASSWD:` 标签，只应对低风险命令开。
+
 ### 本章小结
 
 - 标准三步：`su -` 切 root → `apt update && apt install sudo -y` → `usermod -aG sudo <用户名>`。
@@ -258,6 +306,7 @@ root
 - Debian 推荐 `adduser <用户名> sudo`，与 `usermod -aG sudo` 等价。
 - 组身份登录时读取，加组后必须重登（或 `su - $USER` / `newgrp sudo`），否则报 `not in the sudoers file` / `Sorry`。
 - 验证链：`id` 见 `27(sudo)` → `sudo whoami` 输出 `root`。
+- sudo 要的是**当前用户密码**，不是 root：改它用 `passwd`，改 root 用 `sudo passwd root`，缓存时长由 `Defaults timestamp_timeout` 控制（默认 15 分钟）。
 
 下一章进入进阶：`visudo` 与 sudoers 语法——为什么一个语法错误能让全部 sudo 失效，以及如何安全地做「只允许某条命令」的精细授权。
 
@@ -634,6 +683,7 @@ sudo: unable to initialize policy plugin
 | ④ 刷新会话 | 注销重登 / `su - $USER` / `newgrp sudo` | 组身份只在登录时读取（第 3 章） |
 | ⑤ 验证 | `id` 看 `27(sudo)`，再 `sudo whoami` 输出 `root` | 第 3 章验证链 |
 | ⑥ 安全编辑（可选） | `sudo visudo -c` 校验；片段用 `sudo visudo -f /etc/sudoers.d/99-custom-ops` | 文件 0440、root:root（第 4 章） |
+| ⑦ 密码管理（可选） | `passwd` 改自己的（即 sudo 要的密码）；`sudo passwd root` 改 root 密码 | sudo 默认要当前用户密码，非 root（3.5） |
 
 #### 常见坑速查
 
@@ -644,6 +694,7 @@ sudo: unable to initialize policy plugin
 | 直接改 sudoers | 语法错误 → sudo 全部失效 | 只用 `visudo`；权限保持 0440（第 7 章） |
 | `su` 不带 `-` | 切 root 后命令找不到 | 统一用 `su -`（第 2 章） |
 | `apt update` 未先跑 | `apt install sudo` 失败 | 先 `apt update` 再 install（第 3 章） |
+| 拿 root 密码去输 sudo | `sudo` 一直报密码错误 | sudo 要的是**当前用户密码**；root 密码只在 `su -` 用（3.5） |
 
 ### 本章小结
 
@@ -655,6 +706,10 @@ sudo: unable to initialize policy plugin
 到此，从「最小化安装为什么没有 sudo」到「sudoers 损坏恢复」的全流程已经闭环。把这些表和红线截图或抄到你的运维速查里，日常遇到 sudo 问题时按「验证会话 → 查 `%sudo` 行 → 校验配置」的顺序排查，就能覆盖绝大多数场景。
 
 ---
+
+## 更新记录
+
+- 2026-08-29：第 3 章新增 3.5「密码机制：sudo 要的密码是什么」，补充密码修改、root 密码管理、缓存时长配置；第 8 章速查表同步更新。
 
 ## 相关笔记
 
