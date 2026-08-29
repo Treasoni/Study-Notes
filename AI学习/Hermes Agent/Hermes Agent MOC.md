@@ -2,7 +2,7 @@
 title: Hermes Agent MOC
 tags: [hermes, agent, ai, MOC, 索引]
 created: 2026-08-28
-updated: 2026-08-28
+updated: 2026-08-30
 status: updated
 source_project: hermes-agent
 ---
@@ -10,10 +10,11 @@ source_project: hermes-agent
 # Hermes Agent MOC
 
 > [!info] 目录导航
-> **Hermes Agent 学习笔记**（Nous Research 出品，主打"内置学习回路"的开源 AI agent）。三册并存：
+> **Hermes Agent 学习笔记**（Nous Research 出品，主打"内置学习回路"的开源 AI agent）。四册并存：
 > - [[Hermes Agent 上手实战/README|上手实战分册]]：定位 → 安装 → 模型配置 → 记忆闭环 → 技能体系 → 多平台自动化 → 委派并行 → 部署进阶 → 常见坑 → 身份定制与多 Agent，文末附常用命令速查。
 > - [[Hermes Tool 配置指南/README|工具配置分册]]：专讲工具怎么配、怎么接——内置 toolsets 全解、Tool Gateway 与审批、自定义工具开发、MCP 接入排错、安全基线。
 > - [[Hermes Docker 部署指南/README|Docker 部署分册]]：Docker 常驻部署 + 国内消息平台接入——镜像/数据卷/setup、Gateway 常驻与 Compose、微信 iLink、企业微信 AI Bot、飞书、QQ 官方 Bot、多平台运维与安全基线。
+> - [[Hermes Rules 配置指南/README|规则配置分册]]：专讲规则体系怎么配——文件地图、SOUL.md 全局身份、AGENTS.md 项目规则、Claude Code 对照迁移、config.yaml hooks、验证与排错。
 
 ---
 
@@ -37,6 +38,7 @@ source_project: hermes-agent
 | [[Hermes Agent 上手实战/README|Hermes Agent 上手实战（分册）]] | 10 章 + 附录实战笔记：定位与理念、安装第一跑、模型 Provider 配置、记忆与学习闭环、技能体系、多平台接入与定时任务、委派与 execute_code、Docker 部署进阶、常见坑与最佳实践、身份定制与多 Agent + 命令速查附录 |
 | [[Hermes Tool 配置指南/README|Hermes Tool 配置指南（分册）]] | 6 章工具配置实战：工具体系总览与配置入口、内置 toolsets 全解（terminal/Docker）、Tool Gateway 接入与权限审批、自定义工具开发与注册、MCP 接入与排错、Skills 与工具关系 · 安全基线 |
 | [[Hermes Docker 部署指南/README|Hermes Docker 部署指南（分册）]] | 10 章 Docker 部署实战：镜像/数据卷/首次 setup、Gateway 常驻与 Compose 编排、微信个人号 iLink、企业微信 AI Bot、飞书建应用与事件收发、QQ 官方 Bot 与 NapCat 替代、多平台运维与日志、安全基线 |
+| [[Hermes Rules 配置指南/README|Hermes Rules 配置指南（分册）]] | 6 章规则配置实战：文件地图、SOUL.md 全局身份、AGENTS.md 项目规则、Claude Code 对照迁移、config.yaml hooks、验证与排错 |
 
 ---
 
