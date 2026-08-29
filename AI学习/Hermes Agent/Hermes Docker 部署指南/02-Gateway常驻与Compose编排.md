@@ -6,7 +6,7 @@ tags:
   - Hermes
   - Docker
 created: 2026-08-28
-updated: 2026-08-28
+updated: 2026-08-29
 status: 完成
 source_project: hermes-docker-deploy
 ---
@@ -82,24 +82,28 @@ CONTAINER ID   IMAGE                                STATUS         PORTS
 ### 先睹为快
 
 ```yaml
-# ~/hermes-stack/docker-compose.yaml
 services:
   hermes:
-    image: nousresearch/hermes-agent:latest   # 官方镜像；生产可 pin 日期 tag
+    image: nousresearch/hermes-agent:latest
     container_name: hermes
-    restart: unless-stopped                   # 开机自启 + 崩溃自愈
+    restart: unless-stopped
+    command: gateway run
     ports:
-      - "8642:8642"   # Hermes API Server（第 10 章再开鉴权三件套）
-      - "9119:9119"   # Hermes Dashboard（配 HERMES_DASHBOARD=1 生效）
+      - "8642:8642"   # gateway API
+      - "9119:9119"   # dashboard（仅在 HERMES_DASHBOARD=1 时生效）
     volumes:
-      - ~/.hermes:/opt/data   # 数据卷：唯一状态源
+      - ~/.hermes:/opt/data
     environment:
-      - HERMES_DASHBOARD=1    # 打开 9119 仪表盘
-      # 纯聊天平台且不用 Dashboard/API，可只留 volumes 这一段
-      # API Server 安全三件套见第 10 章，默认不开避免公网裸奔
-    mem_limit: 4g             # 内存上限 4G
-    cpus: 2.0                 # CPU 上限 2 核
-    shm_size: 1g              # /dev/shm 升到 1G：浏览器工具（Playwright）需要
+      - HERMES_DASHBOARD=1
+      # 取消注释以直接转发特定环境变量而非使用 .env 文件：
+      # - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      # - OPENAI_API_KEY=${OPENAI_API_KEY}
+      # - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+          cpus: "2.0"
 ```
 
 [!tip] 大白话：Compose 是什么
@@ -302,6 +306,46 @@ docker run -d ... --shm-size=1g nousresearch/hermes-agent:latest gateway run
 # compose 方式（见 2.2 的 shm_size 字段）
 docker compose up -d --force-recreate   # 让 shm_size 生效
 ```
+
+## 2.7 初始化清单：Compose 就绪后如何初始化与配置
+
+`docker-compose.yaml` 只是「常驻启动」的说明书，它**不会替你初始化**——`.env` 与 `config.yaml` 必须先就绪，gateway 才有东西可读。本节把 Compose 就绪后的初始化收敛成四步清单：前三步用一次性容器完成，第四步才轮到 compose 常驻。第 1 章已跑过 setup 的，可压缩成两步（③+④）。
+
+### 先睹为快：四步命令
+
+```bash
+# ① 首次 setup（产出 ~/.hermes/.env，仅新机器/新目录需要）
+docker run -it --rm -v ~/.hermes:/opt/data nousresearch/hermes-agent setup
+
+# ② 配置模型 provider（可选：新增 provider / 改默认模型）
+docker run -it --rm -v ~/.hermes:/opt/data nousresearch/hermes-agent model
+
+# ③ 验证配置齐全
+docker run -it --rm -v ~/.hermes:/opt/data nousresearch/hermes-agent doctor
+
+# ④ compose 常驻启动
+cd ~/hermes-stack
+docker compose up -d
+docker compose ps
+docker compose logs -f hermes
+```
+
+### 逐段拆讲
+
+| 步骤 | 干什么 | 关键点 |
+|------|--------|--------|
+| ① setup | 交互式向导产出 `~/.hermes/.env` | `-it` **必须**；向导依次问 provider → API Key → 是否启用平台；第 1 章跑过可跳过 |
+| ② model | 会话外配置模型 provider | 也可手工改 `config.yaml` + `.env`，key 只进 `.env`（详见 [[03-模型 Provider 配置\|模型 Provider 配置]]） |
+| ③ doctor | 诊断配置与密钥是否齐全 | 缺 key / provider 拼错都会暴露；`doctor` 过了再启动，避免一启动就退出 |
+| ④ compose up | 按 2.2 清单常驻启动 gateway | 日志出现 gateway 开始轮询各平台 / 等待连接即成功 |
+
+[!note] 初始化前先处理权限
+权限问题（2.4）要在初始化**之前**解决，否则 setup 第一步就撞 `PermissionError /opt/hermes/.env`。推荐 `chmod -R 755 ~/.hermes`，或在 compose 里配 `HERMES_UID` / `HERMES_GID` 对齐宿主 UID。
+
+[!warning] 三条红线（对应 2.6 三大坑）
+1. CLI 一律用一次性容器，不要 `docker exec hermes hermes ...`；
+2. 一个数据卷只能一个 gateway，别让手动 `docker run` 与 `docker compose up` 抢同一个 `~/.hermes`；
+3. 接平台时逐个在 `.env` 取消注释填 key、不重建容器，平台变量见第 3~8 章。
 
 ## 小结
 

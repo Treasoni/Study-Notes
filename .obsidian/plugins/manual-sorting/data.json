@@ -54,6 +54,15 @@
       ],
       "sortOrder": "custom"
     },
+    "内网穿透": {
+      "children": [
+        "内网穿透/内网穿透 MOC.md",
+        "内网穿透/内网穿透带宽性能分析.md",
+        "内网穿透/Tailscale使用教程.md",
+        "内网穿透/Tailscale子网路由器部署教程.md"
+      ],
+      "sortOrder": "custom"
+    },
     "软路由教程": {
       "children": [
         "软路由教程/旁路由原理详解.md",
@@ -136,7 +145,7 @@
     },
     "虚拟机": {
       "children": [
-        "虚拟机/内网穿透带宽性能分析.md",
+        "虚拟机/VMware NAT 模式静态 IP 网关错误排错.md",
         "虚拟机/VMware 启动出现 No Media 报错.md",
         "虚拟机/虚拟机 MOC.md",
         "虚拟机/VMware Workstation Player 安装 Windows 虚拟机.md",
@@ -183,6 +192,7 @@
     },
     "AI学习": {
       "children": [
+        "AI学习/Hermes Agent",
         "AI学习/DeepSeek-Harness 教程",
         "AI学习/OpenCode",
         "AI学习/DeepSeek-Reasonix 教程",
@@ -622,6 +632,60 @@
       ],
       "sortOrder": "custom"
     },
+    "AI学习/Hermes Agent": {
+      "children": [
+        "AI学习/Hermes Agent/Hermes Agent 上手实战",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南",
+        "AI学习/Hermes Agent/Hermes Tool 配置指南",
+        "AI学习/Hermes Agent/Hermes Agent MOC.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/Hermes Agent/Hermes Agent 上手实战": {
+      "children": [
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/01-定位与核心理念.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/02-安装与第一跑.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/03-模型 Provider 配置.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/04-记忆与学习闭环.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/05-技能体系.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/06-多平台接入与定时任务.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/07-委派与并行.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/08-部署进阶.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/09-常见坑与最佳实践.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/10-身份定制与多 Agent.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/11-附录-命令速查.md",
+        "AI学习/Hermes Agent/Hermes Agent 上手实战/README.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/Hermes Agent/Hermes Docker 部署指南": {
+      "children": [
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/01-镜像数据卷与首次setup.md",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/02-Gateway常驻与Compose编排.md",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/03-微信个人号iLink接入.md",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/04-企业微信AI Bot与回调.md",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/05-飞书建应用与WebSocket.md",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/06-飞书事件订阅与消息收发.md",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/07-QQ官方Bot基础接入.md",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/08-QQ进阶配置与NapCat替代.md",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/09-多平台运维与日志.md",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/10-安全基线.md",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/README.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/Hermes Agent/Hermes Tool 配置指南": {
+      "children": [
+        "AI学习/Hermes Agent/Hermes Tool 配置指南/01-工具体系总览与配置入口.md",
+        "AI学习/Hermes Agent/Hermes Tool 配置指南/02-内置工具与toolsets全解.md",
+        "AI学习/Hermes Agent/Hermes Tool 配置指南/03-Tool Gateway 接入与权限审批.md",
+        "AI学习/Hermes Agent/Hermes Tool 配置指南/04-自定义工具开发与注册.md",
+        "AI学习/Hermes Agent/Hermes Tool 配置指南/05-MCP 接入与排错.md",
+        "AI学习/Hermes Agent/Hermes Tool 配置指南/06-Skills与工具关系-安全基线.md",
+        "AI学习/Hermes Agent/Hermes Tool 配置指南/README.md"
+      ],
+      "sortOrder": "custom"
+    },
     "AI学习/Notes": {
       "children": [
         "AI学习/Notes/Node.js 基础概念"
@@ -689,6 +753,7 @@
     },
     "docker": {
       "children": [
+        "docker/docker镜像拉取DNS解析超时排错.md",
         "docker/Docker与DockerCompose命令速查.md",
         "docker/GHCR 推送镜像权限配置.md",
         "docker/Linux-Docker与DockerCompose安装指南-国内网络版.md",
@@ -1723,6 +1788,13 @@
     },
     "workspace": {
       "children": [
+        "workspace/hermes-docker-deploy",
+        "workspace/hermes-tool-config",
+        "workspace/hermes-agent",
+        "workspace/tailscale-subnet-router-fnos",
+        "workspace/tailscale-usage",
+        "workspace/update-tailscale-docker-plan.md",
+        "workspace/update-tailscale-docker-report.md",
         "workspace/intranet-penetration-bandwidth",
         "workspace/iso-img-update",
         "workspace/lunatv-import-sites",
@@ -2789,6 +2861,136 @@
       ],
       "sortOrder": "custom"
     },
+    "workspace/hermes-agent": {
+      "children": [
+        "workspace/hermes-agent/update_plan_06_homeassistant.md",
+        "workspace/hermes-agent/update_report_06_homeassistant.md",
+        "workspace/hermes-agent/chapters",
+        "workspace/hermes-agent/output",
+        "workspace/hermes-agent/research",
+        "workspace/hermes-agent/00_intent.md",
+        "workspace/hermes-agent/01_explore_result.md",
+        "workspace/hermes-agent/02_deep_research.md",
+        "workspace/hermes-agent/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/hermes-agent/chapters": {
+      "children": [
+        "workspace/hermes-agent/chapters/01_定位与核心理念.md",
+        "workspace/hermes-agent/chapters/02_安装与第一跑.md",
+        "workspace/hermes-agent/chapters/03_模型Provider配置.md",
+        "workspace/hermes-agent/chapters/04_记忆与学习闭环.md",
+        "workspace/hermes-agent/chapters/05_技能体系.md",
+        "workspace/hermes-agent/chapters/06_多平台接入与定时任务.md",
+        "workspace/hermes-agent/chapters/07_委派与并行.md",
+        "workspace/hermes-agent/chapters/08_部署进阶.md",
+        "workspace/hermes-agent/chapters/09_常见坑与最佳实践.md",
+        "workspace/hermes-agent/chapters/附录_常用命令速查.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/hermes-agent/output": {
+      "children": [
+        "workspace/hermes-agent/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/hermes-agent/research": {
+      "children": [
+        "workspace/hermes-agent/research/gaps",
+        "workspace/hermes-agent/research/01_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-agent/research/02_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-agent/research/03_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-agent/research/04_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-agent/research/05_raw_githubusercontent_com.md",
+        "workspace/hermes-agent/research/06_github_com.md",
+        "workspace/hermes-agent/research/07_raw_githubusercontent_com.md",
+        "workspace/hermes-agent/research/sitemap_raw.xml"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/hermes-agent/research/gaps": {
+      "children": [
+        "workspace/hermes-agent/research/gaps/01_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-agent/research/gaps/02_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-agent/research/gaps/03_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-agent/research/gaps/04_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-agent/research/gaps/05_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-agent/research/gaps/06_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-agent/research/gaps/07_hermes-agent_nousresearch_com.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/hermes-docker-deploy": {
+      "children": [
+        "workspace/hermes-docker-deploy/chapters",
+        "workspace/hermes-docker-deploy/00_intent.md",
+        "workspace/hermes-docker-deploy/01_explore_result.md",
+        "workspace/hermes-docker-deploy/02_deep_research.md",
+        "workspace/hermes-docker-deploy/03_outline.md",
+        "workspace/hermes-docker-deploy/README.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/hermes-docker-deploy/chapters": {
+      "children": [
+        "workspace/hermes-docker-deploy/chapters/01-镜像数据卷与首次setup.md",
+        "workspace/hermes-docker-deploy/chapters/02-Gateway常驻与Compose编排.md",
+        "workspace/hermes-docker-deploy/chapters/03-微信个人号iLink接入.md",
+        "workspace/hermes-docker-deploy/chapters/04-企业微信AI Bot与回调.md",
+        "workspace/hermes-docker-deploy/chapters/05-飞书建应用与WebSocket.md",
+        "workspace/hermes-docker-deploy/chapters/06-飞书事件订阅与消息收发.md",
+        "workspace/hermes-docker-deploy/chapters/07-QQ官方Bot基础接入.md",
+        "workspace/hermes-docker-deploy/chapters/08-QQ进阶配置与NapCat替代.md",
+        "workspace/hermes-docker-deploy/chapters/09-多平台运维与日志.md",
+        "workspace/hermes-docker-deploy/chapters/10-安全基线.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/hermes-tool-config": {
+      "children": [
+        "workspace/hermes-tool-config/chapters",
+        "workspace/hermes-tool-config/sources",
+        "workspace/hermes-tool-config/00_intent.md",
+        "workspace/hermes-tool-config/01_explore_result.md",
+        "workspace/hermes-tool-config/02_deep_research.md",
+        "workspace/hermes-tool-config/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/hermes-tool-config/chapters": {
+      "children": [
+        "workspace/hermes-tool-config/chapters/01-工具体系总览与配置入口.md",
+        "workspace/hermes-tool-config/chapters/02-内置工具与toolsets全解.md",
+        "workspace/hermes-tool-config/chapters/03-Tool Gateway 接入与权限审批.md",
+        "workspace/hermes-tool-config/chapters/04-自定义工具开发与注册.md",
+        "workspace/hermes-tool-config/chapters/05-MCP 接入与排错.md",
+        "workspace/hermes-tool-config/chapters/06-Skills与工具关系-安全基线.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/hermes-tool-config/sources": {
+      "children": [
+        "workspace/hermes-tool-config/sources/01_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-tool-config/sources/02_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-tool-config/sources/03_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-tool-config/sources/04_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-tool-config/sources/05_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-tool-config/sources/06_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-tool-config/sources/07_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-tool-config/sources/08_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-tool-config/sources/S06_CONTRIBUTING.md",
+        "workspace/hermes-tool-config/sources/S08_release-latest.txt",
+        "workspace/hermes-tool-config/sources/S08_release-notes.txt",
+        "workspace/hermes-tool-config/sources/S08_release-v0.20.0.txt",
+        "workspace/hermes-tool-config/sources/S08_release-v0.20.0-full.txt",
+        "workspace/hermes-tool-config/sources/S09_FAQ.md",
+        "workspace/hermes-tool-config/sources/S10_mcp-config-reference.md",
+        "workspace/hermes-tool-config/sources/S11_configuration.md"
+      ],
+      "sortOrder": "custom"
+    },
     "workspace/home-assistant-deployment-methods": {
       "children": [
         "workspace/home-assistant-deployment-methods/chapters",
@@ -2871,6 +3073,40 @@
     "workspace/home-assistant-integration/output": {
       "children": [
         "workspace/home-assistant-integration/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/intranet-penetration-bandwidth": {
+      "children": [
+        "workspace/intranet-penetration-bandwidth/output",
+        "workspace/intranet-penetration-bandwidth/chapters",
+        "workspace/intranet-penetration-bandwidth/03_outline.md",
+        "workspace/intranet-penetration-bandwidth/02_deep_research.md",
+        "workspace/intranet-penetration-bandwidth/01_explore_result.md",
+        "workspace/intranet-penetration-bandwidth/00_intent.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/intranet-penetration-bandwidth/chapters": {
+      "children": [
+        "workspace/intranet-penetration-bandwidth/chapters/04_实战用iPerf3测自家隧道带宽并选型.md",
+        "workspace/intranet-penetration-bandwidth/chapters/02_固定带宽套餐能干什么.md",
+        "workspace/intranet-penetration-bandwidth/chapters/05_常见坑FAQ与进阶方向.md",
+        "workspace/intranet-penetration-bandwidth/chapters/03_ZeroTier和Tailscale的带宽怎么看.md",
+        "workspace/intranet-penetration-bandwidth/chapters/01_内网穿透的带宽从哪来.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/intranet-penetration-bandwidth/output": {
+      "children": [
+        "workspace/intranet-penetration-bandwidth/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/iso-img-update": {
+      "children": [
+        "workspace/iso-img-update/update_report.md",
+        "workspace/iso-img-update/update_plan.md"
       ],
       "sortOrder": "custom"
     },
@@ -3276,6 +3512,61 @@
     "workspace/superpowers/output": {
       "children": [
         "workspace/superpowers/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/tailscale-subnet-router-fnos": {
+      "children": [
+        "workspace/tailscale-subnet-router-fnos/chapters",
+        "workspace/tailscale-subnet-router-fnos/output",
+        "workspace/tailscale-subnet-router-fnos/00_intent.md",
+        "workspace/tailscale-subnet-router-fnos/01_explore_result.md",
+        "workspace/tailscale-subnet-router-fnos/02_deep_research.md",
+        "workspace/tailscale-subnet-router-fnos/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/tailscale-subnet-router-fnos/chapters": {
+      "children": [
+        "workspace/tailscale-subnet-router-fnos/chapters/01_原理与架构速览.md",
+        "workspace/tailscale-subnet-router-fnos/chapters/02_Docker_Compose_部署.md",
+        "workspace/tailscale-subnet-router-fnos/chapters/03_内核转发_sysctl.md",
+        "workspace/tailscale-subnet-router-fnos/chapters/04_防火墙放行与NAT_iptables.md",
+        "workspace/tailscale-subnet-router-fnos/chapters/05_控制台批准与客户端配置.md",
+        "workspace/tailscale-subnet-router-fnos/chapters/06_验证方法与排错表.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/tailscale-subnet-router-fnos/output": {
+      "children": [
+        "workspace/tailscale-subnet-router-fnos/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/tailscale-usage": {
+      "children": [
+        "workspace/tailscale-usage/chapters",
+        "workspace/tailscale-usage/output",
+        "workspace/tailscale-usage/00_intent.md",
+        "workspace/tailscale-usage/01_explore_result.md",
+        "workspace/tailscale-usage/02_deep_research.md",
+        "workspace/tailscale-usage/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/tailscale-usage/chapters": {
+      "children": [
+        "workspace/tailscale-usage/chapters/chapter-01.md",
+        "workspace/tailscale-usage/chapters/chapter-02.md",
+        "workspace/tailscale-usage/chapters/chapter-03.md",
+        "workspace/tailscale-usage/chapters/chapter-04.md",
+        "workspace/tailscale-usage/chapters/chapter-05.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/tailscale-usage/output": {
+      "children": [
+        "workspace/tailscale-usage/output/final_note.md"
       ],
       "sortOrder": "custom"
     },
@@ -3776,6 +4067,11 @@
     },
     "workspace/workflow-runs": {
       "children": [
+        "workspace/workflow-runs/hermes-docker-deploy.workflow.md",
+        "workspace/workflow-runs/hermes-tool-config.workflow.md",
+        "workspace/workflow-runs/hermes-agent.workflow.md",
+        "workspace/workflow-runs/tailscale-subnet-router-fnos.workflow.md",
+        "workspace/workflow-runs/tailscale-usage.workflow.md",
         "workspace/workflow-runs/intranet-penetration-bandwidth.workflow.md",
         "workspace/workflow-runs/lunatv-import-sites.workflow.md",
         "workspace/workflow-runs/stremio-web.workflow.md",
@@ -3825,44 +4121,6 @@
         "workspace/workflow-runs/nodejs-ai-application.workflow.md",
         "workspace/workflow-runs/superpowers.workflow.md"
       ],
-      "sortOrder": "custom"
-    },
-    "workspace/iso-img-update": {
-      "children": [
-        "workspace/iso-img-update/update_report.md",
-        "workspace/iso-img-update/update_plan.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "workspace/intranet-penetration-bandwidth": {
-      "children": [
-        "workspace/intranet-penetration-bandwidth/output",
-        "workspace/intranet-penetration-bandwidth/chapters",
-        "workspace/intranet-penetration-bandwidth/03_outline.md",
-        "workspace/intranet-penetration-bandwidth/02_deep_research.md",
-        "workspace/intranet-penetration-bandwidth/01_explore_result.md",
-        "workspace/intranet-penetration-bandwidth/00_intent.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "workspace/intranet-penetration-bandwidth/chapters": {
-      "children": [
-        "workspace/intranet-penetration-bandwidth/chapters/04_实战用iPerf3测自家隧道带宽并选型.md",
-        "workspace/intranet-penetration-bandwidth/chapters/02_固定带宽套餐能干什么.md",
-        "workspace/intranet-penetration-bandwidth/chapters/05_常见坑FAQ与进阶方向.md",
-        "workspace/intranet-penetration-bandwidth/chapters/03_ZeroTier和Tailscale的带宽怎么看.md",
-        "workspace/intranet-penetration-bandwidth/chapters/01_内网穿透的带宽从哪来.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "workspace/intranet-penetration-bandwidth/output": {
-      "children": [
-        "workspace/intranet-penetration-bandwidth/output/final_note.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "内网穿透": {
-      "children": [],
       "sortOrder": "custom"
     }
   },

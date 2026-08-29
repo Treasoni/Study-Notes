@@ -2,7 +2,7 @@
 type: moc
 status: active
 created: 2026-07-30
-updated: 2026-08-27
+updated: 2026-08-28
 tags:
   - moc
   - 虚拟机
@@ -21,6 +21,7 @@ tags:
 - [[虚拟机/VMware Workstation Player 安装 Windows 虚拟机.md]] - 从零开始在 VMware Player 上安装 Windows 10/11 虚拟机的完整教程 #VMware #教程
 - [[虚拟机/VMware 获取虚拟机所有权失败.md]] - VMware 虚拟机锁文件报错的解决方法 #VMware #故障排查
 - [[虚拟机/VMware 启动出现 No Media 报错.md]] - VMware 虚拟机启动时 "No Media" 错误的排查与解决方法 #VMware #故障排查
+- [[虚拟机/VMware NAT 模式静态 IP 网关错误排错.md]] - VMware NAT 模式下静态 IP 网关误配 `.1`（应为 `.2`）导致整机外网断连的排错实战 #VMware #排错
 
 ## 虚拟网络原理
 

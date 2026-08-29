@@ -1,7 +1,7 @@
 ---
 title: Docker 知识索引
 created: 2026-04-06
-updated: 2026-08-08
+updated: 2026-08-28
 tags: [docker, MOC, 索引]
 
 ---
@@ -25,7 +25,7 @@ tags: [docker, MOC, 索引]
 | 理解 Docker 网络 | [[Docker网络结构详解]] |
 | 更新容器版本 | [[docker容器如何更新]] |
 | 解决权限问题 | [[docker里的GID和UID]] |
-| 排查常见错误 | [[docker容器搭建错误的知识讲解]] |
+| 排查常见错误 | [[docker容器搭建错误的知识讲解]] \| [[docker镜像拉取DNS解析超时排错]] |
 | 向 GHCR 推送镜像 | [[GHCR 推送镜像权限配置]] |
 
 ---
@@ -49,6 +49,7 @@ tags: [docker, MOC, 索引]
 ### 镜像加速
 - [[DockerDesktop镜像加速器配置]] - Mac/Windows 镜像加速器配置方法
 - [[镜像加速器vs代理-概念对比]] - **核心概念**：镜像加速器与代理的区别和选择
+- [[docker镜像拉取DNS解析超时排错]] - 镜像拉取 DNS 解析超时实战排错（systemd-resolved 超时 / 失效源占首位） #docker #排错
 
 ### 代理配置
 - [[docker进行代理]] - 容器内代理配置、HTTP/SOCKS5 区别
@@ -141,6 +142,7 @@ tags: [docker, MOC, 索引]
 
 ## 更新日志
 
+- 2026-08-28：新增 [[docker镜像拉取DNS解析超时排错]]（镜像拉取 DNS 解析超时实战排错）
 - 2026-08-08：新增 [[Docker与DockerCompose命令速查]]（Docker 与 Docker Compose 命令入门速查）
 - 2026-08-08：更新镜像加速器相关笔记（修正 `~/.docker/daemon.json` 对 Docker Desktop 无效的误导；标记 USTC/NJU 等失效镜像源）
 - 2026-08-08：新增 [[GHCR 推送镜像权限配置]]（CI 推送 GHCR 权限配置指南）
