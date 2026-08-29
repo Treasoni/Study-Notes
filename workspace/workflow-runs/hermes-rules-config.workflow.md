@@ -10,7 +10,7 @@ topic: "Hermes 的规则配置（rules / CLAUDE.md 这类如何配置）"
 project_slug: "hermes-rules-config"
 created_at: "2026-08-30"
 last_updated: "2026-08-30"
-current_phase: P3
+current_phase: P4
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：hermes-rules-config
 > 项目标识：hermes-rules-config
 > 创建时间：2026-08-30
-> 当前阶段：阶段 3
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -79,7 +79,7 @@ blocked_reason: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中 {in_progress}
+> [P3] ✅ 已完成 {complete}
 
 ---
 
@@ -91,7 +91,7 @@ blocked_reason: ""
 
 **进度**：0/待大纲确定
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中 {in_progress}
 
 ---
 
@@ -136,6 +136,7 @@ blocked_reason: ""
 | P0 | 用户确认意图文件和研究计划 | 2026-08-30 |
 | P1 | 用户选择方向 A+B+D（规则文件体系+对照迁移+实战验证） | 2026-08-30 |
 | P2 | 用户确认深度素材质量与执行模式（大纲模式） | 2026-08-30 |
+| P3 | 用户确认大纲（6 章，大纲模式） | 2026-08-30 |
 
 ---
 
