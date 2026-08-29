@@ -293,6 +293,18 @@ docker run -d \
   linuxserver/镜像名
 ```
 
+
+```bash
+services:
+  hermes:
+    image: <镜像名称>
+    # user: "1000:1000"  <-- 删除或注释这一行
+    environment:
+      - HERMES_UID=1000   # 或 PUID=1000
+      - HERMES_GID=1000   # 或 PGID=1000
+      # ... 其他环境变量
+```
+
 > [!tip] 大白话
 > Fix 2 是"让容器换个工牌进厂"，但有的工厂（镜像）规定进场必须用老板工牌；Fix 3 是 linuxserver 家的特殊门禁卡——你在门口报个号，保安（entrypoint）自动把对应工牌挂你脖子上。
 
