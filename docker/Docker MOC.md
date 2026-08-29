@@ -1,7 +1,7 @@
 ---
 title: Docker 知识索引
 created: 2026-04-06
-updated: 2026-08-28
+updated: 2026-08-29
 tags: [docker, MOC, 索引]
 
 ---
@@ -25,6 +25,7 @@ tags: [docker, MOC, 索引]
 | 理解 Docker 网络 | [[Docker网络结构详解]] |
 | 更新容器版本 | [[docker容器如何更新]] |
 | 解决权限问题 | [[docker里的GID和UID]] |
+| 让容器读写宿主机文件 | [[Docker容器服务访问宿主机文件]] |
 | 排查常见错误 | [[docker容器搭建错误的知识讲解]] \| [[docker镜像拉取DNS解析超时排错]] |
 | 向 GHCR 推送镜像 | [[GHCR 推送镜像权限配置]] |
 
@@ -74,6 +75,9 @@ tags: [docker, MOC, 索引]
 
 ### 技巧与工具
 - [[github文件直链方式]] - GitHub raw 链接的格式和用途
+
+### 挂载与文件访问
+- [[Docker容器服务访问宿主机文件]] - 容器读写宿主机文件的挂载选型、权限对齐与安全边界完整实战 #docker #挂载 #权限 #安全
 
 ### CI 与镜像推送
 - [[GHCR 推送镜像权限配置]] - GitHub Actions 向 GHCR 推送镜像的权限配置完整指南（Classic PAT + Secret + Workflow 兜底 + 排错） #docker #GitHub-Actions #GHCR
@@ -142,6 +146,7 @@ tags: [docker, MOC, 索引]
 
 ## 更新日志
 
+- 2026-08-29：新增 [[Docker容器服务访问宿主机文件]]（容器读写宿主机文件的挂载/权限/安全完整实战）
 - 2026-08-28：新增 [[docker镜像拉取DNS解析超时排错]]（镜像拉取 DNS 解析超时实战排错）
 - 2026-08-08：新增 [[Docker与DockerCompose命令速查]]（Docker 与 Docker Compose 命令入门速查）
 - 2026-08-08：更新镜像加速器相关笔记（修正 `~/.docker/daemon.json` 对 Docker Desktop 无效的误导；标记 USTC/NJU 等失效镜像源）

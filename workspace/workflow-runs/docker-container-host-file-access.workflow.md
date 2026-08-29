@@ -10,14 +10,15 @@ topic: 如何让 Docker 容器内部的服务控制/处理容器外或宿主机�
 project_slug: docker-container-host-file-access
 created_at: 2026-08-29
 last_updated: "2026-08-29"
-current_phase: P6
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
 mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
 mode_change_phase: "P2"
+quality_gate: passed
 blocked_reason: ""
 ---
 
@@ -28,7 +29,7 @@ blocked_reason: ""
 > 运行标识：docker-container-host-file-access
 > 项目标识：docker-container-host-file-access
 > 创建时间：2026-08-29
-> 当前阶段：阶段 6
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -114,7 +115,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] 🔲 进行中 {in_progress}
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -124,7 +125,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -132,7 +133,11 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
-| | | |
+| P0 | 主题、深度（上手）、基础（有了解）、类型（实战笔记）已确认 | 2026-08-29 |
+| P2 | 方向 A 综合实战主线（挂载 → 权限 → 安全） | 2026-08-29 |
+| P3 | 执行模式：大纲模式；用户指示「全部写完」跳过逐章确认 | 2026-08-29 |
+| P6 | 发布位置：当前 vault `docker/`，文件名 `Docker容器服务访问宿主机文件.md` | 2026-08-29 |
+| P7 | 同步到 `docker/Docker MOC.md` | 2026-08-29 |
 
 ---
 
@@ -162,10 +167,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战笔记
+- **总字数**：约 3.2 万字符（wc -m，含代码与标点）
+- **章节数**：7
+- **输出格式**：Obsidian Markdown（frontmatter + Callout + 双链）
+- **文件路径**：`docker/Docker容器服务访问宿主机文件.md`
+- **Obsidian Vault**：`D:\Study-Notes`
+- **MOC 路径**：`docker/Docker MOC.md`
