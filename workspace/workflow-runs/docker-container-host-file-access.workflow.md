@@ -10,7 +10,7 @@ topic: 如何让 Docker 容器内部的服务控制/处理容器外或宿主机�
 project_slug: docker-container-host-file-access
 created_at: 2026-08-29
 last_updated: "2026-08-29"
-current_phase: P3
+current_phase: P5
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：docker-container-host-file-access
 > 项目标识：docker-container-host-file-access
 > 创建时间：2026-08-29
-> 当前阶段：阶段 3
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -79,7 +79,7 @@ blocked_reason: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中 {in_progress}
+> [P3] ✅ 已完成 {complete}
 
 ---
 
@@ -91,7 +91,7 @@ blocked_reason: ""
 
 **进度**：0/待大纲确定
 
-> [P4] ⬜ 未开始
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -104,7 +104,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
