@@ -284,6 +284,11 @@ services:
       - ./data:/app/data
 ```
 
+注意：
+Docker Daemon 在创建容器命名空间时，直接剥夺了所有 `root` 特权。
+
+- **致命问题**：如果镜像内部包含多服务管理系统（如本例中的 `s6-rc`）或需要在启动时动态检查配置、绑定端口、修复挂载目录属主，这些操作必须依赖 `root` 特权。一旦以普通用户强行启动，初始化服务会因 `Permission denied` 立即崩溃。
+
 **Fix 3：linuxserver 系镜像用 `PUID/PGID`**——特例。linuxserver 镜像与 `--user`/`user:` **不兼容**，官方只推荐通过环境变量传 PUID/PGID，entrypoint 启动时自动把文件属主改成你指定的值 [S6]。
 
 ```bash
@@ -292,7 +297,6 @@ docker run -d \
   -v "$(pwd)"/data:/config \
   linuxserver/镜像名
 ```
-
 
 ```bash
 services:
@@ -304,6 +308,12 @@ services:
       - HERMES_GID=1000   # 或 PGID=1000
       # ... 其他环境变量
 ```
+
+**`PUID / PGID / HERMES_UID`（启动后动态降权）** 这是开源社区（如 LinuxServer.io、各类复杂应用镜像）的标准实践。
+1. **初始化**：容器以 `root` 启动，加载 `s6` 进程管理树。
+2. **映射用户**：读取你传入的 UID/GID，在容器内部将内置用户（如 `hermes`）的 ID 修改为你主机的 ID。
+3. **修复权限**：自动对数据挂载目录执行 `chown`，确保容器内外读写文件权限完全一致。
+4. **降权运行**：初始化完成后，使用降权工具（如 `s6-setuidgid`）切换到该普通用户去运行主程序，兼顾了**启动时的灵活性**与**运行时的安全性**。
 
 > [!tip] 大白话
 > Fix 2 是"让容器换个工牌进厂"，但有的工厂（镜像）规定进场必须用老板工牌；Fix 3 是 linuxserver 家的特殊门禁卡——你在门口报个号，保安（entrypoint）自动把对应工牌挂你脖子上。
