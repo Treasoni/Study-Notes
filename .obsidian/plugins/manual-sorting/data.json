@@ -634,6 +634,7 @@
     },
     "AI学习/Hermes Agent": {
       "children": [
+        "AI学习/Hermes Agent/Hermes Rules 配置指南",
         "AI学习/Hermes Agent/Hermes Agent 上手实战",
         "AI学习/Hermes Agent/Hermes Docker 部署指南",
         "AI学习/Hermes Agent/Hermes Tool 配置指南",
@@ -671,6 +672,12 @@
         "AI学习/Hermes Agent/Hermes Docker 部署指南/09-多平台运维与日志.md",
         "AI学习/Hermes Agent/Hermes Docker 部署指南/10-安全基线.md",
         "AI学习/Hermes Agent/Hermes Docker 部署指南/README.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/Hermes Agent/Hermes Rules 配置指南": {
+      "children": [
+        "AI学习/Hermes Agent/Hermes Rules 配置指南/README.md"
       ],
       "sortOrder": "custom"
     },
@@ -753,6 +760,7 @@
     },
     "docker": {
       "children": [
+        "docker/Docker容器服务访问宿主机文件.md",
         "docker/docker镜像拉取DNS解析超时排错.md",
         "docker/Docker与DockerCompose命令速查.md",
         "docker/GHCR 推送镜像权限配置.md",
@@ -1788,6 +1796,9 @@
     },
     "workspace": {
       "children": [
+        "workspace/docker-container-host-file-access",
+        "workspace/github-network-timeout-solution",
+        "workspace/hermes-rules-config",
         "workspace/hermes-docker-deploy",
         "workspace/hermes-tool-config",
         "workspace/hermes-agent",
@@ -2687,6 +2698,51 @@
       ],
       "sortOrder": "custom"
     },
+    "workspace/docker-container-host-file-access": {
+      "children": [
+        "workspace/docker-container-host-file-access/02_sources",
+        "workspace/docker-container-host-file-access/chapters",
+        "workspace/docker-container-host-file-access/output",
+        "workspace/docker-container-host-file-access/00_intent.md",
+        "workspace/docker-container-host-file-access/01_explore_result.md",
+        "workspace/docker-container-host-file-access/02_deep_research.md",
+        "workspace/docker-container-host-file-access/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/docker-container-host-file-access/02_sources": {
+      "children": [
+        "workspace/docker-container-host-file-access/02_sources/01_docs_docker_com.md",
+        "workspace/docker-container-host-file-access/02_sources/01_www_netdata_cloud.md",
+        "workspace/docker-container-host-file-access/02_sources/02_docs_docker_com.md",
+        "workspace/docker-container-host-file-access/02_sources/02_github_com.md",
+        "workspace/docker-container-host-file-access/02_sources/03_docs_docker_com.md",
+        "workspace/docker-container-host-file-access/02_sources/04_docs_docker_com.md",
+        "workspace/docker-container-host-file-access/02_sources/05_docs_docker_com.md",
+        "workspace/docker-container-host-file-access/02_sources/06_docs_docker_com.md",
+        "workspace/docker-container-host-file-access/02_sources/07_docs_linuxserver_io.md",
+        "workspace/docker-container-host-file-access/02_sources/08_selfhosting_sh.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/docker-container-host-file-access/chapters": {
+      "children": [
+        "workspace/docker-container-host-file-access/chapters/01_三种挂载方式怎么选.md",
+        "workspace/docker-container-host-file-access/chapters/02_命令行挂载-docker-run.md",
+        "workspace/docker-container-host-file-access/chapters/03_Compose挂载.md",
+        "workspace/docker-container-host-file-access/chapters/04_权限与属主.md",
+        "workspace/docker-container-host-file-access/chapters/05_安全边界.md",
+        "workspace/docker-container-host-file-access/chapters/06_Docker-Desktop差异.md",
+        "workspace/docker-container-host-file-access/chapters/07_实战案例.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/docker-container-host-file-access/output": {
+      "children": [
+        "workspace/docker-container-host-file-access/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
     "workspace/docker-ha-tutorial": {
       "children": [
         "workspace/docker-ha-tutorial/chapters",
@@ -2798,6 +2854,12 @@
     "workspace/git安装配置教程/output": {
       "children": [
         "workspace/git安装配置教程/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/github-network-timeout-solution": {
+      "children": [
+        "workspace/github-network-timeout-solution/00_intent.md"
       ],
       "sortOrder": "custom"
     },
@@ -2945,6 +3007,46 @@
         "workspace/hermes-docker-deploy/chapters/08-QQ进阶配置与NapCat替代.md",
         "workspace/hermes-docker-deploy/chapters/09-多平台运维与日志.md",
         "workspace/hermes-docker-deploy/chapters/10-安全基线.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/hermes-rules-config": {
+      "children": [
+        "workspace/hermes-rules-config/chapters",
+        "workspace/hermes-rules-config/output",
+        "workspace/hermes-rules-config/research-sources",
+        "workspace/hermes-rules-config/00_intent.md",
+        "workspace/hermes-rules-config/01_explore_result.md",
+        "workspace/hermes-rules-config/02_deep_research.md",
+        "workspace/hermes-rules-config/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/hermes-rules-config/chapters": {
+      "children": [
+        "workspace/hermes-rules-config/chapters/01-先看地图-规则体系定位与文件地图.md",
+        "workspace/hermes-rules-config/chapters/02-全局身份-SOUL配置.md",
+        "workspace/hermes-rules-config/chapters/03-项目规则-AGENTS系列配置.md",
+        "workspace/hermes-rules-config/chapters/04-对照迁移-从ClaudeCode一键导入.md",
+        "workspace/hermes-rules-config/chapters/05-自动化与拦截-config-hooks.md",
+        "workspace/hermes-rules-config/chapters/06-验证与排错-让规则确实生效.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/hermes-rules-config/output": {
+      "children": [
+        "workspace/hermes-rules-config/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/hermes-rules-config/research-sources": {
+      "children": [
+        "workspace/hermes-rules-config/research-sources/01_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-rules-config/research-sources/02_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-rules-config/research-sources/03_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-rules-config/research-sources/04_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-rules-config/research-sources/05_hermes-agent_nousresearch_com.md",
+        "workspace/hermes-rules-config/research-sources/06_github_com.md"
       ],
       "sortOrder": "custom"
     },
@@ -4067,6 +4169,9 @@
     },
     "workspace/workflow-runs": {
       "children": [
+        "workspace/workflow-runs/docker-container-host-file-access.workflow.md",
+        "workspace/workflow-runs/github-network-timeout-solution.workflow.md",
+        "workspace/workflow-runs/hermes-rules-config.workflow.md",
         "workspace/workflow-runs/hermes-docker-deploy.workflow.md",
         "workspace/workflow-runs/hermes-tool-config.workflow.md",
         "workspace/workflow-runs/hermes-agent.workflow.md",
