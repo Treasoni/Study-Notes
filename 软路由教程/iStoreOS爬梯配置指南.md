@@ -1,7 +1,7 @@
 ---
 tags: [istoreos, 软路由, passwall, openclash, 代理, 爬梯, 旁路由]
 created: 2026-03-07
-updated: 2026-07-11
+updated: 2026-08-31
 ---
 
 # iStoreOS 爬梯配置指南
@@ -35,7 +35,12 @@ updated: 2026-07-11
 | **中文界面** | 全中文管理界面，上手简单 |
 | **x86_64/ARM64** | 支持主流软路由硬件 |
 | **旁路由模式** | 可作为现有路由器的扩展 |
-| **最新版本** | 24.10.7（2026-06-05发布，Linux 6.6.141内核） |
+| **最新版本** | 24.10.8（2026-07-31 发布，稳定版）；25.12 测试版已发布（2026-08-17） |
+
+> [!warning] ⚠️ 版本说明（2026-08 更新）
+> - **当前稳定版为 24.10.8**（2026-07-31 发布）。
+> - **25.12 测试版已发布**（2026-08-17，基于 OpenWrt 25.12.5）：包管理器由 `opkg` 切换为 **`apk`**，且**不支持从 24.10 保留配置升级**（ipk/apk 两套包不兼容）。升级路径：先在 24.10 中备份配置 → 重刷/不保留配置升级 → 恢复备份，自装软件需重新安装。
+> - 测试版存在稳定性风险（社区有反馈丢 IP、联发科硬件加速等问题），新手建议仍使用 24.10.8 稳定版。
 
 ### 为什么选择 iStoreOS
 
@@ -80,8 +85,8 @@ updated: 2026-07-11
 | **资源占用** | 较高 | 中等 | 低 | 低 |
 | **配置复杂度** | 复杂 | 中等 | 简单 | 简单 |
 | **规则灵活性** | ⭐⭐⭐ 最高 | ⭐⭐ 中等 | ⭐⭐ 中等 | ⭐⭐ 高 |
-| **当前版本** | v0.47.096-dev | 26.6.16-1 | 26.6.16-1 | 主线活跃更新 |
-| **适配系统** | 通用 OpenWrt | 通用 OpenWrt | 通用 OpenWrt | **ImmortalWrt** |
+| **当前版本** | v0.47.156 | 26.8.11-1 | 26.8.27-1 | v0.0.11 |
+| **适配系统** | 通用 OpenWrt | 通用 OpenWrt | 通用 OpenWrt | **ImmortalWrt / OpenWrt 23.05+** |
 | **适合人群** | 进阶用户 | 功能党 | 稳定党/新手 | 追新党 |
 
 ### 2.2 如何选择插件
@@ -158,7 +163,7 @@ updated: 2026-07-11
 - 功能相对精简
 - 规则灵活性不如 OpenClash
 
-**版本说明**：自 2026 年起，Passwall2 版本号改为 **YY.M.DD-N** 格式（如 `26.6.16-1` 表示 2026 年 6 月 16 日第 1 版），不再使用旧版 `v1.xx` 格式。搭配的核心组件也持续更新：xray-core 更新至 26.6.1，sing-box 更新至 1.13.13。
+**版本说明**：自 2026 年起，Passwall2 版本号改为 **YY.M.DD-N** 格式（如 `26.8.27-1` 表示 2026 年 8 月 27 日第 1 版），不再使用旧版 `v1.xx` 格式。Passwall（v1）与 Passwall2 为独立仓库、版本各自推进。搭配的核心组件也持续更新：xray-core 更新至 26.7.28，sing-box 更新至 1.13.19。
 
 > [!warning] 注意
 > sing-box 1.13+ 已弃用旧版 DNS 配置格式，升级后需迁移 DNS 设置；新版本 xray-core 移除了 `allowInsecure` 参数，改为 `pinnedPeerCertSha256`。
@@ -188,7 +193,7 @@ updated: 2026-07-11
 - 追求现代化界面
 
 > [!warning] 注意
-> HomeProxy 主要针对 **ImmortalWrt** 系统，标准 OpenWrt 可能需要额外确认兼容性。
+> HomeProxy 主要面向 **ImmortalWrt / OpenWrt 23.05+** 系统；基于 sing-box 内核，依赖 `firewall4`、`kmod-nft-tproxy`、`ucode-mod-digest`。目前不支持 XHTTP 类型节点。
 
 ### 2.4 性能对比
 
@@ -265,6 +270,9 @@ updated: 2026-07-11
 > [!tip] ✅ 推荐首选
 > 这是 2026 年最新的官方安装方案，使用 SourceForge 官方源，稳定可靠。
 
+> [!warning] 25.12（apk）用户注意
+> 上述 `opkg` 源配置方式适用于 24.10 及之前版本。25.12 已切换为 `apk` 包管理器，软件源配置文件位于 `/etc/apk/repositories.d/`，需使用 `apk update` / `apk add` 等命令（opkg→apk 命令对照见 §1 版本说明）。
+
 ```bash
 # 1. 添加 opkg key
 cd /tmp
@@ -306,9 +314,9 @@ opkg install luci-i18n-passwall2-zh-cn
 # 1. 确认系统架构
 cat /etc/openwrt_release | grep ARCH
 
-# 2. 下载 IPK 包（版本号格式已变更为 YY.M.DD-N）
+# 2. 下载 IPK 包（版本号格式为 YY.M.DD-N，以 releases 页最新为准）
 cd /tmp
-wget https://github.com/Openwrt-Passwall/openwrt-passwall2/releases/download/26.6.16-1/luci-app-passwall2_26.6.16-1_all.ipk
+wget https://github.com/Openwrt-Passwall/openwrt-passwall2/releases/download/26.8.27-1/luci-app-passwall2_26.8.27-1_all.ipk
 
 # 3. 安装（忽略依赖）
 opkg install --force-depends luci-app-passwall2_*.ipk
@@ -486,7 +494,7 @@ curl ip.sb
 
 ### 4.1 什么是 OpenClash
 
-**OpenClash** 是基于 Clash 内核的 OpenWrt 代理插件，功能强大且规则灵活。当前版本 v0.47.096-dev（2026年5月）。
+**OpenClash** 是基于 Clash 内核的 OpenWrt 代理插件，功能强大且规则灵活。当前版本 v0.47.156（2026-08-10）。
 
 | 特性 | 说明 |
 |------|------|
@@ -558,8 +566,8 @@ cat /etc/openwrt_release | grep ARCH
 
 # 2. 下载 OpenClash IPK 包
 cd /tmp
-# 获取最新版本号（以 v0.47.096-dev 为例）
-wget https://github.com/vernesong/OpenClash/releases/download/v0.47.096-beta/luci-app-openclash_0.47.096-beta_all.ipk
+# 获取最新版本号（以 v0.47.156 为例，以 releases 页为准）
+wget https://github.com/vernesong/OpenClash/releases/download/v0.47.156/luci-app-openclash_0.47.156_all.ipk
 
 # 3. 安装
 opkg install --force-depends luci-app-openclash_*.ipk
@@ -656,8 +664,8 @@ OpenClash 的规则系统非常灵活：
 > 新手推荐使用 **Fake-IP 模式**，性能最佳且兼容性好。
 
 > [!warning] v0.47.x 已知问题
-> - **无法随系统启动**：v0.47.055-beta 版本存在无法跟随 OpenWrt 开机自动启动的 Bug，需手动启动。如追求稳定性，建议使用 v0.46.075 或等待后续修复版本。
-> - **iStoreOS 24.10.7 升级冲突**：从旧版 iStoreOS 升级到 24.10.7 后，OpenClash 可能与新系统发生冲突，导致部分游戏无法登录。升级前建议使用 U 盘进行全量备份。
+> - **无法随系统启动**：该问题最初出现在 v0.47.055-beta 早期版本；当前已迭代至 v0.47.156，建议先升级到最新版观察是否修复，若仍无法自启再按社区方案排查。
+> - **iStoreOS 升级冲突**：从旧版 iStoreOS 升级到 24.10.8 后，OpenClash 可能与新系统发生冲突，导致部分游戏无法登录。升级前建议使用 U 盘进行全量备份。
 
 ---
 
@@ -785,6 +793,9 @@ curl ip.sb
 > [!tip] ✅ 推荐首选
 > 这是 2026 年最新的官方安装方案，使用 SourceForge 官方源，稳定可靠。
 
+> [!warning] 25.12（apk）用户注意
+> 上述 `opkg` 源配置方式适用于 24.10 及之前版本。25.12 已切换为 `apk` 包管理器，软件源配置文件位于 `/etc/apk/repositories.d/`，需使用 `apk update` / `apk add` 等命令（opkg→apk 命令对照见 §1 版本说明）。
+
 ```bash
 # 1. 添加 opkg key
 cd /tmp
@@ -828,9 +839,9 @@ opkg install luci-i18n-passwall2-zh-cn
 cat /etc/openwrt_release | grep ARCH
 # 常见架构：x86_64, aarch64_cortex-a53, mipsel_24kc
 
-# 2. 下载 IPK 包（版本号格式已变更为 YY.M.DD-N）
+# 2. 下载 IPK 包（版本号格式为 YY.M.DD-N，以 releases 页最新为准）
 cd /tmp
-wget https://github.com/Openwrt-Passwall/openwrt-passwall2/releases/download/26.6.16-1/luci-app-passwall2_26.6.16-1_all.ipk
+wget https://github.com/Openwrt-Passwall/openwrt-passwall2/releases/download/26.8.27-1/luci-app-passwall2_26.8.27-1_all.ipk
 
 # 3. 安装（忽略依赖）
 opkg install --force-depends luci-app-passwall2_*.ipk
@@ -846,6 +857,9 @@ opkg install <缺失的依赖包名>
 ---
 
 #### 完整排查流程
+
+> [!note] 25.12（apk）提示
+> 以下脚本中的 `opkg` 命令适用于 24.10；25.12 已改用 `apk` 包管理器（如 `apk update` / `apk search` / `apk info`）。
 
 ```bash
 #!/bin/bash
@@ -998,11 +1012,13 @@ curl ip.sb
 ### 故障排查资源
 - [iStoreOS GitHub Discussions](https://github.com/istoreos/istoreos/discussions) - 官方讨论区
 - [2026年最新PassWall插件更新和安装](https://naiyous.com/10535.html) - 奶油博客
+- [2026年最新PassWall插件更新和安装（新版）](https://naiyous.com/10947.html) - 奶油博客
 - [iStoreOS下直更新Passwall2](https://shuaiqiang.cc/istoreos%25E4%25B8%258B%25E6%259B%25B4%25E6%2596%25B0passwall2/) - 帅强来了博客
 - [科技老王博客：新版Passwall负载均衡](https://kejilaowang.com/openwrt-istoreos-passwall-haproxy-socks/) - 科技老王
 - [OpenWrt 第三方软件源配置](https://cxorz.com/blog/openwrt-thirdparty) - Hanasaki 博客
 - [kenzok8 软件包仓库](https://github.com/kenzok8/openwrt-packages) - GitHub
 - [Passwall2 Releases](https://github.com/Openwrt-Passwall/openwrt-passwall2/releases) - GitHub
+- [Passwall Releases](https://github.com/Openwrt-Passwall/openwrt-passwall/releases) - GitHub
 
 ### 硬件相关
 - [iStoreOS默认IP地址及网络配置管理指南](https://comate.baidu.com/zh/page/8zqve692bec) - 百度 Comate
@@ -1011,6 +1027,16 @@ curl ip.sb
 ---
 
 ## 更新记录
+
+### 2026-08-31
+
+- **iStoreOS**：稳定版更新至 24.10.8（2026-07-31）；新增 25.12 测试版说明（基于 OpenWrt 25.12.5，包管理器 opkg→apk，不支持 24.10 保留配置升级）
+- **Passwall**：更新至 26.8.11-1；**Passwall2**：更新至 26.8.27-1；明确两者为独立仓库、版本各自推进
+- **核心组件**：xray-core 更新至 26.7.28，sing-box 更新至 1.13.19
+- **OpenClash**：更新至 v0.47.156（2026-08-10）；调整 v0.47.x 已知问题描述（自启 Bug 升级观察）
+- **HomeProxy**：补充版本 v0.0.11 与系统要求（ImmortalWrt / OpenWrt 23.05+，依赖 firewall4、kmod-nft-tproxy，不支持 XHTTP 节点）
+- **25.12 迁移提示**：在 Passwall/OpenClash 备选安装方案中补充 apk 包管理器差异说明
+- **参考资料**：补充 iStoreOS 24.10.8 更新日志、Passwall（v1）Releases 等来源
 
 ### 2026-07-11
 
@@ -1023,4 +1049,4 @@ curl ip.sb
 
 ---
 
-**最后更新**：2026-07-11
+**最后更新**：2026-08-31

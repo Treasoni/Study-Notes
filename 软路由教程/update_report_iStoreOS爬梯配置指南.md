@@ -5,49 +5,60 @@
 | 项目 | 内容 |
 |------|------|
 | 笔记路径 | `软路由教程/iStoreOS爬梯配置指南.md` |
-| 原更新日期 | 2026-03-07 |
-| 本次更新 | 2026-07-11 |
+| 原更新日期 | 2026-07-11 |
+| 本次更新 | 2026-08-31 |
 | 更新方式 | patch-in-place |
 
 ## 变更摘要
 
-### 已更新（5处）
+### 已更新
 
 | 位置 | 变更内容 |
 |------|---------|
-| Frontmatter | `updated` 日期更新为 2026-07-11 |
-| §1 iStoreOS 简介 | 新增「最新版本 24.10.7」特性行 |
-| §2.1 插件对比表 | 新增「当前版本」列（Passwall2 26.6.16-1, OpenClash v0.47.096-dev） |
-| §2.3 Passwall2 说明 | 补充新版本格式 YY.M.DD-N、仓库迁移、核心组件版本、sing-box DNS 与 xray-core 变更提醒 |
-| §4.1 OpenClash 说明 | 补充当前版本号 + v0.47.x 新特性（界面重构、覆写设置、多订阅合并、内核管理） |
-| §4.2 OpenClash IPK 示例 | 版本从 `v0.46.033-beta` 更新为 `v0.47.096-beta` |
-| §3.1.3 Passwall2 IPK 示例 | 仓库从 `xiaorouji` → `Openwrt-Passwall`，版本从 `v1.28` 更新为 `26.6.16-1` |
-| §6 Q1 IPK 示例 | 同上更新 |
-| §6 Q1 IPK 下载地址 | 同上更新仓库链接 |
-| 参考资料 | Passwall2 Releases 链接更新为 `Openwrt-Passwall` 组织 |
-| §4.7 核心模式 | 补充 v0.47.x 已知 Bug（无法自启）+ iStoreOS 24.10.7 升级冲突提醒 |
-| 末尾 | 新增「更新记录」章节 |
-| 最后更新行 | 日期更新 |
+| Frontmatter | `updated` 更新为 2026-08-31 |
+| §1 特性表 | 最新版本 24.10.7 → 24.10.8；新增 25.12 测试版说明 callout（opkg→apk、不支持保留配置升级） |
+| §2.1 插件对比表 | 当前版本更新：OpenClash v0.47.156、Passwall 26.8.11-1、Passwall2 26.8.27-1、HomeProxy v0.0.11；HomeProxy 适配系统补充 OpenWrt 23.05+ |
+| §2.3 Passwall2 版本说明 | 核心组件更新：xray-core 26.7.28、sing-box 1.13.19；明确 v1/v2 为独立仓库 |
+| §2.3 HomeProxy 注意 | 系统要求补充依赖（firewall4 / kmod-nft-tproxy / ucode-mod-digest），说明不支持 XHTTP 节点 |
+| §3.1.3 / §6 方案 B | Passwall2 IPK 下载版本 26.6.16-1 → 26.8.27-1 |
+| §3.1.3 / §6 方案 A | 新增 25.12（apk）用户注意 |
+| §4.1 OpenClash 说明 | 当前版本 v0.47.096-dev → v0.47.156（2026-08-10） |
+| §4.2 OpenClash IPK | 下载版本 v0.47.096-beta → v0.47.156 |
+| §4.7 已知问题 | 自启 Bug 改为「升级到最新版观察」表述；24.10.7 → 24.10.8 升级冲突 |
+| §6 排查脚本 | 新增 25.12（apk）命令提示 |
+| 更新记录 | 新增 2026-08-31 条目 |
+| 最后更新行 | 更新为 2026-08-31 |
+| 参考资料 | 补充 naiyous 10947、Passwall（v1）Releases |
 
 ### 未变动
 
-- Passwall 主配置流程和分流规则（基本操作未变）
+- Passwall 主配置流程和分流规则（基础操作未变）
 - 旁路由网络拓扑和配置（网络原理未变）
 - 常见问题 Q2-Q6（通用排查方法未变）
-- 最佳实践和建议
-- 大部分外部参考资料（交叉验证仍有效）
+- 最佳实践和安全建议
+- MOC 章节锚点（章节结构未变化，`[[软路由教程MOC]]` 链接仍有效，未修改 MOC）
 
 ### 资料收集来源
 
-- [iStoreOS 24.10.7 更新日志](https://github.com/istoreos/istoreos/discussions/2971)
+- [iStoreOS 24.10.8 更新日志](https://github.com/istoreos/istoreos/discussions/3000)
+- [iStoreOS 25.12 测试和反馈](https://github.com/istoreos/istoreos/discussions/3008)
+- [iStoreOS 25.12 尝鲜版上线一周社区反馈](https://post.smzdm.com/p/a70d283g/)
+- [OpenClash Releases（Release Alert）](https://releasealert.dev/github/vernesong/OpenClash)
 - [Passwall2 Releases](https://github.com/Openwrt-Passwall/openwrt-passwall2/releases)
-- [OpenClash 更新 v0.47.055-beta](https://openclash.net/openclash-beta-update-release-v0-47-055)
-- [HomeProxy DeepWiki](https://deepwiki.com/immortalwrt/homeproxy/1-overview)
-- [openwrt-passwall-build SourceForge](https://sourceforge.net/projects/openwrt-passwall-build/)
-- [2026年最新PassWall安装教程](https://naiyous.com/10535.html)
+- [Passwall Releases](https://github.com/Openwrt-Passwall/openwrt-passwall/releases)
+- [HomeProxy 安装与设置（DeepWiki）](https://deepwiki.com/immortalwrt/homeproxy/2-installation-and-setup)
+
+## 未处理风险
+
+- **OpenClash 自启 Bug**：v0.47.055 的「无法随系统启动」问题是否已在 v0.47.156 彻底修复，无法从远端直接确认，报告采用「升级观察」的保守表述。
+- **OpenClash IPK URL 格式**：示例中的 tag（`v0.47.156`）以 releases 页实际标签为准，可能需要微调。
+- **链接有效性**：未逐一验证全部外部链接是否失效，仅补充了 naiyous 新版文章链接。
+- **HomeProxy 标准 OpenWrt 兼容性**：官方主要面向 ImmortalWrt / OpenWrt 23.05+，实际使用仍需用户实测。
+- **25.12 生态**：25.12 仍为测试版，apk 软件源下的 Passwall 自定义源方案尚在社区磨合，未写入具体命令。
 
 ## 下次更新关注点
 
-- iStoreOS 后续大版本（如 25.x）是否使用 APK 包格式
-- OpenClash v0.47.x 的 auto-start Bug 是否修复
-- Passwall2 的新版本发布节奏
+- iStoreOS 25.12 正式版发布与稳定化情况（包管理器 apk 适配）
+- OpenClash 自启 Bug 的社区确认状态
+- Passwall2 / sing-box / xray-core 版本发布节奏
+- 25.12 下 Passwall 自定义软件源（`/etc/apk/repositories.d/`）的成熟方案
