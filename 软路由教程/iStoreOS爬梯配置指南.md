@@ -537,30 +537,20 @@ sh /tmp/OpenClash_*.run
 > [!warning] 注意
 > 安装前建议移除自行添加的第三方 opkg 软件源，避免依赖冲突。
 
-**方案 A：添加官方软件源（推荐）**
+**方案 A：一键安装脚本（推荐备选）**
+
+> [!tip] 适合命令行用户
+> OpenClash 没有官方 opkg 预编译包（`opkg list | grep clash` 为空），社区维护的一键脚本是更稳妥的方式，OpenWrt / iStoreOS / ImmortalWrt 通用。
 
 ```bash
-# 1. 添加 opkg key
-cd /tmp
-wget -O passwall.pub https://master.dl.sourceforge.net/project/openwrt-passwall-build/passwall.pub
-opkg-key add /tmp/passwall.pub
-
-# 2. 自动写入软件源
-read release arch << EOF
-$(. /etc/openwrt_release ; echo ${DISTRIB_RELEASE%.*} $DISTRIB_ARCH)
-EOF
-
-for feed in passwall_luci passwall_packages passwall2; do
-  echo "src/gz $feed https://master.dl.sourceforge.net/project/openwrt-passwall-build/releases/packages-$release/$arch/$feed" >> /etc/opkg/customfeeds.conf
-done
-
-# 3. 更新索引并安装
-opkg update
-opkg install luci-app-openclash
-
-# 4. 刷新管理界面
-/etc/init.d/uhttpd restart
+# 一键安装 OpenClash（菜单式，支持安装/更新/卸载/内核管理）
+wget -qO /usr/bin/openclash-menu https://raw.githubusercontent.com/slobys/openclash-auto-installer/main/menu.sh && chmod +x /usr/bin/openclash-menu && openclash-menu
 ```
+
+> [!warning] 注意
+> - 安装前先 `opkg update`，并把 iStoreOS 软件源切换到可访问的镜像（如阿里云）。
+> - 确保路由器自身联网正常（旁路由场景最易失败）。
+> - 若脚本方式不可用，退回方案 C（`.run`）或方案 B（手动 IPK）。
 
 **方案 B：手动下载 IPK 安装**
 
@@ -573,12 +563,17 @@ cd /tmp
 # 获取最新版本号（以 v0.47.156 为例，以 releases 页为准）
 wget https://github.com/vernesong/OpenClash/releases/download/v0.47.156/luci-app-openclash_0.47.156_all.ipk
 
-# 3. 安装
+# 3. 先安装 OpenClash 依赖（缺依赖会导致启动失败）
+opkg update
+opkg install coreutils-nohup bash curl jsonfilter ca-certificates ip-full ipset iptables dnsmasq-full iptables-mod-tproxy iptables-mod-extra
+
+# 4. 安装主包
 opkg install --force-depends luci-app-openclash_*.ipk
 ```
 
-> [!danger] 注意
-> 第三方固件可能存在安全风险，请从可信渠道获取。
+> [!warning] 注意
+> - IPK 依赖从 GitHub 下载，国内网络可能失败；失败时优先检查路由器外网连通性。
+> - 第三方来源 IPK 存在安全风险，请从可信渠道获取。
 
 ### 4.3 配置文件订阅
 
