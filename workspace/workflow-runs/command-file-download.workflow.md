@@ -10,8 +10,8 @@ topic: "用命令文件下载（Linux/macOS）"
 project_slug: "command-file-download"
 created_at: "2026-08-31"
 last_updated: "2026-08-31"
-current_phase: P6
-current_status: ready
+current_phase: done
+current_status: complete
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -19,6 +19,7 @@ mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
 mode_change_phase: "P2"
 blocked_reason: ""
+quality_gate: passed
 ---
 
 # 学习笔记工作流 - 执行检查清单
@@ -28,7 +29,7 @@ blocked_reason: ""
 > 运行标识：command-file-download
 > 项目标识：command-file-download
 > 创建时间：2026-08-31
-> 当前阶段：阶段 6
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -114,22 +115,22 @@ blocked_reason: ""
 ---
 
 ## 阶段 6：Obsidian 美化与发布
-- [ ] 已读取 Obsidian 输出规则
-- [ ] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
-- [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
-- [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
+- [x] 已读取 Obsidian 输出规则
+- [x] 用户已确认最终保存位置（vault_path = D:\Study-Notes，note_folder = linux/）
+- [x] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
+- [x] 最终 Markdown 已保存到 `linux/用命令文件下载（Linux-macOS）.md`
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成 {complete}
 
 ---
 
 ## 阶段 7：MOC 同步
-- [ ] 已定位或创建 MOC 文件
-- [ ] 新笔记双链已加入 MOC
-- [ ] 已去重并更新摘要/标签
-- [ ] MOC 只保留索引，不复制正文
+- [x] 已定位或创建 MOC 文件（linux/linux MOC.md）
+- [x] 新笔记双链已加入 MOC（快速导航表 + 主题分类 5.16 + 最近更新）
+- [x] 已去重并更新摘要/标签
+- [x] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -167,10 +168,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战笔记（上手深度）
+- **总字数**：约 3.0 万字
+- **章节数**：9
+- **输出格式**：Obsidian Markdown（含 frontmatter、Callout、双链、脚注）
+- **文件路径**：`workspace/command-file-download/output/final_note.md`
+- **Obsidian Vault**：D:\Study-Notes\linux\用命令文件下载（Linux-macOS）.md
+- **MOC 路径**：linux/linux MOC.md

@@ -1,7 +1,7 @@
 ---
 title: Linux 学习笔记 MOC
 created: 2026-04-06
-updated: 2026-07-29
+updated: 2026-08-31
 tags: [linux, moc, 索引]
 ---
 
@@ -50,6 +50,7 @@ tags: [linux, moc, 索引]
 | [[linux常用命令/Linux 日志管理]] | journalctl、rsyslog、logrotate |
 | [[linux常用命令/Linux 软件包管理]] | apt、dnf、pacman 跨发行版 |
 | [[linux常用命令/Linux Shell 实用技巧]] | 管道、重定向、别名、一行命令 |
+| [[用命令文件下载（Linux-macOS）]] | curl/wget/aria2 命令行下载实战：续传/并发/校验/批量脚本 |
 
 ### 系统基础
 
@@ -279,6 +280,11 @@ flowchart LR
 - **命令**：管道、重定向、别名、快捷键
 - **相关**：[[linux常用命令/Linux 文本处理三剑客]]
 
+#### 5.16 用命令文件下载（Linux/macOS）
+- **适用场景**：命令行下载文件、断点续传、并发重试、批量下载脚本
+- **命令**：`curl`、`wget`、`aria2c`、`sha256sum`
+- **相关**：[[linux常用命令/Linux 网络诊断与排障]] | [[linux/Linux换源]] | [[Shell脚本入门教程]]
+
 ---
 
 ## 🔗 知识关联图
@@ -367,6 +373,7 @@ graph TB
 
 | 文件 | 更新日期 |
 |------|----------|
+| [[用命令文件下载（Linux-macOS）]] | 2026-08-31 |
 | [[linux系统安装教程/Debian安装教程]] | 2026-07-29 |
 | [[Linux 常用命令速查索引]] | 2026-07-29 |
 | [[linux常用命令/Linux 定时任务与自动化]] | 2026-07-29 |
