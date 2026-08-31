@@ -10,7 +10,7 @@ topic: "用命令文件下载（Linux/macOS）"
 project_slug: "command-file-download"
 created_at: "2026-08-31"
 last_updated: "2026-08-31"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：command-file-download
 > 项目标识：command-file-download
 > 创建时间：2026-08-31
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -84,27 +84,32 @@ blocked_reason: ""
 ---
 
 ## 阶段 4：逐章写作
-- [ ] 第 1 章已写完并确认
-- [ ] 第 2 章已写完并确认
-- [ ] 第 3 章已写完并确认
-- [ ] ...（根据实际章节数添加）
+- [x] 第 1 章已写完并确认
+- [x] 第 2 章已写完并确认
+- [x] 第 3 章已写完并确认
+- [x] 第 4 章已写完并确认
+- [x] 第 5 章已写完并确认
+- [x] 第 6 章已写完并确认
+- [x] 第 7 章已写完并确认
+- [x] 第 8 章已写完并确认
+- [x] 第 9 章已写完并确认（用户授权「可以，全部写完」，跳过逐章确认）
 
-**进度**：0/9
+**进度**：9/9
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
 ## 阶段 5：收尾组装
-- [ ] 所有章节文件已检查
-- [ ] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
+- [x] 所有章节文件已检查
+- [x] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
 - [ ] 过渡语已添加
 - [ ] 目录已生成
 - [ ] 标题层级已统一
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
