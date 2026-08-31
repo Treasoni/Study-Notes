@@ -248,13 +248,16 @@ updated: 2026-08-31
 > [!tip] ✅ 官方商店搜不到时的首选
 > 这是 iStoreOS 用户最主流的安装方式：下载社区打包的 `.run` 安装包，在 iStore 中手动安装，图形化且操作简单。适用于 Passwall / Passwall2 / OpenClash 等。
 
+> [!info] `.run` 包来源（24.10 专用）
+> iStoreOS 24.10 的 `.run` 代理插件包位于 [bcseputetto/Are-u-ok 的 iStoreOS_24.10 Release](https://github.com/bcseputetto/Are-u-ok/releases/tag/iStoreOS_24.10)。原 AUK9527/Are-u-ok 主仓库仅维护 22.03 的 aarch64 包，24.10 已由 bcseputetto 接手维护。文件名格式 `PassWall2_<版本>_<架构>_all_sdk_24.10.run`，按架构（x86_64 / aarch64）选择。
+
 ```bash
 # 1. 确认系统架构（x86_64 / aarch64 等）
 source /etc/os-release; echo $OPENWRT_ARCH
 
-# 2. 下载 .run 包（以 AUK9527/Are-u-ok 插件库为例；文件名按架构和系统版本选择，以仓库实际为准）
+# 2. 下载 .run 包（以 x86_64 为例；文件名按架构选择，以 Release 页实际为准）
 cd /tmp
-wget https://github.com/AUK9527/Are-u-ok/raw/main/apps/PassWall2/PassWall2_x86_64_all_sdk_24.10.run
+wget https://github.com/bcseputetto/Are-u-ok/releases/download/iStoreOS_24.10/PassWall2_26.8.27_x86_64_all_sdk_24.10.run
 
 # 3. 方式一：iStore 后台「手动安装」上传 .run 文件
 #    方式二：命令行直接执行（无 iStore 商店也可用）
@@ -265,6 +268,7 @@ sh /tmp/PassWall2_*.run
 > - 安装前建议移除自行添加的第三方 opkg 软件源，避免依赖冲突。
 > - 部分依赖仍需在线安装，请确保路由器自身联网正常（旁路由场景最易踩坑）。
 > - 不建议 Passwall 系列与 SSR-Plus 同时安装（存在包冲突）。
+> - `.run` 包体积较大（PassWall2 约 58MB、PassWall 约 79MB），安装前确认剩余存储空间充足。
 
 **方案 A：添加官方软件源（推荐）**
 
@@ -292,17 +296,28 @@ done
 # 3. 更新索引
 opkg update
 
-# 4. 安装 PassWall 或 PassWall2
+# 4. 安装依赖（透明代理依赖 nftables tproxy 内核模块）
+opkg install kmod-nft-tproxy kmod-nft-socket
+# 可选：替换为 dnsmasq-full（推荐，兼容性更好；若与 dnsmasq 冲突先移除）
+opkg remove dnsmasq && opkg install dnsmasq-full
+
+# 5. 安装 PassWall 或 PassWall2
 opkg install luci-app-passwall      # PassWall
 opkg install luci-app-passwall2     # PassWall2（推荐）
 
-# 5. 刷新管理界面
+# 6. 刷新管理界面
 /etc/init.d/uhttpd restart
 
-# 6. 安装汉化（可选）
+# 7. 安装汉化（可选）
 opkg install luci-i18n-passwall-zh-cn
 opkg install luci-i18n-passwall2-zh-cn
 ```
+
+> [!warning] 方案 A 注意
+> - `opkg-key add` 命令为 24.10（opkg）专用；25.12（apk）无此命令，配置方式见 §1 版本说明。
+> - 该 SourceForge 软件源仅提供 passwall_luci / passwall_packages / passwall2 三个 feed，**不包含 OpenClash**；OpenClash 安装见 §4。
+> - Passwall2 安装后体积较大（含 xray-core / sing-box），请确认剩余存储空间充足。
+> - 不要与 SSR-Plus 同时安装（存在包冲突）。
 
 > [!info] 📚 来源
 > - [2026年最新PassWall安装教程](https://naiyous.com/10535.html) - 奶油之家
@@ -315,14 +330,20 @@ opkg install luci-i18n-passwall2-zh-cn
 # 1. 确认系统架构
 cat /etc/openwrt_release | grep ARCH
 
-# 2. 下载 IPK 包（版本号格式为 YY.M.DD-N，以 releases 页最新为准）
+# 2. 安装依赖（透明代理依赖 nftables tproxy 内核模块）
+opkg update
+opkg install kmod-nft-tproxy kmod-nft-socket
+# 可选：替换为 dnsmasq-full（推荐，兼容性更好；若与 dnsmasq 冲突先移除）
+opkg remove dnsmasq && opkg install dnsmasq-full
+
+# 3. 下载 IPK 包（版本号格式为 YY.M.DD-N，以 releases 页最新为准）
 cd /tmp
 wget https://github.com/Openwrt-Passwall/openwrt-passwall2/releases/download/26.8.27-1/luci-app-passwall2_26.8.27-1_all.ipk
 
-# 3. 安装（忽略依赖）
+# 4. 安装（忽略依赖）
 opkg install --force-depends luci-app-passwall2_*.ipk
 
-# 4. 如果提示缺少依赖，逐个安装
+# 5. 如果提示缺少依赖，逐个安装
 opkg install <缺失的依赖包名>
 ```
 
@@ -519,15 +540,18 @@ curl ip.sb
 **方案 C：通过 iStore 手动安装 `.run` 包（iStoreOS 推荐）**
 
 > [!tip] ✅ 官方商店搜不到时的首选
-> 从 AUK9527/Are-u-ok 插件库下载 OpenClash 的 `.run` 包，在 iStore「手动安装」上传即可。
+> 从社区插件库下载 OpenClash 的 `.run` 包（已内置 Clash 核心），在 iStore「手动安装」上传即可。
+
+> [!info] `.run` 包来源（24.10 专用）
+> iStoreOS 24.10 的 `.run` 包位于 [bcseputetto/Are-u-ok 的 iStoreOS_24.10 Release](https://github.com/bcseputetto/Are-u-ok/releases/tag/iStoreOS_24.10)。文件名格式 `OpenClash_<版本>+<架构>_core_sdk_24.10.run`，其中 `+core` 表示已内置 Clash/Mihomo 内核，安装后无需再单独下载核心。
 
 ```bash
 # 1. 确认系统架构
 source /etc/os-release; echo $OPENWRT_ARCH
 
-# 2. 下载 OpenClash .run 包（文件名以仓库实际为准）
+# 2. 下载 OpenClash .run 包（以 x86_64 为例；文件名以 Release 页实际为准）
 cd /tmp
-wget https://github.com/AUK9527/Are-u-ok/raw/main/apps/OpenClash/OpenClash_x86_64_all_sdk_24.10.run
+wget https://github.com/bcseputetto/Are-u-ok/releases/download/iStoreOS_24.10/OpenClash_0.47.156+x86_64_core_sdk_24.10.run
 
 # 3. 方式一：iStore 后台「手动安装」上传 .run 文件
 #    方式二：命令行直接执行
@@ -535,7 +559,8 @@ sh /tmp/OpenClash_*.run
 ```
 
 > [!warning] 注意
-> 安装前建议移除自行添加的第三方 opkg 软件源，避免依赖冲突。
+> - 安装前建议移除自行添加的第三方 opkg 软件源，避免依赖冲突。
+> - `.run` 包约 21MB（已含内核），安装前确认剩余存储空间充足。
 
 **方案 A：一键安装脚本（推荐备选）**
 
@@ -563,9 +588,9 @@ cd /tmp
 # 获取最新版本号（以 v0.47.156 为例，以 releases 页为准）
 wget https://github.com/vernesong/OpenClash/releases/download/v0.47.156/luci-app-openclash_0.47.156_all.ipk
 
-# 3. 先安装 OpenClash 依赖（缺依赖会导致启动失败）
+# 3. 先安装 OpenClash 依赖（缺依赖会导致启动失败；24.10 为 nftables 栈，需 nft-tproxy / tun）
 opkg update
-opkg install coreutils-nohup bash curl jsonfilter ca-certificates ip-full ipset iptables dnsmasq-full iptables-mod-tproxy iptables-mod-extra
+opkg install coreutils-nohup bash curl jsonfilter ca-certificates ip-full dnsmasq-full unzip kmod-tun kmod-inet-diag kmod-nft-tproxy luci-compat
 
 # 4. 安装主包
 opkg install --force-depends luci-app-openclash_*.ipk
@@ -765,8 +790,8 @@ curl ip.sb
 1. **使用第三方定制的 iStoreOS 固件**
    - 某些社区版本预装了代理插件
    - 参考酷友社等社区的固件分享
-推荐用：`https://github.com/AUK9527/Are-u-ok.git` 中下载固件。
-1. **手动安装 IPK 包**
+   - 官方固件下载：[fw.koolcenter.com/iStoreOS/](https://fw.koolcenter.com/iStoreOS/)；社区预装插件固件请自行甄别风险（注意：AUK9527/Are-u-ok 仓库只提供插件 `.run` 包，**不提供固件**）
+2. **手动安装 IPK 包**
    - 从 GitHub 下载 IPK 包
    - 使用 `opkg install` 命令安装
 
@@ -813,14 +838,19 @@ done
 # 3. 更新索引
 opkg update
 
-# 4. 安装 PassWall 或 PassWall2
+# 4. 安装依赖（透明代理依赖 nftables tproxy 内核模块）
+opkg install kmod-nft-tproxy kmod-nft-socket
+# 可选：替换为 dnsmasq-full（推荐，兼容性更好；若与 dnsmasq 冲突先移除）
+opkg remove dnsmasq && opkg install dnsmasq-full
+
+# 5. 安装 PassWall 或 PassWall2
 opkg install luci-app-passwall      # PassWall
 opkg install luci-app-passwall2     # PassWall2（推荐）
 
-# 5. 刷新管理界面
+# 6. 刷新管理界面
 /etc/init.d/uhttpd restart
 
-# 6. 安装汉化（可选）
+# 7. 安装汉化（可选）
 opkg install luci-i18n-passwall-zh-cn
 opkg install luci-i18n-passwall2-zh-cn
 ```
@@ -838,14 +868,20 @@ opkg install luci-i18n-passwall2-zh-cn
 cat /etc/openwrt_release | grep ARCH
 # 常见架构：x86_64, aarch64_cortex-a53, mipsel_24kc
 
-# 2. 下载 IPK 包（版本号格式为 YY.M.DD-N，以 releases 页最新为准）
+# 2. 安装依赖（透明代理依赖 nftables tproxy 内核模块）
+opkg update
+opkg install kmod-nft-tproxy kmod-nft-socket
+# 可选：替换为 dnsmasq-full（推荐，兼容性更好；若与 dnsmasq 冲突先移除）
+opkg remove dnsmasq && opkg install dnsmasq-full
+
+# 3. 下载 IPK 包（版本号格式为 YY.M.DD-N，以 releases 页最新为准）
 cd /tmp
 wget https://github.com/Openwrt-Passwall/openwrt-passwall2/releases/download/26.8.27-1/luci-app-passwall2_26.8.27-1_all.ipk
 
-# 3. 安装（忽略依赖）
+# 4. 安装（忽略依赖）
 opkg install --force-depends luci-app-passwall2_*.ipk
 
-# 4. 如果提示缺少依赖，逐个安装
+# 5. 如果提示缺少依赖，逐个安装
 opkg install <缺失的依赖包名>
 ```
 
@@ -1008,6 +1044,11 @@ curl ip.sb
 - [可视化配置iStoreOS旁路由配置小记](https://luotianyi.vc/9170.html) - Luminous' Home
 - [Passwall 配置和网络负载均衡设置](https://www.cnblogs.com/MaelDNM/p/18330958) - 博客园
 
+### 插件 `.run` 包 / 安装脚本
+- [bcseputetto/Are-u-ok — iStoreOS_24.10 Release](https://github.com/bcseputetto/Are-u-ok/releases/tag/iStoreOS_24.10) - iStoreOS 24.10 的 Passwall/Passwall2/OpenClash 等 `.run` 包（含 x86_64）
+- [AUK9527/Are-u-ok](https://github.com/AUK9527/Are-u-ok) - 22.03 的 `.run` 包（主要 aarch64）
+- [slobys/openclash-auto-installer](https://github.com/slobys/openclash-auto-installer) - OpenClash 一键安装/更新/卸载脚本
+
 ### 故障排查资源
 - [iStoreOS GitHub Discussions](https://github.com/istoreos/istoreos/discussions) - 官方讨论区
 - [2026年最新PassWall插件更新和安装](https://naiyous.com/10535.html) - 奶油博客
@@ -1036,6 +1077,12 @@ curl ip.sb
 - **HomeProxy**：补充版本 v0.0.11 与系统要求（ImmortalWrt / OpenWrt 23.05+，依赖 firewall4、kmod-nft-tproxy，不支持 XHTTP 节点）
 - **25.12 迁移提示**：在 Passwall/OpenClash 备选安装方案中补充 apk 包管理器差异说明
 - **安装方式修正**：**删除**「通过 iStore 搜索安装」的无效步骤（官方 iStore 商店默认不含 Passwall/OpenClash）；新增方案 C（iStore 手动安装 `.run` 包）作为 iStoreOS 推荐安装方式；备选安装章节重排为 §3.1.2 / §4.2
+- **安装方法核实修正（2026-08-31）**：
+  - `.run` 包来源修正为 **bcseputetto/Are-u-ok 的 iStoreOS_24.10 Release**（原 AUK9527 主仓库仅维护 22.03 的 aarch64 包），并给出真实文件名示例（PassWall2 26.8.27、OpenClash 0.47.156 均带 `_sdk_24.10` 后缀；OpenClash 为 `+x86_64_core` 内置内核格式）
+  - **修正 OpenClash 安装错误**：删除「从 Passwall SourceForge 源 `opkg install luci-app-openclash`」的错误步骤（该源不包含 OpenClash），改为社区一键安装脚本（slobys/openclash-auto-installer，已验证仓库与默认分支）
+  - **补充依赖步骤**：Passwall/Passwall2 与 OpenClash 安装前补充 `kmod-nft-tproxy` / `kmod-nft-socket`（24.10 nftables 透明代理）及可选 `dnsmasq-full`；OpenClash 方案 B 依赖更新为 24.10 适用集合（含 `kmod-tun`、`kmod-inet-diag`、`luci-compat`）
+  - **方案 A 注意**：标注 `opkg-key` 为 24.10 专用、SourceForge 源不含 OpenClash、存储空间与 SSR-Plus 冲突提示
+  - **修正 Q1 方案一固件来源**：AUK9527 仓库不提供固件，仅提供插件 `.run` 包；官方固件下载为 fw.koolcenter.com
 - **参考资料**：补充 iStoreOS 24.10.8 更新日志、Passwall（v1）Releases 等来源
 
 ### 2026-07-11

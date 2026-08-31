@@ -30,7 +30,12 @@
 | 最后更新行 | 更新为 2026-08-31 |
 | 参考资料 | 补充 naiyous 10947、Passwall（v1）Releases |
 | §3.1.2 / §4.2 | **删除**「通过 iStore 搜索安装」的无效步骤；备选安装方案章节重排为 §3.1.2 / §4.2「安装 Passwall / OpenClash」 |
-| §3.1.2 / §4.2 | 新增**方案 C**：iStore 手动安装 `.run` 包（AUK9527/Are-u-ok），作为 iStoreOS 推荐方式（原方案 A/B 保留） |
+| §3.1.2 / §4.2 | 新增**方案 C**：iStore 手动安装 `.run` 包，作为 iStoreOS 推荐方式（原方案 A/B 保留） |
+| §3.1.2 / §4.2 方案 C | `.run` 包来源修正为 **bcseputetto/Are-u-ok 的 iStoreOS_24.10 Release**（原 AUK9527 主仓库仅维护 22.03 的 aarch64 包）；示例文件名修正为真实命名（PassWall2 26.8.27 / OpenClash 0.47.156，`_sdk_24.10` 后缀，OpenClash 为 `+x86_64_core` 内置内核格式） |
+| §4.2 方案 A | **修正 OpenClash 安装错误**：删除「从 Passwall SourceForge 源 `opkg install luci-app-openclash`」错误步骤（该源不含 OpenClash），替换为社区一键安装脚本（slobys/openclash-auto-installer，已核实仓库与 `main` 分支） |
+| §3.1.2 / §4.2 / §6 | 方案 A/B 补充依赖步骤：`kmod-nft-tproxy` / `kmod-nft-socket`（24.10 nftables 透明代理）与可选 `dnsmasq-full`；OpenClash 方案 B 依赖更新为 24.10 适用集合（`kmod-tun`、`kmod-inet-diag`、`luci-compat` 等） |
+| §3.1.2 方案 A | 新增注意：`opkg-key` 为 24.10 专用、SourceForge 源不含 OpenClash、存储空间与 SSR-Plus 冲突提示 |
+| §6 Q1 方案一 | 修正固件来源表述：AUK9527 仓库不提供固件（仅插件 `.run` 包），官方固件下载为 fw.koolcenter.com |
 | §6 Q1 建议顺序 | 加入「iStore 手动安装 `.run` 包（推荐）」 |
 
 ### 未变动
@@ -51,15 +56,17 @@
 - [Passwall Releases](https://github.com/Openwrt-Passwall/openwrt-passwall/releases)
 - [HomeProxy 安装与设置（DeepWiki）](https://deepwiki.com/immortalwrt/homeproxy/2-installation-and-setup)
 - [iStoreOS 通过 iStore .run 安装 passwall、OpenClash 插件](https://www.zoio.net/2026/01/istoreos-passwall.html)
-- [AUK9527/Are-u-ok 插件库（.run 包）](https://github.com/AUK9527/Are-u-ok)
+- [AUK9527/Are-u-ok 插件库（22.03，aarch64）](https://github.com/AUK9527/Are-u-ok)
+- [bcseputetto/Are-u-ok — iStoreOS_24.10 Release（.run 包，含 x86_64）](https://github.com/bcseputetto/Are-u-ok/releases/tag/iStoreOS_24.10)
+- [slobys/openclash-auto-installer（OpenClash 一键安装脚本）](https://github.com/slobys/openclash-auto-installer)
 
 ## 未处理风险
 
 - **OpenClash 自启 Bug**：v0.47.055 的「无法随系统启动」问题是否已在 v0.47.156 彻底修复，无法从远端直接确认，报告采用「升级观察」的保守表述。
-- **OpenClash IPK URL 格式**：示例中的 tag（`v0.47.156`）以 releases 页实际标签为准，可能需要微调。
+- **OpenClash 一键脚本**：slobys/openclash-auto-installer 仓库与 `main` 分支已核实，但脚本本身未逐行审查；安装时菜单选项以脚本实际为准。
 - **链接有效性**：未逐一验证全部外部链接是否失效，仅补充了 naiyous 新版文章链接。
 - **HomeProxy 标准 OpenWrt 兼容性**：官方主要面向 ImmortalWrt / OpenWrt 23.05+，实际使用仍需用户实测。
-- **`.run` 包下载**：方案 C 中 AUK9527 插件库的具体文件路径/命名以仓库实际为准，示例仅作演示。
+- **`.run` 包来源**：bcseputetto/Are-u-ok 为社区维护（原 AUK9527 24.10 维护者接手），文件版本会随上游更新，示例文件名（PassWall2 26.8.27 / OpenClash 0.47.156）为核实时的版本，安装时以 Release 页最新为准。
 - **25.12 生态**：25.12 仍为测试版，apk 软件源下的 Passwall 自定义源方案尚在社区磨合，未写入具体命令。
 
 ## 下次更新关注点

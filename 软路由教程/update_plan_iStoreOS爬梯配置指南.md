@@ -48,7 +48,10 @@
 | §6 排查脚本 | 25.12（apk）命令对照提示 |
 | 参考资料 | 补充 naiyous 10947 新版链接、Passwall v1 Releases |
 | §3.1.2 / §4.2 | **删除**「通过 iStore 搜索安装」的无效步骤，重排编号为「安装 Passwall / OpenClash」 |
-| §3.1.2 / §4.2 | 新增方案 C：iStore 手动安装 `.run` 包（AUK9527/Are-u-ok），iStoreOS 推荐 |
+| §3.1.2 / §4.2 | 新增方案 C：iStore 手动安装 `.run` 包（24.10 来源为 bcseputetto/Are-u-ok 的 iStoreOS_24.10 Release），iStoreOS 推荐 |
+| §3.1.2 / §4.2 方案 C | `.run` 示例文件名按已核实命名修正：PassWall2 `<版本>_x86_64_all_sdk_24.10.run`、OpenClash `<版本>+x86_64_core_sdk_24.10.run` |
+| §4.2 方案 A | 删除「从 Passwall SourceForge 源安装 OpenClash」错误步骤，替换为一键安装脚本（slobys/openclash-auto-installer） |
+| §3.1.2 / §4.2 方案 A/B | 补充依赖步骤（kmod-nft-tproxy / kmod-nft-socket / 可选 dnsmasq-full；OpenClash 另需 kmod-tun、kmod-inet-diag、luci-compat） |
 | §6 Q1 建议顺序 | 加入 `.run` 手动安装（推荐） |
 
 ## 执行清单
@@ -56,4 +59,8 @@
 - [x] 局部 patch 原笔记（不重写未过时段落）
 - [x] 更新 `updated` frontmatter
 - [x] 追加 `## 更新记录` 条目
+- [x] 核实 `.run` 包来源与命名（bcseputetto iStoreOS_24.10 Release，x86_64/aarch64 均核实）
+- [x] 核实 OpenClash 一键安装脚本仓库（slobys/openclash-auto-installer，默认分支 `main`）
+- [x] 修正 OpenClash 方案 A 错误（SourceForge 源不含 OpenClash）
+- [x] 修正 Q1 固件来源表述（AUK9527 不提供固件）
 - [x] 检查双链 / MOC（章节结构未变化，MOC 锚点有效，无需更新）
