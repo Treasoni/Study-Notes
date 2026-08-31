@@ -10,7 +10,7 @@ topic: "飞牛上安装配置 iStoreOS（软路由）"
 project_slug: "fnos-istoreos-install"
 created_at: "2026-09-01"
 last_updated: "2026-09-01"
-current_phase: P5
+current_phase: P6
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：fnos-istoreos-install
 > 项目标识：fnos-istoreos-install
 > 创建时间：2026-09-01
-> 当前阶段：阶段 5
+> 当前阶段：阶段 6
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -104,7 +104,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中 {in_progress}
+> [P5] ✅ 已完成 {complete}
 
 ---
 
@@ -114,7 +114,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] 🔲 进行中 {in_progress}
 
 ---
 
@@ -137,6 +137,7 @@ blocked_reason: ""
 | P2 | 用户选择大纲模式；拓扑为「已有独立主路由」；进阶覆盖「科学上网/插件」 | 2026-09-01 |
 | P3 | 用户确认大纲（8 章），要求全部章节一次写完 | 2026-09-01 |
 | P4 | 8 章全部一次写完（用户要求跳过逐章确认），进入组装 | 2026-09-01 |
+| P5 | 组装完成 output/final_note.md（8 章，约 1.1 万字），进入 Obsidian 发布 | 2026-09-01 |
 
 ---
 
