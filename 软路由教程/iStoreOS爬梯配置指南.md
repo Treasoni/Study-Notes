@@ -232,40 +232,16 @@ updated: 2026-08-31
 | Hysteria2 | 新一代UDP协议 |
 | Tuic | 协议 |
 
-#### 3.1.2 通过 iStore 安装
-
-**步骤 1：进入 iStore**
-
-1. 浏览器打开 iStoreOS 管理界面（默认 `192.168.100.1`）
-2. 登录后进入 **iStore** 软件中心
-
-> [!warning] ⚠️ 前提说明（2026-08 修正）
-> **官方固件的 iStore 商店默认搜不到 Passwall/Passwall2**（法律/政策原因，代理插件不在官方商店）。需要先用 §3.1.3 的备选方案装好插件本体；iStoreOS 用户最常用「iStore 手动安装 `.run` 包」（见 §3.1.3 方案 C）。
-
-**步骤 2：安装插件本体**
-
-1. 在 iStore 中直接搜索通常**找不到**；请改用 §3.1.3 方案 C（`.run` 手动安装）或方案 A/B
-2. 安装成功后，在 **服务** 菜单中会出现 Passwall/Passwall2
-
-**步骤 3：启动插件**
-
-1. 安装完成后点击「打开」
-2. 进入 Passwall 配置界面
-
 > [!tip] Passwall vs Passwall2
 > - **Passwall**：功能全面，支持更多协议
 > - **Passwall2**：精简版本，资源占用更低，稳定性更好
 >
 > 新手推荐使用 **Passwall2**
 
-> [!info] 📚 来源
-> - [iStoreOS 软路由Passwall/Passwall2 进阶教程](https://www.youtube.com/watch?v=ifhmuCG8aHs) - YouTube
-> - [iStoreOS 软路由使用Passwall2](https://www.youtube.com/watch?v=vBFZtvWPqzQ) - YouTube
+#### 3.1.2 安装 Passwall / Passwall2
 
-#### 3.1.3 iStore 不可用时的备选安装方案
-
-> [!warning] 如果 iStore 中找不到插件
-> 以下是常用的备选安装方法（iStoreOS 优先推荐方案 C）。
+> [!warning] 官方 iStore 商店默认不含 Passwall/Passwall2（法律/政策原因）
+> 官方固件的 iStore 商店搜索不到代理插件，需从以下方案中选择一种安装插件本体；iStoreOS 用户最常用**方案 C**（iStore 手动安装 `.run` 包）。
 
 **方案 C：通过 iStore 手动安装 `.run` 包（iStoreOS 推荐）**
 
@@ -535,30 +511,10 @@ curl ip.sb
 - **多订阅合并** — 可将多个机场订阅节点合并到同一配置
 - **内核管理页面** — 支持直接在线更新 Mihomo / Clash Premium 内核
 
-### 4.2 通过 iStore 安装
+### 4.2 安装 OpenClash
 
-> [!warning] ⚠️ 前提说明（2026-08 修正）
-> **官方固件的 iStore 商店同样搜不到 OpenClash**（代理插件不在官方商店）。需先用 §4.3 的备选方案装好插件本体；iStoreOS 用户最常用「iStore 手动安装 `.run` 包」（见 §4.3 方案 C）。
-
-#### 步骤 1：进入 iStore
-
-1. 浏览器打开 iStoreOS 管理界面
-2. 进入 **iStore** 软件中心
-3. 官方商店中搜索 OpenClash 通常无结果
-
-#### 步骤 2：安装插件本体
-
-1. 请改用 §4.3 方案 C（`.run` 手动安装）或方案 A/B
-2. 安装成功后，在 **服务** 菜单中会出现 OpenClash
-
-> [!info] 📚 来源
-> - [OpenClash 官方教程](https://openclash.org/) - 官方网站
-> - [OpenClash 安装指南](https://clashproxy.net/openclash) - 配置教程
-
-### 4.3 iStore 不可用时的备选安装方案
-
-> [!warning] 如果 iStore 中找不到插件
-> 以下是常用的备选安装方法（iStoreOS 优先推荐方案 C）。
+> [!warning] 官方 iStore 商店默认不含 OpenClash（法律/政策原因）
+> 官方固件的 iStore 商店搜索不到 OpenClash，需从以下方案中选择一种安装插件本体；iStoreOS 用户最常用**方案 C**（iStore 手动安装 `.run` 包）。
 
 **方案 C：通过 iStore 手动安装 `.run` 包（iStoreOS 推荐）**
 
@@ -624,7 +580,7 @@ opkg install --force-depends luci-app-openclash_*.ipk
 > [!danger] 注意
 > 第三方固件可能存在安全风险，请从可信渠道获取。
 
-### 4.4 配置文件订阅
+### 4.3 配置文件订阅
 
 #### 步骤 1：进入配置订阅
 
@@ -651,7 +607,7 @@ opkg install --force-depends luci-app-openclash_*.ipk
 > - [OpenClash 付费节点教程](https://clash.guide/clients/router/openclash.html) - Clash Guide
 > - [GitHub 详细设置方案](https://github.com/Aethersailor/Custom_OpenClash_Rules/wiki) - GitHub Wiki
 
-### 4.5 启动代理
+### 4.4 启动代理
 
 #### 步骤 1：选择配置
 
@@ -671,7 +627,7 @@ opkg install --force-depends luci-app-openclash_*.ipk
 curl ip.sb
 ```
 
-### 4.6 规则设置
+### 4.5 规则设置
 
 OpenClash 的规则系统非常灵活：
 
@@ -700,7 +656,7 @@ OpenClash 的规则系统非常灵活：
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### 4.7 核心模式选择
+### 4.6 核心模式选择
 
 | 模式 | 说明 | 推荐场景 |
 |------|------|----------|
@@ -1084,7 +1040,7 @@ curl ip.sb
 - **OpenClash**：更新至 v0.47.156（2026-08-10）；调整 v0.47.x 已知问题描述（自启 Bug 升级观察）
 - **HomeProxy**：补充版本 v0.0.11 与系统要求（ImmortalWrt / OpenWrt 23.05+，依赖 firewall4、kmod-nft-tproxy，不支持 XHTTP 节点）
 - **25.12 迁移提示**：在 Passwall/OpenClash 备选安装方案中补充 apk 包管理器差异说明
-- **安装方式修正**：更正「在 iStore 搜索安装」的表述——官方 iStore 商店默认不含 Passwall/OpenClash 等代理插件；新增方案 C（iStore 手动安装 `.run` 包）作为 iStoreOS 推荐安装方式
+- **安装方式修正**：**删除**「通过 iStore 搜索安装」的无效步骤（官方 iStore 商店默认不含 Passwall/OpenClash）；新增方案 C（iStore 手动安装 `.run` 包）作为 iStoreOS 推荐安装方式；备选安装章节重排为 §3.1.2 / §4.2
 - **参考资料**：补充 iStoreOS 24.10.8 更新日志、Passwall（v1）Releases 等来源
 
 ### 2026-07-11
