@@ -10,7 +10,7 @@ topic: "飞牛上安装配置 iStoreOS（软路由）"
 project_slug: "fnos-istoreos-install"
 created_at: "2026-09-01"
 last_updated: "2026-09-01"
-current_phase: P2
+current_phase: P3
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：fnos-istoreos-install
 > 项目标识：fnos-istoreos-install
 > 创建时间：2026-09-01
-> 当前阶段：阶段 2
+> 当前阶段：阶段 3
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -67,7 +67,7 @@ blocked_reason: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] 🔲 进行中 {in_progress}
+> [P2] ✅ 已完成 {complete}
 
 ---
 
@@ -79,7 +79,7 @@ blocked_reason: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] ⬜ 未开始
+> [P3] 🔲 进行中 {in_progress}
 
 ---
 
@@ -134,6 +134,7 @@ blocked_reason: ""
 |------|----------|------|
 | P0 | 用户确认意图文件和研究计划，进入阶段 1 | 2026-09-01 |
 | P1 | 用户选择学习方向 A：完整主线（飞牛建 VM → 导入 iStoreOS → 旁路由） | 2026-09-01 |
+| P2 | 用户选择大纲模式；拓扑为「已有独立主路由」；进阶覆盖「科学上网/插件」 | 2026-09-01 |
 
 ---
 
