@@ -29,6 +29,9 @@
 | 更新记录 | 新增 2026-08-31 条目 |
 | 最后更新行 | 更新为 2026-08-31 |
 | 参考资料 | 补充 naiyous 10947、Passwall（v1）Releases |
+| §3.1.2 / §4.2 | **安装方式修正**：官方 iStore 商店默认无 Passwall/OpenClash，改为「先装插件本体再用服务菜单」，并加前提警告 callout |
+| §3.1.3 / §4.3 | 新增**方案 C**：iStore 手动安装 `.run` 包（AUK9527/Are-u-ok），作为 iStoreOS 推荐方式 |
+| §6 Q1 建议顺序 | 加入「iStore 手动安装 `.run` 包（推荐）」 |
 
 ### 未变动
 
@@ -47,6 +50,8 @@
 - [Passwall2 Releases](https://github.com/Openwrt-Passwall/openwrt-passwall2/releases)
 - [Passwall Releases](https://github.com/Openwrt-Passwall/openwrt-passwall/releases)
 - [HomeProxy 安装与设置（DeepWiki）](https://deepwiki.com/immortalwrt/homeproxy/2-installation-and-setup)
+- [iStoreOS 通过 iStore .run 安装 passwall、OpenClash 插件](https://www.zoio.net/2026/01/istoreos-passwall.html)
+- [AUK9527/Are-u-ok 插件库（.run 包）](https://github.com/AUK9527/Are-u-ok)
 
 ## 未处理风险
 
@@ -54,6 +59,7 @@
 - **OpenClash IPK URL 格式**：示例中的 tag（`v0.47.156`）以 releases 页实际标签为准，可能需要微调。
 - **链接有效性**：未逐一验证全部外部链接是否失效，仅补充了 naiyous 新版文章链接。
 - **HomeProxy 标准 OpenWrt 兼容性**：官方主要面向 ImmortalWrt / OpenWrt 23.05+，实际使用仍需用户实测。
+- **`.run` 包下载**：方案 C 中 AUK9527 插件库的具体文件路径/命名以仓库实际为准，示例仅作演示。
 - **25.12 生态**：25.12 仍为测试版，apk 软件源下的 Passwall 自定义源方案尚在社区磨合，未写入具体命令。
 
 ## 下次更新关注点

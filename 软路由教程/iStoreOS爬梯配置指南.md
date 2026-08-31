@@ -239,11 +239,13 @@ updated: 2026-08-31
 1. 浏览器打开 iStoreOS 管理界面（默认 `192.168.100.1`）
 2. 登录后进入 **iStore** 软件中心
 
-**步骤 2：搜索安装**
+> [!warning] ⚠️ 前提说明（2026-08 修正）
+> **官方固件的 iStore 商店默认搜不到 Passwall/Passwall2**（法律/政策原因，代理插件不在官方商店）。需要先用 §3.1.3 的备选方案装好插件本体；iStoreOS 用户最常用「iStore 手动安装 `.run` 包」（见 §3.1.3 方案 C）。
 
-1. 在 iStore 中搜索 **Passwall** 或 **Passwall2**
-2. 点击「安装」按钮
-3. 等待安装完成
+**步骤 2：安装插件本体**
+
+1. 在 iStore 中直接搜索通常**找不到**；请改用 §3.1.3 方案 C（`.run` 手动安装）或方案 A/B
+2. 安装成功后，在 **服务** 菜单中会出现 Passwall/Passwall2
 
 **步骤 3：启动插件**
 
@@ -263,7 +265,30 @@ updated: 2026-08-31
 #### 3.1.3 iStore 不可用时的备选安装方案
 
 > [!warning] 如果 iStore 中找不到插件
-> 以下是两种常用的备选安装方法：
+> 以下是常用的备选安装方法（iStoreOS 优先推荐方案 C）。
+
+**方案 C：通过 iStore 手动安装 `.run` 包（iStoreOS 推荐）**
+
+> [!tip] ✅ 官方商店搜不到时的首选
+> 这是 iStoreOS 用户最主流的安装方式：下载社区打包的 `.run` 安装包，在 iStore 中手动安装，图形化且操作简单。适用于 Passwall / Passwall2 / OpenClash 等。
+
+```bash
+# 1. 确认系统架构（x86_64 / aarch64 等）
+source /etc/os-release; echo $OPENWRT_ARCH
+
+# 2. 下载 .run 包（以 AUK9527/Are-u-ok 插件库为例；文件名按架构和系统版本选择，以仓库实际为准）
+cd /tmp
+wget https://github.com/AUK9527/Are-u-ok/raw/main/apps/PassWall2/PassWall2_x86_64_all_sdk_24.10.run
+
+# 3. 方式一：iStore 后台「手动安装」上传 .run 文件
+#    方式二：命令行直接执行（无 iStore 商店也可用）
+sh /tmp/PassWall2_*.run
+```
+
+> [!warning] 注意
+> - 安装前建议移除自行添加的第三方 opkg 软件源，避免依赖冲突。
+> - 部分依赖仍需在线安装，请确保路由器自身联网正常（旁路由场景最易踩坑）。
+> - 不建议 Passwall 系列与 SSR-Plus 同时安装（存在包冲突）。
 
 **方案 A：添加官方软件源（推荐）**
 
@@ -512,17 +537,19 @@ curl ip.sb
 
 ### 4.2 通过 iStore 安装
 
+> [!warning] ⚠️ 前提说明（2026-08 修正）
+> **官方固件的 iStore 商店同样搜不到 OpenClash**（代理插件不在官方商店）。需先用 §4.3 的备选方案装好插件本体；iStoreOS 用户最常用「iStore 手动安装 `.run` 包」（见 §4.3 方案 C）。
+
 #### 步骤 1：进入 iStore
 
 1. 浏览器打开 iStoreOS 管理界面
 2. 进入 **iStore** 软件中心
-3. 搜索 **OpenClash**
+3. 官方商店中搜索 OpenClash 通常无结果
 
-#### 步骤 2：安装插件
+#### 步骤 2：安装插件本体
 
-1. 点击「安装」
-2. 等待安装完成
-3. 安装后点击「打开」
+1. 请改用 §4.3 方案 C（`.run` 手动安装）或方案 A/B
+2. 安装成功后，在 **服务** 菜单中会出现 OpenClash
 
 > [!info] 📚 来源
 > - [OpenClash 官方教程](https://openclash.org/) - 官方网站
@@ -531,7 +558,28 @@ curl ip.sb
 ### 4.3 iStore 不可用时的备选安装方案
 
 > [!warning] 如果 iStore 中找不到插件
-> 以下是两种常用的备选安装方法：
+> 以下是常用的备选安装方法（iStoreOS 优先推荐方案 C）。
+
+**方案 C：通过 iStore 手动安装 `.run` 包（iStoreOS 推荐）**
+
+> [!tip] ✅ 官方商店搜不到时的首选
+> 从 AUK9527/Are-u-ok 插件库下载 OpenClash 的 `.run` 包，在 iStore「手动安装」上传即可。
+
+```bash
+# 1. 确认系统架构
+source /etc/os-release; echo $OPENWRT_ARCH
+
+# 2. 下载 OpenClash .run 包（文件名以仓库实际为准）
+cd /tmp
+wget https://github.com/AUK9527/Are-u-ok/raw/main/apps/OpenClash/OpenClash_x86_64_all_sdk_24.10.run
+
+# 3. 方式一：iStore 后台「手动安装」上传 .run 文件
+#    方式二：命令行直接执行
+sh /tmp/OpenClash_*.run
+```
+
+> [!warning] 注意
+> 安装前建议移除自行添加的第三方 opkg 软件源，避免依赖冲突。
 
 **方案 A：添加官方软件源（推荐）**
 
@@ -901,7 +949,7 @@ echo "=== 排查完成 ==="
 
 > [!tip] 建议操作顺序
 > 按优先级尝试以下解决方案：
-> 1. **系统修复工具** → 2. **检查防火墙类型** → 3. **更新软件包列表** → 4. **重新安装** → 5. **第三方源** → 6. **手动 IPK**
+> 1. **系统修复工具** → 2. **检查防火墙类型** → 3. **更新软件包列表** → 4. **iStore 手动安装 `.run` 包（推荐）** → 5. **第三方 opkg 源** → 6. **手动 IPK**
 
 ### Q2：订阅更新后没有节点？
 
@@ -1036,6 +1084,7 @@ curl ip.sb
 - **OpenClash**：更新至 v0.47.156（2026-08-10）；调整 v0.47.x 已知问题描述（自启 Bug 升级观察）
 - **HomeProxy**：补充版本 v0.0.11 与系统要求（ImmortalWrt / OpenWrt 23.05+，依赖 firewall4、kmod-nft-tproxy，不支持 XHTTP 节点）
 - **25.12 迁移提示**：在 Passwall/OpenClash 备选安装方案中补充 apk 包管理器差异说明
+- **安装方式修正**：更正「在 iStore 搜索安装」的表述——官方 iStore 商店默认不含 Passwall/OpenClash 等代理插件；新增方案 C（iStore 手动安装 `.run` 包）作为 iStoreOS 推荐安装方式
 - **参考资料**：补充 iStoreOS 24.10.8 更新日志、Passwall（v1）Releases 等来源
 
 ### 2026-07-11
