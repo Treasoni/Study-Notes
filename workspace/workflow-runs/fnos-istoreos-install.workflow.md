@@ -10,8 +10,9 @@ topic: "飞牛上安装配置 iStoreOS（软路由）"
 project_slug: "fnos-istoreos-install"
 created_at: "2026-09-01"
 last_updated: "2026-09-01"
-current_phase: P6
-current_status: in_progress
+current_phase: done
+current_status: complete
+quality_gate: passed
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -28,7 +29,7 @@ blocked_reason: ""
 > 运行标识：fnos-istoreos-install
 > 项目标识：fnos-istoreos-install
 > 创建时间：2026-09-01
-> 当前阶段：阶段 6
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -114,7 +115,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] 🔲 进行中 {in_progress}
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -124,7 +125,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -138,6 +139,8 @@ blocked_reason: ""
 | P3 | 用户确认大纲（8 章），要求全部章节一次写完 | 2026-09-01 |
 | P4 | 8 章全部一次写完（用户要求跳过逐章确认），进入组装 | 2026-09-01 |
 | P5 | 组装完成 output/final_note.md（8 章，约 1.1 万字），进入 Obsidian 发布 | 2026-09-01 |
+| P6 | 用户选择发布到「软路由教程/」并同步 MOC；美化完成并发布 | 2026-09-01 |
+| P7 | MOC 同步完成（软路由教程MOC 加入索引项） | 2026-09-01 |
 
 ---
 
@@ -167,10 +170,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战教程
+- **总字数**：约 1.1 万字（8 章）
+- **章节数**：8
+- **输出格式**：Obsidian Markdown（frontmatter + Callout + 双链 + Mermaid + 代码块）
+- **文件路径**：软路由教程/飞牛安装配置iStoreOS旁路由.md（源稿 workspace/fnos-istoreos-install/output/final_note.md）
+- **Obsidian Vault**：D:\Study-Notes（软路由教程/）
+- **MOC 路径**：软路由教程/软路由教程MOC.md

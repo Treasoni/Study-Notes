@@ -1,7 +1,7 @@
 ---
 tags: [软路由, moc]
 created: 2026-03-07
-updated: 2026-04-06
+updated: 2026-09-01
 ---
 
 # 软路由教程 MOC
@@ -40,6 +40,7 @@ iStoreOS 系统的代理配置和旁路由设置
 
 | 主题 | 说明 | 笔记 |
 |------|------|------|
+| 飞牛VM部署iStoreOS | 飞牛NAS上建虚拟机安装iStoreOS并配置旁路由 | [[飞牛安装配置iStoreOS旁路由]] |
 | Passwall 配置 | Passwall/Passwall2 完整配置教程 | [[iStoreOS爬梯配置指南##三、Passwall 完整配置]] |
 | OpenClash 配置 | OpenClash 安装和配置教程 | [[iStoreOS爬梯配置指南##四、OpenClash 安装配置]] |
 | 旁路由配置 | 旁路由网络模式配置指南 | [[iStoreOS爬梯配置指南##五、旁路由网络配置]] |
@@ -110,4 +111,4 @@ iStoreOS 系统的代理配置和旁路由设置
 
 ## 相关文档
 
-[[旁路由原理详解]] | [[主流软路由系统对比与选择指南]] | [[iStoreOS爬梯配置指南]] | [[PVE的学习/PVE学习笔记MOC]] | [[PVE的学习/02-虚拟机管理/PVE的网络逻辑讲解]] | [[网络协议详解-WebDAV_Samba_FTP_iSCSI]]
+[[飞牛安装配置iStoreOS旁路由]] | [[旁路由原理详解]] | [[主流软路由系统对比与选择指南]] | [[iStoreOS爬梯配置指南]] | [[PVE的学习/PVE学习笔记MOC]] | [[PVE的学习/02-虚拟机管理/PVE的网络逻辑讲解]] | [[网络协议详解-WebDAV_Samba_FTP_iSCSI]]
