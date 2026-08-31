@@ -458,7 +458,7 @@ AGENTS.override.md
 
 ### 3.3 目录链合并：git root → CWD 逐层加载、深层优先、相同副本去重
 
-在 Claude Code 里，"子项目特定规则"通常靠 `.claude/rules` 的 glob 或 memory 提示来划。Hermes 用**物理目录层级**表达"越具体越优先"：当工作目录在 git 仓库内时，**会话启动时**会加载一条 `AGENTS.md` 的**合并链**——git root 的 `AGENTS.md` 在最前，之后逐层到当前工作目录，**越深越靠后、越具体** [Context Files](https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files)。
+在 Claude Code 里，"子项目特定规则"通常靠 `.claude/rules` 的 glob 或 memory 提示来划。Hermes 用理**物目录层级**表达"越具体越优先"：当工作目录在 git 仓库内时，**会话启动时**会加载一条 `AGENTS.md` 的**合并链**——git root 的 `AGENTS.md` 在最前，之后逐层到当前工作目录，**越深越靠后、越具体** [Context Files](https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files)。
 
 ```text
 monorepo/                    (git root，cwd = packages/webapp/)
