@@ -366,14 +366,14 @@ agent:
 
 Hermes 支持 6 种项目上下文文件（`SOUL.md` 是身份、永远独立加载，不算在内）。它们之间的选择和发现方式如下 [Context Files](https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files)：
 
-| 文件 | 用途 | 发现方式 |
-| --- | --- | --- |
-| `.hermes.md` / `HERMES.md` | 项目指令（**最高优先级**） | 沿 git root 上溯 |
-| `AGENTS.override.md` | 个人、按目录覆盖 AGENTS.md（通常 gitignored） | 启动时 CWD + 会话中渐进子目录 |
-| `AGENTS.md` | 项目指令、约定、架构（**主项目上下文文件**） | 启动时 CWD + 会话中渐进子目录 |
-| `CLAUDE.md` | Claude Code 上下文文件（同样被识别） | 启动时 CWD + 会话中渐进子目录 |
-| `.cursorrules` | Cursor IDE 编码约定 | 仅 CWD |
-| `.cursor/rules/*.mdc` | Cursor IDE 规则模块 | 仅 CWD |
+| 文件                         | 用途                                | 发现方式               |
+| -------------------------- | --------------------------------- | ------------------ |
+| `.hermes.md` / `HERMES.md` | 项目指令（**最高优先级**）                   | 沿 git root 上溯      |
+| `AGENTS.override.md`       | 个人、按目录覆盖 AGENTS.md（通常 gitignored） | 启动时 CWD + 会话中渐进子目录 |
+| `AGENTS.md`                | 项目指令、约定、架构（**主项目上下文文件**）          | 启动时 CWD + 会话中渐进子目录 |
+| `CLAUDE.md`                | Claude Code 上下文文件（同样被识别）          | 启动时 CWD + 会话中渐进子目录 |
+| `.cursorrules`             | Cursor IDE 编码约定                   | 仅 CWD              |
+| `.cursor/rules/*.mdc`      | Cursor IDE 规则模块                   | 仅 CWD              |
 
 优先级链是 **first-match-wins**：从高到低扫，**每会话只加载一种**，第一个命中的生效，其余全部忽略 [Context Files](https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files) [Prompt Assembly](https://hermes-agent.nousresearch.com/docs/developer-guide/prompt-assembly)。
 
