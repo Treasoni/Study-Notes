@@ -18,6 +18,8 @@ Read before starting any new Study System task.
 - 合并多篇独立章节前/后按章命名空间化脚注 ID（`[^cN-…]`），并 grep 校验无重复
 - GitHub 项目取文档优先 `raw.githubusercontent.com/{owner}/{repo}/{branch}/...`；github.io 镜像可能 404
 - perl 处理含中文文本必须 `use utf8;` + `use open ":std", ":encoding(UTF-8)"`，否则字符类正则静默 no-op
+- 写 OpenWrt/iStoreOS 第三方插件安装步骤前，先用 GitHub API（`curl api.github.com/.../contents`、`/releases/tags/{tag}`）核实软件源 feed 内容与 release 真实文件名，再写命令；示例 URL 必须来自实际存在的文件
+- 用户明确说「删掉」误导内容时，直接删除整节并重排编号，不要加 warning 补丁保留
 
 ## Don't
 
@@ -34,3 +36,5 @@ Read before starting any new Study System task.
 - note-assembler 等 writer 子 agent 无 Bash/Edit 且 Write 有输出上限；>100KB 长文档组装预判拆分，由父进程合并
 - 并行子 agent 不得直接修改共享 workflow state file；状态推进由 orchestrator 集中经 todo-state.sh 处理
 - P6 发布前先校验最终产物：>30KB 或多于 3 章必须拆分（分册子目录 + README + 每章独立文件 + 前后导航 + MOC 指向 README）后再发布
+- iStoreOS 官方 iStore 商店不含代理插件；Passwall SourceForge 源只含 passwall_luci/passwall_packages/passwall2（不含 OpenClash）；OpenClash `.run` 包 `+core` 表示内置内核
+- WebFetch 拦截的域名（raw.githubusercontent.com、github.com）改用 `curl api.github.com` 替代
