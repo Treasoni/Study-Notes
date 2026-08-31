@@ -10,8 +10,8 @@ topic: "用命令文件下载（Linux/macOS）"
 project_slug: "command-file-download"
 created_at: "2026-08-31"
 last_updated: "2026-08-31"
-current_phase: P5
-current_status: in_progress
+current_phase: P6
+current_status: ready
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：command-file-download
 > 项目标识：command-file-download
 > 创建时间：2026-08-31
-> 当前阶段：阶段 5
+> 当前阶段：阶段 6
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -103,13 +103,13 @@ blocked_reason: ""
 ## 阶段 5：收尾组装
 - [x] 所有章节文件已检查
 - [x] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
-- [ ] 过渡语已添加
-- [ ] 目录已生成
-- [ ] 标题层级已统一
-- [ ] 引用已检查
-- [ ] 完整笔记已保存：`./output/final_note.md`
+- [x] 过渡语已添加
+- [x] 目录已生成
+- [x] 标题层级已统一
+- [x] 引用已检查
+- [x] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中 {in_progress}
+> [P5] ✅ 已完成 {complete}
 
 ---
 
