@@ -108,7 +108,6 @@ graph TB
 - [[OCR概念笔记]]
 - [[Ollama 使用指南]] - Ollama 本地大模型入门到上手使用文档 #Ollama #本地LLM
 - [[RAG技术入门指南]]
-- [[Obsidian笔记构建RAG-实操指南]] - 三条路线把 Obsidian 笔记变成 RAG 知识库：Smart Connections / DeepTutor link existing / create new 的实操步骤 #RAG #Obsidian #实操
 
 ### 04-项目实践
 
