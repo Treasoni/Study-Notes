@@ -458,10 +458,10 @@ docker run --rm --name deeptutor \
 
 进入 Knowledge Center 后新建一个知识库（KB），第一步要选创建方式，两种方式差别很大 [S1]：
 
-| 方式 | 含义 | 典型场景 |
-| --- | --- | --- |
-| **create new** | 上传文档，DeepTutor 解析后**新建一份索引** | 上传教材 PDF、课程 PPT、笔记文档，从零建库 |
-| **link existing** | **原地复用**外部已有索引，不重建 | 链接自己的 Obsidian vault、外部 LightRAG Server、腾讯 IMA、MarginNote 4 等 |
+| 方式                | 含义                           | 典型场景                                                          |
+| ----------------- | ---------------------------- | ------------------------------------------------------------- |
+| **create new**    | 上传文档，DeepTutor 解析后**新建一份索引** | 上传教材 PDF、课程 PPT、笔记文档，从零建库                                     |
+| **link existing** | **原地复用**外部已有索引，不重建           | 链接自己的 Obsidian vault、外部 LightRAG Server、腾讯 IMA、MarginNote 4 等 |
 
 `create new` 是上手最常用的：点击后上传教材文件（PDF/DOCX/PPTX/XLSX 等），DeepTutor 会按你选的解析器抽取正文、切分、向量化，最终形成一份本地索引。`link existing` 则适合你已经有数据的地方——比如你的 Obsidian 笔记库，链接后 DeepTutor 直接原地读写，**不会重复建一份**。每个 KB 只绑定一种引擎（见 3.1.2），所以"新建 vs 链接"其实是"本地建索引 vs 引用外部索引"的分叉口。
 
