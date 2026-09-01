@@ -65,6 +65,8 @@
     },
     "软路由教程": {
       "children": [
+        "软路由教程/飞牛安装配置iStoreOS旁路由.md",
+        "软路由教程/update_plan_iStoreOS爬梯配置指南.md",
         "软路由教程/旁路由原理详解.md",
         "软路由教程/软路由教程MOC.md",
         "软路由教程/主流软路由系统对比与选择指南.md",
@@ -1153,6 +1155,7 @@
     },
     "linux": {
       "children": [
+        "linux/用命令文件下载（Linux-macOS）.md",
         "linux/linux常用命令",
         "linux/linux系统安装教程",
         "linux/Linux网络信息获取与概念",
@@ -1796,6 +1799,8 @@
     },
     "workspace": {
       "children": [
+        "workspace/command-file-download",
+        "workspace/fnos-istoreos-install",
         "workspace/docker-container-host-file-access",
         "workspace/github-network-timeout-solution",
         "workspace/hermes-rules-config",
@@ -2225,6 +2230,51 @@
         "workspace/codex-config-update/updates/cdx09/stale_map.md",
         "workspace/codex-config-update/updates/cdx09/update_report.md",
         "workspace/codex-config-update/updates/cdx09/updated_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/command-file-download": {
+      "children": [
+        "workspace/command-file-download/chapters",
+        "workspace/command-file-download/output",
+        "workspace/command-file-download/sources",
+        "workspace/command-file-download/00_intent.md",
+        "workspace/command-file-download/01_explore_result.md",
+        "workspace/command-file-download/02_deep_research.md",
+        "workspace/command-file-download/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/command-file-download/chapters": {
+      "children": [
+        "workspace/command-file-download/chapters/01_下载工具全景与选型.md",
+        "workspace/command-file-download/chapters/02_curl基础用法.md",
+        "workspace/command-file-download/chapters/03_wget与aria2基础用法.md",
+        "workspace/command-file-download/chapters/04_断点续传.md",
+        "workspace/command-file-download/chapters/05_并发与重试.md",
+        "workspace/command-file-download/chapters/06_校验与安全.md",
+        "workspace/command-file-download/chapters/07_批量下载脚本基础.md",
+        "workspace/command-file-download/chapters/08_错误处理与脚本健壮性.md",
+        "workspace/command-file-download/chapters/09_实战案例_完整批量下载脚本.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/command-file-download/output": {
+      "children": [
+        "workspace/command-file-download/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/command-file-download/sources": {
+      "children": [
+        "workspace/command-file-download/sources/01_www_gnu_org.md",
+        "workspace/command-file-download/sources/02_curl_se.md",
+        "workspace/command-file-download/sources/03_curl_se.md",
+        "workspace/command-file-download/sources/04_aria2_github_io.md",
+        "workspace/command-file-download/sources/05_wget_manual.md",
+        "workspace/command-file-download/sources/05_wget_manual.html",
+        "workspace/command-file-download/sources/06_bash_manual.html",
+        "workspace/command-file-download/sources/06_bash_manual.md"
       ],
       "sortOrder": "custom"
     },
@@ -2771,6 +2821,36 @@
     "workspace/docker-ha-tutorial/output": {
       "children": [
         "workspace/docker-ha-tutorial/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/fnos-istoreos-install": {
+      "children": [
+        "workspace/fnos-istoreos-install/chapters",
+        "workspace/fnos-istoreos-install/output",
+        "workspace/fnos-istoreos-install/00_intent.md",
+        "workspace/fnos-istoreos-install/01_explore_result.md",
+        "workspace/fnos-istoreos-install/02_deep_research.md",
+        "workspace/fnos-istoreos-install/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/fnos-istoreos-install/chapters": {
+      "children": [
+        "workspace/fnos-istoreos-install/chapters/01_认识iStoreOS与旁路由方案选型.md",
+        "workspace/fnos-istoreos-install/chapters/02_前置准备.md",
+        "workspace/fnos-istoreos-install/chapters/03_方法A创建虚拟机.md",
+        "workspace/fnos-istoreos-install/chapters/04_初始化iStoreOS并访问后台.md",
+        "workspace/fnos-istoreos-install/chapters/05_备选方案方法B.md",
+        "workspace/fnos-istoreos-install/chapters/06_配置旁路由.md",
+        "workspace/fnos-istoreos-install/chapters/07_进阶科学上网与插件.md",
+        "workspace/fnos-istoreos-install/chapters/08_常见问题排查.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/fnos-istoreos-install/output": {
+      "children": [
+        "workspace/fnos-istoreos-install/output/final_note.md"
       ],
       "sortOrder": "custom"
     },
@@ -4169,6 +4249,8 @@
     },
     "workspace/workflow-runs": {
       "children": [
+        "workspace/workflow-runs/command-file-download.workflow.md",
+        "workspace/workflow-runs/fnos-istoreos-install.workflow.md",
         "workspace/workflow-runs/docker-container-host-file-access.workflow.md",
         "workspace/workflow-runs/github-network-timeout-solution.workflow.md",
         "workspace/workflow-runs/hermes-rules-config.workflow.md",
