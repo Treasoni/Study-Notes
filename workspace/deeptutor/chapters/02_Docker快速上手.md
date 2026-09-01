@@ -101,7 +101,7 @@ docker run --rm --name deeptutor \
 > [!warning] 易错点
 > 这条命令用了 `--rm`，所以容器一退出就没了——但你的数据都在 volume 里，所以删容器不可怕。真正需要警惕的是 `docker volume rm`（见 2.6），那才会删数据。
 
-### 2.3.1 端口映射：为什么只需暴露 3782（前端中转 /api、/ws 到后端 8001）
+#### 2.3.1 端口映射：为什么只需暴露 3782（前端中转 /api、/ws 到后端 8001）
 
 DeepTutor 内部其实有两个端口：前端（Next.js，`3782`）和后端（FastAPI，`8001`）。但**只需要把 3782 暴露到宿主机** [S1][S3]：
 
@@ -123,7 +123,7 @@ DeepTutor 内部其实有两个端口：前端（Next.js，`3782`）和后端（
 > [!tip] 大白话
 > 把 3782 想成"前台接待"，8001 是"后面的办公室"。你进大楼只跟接待说话，接待再通过**内部走廊**（容器内的 `/api`、`/ws` 转发）帮你找办公室。所以对外只需要开前台这一扇门，办公室的门不必对外开。
 
-### 2.3.2 数据持久化：deeptutor-data volume 与 data/user/settings/ 布局
+#### 2.3.2 数据持久化：deeptutor-data volume 与 data/user/settings/ 布局
 
 `-v deeptutor-data:/app/data` 里的 `deeptutor-data` 是一个 Docker 命名卷（named volume），它把容器里的数据目录 `/app/data` 持久化到 Docker 管理的宿主机存储中 [S3]。
 
@@ -156,7 +156,7 @@ DeepTutor 内部其实有两个端口：前端（Next.js，`3782`）和后端（
 > [!note] 核心概念
 > provider probe 是"保存即探测"：DeepTutor 拿着你填的 Base URL 和 key 去厂商打一个测试请求。它通过，说明配置大概率没问题；报 `401`，多半不是网络问题，而是 **key 前缀不对** [S4]。
 
-### 2.4.1 云端 API 为主：OpenAI / DeepSeek / Anthropic 的 Base URL 与 key 前缀
+#### 2.4.1 云端 API 为主：OpenAI / DeepSeek / Anthropic 的 Base URL 与 key 前缀
 
 日常最省事的是接云端 API。下表给出研究素材中明确记录的信息 [S4]，Base URL 未在素材中出现的厂商，请以其官方文档为准：
 
@@ -171,7 +171,7 @@ DeepTutor 内部其实有两个端口：前端（Next.js，`3782`）和后端（
 > [!warning] 易错点
 > provider probe 报 `HTTPError 401 Unauthorized`，九成是 key 前缀不对：OpenAI 必须是 `sk-`/`sk-proj-`、Anthropic 必须是 `sk-ant-`、Gemini 必须是 `AIza`；Ollama 这类本地 OpenAI 兼容服务 key 留空或填 `none` [S4]。另外，`Failed to fetch /models`（模型列表拉取失败）是**非致命**的，向导会回退到内置模型列表继续 [S4]。
 
-### 2.4.2 本地 Ollama 补充：host.docker.internal（Windows/macOS 免加 --add-host，Linux 需 extra_hosts）
+#### 2.4.2 本地 Ollama 补充：host.docker.internal（Windows/macOS 免加 --add-host，Linux 需 extra_hosts）
 
 如果你偏好本地模型，在宿主机装好 [[Ollama]] 后，关键认知是：**容器内的 `localhost` 指容器自己，不是宿主机** [S3]。要让容器访问宿主机上跑的模型服务，需要走 host gateway（`host.docker.internal`）。
 
@@ -211,7 +211,7 @@ docker run --rm --name deeptutor \
 > [!tip] 大白话
 > 把 `host.docker.internal` 想成"回老家的秘密通道"。你在外面上大学（容器里），`localhost` 指你自己的宿舍；想找家里（宿主机）的打印机，得走一条叫 `host.docker.internal` 的通道回去。Windows/macOS 的宿舍管理员（Docker Desktop）默认修好了这条通道，Linux 需要你自己打通。
 
-### 2.4.3 Embedding 配置：完整 endpoint 规则（/v1/embeddings、/v2/embed 等）
+#### 2.4.3 Embedding 配置：完整 endpoint 规则（/v1/embeddings、/v2/embed 等）
 
 Embedding 是知识库 / [[RAG]] 的基石，第 3 章建知识库时必需。它的坑和 LLM 不同：**Embedding adapter 会原样使用 profile 里的 Base URL，所以必须填完整 endpoint，而不是只填 API root** [S4]。
 
