@@ -47,7 +47,10 @@ docker run -it --rm \
 
 1. **选平台**：在菜单中选择「微信个人号」。选项号为 **14** 是社区实操记录（W4），官方菜单未标数字、可能漂移——**以 setup 菜单实际为准**。
 2. **扫码确认**：终端打印二维码 → 用手机微信扫码 → 手机上确认授权。
-3. **落盘凭证**：成功后凭证写入 `~/.hermes/weixin/accounts/`，向导把配置写进 `~/.hermes/.env`。
+3. **落盘凭证**：成功后凭证写入 `~/.hermes/weixin/accounts/`，向导把配置写进 `~/.hermes/.env`。（这里系统自动操作）
+4. ![](assets/03-微信个人号iLink接入/截屏2026-08-30%2015.05.46.png)
+这里如果你用的是这里的DM pairing approval的认证方式。你在微信中发消息是会出现![](assets/03-微信个人号iLink接入/截屏2026-08-30%2015.08.05.png)
+你需要在你的系统中运行这个命令就可以了（用dokcer的话就是用docker exec 进入容器，然后执行这个命令就可以。这一步是- **私信（DM）消息** — 可配置访问策略。其他的plateform中如果选择这种认证方式也是一样的操作
 
 [!warning] 跑 CLI 别用 docker exec
 > 第 2 章提过：官方镜像里没有 `hermes` 可执行文件，`docker exec hermes gateway setup` 会直接报 PATH 找不到二进制。要跑 CLI，必须用上面的 `docker run -it --rm -v 同卷` 起一次性容器（W4）。

@@ -1,7 +1,7 @@
 ---
 tags: [istoreos, 软路由, passwall, openclash, 代理, 爬梯, 旁路由]
 created: 2026-03-07
-updated: 2026-08-31
+updated: 2026-09-01
 ---
 
 # iStoreOS 爬梯配置指南
@@ -266,7 +266,7 @@ sh /tmp/PassWall2_*.run
 
 > [!warning] 注意
 > - 安装前建议移除自行添加的第三方 opkg 软件源，避免依赖冲突。
-> - 部分依赖仍需在线安装，请确保路由器自身联网正常（旁路由场景最易踩坑）。
+> - 部分依赖仍需在线安装，请确保路由器自身联网正常（旁路由场景最易踩坑）；软件源可先切换到国内镜像（见 [[#3.1.3 前置准备：切换软件源到国内镜像]]）。
 > - 不建议 Passwall 系列与 SSR-Plus 同时安装（存在包冲突）。
 > - `.run` 包体积较大（PassWall2 约 58MB、PassWall 约 79MB），安装前确认剩余存储空间充足。
 
@@ -349,6 +349,76 @@ opkg install <缺失的依赖包名>
 
 > [!danger] 注意
 > 第三方固件可能存在安全风险，请从可信渠道获取。
+
+---
+
+### 3.1.3 前置准备：切换软件源到国内镜像
+
+> [!tip] 什么时候需要
+> 安装 Passwall/OpenClash 时，大部分依赖包（如 `kmod-nft-tproxy`、`dnsmasq-full`）需从 opkg 软件源在线安装。iStoreOS 默认 OpenWrt 官方源在海外，国内下载慢或经常失败。**安装前先 `opkg update`，并把软件源切换到可访问的国内镜像（如阿里云）**。
+
+#### ① 软件源配置文件
+
+iStoreOS 用 opkg 管理软件包，软件源分两个文件：
+
+| 文件 | 作用 |
+|------|------|
+| `/etc/opkg/distfeeds.conf` | 系统默认源：OpenWrt 官方包源（base / luci / packages / routing / telephony）+ iStoreOS 自身源 |
+| `/etc/opkg/customfeeds.conf` | 第三方源（如 §3.1.2 方案 A 的 passwall SourceForge 源） |
+
+换源时只换「OpenWrt 包源」部分，**不要动 iStoreOS 自身源，也不要乱混第三方源**，否则 iStore 商店可能无法安装应用。改前先备份。
+
+#### ② 可用的国内镜像（2026-09 实测）
+
+| 镜像 | 地址前缀 | 说明 |
+|------|----------|------|
+| **阿里云** | `mirrors.aliyun.com/openwrt` | CDN 快；24.10 点版本仅同步到 24.10.5，24.10.8 需走连续源 `releases/packages-24.10/`；GUI 一键选择最省事 |
+| **清华 TUNA** | `mirrors.tuna.tsinghua.edu.cn/openwrt` | ✅ 24.10.8 全部 feed 可用 |
+| **中科大 USTC** | `mirrors.ustc.edu.cn/openwrt` | ✅ 24.10.8 全部 feed 可用 |
+| 南京大学 / 兰州大学 | `mirror.nju.edu.cn/openwrt`、`mirrors.lzu.edu.cn/openwrt` | 备选 |
+
+#### ③ 方法一：GUI 切换（推荐）
+
+1. 登录 iStoreOS 后台 → **首页**
+2. 找到「**软件源配置**」卡片 → 点开
+3. 「切换软件源」选择「**阿里云**」（或其它镜像）
+4. 确认保存 → SSH 执行 `opkg update` 验证
+
+> GUI 会自动处理版本号与架构路径，换阿里云建议走 GUI。
+
+#### ④ 方法二：命令行 sed 替换
+
+```bash
+# 1. 备份
+cp /etc/opkg/distfeeds.conf /etc/opkg/distfeeds.conf.bak
+
+# 2. 把 OpenWrt 官方源替换为国内镜像（清华示例）
+sed -i 's|downloads\.openwrt\.org|mirrors.tuna.tsinghua.edu.cn/openwrt|g' /etc/opkg/distfeeds.conf
+# 中科大：将域名换成 mirrors.ustc.edu.cn/openwrt 即可
+
+# 3. 更新索引
+opkg update
+```
+
+> [!tip] 先看实际域名
+> 部分 iStoreOS 固件把 OpenWrt 包源也放在自己的服务器（如 `downloads.istoreos.com` / `istoreos.com`）。换源前先 `cat /etc/opkg/distfeeds.conf` 确认域名，再把其中 **OpenWrt 官方/自带包源**的域名整体替换成镜像前缀即可，istoreos 自身源保留。
+
+> [!warning] 阿里云不要用纯域名 sed
+> 若 `distfeeds.conf` 里是 `releases/24.10.8/...` 这类点版本路径，阿里云只同步到 24.10.5 会返回 404。命令行换源首选清华/中科大；阿里云走 GUI。
+
+#### ⑤ 验证与注意
+
+```bash
+opkg update
+opkg list | grep -i passwall   # 能列出候选包即源正常
+```
+
+> [!warning] 常见坑
+> - **架构必须匹配**：`opkg print-architecture` 查看（如 `x86_64`、`aarch64_cortex-a53`），URL 架构段错误必 404。
+> - **旁路由先确认自身联网**：换源解决不了「路由器本身没网」。旁路由未配好代理前，路由器自身必须能直连镜像源，否则 `opkg update` 照样失败。
+> - **改坏后的官方修复**：`sh -c "$(curl -sSL http://fw.koolcenter.com/iStoreOS/alpha/fix-istore.sh)"`
+> - **25.12（apk）差异**：配置文件在 `/etc/apk/repositories.d/`，命令为 `apk update` / `apk add`。
+> - ⚠️ **kenzok8 `op.supes.top` 源已失效**（2026-09 实测重定向到 `dl.openwrt.ai` 返回 404），不要使用；其 GitHub 仓库 releases 仍可手动下载 IPK（见参考资料）。
 
 ---
 
@@ -573,7 +643,7 @@ wget -qO /usr/bin/openclash-menu https://raw.githubusercontent.com/slobys/opencl
 ```
 
 > [!warning] 注意
-> - 安装前先 `opkg update`，并把 iStoreOS 软件源切换到可访问的镜像（如阿里云）。
+> - 安装前先 `opkg update`，并把 iStoreOS 软件源切换到可访问的国内镜像（见 [[#3.1.3 前置准备：切换软件源到国内镜像]]）。
 > - 确保路由器自身联网正常（旁路由场景最易失败）。
 > - 若脚本方式不可用，退回方案 C（`.run`）或方案 B（手动 IPK）。
 
@@ -1067,6 +1137,11 @@ curl ip.sb
 ---
 
 ## 更新记录
+
+### 2026-09-01
+
+- **新增 §3.1.3 软件源切换**：补充 iStoreOS 换源方法（GUI「软件源配置」卡片 + 命令行 sed 替换）与已验证的国内镜像（阿里云/清华 TUNA/中科大 USTC/南大兰大）；标注 kenzok8 `op.supes.top` opkg 源已失效（2026-09 实测重定向到 dl.openwrt.ai 返回 404），改为走 GitHub Releases 手动下 IPK；补充旁路由联网、架构匹配、25.12 apk 路径差异、官方修复脚本等注意点。
+- **联动**：§3.1.2 方案 C 与 §4.2 方案 A 的软件源提示改为引用 §3.1.3。
 
 ### 2026-08-31
 

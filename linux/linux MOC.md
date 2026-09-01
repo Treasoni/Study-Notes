@@ -1,7 +1,7 @@
 ---
 title: Linux 学习笔记 MOC
 created: 2026-04-06
-updated: 2026-08-31
+updated: 2026-09-01
 tags: [linux, moc, 索引]
 ---
 
@@ -66,6 +66,8 @@ tags: [linux, moc, 索引]
 |------|------|
 | [[linux如何修改网络信息]] | Netplan 静态 IP、DHCP 配置 |
 | [[Ubuntu curl SSL连接问题排查]] | 旁路由环境 SSL 连接故障排查 |
+| [[linux/GitHub 国内网络连接超时解决方案/README\|GitHub 国内网络连接超时解决方案]] | 大陆网络拉取 GitHub 包超时解决方案 |
+| [[linux/Ubuntu服务器配置代理与Docker出网/README\|Ubuntu 服务器配置代理与 Docker 出网]] | Ubuntu Server 配置代理，命令行 / apt / git / Docker 走代理 |
 
 ---
 
@@ -201,6 +203,18 @@ flowchart LR
   - [[linux/Linux网络信息获取与概念/07_Socket连接与传输层信息]] - `ss`、TCP 状态、Recv-Q/Send-Q
   - [[linux/Linux网络信息获取与概念/10_抓包与协议分析基础]] - `tcpdump`、BPF 过滤
 - **与 4.1 的区别**：本笔记只讲**查询/获取**和**概念理解**，4.1 侧重**修改配置**
+
+#### 4.4 GitHub 国内网络连接超时解决方案
+- **核心问题**：agent / 工具从大陆网络拉取 GitHub 包超时
+- **解决方案**：诊断定位卡点 → 走代理 / 国内镜像 / hosts·gh-proxy 工具
+- **入口**：[[linux/GitHub 国内网络连接超时解决方案/README|GitHub 国内网络连接超时解决方案]]（7 章拆分版）
+- **相关**：[[Ubuntu curl SSL连接问题排查]] | [[Linux换源]]
+
+#### 4.5 Ubuntu 服务器配置代理与 Docker 出网
+- **核心问题**：Ubuntu Server 上命令行 / apt / git / Docker 整条出网链路被墙
+- **解决方案**：mihomo 内核 + systemd → config.yaml（订阅/分组/规则）→ 系统环境变量 / apt / git → Docker daemon 与容器显式代理
+- **入口**：[[linux/Ubuntu服务器配置代理与Docker出网/README|Ubuntu 服务器配置代理与 Docker 出网]]（6 章拆分版）
+- **相关**：[[docker/docker进行代理]] | [[linux/GitHub 国内网络连接超时解决方案/README|GitHub 国内网络连接超时解决方案]]
 
 ---
 
@@ -374,6 +388,8 @@ graph TB
 | 文件 | 更新日期 |
 |------|----------|
 | [[用命令文件下载（Linux-macOS）]] | 2026-08-31 |
+| [[linux/Ubuntu服务器配置代理与Docker出网/README\|Ubuntu 服务器配置代理与 Docker 出网]] | 2026-08-29 |
+| [[linux/GitHub 国内网络连接超时解决方案/README\|GitHub 国内网络连接超时解决方案]] | 2026-08-29 |
 | [[linux系统安装教程/Debian安装教程]] | 2026-07-29 |
 | [[Linux 常用命令速查索引]] | 2026-07-29 |
 | [[linux常用命令/Linux 定时任务与自动化]] | 2026-07-29 |
