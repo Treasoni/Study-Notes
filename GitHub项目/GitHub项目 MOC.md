@@ -2,7 +2,7 @@
 title: GitHub项目 MOC
 tags: [moc, 索引]
 created: 2026-08-12
-updated: 2026-08-26
+updated: 2026-09-01
 ---
 
 # GitHub项目 MOC
@@ -29,6 +29,7 @@ updated: 2026-08-26
 
 - [[CodeGraph实战笔记]] - CodeGraph 实战记录
 - [[comet]] - comet 项目笔记
+- [[HKUDS DeepTutor]] - Agent-Native 终身个性化学习工作区：Docker 部署、知识库/RAG 问答、掌握度路径、Living Book/Partners、EduHub 技能生态与架构原理 #DeepTutor #Agent #RAG
 - [[LunaTV导入影视网站/README|LunaTV 导入影视网站]] - 把自选影视站导入本地部署的 lunatv：源机制、订阅导入、排错、进阶与画质优化 #lunatv #影视聚合 #苹果CMS
 - [[Stremio-Web实战/README|stremio-web 实战]] - 从 1080p 采集源到 4K/Remux Debrid 观影路线：架构、客户端选型、Torrentio+Real-Debrid 接高质量源、与 lunatv 对比 #stremio #Debrid #4K
 
@@ -42,4 +43,4 @@ updated: 2026-08-26
 
 - 📂 目录：`GitHub项目`
 - 📅 创建日期：2026-08-12
-- 📅 更新日期：2026-08-26
+- 📅 更新日期：2026-09-01
