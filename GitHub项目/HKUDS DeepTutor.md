@@ -626,7 +626,7 @@ deeptutor run deep_research "Survey 2026 papers on RAG" \
 ### 4.1 Mastery Path 是什么：分级掌握门控与 /learning 仪表盘
 
 Mastery Path 是 DeepTutor 的功能面之一，与 Chat、Quiz、Solve 等共享同一个能力运行时与会话上下文，只是它的循环专门为"掌握度练习"设计 [S1]。在界面里，它和 Immersive Reading 一样是**独立的侧边栏工作区**，而不是首页上的一个按钮 [S1]。
-
+![](assets/HKUDS%20DeepTutor/file-20260902003225194.png)
 它的核心机制叫**分级掌握门控**（progressive mastery gating）。自 v1.4.5 起，Guided Learning 重建在 chat agent loop 之上，为每种类型设置了硬性门控（hard per-type mastery gate），并配上 `/learning` 仪表盘统一展示进度 [S1]。可以把路径理解成被切成多个知识点关卡，每个关卡按类型（概念、计算、推理等）出题，**达标了才放行到下一级，没达标就卡住、回到对应材料重练**。这种"按类型卡进度"的设计，让掌握度验证不是笼统打一个分，而是能明确指出你的短板落在哪个类型上。
 
 > [!tip] 大白话
