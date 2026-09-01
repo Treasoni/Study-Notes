@@ -115,25 +115,53 @@ docker run -d --name deeptutor -p 127.0.0.1:3782:3782 \
 
 > 镜像名和端口以你 [[workspace/deeptutor/output/final_note|DeepTutor 学习笔记]] 里的实测为准；重点是**多加一个 `-v "D:/Study-Notes:/vault/Study-Notes"` 挂载**。
 
+> [!tip] 挂载整库还是子目录？
+> - **挂整库**（上面命令）：DeepTutor 能读整个 vault，适合"和所有笔记对话"。代价是 `.obsidian` 配置、附件、模板、未整理草稿也会暴露给它。
+> - **只挂子目录**：只想把某个主题目录做成知识库时，把挂载源换成子目录即可，知识库更干净。例如只挂 `linux/`：
+>   ```bash
+>   -v "D:/Study-Notes/linux:/vault/Study-Notes"
+>   ```
+> 挂载后，宿主机路径和容器内路径是两套：**KB 里填的是容器内路径**（如 `/vault/Study-Notes`），不是 Windows 路径。
+
 #### 3. 配置 LLM
 
 浏览器打开 `http://127.0.0.1:3782` → 设置 → Models，配好一个可用的 LLM（本地 Ollama 或云端都行）。RAG 问答必须有 LLM。
 
-#### 4. 链接 Obsidian vault 作为知识库
+#### 4. 链接 Obsidian vault 作为知识库（核心一步）
+
+在 Knowledge Center 新建 KB 时，选 **link existing**（原地复用，不重建），**引擎选 Obsidian**，路径指到**容器内**的挂载点：
 
 ```text
 Knowledge Center（知识中心）
 └─ 新建 KB
-   └─ 选择 link existing（原地复用，不重建）
-      └─ 引擎选 Obsidian
-         └─ 指向容器内的 /vault/Study-Notes
+   ├─ 创建方式：link existing（原地复用，不重建索引）
+   ├─ 引擎：Obsidian
+   └─ 路径：容器内 /vault/Study-Notes
 ```
+
+要点：
+
+- 这是「把 Obsidian 做成 DeepTutor 知识库」的标准做法：**不复制、不重建索引**，DeepTutor 直接原地读写你的 vault。
+- **路径填容器内路径**。宿主机是 `D:\Study-Notes`，容器里是 `/vault/Study-Notes`，二者靠 `-v` 挂载一一对应；填错层级就看不到笔记。
+- `link existing` 与 `create new` 的分叉在「是否建索引」：前者复用外部数据、原地读取，后者上传文档新建向量/BM25 索引（见方法三）。
 
 #### 5. 使用
 
 - 在 Chat 中把该 KB 设为粘性上下文
 - 提问会自动走 `rag` / `read_source` 工具，回答带来源、可溯源
 - 因为读写的是你的 vault，**笔记更新后无需重建**，直接可用
+
+#### 6. 同步与维护：笔记更新即用
+
+`link existing` 的机制是**原地读写**，所以：
+
+- 在 Obsidian 里改/新增笔记 → DeepTutor 下次检索**直接读到新内容**，无需重建
+- 这与 `create new` 的"索引快照"相反：create new 建完的索引是快照，笔记变了要 **Re-index now**（方法三有讲）
+
+> [!warning] link existing 也要配 LLM
+> 链接 Obsidian 只是接通了"知识库"这个数据源；真正问答仍要走 LLM。忘记配模型的话，Chat 会提示缺 provider，回到步骤 3 补上即可。
+
+**CLI 补充**：KB 管理在 CLI 侧对应 `deeptutor kb` 命令族（`list` / `info` / `create` / `add` / `search` / `set-default` / `delete`）；`deeptutor kb sync` 用于同步**已注册的 GitHub/网页源**，Obsidian vault 的 link existing 主要走 Web UI 的 Knowledge Center 创建。
 
 ### 优缺点
 
@@ -173,7 +201,7 @@ Knowledge Center（知识中心）
 
 ### 索引维护要点
 
-- 索引是**快照**：笔记变了要重新索引或增量同步（DeepTutor 提供 Re-index now / `deeptutor kb sync`）
+- 索引是**快照**：笔记变了要 **Re-index now** 重建索引，不自动跟随笔记变化（与 link existing 的"更新即用"相反）
 - 报 `Embedding dimension mismatch` 时，通常是换过 embedding 模型或索引版本不匹配，重新索引即可
 - 排错日志：`docker logs -f deeptutor` 或容器内 `tail -f data/user/logs/deeptutor.jsonl`
 
@@ -184,8 +212,8 @@ Knowledge Center（知识中心）
 ```
 你想和「整个 vault」对话？
 ├─ 是、不想装 Docker  → 方法一 Smart Connections
-├─ 是、想要带引用的溯源问答 → 方法二 DeepTutor link existing（先装 Docker）
-└─ 否、只针对某个主题子集 → 方法三 DeepTutor create new
+├─ 是、想要带引用的溯源问答 → 方法二 DeepTutor link existing（先装 Docker；可挂整库）
+└─ 否、只针对某个主题子集 → 方法二只挂该子目录，或方法三 DeepTutor create new
 ```
 
 | 维度 | Smart Connections | DeepTutor link existing | DeepTutor create new |
@@ -205,6 +233,12 @@ Knowledge Center（知识中心）
 - [[Obsidian Smart Connections 使用指南]] - Smart Connections 完整配置与调优
 - [[Windows-DockerDesktop安装指南-国内网络版]] - 方法二/三 的前置安装
 - [[workspace/deeptutor/output/final_note|DeepTutor 学习笔记]] - DeepTutor 部署、引擎对比、KB 与 CLI 细节
+
+---
+
+## 更新记录
+
+- **2026-09-02**：补充「把 Obsidian 做成 DeepTutor 知识库」实操要点——挂载整库 vs 子目录决策、link existing 精确 UI 路径（引擎 Obsidian + 容器内路径）、更新即用机制、`deeptutor kb` CLI 补充。
 
 ---
 
