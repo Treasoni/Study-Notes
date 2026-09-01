@@ -39,6 +39,7 @@ __pycache__/
 .obsidian/workspace-mobile.json
 .obsidian/plugins/claudian/data.json
 .obsidian/plugins/manual-sorting/data.json
+.obsidian/plugins/realclaudian/data.json
 
 # security-secret-audit: local credentials
 .env
