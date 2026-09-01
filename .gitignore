@@ -37,6 +37,8 @@ __pycache__/
 # Obsidian local UI state (device-specific; causes conflicts on every pull)
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
+.obsidian/plugins/claudian/data.json
+.obsidian/plugins/manual-sorting/data.json
 
 # security-secret-audit: local credentials
 .env
