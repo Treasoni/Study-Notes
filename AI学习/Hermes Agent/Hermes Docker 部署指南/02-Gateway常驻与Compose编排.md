@@ -17,6 +17,8 @@ source_project: hermes-docker-deploy
 
 第 1 章我们跑通了首次 setup，`~/.hermes/.env` 已落盘。但 setup 容器是一次性的，退出即销毁——Hermes 还没有真正"开始上班"。本章解决核心问题：**怎么让 Hermes 以 gateway 模式常驻后台，开机自启、崩溃自愈，并用一份 docker-compose.yaml 把 API Server、Dashboard、资源限制一次编排到位**。读完你会拿到两个可直接照抄的产物：一条 `docker run` 常驻命令（产物 C）和一份完整的 `docker-compose.yaml`（产物 D），并理解背后的权限模型、升级流程与三个高频坑。
 
+
+
 ## 2.1 产物 C：gateway 常驻一条命令
 
 ### 先睹为快
@@ -149,6 +151,7 @@ services:
       - HERMES_DASHBOARD=1
 ```
 
+这里详细的启用dashboard的笔记在[11-Dashboard认证配置实战](11-Dashboard认证配置实战.md)。
 `HERMES_DASHBOARD=1` 打开 9119 仪表盘。这里也是以后放平台密钥的地方——微信的 `WEIXIN_TOKEN`、飞书的 `FEISHU_APP_SECRET`、QQ 的 `QQ_CLIENT_SECRET` 都会追加进来（第 3/5/7 章）。密钥明文写在 yaml 里，等于写进代码仓库——建议至少用 `.env` 文件 + `env_file:` 引用（第 10 章安全基线细讲）。
 
 ### 资源限制：给容器"上预算"

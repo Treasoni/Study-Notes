@@ -93,7 +93,6 @@
     },
     "项目实战/AI实战": {
       "children": [
-        "项目实战/AI实战/deepseek harness实战",
         "项目实战/AI实战/工程实践",
         "项目实战/AI实战/架构设计",
         "项目实战/AI实战/AI实战 MOC.md",
@@ -124,10 +123,6 @@
         "项目实战/AI实战/架构设计/Agent与Skills架构设计.md",
         "项目实战/AI实战/架构设计/Claude Code项目动态技能发现机制.md"
       ],
-      "sortOrder": "custom"
-    },
-    "项目实战/AI实战/deepseek harness实战": {
-      "children": [],
       "sortOrder": "custom"
     },
     "项目实战/debian实战": {
@@ -634,7 +629,6 @@
     },
     "AI学习/Hermes Agent": {
       "children": [
-        "AI学习/Hermes Agent/Hermes Rules 配置指南",
         "AI学习/Hermes Agent/Hermes Agent 上手实战",
         "AI学习/Hermes Agent/Hermes Docker 部署指南",
         "AI学习/Hermes Agent/Hermes Tool 配置指南",
@@ -661,6 +655,8 @@
     },
     "AI学习/Hermes Agent/Hermes Docker 部署指南": {
       "children": [
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/assets",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/11-Dashboard认证配置实战.md",
         "AI学习/Hermes Agent/Hermes Docker 部署指南/01-镜像数据卷与首次setup.md",
         "AI学习/Hermes Agent/Hermes Docker 部署指南/02-Gateway常驻与Compose编排.md",
         "AI学习/Hermes Agent/Hermes Docker 部署指南/03-微信个人号iLink接入.md",
@@ -675,9 +671,16 @@
       ],
       "sortOrder": "custom"
     },
-    "AI学习/Hermes Agent/Hermes Rules 配置指南": {
+    "AI学习/Hermes Agent/Hermes Docker 部署指南/assets": {
       "children": [
-        "AI学习/Hermes Agent/Hermes Rules 配置指南/README.md"
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/assets/03-微信个人号iLink接入"
+      ],
+      "sortOrder": "custom"
+    },
+    "AI学习/Hermes Agent/Hermes Docker 部署指南/assets/03-微信个人号iLink接入": {
+      "children": [
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/assets/03-微信个人号iLink接入/截屏2026-08-30 15.05.46.png",
+        "AI学习/Hermes Agent/Hermes Docker 部署指南/assets/03-微信个人号iLink接入/截屏2026-08-30 15.08.05.png"
       ],
       "sortOrder": "custom"
     },
@@ -760,7 +763,6 @@
     },
     "docker": {
       "children": [
-        "docker/Docker容器服务访问宿主机文件.md",
         "docker/docker镜像拉取DNS解析超时排错.md",
         "docker/Docker与DockerCompose命令速查.md",
         "docker/GHCR 推送镜像权限配置.md",
@@ -1153,6 +1155,8 @@
     },
     "linux": {
       "children": [
+        "linux/GitHub 国内网络连接超时解决方案",
+        "linux/Ubuntu服务器配置代理与Docker出网",
         "linux/linux常用命令",
         "linux/linux系统安装教程",
         "linux/Linux网络信息获取与概念",
@@ -1191,6 +1195,19 @@
     "linux/assets/linux如何修改网络信息": {
       "children": [
         "linux/assets/linux如何修改网络信息/file-20260204122916989.png"
+      ],
+      "sortOrder": "custom"
+    },
+    "linux/GitHub 国内网络连接超时解决方案": {
+      "children": [
+        "linux/GitHub 国内网络连接超时解决方案/01_现象与诊断.md",
+        "linux/GitHub 国内网络连接超时解决方案/02_根因_GFW如何干扰大陆访问GitHub.md",
+        "linux/GitHub 国内网络连接超时解决方案/03_方案一_走代理.md",
+        "linux/GitHub 国内网络连接超时解决方案/04_方案二_国内镜像加速.md",
+        "linux/GitHub 国内网络连接超时解决方案/05_方案三_hosts与gh-proxy工具.md",
+        "linux/GitHub 国内网络连接超时解决方案/06_Agent场景落地.md",
+        "linux/GitHub 国内网络连接超时解决方案/07_决策速查表与常见坑.md",
+        "linux/GitHub 国内网络连接超时解决方案/README.md"
       ],
       "sortOrder": "custom"
     },
@@ -1235,6 +1252,18 @@
       "children": [
         "linux/linux系统安装教程/Debian安装教程.md",
         "linux/linux系统安装教程/Ubuntu Server 安装教程.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "linux/Ubuntu服务器配置代理与Docker出网": {
+      "children": [
+        "linux/Ubuntu服务器配置代理与Docker出网/01_总览与方案选型.md",
+        "linux/Ubuntu服务器配置代理与Docker出网/02_安装mihomo内核.md",
+        "linux/Ubuntu服务器配置代理与Docker出网/03_配置config.yaml.md",
+        "linux/Ubuntu服务器配置代理与Docker出网/04_系统级代理接管.md",
+        "linux/Ubuntu服务器配置代理与Docker出网/05_Docker走代理.md",
+        "linux/Ubuntu服务器配置代理与Docker出网/06_验证清单与常见坑.md",
+        "linux/Ubuntu服务器配置代理与Docker出网/README.md"
       ],
       "sortOrder": "custom"
     },
@@ -1796,9 +1825,8 @@
     },
     "workspace": {
       "children": [
-        "workspace/docker-container-host-file-access",
         "workspace/github-network-timeout-solution",
-        "workspace/hermes-rules-config",
+        "workspace/ubuntu-server-proxy-docker",
         "workspace/hermes-docker-deploy",
         "workspace/hermes-tool-config",
         "workspace/hermes-agent",
@@ -2698,51 +2726,6 @@
       ],
       "sortOrder": "custom"
     },
-    "workspace/docker-container-host-file-access": {
-      "children": [
-        "workspace/docker-container-host-file-access/02_sources",
-        "workspace/docker-container-host-file-access/chapters",
-        "workspace/docker-container-host-file-access/output",
-        "workspace/docker-container-host-file-access/00_intent.md",
-        "workspace/docker-container-host-file-access/01_explore_result.md",
-        "workspace/docker-container-host-file-access/02_deep_research.md",
-        "workspace/docker-container-host-file-access/03_outline.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "workspace/docker-container-host-file-access/02_sources": {
-      "children": [
-        "workspace/docker-container-host-file-access/02_sources/01_docs_docker_com.md",
-        "workspace/docker-container-host-file-access/02_sources/01_www_netdata_cloud.md",
-        "workspace/docker-container-host-file-access/02_sources/02_docs_docker_com.md",
-        "workspace/docker-container-host-file-access/02_sources/02_github_com.md",
-        "workspace/docker-container-host-file-access/02_sources/03_docs_docker_com.md",
-        "workspace/docker-container-host-file-access/02_sources/04_docs_docker_com.md",
-        "workspace/docker-container-host-file-access/02_sources/05_docs_docker_com.md",
-        "workspace/docker-container-host-file-access/02_sources/06_docs_docker_com.md",
-        "workspace/docker-container-host-file-access/02_sources/07_docs_linuxserver_io.md",
-        "workspace/docker-container-host-file-access/02_sources/08_selfhosting_sh.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "workspace/docker-container-host-file-access/chapters": {
-      "children": [
-        "workspace/docker-container-host-file-access/chapters/01_三种挂载方式怎么选.md",
-        "workspace/docker-container-host-file-access/chapters/02_命令行挂载-docker-run.md",
-        "workspace/docker-container-host-file-access/chapters/03_Compose挂载.md",
-        "workspace/docker-container-host-file-access/chapters/04_权限与属主.md",
-        "workspace/docker-container-host-file-access/chapters/05_安全边界.md",
-        "workspace/docker-container-host-file-access/chapters/06_Docker-Desktop差异.md",
-        "workspace/docker-container-host-file-access/chapters/07_实战案例.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "workspace/docker-container-host-file-access/output": {
-      "children": [
-        "workspace/docker-container-host-file-access/output/final_note.md"
-      ],
-      "sortOrder": "custom"
-    },
     "workspace/docker-ha-tutorial": {
       "children": [
         "workspace/docker-ha-tutorial/chapters",
@@ -2859,7 +2842,46 @@
     },
     "workspace/github-network-timeout-solution": {
       "children": [
-        "workspace/github-network-timeout-solution/00_intent.md"
+        "workspace/github-network-timeout-solution/chapters",
+        "workspace/github-network-timeout-solution/output",
+        "workspace/github-network-timeout-solution/sources",
+        "workspace/github-network-timeout-solution/00_intent.md",
+        "workspace/github-network-timeout-solution/01_explore_result.md",
+        "workspace/github-network-timeout-solution/02_deep_research.md",
+        "workspace/github-network-timeout-solution/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/github-network-timeout-solution/chapters": {
+      "children": [
+        "workspace/github-network-timeout-solution/chapters/01_现象与诊断.md",
+        "workspace/github-network-timeout-solution/chapters/02_根因_GFW如何干扰大陆访问GitHub.md",
+        "workspace/github-network-timeout-solution/chapters/03_方案一_走代理.md",
+        "workspace/github-network-timeout-solution/chapters/04_方案二_国内镜像加速.md",
+        "workspace/github-network-timeout-solution/chapters/05_方案三_hosts与gh-proxy工具.md",
+        "workspace/github-network-timeout-solution/chapters/06_Agent场景落地.md",
+        "workspace/github-network-timeout-solution/chapters/07_决策速查表与常见坑.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/github-network-timeout-solution/output": {
+      "children": [
+        "workspace/github-network-timeout-solution/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/github-network-timeout-solution/sources": {
+      "children": [
+        "workspace/github-network-timeout-solution/sources/01_docs_docker_com.md",
+        "workspace/github-network-timeout-solution/sources/01_docs_npmjs_com.md",
+        "workspace/github-network-timeout-solution/sources/01_git-scm_com.md",
+        "workspace/github-network-timeout-solution/sources/01_github_com_521xueweihan_GitHub520.md",
+        "workspace/github-network-timeout-solution/sources/01_github_com_suiyueqingqian_gh-proxy.md",
+        "workspace/github-network-timeout-solution/sources/01_goproxy_cn.md",
+        "workspace/github-network-timeout-solution/sources/01_manpages_debian_org.md",
+        "workspace/github-network-timeout-solution/sources/01_npmmirror_com.md",
+        "workspace/github-network-timeout-solution/sources/01_www_githubstatus_com.md",
+        "workspace/github-network-timeout-solution/sources/01_www_ipdodo_com.md"
       ],
       "sortOrder": "custom"
     },
@@ -3007,46 +3029,6 @@
         "workspace/hermes-docker-deploy/chapters/08-QQ进阶配置与NapCat替代.md",
         "workspace/hermes-docker-deploy/chapters/09-多平台运维与日志.md",
         "workspace/hermes-docker-deploy/chapters/10-安全基线.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "workspace/hermes-rules-config": {
-      "children": [
-        "workspace/hermes-rules-config/chapters",
-        "workspace/hermes-rules-config/output",
-        "workspace/hermes-rules-config/research-sources",
-        "workspace/hermes-rules-config/00_intent.md",
-        "workspace/hermes-rules-config/01_explore_result.md",
-        "workspace/hermes-rules-config/02_deep_research.md",
-        "workspace/hermes-rules-config/03_outline.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "workspace/hermes-rules-config/chapters": {
-      "children": [
-        "workspace/hermes-rules-config/chapters/01-先看地图-规则体系定位与文件地图.md",
-        "workspace/hermes-rules-config/chapters/02-全局身份-SOUL配置.md",
-        "workspace/hermes-rules-config/chapters/03-项目规则-AGENTS系列配置.md",
-        "workspace/hermes-rules-config/chapters/04-对照迁移-从ClaudeCode一键导入.md",
-        "workspace/hermes-rules-config/chapters/05-自动化与拦截-config-hooks.md",
-        "workspace/hermes-rules-config/chapters/06-验证与排错-让规则确实生效.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "workspace/hermes-rules-config/output": {
-      "children": [
-        "workspace/hermes-rules-config/output/final_note.md"
-      ],
-      "sortOrder": "custom"
-    },
-    "workspace/hermes-rules-config/research-sources": {
-      "children": [
-        "workspace/hermes-rules-config/research-sources/01_hermes-agent_nousresearch_com.md",
-        "workspace/hermes-rules-config/research-sources/02_hermes-agent_nousresearch_com.md",
-        "workspace/hermes-rules-config/research-sources/03_hermes-agent_nousresearch_com.md",
-        "workspace/hermes-rules-config/research-sources/04_hermes-agent_nousresearch_com.md",
-        "workspace/hermes-rules-config/research-sources/05_hermes-agent_nousresearch_com.md",
-        "workspace/hermes-rules-config/research-sources/06_github_com.md"
       ],
       "sortOrder": "custom"
     },
@@ -3701,6 +3683,34 @@
       ],
       "sortOrder": "custom"
     },
+    "workspace/ubuntu-server-proxy-docker": {
+      "children": [
+        "workspace/ubuntu-server-proxy-docker/chapters",
+        "workspace/ubuntu-server-proxy-docker/output",
+        "workspace/ubuntu-server-proxy-docker/00_intent.md",
+        "workspace/ubuntu-server-proxy-docker/01_explore_result.md",
+        "workspace/ubuntu-server-proxy-docker/02_deep_research.md",
+        "workspace/ubuntu-server-proxy-docker/03_outline.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/ubuntu-server-proxy-docker/chapters": {
+      "children": [
+        "workspace/ubuntu-server-proxy-docker/chapters/01_总览与方案选型.md",
+        "workspace/ubuntu-server-proxy-docker/chapters/02_安装mihomo内核.md",
+        "workspace/ubuntu-server-proxy-docker/chapters/03_配置config.yaml.md",
+        "workspace/ubuntu-server-proxy-docker/chapters/04_系统级代理接管.md",
+        "workspace/ubuntu-server-proxy-docker/chapters/05_Docker走代理.md",
+        "workspace/ubuntu-server-proxy-docker/chapters/06_验证清单与常见坑.md"
+      ],
+      "sortOrder": "custom"
+    },
+    "workspace/ubuntu-server-proxy-docker/output": {
+      "children": [
+        "workspace/ubuntu-server-proxy-docker/output/final_note.md"
+      ],
+      "sortOrder": "custom"
+    },
     "workspace/update-claude-code-tutorial": {
       "children": [
         "workspace/update-claude-code-tutorial/historical",
@@ -4169,9 +4179,8 @@
     },
     "workspace/workflow-runs": {
       "children": [
-        "workspace/workflow-runs/docker-container-host-file-access.workflow.md",
         "workspace/workflow-runs/github-network-timeout-solution.workflow.md",
-        "workspace/workflow-runs/hermes-rules-config.workflow.md",
+        "workspace/workflow-runs/ubuntu-server-proxy-docker.workflow.md",
         "workspace/workflow-runs/hermes-docker-deploy.workflow.md",
         "workspace/workflow-runs/hermes-tool-config.workflow.md",
         "workspace/workflow-runs/hermes-agent.workflow.md",

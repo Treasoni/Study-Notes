@@ -3,11 +3,11 @@ workflow_id: learning-note-flow
 workflow_name: 学习笔记工作流
 workflow_version: 1
 state_file_type: workflow-run
-run_id: "github-network-timeout-solution"
-task: "GitHub 国内网络连接超时解决方案"
+run_id: "ubuntu-server-proxy-docker"
+task: "在 ubuntu-server 中配置翻墙（代理），并让 Docker 容器和其他应用可以正常使用"
 created_from: ".claude/workflows/learning-note-flow/state-template.md"
-topic: "GitHub 国内网络连接超时解决方案"
-project_slug: "github-network-timeout-solution"
+topic: "在 ubuntu-server 中配置翻墙（代理），并让 Docker 容器和其他应用可以正常使用"
+project_slug: "ubuntu-server-proxy-docker"
 created_at: "2026-08-29"
 last_updated: "2026-08-29"
 current_phase: done
@@ -25,9 +25,9 @@ quality_gate: passed
 # 学习笔记工作流 - 执行检查清单
 
 > 工作流：learning-note-flow
-> 主题：GitHub 国内网络连接超时解决方案
-> 运行标识：github-network-timeout-solution
-> 项目标识：github-network-timeout-solution
+> 主题：在 ubuntu-server 中配置翻墙（代理），并让 Docker 容器和其他应用可以正常使用
+> 运行标识：ubuntu-server-proxy-docker
+> 项目标识：ubuntu-server-proxy-docker
 > 创建时间：2026-08-29
 > 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
@@ -90,7 +90,7 @@ quality_gate: passed
 - [ ] 第 3 章已写完并确认
 - [ ] ...（根据实际章节数添加）
 
-**进度**：7/7
+**进度**：6/6
 
 > [P4] ✅ 已完成 {complete}
 
@@ -133,7 +133,13 @@ quality_gate: passed
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
-| | | |
+| P0 | 用户确认意图文件与研究方案（方案 A：Clash/Mihomo 客户端，上手实战，输出先存 workspace） | 2026-08-29 |
+| P1 | 用户确认 P1 方向菜单，选择方案 A（基础全覆盖：内核安装+systemd → 系统环境变量 → Docker daemon.json + 容器 HTTP_PROXY） | 2026-08-29 |
+| P2 | 用户确认 P2 深度素材质量，选择执行模式 1（大纲模式：outline-generator 生成大纲后逐章写作） | 2026-08-29 |
+| P3 | 用户确认 6 章大纲，并要求一次性全部写完（不逐章确认） | 2026-08-29 |
+| P4 | 用户要求一次性写完 6 章（"全部写完"），6 章已全部完成，无逐章确认点 | 2026-08-29 |
+| P5 | 用户确认组装方式 A（按顺序拼接，加目录 + 过渡语 + 统一标题层级 + 合并脚注） | 2026-08-29 |
+| P6 | 用户确认最终发布位置：vault 根 `/Users/zhqznc/Documents/项目`，笔记目录 `linux/`；MOC 用 `linux/linux MOC.md`（替代 intent 默认 `docker/Docker MOC.md`）；分册目录 `linux/Ubuntu服务器配置代理与Docker出网/` | 2026-08-29 |
 
 ---
 
@@ -157,16 +163,16 @@ quality_gate: passed
 
 | 时间 | 原方向 | 新方向 | 是否需要补充收集 |
 |------|--------|--------|-----------------|
-| | | | |
+| 2026-08-29 | P1 候选：A 基础全覆盖 / B 进阶透明代理 / C 完整手册 | 用户选 A（基础全覆盖，不含透明代理章节） | 否 |
 
 ---
 
 ## 最终产出
 
-- **笔记类型**：实战笔记（可落地的解决方案 + 原理）
-- **总字数**：约 1.5 万字（7 章约 49KB）
-- **章节数**：7
-- **输出格式**：Obsidian Markdown（README 索引 + 7 章独立文件 + 前后导航）
-- **文件路径**：`linux/GitHub 国内网络连接超时解决方案/README.md`
+- **笔记类型**：实战笔记（部署 + 原理）
+- **总字数**：约 56 KB（6 章，含代码块与格式）
+- **章节数**：6
+- **输出格式**：Obsidian Markdown（分册：README + 6 章独立文件 + 前后导航）
+- **文件路径**：`linux/Ubuntu服务器配置代理与Docker出网/`
 - **Obsidian Vault**：`/Users/zhqznc/Documents/项目`
 - **MOC 路径**：`linux/linux MOC.md`
