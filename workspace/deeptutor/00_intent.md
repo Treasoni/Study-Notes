@@ -47,3 +47,10 @@
 - 最终笔记输出到 Obsidian vault `GitHub项目/` 目录，并加入 `GitHub项目 MOC` 索引。
 - 用户基础为"有基本了解"，教程需覆盖必要的 Docker/LLM 前置概念，但不从零讲起。
 - 笔记目标：让用户能独立部署并上手使用 DeepTutor，同时理解其多智能体与 RAG 的核心原理。
+
+## 执行决策（P2 确认）
+
+- **执行模式**：大纲模式（结构化逐章写作）
+- **部署方式**：尚未部署 → 笔记以上手教程形式覆盖 Docker 路径（ghcr.io/hkuds/deeptutor 单容器），并附排错
+- **LLM 接入**：云端 API 为主（OpenAI / DeepSeek / Anthropic 等），本地 Ollama 作为可选补充
+- 素材就绪：`01_explore_result.md`（P1）、`02_deep_research.md`（P2，含 claim→源映射 [S1]–[S6]）
