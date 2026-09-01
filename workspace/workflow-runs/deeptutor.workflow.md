@@ -10,7 +10,7 @@ topic: HKUDS DeepTutor
 project_slug: deeptutor
 created_at: 2026-09-01
 last_updated: "2026-09-01"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：deeptutor
 > 项目标识：deeptutor
 > 创建时间：2026-09-01
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -85,13 +85,16 @@ blocked_reason: ""
 
 ## 阶段 4：逐章写作
 - [x] 第 1 章已写完并确认（用户指示连续写完第 2–7 章）
-- [ ] 第 2 章已写完并确认
-- [ ] 第 3 章已写完并确认
-- [ ] ...（根据实际章节数添加）
+- [x] 第 2 章已写完并确认
+- [x] 第 3 章已写完并确认
+- [x] 第 4 章已写完并确认
+- [x] 第 5 章已写完并确认（补收集 EduHub/My Agents 后详写）
+- [x] 第 6 章已写完并确认
+- [x] 第 7 章已写完并确认
 
-**进度**：1/7
+**进度**：7/7
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -104,7 +107,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
@@ -135,6 +138,7 @@ blocked_reason: ""
 | P0 | 用户确认意图文件与研究计划（使用+原理理解 / 有基本了解 / Obsidian 输出） | 2026-09-01 |
 | P3 | 用户确认 7 章大纲（保持实战/原理配比；第 3 章拆出掌握度路径为第 4 章；第 5 章 EduHub/My Agents 补收集后详写） | 2026-09-01 |
 | P4 | 用户确认第 1 章，并指示连续写完第 2–7 章（P4 不再逐章暂停） | 2026-09-01 |
+| P4 | 第 2–7 章全部写完（第 5 章经补收集 S7–S13 后详写），P4 完成 | 2026-09-01 |
 
 ---
 
