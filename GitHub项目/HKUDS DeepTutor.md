@@ -7,7 +7,7 @@ tags:
   - ai/rag
   - docker
 created: 2026-09-01
-updated: 2026-09-01
+updated: 2026-09-02
 status: 完成
 source_project: deeptutor
 ---
@@ -134,7 +134,7 @@ DeepTutor 的架构设计围绕三根支柱展开 [S5]：
 
 ## 第 2 章：Docker 快速上手 —— 一条命令跑通 DeepTutor
 
-第 1 章我们把 DeepTutor 定义为"有记忆、有知识库、会主动辅导"的 Agent-Native 学习工作区，但那还是概念。这一章彻底落地：借助 [[Docker]]，用一条 `docker run` 命令把完整应用跑起来，再配上模型，完成第一次对话。路线是"准备环境 → 选对安装路径 → 逐行看懂部署命令 → 接入模型（云端为主，本地 [[Ollama]] 可选）→ 验证首聊 → 学会管理容器"。全书以 Windows + Docker Desktop 为主线，看完整章，你的浏览器里会有一个真正能对话的 DeepTutor。写作时以 v1.6.2 为锚，新版本请以官方文档为准。
+第 1 章我们把 DeepTutor 定义为"有记忆、有知识库、会主动辅导"的 Agent-Native 学习工作区，但那还是概念。这一章彻底落地：借助 [[Docker]]，用一条 `docker run` 命令把完整应用跑起来，再配上模型，完成第一次对话。路线是"准备环境 → 选对安装路径 → 逐行看懂部署命令（2.3.3 附 docker compose 等价编排）→ 接入模型（云端为主，本地 [[Ollama]] 可选）→ 验证首聊 → 学会管理容器"。全书以 Windows + Docker Desktop 为主线，看完整章，你的浏览器里会有一个真正能对话的 DeepTutor。写作时以 v1.6.2 为锚，新版本请以官方文档为准。
 
 ### 2.1 环境准备：Docker Desktop（Windows）与镜像确认（ghcr.io/hkuds/deeptutor:latest）
 
@@ -265,6 +265,52 @@ DeepTutor 内部其实有两个端口：前端（Next.js，`3782`）和后端（
 
 > [!tip] 大白话
 > 把 volume 想成"插在容器上的一块移动硬盘"。容器本身是一次性纸杯，扔了不可惜；你的资料、设置、API key 都在移动硬盘里，拔下来换新杯子再插上，东西一样不少。所以"删容器"不可怕，"格式化硬盘"（`docker volume rm`）才可怕。
+
+##### 2.3.3 Docker Compose 方式（可选）：一条命令编排 Redis + DeepTutor
+
+2.3 的 `docker run` 是"单容器最简路径"。官方在仓库里同时维护了 compose 文件，适合想用一条命令把附属服务一起编排起来的场景 [S1]。仓库里共三套，按需选择：
+
+| 文件 | 用途 | 镜像来源 | 附属服务 |
+|------|------|----------|----------|
+| `docker-compose.ghcr.yml` | **预构建镜像，免编译（日常推荐）** | 直接拉 `ghcr.io/hkuds/deeptutor:latest` | redis + deeptutor |
+| `docker-compose.yml` | 源码树构建（开发/改源码） | `build: .` 本地构建 | redis + pocketbase + deeptutor + sandbox-runner |
+| `compose.yaml` | Podman rootless 加固（只读 rootfs） | GHCR 镜像 | redis + pocketbase + deeptutor |
+
+日常选第一套即可——它只比 `docker run` 多一个内部协调用的 Redis（多 worker 模式），且不需要本地构建。完整步骤：
+
+```bash
+# 1) clone 仓库拿到 compose 文件与官方包装脚本
+git clone https://github.com/HKUDS/DeepTutor.git
+cd DeepTutor
+
+# 2a) 推荐：官方 wrapper 会从 system.json 渲染端口，改端口不用动 compose
+python scripts/docker_compose.py -f docker-compose.ghcr.yml up -d
+
+# 2b) 没装 Python 就直接用 docker compose（端口走默认 8001/3782）
+docker compose -f docker-compose.ghcr.yml up -d
+```
+
+启动后照常打开 <http://127.0.0.1:3782>，模型配置与 2.4 节完全一致。几个 compose 独有的注意点：
+
+**端口怎么改**。compose 用 `${DEEPTUTOR_DOCKER_BACKEND_PORT:-8001}`、`${DEEPTUTOR_DOCKER_FRONTEND_PORT:-3782}` 两个变量。官方 wrapper（`scripts/docker_compose.py`）会把 `data/user/settings/system.json` 里的 `backend_port` / `frontend_port` 渲染成 `data/user/settings/docker.env` 再喂给 compose——所以**改端口 = 改 system.json + restart**，不用手改 compose [S1]。
+
+**数据在哪**。compose 用**绑定挂载 `./data:/app/data`**，而不是 2.3.2 的命名卷 `deeptutor-data`。设置、知识库、记忆、日志都落在宿主 `./data` 一个目录里，备份直接拷整个目录。如果之前用 `docker run` 存过数据，切到 compose 前先把命名卷内容拷出来（PowerShell 用户把 `$(pwd)` 换成 `$PWD`）：
+
+```bash
+docker run --rm -v deeptutor-data:/from -v "$(pwd)/data:/to" alpine cp -a /from/. /to/
+```
+
+**远程服务器部署（最容易被忽略）**。前端跑在浏览器里，"localhost" 指用户本机、不是服务器。Docker 在远程时，必须在 `system.json` 里设 `next_public_api_base_external` 为服务器的 IP/域名，否则浏览器会去连用户自己电脑的 8001，所有 API 调用全挂 [S1][S3]。
+
+**可选依赖声明在部署层**。extras 写在 compose 的 `environment` 里（如 `DEEPTUTOR_EXTRAS=math-animator,partners`、`DEEPTUTOR_APT_PACKAGES=ffmpeg`），每次启动自动补齐；在容器里 `docker exec pip install` 的东西下次重建即丢 [S1]。
+
+**生命周期**。`docker compose -f docker-compose.ghcr.yml down` 保留 `./data`；升级是 `pull` + `up -d`。注意 `down -v` 只删命名卷、**不会删绑定挂载目录**，要彻底清数据直接删宿主 `./data`。
+
+> [!tip] 大白话
+> `docker run` 是"点单人套餐"，compose 是"叫全家桶"：桌上多了一碟内部用的 Redis，但数据从一次性纸盘换成了你家碗柜（`./data` 目录）——删容器不再丢数据，备份直接端走整个目录。
+
+> [!warning] 易错点
+> Compose 部署下容器立刻退出，先确认两件事：`./data:/app/data` 这个 bind mount 的宿主机目录存在且有写权限（`mkdir -p data`）；以及没有残留旧容器占用端口。健康检查有 60 秒 start period，启动偏慢被标记 `unhealthy` 属正常，可直接 `docker exec deeptutor python /app/healthcheck.py` 探测（详见第 7 章）[S4]。
 
 ### 2.4 模型接入：设置 → Models
 
@@ -425,6 +471,7 @@ docker run --rm --name deeptutor \
 > - 模型配置 401 先查 **key 前缀**（OpenAI `sk-`、Anthropic `sk-ant-`、Gemini `AIza`）[S4]；Embedding 必须填**完整 endpoint**（OpenAI `/v1/embeddings`、Cohere `/v2/embed`）[S4]。
 > - 本地 [[Ollama]] 走 `host.docker.internal`，Windows/macOS 免 `--add-host`，Linux 需 `extra_hosts` 或 `--add-host=host.docker.internal:host-gateway` [S3][S4]。
 > - 生命周期口诀：`docker logs -f` 看日志、`docker stop` 停、`docker rm` 删容器、`docker volume rm` 才清数据；升级是 `pull → rm -f → run` [S3]。
+> - 想用 docker compose 编排附属服务，官方提供 `docker-compose.ghcr.yml`（预构建镜像免编译）：`python scripts/docker_compose.py -f docker-compose.ghcr.yml up -d`；端口由 wrapper 从 system.json 渲染，数据落在 `./data` 绑定挂载 [S1]。
 
 **部署验收清单**：
 
@@ -433,6 +480,7 @@ docker run --rm --name deeptutor \
 - [ ] 设置 → Models 配好 LLM，provider probe 通过（无 401）
 - [ ] （可选）配好 Embedding 完整 endpoint，供第 3 章建知识库用
 - [ ] （可选）本地 Ollama 场景，`host.docker.internal` 能解析、能连
+- [ ] （可选）了解 docker compose 方式：`./data` bind mount 与 `system.json` 端口渲染
 - [ ] 会用 `docker logs` / `docker stop` / `docker rm`，并理解 volume 里存了什么
 
 至此，DeepTutor 已经在你机器上跑起来并完成首次对话。下一章进入它的主战场——建知识库、出题、可视化与深研，那才是一套学习闭环真正展开的地方。
