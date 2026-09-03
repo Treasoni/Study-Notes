@@ -1,69 +1,67 @@
-# 双库毕设指南 - 探测式收集结果（P1）
+# 01 探测结果 — ARS + nature-skills 双库毕设组合实操指南
 
-- 运行: academic-research-skills-graduation-guide（learning-note-flow, P1）
-- 主题: 使用 academic-research-skills（ARS）+ nature-skills 完成软件类毕业设计（按毕设阶段混排的组合实操指南）
-- 日期: 2026-09-03
+> 阶段：P1 探测式收集　|　日期：2026-09-03
+> 范围：6 个并行透镜（ARS×3 + nature-skills×3）回收候选信源，去重后形成 P2 深读基础。
 
-## 探测视角与候选信源
+## 候选信源汇总（按库）
 
-### 视角 1：nature-skills 全景、技能体系、安装与 Claude Code 适配
+### ARS — Imbad0202/academic-research-skills（v3.21.1，CC BY-NC 4.0，Claude Code 插件）
 
-| # | 标题 | URL | 层级 | 日期 | 评分 |
-|---|------|-----|------|------|------|
-| 1 | 官方 GitHub 仓库 README（中文） | https://github.com/Yuan1z0825/nature-skills | 官方文档 | 2026（持续更新） | 5 |
-| 2 | 官方英文 README_EN | https://raw.githubusercontent.com/Yuan1z0825/nature-skills/main/README_EN.md | 官方文档 | 2026 | 4 |
-| 3 | DeepWiki · Getting Started & Skill Index | https://deepwiki.com/Yuan1z0825/nature-skills/1.1-getting-started-and-skill-index | 权威聚合 | 2026-06-23 | 4 |
-| 4 | Agent Skill Marketplace 条目 | https://agentskillexchange.com/skills/run-nature-style-academic-writing-and-figure-workflows-with-nature-skills/ | 权威聚合 | 2026-05-21 | 3 |
-| 5 | CSDN《Nature-Skills 详细使用手册》（中文） | https://devpress.csdn.net/xclaw/6a114fa9662f9a54cb768bf7.html | 社区经验 | n/a | 3 |
+| 信源 | Tier | 评分 | 用途 |
+|---|---|---|---|
+| [README.zh-CN.md](https://raw.githubusercontent.com/Imbad0202/academic-research-skills/main/README.zh-CN.md) | T1 | 5 | 官方中文总览：定位、4 大 skill、安装、边界 |
+| [POSITIONING.md](https://raw.githubusercontent.com/Imbad0202/academic-research-skills/main/POSITIONING.md) | T1 | 5 | "是什么/不是什么"，CC BY-NC、拒绝端到端自动研究 |
+| [MODE_REGISTRY.md](https://raw.githubusercontent.com/Imbad0202/academic-research-skills/main/MODE_REGISTRY.md) | T1 | 4 | 27 种模式单一事实源（含监督级别） |
+| [docs/ARCHITECTURE.md](https://raw.githubusercontent.com/Imbad0202/academic-research-skills/main/docs/ARCHITECTURE.md) | T1 | 5 | 阶段×skill×mode×gate 矩阵、人机 checkpoint |
+| [academic-pipeline/SKILL.md](https://raw.githubusercontent.com/Imbad0202/academic-research-skills/main/academic-pipeline/SKILL.md) | T1 | 5 | 10 阶段全流程骨架（RESEARCH→…→FINALIZE） |
+| [academic-pipeline/examples/full_pipeline_example.md](https://raw.githubusercontent.com/Imbad0202/academic-research-skills/main/academic-pipeline/examples/full_pipeline_example.md) | T1 | 4 | 端到端对话实录，示范每阶段怎么开口调用 |
+| [academic-paper/examples/plan_mode_guided_writing.md](https://raw.githubusercontent.com/Imbad0202/academic-research-skills/main/academic-paper/examples/plan_mode_guided_writing.md) | T1 | 4 | /ars-plan 苏格拉底逐轮实录（适合开题/大纲） |
+| [docs/SETUP.md](https://raw.githubusercontent.com/Imbad0202/academic-research-skills/main/docs/SETUP.md) | T1 | 5 | 安装前置唯一权威源（插件流、依赖、平台边界） |
+| [hooks/run_guard.sh](https://raw.githubusercontent.com/Imbad0202/academic-research-skills/main/hooks/run_guard.sh) + hooks/hooks.json | T1 | 4 | Windows python3 占位 stub、Git Bash 要求的代码实证 |
+| [academic-paper/references/apa7_chinese_citation_guide.md](https://raw.githubusercontent.com/Imbad0202/academic-research-skills/main/academic-paper/references/apa7_chinese_citation_guide.md) | T1 | 4 | 中文引文=台湾惯例 APA 7.0 扩展（非 GB/T 7714）证据 |
+| [GitHub Issue #425](https://github.com/Imbad0202/academic-research-skills/issues/425) | T3 | 3 | 社区已提出对齐中国高校 LaTeX 模板的诉求 |
 
-要点：19 技能（Stable 4 / Beta 10 / Draft 5）+ `nature-shared`；安装三路线（git clone + update 脚本 / `npx skills add` / Claude wrapper）；必须保留 references/static/manifest/scripts 全目录；Apache-2.0。
+### nature-skills — Yuan1z0825/nature-skills（Apache-2.0，Codex/Claude Code 多 runtime）
 
-### 视角 2：ARS 命令体系、中文毕设适配、与 nature-skills 的关系
+| 信源 | Tier | 评分 | 用途 |
+|---|---|---|---|
+| [README.md（中文主文档）](https://raw.githubusercontent.com/Yuan1z0825/nature-skills/main/README.md) | T1 | 5 | 19 技能索引表 + Draft/Beta/Stable + 架构 + 安装 |
+| [README_EN.md](https://raw.githubusercontent.com/Yuan1z0825/nature-skills/main/README_EN.md) | T1 | 4 | 英文镜像，规范技能英文名引用 |
+| [docs/open-source-agent-frameworks.md](https://raw.githubusercontent.com/Yuan1z0825/nature-skills/main/docs/open-source-agent-frameworks.md) | T1 | 5 | Claude Code wrapper/subagent/slash vs Codex 脚本差异 |
+| [skills/nature-proposal-writer/README.md](https://raw.githubusercontent.com/Yuan1z0825/nature-skills/main/skills/nature-proposal-writer/README.md) | T1 | 5 | 开题/大纲状态机（compose/revise/hybrid 三模式） |
+| [skills/nature-paper2ppt/README.md](https://raw.githubusercontent.com/Yuan1z0825/nature-skills/main/skills/nature-paper2ppt/README.md) | T1 | 4 | 论文→答辩/组会中文 PPTX（ARS 无对应） |
+| [skills/nature-figure/README.md](https://raw.githubusercontent.com/Yuan1z0825/nature-skills/main/skills/nature-figure/README.md) | T1 | 4 | 投稿级科研图（Python/R、SVG/PDF/TIFF）（ARS 无对应） |
+| [skills/nature-academic-search/README.md](https://raw.githubusercontent.com/Yuan1z0825/nature-skills/main/skills/nature-academic-search/README.md) | T1 | 4 | 可选 MCP 文献检索 + 依赖（引文格式无 GB/T 7714） |
+| [Awesome Skills 收录页](https://www.awesomeskills.dev/zh-CN/skill/yuan1z0825-nature-skills) | T2 | 3 | 生态收录佐证 |
+| [cnblogs nature-skills 解读（zhang-yd, 2026-08-02）](https://www.cnblogs.com/zhang-yd/p/22151100) | T2 | 3 | 中文二手解读 |
+| [今日头条「ARS 管流程 + nature-skills 管图表」](https://m.toutiao.com/article/7652706441303802378/) | T3 | 3 | 中文社区组合用法实操体验 |
+| [CSDN Codex 装 nature-skills Windows 排错](https://qtchen.blog.csdn.net/article/details/162627479) | T3 | 3 | Windows 整目录复制/断网/触发词 500 经验 |
 
-| # | 标题 | URL | 层级 | 日期 | 评分 |
-|---|------|-----|------|------|------|
-| 1 | academic-research-skills 官方 README | https://github.com/Imbad0202/academic-research-skills | 官方文档 | 2026 (v3.21.x) | 5 |
-| 2 | MODE_REGISTRY.md（27 模式 / 命令映射） | https://github.com/Imbad0202/academic-research-skills/blob/main/MODE_REGISTRY.md | 官方文档 | n/a | 4 |
-| 3 | 官方简体中文 README.zh-CN.md | https://github.com/Imbad0202/academic-research-skills/blob/main/README.zh-CN.md | 官方文档 | 2026 | 4 |
-| 4 | Hacker News 讨论 #48083919 | https://news.ycombinator.com/item?id=48083919 | 社区经验 | n/a | 4 |
-| 5 | 知乎《别指望 AI 代写论文》 | https://zhuanlan.zhihu.com/p/2040194533716123781 | 社区经验 | n/a | 3 |
+> P2 需按技能索引表补读：nature-literature-pipeline、nature-reader、nature-citation、nature-ref-verifier、nature-reviewer、nature-polishing 的 SKILL.md/README.md。
 
-要点：四技能/25+ 模式、7 类 AI 失败模式诚信闸门（Stage 2.5/4.5）、citation trust-chain、Style Calibration；**官方未支持 GB/T 7714，默认 APA 7.0（含中文引文规则）**，中文样例为 LaTeX 编译 PDF 而非 DOCX，无本科学位论文专用流程。
+## 关键探测结论（P2 重点验证）
 
-### 视角 3：中文软件类毕设 × AI 学术写作合规与工具链
+1. **ARS**：human-in-the-loop、2.5/4.5 integrity gates、citation trust-chain / L3 claim audit、中文引文为**台湾惯例 APA 7.0**；`citation_format_switcher` 覆盖 APA/Chicago/MLA/IEEE/Vancouver，**不含 GB/T 7714**。
+2. **nature-skills**：Apache-2.0、19 技能分 Draft/Beta/Stable；router 式 SKILL.md；安装需**保留完整技能目录（references/、static/、manifest.yaml、nature-shared）**，不能只拷 SKILL.md；官方 runtime：Codex/Claude Code/OpenClaw/OpenCode/Hermes（**未见 Cursor 官方支持**）；`nature-academic-search` 引文格式同样无 GB/T 7714。
+3. **重叠区**（写作/润色/综述/审稿/引用）：双库功能重叠，P3/P4 需给出**分工建议**避免选择困难。
+4. **互补区**：ARS = 完整学术 pipeline + 诚信把关；nature-skills = 科研绘图（figure）、答辩/组会 PPT（paper2ppt）、开题状态机（proposal-writer）、中文文献推送。
+5. **边界**：两库均**不覆盖系统开发**与查重。
 
-| # | 标题 | URL | 层级 | 日期 | 评分 |
-|---|------|-----|------|------|------|
-| 1 | GB/T 7714-2015《参考文献著录规则》 | https://openstd.samr.gov.cn/bzgk/std/std_list?p.p1=0&p.p2=7714&p.p90=circulation_date&p.p91=desc | 官方文档 | 2015-12-01 实施 | 5 |
-| 2 | 《人工智能生成合成内容标识办法》GB 45438-2025 | https://www.gov.cn/zhengce/zhengceku/202503/content_7014286.htm | 官方文档 | 2025-09-01 施行 | 5 |
-| 3 | 新华社：高校发布"AI 禁令"评论综述 | https://www.news.cn/comments/20250114/06fc90bcbc784964b916a58b06ab2ba4/c.html | 权威聚合 | 2025-01-14 | 4 |
-| 4 | Claude Code Plugins Reference | https://code.claude.com/docs/zh-TW/plugins-reference | 官方文档 | n/a | 5 |
-| 5 | pandoc-latex-template Issue #140（中文文档问题） | https://github.com/Wandmalfarbe/pandoc-latex-template/issues/140 | 社区经验 | n/a | 3 |
+## 覆盖缺口
 
-要点：GB/T 7714-2015 是中文学位论文著录底层依据；2025 起国家层面 AI 生成内容标识 + 高校 AI 披露/查重政策收紧；Claude Code 的 plugin marketplace 与 `SKILL.md → .claude/skills` 是两库现实安装分叉的关键。
+- 官方与二手均**无**"两库按中文毕设/学位论文阶段组合编排"的现成指南 → 需自行推导（本项目价值所在）。
+- 大陆学位论文 GB/T 7714 / 学校 LaTeX 模板：ARS Issue #425 证明属已知需求；两库引用体系默认均不含 GB/T 7714 → 指南须给"外挂模板/人工校正"方案。
+- nature-skills 无官方 Windows/WSL 文档；ARS 有 Git Bash/python3 坑但 nature 侧仅社区（T3）经验。
+- ARS 引用的繁体中文 Substack 使用指南不可达（HTTP 000），不入 P2 核心。
 
-## 方向菜单
+## 方向菜单（请选择 P2 侧重点）
 
-请选择 P2 深度收集与成文时**侧重哪个维度**（结构仍按毕设阶段混排）：
+- **A. 按毕设阶段混排双库（推荐）**：P2 直接以"选题→文献→大纲→写作→图表→引用→自查→答辩"为主轴，每阶段取双库对应技能深读；产出端到端路线图 + 分工建议。
+- **B. 双库分深读后合并**：先各自完整深读（ARS 全 pipeline、nature-skills 全 19 技能），P3 大纲时再做阶段合并映射；覆盖最深但 token 消耗与时间最大。
+- **C. 中文毕设最小可用集**：P2 只深读"文献综述→写作→图表→答辩"最少技能组合（ARS lit-review/full/reviewer/citation-check + nature literature-pipeline/figure/paper2ppt/ref-verifier），快速产出可直接照做的精简指南。
 
-- **方向 A：端到端毕设路线图为主（推荐）**
-  重心放在「毕设阶段 × 双库技能映射」：每阶段给出用哪个库的哪些技能、触发命令/提示词、人工检查点与输出物；安装与中文适配作为支撑章节从轻。
-- **方向 B：安装与 Claude Code 适配为主**
-  先跑通两库：Windows 安装、目录结构、Claude Code wrapper/插件、依赖与踩坑；用法映射从简。
-- **方向 C：中文毕设适配为主**
-  侧重中文落地的改造量：GB/T 7714、中文 DOCX/PDF 输出、学校 AI 规范与查重语境下哪些环节可直接用、哪些必须改。
-- **方向 D：三者均衡**
-  路线图为主线、安装与中文适配各占一章，篇幅均分。
+## P2 范围预估
 
-## 覆盖缺口（Gaps）
-
-- nature-skills 各 SKILL.md 内部规则与版本未逐技能核读；Claude Code wrapper 缺第三方实操验证。
-- ARS × nature-skills 无官方直接对比材料，互补关系需自行梳理。
-- ARS 官方缺 GB/T 7714 与中文 DOCX 模板支持，需实测或靠 community 适配版。
-- tectonic 中文 CJK 配置、各校查重/AIGC 阈值差异、AI 使用声明表范本、单一学校 Word 模板字段待结合目标院校核验。
-
-## 预估 P2 范围
-
-- 核心源约 8–10 个：nature-skills README/README_EN + 4–6 个关键 SKILL.md；ARS README/zh-CN/MODE_REGISTRY；GB/T 7714、AI 标识办法、Claude Code Plugins Reference。
-- 补充源 3–5 个：DeepWiki、HN 讨论、知乎/CSDN 中文经验、pandoc 中文 issue。
-- 输出 `02_deep_research.md`：范围、源表、主张↔信源映射、矛盾点、实操指引、未决问题、下游交接。
+- 核心深读约 10–12 个 T1 源（ARS ~6 + nature-skills ~6）+ 按所选方向补充（A/C 聚焦，B 全量）。
+- 抓取走 research-collector 的 crawl4ai 环境（首次需 `scripts/crawl.sh --help` 探测，必要时 `scripts/setup.sh`）。
+- 产出 `02_deep_research.md`：范围 / 源表 / claim-源映射 / 矛盾点 / 实操指导 / 开放问题 / 下游交接。
