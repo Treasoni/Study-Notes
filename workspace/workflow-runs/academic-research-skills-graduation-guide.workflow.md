@@ -10,7 +10,7 @@ topic: "使用 academic-research-skills + nature-skills 两个开源项目完成
 project_slug: "academic-research-skills-graduation-guide"
 created_at: "2026-09-03"
 last_updated: "2026-09-03"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：academic-research-skills-graduation-guide
 > 项目标识：academic-research-skills-graduation-guide
 > 创建时间：2026-09-03
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -84,14 +84,13 @@ blocked_reason: ""
 ---
 
 ## 阶段 4：逐章写作
-- [ ] 第 1 章已写完并确认
-- [ ] 第 2 章已写完并确认
-- [ ] 第 3 章已写完并确认
-- [ ] ...（根据实际章节数添加）
+- [x] 第 1–13 章 + 学习路径说明已全部写完（用户「全部写完」指令，不做逐章确认）
+- [x] 章节文件采用权威 13 章阶段式命名（01_开篇 … 13_收尾 + 14_学习路径说明）
+- [x] 旧大纲描述式 7 份重复稿已移入 `chapters/_superseded_旧大纲_描述式备份/`
 
-**进度**：0/13
+**进度**：13/13 章 + 学习路径说明
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -104,7 +103,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
@@ -135,6 +134,7 @@ blocked_reason: ""
 | P0 | 用户确认意图文件与研究计划，同意进入 P1 | 2026-09-03 |
 | P1 | 用户确认 P1 素材质量，选择方向 A（按毕设阶段混排双库），进入 P2 | 2026-09-03 |
 | P3 | 用户确认大纲（13 章结构），批准一次性完成 P4 逐章写作 | 2026-09-03 |
+| P4 | 用户「全部写完」；13 章 + 学习路径说明全部落盘，进入 P5 | 2026-09-03 |
 
 ---
 
@@ -150,7 +150,7 @@ blocked_reason: ""
 
 | 时间 | 阶段 | 问题描述 | 处理方式 |
 |------|------|---------|---------|
-| | | | |
+| 2026-09-03 | P4 | chapters/ 出现两套并存章节：旧大纲描述式（01_双库全景…07_科研图表，7 份）vs 权威 13 章阶段式（01_开篇…13_收尾）；03_outline.md 当前权威结构为 13 章 | 以 13 章阶段式为准进入组装；7 份旧稿移入 chapters/_superseded_旧大纲_描述式备份/，未删除 |
 
 ---
 
