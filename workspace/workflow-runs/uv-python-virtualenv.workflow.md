@@ -11,7 +11,7 @@ project_slug: uv-python-virtualenv
 created_at: 2026-09-03
 last_updated: "2026-09-03"
 current_phase: P2
-current_status: ready
+current_status: in_progress
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -67,7 +67,7 @@ blocked_reason: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] ⬜ 未开始
+> [P2] 🔲 进行中 {in_progress}
 
 ---
 
@@ -133,6 +133,7 @@ blocked_reason: ""
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
 | P0 | 用户确认意图文件与研究计划；发布位置：Vault python/ + 新建 Python MOC | 2026-09-03 |
+| P1 | 用户选择 P2 方向：A+B 为主（概念定位 + 上手实操），C 简述 | 2026-09-03 |
 
 ---
 
