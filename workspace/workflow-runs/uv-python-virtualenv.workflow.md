@@ -10,7 +10,7 @@ topic: 如何用uv配置python虚拟环境
 project_slug: uv-python-virtualenv
 created_at: 2026-09-03
 last_updated: "2026-09-03"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：uv-python-virtualenv
 > 项目标识：uv-python-virtualenv
 > 创建时间：2026-09-03
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -84,14 +84,17 @@ blocked_reason: ""
 ---
 
 ## 阶段 4：逐章写作
-- [ ] 第 1 章已写完并确认
-- [ ] 第 2 章已写完并确认
-- [ ] 第 3 章已写完并确认
-- [ ] ...（根据实际章节数添加）
+- [x] 第 1 章已写完（uv 是什么——从 venv/pip/conda 到 uv 的坐标）
+- [x] 第 2 章已写完（安装 uv）
+- [x] 第 3 章已写完（用 uv 管理 Python 版本与 .python-version）
+- [x] 第 4 章已写完（创建、激活与使用虚拟环境 .venv）
+- [x] 第 5 章已写完（项目工作流 pyproject/uv.lock + 最小 demo）
+- [x] 第 6 章已写完（从 pip/venv/conda 平滑迁移到 uv）
+- [x] 第 7 章已写完（进阶简谈：索引镜像、缓存与 CI）
 
-**进度**：0/7
+**进度**：7/7（用户指令「全部写完」，跳过逐章确认）
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -104,7 +107,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
@@ -136,6 +139,7 @@ blocked_reason: ""
 | P1 | 用户选择 P2 方向：A+B 为主（概念定位 + 上手实操），C 简述 | 2026-09-03 |
 | P2 | 用户确认 P2 素材质量，选择大纲模式进入 P3 | 2026-09-03 |
 | P3 | 用户确认 7 章大纲，进入逐章写作 | 2026-09-03 |
+| P4 | 用户指令「全部写完」：跳过逐章确认，第 1–7 章一次性全部写完 | 2026-09-03 |
 
 ---
 
