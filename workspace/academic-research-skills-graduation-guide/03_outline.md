@@ -1,376 +1,253 @@
-# 学习笔记大纲：《用 academic-research-skills + nature-skills 完成软件类毕业设计（组合实操指南）》
+---
+title: 用 academic-research-skills + nature-skills 完成软件类毕业设计（实操指南）
+type: 学习笔记大纲
+status: 已确认
+source_project: academic-research-skills-graduation-guide
+workflow_phase: P3
+---
 
-> 笔记类型：实战笔记（ARS + nature-skills 双库组合实操指南）
-> 目标深度：上手（能用、会用、知道每技能在哪个阶段起作用、知道边界和坑）
-> 主线：按毕设阶段 0–10 主轴混排双库，两库互补、不设主次
-> 预估总字数：约 1.4–1.6 万字（13 个一级章）
+# 学习笔记大纲：《用 academic-research-skills + nature-skills 完成软件类毕业设计（实操指南）》
 
-## 阅读约定（供 chapter-writer，非正文章，不计入一级章统计）
-
-- 章 = `##`，节 = `###`，小节 = `####`；全篇不超过 4 级层级。
-- 每个一级章必须包含：章首一行元信息（篇幅/素材/代码示例）+ 若干 `###` 节 + 章末「写作提示」块。
-- **全篇三个贯穿提醒**，每个一级章至少出现一次，做成 callout 或独立小节：① 中文毕设/GB/T 7714 适配；② 系统开发边界（两库均不写代码、不跑实验、不证明系统跑通）；③ AI 诚信与披露（辅助不代写、引用防幻觉、遵守学校披露规范）。
-- **素材引用**沿用 02_deep_research.md 的来源 ID（A1–A11 / N1–N15，可带 02 内锚点如「02§4」）。禁止无源断言；区分「官方事实」与「推断/改造建议」。
-- **命令标注约定**：ARS 实证命令仅 `/ars-plan`、`/ars-lit-review`、`/ars-reviewer`、`/ars-rebuttal-audit`、`/ars-mark-read`、`/ars-cache-invalidate`（来源 A9/A10）；未实证的 `/ars-*` 一律标注「惯例 /ars-<mode>」并对照 A4 模式注册。nature-* 无统一斜杠命令，按语义路由触发，写清 wrapper/subagent 触发语句（见 02 第 6 节）。
-- 正文主线 = 02 第 4 节十阶段表展开为章；每章开头交代「该阶段双库分工、用什么、怎么触发、产出什么、坑」。
+> - **笔记类型**：实战笔记（双库组合实操指南，按毕设阶段混排，两库互补不设主次）
+> - **预计总篇幅**：约 2.0 万–2.5 万字（成稿正文）
+> - **章节数**：11 章 + 「学习路径说明」
+> - **目标读者**：已定题、会用 Claude Code 的中文软件类毕设生（深度：上手）
+> - **结构组织**：第一部分「准备篇」（全景 + 安装）→ 第二部分「毕设主线」（按阶段走查）→ 第三部分「合规与收尾」
+> - **重叠区约定**：综述 / 写作 / 审稿 / 引用是两库功能重叠区，每处用 `【重叠区①-④】` 标记，并给出「主用哪套、另一套怎么补」的去重建议，避免选择困难
+> - **素材引用格式**：`§x.y` 指 `02_deep_research.md` 第 x 节第 y 小节；`N-* / A-* / GB / CN-AI / CC-P / PD` 指该文件「源表」中的源 ID
+> - **行文语言**：中文（代码/命令保留原文）
 
 ---
 
-## 第 1 章 开篇：这套双库指南怎么用
+## 第一部分　准备篇：先看清地图，再装好工具
 
-> 篇幅：~800 字 ｜ 素材：A1、N1；02§2、02§4 ｜ 代码示例：无（仅定位速览与路线图）
+### 第一章：双库全景与分工总览——一张图看懂「何时用哪套」
 
-### 本章定位
-- 给读者一张「地图」：本指南解决什么问题、按什么顺序读、现在（已定题、未开始文献）该跳到第几章。
-- 双库互补不设主次：ARS = 学术全流程「人机协作」调度器（流程、审稿、诚信 gates）；nature-skills = 可复用科研技能库（图、PPT、文献管线、引文核验、英文润色）。
+- **篇幅**：长（约 2500–3000 字）
+- **定位**：全书入口；先建立「两库互补、不设主次」的全局心智模型，并给出贯穿后文的去重总表
+- **双库分工建议**：是（全局分工总表；预告 4 个重叠区及各自去重章节）
+- **计划小节**：
+  - 1.1 为什么是「双库组合」：ARS = 学术全流程 + 诚信闸门；nature-skills = Nature 风格写作/绘图/文献/引用核查/PPT，输出优先
+  - 1.2 nature-skills 全景：19 个可触发技能 + `nature-shared` 共享支持包；成熟度 Draft/Beta/Stable；Apache-2.0；router 式 SKILL.md 与 5 条共享原则（§3.1）
+  - 1.3 ARS 全景：4 技能 / 27 模式 + 约 10 个 `/ars-*` 命令；Fidelity/Balanced/Originality 监督档；integrity gates 7 类阻断式检查；citation trust-chain（§3.4）
+  - 1.4 毕设全流程分工总表：选题→开题→文献→综述→大纲→写作→图表→引用→审稿→答辩 × 主责库 × 推荐技能 × 边界
+  - 1.5 重叠区预告与去重策略：综述/写作/审稿/引用分别「主用谁、另一套怎么补」，并指向第 4/6/8/9 章
+  - 1.6 指南边界：两库都不覆盖系统开发与查重 → 「开发线 + 学术线」双轨配合建议
+  - 1.7 概念映射（可略读）：ARS/nature-skills 与本仓库 Study-Notes 技能体系的类比
+- **素材引用**：§3.1、§3.4、§3.6、§五 ｜ N-R、N-RE、A-R、A-ZH、A-M
+- **命令/代码示例**：无（表格与文字为主）
+- **本章产物**：一张可打印的「毕设全流程 × 两库技能分工表」
+- **读者行动项/检查点**：
+  - [ ] 用 1.4 总表对照自己当前进度，圈出接下来 3 步要用的技能
+  - [ ] 确认两库许可对你的影响（ARS CC BY-NC 4.0 非商用 vs nature-skills Apache-2.0）
 
-### 建议正文结构
-- 指南读法：目标读者（会用 Claude Code、已定题、未接触双库）；「从头照做」或「按当前阶段跳读」两种读法；上手级定位，不是论文。
-- 双库分工速览表：一句话定位 / 首选 runtime / 调用方式 / 核心强项 / 明确不做（含两库都不写代码、不跑实验）。
-- 许可与生态差异：ARS CC BY-NC 4.0（非商用）vs nature-skills Apache-2.0；ARS 为 Claude Code 插件体系，nature-skills 以 Codex 为主、需 Claude Code 接线。
-- 端到端路线图：0–10 阶段一览表（主用库色标 🔵ARS / 🟢nature / ⚙️工程侧 + 主产物），标出「你现在在这里 = 阶段 1」。
+### 第二章：安装与 Claude Code 适配（Windows 实测路线）
 
-### 写作提示（供 chapter-writer）
-- 为什么用：避免读者把两库当「一键毕设工具」，先建立「流程 + 技能」双库心智。
-- 用什么：02§2 定位速览表、02§4 映射表（作为路线图数据源）。
-- 怎么触发：无命令；只给概念速览与章节导航。
-- 产出什么：一张可跳读的路线图 + 分工决策直觉。
-- 坑：不要写成纯目录罗列；强调两库不是同一类东西（流程调度 vs 技能库），重叠功能（写作/综述/审稿/引用）的选择留到对应章 + 第 13 章决策表。
-- 贯穿提醒：三个主题各一句预告（详见第 13 章）。
-
----
-
-## 第 2 章 环境准备：Windows 下安装 ARS 与 nature-skills 并接线 Claude Code
-
-> 篇幅：~1100 字 ｜ 素材：A5、A6、A1、N1、N3；02§6 ｜ 代码示例：PowerShell 安装命令、/plugin 命令、git clone、wrapper 文件、autoupdate-skills.sh
-
-### 本章定位
-- Windows 上把「Claude Code + ARS + nature-skills」跑通的最小可用环境；本指南后续所有触发都依赖本章成功。
-
-### 建议正文结构
-- 安装 Claude Code 并配置密钥：PowerShell `irm https://claude.ai/install.ps1 | iex`（免 Node、自动更新）；设置 `ANTHROPIC_API_KEY`。
-- 安装 ARS：
-  - 推荐 plugin 法：`/plugin marketplace add Imbad0202/academic-research-skills` → `/plugin install academic-research-skills`（建议开 auto-update）。
-  - 备选手动法：把 4 个 skill 目录（deep-research / academic-paper / academic-paper-reviewer / academic-pipeline）分别复制进项目 `.claude/skills/`，每目录顶层必须有 `SKILL.md`，勿整仓嵌套。
-- 安装 nature-skills：
-  - `git clone https://github.com/Yuan1z0825/nature-skills.git`；说明「技能目录 = 安装单元，须保留完整目录 + nature-shared 共享包，不能只拷 SKILL.md」。
-  - Claude Code 接线两条路线：wrapper 推荐（给需要的技能写 `~/.claude/agents/nature-<x>.md`，正文 = 先读 clone 内 `skills/<技能>/SKILL.md` 并遵守，按需读同目录与 nature-shared；升级 = `git pull`）；copy 路线（`scripts/autoupdate-skills.sh --force` 同步到 `~/.claude/skills` + settings.json SessionStart hook）。
-- 依赖与 Windows 坑：Git Bash（跑 .sh hook，缺失时 ARS guard 降级）；真实 Python（`py -3`→`python3`→`python` 探测，绕过 MS Store 0 字节 stub）；可选 Pandoc（DOCX）/ tectonic + CJK 字体（PDF，缺则自动降级 Markdown）；文献检索 MCP 需 `PUBMED_EMAIL` / Scopus `pybliometrics` 凭据（禁止入库）。
-- 项目级偏好：在毕设仓库 `CLAUDE.md` 写 standing preferences 块（引文风格、检索范围、OA），两库会话继承。
-
-### 写作提示（供 chapter-writer）
-- 为什么用：两库都是 agent 技能体系，装错一步（缺共享包、缺 Git Bash、python3 stub）会静默失败。
-- 用什么：A5（ARS 安装/依赖）、A6（Windows guard 探测）、N1/N3（nature-skills 架构与 Claude Code 接线）、02§6（Windows 实操要点合并）。
-- 怎么触发：按上表逐一给命令与验证方法（安装后用一条简单触发确认可用）。
-- 产出什么：可运行环境 + 一张「我装了什么、装在哪、如何升级」的本地清单。
-- 坑：MS Store python3 stub；Git Bash 缺失致 hook 不激活；只拷 SKILL.md 导致子路由/共享引用断裂；MCP 凭据入库风险；ARS 勿整仓嵌套复制。
-- 贯穿提醒：系统开发边界（本章起就明确两库不写代码，开发需另配工程工作流）；AI 诚信（动手前确认学校对 AI 工具的规范）。
+- **篇幅**：中-长（约 2000–2500 字）
+- **双库分工建议**：否（纯安装，但需同时装两套并打通 Claude Code）
+- **计划小节**：
+  - 2.1 安装前检查清单：Claude Code v3.7.0+、`ANTHROPIC_API_KEY`、Git、真实 Python（避开 Microsoft Store 占位符）；可选：Pandoc/tectonic、Git Bash、MCP（§3.2、§3.7、A-DOC）
+  - 2.2 ARS 安装（插件市场路线）：`/plugin marketplace add Imbad0202/academic-research-skills` + `/plugin install`；更新与本地缓存机制（CC-P、A-ZH）
+  - 2.3 nature-skills 安装（Codex 原生路线）：`git clone` + `scripts/update-codex-skills.sh`；或 `npx skills add`（Node 18+）（N-RE）
+  - 2.4 nature-skills → Claude Code 适配：为何不能用 Codex 脚本；wrapper 法（稳定 clone + slash-command/subagent 指向真实 `skills/*/SKILL.md`）vs SessionStart hook 复制法；硬规则 = **保留完整目录结构**（references/static/manifest.yaml/scripts/_shared/nature-shared），只拷 SKILL.md 会坏依赖（N-RE、N-DOC）
+  - 2.5 装完验证：触发 `/ars-plan`、确认 nature 技能可被发现、跑最小 smoke test
+  - 2.6 Windows 踩坑清单：`python3` 占位符、Git Bash 缺失致 guard 失效、路径/空格问题、LaTeX 引擎缺字
+- **素材引用**：§3.2、§3.7、§3.6 ｜ N-RE、N-DOC、A-ZH、CC-P
+- **命令/代码示例**：有（marketplace add/install、git clone、npx skills add、update-codex-skills.sh、wrapper/SessionStart hook 配置片段、验证命令）
+- **本章产物**：可运行的双库环境 + 一张「已装/缺什么」验证清单
+- **读者行动项/检查点**：
+  - [ ] 两条安装路线各完成一次，且 smoke test 通过
+  - [ ] 记录本机缺失的可选依赖，标记后续第 11 章格式转换前补齐
 
 ---
 
-## 第 3 章 阶段 0 选题与开题：把题目收敛成可辩护的研究论点
+## 第二部分　毕设主线：按阶段走查（选题 → 答辩）
 
-> 篇幅：~800 字 ｜ 素材：A1、A2、A10、A3；N6、N1；02§4 ｜ 代码示例：/ars-plan（实证）、nature-proposal-writer compose 模式触发语句
+### 第三章：定题深化与开题报告——把题目收窄到可写
 
-### 本章定位
-- 用户「已定题」，本阶段重点是：把既有题目收敛成可辩护的研究问题/论点、产出开题报告骨架与章节契约雏形；若开题报告已交，可快速浏览。
+- **篇幅**：短-中（约 1200–1600 字）
+- **双库分工建议**：否（主线章节，非重叠区；ARS 主导）
+- **计划小节**：
+  - 3.1 ARS `/ars-plan`：苏格拉底式提问，界定研究问题、范围与方法（A-R、A-M）
+  - 3.2 nature-proposal-writer：开题报告状态机草稿；注意其成熟度（Beta/Draft）需人工校对（§五、N-R）
+  - 3.3 从题目到开题四件套：研究问题 / 文献缺口 / 方法路线 / 双轨进度表（学术线 + 开发线里程碑）
+  - 3.4 中文适配：开题报告通常按校方 Word 模板填写，AI 草稿需人工改写并在导师沟通中如实说明
+- **素材引用**：§3.4、§3.5、§五 ｜ A-R、A-ZH、A-M、N-R
+- **命令/代码示例**：有（`/ars-plan` 触发示例、nature-proposal-writer 触发示例）
+- **本章产物**：一页研究问题陈述 + 开题报告草稿 + 双轨进度表
+- **读者行动项/检查点**：
+  - [ ] 与导师确认收窄后的题目边界与工作量
+  - [ ] 核对校方开题模板是「AI 草稿可导入」还是「纯手工填写」
 
-### 建议正文结构
-- 为什么这个阶段值得用双库：选题决定后续所有检索范围与章节契约；开题报告 = 第一次「proposal-first」写作演练。
-- ARS 侧：`/ars-plan` 苏格拉底式澄清（实证，A10 实录）；plan 前先过 research-readiness；产出论点结晶与证据需求清单；缺料标 `[MATERIAL GAP]` 防脑补。
-- nature-skills 侧：`nature-proposal-writer`（Beta，frontmatter researchwrite）的 compose 模式，开题/章节骨架状态机；随附 references 含中文科研写作清理（对中文开题报告有用）。
-- 产出验收：一页式研究问题/论点声明、开题报告骨架（初步章节契约：每章核心论点/证据/风险）。
+### 第四章：文献调研与综述 `【重叠区①：综述】`
 
-### 写作提示（供 chapter-writer）
-- 为什么用：阶段 0 的产出直接当阶段 2 章节契约的输入，避免返工。
-- 用什么：A10（/ars-plan 实录）、A1/A2（research-readiness 与 checkpoint 概念）、N6（proposal-writer 三模式 + 中文写作 reference）。
-- 怎么触发：给 `/ars-plan` 的一条起始指令样例 + nature-proposal-writer 的一条 wrapper/subagent 触发语句（语义路由，非斜杠命令）。
-- 产出什么：研究论点 + 开题骨架 + 检索范围草稿。
-- 坑：/ars-plan 是逐问人机对话需预留时间；proposal-writer 为 Beta，三模式（compose/revise/hybrid）要按「从零 vs 已有草稿」选；两库均不代写开题报告正文。
-- 贯穿提醒：AI 诚信（开题即定披露基调：辅助不代写）；中文适配（开题报告为中文，两库模板偏英文需对照学校要求）。
+- **篇幅**：长（约 2200–2800 字）
+- **双库分工建议**：是 —— **主用 ARS 做问题驱动综述**（`/ars-lit-review`，走诚信闸门）；**nature-literature-pipeline 做文献条目批量采集/筛选**；中文文献核验提前接第 8 章 ref-verifier
+- **计划小节**：
+  - 4.1 ARS `deep-research`（8 模式）与 `/ars-lit-review`：综述生成 + Stage 2.5 诚信闸门（A-R、A-ZH、A-M）
+  - 4.2 nature-literature-pipeline（Stable）：批量文献采集/筛选流水线；可选 nature-academic-search MCP 增强（§五、N-R）
+  - 4.3 中文文献怎么进流程：CNKI/万方/知网导出 → `.bib`/EndNote 预处理；nature-ref-verifier 支持 CNKI/万方多源核验（预告第 8 章）（N-RV）
+  - 4.4 综述引用锚：每个关键 claim 落到具体文献编号，不留「孤儿 claim」（衔接 L3 claim-faithfulness）
+  - 4.5 「用哪套」决策表：什么场景走 ARS 综述、什么场景走 nature 流水线、两者如何接力
+- **素材引用**：§3.3、§3.4、§3.5、§五 ｜ A-R、A-ZH、A-M、N-R、N-RV
+- **命令/代码示例**：有（`/ars-plan` → `/ars-lit-review`、literature-pipeline 触发命令）
+- **本章产物**：带引用锚的综述章节草稿 + 可检索的文献库（Zotero/EndNote）
+- **读者行动项/检查点**：
+  - [ ] 综述中所有「据 XX 研究」均有编号引用，无孤儿 claim
+  - [ ] 确定主文献管理工具，统一导入与导出格式（为第 8/11 章做准备）
 
----
+### 第五章：论文结构与大纲——把校方模板装进 ARS 大纲
 
-## 第 4 章 阶段 1 文献调研与综述：建立证据底座（你现在在这里）
+- **篇幅**：短-中（约 1200–1600 字）
+- **双库分工建议**：否（ARS 主导；nature-skills 无对应技能，说明边界即可）
+- **计划小节**：
+  - 5.1 `/ars-outline` 用法：从综述到章节大纲（A-R、A-M）
+  - 5.2 ARS 支持的结构 vs 软件毕设结构：IMRaD / 主题综述 / 理论分析等；**无本科学位论文专用流程** → 需人工映射到校方模板（A-ZH、§四-4）
+  - 5.3 软件类毕设大纲骨架：需求 / 设计 / 实现 / 测试章节占位，与系统开发产物对齐（避免空写「实现」）
+  - 5.4 中文结构调整：简化字、图表目录、校方章节编号规则
+- **素材引用**：§3.4、§3.5、§四(4) ｜ A-R、A-ZH、A-M
+- **命令/代码示例**：有（`/ars-outline`）
+- **本章产物**：一份与校方模板对齐的全文大纲（每章含要点与预估字数）
+- **读者行动项/检查点**：
+  - [ ] 大纲经导师确认后再进入正文写作
+  - [ ] 把「实现」章节章节号对应到真实代码提交/模块，保证可写实
 
-> 篇幅：~1800 字 ｜ 素材：A2、A3、A9、A10；N4、N5、N12、N9、N1；02§4 ｜ 代码示例：/ars-lit-review（实证）、deep-research 触发、nature-literature-pipeline / nature-academic-search / nature-reader 触发语句
+### 第六章：正文写作与润色 `【重叠区②：写作】`
 
-### 本章定位
-- 核心章。读者当前正处于此阶段（已定题、未开始文献）。目标是产出一份「可被审计」的证据底座，供后续综述与写作引用。
+- **篇幅**：长（约 2500–3200 字）
+- **双库分工建议**：是 —— **ARS 写初稿并走 integrity gates**；**nature-polishing 只用于英文摘要/英文表达润色**（面向英文 Nature 风格，对中文正文不直接适用 → 中文正文以人工改写为主）；学术诚信红线两库一致
+- **计划小节**：
+  - 6.1 `/ars-full` 生成 IMRaD 初稿；`/ars-abstract` 双语摘要（中文 + English）（A-R、A-ZH、A-M）
+  - 6.2 Style Calibration：提供 3+ 篇范文学习风格（A-R）
+  - 6.3 integrity gates 7 类阻断：Stage 2.5/4.5 运行、验证 MANDATORY、覆写须记录理由（A-R、A-ZH）
+  - 6.4 nature-polishing 细节：目标/路由/layout 排版检查、依赖 LaTeX 工具链目检、保留事实与引用意图（N-P）
+  - 6.5 学术诚信与「不代写」边界：两库均不代写、不掩饰 AI 使用；无法证明数据真实 → 数据须自行实验采集（A-ZH、§四-3）
+  - 6.6 中文适配：ARS 默认繁体中文 → 简体转换；中文学位论文的语气/章节粒度调整
+- **素材引用**：§3.3、§3.4、§3.5、§四(3) ｜ A-R、A-ZH、A-M、N-P
+- **命令/代码示例**：有（`/ars-full`、`/ars-abstract`、`ARS_CLAIM_AUDIT=1`、nature-polishing 触发）
+- **本章产物**：通过闸门的初稿 + 英文摘要润色稿 + AI 使用声明草稿
+- **读者行动项/检查点**：
+  - [ ] integrity gates 全部跑过；异常项逐条写覆写理由
+  - [ ] 英文摘要润色稿回填中文稿后，术语中英一一对应
 
-### 建议正文结构
-- 双库分工先讲清：ARS 粗筛 + 综述骨架与缺口标记；nature-skills 持续发现 + 元数据/他引核验 + 中英对照精读。双保险关系：ARS 检「有没有关键文献被漏」，nature 检「引用的文献/元数据是否为真」。
-- ARS 侧流程：deep-research（socratic/full）起手；`/ars-lit-review` 产出 RQ Brief / Annotated Bibliography / Synthesis / INSIGHT；缺料标 `[MATERIAL GAP]`，禁止用模型记忆脑补。
-- nature-skills 侧工具链：
-  - `nature-literature-pipeline`（Stable）：持续文献发现管线，多源检索 + 六维评分 + 精读卡片 + 推送归档（依赖本机 cron，适合作毕设主题周推）。
-  - `nature-academic-search`（Beta）：多源检索 + 元数据核验 + 他引审计 + 引用者画像；需 PUBMED_EMAIL / pybliometrics；二级索引仅作线索，关键字段回 DOI/出版社核实。
-  - `nature-reader`（Beta）+ 上游 `nature-downloader`：PDF/DOI → 中英对照 Markdown 精读底稿 + source_map.json；强调「合法取全文」。
-  - `nature-ref-verifier`（Stable）在此阶段可提前用于核验已收集条目，尤其 CNKI 中文来源。
-- 软件类毕设检索策略提示：除通用学术库外，如何把「系统实现类」文献（技术报告、标准、开源项目文档）纳入证据底座，并区分「学术文献」与「工程资料」两类引用。
-- 产出验收：Annotated Bibliography + 综述骨架 + 中英对照精读底稿 + 引用核验报告雏形。
+### 第七章：科研图表与系统插图——用 nature-figure 画出「投稿级」图
 
-### 写作提示（供 chapter-writer）
-- 为什么用：综述质量决定论文论证可信度；双库互补点在此阶段最密。
-- 用什么：A2/A9（lit-review 端到端）、A3（gate 矩阵）、N4/N5/N12/N9（nature 四条工具链）。
-- 怎么触发：给 `/ars-lit-review` 起始指令样例；给 nature-literature-pipeline、nature-academic-search、nature-reader 各自的语义路由触发语句（wrapper/subagent 指向 SKILL.md）。
-- 产出什么：证据底座四件套（RQ Brief、Annotated Bibliography、Synthesis、INSIGHT）+ 精读底稿 + 核验报告。
-- 坑：引用幻觉双保险（ARS 缺口标记 + nature 他引审计 + ref-verifier 兜底）；CNKI/图书馆通道决定 nature-downloader 可行性；不要指望两库代写综述正文（AI 诚信）；`ARS_CLAIM_AUDIT=1` 非默认，需说明如何开。
-- 贯穿提醒：AI 诚信（文献「真读」与防幻觉）；中文适配（综述最终要落到 GB/T 7714 中文引用，阶段 6 细讲）；系统边界（检索范围含工程资料，但系统本身不在此阶段产出）。
+- **篇幅**：中（约 1500–2000 字）
+- **双库分工建议**：否（ARS 无绘图对应 → 明确「这阶段只靠 nature-skills」的边界）
+- **计划小节**：
+  - 7.1 nature-figure 定位与成熟度（Stable）：matplotlib/seaborn 或 R ggplot2，输出 SVG/PDF/TIFF（N-F）
+  - 7.2 一张图的产出流程：数据 → 图 → 强制 QA（collision audit / validation），不达标阻止交付（N-F）
+  - 7.3 AI schematic 路线（OpenRouter GPT Image）适用场景与使用边界（N-F）
+  - 7.4 软件类毕设插图补充：架构图 / ER 图 / 界面截图用常规绘图工具（两库不覆盖系统开发图示）
+  - 7.5 中文图注与字号规范：按校方模板对齐
+- **素材引用**：§3.3(N-F)、§五 ｜ N-F、N-R
+- **命令/代码示例**：有（Python/R 绘图代码骨架、QA 报告输出示例）
+- **本章产物**：2–4 张论文可用图（算法对比/结果/架构示意图）
+- **读者行动项/检查点**：
+  - [ ] 每张图通过 QA（无碰撞、分辨率/字号达标）
+  - [ ] 图注中英文与正文引用图号一致
 
----
+### 第八章：引用自查双保险 `【重叠区③：引用】`
 
-## 第 5 章 阶段 2 论文结构与大纲：先签章节契约再动笔
+- **篇幅**：中（约 1800–2200 字）
+- **双库分工建议**：是 —— **ARS 查「该引的引了且被 claim 支撑」**（信任链 + 存在性核验）；**nature-ref-verifier 查「条目信息本身对不对」**（多源交叉验证）；两套都跑一遍作双保险
+- **计划小节**：
+  - 8.1 ARS citation trust-chain：provenance frontmatter + locator 三层锚 + L3 claim-faithfulness（`ARS_CLAIM_AUDIT=1`）（A-R、A-ZH）
+  - 8.2 `/ars-citation-check` 与确定性存在性查验：Semantic Scholar / OpenAlex / Crossref / arXiv（A-R）
+  - 8.3 nature-ref-verifier：DOI → `api.crossref.org` 优先；Crossref/IEEE/CNKI/万方/Zotero；🔴Critical/🟡Warning/🟢Info 报告；修正 `.bib` + Zotero 修复命令；依赖可降级（pyzotero 推荐）（N-RV）
+  - 8.4 两库分工不重复：查「声称被文献支撑」归 ARS；查「文献元数据正确」归 nature-ref-verifier
+  - 8.5 中文引用格式缺口：citation_format_switcher 覆盖 APA/Chicago/MLA/IEEE/Vancouver 但**不含 GB/T 7714** → 转交第 11 章外挂模板处理（A-ZH、§四-1）
+- **素材引用**：§3.3(N-RV)、§3.4、§3.5、§四(1)、§五 ｜ A-R、A-ZH、N-RV
+- **命令/代码示例**：有（`ARS_CLAIM_AUDIT=1` 运行、`/ars-citation-check`、nature-ref-verifier 命令与分级报告片段）
+- **本章产物**：引用自查报告（🔴 Critical 清零）+ 修正后的参考文献库
+- **读者行动项/检查点**：
+  - [ ] 🔴 Critical 全部处理，🟡 Warning 逐个确认
+  - [ ] L3 claim 审计无「引用了但无支撑」项
+  - [ ] 确认文献库最终导出样式切换为 GB/T 7714（执行第 11 章）
 
-> 篇幅：~900 字 ｜ 素材：A2、A10；N6、N1；02§4 ｜ 代码示例：/ars-plan（实证，逐章确认）、nature-proposal-writer hybrid/revise 触发语句
+### 第九章：模拟审稿与修改 `【重叠区④：审稿】`
 
-### 本章定位
-- 把阶段 0/1 的论点与证据底座编排成论文骨架；每章形成「核心论点 / 证据 / 风险 / 字数预算」的章节契约，供阶段 4 逐章写作。
+- **篇幅**：中（约 1600–2000 字）
+- **双库分工建议**：是 —— **ARS 主审**（结构化：5 份审稿报告 + 编辑决定 + 修改路线）；**nature-reviewer 作第二意见**（成熟度 Draft/Beta，谨慎采信）
+- **计划小节**：
+  - 9.1 `/ars-reviewer`：5 份审稿报告 + 编辑决定 + 修改路线；`academic-paper-reviewer` 6 模式（A-R、A-M）
+  - 9.2 `academic-pipeline`（10 阶段调度器）与审稿/修改环节的衔接（A-R、A-M）
+  - 9.3 nature-reviewer：Nature 风格审稿视角；成熟度 Draft → 仅作补充意见（§3.1、§四-4）
+  - 9.4 按审稿意见改稿：`/ars-revision` 修改稿 + 逐点回复；或对中文稿人工修改后复跑自查
+  - 9.5 提交前合并清单：integrity gates + 审稿意见 + 引用自查 → 一条 checklist
+- **素材引用**：§3.1、§3.4、§四(4)、§五 ｜ A-R、A-ZH、A-M、N-R
+- **命令/代码示例**：有（`/ars-reviewer`、`/ars-revision`、nature-reviewer 触发）
+- **本章产物**：审稿意见汇总 + 修改路线图 + 逐点回复表
+- **读者行动项/检查点**：
+  - [ ] 对每条 major/minor 意见给出「已改 / 反驳理由」
+  - [ ] 改稿后复跑第 8 章引用自查，确认未引入新问题
 
-### 建议正文结构
-- ARS 侧：`/ars-plan` 逐章确认（每章须 User confirmation 检查点）；产出 Chapter Plan + Argument Map + 字数预算。
-- nature-skills 侧：`nature-proposal-writer` 的 hybrid/revise 模式——已有草稿或学校章节模板时重排成 proposal-first 骨架。
-- 软件类毕设结构映射提示：学校模板（需求分析 → 系统设计 → 实现 → 测试）与 ARS 默认学术论文结构的差异如何处理；何时用 ARS 章节契约字段、何时按学校目录硬约束调整。
-- 产出验收：一版带章节契约的论文大纲（含每章核心论点、支撑证据来源、风险与字数）。
+### 第十章：答辩材料——用 nature-paper2ppt 把论文变成汇报
 
-### 写作提示（供 chapter-writer）
-- 为什么用：动笔前定契约，避免「写废章」；软件毕设易在实现细节上失控，字数预算先行。
-- 用什么：A10（plan 实录）、A2（checkpoint/章节契约概念）、N6（proposal-writer 模式）、02§4 阶段 2 行。
-- 怎么触发：给 `/ars-plan` 逐章确认对话的起始指令 + nature-proposal-writer hybrid/revise 触发语句。
-- 产出什么：可执行的论文大纲（含每章契约字段）。
-- 坑：每章 User confirmation 不可省；两库默认结构未必匹配软件毕设模板，须以学校模板为准微调；不要把大纲做成纯目录。
-- 贯穿提醒：中文适配（章节结构对齐中文软件毕设模板与开题报告承诺）；系统边界（实现细节的写作留到阶段 6/7 的 claim 登记，不在此章展开）。
-
----
-
-## 第 6 章 阶段 3 系统设计与实现：工程侧主战场（双库仅做登记）
-
-> 篇幅：~900 字 ｜ 素材：A2、A3；N1；02§2、02§4 ｜ 代码示例：无 ARS/nature 开发命令（仅登记 claim/provenance 的方式说明，对照阶段 7 自查）
-
-### 本章定位
-- 明确告知：本阶段为**工程侧为主**，两库均不写代码、不跑实验、不能证明系统跑通；双库只做「已实现结果登记为 claim/provenance」，供阶段 7 查证与论文引用。
-- 需要另配常规软件工程工作流（需求 / 架构 / 编码 / 测试），本指南给出「开发 + 学术」双线如何配合。
-
-### 建议正文结构
-- 边界与预期管理：两库在毕设中的职责到本阶段为止；ARS 与 nature-skills 都不覆盖系统开发。
-- ARS 侧登记：把已实现的功能/测试结果登记为 claim / experiment provenance（命名、状态、证据位置），这是阶段 4 写作素材与阶段 7 自查证据的来源。
-- nature 侧登记：`nature-experiment-log` 仅留痕，不做实验验证。
-- 双线配合建议：开发线产物（架构图、ER/类图、流程、测试记录、截图/数据）如何成为阶段 5 图表素材、阶段 6 引用（工程资料）、阶段 7 审计证据。
-- 产出验收：可运行系统 + 测试记录 + 一张「claim 登记清单」（每个可写进论文的功能点都有对应证据）。
-
-### 写作提示（供 chapter-writer）
-- 为什么用：给读者正确预期——双库在此阶段作用最小，避免「AI 帮我写系统」的误解；同时保证论文里每个「我实现了 X」都有据可查。
-- 用什么：02§2（两库对系统开发均不覆盖）、02§4 阶段 3 行（⚙️ 工程侧）、A2/A3（claim/provenance 与 7 失败模式 M3「幻觉实验」的关系）。
-- 怎么触发：无触发命令；写「在论文/notes 里登记 claim」的字段模板，并预告阶段 7 会用 integrity gates 查这些 claim。
-- 产出什么：系统 + 证据 + claim 登记清单。
-- 坑：不要谎报「系统跑通/实验完成」（阶段 7 M3/M5 专门查这个）；不要把本阶段时间花在调双库上。
-- 贯穿提醒：系统开发边界（本章主提醒，整章贯穿）；AI 诚信（如实记录哪些是 AI 辅助、哪些是自研）。
-
----
-
-## 第 7 章 阶段 4 论文写作：从章节契约到完整初稿（中文正文）
-
-> 篇幅：~1700 字 ｜ 素材：A1、A2、A3、A4、A9、A10；N7、N1；02§4、02§5 ｜ 代码示例：/ars-plan（实证）、ARS 写作模式（惯例 /ars-full 等，标注）、nature-polishing 触发语句
-
-### 本章定位
-- 核心章。把阶段 2 的章节契约逐章写成初稿；写完初稿跑 2.5 integrity gate 再进入阶段 7 全面自查。
-- 明确中文正文润色在两库均为开放问题（详见下），本章只保证「结构、论证、引用骨架」成立。
-
-### 建议正文结构
-- ARS 写作流程：academic-paper 写作模式（plan → full；惯例 `/ars-full`、`/ars-abstract` 等标注）+ Style Calibration（风格校准，识别机器腔是为质量把关而非掩饰 AI）。
-- 章节粒度：一章一 checkpoint；每章对照章节契约（core argument / evidence / risk）。
-- claim 审计：说明 `ARS_CLAIM_AUDIT=1`（非默认）开启 4→5 claim 审计，把论文里的 claim 与阶段 3 登记证据挂钩。
-- 2.5 integrity gate：初稿完成后跑 7 类 AI 失败模式自查（M1 实现 bug、M2 幻觉引用、M3 幻觉实验、M4 捷径、M5 bug 包装为发现、M6 方法伪造、M7 框架锁定）。
-- nature-skills 侧：
-  - `nature-polishing`（Stable）：**仅英文目标**——适用于英文摘要/外文综述，不直接适用于中文正文。
-  - `nature-writing`（Draft，成熟度注意）：按需选用，标注未在真实案例充分测试。
-  - `nature-proposal-writer` revise：可回头把偏离契约的章节重排。
-- 中文正文润色开放问题：两库均无中文母语级润色；给出可行组合（学校模板 + 人工 + 其他中文润色工具），并标注为「待学校确认的开放问题」。
-- 产出验收：逐章草稿 + 双语摘要 + 英文润色稿（如需要）+ 2.5 gate 验证报告。
-
-### 写作提示（供 chapter-writer）
-- 为什么用：阶段 4 是产出密度最高的阶段；gate 前置可省掉阶段 7/8 大返工。
-- 用什么：A1（定位与诚信立场）、A2（10 阶段状态机与 checkpoint）、A3（7 失败模式）、A4（模式注册）、A9/A10（触发实录）、N7（polishing 边界）。
-- 怎么触发：给 `ars-plan` 逐章起始指令；写作模式命令一律标注「惯例」；nature-polishing 给英文摘要触发语句。
-- 产出什么：初稿 + gate 报告 + 双语摘要。
-- 坑：中文正文润色无现成方案别硬套 nature-polishing；别让 AI 直接「代写」整章（诚信）；写作阶段就要挂引用占位（阶段 6 统一核验）；`ARS_CLAIM_AUDIT` 默认关，需显式开。
-- 贯穿提醒：AI 诚信与披露（本章最密：辅助不代写、机器腔检查目的、如实披露）；中文适配（正文语言与排版）；系统边界（不把阶段 3 未做之事写进论文）。
-
----
-
-## 第 8 章 阶段 5 图表：投稿级科研图与架构图的审计化生产
-
-> 篇幅：~900 字 ｜ 素材：N8、N1；A3；02§4 ｜ 代码示例：nature-figure 触发语句（契约先行 + 自动审计）、可选 GPT Image 2 概念草图
-
-### 本章定位
-- 产出软件毕设所需的图：系统架构图、ER/类图、流程图、对比实验图、机制图；以 nature-figure 为生产与审计主力，ARS 侧作 caption-图一致性兜底。
-
-### 建议正文结构
-- nature-figure（Stable）工作流：图件契约先行 → 多面板对齐门 → PDF 字号/碰撞自动审计（PyMuPDF）；输出 SVG/PDF/TIFF + 审计报告；可选 GPT Image 2 出概念草图。
-- 软件毕设常见图分类：哪些适合 nature-figure 管线（科研结果图、多面板对比），哪些仍用工程绘图工具（架构图/类图可入图件契约但模板需自建）。
-- 与阶段 3 产物的衔接：系统截图/测试数据如何在「不加工数据」前提下进入图件。
-- 中文适配点：图内中文与字体（CJK）在 PDF 审计中的处理；图注/分辨率按 Nature 契约裁剪到学校要求。
-- 产出验收：一批已审计图件（SVG/PDF/TIFF）+ 每图的审计报告。
-
-### 写作提示（供 chapter-writer）
-- 为什么用：图表在毕设评审中是「工作量证据」；自动审计把字号/清晰度问题前置。
-- 用什么：N8（nature-figure README）、A3（gate 矩阵中 caption-图一致相关 gate，作为 ARS 侧兜底）。
-- 怎么触发：给 nature-figure 的语义路由触发语句（先给图件契约再生成，再触发自动审计脚本）；说明依赖（Python/R、PyMuPDF）。
-- 产出什么：可插入论文的图 + 审计报告。
-- 坑：中文字体在 PDF 审计里可能缺字形；系统截图 ≠ 科研图，别把「界面截图」包装成「结果图」；图表诚信（不 PS 数据、不夸大）。
-- 贯穿提醒：中文适配（图内中文与字体）；系统边界/诚信（图为阶段 3 真实产物的可视化，阶段 7 会核对）。
+- **篇幅**：短-中（约 1200–1600 字）
+- **双库分工建议**：否（ARS 无对应 → 明确「答辩 PPT 只用 nature-skills」的边界）
+- **计划小节**：
+  - 10.1 nature-paper2ppt 定位：论文 → PPT 草稿；成熟度与输入输出格式确认（N-R、§五）
+  - 10.2 从草稿到汇报：按「1 页 1 要点」删减 + 写讲稿
+  - 10.3 软件类毕设答辩 PPT 结构：背景/问题 → 方案 → 实现亮点（配真实截图/图表）→ 实验 → 总结展望
+  - 10.4 复用：开题/中期/结题汇报走同一流程
+- **素材引用**：§3.1、§五 ｜ N-R、N-RE
+- **命令/代码示例**：有（nature-paper2ppt 触发示例）
+- **本章产物**：答辩 PPT 草稿 + 讲稿要点
+- **读者行动项/检查点**：
+  - [ ] 答辩前用导师/同学做一次模拟提问（可配合第 9 章审稿清单）
+  - [ ] 确认校方 PPT 模板与页数/时长限制
 
 ---
 
-## 第 9 章 阶段 6 引用与参考文献：核验链 + GB/T 7714 改造路径
+## 第三部分　合规与收尾：让论文「交得上去」
 
-> 篇幅：~1100 字 ｜ 素材：A7、A8、A5、A11；N9、N5、N11；02§3.3、02§5 ｜ 代码示例：/ars-citation-check（惯例，标注）、nature-ref-verifier 触发语句（含 CNKI 条目）
+### 第十一章：中文格式落地、GB/T 7714 与查重边界
 
-### 本章定位
-- 把阶段 1/4 攒下的引用做成「可信、格式合规」的参考文献表；本阶段是中文毕设适配的重灾区（GB/T 7714 全线缺失）。
-
-### 建议正文结构
-- ARS 引文能力现状：中文引文指南 = 台湾学术惯例 APA 7.0 繁体扩展（A7）；switcher 覆盖 APA 7 / Chicago(Notes) / Chicago(Author-Date) / MLA 9 / IEEE / Vancouver（A8）；**无 GB/T 7714**。
-- nature-skills 侧：
-  - `nature-ref-verifier`（Stable）：参考文献逐条多源交叉验证、字段级报告 + 严重度分级 + BibTeX/Zotero patch；**明确支持 CNKI 中文来源**——对中文毕设直接有用。
-  - `nature-academic-search`：提供 Nature/APA/IEEE/Vancouver 引文格式（无 GB/T 7714）。
-  - `nature-citation`（Beta）：只补 CNS 系支撑文献 → 软件/中文文献需另接 ARS 检索，勿误用。
-- GB/T 7714 改造路径（**推断建议，非现成能力，必须标注**）：仿 A7 在 ARS 新增 `gb7714_citation_guide.md`；在 switcher 加「→GB/T 7714」转换块；项目 CLAUDE.md 写 GB/T 7714 standing preference。最省力降级路线：先用现成 **IEEE**（同为顺序编号制，形态最近）再人工微调。
-- 社区信号：Issue #425（社区要求对齐中国高校 LaTeX 模板）佐证需求真实存在。
-- 防幻觉把关链：ref-verifier 字段核验 + academic-search 他引审计 + ARS citation 检查（惯例 `/ars-citation-check`）三段式。
-- 产出验收：全篇参考文献表 + 核验报告 + 需人工改 GB/T 7714 的差异清单。
-
-### 写作提示（供 chapter-writer）
-- 为什么用：中文毕设参考文献格式常是硬性扣分点，而两库默认都不支持国标，必须显式处理。
-- 用什么：A7/A8（中文引文现状与 switcher）、A5（standing preference 途径）、A11（社区佐证）、N9（CNKI 核验）、N5/N11（格式与边界）。
-- 怎么触发：nature-ref-verifier 语义路由触发语句（含一条 CNKI 中文条目样例）；ARS citation 命令标「惯例」。
-- 产出什么：可提交的参考文献表 + 核验 patch + 国标差异清单。
-- 坑：A8 文件头自述「5 formats」与矩阵 6 项不一致（引用时说明）；GB/T 7714 任何「自动输出」均为社区改造/推断，不是官方支持；引用幻觉仍属最高风险，需走完整把关链。
-- 贯穿提醒：中文适配/GB/T 7714（本章主提醒）；AI 诚信（引用必须真实存在、真实读过）。
-
----
-
-## 第 10 章 阶段 7 自查与审稿模拟：integrity gates + 双审稿人
-
-> 篇幅：~1800 字 ｜ 素材：A1、A2、A3、A4、A9；N10、N1；02§4、02§5 ｜ 代码示例：/ars-reviewer（实证）、/ars-rebuttal-audit（实证，预告阶段 8）、nature-reviewer 触发语句
-
-### 本章定位
-- 核心章。提交前的全面自查：ARS 2.5/4.5 integrity gates（不可跳过）+ `/ars-reviewer` 审稿模拟 + nature-reviewer 三份预投评审；产出可执行的 Revision Roadmap。
-
-### 建议正文结构
-- 自查编排顺序：4.5 gate（提交前强制）→ `/ars-reviewer` → nature-reviewer 交叉；说明 2.5/4.5 MANDATORY checkpoint 不能自动跳过。
-- ARS reviewer 机制：Sprint Contract（先盲承诺评分准则再评审）+ Devil's Advocate；让步须评分 ≥4/5；产出 reviewer reports。
-- 7 类 AI 失败模式在软件毕设中的具体化：M1 实现 bug、M2 幻觉引用、M3 幻觉实验、M4 捷径、M5 bug 包装为发现、M6 方法伪造、M7 框架锁定——逐一给「在毕设里长什么样」的自查问题（如「功能真实现？数据/截图真？文献真读？」）。
-- nature-reviewer（Draft）侧：三份互盲预投评审 + cross-review synthesis + Major/Minor/Blocking；注明维度是 Nature 口径，需换算成软件毕设自查清单。
-- 与阶段 3/6 联动：用 claim 登记清单与引用核验报告作为自查证据；缺证据的 claim 标 `[MATERIAL GAP]`。
-- 产出验收：Material Passport + 验证报告 + reviewer reports + Revision Roadmap。
-
-### 写作提示（供 chapter-writer）
-- 为什么用：查重/降重不是两库职责，但「真实现、真实验、真文献」是它们能兜底的；此阶段把「论文主张 vs 实际证据」对齐。
-- 用什么：A1/A2/A3（gates 与 7 模式）、A4（oversight 层级）、A9（reviewer 实录）、N10（nature-reviewer）。
-- 怎么触发：给 `/ars-reviewer` 起始指令；给 nature-reviewer 三份评审的语义路由触发语句。
-- 产出什么：自查报告四件套 + 修订路线图（给阶段 8）。
-- 坑：nature-reviewer 是 Draft（未在真实案例充分测试）；两库审稿口径不同（Nature 维度 vs 软件毕设清单）需人工换算；integrity gates 是质量把关不是掩盖 AI；此阶段不替代学校查重。
-- 贯穿提醒：AI 诚信（审稿防自我美化，如实回答「是否 AI 代做/代写」）；系统边界（自查「系统真跑通？」）；中文适配（自查清单中加 GB/T 7714 合规项）。
-
----
-
-## 第 11 章 阶段 8 返修与迭代：把导师意见当作 External Review
-
-> 篇幅：~700 字 ｜ 素材：A2、A9、A10；N1；02§4 ｜ 代码示例：/ars-rebuttal-audit（实证）、/ars-mark-read（实证）、nature-response 触发语句（可选）
-
-### 本章定位
-- 接收外部意见（导师/评阅人/自查发现的 Major/Minor）后，按「R-A-C 回复 → 修改 → 再审」循环收敛；ARS 全流程最多 2 轮完整修订，适合毕业季时间盒。
-
-### 建议正文结构
-- 把导师意见映射为 External Review：将意见拆成点对点条目；区分「事实/论证/格式」三类。
-- ARS revision 机制：R-A-C（Response / Action / Change）逐条回复 + re-review；`/ars-rebuttal-audit`（实证）审计 rebuttal 质量；`/ars-mark-read`（实证）管理已读状态、`/ars-cache-invalidate`（实证）清理缓存。
-- 断点续跑与状态复位：`resume_from_passport=<hash>`；`ARS_PASSPORT_RESET=1`。
-- nature 侧（可选）：`nature-response`（投稿返修回复，按需）。
-- 修改闭环：若返修暴露新实验/新实现缺口 → 回阶段 3/7 补证据，再回到本章。
-- 产出验收：Point-by-Point Response + Delta Report（改了什么、证据在哪）。
-
-### 写作提示（供 chapter-writer）
-- 为什么用：毕设返修常是「导师意见散、学生改得乱」；R-A-C 让每次修改可追踪。
-- 用什么：A2（最多 2 轮 + 断点续跑）、A9/A10（rebuttal-audit 等实证命令）、N1（nature-response 索引）。
-- 怎么触发：给出 `rebuttal-audit`、`mark-read`、`cache-invalidate` 的实证命令及用途表；revision 命令若写成 `/ars-revision` 须标「惯例」。
-- 产出什么：逐条回复 + 改动清单。
-- 坑：2 轮上限是时间盒策略，别无限返修；返修不得新增未做实验的 claim；rebuttal 语气是「回应审稿人」而非「辩解」。
-- 贯穿提醒：AI 诚信（返修是真实修改，不是让 AI 把意见「圆过去」）；中文适配（格式修改类意见归入 GB/T 7714 差异清单）。
-
----
-
-## 第 12 章 阶段 9+10 答辩汇报与格式提交：PPT、导出与披露
-
-> 篇幅：~1100 字 ｜ 素材：N13、N1；A5、A8、A2；02§4、02§6 ｜ 代码示例：nature-paper2ppt 触发语句（中文 PPTX）、nature-image2ppt、ARS format 模式（惯例，标注）、Pandoc/tectonic 导出命令
-
-### 本章定位
-- 两个收尾环节合并成「答辩与提交」冲刺章：答辩/组会材料（nature 独占）与终稿格式导出（ARS 为主 + 学校模板兜底）。
-
-### 建议正文结构
-- 答辩/组会 PPT（nature-skills 独占段）：`nature-paper2ppt`（Beta）把论文/毕设转成 10–16 页**中文** PPTX + speaker notes；`nature-image2ppt`（图→PPT）；按汇报时长裁剪页数。
-- 终稿格式导出（ARS 侧）：format 模式把 MD 转 DOCX（Pandoc）→ tectonic PDF（需 CJK 字体：Times New Roman / Source Han Serif TC / Courier New）；缺依赖自动降级 Markdown + 指引。
-- 学校模板为准：两库导出未必匹配学校 Word/PDF 模板 → 以学校模板/查重系统要求为最终准绳；Stage 3/3' 可当「投稿前预演」跑一遍。
-- AI 披露 bundle：随提交附 AI 使用披露材料（Material Passport / disclosure 摘要），与学校规范对齐。
-- 提交前 checklist：格式合规、引用格式终检、图表字体、查重前置、披露材料齐全。
-- 产出验收：答辩 PPT + speaker notes + 最终 .md/.docx/.pdf + 披露 bundle。
-
-### 写作提示（供 chapter-writer）
-- 为什么用：答辩 PPT 与导出是两库互补最直观的一段（nature 出图/PPT、ARS 出流程与导出），同时是 AI 披露的最后一关。
-- 用什么：N13（paper2ppt 中文）、N1（image2ppt 索引）、A5（Pandoc/tectonic + CJK）、A8（format switcher 背景）、A2（3/3' 预演）。
-- 怎么触发：nature-paper2ppt / nature-image2ppt 语义路由触发语句；format 导出命令若写成 `/ars-format-convert` 须标「惯例」。
-- 产出什么：可答辩材料 + 终稿文件集 + 披露材料。
-- 坑：PDF 需 CJK 字体否则中文乱码；PPT 页数要按答辩时限裁剪；学校模板优先于任何自动导出；披露不是「藏 AI」，是如实声明辅助范围。
-- 贯穿提醒：中文适配（学校模板、中文排版、GB/T 7714 终检）；AI 诚信（披露 bundle 本章主提醒）。
-
----
-
-## 第 13 章 收尾：三个贯穿主题 + 触发速查附录
-
-> 篇幅：~1000 字 ｜ 素材：02§5、02§7、02§8；A4、N1 ｜ 代码示例：附录速查表（实证 vs 惯例命令、nature 语义路由触发）
-
-### 本章定位
-- 把散落在各章的三个贯穿主题收拢成可决策的结论；给全篇最需要的两张速查表与素材索引；列出需用户/学校确认的开放问题。
-
-### 建议正文结构
-- 贯穿主题一：中文毕设 / GB/T 7714 适配——汇总各章适配点（开题报告、章节模板、中文正文润色开放问题、参考文献国标改造路径、PDF 中文字体、答辩 PPT 中文）；给出「IEEE 先行 vs 自建 gb7714 guide」的决策说明。
-- 贯穿主题二：系统开发边界——两库均不写代码/不跑实验/不证明系统跑通；给「开发线 × 学术线」的并行节奏图与 claim 登记习惯。
-- 贯穿主题三：AI 诚信与披露——两库官方「辅助不代写」立场；如何写学校要求的披露说明；引用/claim 双保险的最终责任在人。
-- 双库重叠功能选择决策表：写作 / 综述 / 审稿 / 引用四个重叠点「何时用 ARS、何时用 nature、何时都不用」。
-- 附录 A：ARS 命令速查——实证命令（/ars-plan、/ars-lit-review、/ars-reviewer、/ars-rebuttal-audit、/ars-mark-read、/ars-cache-invalidate，来源 A9/A10）与「惯例 /ars-<mode>」（对照 A4 27 模式）分列，禁止混标。
-- 附录 B：nature-* 技能触发速查——技能 / 成熟度（Stable/Beta/Draft）/ 语义路由触发语句 / Claude Code 接线方式 / 对应毕设阶段。
-- 附录 C：素材来源索引（A1–A11 / N1–N15 一句话说明）。
-- 开放问题清单（需用户/学校确认）：是否强制 GB/T 7714；学校对 AI 披露/比例要求；系统具体技术栈；中文润色工具选型；文献获取通道（CNKI/图书馆/CARSI）。
-
-### 写作提示（供 chapter-writer）
-- 为什么用：让读者合上指南后带走三张「可执行记忆」：决策表、命令速查、开放问题清单。
-- 用什么：02§5（矛盾与缺口，作为三个贯穿主题的论据池）、02§7（开放问题）、02§8（交接约定）、A4（模式注册）、N1（技能索引）。
-- 怎么触发：不触发新命令；只汇总速查。
-- 产出什么：三主题决策结论 + 附录速查 + 待办确认清单。
-- 坑：附录 A 不得把「惯例」命令写成实证；成熟度差异（Draft/Beta/Stable）要保留标注；开放问题不能替用户/学校做决定，只能给选项与默认建议。
-- 贯穿提醒：三个主题在此章全部正式收口。
+- **篇幅**：中-长（约 2000–2600 字）
+- **双库分工建议**：是（集中回答中文合规——两库默认流程均偏英文/APA，需外挂人工环节；明确查重两库都不管）
+- **计划小节**：
+  - 11.1 GB/T 7714-2015 要点：顺序编码制；学位论文 `[D]`；电子资源双标 `[J/OL]`/`[EB/OL]` + 引用日期与路径；DOI 著录项；作者 ≤3 全列、>3 前 3 +「等」（GB）
+  - 11.2 两库的格式缺口与补救：ARS 默认 APA 7.0 中文扩展、`citation_format_switcher` 无 GB/T 7714；nature-academic-search 同样无 → 外挂 EndNote/Zotero 官方 GB/T 7714 样式或校方 Word 模板（A-ZH、§四-1、GB）
+  - 11.3 中文 DOCX/PDF 转换：Pandoc `--pdf-engine=xelatex` + `CJKmainfont`/xeCJK（默认 pdflatex 不支持中文）；ARS 的 MD + DOCX + LaTeX(apa7) → tectonic 链路的中文注意点；禁用 HTML-to-PDF（PD、A-ZH）
+  - 11.4 AI 披露与合规：《AI 生成合成内容标识办法》(2025-09-01 施行) 概要；学生发布 AI 辅助论文内容应主动声明；按所在学校 AI 政策填写（CN-AI、§四-3）
+  - 11.5 查重/AIGC 检测边界：两库不做查重；integrity gates 不保证数据真实可复现；通用自查建议（阈值因校而异）（§3.6、§六-3）
+- **素材引用**：§3.5、§3.6、§3.7、§四(1)、§六(3) ｜ A-ZH、GB、CN-AI、PD
+- **命令/代码示例**：有（Pandoc xelatex 中文转换命令、字体/引擎设置片段）
+- **本章产物**：符合校方模板的最终 DOCX/PDF + GB/T 7714 参考文献表 + AI 使用声明
+- **读者行动项/检查点**：
+  - [ ] 用 Zotero/EndNote 官方 GB/T 7714 样式重新生成文献表，并人工抽查至少 5 条
+  - [ ] 提交前完成查重/自查，按学校模板填写 AI 披露表
 
 ---
 
 ## 学习路径说明
 
 ### 前置要求
-- 已定题（用户已满足）；会用 Claude Code（用户已满足）；本机可装 Claude Code 并有 `ANTHROPIC_API_KEY`。
-- 建议具备：Git Bash、真实 Python（`py -3` 可用）；可选 Pandoc / tectonic + CJK 字体用于导出；文献获取通道（CNKI/图书馆/CARSI）影响阶段 1 用法。
-- 阅读前先确认学校两条规范：参考文献是否强制 GB/T 7714；AI 辅助写作的披露/比例要求。
+- 已定毕设题目（本指南不负责选题生成，只帮收窄/开题）
+- 会基本使用 Claude Code；机器已装 Git 与真实 Python（非 Microsoft Store 占位符）
+- 已备 `ANTHROPIC_API_KEY`；可选依赖（Pandoc/tectonic、Git Bash）在做到第 11 章前补齐即可
+- 不需要预先熟悉 ARS 或 nature-skills——第 1、2 章会带你入门
 
 ### 学完能做什么
-- 按毕设 0–10 阶段，知道每一阶段该用 ARS 还是 nature-skills、怎么触发、产出什么、坑在哪。
-- 能独立走通：文献调研（阶段 1）→ 章节契约（阶段 2）→ 写作 + 2.5 gate（阶段 4）→ 引用核验与国标改造（阶段 6）→ 自查审稿（阶段 7）→ 返修（阶段 8）→ 答辩 PPT 与提交导出（阶段 9/10）。
-- 能正确管理预期：两库不写系统、不做中文母语润色、不自动输出 GB/T 7714、不代写；知道每条 AI 辅助产出的披露与验证责任在自己。
+- 拿到一张「毕设全流程 × 两库技能」的分工地图，随时知道当前阶段该触发哪个 skill/命令
+- 能在 Claude Code（Windows）中装好两库并验证可用，绕开常见踩坑
+- 能独立跑通：选题收窄 → 文献综述 → 大纲 → 初稿（过诚信闸门）→ 图表 → 引用自查双保险 → 模拟审稿 → 答辩 PPT
+- 能把产出收敛为符合校方模板的中文 DOCX/PDF，并产出 GB/T 7714 文献表与 AI 使用声明
+- 清楚两库的边界（不代写、不保证数据真实、不覆盖系统开发与查重），从而合规使用
 
 ### 建议学习顺序
-- 从头通读（1 → 13）约 2–3 小时；时间紧则：第 1 章必读 → 第 2 章装好环境 → 跳到当前阶段章（现在为第 4 章）实操 → 后续按阶段推进，遇到自查/返修/导出再回看第 10–12 章。
-- 每完成一个阶段章，回到第 13 章附录 A/B 核对命令与技能，再进入下一阶段章。
+- **第 1 遍（读图）**：第 1 章 + 每章开头的「分工建议」和「检查点」，建立全流程地图（约 1–2 天）
+- **第 2 遍（随做随查，推荐）**：从自己当前阶段（如文献调研）切入对应章节实操，按「本章产物 + 检查点」验收后再进下一阶段（每章约 1–3 天）
+- **第 3 遍（收尾）**：写作后期集中读第 6、8、11 章，把格式/引用/AI 披露一次补齐
+- 顺序提示：第 1→2 章应最优先（工具底座）；第 3→10 章可按毕设实际进度跳跃；第 11 章内容建议在首次出现引用时就扫读 11.1/11.2，最终提交前精读全章
 
 ---
 
-## 大纲统计
+## 待用户确认 / 已知素材缺口
 
-- 一级章总数：13（第 1–13 章；另有一个非正文「阅读约定」块，不计入）
-- 预估总字数：约 1.46 万字（各章 ~700–1800 字，合计落在 1.4–1.6 万区间）
-- 是否按十阶段主轴推进：是（0–10 阶段顺序展开；其中阶段 9+10 合并为第 12 章「答辩与提交」，仍沿主轴推进）
+1. 第 10 章「答辩材料」位于第 11 章「格式合规」之前：若你希望「查重/格式」先于「答辩 PPT」，可交换两章顺序。
+2. nature-skills 在 Claude Code 下的 wrapper 写法缺第三方实测：第 2 章将以「官方推荐 + 需实机验证」措辞呈现，建议写作阶段结束后由你实机跑一遍。
+3. 目标院校的学位论文 Word/LaTeX 模板与 AI 披露表尚未提供：第 11 章先给通用步骤，精确适配需你提供校名/模板。
+4. 总篇幅约 2.0–2.5 万字：若偏长可把第 6、11 章拆为两章，或压缩第 1 章 1.7 节等可略读内容。
+5. ARS 默认输出繁体中文：本指南按「简体中文毕设」处理，若你学校要求繁体或中英双语摘要请指出。
