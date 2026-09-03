@@ -10,7 +10,7 @@ topic: 如何用uv配置python虚拟环境
 project_slug: uv-python-virtualenv
 created_at: 2026-09-03
 last_updated: "2026-09-03"
-current_phase: P5
+current_phase: P6
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：uv-python-virtualenv
 > 项目标识：uv-python-virtualenv
 > 创建时间：2026-09-03
-> 当前阶段：阶段 5
+> 当前阶段：阶段 6
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -107,7 +107,7 @@ blocked_reason: ""
 - [x] 引用已检查（20 条脚注去重合并至 `## 参考来源`，无冲突）
 - [x] 完整笔记已保存：`./output/final_note.md`（约 800 行 / 34KB）
 
-> [P5] 🔲 进行中 {in_progress}
+> [P5] ✅ 已完成 {complete}
 
 ---
 
@@ -117,7 +117,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] 🔲 进行中 {in_progress}
 
 ---
 
