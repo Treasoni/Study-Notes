@@ -798,6 +798,12 @@ jobs:
 
 ---
 
+## 相关笔记
+
+- [[Python MOC]] — Python 学习笔记索引地图
+
+---
+
 ## 参考来源
 
 [^c1-a1]: uv Overview（官方文档，定位 / 四接口 / 概数出处）— <https://docs.astral.sh/uv/>

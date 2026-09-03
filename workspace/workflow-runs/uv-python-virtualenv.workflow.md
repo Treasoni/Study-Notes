@@ -10,8 +10,8 @@ topic: 如何用uv配置python虚拟环境
 project_slug: uv-python-virtualenv
 created_at: 2026-09-03
 last_updated: "2026-09-03"
-current_phase: P6
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -19,6 +19,7 @@ mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
 mode_change_phase: "P2"
 blocked_reason: ""
+quality_gate: passed
 ---
 
 # 学习笔记工作流 - 执行检查清单
@@ -28,7 +29,7 @@ blocked_reason: ""
 > 运行标识：uv-python-virtualenv
 > 项目标识：uv-python-virtualenv
 > 创建时间：2026-09-03
-> 当前阶段：阶段 6
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -112,22 +113,22 @@ blocked_reason: ""
 ---
 
 ## 阶段 6：Obsidian 美化与发布
-- [ ] 已读取 Obsidian 输出规则
-- [ ] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
-- [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
-- [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
+- [x] 已读取 Obsidian 输出规则（note-system.md / note-beautifier SKILL）
+- [x] 用户已确认最终保存位置（AskUserQuestion：发布+同步 MOC；vault `D:\Study-Notes`，note_folder `python/`）
+- [x] frontmatter、标签、Callout、双链已按 Obsidian 规则处理（补 frontmatter 与 `[[Python MOC]]` 相关双链）
+- [x] 最终 Markdown 已保存到 `python/如何用uv配置Python虚拟环境.md`（48773+ 字节，代码围栏平衡、脚注 20 条归拢）
 
-> [P6] 🔲 进行中 {in_progress}
+> [P6] ✅ 已完成 {complete}
 
 ---
 
 ## 阶段 7：MOC 同步
-- [ ] 已定位或创建 MOC 文件
-- [ ] 新笔记双链已加入 MOC
-- [ ] 已去重并更新摘要/标签
-- [ ] MOC 只保留索引，不复制正文
+- [x] 已定位或创建 MOC 文件（新建 `python/Python MOC.md`）
+- [x] 新笔记双链已加入 MOC（`[[如何用uv配置Python虚拟环境]]` 一条索引项）
+- [x] 已去重并更新摘要/标签（python/uv/学习笔记；无重复项）
+- [x] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -140,6 +141,9 @@ blocked_reason: ""
 | P2 | 用户确认 P2 素材质量，选择大纲模式进入 P3 | 2026-09-03 |
 | P3 | 用户确认 7 章大纲，进入逐章写作 | 2026-09-03 |
 | P4 | 用户指令「全部写完」：跳过逐章确认，第 1–7 章一次性全部写完 | 2026-09-03 |
+| P5 | 用户确认组装结果并选择「确认，发布+同步MOC」 | 2026-09-03 |
+| P6 | 用户确认 Obsidian 美化发布至 `python/`（含 frontmatter、标签、相关双链） | 2026-09-03 |
+| P7 | 用户确认同步 MOC；已创建 `python/Python MOC.md` 索引 | 2026-09-03 |
 
 ---
 
@@ -170,9 +174,9 @@ blocked_reason: ""
 ## 最终产出
 
 - **笔记类型**：概念+实战结合
-- **总字数**：
-- **章节数**：
+- **总字数**：约 8000 字（正文；全文字节 ~49KB）
+- **章节数**：7
 - **输出格式**：Obsidian Markdown
-- **文件路径**：
+- **文件路径**：`python/如何用uv配置Python虚拟环境.md`
 - **Obsidian Vault**：D:\Study-Notes
-- **MOC 路径**：python/Python MOC.md（已确认）
+- **MOC 路径**：python/Python MOC.md（已创建）
