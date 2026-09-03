@@ -10,8 +10,8 @@ topic: "使用 academic-research-skills + nature-skills 两个开源项目完成
 project_slug: "academic-research-skills-graduation-guide"
 created_at: "2026-09-03"
 last_updated: "2026-09-03"
-current_phase: P7
-current_status: ready
+current_phase: done
+current_status: complete
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：academic-research-skills-graduation-guide
 > 项目标识：academic-research-skills-graduation-guide
 > 创建时间：2026-09-03
-> 当前阶段：阶段 7
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -123,7 +123,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ⏭️ 跳过 {skipped}
 
 ---
 
@@ -144,7 +144,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 原因 | 时间 |
 |------|----------|------|------|
-| | | | |
+| P7 | 用户选择跳过 MOC 同步 | 指南独立成册，「相关笔记」已含双链，无需建 MOC | 2026-09-03 |
 
 ---
 
@@ -152,6 +152,7 @@ blocked_reason: ""
 
 | 时间 | 阶段 | 问题描述 | 处理方式 |
 |------|------|---------|---------|
+| 2026-09-03 23:35 | P7 | 跳过阶段：用户选择跳过 MOC 同步（指南独立成册，相关笔记已含双链） | 继续推进到下一未完成阶段 |
 | 2026-09-03 | P4 | chapters/ 出现两套并存章节：旧大纲描述式（01_双库全景…07_科研图表，7 份）vs 权威 13 章阶段式（01_开篇…13_收尾）；03_outline.md 当前权威结构为 13 章 | 以 13 章阶段式为准进入组装；7 份旧稿移入 chapters/_superseded_旧大纲_描述式备份/，未删除 |
 
 ---
@@ -172,4 +173,4 @@ blocked_reason: ""
 - **输出格式**：Obsidian Markdown（YAML frontmatter + Callout + 双链目录 + 代码块语言标识）
 - **文件路径**：`毕业设计/用 academic-research-skills + nature-skills 完成软件类毕业设计（组合实操指南）.md`（vault 根，已发布）
 - **Obsidian Vault**：D:\Study-Notes
-- **MOC 路径**：待定（见 P7）
+- **MOC 路径**：P7 已跳过（未建 MOC；笔记自带「相关笔记」双链索引）
