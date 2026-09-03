@@ -10,7 +10,7 @@ topic: 如何用uv配置python虚拟环境
 project_slug: uv-python-virtualenv
 created_at: 2026-09-03
 last_updated: "2026-09-03"
-current_phase: P3
+current_phase: P4
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：uv-python-virtualenv
 > 项目标识：uv-python-virtualenv
 > 创建时间：2026-09-03
-> 当前阶段：阶段 3
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -79,7 +79,7 @@ blocked_reason: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中 {in_progress}
+> [P3] ✅ 已完成 {complete}
 
 ---
 
@@ -89,9 +89,9 @@ blocked_reason: ""
 - [ ] 第 3 章已写完并确认
 - [ ] ...（根据实际章节数添加）
 
-**进度**：0/待大纲确定
+**进度**：0/7
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中 {in_progress}
 
 ---
 
@@ -135,6 +135,7 @@ blocked_reason: ""
 | P0 | 用户确认意图文件与研究计划；发布位置：Vault python/ + 新建 Python MOC | 2026-09-03 |
 | P1 | 用户选择 P2 方向：A+B 为主（概念定位 + 上手实操），C 简述 | 2026-09-03 |
 | P2 | 用户确认 P2 素材质量，选择大纲模式进入 P3 | 2026-09-03 |
+| P3 | 用户确认 7 章大纲，进入逐章写作 | 2026-09-03 |
 
 ---
 
