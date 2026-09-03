@@ -11,7 +11,7 @@ project_slug: uv-python-virtualenv
 created_at: 2026-09-03
 last_updated: "2026-09-03"
 current_phase: P3
-current_status: ready
+current_status: in_progress
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -79,7 +79,7 @@ blocked_reason: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] ⬜ 未开始
+> [P3] 🔲 进行中 {in_progress}
 
 ---
 
@@ -134,6 +134,7 @@ blocked_reason: ""
 |------|----------|------|
 | P0 | 用户确认意图文件与研究计划；发布位置：Vault python/ + 新建 Python MOC | 2026-09-03 |
 | P1 | 用户选择 P2 方向：A+B 为主（概念定位 + 上手实操），C 简述 | 2026-09-03 |
+| P2 | 用户确认 P2 素材质量，选择大纲模式进入 P3 | 2026-09-03 |
 
 ---
 
