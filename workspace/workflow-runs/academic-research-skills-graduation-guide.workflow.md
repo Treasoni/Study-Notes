@@ -10,8 +10,8 @@ topic: "使用 academic-research-skills + nature-skills 两个开源项目完成
 project_slug: "academic-research-skills-graduation-guide"
 created_at: "2026-09-03"
 last_updated: "2026-09-03"
-current_phase: P6
-current_status: in_progress
+current_phase: P7
+current_status: ready
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：academic-research-skills-graduation-guide
 > 项目标识：academic-research-skills-graduation-guide
 > 创建时间：2026-09-03
-> 当前阶段：阶段 6
+> 当前阶段：阶段 7
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -113,7 +113,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] 🔲 进行中 {in_progress}
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -135,6 +135,8 @@ blocked_reason: ""
 | P1 | 用户确认 P1 素材质量，选择方向 A（按毕设阶段混排双库），进入 P2 | 2026-09-03 |
 | P3 | 用户确认大纲（13 章结构），批准一次性完成 P4 逐章写作 | 2026-09-03 |
 | P4 | 用户「全部写完」；13 章 + 学习路径说明全部落盘，进入 P5 | 2026-09-03 |
+| P5 | 用户选定 13 章权威稿进入组装，批准组装稿直接进入 P6 美化发布 | 2026-09-03 |
+| P6 | 用户确认发布位置：新建 vault 顶层目录「毕业设计/」 | 2026-09-03 |
 
 ---
 
@@ -164,10 +166,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战笔记（双库组合实操指南，按毕设阶段 0–10 混排、互补不设主次）
+- **总字数**：约 2.39 万汉字（全文约 5.0 万非空白字符，含英文/命令/代码/表格）
+- **章节数**：13 章 + 学习路径说明 + 相关笔记附录
+- **输出格式**：Obsidian Markdown（YAML frontmatter + Callout + 双链目录 + 代码块语言标识）
+- **文件路径**：`毕业设计/用 academic-research-skills + nature-skills 完成软件类毕业设计（组合实操指南）.md`（vault 根，已发布）
+- **Obsidian Vault**：D:\Study-Notes
+- **MOC 路径**：待定（见 P7）
