@@ -27,9 +27,9 @@
 
 ## 6.2 Cloudflare Tunnel
 
-### 原理与前提
+这一节的目标很单一：**把内网服务映射成一个公网 HTTPS 主机名，但内网机器一个入站端口都不开**。
 
-Cloudflare Tunnel 的核心是一个叫 `cloudflared` 的小进程，装在你的内网机器上。它**主动出站**连接到 Cloudflare 边缘并维持一条加密长连接；你在 Cloudflare 侧把某个公网主机名（如 `app.example.com`）「路由」到这条隧道上。访客请求先落到 Cloudflare 边缘，边缘把请求交给隧道，`cloudflared` 再转给你内网的 HTTP/TCP/SSH 服务[^c6-1]。
+**原理与前提。** Cloudflare Tunnel 的核心是一个叫 `cloudflared` 的小进程，装在你的内网机器上。它**主动出站**连接到 Cloudflare 边缘并维持一条加密长连接；你在 Cloudflare 侧把某个公网主机名（如 `app.example.com`）「路由」到这条隧道上。访客请求先落到 Cloudflare 边缘，边缘把请求交给隧道，`cloudflared` 再转给你内网的 HTTP/TCP/SSH 服务[^c6-1]。
 
 关键点：
 
@@ -42,9 +42,7 @@ Cloudflare Tunnel 的核心是一个叫 `cloudflared` 的小进程，装在你�
 > 把 `cloudflared` 想成一位「住你家、每天主动出门到全球网点报到」的管家。访客不需要知道你家门牌号（公网 IP），只要去网点（CF 边缘）说「我要找 app.example.com」，网点就喊管家从后门把人领进来。你家甚至可以没有门牌号（无公网 IP），只要管家能出门（能出站联网）就行。
 > 所以 Tunnel 的实质收益是：**内网设备对公网零入站可达**，攻击面被收窄到你主动选择暴露的那几个公网主机名上。
 
-### 最小接入配置
-
-下面是官方 quickstart 的最小操作序列。命令以 `cloudflared tunnel --help` 与你安装版本为准，这里按 C2 描述的行为模型组织，不逐条复刻官方原文。
+**最小接入配置。** 下面是官方 quickstart 的最小操作序列。命令以 `cloudflared tunnel --help` 与你安装版本为准，这里按 C2 描述的行为模型组织，不逐条复刻官方原文。
 
 先做一次性授权并创建隧道：
 
@@ -116,9 +114,7 @@ Cloudflare Tunnel 的代价是「域名要托管到 CF」。如果你已经有�
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
-### frps 端配置
-
-在 VPS 上跑 frp 服务端。**先睹为快**：
+**frps 端配置。** 在 VPS 上跑 frp 服务端。**先睹为快**：
 
 ```toml
 # /etc/frp/frps.toml
@@ -131,9 +127,7 @@ vhostHTTPPort = 8080   # 关键：虚拟主机 HTTP 入口，按 Host 头路由�
 - `bindPort`：`frpc` 主动连上来的控制端口，也是两者维持长连接的端口；
 - `vhostHTTPPort`：**本章的关键参数**——frp 在这里开一个「虚拟主机」HTTP 入口，所有走这个端口的请求按 Host 头分发给不同的 `frpc`。一个端口就能服务多个域名的内网服务[^c6-3]。
 
-### frpc 端配置
-
-在内网机器上跑 frp 客户端。**先睹为快**：
+**frpc 端配置。** 在内网机器上跑 frp 客户端。**先睹为快**：
 
 ```toml
 # frpc.toml
@@ -159,9 +153,7 @@ customDomains = ["app.edge.example.com"]  # 访客带这个 Host 访问 vhostHTT
 > [!tip] 大白话：vhostHTTPPort 像公寓前台
 > frps 的 `vhostHTTPPort` 就像一栋只有一个大门的公寓前台。访客进门喊一句「我找 myapp」（Host 头），前台看一眼名单（customDomains）就把他领到对应房间（某条 frpc 隧道）。所以**一个端口能同时服务很多个不同域名的内网服务**，前提是每个 frpc 都声明自己认领哪个域名。
 
-### Caddy：TLS 终止
-
-**先睹为快**（单服务最小版）：
+**Caddy 端：TLS 终止与反代。** 单服务最小版完整文件先睹为快：
 
 ```caddyfile
 # /etc/caddy/Caddyfile
@@ -187,9 +179,7 @@ app.edge.example.com {
 > [!tip] 大白话：TLS 终止的分工
 > 把 Caddy 想成大厦门口的**安检门卫**，frps 是里面的**前台**。门卫负责「验明正身、拆开加密包裹」（TLS 终止），前台只管按收件人名字把包裹送到对应房间。frp 这个前台**不会拆包裹**——如果你直接让它收 HTTPS 包裹，它只认「包裹本来就是拆好的」（源站已是 HTTPS），否则就要在源站侧加个能拆包裹的插件（https2http）。
 
-### 多子域升级：通配证书 + DNS-01
-
-上面的单服务写法每加一个子域就要在 Caddyfile 加一段。要服务一堆子域（`app.edge`、`blog.edge`、`api.edge`……），更省事的是让 Caddy 持一张 `*.edge.example.com` 通配证书[^c6-4]。**先睹为快**：
+**多子域升级：通配证书 + DNS-01。** 上面的单服务写法每加一个子域就要在 Caddyfile 加一段。要服务一堆子域（`app.edge`、`blog.edge`、`api.edge`……），更省事的是让 Caddy 持一张 `*.edge.example.com` 通配证书[^c6-4]。完整文件先睹为快：
 
 ```caddyfile
 # /etc/caddy/Caddyfile —— 通配升级版
@@ -247,15 +237,13 @@ Funnel 的硬边界（务必记牢）：
 
 ## 6.5 选型与边界提醒
 
-### 怎么选
-
-按三步决策，不用纠结：
+**怎么选。** 按三步决策，不用纠结：
 
 1. **没有域名、只想临时开个公网 URL**（给同事看 demo、自己在外网访问家里工具）→ **Tailscale Funnel**；
 2. **有域名，愿意把解析托管到 Cloudflare**，想要零入站 + 自带 CDN/WAF，不想养 VPS → **Cloudflare Tunnel**；
 3. **有域名也有 VPS**，想把 DNS、证书、服务控制面都留在自己手里、长期跑多个子域 → **frp + Caddy**。
 
-### 三条边界提醒
+**三条边界提醒。**
 
 - **把「功能承诺」和「大陆现实」分开看。** Cloudflare Tunnel 官方承诺的是「出站-only 接入、无需公网 IP/入站端口、CDN/WAF/DDoS 自动生效」[^c6-1]；但这不等于「大陆访问快」，也不等于「免备案」。大陆访问质量是社区经验层面的事[^c6-6]，合规判定看的是**源站物理位置**，套隧道/套 CF 都改变不了这个判定——完整合规速查放第 7 章。**别因为用了 Tunnel 就默认「大陆快 + 免备案」。**
 - **frp 组合里，证书职责在 Caddy，不在 frps。** frps 只做明文 HTTP 的按 Host 路由；对外 HTTPS 由 Caddy 终结，或源站自已是 HTTPS，或用 `https2http` 插件[^c6-3][^c6-4]。测试证书签发先走 LE staging，防封禁[^c6-5]。
@@ -263,7 +251,7 @@ Funnel 的硬边界（务必记牢）：
 
 最后一条通用提醒：三条隧道本质上都是**把内网服务反向暴露到公网**，暴露面仍然在你映射出去的那个服务上。别因为「用了隧道」就觉得内网是安全的——内网服务该有的认证、补丁、最小暴露一样都别省；只映射你确实要给别人用的端口和服务。
 
-### 本章小结
+## 本章小结与下一章预告
 
 - 没有公网 IP 的通用思路是**出站隧道**：内网设备主动连一个公网可达的中间方，访客只访问中间方；
 - **Cloudflare Tunnel**：`cloudflared` 出站-only 连 CF 边缘，零入站端口，域名须托管在 CF，CDN/WAF/DDoS 自动生效[^c6-1]；

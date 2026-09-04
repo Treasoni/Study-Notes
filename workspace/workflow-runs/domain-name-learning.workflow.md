@@ -10,8 +10,8 @@ topic: "域名相关的学习"
 project_slug: "domain-name-learning"
 created_at: "2026-09-04"
 last_updated: "2026-09-04"
-current_phase: P4
-current_status: in_progress
+current_phase: P5
+current_status: ready
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：domain-name-learning
 > 项目标识：domain-name-learning
 > 创建时间：2026-09-04
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -91,7 +91,7 @@ blocked_reason: ""
 
 **进度**：0/待大纲确定
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
