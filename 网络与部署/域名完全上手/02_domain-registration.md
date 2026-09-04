@@ -1,3 +1,19 @@
+---
+title: "第2章 域名选购与注册——后缀怎么选、钱花在哪"
+tags:
+  - 学习
+  - 网络
+  - 注册
+  - 域名
+created: 2026-09-04
+updated: 2026-09-04
+status: 已完成
+source_project: domain-name-learning
+---
+
+> [!abstract] 本章导航
+> [[01_dns-principles|← 第1章 域名与 DNS 原理]]  ·  [[域名完全上手|📖 返回目录]]  ·  [[03_icp-filing|第3章 实名与 ICP 备案 →]]
+
 # 第2章 域名选购与注册——后缀怎么选、钱花在哪
 
 第1章让你看懂域名怎么工作、一次解析怎么走完全程。这一章回到最实际的第一个决定：后缀（TLD）选什么、钱到底花在哪。核心是拆穿「首年超低价」的话术——域名是按年续费的长生意，真正的价格锚点是**续费价**，不是广告里那个醒目的首年数字。
@@ -71,3 +87,6 @@
 [^c2-3]: 阿里云官方文档（抓取 2026-09-04）：《ICP备案·域名核验要求》，https://help.aliyun.com/zh/icp-filing/basic-icp-service/user-guide/prepare-and-check-the-domain-name
 [^c2-4]: DNSPod 官方文档（2025-12）：《添加子域名解析 / NS 委派》，https://cloud.tencent.cn/document/product/302/105665
 [^c2-5]: 阿里云官方文档（抓取 2026-09-04）：《DNS 基本概念》，https://help.aliyun.com/zh/dns/basic-concepts-dns2-0
+---
+
+[[01_dns-principles|← 第1章 域名与 DNS 原理]]  ·  [[域名完全上手|返回目录]]  ·  [[03_icp-filing|第3章 实名与 ICP 备案 →]]

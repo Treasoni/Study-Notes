@@ -1,3 +1,19 @@
+---
+title: "第4章 解析托管、NS 委派与域名安全"
+tags:
+  - 学习
+  - 网络
+  - DNS
+  - 域名安全
+created: 2026-09-04
+updated: 2026-09-04
+status: 已完成
+source_project: domain-name-learning
+---
+
+> [!abstract] 本章导航
+> [[03_icp-filing|← 第3章 实名与 ICP 备案]]  ·  [[域名完全上手|📖 返回目录]]  ·  [[05_https-reverse-proxy|第5章 HTTPS 反代实战 →]]
+
 # 第4章 解析托管、NS 委派与域名安全
 
 域名合法归你、也过了实名/备案关之后，距离"能用"还差两件事：解析放在哪家管，以及万一被盗或被转走怎么办。本章解决三个问题：怎样把解析托管到更顺手的服务商、改动解析后怎么确认"真的生效了"，以及如何给域名上到安全基线。这三件事的共同前提，是把「注册」和「解析」先拆开看。
@@ -154,3 +170,6 @@ nslookup -type=NS example.com   # 看 NS 集合
 [^c4-5]: Cloudflare，《DNSSEC》，https://developers.cloudflare.com/dns/dnssec/
 [^c4-6]: 阿里云，《域名安全最佳实践》，https://help.aliyun.com/zh/dws/user-guide/domain-name-security1
 [^c4-7]: 聚名网资讯附注（2FA 与转移二次验证提示，社区来源，未经官方原文复核），https://www.jm.cn/zx/30459.html
+---
+
+[[03_icp-filing|← 第3章 实名与 ICP 备案]]  ·  [[域名完全上手|返回目录]]  ·  [[05_https-reverse-proxy|第5章 HTTPS 反代实战 →]]

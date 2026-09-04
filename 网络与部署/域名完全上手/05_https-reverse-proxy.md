@@ -1,3 +1,19 @@
+---
+title: "第5章 把域名接上 HTTPS——Caddy 与 Nginx+certbot 反向代理实战"
+tags:
+  - 学习
+  - 网络
+  - HTTPS
+  - 反向代理
+created: 2026-09-04
+updated: 2026-09-04
+status: 已完成
+source_project: domain-name-learning
+---
+
+> [!abstract] 本章导航
+> [[04_dns-hosting-security|← 第4章 解析托管与域名安全]]  ·  [[域名完全上手|📖 返回目录]]  ·  [[06_no-public-ip|第6章 无公网 IP 接入 →]]
+
 # 第5章 把域名接上 HTTPS——Caddy 与 Nginx+certbot 反向代理实战
 
 域名已经解析到服务器（第 4 章收尾的地方），但浏览器地址栏还挂着「不安全」。本章解决最后一公里：让自有域名以 HTTPS 提供服务，并让证书自己续期，不再手动折腾。按「场景判断 → 证书签发原理 → Caddy 极简落地 → 通配与测试 → Nginx+certbot → 续期」推进；前提是你有一台**有公网 IP** 的服务器、一个 A 记录已指向它的域名，以及一点 Nginx/Docker 反向代理基础。
@@ -138,3 +154,6 @@ sudo certbot renew --deploy-hook "nginx -s reload"
 [^c5-1]: Caddy — Automatic HTTPS（官方文档）：https://caddyserver.com/docs/automatic-https
 [^c5-2]: Certbot User Guide（官方文档）：https://eff-certbot.readthedocs.io/en/stable/using.html
 [^c5-3]: certbot.eff.org 指令页（官方）：https://certbot.eff.org/instructions
+---
+
+[[04_dns-hosting-security|← 第4章 解析托管与域名安全]]  ·  [[域名完全上手|返回目录]]  ·  [[06_no-public-ip|第6章 无公网 IP 接入 →]]

@@ -1,0 +1,50 @@
+# 域名完全上手：DNS 原理、注册备案与 HTTPS 实战接入
+
+> 概念 + 实战混合，入门 → 上手可用。全书七章独立成册，可顺序通读，也可按需挑读。
+
+> [!summary]
+> 一套讲透「域名」的入门到实战笔记：看懂 DNS 解析链与 TTL，避开续费/备案/安全大坑，并把自有域名以 HTTPS 接到自建服务——覆盖有公网 IP（Caddy / Nginx+certbot）与无公网 IP（Cloudflare Tunnel / frp+Caddy / Tailscale Funnel）两条路。
+
+## 本分册内容（7 章）
+
+1. [[01_dns-principles|第1章 域名与 DNS 原理]]：层级、解析链、TTL、记录类型与 `dig` 排障（长）
+2. [[02_domain-registration|第2章 域名选购与注册]]：续费陷阱、注册商职责、大陆后缀红线（短）
+3. [[03_icp-filing|第3章 实名与 ICP 备案]]：备案判定、实名、流程与免备案误区（中）
+4. [[04_dns-hosting-security|第4章 解析托管、NS 委派与域名安全]]：切 NS、排障、转移与安全基线（中）
+5. [[05_https-reverse-proxy|第5章 把域名接上 HTTPS]]：Caddy 与 Nginx+certbot 签发与续期（中）
+6. [[06_no-public-ip|第6章 没有公网 IP 也能用域名]]：CF Tunnel / frp+Caddy / Tailscale Funnel 三方案（长）
+7. [[07_compliance-checklist|第7章 大陆合规速查与 0→1 上线]]：合规决策、两种「打不开」、串联清单（短）
+
+## 前置要求
+
+- 会用 Docker / Nginx / 反向代理 / 内网穿透（第 5、6 章直接复用）；域名/DNS 术语零基础即可。
+- 动手需一台能跑服务的机器（VPS/Docker）与一个域名；大陆路径需备身份证/营业执照。
+- 本机装有 `dig`/`nslookup`；可选 `cloudflared`/`frp`/`tailscale`。
+
+## 学完能做什么
+
+- 讲清 DNS 完整解析链，读 `dig` 输出，独立排查「改了解析为何不生效」。
+- 避开续费陷阱选对域名，完成注册与实名。
+- 判断自己的部署要不要 ICP 备案，走通或绕开大陆备案路径。
+- 把解析托管到 Cloudflare/DNSPod、做子域 NS 委派，并按基线加固域名安全。
+- 用 Caddy 或 Nginx+certbot 一键上 HTTPS 并处理自动续期。
+- 无公网 IP 时用 Cloudflare Tunnel / frp+Caddy / Tailscale Funnel 暴露服务。
+- 上线前对照合规速查表自查，避开「套 CF 免备案」类红线误区。
+
+## 建议学习顺序
+
+- **标准顺序**：第 1 → 2 → 3 → 4 → 5 → 6 → 7 章；第 1 章是地基，第 5 章是第 6 章 frp+Caddy 的前置。
+- **有网络基础想快上手**：第 1 章只精读 1.4/1.5/1.6，速读或跳过 1.1–1.3。
+- **只做境外/海外项目**：第 3 章速读（重点 3.1 判定 + 3.5 对照）。
+- **没有公网 IP**：第 5 章学 5.2/5.3 即可进入第 6 章，certbot 细节（5.5/5.6）按需回补。
+- **时间预估**（不含备案/解析等待）：第 1 章≈2h、2≈30min、3≈1h、4≈1h、5≈1–1.5h、6≈1.5–2h、7≈30min，合计约 7.5–9.5h。
+
+## 章节间导航说明
+
+各章顶部/底部将在后续处理中统一加入「← 上一章 | 返回目录 | 下一章 →」导航；此处不再重复。
+
+## 参考资料与延伸阅读
+
+- 主源：Cloudflare Learning（DNS/记录/Tunnel）、阿里云 DNS 与 ICP 备案文档、腾讯云实名、Caddy 自动 HTTPS、certbot 文档、frp 官方示例、Tailscale Funnel、Red Hat dig 排障、ICANN IDN（各章脚注逐条给出）。
+- 价格与社区经验仅作量级参考：聚名/新网资讯、V2EX、LINUX DO。
+- 开放问题：Punycode 同形攻击；大陆注册局 DNSSEC 支持范围；CF Tunnel / Funnel 未披露额度；LE 证书有效期策略演进。
