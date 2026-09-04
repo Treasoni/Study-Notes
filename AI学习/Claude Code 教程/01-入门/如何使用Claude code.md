@@ -141,6 +141,89 @@ curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del in
 | **Node.js** | 仅 npm 方式需要 **22+**（v2.1.198 起），**原生安装器不需要** |
 | **RAM** | 最低 4GB，推荐 8GB |
 
+#### 安装 Git
+
+Git 是 Claude Code 做版本控制（`/commit`、`/diff`、回滚）和 Subagent worktree 的底层依赖，三种主流平台装法如下。
+
+**Windows**
+
+| 方式 | 操作 |
+|------|------|
+| WinGet（推荐） | `winget install Git.Git` |
+| 官方安装包 | [git-scm.com](https://git-scm.com/download/win) 下载 `.exe`，一路 Next 即可 |
+| 国内加速 | 官方下载慢时用 npmmirror / 清华 TUNA 的 `git-for-windows` 镜像，或开代理直连 |
+
+**macOS**
+
+```bash
+xcode-select --install   # 安装 Xcode Command Line Tools，自带 Git（推荐）
+# 已装 Homebrew 的话也可以：
+brew install git
+```
+
+**Linux**
+
+```bash
+# Debian / Ubuntu
+sudo apt update && sudo apt install -y git
+# Fedora / RHEL
+sudo dnf install -y git
+```
+
+**装完验证 + 首次配置**
+
+```bash
+git --version                                   # 验证安装
+git config --global user.name "你的名字"         # Claude Code 提交署名
+git config --global user.email "you@example.com"
+```
+
+> [!warning] 不配 user.name / user.email 会报错
+> Claude Code 的 git 操作依赖这两个全局配置；缺失时提交会提示 `Please tell me who you are`，配置完即可恢复。
+
+#### 安装 Node.js（仅 npm 方案需要）
+
+> **前置判断**：走**官方原生安装器**（方案 A / C / D）不需要 Node.js；只有 **npm 渠道（方案 B，国内无代理首选）** 要求 **Node 22+**。装 Claude Code 前先跑 `node -v`，低于 `v22` 再按下面装。
+
+**Windows**
+
+| 方式 | 操作 |
+|------|------|
+| 安装包（推荐新手） | 到 [nodejs.org](https://nodejs.org) 或 [npmmirror 镜像](https://npmmirror.com/mirrors/node/) 下载 **LTS 版 `.msi`**，一路 Next |
+| WinGet | `winget install OpenJS.NodeJS.LTS` |
+| 多版本管理 | `nvm-windows`（[coreybutler/nvm-windows](https://github.com/coreybutler/nvm-windows)），适合要切多个 Node 版本 |
+
+**macOS**
+
+```bash
+brew install node        # Homebrew 默认装当前稳定版（≥22）
+# 需要多版本可改用 fnm / nvm
+```
+
+**Linux（注意：系统自带 nodejs 通常太旧）**
+
+Debian / Ubuntu 仓库里的 `nodejs` 常低于 22，达不到要求。推荐官方 LTS 二进制或 nvm：
+
+```bash
+# ① 官方/镜像 LTS 二进制（以 linux-x64 为例，版本号替换为你要装的 LTS）
+#    下载地址：https://nodejs.org 或 https://npmmirror.com/mirrors/node/
+sudo tar -xJf node-v24.x.x-linux-x64.tar.xz -C /usr/local --strip-components=1
+
+# ② 或 nvm（无需 sudo、方便切版本）
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+nvm install --lts
+```
+
+**装完验证**
+
+```bash
+node -v    # 输出 ≥ v22 即可
+npm -v
+```
+
+> [!tip] 装完先切 npm 国内镜像
+> 无代理用户装完 Node 后，先执行 `npm config set registry https://registry.npmmirror.com` 再装 Claude Code，否则 npm 仍走官方源很慢。切换细节见 [[#方案 B：npm + 国内镜像（无代理首选）|方案 B：npm + 国内镜像]]。
+
 > [!tip] 企业代理注意
 > v2.1.116+ 从 `https://downloads.claude.ai/claude-code-releases` 下载二进制文件，需将该域名加入代理白名单。
 
@@ -958,3 +1041,4 @@ CLAUDE_CODE_DISABLE_AUTO_MEMORY=0 claude
 | 2026-08-07 | 修正「三、配置文件」：`providers` / `defaultProvider` 为非官方写法、会被静默忽略，改为官方 `env`（`ANTHROPIC_BASE_URL` / `ANTHROPIC_AUTH_TOKEN` / `ANTHROPIC_MODEL`）方案；多平台切换改为 `--settings` 多文件 / CC-Switch / LiteLLM；版本号更新至 latest v2.1.224 / stable v2.1.220 |
 | 2026-08-10 | 同步 2026-08 现状：默认模型 Claude Sonnet 5（原生 1M 上下文，促销 $2/$10 每 Mtok 至 2026-08-31）、默认 Opus 5；权限模式 Default 改名 Manual（`--permission-mode manual` / `"defaultMode": "manual"`）；补充 `/doctor`（= `/checkup`）、`/fork`（复制到新后台会话）、`/subtask`；`/review` 改为 `/code-review` 别名且不再自动运行；版本号更新至 v2.1.226 |
 | 2026-09-04 | 更新「国内网络安装（重点）」：核实 npm 渠道仍官方同步发布（latest v2.1.260）、npmmirror 同步主包与平台子包；GitHub Releases 已附二进制与 `SHASUMS256.txt`；补充「安装 vs 运行」放行域名说明；刷新版本号/star 数（claude-howto 41K、CC-Switch v3.20.1 / 131K） |
+| 2026-09-04 | 扩充「3️⃣ 前置依赖」：新增 Git / Node.js 分步安装说明（Windows / macOS / Linux 命令、国内镜像、验证命令、git 全局配置、npm 镜像切换交叉引用） |
