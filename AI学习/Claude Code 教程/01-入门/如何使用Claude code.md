@@ -65,7 +65,8 @@ npm config set registry https://registry.npmmirror.com
 
 # ② 全局安装
 npm install -g @anthropic-ai/claude-code
-
+# 安装时显式放行 claude-code 的 postinstall
+npm install -g @anthropic-ai/claude-code --allow-scripts=@anthropic-ai/claude-code
 # ③ 验证
 claude --version
 ```
