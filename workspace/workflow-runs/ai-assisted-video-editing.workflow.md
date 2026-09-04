@@ -10,7 +10,7 @@ topic: "AI 助手辅助视频剪辑的方法与工作流"
 project_slug: "ai-assisted-video-editing"
 created_at: "2026-09-04"
 last_updated: "2026-09-04"
-current_phase: P3
+current_phase: P4
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：ai-assisted-video-editing
 > 项目标识：ai-assisted-video-editing
 > 创建时间：2026-09-04
-> 当前阶段：阶段 3
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -79,7 +79,7 @@ blocked_reason: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中 {in_progress}
+> [P3] ✅ 已完成 {complete}
 
 ---
 
@@ -89,9 +89,9 @@ blocked_reason: ""
 - [ ] 第 3 章已写完并确认
 - [ ] ...（根据实际章节数添加）
 
-**进度**：0/待大纲确定
+**进度**：0/7
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中 {in_progress}
 
 ---
 
