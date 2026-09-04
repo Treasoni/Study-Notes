@@ -11,7 +11,7 @@ project_slug: "domain-name-learning"
 created_at: "2026-09-04"
 last_updated: "2026-09-04"
 current_phase: P5
-current_status: ready
+current_status: in_progress
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -104,7 +104,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
