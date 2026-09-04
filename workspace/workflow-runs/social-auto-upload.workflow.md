@@ -10,7 +10,7 @@ topic: "如何配置使用social-auto-upload开源项目"
 project_slug: "social-auto-upload"
 created_at: "2026-09-05"
 last_updated: "2026-09-05"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：social-auto-upload
 > 项目标识：social-auto-upload
 > 创建时间：2026-09-05
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -87,11 +87,15 @@ blocked_reason: ""
 - [ ] 第 1 章已写完并确认
 - [ ] 第 2 章已写完并确认
 - [ ] 第 3 章已写完并确认
-- [ ] ...（根据实际章节数添加）
+- [ ] 第 4 章已写完并确认
+- [ ] 第 5 章已写完并确认
+- [ ] 第 6 章已写完并确认
+- [ ] 第 7 章已写完并确认
+- [x] 全部章节已写完（用户指示批量完成，待整体预览确认）
 
-**进度**：1/7
+**进度**：7/7
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -104,7 +108,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
