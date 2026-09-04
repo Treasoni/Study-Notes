@@ -114,11 +114,11 @@ wsl --list --verbose
 
 **使用下载工具加速**：将以下链接复制到 IDM、FDM 或迅雷中下载
 
-| 版本 | 下载链接 |
-|------|---------|
-| **Windows (x86_64)** | `https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe` |
-| **Mac (Intel)** | `https://desktop.docker.com/mac/main/amd64/Docker.dmg` |
-| **Mac (Apple Silicon)** | `https://desktop.docker.com/mac/main/arm64/Docker.dmg` |
+| 版本                      | 下载链接                                                                         |
+| ----------------------- | ---------------------------------------------------------------------------- |
+| **Windows (x86_64)**    | `https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe` |
+| **Mac (Intel)**         | `https://desktop.docker.com/mac/main/amd64/Docker.dmg`                       |
+| **Mac (Apple Silicon)** | `https://desktop.docker.com/mac/main/arm64/Docker.dmg`                       |
 
 ### 2.3 解决方案 B：国内镜像下载
 
