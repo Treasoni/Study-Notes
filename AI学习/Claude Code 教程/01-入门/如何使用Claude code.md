@@ -136,11 +136,11 @@ curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del in
 
 ### 3️⃣ 前置依赖
 
-| 要求 | 说明 |
-|------|------|
-| **Git** | Claude Code 版本控制依赖，需安装并配置 `git config --global user.name/email` |
-| **Node.js** | 仅 npm 方式需要 **22+**（v2.1.198 起），**原生安装器不需要** |
-| **RAM** | 最低 4GB，推荐 8GB |
+| 要求          | 说明                                                              |
+| ----------- | --------------------------------------------------------------- |
+| **Git**     | Claude Code 版本控制依赖，需安装并配置 `git config --global user.name/email` |
+| **Node.js** | 仅 npm 方式需要 **22+**（v2.1.198 起），**原生安装器不需要**                     |
+| **RAM**     | 最低 4GB，推荐 8GB                                                   |
 
 #### 安装 Git
 
