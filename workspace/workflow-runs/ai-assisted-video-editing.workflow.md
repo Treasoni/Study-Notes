@@ -10,7 +10,7 @@ topic: "AI 助手辅助视频剪辑的方法与工作流"
 project_slug: "ai-assisted-video-editing"
 created_at: "2026-09-04"
 last_updated: "2026-09-04"
-current_phase: P0
+current_phase: P1
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：ai-assisted-video-editing
 > 项目标识：ai-assisted-video-editing
 > 创建时间：2026-09-04
-> 当前阶段：阶段 0
+> 当前阶段：阶段 1
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -42,7 +42,7 @@ blocked_reason: ""
 - [ ] 如发布到 Obsidian，vault_path、note_folder、moc_path 已确认或标记待补
 - [ ] 意图文件已生成：`./00_intent.md`
 
-> [P0] 🔲 进行中 {in_progress}
+> [P0] ✅ 已完成 {complete}
 
 ---
 
@@ -53,7 +53,7 @@ blocked_reason: ""
 - [ ] 用户已选择学习方向
 - [ ] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] ⬜ 未开始
+> [P1] 🔲 进行中 {in_progress}
 
 ---
 
