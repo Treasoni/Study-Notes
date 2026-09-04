@@ -1,7 +1,7 @@
 ---
 title: Claude Code 使用指南
 tags: [ai, 工具使用, claude-code, 入门]
-updated: 2026-08-10
+updated: 2026-09-04
 status: updated
 source_project: claude-code-tutorial
 ---
@@ -34,6 +34,9 @@ source_project: claude-code-tutorial
 | `registry.npmmirror.com` | npm 国内镜像 | ✅ 直连 |
 | `github.com` | GitHub Releases（社区分发、桌面端） | ⚠️ 不稳定，可用加速 |
 
+> [!note] 「安装」和「运行」放行的域名不同
+> 上表只管**安装/更新**阶段。装完后首次登录 / 每次运行还会连 `api.anthropic.com`（API 请求）与 `platform.claude.com`（Console / 订阅授权）；不想走官方网络，直接用 [[#二、跳过登录（免认证启动）]] 配置第三方中转，只连中转服务域名即可。
+
 #### 方案 A：终端代理 + 官方原生安装器（推荐）
 
 先给终端设置代理（见 [[#四、代理配置]]），再运行第 1️⃣ 节的一行命令。PowerShell 示例：
@@ -50,6 +53,9 @@ irm https://claude.ai/install.ps1 | iex
 #### 方案 B：npm + 国内镜像（无代理首选）
 
 **原理**：`@anthropic-ai/claude-code` 是分发壳包，真实二进制在平台子包里（如 `@anthropic-ai/claude-code-win32-x64`）。npmmirror 已同步这些平台包，因此全程走国内镜像即可装完。
+
+> [!tip] npm 渠道 2026-09 状态：仍在维护、同步发布
+> 官方文档现在把原生安装器列为首选、npm 列为高级/备选方式，但 npm 包仍与原生**同步发布**（截至 2026-09-04 两边同为 v2.1.260），npmmirror 也已同步主包和全部平台子包。无代理用户可放心用本方案；担心以后被砍，可先用着，将来需要迁移原生时在有代理的环境跑 `claude install`。
 
 **前置**：Node.js **22+**（官方下载：[nodejs.org](https://nodejs.org)，国内镜像：[npmmirror node](https://npmmirror.com/mirrors/node/)）
 
@@ -97,7 +103,7 @@ brew 本体可先用清华/阿里镜像加速，但 cask 下载的安装包仍�
 
 #### 方案 D：GitHub 加速 / 社区一键脚本
 
-- **GitHub Releases**：`downloads.claude.ai` 不通时，可从 [anthropics/claude-code releases](https://github.com/anthropics/claude-code/releases) 下载对应平台二进制，配合 `gh-proxy.com` 等加速前缀。第三方镜像不稳定，下载后建议按官方 `manifest.json` 核对 SHA256。
+- **GitHub Releases**：`downloads.claude.ai` 不通时，可从 [anthropics/claude-code releases](https://github.com/anthropics/claude-code/releases) 下载对应平台二进制——每个版本已附带 `claude-darwin-arm64.tar.gz`、`claude-win32-x64.zip` 等包与 `SHASUMS256.txt`（含 `.sig` 签名）。可配合 `gh-proxy.com` 等加速前缀；第三方镜像不稳定，下载后用仓库自带的 `SHASUMS256.txt` 核对 SHA256。
 - **cc-download**（[ipfred/cc-download](https://github.com/ipfred/cc-download)）：Windows 安装/更新工具，支持代理、下载进度、SHA256 校验、离线安装包。
 - **claude-code-bootstrap**（[ErgeAIA/claude-code-bootstrap](https://github.com/ErgeAIA/claude-code-bootstrap)）：Windows PowerShell 一键安装，native → winget → npm 三级兜底，自动测速选择镜像。
 
@@ -116,7 +122,7 @@ curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del in
 
 > [!tip] 原生安装器优势
 > - 自动更新 · 无需 Node.js · 体积约 60-80MB
-> - 安装后执行 `claude --version` 验证，当前 latest 为 **v2.1.226**（2026-08-10），stable 通常滞后约一周
+> - 安装后执行 `claude --version` 验证，当前 latest 为 **v2.1.260**（2026-09-04），stable 通常滞后约一周
 
 ### 2️⃣ 其他安装方式（备选）
 
@@ -279,9 +285,9 @@ export CLAUDE_CODE_OAUTH_TOKEN=your-token
 
 ### 方式六：CC-Switch ⭐ 可视化方案
 
-> 跨平台桌面应用，**124K+ Star**，支持 Claude Code / Codex / Gemini CLI / OpenCode / Grok Build / OpenClaw / Hermes Agent 共 8 种工具的供应商切换，内置 50+ 平台预设。
+> 跨平台桌面应用，**131K+ Star**，支持 Claude Code / Codex / Gemini CLI / OpenCode / Grok Build / OpenClaw / Hermes Agent 共 8 种工具的供应商切换，内置 50+ 平台预设。
 
-**开发者**：[farion1231](https://github.com/farion1231/cc-switch) · **开源协议**：MIT · **最新版**：v3.16.1
+**开发者**：[farion1231](https://github.com/farion1231/cc-switch) · **开源协议**：MIT · **最新版**：v3.20.1
 
 #### 安装
 
@@ -593,7 +599,7 @@ npm install -g @anthropic-ai/claude-code --include=optional --foreground-scripts
 > 全局安装时输出：
 > ```text
 > npm warn allow-scripts 1 package has install scripts not yet covered by allowScripts:
-> npm warn allow-scripts   @anthropic-ai/claude-code@2.1.226 (postinstall: node install.cjs)
+> npm warn allow-scripts   @anthropic-ai/claude-code@2.1.260 (postinstall: node install.cjs)
 > npm warn allow-scripts
 > npm warn allow-scripts Run `npm approve-scripts --allow-scripts-pending` to review, or `npm approve-scripts <pkg>` to allow.
 > ```
@@ -621,7 +627,7 @@ npm config set foreground-scripts true
 > `allow-scripts` 是**包名列表**（逗号分隔字符串），不是布尔开关；写 `true` 只是加了一条名为 `true` 的包名，不会放行 claude-code。真要全放行用 `--dangerously-allow-all-scripts`，全禁止用 `--ignore-scripts`。
 
 > [!tip] 成功判定
-> 日志中出现 `> @anthropic-ai/claude-code@2.1.226 postinstall` / `> node install.cjs` 即代表脚本已执行；末尾的 `npm warn allow-scripts` 只是例行提示，不影响结果。最终以 `claude --version` 输出版本号为准；若提示 `'claude' 不是内部或外部命令`，把 `C:\Users\<用户名>\AppData\Roaming\npm` 加入系统 Path 并重启终端。
+> 日志中出现 `> @anthropic-ai/claude-code@2.1.260 postinstall` / `> node install.cjs` 即代表脚本已执行；末尾的 `npm warn allow-scripts` 只是例行提示，不影响结果。最终以 `claude --version` 输出版本号为准；若提示 `'claude' 不是内部或外部命令`，把 `C:\Users\<用户名>\AppData\Roaming\npm` 加入系统 Path 并重启终端。
 
 ### 代理问题
 
@@ -932,7 +938,7 @@ CLAUDE_CODE_DISABLE_AUTO_MEMORY=0 claude
 - [定制 Claude Code 官方博客](https://claude.com/blog/steering-claude-code-skills-hooks-rules-subagents-and-more)
 
 ### 社区
-- [claude-howto 学习指南](https://github.com/luongnv89/claude-howto)（21,800+ ⭐）
+- [claude-howto 学习指南](https://github.com/luongnv89/claude-howto)（41,000+ ⭐）
 - [安装指南](https://www.morphllm.com/install-claude-code)
 - [第三方 API 免登录配置](https://www.xugj520.cn/archives/windows-claude-code-api-setup-no-login.html)
 
@@ -951,3 +957,4 @@ CLAUDE_CODE_DISABLE_AUTO_MEMORY=0 claude
 | 2026-08-03 | 更新「跳过登录（免认证启动）」章节：新增官方 6 层认证优先级表、`hasCompletedOnboarding` 免首启引导、`claude setup-token` CI 长期 token；primaryApiKey 标记为旧方案已不可靠（官方已不列，v2.0.37+ 失效）；apiKeyHelper 补充 TTL / 失败报错 / 适用面；env 字段补充 `ANTHROPIC_BASE_URL` 副作用；CC-Switch 更新至 124K+ Star / v3.16.1 / 8 工具 |
 | 2026-08-07 | 修正「三、配置文件」：`providers` / `defaultProvider` 为非官方写法、会被静默忽略，改为官方 `env`（`ANTHROPIC_BASE_URL` / `ANTHROPIC_AUTH_TOKEN` / `ANTHROPIC_MODEL`）方案；多平台切换改为 `--settings` 多文件 / CC-Switch / LiteLLM；版本号更新至 latest v2.1.224 / stable v2.1.220 |
 | 2026-08-10 | 同步 2026-08 现状：默认模型 Claude Sonnet 5（原生 1M 上下文，促销 $2/$10 每 Mtok 至 2026-08-31）、默认 Opus 5；权限模式 Default 改名 Manual（`--permission-mode manual` / `"defaultMode": "manual"`）；补充 `/doctor`（= `/checkup`）、`/fork`（复制到新后台会话）、`/subtask`；`/review` 改为 `/code-review` 别名且不再自动运行；版本号更新至 v2.1.226 |
+| 2026-09-04 | 更新「国内网络安装（重点）」：核实 npm 渠道仍官方同步发布（latest v2.1.260）、npmmirror 同步主包与平台子包；GitHub Releases 已附二进制与 `SHASUMS256.txt`；补充「安装 vs 运行」放行域名说明；刷新版本号/star 数（claude-howto 41K、CC-Switch v3.20.1 / 131K） |
