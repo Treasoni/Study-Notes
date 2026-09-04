@@ -126,11 +126,11 @@ status: seedling
 
 #### CPU 配置
 
-| 配置项 | 建议值 |
-|--------|--------|
-| Number of processors | 1 |
-| Number of cores per processor | 根据宿主机情况分配（建议 2-4 核） |
-| **Virtualize Intel VT-x/EPT or AMD-V/RVI** | ✅ 勾选（启用嵌套虚拟化） |
+| 配置项                                        | 建议值                 |
+| ------------------------------------------ | ------------------- |
+| Number of processors                       | 1                   |
+| Number of cores per processor              | 根据宿主机情况分配（建议 2-4 核） |
+| **Virtualize Intel VT-x/EPT or AMD-V/RVI** | ✅ 勾选（启用嵌套虚拟化）       |
 
 > [!tip] CPU 分配原则
 > 给虚拟机分配的 CPU 核心数**不要超过宿主机物理核心数的一半**，否则会影响宿主机性能。例如 8 核宿主机给 VM 分配 2-4 核。
