@@ -2,7 +2,7 @@
 title: Docker 与 Docker Compose 安装（国内环境）
 tags: [docker, linux, 安装指南, 国内网络, docker-compose, 镜像加速]
 created: 2026-08-03
-updated: 2026-08-04
+updated: 2026-09-04
 status: 已完成
 source_project: docker-compose-linux-install
 ---
@@ -128,6 +128,7 @@ sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin dock
 
 > 🎯 比喻
 > 装 Docker 别像"单点外卖"只装一个 `docker-ce`。全家桶一次装齐，等于拿到一整套完整厨房；缺了 compose 插件，第四章要用的 `docker compose` 命令就会报 `docker: 'compose' is not a docker command`（详见第七章坑 ④）。
+> 注：新版 `docker-ce-cli` 默认 Recommends compose/buildx 插件，普通 `apt`/`dnf` 安装会自动带上；但脚本若加 `--no-install-recommends` 仍会漏掉，所以显式写全 5 件套最稳。
 
 为什么坚持"全家桶"：5 个包来自**同一个软件源**（阿里云 docker-ce 镜像源），由包管理器统一管理版本、统一升级，完全绕开 GitHub 手动下载 [Docker Compose plugin (Linux)](https://docs.docker.com/compose/install/linux/)。这是后续第二、三章安装命令的固定套路，也是本笔记推荐的唯一安装路径。
 
@@ -147,18 +148,17 @@ sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin dock
 
 > 第一章完成了系统体检，认定自己是 apt 轨道。本章把 Ubuntu/Debian 用户的主轨道一次走完：通过阿里云软件源，用 apt 把 Docker Engine 全家桶装到服务器上。装完后 `docker` 命令即可使用；镜像加速与 hello-world 完整验证分别留到第五、六章。
 
-### 一、安装前置依赖：ca-certificates / curl / gnupg
+### 一、安装前置依赖：ca-certificates / curl（gnupg 已用不上）
 
-apt 要读取一个 HTTPS 软件源，背后需要三件工具：`curl` 负责下载 GPG 密钥，`gnupg` 负责处理密钥文件，`ca-certificates` 提供 HTTPS 证书链——否则 apt 访问阿里云时可能报证书错误。先装齐：
+apt 要读取一个 HTTPS 软件源，需要两件工具：`curl` 负责下载 GPG 密钥，`ca-certificates` 提供 HTTPS 证书链——否则 apt 访问阿里云时可能报证书错误。（旧教程里的 `gnupg` 在官方当前流程中已用不上，见下节说明。）先装齐：
 
 ```bash
 sudo apt-get update
-sudo apt-get install -y ca-certificates curl gnupg
+sudo apt-get install -y ca-certificates curl
 ```
 
 - `ca-certificates`：系统信任的根证书集合。最小化安装的服务器很可能没有它，装上才不至于后续全部 404/证书报错。
-- `curl`：下一步下载 GPG 密钥要用。
-- `gnupg`：提供 `gpg` 命令，用来校验和转换密钥。
+- `curl`：下一步下载 GPG 密钥要用。官方当前流程把 ASCII 公钥直接存成 `.asc` 文件，不再需要 `gnupg` 做 dearmor 转换（旧教程多装一个 `gnupg`，属历史包袱）。
 - `-y`：跳过"是否继续"确认，脚本化安装必备。
 
 > [!tip] 提示
@@ -166,22 +166,24 @@ sudo apt-get install -y ca-certificates curl gnupg
 
 ### 二、添加 Docker GPG 密钥：apt 只信任签名过的包
 
-软件源里的每个包都带签名。apt 需要一把 GPG 公钥来验证签名，否则会拒绝安装。把密钥下载到专用目录：
+软件源里的每个包都带签名。apt 需要一把 GPG 公钥来验证签名，否则会拒绝安装。把公钥下载到专用目录 `/etc/apt/keyrings/`，**直接存成 ASCII 文本格式的 `docker.asc`**（官方当前推荐做法，不再转二进制 `.gpg`）：
 
 ```bash
 sudo install -m 0755 -d /etc/apt/keyrings
-curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-sudo chmod a+r /etc/apt/keyrings/docker.gpg
+sudo curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
 ```
 
 逐步解释：
 
 - `install -m 0755 -d /etc/apt/keyrings`：创建密钥目录，权限 0755（root 可写、所有人可读）。`/etc/apt/keyrings` 是各发行版约定俗成的密钥存放位置。
-- `curl -fsSL ... | sudo gpg --dearmor -o ...`：`-fsSL` 表示静默、跟随重定向下载；`gpg --dearmor` 把 ASCII 文本公钥转成二进制 `.gpg` 文件。下载源直接用阿里云而非官方 `download.docker.com`，保证国内直连速度 [阿里云 docker-ce 镜像帮助页](https://developer.aliyun.com/mirror/docker-ce)。
+- `sudo curl -fsSL .../gpg -o .../docker.asc`：`-fsSL` 表示静默、跟随重定向下载；把 ASCII 文本公钥原样保存为 `/etc/apt/keyrings/docker.asc`，不再用 `gpg --dearmor` 转二进制。下载源直接用阿里云而非官方 `download.docker.com`，保证国内直连速度 [阿里云 docker-ce 镜像帮助页](https://developer.aliyun.com/mirror/docker-ce)。
 - `chmod a+r`：apt 内部会以非 root 的 `_apt` 用户读取密钥，密钥必须对所有用户可读，否则 `apt update` 会报密钥权限相关错误。
 
 > [!warning] 密钥本身不是"信任的来源"
 > 这把 GPG 公钥是 Docker 官方公钥，从阿里云下载和从官网下载内容一致，区别只在下载速度。若你偏好完全官方渠道，把 URL 换成 `https://download.docker.com/linux/ubuntu/gpg` 即可 [Docker Engine install (Ubuntu)](https://docs.docker.com/engine/install/ubuntu/)。
+>
+> 兼容说明：老教程里 `gpg --dearmor` 生成 `/etc/apt/keyrings/docker.gpg`、`Signed-By` 指向 `.gpg` 的旧写法仍然有效；官方文档已统一改为 `.asc`。两种文件任选其一，别在配置里写 `.asc` 却把文件存成 `.gpg`（反之亦然）。
 
 ### 三、写入 apt 源：deb822 格式 `docker.sources`（推荐）
 
@@ -194,7 +196,7 @@ URIs: https://mirrors.aliyun.com/docker-ce/linux/ubuntu
 Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
 Components: stable
 Architectures: $(dpkg --print-architecture)
-Signed-By: /etc/apt/keyrings/docker.gpg
+Signed-By: /etc/apt/keyrings/docker.asc
 EOF
 ```
 
@@ -215,7 +217,7 @@ cat /etc/apt/sources.list.d/docker.sources
 
 ```bash
 echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://mirrors.aliyun.com/docker-ce/linux/ubuntu \
   "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 ```
@@ -224,7 +226,7 @@ echo \
 
 | 字段 | 含义 | 示例 |
 |------|------|------|
-| `[arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg]` | 架构限制 + 指定验签密钥 | `[arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg]` |
+| `[arch=amd64 signed-by=/etc/apt/keyrings/docker.asc]` | 架构限制 + 指定验签密钥 | `[arch=amd64 signed-by=/etc/apt/keyrings/docker.asc]` |
 | 仓库地址 | 阿里云 docker-ce 软件源 | `https://mirrors.aliyun.com/docker-ce/linux/ubuntu` |
 | 套件 | 发行版代号 + 组件 | `noble stable` |
 
@@ -243,8 +245,8 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 - `apt-get update`：从刚配置的 docker 源拉取包列表。若输出里出现 `.../docker-ce/...` 相关行，说明源已生效。
 - 安装的 5 个包就是第一章的"全家桶"：引擎、CLI、运行时、buildx、compose 插件一次装齐，全部来自阿里云软件源，由包管理器统一管理版本与升级，完全绕开 GitHub [Docker Compose plugin (Linux)](https://docs.docker.com/compose/install/linux/)。
 
-> [!warning] 全家桶缺一不可
-> 只装 `docker-ce` 会漏掉 compose 插件，后面用 `docker compose` 时就会报 `docker: 'compose' is not a docker command`（第七章坑 ④）。全家桶正是为了不踩这个坑。
+> [!warning] 全家桶建议写全
+> 默认 `apt` 安装 `docker-ce` 时，通常会通过 `docker-ce-cli` 的 Recommends 自动带上 compose/buildx 插件；但若脚本使用 `--no-install-recommends`，仍会漏掉，之后 `docker compose` 报 `docker: 'compose' is not a docker command`（第七章坑 ④）。显式写全 5 件套最稳。
 
 装完可以先快速确认守护进程已在运行：
 
@@ -279,18 +281,18 @@ apt-cache madison docker-ce
 输出形如：
 
 ```
-docker-ce | 5:29.7.1-1~ubuntu.24.04~noble | https://mirrors.aliyun.com/docker-ce/linux/ubuntu noble/stable amd64 Packages
-docker-ce | 5:29.6.0-1~ubuntu.24.04~noble | https://mirrors.aliyun.com/docker-ce/linux/ubuntu noble/stable amd64 Packages
+docker-ce | 5:29.8.0-1~ubuntu.24.04~noble | https://mirrors.aliyun.com/docker-ce/linux/ubuntu noble/stable amd64 Packages
+docker-ce | 5:29.7.2-1~ubuntu.24.04~noble | https://mirrors.aliyun.com/docker-ce/linux/ubuntu noble/stable amd64 Packages
 ```
 
 > [!note] 版本号格式解读
-> 版本 `5:29.7.1-1~ubuntu.24.04~noble` 由四段组成：`5:` 是 epoch（Docker 的版本升级机制），`29.7.1` 是 Docker 引擎版本，`-1` 是打包修订号，`~ubuntu.24.04~noble` 标记目标发行版。因为带 epoch，**指定版本时必须连 `5:` 一起写**，否则 apt 找不到该版本。
+> 版本 `5:29.8.0-1~ubuntu.24.04~noble` 由四段组成：`5:` 是 epoch（Docker 的版本升级机制），`29.8.0` 是 Docker 引擎版本（2026-09 最新稳定版），`-1` 是打包修订号，`~ubuntu.24.04~noble` 标记目标发行版。因为带 epoch，**指定版本时必须连 `5:` 一起写**，否则 apt 找不到该版本。
 
 安装指定版本时，`docker-ce` 与 `docker-ce-cli` 要指定**同一个版本**，避免客户端与守护进程版本错位：
 
 ```bash
-sudo apt-get install -y docker-ce=5:29.7.1-1~ubuntu.24.04~noble \
-  docker-ce-cli=5:29.7.1-1~ubuntu.24.04~noble \
+sudo apt-get install -y docker-ce=5:29.8.0-1~ubuntu.24.04~noble \
+  docker-ce-cli=5:29.8.0-1~ubuntu.24.04~noble \
   containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
@@ -315,7 +317,7 @@ sudo apt-get install -y docker-ce=5:29.7.1-1~ubuntu.24.04~noble \
 
 ### 本章小结
 
-- apt 轨道三步走：装前置依赖（`ca-certificates curl gnupg`）→ 导入 GPG 密钥到 `/etc/apt/keyrings/` → 写入软件源并 `apt-get update`。
+- apt 轨道三步走：装前置依赖（`ca-certificates curl`，旧教程的 `gnupg` 已用不上）→ 导入 GPG 密钥到 `/etc/apt/keyrings/` → 写入软件源并 `apt-get update`。
 - 软件源推荐 deb822 格式 `docker.sources`；老教程的 `docker.list` 一行式写法同样可用，两者选一，不要重复写。
 - 安装命令就是第一章的全家桶：`docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin`，一次装齐并自动升级。
 - 阿里云 ECS 用户可把仓库换成内网源 `mirrors.cloud.aliyuncs.com`，更快且免公网；非 ECS 机器不要用。
@@ -452,17 +454,17 @@ yum list docker-ce.x86_64 --showduplicates | head -n 20
 输出形如：
 
 ```
-docker-ce.x86_64  3:29.7.1-1.el9  docker-ce-stable
-docker-ce.x86_64  3:29.6.0-1.el9  docker-ce-stable
+docker-ce.x86_64  3:29.8.0-1.el9  docker-ce-stable
+docker-ce.x86_64  3:29.7.2-1.el9  docker-ce-stable
 ```
 
 > [!note] 版本号格式解读
-> `3:29.7.1-1.el9` 由四段组成：`3:` 是 epoch（Docker 的版本升级机制），`29.7.1` 是 Docker 引擎版本，`-1` 是打包修订号，`.el9` 标记目标发行版代（el9 对应 RHEL/Rocky/Alma 9 系）。
+> `3:29.8.0-1.el9` 由四段组成：`3:` 是 epoch（Docker 的版本升级机制），`29.8.0` 是 Docker 引擎版本（2026-09 最新稳定版），`-1` 是打包修订号，`.el9` 标记目标发行版代（el9 对应 RHEL/Rocky/Alma 9 系）。
 
 安装指定版本时，`docker-ce` 与 `docker-ce-cli` 要指定**同一个版本**，避免客户端与守护进程版本错位：
 
 ```bash
-sudo dnf install -y docker-ce-3:29.7.1-1.el9 docker-ce-cli-3:29.7.1-1.el9 \
+sudo dnf install -y docker-ce-3:29.8.0-1.el9 docker-ce-cli-3:29.8.0-1.el9 \
   containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
@@ -471,30 +473,32 @@ sudo dnf install -y docker-ce-3:29.7.1-1.el9 docker-ce-cli-3:29.7.1-1.el9 \
 
 ### 六、路径分水岭：linux/centos 还是 linux/rhel
 
-前面所有命令都写死了 `linux/centos/` 路径。但 Docker 官方从 RHEL 10 这一代开始，把 el10 的包放到了 `linux/rhel/` 子目录下。选错路径的直接后果是 `dnf makecache` 报 404 或者仓库里没有可用包 [Docker Engine install (RHEL)](https://docs.docker.com/engine/install/rhel/)。判断规则看下表：
+前面所有命令都写死了 `linux/centos/` 路径。过去 Docker 官方只把 el10 的包放到 `linux/rhel/` 子目录，但 2026 年起 `linux/centos` 与 `linux/rhel` 两个目录都在发布 el8/el9/el10 的相同构建；官方安装文档改为按发行版家族指路——**RHEL 走 `linux/rhel/`，CentOS 走 `linux/centos/`**。选错路径的后果通常只是 `dnf makecache` 报 404 或仓库里没有可用包 [Docker Engine install (RHEL)](https://docs.docker.com/engine/install/rhel/)。判断规则看下表：
 
 | 系统 / 版本 | 仓库路径 | 说明 |
 |------|----------|------|
-| CentOS 7 / 8 / 9、CentOS Stream 8 / 9 | `linux/centos/` | `$releasever` 对应 el7/el8/el9 包 |
-| Rocky / Alma 8 / 9 | `linux/centos/` | 与 CentOS 同代，el8/el9 包通用 |
-| RHEL 8 / 9 | `linux/rhel/`（官方路径） | el8/el9 包与 centos 路径相同，两者皆可 |
-| RHEL 10、Rocky / Alma 10、CentOS Stream 10 | `linux/rhel/` | 2025 后新代，不再走 centos 路径 |
+| CentOS 7 / 8 / 9、CentOS Stream 8 / 9 / 10 | `linux/centos/` | `$releasever` 对应 el7/el8/el9/el10 包；官方 CentOS 安装页 |
+| RHEL 8 / 9 / 10 | `linux/rhel/` | 官方 RHEL 安装页；el10 也在此发布 |
+| Rocky / Alma（RHEL 再编译版）8 / 9 / 10 | `linux/rhel/` 或 `linux/centos/` | 官方不再单列；同名 elN 包两目录通用，随习惯选一个 |
 
-- 规则一句话：**el8/el9 的机器用 `linux/centos/`，el10 的机器用 `linux/rhel/`**。
-- 新装 RHEL 10 / Rocky 10 时，把第二节命令里的 `linux/centos` 换成 `linux/rhel`：
+- 规则一句话：**CentOS 家族用 `linux/centos/`，RHEL/Rocky/Alma 用 `linux/rhel/`**。两目录 el8/el9/el10 都在发布，交叉使用通常也能装到同版本，不再是绝对分界（前提镜像站已同步）。
+- 新装 el10 机器时，把第二节命令里的路径按家族替换即可：
 
 ```bash
-# el10 机器（RHEL 10 / Rocky 10 / Alma 10）
+# RHEL 10 / Rocky / Alma（RHEL 再编译版走 rhel 路径）
 sudo dnf config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/rhel/docker-ce.repo
 
-# 若阿里云没有 rhel 子目录（404），改用官方源 + sed 换源，兜底方案：
+# CentOS Stream 10（CentOS 家族走 centos 路径，同样有 el10 包）
+sudo dnf config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+
+# 若阿里云没有对应子目录（404），改用官方源 + sed 换源兜底：
 sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
 sudo sed -i 's+https://download.docker.com+https://mirrors.aliyun.com/docker-ce+' /etc/yum.repos.d/docker-ce.repo
 sudo dnf clean all && sudo dnf makecache
 ```
 
 > [!tip] 不确定走哪条路径时
-> 先 `cat /etc/os-release` 看 `VERSION_ID` 和 `REDHAT_SUPPORT_PRODUCT_VERSION`。版本号 9 及以下走 `linux/centos/`，10 及以上走 `linux/rhel/`。装完发现 makecache 404，多半就是路径选错了。
+> 先 `cat /etc/os-release` 看 `VERSION_ID` 和 `REDHAT_SUPPORT_PRODUCT_VERSION`，再按发行版家族选路径：CentOS 系 → `centos`，RHEL/Rocky/Alma → `rhel`。装完发现 makecache 404，多半是路径与镜像站同步情况不匹配，换另一条路径重试即可。
 
 ### 七、CentOS 7 EOL 注意事项（vault 源）
 
@@ -523,7 +527,7 @@ sudo yum clean all && sudo yum makecache
 - 添加仓库首选 `--add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo`；备选是官方源 + `sed 's+https://download.docker.com+https://mirrors.aliyun.com/docker-ce+'` 一键换前缀。
 - 全家桶命令与 apt 轨道完全一致：`docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin`，装完 `systemctl enable --now docker` 启动。
 - 锁版本用 `yum list docker-ce.x86_64 --showduplicates`（或 `dnf list docker-ce --showduplicates`），`docker-ce` 与 `docker-ce-cli` 必须指定同一版本。
-- 路径分水岭：el8/el9 走 `linux/centos/`，el10（RHEL 10 / Rocky 10 / Alma 10）走 `linux/rhel/`，选错会 makecache 404。
+- 路径分水岭：CentOS 家族走 `linux/centos/`，RHEL/Rocky/Alma 走 `linux/rhel/`；两目录 el8/el9/el10 均发布，选错可换另一条路径重试。
 - CentOS 7 已 EOL：先 `sed` 切 vault 归档源再装；container-selinux 依赖问题记下"第七章坑 ①"。
 
 dnf/yum 轨道的引擎装好了。接下来和第二、三章的读者在**第四章**汇合——补上 Docker Compose（v2 plugin 与 standalone 两种装法）。
@@ -547,7 +551,7 @@ Docker Compose 从 v2 开始有**两种存在形态**，命令也长得不一样
 
 ```bash
 docker version --format '{{.Server.Version}}'
-# 输出形如 29.7.1，只要 ≥ 20.10 就满足 Compose v2 的要求
+# 输出形如 29.8.0，只要 ≥ 20.10 就满足 Compose v2 的要求
 ```
 
 > [!note] 别慌：你大概率已经装好 plugin 了
@@ -561,12 +565,15 @@ plugin 方式的精髓在于：**它走的还是第二、三章配好的 docker-
 # Ubuntu/Debian（apt 系）
 sudo apt-get update && sudo apt-get install docker-compose-plugin
 
-# CentOS/RHEL/Rocky/Alma（dnf 系；CentOS 7 用 yum）
+# RHEL/Rocky/Alma、CentOS Stream（dnf 系）
+sudo dnf update && sudo dnf install docker-compose-plugin
+
+# CentOS 7 / Stream 8（yum 系）
 sudo yum update && sudo yum install docker-compose-plugin
 ```
 
 - 这条命令不会去碰 GitHub，全部流量走你第二、三章配好的阿里云软件源，速度有保障。
-- 安装时默认装**最新版**；2026-08 实测最新是 Compose v5.4.0。
+- 安装时默认装**最新版**；2026-09 实测最新是 Compose v5.5.1。
 - 装好后插件会被放到 Docker CLI 的插件目录，`docker` 命令启动时自动发现它，不需要任何额外配置。
 
 装完立刻验证：
@@ -574,7 +581,7 @@ sudo yum update && sudo yum install docker-compose-plugin
 ```bash
 docker compose version
 # 预期输出（版本号随仓库更新）：
-# Docker Compose version v5.4.0
+# Docker Compose version v5.5.1
 ```
 
 > [!tip] 为什么 plugin 是官方推荐
@@ -674,7 +681,7 @@ docker-compose version
 预期输出：
 
 ```
-Docker Compose version v5.4.0
+Docker Compose version v5.5.1
 ```
 
 看到版本号即安装成功。如果 `docker compose version` 报：
@@ -694,7 +701,7 @@ docker: 'compose' is not a docker command
 ### 本章小结
 
 - 两种 Compose 形态靠命令区分：`docker compose`（空格）是 plugin，`docker-compose`（连字符）是 standalone。
-- plugin 是推荐路线：`sudo apt-get install docker-compose-plugin` / `sudo yum install docker-compose-plugin`，走阿里云软件源完全绕开 GitHub，升级交给包管理器。
+- plugin 是推荐路线：`sudo apt-get install docker-compose-plugin`（apt）/ `sudo dnf install docker-compose-plugin`（dnf，CentOS 7 用 yum），走阿里云软件源完全绕开 GitHub，升级交给包管理器。
 - standalone 是兼容路线：GitHub 下载单文件到 `/usr/local/bin/docker-compose`，架构后缀要选对（`x86_64` / `aarch64` / `armv7`）。
 - 国内下载 standalone 的加速方案：ghproxy 前缀代理（快但不稳定）与本地下载 + scp（最稳），不要硬编码单个 ghproxy 域名。
 - Engine 必须 ≥ 20.10；`docker compose version` 看到 `Docker Compose version v5.x` 即安装成功，报 `docker: 'compose' is not a docker command` 时先查包再查版本。
@@ -729,10 +736,9 @@ sudo mkdir -p /etc/docker
 sudo tee /etc/docker/daemon.json <<'EOF'
 {
   "registry-mirrors": [
-    "https://docker.1ms.run",
-    "https://docker.xuanyuan.me",
     "https://docker.m.daocloud.io",
-    "https://docker.1panel.live"
+    "https://docker.1panel.live",
+    "https://docker.1ms.run"
   ]
 }
 EOF
@@ -763,13 +769,16 @@ cat /etc/docker/daemon.json | python3 -m json.tool
 
 > [!note] 失效是常态，别把清单当长期保证
 > 免费镜像加速源受政策与成本影响，停服、限速随时可能发生；2026 年仍大面积失效的老牌高校源见下一节表格 [2026 Docker 国内镜像源指南（腾讯云 2026-07）](https://cloud.tencent.com.cn/developer/article/2647943)。
+> 本表按 **2026-09 实测校准**：存活性可随时查 [容器镜像监控 status.anye.xyz](https://status.anye.xyz/)（每小时检测各源在线/缓慢/离线），社区实测见 [SMZDM：实测 26 个加速地址（2026-08-15）](https://post.smzdm.com/p/anvq683p/#1)。
 
 | 源 | 地址 | 性质 | 说明 |
 |------|------|------|------|
-| 毫秒镜像 | `https://docker.1ms.run` | 商业/社区 | 高可用；提供 `ghcr`/`k8s`/`quay`/`mcr`/`nvcr` 多仓库前缀（见第七节） |
-| 轩辕镜像 | `https://docker.xuanyuan.me` | 社区公益 | 实测速度与成功率俱佳；专业版 `xuanyuan.cloud` 提供多仓库 [轩辕镜像](https://github.com/SeanChang/xuanyuan_docker_proxy) |
-| DaoCloud | `https://docker.m.daocloud.io` | 社区公益 | 全协议反代，可拉 `gcr.io` 等 |
-| 1Panel | `https://docker.1panel.live` | 官方社区 | 仅限大陆访问；旧地址 `docker.1panel.dev` 已失效 |
+| DaoCloud | `https://docker.m.daocloud.io` | 社区公益 | **主推**；老牌公益源，全协议反代可拉 `gcr.io` 等，跨地域最稳，适合兜底 |
+| 1Panel | `https://docker.1panel.live` | 官方社区 | 高可用、实测速度快；仅限大陆访问；旧地址 `docker.1panel.dev` 已失效 |
+| 毫秒镜像 | `https://docker.1ms.run` | 商业/社区 | 存活，但大陆直连速度一般、个别环境 DNS 解析不稳（本库 08-28 有实例），**别放列表第一位**；同域多仓库前缀见第七节 |
+| 轩辕镜像 | `https://docker.xuanyuan.me` | 社区公益 | 免费档近期 429 限流/离线波动（SMZDM 2026-08 实测），已**降为备选**；专业版 `xuanyuan.cloud` 提供多仓库 [轩辕镜像](https://github.com/SeanChang/xuanyuan_docker_proxy) |
+| 简行镜像 | `https://docker.jiaxin.site` | 商业/社区 | 新增候选，需实测后使用；本库 08-08 实测可用 |
+| DockerProxy | `https://dockerproxy.net` / `.link` | 社区公益 | 新增候选，需实测后使用；DNS 曾不稳定 |
 | 阿里云个人专属 | `https://<your-id>.mirror.aliyuncs.com` | 云厂商 | 需在容器镜像服务控制台开通后获得专属 ID，最稳定 [2026-08 多仓库源清单（阿里云开发者）](https://developer.aliyun.com/article/1752736) |
 
 阿里云专属源单独说明：登录阿里云容器镜像服务控制台 →「镜像加速器」页面，会给出一个专属地址 `https://<你的专属ID>.mirror.aliyuncs.com`。它绑定你的账号，不限速不限流，比公共源稳定得多；缺点是必须有一个阿里云账号。
@@ -815,10 +824,9 @@ docker info | grep -A 5 "Registry Mirrors"
 
 ```
  Registry Mirrors:
-  https://docker.1ms.run/
-  https://docker.xuanyuan.me/
   https://docker.m.daocloud.io/
   https://docker.1panel.live/
+  https://docker.1ms.run/
 ```
 
 能列出这几行就说明 dockerd 已加载。若这里为空，回头检查 JSON 语法——多半是 `daemon.json` 解析失败被静默忽略了。
@@ -886,7 +894,7 @@ docker run ghcr.io/owner/myapp:v1
 
 - `registry-mirrors` 是 dockerd 拉镜像时的"优先尝试名单"，**只对 Docker Hub 生效**，失败会静默回退官方源——表现为超时而非报错。
 - 写 `daemon.json` 记住四条铁律：双引号、无尾逗号、无注释、同一对象并列；写错会被静默忽略或导致 dockerd 拒绝启动。
-- 2026 高可用源：毫秒、轩辕、DaoCloud、1Panel、阿里云个人专属；中科大 / 南大 / 网易等老牌源已大面积失效，别照抄老教程。
+- 2026-09 高可用源：DaoCloud、1Panel、毫秒（轩辕免费档近期 429 限流已降为备选）；简行 / DockerProxy 属候选需实测；中科大 / 南大 / 网易等老牌源已大面积失效，别照抄老教程。
 - 改完必须 `systemctl daemon-reload && systemctl restart docker`，再用 `docker info | grep -A 5 "Registry Mirrors"` 和 `time docker pull` 双重验证。
 - 拉 ghcr/k8s/quay 等非 Hub 镜像，用多仓库前缀 + `docker tag` 回原名；加速器不是代理，构建过程的网络问题要靠代理解决。
 
@@ -981,12 +989,12 @@ docker compose version
 ```
 Server:
   Engine:
-    Version:     29.7.1
+    Version:     29.8.0
 ```
 
 Server 段有版本号，说明客户端能连上守护进程（上一步的 socket 权限也顺带验证了）。如果 Server 段报 `permission denied`，说明第二节的用户组没生效，回去重新登录再看。
 
-`docker compose version` 预期输出 `Docker Compose version v5.x`（2026 年当前为 v5.4.0）。这一步同时验证两件事：compose 插件装上了、CLI 能找到插件路径 [Compose plugin (Linux)](https://docs.docker.com/compose/install/linux/)。如果报 `docker: 'compose' is not a docker command`，说明插件没装或路径不对，去查第七章坑 ④。
+`docker compose version` 预期输出 `Docker Compose version v5.x`（2026 年 9 月当前为 v5.5.1）。这一步同时验证两件事：compose 插件装上了、CLI 能找到插件路径 [Compose plugin (Linux)](https://docs.docker.com/compose/install/linux/)。如果报 `docker: 'compose' is not a docker command`，说明插件没装或路径不对，去查第七章坑 ④。
 
 > [!tip] compose 命令兼容性要求
 > 空格版 `docker compose` 需要 Engine ≥ 20.10。2026 年全新安装的 docker-ce 版本都远高于这个门槛，正常不会踩到；只有极老的存量环境才需要额外关注。
@@ -1379,12 +1387,12 @@ docker info | grep -A 5 "Registry Mirrors"
 ```bash
 # ① 前置依赖
 sudo apt-get update
-sudo apt-get install -y ca-certificates curl gnupg
+sudo apt-get install -y ca-certificates curl
 
-# ② 导入 GPG 密钥（阿里云软件源）
+# ② 导入 GPG 密钥（阿里云软件源，2026 官方改用 ASCII 密钥 docker.asc，无需 gnupg）
 sudo install -m 0755 -d /etc/apt/keyrings
-curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-sudo chmod a+r /etc/apt/keyrings/docker.gpg
+sudo curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
 
 # ③ 写入 deb822 软件源（docker.sources）
 sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
@@ -1393,7 +1401,7 @@ URIs: https://mirrors.aliyun.com/docker-ce/linux/ubuntu
 Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
 Components: stable
 Architectures: $(dpkg --print-architecture)
-Signed-By: /etc/apt/keyrings/docker.gpg
+Signed-By: /etc/apt/keyrings/docker.asc
 EOF
 
 # ④ 刷新并安装全家桶
@@ -1414,7 +1422,7 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 sudo yum install -y yum-utils          # CentOS 7 / Stream 8
 sudo dnf install -y dnf-plugins-core   # RHEL 8+ / Rocky / Alma / Stream 9
 
-# ② 添加阿里云 docker-ce 源（二选一；el10 机器把 centos 改成 rhel）
+# ② 添加阿里云 docker-ce 源（二选一；CentOS 家族用 centos，RHEL/Rocky/Alma 把 centos 改成 rhel）
 sudo yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 sudo dnf config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 
@@ -1426,7 +1434,7 @@ sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin d
 sudo systemctl enable --now docker
 ```
 
-- 路径分水岭：el8/el9 走 `linux/centos/`，RHEL 10 / Rocky 10 / Alma 10 走 `linux/rhel/`，选错会 makecache 404（详见第三章第六节）。
+- 路径分水岭：**CentOS 家族（含 Stream 10）走 `linux/centos/`，RHEL / Rocky / Alma（含 10）走 `linux/rhel/`**，选错会 makecache 404（详见第三章第六节）。
 - 指定版本：`dnf list docker-ce --showduplicates` 查版本，再 `sudo dnf install -y docker-ce-<版本> docker-ce-cli-<同版本> containerd.io docker-buildx-plugin docker-compose-plugin`。
 - 锁版本：`sudo dnf versionlock docker-ce docker-ce-cli`。
 - CentOS 7 是 EOL 系统，装 Docker 前先切 vault 归档源（见第三节④），并留意 `container-selinux >= 2:2.74` 依赖坑（第七章坑 ①）。
@@ -1460,9 +1468,9 @@ sudo yum clean all && sudo yum makecache
 ```json
 {
   "registry-mirrors": [
-    "https://docker.1ms.run",
-    "https://docker.xuanyuan.me",
-    "https://docker.m.daocloud.io"
+    "https://docker.m.daocloud.io",
+    "https://docker.1panel.live",
+    "https://docker.1ms.run"
   ]
 }
 ```
@@ -1472,9 +1480,9 @@ sudo yum clean all && sudo yum makecache
 sudo tee /etc/docker/daemon.json <<'EOF'
 {
   "registry-mirrors": [
-    "https://docker.1ms.run",
-    "https://docker.xuanyuan.me",
-    "https://docker.m.daocloud.io"
+    "https://docker.m.daocloud.io",
+    "https://docker.1panel.live",
+    "https://docker.1ms.run"
   ]
 }
 EOF
@@ -1488,14 +1496,16 @@ time docker pull nginx:alpine
 
 ### 五、2026 可用镜像加速器清单
 
-> 从下表中挑 2-3 个填入 daemon.json。免费源晚高峰（20:00-23:00）可能限速，建议每月实测一次存活。验证日期：2026-08。
+> 从下表中挑 2-3 个填入 daemon.json，**DaoCloud / 1Panel 优先**。免费源晚高峰（20:00-23:00）可能限速，建议每月实测一次存活。验证日期：2026-09。
 
 | 源 | 地址 | 性质 | 说明 |
 |----|------|------|------|
-| 毫秒镜像 | `https://docker.1ms.run` | 商业/社区 | 高可用；同域多仓库 `ghcr.1ms.run` / `k8s.1ms.run` / `quay.1ms.run` / `mcr.1ms.run` / `nvcr.1ms.run` |
-| 轩辕镜像 | `https://docker.xuanyuan.me` | 社区公益 | 实测 12.3MB/s、99.2% 成功率；专业版 `xuanyuan.cloud` 提供多仓库 |
-| DaoCloud | `https://docker.m.daocloud.io` | 社区公益 | 全协议反代，可拉 `gcr.io` 等 |
-| 1Panel | `https://docker.1panel.live` | 官方社区 | 仅限大陆访问；旧地址 `docker.1panel.dev` 已失效 |
+| DaoCloud | `https://docker.m.daocloud.io` | 社区公益 | 主推，跨地域最稳；全协议反代，可拉 `gcr.io` 等 |
+| 1Panel | `https://docker.1panel.live` | 官方社区 | 高可用、速度快；仅限大陆访问；旧地址 `docker.1panel.dev` 已失效 |
+| 毫秒镜像 | `https://docker.1ms.run` | 商业/社区 | 存活但直连偏慢、个别环境 DNS 不稳，别放第一位；同域多仓库 `ghcr.1ms.run` / `k8s.1ms.run` / `quay.1ms.run` / `mcr.1ms.run` / `nvcr.1ms.run` |
+| 轩辕镜像 | `https://docker.xuanyuan.me` | 社区公益 | 免费档近期 429 限流，降为备选；专业版 `xuanyuan.cloud` 提供多仓库 |
+| 简行镜像 | `https://docker.jiaxin.site` | 商业/社区 | 候选，需实测 |
+| DockerProxy | `https://dockerproxy.net` / `.link` | 社区公益 | 候选，需实测 |
 | 阿里云个人 | `https://<your-id>.mirror.aliyuncs.com` | 云厂商 | 需注册获取专属地址，最稳定 |
 
 ### 六、已失效 / 不推荐源清单（2026 确认）
@@ -1520,7 +1530,8 @@ time docker pull nginx:alpine
 - 官方文档（命令模板以官方页为准）
   - [Docker Engine install (Ubuntu)](https://docs.docker.com/engine/install/ubuntu/)
   - [Docker Engine install (Debian)](https://docs.docker.com/engine/install/debian/)
-  - [Docker Engine install (RHEL/CentOS)](https://docs.docker.com/engine/install/rhel/)
+  - [Docker Engine install (RHEL)](https://docs.docker.com/engine/install/rhel/)
+  - [Docker Engine install (CentOS)](https://docs.docker.com/engine/install/centos/)
   - [Compose plugin (Linux)](https://docs.docker.com/compose/install/linux/)
   - [Compose standalone](https://docs.docker.com/compose/install/standalone/)
 - 国内镜像站帮助页
@@ -1533,7 +1544,18 @@ time docker pull nginx:alpine
 - 安装命令分两轨：apt 系复制第一节、dnf/yum 系复制第二节，粘贴前先 `cat /etc/os-release` 确认发行版。
 - 换源统一走 sed 原地替换，`+` / `#` 分隔符避免转义 `/`；apt 改 `docker.sources`、dnf 改 `docker-ce.repo`，目标文件别搞混。
 - 镜像加速改完必须 `systemctl daemon-reload && systemctl restart docker`，再用 `docker info` 验证，否则不生效。
-- 可用源从「毫秒 / 轩辕 / DaoCloud / 1Panel」里挑 2-3 个；排障时拿第六节的失效清单直接排除老地址。
+- 可用源从「DaoCloud / 1Panel / 毫秒」里挑 2-3 个（轩辕免费档近期 429 限流，已降为备选）；排障时拿第六节的失效清单直接排除老地址。
 - 官方文档与镜像站帮助页长期有效，是最新命令的唯一权威来源。
 
 到这里，本笔记 8 章全部结束。装好的 Docker + Compose 环境下一步就可以实际编排了；Windows 桌面版安装见 [[docker/Windows-DockerDesktop安装指南-国内网络版]]，加速器与代理的概念边界见 [[docker/镜像加速器vs代理-概念对比]]。日后命令忘了，翻回本章即可。
+
+---
+
+## 更新记录
+
+- **2026-09-04**：全面刷新命令、版本、方法、链接与镜像源状态（核验基准：官方 docs / moby GitHub tag / 阿里云 docker-ce 源元数据，社区实测见文内 2026-09 参考链接）。
+  - **版本号**：Docker Engine 示例版本 `29.7.1` → `29.8.0`（apt 串 `5:29.8.0-1~ubuntu.24.04~noble`、rpm 串 `3:29.8.0-1.el9`），apt/rpm 历史示例 `29.6.0`→`29.7.2`；Compose `v5.4.0` → `v5.5.1`。
+  - **apt 密钥方法**：官方改存 ASCII 密钥 `/etc/apt/keyrings/docker.asc`（`curl -o` 直存），不再需要 `gnupg` 与 `gpg --dearmor`；同步更新 deb822 `Signed-By` 与第八章速查。
+  - **RHEL/CentOS 路径**：`linux/centos/` vs `linux/rhel/` 按发行版家族划分（CentOS 家族 → `centos`；RHEL/Rocky/Alma → `rhel`），两目录均发布 el8/el9/el10；修正「el10 必须走 rhel」的旧说法。
+  - **镜像加速源**：推荐组合改为 DaoCloud / 1Panel / 毫秒；轩辕免费档近期 429 限流降为备选；新增候选 简行、DockerProxy（需实测）；补充 status.anye.xyz 存活监控与 SMZDM 实测链接。
+  - **其他**：Compose 插件安装命令补 dnf 变体；第八章官方文档链接拆出独立 CentOS 安装页。
