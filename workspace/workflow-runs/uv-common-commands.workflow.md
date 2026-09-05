@@ -10,7 +10,7 @@ topic: "uv 的常用命令"
 project_slug: "uv-common-commands"
 created_at: "2026-09-05"
 last_updated: "2026-09-05"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：uv-common-commands
 > 项目标识：uv-common-commands
 > 创建时间：2026-09-05
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -89,9 +89,9 @@ blocked_reason: ""
 - [ ] 第 3 章已写完并确认
 - [ ] ...（根据实际章节数添加）
 
-**进度**：0/9
+**进度**：9/9
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -104,7 +104,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
@@ -136,6 +136,7 @@ blocked_reason: ""
 | P1 | 用户选择组织主线：D 命令族骨架+场景速查混合（探测结果见 01_explore_result.md） | 2026-09-05 |
 | P2 | 用户确认 P2 素材质量，选择大纲模式进入 P3 | 2026-09-05 |
 | P3 | 用户确认 9 部分大纲，进入逐章写作 | 2026-09-05 |
+| P4 | 用户确认 9 部分全部写完（选择批量写作），进入收尾组装 | 2026-09-05 |
 
 ---
 
