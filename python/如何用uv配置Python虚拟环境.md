@@ -545,12 +545,12 @@ uv add requests
 
 与传统 `requirements.txt` 的关键差异：
 
-| 维度 | `pyproject.toml` | `requirements.txt` |
-|---|---|---|
-| 项目身份 | 含 name/version/requires-python | 只有一列包需求 |
-| 消费方 | uv/构建后端均读，单一事实源 | 主要给 `pip install -r` |
-| 直接 vs 传递 | 只声明直接依赖，锁定交给 lockfile | 常用 freeze 把传递依赖拍平 |
-| 版本策略 | 声明范围，精确锁定另存 uv.lock | 范围与 pin 混在一文件 |
+| 维度       | `pyproject.toml`               | `requirements.txt`   |
+| -------- | ------------------------------ | -------------------- |
+| 项目身份     | 含 name/version/requires-python | 只有一列包需求              |
+| 消费方      | uv/构建后端均读，单一事实源                | 主要给 `pip install -r` |
+| 直接 vs 传递 | 只声明直接依赖，锁定交给 lockfile          | 常用 freeze 把传递依赖拍平    |
+| 版本策略     | 声明范围，精确锁定另存 uv.lock            | 范围与 pin 混在一文件        |
 
 > [!tip] 大白话
 > `pyproject.toml` 是**购物清单**：写清要买什么、接受什么价位范围。`uv.lock` 是**结账小票**：每件商品具体版本、校验和多少。老式 `requirements.txt` 常把清单和小票糊在同一张纸上，一改就乱。
