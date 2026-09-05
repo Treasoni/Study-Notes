@@ -7,7 +7,7 @@ tags:
   - 包管理
   - 学习笔记
 created: 2026-09-03
-updated: 2026-09-03
+updated: 2026-09-05
 status: 已完成
 source_project: uv-python-virtualenv
 ---
@@ -280,10 +280,34 @@ uv python pin 3.12           # 在当前目录生成 .python-version
 uv python pin --global 3.12  # 写用户级配置，作为默认版本
 ```
 
-`uv python pin` 的产物就是 `.python-version`，内容是"版本请求"而非精确小版本，这样 `3.12` 能自动吃到后续 patch 更新。uv 在决定用哪个解释器时，会从**当前目录逐级向上**查找最近的 `.python-version`——父目录声明、子目录可以继承。[^c3-B3]
+`.python-version` 是 uv 用来回答「这个目录该用哪个 Python」的纸条——一个纯文本文件，内容是一段**版本请求**。`uv python pin 3.12` 就是把它写进当前目录；之后在此目录跑 `uv venv`、`uv run`、`uv add`，uv 都会先读它，再决定用哪个解释器。
+
+为什么写「版本请求」而不是精确小版本？差别在于 patch 是否跟着走：
+
+| `.python-version` 内容 | 含义 | 后果 |
+|---|---|---|
+| `3.12` | 「要 3.12 的最新 patch」 | 3.12.10、3.12.11 发布后，建环境时自动用最新 patch |
+| `3.12.9` | 死死锁住 .9 | 除非手动改，否则永远停在 .9 |
+
+写 `3.12` 不是偷懒，而是故意留出 patch 浮动空间——安全更新来了自动吃到，不用每次手动改纸条。
+
+uv 怎么决定用哪张纸条？从**当前目录逐级向上**，找最近的 `.python-version`，找到即停：
+
+```text
+~/code/
+├── .python-version        → 3.12     ← 在 ~/code 这一层声明
+├── projectA/              ← 没贴纸条 → 继承 ~/code 的 3.12
+└── projectB/
+    ├── .python-version    → 3.11     ← projectB 自己贴了
+    └── scripts/           ← 没贴纸条 → 继承 projectB 的 3.11
+```
+
+例如在 `~/code/projectB/scripts/` 里跑 uv：scripts 没有 → 向上到 `projectB` 找到 `3.11` 就停，不会继续往上被 `~/code` 的 `3.12` 覆盖。所以**父目录声明一次，整棵子树默认继承**；某个子项目想特殊，自己贴一张即可覆盖父级。[^c3-B3]
+
+`--global` 则写到用户级配置（不在任何项目里），相当于全局兜底：当你在某个目录向上翻遍都没有纸条时，最后听它的。
 
 > [!tip] 大白话
-> `.python-version` 像贴在某层楼的"点单标签"。uv 从你站的位置往上逐级翻找，谁最近就听谁的——不用每个房间都贴。
+> `.python-version` 像贴在某层楼的"点单标签"。uv 从你站的位置往上逐级翻找，谁最近就听谁的——不用每个房间都贴；`--global` 是贴在大楼门口的默认招牌，整栋楼找不到时用它兜底。
 
 ### 3.5 查找优先级与开关
 
