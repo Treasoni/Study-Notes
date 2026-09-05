@@ -240,6 +240,8 @@ uv 已经能跑了。它的另一个野心是「连 Python 本身一起管」—
 
 很多坑源于"解释器得先于工具存在"。uv 反其道：它不依赖系统预装 Python，而是内置一套 Python 下载与管理能力，使用的是 **python-build-standalone**——由 Astral 预编译、自包含、免安装的解释器发行版。[^c3-B2] 你装的是 uv，Python 则在第一次需要时由 uv 自动下载，放进自己的托管目录，一台新机器装上 uv 就等于随时能调出任意版本的 Python。
 
+这些"托管"的 Python 实际放在 uv 自己的数据目录里（macOS/Linux：`~/.local/share/uv/python`；Windows：`%LOCALAPPDATA%\uv\python`），用 `uv python list` 就能看到装了哪些版本；目录本身不用你维护，uv 负责放好与取用。[^c3-B2]
+
 > [!tip] 大白话
 > 把 uv 托管的 Python 想成"应用商店里预装好的 App"，不用你自己去官网下载安装包再配置环境变量。所以"装 uv"和"装 Python"解绑了——先有 uv，Python 随用随取。
 
@@ -321,6 +323,8 @@ uv 怎么决定用哪张纸条？从**当前目录逐级向上**，找最近的 
 uv venv --python 3.11     # 缺 3.11 时先自动下载，再建 .venv
 uv venv --python 3.11 --no-managed-python  # 只用 PATH / 系统解释器
 ```
+
+把上面的顺序沿 `uv venv --python 3.11` 走一遍：uv 先看托管目录里有没有 3.11 → 没有就沿 PATH 找系统解释器 →（Windows 还会查注册表 / Microsoft Store）→ 都没有则自动下载 3.11 再建环境；加了 `--no-managed-python` 则跳过托管目录、也不自动下载，只认 PATH / 系统里已有的。[^c3-B2]
 
 ### 3.6 易错点：新版本 Python ≠ 换个命令就能装
 
@@ -428,7 +432,12 @@ deactivate
 
 ### 4.3 uv 自动发现：激活对 uv 常非必需
 
-环境名是默认 `.venv` 时，uv 会**自动发现并复用**——`uv venv` 之后直接 `uv pip install ruff` 也能正确装进 `.venv`，不必先激活[^c4-b4]。要分清两类消费者：IDE、你在 shell 敲的 `python`、非 uv 工具看的是「激活状态」；uv 命令看的是「目录约定」。前者需要 activate，后者不需要。
+环境名是默认 `.venv` 时，uv 会**自动发现并复用**——`uv venv` 之后直接 `uv pip install ruff` 也能正确装进 `.venv`，不必先激活[^c4-b4]。要分清两类消费者：IDE、你在 shell 敲的 `python`、非 uv 工具看的是「激活状态」；uv 命令看的是「目录约定」。前者需要 activate，后者不需要：
+
+| 消费者 | 判断依据 | 要不要手动 activate |
+|---|---|---|
+| IDE、shell 里敲的 `python`、非 uv 工具 | 「激活状态」（PATH / `VIRTUAL_ENV`） | 要 |
+| uv 命令（`uv run` / `uv pip install`） | 「目录约定」（就近的默认名 `.venv`） | 不要 |
 
 > [!tip] 大白话：把 `.venv` 想成固定钥匙位
 > uv 每次进门先摸默认钥匙位（`.venv`），摸到就直接用，不用你掏出门禁卡再刷一次（手动激活）。但 IDE 不认识这个约定，仍要你亲自「开门」。

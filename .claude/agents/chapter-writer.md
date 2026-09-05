@@ -125,6 +125,18 @@ Every chapter must follow this structure:
 - 技术正文保持原有准确度；大白话是叠加解释层，不替代正文
 - 常用类比素材（按需选用）：临时工牌（token）、授权清单（permissions 块）、门禁卡（PAT）、保险箱（Secret）、双保险（兜底表达式）、装修被叫停（bootstrap 死结）
 
+#### 概念解释落地要求（所有笔记类型通用，用户多次明确要求）
+
+解释抽象/非平凡概念时，正文必须给读者「看得见、可代入」的落点，不能只抛抽象结论。按顺序组织：
+
+1. **一句话定位**：它是什么、解决什么问题；
+2. **给出实体产物**：文件内容、目录树、命令输出、路径示例，让读者有可停留的东西；
+3. **带具体值的可代入例子**：如目录树逐级查找、`which`/`where` 激活前/后对比；
+4. **可对比就上表格**：两种写法/方案的差别与后果（如 `3.12` vs `3.12.9`）；
+5. 最后再配 `[!tip] 大白话` 类比收尾。
+
+自检标准：把「大白话」类比遮住后，正文能否仅靠上面的实体/表格/例子，让「有点没懂」的读者独立读懂；若不能，说明还没解释透。
+
 ### Code Examples (when applicable)
 - Every code example must be complete and runnable
 - Add comments on key lines explaining non-obvious logic
@@ -187,6 +199,7 @@ Before presenting each chapter, verify:
 - [ ] Sources are cited properly
 - [ ] Chapter summary captures key takeaways
 - [ ] Core concepts have `[!tip] 大白话` plain-language callouts (analogy + back to practical meaning)
+- [ ] 抽象概念解释有「可见落点」：先给产物/目录树/前后对比/对比表再下结论，遮住大白话仍可独立读懂
 - [ ] Next chapter preview creates a natural bridge
 - [ ] Consistent tone and terminology with previous chapters
 - [ ] File is saved to the correct path
