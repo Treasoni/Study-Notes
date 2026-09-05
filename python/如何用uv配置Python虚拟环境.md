@@ -362,24 +362,57 @@ uv venv --python 3.11    # 指定版本；缺则自动下载
 
 ### 4.2 全平台激活与停用
 
-激活的本质，是把该环境存放命令的目录插进 shell 的 PATH 最前，让 `python`、`pip` 落到环境内部。macOS/Linux（bash/zsh/fish/csh）与 Windows（PowerShell/CMD）并列给出[^c4-b4]：
+激活的本质，是把该环境存放命令的目录插进 shell 的 PATH 最前，让 `python`、`pip` 落到环境内部[^c4-b4]。先记住一个事实：`.venv` 里放命令的目录名**按系统分**——macOS/Linux 是 `bin`，Windows 是 `Scripts`。各平台命令不一样，一半原因就在这里：
 
-```bash
-source .venv/bin/activate        # macOS/Linux bash/zsh
-source .venv/bin/activate.fish   # fish
-source .venv/bin/activate.csh    # csh/tcsh
+```text
+macOS / Linux                      Windows
+.venv/                             .venv/
+└── bin/        ← 命令在此         └── Scripts/    ← 命令在此
+    ├── python                        ├── python.exe
+    ├── pip                           ├── pip.exe
+    └── activate 及变体               ├── activate.bat
+                                      └── Activate.ps1
 ```
 
-```powershell
-.venv\Scripts\activate           # Windows PowerShell（uv 官方当前写法）
-.\.venv\Scripts\Activate.ps1     # PowerShell 显式 .ps1（venv 通行写法）
+**激活实际只做三件事**，`deactivate` 再全部撤销：
+
+1. 把 `.venv/bin`（或 `Scripts`）插到 **PATH 最前**；
+2. 设 `VIRTUAL_ENV` 变量；
+3. 把提示符改成 `(.venv)`，提醒你现在在环境内。
+
+用 `which` / `where` 看前后差别最直观：
+
+```bash
+# macOS / Linux
+$ which python             # 激活前
+/usr/local/bin/python      #   → 系统 Python
+$ source .venv/bin/activate
+(.venv) $ which python     # 激活后（提示符多了 (.venv)）
+/home/you/proj/.venv/bin/python
 ```
 
 ```bat
-.\.venv\Scripts\activate.bat     # Windows CMD
+:: Windows cmd
+C:\proj> where python
+C:\Users\you\...\Python312\python.exe
+C:\proj> .venv\Scripts\activate.bat
+(.venv) C:\proj> where python
+C:\proj\.venv\Scripts\python.exe
 ```
 
-退出统一用：
+**为什么命令这么多？** `.venv` 里其实备好了各 shell 的激活脚本，你只需运行「匹配当前 shell」的那一份。系统决定目录名（`bin`/`Scripts`），shell 决定脚本格式：
+
+| 你在用什么 shell | 运行哪个文件 | 原因 |
+|---|---|---|
+| bash / zsh（macOS/Linux） | `source .venv/bin/activate` | 命令在 `bin/`；bash/zsh 语法兼容，共用一份 |
+| fish（macOS/Linux） | `source .venv/bin/activate.fish` | fish 语法不同，`.venv` 备了专属版 |
+| csh / tcsh（macOS/Linux） | `source .venv/bin/activate.csh` | 同上 |
+| PowerShell（Windows） | `.\.venv\Scripts\Activate.ps1` | 命令在 `Scripts\`；PowerShell 认 `.ps1` |
+| cmd（Windows） | `.\.venv\Scripts\activate.bat` | cmd 按 `.bat` 扩展名执行 |
+
+两个易错点：macOS/Linux 必须带 `source`——它在**当前 shell** 里执行，改动才留得住；直接 `./activate` 会另开子进程，改完即丢。Windows 则是 PowerShell 认 `.ps1`、cmd 认 `.bat`，所以有两个文件。
+
+退出统一用 `deactivate`——它不是系统命令，而是激活脚本在当前 shell 里定义的函数，专门撤销上面三步，所以任何平台都敲同一个词：
 
 ```bash
 deactivate
@@ -387,6 +420,9 @@ deactivate
 
 > [!tip] 大白话：activate 像给命令解析换一张指向新家的地图
 > activate 不神秘——它把你 shell 找命令的 PATH 最前段换成 `.venv` 的 `Scripts`/`bin` 目录，`python`/`pip` 随之指进环境；`deactivate` 撤掉这段、恢复系统默认。
+
+> [!note] uv 用户其实很少需要亲手激活
+> 环境名是默认 `.venv` 时，uv 的命令（`uv run` / `uv sync`）会自动发现并复用，不必先激活（见 4.3）。上面这套激活，主要留给 IDE 选解释器、在 shell 里裸敲 `python`、以及不用 uv 的老工具。
 
 补充：CMD 的 `activate.bat` 与显式 `Activate.ps1` 属 Python venv 通行写法；uv 官方文档当前只给 PowerShell 一行 `.venv\Scripts\activate`，此处按实操经验并列补全、便于查用[^c4-c6]。
 
