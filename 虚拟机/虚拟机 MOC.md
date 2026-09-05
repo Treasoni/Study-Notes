@@ -2,7 +2,7 @@
 type: moc
 status: active
 created: 2026-07-30
-updated: 2026-08-28
+updated: 2026-09-05
 tags:
   - moc
   - 虚拟机
@@ -15,6 +15,10 @@ tags:
 > 虚拟化技术的实操指南与原理笔记，涵盖 VMware Workstation 使用、虚拟网络模式等内容。
 
 ---
+
+## 概念与入门
+
+- [[虚拟机/虚拟机的概念和使用.md]] - 零基础入门虚拟机：概念、VirtualBox/VMware 实操、快照、网络与选型避坑 #虚拟机 #入门 #教程
 
 ## VMware 实操
 
@@ -36,6 +40,7 @@ tags:
 ## 学习路径建议
 
 > [!tip] 阅读顺序
-> 1. **新手入门**: 先看 [[虚拟机/VMware Workstation Player 安装 Windows 虚拟机.md]]，上手创建第一台虚拟机
-> 2. **遇到问题**: 锁文件报错参考 [[虚拟机/VMware 获取虚拟机所有权失败.md]]；启动 "No Media" 参考 [[虚拟机/VMware 启动出现 No Media 报错.md]]
-> 3. **深入网络**: 进入 [[虚拟机/虚拟网络模式/00_索引.md]] 系统学习虚拟网络原理
+> 1. **零基础入门**: 先看 [[虚拟机/虚拟机的概念和使用.md]]，建立虚拟机概念全貌，并跟着 VirtualBox / VMware 两章动手建机
+> 2. **VMware 上手**: 参考 [[虚拟机/VMware Workstation Player 安装 Windows 虚拟机.md]]，创建第一台 Windows 虚拟机
+> 3. **遇到问题**: 锁文件报错参考 [[虚拟机/VMware 获取虚拟机所有权失败.md]]；启动 "No Media" 参考 [[虚拟机/VMware 启动出现 No Media 报错.md]]
+> 4. **深入网络**: 进入 [[虚拟机/虚拟网络模式/00_索引.md]] 系统学习虚拟网络原理
