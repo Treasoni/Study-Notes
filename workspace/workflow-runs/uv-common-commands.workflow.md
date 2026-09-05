@@ -10,8 +10,8 @@ topic: "uv 的常用命令"
 project_slug: "uv-common-commands"
 created_at: "2026-09-05"
 last_updated: "2026-09-05"
-current_phase: P5
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -19,6 +19,7 @@ mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
 mode_change_phase: "P2"
 blocked_reason: ""
+quality_gate: passed
 ---
 
 # 学习笔记工作流 - 执行检查清单
@@ -28,7 +29,7 @@ blocked_reason: ""
 > 运行标识：uv-common-commands
 > 项目标识：uv-common-commands
 > 创建时间：2026-09-05
-> 当前阶段：阶段 5
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -104,7 +105,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中 {in_progress}
+> [P5] ✅ 已完成 {complete}
 
 ---
 
@@ -114,7 +115,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -124,7 +125,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -137,6 +138,9 @@ blocked_reason: ""
 | P2 | 用户确认 P2 素材质量，选择大纲模式进入 P3 | 2026-09-05 |
 | P3 | 用户确认 9 部分大纲，进入逐章写作 | 2026-09-05 |
 | P4 | 用户确认 9 部分全部写完（选择批量写作），进入收尾组装 | 2026-09-05 |
+| P5 | 用户确认组装结果与质量校验（脚注闭合/标题统一/Callout 修复），发布到 python/ | 2026-09-05 |
+| P6 | 用户确认发布到 python/uv常用命令速查手册.md（note-beautifier 完成 frontmatter/标签/双链） | 2026-09-05 |
+| P7 | 用户确认同步 MOC（python/Python MOC.md 已追加索引项） | 2026-09-05 |
 
 ---
 
@@ -166,10 +170,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：常用命令速查手册（命令族骨架 + 场景速查混合）
+- **总字数**：约 6.0 万字符（非空白；中文约 1.97 万字，含 69 个代码块与表格）
+- **章节数**：7 章 + 附录 A/B（9 部分）
+- **输出格式**：Obsidian Markdown（frontmatter + §x.y 锚点 + Callout + 双链 + 脚注）
+- **文件路径**：`workspace/uv-common-commands/output/final_note.md`（组装稿）
+- **Obsidian Vault**：D:\Study-Notes → `python/uv常用命令速查手册.md`
+- **MOC 路径**：`python/Python MOC.md`（已追加索引）
