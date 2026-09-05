@@ -10,7 +10,7 @@ topic: "uv 的常用命令"
 project_slug: "uv-common-commands"
 created_at: "2026-09-05"
 last_updated: "2026-09-05"
-current_phase: P2
+current_phase: P3
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：uv-common-commands
 > 项目标识：uv-common-commands
 > 创建时间：2026-09-05
-> 当前阶段：阶段 2
+> 当前阶段：阶段 3
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -67,7 +67,7 @@ blocked_reason: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] 🔲 进行中 {in_progress}
+> [P2] ✅ 已完成 {complete}
 
 ---
 
@@ -79,7 +79,7 @@ blocked_reason: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] ⬜ 未开始
+> [P3] 🔲 进行中 {in_progress}
 
 ---
 
@@ -134,6 +134,7 @@ blocked_reason: ""
 |------|----------|------|
 | P0 | 用户确认意图文件与研究计划；发布位置：Vault python/ + 更新 Python MOC | 2026-09-05 |
 | P1 | 用户选择组织主线：D 命令族骨架+场景速查混合（探测结果见 01_explore_result.md） | 2026-09-05 |
+| P2 | 用户确认 P2 素材质量，选择大纲模式进入 P3 | 2026-09-05 |
 
 ---
 
