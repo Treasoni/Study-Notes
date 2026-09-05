@@ -33,6 +33,7 @@ updated: 2026-09-05
 - [[LunaTV导入影视网站/README|LunaTV 导入影视网站]] - 把自选影视站导入本地部署的 lunatv：源机制、订阅导入、排错、进阶与画质优化 #lunatv #影视聚合 #苹果CMS
 - [[Stremio-Web实战/README|stremio-web 实战]] - 从 1080p 采集源到 4K/Remux Debrid 观影路线：架构、客户端选型、Torrentio+Real-Debrid 接高质量源、与 lunatv 对比 #stremio #Debrid #4K
 - [[social-auto-upload 配置与使用指南]] - social-auto-upload 多平台自动上传：uv+patchright+sau CLI 安装、conf.py 配置、抖音首发闭环、平台命令矩阵、Cookie 登录态与排错 #social-auto-upload #自动化 #CLI
+- [[经营小红书和抖音的开源项目与工具盘点]] - 小红书/抖音经营开源工具全景盘点：自动发布、AI 内容生产、一体化编排、合规数据路径与选型矩阵 #自媒体运营 #工具盘点 #小红书 #抖音
 
 ## API 中转站
 
