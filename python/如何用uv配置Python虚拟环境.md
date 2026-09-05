@@ -557,11 +557,58 @@ uv add requests
 
 ### 5.3 `uv.lock`：跨平台精确锁，提交、别手改
 
-要点[^c5-B5]：
+`pyproject.toml` 里的依赖是**范围**（如 `"requests>=2.32.0"`），范围不等于答案：它允许装 2.32.0、2.32.3、乃至将来才发布的 2.33.x。`uv.lock` 就是 uv 把范围解析成**精确版本**后写死的一份机器文件——每个包具体装哪个版本、从哪个源下载、校验和是多少，一次钉死[^c5-B5]。
 
-- **跨平台精确锁定**：uv 把整棵依赖树在 Windows / macOS / Linux 上的确切版本、来源与哈希都解析进同一份 lockfile。提交后任何人 clone、任何 CI 上 `uv sync`，装出的都是同一套。
-- **提交版本库**：它就是该入库的文件（`.gitignore` 不会忽略它）。
-- **不要手改**：它是机器生成的一致性快照，手改会让 lockfile 与 pyproject 对不上。升级走命令（5.4），别用编辑器。
+```text
+hello-demo/
+├── pyproject.toml   # 人写的：声明「范围」
+├── uv.lock          # 机器写的：钉死「精确答案」
+└── .venv/           # uv sync 照 uv.lock 装出来的实际环境
+```
+
+`uv.lock` 长这样（节选，机器生成，别手写）：
+
+```toml
+# uv.lock
+[[package]]
+name = "requests"
+version = "2.32.3"                     # 范围 >=2.32.0 被解析成的具体版本
+source = { registry = "https://pypi.org/simple" }
+dependencies = [                       # 传递依赖也一起钉死
+    { name = "certifi" },
+    { name = "charset-normalizer" },
+    { name = "idna" },
+    { name = "urllib3" },
+]
+
+[[package]]
+name = "numpy"
+version = "2.1.3"
+wheels = [                             # 同一版本，各平台各一行
+    { name = "numpy", url = ".../numpy-2.1.3-cp312-cp312-win_amd64.whl",             hash = "sha256:..." },
+    { name = "numpy", url = ".../numpy-2.1.3-cp312-cp312-macosx_11_0_arm64.whl",     hash = "sha256:..." },
+    { name = "numpy", url = ".../numpy-2.1.3-cp312-cp312-manylinux_2_17_x86_64.whl", hash = "sha256:..." },
+]
+```
+
+读它注意两点：
+
+- **钉的是整棵依赖树**：certifi / idna / urllib3 并不在你的 `pyproject.toml` 里，而是 requests 拉进来的传递依赖。uv.lock 把直接依赖和全部传递依赖一起钉住，不只你手写的那几个。
+- **一份文件覆盖所有平台**：numpy 没有「一个文件通吃所有系统」的发行物，Windows / macOS / Linux 各是不同 wheel（哈希也不同）。uv.lock 把三条货架行写进同一份文件，`uv sync` 时 Windows 取 win 行、macOS 取 mac 行——这就是标题里「跨平台精确锁」的含义。
+
+没有它会发生什么：
+
+| 时间 | 只有 pyproject（无 uv.lock）：`uv sync` 装到 | pyproject + uv.lock：任何人 `uv sync` 装到 |
+|---|---|---|
+| 今天 | requests 解析到 **2.32.3** | 锁在 **2.32.3** |
+| 三个月后 | 同事/CI 装到 PyPI 新出的 **2.33.x** | 仍是 **2.32.3**（除非主动升级） |
+
+同源代码两种依赖 → 经典「在我这能跑、在你那炸」。老式 `pip freeze > requirements.txt` 也想锁，但它只拍得下**一台机器**当时的安装结果：在 Windows 冻结出 Windows 的包与版本，换到 Linux 就失真。uv.lock 是「一次解析、全平台复用」。
+
+使用守则[^c5-B5]：
+
+- **提交版本库**：它就是该入库的文件（`.gitignore` 不会忽略它）。提交后任何人 clone、任何 CI 上 `uv sync`，装出的都是同一套。
+- **别手改**：它是机器生成的一致性快照。手改让 lockfile 与 pyproject / 依赖树失配，下次 `uv sync` / `uv run` 会报错要求 `uv lock` 重新生成，或直接把你的改动覆盖掉；CI 里用 `uv sync --locked` 时则直接让构建失败。想升级走命令（`uv lock --upgrade-package requests`，见 5.4），别用编辑器。
 
 > [!tip] 大白话
 > `uv.lock` 是**配方的定格照**：把「每批料用的哪个批次」拍下来存进 Git。手改它像手改银行对账单——不该做，要改走正规流程。有了它，换电脑、同事 clone、CI 构建都不至于「在我这能跑、在你那炸」。
