@@ -196,13 +196,13 @@ skills/nature-figure/           →  nature-figure        ← 多数同名
 
 对应「把研究结果写成 Nature 风格文稿」：从润色既有文字到从零起草章节，再到统计与数据可用性声明。
 
-| 目录名 | 触发名（若不同） | 状态 | 一句话用途 | 典型触发词 | 运行依赖 / 注意 |
-|------|------|------|-----------|-----------|------|
-| `nature-polishing` | — | Stable | 学术文本润色 / 重构 / 翻译为 Nature 风格英文 | Nature style / 润色 / academic writing | 依赖 `nature-shared`；4 轴路由 `paper_type / section / language / journal`；修 LaTeX 排版 |
-| `nature-writing` | — | Draft | 起草 Nature 风格手稿章节、重建论证 | 写摘要 / 写引言 / manuscript draft | 依赖 `nature-shared`；写作类 |
-| `nature-statistics` | — | Draft | 统计报告审查 / 改写 / 起草（实验单位 / 重复 / p 值 / 多重比较 / 效应量 / CI） | Nature statistics / 统计审查 / p value | 写作类 |
-| `nature-data` | — | Draft | Data Availability 声明 + 数据仓储方案 + FAIR 检查 | Data Availability / FAIR | 写作类 |
-| `nature-proposal-writer` | `researchwrite` | Beta | proposal-first 科研写作状态机：证据 / 论证 / 契约先于文本 | researchwrite / 开题报告 / 科研写作 QA | 写作类；**装/列/点名都用触发名 `researchwrite`**（S1 §5.1；S5 §4.4） |
+| 目录名                      | 触发名（若不同）        | 状态     | 一句话用途                                               | 典型触发词                                | 运行依赖 / 注意                                                                       |
+| ------------------------ | --------------- | ------ | --------------------------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------- |
+| `nature-polishing`       | —               | Stable | 学术文本润色 / 重构 / 翻译为 Nature 风格英文                       | Nature style / 润色 / academic writing | 依赖 `nature-shared`；4 轴路由 `paper_type / section / language / journal`；修 LaTeX 排版 |
+| `nature-writing`         | —               | Draft  | 起草 Nature 风格手稿章节、重建论证                               | 写摘要 / 写引言 / manuscript draft         | 依赖 `nature-shared`；写作类                                                          |
+| `nature-statistics`      | —               | Draft  | 统计报告审查 / 改写 / 起草（实验单位 / 重复 / p 值 / 多重比较 / 效应量 / CI） | Nature statistics / 统计审查 / p value   | 写作类                                                                             |
+| `nature-data`            | —               | Draft  | Data Availability 声明 + 数据仓储方案 + FAIR 检查             | Data Availability / FAIR             | 写作类                                                                             |
+| `nature-proposal-writer` | `researchwrite` | Beta   | proposal-first 科研写作状态机：证据 / 论证 / 契约先于文本             | researchwrite / 开题报告 / 科研写作 QA       | 写作类；**装/列/点名都用触发名 `researchwrite`**（S1 §5.1；S5 §4.4）                            |
 
 ### 2.4 分组速查 C｜投稿与返修
 
