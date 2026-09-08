@@ -7,10 +7,10 @@
 - **运行标识**: nature-skills-usage
 - **创建时间**: 2026-09-08
 - **当前阶段**: 阶段 0（意图澄清）
-- **输出目标**: obsidian-vault（当前 vault = 项目根目录 D:\Study-Notes）
-- **Vault 路径**: D:\Study-Notes（当前 vault；笔记按 vault 内相对目录写入）
-- **笔记目录**: 待确认（候选 `AI学习/` 或 `GitHub项目/`）
-- **MOC 路径**: 待指定（阶段 6/7 前确认）
+- **输出目标**: obsidian-vault（发布位置暂不指定，阶段 6 前确认 note_folder/moc_path）
+- **Vault 路径**: D:\Study-Notes（当前 vault；阶段 6 发布时按 vault 内相对目录写入）
+- **笔记目录**: 暂不指定（阶段 6 发布前确认）
+- **MOC 路径**: 暂不指定（阶段 6/7 前确认）
 - **来源 URL**: https://github.com/Yuan1z0825/nature-skills
 
 ## 学习目标
