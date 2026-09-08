@@ -10,8 +10,8 @@ topic: "如何用好 nature-skills（Codex 上手实战指南）"
 project_slug: "nature-skills-usage"
 created_at: "2026-09-08"
 last_updated: "2026-09-08"
-current_phase: P6
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：nature-skills-usage
 > 项目标识：nature-skills-usage
 > 创建时间：2026-09-08
-> 当前阶段：阶段 6
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -111,12 +111,12 @@ blocked_reason: ""
 ---
 
 ## 阶段 6：Obsidian 美化与发布
-- [ ] 已读取 Obsidian 输出规则
-- [ ] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
-- [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
-- [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
+- [x] 已读取 Obsidian 输出规则
+- [x] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）→ 用户指定 `D:\Study-Notes\毕业设计`
+- [x] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
+- [x] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] 🔲 进行中 {in_progress}
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -126,7 +126,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ⏭️ 跳过 {skipped}
 
 ---
 
@@ -136,6 +136,7 @@ blocked_reason: ""
 |------|----------|------|
 | P4 | 用户指示「全部写完」，豁免第 1→2 章起的逐章确认；六章连续写完 | 2026-09-08 |
 | P5 | 用户指示「直接组装」，确认组装方式 A（顺序拼接） | 2026-09-08 |
+| P6 | 用户指定发布位置 `D:\Study-Notes\毕业设计`；未要求 MOC | 2026-09-08 |
 
 ---
 
@@ -151,6 +152,7 @@ blocked_reason: ""
 
 | 时间 | 阶段 | 问题描述 | 处理方式 |
 |------|------|---------|---------|
+| 2026-09-08 23:57 | P7 | 跳过阶段：用户仅指定发布位置，未要求 MOC 同步 | 继续推进到下一未完成阶段 |
 | | | | |
 
 ---
@@ -165,10 +167,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战笔记（上手实战指南）
+- **总字数**：约 2.3 万字符（正文）
+- **章节数**：6 章 + 阅读说明/目录 + 参考来源说明附录
+- **输出格式**：Obsidian Markdown（YAML frontmatter + Callout + 双链）
+- **文件路径**：`workspace/nature-skills-usage/output/final_note.md`（项目副本）
+- **Obsidian Vault**：`D:\Study-Notes\毕业设计\如何用好 nature-skills（Codex 上手实战指南）.md`
+- **MOC 路径**：未同步（P7 跳过，用户仅指定发布位置）
