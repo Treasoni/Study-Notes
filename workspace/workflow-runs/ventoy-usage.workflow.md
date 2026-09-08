@@ -10,8 +10,8 @@ topic: 如何使用 Ventoy（多系统启动U盘）
 project_slug: ventoy-usage
 created_at: 2026-09-08
 last_updated: "2026-09-08"
-current_phase: P7
-current_status: ready
+current_phase: done
+current_status: complete
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -19,6 +19,7 @@ mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
 mode_change_phase: "P2"
 blocked_reason: ""
+quality_gate: passed
 ---
 
 # 学习笔记工作流 - 执行检查清单
@@ -28,7 +29,7 @@ blocked_reason: ""
 > 运行标识：ventoy-usage
 > 项目标识：ventoy-usage
 > 创建时间：2026-09-08
-> 当前阶段：阶段 7
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -124,7 +125,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -132,7 +133,13 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
-| | | |
+| P0 | 主题=Ventoy（多系统启动U盘）；深度=上手会用；用途=实战操作指南；输出=Obsidian 指定目录 | 2026-09-08 |
+| P1 | 方向=综合全流程（概念→安装→排错） | 2026-09-08 |
+| P3 | 大纲模式，确认 7 章大纲进入写作 | 2026-09-08 |
+| P4 | 用户指示「全部写完」，放弃逐章确认，7 章一次并行写完 | 2026-09-08 |
+| P5 | 确认组装结果进入美化发布 | 2026-09-08 |
+| P6 | 发布位置=新建专属目录「Ventoy 使用指南」 | 2026-09-08 |
+| P7 | MOC=创建专属 MOC | 2026-09-08 |
 
 ---
 
@@ -140,7 +147,7 @@ blocked_reason: ""
 
 | 阶段 | 确认内容 | 原因 | 时间 |
 |------|----------|------|------|
-| | | | |
+| P4 | 逐章用户确认 | 用户指示「全部写完」改为批量写作 | 2026-09-08 |
 
 ---
 
@@ -148,7 +155,9 @@ blocked_reason: ""
 
 | 时间 | 阶段 | 问题描述 | 处理方式 |
 |------|------|---------|---------|
-| | | | |
+| 2026-09-08 | P4 | 逐章确认被用户打断 | 按「全部写完」并行写完剩余 6 章 |
+| 2026-09-08 | P6 | 组装发现的格式不一致 | `**本章小结**` 统一为 `### 本章小结`；GitHub 锚点目录改为 Obsidian 标题双链 |
+| 2026-09-08 | P7 | 完成最后阶段需 quality_gate | 补充 `quality_gate: passed` 后完成 |
 
 ---
 
@@ -162,10 +171,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战操作指南
+- **总字数**：约 12,000 字（汉字约 10,400）
+- **章节数**：7（第 7 章为可选速览）
+- **输出格式**：Obsidian Markdown（YAML frontmatter + Callout + 标题双链）
+- **文件路径**：`Ventoy 使用指南/Ventoy 多系统启动U盘实战指南.md`（vault 内相对路径）
+- **Obsidian Vault**：项目根目录即 Obsidian vault
+- **MOC 路径**：`Ventoy 使用指南/Ventoy MOC.md`
