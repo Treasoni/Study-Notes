@@ -10,8 +10,8 @@ topic: 如何使用 Ventoy（多系统启动U盘）
 project_slug: ventoy-usage
 created_at: 2026-09-08
 last_updated: "2026-09-08"
-current_phase: P6
-current_status: in_progress
+current_phase: P7
+current_status: ready
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：ventoy-usage
 > 项目标识：ventoy-usage
 > 创建时间：2026-09-08
-> 当前阶段：阶段 6
+> 当前阶段：阶段 7
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -114,7 +114,7 @@ blocked_reason: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] 🔲 进行中 {in_progress}
+> [P6] ✅ 已完成 {complete}
 
 ---
 
