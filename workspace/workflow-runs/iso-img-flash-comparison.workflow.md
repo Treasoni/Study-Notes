@@ -10,7 +10,7 @@ topic: ISO 与 IMG 镜像烧录/写盘方法对比
 project_slug: iso-img-flash-comparison
 created_at: 2026-09-09
 last_updated: "2026-09-09"
-current_phase: P2
+current_phase: P4
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：iso-img-flash-comparison
 > 项目标识：iso-img-flash-comparison
 > 创建时间：2026-09-09
-> 当前阶段：阶段 2
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -67,7 +67,7 @@ blocked_reason: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] 🔲 进行中 {in_progress}
+> [P2] ✅ 已完成 {complete}
 
 ---
 
@@ -79,7 +79,7 @@ blocked_reason: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] ⬜ 未开始
+> [P3] ✅ 已完成 {complete}
 
 ---
 
@@ -89,9 +89,9 @@ blocked_reason: ""
 - [ ] 第 3 章已写完并确认
 - [ ] ...（根据实际章节数添加）
 
-**进度**：0/待大纲确定
+**进度**：0/6
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中 {in_progress}
 
 ---
 
