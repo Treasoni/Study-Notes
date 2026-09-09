@@ -2,7 +2,7 @@
 type: moc
 status: active
 created: 2026-07-30
-updated: 2026-09-05
+updated: 2026-09-09
 tags:
   - moc
   - 虚拟机
@@ -34,6 +34,7 @@ tags:
 ## 镜像与磁盘格式
 
 - [[iso和img.md]] - 镜像文件格式介绍（ISO / IMG / qcow2 / raw 区别） #镜像 #虚拟机
+- [[虚拟机/ISO与IMG镜像烧录方法对比.md]] - ISO 与 IMG 烧录/写盘方法对比（工具层 + 物理机 + 虚拟机操作篇） #镜像 #烧录 #写盘 #虚拟机 #教程
 
 ---
 
