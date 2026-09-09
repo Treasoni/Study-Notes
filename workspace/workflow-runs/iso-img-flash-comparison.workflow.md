@@ -10,8 +10,9 @@ topic: ISO 与 IMG 镜像烧录/写盘方法对比
 project_slug: iso-img-flash-comparison
 created_at: 2026-09-09
 last_updated: "2026-09-09"
-current_phase: P7
-current_status: in_progress
+current_phase: done
+current_status: complete
+quality_gate: passed
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -28,7 +29,7 @@ blocked_reason: ""
 > 运行标识：iso-img-flash-comparison
 > 项目标识：iso-img-flash-comparison
 > 创建时间：2026-09-09
-> 当前阶段：阶段 7
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -124,7 +125,7 @@ blocked_reason: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] 🔲 进行中 {in_progress}
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -163,9 +164,9 @@ blocked_reason: ""
 ## 最终产出
 
 - **笔记类型**：对比 + 实战操作
-- **总字数**：
-- **章节数**：
+- **总字数**：约 3.4 万字符（Obsidian Markdown）
+- **章节数**：6 章
 - **输出格式**：Obsidian Markdown
-- **文件路径**：虚拟机/（用户指定 vault note_folder）
+- **文件路径**：虚拟机/ISO与IMG镜像烧录方法对比.md
 - **Obsidian Vault**：D:\Study-Notes
-- **MOC 路径**：待定（可后续补）
+- **MOC 路径**：虚拟机/虚拟机 MOC.md（已加入索引行）
