@@ -119,7 +119,7 @@ def main() -> int:
         rel_name = session_path.name
         request_type = classify_request_type(first_user_text(session_path))
         done_keys = set(state.get(rel_name, []))
-        for line in open(source_file, encoding="utf-8", errors="replace"):
+        for line in open(session_path, encoding="utf-8", errors="replace"):
             try:
                 rec = json.loads(line)
             except json.JSONDecodeError:

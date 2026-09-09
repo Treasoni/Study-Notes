@@ -83,9 +83,7 @@ batch-note-updater -> note-updater
 - `.agents/skills/{skill-name}/SKILL.md`
 - `.codex/rules/common/skill-invocation.md`
 - `.codex/rules/common/agent-invocation.md`
-- `.codex/rules/common/git-workflow.md`
 - `.codex/rules/common/env.md`
-- `.codex/rules/common/token-optimization.md`
 - `.codex/rules/common/sync-workflow.md`
 - `.codex/rules/workflow-routing.md`
 - `.codex/rules/obsidian/note-system.md`
@@ -98,7 +96,7 @@ batch-note-updater -> note-updater
 - 不提交真实 `.env`、密钥、Token 或本地个人配置。
 - 不硬编码用户机器绝对路径到项目产物中。
 - 编辑前先检查 `git status --short`，不要覆盖用户未提交改动。
-- Git 提交消息遵守 `.codex/rules/common/git-workflow.md`。
+- Git 提交消息保持简洁清晰；本仓库 canonical 未提供独立 git-workflow.md，提交前先 `git status --short`，不覆盖用户未提交改动。
 
 <!-- env-template:codex:begin -->
 ## Environment Variables

@@ -21,6 +21,20 @@ def tail_lines(text: str, count: int) -> str:
     return "\n".join(lines[-count:])
 
 
+def tail_entries(text: str, count: int) -> str:
+    """Return the last `count` complete `## [ID] ...` entries from a learnings file."""
+    if count <= 0:
+        return ""
+    lines = text.splitlines()
+    starts = [i for i, line in enumerate(lines) if line.startswith("## [")]
+    if not starts:
+        return ""
+    body = lines[starts[-count]:]
+    while body and body[-1].strip() in ("", "---"):
+        body.pop()
+    return "\n".join(body)
+
+
 def print_section(title: str, body: str) -> None:
     if not body:
         return
@@ -35,7 +49,8 @@ def print_section(title: str, body: str) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project-root", default=None, help="Project root. Defaults to two directories above this hook.")
-    parser.add_argument("--tail-lines", type=int, default=50, help="Number of recent LEARNINGS.md lines to include.")
+    parser.add_argument("--tail-lines", type=int, default=30, help="Number of recent LEARNINGS.md lines to include.")
+    parser.add_argument("--error-entries", type=int, default=2, help="Number of recent ERRORS.md entries to include.")
     args = parser.parse_args()
 
     project_root = Path(args.project_root).resolve() if args.project_root else default_project_root()
@@ -46,7 +61,18 @@ def main() -> int:
     print("")
 
     print_section("Rules (highest priority)", read_text(learnings_dir / "RULES.md"))
-    print_section("Error Log (avoid repeating)", read_text(learnings_dir / "ERRORS.md"))
+
+    errors = read_text(learnings_dir / "ERRORS.md")
+    if errors:
+        error_entries = tail_entries(errors, args.error_entries)
+        if not error_entries:
+            error_entries = tail_lines(errors, 12)
+        print_section("Error Log (avoid repeating)", error_entries)
+        if len([l for l in errors.splitlines() if l.startswith("## [")]) > args.error_entries:
+            print("> 更早的错误记录见 `.learnings/ERRORS.md`（按需读取，避免重复预载）。")
+            print("")
+        print("---")
+        print("")
 
     learnings = read_text(learnings_dir / "LEARNINGS.md")
     if learnings:
