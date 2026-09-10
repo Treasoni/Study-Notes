@@ -1,0 +1,536 @@
+---
+url: "https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.management/get-item"
+title: "Get-Item (Microsoft.PowerShell.Management) - PowerShell | Microsoft Learn"
+scraped_at: 2026-09-10T15:41:26+00:00
+---
+
+退出编辑器模式
+询问 Learn 询问 Learn
+读取模式 [ 使用英语阅读 ](https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.management/get-item?view=powershell-7.6) Add to Plans 复制 Markdown
+注意
+访问此页面需要授权。 可以尝试[登录](https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.management/get-item?view=powershell-7.6)或更改目录。 
+访问此页面需要授权。 可以尝试更改目录。 
+# Get-Item 
+
+模块:
+    [Microsoft.PowerShell.Management Module](https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.management/?view=powershell-7.6)
+获取位于指定位置的项。
+## 语法
+###  Path (Default) - FileSystem provider 
+
+```
+Get-Item
+    [-Path] <string[]>
+    [-Filter <string>]
+    [-Include <string[]>]
+    [-Exclude <string[]>]
+    [-Force]
+    [-Credential <pscredential>]
+    [-Stream <string[]>]
+    [<CommonParameters>]
+
+```
+
+###  LiteralPath - FileSystem provider 
+
+```
+Get-Item
+    -LiteralPath <string[]>
+    [-Filter <string>]
+    [-Include <string[]>]
+    [-Exclude <string[]>]
+    [-Force]
+    [-Credential <pscredential>]
+    [-Stream <string[]>]
+    [<CommonParameters>]
+
+```
+
+###  Path (Default) - Certificate provider 
+
+```
+Get-Item
+    [-Path] <string[]>
+    [-Filter <string>]
+    [-Include <string[]>]
+    [-Exclude <string[]>]
+    [-Force]
+    [-Credential <pscredential>]
+    [-CodeSigningCert]
+    [-DocumentEncryptionCert]
+    [-SSLServerAuthentication]
+    [-DnsName <string>]
+    [-Eku <string[]>]
+    [-ExpiringInDays <int>]
+    [<CommonParameters>]
+
+```
+
+###  LiteralPath - Certificate provider 
+
+```
+Get-Item
+    -LiteralPath <string[]>
+    [-Filter <string>]
+    [-Include <string[]>]
+    [-Exclude <string[]>]
+    [-Force]
+    [-Credential <pscredential>]
+    [-CodeSigningCert]
+    [-DocumentEncryptionCert]
+    [-SSLServerAuthentication]
+    [-DnsName <string>]
+    [-Eku <string[]>]
+    [-ExpiringInDays <int>]
+    [<CommonParameters>]
+
+```
+
+###  Path (Default) - All providers 
+
+```
+Get-Item
+    [-Path] <string[]>
+    [-Filter <string>]
+    [-Include <string[]>]
+    [-Exclude <string[]>]
+    [-Force]
+    [-Credential <pscredential>]
+    [<CommonParameters>]
+
+```
+
+###  LiteralPath - All providers 
+
+```
+Get-Item
+    -LiteralPath <string[]>
+    [-Filter <string>]
+    [-Include <string[]>]
+    [-Exclude <string[]>]
+    [-Force]
+    [-Credential <pscredential>]
+    [<CommonParameters>]
+
+```
+
+## 说明
+`Get-Item` cmdlet 获取位于指定位置的项。 除非使用通配符 (`*`) 来请求该项的所有内容，否则此命令不会获取位于该位置的项的内容。
+PowerShell 提供程序使用此 cmdlet 浏览不同类型的数据存储。
+## 示例
+### 示例 1：获取当前目录
+此示例获取当前目录。 点 （'.'） 表示当前位置的项（而不是其内容）。
+
+```
+Get-Item .
+
+```
+
+```
+Directory: C:\
+
+Mode                LastWriteTime     Length Name
+----                -------------     ------ ----
+d----         7/26/2006  10:01 AM            ps-test
+
+```
+
+### 示例 2：获取当前目录中的所有项
+此示例获取当前目录中的所有项。 通配符（`*`）表示当前项的所有内容。
+
+```
+Get-Item *
+
+```
+
+```
+Directory: C:\ps-test
+
+Mode                LastWriteTime     Length Name
+----                -------------     ------ ----
+d----         7/26/2006   9:29 AM            Logs
+d----         7/26/2006   9:26 AM            Recs
+-a---         7/26/2006   9:28 AM         80 date.csv
+-a---         7/26/2006  10:01 AM         30 filenoext
+-a---         7/26/2006   9:30 AM      11472 process.doc
+-a---         7/14/2006  10:47 AM         30 test.txt
+
+```
+
+### 示例 3：获取驱动器的当前目录
+此示例获取 `C:` 驱动器的当前目录。 检索的对象仅表示目录，而不是其内容。
+
+```
+Get-Item C:
+
+```
+
+### 示例 4：获取指定驱动器中的项
+此示例获取 `C:` 驱动器中的项。 通配符（`*`）表示容器中的所有项，而不仅仅是容器。
+
+```
+Get-Item C:\*
+
+```
+
+在 PowerShell 中，使用单个星号（`*`）来获取内容，而不是传统的 `*.*`。 格式按字面解释，因此 `*.*` 不会检索没有点的目录或文件名。
+### 示例 5：获取指定目录中的属性
+此示例获取 目录的 `C:\Windows` 属性。 **LastAccessTime** 只是文件系统目录的一个属性。 若要查看目录的所有属性，请键入 `(Get-Item <directory-name>) | Get-Member`。
+
+```
+(Get-Item C:\Windows).LastAccessTime
+
+```
+
+### 示例 6：显示注册表项的内容
+此示例显示 **Microsoft.PowerShell** 注册表项的内容。 可以将此 cmdlet 与 PowerShell 注册表提供程序配合使用来获取注册表项和子项，但必须使用 `Get-ItemProperty` cmdlet 来获取注册表值和数据。
+
+```
+Get-Item HKLM:\Software\Microsoft\PowerShell\1\Shellids\Microsoft.PowerShell\
+
+```
+
+### 示例 7：获取目录中被排除的项
+本示例获取 Windows 目录中名称包含点（`.`）但不以 `w*`开头的项。仅当路径包含通配符（`*`）以指定项的内容时，此示例才有效。
+
+```
+Get-Item C:\Windows\*.* -Exclude "w*"
+
+```
+
+### 示例 8：获取硬链接信息
+在 PowerShell 6.2 中，添加了备用视图以获取硬链接信息。 若要获取硬链接信息，请通过管道将输出传递给 `Format-Table -View childrenWithHardlink`
+
+```
+Get-Item C:\Windows\System32\ntoskrnl.exe |
+    Format-Table -View childrenWithHardLink
+
+```
+
+```
+    Directory: C:\Windows\System32
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+la---           5/12/2021  7:40 AM       10848576 ntoskrnl.exe
+
+```
+
+`Mode` 属性通过 `l` 中的 `la---` 来标识硬链接
+### 示例 9：非Windows操作系统的输出
+在 Unix 系统上的 PowerShell 7.1 中，`Get-Item` cmdlet 提供类似于 Unix 的输出：
+
+```
+PS> Get-Item /Users
+
+```
+
+```
+    Directory: /
+
+UnixMode    User  Group   LastWriteTime      Size  Name
+--------    ----  -----   -------------      ----  ----
+drwxr-xr-x  root  admin   12/20/2019 11:46   192   Users
+
+```
+
+现在属于输出的一部分的新属性包括：
+  * **UnixMode** 是 Unix 系统上表示的文件权限
+  * **用户** 是文件所有者
+  * **Group** 是组所有者
+  * **大小** 是 Unix 系统上表示的文件或目录的大小
+
+
+注释
+此功能已从实验性迁移到 PowerShell 7.1 中的主流。
+## 参数
+### -CodeSigningCert
+这是 **证书** 提供程序提供的动态参数。 此参数和 **证书** 提供程序仅在 Windows 上可用。
+若要获取 `Code Signing` 属性值中具有 的证书，请使用 **CodeSigningCert** 参数。
+有关详细信息，请参阅 [about_Certificate_Provider](https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.security/about/about_certificate_provider?view=powershell-7.6)。
+#### 参数属性  
+| 类型:  |  
+| --- |  
+| 默认值:  | None  |  
+| 支持通配符:  | False  |  
+| 不显示:  | False  |  
+#### 参数集
+(All)   
+| Position:  | Named  |  
+| --- | --- |  
+| 必需:  | False  |  
+| 来自管道的值:  | False  |  
+| 来自管道的值（按属性名称）:  | False  |  
+| 来自剩余参数的值:  | False  |  
+### -Credential
+注释
+任何随 PowerShell 一起安装的提供程序都不支持此参数。 要模拟其他用户，或在运行此 cmdlet 时提升凭据，请使用 [Invoke-Command](https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.core/invoke-command?view=powershell-7.6)。
+#### 参数属性  
+| 类型:  |  
+| --- |  
+| 默认值:  | Current user  |  
+| 支持通配符:  | False  |  
+| 不显示:  | False  |  
+#### 参数集
+(All)   
+| Position:  | Named  |  
+| --- | --- |  
+| 必需:  | False  |  
+| 来自管道的值:  | False  |  
+| 来自管道的值（按属性名称）:  | True  |  
+| 来自剩余参数的值:  | False  |  
+### -DnsName
+这是 **证书** 提供程序提供的动态参数。 此参数和 **证书** 提供程序仅在 Windows 上可用。
+指定与 cmdlet 获取的证书 **DNSNameList** 属性匹配的域名或名称模式。 此参数的值可以是 `Unicode` 或 `ASCII`。 Punycode 值将转换为 Unicode。 允许使用通配符字符（`*`）。
+此参数在 PowerShell 7.1 中重新引入
+有关详细信息，请参阅 [about_Certificate_Provider](https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.security/about/about_certificate_provider?view=powershell-7.6)。
+#### 参数属性  
+| 类型:  |  
+| --- |  
+| 默认值:  | None  |  
+| 支持通配符:  | True  |  
+| 不显示:  | False  |  
+#### 参数集
+(All)   
+| Position:  | Named  |  
+| --- | --- |  
+| 必需:  | False  |  
+| 来自管道的值:  | False  |  
+| 来自管道的值（按属性名称）:  | False  |  
+| 来自剩余参数的值:  | False  |  
+### -DocumentEncryptionCert
+这是 **证书** 提供程序提供的动态参数。 此参数和 **证书** 提供程序仅在 Windows 上可用。
+若要获取 `Document Encryption` 属性值中具有 的证书，请使用 **DocumentEncryptionCert** 参数。
+有关详细信息，请参阅 [about_Certificate_Provider](https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.security/about/about_certificate_provider?view=powershell-7.6)。
+#### 参数属性  
+| 类型:  |  
+| --- |  
+| 默认值:  | None  |  
+| 支持通配符:  | False  |  
+| 不显示:  | False  |  
+#### 参数集
+(All)   
+| Position:  | Named  |  
+| --- | --- |  
+| 必需:  | False  |  
+| 来自管道的值:  | False  |  
+| 来自管道的值（按属性名称）:  | False  |  
+| 来自剩余参数的值:  | False  |  
+### -Eku
+这是 **证书** 提供程序提供的动态参数。 此参数和 **证书** 提供程序仅在 Windows 上可用。
+指定与 cmdlet 所获取证书的 **EnhancedKeyUsageList** 属性相匹配的文本或文本模式。 允许使用通配符字符（`*`）。 **EnhancedKeyUsageList** 属性包含 EKU 的易记名称和 OID 字段。
+此参数在 PowerShell 7.1 中重新引入
+有关详细信息，请参阅 [about_Certificate_Provider](https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.security/about/about_certificate_provider?view=powershell-7.6)。
+#### 参数属性  
+| 类型:  |  
+| --- |  
+| 默认值:  | None  |  
+| 支持通配符:  | True  |  
+| 不显示:  | False  |  
+#### 参数集
+(All)   
+| Position:  | Named  |  
+| --- | --- |  
+| 必需:  | False  |  
+| 来自管道的值:  | False  |  
+| 来自管道的值（按属性名称）:  | False  |  
+| 来自剩余参数的值:  | False  |  
+### -Exclude
+指定一个或多个在操作中被此 cmdlet 排除的项目，以字符串数组的形式表示。 此参数的值定义了 **Path** 参数的限定条件。 输入路径元素或模式，例如 `*.txt`。 允许使用通配符。 仅当命令包含项（如 ）的内容（其中通配符指定 `C:\Windows\*` 目录的内容）时，`C:\Windows` 参数才有效。
+#### 参数属性  
+| 类型:  |  [String](https://learn.microsoft.com/zh-cn/dotnet/api/system.string)[]  |  
+| --- | --- |  
+| 默认值:  | None  |  
+| 支持通配符:  | True  |  
+| 不显示:  | False  |  
+#### 参数集
+(All)   
+| Position:  | Named  |  
+| --- | --- |  
+| 必需:  | False  |  
+| 来自管道的值:  | False  |  
+| 来自管道的值（按属性名称）:  | False  |  
+| 来自剩余参数的值:  | False  |  
+### -ExpiringInDays
+这是 **证书** 提供程序提供的动态参数。 此参数和 **证书** 提供程序仅在 Windows 上可用。
+指定该 cmdlet 只返回将在指定天数内或之前过期的证书。 值为零（`0`）获取已过期的证书。
+此参数在 PowerShell 7.1 中重新引入
+有关详细信息，请参阅 [about_Certificate_Provider](https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.security/about/about_certificate_provider?view=powershell-7.6)。
+#### 参数属性  
+| 类型:  |  
+| --- |  
+| 默认值:  | None  |  
+| 支持通配符:  | False  |  
+| 不显示:  | False  |  
+#### 参数集
+(All)   
+| Position:  | Named  |  
+| --- | --- |  
+| 必需:  | False  |  
+| 来自管道的值:  | False  |  
+| 来自管道的值（按属性名称）:  | False  |  
+| 来自剩余参数的值:  | False  |  
+### -Filter
+指定筛选器以限定 **Path** 参数。 [FileSystem](https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.core/about/about_filesystem_provider?view=powershell-7.6) 提供程序是唯一支持筛选器的已安装 PowerShell 提供程序。 筛选器比其他参数更高效。 提供程序在 cmdlet 获取对象时应用筛选器，而不是在检索对象后让 PowerShell 筛选对象。 筛选器字符串将传递给 .NET API 以枚举文件。 该 API 仅支持 `*` 和 `?` 通配符。
+#### 参数属性  
+| 类型:  |  
+| --- |  
+| 默认值:  | None  |  
+| 支持通配符:  | True  |  
+| 不显示:  | False  |  
+#### 参数集
+(All)   
+| Position:  | Named  |  
+| --- | --- |  
+| 必需:  | False  |  
+| 来自管道的值:  | False  |  
+| 来自管道的值（按属性名称）:  | False  |  
+| 来自剩余参数的值:  | False  |  
+### -Force
+指示此 cmdlet 获取无法访问的项目，如隐藏项。 实现因服务提供商而异。 有关详细信息，请参阅 [about_Providers](https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.core/about/about_providers?view=powershell-7.6)。 即使使用 **Force** 参数，cmdlet 也不能替代安全限制。
+#### 参数属性  
+| 类型:  |  
+| --- |  
+| 默认值:  | False  |  
+| 支持通配符:  | False  |  
+| 不显示:  | False  |  
+#### 参数集
+(All)   
+| Position:  | Named  |  
+| --- | --- |  
+| 必需:  | False  |  
+| 来自管道的值:  | False  |  
+| 来自管道的值（按属性名称）:  | False  |  
+| 来自剩余参数的值:  | False  |  
+### -Include
+指定一个或多个此 cmdlet 在操作中包含的项，这些项以字符串数组形式表示。 此参数的值定义了 **Path** 参数的限定条件。 输入路径元素或模式，例如 `*.txt`。 允许使用通配符。 仅当命令包含某项的内容（例如 ，其中通配符指定 `C:\Windows\*` 目录的内容）时，`C:\Windows` 参数才有效。
+#### 参数属性  
+| 类型:  |  [String](https://learn.microsoft.com/zh-cn/dotnet/api/system.string)[]  |  
+| --- | --- |  
+| 默认值:  | None  |  
+| 支持通配符:  | True  |  
+| 不显示:  | False  |  
+#### 参数集
+(All)   
+| Position:  | Named  |  
+| --- | --- |  
+| 必需:  | False  |  
+| 来自管道的值:  | False  |  
+| 来自管道的值（按属性名称）:  | False  |  
+| 来自剩余参数的值:  | False  |  
+### -LiteralPath
+指定通向一个或多个位置的路径。 **LiteralPath** 的值严格按照所键入的形式使用。 不会将任何字符解释为通配符。 如果路径包含转义字符，请将它括在单引号中。 单引号告知 PowerShell 不要将任何字符解释为转义序列。
+有关详细信息，请参阅 [about_Quoting_Rules](https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.core/about/about_quoting_rules?view=powershell-7.6)。
+#### 参数属性  
+| 类型:  |  [String](https://learn.microsoft.com/zh-cn/dotnet/api/system.string)[]  |  
+| --- | --- |  
+| 默认值:  | None  |  
+| 支持通配符:  | False  |  
+| 不显示:  | False  |  
+| 别名:  | PSPath, LP  |  
+#### 参数集
+LiteralPath   
+| Position:  | Named  |  
+| --- | --- |  
+| 必需:  | True  |  
+| 来自管道的值:  | False  |  
+| 来自管道的值（按属性名称）:  | True  |  
+| 来自剩余参数的值:  | False  |  
+### -Path
+指定项的路径。 此 cmdlet 获取位于指定位置的项。 允许使用通配符。 此参数是必需的，但参数名称 **路径** 是可选的。
+使用点（`.`）指定当前位置。 使用通配符（`*`）指定当前位置的所有项。
+#### 参数属性  
+| 类型:  |  [String](https://learn.microsoft.com/zh-cn/dotnet/api/system.string)[]  |  
+| --- | --- |  
+| 默认值:  | None  |  
+| 支持通配符:  | True  |  
+| 不显示:  | False  |  
+#### 参数集
+Path   
+| Position:  | 0  |  
+| --- | --- |  
+| 必需:  | True  |  
+| 来自管道的值:  | True  |  
+| 来自管道的值（按属性名称）:  | True  |  
+| 来自剩余参数的值:  | False  |  
+### -SSLServerAuthentication
+这是 **证书** 提供程序提供的动态参数。 此参数和 **证书** 提供程序仅在 Windows 上可用。
+若要获取 `Server Authentication` 属性值中具有 的证书，请使用 **SSLServerAuthentication** 参数。
+有关详细信息，请参阅 [about_Certificate_Provider](https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.security/about/about_certificate_provider?view=powershell-7.6)。
+#### 参数属性  
+| 类型:  |  
+| --- |  
+| 默认值:  | None  |  
+| 支持通配符:  | False  |  
+| 不显示:  | False  |  
+#### 参数集
+(All)   
+| Position:  | Named  |  
+| --- | --- |  
+| 必需:  | False  |  
+| 来自管道的值:  | False  |  
+| 来自管道的值（按属性名称）:  | False  |  
+| 来自剩余参数的值:  | False  |  
+### -Stream
+这是 **FileSystem** 提供程序提供的动态参数。 此参数仅在 Windows 上可用。
+从文件获取指定的备用数据流。 输入流名称。 支持通配符。 若要获取所有数据流，请使用星号（`*`）。 此参数在目录上有效，但请注意，默认情况下目录没有数据流。
+此参数是在 PowerShell 3.0 中引入的。 从 PowerShell 7.2 开始，`Get-Item` 可以从目录和文件获取备用数据流。
+有关详细信息，请参阅 [about_FileSystem_Provider](https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.core/about/about_filesystem_provider?view=powershell-7.6)。
+#### 参数属性  
+| 类型:  |  [String](https://learn.microsoft.com/zh-cn/dotnet/api/system.string)[]  |  
+| --- | --- |  
+| 默认值:  | No alternate file streams  |  
+| 支持通配符:  | True  |  
+| 不显示:  | False  |  
+#### 参数集
+(All)   
+| Position:  | Named  |  
+| --- | --- |  
+| 必需:  | False  |  
+| 来自管道的值:  | False  |  
+| 来自管道的值（按属性名称）:  | False  |  
+| 来自剩余参数的值:  | False  |  
+### CommonParameters
+此 cmdlet 支持通用参数：-Debug、-ErrorAction、-ErrorVariable、-InformationAction、-InformationVariable、-OutBuffer、-OutVariable、-PipelineVariable、-ProgressAction、-Verbose、-WarningAction 和 -WarningVariable。 有关详细信息，请参阅 [about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216)。
+## 输入
+可以通过管道将包含路径的字符串传递给此 cmdlet。
+## 输出
+cmdlet 在访问 `Alias:` 驱动器时输出此类型。
+###  [X509StoreLocation](https://learn.microsoft.com/zh-cn/dotnet/api/microsoft.powershell.commands.x509storelocation)
+###  [X509Certificate2](https://learn.microsoft.com/zh-cn/dotnet/api/system.security.cryptography.x509certificates.x509certificate2)
+cmdlet 在访问 `Cert:` 驱动器时输出这些类型。
+###  [DictionaryEntry](https://learn.microsoft.com/zh-cn/dotnet/api/system.collections.dictionaryentry)
+cmdlet 在访问 `Env:` 驱动器时输出此类型。
+###  [DirectoryInfo](https://learn.microsoft.com/zh-cn/dotnet/api/system.io.directoryinfo)
+cmdlet 在访问 FileSystem 驱动器时输出这些类型。
+###  [FunctionInfo](https://learn.microsoft.com/zh-cn/dotnet/api/system.management.automation.functioninfo)
+###  [FilterInfo](https://learn.microsoft.com/zh-cn/dotnet/api/system.management.automation.filterinfo)
+该 cmdlet 在访问 `Function:` 驱动器时输出这些类型。
+###  [RegistryKey](https://learn.microsoft.com/zh-cn/dotnet/api/microsoft.win32.registrykey)
+该 cmdlet 在访问注册表驱动器时输出此类型。
+###  [PSVariable](https://learn.microsoft.com/zh-cn/dotnet/api/system.management.automation.psvariable)
+cmdlet 在访问 `Variable:` 驱动器时输出此类型。
+###  [WSManConfigContainerElement](https://learn.microsoft.com/zh-cn/dotnet/api/microsoft.wsman.management.wsmanconfigcontainerelement)
+###  [WSManConfigLeafElement](https://learn.microsoft.com/zh-cn/dotnet/api/microsoft.wsman.management.wsmanconfigleafelement)
+该 cmdlet 在访问 `WSMan:` 驱动器时输出这些类型。
+## 备注
+PowerShell 包含以下与 `Get-Item`相关的别名：
+  * 所有平台： 
+
+
+此 cmdlet 没有 **Recurse** 参数，因为它只获取一个项，而不是它的内容。 若要以递归方式获取项的内容，请使用 `Get-ChildItem`。
+若要在注册表中导航，请使用此 cmdlet 来获取注册表项，使用 `Get-ItemProperty` 来获取注册表值和数据。 注册表值被视为注册表项的属性。
+此 cmdlet 的设计目的是与任何供应商公开的数据进行协作。 若要列出会话中可用的提供程序，请键入 `Get-PSProvider`。 有关详细信息，请参阅 [about_Providers](https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.core/about/about_providers?view=powershell-7.6)。
+## 相关链接
+
+
+在 GitHub 上与我们协作 
+可以在 GitHub 上找到此内容的源，还可以在其中创建和查看问题和拉取请求。 有关详细信息，请参阅[参与者指南](https://learn.microsoft.com/powershell/scripting/community/contributing/powershell-style-guide)。 
+PowerShell 
+[ 提出文档问题 ](https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.management/get-item?view=powershell-7.6) [ 提供产品反馈 ](https://github.com/PowerShell/PowerShell/issues/new/choose)
+## 反馈
+此页面是否有帮助？ 
+需要有关本主题的帮助？ 
+想要尝试使用 Ask Learn 阐明或指导你完成本主题？ 
+询问 Learn 询问 Learn
+建议修复？ 
