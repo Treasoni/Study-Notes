@@ -10,8 +10,8 @@ topic: "Windows 文件系统、注册表与 PowerShell"
 project_slug: "windows-file-system-registry-powershell"
 created_at: "2026-09-10"
 last_updated: "2026-09-11"
-current_phase: P5
-current_status: in_progress
+current_phase: P7
+current_status: ready
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：windows-file-system-registry-powershell
 > 项目标识：windows-file-system-registry-powershell
 > 创建时间：2026-09-10
-> 当前阶段：阶段 5
+> 当前阶段：阶段 7
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -98,25 +98,25 @@ blocked_reason: ""
 ---
 
 ## 阶段 5：收尾组装
-- [ ] 所有章节文件已检查
-- [ ] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
-- [ ] 过渡语已添加
-- [ ] 目录已生成
-- [ ] 标题层级已统一
-- [ ] 引用已检查
-- [ ] 完整笔记已保存：`./output/final_note.md`
+- [x] 所有章节文件已检查
+- [x] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
+- [x] 过渡语已添加
+- [x] 目录已生成
+- [x] 标题层级已统一
+- [x] 引用已检查
+- [x] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中 {in_progress}
+> [P5] ✅ 已完成 {complete}
 
 ---
 
 ## 阶段 6：Obsidian 美化与发布
-- [ ] 已读取 Obsidian 输出规则
-- [ ] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
-- [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
-- [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
+- [x] 已读取 Obsidian 输出规则
+- [x] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
+- [x] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
+- [x] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -169,10 +169,10 @@ blocked_reason: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：概念笔记 + 实战笔记（零基础入门）
+- **总字数**：43,280 汉字（六章合计；正文含 58 个代码块 / 约 190 条命令）
+- **章节数**：6（第零章导读 + 三主题章 + 串联章 + 总结速查章）
+- **输出格式**：单文件 Obsidian Markdown（带 YAML frontmatter、Callout、锚点目录）
+- **文件路径**：`workspace/windows-file-system-registry-powershell/output/final_note.md`（228 KB / 3,006 行）
+- **Obsidian Vault**：待用户指定（当前仅项目 output）
+- **MOC 路径**：待用户指定（P7 未启动）
