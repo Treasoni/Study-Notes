@@ -609,9 +609,6 @@ curl ip.sb
 
 **方案 C：通过 iStore 手动安装 `.run` 包（iStoreOS 推荐）**
 
-> [!tip] ✅ 官方商店搜不到时的首选
-> 从社区插件库下载 OpenClash 的 `.run` 包（已内置 Clash 核心），在 iStore「手动安装」上传即可。
-
 > [!info] `.run` 包来源（24.10 专用）
 > iStoreOS 24.10 的 `.run` 包位于 [bcseputetto/Are-u-ok 的 iStoreOS_24.10 Release](https://github.com/bcseputetto/Are-u-ok/releases/tag/iStoreOS_24.10)。文件名格式 `OpenClash_<版本>+<架构>_core_sdk_24.10.run`，其中 `+core` 表示已内置 Clash/Mihomo 内核，安装后无需再单独下载核心。
 
