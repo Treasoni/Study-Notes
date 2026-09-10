@@ -179,3 +179,4 @@ quality_gate: passed
 - **Obsidian Vault**：本 vault（vault root = 项目根）
 - **发布路径**：`windows/Windows 文件系统、注册表与 PowerShell.md`（43,299 汉字 / 3,013 行，单文件）
 - **MOC 路径**：`windows/windows MOC.md`（新建主题 MOC）
+- **跨主题双链**：发布后追加 7 条 wikilink（第一章 1.3 卷 / 1.7.2 `icacls` 各一条"对照阅读"，篇末"相关笔记" callout 5 条），全部指向 vault 既有笔记并经解析校验；未添加 `[[NTFS]]` 一类无目标的概念词双链（vault 中暂无对应笔记，避免死链）。项目 output 副本保持 P5 的无双链原始状态

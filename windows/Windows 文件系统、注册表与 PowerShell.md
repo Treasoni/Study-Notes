@@ -220,6 +220,9 @@ New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" `
 > [!tip] 大白话
 > 盘符像**给仓库单独开一扇大门并挂上字母门牌**（C、D、E……）。装入点则是**在已有走廊里开一道内门**：你不用新门牌，走 `C:\sysmount` 这扇内门，就进了另一间库房。字母只有 26 个，内门却可以随便开。
 
+> [!info] 对照阅读
+> Linux 那边把"卷挂到目录上"直接当成常规做法（没有盘符这回事）。想横向对照，看 [[linux/linux磁盘相关的知识]]。
+
 #### 1.3.3 `mountvol` 常用参数
 
 `mountvol` 是管理卷装入点的命令行工具，常用参数有 `/l`、`/d`、`/p`、`/n`、`/e`、`/s` [A11]。其中 `/p` 的行为要特别知道：它会"卸载基本卷，使基本卷脱机，使其不可装载"，而且"**如果其他进程正在使用该卷，则 mountvol 会在卸载卷之前关闭所有打开的句柄**" [A11]。
@@ -587,6 +590,9 @@ icacls c:\windows\ /restore aclfile
 ```
 
 （继承行为还可以用 `/inheritancelevel:e|d|r` 控制：`e` 启用、`d` 禁用、`r` 移除继承的权限 [A4]。）
+
+> [!info] 对照阅读
+> Windows 的权限是"**一份名单（ACL）挂在每个对象上**"，Linux 是"**一串权限位（rwx）**"。两套模型不一样，别混着套用。对照见 [[linux/linux的文件权限]]。
 
 ### 1.8 列目录与看隐藏内容：`dir` 的三个开关与星号坑
 
@@ -3010,3 +3016,15 @@ reg delete "HKCU\Software\DemoApp" /f
 | C-1–C-15 | PowerShell 三组命令、版本差异与编码通道 | 第 3 章「本章来源对照」 |
 | C-2、C-6、C-19 | 自举命令的推荐顺序；中文路径 `Error 3` 的 C 级现象 | 第 3 章「本章来源对照」 |
 | A2、A12、S5、S13–S18、S20、S22 | 串联章引用的命令与备份口径 | 第 4 章「本章来源对照」 |
+
+---
+
+> [!info] 相关笔记
+> 本笔记讲的是 Windows 这一侧。vault 里与它相邻、适合放在一起看的笔记：
+>
+> - [[linux/Linux的文件系统结构]] —— 同样是"数据放在哪"，Linux 的目录树是怎么组织的
+> - [[linux/linux的文件权限]] —— 对照第一章的 `icacls`：名单式 ACL vs 权限位 `rwx`
+> - [[linux/linux磁盘相关的知识]] —— 对照第一章的"卷"：分区与挂载在 Linux 侧怎么讲
+> - [[linux/WSL-Windows子系统forLinux]] —— 在 Windows 里跑 Linux，两边文件系统如何互相看见
+> - [[虚拟机/VMware Workstation Player 安装 Windows 虚拟机]] —— 想拿一台干净 Windows 动手练习时的环境准备
+

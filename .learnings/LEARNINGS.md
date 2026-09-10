@@ -80,3 +80,66 @@ iStoreOS 官方 iStore 商店默认不含代理插件（法律/政策原因）�
 - 该规则已两次被用户主动强调，应从「记录偏好」升级为「生成阶段的默认检查点」：并入章节写作模板 / chapter-writer 的写作要求，而不只停留在 RULES.md。
 
 ---
+
+## [LRN-20260911-008] workflow — `todo-state.sh` 真实命令集只有 start/complete/skip/block，最终阶段另需 quality_gate
+
+**Logged**: 2026-09-11
+**Priority**: high
+**Status**: pending
+**Area**: workflow / 状态机
+
+### Summary
+`.claude/scripts/todo-state.sh` 只实现 `start | complete | skip | block` 四个动作（见脚本头 usage）；**没有 `confirm`**。而且 `complete` 有前置条件：必须先 `start` 过该阶段，且**若该阶段是最后一个阶段（最大 PN）**，frontmatter 必须有 `quality_gate: passed`，否则报 `final phase requires quality_gate: passed or a documented waiver`。
+
+### Details
+- 事实：本次 `complete P7` 连撞两道门 —— 先 `phase must be in progress before complete: P7`（补 `start P7` 后通过），再 `final phase requires quality_gate`（在 frontmatter 加 `quality_gate: passed` 后通过）。
+- 事实：脚本 `ensure_final_quality_gate()` 判定 waived 路线还需同时提供 `quality_gate_owner` 与 `quality_gate_due` 两个字段。
+- 根因：workflow.md 文档里写到的 `confirm`、`mode` 等动作并未在脚本中实现，文档与实现漂移；`quality_gate` 只在 CLAUDE.md 提到，未落到操作步骤。
+- 下次做法：阶段推进固定按 `start PN` → （做工作）→ `complete PN` 两步；进入最后阶段前先把 `quality_gate: passed` 写进 state file frontmatter（若走豁免，则补 owner + due）。
+
+### Suggested Action
+- 用 `quality_gate: passed` 作为收尾动作写进收尾检查清单；考虑把这行加进 `state-template.md`，避免每次手动补。
+
+---
+
+## [LRN-20260911-009] best_practice — 超大笔记的组装/校验在父进程用 python 做，别指望子 agent 写入
+
+**Logged**: 2026-09-11
+**Priority**: medium
+**Status**: pending
+**Area**: workflow / 学习笔记生产
+
+### Summary
+本次成品 43k 汉字 / 228KB，note-assembler 直接拒写。父进程用 python 合并 + 校验可一次做对；但**反向扫描定位插入点时必须同时跳过空行和 `---` 分隔线**，否则扫描停错位置、改动静默不生效。
+
+### Details
+- 事实：组装脚本要「把每章末尾的过渡句从『本章来源对照』表格之前移到表格之后」。第一版从 `### 本章来源对照` 反向扫描找第一个非空行，结果撞上 `---` 分隔线，判定「无事可做」，4 条过渡句 0 条被移动且无报错；改为跳过空行 + `---` 后 4 条全部移动。
+- 事实：中文字数统计用 `grep -o '[一-龥]' | wc -l` 在 C locale 下按字节匹配，给出 34,855 这类明显失真的数字；改用 `python3 -c "re.findall(r'[一-鿿]', t)"` 才准。
+- 根因：反向扫描的终止条件写得太窄；`grep` 的字符类在 C locale 下按字节解释。
+- 下次做法：文本组装/统计一律走 python；任何「扫描到某标记就动手」的脚本，先打印「本次改动 N 处」并在 N=0 时人工复核，不要静默通过。
+
+### Suggested Action
+- 把「改动计数 + N=0 需复核」作为所有批量文本改写脚本的固定自检项。
+
+---
+
+## [LRN-20260911-010] best_practice — 往 Obsidian 笔记里加双链前，先核实目标笔记存在、锚点标题可解析
+
+**Logged**: 2026-09-11
+**Priority**: medium
+**Status**: pending
+**Area**: obsidian / note-beautifier
+
+### Summary
+发布后加双链时，(1) 目标必须是 vault 里**真实存在**的笔记——我在提议阶段举了 `[[NTFS]]`、`[[注册表]]` 这类例子，vault 里根本没有对应文件，照做就是一批死链；(2) 章级锚点的标题**不能含反引号**，`[[Note#2.7.3 主路径：导出 `.reg` → …]]` 有解析风险，应改链到不含特殊字符的上级标题。
+
+### Details
+- 事实：vault 顶层有 linux / 虚拟机 / 网络与部署 等主题目录，本次 7 条双链全部指向既有笔记，逐条 `os.path.exists` 校验通过、0 死链。
+- 事实：`[[Note#2.7.3 主路径：导出 \`.reg\` → 需要时导入还原]]` 的标题含反引号与 `→`，已降级为 `[[Note#2.7 备份与回滚（本章强制主线）]]`。
+- 根因：把「概念词」当成「可链接对象」，忽略了 wikilink 需要真实存在的目标文件；标题锚点直接照抄含标记符号的原文标题。
+- 下次做法：加链前先列 vault 目标清单并逐个校验存在性；锚点优先选不含反引号/箭头/竖线的标题层级；批量加链后用脚本对每条 `[[…]]` 做一次存在性断言。
+
+### Suggested Action
+- 概念词双链若确有必要，先走 `learning-note-flow` 建占位概念笔记，再回填链接，不在既有笔记里先埋死链。
+
+---
