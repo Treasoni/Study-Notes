@@ -128,8 +128,9 @@ Ensure consistent formatting throughout:
 2. **Code blocks**: Ensure all code blocks have language identifiers
 3. **Lists**: Ensure consistent list formatting (bullet style, numbering)
 4. **Links**: Ensure all links are properly formatted
-5. **Images**: Ensure image references are valid
-6. **Spacing**: Ensure consistent paragraph spacing
+5. **Footnotes**: Check footnote reference/definition pairing; no duplicate IDs across chapters (namespace as `[^cN-...]` if found)
+6. **Images**: Ensure image references are valid
+7. **Spacing**: Ensure consistent paragraph spacing
 
 ### Step 5: Generate Table of Contents
 
@@ -203,6 +204,8 @@ Before finalizing the assembly, verify:
 - [ ] Code blocks have proper language identifiers
 - [ ] Links and references are valid
 - [ ] No duplicate content or sections
+- [ ] Footnote IDs are unique across the merged document; duplicates are namespaced to `[^cN-...]` per chapter (or reported to the parent)
+- [ ] Output size is estimated; if it would exceed the Write output cap (~100KB), stop and let the parent split/merge
 - [ ] File is saved to the correct output path
 
 ## Important Rules
@@ -220,7 +223,7 @@ If you encounter issues:
 1. **Missing chapters**: List which chapters are missing and ask the user to complete them first
 2. **Formatting inconsistencies**: Fix them during assembly and report what was changed
 3. **Conflicting content**: Flag the conflicts and ask the user how to resolve them
-4. **Large files**: Process chapters in batches if memory is a concern
+4. **Large files**: If the assembled output would exceed the Write output cap (~100KB), STOP and report to the parent so it can merge parts (`cat part2 >> final`). Do not create `final_note_part2.md` or temp files yourself — you have no Bash/Edit, so you cannot run merge scripts.
 
 ## Integration Notes
 

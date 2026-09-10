@@ -13,12 +13,10 @@ last_updated: "{date}"
 current_phase: P0
 current_status: not_started
 mode: outline
-confirmed_phases: ""
-skippable_phases: "P7"
-mode_dependent_skips: "P3,P4"
-allowed_modes: "outline,freeform"
-mode_change_phase: "P2"
 blocked_reason: ""
+quality_gate: pending
+quality_gate_owner: ""
+quality_gate_due: ""
 ---
 
 # 学习笔记工作流 - 执行检查清单

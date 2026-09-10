@@ -7,7 +7,7 @@
 修改以下内容后必须运行同步：
 
 - `.agent-sync/agents/*.yaml`（profile 映射本身）
-- 任一区域 canonical source：skills / rules / hooks / scripts / workflows / instructions（目录与文件见 `.agent-sync/agents/codex.yaml` 的 `paths`）
+- 任一区域 canonical source：skills / rules / hooks / scripts / workflows / agents / instructions（目录与文件见 `.agent-sync/agents/codex.yaml` 的 `paths`）
 - canonical 目录下的新增、删除、重命名或实质修改
 - instructions canonical（`paths.instructions`）中改变了工作流、skill 路由或规则路径
 
@@ -19,7 +19,7 @@
 python3 .agent-sync/sync_agents.py --root . --check --scope <area>
 ```
 
-`<area>` 取值：`skills` / `rules` / `hooks` / `scripts` / `workflows` / `mcp`。
+`<area>` 取值：`skills` / `rules` / `hooks` / `scripts` / `workflows` / `agents` / `mcp`。
 
 确认差异符合预期后应用：
 
@@ -39,8 +39,11 @@ python3 .agent-sync/sync_agents.py --root . --check
 2. 把 canonical 源复制到 target 的 `paths` 目录，并对文本做路径替换（source `paths` → target `paths`）与 runtime 名替换（source `name` → target `name`）。
 3. 保留 target 专属文件（如 target 专属 hooks 文档、`skill-creator`），不被 canonical 镜像覆盖。
 4. `rules` 区域同步时还会同步 instructions 文件（`paths.instructions`），生成 target 的入口文档。
+5. `agents` 区域同步 subagent 定义；canonical 是 `.claude/agents/`。两个 profile 都必须在 `paths` 中声明 `agents`，且 canonical 侧在 `canonical_scopes` 中包含 `agents`——否则 `load_profiles` 直接报错。
 
-`--check` 只报告差异，不修改任何文件。
+比较按**行尾不敏感**进行：`--check` 只把真实内容差异算作漂移，仅 CRLF/LF 不同视为已同步，`--apply` 也不会为行尾重写文件。（`rendered_bytes` 经 `read_text` 会把 CRLF 折成 LF，若按原始字节比较，CRLF 工作区会永久误报。）
+
+`--check` 只报告差异，不修改任何文件；有差异时退出码为 1，用于 pre-commit / CI。
 
 ## Boundary
 

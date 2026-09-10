@@ -13,12 +13,10 @@ last_updated: "{date}"
 current_phase: P0
 current_status: not_started
 mode: standard
-confirmed_phases: ""
-skippable_phases: "P4"
-mode_dependent_skips: ""
-allowed_modes: ""
-mode_change_phase: ""
 blocked_reason: ""
+quality_gate: pending
+quality_gate_owner: ""
+quality_gate_due: ""
 ---
 
 # 旧笔记导入工作流 - 执行检查清单

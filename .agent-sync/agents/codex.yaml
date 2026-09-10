@@ -1,7 +1,7 @@
 id: codex
 name: Codex
 canonical: true
-canonical_scopes: skills,rules,hooks,scripts,workflows
+canonical_scopes: skills,rules,hooks,scripts,workflows,agents
 mcp_format: codex-toml
 paths:
   skills: .agents/skills
@@ -10,5 +10,6 @@ paths:
   hook_config: .codex/hooks.json
   scripts: .codex/scripts
   workflows: .codex/workflows
+  agents: .codex/agents
   instructions: AGENTS.md
   mcp: .codex/config.toml

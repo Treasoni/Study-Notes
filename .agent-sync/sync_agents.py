@@ -15,8 +15,8 @@ TEXT_SUFFIXES = {".md", ".py", ".sh", ".json", ".yaml", ".yml", ".toml", ".txt"}
 PRIVATE_SKILL_PARTS = {"agents"}
 MCP_BEGIN = "# BEGIN agent-sync:mcp"
 MCP_END = "# END agent-sync:mcp"
-PATH_KEYS = {"skills", "rules", "hooks", "hook_config", "scripts", "workflows", "instructions", "mcp"}
-SCOPES = ("skills", "rules", "hooks", "scripts", "workflows", "mcp")
+PATH_KEYS = {"skills", "rules", "hooks", "hook_config", "scripts", "workflows", "agents", "instructions", "mcp"}
+SCOPES = ("skills", "rules", "hooks", "scripts", "workflows", "agents", "mcp")
 
 
 @dataclass(frozen=True)
@@ -189,13 +189,38 @@ def rendered_bytes(source_path: Path, source: dict[str, Any], target: dict[str, 
     return transform(source_path.read_text(encoding="utf-8"), source, target).encode("utf-8")
 
 
+def same_content(expected: bytes, actual: bytes | None) -> bool:
+    """Return True when a target already matches its rendered source.
+
+    Line endings are compared tolerantly. `rendered_bytes` reads through
+    `Path.read_text`, which folds CRLF to LF (universal newlines), while the
+    working tree keeps whatever the checkout produced. On a CRLF checkout a
+    byte-exact comparison therefore reports drift for files that are
+    content-identical, and `--apply` would rewrite every one of them just to
+    change the line endings. Treat an EOL-only difference as synchronized so
+    both --check and --apply stay quiet.
+    """
+
+    if actual is None:
+        return False
+    if expected == actual:
+        return True
+    try:
+        left = expected.decode("utf-8")
+        right = actual.decode("utf-8")
+    except UnicodeDecodeError:
+        return False
+    normalize = lambda text: text.replace("\r\n", "\n").replace("\r", "\n")
+    return normalize(left) == normalize(right)
+
+
 def sync_tree(root: Path, source_root: Path, target_root: Path, source: dict[str, Any], target: dict[str, Any], profiles: list[dict[str, Any]], apply: bool, *, skill_mode: bool = False) -> list[Finding]:
     findings: list[Finding] = []
     for rel, source_path in sorted(source_files(source_root, skill_mode=skill_mode).items()):
         target_path = target_root / rel
         expected = rendered_bytes(source_path, source, target)
         actual = target_path.read_bytes() if target_path.exists() else None
-        if actual == expected:
+        if same_content(expected, actual):
             continue
         if actual is not None and source_path.suffix.lower() in TEXT_SUFFIXES and target_path.suffix.lower() in TEXT_SUFFIXES:
             if normalized(source_path.read_text(encoding="utf-8"), profiles) == normalized(target_path.read_text(encoding="utf-8"), profiles):
@@ -215,7 +240,7 @@ def sync_instructions(root: Path, source: dict[str, Any], target: dict[str, Any]
     target_path = root / target["paths"]["instructions"]
     expected = rendered_bytes(source_path, source, target)
     actual = target_path.read_bytes() if target_path.exists() else None
-    if actual == expected:
+    if same_content(expected, actual):
         return []
     if apply:
         target_path.write_bytes(expected)

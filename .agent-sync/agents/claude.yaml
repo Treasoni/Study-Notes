@@ -9,5 +9,6 @@ paths:
   hook_config: .claude/settings.json
   scripts: .claude/scripts
   workflows: .claude/workflows
+  agents: .claude/agents
   instructions: CLAUDE.md
   mcp: .mcp.json

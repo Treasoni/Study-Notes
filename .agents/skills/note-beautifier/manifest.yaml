@@ -2,8 +2,8 @@ apiVersion: agent-platform/v1
 kind: Skill
 metadata:
   name: note-beautifier
-  version: 1.0.0
-  description: "Format and publish learning notes as Obsidian-friendly Markdown."
+  version: 1.1.0
+  description: "Format and publish learning notes as Obsidian-friendly Markdown; requires wikilink targets to exist and anchors to avoid special characters."
 spec:
   entrypoint: SKILL.md
   capabilities:

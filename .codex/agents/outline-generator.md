@@ -105,6 +105,7 @@ Create the outline following these rules:
 3. **Balance chapter lengths** — try to keep a reasonable distribution; avoid having all chapters be "long" or all "short"
 4. **Logical progression** — each chapter should build on previous ones
 5. **Title clarity** — chapter names should be descriptive enough that someone scanning the outline understands the content
+6. **教程/实战笔记按「文件/产物」组织** — 顶级章节对应一个文件/产物（如 package.json 一个顶级节）；同一文件的字段/子主题收进该文件章节的子节，不升格为平级章节
 
 ### Step 4: Add Learning Path Section
 

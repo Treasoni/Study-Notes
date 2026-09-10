@@ -18,6 +18,8 @@ Produce reusable, source-backed research without repeatedly loading page bodies 
 
 Rank sources: official documentation and primary research first; reputable implementation reports second; community material only for labelled operational experience. Record URL, publisher, publication/update date when available, source tier, claim support, and retrieval date. Do not invent facts or silently merge conflicting claims.
 
+**Never paraphrase a source claim into a dispatch prompt.** When handing work to a downstream writer, pass source IDs, paths, and anchors — not a rewritten sentence carrying a source ID. A writer cannot tell your summary from the original wording, so it will copy your phrasing and keep the citation, turning your paraphrase into a fabricated quotation. If a claim must appear in the prompt, quote it verbatim inside quotation marks, or label it explicitly as an unverified summary. When reviewing a chapter, re-open the source for every "官方口径是" / "the official wording is" claim instead of only checking that a source ID is attached.
+
 ## Environment preparation
 
 P2 deep reading depends on the `crawl4ai` conda environment managed by `scripts/setup.sh` (idempotent; safe to re-run). The crawler entry point is `scripts/crawl.sh`.

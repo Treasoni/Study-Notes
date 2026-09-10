@@ -55,6 +55,23 @@ if [ -d "$skills_dir/workflow-orchestrator/templates" ] &&
   fail "Legacy workflow-orchestrator todo templates are still present."
 fi
 
+# State templates must declare the frontmatter keys the current todo-state.sh
+# actually reads. The script only touches current_phase / current_status /
+# blocked_reason / quality_gate / quality_gate_owner / quality_gate_due, and it
+# refuses to complete the final phase without `quality_gate: passed`.
+for template in "$this_dir"/workflows/*/state-template.md; do
+  [ -f "$template" ] || continue
+
+  if ! grep -qE '^quality_gate: ' "$template"; then
+    printf '%s\n' "$template" >&2
+    fail "Workflow state template is missing a quality_gate key: $template"
+  fi
+
+  if grep -nE '^(confirmed_phases|skippable_phases|mode_dependent_skips|allowed_modes|mode_change_phase):' "$template" >&2; then
+    fail "Workflow state template still declares retired frontmatter keys: $template"
+  fi
+done
+
 if ! "$this_dir/scripts/sync-workflow-routing.sh" --check; then
   fail "Workflow routing table is stale."
 fi

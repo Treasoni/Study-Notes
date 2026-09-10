@@ -2,8 +2,8 @@ apiVersion: agent-platform/v1
 kind: Skill
 metadata:
   name: research-collector
-  version: 2.1.0
-  description: "Collect and curate staged, source-backed research with a cache-stable prompt contract."
+  version: 2.2.0
+  description: "Collect and curate staged, source-backed research with a cache-stable prompt contract; forbids paraphrase-as-citation in downstream dispatch."
 spec:
   entrypoint: SKILL.md
   capabilities:

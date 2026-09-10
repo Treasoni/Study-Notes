@@ -7,7 +7,7 @@
 3. 项目级长期规则以本文件为入口；更细规则见 `.codex/rules/`。
 4. 需要使用技能时，优先读取 `.agents/skills/{skill-name}/SKILL.md` 作为入口，完整理解后再执行；只在任务需要时继续读取其引用的模板、示例和资料，避免预加载无关内容。
 5. 需要模拟原 Claude agent 时，读取 `.codex/agents/{agent-name}.md`，按其中角色、输入、输出和检查点执行。
-6. 各区域 canonical source 由 `.agent-sync/agents/*.yaml` 的 `paths` 定义（skills canonical 见 `.codex/platform/registry.yaml` 的 `discovery.Skill`；rules/hooks/scripts/workflows canonical 在 `.codex/` 下对应目录）。修改后，先运行 `.agent-sync/sync_agents.py --root . --check --scope <area>`，再 `--apply`，最后运行全量 `--check`。生成目标目录（如 `.claude/`）不手工编辑；hook 变更后额外运行 `.agent-sync/bootstrap.py --root . --apply` 与 `--check`。
+6. 各区域 canonical source 由 `.agent-sync/agents/*.yaml` 的 `paths` 定义（skills canonical 见 `.codex/platform/registry.yaml` 的 `discovery.Skill`；rules/hooks/scripts/workflows/agents canonical 在 `.codex/` 下对应目录）。修改后，先运行 `.agent-sync/sync_agents.py --root . --check --scope <area>`，再 `--apply`，最后运行全量 `--check`。生成目标目录（如 `.claude/`）不手工编辑；hook 变更后额外运行 `.agent-sync/bootstrap.py --root . --apply` 与 `--check`。
 
 ## Agent Platform Manifest
 
