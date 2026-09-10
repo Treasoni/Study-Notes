@@ -9,8 +9,8 @@ created_from: ".claude/workflows/learning-note-flow/state-template.md"
 topic: "Windows 文件系统、注册表与 PowerShell"
 project_slug: "windows-file-system-registry-powershell"
 created_at: "2026-09-10"
-last_updated: "2026-09-10"
-current_phase: P4
+last_updated: "2026-09-11"
+current_phase: P5
 current_status: in_progress
 mode: outline
 confirmed_phases: ""
@@ -28,7 +28,7 @@ blocked_reason: ""
 > 运行标识：windows-file-system-registry-powershell
 > 项目标识：windows-file-system-registry-powershell
 > 创建时间：2026-09-10
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -87,13 +87,13 @@ blocked_reason: ""
 - [x] 第零章已写完并确认：导读——文件系统、注册表、PowerShell 是什么关系
 - [x] 第一章已写完并确认：Windows 文件系统——数据到底放在哪
 - [x] 第二章已写完并确认：Windows 注册表——系统和程序的配置中心
-- [ ] 第三章已写完并确认：Windows PowerShell——用命令操作前两者
-- [ ] 第四章已写完并确认：串联——用 PowerShell 同时操作文件系统与注册表
-- [ ] 第五章已写完并确认：总结与速查
+- [x] 第三章已写完并确认：Windows PowerShell——用命令操作前两者
+- [x] 第四章已写完并确认：串联——用 PowerShell 同时操作文件系统与注册表
+- [x] 第五章已写完并确认：总结与速查
 
-**进度**：3/6
+**进度**：6/6（六章全部写完并确认）
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -106,7 +106,7 @@ blocked_reason: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
@@ -139,6 +139,7 @@ blocked_reason: ""
 | P2 | 用户**认可素材质量**（67 条来源 / 63 条 A 级官方一手 / 三方向论断 40·40·38），不补检索；执行模式定为**大纲模式**（逐章写、逐章确认）；`mklink /d` 提权要求**标"官方未说明"**；中文用户名 PSModulePath 问题**不写进正文** | 2026-09-10 |
 | P3 | 用户**确认大纲**（6 章 / 总 25000–31500 字）；接受三主题章 **6500–8000 字等长**设计；第四章串联章素材较薄，**接受 writer 自行组织**（命令占 80%，不补检索）。另：大纲各章标题层级已从 `###` 修正为 `##`（原被错误嵌套于「全局写作约定」之下） | 2026-09-10 |
 | P4 | 用户**逐章确认**：第零章（导读）、第一章（文件系统）、第二章（注册表）均已确认。第二章确认时另定**篇幅策略：接受到当前深度，解除 8000 字上限**（不再控字，仅要求不注水）；预估总篇 3.7–3.9 万，超出原大纲上限 3.15 万。第二章把关中修复一处来源误引（`Run`/`RunOnce`"键本身不执行任何操作"并非官方原文，已改回官方口径"使程序在用户登录时运行"） | 2026-09-11 |
+| P4 | 用户指示「**全部写完**」：第三、四、五章改批量模式一次写完，**逐章确认合并为 P4 出口一次统一确认**（用户主动放弃逐章检查点，非流程绕过）。实际产出：第三章 10,365 字 / 第四章 5,721 字 / 第五章 5,996 字；**六章合计 43,102 汉字** | 2026-09-11 |
 
 ---
 
