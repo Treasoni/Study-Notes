@@ -10,8 +10,8 @@ topic: "Windows 文件系统、注册表与 PowerShell"
 project_slug: "windows-file-system-registry-powershell"
 created_at: "2026-09-10"
 last_updated: "2026-09-11"
-current_phase: P7
-current_status: ready
+current_phase: done
+current_status: complete
 mode: outline
 confirmed_phases: ""
 skippable_phases: "P7"
@@ -19,6 +19,7 @@ mode_dependent_skips: "P3,P4"
 allowed_modes: "outline,freeform"
 mode_change_phase: "P2"
 blocked_reason: ""
+quality_gate: passed
 ---
 
 # 学习笔记工作流 - 执行检查清单
@@ -28,7 +29,7 @@ blocked_reason: ""
 > 运行标识：windows-file-system-registry-powershell
 > 项目标识：windows-file-system-registry-powershell
 > 创建时间：2026-09-10
-> 当前阶段：阶段 7
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -121,12 +122,12 @@ blocked_reason: ""
 ---
 
 ## 阶段 7：MOC 同步
-- [ ] 已定位或创建 MOC 文件
-- [ ] 新笔记双链已加入 MOC
-- [ ] 已去重并更新摘要/标签
-- [ ] MOC 只保留索引，不复制正文
+- [x] 已定位或创建 MOC 文件（新建 `windows/windows MOC.md`，按 vault 既有 MOC 约定）
+- [x] 新笔记双链已加入 MOC（1 条笔记链接 + 6 条章级锚点 + 3 条速查锚点，共 10 条，全部解析通过）
+- [x] 已去重并更新摘要/标签（tags: [windows, moc, 索引]；概述摘要与章级一句话说明）
+- [x] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -140,6 +141,7 @@ blocked_reason: ""
 | P3 | 用户**确认大纲**（6 章 / 总 25000–31500 字）；接受三主题章 **6500–8000 字等长**设计；第四章串联章素材较薄，**接受 writer 自行组织**（命令占 80%，不补检索）。另：大纲各章标题层级已从 `###` 修正为 `##`（原被错误嵌套于「全局写作约定」之下） | 2026-09-10 |
 | P4 | 用户**逐章确认**：第零章（导读）、第一章（文件系统）、第二章（注册表）均已确认。第二章确认时另定**篇幅策略：接受到当前深度，解除 8000 字上限**（不再控字，仅要求不注水）；预估总篇 3.7–3.9 万，超出原大纲上限 3.15 万。第二章把关中修复一处来源误引（`Run`/`RunOnce`"键本身不执行任何操作"并非官方原文，已改回官方口径"使程序在用户登录时运行"） | 2026-09-11 |
 | P4 | 用户指示「**全部写完**」：第三、四、五章改批量模式一次写完，**逐章确认合并为 P4 出口一次统一确认**（用户主动放弃逐章检查点，非流程绕过）。实际产出：第三章 10,365 字 / 第四章 5,721 字 / 第五章 5,996 字；**六章合计 43,102 汉字** | 2026-09-11 |
+| P6/P7 | 用户指示「**1.发布 2.同步**」；经确认选择：发布到 **新建 `windows/` 主题目录**、**单文件**落盘、**新建对应的主题 MOC**。已完成：`windows/Windows 文件系统、注册表与 PowerShell.md`（43,299 汉字）+ `windows/windows MOC.md`。锚点目录经校验在 Obsidian 中可解析（Obsidian 风格 `[章名](<#章名>)`） | 2026-09-11 |
 
 ---
 
@@ -173,6 +175,7 @@ blocked_reason: ""
 - **总字数**：43,280 汉字（六章合计；正文含 58 个代码块 / 约 190 条命令）
 - **章节数**：6（第零章导读 + 三主题章 + 串联章 + 总结速查章）
 - **输出格式**：单文件 Obsidian Markdown（带 YAML frontmatter、Callout、锚点目录）
-- **文件路径**：`workspace/windows-file-system-registry-powershell/output/final_note.md`（228 KB / 3,006 行）
-- **Obsidian Vault**：待用户指定（当前仅项目 output）
-- **MOC 路径**：待用户指定（P7 未启动）
+- **文件路径**：项目工作区 `workspace/windows-file-system-registry-powershell/output/final_note.md`（228 KB / 3,006 行）
+- **Obsidian Vault**：本 vault（vault root = 项目根）
+- **发布路径**：`windows/Windows 文件系统、注册表与 PowerShell.md`（43,299 汉字 / 3,013 行，单文件）
+- **MOC 路径**：`windows/windows MOC.md`（新建主题 MOC）
