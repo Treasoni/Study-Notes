@@ -1,6 +1,6 @@
 ## 第 4 章 用 Rclone 挂到本地
 
-前三章已经把 OpenList 跑起来、把网盘聚合进来、并且给用户开好了 WebDAV 权限。但到第三章结束时，我们手里只有一份**连接参数表**—— Url 形如 `http[s]://your-domain:port/dav/`、Path 填 `dav`、账号即网页端账号密码。那份参数表从没被真正"打"过一次，第三章也明确把**可脚本化的端点验证**推到了本章：因为只有当真有一个客户端去连它，你才知道端口、路径、权限三项是不是同时对了。
+前三章已经把 OpenList 跑起来、把网盘聚合进来、并且给用户开好了 WebDAV 权限。但到第 3 章结束时，我们手里只有一份**连接参数表**—— Url 形如 `http[s]://your-domain:port/dav/`、Path 填 `dav`、账号即网页端账号密码。那份参数表从没被真正"打"过一次，第 3 章也明确把**可脚本化的端点验证**推到了本章：因为只有当真有一个客户端去连它，你才知道端口、路径、权限三项是不是同时对了。
 
 本章就用官方推荐的 Linux 客户端 rclone 来完成这第一次真实连接，并把它变成一台**开机就在的本地磁盘**。这是全链路里参数最多、最容易选错档的一环，请按顺序做，不要跳步。
 
@@ -105,9 +105,9 @@ rclone 挂载的"文件系统"实现方是 rclone 自己，背后真正的权限
 | mountpoint（挂载点） | 本机上一个**已存在且为空**的目录 | `~/openlist-mount` |
 | VFS | rclone 在远端对象存储与本地文件系统之间加的一层适配，含内存目录缓存与可选磁盘文件缓存 | 决定 `--vfs-cache-mode` 那一堆行为 |
 
-### 4.3 配置远端：把第三章的端点写进 rclone
+### 4.3 配置远端：把第 3 章的端点写进 rclone
 
-这是第三章那份参数表第一次真正接受检验的地方。rclone 的配置有两件事必须做对：**URL 要指到 `/dav/`**，**密码必须被 obscure**。
+这是第 3 章那份参数表第一次真正接受检验的地方。rclone 的配置有两件事必须做对：**URL 要指到 `/dav/`**，**密码必须被 obscure**。
 
 #### 方式一：交互式 `rclone config`（推荐首次使用）
 
@@ -165,9 +165,9 @@ password:
 
 [^c4-2]
 
-这里有几处必须与第三章对齐：
+这里有几处必须与第 3 章对齐：
 
-- `url` 的**端口必须与网页端完全一致**（第三章的硬约束），结尾要带 `/dav/`；
+- `url` 的**端口必须与网页端完全一致**（第 3 章的硬约束），结尾要带 `/dav/`；
 - `user` / `password` 就是网页端登录账号密码；
 - `vendor` 这里选 **`7 / Other site/service or software`**（即 `other`），理由见下。
 
@@ -259,9 +259,9 @@ rclone obscure '<你的明文密码>'
 
 对本章的内网 http 直连场景，一般保持默认即可；真出现读取 401 再按需打开。
 
-### 4.4 兑现第三章的欠账：先用 `rclone ls` 验证端点
+### 4.4 兑现第 3 章的欠账：先用 `rclone ls` 验证端点
 
-第三章之所以把端点验证推到这里，是因为只有客户端能给出可观察的结果。rclone 提供了非挂载的读取命令，正好当探针用——官方示例 [^c4-2]：
+第 3 章之所以把端点验证推到这里，是因为只有客户端能给出可观察的结果。rclone 提供了非挂载的读取命令，正好当探针用——官方示例 [^c4-2]：
 
 ```bash
 # 列出远端顶层目录（只列目录，最轻量）
@@ -278,13 +278,13 @@ rclone copy /home/source openlist:backup
 
 | 现象 | 最可能的原因 | 回查章节 |
 |---|---|---|
-| `401 Unauthorized` | `pass` 填了明文没 obscure；或用户权限项没开齐 | 本章 4.3 / 第三章 权限项 |
-| `403 Forbidden` | 只开了 `WebDAV 管理` 没开读写所需的具体权限项 | 第三章 |
-| `404 Not Found` | `url` 少了或错写成别的路径，未指向 `/dav/` | 第三章 连接参数表 |
-| 连不上 / 超时 | 端口与网页端不一致，或防火墙 | 第三章 |
-| 能列出但看不到第二章挂的目录 | OpenList 用户 `Base path` 限制了可见范围 | 第二章 |
+| `401 Unauthorized` | `pass` 填了明文没 obscure；或用户权限项没开齐 | 本章 4.3 / 第 3 章 权限项 |
+| `403 Forbidden` | 只开了 `WebDAV 管理` 没开读写所需的具体权限项 | 第 3 章 |
+| `404 Not Found` | `url` 少了或错写成别的路径，未指向 `/dav/` | 第 3 章 连接参数表 |
+| 连不上 / 超时 | 端口与网页端不一致，或防火墙 | 第 3 章 |
+| 能列出但看不到第 2 章挂的目录 | OpenList 用户 `Base path` 限制了可见范围 | 第 2 章 |
 
-只要 `rclone lsd openlist:` 能打印出你在第二章挂进来的存储目录名，第三、四章之间那条断口就接上了。**先过这一步，再碰 mount**——不要跳过验证直接装 systemd，否则后面出问题时分不清是权限、端点还是挂载配置的锅。
+只要 `rclone lsd openlist:` 能打印出你在第 2 章挂进来的存储目录名，第 3、4 章之间那条断口就接上了。**先过这一步，再碰 mount**——不要跳过验证直接装 systemd，否则后面出问题时分不清是权限、端点还是挂载配置的锅。
 
 ### 4.5 第一次挂载：`rclone mount` 的基本语义
 
@@ -526,7 +526,7 @@ rclone mount openlist: ~/openlist-mount-b \
 
 > When running rclone mount as a systemd service, it is possible to use Type=notify. In this case the service will enter the started state after the mountpoint has been successfully set up. Units having the rclone mount service specified as a requirement will see all files and folders immediately in this mode. [^c4-1]
 
-这就是把 unit 写成 `Type=notify` 的意义：**服务进入 started 状态的那一刻，挂载点已经就绪**。如果写成 `Type=simple`，systemd 会在进程刚起来、挂载还没完成时就算"启动成功"，此时依赖它的服务（比如第五章要挂载给它的容器）会看到一个空目录或直接失败。社区帖也持同样观点 [^c4-4]，但**这条判断的权威依据是 S06 官方**，不是社区帖。
+这就是把 unit 写成 `Type=notify` 的意义：**服务进入 started 状态的那一刻，挂载点已经就绪**。如果写成 `Type=simple`，systemd 会在进程刚起来、挂载还没完成时就算"启动成功"，此时依赖它的服务（比如第 5 章要挂载给它的容器）会看到一个空目录或直接失败。社区帖也持同样观点 [^c4-4]，但**这条判断的权威依据是 S06 官方**，不是社区帖。
 
 #### 官方能背书的部分：systemd 下没有环境变量
 
@@ -667,20 +667,20 @@ cat ~/.local/log/rclone_openlist.log
 
 把上面几步串起来，完成后应当满足三条：
 
-**1. 挂载点能 `ls` 到第二章挂进来的内容**
+**1. 挂载点能 `ls` 到第 2 章挂进来的内容**
 
 ```bash
 ls -l ~/openlist-mount
 ```
 
-预期：列出你在第二章聚合进来的存储（若第二章用的是本地存储驱动，就看到那个目录下的文件）。看得到内容，说明这条链路真的通了：
+预期：列出你在第 2 章聚合进来的存储（若第 2 章用的是本地存储驱动，就看到那个目录下的文件）。看得到内容，说明这条链路真的通了：
 
 ```text
 rclone 进程
   → openlist: 远端（WebDAV over HTTP）
     → OpenList /dav/ 端点
       → 用户权限项（WebDAV 读取）
-        → 第二章挂载的存储
+        → 第 2 章挂载的存储
           → 网盘 / 本地目录
 ```
 
