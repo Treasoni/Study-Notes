@@ -1,7 +1,7 @@
 ---
 url: "https://doc.oplist.org/guide/advanced/user"
 title: "User - OpenList Docs"
-scraped_at: 2026-09-11T17:03:39+00:00
+scraped_at: 2026-09-11T17:05:31+00:00
 ---
 
 Menu
