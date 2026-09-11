@@ -11,7 +11,7 @@ project_slug: "openlist-webdav-rclone-docker"
 created_at: "2026-09-12"
 last_updated: "2026-09-12"
 current_phase: P3
-current_status: ready
+current_status: in_progress
 mode: outline
 blocked_reason: ""
 quality_gate: pending
@@ -77,7 +77,7 @@ quality_gate_due: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] ⬜ 未开始
+> [P3] 🔲 进行中 {in_progress}
 
 ---
 
@@ -132,6 +132,7 @@ quality_gate_due: ""
 |------|----------|------|
 | P0 | 确认意图文件与研究计划：笔记类型=实战教程（practice+少量 concept），深度=上手，基础=有了解，输出=项目 output；核心概念收敛为「WebDAV 协议和 Rclone 的概念和使用」并保留 FUSE、Docker bind mount vs named volume | 2026-09-12 |
 | P1 | 选定学习方向：方向 A 全链路主线版（OpenList → WebDAV → Rclone → Docker，聚焦 Linux 宿主机 + Docker Compose） | 2026-09-12 |
+| P2 | 确认进入**大纲模式**（逐章写、每章停下确认）；**不并入**方向 B 架构对比，维持 6 章；第 5 章终点容器**暂不定**，只讲通用挂载模式 | 2026-09-12 |
 
 ---
 
