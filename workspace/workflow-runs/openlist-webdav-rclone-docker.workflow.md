@@ -82,7 +82,7 @@ quality_gate_due: ""
 ---
 
 ## 阶段 4：逐章写作
-- [ ] 第 1 章已写完：用 Docker 跑起 OpenList
+- [x] 第 1 章已写完：用 Docker 跑起 OpenList
 - [ ] 第 2 章已写完：把网盘聚合进来
 - [ ] 第 3 章已写完：开出 WebDAV 服务
 - [ ] 第 4 章已写完：用 Rclone 挂到本地
