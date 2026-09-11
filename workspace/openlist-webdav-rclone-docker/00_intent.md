@@ -39,7 +39,7 @@
 
 ### 重点收集
 
-- **核心概念**: OpenList 与 AList 的关系与分叉原因；WebDAV 协议在"网盘聚合"里的角色；`rclone mount` 与 `rclone sync/copy` 的区别；FUSE 用户态文件系统；Docker bind mount 与 named volume 的差异；容器内外 uid/gid 映射。
+- **核心概念**: WebDAV 协议和 Rclone 的概念和使用；FUSE 用户态文件系统；Docker bind mount 与 named volume 的差异。
 - **实战代码**: 部署 OpenList 的 compose 片段；WebDAV 端点验证命令；`rclone.conf` 远端配置；`rclone mount` 完整命令 + systemd unit；目标容器的挂载段。
 - **常见坑**: 中文文件名编码；挂载点权限（`allow_other` 与 `/etc/fuse.conf`）；容器内 UID 不匹配导致只读/无权限；启动顺序（先挂载再起容器）；WebDAV 反代前缀；`rclone mount` 空闲掉线；OpenList 数据目录未持久化导致配置丢失。
 - **工具链**: OpenList、Rclone、Docker / Docker Compose、systemd、FUSE3、可选 Nginx 反向代理。

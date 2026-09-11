@@ -10,7 +10,7 @@ topic: "如何使用 OpenList 聚合网盘并挂载给 Docker"
 project_slug: "openlist-webdav-rclone-docker"
 created_at: "2026-09-12"
 last_updated: "2026-09-12"
-current_phase: P0
+current_phase: P1
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：openlist-webdav-rclone-docker
 > 项目标识：openlist-webdav-rclone-docker
 > 创建时间：2026-09-12
-> 当前阶段：阶段 0
+> 当前阶段：阶段 1
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -40,7 +40,7 @@ quality_gate_due: ""
 - [ ] 如发布到 Obsidian，vault_path、note_folder、moc_path 已确认或标记待补
 - [ ] 意图文件已生成：`./00_intent.md`
 
-> [P0] 🔲 进行中 {in_progress}
+> [P0] ✅ 已完成 {complete}
 
 ---
 
@@ -51,7 +51,7 @@ quality_gate_due: ""
 - [ ] 用户已选择学习方向
 - [ ] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] ⬜ 未开始
+> [P1] 🔲 进行中 {in_progress}
 
 ---
 
@@ -130,7 +130,7 @@ quality_gate_due: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
-| | | |
+| P0 | 确认意图文件与研究计划：笔记类型=实战教程（practice+少量 concept），深度=上手，基础=有了解，输出=项目 output；核心概念收敛为「WebDAV 协议和 Rclone 的概念和使用」并保留 FUSE、Docker bind mount vs named volume | 2026-09-12 |
 
 ---
 
@@ -154,7 +154,7 @@ quality_gate_due: ""
 
 | 时间 | 原方向 | 新方向 | 是否需要补充收集 |
 |------|--------|--------|-----------------|
-| | | | |
+| 2026-09-12 | 核心概念含 OpenList/AList 关系、FUSE、Docker bind mount vs volume、uid/gid 映射 等 6 项 | 收敛为「WebDAV 协议和 Rclone 的概念和使用」+ 保留 FUSE 用户态文件系统、Docker bind mount 与 named volume 的差异；不再单列 OpenList/AList 关系、uid/gid 映射（后者留在常见坑） | 否（P1/P2 收集时按新口径聚焦） |
 
 ---
 
