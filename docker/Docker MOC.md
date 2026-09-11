@@ -1,7 +1,7 @@
 ---
 title: Docker 知识索引
 created: 2026-04-06
-updated: 2026-08-29
+updated: 2026-09-12
 tags: [docker, MOC, 索引]
 
 ---
@@ -26,6 +26,7 @@ tags: [docker, MOC, 索引]
 | 更新容器版本 | [[docker容器如何更新]] |
 | 解决权限问题 | [[docker里的GID和UID]] |
 | 让容器读写宿主机文件 | [[Docker容器服务访问宿主机文件]] |
+| 把网盘挂载给容器（OpenList → WebDAV → Rclone） | [[OpenList网盘挂载-00-总目录]] |
 | 排查常见错误 | [[docker容器搭建错误的知识讲解]] \| [[docker镜像拉取DNS解析超时排错]] |
 | 向 GHCR 推送镜像 | [[GHCR 推送镜像权限配置]] |
 
@@ -78,6 +79,15 @@ tags: [docker, MOC, 索引]
 
 ### 挂载与文件访问
 - [[Docker容器服务访问宿主机文件]] - 容器读写宿主机文件的挂载选型、权限对齐与安全边界完整实战 #docker #挂载 #权限 #安全
+
+### 网盘聚合与挂载
+- [[OpenList网盘挂载-00-总目录]] - **6 册系列总目录**：OpenList 聚合网盘 → 开 WebDAV → Rclone 挂载到本地 → 映射给 Docker 容器 #docker #openlist #webdav #rclone #网盘
+- [[OpenList网盘挂载-01-OpenList部署]] - 第 1 册：用 Docker 跑起 OpenList，数据持久化
+- [[OpenList网盘挂载-02-网盘聚合]] - 第 2 册：存储模型与挂入第一个网盘
+- [[OpenList网盘挂载-03-WebDAV服务]] - 第 3 册：开 WebDAV 权限、拿到连接参数表
+- [[OpenList网盘挂载-04-Rclone挂载]] - 第 4 册：rclone mount、VFS 缓存档、开机自启
+- [[OpenList网盘挂载-05-Docker映射]] - 第 5 册：bind mount 映射给容器、运行身份
+- [[OpenList网盘挂载-06-排障速查]] - 第 6 册：链路各段「症状 → 原因 → 动作」
 
 ### CI 与镜像推送
 - [[GHCR 推送镜像权限配置]] - GitHub Actions 向 GHCR 推送镜像的权限配置完整指南（Classic PAT + Secret + Workflow 兜底 + 排错） #docker #GitHub-Actions #GHCR
@@ -146,6 +156,7 @@ tags: [docker, MOC, 索引]
 
 ## 更新日志
 
+- 2026-09-12：新增 [[OpenList网盘挂载-00-总目录]]（OpenList → WebDAV → Rclone → Docker 全链路实战，6 册系列）
 - 2026-08-29：新增 [[Docker容器服务访问宿主机文件]]（容器读写宿主机文件的挂载/权限/安全完整实战）
 - 2026-08-28：新增 [[docker镜像拉取DNS解析超时排错]]（镜像拉取 DNS 解析超时实战排错）
 - 2026-08-08：新增 [[Docker与DockerCompose命令速查]]（Docker 与 Docker Compose 命令入门速查）

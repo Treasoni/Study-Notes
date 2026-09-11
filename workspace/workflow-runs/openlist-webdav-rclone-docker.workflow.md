@@ -10,7 +10,7 @@ topic: "如何使用 OpenList 聚合网盘并挂载给 Docker"
 project_slug: "openlist-webdav-rclone-docker"
 created_at: "2026-09-12"
 last_updated: "2026-09-12"
-current_phase: P6
+current_phase: P7
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：openlist-webdav-rclone-docker
 > 项目标识：openlist-webdav-rclone-docker
 > 创建时间：2026-09-12
-> 当前阶段：阶段 6
+> 当前阶段：阶段 7
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -111,12 +111,16 @@ quality_gate_due: ""
 ---
 
 ## 阶段 6：Obsidian 美化与发布
-- [ ] 已读取 Obsidian 输出规则
-- [ ] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
-- [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
-- [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
+- [x] 已读取 Obsidian 输出规则（`.claude/rules/obsidian/note-system.md`）
+- [x] 用户已确认最终保存位置：vault 根 `D:\Study-Notes`，`note_folder` = `docker/OpenList网盘挂载/`，`moc_path` = `docker/Docker MOC.md`（P5→P6 确认点选定）
+- [x] frontmatter、标签、Callout、双链已按 Obsidian 规则处理（7 件全部补 frontmatter；新增 `## 相关笔记` / `## 延伸阅读` 共 25 条双链）
+- [x] 最终 Markdown 已保存到用户指定位置：`docker/OpenList网盘挂载/` 下 7 个文件（合计 177674 B）
 
-> [P6] 🔲 进行中 {in_progress}
+**发布命名说明（偏离分册原名）**：落地时把 `README.md` / `01-OpenList部署.md` … 改名为 `OpenList网盘挂载-00-总目录.md` / `OpenList网盘挂载-01-OpenList部署.md` …。原因有二：① vault 内已有 19 个 `README.md`，裸链 `[[README]]` 歧义；② `01-OpenList部署` 等 6 个 basename 已存在于 `workspace/openlist-webdav-rclone-docker/output/`，而该目录**未被 Obsidian 排除**（`.obsidian/app.json` 无 `userIgnoreFilters`），同名发布会造成 6 组重名。改名后全部双链经脚本校验：**死链 0，歧义 0**；**正文零改动**（源内容 100% 按序保留，仅新增 frontmatter 与相关笔记层）。
+
+**双链落地方式**：按「双链只加高价值概念、不把每个名词都变链接」的规则，未做正文内联埋链，改为每册新增一个 `## 相关笔记` 区块（总目录为 `## 延伸阅读`），共 25 条。`02-网盘聚合` 只给 2 条，因 vault 内确无更贴近其主题（存储驱动）的既有笔记——不凑数。
+
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -126,7 +130,7 @@ quality_gate_due: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] 🔲 进行中 {in_progress}
 
 ---
 
@@ -138,6 +142,7 @@ quality_gate_due: ""
 | P1 | 选定学习方向：方向 A 全链路主线版（OpenList → WebDAV → Rclone → Docker，聚焦 Linux 宿主机 + Docker Compose） | 2026-09-12 |
 | P2 | 确认进入**大纲模式**（逐章写、每章停下确认）；**不并入**方向 B 架构对比，维持 6 章；第 5 章终点容器**暂不定**，只讲通用挂载模式 | 2026-09-12 |
 | P3 | 确认 6 章大纲。① 第 3 章采用「连接参数表 + 显式声明无法自证」，可从脚本化验证由第 4 章承担；② Windows/WSL 维持「仅适用 Linux 宿主机」声明，**不补收集**；③ 中文文件名编码标记为「待补收集」；④ **用户要求 P4 一次性写完全部 6 章，豁免逐章确认停顿** | 2026-09-12 |
+| P6 | 确认发布位置：vault 根 `D:\Study-Notes` 下新建 `docker/OpenList网盘挂载/`；MOC 登记到 `docker/Docker MOC.md`（仅此一个 MOC） | 2026-09-12 |
 | P4 | 确认组装方式：① **分册子目录 + 分册导航**（不采用单文件 `final_note.md`）；第 4 章 727 行**不再拆分**；组装完成后执行**全文通读一致性校对** | 2026-09-12 |
 
 ---
@@ -172,10 +177,10 @@ quality_gate_due: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战教程（practice 为主 + 少量 concept 铺垫）
+- **总字数**：源产物 162,183 B；发布件 177674 B（含 frontmatter 与相关笔记层）
+- **章节数**：6 册 + 1 总目录
+- **输出格式**：Obsidian Markdown（分册）
+- **文件路径**：`docker/OpenList网盘挂载/OpenList网盘挂载-00-总目录.md` 及 `-01-` ~ `-06-` 共 7 个文件
+- **Obsidian Vault**：`D:\Study-Notes`
+- **MOC 路径**：`docker/Docker MOC.md`
