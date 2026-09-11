@@ -10,7 +10,7 @@ topic: "如何使用 OpenList 聚合网盘并挂载给 Docker"
 project_slug: "openlist-webdav-rclone-docker"
 created_at: "2026-09-12"
 last_updated: "2026-09-12"
-current_phase: P3
+current_phase: P4
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：openlist-webdav-rclone-docker
 > 项目标识：openlist-webdav-rclone-docker
 > 创建时间：2026-09-12
-> 当前阶段：阶段 3
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -74,22 +74,24 @@ quality_gate_due: ""
 - [x] 已根据笔记类型选择大纲结构
 - [x] 大纲已生成（≤3级层级）
 - [x] 每章已标注：篇幅、素材引用、代码示例
-- [ ] 大纲已展示给用户确认
+- [x] 大纲已展示给用户确认
 - [x] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中 {in_progress}
+> [P3] ✅ 已完成 {complete}
 
 ---
 
 ## 阶段 4：逐章写作
-- [ ] 第 1 章已写完并确认
-- [ ] 第 2 章已写完并确认
-- [ ] 第 3 章已写完并确认
-- [ ] ...（根据实际章节数添加）
+- [ ] 第 1 章已写完：用 Docker 跑起 OpenList
+- [ ] 第 2 章已写完：把网盘聚合进来
+- [ ] 第 3 章已写完：开出 WebDAV 服务
+- [ ] 第 4 章已写完：用 Rclone 挂到本地
+- [ ] 第 5 章已写完：映射给 Docker 容器
+- [ ] 第 6 章已写完：排障速查
 
-**进度**：0/待大纲确定
+**进度**：0/6（用户已豁免逐章停顿，一次性写完全部 6 章）
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中 {in_progress}
 
 ---
 
@@ -133,6 +135,7 @@ quality_gate_due: ""
 | P0 | 确认意图文件与研究计划：笔记类型=实战教程（practice+少量 concept），深度=上手，基础=有了解，输出=项目 output；核心概念收敛为「WebDAV 协议和 Rclone 的概念和使用」并保留 FUSE、Docker bind mount vs named volume | 2026-09-12 |
 | P1 | 选定学习方向：方向 A 全链路主线版（OpenList → WebDAV → Rclone → Docker，聚焦 Linux 宿主机 + Docker Compose） | 2026-09-12 |
 | P2 | 确认进入**大纲模式**（逐章写、每章停下确认）；**不并入**方向 B 架构对比，维持 6 章；第 5 章终点容器**暂不定**，只讲通用挂载模式 | 2026-09-12 |
+| P3 | 确认 6 章大纲。① 第 3 章采用「连接参数表 + 显式声明无法自证」，可从脚本化验证由第 4 章承担；② Windows/WSL 维持「仅适用 Linux 宿主机」声明，**不补收集**；③ 中文文件名编码标记为「待补收集」；④ **用户要求 P4 一次性写完全部 6 章，豁免逐章确认停顿** | 2026-09-12 |
 
 ---
 
