@@ -10,8 +10,8 @@ topic: "如何使用 OpenList 聚合网盘并挂载给 Docker"
 project_slug: "openlist-webdav-rclone-docker"
 created_at: "2026-09-12"
 last_updated: "2026-09-12"
-current_phase: P2
-current_status: in_progress
+current_phase: P3
+current_status: ready
 mode: outline
 blocked_reason: ""
 quality_gate: pending
@@ -26,19 +26,19 @@ quality_gate_due: ""
 > 运行标识：openlist-webdav-rclone-docker
 > 项目标识：openlist-webdav-rclone-docker
 > 创建时间：2026-09-12
-> 当前阶段：阶段 2
+> 当前阶段：阶段 3
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
 
 ## 阶段 0：意图澄清
-- [ ] 用户输入已分析
-- [ ] 笔记类型已确定（实战/概念/心得/对比）
-- [ ] 学习深度已确定（入门/上手/精通）
-- [ ] 用户基础已确定（零基础/有了解/熟悉）
-- [ ] 输出位置策略已确定（项目 output / 用户指定 Obsidian vault）
-- [ ] 如发布到 Obsidian，vault_path、note_folder、moc_path 已确认或标记待补
-- [ ] 意图文件已生成：`./00_intent.md`
+- [x] 用户输入已分析
+- [x] 笔记类型已确定（实战/概念/心得/对比）
+- [x] 学习深度已确定（入门/上手/精通）
+- [x] 用户基础已确定（零基础/有了解/熟悉）
+- [x] 输出位置策略已确定（项目 output / 用户指定 Obsidian vault）
+- [x] 如发布到 Obsidian，vault_path、note_folder、moc_path 已确认或标记待补
+- [x] 意图文件已生成：`./00_intent.md`
 
 > [P0] ✅ 已完成 {complete}
 
@@ -56,16 +56,16 @@ quality_gate_due: ""
 ---
 
 ## 阶段 2：深度收集
-- [ ] 已根据用户选择的方向启动深度收集
-- [ ] 核心概念/理论素材已收集
-- [ ] 实战代码/项目案例已收集
-- [ ] 常见坑/最佳实践已收集
-- [ ] 工具链/生态已收集
-- [ ] 进阶路径/学习资源已收集
-- [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
-- [ ] 深度素材已保存：`./02_deep_research.md`
+- [x] 已根据用户选择的方向启动深度收集
+- [x] 核心概念/理论素材已收集
+- [x] 实战代码/项目案例已收集
+- [x] 常见坑/最佳实践已收集
+- [x] 工具链/生态已收集
+- [x] 进阶路径/学习资源已收集
+- [x] 素材质量已确认（官方文档数、教程数、深度文章数）
+- [x] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] 🔲 进行中 {in_progress}
+> [P2] ✅ 已完成 {complete}
 
 ---
 
@@ -147,7 +147,9 @@ quality_gate_due: ""
 
 | 时间 | 阶段 | 问题描述 | 处理方式 |
 |------|------|---------|---------|
-| | | | |
+| 2026-09-12 | P1→P2 | 抓取脚本按「批次内序号+域名」命名，第二批（同为 `doc.oplist.org`）静默覆盖了第一批 3 个源文件（webdav/user/docker） | 单批重抓同域全部 6 个 URL 使序号唯一；新增按 `url:` frontmatter 重命名为稳定 `S<ID>_<slug>.md`，从根上消除碰撞 |
+| 2026-09-12 | P2 | P1 subagent 产生 3 条**伪引证**：把训练知识挂到 S02 / S06 / S12 的源 ID 上（单存储子路径、容器内 mount 条件、PUID/PGID entrypoint 与 chown 行为） | 回源逐条核对推翻，记入 `02_deep_research.md` §4.1 并在 `01_explore_result.md` 就地标注更正；确立下游规则：写章节前必须回源重开 |
+| 2026-09-12 | P2 | P1 记录的风险「`docs.docker.com` 被网络策略拦截（curl 000）」不成立 | 经 crawl4ai 实测可达并抓取成功（S11/S18）；已在 `01_explore_result.md` 撤回该风险 |
 
 ---
 

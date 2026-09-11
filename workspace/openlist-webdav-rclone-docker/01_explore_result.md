@@ -35,26 +35,39 @@
 
 **Tier 分布**：T1 × 10、T2 × 2、T3 × 2。官方文档占比高，主干无需依赖社区来源。
 
+> **P2 实际抓取情况**：上表 14 条中，实际抓取正文的有 **S01 S02 S03 S04 S06 S07 S09 S10 S11 S12 S16 S17 S18**（另并入了探测期外的 S15 空壳页），共 14 篇，已重命名为稳定 ID 存于 `sources/`。
+> **S05、S08、S13、S14 未抓取**，只停留在候选状态，**下游不得引用这四个编号**。详见 `02_deep_research.md` §2。
+
 ## 关键发现（待 P2 回源核实）
 
 > 以下均为 P1 侦察所得的**线索**，不是结论。P2 必须回原文逐条核对后再写入 `02_deep_research.md`。
+>
+> ⚠️ **P2 已于 2026-09-12 回源核实，其中 4 条被推翻或降级**。原始表述保留在下方（划掉部分为已推翻内容），**实际结论以 `02_deep_research.md` §4.1 为准**。
 
-1. **WebDAV 端点语义**：OpenList 的内置 WebDAV 挂在主 HTTP 服务的 `/dav/` 路径下，账号密码与网页端相同，也可为单个存储加子路径（线索源 S02）。
+1. **WebDAV 端点语义**：OpenList 的内置 WebDAV 挂在主 HTTP 服务的 `/dav/` 路径下，账号密码与网页端相同，~~也可为单个存储加子路径~~（线索源 S02）。
+   - ❌ **P2 更正**：S02 全文**没有**「为单个存储加子路径」这一说法；上游 S04 也没有。此半句无来源支撑，**不得写入正文**。`/dav/<挂载路径>` 的拼接属推断，见 `02_deep_research.md` 开放问题 Q2。
 2. **权限粒度**：OpenList 用户可逐项配置 WebDAV 读取 / WebDAV 管理与 mkdir、rename、move、copy、delete 等文件系统权限，官方文档附有「越权可访问内网」的安全警告（线索源 S03）。这是「只读 vs 读写」那一节的关键依据。
+   - ✅ **P2 已核实**（S02 + S03 互证，且 S02 有「仅开启『WebDAV 管理』还不够」的原文）。
 3. **⚠️ 版本断点**：S01 被指称含「v4.1.0 起由 PUID/PGID 改为 compose `user:`」这一重大变更。**这是 P1 转述，必须在 P2 回 S01 原文核实**，因为它同时影响第 1 章（OpenList 部署）和第 4 章（Docker 权限）两处写法。
+   - ✅ **P2 已核实且更精确**：原文为「在 `v4.1.0` 以后的版本中（不包含 `v4.1.0`），OpenList 镜像已经移除了 `PUID`、`PGID`」，并新增内置 `openlist` 用户（UID 1001 / GID 1001）。原文见 `02_deep_research.md` §3.1。
 4. **driver 能力矩阵**：AList 口径页给出各存储驱动的 WebDAV 读写能力差异（本地目录 / 阿里云盘 / OneDrive / 夸克 / 百度可读写，个别驱动不支持 copy）。引用时须标注为**上游 AList 口径**，不可当作 OpenList 官方结论（线索源 S04）。
+   - ✅ **P2 已核实**，并补充：S04 发布日期 2022-09-07 且未标注更新，引用须同时标口径与日期。
 5. **`--vfs-cache-mode` 四档**：off / minimal / writes / full 的差异与 mount 同 sync/copy 的可靠性取舍，是「Rclone 概念」一节的主干（线索源 S06）。
-6. **PUID/PGID 不是 Docker 特性**：S12 明确它是镜像 entrypoint 读取的环境变量；`chown` 只覆盖 `/config` 而不覆盖媒体挂载点 —— 这解释了「为什么权限设了还是 permission denied」，是高价值排障素材。
+   - ✅ **P2 已核实**。
+6. **~~PUID/PGID 不是 Docker 特性~~**：~~S12 明确它是镜像 entrypoint 读取的环境变量；`chown` 只覆盖 `/config` 而不覆盖媒体挂载点~~ —— ~~这解释了「为什么权限设了还是 permission denied」，是高价值排障素材。~~
+   - ❌ **P2 更正（伪引证）**：S12 全文**没有**上述任何内容（该文件仅约 2KB）。S12 实际说的是：容器默认在 root 用户域运行、容器创建的文件归 root、PUID/PGID 用于映射容器内用户到宿主机用户、`id $user` 取值、以及「LinuxServer.io 镜像尚不兼容 `--user`」。**该条原表述全部作废**，改用 S12 实际原文（见 `02_deep_research.md` §3.5）。
 7. **两种容器化挂载架构**（本主题最值得展开的对比点）：
    - 架构一：宿主机 `rclone mount` → bind mount 给容器（S13、S14）
-   - 架构二：`rclone mount` 跑在容器内，需 `--device /dev/fuse`、`SYS_ADMIN`、`apparmor:unconfined`、`/etc/passwd` 与 `/etc/group` 只读挂载、`:shared` 传播（线索源 S06）
+   - ~~架构二：`rclone mount` 跑在容器内，需 `--device /dev/fuse`、`SYS_ADMIN`、`apparmor:unconfined`、`/etc/passwd` 与 `/etc/group` 只读挂载、`:shared` 传播（线索源 S06）~~
+   - ❌ **P2 更正（伪引证）**：S06 是 rclone mount 的命令参考，**全文无任何容器/Docker 内容**。架构二的具体条件来自模型自身知识，非 S06。方向 A 已排除该架构，此条不再使用。
 8. **`allow_other` 与 `/etc/fuse.conf`**：`allow_other` 依赖 `user_allow_other` 配置项，权威说明在内核文档（S09），rclone 站内仅在变更日志提及；未开启会直接导致 mount 失败（S10 有对应报错记录）。
+   - ⚠️ **P2 降级**：内核文档（S09）只提「a (userspace) configuration option」，**全文未出现 `/etc/fuse.conf` 路径，也无报错原文**；`/etc/fuse.conf` 这个具体位置来自社区帖 S10。断言路径时必须标为社区经验，见 `02_deep_research.md` §4.3。
 
 ## 覆盖缺口与风险
 
 | 类型 | 内容 | 影响 |
 |---|---|---|
-| ⚠️ 可达性 | **`docs.docker.com` 在本机被网络策略拦截**（探测时 curl 返回 000），S11 的 URL 是依据官方文档结构与检索结果给出，**未实测可达** | P2 精读 S11 时若 crawl 失败，需改用镜像源或明确降级为「结构已知、原文未核」 |
+| ~~⚠️ 可达性~~ | ~~**`docs.docker.com` 在本机被网络策略拦截**（探测时 curl 返回 000），S11 的 URL 是依据官方文档结构与检索结果给出，**未实测可达**~~ | ✅ **P2 已撤回**：`docs.docker.com` 经 crawl4ai 实测可达并成功抓取（S11 19334 B、S18 29468 B）。P1 时用 `curl` 探测得到 000 属探测方式问题（该站对裸 curl 不友好），并非网络策略拦截。**该风险不成立，已删除。** |
 | 结构缺口 | 没有任何单一来源串起 `OpenList + WebDAV + rclone + qBittorrent` 的完整 compose | 第 4 章需由通用 `:ro` / `rw` 模式推演，推演部分必须显式标注为推断 |
 | 来源层级 | 官方站无 systemd 专页，开机自启只能靠 tier 3（S10） | 与该节相关的结论需标为「社区操作经验」而非官方口径 |
 | 边界 | Windows / WSL 侧未覆盖（Windows 的 `rclone mount` 依赖 WinFsp） | 本机是 Windows，正文需明确「本笔记以 Linux 宿主机为准」，避免用户照抄失败 |
