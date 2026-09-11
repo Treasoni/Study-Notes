@@ -10,8 +10,8 @@ topic: "如何使用 OpenList 聚合网盘并挂载给 Docker"
 project_slug: "openlist-webdav-rclone-docker"
 created_at: "2026-09-12"
 last_updated: "2026-09-12"
-current_phase: P4
-current_status: in_progress
+current_phase: P5
+current_status: ready
 mode: outline
 blocked_reason: ""
 quality_gate: pending
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：openlist-webdav-rclone-docker
 > 项目标识：openlist-webdav-rclone-docker
 > 创建时间：2026-09-12
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -87,11 +87,11 @@ quality_gate_due: ""
 - [x] 第 3 章已写完：开出 WebDAV 服务
 - [x] 第 4 章已写完：用 Rclone 挂到本地
 - [x] 第 5 章已写完：映射给 Docker 容器
-- [ ] 第 6 章已写完：排障速查
+- [x] 第 6 章已写完：排障速查
 
-**进度**：0/6（用户已豁免逐章停顿，一次性写完全部 6 章）
+**进度**：6/6（用户已豁免逐章停顿，一次性写完全部 6 章）
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
