@@ -10,7 +10,7 @@ topic: "如何使用 OpenList 聚合网盘并挂载给 Docker"
 project_slug: "openlist-webdav-rclone-docker"
 created_at: "2026-09-12"
 last_updated: "2026-09-12"
-current_phase: P5
+current_phase: P6
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：openlist-webdav-rclone-docker
 > 项目标识：openlist-webdav-rclone-docker
 > 创建时间：2026-09-12
-> 当前阶段：阶段 5
+> 当前阶段：阶段 6
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -106,7 +106,7 @@ quality_gate_due: ""
 
 **组装方式偏离说明**：模板默认产出单文件 `./output/final_note.md`。本次 6 章合计 163369 B，经用户在 P4→P5 确认点选定「分册子目录 + 加导航」，故未生成 `final_note.md`，改为 6 册独立文件 + `README.md` 索引，每册首尾加 `🧭 分册导航` 双链。**内容零丢失已用脚本逐册证明**：去掉导航条、标题层级回退一级后与 `chapters/` 源文件逐行相等（6/6 IDENTICAL）。
 
-> [P5] 🔲 进行中 {in_progress}
+> [P5] ✅ 已完成 {complete}
 
 ---
 
@@ -116,7 +116,7 @@ quality_gate_due: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] 🔲 进行中 {in_progress}
 
 ---
 
@@ -158,6 +158,7 @@ quality_gate_due: ""
 | 2026-09-12 | P2 | P1 subagent 产生 3 条**伪引证**：把训练知识挂到 S02 / S06 / S12 的源 ID 上（单存储子路径、容器内 mount 条件、PUID/PGID entrypoint 与 chown 行为） | 回源逐条核对推翻，记入 `02_deep_research.md` §4.1 并在 `01_explore_result.md` 就地标注更正；确立下游规则：写章节前必须回源重开 |
 | 2026-09-12 | P2 | P1 记录的风险「`docs.docker.com` 被网络策略拦截（curl 000）」不成立 | 经 crawl4ai 实测可达并抓取成功（S11/S18）；已在 `01_explore_result.md` 撤回该风险 |
 | 2026-09-12 | P5 | 通读一致性校对发现 7 处跨册不一致：① **挂载点路径分裂**——第 4 册全篇用 `~/openlist-mount`，第 5、6 册却称「第 4 章产出 `/mnt/openlist`」（读者照第 4 册做完，第 5 册命令会全部对不上）；② 第 4 册章号用中文数字「第三章」，其余 5 册用「第 3 章」，且该册自己的 H1 标题又是阿拉伯数字；③ README 称「各册文末附有完整来源清单（含 URL 与源文件路径）」，实际第 1、2 册无脚注、第 3、4 册只有 URL；④ README 缺口表只列 G3/G4/G6，而正文引用 G1–G7；⑤ 第 5 册称「**第 6 章**的终点容器」，但第 6 章并未定终点容器（同册 §5.7 自己写明「还没定」）；⑥ 第 4 册表格称 unit 使用 `--cache-dir`，示例里没有；⑦ 第 2 册练习标注「为第 3 章预热」，但第 3 章不涉及 `Order` | 逐条回源核实后修复：路径统一为 `/mnt/openlist`（第 4 册 18 处，含把 `mkdir -p ~/...` 改为 `sudo mkdir -p` + `chown`）；章号统一阿拉伯数字（该册 21 处，保留「前三章」这一计数语）；README 来源清单措辞改为如实分级描述并指向 `02_deep_research.md` §2；README 补 G1/G2/G5/G7 四行；第 5 册删去「第 6 章的」；第 4 册表格改为「`--cache-dir`（若使用）」并同步第 712 行；第 2 册删去预热标注。同步修改 `chapters/` 源文件与 `output/` 产物，并复验 6/6 源↔产物逐行等价 |
+| 2026-09-12 | P5 | 第二轮（术语 / 格式）通读校对，共 19 处：① 第 5 册「主机」与「宿主机」在**同一段内**混用 6 处（含官方 volume 段中译「需要容器与主机**同时**访问」、远程 daemon 场景「远程主机」「那台主机」）；② 第 4 册正文「云盘本来不是“文件系统”」未随首轮统一为「网盘」；③ 第 3 册「本章要点」排在「章末可跑产出」之前，与其余 5 册顺序相反；④ 第 2 册 2 处引用块内错误串围栏缺语言标识，另 1 处 `txt` 应为 `text`；⑤ 第 5 册 `console` 围栏内含非 console 内容；⑥ 第 1 册 `user: '0:0'` 提示级别 note → warning；⑦ 第 6 册「宿主端口 / 宿主目录 / 宿主文件 / 宿主路径」及 `[!warning]` 标题标点 | 逐条回源判断后修复：第 5 册 6 处按「Docker daemon 所在机器＝宿主机」的既有约定统一（全部是宿主机/容器或宿主机/客户端对照，且同段已用「宿主机」）；第 4 册按正文体例统一为「网盘」；第 3 册交换两节顺序为 `## 3.7 章末可跑产出` → `## 本章小结`；围栏语言补齐。**刻意不改**：`阿里云盘` / `123 云盘` / `中国移动云盘` 等产品名、`Webdav policy` / `Webdav Read` / `Webdav Manage` 等官方原样字符串、`docker-compose.yml`、`绑定挂载` 括注、第 4 册 `[!tip] 大白话：副标题` 体例、`Bind mounts have write access…` 英文原文引用——均为忠实引证或有意体例，改动反而失真。修复后复验 6/6 源↔产物逐行等价，机械复扫「主机 / 中文数字章号 / 目标容器 / 宿主X / 云盘本来 / openlist-mount」全部归零 |
 
 ---
 
