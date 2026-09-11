@@ -85,7 +85,7 @@ rclone 挂载的"文件系统"实现方是 rclone 自己，背后真正的权限
 > [!tip] 大白话：`allow_other` 是"门禁授权"
 > 默认情况下，FUSE 挂载点只对**挂载者本人**开门——就像你刷自己的工牌进自己的工位。`allow_other` 相当于给同部门的同事也发了临时工牌；但它只发给你所在这个部门（同一 userns）及其下属小组，跨部门的同事还是进不来。
 
-`allow_other` 在 OpenList 场景下为什么重要：如果 5.5 节以后要把这个挂载点交给 Docker 容器，容器里的进程 UID 往往不是你的登录用户，没有 `allow_other` 就会直接 `Permission denied`。
+`allow_other` 在 OpenList 场景下为什么重要：如果第 5 章要把这个挂载点交给 Docker 容器，容器里的进程 UID 往往不是你的登录用户，没有 `allow_other` 就会直接 `Permission denied`。
 
 #### 环境边界（先读这段，能省下大量排查时间）
 
@@ -102,7 +102,7 @@ rclone 挂载的"文件系统"实现方是 rclone 自己，背后真正的权限
 | 术语 | 含义 | 本章具体指 |
 |---|---|---|
 | remote（远端） | rclone 配置里的一条连接，名字由你起 | `openlist:`，指向 `http://<宿主机IP>:5244/dav/` |
-| mountpoint（挂载点） | 本机上一个**已存在且为空**的目录 | `~/openlist-mount` |
+| mountpoint（挂载点） | 本机上一个**已存在且为空**的目录 | `/mnt/openlist` |
 | VFS | rclone 在远端对象存储与本地文件系统之间加的一层适配，含内存目录缓存与可选磁盘文件缓存 | 决定 `--vfs-cache-mode` 那一堆行为 |
 
 ### 4.3 配置远端：把第 3 章的端点写进 rclone
@@ -297,14 +297,15 @@ rclone copy /home/source openlist:backup
 注意是**两个条件同时成立**：目录要先存在（`mkdir`），而且里面是空的。常见报错正是把这两条搞混——目录不存在、或者目录里已经有文件。
 
 ```bash
-# 先建空目录
-mkdir -p ~/openlist-mount
+# 先建空目录（/mnt 归 root，建完把属主改成自己，之后才能用普通用户挂载）
+sudo mkdir -p /mnt/openlist
+sudo chown "$USER" /mnt/openlist
 
 # 确认它是空的（应无输出）
-ls -A ~/openlist-mount
+ls -A /mnt/openlist
 
 # 最简挂载（前台）
-rclone mount openlist: ~/openlist-mount
+rclone mount openlist: /mnt/openlist
 ```
 
 如果你确实需要挂到一个非空目录，rclone 提供了 `--allow-non-empty`（"Allow mounting over a non-empty directory"）；但它会让原有内容被挂载**遮蔽**，不是把文件合并进去，能不用就不用。
@@ -322,17 +323,17 @@ rclone mount openlist: ~/openlist-mount
 
 ```bash
 # 后台模式下的卸载（按系统上安装的是哪个 fusermount 二选一）
-fusermount -u ~/openlist-mount
+fusermount -u /mnt/openlist
 # …或
-fusermount3 -u ~/openlist-mount
+fusermount3 -u /mnt/openlist
 # macOS，或 Linux 上使用 nfsmount 时
-umount ~/openlist-mount
+umount /mnt/openlist
 ```
 
 [^c4-1]
 
 > [!warning] 卸载可能失败：挂载点忙
-> 官方提醒：如果挂载点正在被使用（有进程在里面读写），`umount` 会失败，此时需要你自己先停掉占用进程。排查时先 `lsof +D ~/openlist-mount` 看谁占着。
+> 官方提醒：如果挂载点正在被使用（有进程在里面读写），`umount` 会失败，此时需要你自己先停掉占用进程。排查时先 `lsof +D /mnt/openlist` 看谁占着。
 
 #### mount 与 sync/copy 的可靠性差异（理解 VFS 缓存的前提）
 
@@ -497,11 +498,11 @@ umount ~/openlist-mount
 
 ```bash
 # 实例 A
-rclone mount openlist: ~/openlist-mount-a \
+rclone mount openlist: /mnt/openlist-a \
   --vfs-cache-mode writes --cache-dir /var/cache/rclone/instance-a
 
 # 实例 B（即使指向同一远端，也要用不同缓存目录）
-rclone mount openlist: ~/openlist-mount-b \
+rclone mount openlist: /mnt/openlist-b \
   --vfs-cache-mode writes --cache-dir /var/cache/rclone/instance-b
 ```
 
@@ -610,14 +611,14 @@ mkdir -p ~/.local/log
 # 社区经验（S10 帖，按 INI 结构重排，非逐字引用）
 [Unit]
 Description=rclone OpenList
-AssertPathIsDirectory=/home/YOUR_USER/openlist-mount
+AssertPathIsDirectory=/mnt/openlist
 After=network-online.target
 
 [Service]
 Type=notify
 User=YOUR_USER
-ExecStart=/usr/bin/rclone mount --config=/home/YOUR_USER/.config/rclone/rclone.conf --vfs-cache-mode full --vfs-cache-max-age 4h --vfs-fast-fingerprint --vfs-refresh --allow-other --log-file=/home/YOUR_USER/.local/log/rclone_openlist.log --log-level INFO "openlist:" /home/YOUR_USER/openlist-mount
-ExecStop=/bin/fusermount3 -u /home/YOUR_USER/openlist-mount
+ExecStart=/usr/bin/rclone mount --config=/home/YOUR_USER/.config/rclone/rclone.conf --vfs-cache-mode full --vfs-cache-max-age 4h --vfs-fast-fingerprint --vfs-refresh --allow-other --log-file=/home/YOUR_USER/.local/log/rclone_openlist.log --log-level INFO "openlist:" /mnt/openlist
+ExecStop=/bin/fusermount3 -u /mnt/openlist
 Restart=always
 RestartSec=10
 
@@ -636,7 +637,7 @@ WantedBy=default.target
 | `ExecStop=/bin/fusermount3 -u ...` | 停止服务时手动卸载 | 社区经验（S10） |
 | `Restart=always` / `RestartSec=10` | 挂载掉线后自动重启，间隔 10 秒 | 社区经验（S10） |
 | `WantedBy=default.target` | 用户级/默认目标下开机自启 | 社区经验（S10） |
-| `--config` / `--cache-dir` 用绝对路径 | 因为 systemd 无环境变量、`~` 不展开 | **官方（S06）** |
+| `--config` / `--cache-dir`（若使用）必须写绝对路径 | 因为 systemd 无环境变量、`~` 不展开；本 unit 示例已含 `--config` | **官方（S06）** |
 
 > [!warning] `ExecStop` 用 `fusermount3` 是发行版差异，不是通用写法
 > 社区帖原文说明「fusermount3 instead of fusermount — Fedora uses FUSE3」[^c4-4]。**Fedora 用 FUSE3，所以写 `fusermount3`；Debian/Ubuntu 上具体用哪个，取决于系统装的是 FUSE2 还是 FUSE3**——用 4.1 节 `which fusermount fusermount3` 的结果决定。写错名字的表现是停止服务时卸载失败，但服务本身看起来"启动了"，很容易漏查。
@@ -670,7 +671,7 @@ cat ~/.local/log/rclone_openlist.log
 **1. 挂载点能 `ls` 到第 2 章挂进来的内容**
 
 ```bash
-ls -l ~/openlist-mount
+ls -l /mnt/openlist
 ```
 
 预期：列出你在第 2 章聚合进来的存储（若第 2 章用的是本地存储驱动，就看到那个目录下的文件）。看得到内容，说明这条链路真的通了：
@@ -698,7 +699,7 @@ systemctl status rclone-openlist.service
 ```bash
 sudo systemctl reboot
 # 重新登录后
-ls -l ~/openlist-mount
+ls -l /mnt/openlist
 systemctl status rclone-openlist.service
 ```
 
@@ -707,7 +708,7 @@ systemctl status rclone-openlist.service
 | 症状 | 查什么 | 依据 |
 |---|---|---|
 | `fusermount: executable file not found in $PATH` | `/bin` 与 `/usr/bin` 下是否有 fusermount / fusermount3 | S06 官方 |
-| 报路径找不到 | `ExecStart` 里 `--config` / `--cache-dir` 是否写成了 `~` 开头的相对写法 | S06 官方 |
+| 报路径找不到 | `ExecStart` 里的 `--config`（以及 `--cache-dir`，若写了）是否为绝对路径 | S06 官方 |
 | 挂载点空 / 权限拒绝 | `--allow-other` 是否被 fuse.conf 允许（**社区经验路径**） | S09 官方 + S10 社区 |
 | `fusermount3: mount failed: Permission denied` | Ubuntu 是否 AppArmor 拦截 | S06 官方 |
 | 启动"成功"但挂载点空 | `Type=` 是否误写成 `simple` | S06 官方 |

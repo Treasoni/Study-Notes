@@ -214,7 +214,7 @@ LinuxServer.io 的说明是：Docker 把容器都跑在 `root` 用户域下（�
 | 对 `--user` 的态度 | 官方推荐用法之一 | **明确说其镜像尚不兼容** |
 | 与 `chown` 的关系 | 可 `chown -R 1001:1001` 后走内置用户 | 靠 PUID/PGID 映射到宿主机用户 |
 
-**这对本章意味着什么？** 如果第 6 章的终点容器（消费者）选的是 LinuxServer.io 系镜像（qBittorrent、Jellyfin 等常见镜像多属此列），那么你同一条链路上会出现**两种并存的运行身份写法**：
+**这对本章意味着什么？** 如果终点容器（消费者）选的是 LinuxServer.io 系镜像（qBittorrent、Jellyfin 等常见镜像多属此列），那么你同一条链路上会出现**两种并存的运行身份写法**：
 
 - OpenList 容器（官方镜像）用 `user: '1000:1000'` 或 `--user 1000:1000`；
 - 消费者容器（LinuxServer 镜像）用 `-e PUID=1000 -e PGID=1000`。
