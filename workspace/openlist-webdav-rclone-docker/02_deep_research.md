@@ -75,6 +75,7 @@
 | 回收站路径为空则永久删除；填写后删除会移入该目录 | S16 | 官方配置字段 + 行为 |
 | **`Mount Path`（挂载路径）三义**：挂载项唯一标识 / 对外展示名称 / 要挂载到的位置；填 `/` 表示挂到根 | S17 | `The unique identifier for the mount point, the name displayed externally, and the location where it should be mounted.` |
 | `Mount Path` **必填**，留空校验失败 | S17 | `The mount path name is a required field and cannot be left empty` |
+| 留空时的**官方报错原文**：`Key: 'Storage.MountPath' Error: Field validation for 'MountPath' failed on the 'required' tag` | S17 | 官方报错原文（页面出现两次，一次 `Error:` 后有空格、一次无） |
 | 挂载路径**不可重名**，重名报 `UNIQUE constraint failed: x_storages.mount_path`；官方给的解法是**用别名存储聚合** | S17 | 官方报错原文 |
 | `Order` 数字越小越靠前，可填负数 | S17 | 官方配置字段 |
 | `Remark` 首行写 `ref:/mount_path` 可复用另一已挂载存储的认证令牌 | S17 | 官方配置字段 |
@@ -163,6 +164,8 @@
 | `-v`/`--volume` 挂载宿主机上**尚不存在**的路径时，Docker 会自动创建该目录，且**始终创建为目录** | S11 | `Docker automatically creates the directory on the host for you. It's always created as a directory.` |
 | `--mount` 默认**不会**自动创建不存在的源路径，而是报错 | S11 | `docker: Error response from daemon: invalid mount config for type "bind": bind source path does not exist: /dev/noexist.` |
 | bind mount **默认对宿主机文件有写权限**，可用 `readonly`/`ro` 阻止容器写入 | S11 | `Bind mounts have write access to files on the host by default.` |
+| 把 bind mount 挂进容器内**非空目录**时，原有内容被**遮蔽**（obscured）；且容器内没有直接卸下挂载恢复原内容的办法，只能重建容器 | S11 / S18 | `the pre-existing files are obscured by the mount` / `there's no straightforward way of removing a mount to reveal the obscured files again` |
+| ⚠️ S11 明说该遮蔽行为**与 volume 不同** | S11 | `However, it can also be surprising and this behavior differs from that of volumes.` ← 第 5 章 bind mount vs volume 的直接依据 |
 | bind mount 创建于 **Docker daemon 所在主机**，不是客户端 | S11 | `Bind mounts are created to the Docker daemon host, not the client.` |
 | bind propagation 默认 `rprivate`（双向都不传播）；可取值 `rprivate`/`private`/`rshared`/`shared`/`rslave`/`slave`；**仅 bind mount 可配置，且仅限 Linux 宿主机** | S11 | `Bind propagation defaults to rprivate for both bind mounts and volumes.` |
 | `shared` 为双向传播，`rshared` 在此基础上扩展到嵌套挂载点；**挂载传播在 Docker Desktop 下不工作** | S11 | `Mount propagation doesn't work with Docker Desktop.` |
