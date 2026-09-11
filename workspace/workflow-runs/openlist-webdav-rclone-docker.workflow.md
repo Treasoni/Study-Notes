@@ -14,7 +14,7 @@ current_phase: P7
 current_status: in_progress
 mode: outline
 blocked_reason: ""
-quality_gate: pending
+quality_gate: passed
 quality_gate_owner: ""
 quality_gate_due: ""
 ---
@@ -125,10 +125,12 @@ quality_gate_due: ""
 ---
 
 ## 阶段 7：MOC 同步
-- [ ] 已定位或创建 MOC 文件
-- [ ] 新笔记双链已加入 MOC
-- [ ] 已去重并更新摘要/标签
-- [ ] MOC 只保留索引，不复制正文
+- [x] 已定位或创建 MOC 文件（`docker/Docker MOC.md`，既有 MOC，未新建第二个）
+- [x] 新笔记双链已加入 MOC（7 条，追加于「四、实战应用」下新建 `### 网盘聚合与挂载` 分组）
+- [x] 已去重并更新摘要/标签（`updated` → 2026-09-12；更新日志置顶一条）
+- [x] MOC 只保留索引，不复制正文（7 行均为单行列表项，最长 134 字）
+
+**P7 复核结论**：本轮 7 条索引项**已由 P6 阶段就地写入**，P7 只做校验、**未改动 MOC 字符**。复核项：① 7 条双链各出现 1 次于索引分组，另与既有笔记同规出现于「快速导航」表与「更新日志」（既有笔记一律 3 次，体例一致，非重复）；② 体例全部符合 `- [[标题]] - 一句话说明 [#tag]`，总目录带 5 个标签、分册仅带摘要（与既有 `Docker容器服务访问宿主机文件` 等条目一致）；③ 全 MOC 双链按 basename 全局解析：**死链 0，歧义 0**；④ 未新增第二个 MOC，既有条目零改动。
 
 > [P7] 🔲 进行中 {in_progress}
 
