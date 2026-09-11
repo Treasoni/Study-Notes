@@ -53,7 +53,7 @@
 | `-p 5244:5244` | 把容器内 5244 端口映射到宿主机 5244，网页端与后续 WebDAV 都走这个端口 |
 | `-v /etc/openlist:/opt/openlist/data` | 把宿主机 `/etc/openlist` 挂到容器内数据目录 `/opt/openlist/data` |
 
-关于宿主路径，官方专门给了一条提醒：
+关于宿主机路径，官方专门给了一条提醒：
 
 > 「请注意：`/etc/openlist` 仅为默认映射的目录，您可以根据需要修改为其他目录。」——[OpenList Docs — 使用 Docker 安装](https://doc.oplist.org/guide/installation/docker)
 
@@ -209,7 +209,7 @@ CLI 命令适合一次性验证；长期运行建议用 Compose。官方 Compose
 
 > [!warning] 这段 YAML 是**按官方页面结构还原**的
 > S01 抓取时，该页 Compose 代码块的 YAML 列表项引导符 `- ` 被剥离、`volumes`/`ports` 行丢失缩进（形如 `'./data:/opt/openlist/data'` 顶格）。**不能逐字照抄抓取结果**。下面的缩进与 `- ` 是按官方页面结构还原的；`image`、`container_name`、`user`、`volumes`、`ports`、`environment`、`restart` 的键名与取值均来自 S01 原文，仅列表符号为还原。
-> 另：本段 `./data` 是 Compose 的相对路径，官方在同一个页面里让读者先 `mkdir -p /opt/openlist` 并 `cd /opt/openlist` 再创建 `docker-compose.yml`，因此该路径落在 `/opt/openlist/data`。这与 §1.3 的 `docker run` 示例用 `/etc/openlist` 只是**两个不同示例的宿主路径选择**，不要混用。
+> 另：本段 `./data` 是 Compose 的相对路径，官方在同一个页面里让读者先 `mkdir -p /opt/openlist` 并 `cd /opt/openlist` 再创建 `docker-compose.yml`，因此该路径落在 `/opt/openlist/data`。这与 §1.3 的 `docker run` 示例用 `/etc/openlist` 只是**两个不同示例的宿主机路径选择**，不要混用。
 
 ```yaml
 # docker-compose.yml — 按官方页面结构还原（列表符号为还原，键名取值来自 S01）
@@ -236,7 +236,7 @@ docker compose pull
 docker compose up -d
 ```
 
-> [!note] `user: '0:0'` 请回头看 Q3
+> [!warning] `user: '0:0'` 请回头看 Q3
 > 这个值就是 §1.3 标为**待核实**的那个 `0:0`。官方注释让你「替换成你实际要使用的用户 ID 和组 ID」。在官方把 rootful 语义讲清楚之前，更稳的做法是把它换成显式的 `<你的UID>:<你的GID>`，或直接采用写法 B（不写 `user:`，改用 `chown -R 1001:1001 ./data`）。
 
 如果你想要官方「增强版 Compose」（那条把 openlist 与 aria2-pro、ariang、qbittorrent、transmission 一起定义的版本），本章不展开：官方默认把下载器那几段**整段注释掉**，属于进阶用法。跑通主线只需上面这一份。
@@ -305,7 +305,7 @@ docker compose up -d
 ## 本章小结
 
 - 镜像名固定 `openlistteam/openlist`；标签分「稳定（`latest` / `v*.*.*`）/ 开发（`beta`）」，`-aio` / `-ffmpeg` / `-aria2` 是预装环境后缀，`-lite` 是另一回事的精简镜像。
-- 必须显式映射的是 `-p 5244:5244` 与容器内 `/opt/openlist/data`；宿主侧的 `/etc/openlist` 只是官方**默认**目录，可随意改。
+- 必须显式映射的是 `-p 5244:5244` 与容器内 `/opt/openlist/data`；宿主机侧的 `/etc/openlist` 只是官方**默认**目录，可随意改。
 - 本章核心是版本边界：**`v4.1.0` 之后（不含 `v4.1.0`）** 已移除 `PUID`/`PGID`，改用内建 `openlist(1001)`，要求你自行处理映射目录权限；`v4.1.0` 本身仍属旧写法。三种身份写法：`--user $(id -u):$(id -g)` / `chown -R 1001:1001` + 内置用户 / `-e PUID=0 -e PGID=0`。
 - rootful Docker 下 `--user 0:0` 的确切含义官方未说明，**待核实**，实操请用显式 UID/GID。
 - 首次密码看 `docker logs openlist`；重设用 `docker exec -it openlist ./openlist admin random|set`。升级有 Watchtower / CLI 四步 / Compose 三连三条官方路径，跨 v4.1.0 升级要同步改运行身份写法。

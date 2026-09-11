@@ -8,14 +8,14 @@
 
 ## 4.1 核心概念：rclone 与 FUSE
 
-rclone 本身是一个命令行云存储工具：它让你用 `rclone copy`、`rclone sync` 这类命令在网络存储之间搬文件。而 `rclone mount` 是它的另一副面孔——把同一个远端**挂载成本地文件系统**，于是 `ls`、`cp`、播放器、下载器都能像访问本地目录一样访问云盘。官方对它的定义是：
+rclone 本身是一个命令行云存储工具：它让你用 `rclone copy`、`rclone sync` 这类命令在网络存储之间搬文件。而 `rclone mount` 是它的另一副面孔——把同一个远端**挂载成本地文件系统**，于是 `ls`、`cp`、播放器、下载器都能像访问本地目录一样访问网盘。官方对它的定义是：
 
 > Rclone mount allows Linux, FreeBSD, macOS and Windows to mount any of Rclone's cloud storage systems as a file system with FUSE. [^c4-1]
 
 关键词是 **FUSE**。FUSE = Filesystem in Userspace（用户态文件系统）。内核本身只认识 ext4、xfs 这些内置文件系统；FUSE 提供了一套通用框架，让一个**普通用户进程**也能对外提供文件系统。rclone 就是这个进程——它把 WebDAV 的 HTTP 请求翻译成"目录、文件、大小、读写"这些文件系统语义。
 
 > [!tip] 大白话：rclone 是"翻译官"，FUSE 是"接口"
-> 把 FUSE 想成墙上的一个**标准插座**：任何电器（文件系统）只要做成这个插头的形状，就能插上去通电。云盘本来不是"文件系统"，rclone 就负责把它改造成能插进这个插座的样子。所以 `rclone mount` 不是把网盘"下载到本地"，而是**在本地开了一个窗**，你看到的每个文件，读的时候才去云端取。
+> 把 FUSE 想成墙上的一个**标准插座**：任何电器（文件系统）只要做成这个插头的形状，就能插上去通电。网盘本来不是"文件系统"，rclone 就负责把它改造成能插进这个插座的样子。所以 `rclone mount` 不是把网盘"下载到本地"，而是**在本地开了一个窗**，你看到的每个文件，读的时候才去云端取。
 
 ### FUSE 的三件套
 
@@ -82,7 +82,7 @@ rclone 挂载的"文件系统"实现方是 rclone 自己，背后真正的权限
 
 > 'allow_other' restricts access to users in the same userns or a descendant. [^c4-3]
 
-也就是说 `allow_other` **不是**"对所有用户开放"，而是"对同一个 user namespace 及其后代开放"。常规 Linux 主机上通常等价于"本机其他用户也能访问"，但如果你在用容器或自建 user namespace，就别指望它跨命名空间生效。
+也就是说 `allow_other` **不是**"对所有用户开放"，而是"对同一个 user namespace 及其后代开放"。常规 Linux 宿主机上通常等价于"本机其他用户也能访问"，但如果你在用容器或自建 user namespace，就别指望它跨命名空间生效。
 
 > [!tip] 大白话：`allow_other` 是"门禁授权"
 > 默认情况下，FUSE 挂载点只对**挂载者本人**开门——就像你刷自己的工牌进自己的工位。`allow_other` 相当于给同部门的同事也发了临时工牌；但它只发给你所在这个部门（同一 userns）及其下属小组，跨部门的同事还是进不来。

@@ -15,7 +15,7 @@
 | 数据放在哪 | 宿主机上**你指定的**那个路径 | Docker 在**自己的存储目录**里创建的新目录 |
 | 谁管理 | 你（宿主机文件系统的普通目录） | Docker（创建、维护、隔离都由它负责） |
 | 宿主机上能直接看到吗 | 能，就是那个路径 | 能，但要先 `docker volume inspect` 查到位置 |
-| 典型定位 | 需要主机与容器**同时**访问同一份文件 | 持久化容器自己产生的数据 |
+| 典型定位 | 需要宿主机与容器**同时**访问同一份文件 | 持久化容器自己产生的数据 |
 | 传播设置 | 可配置 | 固定 `rprivate`，**不可配置** |
 
 Docker 官方文档对 volume 的描述是：它是"用于容器的持久化数据存储，由 Docker 创建和管理"，创建后存放在宿主机的一个目录里，"与 bind mount 的相似之处在于此，区别在于 volume 由 Docker 管理，并且与宿主机的核心功能相隔离"。`docker volume inspect` 出来的 `Mountpoint` / `Source` 形如 `/var/lib/docker/volumes/my-vol/_data`，`docker inspect` 里的 `Type` 字段是 `volume`[^c5-S18]。
@@ -24,7 +24,7 @@ Docker 官方文档对 volume 的描述是：它是"用于容器的持久化数�
 
 > Volumes are not a good choice if you need to access the files from the host, as the volume is completely managed by Docker. Use bind mounts if you need to access files or directories from both containers and the host.
 
-翻译过来：**需要从主机访问这些文件时，volume 不是好选择**，因为 volume 完全由 Docker 管理；需要容器与主机**同时**访问同一文件或目录时，应该用 bind mount[^c5-S18]。
+翻译过来：**需要从宿主机访问这些文件时，volume 不是好选择**，因为 volume 完全由 Docker 管理；需要容器与主机**同时**访问同一文件或目录时，应该用 bind mount[^c5-S18]。
 
 拿这把尺子量一下本章的场景：
 
@@ -34,7 +34,7 @@ Docker 官方文档对 volume 的描述是：它是"用于容器的持久化数�
 
 > [!tip] 大白话
 > 把 bind mount 想成"把自家书架上指定的那一格直接敞开给客人看"——格子还在你家，客人看到的和你看到的永远是同一份。named volume 则像"Docker 自己家的一个储物柜"：柜子放在哪、里面怎么摆，全由 Docker 说了算，你从客厅看不见也够不着。
-> 所以：**要主机和容器看同一份东西，就用 bind mount**；本章的 rclone 挂载点正是"主机上已有、Docker 造不出来"的那种东西。
+> 所以：**要宿主机和容器看同一份东西，就用 bind mount**；本章的 rclone 挂载点正是"主机上已有、Docker 造不出来"的那种东西。
 
 顺带记住 volume 的一条硬限制，后面讲传播时会用到：官方明确 volume 使用 `rprivate`（recursive private）bind propagation，而且"bind propagation 对 volume 不可配置"[^c5-S18]。也就是说，只要选了 volume，挂载传播这一整块能力就与你无关了。
 
@@ -52,7 +52,7 @@ docker run --mount type=bind,src=<宿主机路径>,dst=<容器内路径>,readonl
 docker run -v <宿主机路径>:<容器内路径>:ro ...
 ```
 
-**第二条：bind mount 创建在 Docker daemon 所在的那台主机上，不是客户端。** 官方原话 `Bind mounts are created to the Docker daemon host, not the client.`，并进一步说明：如果用的是远程 Docker daemon，你就**没法**用 bind mount 去访问客户端机器上的文件。对本章意味着：**rclone 挂载点必须与 Docker daemon 在同一台机器上**。如果 daemon 跑在远程主机，你得在那台主机上重新做第 4 章的挂载。
+**第二条：bind mount 创建在 Docker daemon 所在的那台宿主机上，不是客户端。** 官方原话 `Bind mounts are created to the Docker daemon host, not the client.`，并进一步说明：如果用的是远程 Docker daemon，你就**没法**用 bind mount 去访问客户端机器上的文件。对本章意味着：**rclone 挂载点必须与 Docker daemon 在同一台机器上**。如果 daemon 跑在远程主机，你得在那台主机上重新做第 4 章的挂载。
 
 **第三条（本章最重要的一条）：挂进非空目录会遮蔽原有内容，而且这个行为与 volume 不同。** 官方对它的描述是：把文件或目录 bind mount 进容器里一个"本来就有文件或目录"的目录时，**原有内容被挂载遮蔽（obscured）**；类比是你在 Linux 宿主机上往 `/mnt` 里存了文件，然后又往 `/mnt` 挂了一个 U 盘——`/mnt` 原来的内容就被 U 盘的内容盖住了，直到 U 盘被卸载。接着是一条坏消息：
 
@@ -68,7 +68,7 @@ docker run -v <宿主机路径>:<容器内路径>:ro ...
 > [!tip] 大白话
 > 遮蔽就像在书架上贴了一张大海报：海报后面的书**还在**，但你伸手只能拿到海报。想拿回后面的书，唯一省事的办法是把海报整张撕掉重贴——对应到容器，就是删掉容器重建。所以别往容器里"本来就装着东西"的目录上挂，挑个空位挂。
 
-**第四条：带 bind mount 的容器与主机强绑定。** 官方说这类容器"strongly tied to the host"：bind mount 依赖宿主机上存在特定目录结构，换一台没有同样目录结构的主机运行就可能失败[^c5-S11]。这解释了为什么"先挂载再起容器"是硬顺序——挂载点是运行前提，不是运行结果。
+**第四条：带 bind mount 的容器与宿主机强绑定。** 官方说这类容器"strongly tied to the host"：bind mount 依赖宿主机上存在特定目录结构，换一台没有同样目录结构的主机运行就可能失败[^c5-S11]。这解释了为什么"先挂载再起容器"是硬顺序——挂载点是运行前提，不是运行结果。
 
 ---
 
@@ -89,7 +89,7 @@ bind mount 有两种写法，官方对一般场景的结论很直接：`In gener
 
 `--mount` 遇到不存在的源路径则当场报错，官方给出的错误原文是[^c5-S11]：
 
-```console
+```text
 $ docker run --mount type=bind,src=/dev/noexist,dst=/mnt/foo alpine
 docker: Error response from daemon: invalid mount config for type "bind": bind source path does not exist: /dev/noexist.
 ```
@@ -298,7 +298,7 @@ docker run -d --name consumer-rw \
 
 #### 关于"一条链路的完整 compose"（缺口 G1）
 
-必须如实说明一个缺口：**没有任何官方来源，把 OpenList + WebDAV + rclone + 目标容器串进同一份 compose 文件**。rclone mount 在本方案的架构里是**宿主机上的一个进程**（第 4 章的 systemd unit），它不在容器里、也不属于 Docker Compose。
+必须如实说明一个缺口：**没有任何官方来源，把 OpenList + WebDAV + rclone + 终点容器串进同一份 compose 文件**。rclone mount 在本方案的架构里是**宿主机上的一个进程**（第 4 章的 systemd unit），它不在容器里、也不属于 Docker Compose。
 
 所以下面这份"端到端"片段是**拼装**出来的：OpenList 服务段来自 S01 的官方部署语义，消费者挂载段来自 S11 的官方 bind mount 语义，把它们连起来的编排（服务名、依赖顺序、挂载点路径）由本笔记给出。**逐段的来源都标在注释里**：
 
@@ -328,7 +328,7 @@ services:
     # 不在本文件内定义。
 ```
 
-重点提醒：**这份 compose 不能解决"挂载点还没挂上"的问题**。rclone mount 是宿主机侧的前置条件，必须按第 4 章先挂好、验证 `/mnt/openlist` 能 `ls` 出内容，再 `docker compose up -d`。这就是 5.2 里"容器与主机强绑定"的落地含义。
+重点提醒：**这份 compose 不能解决"挂载点还没挂上"的问题**。rclone mount 是宿主机侧的前置条件，必须按第 4 章先挂好、验证 `/mnt/openlist` 能 `ls` 出内容，再 `docker compose up -d`。这就是 5.2 里"容器与宿主机强绑定"的落地含义。
 
 ---
 
@@ -350,12 +350,12 @@ services:
 | 你的需求 | 该选 |
 | --- | --- |
 | 数据是**宿主机上已有的**（rclone 挂载点、已有媒体库、已有配置） | bind mount（**本章**） |
-| 主机上的人/其他进程也要看同一份 | bind mount |
-| 数据是**容器自己产生**的、不需要主机侧访问（数据库文件、应用状态） | named volume |
+| 宿主机上的人/其他进程也要看同一份 | bind mount |
+| 数据是**容器自己产生**的、不需要宿主机侧访问（数据库文件、应用状态） | named volume |
 | 要跨多容器安全共享、要 Docker 帮着备份迁移、要高性能 I/O | named volume |
 
 > [!tip] 大白话
-> 一句话分清：**"这份数据在宿主机上本来就有、只有主机上的人也在用"→ bind mount；"这份数据是容器自己攒出来的、Docker 帮忙看着就行"→ named volume。**
+> 一句话分清：**"这份数据在宿主机上本来就有、只有宿主机上的人也在用"→ bind mount；"这份数据是容器自己攒出来的、Docker 帮忙看着就行"→ named volume。**
 > 本章的 rclone 挂载点属于前者里的极端例子——它不是"宿主机上有个普通目录"，而是"这个目录本身就是一个由宿主机进程提供的文件系统"。Docker 不但没法把它变成自己管理的卷，连复制它的内容都会很别扭。
 
 ---
@@ -464,12 +464,12 @@ docker rm -f mnt-rw
 
 ### 本章小结
 
-- **本章只能用 bind mount。** 官方明文：需要从主机访问这些文件时 volume 不是好选择，因为 volume 完全由 Docker 管理；需要容器与主机同时访问时应使用 bind mount。第 4 章的 rclone 挂载点是宿主机上已存在的 FUSE 挂载，Docker 造不出对应的 volume，所以选 bind mount 是被迫的，不是偏好。
-- **bind mount 四条硬语义**：默认对宿主机文件有写权限（`:ro`/`readonly` 阻止）；创建在 daemon 主机而非客户端（远程 daemon 场景行不通）；挂进非空目录会**遮蔽**原有内容且没有简单办法恢复，只能重建容器——官方明说这个行为**与 volume 不同**；容器与主机强绑定（所以必须"先挂载再起容器"）。
+- **本章只能用 bind mount。** 官方明文：需要从宿主机访问这些文件时 volume 不是好选择，因为 volume 完全由 Docker 管理；需要容器与主机同时访问时应使用 bind mount。第 4 章的 rclone 挂载点是宿主机上已存在的 FUSE 挂载，Docker 造不出对应的 volume，所以选 bind mount 是被迫的，不是偏好。
+- **bind mount 四条硬语义**：默认对宿主机文件有写权限（`:ro`/`readonly` 阻止）；创建在 daemon 宿主机而非客户端（远程 daemon 场景行不通）；挂进非空目录会**遮蔽**原有内容且没有简单办法恢复，只能重建容器——官方明说这个行为**与 volume 不同**；容器与宿主机强绑定（所以必须"先挂载再起容器"）。
 - **优先 `--mount`**：更显式、支持全部选项；`-v` 会自动创建不存在的宿主机路径且**始终创建为目录**，`--mount` 则直接报错（官方错误原文已给出），官方还提供 `bind-create-src` 作为显式开关。
 - **传播**：默认 `rprivate` 双向都不传；只有 bind mount 可配置、只在 Linux 宿主机；Docker Desktop 下不工作；`bind-recursive` 仅 `--mount` 支持；递归只读要求内核 5.12+。SELinux 的 `z`/`Z` 改的是**宿主机文件本身**，`--mount` 无法修改标签，services 下 `:Z`/`:z` 与 `:ro` 会被忽略。
 - **运行身份有两套机制，这是本章最该记住的一点**：OpenList 官方镜像在 v4.1.0 之后（不含 v4.1.0）移除 `PUID`/`PGID`，改用 `user:` / `--user`（内置 `openlist` 1001）；LinuxServer.io 系镜像（**镜像维护方口径，非 Docker 官方**）仍推荐 `-e PUID` / `-e PGID`，并明说其镜像**尚不兼容 `--user`**。终点容器若属后者，则同一链路上两种机制并存——判断依据是"看镜像由谁维护"。
-- **两个缺口如实标注**：**G1**——没有官方来源把 OpenList + WebDAV + rclone + 目标容器串成一份 compose，本章的端到端片段是拼装并逐段标明归属的；**Q4/G5**——bind mount 的属主与权限行为**无官方来源**，只能靠 S12 的镜像侧口径加 S06 的 `--uid/--gid/--umask` 支撑，不得表述为 Docker 官方规则。
+- **两个缺口如实标注**：**G1**——没有官方来源把 OpenList + WebDAV + rclone + 终点容器串成一份 compose，本章的端到端片段是拼装并逐段标明归属的；**Q4/G5**——bind mount 的属主与权限行为**无官方来源**，只能靠 S12 的镜像侧口径加 S06 的 `--uid/--gid/--umask` 支撑，不得表述为 Docker 官方规则。
 
 ---
 
