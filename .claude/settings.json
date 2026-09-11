@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"/Library/Developer/CommandLineTools/usr/bin/python3\" \".claude/hooks/read_learnings.py\""
+            "command": "\"python\" \".claude/hooks/read_learnings.py\""
           }
         ]
       }

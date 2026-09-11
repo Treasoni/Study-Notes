@@ -4,12 +4,28 @@
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 
 
 def default_project_root() -> Path:
     # Expected install shape: <project>/<agent-dir>/hooks/read_learnings.py
     return Path(__file__).resolve().parents[2]
+
+
+def force_utf8_streams() -> None:
+    """Emit .learnings text as UTF-8 regardless of the inherited console code page.
+
+    The host reads hook output as UTF-8, but on Windows sys.stdout defaults to the
+    ANSI code page (e.g. GBK) while the learnings files are Chinese: printing them
+    raises UnicodeEncodeError, the hook exits non-zero, and the reminder silently
+    never reaches the agent. errors="replace" keeps a reminder hook from ever
+    failing the session over one unencodable character.
+    """
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if reconfigure is not None:
+            reconfigure(encoding="utf-8", errors="replace")
 
 
 def read_text(path: Path) -> str:
@@ -47,6 +63,7 @@ def print_section(title: str, body: str) -> None:
 
 
 def main() -> int:
+    force_utf8_streams()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project-root", default=None, help="Project root. Defaults to two directories above this hook.")
     parser.add_argument("--tail-lines", type=int, default=30, help="Number of recent LEARNINGS.md lines to include.")

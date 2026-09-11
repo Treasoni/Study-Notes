@@ -39,7 +39,7 @@ python3 .agent-sync/sync_agents.py --root . --check
 2. 把 canonical 源复制到 target 的 `paths` 目录，并对文本做路径替换（source `paths` → target `paths`）与 runtime 名替换（source `name` → target `name`）。
 3. 保留 target 专属文件（如 target 专属 hooks 文档、`skill-creator`），不被 canonical 镜像覆盖。
 4. `rules` 区域同步时还会同步 instructions 文件（`paths.instructions`），生成 target 的入口文档。
-5. `agents` 区域同步 subagent 定义；canonical 是 `.claude/agents/`。两个 profile 都必须在 `paths` 中声明 `agents`，且 canonical 侧在 `canonical_scopes` 中包含 `agents`——否则 `load_profiles` 直接报错。
+5. `agents` 区域同步 subagent 定义；哪一侧是 canonical 由 codex profile 的 `paths.agents` 与 `canonical_scopes` 决定，本文件不写死该路径（写死会被下方路径替换翻转成错误方向）。两个 profile 都必须在 `paths` 中声明 `agents`，且 canonical 侧在 `canonical_scopes` 中包含 `agents`——否则 `load_profiles` 直接报错。
 
 比较按**行尾不敏感**进行：`--check` 只把真实内容差异算作漂移，仅 CRLF/LF 不同视为已同步，`--apply` 也不会为行尾重写文件。（`rendered_bytes` 经 `read_text` 会把 CRLF 折成 LF，若按原始字节比较，CRLF 工作区会永久误报。）
 

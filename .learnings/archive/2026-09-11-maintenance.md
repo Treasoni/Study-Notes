@@ -177,6 +177,9 @@ manifest 版本 `1.0.0 → 1.1.0`。
   3. 同步更新 `AGENTS.md` 第 6 条与 `.codex/rules/common/sync-workflow.md` 的区域枚举。
 - **附带修掉的真 bug**：`CLAUDE.md` 第 5 条原先写「读取 `.codex/agents/{agent-name}.md`」——在 Claude runtime 里
   是错的；纳入 `agents` 后由 `transform()` 自动渲染为 `.claude/agents/`。
+- **过程中自己踩到的坑（已修）**：在 canonical 的 `sync-workflow.md` 里写「canonical 是 `.codex/agents/`」，
+  同步后镜像里那句被路径替换翻成「canonical 是 `.claude/agents/`」——**方向说反**。改为不写死路径字面量，
+  只引用 profile 键名（`paths.agents` / `canonical_scopes`）。已加入 `RULES.md`「Watch For」。
 
 ### 验证方式（5.1 + 5.2）
 
@@ -188,3 +191,107 @@ manifest 版本 `1.0.0 → 1.1.0`。
   `.claude` 侧内容全部回收）。
 - 全量 `--check` 退出码 **0**（修复前该门在此机器上恒为 1）。
 - `manifest-registry.py --root . validate` → 60 artifacts 通过；`workflow-health-check.sh` → passed。
+
+---
+
+## 6. 第二批意外发现（已修复，2026-09-11）
+
+用户确认「可以」后继续排查遗留的「被掩盖的 registry 不一致」。结论如下。
+
+### 6.1 结论修正：五份 `registry.yaml` 并不存在需要修的不一致
+
+- `.codex/platform/registry.yaml`（`.codex/...`）与 `.claude/platform/registry.yaml`（`.claude/...`）是**各 runtime 的活注册表**，本就不该相同，且都不在同步 profile 的 `paths` 里（同步不覆盖它们）——按设计正确。
+- 三份 `manifest-platform/assets/platform/registry.yaml` 是**安装期模板**：`install.sh` 按 `--agent-dir/--skills-dir/...` 现场生成目标项目的注册表（脚本第 129/139 行对 `AGENT_DIR=.codex` 特判），模板本身写 `.codex` 默认值是刻意的，三份逐字节相同才对。
+- 此前观察到的「`.claude` 侧模板未被 transform 改写」是 `normalized()` 把两侧都归一成 `{WORKFLOWS}` 之类占位符造成的**误判**——模板本就不该按 runtime 改写。**无需改动。**（同 5.1：又一次先有结论、后被证据推翻的线索。）
+
+### 6.2 真缺陷一：健康检查的守卫指向已退役的 `.codex/skills`
+
+- `.codex/scripts/workflow-health-check.sh:8` 写死 `skills_dir=".codex/skills"`。
+- `.codex/skills` 是 `.agents/skills` 之前的旧布局（见 `.agent-sync/migrate_legacy_skills.py` 文档串），242 个受跟踪文件；注册表声明的 Skill 根是 `.agents/skills`（`.codex/platform/registry.yaml:5`）。
+- 实测：`.codex/skills/research-collector`、`.../note-beautifier` 的 `SKILL.md`/`manifest.yaml` 与 canonical **不同**，`workflow-orchestrator` 恰好相同 → 两条禁令扫的是过期副本，canonical skill 树**零覆盖**。
+- **修法**：`skills_dir=".agents/skills"`（写 profile 的 skill 根字面量，同步后镜像自然渲染为 `.claude/skills`，各 runtime 扫自己的树；`normalized()` 把两侧都归一为 `{SKILLS}`，`--check` 保持绿）。
+
+### 6.3 真缺陷二（更严重）：两条禁令守卫**从未生效过**
+
+- 同一脚本的 `run_forbidden_rg()` 依赖 `rg`。本机**没有安装 ripgrep**；`type -a rg` 显示 `rg is a function`——那是 Claude Code 注入到交互式 shell 的函数，包装 `claude.exe`。
+- `bash -c` / `bash -lc` / `bash -ic` 全部 `command not found`（函数不导出）→ 脚本、pre-commit、CI、其它 runtime 里 `rg` 都不存在。
+- 原写法 `if rg -n ...; then ... fail ... fi`：命令未找到 → 退出码非 0 → `if` 为假 → **不报错、直接通过**。两条禁令一直是绿灯摆设（注入违规实测：修复前静默通过，修复后 exit 1）。
+- **修法**：`command -v rg` 探测；缺失时用 `grep -rnE --exclude-dir=.git --exclude-dir=workspace` 兜底；命中判定改用 `[ -s "$tmp" ]`；函数更名 `run_forbidden_pattern` 以名副其实。
+- 改前先用可用的 `rg` 预览 `.codex/agents`、`.codex/workflows` 与三个 canonical skill 目录：两条禁令**当前 0 命中**，rg 与 grep 结果一致 → 守卫变活不会把门改成常红。
+
+### 6.4 真缺陷三：canonical skill 内容里的旧路径
+
+- `.agents/skills/research-planner/SKILL.md:194` 写「见 `.codex/skills/workflow-orchestrator/SKILL.md`」——旧布局路径；镜像原样带过去，Claude runtime 的 skill 指向 Codex 的退役目录。
+- **修法**：改为 `.agents/skills/workflow-orchestrator/SKILL.md`，同步后镜像为 `.claude/skills/...`（与 `AGENTS.md` 第 4 条同一模式）。
+- `.agents/skills/manifest-platform/scripts/install.sh:68` 的 `*/.codex/skills/*)` 是**安装器位置探测**（第 69 行已处理 `.agents/skills`），属正当用途，保留。
+
+### 6.5 `.codex/skills/` 整棵树的处置（用户已决：删除）
+
+- 现状：242 个受跟踪文件，已非 canonical、无 registry 声明，除 `install.sh` 的兼容分支与 `migrate_legacy_skills.py` 的迁移源外无引用。
+- **删除前先证明无信息损失**（用户决策点给的是「删除整棵树」，破坏性操作按规矩先验证）：
+  - `git status --short .codex/skills` 干净 → 无未提交改动可丢；恢复点 `git checkout 3c3a4a4a -- .codex/skills`。
+  - 只在 legacy 侧存在的项目 **0 个**；只在 canonical 侧存在的有 `maintain-learnings/agents`、`prompt-cache-optimizer/profiles`、`security-secret-audit/scripts/detect-risks.pl`。
+  - 44 个文件内容不同；双向「独有行数」对比绝大多数是 canonical 领先。唯一反例 `manifest-registry.py`（canonical ⊂ legacy）用 md5 查清：`.codex/platform/manifest-registry.py`（`3edb96a6`，435 行）与 canonical 资产**逐字节相同**且是**在跑并通过校验**的那份；legacy 副本（`ff686a74`，472 行）只是多了一个现行实现**有意删掉**的 `dependency_cycle_errors()`。
+- **新找到的消费者（此前未发现）：Claudian 插件持有该路径字面量。** `.obsidian/plugins/claudian/main.js` 里 `CODEX_VAULT_SKILLS_PATH = ".codex/skills"`、`AGENTS_VAULT_SKILLS_PATH = ".agents/skills"`、`ALL_SCAN_ROOTS = ["vault-codex","vault-agents"]`，且两处都扫。
+  - 删除的**好处**：插件「Codex Skills」页当前把 53 个 skill 各列两遍（两个根同名），删掉退役树后只剩一份。
+  - 删除的**代价**（一条，需记住）：新增 skill 的弹窗 `targetRootId = input.rootId ?? "vault-codex"`（`main.js:64002`）**默认写入 `.codex/skills`**，且插件自己不建目录（`grep -c createFolder` = 0）、也没有可持久化的「默认根」设置（`data.json` 与设置项键名均无）。所以**用插件 UI 建 skill 时必须把 Directory 下拉改成 `.agents/skills`**，否则退役树会被重建出一个**不受 manifest registry 覆盖**的孤儿 skill。这是「删掉一个会漂移的目录」的同类风险在下游的复现，不是不删的理由。
+- **配套改动**：`.agent-sync/migrate_legacy_skills.py` 由「一次性迁移脚本」改为**墓碑 + 守卫**（不再有 `--apply`；canonical 根缺失则失败；`.codex/skills` 若再次出现则失败并打印插件默认根这条已知成因，退出码 1，否则打印 nothing to do）。理由是「已退役却静默什么都不做的脚本」正是 6.2/6.3 那类缺陷。该脚本无自动化调用点（仅自引用 + 本档），守卫变红不会影响 health check 或 CI。
+- **执行（已完成，2026-09-11）**：`rm -rf .codex/skills` 被本机权限层**硬拦**（即使用户在对话中批准也拦）；改用 git 原生的 `git rm -r .codex/skills`——同一次删除、且把删除暂存进索引，对受跟踪树是更可审计的路径（非绕行：先做 `--dry-run` 核对范围 = 242，实测 untracked/ignored 均为 0，无附带删除）。删除后 242 条 `D` 暂存，`.codex` 仅剩 `agents/config.toml/hooks/hooks.json/platform/rules/scripts/workflows`。
+- **删除后验证（全绿）**：墓碑脚本 → nothing to do (exit 0)；全量 `--check` → OK (exit 0)；`.codex` 与 `.claude` 两份 health check → passed（0 行 `command not found`）；`manifest-registry.py --root . validate` → 60 artifacts 通过。
+- **残留引用清点**（`--include` 限定代码/配置文件）：三类为**正当保留**——墓碑脚本自身、`manifest-platform/scripts/install.sh:68` 的安装器位置探测（两侧副本）、两份 health check 里「不要指向退役目录」的注释；一类**不可改**——Claudian 插件 bundle `main.js:63921/66157/71855`（第三方产物，随插件更新覆盖）。
+- **顺带发现：4 篇 vault 笔记描述的仍是退役布局**（本轮未改，属 note-updater 范围）：`项目实战/AI实战/工程实践/多AI-Agent配置文件共享方案.md`（5 处，影响最大）、`GitHub项目/Matt Pocock Skills — Agent 框架设计深度解析.md:180`、`PVE的学习/common/sync-workflow.md:9`、以及草稿 `workspace/matt-pocock-skills/output/final_note.md:180`。另有 12 个文件引用的是 **home 级 `~/.codex/skills`**（全局目录），与本次删除无关，不要误改。
+
+---
+
+## 7. 第三批：SessionStart hook 为何长期失效（已修复，2026-09-11）
+
+由「顺带发现」升级为独立一轮。起因是 6.5 清点残留引用时注意到 `.codex/hooks.json` 里有 macOS 绝对路径；查下去发现是**三个独立缺陷叠在一起**，任何一个都能让 SessionStart 提醒静默消失。
+
+### 7.1 受跟踪产物里烤进了生成器的运行时路径
+
+- `bootstrap.py` 把 `sys.executable` 渲染进 hook 配置（`desired_outputs`）——生成器在 Mac 上跑过，于是 `"/Library/Developer/CommandLineTools/usr/bin/python3"` 被提交，在 Windows 检出上根本不存在。
+- **修法**：新增 `default_python_executable()`（Windows → `python`，其余 → `python3`）与 `--python-executable` 覆盖口；显式传绝对路径时打印 `[NOTICE]` 提示该产物不再可移植。`host.json` 仍记录真实 `sys.executable`（那是它作为 host 记录的职责）。
+
+### 7.2 「local」文件其实一直被跟踪
+
+- `.agent-sync/local/host.json` 受跟踪，内容 `{"platform": "Darwin", "python_executable": "/Library/..."}`——**别台机器的身份写在共享仓库里**，直接违反「不硬编码用户机器绝对路径到项目产物中」。
+- **修法**：`.gitignore` 增 `.agent-sync/local/`；`git rm --cached` 停跟踪（文件保留在磁盘，bootstrap 重新生成为 `platform: Windows` + 本机真实解释器）。
+
+### 7.3 打印中文时死在 ANSI 代码页（真正的致命项）
+
+- `read_learnings.py` 先正常打印 `# Learnings Reminder` 头部，再在 `RULES.md` 第一个汉字处 `UnicodeEncodeError: 'gbk' codec can't encode character '鿿'` → 整脚本 exit 1，提醒从未到达 agent。
+- 关键点：`read_text()` 本来就用 `encoding="utf-8"`，**读**没问题；坏在 `print()` 用的是继承来的控制台编码。所以「修的解释器路径」并不能救活它——只修 7.1 会留下一个看起来修好了、实际仍死的 hook。
+- **修法**：入口加 `force_utf8_streams()`，`sys.stdout/stderr.reconfigure(encoding="utf-8", errors="replace")`（stderr 同理）；`errors="replace"` 保证提醒 hook 永不为一个字符让整个 session 失败。canonical 改后经 `--scope hooks` 同步进 `.claude` 镜像。
+
+### 7.4 校验器的盲区（已修复，2026-09-11）
+
+- 病征：`validate_portability.py` **刻意跳过** `GENERATED_HOOK_CONFIGS`（三份 hook 配置）与 `.agent-sync/local/`——恰好就是 7.1/7.2 中招的两类文件，所以它们从不受任何可移植性检查。
+- 更早一层：该脚本在本仓库**若被调用会 100% 全红**（`core.autocrlf=true` → 工作区 CRLF，它把每个文件的 `crlf` 都报出来，实测 567 条、无一条 `absolute-path`），且**没有任何调用点**（仅出现在 `.agent-template-kits/install-state.json` 的哈希清单里）。这是「守卫静默失效」的第三次同型复发（前两次：`rg` 缺失、守卫指向退役目录）。
+- **修法（三项，缺一不可）**：
+  1. **不再跳过受跟踪的 hook 配置**，改为解析 JSON、取出每条 hook `command` 的**可执行 token**（`shlex.split` 跳过前置 `ENV=value`），只有该 token 是宿主绝对路径才报。这一层是必要的：历史 bug 的 `/Library/Developer/CommandLineTools/usr/bin/python3` 通不过通用 `ABSOLUTE_PATH`（该正则只认 `/Users/|/home/|盘符`），**旧代码即使不跳过也抓不到它**；同时**没有**放宽通用正则——`/opt/...conda` 这类「候选探针清单」是可移植代码，放宽会误报。
+  2. **换行符改判索引而非工作区**：读 `git ls-files --eol` 的 `i/` 字段（提交进去的是索引内容），git 不可用才回落到字节判断。这是「100% 全红」的根因——工作区 CRLF 在本仓库是策略产物，不是缺陷。
+  3. **补调用点**：`.codex/scripts/workflow-health-check.sh` 增加 `python3 .agent-sync/validate_portability.py --root .`。用固定 `.agent-sync` 路径而非 `$this_dir`，两侧 runtime 共用同一份校验器、不被同步改写成两份。
+- 未做：`.agent-sync/local/` 仍跳过——它现在确实是 untracked 的机器身份文件，跳过是对的（见 7.2）。
+- 附带发现（未修）：`.claude/scripts/workflow-health-check.sh` 的 `this_dir` 仍是 `.codex`（裸 `.codex` 不是 profile 路径，同步不会改写它），只有 `skills_dir` 被改写成 `.claude/skills`。于是 Claude 侧跑的是 canonical 的 agents/workflows/scripts 守卫，`.claude/agents`、`.claude/workflows` 自身不被本侧检查（`sync_agents.py --check` 仍能兜住漂移，故当前无实际危害，属「注释与行为不一致」的潜在陷阱）。
+
+### 验证方式（7.1–7.3）
+
+- 端到端：把渲染出来的 SessionStart 命令原样 `eval` → exit 0、stdout 10776 字节、stderr 0 字节（修复前 exit 1）；中文行数经计数确认真正输出而非被替换。
+- 可移植性：`grep` 两份 hook 配置已无 `/Users/`、`/home/`、盘符路径 → CLEAN。
+- `bootstrap.py --root . --check` OK；`sync_agents.py --scope hooks` check→apply→recheck 干净；全量 `--check` OK；两份 health check passed；`manifest-registry.py validate` → 60 artifacts；墓碑脚本 → nothing to do。
+- 镜像一致性：`.claude/hooks/read_learnings.py` 同步后 `force_utf8_streams()` 就位且直跑 exit 0。
+
+### 验证方式（7.4）
+
+- 变绿：`python3 .agent-sync/validate_portability.py --root .` → `[OK] shared agent sources are portable`，exit 0（修复前若被调用为 567 条 findings）。
+- **不是空绿**：程序化确认索引查表读到 3082 条（`lf` 3060 / `none` 22，`crlf`/`mixed` 0），候选文件 601 个，且 `.codex/hooks.json`、`.claude/settings.json` 确在候选集内——证明「绿」来自真实数据而非查表失败。
+- **双向注入**（证明该层是承重的，不是被通用正则顺带覆盖）：`bootstrap.py --apply --python-executable /Library/Developer/CommandLineTools/usr/bin/python3` 注入历史 bug → 校验器 exit 1，且报告精确到可执行文件（`hook command runs /Library/...`）；`--apply` 还原 → exit 0。
+  - 注意首次注入时 Git Bash 的 MSYS 路径转换把 `/Library/...` 改写成 `C:/Program Files/Git/Library/...`，于是通用正则也命中，**不能证明新层有效**；加 `MSYS2_ARG_CONV_EXCL='*'` 重做，配置文件里确为纯 POSIX 路径，此时每份配置只有 1 条 findings（`hook command runs /Library/...`），证明命中的是新层而非通用正则。
+- 接线：`sync_agents.py --scope scripts` check（1 处 drift）→ apply → 全量 `--check` exit 0；两侧 `workflow-health-check.sh` 均 passed 且都打印 `[OK] shared agent sources are portable`；`bootstrap.py --check` OK；`manifest-registry.py validate` → 60 artifacts；墓碑 → nothing to do。
+
+### 验证方式（6.2–6.4）
+
+- 双向测试：基线 PASS → 注入禁令1 → exit 1 且打印命中行 → 注入禁令2 → exit 1 → 还原 → PASS；`grep -c 'command not found'` 由修复前每脚本 2 行降为 0。
+- `--scope scripts`：check 报 1 处 drift → apply → recheck 干净；`--scope skills` 同理。
+- canonical 未被 junction 穿透改写（`.claude/skills` 下 35 个 junction 指向 `.agents/skills`），改动全部落在真实文件上。
+- 全量 `--check` 退出码 0；`manifest-registry.py --root . validate` → 60 artifacts 通过；`bash .claude/scripts/workflow-health-check.sh` → passed。

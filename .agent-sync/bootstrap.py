@@ -38,6 +38,28 @@ def render_hook_template(
     return render(template)
 
 
+def is_host_absolute(command: str) -> bool:
+    """True for POSIX, drive-letter, or UNC host-absolute command paths."""
+
+    return (
+        command.startswith("/")
+        or command.startswith("\\\\")
+        or bool(re.match(r"^[A-Za-z]:[\\/]", command))
+    )
+
+
+def default_python_executable() -> str:
+    """Return a PATH-resolved interpreter name, never a host-absolute path.
+
+    The rendered hook config is committed to the repository, so baking in
+    sys.executable pins every clone to whichever machine last ran bootstrap --
+    that is how a macOS interpreter path ended up in a Windows checkout and left
+    the SessionStart hook dead. A bare name is resolved through PATH per host.
+    """
+
+    return "python" if platform.system() == "Windows" else "python3"
+
+
 def _hook_script_paths(entry: Any) -> set[str]:
     paths: set[str] = set()
     if isinstance(entry, dict):
@@ -171,11 +193,14 @@ def _json_matches(path: Path, expected: dict[str, Any]) -> bool:
 def desired_outputs(
     root: Path,
     profiles: list[dict[str, Any]],
+    python_executable: str,
 ) -> list[tuple[Path, dict[str, Any]]]:
     """Build every host-local JSON output before writing any of them."""
 
     runtime = root / ".agent-sync"
     outputs: list[tuple[Path, dict[str, Any]]] = []
+    # host.json is the host record: it deliberately keeps the real interpreter
+    # path. It is untracked because it is machine identity, not shared config.
     host = {
         "platform": platform.system(),
         "python_executable": sys.executable,
@@ -189,7 +214,7 @@ def desired_outputs(
         )
         desired = render_hook_template(
             template,
-            python_executable=sys.executable,
+            python_executable=python_executable,
             hook_script=hook_script,
         )
         for rendered_script in sorted(_hook_script_paths(desired)):
@@ -220,11 +245,27 @@ def main(argv: Iterable[str] | None = None) -> int:
         action="append",
         help="limit rendering to one or more agent profile ids",
     )
+    parser.add_argument(
+        "--python-executable",
+        default=None,
+        help=(
+            "interpreter command for rendered hooks; defaults to a PATH-resolved "
+            "name (python on Windows, python3 elsewhere). Pass an absolute path "
+            "only when the interpreter is genuinely not on PATH."
+        ),
+    )
     args = parser.parse_args(argv)
     if args.apply and args.check:
         parser.error("--apply and --check cannot be used together")
 
     root = Path(args.root).resolve()
+    python_executable = args.python_executable or default_python_executable()
+    if is_host_absolute(python_executable):
+        print(
+            f"[NOTICE] --python-executable is host-absolute ({python_executable}): "
+            "the rendered hook config will not be portable across machines",
+            file=sys.stderr,
+        )
     try:
         profiles = _load_profiles(root)
         if args.agent:
@@ -233,7 +274,7 @@ def main(argv: Iterable[str] | None = None) -> int:
             if unknown := sorted(requested - known):
                 raise ValueError(f"unknown --agent profile: {', '.join(unknown)}")
             profiles = [profile for profile in profiles if profile["id"] in requested]
-        outputs = desired_outputs(root, profiles)
+        outputs = desired_outputs(root, profiles, python_executable)
         drift = [
             (path, "updated" if path.exists() else "created")
             for path, expected in outputs
