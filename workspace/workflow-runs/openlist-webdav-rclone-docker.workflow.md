@@ -10,7 +10,7 @@ topic: "如何使用 OpenList 聚合网盘并挂载给 Docker"
 project_slug: "openlist-webdav-rclone-docker"
 created_at: "2026-09-12"
 last_updated: "2026-09-12"
-current_phase: P1
+current_phase: P2
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：openlist-webdav-rclone-docker
 > 项目标识：openlist-webdav-rclone-docker
 > 创建时间：2026-09-12
-> 当前阶段：阶段 1
+> 当前阶段：阶段 2
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -48,10 +48,10 @@ quality_gate_due: ""
 - [x] 已派出 2-3 个 subagent 并行探测（3 lens × 3 subagent，2026-09-12）
 - [x] 探测结果已汇总（14 条唯一来源，T1×10 / T2×2 / T3×2）
 - [x] 方向菜单已展示给用户（A 全链路主线 / B 架构对比 / C 排障优先）
-- [ ] 用户已选择学习方向
+- [x] 用户已选择学习方向（方向 A：全链路主线版）
 - [x] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] 🔲 进行中 {in_progress}
+> [P1] ✅ 已完成 {complete}
 
 ---
 
@@ -65,7 +65,7 @@ quality_gate_due: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] ⬜ 未开始
+> [P2] 🔲 进行中 {in_progress}
 
 ---
 
@@ -131,6 +131,7 @@ quality_gate_due: ""
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
 | P0 | 确认意图文件与研究计划：笔记类型=实战教程（practice+少量 concept），深度=上手，基础=有了解，输出=项目 output；核心概念收敛为「WebDAV 协议和 Rclone 的概念和使用」并保留 FUSE、Docker bind mount vs named volume | 2026-09-12 |
+| P1 | 选定学习方向：方向 A 全链路主线版（OpenList → WebDAV → Rclone → Docker，聚焦 Linux 宿主机 + Docker Compose） | 2026-09-12 |
 
 ---
 
