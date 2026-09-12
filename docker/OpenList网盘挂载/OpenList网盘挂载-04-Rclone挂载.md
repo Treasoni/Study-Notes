@@ -554,7 +554,7 @@ After=network-online.target
 [Service]
 Type=notify
 User=YOUR_USER
-ExecStart=/usr/bin/rclone mount --config=/home/YOUR_USER/.config/rclone/rclone.conf --vfs-cache-mode full --vfs-cache-max-age 4h --vfs-fast-fingerprint --vfs-refresh --allow-other --log-file=/home/YOUR_USER/.local/log/rclone_openlist.log --log-level INFO "openlist:" /mnt/openlist
+ExecStart=/usr/bin/rclone mount --config=/home/YOUR_USER/.config/rclone/rclone.conf --vfs-cache-mode full --vfs-cache-max-age 4h --vfs-fast-fingerprint  --allow-other --log-file=/home/YOUR_USER/.local/log/rclone_openlist.log --log-level INFO "openlist:" /mnt/openlist
 ExecStop=/bin/fusermount3 -u /mnt/openlist
 Restart=always
 RestartSec=10
@@ -579,7 +579,6 @@ WantedBy=default.target
 
 - `--vfs-cache-max-age 4h`：缓存对象在最后一次访问后保留 4 小时；
 - `--vfs-fast-fingerprint`：指纹计算时跳过快操作，**准确度略降但快得多**，能改善缓存文件的打开速度；
-- `--vfs-refresh`：启动时在后台递归刷新目录缓存。
 
 > [!warning] 两个容易写错的地方
 > **① `ExecStop` 里写 `fusermount` 还是 `fusermount3` 是发行版差异。** Fedora 用 FUSE3 所以写 `fusermount3`；Debian/Ubuntu 上取决于系统装的是 FUSE2 还是 FUSE3——用 4.1 节 `which fusermount fusermount3` 的结果决定。写错名字的表现是停止服务时卸载失败，但服务本身看起来"启动了"，很容易漏查。
