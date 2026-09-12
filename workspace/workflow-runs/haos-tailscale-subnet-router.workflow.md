@@ -10,7 +10,7 @@ topic: "如何用 HAOS 部署的 Home Assistant 中的 Tailscale 插件实现内
 project_slug: "haos-tailscale-subnet-router"
 created_at: "2026-09-12"
 last_updated: "2026-09-12"
-current_phase: P1
+current_phase: P2
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：haos-tailscale-subnet-router
 > 项目标识：haos-tailscale-subnet-router
 > 创建时间：2026-09-12
-> 当前阶段：阶段 1
+> 当前阶段：阶段 2
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -45,13 +45,13 @@ quality_gate_due: ""
 ---
 
 ## 阶段 1：探测式收集
-- [ ] 已派出 2-3 个 subagent 并行探测
-- [ ] 探测结果已汇总
-- [ ] 方向菜单已展示给用户
-- [ ] 用户已选择学习方向
-- [ ] 探测结果已保存：`./01_explore_result.md`
+- [x] 已派出 2-3 个 subagent 并行探测（3 lens × 1 subagent，2026-09-12）
+- [x] 探测结果已汇总（55 条 → 去重 46 条：官方 15 / 一手 issue 8 / 社区实操 14 / 博客 9）
+- [x] 方向菜单已展示给用户（A 全链路主线 / B 聚焦子路由边界 / C 排错优先 / A+C 组合）
+- [x] 用户已选择学习方向（方向 A：全链路实战主线；补充环境：标准 192.168.1.0/24 单层路由，HAOS 主机与目标设备同网段）
+- [x] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] 🔲 进行中 {in_progress}
+> [P1] ✅ 已完成 {complete}
 
 ---
 
@@ -65,7 +65,7 @@ quality_gate_due: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] ⬜ 未开始
+> [P2] 🔲 进行中 {in_progress}
 
 ---
 
@@ -131,6 +131,7 @@ quality_gate_due: ""
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
 | P0 | 确认意图文件与研究计划：笔记类型=实战笔记（可直接照做），深度=上手，基础=零基础（尚未安装 Tailscale 插件，从零开始）；四个探索方向（插件安装授权 / 内网穿透 / 子路由 / 验证排错）无需增删；输出=项目 output，阶段 6 再定 Obsidian 位置；阶段 7 需同步 MOC | 2026-09-12 |
+| P1 | 确认 P1 探测结果（46 条去重来源）并选择 P2 方向：**方向 A 全链路实战主线**（安装授权 → 内网穿透 → 子路由 → 排错清单）；补充环境：标准 `192.168.1.0/24` 单层路由，**HAOS 主机网段 = 要访问的网段**（同网段场景，需重点回答 SNAT 与否） | 2026-09-12 |
 
 ---
 
