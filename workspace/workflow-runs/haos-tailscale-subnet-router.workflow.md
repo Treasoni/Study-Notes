@@ -10,11 +10,11 @@ topic: "如何用 HAOS 部署的 Home Assistant 中的 Tailscale 插件实现内
 project_slug: "haos-tailscale-subnet-router"
 created_at: "2026-09-12"
 last_updated: "2026-09-12"
-current_phase: P6
-current_status: ready
+current_phase: done
+current_status: complete
 mode: outline
 blocked_reason: ""
-quality_gate: pending
+quality_gate: passed
 quality_gate_owner: ""
 quality_gate_due: ""
 ---
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：haos-tailscale-subnet-router
 > 项目标识：haos-tailscale-subnet-router
 > 创建时间：2026-09-12
-> 当前阶段：阶段 6
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -138,22 +138,44 @@ quality_gate_due: ""
 ---
 
 ## 阶段 6：Obsidian 美化与发布
-- [ ] 已读取 Obsidian 输出规则
-- [ ] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
-- [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
-- [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
+- [x] 已读取 Obsidian 输出规则（`.claude/skills/note-beautifier/SKILL.md` + `.claude/rules/obsidian/note-system.md`）
+- [x] 用户已确认最终保存位置（用户选定 `内网穿透/`；vault 根 = 本仓库根目录，**未写入任何绝对路径**）
+- [x] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
+- [x] 最终 Markdown 已保存到用户指定位置：`内网穿透/HAOS Tailscale 内网穿透与子路由实战.md`
 
-> [P6] ⬜ 未开始
+**P6 美化记录**
+
+| 项目 | 结果 |
+|------|------|
+| 发布模式 | 新建（目标不存在同名文件，未覆盖任何内容） |
+| frontmatter | 按同目录既有笔记的字段与顺序：`title` / `tags` / `created` / `updated` / `status` / `source_project` |
+| 标签 | 内网穿透、Tailscale、HAOS、HomeAssistant、子网路由 |
+| Callout | `[!tip]` 16 / `[!warning]` 11 / `[!summary]` 5；全部 callout 后紧跟空行（已脚本校验，无吞段） |
+| 双链 | 3 条，**逐条校验目标文件存在**后才落链；无死链 |
+| 代码块 | 24 块全部带语言标识（裸围栏数 == 块数，说明无遗漏） |
+| 表格 | 第 6.3 节验收记录表 8 列，表头/分隔/数据行列数一致（数据行按设计留空供用户填写） |
+| 规模 | 767 行 / 11145 中文字 |
+
+**两处判断，说明理由备查：**
+
+1. **目录锚点保留 GitHub slug 风格，未改。** P5 交接待办里我标了「Obsidian 未必能解析含全角标点的锚点」——落地前查了同目录既有笔记 `Tailscale子网路由器部署教程.md`，它的目录用的是**同一种** slug 写法（`#第一章-为什么需要子网路由器原理与架构速览`），且已在这个 vault 里长期使用。故按 vault 既有约定保留，不引入第二种写法。
+2. **「本章小结」统一为 `> [!summary]` Callout（5 处）。** 原为三种形态并存（`### 本章小结` ×2 / `**本章小结**` ×2 / `[!summary]` ×1）。选择 Callout 而非标题，理由有二：① `note-system.md` 明确把 `[!summary]` 定义为「总结」的语义容器；② 若统一成标题，全篇会出现 5 个**同名**「本章小结」标题，且目录无法区分（既有笔记的目录里已经被迫出现 `#本章小结-1` 这种消歧写法）。注：同目录既有笔记用的是标题而非 Callout，若你更希望与那篇保持一致，一句话即可切回。
+
+**改写安全校验**：美化后把成品与 P5 成品做**归一化逐行比对**（剥掉 callout 前缀、把三种小结标记归一），差异行仅有「新增 frontmatter 13 行」+「2 处预期替换」——**小结的格式改造没有产生任何内容差异行**，证明它纯属语法转换、未动一字。另有 3 处双链为本阶段改动，其中第 8 章那两处是**兑现原文自身的承诺**（原文写着「本篇只给链接，不展开」，此前给的却是项目代号而非链接）。
+
+> [P6] ✅ 已完成 {complete}
 
 ---
 
 ## 阶段 7：MOC 同步
-- [ ] 已定位或创建 MOC 文件
-- [ ] 新笔记双链已加入 MOC
-- [ ] 已去重并更新摘要/标签
-- [ ] MOC 只保留索引，不复制正文
+- [x] 已定位或创建 MOC 文件（复用既有 `内网穿透/内网穿透 MOC.md`，未新建）
+- [x] 新笔记双链已加入 MOC（「Tailscale 实战」小节第三条，排在通用使用 / fnOS 之后）
+- [x] 已去重并更新摘要/标签（脚本核验无重复条目；MOC frontmatter `updated` 2026-08-28 → 2026-09-12）
+- [x] MOC 只保留索引，不复制正文（单行索引项 = 一句话说明 + 3 个标签，无正文段落）
 
-> [P7] ⬜ 未开始
+**P7 记录**：用户选定「只加内网穿透 MOC」，未在 `Home Assistant MOC` 做交叉索引（曾作为选项提供，用户未选）。MOC 内 4 条双链已逐条核验目标文件存在，无死链。
+
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -166,6 +188,7 @@ quality_gate_due: ""
 | P2 | 确认 P2 深度素材质量（12 条成功来源，T1 官方 5 / T2 维护者 3 / T3 社区 4；2 条失败已记录原因）。接受争议收敛结论：同网段场景保持 `snat_subnet_routes: true`；接受 G1–G3 三条未核验标记不写入正文 | 2026-09-12 |
 | P2 补遗 | 后台恢复任务返回后向用户报告：原定反方来源经核实为**错误归属已撤回**；找回同网段非对称路由文并新增为 4.5 节；维护者两种 HAOS 部署实测使结论强度上调 | 2026-09-12 |
 | P3 | 确认 8 章大纲（约 8100 字）无需修改，同意进入 P4 逐章写作。**同时明确授权「全部写完」，跳过分阶段逐章确认检查点**，改为 8 章一次性完成后整体审阅 | 2026-09-12 |
+| P5→P6 | 确认收尾组装方式（A 按顺序拼接）；确认发布位置 = `内网穿透/`（未选 `homeassistant/haos-deploy/`）；确认 P7 只更新 `内网穿透 MOC`，不做 HA MOC 交叉索引 | 2026-09-12 |
 
 ---
 
@@ -181,7 +204,9 @@ quality_gate_due: ""
 
 | 时间 | 阶段 | 问题描述 | 处理方式 |
 |------|------|---------|---------|
-| | | | |
+| 2026-09-12 | P4 | 引文核对查出 3 处真实缺陷（第 4、8 章回程路由第三落点误为「上游路由器」；第 7 章 ACL 反例中文网段与英文引文不一致） | 已修正正文，并回修根因 `02_deep_research.md` C3.7 与 `03_outline.md` 4.2.2 |
+| 2026-09-12 | P5 | 脚注比对初判「引用/定义不匹配」 | 系我方检查脚本判据错误（误比引用次数与定义条数）；改用「唯一引用集合 == 定义集合」复核为通过，成品无问题 |
+| 2026-09-12 | P6 | 目录锚点能否在 Obsidian 内正常跳转，**无法从外部验证**（需 Obsidian 运行时） | 未改写法，依据是既有笔记 `Tailscale子网路由器部署教程.md` 使用同一种 slug 且长期在用；**留待用户在 Obsidian 内点一次目录确认**。若不通，改为纯文本列表即可 |
 
 ---
 
@@ -195,10 +220,12 @@ quality_gate_due: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战笔记（可直接照做，上手深度，零基础起点）
+- **总字数**：11145 中文字（8 章，767 行）
+- **章节数**：8（另含目录与 7 段过渡语）
+- **输出格式**：Obsidian Markdown（YAML frontmatter + `[!summary]`/`[!tip]`/`[!warning]` Callout + 3 条双链 + 脚注）
+- **文件路径**：`内网穿透/HAOS Tailscale 内网穿透与子路由实战.md`（vault 内相对路径）
+- **Obsidian Vault**：vault 根 = 本仓库根目录（按要求未在产物中记录本机绝对路径）
+- **MOC 路径**：`内网穿透/内网穿透 MOC.md`（「Tailscale 实战」小节第三条）
+- **过程产物**：`workspace/haos-tailscale-subnet-router/`（`00_intent.md` / `01_explore_result.md` / `02_deep_research.md` / `03_outline.md` / `chapters/` / `output/final_note.md` / `sources/`）
+- **交付前未采信自报数字的三处独立复核**：P4 引文回源 35 项、P5 逐行有序完整性 368 行、P6 归一化改写比对
