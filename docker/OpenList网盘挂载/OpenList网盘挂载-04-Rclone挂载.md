@@ -519,7 +519,30 @@ mkdir -p ~/.local/log
 
 ### 第三步：写 unit
 
-`Type=notify` 是关键：**服务进入 started 状态的那一刻，挂载点已经就绪**。如果写成 `Type=simple`，systemd 会在进程刚起来、挂载还没完成时就算"启动成功"，此时依赖它的服务（比如第 5 章要挂载给它的容器）会看到一个空目录或直接失败。
+这是一个 **Linux systemd 服务配置文件**（Unit 文件），相当于一份给 Linux 操作系统的“后台任务托管说明书”。
+
+它的核心作用是把你的 `rclone mount` 挂载命令包装成一个系统常驻服务，实现**开机自动挂载、后台默默运行（无需开着终端黑窗口）、以及断线闪退时自动拉起**。
+
+**各区块功能拆解**
+- **`[Unit]`（启动条件与信息）**
+    - `Description`：给这个服务起个备注名。
+    - `AssertPathIsDirectory`：检查挂载目标目录是否存在，如果不存在就直接报错，防止挂载跑空。
+    - `After=network-online.target`：**必须等服务器成功连上网之后**再执行挂载，避免开机时网卡还没通导致连不上网盘。
+- **`[Service]`（核心运行逻辑）**
+    - `Type=notify`：让 systemd 确认网盘真正挂载就绪后，才将状态标记为“运行成功”。
+    - `User=YOUR_USER`：以指定的普通用户身份运行，而不是权限过高的 root 用户。
+    - `ExecStart=...`：服务启动时在后台执行的那条超长 `rclone mount` 挂载命令（包含缓存策略、日志输出路径等）。
+    - `ExecStop=...`：当服务停止或关机时，执行安全的卸载命令（`fusermount3 -u ...`）。
+    - `Restart=always` 与 `RestartSec=10`：**防掉线守门员**。如果网盘网络波动导致连接中断，等待 10 秒后自动重新挂载。
+- **`[Install]`（安装规则）**
+    - `WantedBy=default.target`：告知系统在正常开机启动时自动加载该服务。
+
+**如果要使用，必须替换其中的占位符**
+
+这份配置模板中有两处硬编码的占位符，直接保存是无法运行的：
+
+1. **`YOUR_USER`**：需要全部替换为你的 Ubuntu 用户名（从之前的终端提示符看，你的用户名是 `zhq`）。
+2. **`/mnt/openlist`**：需要替换为你实际想要挂载的目标本地路径（例如你在上一条测试的 `/home/zhq/openlist/music`）。
 
 ```ini
 # /etc/systemd/system/rclone-openlist.service
