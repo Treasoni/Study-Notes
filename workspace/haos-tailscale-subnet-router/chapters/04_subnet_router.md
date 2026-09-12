@@ -79,7 +79,7 @@ tailscale up --snat-subnet-routes=false
 
 > "Only disable this option if you fully understand the implications. Keep it enabled if preserving the real source IP address is not critical for your use case."
 
-关掉后源地址会保留成原始设备地址，而 LAN 设备根本不认识 `100.64.0.0/10`，不知道回包该送哪里。官方要求补一条回程路由，把去往该段的流量交给子路由器的 LAN IP，落点只有**设备自身 / 上游路由器 / DHCP 服务器**三处，且这个 flag「只在 Linux 子路由器上生效」。HAOS 只读，这些你几乎都动不了。
+关掉后源地址会保留成原始设备地址，而 LAN 设备根本不认识 `100.64.0.0/10`，不知道回包该送哪里。官方要求补一条回程路由，把去往该段的流量交给子路由器的 LAN IP，落点只有**设备自身的操作系统 / 你的 VPC 设置 / 你的 DHCP 服务器**三处，且这个 flag「只在 Linux 子路由器上生效」。HAOS 只读，这些你几乎都动不了。
 
 维护者的回复原话是：
 

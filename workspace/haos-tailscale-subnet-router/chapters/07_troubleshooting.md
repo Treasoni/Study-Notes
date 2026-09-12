@@ -49,7 +49,7 @@ tailscale debug netmap
 第 5.1 节的这个误解到排错阶段就成了判断依据。官方两个反直觉例子：
 
 - 子路由广告了 `10.0.0.0/8` 但没有 grant 覆盖：客户端**会**拿到路由，流量进隧道后被包过滤丢掉。原文：`If a router advertises 10.0.0.0/8 but no grant covers it, clients receive the route but traffic is dropped by the packet filter.`
-- 反过来，允许 `192.168.0.0/16` 的 grant **不会**额外注入任何路由：`A grant allowing 10.0.0.0/8 does not cause additional routes to be injected.`
+- 反过来，允许 `10.0.0.0/8` 的 grant **不会**额外注入任何路由：`A grant allowing 10.0.0.0/8 does not cause additional routes to be injected.`
 
 一句话：`You can have a route without ACL access (packets enter the tunnel but are dropped by the filter), or ACL access without a route (packets never enter the tunnel).` 两条都得有。这一节是「避免在错误的地方改配置」——路由没出现回 7.1 查 advertise / approve / accept，路由出现但走不通再来查 ACL。
 

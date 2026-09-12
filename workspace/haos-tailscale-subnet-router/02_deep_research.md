@@ -88,7 +88,7 @@
 | C3.4 | **HAOS 上不要照抄 Linux 官方子路由教程的第 2 步**。插件已代做「IP address forwarding」和「Clamp the MSS to the MTU」；且 HAOS 根文件系统只读，`sysctl -p /etc/sysctl.d/99-tailscale.conf` 会直接报 **Read-only file system** | P2-S01 / P2-S08 | P2-S08：用户报错原文 + 维护者回复「Please read the docs, it says 'follow steps from step 3', because what you want to configure, is already set.」 |
 | C3.5 | 维护者原话：*「With `snat_subnet_routes: true` it just works.」*，并称关掉 SNAT「requires much more config everywhere」 | P2-S08 | 维护者 lmagyar 评论 |
 | C3.6 | 关掉 SNAT 后必须补一条回程路由：把 `100.64.0.0/10` 指向子网路由器的 **LAN IP**，否则 LAN 设备的回包进不了隧道 | P2-S02 | `--snat-subnet-routes=false` 小节 |
-| C3.7 | 该条回程路由要落在**设备自身 / 上游路由器 / DHCP**上，且在官方支持的操作系统上才可控；HAOS 的根文件系统只读，很难照做 | P2-S02 / P2-S08 | P2-S02 同节 |
+| C3.7 | 该条回程路由要落在**设备自身的操作系统 / 你的 VPC 设置 / 你的 DHCP 服务器**三处，且在官方支持的操作系统上才可控；HAOS 的根文件系统只读，很难照做 | P2-S02 / P2-S08 | P2-S02 `### Disable SNAT`：「You can configure this route in one of three places: On the device's operating system / In your VPC settings / Through your DHCP server」 |
 | C3.8 | 实测失败案例 #430：`userspace_networking: false` + `snat_subnet_routes: false` + `accept_routes: true`，`ping 100.123.82.54`（tailnet 内）通，`ping 192.168.1.102`（同网段设备）不通 | P2-S09 | Issue 正文 |
 | C3.9 | 实测失败案例 #415：同样 `snat_subnet_routes: false`，LAN→tailnet 方向不通；维护者指出方向搞反了，并补问「你是否也在管理端为源 LAN 启用了子网路由」 | P2-S08 | Issue 正文与评论 |
 | C3.10 | 路由注入需要**同时**满足 4 个条件：① 路由器 advertise；② 管理端 approve；③ 控制面下发；④ 客户端 accept routes | P2-S03 | `## When routes are injected` |
