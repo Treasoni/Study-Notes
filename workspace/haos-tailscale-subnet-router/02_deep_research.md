@@ -41,10 +41,11 @@
 | P2-S10 | Forum 4374（另一套插件的 userspace 提示） | T3 社区 | `07_forum_tailscale_com.md` |
 | P2-S11 | Issue #462（HA↔HA P2P 需开关 userspace） | T3 社区 | `09_github_com.md` |
 | P2-S12 | Issue #96（多网段历史限制，现已解决） | T3 社区 | `10_github_com.md` |
-| P2-S13 | `community.home-assistant.io/.../1011394/3` | 未获取 | 抓取失败（Cloudflare JS 挑战） |
-| P2-S14 | `docs.dev-eric.work/.../tailscale-subnet-router-asymmetric-routing` | 未获取 | 404 Page Not Found |
+| P2-S13 | `community.home-assistant.io/t/1011394`（仅 3 楼） | T4 无效 | 恢复后确认**不含**被归给它的主张，降级为「无关的未解决求助帖」 |
+| P2-S14 | `docs.dev-eric.work` 非对称路由（站内已改路径） | T3 个人博客 | `16_docs_dev-eric_work.md` |
+| P2-S15 | Issue #415 **完整评论串**（GitHub REST API） | T2 维护者实测 | `15_github_com.md` |
 
-来源层级分布：T1 官方 5 条 / T2 维护者与一手复现 3 条 / T3 社区 4 条 / 未获取 2 条。
+来源层级分布：T1 官方 5 条 / T2 维护者与一手复现 4 条 / T3 社区与个人博客 5 条 / T4 无效 1 条。
 
 ---
 
@@ -105,7 +106,7 @@
 对于「HAOS 主机与目标设备同处 `192.168.1.0/24`、只想让远程 tailnet 设备访问家里局域网」这一场景：
 
 1. **能做，且不需要关 SNAT。** 保持 `snat_subnet_routes: true`（默认值）即可。所有失败的复现（C3.8、C3.9）都出现在 SNAT 关闭的配置下，而维护者明确说开着「just works」（C3.5）。
-2. **SNAT 在这里不是可选项，而是必要的。** 远程 tailnet 客户端访问 `192.168.1.50` 时，目标设备不认识 `100.64.0.0/10`，它的回包只会发给默认网关然后被丢弃；SNAT 把源地址改写成路由器自己的 LAN 地址，回包就顺着原路回来了。这正是 C3.2 说的「simplifies routing configuration」。
+2. **SNAT 是让这个场景「零额外配置即可用」的原因。** 远程 tailnet 客户端访问 `192.168.1.50` 时，目标设备不认识 `100.64.0.0/10`，它的回包只会发给默认网关然后被丢弃；SNAT 把源地址改写成路由器自己的 LAN 地址，回包就顺着原路回来了（即 C3.2 的「simplifies routing configuration」）。**但不要把它说成「关了必定不通」**——维护者的实测显示 SNAT 开或关都能工作，前提是在本地/上游路由器上补齐回程路由（见第 8 节 C8.3）。对零基础读者，「不需要补任何东西」本身就是选它的充分理由。
 3. **不要照抄 Linux 官方子路由教程。** 官方 Linux 教程假定了完整的 Linux 主机控制权（可写 `/etc/sysctl.d/`、可改本地路由表）。HAOS 是只读托管系统，那两步要么已由插件代劳，要么根本做不了（C3.4、C3.7）。
 4. **C3.13 的「本地优先」不是 bug。** HAOS 主机自己访问 `192.168.1.x` 时不会走隧道，这是保护机制，防止 HA 失联。子路由的收益对象是**远程的 tailnet 设备**，不是 HA 主机自己。
 5. **只有当你确认要做 site-to-site（双向、跨多网段）时**，才需要关 SNAT + 开 `tailscale0` + 在各处补回程路由。对零基础的单点需求，这是明确的过度工程。
@@ -193,8 +194,8 @@ userspace_networking: false   # 默认值，保持不动 —— tailscale0 存�
 
 | # | 缺口 | 影响 | 处理 |
 | --- | --- | --- | --- |
-| G1 | P2-S13（`community.home-assistant.io/.../1011394/3`）被 Cloudflare JS 挑战拦截，正文未取到 | 这是「HAOS 同网段不能跨段转发」这一反方叙事的关键实操帖，无法核验 | 已派后台恢复任务尝试镜像/存档，**结果未回**。若最终取不到，笔记中相关说法一律标注「未核验」或直接不写 |
-| G2 | P2-S14（`docs.dev-eric.work` 非对称路由文）返回 404 | 同网段/非对称路由的边角坑无法引用 | 同上，待后台任务 |
+| G1 | ~~P2-S13（`community.home-assistant.io/.../1011394/3`）被 Cloudflare JS 挑战拦截~~ | **已结案，且结论是「该来源不存在」**——恢复后确认该帖（仅 3 楼）根本没有承载被归给它的任何主张。原 P1 侦察对该帖的描述属**错误归属** | 见第 8 节 C8.1。该帖降级为「一个未解决的用户求助帖」，**不得**作为反方证据引用 |
+| G2 | ~~P2-S14（`docs.dev-eric.work` 非对称路由文）返回 404~~ | **已恢复**，站内改路径，正文已缓存 | 见第 8 节 C8.4–C8.7。升级为 P2-S16，是本主题「同网段」场景最有价值的边角坑来源（但是个人博客，非官方） |
 | G3 | P1 侦察得到的「#430 评论区提到换网段 / 软砖 HA / 规避顺序」等说法，在抓取到的正文中**不存在**（GitHub 评论需登录） | 若直接采信会构成伪造引用 | **标记为未核验**，不得写入笔记；如需，须重新取评论区 |
 | G4 | 「1024 条路由上限」的说法无任何一手出处 | 属流言 | **已排除**，不写入笔记 |
 | G5 | 插件版本 ↔ 内置 Tailscale 版本 ↔ `userspace_networking` 默认值的对应表未建立 | 读者可能反复疑惑「为什么文档和我看到的不一样」 | 笔记用「以你配置页实际默认值为准 + 附校验方法」的方式绕开，不去猜版本号 |
@@ -236,3 +237,82 @@ userspace_networking: false   # 默认值，保持不动 —— tailscale0 存�
 - [x] 争议已收敛为可执行的判定（2.3）
 - [x] 缺口与诚实度要求已显式列出（第 5 节）
 - [ ] 用户确认素材质量（**当前等待**）
+
+---
+
+## 8. P2 补遗：后台恢复任务结果（2026-09-12，P2 关闭后到达）
+
+> 本节是 P2 关闭后由后台恢复任务补回的证据，**已在 P3 大纲生成前生效**。第 1–7 节保持原貌以保留判断过程，凡与本节冲突处，**以本节为准**。
+> 两条来源均已重新落盘：`sources/15_github_com.md`（P2-S15）、`sources/16_docs_dev-eric_work.md`（P2-S14）。
+
+### 8.1 P2-S13 是错误归属，必须撤回
+
+原 P1 侦察把「路由已批准、同 tailnet 的 Windows 客户端能 ping 通、HA 自身终端不发包」三项主张归给 `community.home-assistant.io/t/1011394`。恢复后逐楼核对（全帖仅 3 楼，`posts_count: 3`，`reply_count: 0`）：
+
+- 该帖 1 楼只是「刚装好 HA，访问不到 subnet router，求帮助」；2 楼要求贴网络发现结果；3 楼是转储 + 致谢。**没有任何结论**。
+- 「approve」「Windows」「ping」在该帖中**一次都没出现**。
+- 该帖环境是 `10.0.0.0/24`（HA `10.0.0.246`，网关 TP-Link ER7212PC），**不是** `192.168.0.0/16`。
+
+**结论**：这是一次**错误归属**，不是「未核验」。我此前向你描述的「反方最有力的实操帖」**不存在**。该帖只能降级为「一个未解决、无结论的用户求助帖」，并在笔记中完全不引用。
+
+### 8.2 新来源 P2-S15：维护者本人对 HAOS 子路由的完整实测（改变结论强度）
+
+Issue #415 的完整 16 条评论（`sources/15_github_com.md`）里有维护者 lmagyar 的两条关键实测记录，**逐字引用**：
+
+> "OK, I've tested meticuously the site-to-site networking (for another reason), and in short, it works flawlessly, no need for any extra iptables rule."
+> "Test was done with rPIs running HASS OS."
+> "So I think this is not a HASS OS or add-on issue, but a local net/VM config issue."
+
+> "And tested on a VirtualBox VM running HA-OS: exact same results as with rPI+HA OS: it just works, with userspace enabled/disabled, snat enabled/disabled, local/router routing config."
+
+**要点**：
+
+1. **这是本主题最强的一条正面证据**：维护者在**两种 HAOS 部署形态**（树莓派实机 + VirtualBox 虚拟机）上做过严格测试，结论是**能工作**，且明确定性为「不是 HAOS 或插件的问题，是本地网络/VM 配置问题」。
+2. **测试的是 site-to-site**（双向、跨网段），比本笔记用户的需求（远程 tailnet → 局域网单向）**更难**。更难的方向都过了，用户的需求在能力范围内。
+3. **措辞修正**：维护者说 `with userspace enabled/disabled, snat enabled/disabled` 都能工作 —— 但注意他同时提到 "local/router routing config" 和一次防火墙问题（见下）。所以正确表述是「关 SNAT 也能通，但要补回程路由」，**不是**「关了必不通」。第 2.3 节判定 2 已据此修订。
+4. **维护者亲述的一个真实坑**（对第 7 章排错有价值）：
+   > "when I used the router to route toward my TS subnet router, while outgoing (LAN->tailnet) connections worked fine, I lost the returning/reply packets from the LAN back to the tailnet (different path for the returning packets, they go through the router, while the original packages from the tailnet was sent by the TS subnet router directly to the non-TS device), but this was a firewall issue"
+
+   即：让**上游路由器**参与转发时，会制造回程包走另一条路径的非对称问题，需在防火墙上放行。这正是「同网段 + 路由器参与」时最容易踩的坑。
+
+### 8.3 反方证据的真实形态（修订第 2.3 节与第 3 节 D4）
+
+撤回 P2-S13 之后，「HAOS 做不了子路由」这一叙事剩下的真实依据是：
+
+- **P2-S07（#216，2023）**：作者观察 `Supervisor eth0` 的默认路由把回包送回本地路由器，`"There is no route to any tailscale interface for the outbound traffic"`。这是**容器网络路径**层面的质疑。
+- **P2-S15（#415）**：原提问者最终放弃，自述该部分在 HASS OS 上「不可配置」。
+
+而反证是 **P2-S15 维护者的两种部署形态实测**。**判定：反方证据被显著削弱，正面结论增强。** 但注意两者讲的不是同一件事 —— 反方讲「去程进不去 `tailscale0`」，维护者讲「整体链路能通」。
+
+### 8.4 新来源 P2-S14（原 P2-S14/S38）：同网段场景的非对称路由坑
+
+来源：`sources/16_docs_dev-eric_work.md`，个人博客（**非官方**），原标题 `Tailscale Subnet Router and Asymmetric Routing on a Home LAN`，原路径已 404，改存 `/archive/` 路径。
+
+| 编号 | 结论 | 原文锚点 |
+| --- | --- | --- |
+| C8.4 | 失效模式描述：子路由节点 advertise 了**其他 Tailscale 节点已经在用的同一个 LAN**，症状是「设备 tailnet IP 可达，但 LAN IP 不可达，从局域网内 ping 100% 丢包」 | `## Goal` |
+| C8.5 | 机制：入包走 LAN（`Mac -> Pi Zero`），回包却被 table 52 里的 `192.168.68.0/22 dev tailscale0` 抢走（`Pi Zero -> tailscale0 -> Home Assistant`）→ 非对称路由 | `## What Goes Wrong` |
+| C8.6 | **HAOS 自带保护**：`"Some systems, such as Home Assistant OS, protect local traffic with a higher-priority rule"`，规则形如 `5000: from all to 192.168.68.0/22 lookup main` 优先于 `5270: from all lookup 52`；而普通 Raspberry Pi OS 可能缺这条规则 | `## Why One Device Breaks but Another Does Not` |
+| C8.7 | `--accept-routes=false` 的**语义澄清**：它**不**表示「别的设备无法通过子路由访问本机」，而是「本机不会用其他 peer 广播的子路由来做自己的出站路由决策」 | `## Fix Option 2 → A common misunderstanding` |
+
+**注意（必须标注）**：
+
+- C8.6「HAOS 自带 priority 5000 保护规则」**只有一个非官方来源**，未在任何 HAOS 或 Tailscale 官方材料中得到印证。笔记中若引用，**必须标注为单一来源、待官方核实**，或干脆只描述现象不引机制。
+- 该文的 `192.168.68.0/22` 等具体值是作者自己的环境，**不可外推**。
+- 该文的立场是**非对称路由/客户端侧配置问题**，**不是**「插件容器网络模式天生做不到」——不要把它读成反方证据。
+
+### 8.5 对既有配置建议的影响
+
+**核心推荐不变**（`advertise_routes: 192.168.1.0/24` + `snat_subnet_routes: true` + `userspace_networking: false` + `accept_routes: false`），而且**证据强度提升**：
+
+1. `accept_routes: false` 从「顺手保持默认」升级为**有明文依据的主动选择**——C8.7 明确指出它正是防止本机被 peer 子路由劫持的官方手段之一。
+2. 维护者实测把「HAOS 能不能做」从「官方文档说可以」提升到「维护者在两种 HAOS 部署上实测通过」。
+3. 新增一条**同网段专属警告**（第 4 条「别照抄」）：如果这个 LAN 上还有**其他装了 Tailscale 的 Linux 节点**，它们可能被这条子路由搞成非对称路由而失去局域网可达性；HAOS 自身有保护，其他节点未必有。这是 P2-S14 的核心价值。
+
+### 8.6 仍未解决
+
+| # | 缺口 | 处理 |
+| --- | --- | --- |
+| G7 | C8.6 的 priority 5000 规则无官方印证 | 笔记中标为单一来源；或只写现象 |
+| G8 | 维护者的实测未给出完整可复现步骤（只说「本地/上游路由器路由配置」） | 不写成分步教程，只作为结论强度背书 |
+| G9 | P2-S14 代码块的多行输出在抓取时被压平 | 引用时只引单行命令（`ip rule show`、`ip route show table 52`、`ip route get`），不引拼接后的多行输出 |
