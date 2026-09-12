@@ -232,7 +232,7 @@ share_on_port: 443
 
 因为 HA 看到的连接不是从你的 tailnet IP 直接来的，而是从本机的 Serve 代理转过来的，所以可信代理要写回环地址。插件官方文档和 Tailscale 官方博客在这里口径一致，都写 `127.0.0.1`[^c3-docs][^c3-blog]。
 
-> [!warning]
+> [!warning] 别填 100.64.0.0/10
 > 这是新手最容易填错的地方。不要因为「访问来自 tailnet」就填 `100.64.0.0/10`——那样 HA 不认这个代理，Serve 转发过来的请求照样被挡。
 
 ### 3.3 Funnel 与 `services`：先别急着开
@@ -265,7 +265,7 @@ ha dns restart
 
 另外把 `accept_dns: false` 的含义记准：它表示「不接受控制台下发的全局 nameserver」，不是本地关掉 MagicDNS，也不是本地关掉 Tailscale DNS[^c3-dns]。
 
-> [!warning]
+> [!warning] 这条命令有个已知后果
 > 上面那条 `ha dns options` 有一个已知的严重后果，现象、成因与修法在第 7 章 7.4.4 节。照做之前先读那一节，别等 DNS 挂了再回头找。
 
 ### 3.5 直连还是中继：要不要开 `always_use_derp`
@@ -675,7 +675,7 @@ sysctl: error setting key 'net.ipv6.conf.all.forwarding': Read-only file system
 
 这不是配置错误，是路径错误——你根本不该在 HAOS 上做这一步。维护者回复只有一句：`Please read the docs, it says "follow steps from step 3", because what you want to configure, is already set.` 你想配的 IP forwarding，插件已经代做了。官方 DOCS.md 也写明插件已替你处理 "IP address forwarding" 和 "Clamp the MSS to the MTU"（见第 4.2.1 节）。
 
-> [!warning]
+> [!warning] 别去 remount 根文件系统
 > 看到 `Read-only file system` 就去搜 remount、想把根文件系统挂成可写，是野路子。这一步在 HAOS 上本就不该存在，绕过去只会破坏受管系统完整性。
 
 #### 7.4.4 DNS loop 会让 `hassio_dns` 崩溃
