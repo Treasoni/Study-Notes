@@ -10,7 +10,7 @@ topic: "如何用 HAOS 部署的 Home Assistant 中的 Tailscale 插件实现内
 project_slug: "haos-tailscale-subnet-router"
 created_at: "2026-09-12"
 last_updated: "2026-09-12"
-current_phase: P2
+current_phase: P3
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：haos-tailscale-subnet-router
 > 项目标识：haos-tailscale-subnet-router
 > 创建时间：2026-09-12
-> 当前阶段：阶段 2
+> 当前阶段：阶段 3
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -56,16 +56,19 @@ quality_gate_due: ""
 ---
 
 ## 阶段 2：深度收集
-- [ ] 已根据用户选择的方向启动深度收集
-- [ ] 核心概念/理论素材已收集
-- [ ] 实战代码/项目案例已收集
-- [ ] 常见坑/最佳实践已收集
-- [ ] 工具链/生态已收集
-- [ ] 进阶路径/学习资源已收集
-- [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
-- [ ] 深度素材已保存：`./02_deep_research.md`
+- [x] 已根据用户选择的方向启动深度收集（方向 A 全链路主线；14 个核心 URL 投喂 crawl4ai）
+- [x] 核心概念/理论素材已收集（路由注入四条件、SNAT 语义、userspace 两种模式、tailnet/CGNAT）
+- [x] 实战代码/项目案例已收集（插件完整 YAML 默认值 + 同网段推荐配置；Serve 前置设置）
+- [x] 常见坑/最佳实践已收集（三条「别照抄」警告；snat=false 的两个失败复现）
+- [x] 工具链/生态已收集（`ha dns options`、`tailscale debug prefs/netmap`、`tailscale set --accept-routes`、管理端 Edit route settings）
+- [x] 进阶路径/学习资源已收集（site-to-site 五条件、exit node、Tailscale Services、Taildrop/Taildrive）
+- [x] 素材质量已确认（官方文档数、教程数、深度文章数）——用户已确认，12 条成功素材质量足够
+- [x] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] 🔲 进行中 {in_progress}
+**P2 采集结果**：14 个 URL → 12 条成功（T1 官方 5 / T2 维护者与一手复现 3 / T3 社区 4）+ 2 条失败（S13 Cloudflare 反爬、S14 404，已派后台恢复任务，结果未回）。
+**争议收敛**：同网段场景 → 保持 `snat_subnet_routes: true`（默认值）；关 SNAT 属进阶 site-to-site，需额外补 `100.64.0.0/10` 回程路由。
+
+> [P2] ✅ 已完成 {complete}
 
 ---
 
@@ -77,7 +80,7 @@ quality_gate_due: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] ⬜ 未开始
+> [P3] 🔲 进行中 {in_progress}
 
 ---
 
@@ -132,6 +135,7 @@ quality_gate_due: ""
 |------|----------|------|
 | P0 | 确认意图文件与研究计划：笔记类型=实战笔记（可直接照做），深度=上手，基础=零基础（尚未安装 Tailscale 插件，从零开始）；四个探索方向（插件安装授权 / 内网穿透 / 子路由 / 验证排错）无需增删；输出=项目 output，阶段 6 再定 Obsidian 位置；阶段 7 需同步 MOC | 2026-09-12 |
 | P1 | 确认 P1 探测结果（46 条去重来源）并选择 P2 方向：**方向 A 全链路实战主线**（安装授权 → 内网穿透 → 子路由 → 排错清单）；补充环境：标准 `192.168.1.0/24` 单层路由，**HAOS 主机网段 = 要访问的网段**（同网段场景，需重点回答 SNAT 与否） | 2026-09-12 |
+| P2 | 确认 P2 深度素材质量（12 条成功来源，T1 官方 5 / T2 维护者 3 / T3 社区 4；2 条失败已记录原因）。接受争议收敛结论：同网段场景保持 `snat_subnet_routes: true`；接受 G1–G3 三条未核验标记不写入正文 | 2026-09-12 |
 
 ---
 
