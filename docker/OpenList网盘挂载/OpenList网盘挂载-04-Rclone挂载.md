@@ -326,7 +326,7 @@ rclone copy /home/source openlist:backup
 官方对挂载点的要求是 `/path/to/local/mount` 必须是一个 **empty existing** directory —— 注意是**两个条件同时成立**：目录要先存在（`mkdir`），而且里面是空的。常见报错正是把这两条搞混。
 
 ```bash
-# 先建空目录（/mnt 归 root，建完把属主改成自己，之后才能用普通用户挂载）
+# 先建空目录（/mnt 归 root，建完把属主改成自己，之后才能用普通用户挂载，不一定要用这，只是这个路径适合服务器后台服务）
 sudo mkdir -p /mnt/openlist
 sudo chown "$USER" /mnt/openlist
 
