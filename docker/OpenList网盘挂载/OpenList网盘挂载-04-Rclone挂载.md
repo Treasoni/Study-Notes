@@ -9,7 +9,7 @@ tags:
   - 实战笔记
   - OpenList网盘挂载
 created: 2026-09-12
-updated: 2026-09-12
+updated: 2026-09-13
 status: 已完成
 source_project: openlist-webdav-rclone-docker
 series: OpenList → WebDAV → Rclone → Docker 全链路实战
@@ -87,6 +87,76 @@ sudo apt install fuse3
 
 ### 方式一：交互式 `rclone config`（推荐首次使用）
 
+`rclone config` 是一个**问答式配置向导**：你不用手写配置文件，它问什么你答什么，答完自动把结果写进 `~/.config/rclone/rclone.conf`。
+
+先建立一个关键认知：**这不是一段要你"看懂"的程序输出，而是一次交互对话。** 转录里绝大多数行是程序打印给你的**菜单**（不要照抄），只有结尾是 `>` 的那几行才是**等你输入**的地方。
+
+#### 完整示范（已填入真实值）
+
+假设 OpenList 跑在 `192.168.1.10`、账号是 `admin`，一次成功的会话长这样（`←` 后面是讲解，实际屏幕不会显示）：
+
+```text
+$ rclone config
+No remotes found, make a new one?
+n/s/q> n                              ← 新建一条连接
+name> openlist                        ← 起名；后面命令与 systemd 都写成 openlist:
+Storage> webdav                       ← 连接类型
+url> http://192.168.1.10:5244/dav/    ← 换成你的真实 IP，结尾 /dav/ 不能少
+vendor> 7                             ← 即 other，理由见下
+user> admin                           ← 网页登录 OpenList 的账号
+y/g/n> y                              ← 我自己输密码
+Enter the password:                   ← 盲打密码，屏幕上不显示任何字符
+Confirm the password:                 ← 再盲打一遍
+```
+
+打完回车后**什么都不显示、直接回到 shell 提示符** —— 这就是成功，配置已经落盘。
+
+#### 逐行对照：哪行是提示、你要输入什么
+
+| 屏幕上显示的（程序打印，别照抄） | 你要输入的 | 为什么 |
+|---|---|---|
+| `No remotes found, make a new one?` | — | 只是提示：目前一条连接都没有 |
+| `n) New remote` | **`n`** | ⚠️ 这里的 `n` 是 **New（新建）**，不是"否" |
+| `name> openlist` | **`openlist`** | 连接名，随便起；**后面的命令与 systemd 都用它**，写作 `openlist:` |
+| `Type of storage to configure.` | **`webdav`** | 列表很长（中间 `[snip]` 是官方原文的省略标记），`webdav` 藏在里面；**直接输单词，不用输编号** |
+| `url> http://<宿主机IP>:5244/dav/` | **`http://192.168.1.10:5244/dav/`** | ⚠️ `<宿主机IP>` 是占位符，**必须换成自己的真实 IP** |
+| `vendor> 7` | **`7`**（或 `other`） | 对端是哪套 WebDAV 软件，OpenList 不属于前 6 类，只能选最后一档 |
+| `user> <OpenList 用户名>` | **`admin`** | ⚠️ 同样是占位符，换成网页登录 OpenList 的账号 |
+| `y/g/n> y` | **`y`** | `y` = 自己输密码；`g` = 让 rclone 随机生成；`n` = 不设 |
+| `Enter the password:` | **你的密码** | ⚠️ **屏幕上不显示任何字符**（连 `*` 都没有），这是 Linux 密码输入的正常行为，**不是卡住**，盲打完按回车 |
+| `Confirm the password:` | **再打一遍** | 同上，确认没打错 |
+
+#### 收尾还有几问
+
+官方转录到 `Confirm the password:` 就截断了，实际会话还会再问两三次（具体行文以你装的版本为准）：
+
+| 提示 | 你输入 | 含义 |
+|---|---|---|
+| `Edit advanced config?` | **`n`** | 是否进高级项，本章用不到 |
+| `y) Yes this is OK` | **`y`** | 把生成的配置打印一遍让你确认，其中密码显示为 `*** ENCRYPTED ***` |
+| `e/n/d/r/c/s/q>`（回到主菜单） | **`q`** | 退出配置向导 |
+
+> [!warning] 三处必须与第 3 章对齐
+> - `url` 的**端口必须与网页端完全一致**（第 3 章的硬约束），结尾要带 `/dav/`；
+> - `user` / `password` 就是网页端登录账号密码，不需要单独建 WebDAV 账号；
+> - `vendor` 选 **`7 / Other site/service or software`**（即 `other`），理由见下。
+
+#### 完成后验证
+
+```bash
+# 能看到配置内容（密码应是一串密文，不是你的明文）
+cat ~/.config/rclone/rclone.conf
+
+# 或只列连接名，应输出 openlist:
+rclone listremotes
+```
+
+填错了不必重来：向导主菜单里的 `e) Edit existing remote` 可以改已有连接。
+
+#### 官方原文转录（供对照，可跳过）
+
+（`[snip]` 是官方原文自带的省略标记。）
+
 ```text
 $ rclone config
 No remotes found, make a new one?
@@ -136,14 +206,6 @@ password:
 Confirm the password:
 password:
 ```
-
-（`[snip]` 是官方原文自带的省略标记。）
-
-三处必须与第 3 章对齐：
-
-- `url` 的**端口必须与网页端完全一致**（第 3 章的硬约束），结尾要带 `/dav/`；
-- `user` / `password` 就是网页端登录账号密码，不需要单独建 WebDAV 账号；
-- `vendor` 选 **`7 / Other site/service or software`**（即 `other`），理由见下。
 
 ### 方式二：直接写 `rclone.conf`
 
