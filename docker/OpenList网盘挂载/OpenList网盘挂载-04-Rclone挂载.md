@@ -70,11 +70,11 @@ sudo apt install fuse3
 
 动手之前先统一三个词，后面会反复出现：
 
-| 术语 | 含义 | 本章具体指 |
-|---|---|---|
-| remote（远端） | rclone 配置里的一条连接，名字由你起 | `openlist:`，指向 `http://<宿主机IP>:5244/dav/` |
-| mountpoint（挂载点） | 本机上一个**已存在且为空**的目录 | `/mnt/openlist` |
-| VFS | rclone 在远端对象存储与本地文件系统之间加的一层适配，含内存目录缓存与可选磁盘文件缓存 | 决定 `--vfs-cache-mode` 那一堆行为 |
+| 术语              | 含义                                             | 本章具体指                                     |
+| --------------- | ---------------------------------------------- | ----------------------------------------- |
+| remote（远端）      | rclone 配置里的一条连接，名字由你起                          | `openlist:`，指向 `http://<宿主机IP>:5244/dav/` |
+| mountpoint（挂载点） | 本机上一个**已存在且为空**的目录                             | `/mnt/openlist`                           |
+| VFS             | rclone 在远端对象存储与本地文件系统之间加的一层适配，含内存目录缓存与可选磁盘文件缓存 | 决定 `--vfs-cache-mode` 那一堆行为               |
 
 > [!warning] 环境边界：本册命令一律以 Linux 宿主机为准
 > 你本机是 Windows + Git Bash，所以上述命令请在 **WSL / NAS / 远程 Linux 宿主机**上执行——Git Bash 里没有 `fusermount`，也没有 FUSE 内核模块，`rclone mount` 无法按本文方式工作。Windows 侧 rclone mount 走的是 **WinFsp**（另一套机制），不在本册范围内。
