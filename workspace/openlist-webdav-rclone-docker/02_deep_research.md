@@ -17,7 +17,7 @@
 
 ## 2. 来源表
 
-### 2.1 已抓取并可引用（14 篇）
+### 2.1 已抓取并可引用（18 篇）
 
 | 源ID | 标题 | Tier | 本地文件 | 一句话定位 |
 |---|---|---|---|---|
@@ -35,8 +35,16 @@
 | S16 | OpenList Docs — 本地存储驱动 | T1 | `sources/S16_openlist_driver_local.md` | 第 2 章示例驱动：字段与缩略图 |
 | S17 | OpenList Docs — 驱动通用字段 | T1 | `sources/S17_openlist_driver_common.md` | 第 2 章主干：挂载路径、序号、WebDAV 策略、代理 |
 | S18 | Docker Docs — Volumes | T1 | `sources/S18_docker_volumes.md` | 第 5 章选型依据：何时**不该**用 volume |
+| S19 | OpenList Docs — WebDav 驱动 | T1 | `sources/S19_openlist_driver_webdav.md` | **2026-09-12 追加**：第 3 册 §3.6 主干——驱动字段、默认值、302/代理 |
+| S20 | OpenList 源码 — WebDAV 驱动 | T1（源码级） | `sources/S20_openlist_source_webdav_driver.md` | **2026-09-12 追加**：`drivers/webdav` + `internal/driver/item.go` + `pkg/gowebdav`，支撑"地址必须带协议头" |
+| S21 | 坚果云帮助中心 — 第三方应用授权 WebDAV | T1（**坚果云官方口径，非 OpenList 官方**） | `sources/S21_jianguoyun_webdav_help.md` | **2026-09-12 追加**：应用密码、额度限制 |
+| S22 | Synology 知识中心 — WebDAV Server | T1（**群晖官方口径**；⚠️ 页面 JS 渲染，**未取到正文**） | `sources/S22_synology_webdav_kb.md` | **2026-09-12 追加**：默认端口 5005/5006；只登记事实、**不可当引文** |
 
-**Tier 分布**：T1 × 13（含 1 篇标注为上游口径）、T3 × 1。
+**Tier 分布**：T1 × 17（含 1 篇标注为上游口径、2 篇为第三方服务官方口径、1 篇源码级）、T3 × 1。
+
+> **2026-09-12 追加说明**：S19–S22 为第 3 册 §3.6「反向对照：OpenList 也能当 WebDAV 客户端」新增，
+> 对应本轮单篇笔记更新（走 `note-updater` 路径，未重开 `learning-note-flow`）。
+> S20 是**源码级**来源（不是文档），本项目中首次引入这一层级；S22 **未取到正文**，只能当"事实登记"用。
 
 ### 2.2 P1 候选但**未抓取**（禁止引用）
 
@@ -109,6 +117,23 @@
 | 官方推荐客户端：Linux 用 `rclone`（功能丰富）或 `davfs2`；Windows 用 RaiDrive | S02 | 官方推荐 |
 | （上游 AList 口径）≥ v3.42.0 需在 User => Permissions 开 `Webdav Read` 与 `Webdav Manage` | S04 | **AList 口径**，与 S02 互相印证 |
 | （上游 AList 口径）驱动能力矩阵：`copy` 列为 ❌ 的有 GoogleDrive、123pan、FTP、SFTP；其余（LocalStorage、AliyunDrive、Onedrive、189Cloud、PikPak、S3、USS、WebDAV、Teambition、Mediatrack、139yun、YandexDisk、BaiduNetdisk、Quark、KodBox）`copy` 为 ✅ | S04 | **AList 口径，2022-09-07 发布，未标注更新** |
+
+**2026-09-12 追加：第 3 册 §3.6「反向对照（OpenList 当 WebDAV 客户端）」新增断言**
+
+| 断言 | 来源 | 层级 |
+|---|---|---|
+| WebDAV 驱动字段：`Vendor`(`vendor`, select `sharepoint`/`other` 默认 `other`)、`Address`(`address`)、`Username`、`Password`、`Root folder path`(`root_folder_path`)、`Tls insecure skip verify`(`tls_insecure_skip_verify` 默认 `false`) | S19 + S20 | 官方字段 + 源码 `drivers/webdav/meta.go` |
+| `Address`/`Username`/`Password` 三项**均为必填**（`required:"true"`） | S20 | 源码 `drivers/webdav/meta.go` |
+| 「根文件夹路径」默认值为 `/` | S20 | 源码 `driver.Config{DefaultRoot: "/"}` |
+| 界面「根文件夹路径」= 官方文档页所写「根文件夹ID」，同一字段 `root_folder_path` | S19 + S20 | 文档中文名与界面名不一致，**同一配置键** |
+| `Root folder path` 语义是**拼接在地址之后**：官方 `The path of fodler you want to mount, same as join in address` / 「要挂载的文件夹路径，与加入地址相同」 | S19 | 官方原文（英文原文含 `fodler` 拼写错误，逐字保留） |
+| **地址必须带 `http://` / `https://`**：驱动把 `d.Address` 原样交给 `gowebdav.NewClient`，客户端只做 `FixSlash`（补末尾 `/`），**不补协议头** | S20 | **源码级**（文档页未写此要求） |
+| 「跳过 SSL 证书验证」针对**自签名证书**场景，启用会降低安全性 | S19 | 官方原文 |
+| 挂 OneDrive/SharePoint 才需要把 `vendor` 选为 `sharepoint`（国际版/世纪互联） | S19 | 官方原文 |
+| 坚果云 WebDAV 需用**应用密码**（账户信息 → 安全选项 → 第三方应用管理 → 添加应用密码），非登录密码；应用密码只显示一次 | S21 | **坚果云官方口径** |
+| 坚果云 WebDAV 额度：免费版 ≤600 次请求/30 分钟、付费版 ≤1500 次请求/30 分钟；单次请求文件+文件夹数上限 750 | S21 | **坚果云官方口径** |
+| 群晖 WebDAV Server 默认端口 HTTP `5005` / HTTPS `5006` | S22 | **群晖官方口径，但未逐字取证**（页面 JS 渲染）→ 按"事实"呈现，不给引文 |
+| 「地址与根文件夹路径重复拼接会拼出 `.../dav/work/work`」 | —（**推断**） | **未证实**：由官方"拼接"语义推出，官方无此示例 |
 
 ### 3.4 Rclone 概念与挂载（第 4 章）
 
