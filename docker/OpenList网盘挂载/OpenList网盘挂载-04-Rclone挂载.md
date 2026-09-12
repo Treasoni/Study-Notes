@@ -84,7 +84,29 @@ sudo apt install fuse3
 ## 4.3 配置远端：把第 3 章的参数写进 rclone
 
 配置里有**两件事必须做对**：URL 要指到 `/dav/`，密码必须被 obscure。
+### 1. 安装 rclone 与挂载依赖 fuse3
 
+运行安装命令：
+
+Bash
+
+```
+sudo apt update && sudo apt install -y rclone fuse3
+```
+
+_在提示输入密码时输入你的 Ubuntu 用户密码（输入时屏幕不会显示字符，直接输完按回车即可）。_
+
+### 2. 验证安装
+
+安装完成后，查看版本号以验证是否成功：
+
+Bash
+
+```
+rclone version
+```
+
+**验证标准**：如果终端输出了类似 `rclone v1.60.x...` 的版本信息，说明安装成功。
 ### 方式一：交互式 `rclone config`（推荐首次使用）
 
 `rclone config` 是一个**问答式配置向导**：你不用手写配置文件，它问什么你答什么，答完自动把结果写进 `~/.config/rclone/rclone.conf`。
