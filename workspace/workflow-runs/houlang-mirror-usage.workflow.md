@@ -9,8 +9,8 @@ created_from: ".claude/workflows/learning-note-flow/state-template.md"
 topic: "厚浪镜像（HLmirror）镜像加速器使用方法"
 project_slug: "houlang-mirror-usage"
 created_at: "2026-09-13"
-last_updated: "2026-09-13"
-current_phase: P1
+last_updated: "2026-09-14"
+current_phase: P3
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：houlang-mirror-usage
 > 项目标识：houlang-mirror-usage
 > 创建时间：2026-09-13
-> 当前阶段：阶段 1
+> 当前阶段：阶段 3
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -45,13 +45,13 @@ quality_gate_due: ""
 ---
 
 ## 阶段 1：探测式收集
-- [ ] 已派出 2-3 个 subagent 并行探测
-- [ ] 探测结果已汇总
-- [ ] 方向菜单已展示给用户
-- [ ] 用户已选择学习方向
-- [ ] 探测结果已保存：`./01_explore_result.md`
+- [x] 已派出 2-3 个 subagent 并行探测
+- [x] 探测结果已汇总
+- [x] 方向菜单已展示给用户
+- [x] 用户已选择学习方向：1+2（机制三分法 + 实操全链路，方向 3 压缩为「常见坑」小节）
+- [x] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] 🔲 进行中 {in_progress}
+> [P1] ✅ 已完成 {complete}
 
 ---
 
@@ -65,7 +65,7 @@ quality_gate_due: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] ⬜ 未开始
+> [P2] ✅ 已完成 {complete}
 
 ---
 
@@ -77,7 +77,7 @@ quality_gate_due: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] ⬜ 未开始
+> [P3] 🔲 进行中 {in_progress}
 
 ---
 
@@ -130,6 +130,8 @@ quality_gate_due: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P0 | 确认笔记类型（实战+速查）、深度（上手）、基础（有了解）、发布位置（docker/，MOC docker/Docker MOC.md）、保留机制对比章、疑点处理策略 | 2026-09-13 |
+| P1 | 确认素材质量与研究方向：选 1+2；方向 3 降级为「常见坑」小节 | 2026-09-13 |
 | | | |
 
 ---
