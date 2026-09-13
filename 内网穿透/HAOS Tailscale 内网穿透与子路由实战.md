@@ -261,6 +261,13 @@ Funnel 和 Serve 长得像，方向却相反：它会把 HA 暴露到公网，�
 > [!info] 先分清方向：这一节不是给「访问 HA」用的
 > 本节解决的是 **HA → 别的 tailnet 设备**，也就是**出方向**。如果你只想要 tailnet 上的手机、笔记本能打开 HA，那 3.1–3.3 已经做完了，**本节整节都不用做**——包括下面那条 `ha dns options`。
 
+#### 3.4.1 那什么时候才真需要它
+
+只有当 HA 自己要以名字主动连出去时，比如：
+- HA 里的集成要连 `nas.tail1234.ts.net` 上的服务；
+- 你在 HA 终端 / SSH 插件里 `ping`、`curl` 别的 tailnet 设备；
+- 要把 HA 当子路由/站点到站点网关用，双向互通。
+
 为什么入方向不需要它：名字是**发起方**解析的。手机访问 HA，解析发生在手机上，是手机自己的 Tailscale 客户端把 `ha.tail1234.ts.net` 变成 tailnet IP；HA 这侧不需要任何 DNS 配置，它只要「能被路由到」就行。插件文档把这个单向场景写得很直白——开着 `userspace_networking` 时「you get one-way access from tailnet clients to your Home Assistant instance」，也就是说「别人 → HA」这个方向本身就不依赖本节任何东西 [^c3-docs]。
 
 反过来，HA 自己要以名字主动连出去时，解析发生在 HA 内部、走的是 `hassio_dns`，而它默认不认 tailnet 名字，才需要手工把 Tailscale 的 DNS 接上。
