@@ -222,9 +222,12 @@ SNAT 把源地址改写成子路由器自己的 LAN 地址，打印机看到的�
 
 它有两处前置。
 
-HA 侧：关闭 SSL/TLS，让 HA 以 HTTP 提供服务——Settings → System → Network → HTTP server → SSL/TLS。然后在同一区块展开 Reverse proxy：启用 `Trust X-Forwarded-For`，把 `127.0.0.1` 加进 `Trusted proxies`，保存（保存会重启 HA 界面）。
+HA 侧：关闭 SSL/TLS，让 HA 以 HTTP 提供服务——Settings → System → Network → HTTP server → SSL/TLS。然后在“反向代理“同一区块展开 Reverse proxy：启用 `Trust X-Forwarded-For`，把 `127.0.0.1` 加进 `Trusted proxies`，保存（保存会重启 HA 界面）。
 
-Tailscale 控制台的 DNS 页：改一个顺眼的 tailnet 名，确认 MagicDNS 已启用，并在 HTTPS Certificates 一节 Enable HTTPS。
+Tailscale 控制台的 DNS 页：改一个顺眼的 tailnet 名（这里的Tailnet DNS name），
+![](assets/HAOS%20Tailscale%20内网穿透与子路由实战/截屏2026-09-13%2013.08.49.png)
+确认 MagicDNS 已启用（在Network->DNS中），并在 HTTPS Certificates 一节 Enable HTTPS。
+![](assets/HAOS%20Tailscale%20内网穿透与子路由实战/截屏2026-09-13%2013.08.03.png)
 
 > [!tip] 大白话
 > Serve 像在 HA 门口盖了间门卫室：手机先找到门卫室（域名 + 证书），再由它领你进 HA。门卫室设在本机门口，所以 HA 眼里访客永远从「本机」来——这正是 3.2.1 要讲的。
