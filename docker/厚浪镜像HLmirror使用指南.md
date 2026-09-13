@@ -558,17 +558,17 @@ docker login -u your-email@example.com -p hlm_xxxxxxxxxxxxxxxx mirror.houlang.cl
 
 官方教程给出的后缀表如下（**逐字**，含原文的 `NVDIA` 拼写）：
 
-| 上游 | 后缀代号 | 替换地址 |
-| --- | --- | --- |
-| Docker Hub | `dh` | `mirror.houlang.cloud/dh/` |
-| Google Container Registry | `gcr` | `mirror.houlang.cloud/gcr/` |
-| Github Container Registry | `ghcr` | `mirror.houlang.cloud/ghcr/` |
-| NVDIA NGC | `nvcr` | `mirror.houlang.cloud/nvcr/` |
-| Kubernetes Registry | `k8s` | `mirror.houlang.cloud/k8s/` |
-| Microsoft Container Registry | `mcr` | `mirror.houlang.cloud/mcr/` |
-| Elastic Docker Registry | `elastic` | `mirror.houlang.cloud/elastic/` |
-| registry.gitlab.com | `gitlab` | `mirror.houlang.cloud/gitlab/` |
-| Quay | `quay` | `mirror.houlang.cloud/quay/` |
+| 上游                           | 后缀代号      | 替换地址                            |
+| ---------------------------- | --------- | ------------------------------- |
+| Docker Hub                   | `dh`      | `mirror.houlang.cloud/dh/`      |
+| Google Container Registry    | `gcr`     | `mirror.houlang.cloud/gcr/`     |
+| Github Container Registry    | `ghcr`    | `mirror.houlang.cloud/ghcr/`    |
+| NVDIA NGC                    | `nvcr`    | `mirror.houlang.cloud/nvcr/`    |
+| Kubernetes Registry          | `k8s`     | `mirror.houlang.cloud/k8s/`     |
+| Microsoft Container Registry | `mcr`     | `mirror.houlang.cloud/mcr/`     |
+| Elastic Docker Registry      | `elastic` | `mirror.houlang.cloud/elastic/` |
+| registry.gitlab.com          | `gitlab`  | `mirror.houlang.cloud/gitlab/`  |
+| Quay                         | `quay`    | `mirror.houlang.cloud/quay/`    |
 
 <!-- C19 -->（[《如何使用新版 HLmirror》](https://home.houlang.cloud/archives/ru-he-shi-yong-xin-ban-hlmirror)）
 
