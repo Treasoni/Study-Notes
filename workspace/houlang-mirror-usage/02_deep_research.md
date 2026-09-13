@@ -24,8 +24,16 @@
 | S11 | DaoCloud 公开镜像加速 | https://docs.daocloud.io/community/mirror/ | 二手（同类厂商） | `01_docs_daocloud_io.md` |
 | S12 | moby/moby Issue #42022 | https://github.com/moby/moby/issues/42022 | 一手（上游仓库） | `08_github_com.md` |
 | S4 | mirror.houlang.cloud 前端 bundle | https://mirror.houlang.cloud/assets/index-BE1n8cWp.js | 一手（实现细节） | 未落盘（940KB，按需重取） |
+| S4b | 控制台界面文案（自 S4 提取） | 同 S4 | 一手（实现细节） | `09_console_ui_strings.md` |
 
-**层级统计**：一手 8 / 二手 1。本轮**未采用任何社区来源**——方向 3 被降级后，CSDN / 什么值得买 / 掘金 / V2EX 四篇均未进入证据链。
+**层级统计**：一手 9 / 二手 1。本轮**未采用任何社区来源**——方向 3 被降级后，CSDN / 什么值得买 / 掘金 / V2EX 四篇均未进入证据链。
+
+> **P4 前补充（2026-09-14，关闭缺口 G-B）**：重新抓取前端 bundle 并提取控制台界面文案，落盘为 `sources/09_console_ui_strings.md`。结论：
+> - 控制台确有 **账号信息 / 访问令牌 / 用量 / 镜像源** 四个并列分区，与 S1「在『访问令牌』选项卡中新建令牌」一致；
+> - **D1 的裁决入口确认存在**——控制台有「镜像源」分区，故「后缀以控制台镜像源列表为准」是可执行指引；
+> - §3.6 的 `月度配额` / `配额窗口` / `不限速` 字段名得到界面文案佐证；
+> - **但配额与限速仍无任何数值，Q2 不变**。
+> - 边界：bundle 内另有大量**管理后台**文案（渠道健康 / Relay 节点 / 审计日志），属运营侧界面，**不得混入笔记**。
 
 ---
 
