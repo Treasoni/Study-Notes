@@ -211,7 +211,112 @@ HTTPS_PROXY=http://127.0.0.1:7890
 
 ---
 
-### 1.4 同类方案对照：前缀重写的两种写法
+### 1.4 拉取时到底发生了什么：缓存、回源与 digest 校验
+
+前缀重写不是「换了个域名转发」这么简单，厚浪这一侧实际扮演的是一个 **pull-through cache（穿透式缓存）**。Docker 官方对这类缓存的机制描述是：
+
+> The first time you request an image from your local registry mirror, it pulls the image from the public Docker registry and stores it locally before handing it back to you. On subsequent requests, the local registry mirror is able to serve the image from its own storage.
+> <!-- C3 -->（[Docker Docs · Mirror the Docker Hub library](https://docs.docker.com/docker-hub/image-library/mirror/)）
+
+译：**第一次请求时，它先去公共 Docker registry 拉取并落盘，再交给你；后续请求则由缓存自身直接提供。**
+
+而当你用 **tag**（比如 `:latest`、`:v2.6.1`）去拉的时候，还有一道校验：
+
+> When a pull is attempted with a tag, the Registry checks the remote to ensure if it has the latest version of the requested content. Otherwise, it fetches and caches the latest content.
+> <!-- C3 -->（同上）
+
+译：**带 tag 拉取时，Registry 会向远端确认是否已是最新版本，若否就重新拉取并缓存。**
+
+这两句合在一起，解释了一个很多人会误判的现象。缓存命中确实是常态，但**带 tag 的拉取不是「拿本地那份就走」**——它会回源校验 digest。所以：
+
+- 如果你怀疑「加速器里存的是旧版本」，**通常不是原因**，因为带 tag 拉取会去远端确认。
+- 反过来，如果你的上游恰好不可用，回源这一步就会成为故障点。
+
+关于「上游不可用时会怎样」，本轮素材里只有一条，且来源层级偏低：后台配置项中出现过「可以在一定时长内回退旧缓存」这类提示文案 <!-- C22 -->（来源：mirror.houlang.cloud 前端 bundle，属**实现细节**，且**会随版本变化**）。
+
+> [!warning] 开放问题：回退旧缓存的时长窗口
+> **无公开数值，未实测。** 本轮研究只见到后台配置项的提示文案（C22），官方没有给出任何面向用户的时长承诺，我也没有做实测。**这里不给出任何具体时长数字**，请以控制台实际表现为准。
+
+> [!tip] 大白话
+> 把它想成**小区便利店的备货**：第一次你要某个牌子的饮料，店里没货，得先跑一趟总仓补货，然后摆上架（首次回源）。
+> 之后你再来，直接从店里拿（缓存命中）。
+> 但如果你点名要「**最新款**」（带 tag 拉取），店员不会直接给你货架上的，而是**先打个电话回总部确认有没有更新的批次**——电话打不通，这次就悬了。
+
+---
+
+### 1.5 凭据流向：为什么前缀重写在账号安全上更干净
+
+这是一个很容易被忽略、但影响账号安全的差异。
+
+Docker 上游仓库里有一个至今（2021-02-13 提交，**截至抓取时仍处于开启状态** <!-- C9 -->，见 [moby/moby Issue #42022](https://github.com/moby/moby/issues/42022)）未关闭的 issue，标题就叫「Docker Hub Credentials Leaking to Registry Mirrors」。原文：
+
+> If dockerd has registry mirrors configured, when you log into Docker Hub the mirrors start receiving the credentials on image pulls. This is a security risk, as mirrors shouldn't have access to your Docker Hub tokens.
+> <!-- C6 -->（[moby/moby #42022](https://github.com/moby/moby/issues/42022)）
+
+译：**如果 dockerd 配置了 registry mirrors，当你登录 Docker Hub 后，镜像站会在拉取时开始收到你的凭据。这是安全风险——镜像站不该有权限拿到你的 Docker Hub token。**
+
+而且它不只是「有风险」这么抽象，还有一个实打实的副作用：
+
+> It also has the side effect of preventing some registry mirrors from working properly. GCR for example tries to authenticate with the Docker Hub credentials sent and fails, making all requests return an unauthorized error response.
+> <!-- C7 -->（同上）
+
+译：**它还会让某些镜像站无法正常工作。比如 GCR 会尝试用发来的 Docker Hub 凭据认证，认证失败后所有请求都返回 unauthorized。**
+
+也就是说，走 `registry-mirrors` 这条路，你的 Hub 凭据是会被「顺带转发」给第三方的——这是机制决定的，不是某家镜像站的问题。
+
+issue 里给出的复现思路 <!-- C8 -->（P3 决议：**只收录命令，不展开安全研究细节**）：
+
+```text
+# 执行位置：本机 dockerd 调试环境（来自 moby/moby #42022，仅列命令）
+dockerd --debug --registry-mirror=https://mirror.gcr.io
+docker pull docker
+
+# 随后抓取发往镜像站的 HTTP 请求，观察其 authorization header。
+# 结论：该 header 中携带了 Docker Hub 凭据。此处不复现细节。
+```
+
+> [!warning] 以下是 [推论]，不是 issue 原文
+> **前缀重写式不把镜像站注册成 Hub 镜像，因此不存在上面这条凭据转发路径。**
+>
+> 这是**我的推理，issue 本身并没有说这句话**。依据是机制差异：`registry-mirrors` 下你的 Hub 凭据是被 dockerd 主动转发出去的；而前缀重写下你根本没有配置任何镜像，凭据是你**主动**用 `docker login` 交给厚浪自己的（C20）。两条路径在机制上不重叠，所以推论成立——但它仍是推论，**没有一手来源直接证实「厚浪不会碰你的 Hub 凭据」**。
+
+> [!tip] 大白话
+> `registry-mirrors` 像**你把 Hub 的门禁卡复印了一份，交给小区门口所有代收点**——你只是想让人帮你取快递，结果每个代收点都拿到了你家的门禁卡。
+> 前缀重写则是**你另外办了一张厚浪自己的取件卡**（`docker login mirror.houlang.cloud`），Hub 那张卡始终揣在自己兜里，没给过任何人。
+
+---
+
+### 1.6 服务条款现状，以及本章的素材边界
+
+产品页「⚠️ 重要提示」一节的原文是：
+
+> 使用本服务前，请务必阅读并同意我们的[📜 使用协议](https://home.houlangs.com/?p=d0291245-fa62-413a-8d4f-3debf0f81a07)
+
+该链接指向的域名是 `home.houlangs.com`。本轮通过 DNS 复核（阿里 DoH）查询该域名，返回 **`Status: 3`，即 NXDOMAIN（域名不存在）** <!-- D3 -->（来源：S5 产品页链接 + 本机 DNS 复核）。同一张产品页上的「厚浪云知识库」链接也指向同一域名下的路径，同样不可达。
+
+这一条事实有两个后果，本质上是同一件事的两面：
+
+> [!warning] 后果一：那个链接不要点，也不要推荐
+> **该条款链接当前已失效。** 这不是「可能打不开」，是域名已不存在。请注意：
+> - 不要照抄旧笔记或旧教程里的 `home.houlangs.com` 链接；
+> - 不要向他人推荐这个地址；
+> - 如果你要在笔记或文档里引用厚浪的条款，**不要用这个链接**。
+>
+> 仍在正常工作的是知识库域名 `home.houlang.cloud`（官方教程就在那里）。
+
+> [!warning] 后果二（开放问题 Q6）：条款与隐私政策原文不可获取
+> 由于托管域名已 NXDOMAIN，本轮无法取得服务条款与隐私政策的任何文本。因此：
+> - 本笔记**不陈述**厚浪的条款内容、数据留存策略、凭据处理承诺；
+> - 任何「官方说不会记录你的令牌」这类表述，**没有来源支撑，一律不得写入**。
+
+#### 1.6.1 本章的素材边界
+
+> [!note] 没有独立第三方基准
+> 本章也无法给出该服务的**独立第三方端到端基准测试**——本轮研究未发现任何有数据、有复现方法的第三方测评（这是 P1 探测阶段就登记在案的覆盖缺口）。所以本章对性能的描述只复述官方口径（C15），不替它背书。
+
+---
+
+### 1.7 同类方案对照：前缀重写的两种写法
 
 同为「前缀重写式」，不同厂商的写法并不一样。以 DaoCloud 的公开镜像加速文档为例（**二手来源：同类厂商自述**），它明确给了两种：
 
@@ -230,11 +335,11 @@ HTTPS_PROXY=http://127.0.0.1:7890
 
 厚浪的写法是第三种：**用短后缀替换上游主机名**。
 
-| 厂商 | 写法 | 示例 | 是否需要白名单 |
-| --- | --- | --- | --- |
-| DaoCloud | 增加前缀（保留上游主机名） | `m.daocloud.io/k8s.gcr.io/coredns/coredns` | 是（600+ 收录，需提 PR 扩充） |
-| DaoCloud | 修改仓库前缀（换成专属子域） | `k8s-gcr.m.daocloud.io/coredns/coredns` | 同上 |
-| 厚浪 | 短后缀替换上游主机名 | `mirror.houlang.cloud/k8s/...` | **[推论] 无白名单，可透传** |
+| 厂商       | 写法             | 示例                                         | 是否需要白名单             |
+| -------- | -------------- | ------------------------------------------ | ------------------- |
+| DaoCloud | 增加前缀（保留上游主机名）  | `m.daocloud.io/k8s.gcr.io/coredns/coredns` | 是（600+ 收录，需提 PR 扩充） |
+| DaoCloud | 修改仓库前缀（换成专属子域） | `k8s-gcr.m.daocloud.io/coredns/coredns`    | 同上                  |
+| 厚浪       | 短后缀替换上游主机名     | `mirror.houlang.cloud/k8s/...`             | **[推论] 无白名单，可透传**   |
 
 > [!warning] 最后一行是 [推论]
 > 「**厚浪没有白名单、任意该上游下的镜像都能透传**」这一条，**官方没有明说**，是从官网文案与其「直接用后缀替换即可，无需事先登记」的使用方式反推出来的（见 02 深度素材对 G-D 缺口的登记）。它**未经实测验证**，请当作待验证的推论，不要当作承诺。
@@ -245,6 +350,15 @@ HTTPS_PROXY=http://127.0.0.1:7890
 > 后缀代号就是**快递分区号**。DaoCloud 的写法像把「寄往 A 市的包裹，先寄到中转仓，包裹上仍写着 A 市」；厚浪的写法像「A 市的包裹统一写一个分区号 3」，仓分得清，但人得记住 3 号分区就是 A 市。白名单的差别则是：中转仓只收**登记过的**货（DaoCloud），还是**来者不拒**（厚浪，[推论]）。
 
 ---
+
+### 本章小结
+
+- 「镜像加速器」不是一种东西，而是三类：**原地镜像（`registry-mirrors`）/ 代理 / 前缀重写**。厚浪属于第三类，它**不改任何配置**，只改你填的镜像地址。
+- 厚浪填不进 `daemon.json` 的根因是官方原文 **C1：只有中心化的 Docker Hub 能被镜像**。填了也覆盖不到 gcr / ghcr / quay / nvcr / k8s / mcr / elastic / gitlab 中任何一个。
+- 拉取时厚浪扮演 **pull-through cache**：首次回源、后续命中缓存；**带 tag 拉取会回源校验 digest**（C3），所以「缓存里是旧版」通常不是故障原因。
+- 回退旧缓存的时长窗口 **无公开数值、未实测**（Q4），本章不给数字；服务条款与隐私政策原文 **不可获取**（Q6），条款链接已失效，**不要引导用户去点**。
+- 凭据上，`registry-mirrors` 会把 Hub 凭据转发给镜像站（C6/C7，issue 至今未关闭 C9）；**「前缀重写不存在这条路径」是 `[推论]`**，issue 本身没说这句话。
+- 与 DaoCloud 对照：它是**白名单制**（600+ 收录），厚浪用短后缀且 **[推论] 无白名单**。
 
 ### 下一章预告
 
@@ -358,7 +472,7 @@ HTTPS_PROXY=http://127.0.0.1:7890
 > <!-- C16 -->（同上）
 
 也就是说，**令牌和登录命令是一起给你的**，你不需要自己去拼这条命令。在控制台界面上，令牌页的主按钮文案是「创建新的访问令牌」/「创建令牌」，创建完成后会提供「复制登录命令」与「仅复制令牌」两个复制入口 <!-- S4b -->（来源：`sources/09_console_ui_strings.md`，实现细节）。**直接点「复制登录命令」**，省得自己拼错。
-![](assets/厚浪镜像HLmirror使用指南/file-20260914004033379.png)
+
 关于令牌本身，有一条来自实现细节的信息需要标注来源层级：
 
 > `docker login -u ${email} -p ${token} ${host}`
@@ -438,21 +552,23 @@ docker login -u your-email@example.com -p hlm_xxxxxxxxxxxxxxxx mirror.houlang.cl
 > HLmirror 支持 Docker Hub、GHCR 等多个镜像源，通过后缀区分。
 > <!-- C19 -->（同上）
 
+「通过后缀区分」——这就是「短后缀替换」这个写法的由来（第 1 章 1.7 已对照过它与 DaoCloud 写法的差别）。
+
 #### 9 个后缀速查表
 
 官方教程给出的后缀表如下（**逐字**，含原文的 `NVDIA` 拼写）：
 
-| 上游                           | 后缀代号      | 替换地址                            |
-| ---------------------------- | --------- | ------------------------------- |
-| Docker Hub                   | `dh`      | `mirror.houlang.cloud/dh/`      |
-| Google Container Registry    | `gcr`     | `mirror.houlang.cloud/gcr/`     |
-| Github Container Registry    | `ghcr`    | `mirror.houlang.cloud/ghcr/`    |
-| NVDIA NGC                    | `nvcr`    | `mirror.houlang.cloud/nvcr/`    |
-| Kubernetes Registry          | `k8s`     | `mirror.houlang.cloud/k8s/`     |
-| Microsoft Container Registry | `mcr`     | `mirror.houlang.cloud/mcr/`     |
-| Elastic Docker Registry      | `elastic` | `mirror.houlang.cloud/elastic/` |
-| registry.gitlab.com          | `gitlab`  | `mirror.houlang.cloud/gitlab/`  |
-| Quay                         | `quay`    | `mirror.houlang.cloud/quay/`    |
+| 上游 | 后缀代号 | 替换地址 |
+| --- | --- | --- |
+| Docker Hub | `dh` | `mirror.houlang.cloud/dh/` |
+| Google Container Registry | `gcr` | `mirror.houlang.cloud/gcr/` |
+| Github Container Registry | `ghcr` | `mirror.houlang.cloud/ghcr/` |
+| NVDIA NGC | `nvcr` | `mirror.houlang.cloud/nvcr/` |
+| Kubernetes Registry | `k8s` | `mirror.houlang.cloud/k8s/` |
+| Microsoft Container Registry | `mcr` | `mirror.houlang.cloud/mcr/` |
+| Elastic Docker Registry | `elastic` | `mirror.houlang.cloud/elastic/` |
+| registry.gitlab.com | `gitlab` | `mirror.houlang.cloud/gitlab/` |
+| Quay | `quay` | `mirror.houlang.cloud/quay/` |
 
 <!-- C19 -->（[《如何使用新版 HLmirror》](https://home.houlang.cloud/archives/ru-he-shi-yong-xin-ban-hlmirror)）
 
@@ -492,10 +608,10 @@ docker login -u your-email@example.com -p hlm_xxxxxxxxxxxxxxxx mirror.houlang.cl
 
 这两个例子恰好覆盖了改写时的两种形态，值得单独说清楚：
 
-| 情形 | 原地址长什么样 | 改写动作 | 例 |
-| --- | --- | --- | --- |
-| **地址里带上游主机名**（ghcr / quay / nvcr / gcr / k8s / mcr / elastic / gitlab） | `ghcr.io/<命名空间>/<镜像>:<标签>` | **把主机名整段换成** `mirror.houlang.cloud/后缀/`，后面路径原样保留 | `ghcr.io/immich-app/immich-server:v2.6.1` → `mirror.houlang.cloud/ghcr/immich-app/immich-server:v2.6.1` |
-| **地址里不带主机名**（Docker Hub 的简写） | `library/nginx:latest` 或 `nginx:latest` | 补上 `mirror.houlang.cloud/dh/` 前缀 | `library/nginx:latest` → `mirror.houlang.cloud/dh/library/nginx:latest` |
+| 情形                                                                     | 原地址长什么样                                 | 改写动作                                             | 例                                                                                                       |
+| ---------------------------------------------------------------------- | --------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| **地址里带上游主机名**（ghcr / quay / nvcr / gcr / k8s / mcr / elastic / gitlab） | `ghcr.io/<命名空间>/<镜像>:<标签>`              | **把主机名整段换成** `mirror.houlang.cloud/后缀/`，后面路径原样保留 | `ghcr.io/immich-app/immich-server:v2.6.1` → `mirror.houlang.cloud/ghcr/immich-app/immich-server:v2.6.1` |
+| **地址里不带主机名**（Docker Hub 的简写）                                           | `library/nginx:latest` 或 `nginx:latest` | 补上 `mirror.houlang.cloud/dh/` 前缀                 | `library/nginx:latest` → `mirror.houlang.cloud/dh/library/nginx:latest`                                 |
 
 第二种情形是最容易犯迷糊的：平时你敲 `docker pull nginx` 时，Docker 悄悄替你补上了 `docker.io/library/`；现在要换地址，你得**显式把这段补上去**，并且用 `dh` 这个后缀代表 Docker Hub。
 
