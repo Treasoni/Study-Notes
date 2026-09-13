@@ -816,6 +816,14 @@ services:
 
 两处 `image:` 都得改。上面这两行的改写依据就是第 2 章 2.5 的速查表：`nginx:latest` 走 `dh` 后缀（并补上 `library/` 这一层），`ghcr.io/...` 走 `ghcr` 后缀。漏掉 `api:` 那一行，`web` 走厚浪、`api` 走公网，跑起来一切正常，只是慢——**没有任何报错会提醒你漏了**。
 
+或是：
+**重新打标签为 Compose 所需的原镜像名：**
+
+```
+sudo docker tag mirror.houlang.cloud/xhongc/music_tag_web:latest xhongc/music_tag_web:latest
+```
+
+
 > [!warning] 别以为配一次就全自动
 > 前缀重写**没有"全局生效"这一说**。第 1 章 1.2 里的 `registry-mirrors` 和代理，都是"配置一次、之后所有 `docker pull` 自动改道"；前缀重写不走这条路，它是**每一处地址都要在写法上体现**。`docker pull` 时省下来的那份事，代价原封不动地转移到了"改文件"上。
 
