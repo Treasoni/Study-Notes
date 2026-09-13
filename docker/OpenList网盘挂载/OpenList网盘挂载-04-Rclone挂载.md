@@ -495,14 +495,45 @@ rclone mount openlist: /mnt/openlist-b \
 
 FUSE 默认只允许 root 使用 `allow_other`，这个限制可以由一个用户态配置项 `user_allow_other` 解除；该配置项写在 `/etc/fuse.conf`：
 
+方法一：
 ```bash
-# 取消 /etc/fuse.conf 里 user_allow_other 的注释
-sudo sed -i 's/# user_allow_other/user_allow_other/' /etc/fuse.conf
+sudo tee /etc/fuse.conf << 'EOF'
+# The file /etc/fuse.conf allows for the following parameters:
+#
+# user_allow_other - Using the allow_other mount option works fine as root, in
+# order to have it work as user you need user_allow_other in /etc/fuse.conf as
+# well. (This option allows users to use the allow_other option.) You need
+# allow_other if you want users other than the owner to access a mounted fuse.
+# This option must appear on a line by itself. There is no value, just the
+# presence of the option.
 
+user_allow_other
+
+# mount_max = n - this option sets the maximum number of mounts.
+# Currently (2014) it must be typed exactly as shown
+# (with a single space before and after the equals sign).
+
+#mount_max = 1000
+EOF
+```
+
+方法二：
+如果选择手动编辑：
+Bash
+```
+sudo nano /etc/fuse.conf
+```
+需要做的修改只有两处：
+1. 在第 3 行 `user_allow_other - Using...` 最前面补上 `#` （把它变回注释）。
+2. 找到中间单独一行的 `#user_allow_other`，删掉前面的 `#`，让它变成纯粹的 `user_allow_other`
+![](assets/OpenList网盘挂载-04-Rclone挂载/file-20260913011205962.png)
+
+```bash
 # 验证
 grep user_allow_other /etc/fuse.conf
 # 预期输出：user_allow_other
 ```
+
 
 `allow_other` 在 OpenList 场景下为什么重要：第 5 章要把这个挂载点交给 Docker 容器，而容器里的进程 UID 往往不是你的登录用户，没有 `allow_other` 就会直接 `Permission denied`。
 
