@@ -10,11 +10,11 @@ topic: "厚浪镜像（HLmirror）镜像加速器使用方法"
 project_slug: "houlang-mirror-usage"
 created_at: "2026-09-13"
 last_updated: "2026-09-14"
-current_phase: P5
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
 blocked_reason: ""
-quality_gate: pending
+quality_gate: passed
 quality_gate_owner: ""
 quality_gate_due: ""
 ---
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：houlang-mirror-usage
 > 项目标识：houlang-mirror-usage
 > 创建时间：2026-09-13
-> 当前阶段：阶段 5
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -98,35 +98,44 @@ quality_gate_due: ""
 ---
 
 ## 阶段 5：收尾组装
-- [ ] 所有章节文件已检查
-- [ ] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
-- [ ] 过渡语已添加
-- [ ] 目录已生成
-- [ ] 标题层级已统一
-- [ ] 引用已检查
-- [ ] 完整笔记已保存：`./output/final_note.md`
+- [x] 所有章节文件已检查
+- [x] 组装方式已确认（A: 按顺序拼接）
+- [x] 过渡语已添加（各章自带「下一章预告」/「本章结束之后」，未另造）
+- [x] 目录已生成（`## 目录`，3 章 24 节，纯文本无 wikilink）
+- [x] 标题层级已统一（H1 文档标题 ×1 / H2 章节 ×3 + 目录 / H3 节 ×28 / H4 子节 ×15）
+- [x] 引用已检查（逐字引文回源比对通过；C/S 锚点原样保留）
+- [x] 完整笔记已保存：`./output/final_note.md`（77,533 B，1063 行）
 
-> [P5] 🔲 进行中 {in_progress}
+> **父进程保真校验（2026-09-14）**：以围栏感知脚本按章切段逐行比对，三章 312 / 411 / 303 行**全部逐行一致**（PASS）。组装仅做四类改动：加 H1 标题、加目录、标题降一级、章间插 `---`；正文、Callout、代码块、表格、HTML 锚点均零改动。
+
+> [P5] ✅ 已完成 {complete}
 
 ---
 
 ## 阶段 6：Obsidian 美化与发布
-- [ ] 已读取 Obsidian 输出规则
-- [ ] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
-- [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
-- [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
+- [x] 已读取 Obsidian 输出规则（`.claude/rules/obsidian/note-system.md`）
+- [x] 用户已确认最终保存位置（vault `D:\Study-Notes`，目录 `docker/`）
+- [x] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
+- [x] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> **P6 产出（2026-09-14）**
+> - 发布：`docker/厚浪镜像HLmirror使用指南.md`（78,947 B / 1080 行）；frontmatter 补 `title/created/updated/tags/status/source_project/sources`（8 条 URL 全部加引号，避免 YAML 特殊字符解析失败）。
+> - 双链 6 条，全部经 `os.path.exists` + 全 vault 唯一性校验通过：`镜像加速器vs代理-概念对比` / `DockerDesktop镜像加速器配置` / `docker进行代理` / `GHCR 推送镜像权限配置` / `docker镜像拉取DNS解析超时排错` / `Docker与DockerCompose命令速查`。全部为裸名链接，无锚点（避开含反引号/箭头的标题）。
+> - 既有笔记订正：`docker/镜像加速器vs代理-概念对比.md` 仅在概述后加一个 `[!warning]` 订正块（含三类机制小表 + 指向新笔记），并把 `updated` 改为 2026-09-14；**正文未改动**。
+
+> [P6] ✅ 已完成 {complete}
 
 ---
 
 ## 阶段 7：MOC 同步
-- [ ] 已定位或创建 MOC 文件
-- [ ] 新笔记双链已加入 MOC
-- [ ] 已去重并更新摘要/标签
-- [ ] MOC 只保留索引，不复制正文
+- [x] 已定位或创建 MOC 文件（`docker/Docker MOC.md`，已存在）
+- [x] 新笔记双链已加入 MOC（快速导航「加速拉取镜像」+ 二、网络配置 →「镜像加速」分组）
+- [x] 已去重并更新摘要/标签（`updated` → 2026-09-14；更新日志补一条并记录对既有笔记的订正）
+- [x] MOC 只保留索引，不复制正文（最长行 < 400 字符，无正文段落）
 
-> [P7] ⬜ 未开始
+> **P7 产出（2026-09-14）**：`docker/Docker MOC.md` 10,461 B / 171 行；新链接 3 处引用；全 MOC 25 条双链**全部可解析**（无死链）。
+
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -168,10 +177,10 @@ quality_gate_due: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战 + 速查（混合）
+- **总字数**：15,603 中文字 / 78,947 B（含 17 个代码块、75 行表格、55 个 Callout）
+- **章节数**：3 章（24 节；H1 文档标题 ×1 / H2 ×4 / H3 ×28 / H4 ×15）
+- **输出格式**：Obsidian Markdown
+- **文件路径**：`docker/厚浪镜像HLmirror使用指南.md`（项目内副本 `workspace/houlang-mirror-usage/output/final_note.md`）
+- **Obsidian Vault**：本 vault 根，目录 `docker/`
+- **MOC 路径**：`docker/Docker MOC.md`

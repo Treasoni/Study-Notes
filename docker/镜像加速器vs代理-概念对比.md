@@ -1,13 +1,26 @@
 ---
 tags: [docker, 镜像加速器, 代理, proxy, registry-mirror, 对比]
 created: 2026-03-28
-updated: 2026-08-08
+updated: 2026-09-14
 ---
 
 # Docker 镜像加速器 vs 代理 - 概念对比
 
 > [!info] 概述
 > **镜像加速器**和**代理**是 Docker 中两种完全不同的网络加速方案，很多初学者容易混淆。本文档将帮助你彻底理解两者的区别和适用场景。
+
+> [!warning] 订正（2026-09-14）：「镜像加速器」不止一类，本文只讲了第一类
+> 本文把「镜像加速器」等同于 **Registry Mirror**（即 `daemon.json` 的 `registry-mirrors`）。但这个词目前至少指**三类机制完全不同**的东西：
+>
+> | 类型 | 配置位置 | 覆盖哪些上游 |
+> | --- | --- | --- |
+> | ① 原地镜像（`registry-mirrors`）—— **本文讲的是这一类** | `daemon.json` | **仅 Docker Hub** |
+> | ② HTTP/HTTPS 代理 | 守护进程启动环境变量 / systemd drop-in | Docker Hub **及其他 registry** |
+> | ③ 前缀重写（如厚浪镜像） | 不配置，直接替换镜像地址 | Docker Hub、GHCR、GCR、Quay、nvcr、k8s、mcr、elastic、gitlab |
+>
+> 因此本文下表中「**只缓存 Docker Hub 的镜像**」「一句话定义 = Docker Hub 的镜像缓存服务器」等表述，**只对第 ① 类成立**——第 ③ 类前缀重写可覆盖上表列出的多个上游，不受此限。
+>
+> 完整的三类分野、以及前缀重写式加速器的实操（注册 → 令牌 → `docker login` → 改地址 → `docker pull`）见 [[厚浪镜像HLmirror使用指南]]。
 
 ---
 

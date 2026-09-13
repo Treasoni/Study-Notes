@@ -1,7 +1,7 @@
 ---
 title: Docker 知识索引
 created: 2026-04-06
-updated: 2026-09-12
+updated: 2026-09-14
 tags: [docker, MOC, 索引]
 
 ---
@@ -20,7 +20,7 @@ tags: [docker, MOC, 索引]
 | 查 Docker / Compose 常用命令 | [[Docker与DockerCompose命令速查]] |
 | 安装 Docker Desktop (Windows) | [[Windows-DockerDesktop安装指南-国内网络版]] |
 | 安装 Docker (Linux) | [[Linux-Docker与DockerCompose安装指南-国内网络版]] |
-| 加速拉取镜像 | [[DockerDesktop镜像加速器配置]] \| [[镜像加速器vs代理-概念对比]] |
+| 加速拉取镜像 | [[DockerDesktop镜像加速器配置]] \| [[镜像加速器vs代理-概念对比]] \| [[厚浪镜像HLmirror使用指南]] |
 | 配置容器代理 | [[docker进行代理]] |
 | 理解 Docker 网络 | [[Docker网络结构详解]] |
 | 更新容器版本 | [[docker容器如何更新]] |
@@ -51,6 +51,7 @@ tags: [docker, MOC, 索引]
 ### 镜像加速
 - [[DockerDesktop镜像加速器配置]] - Mac/Windows 镜像加速器配置方法
 - [[镜像加速器vs代理-概念对比]] - **核心概念**：镜像加速器与代理的区别和选择
+- [[厚浪镜像HLmirror使用指南]] - **前缀重写式加速器（厚浪 HLmirror）**：三类机制分野 + 注册→令牌→`docker login`→改地址→`docker pull` 全链路 + compose/k8s 改写代价与 5 个常见坑 #docker #镜像加速 #前缀重写
 - [[docker镜像拉取DNS解析超时排错]] - 镜像拉取 DNS 解析超时实战排错（systemd-resolved 超时 / 失效源占首位） #docker #排错
 
 ### 代理配置
@@ -156,6 +157,7 @@ tags: [docker, MOC, 索引]
 
 ## 更新日志
 
+- 2026-09-14：新增 [[厚浪镜像HLmirror使用指南]]（前缀重写式加速器完整指南：三类机制分野 / 全链路实操 / compose·k8s 改写代价 / 常见坑）；同日在 [[镜像加速器vs代理-概念对比]] 顶部补「镜像加速器不止一类」订正块
 - 2026-09-12：更新 [[OpenList网盘挂载-03-WebDAV服务]]（新增 §3.6「反向对照：OpenList 也能当 WebDAV 客户端」——补「地址/账号填谁的」方向对照，附坚果云、群晖 NAS、另一台 OpenList 三个实例；第 2 册 §2.6 加交叉双链）
 - 2026-09-12：新增 [[OpenList网盘挂载-00-总目录]]（OpenList → WebDAV → Rclone → Docker 全链路实战，6 册系列）
 - 2026-08-29：新增 [[Docker容器服务访问宿主机文件]]（容器读写宿主机文件的挂载/权限/安全完整实战）
