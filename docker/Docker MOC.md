@@ -42,7 +42,7 @@ tags: [docker, MOC, 索引]
 - [[Docker与DockerCompose命令速查]] - Docker 与 Docker Compose 命令入门速查（镜像/容器/网络/卷/Compose 编排/排错） #docker #docker-compose
 
 ### 基础概念
-- [[docker里的GID和UID]] - 容器用户权限映射，解决文件权限问题
+- [[docker里的GID和UID]] - **核心概念**：容器进程 UID/GID 与宿主目录属主怎么对账；三种解法（`chown` / `user:` / `PUID`·`PGID`）+ 排查三步 + 常见坑 #docker #权限 #UID
 
 ---
 
@@ -157,6 +157,7 @@ tags: [docker, MOC, 索引]
 
 ## 更新日志
 
+- 2026-09-14：重写 [[docker里的GID和UID]]（原为 4 节口语化小文，现为完整入门指南：概念 → 根因 → 三招解法 → 排查三步 → 常见坑；修正「PUID/PGID 是通用做法」的事实错误，补 frontmatter）
 - 2026-09-14：新增 [[厚浪镜像HLmirror使用指南]]（前缀重写式加速器完整指南：三类机制分野 / 全链路实操 / compose·k8s 改写代价 / 常见坑）；同日在 [[镜像加速器vs代理-概念对比]] 顶部补「镜像加速器不止一类」订正块
 - 2026-09-12：更新 [[OpenList网盘挂载-03-WebDAV服务]]（新增 §3.6「反向对照：OpenList 也能当 WebDAV 客户端」——补「地址/账号填谁的」方向对照，附坚果云、群晖 NAS、另一台 OpenList 三个实例；第 2 册 §2.6 加交叉双链）
 - 2026-09-12：新增 [[OpenList网盘挂载-00-总目录]]（OpenList → WebDAV → Rclone → Docker 全链路实战，6 册系列）
