@@ -25,8 +25,11 @@
 | S12 | moby/moby Issue #42022 | https://github.com/moby/moby/issues/42022 | 一手（上游仓库） | `08_github_com.md` |
 | S4 | mirror.houlang.cloud 前端 bundle | https://mirror.houlang.cloud/assets/index-BE1n8cWp.js | 一手（实现细节） | 未落盘（940KB，按需重取） |
 | S4b | 控制台界面文案（自 S4 提取） | 同 S4 | 一手（实现细节） | `09_console_ui_strings.md` |
+| S13 | Daemon proxy configuration（Docker 官方） | https://docs.docker.com/engine/daemon/proxy/ | 一手 | `10_docs_docker_daemon_proxy.md` |
 
-**层级统计**：一手 9 / 二手 1。本轮**未采用任何社区来源**——方向 3 被降级后，CSDN / 什么值得买 / 掘金 / V2EX 四篇均未进入证据链。
+**层级统计**：一手 10 / 二手 1。本轮**未采用任何社区来源**——方向 3 被降级后，CSDN / 什么值得买 / 掘金 / V2EX 四篇均未进入证据链。
+
+> **P4 期间补充 S13（2026-09-14，关闭「代理」行无来源的缺口）**：第 1 章初稿在 §1.2 三类对照表中列出了「HTTP/HTTPS 代理」一行，但本轮素材里**没有任何一手来源支撑它**，初稿只能加一条 `[!note]` 声明"本轮未收集到一手来源"。为消除这个弱点，补抓 Docker 官方 `Daemon proxy configuration` 页并落盘为 `10_docs_docker_daemon_proxy.md`。该行现已有一手依据（见 C25），原 `[!note]` 声明已从正文移除。
 
 > **P4 前补充（2026-09-14，关闭缺口 G-B）**：重新抓取前端 bundle 并提取控制台界面文案，落盘为 `sources/09_console_ui_strings.md`。结论：
 > - 控制台确有 **账号信息 / 访问令牌 / 用量 / 镜像源** 四个并列分区，与 S1「在『访问令牌』选项卡中新建令牌」一致；
@@ -48,6 +51,8 @@
 | C3 | pull-through cache 是"首次回源、后续本地命中，且带 tag 拉取时会回源校验" | S1b | "How does it work?" | "The first time you request an image from your local registry mirror, it pulls the image from the public Docker registry and stores it locally… When a pull is attempted with a tag, the Registry checks the remote to ensure if it has the latest version" |
 | C4 | 配置点是 `daemon.json` 的 `registry-mirrors` 键或 `--registry-mirror` 启动参数 | S1b | "Configure the Docker daemon" | "Either pass the `--registry-mirror` option when starting `dockerd` manually, or edit `/etc/docker/daemon.json` … and add the `registry-mirrors` key and value" |
 | C5 | dockerd 参考页对 `registry-mirrors` 只有一句描述，**没有**"仅 Docker Hub"的明文 | S1c | 配置项表格 | "`registry-mirrors` \| Specifies a list of registry mirrors." |
+| C25 | **代理覆盖「Docker Hub 及其他 registry」**——与 C1（registry-mirrors 仅限 Hub）形成分野 | S13 | 引言段 | "The daemon uses a proxy server to access images stored on Docker Hub and other registries, and to reach other nodes in a Docker swarm." |
+| C26 | 代理的配置位置是**守护进程启动环境变量**（`HTTP_PROXY`/`HTTPS_PROXY`/`NO_PROXY` 等），systemd 场景用 drop-in 文件 | S13 | "Environment variables" / "systemd unit file" | "The Docker daemon checks the following environment variables in its start-up environment to configure HTTP or HTTPS proxy behavior: HTTP_PROXY http_proxy HTTPS_PROXY https_proxy NO_PROXY no_proxy" |
 
 > C1 是 G1 缺口的填补答案，且是逐字官方原文。**这正是"厚浪不能填进 `daemon.json`"的根因**：填了也只能加速 Docker Hub，ghcr / quay / nvcr 一个都覆盖不到。
 
