@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AI 学习路线图 · 给新生</title>
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --bg-card: #141c2e;
+    --bg-card-2: #1c2540;
+    --primary: #00e0a4;
+    --primary-dim: #008f6a;
+    --accent: #3d9bff;
+    --accent-dim: #2566c4;
+    --text: #eaf0f8;
+    --text-2: #aebacb;
+    --text-3: #7c8aa0;
+    --divider: #24304a;
+    --danger: #ff6b6b;
+    --warn: #ffb84d;
+    --check: #00e0a4;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.6; }
+  body {
+    background:
+      radial-gradient(800px 400px at 20% 0%, rgba(0, 224, 164, 0.08), transparent),
+      radial-gradient(800px 400px at 80% 100%, rgba(61, 155, 255, 0.08), transparent),
+      var(--bg);
+    min-height: 100vh;
+  }
+  .container {
+    max-width: 720px; margin: 0 auto;
+    padding: 24px 16px 80px;
+  }
+  /* 顶部 hero */
+  .hero {
+    text-align: center;
+    padding: 32px 0 24px;
+    border-bottom: 1px solid var(--divider);
+    margin-bottom: 24px;
+  }
+  .hero .badge {
+    display: inline-block;
+    background: rgba(0, 224, 164, 0.12);
+    color: var(--primary);
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: 28px;
+    margin: 0 0 12px;
+    line-height: 1.3;
+    background: linear-gradient(120deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero .subtitle {
+    color: var(--text-2);
+    font-size: 14px;
+    margin: 0 0 16px;
+  }
+  .hero .meta {
+    color: var(--text-3);
+    font-size: 12px;
+  }
+  .hero .cta {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 20px;
+    background: var(--primary);
+    color: var(--bg);
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .hero .cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 224, 164, 0.3);
+  }
+  .hero .cta.secondary {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary-dim);
+    margin-left: 8px;
+  }
+  @media (max-width: 480px) {
+    .hero .cta { display: block; margin: 8px auto; max-width: 280px; }
+    .hero .cta.secondary { margin-left: auto; }
+  }
+  /* 章节 */
+  .section {
+    background: var(--bg-card);
+    border: 1px solid var(--divider);
+    border-radius: 12px;
+    padding: 20px 16px;
+    margin-bottom: 16px;
+  }
+  .section h2 {
+    font-size: 20px;
+    margin: 0 0 4px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section h2 .num {
+    width: 28px; height: 28px;
+    background: rgba(0, 224, 164, 0.15);
+    color: var(--primary);
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    font-size: 14px; font-weight: bold;
+  }
+  .section .sec-desc {
+    color: var(--text-3);
+    font-size: 13px;
+    margin: 0 0 16px;
+  }
+  /* 角色卡片 */
+  .role-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  @media (min-width: 600px) { .role-grid { grid-template-columns: 1fr 1fr 1fr; } }
+  .role-card {
+    background: var(--bg-card-2);
+    border: 1px solid var(--divider);
+    border-radius: 10px;
+    padding: 14px;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .role-card:hover { transform: translateY(-2px); border-color: var(--primary-dim); }
+  .role-card h3 {
+    font-size: 16px;
+    margin: 0 0 6px;
+    color: var(--primary);
+  }
+  .role-card .meta { font-size: 12px; color: var(--text-3); margin-bottom: 8px; }
+  .role-card ul { padding-left: 18px; margin: 6px 0; font-size: 13px; color: var(--text-2); }
+  .role-card li { margin: 2px 0; }
+  /* 阶段时间线 */
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 11px; top: 8px; bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--primary), var(--accent));
+    opacity: 0.4;
+  }
+  .phase {
+    position: relative;
+    margin-bottom: 18px;
+    padding: 14px;
+    background: var(--bg-card-2);
+    border: 1px solid var(--divider);
+    border-radius: 10px;
+  }
+  .phase::before {
+    content: "";
+    position: absolute;
+    left: -22px; top: 18px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--primary);
+    border: 3px solid var(--bg);
+  }
+  .phase.phase-advanced::before { background: var(--accent); }
+  .phase .ph-head {
+    display: flex; align-items: baseline; gap: 10px;
+    margin-bottom: 8px; flex-wrap: wrap;
+  }
+  .phase .ph-week {
+    color: var(--primary);
+    font-weight: bold;
+    font-size: 13px;
+  }
+  .phase.phase-advanced .ph-week { color: var(--accent); }
+  .phase .ph-title {
+    font-size: 16px; font-weight: bold;
+  }
+  .phase .ph-goal {
+    font-size: 13px;
+    color: var(--text-2);
+    margin-bottom: 10px;
+  }
+  .phase ul {
+    list-style: none;
+    padding: 0; margin: 0;
+  }
+  .phase li {
+    font-size: 13px;
+    color: var(--text-2);
+    padding: 4px 0 4px 22px;
+    position: relative;
+  }
+  .phase li::before {
+    content: "▸";
+    position: absolute;
+    left: 6px; top: 4px;
+    color: var(--primary);
+    font-size: 12px;
+  }
+  .phase.phase-advanced li::before { color: var(--accent); }
+  /* 复选框(checklist) */
+  .checklist { display: flex; flex-direction: column; gap: 8px; }
+  .checklist label {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 12px;
+    background: var(--bg-card-2);
+    border: 1px solid var(--divider);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .checklist label:hover { border-color: var(--primary-dim); }
+  .checklist input[type="checkbox"] {
+    appearance: none;
+    width: 18px; height: 18px;
+    border: 2px solid var(--text-3);
+    border-radius: 4px;
+    margin: 0;
+    cursor: pointer;
+    flex-shrink: 0;
+    position: relative;
+    top: 1px;
+    transition: all 0.15s;
+  }
+  .checklist input[type="checkbox"]:checked {
+    background: var(--primary);
+    border-color: var(--primary);
+  }
+  .checklist input[type="checkbox"]:checked::after {
+    content: "✓";
+    color: var(--bg);
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .checklist label:has(input:checked) {
+    color: var(--text-3);
+    border-color: var(--primary-dim);
+    background: rgba(0, 224, 164, 0.04);
+  }
+  .checklist label:has(input:checked) span {
+    text-decoration: line-through;
+  }
+  .checklist span { flex: 1; font-size: 14px; }
+  .checklist small { display: block; color: var(--text-3); font-size: 12px; margin-top: 2px; }
+  /* 提示框 */
+  .callout {
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+  .callout.warn {
+    background: rgba(255, 184, 77, 0.08);
+    border-left: 3px solid var(--warn);
+    color: #ffd699;
+  }
+  .callout.tip {
+    background: rgba(0, 224, 164, 0.08);
+    border-left: 3px solid var(--primary);
+  }
+  .callout.danger {
+    background: rgba(255, 107, 107, 0.08);
+    border-left: 3px solid var(--danger);
+  }
+  /* 资源链接 */
+  .resources {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  @media (min-width: 600px) { .resources { grid-template-columns: 1fr 1fr; } }
+  .resource-card {
+    display: block;
+    padding: 12px 14px;
+    background: var(--bg-card-2);
+    border: 1px solid var(--divider);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s;
+  }
+  .resource-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .resource-card .rc-name {
+    font-size: 14px; font-weight: bold;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .resource-card .rc-desc { font-size: 12px; color: var(--text-3); }
+  /* 进度条 */
+  .progress {
+    background: var(--bg-card-2);
+    border-radius: 100px;
+    height: 8px;
+    margin: 12px 0;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    border-radius: 100px;
+    transition: width 0.5s;
+  }
+  .progress-text {
+    font-size: 12px;
+    color: var(--text-3);
+    margin-top: 4px;
+    display: flex; justify-content: space-between;
+  }
+  /* 折叠区 */
+  details {
+    margin: 8px 0;
+    background: var(--bg-card-2);
+    border: 1px solid var(--divider);
+    border-radius: 8px;
+    padding: 0;
+  }
+  details summary {
+    cursor: pointer;
+    padding: 12px 14px;
+    font-size: 14px;
+    color: var(--accent);
+    user-select: none;
+  }
+  details summary::before {
+    content: "▶";
+    font-size: 10px;
+    margin-right: 6px;
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  details[open] > summary { border-bottom: 1px solid var(--divider); }
+  details .detail-content {
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--text-2);
+  }
+  details code {
+    background: var(--bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--primary);
+  }
+  /* 底部 */
+  footer {
+    text-align: center;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid var(--divider);
+    color: var(--text-3);
+    font-size: 12px;
+    line-height: 1.8;
+  }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ===== Hero ===== -->
+  <div class="hero">
+    <div class="badge">给 2026 入学新生的 AI 学习路线图</div>
+    <h1>6 个月,从零到能做项目</h1>
+    <p class="subtitle">不是要你成为 AI 专家,而是让你在毕业前能独立交付一个 AI 应用</p>
+    <a href="#phase1" class="cta">查看 6 个月路线 ↓</a>
+    <a href="#progress" class="cta secondary">我的进度</a>
+    <p class="meta" style="margin-top: 16px;">基于 roadmap.sh / CampusX / DeepLearning.AI 整理 · 2026-09</p>
+  </div>
+
+  <!-- ===== 为什么大多数人失败 ===== -->
+  <div class="section">
+    <h2><span class="num">0</span>学 AI 之前,先看这些坑</h2>
+    <p class="sec-desc">每一条都是过来人的血泪——避免这些,你就超过了 80% 的人。</p>
+    <div class="callout danger">
+      <strong>❌ 不要追新工具</strong>:每隔几周就有个新框架刷屏,追不完的。基础比工具重要 10 倍。
+    </div>
+    <div class="callout warn">
+      <strong>❌ 不要只看不动手</strong>:看 10 小时教程,不如写 1 小时代码。
+    </div>
+    <div class="callout warn">
+      <strong>❌ 不要跳过基础</strong>:数学、Python 不扎实,学深度学习就是空中楼阁。
+    </div>
+    <div class="callout tip">
+      <strong>✅ 项目驱动</strong>:每学一个阶段就做一个可展示的项目,半年后你有 5-6 个真实作品。
+    </div>
+  </div>
+
+  <!-- ===== 三大角色选择 ===== -->
+  <div class="section">
+    <h2><span class="num">1</span>选你的方向</h2>
+    <p class="sec-desc">AI 行业有三个核心岗位,先想清楚你要做哪个(可以改,但别半年三跳)。</p>
+    <div class="role-grid">
+      <div class="role-card">
+        <h3>📊 数据科学家</h3>
+        <div class="meta">SQL · 统计 · 可视化</div>
+        <ul>
+          <li>从数据中发现洞察</li>
+          <li>做 A/B 测试、报表</li>
+          <li>工具:Pandas、SQL、Tableau</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <h3>🤖 ML 工程师</h3>
+        <div class="meta">PyTorch · 算法 · MLOps</div>
+        <ul>
+          <li>训练优化模型</li>
+          <li>把模型部署到生产</li>
+          <li>工具:PyTorch、MLflow</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <h3>⚡ AI 工程师</h3>
+        <div class="meta">LLM · RAG · Agent</div>
+        <ul>
+          <li>用预训练模型构建应用</li>
+          <li>2026 最热门、最容易上手</li>
+          <li>工具:LangChain、OpenAI API</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout tip" style="margin-top:16px;">
+      💡 <strong>本路线图默认方向 = AI 工程师</strong>(2026 最适合新生的岗位)。想做其它方向,把「GenAI」换成对应模块即可。
+    </div>
+  </div>
+
+  <!-- ===== 6 个月时间线 ===== -->
+  <div class="section" id="phase1">
+    <h2><span class="num">2</span>6 个月路线图</h2>
+    <p class="sec-desc">每周 15-20 小时(含上课)。下面是拆分到周的具体阶段。</p>
+    <div class="callout tip">
+      📅 总用时 <strong>26 周 ≈ 6 个月</strong>。零基础可完成。完成后能独立交付 AI 应用。
+    </div>
+
+    <div class="timeline">
+      <!-- Phase 1 -->
+      <div class="phase">
+        <div class="ph-head">
+          <span class="ph-week">第 1-4 周</span>
+          <span class="ph-title">基础建设</span>
+        </div>
+        <div class="ph-goal">🎯 能写 Python 脚本,会用 Git</div>
+        <ul>
+          <li>Python:类型提示、async/await、常用库</li>
+          <li>数据结构:列表/字典/集合/基础算法</li>
+          <li>Git:commit、branch、PR、协作</li>
+          <li>Linux 基础命令(必装环境)</li>
+        </ul>
+        <details>
+          <summary>📚 推荐资源</summary>
+          <div class="detail-content">
+            Python:<code>codecademy</code> / <code>《Automate the Boring Stuff》</code> 免费章节<br>
+            Git:<code>learngitbranching.js.org</code>(交互式)
+          </div>
+        </details>
+      </div>
+
+      <!-- Phase 2 -->
+      <div class="phase">
+        <div class="ph-head">
+          <span class="ph-week">第 5-8 周</span>
+          <span class="ph-title">数据处理</span>
+        </div>
+        <div class="ph-goal">🎯 能用 Pandas 清洗真实数据集</div>
+        <ul>
+          <li>NumPy:数组、向量化、广播机制</li>
+          <li>Pandas:DataFrame、清洗、聚合、时间序列</li>
+          <li>SQL:查询、JOIN、窗口函数</li>
+          <li>数学:线性代数基础、概率统计</li>
+        </ul>
+        <details>
+          <summary>📚 推荐资源</summary>
+          <div class="detail-content">
+            Pandas 官方教程 <code>pandas.pydata.org/docs</code><br>
+            SQL:<code>sqlbolt.co</code>(免费、交互式)<br>
+            数学:<code>Khan Academy</code> 线性代数 + 概率单元
+          </div>
+        </details>
+      </div>
+
+      <!-- Phase 3 -->
+      <div class="phase">
+        <div class="ph-head">
+          <span class="ph-week">第 9-14 周</span>
+          <span class="ph-title">机器学习</span>
+        </div>
+        <div class="ph-goal">🎯 能在 Kaggle 跑通一个分类任务</div>
+        <ul>
+          <li>监督学习:回归、分类(线性、SVM、树模型)</li>
+          <li>无监督学习:聚类、降维</li>
+          <li>Scikit-learn:Pipeline、GridSearch</li>
+          <li>XGBoost / LightGBM(结构化数据之王)</li>
+          <li>评估指标 + 偏差方差</li>
+        </ul>
+        <details>
+          <summary>🎯 阶段项目</summary>
+          <div class="detail-content">
+            Kaggle Titanic 或房价预测:<br>
+            1) EDA → 2) 特征工程 → 3) 模型训练 → 4) SHAP 可解释性<br>
+            代码开源到 GitHub,这是你第一份 AI 作品。
+          </div>
+        </details>
+      </div>
+
+      <!-- Phase 4 -->
+      <div class="phase">
+        <div class="ph-head">
+          <span class="ph-week">第 15-21 周</span>
+          <span class="ph-title">深度学习</span>
+        </div>
+        <div class="ph-goal">🎯 理解 Transformer 架构</div>
+        <ul>
+          <li>神经网络基础:前馈、反向传播</li>
+          <li>PyTorch:Tensor、自动求导、nn.Module</li>
+          <li>CNN:图像分类(ResNet)</li>
+          <li>RNN/LSTM:序列建模基础</li>
+          <li><strong>Transformer:注意力机制</strong>(必考)</li>
+        </ul>
+        <details>
+          <summary>📚 推荐资源</summary>
+          <div class="detail-content">
+            <code>3blue1brown 神经网络</code> 系列(B 站有搬运)<br>
+            PyTorch 官方教程 <code>pytorch.org/tutorials</code><br>
+            Transformer 论文:Attention Is All You Need(读完摘要 + 1.2 节)
+          </div>
+        </details>
+      </div>
+
+      <!-- Phase 5 -->
+      <div class="phase phase-advanced">
+        <div class="ph-head">
+          <span class="ph-week">第 22-25 周</span>
+          <span class="ph-title">GenAI & RAG(核心)</span>
+        </div>
+        <div class="ph-goal">🎯 部署一个会回答问题的 AI 助手</div>
+        <ul>
+          <li>LLM API 调用(OpenAI / Anthropic / DeepSeek)</li>
+          <li>Prompt Engineering:少样本、CoT、ReAct</li>
+          <li>向量数据库:Chroma / Qdrant / Pinecone</li>
+          <li>RAG 架构:检索 → 增强 → 生成</li>
+          <li>LangChain 或 LlamaIndex 框架</li>
+        </ul>
+        <details>
+          <summary>🎯 阶段项目</summary>
+          <div class="detail-content">
+            文档问答机器人:<br>
+            上传 50 篇 PDF → 用 RAG 回答用户问题<br>
+            部署到云端,生成可访问的 URL,这是你的求职作品。
+          </div>
+        </details>
+      </div>
+
+      <!-- Phase 6 -->
+      <div class="phase phase-advanced">
+        <div class="ph-head">
+          <span class="ph-week">第 26 周+</span>
+          <span class="ph-title">作品集 + 求职准备</span>
+        </div>
+        <div class="ph-goal">🎯 GitHub 有 5-6 个完整项目</div>
+        <ul>
+          <li>GitHub 个人主页 + README</li>
+          <li>技术博客(记录学习过程)</li>
+          <li>准备面试:RAG 系统设计题、Python 算法题</li>
+          <li>参与开源(哪怕只是文档修正)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 进度跟踪 ===== -->
+  <div class="section" id="progress">
+    <h2><span class="num">3</span>你的进度</h2>
+    <p class="sec-desc">勾选你已经掌握的技能,浏览器会自动记住(仅本机,不清除浏览器数据就不会丢)。</p>
+    <div class="progress">
+      <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+    </div>
+    <div class="progress-text">
+      <span id="progressText">0 / 16 已掌握</span>
+      <span id="progressPct">0%</span>
+    </div>
+
+    <div class="checklist" id="checklist">
+      <label><input type="checkbox" data-id="p1-1"><span>Python:写函数、用列表/字典/循环<small>第 1-2 周</small></span></label>
+      <label><input type="checkbox" data-id="p1-2"><span>Python:类型提示 + async/await<small>第 3 周</small></span></label>
+      <label><input type="checkbox" data-id="p1-3"><span>Git:commit / branch / merge / 冲突解决<small>第 4 周</small></span></label>
+      <label><input type="checkbox" data-id="p2-1"><span>NumPy:数组运算、广播<small>第 5-6 周</small></span></label>
+      <label><input type="checkbox" data-id="p2-2"><span>Pandas:DataFrame 清洗 + 聚合<small>第 7 周</small></span></label>
+      <label><input type="checkbox" data-id="p2-3"><span>SQL:JOIN / GROUP BY / 窗口函数<small>第 8 周</small></span></label>
+      <label><input type="checkbox" data-id="p3-1"><span>sklearn:完整 ML Pipeline<small>第 9-11 周</small></span></label>
+      <label><input type="checkbox" data-id="p3-2"><span>XGBoost/LightGBM 结构化数据建模<small>第 12-13 周</small></span></label>
+      <label><input type="checkbox" data-id="p3-3"><span>模型评估 + SHAP 可解释性<small>第 14 周</small></span></label>
+      <label><input type="checkbox" data-id="p4-1"><span>PyTorch:Tensor / 自动求导 / nn.Module<small>第 15-16 周</small></span></label>
+      <label><input type="checkbox" data-id="p4-2"><span>CNN 图像分类<small>第 17-18 周</small></span></label>
+      <label><input type="checkbox" data-id="p4-3"><span>Transformer 注意力机制 + 论文能讲<small>第 19-21 周</small></span></label>
+      <label><input type="checkbox" data-id="p5-1"><span>LLM API 调用 + Prompt Engineering<small>第 22 周</small></span></label>
+      <label><input type="checkbox" data-id="p5-2"><span>向量数据库(Chroma/Qdrant/Pinecone)<small>第 23 周</small></span></label>
+      <label><input type="checkbox" data-id="p5-3"><span>RAG 系统端到端 + 部署上线<small>第 24-25 周</small></span></label>
+      <label><input type="checkbox" data-id="p6-1"><span>GitHub 有 5+ 项目,README 完整<small>第 26 周+</small></span></label>
+    </div>
+
+    <div class="callout warn" style="margin-top: 16px;">
+      💡 进度数据保存在你浏览器的 localStorage 里。换浏览器/清缓存会重置,不影响其他人。
+    </div>
+  </div>
+
+  <!-- ===== 常见问题 ===== -->
+  <div class="section">
+    <h2><span class="num">4</span>常见疑问</h2>
+    <details>
+      <summary>需要数学很好吗?</summary>
+      <div class="detail-content">
+        基础阶段:线性代数、概率统计(大学水平即可)<br>
+        应用阶段:理解梯度下降、损失函数的直觉就够了<br>
+        进阶研究:才需要深数学。本路线图是应用路线,数学够用就行。
+      </div>
+    </details>
+    <details>
+      <summary>需要从零训练大模型吗?</summary>
+      <div class="detail-content">
+        <strong>不需要。</strong>AI 工程师的核心是<em>用好</em>预训练模型(调 API、搭 RAG),不是<em>造</em>模型。
+        微调(LoRA/QLoRA)某些场景需要,但不是主菜。
+      </div>
+    </details>
+    <details>
+      <summary>Python 必须精通吗?</summary>
+      <div class="detail-content">
+        是。必备技能:类型提示、async/await、装饰器、生成器、上下文管理器。<br>
+        不需要深 C 级别的优化或写框架,但要"读得懂别人代码、写得稳自己代码"。
+      </div>
+    </details>
+    <details>
+      <summary>需要博士学历吗?</summary>
+      <div class="detail-content">
+        <strong>不需要。</strong>AI 工程师是应用岗,企业更看项目经验和工程能力。本科 + 扎实的技术栈 + 几个完整项目,求职够用。
+      </div>
+    </details>
+    <details>
+      <summary>6 个月学完真的能上手吗?</summary>
+      <div class="detail-content">
+        <strong>6 个月是"能独立做项目"</strong>。真正精通需要 1-2 年持续实践。<br>
+        先完成 6 个月路径,再根据兴趣深入某个方向(Agent / 多模态 / MLOps / 行业应用)。
+      </div>
+    </details>
+    <details>
+      <summary>每天要学多少时间?</summary>
+      <div class="detail-content">
+        课业外:每周 15-20 小时即可(每天 2-3 小时,或周末集中)。<br>
+        时间紧:拉长到 9-12 个月也行,关键是<strong>持续</strong>。
+      </div>
+    </details>
+  </div>
+
+  <!-- ===== 资源 ===== -->
+  <div class="section">
+    <h2><span class="num">5</span>免费/优质资源</h2>
+    <p class="sec-desc">学 AI 不用花一分钱,这些资源已经足够。</p>
+    <div class="resources">
+      <a class="resource-card" href="https://roadmap.sh/ai" target="_blank" rel="noopener">
+        <div class="rc-name">🗺️ roadmap.sh AI Engineer</div>
+        <div class="rc-desc">交互式路线图,本图主要参考</div>
+      </a>
+      <a class="resource-card" href="https://www.deeplearning.ai/" target="_blank" rel="noopener">
+        <div class="rc-name">🎓 DeepLearning.AI</div>
+        <div class="rc-desc">吴恩达创办,免费 LLM 专项课</div>
+      </a>
+      <a class="resource-card" href="https://python.langchain.com/" target="_blank" rel="noopener">
+        <div class="rc-name">🦜 LangChain 文档</div>
+        <div class="rc-desc">主流 LLM 应用框架</div>
+      </a>
+      <a class="resource-card" href="https://platform.openai.com/docs" target="_blank" rel="noopener">
+        <div class="rc-name">🤖 OpenAI Cookbook</div>
+        <div class="rc-desc">官方 LLM 实战代码</div>
+      </a>
+      <a class="resource-card" href="https://www.kaggle.com/learn" target="_blank" rel="noopener">
+        <div class="rc-name">📊 Kaggle Learn</div>
+        <div class="rc-desc">免费 micro-course + 实战数据集</div>
+      </a>
+      <a class="resource-card" href="https://pytorch.org/tutorials/" target="_blank" rel="noopener">
+        <div class="rc-name">🔥 PyTorch 官方教程</div>
+        <div class="rc-desc">60 分钟入门,深度学习主流框架</div>
+      </a>
+      <a class="resource-card" href="https://huggingface.co/learn" target="_blank" rel="noopener">
+        <div class="rc-name">🤗 Hugging Face 课程</div>
+        <div class="rc-desc">免费,模型 + Transformers + NLP</div>
+      </a>
+      <a class="resource-card" href="https://www.youtube.com/watch?v=99KPe5hIfnE" target="_blank" rel="noopener">
+        <div class="rc-name">🎬 CampusX 2026 AI Roadmap</div>
+        <div class="rc-desc">3 小时视频,本路线图主要参考</div>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <p>📅 整理日期:2026-09 · 仅供学习参考</p>
+    <p>基于 <a href="https://roadmap.sh/ai" target="_blank">roadmap.sh</a> / <a href="https://www.deeplearning.ai/" target="_blank">DeepLearning.AI</a> / <a href="https://www.youtube.com/watch?v=99KPe5hIfnE" target="_blank">CampusX</a> 等公开资料整理</p>
+    <p style="opacity: 0.6; margin-top: 12px;">进度复选框保存在浏览器 localStorage · 仅本地</p>
+  </footer>
+
+</div>
+
+<script>
+  // 进度复选框逻辑:localStorage 持久化
+  const STORAGE_KEY = "ai-roadmap-progress-v1";
+  const CHECKLIST = document.getElementById("checklist");
+  const FILL = document.getElementById("progressFill");
+  const TEXT = document.getElementById("progressText");
+  const PCT = document.getElementById("progressPct");
+
+  function load() {
+    let saved = {};
+    try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch(e) { saved = {}; }
+    CHECKLIST.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      if (saved[cb.dataset.id]) cb.checked = true;
+    });
+    update();
+  }
+
+  function save() {
+    const state = {};
+    CHECKLIST.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      state[cb.dataset.id] = cb.checked;
+    });
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+    update();
+  }
+
+  function update() {
+    const all = CHECKLIST.querySelectorAll('input[type="checkbox"]');
+    const done = CHECKLIST.querySelectorAll('input[type="checkbox"]:checked').length;
+    const pct = Math.round(done / all.length * 100);
+    FILL.style.width = pct + "%";
+    TEXT.textContent = done + " / " + all.length + " 已掌握";
+    PCT.textContent = pct + "%";
+  }
+
+  CHECKLIST.addEventListener("change", save);
+  load();
+</script>
+</body>
+</html>

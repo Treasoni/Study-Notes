@@ -436,7 +436,7 @@ umount /mnt/openlist
 ```
 rclone mount openlist:/夸克网盘/音乐 ~/openlist/music \
   --vfs-cache-mode full \
-  --vfs-cache-max-size 500G \
+  --vfs-cache-max-size 10G \
   --daemon
 ```
 
@@ -573,7 +573,7 @@ mkdir -p ~/.local/log
 这份配置模板中有两处硬编码的占位符，直接保存是无法运行的：
 
 1. **`YOUR_USER`**：需要全部替换为你的 Ubuntu 用户名（从之前的终端提示符看，你的用户名是 `zhq`）。
-2. **`/mnt/openlist`**：需要替换为你实际想要挂载的目标本地路径（例如你在上一条测试的 `/home/zhq/openlist/music`）。
+2. **`/mnt/openlist`**：替换为你实际要挂载的目标本地路径，必须**先建好、且是空的**（做法见 4.5 节）。本册主挂载点沿用它；想再挂别的目录，另起一个 `/mnt/openlist-<用途>` 一类的路径（见第五步）。
 
 ```ini
 # /etc/systemd/system/rclone-openlist.service
@@ -585,7 +585,7 @@ After=network-online.target
 [Service]
 Type=notify
 User=YOUR_USER
-ExecStart=/usr/bin/rclone mount --config=/home/YOUR_USER/.config/rclone/rclone.conf --vfs-cache-mode full --vfs-cache-max-age 4h --vfs-fast-fingerprint  --allow-other --log-file=/home/YOUR_USER/.local/log/rclone_openlist.log --log-level INFO "openlist:" /mnt/openlist
+ExecStart=/usr/bin/rclone mount --config=/home/YOUR_USER/.config/rclone/rclone.conf --vfs-cache-mode full --vfs-cache-max-age 4h --vfs-fast-fingerprint --allow-other --log-file=/home/YOUR_USER/.local/log/rclone_openlist.log --log-level INFO "openlist:" /mnt/openlist
 ExecStop=/bin/fusermount3 -u /mnt/openlist
 Restart=always
 RestartSec=10
@@ -606,7 +606,7 @@ WantedBy=default.target
 | `Restart=always` / `RestartSec=10` | 挂载掉线后自动重启，间隔 10 秒 |
 | `WantedBy=default.target` | 开机自启 |
 
-其中三个参数单独解释一下：
+其中两个参数单独解释一下：
 
 - `--vfs-cache-max-age 4h`：缓存对象在最后一次访问后保留 4 小时；
 - `--vfs-fast-fingerprint`：指纹计算时跳过快操作，**准确度略降但快得多**，能改善缓存文件的打开速度；
@@ -617,14 +617,74 @@ WantedBy=default.target
 
 另外，新版 Ubuntu 的 AppArmor 可能拦截挂载，报错形如 `fusermount3: mount failed: Permission denied`。官方给出的处理是 `sudo aa-disable /usr/bin/fusermount3`（可能需要先 `apt install apparmor-utils`）。禁用安全模块本身有代价，只在你确实撞上、且确认是 AppArmor 导致时才用。
 
-### 第四步：启用并验证
+### 第四步：启用、验证与卸载
+
+前三步做完，unit 还只存在于你的编辑里——**必须落到 `/etc/systemd/system/`，systemd 才看得见它**。用 `tee` 写盘最省事（heredoc 的 `'EOF'` 带引号，阻止 shell 展开变量，正好让里面的路径原样写死）：
+
+```bash
+sudo tee /etc/systemd/system/rclone-openlist.service > /dev/null <<'EOF'
+[Unit]
+Description=rclone OpenList
+AssertPathIsDirectory=/mnt/openlist
+After=network-online.target
+
+[Service]
+Type=notify
+User=YOUR_USER
+ExecStart=/usr/bin/rclone mount --config=/home/YOUR_USER/.config/rclone/rclone.conf --vfs-cache-mode full --vfs-cache-max-age 4h --vfs-fast-fingerprint --allow-other --log-file=/home/YOUR_USER/.local/log/rclone_openlist.log --log-level INFO "openlist:" /mnt/openlist
+ExecStop=/bin/fusermount3 -u /mnt/openlist
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target
+EOF
+```
+
+内容就是第三步那份 unit，`YOUR_USER` 换成 `zhq`、`/mnt/openlist` 换成你实际要挂的本地目录，按第三步的占位符说明替换即可。
+
+#### 启用
+
+```bash
+sudo systemctl daemon-reload                  # 让 systemd 重新读取 unit 文件；少这一步，它看不见你刚写的文件
+sudo systemctl enable --now rclone-openlist.service
+```
+
+`enable` 是登记开机自启，`--now` 是顺带立刻启动，两条命令合一。
+
+#### 验证四连
+
+```bash
+systemctl status rclone-openlist.service        # 预期 Active: active (running)
+systemctl is-enabled rclone-openlist.service    # 预期 enabled
+ls -l /mnt/openlist                             # 预期看到第 2 章挂进来的目录
+mount | grep /mnt/openlist                      # 预期看到一条 FUSE 挂载行
+```
+
+因为是 `Type=notify`，`running` 不只是"进程活着"，而是**挂载点已就绪**——所以 `status` 与 `ls` 应当同时成立。若 `status` 是 `running` 而 `ls` 空着，回第三步查 `Type=` 是否误写成了 `simple`。
+
+#### 改过 unit 之后
 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl enable --now rclone-openlist.service
+sudo systemctl restart rclone-openlist.service
+```
 
-systemctl status rclone-openlist.service
-# 预期：Active: active (running)
+> [!warning] 只 `restart` 不 `daemon-reload`，等于没改
+> systemd 只在 `daemon-reload` 时把 unit 文件重新读进内存。少这一步，跑的还是旧配置——现象是"参数改了完全没反应"，很容易被误判成"这个参数根本不起作用"。这两条命令请当成一个整体来记。
+
+#### 停止与卸载
+
+```bash
+sudo systemctl stop rclone-openlist.service   # 触发 ExecStop → fusermount3 -u
+ls -A /mnt/openlist                            # 卸载成功后应为空（无输出）
+mount | grep /mnt/openlist                     # 应无输出
+```
+
+注意停止 ≠ 取消开机自启：`stop` 只管这一次，下次开机仍会自动挂上（因为它还是 `enabled`）。要彻底关掉：
+
+```bash
+sudo systemctl disable --now rclone-openlist.service
 ```
 
 服务失败时优先直接看日志文件而不要只看 `journalctl`（信息更详细）：
@@ -632,6 +692,111 @@ systemctl status rclone-openlist.service
 ```bash
 cat ~/.local/log/rclone_openlist.log
 ```
+
+### 第五步：新加别的挂载
+
+> [!note] 一条铁律：一个挂载点 = 一个 unit = 一个 rclone 进程
+> `ExecStart` 一次只起一条 `rclone mount`。想同时挂两个目录（比如整体挂 `/mnt/openlist`，音乐再单独挂 `/mnt/openlist-music` 给播放器当专用媒体库），**不是去改现有 unit，而是再复制一份 unit**。
+
+#### 四步复制法
+
+1. 建新的空挂载点（沿用 4.5 节的规矩：**已存在**且**为空**）
+2. 复制现有 unit，按下面那张表改
+3. `daemon-reload` + `enable --now`
+4. 验证挂载点
+
+要改的地方，一张表对完：
+
+| 改哪 | 原值（第三步那份） | 新值 |
+|---|---|---|
+| **文件名** | `rclone-openlist.service` | `rclone-openlist-music.service` |
+| `Description=` | `rclone OpenList` | `rclone OpenList (音乐)` |
+| `AssertPathIsDirectory=` | `/mnt/openlist` | `/mnt/openlist-music` |
+| `ExecStart=` 的**远端路径** | `"openlist:"` | `"openlist:/夸克网盘/音乐"` |
+| `ExecStart=` 的**本地路径** | `/mnt/openlist` | `/mnt/openlist-music` |
+| `ExecStart=` 的 `--log-file` | `rclone_openlist.log` | `rclone_openlist_music.log` |
+| `ExecStart=` 的 `--cache-dir` | *（原 unit 没写）* | `--cache-dir=/var/cache/rclone/openlist-music` |
+| `ExecStop=` | `/mnt/openlist` | `/mnt/openlist-music` |
+
+#### 三样必须各自独立，不能共用
+
+| 项 | 共用的后果 | 做法 |
+|---|---|---|
+| `--log-file` | 两个进程往同一个文件写，内容交错、互相覆盖 | 一个挂载一个日志文件名 |
+| `--cache-dir` | **4.5 节风险一**：多实例共用同一份 VFS 缓存可能损坏数据 | 一个挂载一个缓存目录 |
+| `--vfs-cache-max-size` | 一个挂载吃光全部磁盘，另一个写不进去 | 各自设配额 |
+
+> [!warning] 最容易踩的一脚：默认 `--cache-dir` 本来就是共用的
+> 第三步那份 unit **没有写 `--cache-dir`**，于是它落在 rclone 的默认缓存目录。再加第二个挂载时如果照样不写，两个 rclone 进程就共用同一份缓存——**正是 4.5 节"风险一"点名要隔离的场景**。所以加第二个挂载的正确姿势是：**把新旧两个 unit 都补上各自的 `--cache-dir`**，而不是只给新加的那个补。
+
+#### 场景一：同一个 remote，挂不同子目录
+
+`openlist:` 这条 remote 不用动，只是把挂载目标换到它下面的某个子目录：
+
+```bash
+sudo mkdir -p /mnt/openlist-music
+sudo chown "$USER" /mnt/openlist-music
+```
+
+```ini
+# /etc/systemd/system/rclone-openlist-music.service
+[Unit]
+Description=rclone OpenList (音乐)
+AssertPathIsDirectory=/mnt/openlist-music
+After=network-online.target
+
+[Service]
+Type=notify
+User=YOUR_USER
+ExecStart=/usr/bin/rclone mount --config=/home/YOUR_USER/.config/rclone/rclone.conf --vfs-cache-mode full --vfs-cache-max-age 4h --vfs-fast-fingerprint --cache-dir=/var/cache/rclone/openlist-music --allow-other --log-file=/home/YOUR_USER/.local/log/rclone_openlist_music.log --log-level INFO "openlist:/夸克网盘/音乐" /mnt/openlist-music
+ExecStop=/bin/fusermount3 -u /mnt/openlist-music
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target
+```
+
+与第三步那份逐字对比，差别只有上表那几处。启用：
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable --now rclone-openlist-music.service
+systemctl status rclone-openlist-music.service
+ls -l /mnt/openlist-music
+```
+
+#### 场景二：另起一条新 remote
+
+如果新挂载连的**不是同一个 OpenList**（比如另一个 OpenList 实例，或坚果云之类的另一种 WebDAV），先按 4.3 的向导建一条新 remote：
+
+```bash
+rclone config            # 再走一遍向导，起个新名字，例如 openlist2
+rclone lsd openlist2:    # 先验证这条新 remote 通不通，再动 systemd
+```
+
+然后复制 unit，把 `ExecStart` 里的 `"openlist:"` 换成 `"openlist2:"`，其余照上表改。
+
+> [!tip] 不用复制配置文件
+> 一个 `~/.config/rclone/rclone.conf` 里可以放任意多条 remote。新 remote 只是让这个文件里多出一段 `[openlist2]`，`--config` 依旧指向同一个文件——不需要第二份 conf，也不需要改 `--config`。
+
+#### 删除一个挂载
+
+```bash
+sudo systemctl disable --now rclone-openlist-music.service   # 停掉并取消开机自启
+sudo rm /etc/systemd/system/rclone-openlist-music.service    # 删掉 unit 文件
+sudo systemctl daemon-reload                                 # 让 systemd 忘掉它
+ls -A /mnt/openlist-music                                    # 卸载成功后应为空
+```
+
+`disable --now` 里的 `--now` 会触发停止流程、进而执行 `ExecStop` 里的卸载，所以挂载点会自动卸掉，不用再手动 `fusermount3 -u` 一次。
+
+#### 命名对齐，出问题好查
+
+建议三处名字保持同构：unit 用 `rclone-<remote>-<用途>.service`，挂载点用 `/mnt/<remote>-<用途>`，日志用 `rclone_<remote>_<用途>.log`。出故障时看一眼 unit 名，就知道它对应哪个挂载点、日志在哪。
+
+> [!tip] 新挂载点也要给 Docker 用的话
+> 第 5 册 compose 里写的是 `${RCLONE_MOUNT:-/mnt/openlist}`，指向的是主挂载点。要把新的音乐挂载点也交给容器，这个变量（或那行 `--mount` 的 `src`）得相应改掉，并在 compose 里多写一条。
 
 ### 附：目录缓存刷新
 
@@ -696,6 +861,7 @@ systemctl status rclone-openlist.service
 - `--vfs-cache-mode` 默认 `off`，四档是本章主坑：`off` 读写直连远端、不支持读写同开、写不能 seek、上传失败**不能重试**；`writes` 支持全部常规操作并按指数间隔重试上传（最长 1 分钟）；`full` 连读也缓存、缓存是稀疏文件，**FAT/exFAT 上会性能崩并记 ERROR**。
 - 两条风险要主动隔离：多个 rclone 实例共用同一远端缓存**可能损坏数据**（用 `--cache-dir` 隔离）；`--attr-timeout` 窗口内远端文件长度变化可能表现为**截断或末尾乱码**。
 - systemd 集成：`Type=notify` 保证"服务 started 时挂载点已就绪"；systemd 下没有环境变量、`~` 不展开、PATH 回退到 `/bin:/usr/bin`，所以 `--config` / `--cache-dir` 必须写绝对路径。
+- 一个挂载点 = 一个 unit = 一个 rclone 进程。再加挂载是**复制 unit**、不是改现有 unit；每个实例必须有自己的 `--cache-dir` 和 `--log-file`——默认缓存目录本来就是共用的，不隔离就会撞上上面那条"风险一"。
 - 本机是 Windows + Git Bash，上述命令需在 WSL / NAS / 远程 Linux 宿主机执行；`--allow-other`、`--uid`、`--umask` 等参数**不支持 Windows**。
 
 ## 相关笔记
