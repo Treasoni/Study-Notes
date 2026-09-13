@@ -156,6 +156,24 @@ def merge_managed_hooks(
     return merged
 
 
+def missing_hook_scripts(config: dict[str, Any], root: Path) -> list[str]:
+    """Return referenced hook scripts that cannot be resolved to a real file.
+
+    The rendered config keeps host-local hook entries that the templates do not
+    manage, so validating only the template's own scripts lets a registration
+    outlive the deletion of its script: the hook then exits 2 on every event
+    while bootstrap still reports the config as current. Validate every script
+    the config actually references, not just the ones we just rendered.
+    """
+
+    missing: list[str] = []
+    for script in sorted(_hook_script_paths(config)):
+        pure = PurePosixPath(script)
+        if pure.is_absolute() or ".." in pure.parts or not (root / pure).is_file():
+            missing.append(script)
+    return missing
+
+
 def write_json_atomically(path: Path, data: dict[str, Any]) -> None:
     """Write formatted JSON through a sibling temporary file."""
 
@@ -231,7 +249,15 @@ def desired_outputs(
                 )
         config_path = root / profile["paths"]["hook_config"]
         current = _load_json_object(config_path, missing_ok=True)
-        outputs.append((config_path, merge_managed_hooks(current, desired)))
+        merged = merge_managed_hooks(current, desired)
+        if absent := missing_hook_scripts(merged, root):
+            raise ValueError(
+                f"{profile['id']}: {profile['paths']['hook_config']} registers hook "
+                "scripts that do not exist: "
+                + ", ".join(absent)
+                + " (remove the stale registration, or restore the script)"
+            )
+        outputs.append((config_path, merged))
     return outputs
 
 

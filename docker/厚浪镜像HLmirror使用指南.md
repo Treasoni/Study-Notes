@@ -107,11 +107,11 @@ sources:
 
 「镜像加速器」在 2026 年至少指下面三类东西。它们的配置位置、覆盖范围、以及**你为此要付出的代价**完全不同：
 
-| 类型 | 典型形态 | 配置位置 | 覆盖哪些上游 | 你的凭据流向 | 对文件改动的要求 |
-| --- | --- | --- | --- | --- | --- |
-| **原地镜像**（registry mirror） | `registry-mirrors` | `daemon.json` 的 `registry-mirrors` 键，或启动 dockerd 时的 `--registry-mirror` 参数 <!-- C4 --> / Docker Desktop 的 Docker Engine 设置 | **仅 Docker Hub** <!-- C1 --> | Hub 凭据会被发给镜像站 <!-- C6 --> | 配置一次，**所有 `docker pull` 自动生效**，不用改任何镜像地址 |
-| **HTTP/HTTPS 代理** | `HTTP_PROXY` / `HTTPS_PROXY` | 守护进程启动环境变量；systemd 场景用 drop-in 文件 <!-- C26 --> | **Docker Hub 及其他 registry** <!-- C25 --> | 取决于代理是否做 TLS 中间人（通用机制推断） | 配置一次，全局生效 |
-| **前缀重写**（本笔记主角） | `mirror.houlang.cloud/{后缀}/...` | **不配置任何东西** | Docker Hub、GCR、GHCR、nvcr、k8s、mcr、elastic、gitlab、quay（共 9 个） <!-- C19 --> | 你主动 `docker login` 到镜像站本身 <!-- C20 --> | **每一处镜像地址都要手改**，compose / k8s manifest 里一个个改 |
+| 类型                        | 典型形态                            | 配置位置                                                                                                                       | 覆盖哪些上游                                                                   | 你的凭据流向                                 | 对文件改动的要求                                     |
+| ------------------------- | ------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | -------------------------------------- | -------------------------------------------- |
+| **原地镜像**（registry mirror） | `registry-mirrors`              | `daemon.json` 的 `registry-mirrors` 键，或启动 dockerd 时的 `--registry-mirror` 参数 <!-- C4 --> / Docker Desktop 的 Docker Engine 设置 | **仅 Docker Hub** <!-- C1 -->                                             | Hub 凭据会被发给镜像站 <!-- C6 -->              | 配置一次，**所有 `docker pull` 自动生效**，不用改任何镜像地址     |
+| **HTTP/HTTPS 代理**         | `HTTP_PROXY` / `HTTPS_PROXY`    | 守护进程启动环境变量；systemd 场景用 drop-in 文件 <!-- C26 -->                                                                             | **Docker Hub 及其他 registry** <!-- C25 -->                                 | 取决于代理是否做 TLS 中间人（通用机制推断）               | 配置一次，全局生效                                    |
+| **前缀重写**（本笔记主角）           | `mirror.houlang.cloud/{后缀}/...` | **不配置任何东西**                                                                                                                | Docker Hub、GCR、GHCR、nvcr、k8s、mcr、elastic、gitlab、quay（共 9 个） <!-- C19 --> | 你主动 `docker login` 到镜像站本身 <!-- C20 --> | **每一处镜像地址都要手改**，compose / k8s manifest 里一个个改 |
 
 > [!note] 关于「代理」一行
 > 覆盖范围一列依据 Docker 官方原文 **C25**（"access images stored on Docker Hub **and other registries**"），配置位置依据 **C26**。但「你的凭据流向」一列写的「取决于代理是否做 TLS 中间人」是**通用机制推断**——官方该页并未讨论代理下的凭据可见性，这一格不构成结论。

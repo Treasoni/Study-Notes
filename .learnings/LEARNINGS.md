@@ -70,3 +70,26 @@ workflow state template、`workflow-health-check.sh` 与 `note-beautifier`；
 - 报告疑似并发写入时，附「文件 / 行数 / mtime / 与 HEAD 的差异摘要」四要素，便于用户对照自己的其他会话。
 
 ---
+
+## [LRN-20260914-013] guard — 只校验「自己渲染的那部分」的守卫会给出空绿：hook 注册表指向已删脚本，bootstrap --check 仍报 OK
+
+**Logged**: 2026-09-14
+**Priority**: high
+**Status**: pending
+**Area**: Agent 平台配置 / bootstrap 校验
+
+### Summary
+`.claude/settings.json` 的 `Stop` 注册指向 `.claude/hooks/post_conversation.py`，而该脚本早在 2026-08-15（提交 `f0f8f8a5`）就被删除 —— 于是每次 Stop 都报一次 `can't open file ... [Errno 2] No such file or directory`。但 `.agent-sync/bootstrap.py --check` 全程报 `[OK] host-local hook settings are current`（exit 0）。根因：bootstrap 只校验**模板自己渲染出来的**脚本是否存在，而 `merge_managed_hooks` 会**原样保留**它不管理的本地条目 —— 「注册表里有、脚本却不存在」这一类恰恰落在校验盲区里。
+
+### Details
+- 事实：三处独立信号表明只有 SessionStart 是登记在册的 hook —— 模板 `.agent-sync/hook-templates/claude.json` 只有 SessionStart；`.codex/hooks.json` 只有 SessionStart；hook manifest 只有 `read-learnings` 一个。故「删脚本」方向对，「留下注册」才是残留。
+- 事实：`git show --stat f0f8f8a5` 显示 `.claude/hooks/post_conversation.py` 与 `.codex/hooks/post_conversation.py` 各删 98 行、两侧对称 → 是一次干净退役，注册表没跟上。
+- 根因：**守卫只覆盖自己产出的子集**。`merge_managed_hooks` 的存在意义就是保留本地条目，而这条保留路径没有任何校验，等价于「保留 = 免检」。
+- 修法：在 `desired_outputs` 里对 **merge 之后**的完整配置跑 `missing_hook_scripts()`，缺失即 `ValueError` → exit 2（不静默删、不静默过）。
+- 验证（红→绿双向）：加守卫后 `--check` 立刻 `[ERROR] claude: .claude/settings.json registers hook scripts that do not exist: .claude/hooks/post_conversation.py`（exit 2）；摘掉退役注册后恢复 `[OK]`（exit 0）。另向 `.codex/hooks.json` 瞬时注入一条死注册，`--check` 同样 exit 2 且点名 codex，注入后文件 sha256 逐字节还原。
+
+### Suggested Action
+- 凡是「合并 / 保留外部条目」的生成器，校验必须跑在**合并结果**上，而不是只跑本次渲染的子集；否则保留路径天然免检。
+- 退役一个 hook 时，删脚本与删注册必须同时做：脚本在 git 里被删，不会让注册表自动更新。
+
+---
