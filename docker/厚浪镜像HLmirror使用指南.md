@@ -358,7 +358,7 @@ HTTPS_PROXY=http://127.0.0.1:7890
 > <!-- C16 -->（同上）
 
 也就是说，**令牌和登录命令是一起给你的**，你不需要自己去拼这条命令。在控制台界面上，令牌页的主按钮文案是「创建新的访问令牌」/「创建令牌」，创建完成后会提供「复制登录命令」与「仅复制令牌」两个复制入口 <!-- S4b -->（来源：`sources/09_console_ui_strings.md`，实现细节）。**直接点「复制登录命令」**，省得自己拼错。
-
+![](assets/厚浪镜像HLmirror使用指南/file-20260914004033379.png)
 关于令牌本身，有一条来自实现细节的信息需要标注来源层级：
 
 > `docker login -u ${email} -p ${token} ${host}`
@@ -438,23 +438,21 @@ docker login -u your-email@example.com -p hlm_xxxxxxxxxxxxxxxx mirror.houlang.cl
 > HLmirror 支持 Docker Hub、GHCR 等多个镜像源，通过后缀区分。
 > <!-- C19 -->（同上）
 
-「通过后缀区分」——这就是「短后缀替换」这个写法的由来（第 1 章 1.7 已对照过它与 DaoCloud 写法的差别）。
-
 #### 9 个后缀速查表
 
 官方教程给出的后缀表如下（**逐字**，含原文的 `NVDIA` 拼写）：
 
-| 上游 | 后缀代号 | 替换地址 |
-| --- | --- | --- |
-| Docker Hub | `dh` | `mirror.houlang.cloud/dh/` |
-| Google Container Registry | `gcr` | `mirror.houlang.cloud/gcr/` |
-| Github Container Registry | `ghcr` | `mirror.houlang.cloud/ghcr/` |
-| NVDIA NGC | `nvcr` | `mirror.houlang.cloud/nvcr/` |
-| Kubernetes Registry | `k8s` | `mirror.houlang.cloud/k8s/` |
-| Microsoft Container Registry | `mcr` | `mirror.houlang.cloud/mcr/` |
-| Elastic Docker Registry | `elastic` | `mirror.houlang.cloud/elastic/` |
-| registry.gitlab.com | `gitlab` | `mirror.houlang.cloud/gitlab/` |
-| Quay | `quay` | `mirror.houlang.cloud/quay/` |
+| 上游                           | 后缀代号      | 替换地址                            |
+| ---------------------------- | --------- | ------------------------------- |
+| Docker Hub                   | `dh`      | `mirror.houlang.cloud/dh/`      |
+| Google Container Registry    | `gcr`     | `mirror.houlang.cloud/gcr/`     |
+| Github Container Registry    | `ghcr`    | `mirror.houlang.cloud/ghcr/`    |
+| NVDIA NGC                    | `nvcr`    | `mirror.houlang.cloud/nvcr/`    |
+| Kubernetes Registry          | `k8s`     | `mirror.houlang.cloud/k8s/`     |
+| Microsoft Container Registry | `mcr`     | `mirror.houlang.cloud/mcr/`     |
+| Elastic Docker Registry      | `elastic` | `mirror.houlang.cloud/elastic/` |
+| registry.gitlab.com          | `gitlab`  | `mirror.houlang.cloud/gitlab/`  |
+| Quay                         | `quay`    | `mirror.houlang.cloud/quay/`    |
 
 <!-- C19 -->（[《如何使用新版 HLmirror》](https://home.houlang.cloud/archives/ru-he-shi-yong-xin-ban-hlmirror)）
 
