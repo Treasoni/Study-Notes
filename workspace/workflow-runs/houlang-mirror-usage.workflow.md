@@ -10,8 +10,8 @@ topic: "厚浪镜像（HLmirror）镜像加速器使用方法"
 project_slug: "houlang-mirror-usage"
 created_at: "2026-09-13"
 last_updated: "2026-09-14"
-current_phase: P4
-current_status: in_progress
+current_phase: P5
+current_status: ready
 mode: outline
 blocked_reason: ""
 quality_gate: pending
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：houlang-mirror-usage
 > 项目标识：houlang-mirror-usage
 > 创建时间：2026-09-13
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -83,15 +83,17 @@ quality_gate_due: ""
 
 ## 阶段 4：逐章写作
 - [x] 第 1 章已写完并确认
-- [ ] 第 2 章已写完并确认
-- [ ] 第 3 章已写完并确认
+- [x] 第 2 章已写完并确认（`chapters/02_怎么用.md`，29,205 B / 5,806 中文字）
+- [x] 第 3 章已写完并确认（`chapters/03_进阶场景与常见坑.md`，23,388 B / 4,692 中文字）
 
-**进度**：1/3
+**进度**：3/3
+
+> **父进程引证复核（2026-09-14）**：三章逐字引文全部回源比对通过——C15/C16/C17/C18/C19 对 `sources/04`、C10/C11/C12 对 `sources/06`、C13 对 `sources/07`，均无改字；C1–C26 编号在 `02_deep_research.md` 均有定义行；第 3 章零个 ≥4 位数，无配额/限速编造；全章无 wikilink、无缩进表格。
 
 > **用户授权（2026-09-14）**：用户明确指示「全部写完」，授权第 2、3 章连续写作、不再逐章暂停确认。
 > 此为用户**显式豁免逐章确认检查点**，非流程跳过；阶段本身未跳过，检查点由用户主动放弃。
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
