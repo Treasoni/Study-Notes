@@ -7,7 +7,7 @@ tags:
   - HomeAssistant
   - 子网路由
 created: 2026-09-12
-updated: 2026-09-12
+updated: 2026-09-13
 status: 完成
 source_project: haos-tailscale-subnet-router
 ---
@@ -30,7 +30,7 @@ source_project: haos-tailscale-subnet-router
    - [3.1 最小可用路径：先能用](#31-最小可用路径先能用)
    - [3.2 更好的路径：Serve 给一个域名和证书](#32-更好的路径serve-给一个域名和证书)
    - [3.3 Funnel 与 `services`：先别急着开](#33-funnel-与-services先别急着开)
-   - [3.4 用 tailnet 名字访问：MagicDNS 怎么接才不炸](#34-用-tailnet-名字访问magicdns-怎么接才不炸)
+   - [3.4 出方向才需要：让 HA 用 tailnet 名字访问别的设备](#34-出方向才需要让-ha-用-tailnet-名字访问别的设备)
    - [3.5 直连还是中继：要不要开 `always_use_derp`](#35-直连还是中继要不要开-always_use_derp)
 4. [第 4 章 子路由：把 HAOS 变成 tailnet 的网关](#第-4-章-子路由把-haos-变成-tailnet-的网关)
    - [4.1 子路由在做什么：一句话和一条边界](#41-子路由在做什么一句话和一条边界)
@@ -256,9 +256,27 @@ Funnel 和 Serve 长得像，方向却相反：它会把 HA 暴露到公网，�
 
 `services` 选项解决另一个需求：用同一个域名把插件商店里的其他服务也露出来（文档举的例子是 audiobookshelf）。它有两条硬约束——只支持 Serve、不支持 Funnel；节点还必须先打上 tag 才能用。
 
-### 3.4 用 tailnet 名字访问：MagicDNS 怎么接才不炸
+### 3.4 出方向才需要：让 HA 用 tailnet 名字访问别的设备
 
-想让 HA 用 tailnet 名字访问别的设备，前提是 `userspace_networking` 处于关闭状态：只有关闭时，Tailscale 才会提供 `100.100.100.100` 这个 DNS。
+> [!info] 先分清方向：这一节不是给「访问 HA」用的
+> 本节解决的是 **HA → 别的 tailnet 设备**，也就是**出方向**。如果你只想要 tailnet 上的手机、笔记本能打开 HA，那 3.1–3.3 已经做完了，**本节整节都不用做**——包括下面那条 `ha dns options`。
+
+为什么入方向不需要它：名字是**发起方**解析的。手机访问 HA，解析发生在手机上，是手机自己的 Tailscale 客户端把 `ha.tail1234.ts.net` 变成 tailnet IP；HA 这侧不需要任何 DNS 配置，它只要「能被路由到」就行。插件文档把这个单向场景写得很直白——开着 `userspace_networking` 时「you get one-way access from tailnet clients to your Home Assistant instance」，也就是说「别人 → HA」这个方向本身就不依赖本节任何东西 [^c3-docs]。
+
+反过来，HA 自己要以名字主动连出去时，解析发生在 HA 内部、走的是 `hassio_dns`，而它默认不认 tailnet 名字，才需要手工把 Tailscale 的 DNS 接上。
+
+> [!warning] 别把三件事混成一件
+> 这三个东西常被读成「同一个 MagicDNS」，实际各管一段：
+>
+> | 配置 | 在哪配 | 管什么 | 本节要不要 |
+> | --- | --- | --- | --- |
+> | MagicDNS / HTTPS Certificates 开关 | Tailscale 控制台 DNS 页 | 全 tailnet 的名字与证书，**入方向和出方向都受益** | 3.2 做 Serve 时已开；本节不靠它 |
+> | `ha dns options --servers dns://100.100.100.100` | HA 命令行 | 改 `hassio_dns` 的上游，**只影响 HA 自己往外解析** | 只有出方向需要，即本节内容 |
+> | `userspace_networking` | 插件配置页 | 有没有 `tailscale0`；决定 HA 是单向还是双向参与者 | 保持默认 `false` 不动 |
+>
+> 一句话：**控制台那个开关 ≠ 需要跑这条命令。**
+
+想让 HA 用 tailnet 名字访问别的设备，前提是 `userspace_networking` 处于关闭状态：只有关闭时，Tailscale 才会提供 `100.100.100.100` 这个 DNS（文档原文：When the `userspace_networking` option is disabled, Tailscale provides a DNS (at `100.100.100.100` and `fd7a:115c:a1e0::53`)）[^c3-docs]。
 
 接法有个反直觉点：不要在 HA 的 Network 页把 Tailscale DNS 设成 DNS 服务器，改用命令行：
 
@@ -283,6 +301,14 @@ ha dns restart
 > [!warning] 这条命令有个已知后果
 > 上面那条 `ha dns options` 有一个已知的严重后果，现象、成因与修法在第 7 章 7.4.4 节。照做之前先读那一节，别等 DNS 挂了再回头找。
 
+什么时候才真的需要它？只有当 **HA 自己要以名字主动连出去**，比如：
+
+- HA 里的集成要连 `nas.tail1234.ts.net` 上的服务；
+- 你在 HA 的终端或 SSH 插件里 `ping`、`curl` 别的 tailnet 设备；
+- 要把 HA 当双向网关用（对应第 8.1 节的 site-to-site 场景）。
+
+本文第 1.1 节列的三个目标都不属于上面任何一条，所以**照本文走完全程都不会用到这一节**。前面 3.1 说过，能直接用 tailnet IP 连的场合（`100.x.y.z`）就不必换成名字——为一个用不上的方向去担 7.4.4 那个 DNS loop 的风险，不划算。
+
 ### 3.5 直连还是中继：要不要开 `always_use_derp`
 
 `always_use_derp` 会强制所有 peer 通信走 DERP 中继、禁用 UDP：
@@ -300,7 +326,8 @@ P2P 到底有没有打通，别靠感觉判断，交给第 7 章的 `tailscale p
 > - Serve 给的是带证书的 tailnet 域名；前置是 HA 关 SSL/TLS、Reverse proxy 里启用 `Trust X-Forwarded-For` 并把 `127.0.0.1` 加进 `Trusted proxies`，以及控制台 DNS 页改名 + 开 MagicDNS + Enable HTTPS。
 > - `share_on_port` 只能 443 / 8443 / 10000，默认 443；域名生效可能最多 10 分钟。
 > - Funnel 会把 HA 推到公网，普通需求不要开；`services` 只支持 Serve，节点必须先打 tag。
-> - MagicDNS 靠 `ha dns options` 接，持久化、只需一次，代价是必须用 FQDN；`always_use_derp` 默认别开。
+> - 3.4 那条 `ha dns options` 是**出方向**（HA → 别的设备）才需要的：只做「tailnet 设备 → HA」的入方向不用碰它。命令持久化、只需一次，代价是必须用 FQDN。
+> - `always_use_derp` 默认别开。
 
 下一章把视角从「访问 HA 自己」扩到「访问 HA 所在的整个局域网」——配置子路由，把 HAOS 变成 tailnet 的网关。
 
@@ -780,3 +807,13 @@ tailscale up --snat-subnet-routes=false
 ### 8.3 下一步
 
 同主题还有两篇可作不同部署形态的参照：[[Tailscale使用教程]]（通用使用）与 [[Tailscale子网路由器部署教程]]（fnOS + Docker 部署），本篇只给链接，不展开。若想继续延伸，可以把远程客户端也纳入 tailnet，并用 Serve 给 HA 之外的服务暴露域名和证书（见第 3.3 节）。
+
+## 更新记录
+
+### 2026-09-13 · 澄清 3.4 节的方向性
+
+- **问题**：原标题「3.4 用 tailnet 名字访问」紧接在 3.2/3.3 的 Serve 之后，容易被读成「用名字访问 HA」，从而误以为远程访问 HA 也必须执行 `ha dns options --servers dns://100.100.100.100`。
+- **修改**：标题改为「出方向才需要：让 HA 用 tailnet 名字访问别的设备」；开头新增 `[!info]` 方向说明；新增「别把三件事混成一件」对照表（控制台 MagicDNS 开关 / `ha dns options` / `userspace_networking`）；在 7.4.4 的 warning 之后补「什么时候才真的需要它」场景清单；本章小结拆成两条并补方向限定；同步更新目录锚点。
+- **结论**：只做「tailnet 设备 → HA」的入方向，**整节 3.4 都不用做**，`userspace_networking` 也保持默认 `false` 不动。名字由发起方解析，HA 侧不需要 DNS 配置。
+- **依据**：插件官方文档 DOCS.md 的 `userspace_networking` 与 `DNS` 两节——前者写明开启时得到「one-way access from tailnet clients to your Home Assistant instance」，后者写明「to be able to address **other clients on your tailnet**」才需要 `100.100.100.100`。措辞主语均指向本机去寻址别人，与前文结论一致。
+- **未改动**：命令、清空步骤、FQDN 代价、`accept_dns: false` 释义、指向 7.4.4 的风险提示，均保持原样。
