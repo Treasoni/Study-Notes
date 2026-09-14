@@ -1,0 +1,50 @@
+# Music Tag Web V2
+
+## Music Tag Web V2
+
+- [项目介绍](https://xiers-organization.gitbook.io/music-tag-web-v2/xiang-mu-jie-shao.md): 『音乐标签V2』Music Tag Web V2 是集合音乐标签刮削和音乐播放一体的个人音乐库解决方案。
+- [快速开始](https://xiers-organization.gitbook.io/music-tag-web-v2/kuai-su-kai-shi.md): 与V1 版本的区别，容器内的端口是 8002，和不需要 command /start 命令
+- [Docker部署](https://xiers-organization.gitbook.io/music-tag-web-v2/kuai-su-kai-shi/docker-bu-shu.md): 使用docker快速部署，与V1 版本的区别，容器内的端口是 8002，和不需要 command /start 命令
+- [Docker Compose 部署](https://xiers-organization.gitbook.io/music-tag-web-v2/kuai-su-kai-shi/docker-compose-bu-shu.md): DockerCompose命令
+- [群晖部署](https://xiers-organization.gitbook.io/music-tag-web-v2/kuai-su-kai-shi/qun-hui-bu-shu.md): 官网地址：http://www.musictagweb.com/
+- [1panel部署](https://xiers-organization.gitbook.io/music-tag-web-v2/kuai-su-kai-shi/1panel-bu-shu.md): 1panel 面板部署方式
+- [绿联部署](https://xiers-organization.gitbook.io/music-tag-web-v2/kuai-su-kai-shi/l-lian-bu-shu.md)
+- [飞牛云fnos部署](https://xiers-organization.gitbook.io/music-tag-web-v2/kuai-su-kai-shi/fei-niu-yun-fnos-bu-shu.md): fnos版本：0.8.24
+- [极空间部署](https://xiers-organization.gitbook.io/music-tag-web-v2/kuai-su-kai-shi/ji-kong-jian-bu-shu.md): 由于我没有极空间nas 教程来自网站：https://izspace.cn/music/musictag.html
+- [进阶配置](https://xiers-organization.gitbook.io/music-tag-web-v2/jin-jie-pei-zhi.md)
+- [Mysql 部署](https://xiers-organization.gitbook.io/music-tag-web-v2/jin-jie-pei-zhi/mysql-bu-shu.md): 本项目默认采用Sqlite数据库，sqlite 在并发写入时容易出现sqlite database is locked，因此支持提供替换成为 msyql 数据库
+- [外置Redis服务](https://xiers-organization.gitbook.io/music-tag-web-v2/jin-jie-pei-zhi/wai-zhi-redis-fu-wu.md)
+- [自定义服务端口](https://xiers-organization.gitbook.io/music-tag-web-v2/jin-jie-pei-zhi/zi-ding-yi-fu-wu-duan-kou.md): 如果你使用网络模式host，出现端口冲突，可以进行自定义端口号
+- [容器自动更新](https://xiers-organization.gitbook.io/music-tag-web-v2/jin-jie-pei-zhi/rong-qi-zi-dong-geng-xin.md)
+- [名词解释](https://xiers-organization.gitbook.io/music-tag-web-v2/ming-ci-jie-shi.md): 本项目中用到的名称进行说明描述，去除歧义。
+- [教程文章](https://xiers-organization.gitbook.io/music-tag-web-v2/jiao-cheng-wen-zhang.md)
+- [激活码激活失败、无响应](https://xiers-organization.gitbook.io/music-tag-web-v2/jiao-cheng-wen-zhang/ji-huo-ma-ji-huo-shi-bai-wu-xiang-ying.md)
+- [刮削艺术家并被 navidrome 识别](https://xiers-organization.gitbook.io/music-tag-web-v2/jiao-cheng-wen-zhang/gua-xiao-yi-shu-jia-bing-bei-navidrome-shi-bie.md): 本实验演示在music tag web 中批量刮削艺术家封面，并成功被 navidrome 识别到
+- [批量重命名文件名称](https://xiers-organization.gitbook.io/music-tag-web-v2/jiao-cheng-wen-zhang/pi-liang-zhong-ming-ming-wen-jian-ming-cheng.md): 本实验演示批量对文件名重命名。
+- [忘记登录密码怎么办？](https://xiers-organization.gitbook.io/music-tag-web-v2/jiao-cheng-wen-zhang/wang-ji-deng-lu-mi-ma-zen-me-ban.md): 在Music Tag Web 中忘记登录密码
+- [手动刮削能实现哪些功能？](https://xiers-organization.gitbook.io/music-tag-web-v2/jiao-cheng-wen-zhang/shou-dong-gua-xiao-neng-shi-xian-na-xie-gong-neng.md): 本项目中的功能，选择需要修改文件或文件目录，可自定义修改音乐元数据中的内容。
+- [怎么更新/升级 版本呢？](https://xiers-organization.gitbook.io/music-tag-web-v2/jiao-cheng-wen-zhang/zen-me-geng-xin-sheng-ji-ban-ben-ne.md): 发现作者更新了新版本，不知道怎么更新，好着急
+- [智能歌单的进阶玩法](https://xiers-organization.gitbook.io/music-tag-web-v2/jiao-cheng-wen-zhang/zhi-neng-ge-dan-de-jin-jie-wan-fa.md): 智能歌单功能 在音乐收藏-播放列表中
+- [ffmpeg安装教程](https://xiers-organization.gitbook.io/music-tag-web-v2/jiao-cheng-wen-zhang/ffmpeg-an-zhuang-jiao-cheng.md)
+- [后台刮削怎么玩](https://xiers-organization.gitbook.io/music-tag-web-v2/jiao-cheng-wen-zhang/hou-tai-gua-xiao-zen-me-wan.md)
+- [批量删除元数据中水印](https://xiers-organization.gitbook.io/music-tag-web-v2/jiao-cheng-wen-zhang/pi-liang-shan-chu-yuan-shu-ju-zhong-shui-yin.md)
+- [多目录独立挂载的方式](https://xiers-organization.gitbook.io/music-tag-web-v2/jiao-cheng-wen-zhang/duo-mu-lu-du-li-gua-zai-de-fang-shi.md): 本文档介绍如何通过多目录独立挂载的方式，将多个音乐库目录添加到容器中，实现灵活管理且避免路径冲突。这种方式适合拥有多个分散音乐文件夹的用户。
+- [功能描述](https://xiers-organization.gitbook.io/music-tag-web-v2/gong-neng-miao-shu.md): feature
+- [变量的使用说明](https://xiers-organization.gitbook.io/music-tag-web-v2/gong-neng-miao-shu/bian-liang-de-shi-yong-shuo-ming.md)
+- [MCP](https://xiers-organization.gitbook.io/music-tag-web-v2/gong-neng-miao-shu/mcp.md)
+- [自动刮削](https://xiers-organization.gitbook.io/music-tag-web-v2/gong-neng-miao-shu/zi-dong-gua-xiao.md)
+- [手动刮削](https://xiers-organization.gitbook.io/music-tag-web-v2/gong-neng-miao-shu/shou-dong-gua-xiao.md)
+- [音乐收藏与播放](https://xiers-organization.gitbook.io/music-tag-web-v2/gong-neng-miao-shu/yin-yue-shou-cang-yu-bo-fang.md): Open Subsonic 协议的播放服务器。登录的 host 是站点 ip:8002, 账号密码在后台管理里subsonic 用户中查看并修改。
+- [后台刮削](https://xiers-organization.gitbook.io/music-tag-web-v2/gong-neng-miao-shu/hou-tai-gua-xiao.md): 自动对新添加进文件夹的音乐自动刮削后整理归档到目录中。
+- [基本设置](https://xiers-organization.gitbook.io/music-tag-web-v2/gong-neng-miao-shu/ji-ben-she-zhi.md)
+- [小爱音箱](https://xiers-organization.gitbook.io/music-tag-web-v2/gong-neng-miao-shu/xiao-ai-yin-xiang.md): 使用小爱音箱播放局域网内的音乐，支持歌曲和播放列表点歌。
+- [网盘音乐](https://xiers-organization.gitbook.io/music-tag-web-v2/gong-neng-miao-shu/wang-pan-yin-yue.md): 播放和管理网盘音乐
+- [智能歌单](https://xiers-organization.gitbook.io/music-tag-web-v2/gong-neng-miao-shu/zhi-neng-ge-dan.md): 音乐收藏-智能歌单
+- [音乐去重](https://xiers-organization.gitbook.io/music-tag-web-v2/gong-neng-miao-shu/yin-yue-qu-zhong.md): 查找出重复的文件 不会自动删除您的文件，可以到操作记录中查看重复文件进一步删除操作。
+- [常见问题](https://xiers-organization.gitbook.io/music-tag-web-v2/chang-jian-wen-ti.md): FAQ ：官网地址：http://www.musictagweb.com/
+- [Subsonic客户端](https://xiers-organization.gitbook.io/music-tag-web-v2/subsonic-ke-hu-duan.md): Music Tag Web 提供音乐服务器，就不需要其他的服务端了，可以直接用下列中的客户端连接听歌了
+- [棉花音乐](https://xiers-organization.gitbook.io/music-tag-web-v2/subsonic-ke-hu-duan/mian-hua-yin-yue.md)
+- [箭头音乐](https://xiers-organization.gitbook.io/music-tag-web-v2/subsonic-ke-hu-duan/jian-tou-yin-yue.md): 箭头音乐，一款专注于本地音乐播放与深度管理的工具，以「专业调校」为核心，为每一位音乐爱好者量身定制沉浸式聆听方案。
+- [sonixd](https://xiers-organization.gitbook.io/music-tag-web-v2/subsonic-ke-hu-duan/sonixd.md): sonixd是桌面端的音乐播放器，支持服务器类型Subsonic 和Jellyfin
+- [音流](https://xiers-organization.gitbook.io/music-tag-web-v2/subsonic-ke-hu-duan/yin-liu.md): 跨平台的音乐播放器，支持安卓，IOS, 桌面端等。
+- [Web App](https://xiers-organization.gitbook.io/music-tag-web-v2/subsonic-ke-hu-duan/web-app.md): PWA 定义的一个方面就是它可以由浏览器提示以将其安装在设备上。安装后，PWA 对用户而言就是特定于平台的应用程序，是用户设备的一个永久特性，用户可以像启动其他任何应用程序一样直接从操作系统启动它。
