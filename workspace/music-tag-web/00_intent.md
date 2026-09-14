@@ -6,8 +6,8 @@
 - **项目标识**: music-tag-web
 - **来源项目**: https://github.com/xhongc/music-tag-web （默认分支 `dev_1.0`）
 - **创建时间**: 2026-09-14
-- **当前阶段**: 阶段 0（意图澄清，等待用户确认）
-- **输出目标**: 项目 output（待用户确认是否发布到 Obsidian vault）
+- **当前阶段**: 阶段 0 已确认（2026-09-14），进入阶段 1
+- **输出目标**: 项目 output（已确认：先落 `workspace/music-tag-web/output/final_note.md`，阶段 6 再定 vault 发布位置）
 - **Vault 路径**: 待指定
 - **笔记目录**: 待指定
 - **MOC 路径**: 待指定
@@ -21,7 +21,10 @@
 上手（能独立部署、跑通「挂载曲库 → 刮削 → 批量改标签 → 整理」主流程）
 
 ### 用户基础
-待确认（推测：有 Docker/NAS 基础，未用过本项目）
+有 Docker 基础，未用过本项目
+
+### 正文主线（已确认）
+通用 Docker Compose 为主，NAS（群晖 / 威联通）差异作为独立小节补充；不做纯 NAS 或纯 Windows 版本。
 
 ## 已核实事实（2026-09-14 经 GitHub API + raw README）
 
