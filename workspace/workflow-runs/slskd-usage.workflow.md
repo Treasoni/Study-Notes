@@ -10,11 +10,11 @@ topic: "如何使用 slskd（自托管 Soulseek 客户端）"
 project_slug: "slskd-usage"
 created_at: "2026-09-14"
 last_updated: "2026-09-14"
-current_phase: P7
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
 blocked_reason: ""
-quality_gate: pending
+quality_gate: passed
 quality_gate_owner: ""
 quality_gate_due: ""
 ---
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：slskd-usage
 > 项目标识：slskd-usage
 > 创建时间：2026-09-14
-> 当前阶段：阶段 7
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -122,12 +122,12 @@ quality_gate_due: ""
 ---
 
 ## 阶段 7：MOC 同步
-- [ ] 已定位或创建 MOC 文件
-- [ ] 新笔记双链已加入 MOC
-- [ ] 已去重并更新摘要/标签
-- [ ] MOC 只保留索引，不复制正文
+- [x] 已定位或创建 MOC 文件：`docker/Docker MOC.md`（既有，未新建）
+- [x] 新笔记双链已加入 MOC：`### 自托管文件共享` 下 **1 条**索引项 `[[slskd自托管Soulseek客户端/README|slskd：自托管 Soulseek 客户端]]`
+- [x] 已去重并更新摘要/标签：追加前 MOC 全文零 `slskd` 命中；索引项带 #docker #slskd #soulseek #自托管；更新日志追加 1 行
+- [x] MOC 只保留索引，不复制正文
 
-> [P7] 🔲 进行中 {in_progress}
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -170,10 +170,11 @@ quality_gate_due: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战 · 操作指南（入门 → 上手）
+- **总字数**：49,156 汉字（分册 README 1,296 + 四章 47,860）
+- **章节数**：4 章 + 分册 README 索引
+- **输出格式**：Obsidian Markdown 分册（5 个文件，含头尾导航条与跨章双链）
+- **文件路径**：`docker/slskd自托管Soulseek客户端/`（vault 内相对路径；项目内暂存于 `workspace/slskd-usage/output/slskd自托管Soulseek客户端/`）
+- **Obsidian Vault**：用户指定 vault（`docker/` 目录下）
+- **MOC 路径**：`docker/Docker MOC.md`（追加「自托管文件共享」小节 1 条索引项 + 1 行更新日志）
+- **版本锚点**：slskd 0.26.0（2026-07-19）

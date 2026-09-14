@@ -94,6 +94,9 @@ tags: [docker, MOC, 索引]
 ### 音乐标签与整理
 - [[MusicTagWeb-00-总目录]] - **8 册系列总目录**：自托管音乐标签编辑器（Music Tag Web），Docker Compose 部署 → 首次登录与 V2 激活 → 刮削与标签编辑 → 整理与批处理；附录含播放生态、进阶配置、排错 FAQ #docker #MusicTagWeb #音乐管理 #实战笔记
 
+### 自托管文件共享
+- [[slskd自托管Soulseek客户端/README|slskd：自托管 Soulseek 客户端]] - **4 册系列总目录**：slskd 自托管 Soulseek 客户端实战（部署与运行 → 账号与共享机制 → 日常使用与配置详解 → 安全与进阶速览），含端口三线语义、容器运行身份、配置源合并陷阱、公网部署最小动作清单 #docker #slskd #soulseek #自托管
+
 ### CI 与镜像推送
 - [[GHCR 推送镜像权限配置]] - GitHub Actions 向 GHCR 推送镜像的权限配置完整指南（Classic PAT + Secret + Workflow 兜底 + 排错） #docker #GitHub-Actions #GHCR
 
@@ -161,6 +164,7 @@ tags: [docker, MOC, 索引]
 
 ## 更新日志
 
+- 2026-09-14：新增 [[slskd自托管Soulseek客户端/README|slskd：自托管 Soulseek 客户端]]（自托管 Soulseek 客户端实战，4 册系列：部署与运行 → 账号与共享机制 → 日常使用与配置详解 → 安全与进阶速览）
 - 2026-09-14：新增 [[MusicTagWeb-00-总目录]]（自托管音乐标签编辑器 Music Tag Web 实战，8 册系列：项目定位 → 部署 → 首次登录与激活 → 刮削与标签编辑 → 整理与批处理，附附录 A 播放生态 / B 进阶配置 / C 排错 FAQ）
 - 2026-09-14：重写 [[docker里的GID和UID]]（原为 4 节口语化小文，现为完整入门指南：概念 → 根因 → 三招解法 → 排查三步 → 常见坑；修正「PUID/PGID 是通用做法」的事实错误，补 frontmatter）
 - 2026-09-14：新增 [[厚浪镜像HLmirror使用指南]]（前缀重写式加速器完整指南：三类机制分野 / 全链路实操 / compose·k8s 改写代价 / 常见坑）；同日在 [[镜像加速器vs代理-概念对比]] 顶部补「镜像加速器不止一类」订正块

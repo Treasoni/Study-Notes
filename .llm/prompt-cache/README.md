@@ -10,6 +10,8 @@
 | `regression-cases.json` | 5 个高频请求类型的稳定回归样本（含质量检查） | ✅ |
 | `fixtures/*.md` | 回归样本的脱敏输入 profile | ✅ |
 | `collect-usage.py` | 从 Claude Code transcripts 采集 usage 事件 | ✅ |
+| `cache-guard.py` | 冻结基线 / 对照验收协议守卫（旋钮漂移 + 指标回归） | ✅ |
+| `baseline-*.json` | 冻结的验收基线（机器可读，由 `cache-guard.py --freeze` 生成） | ✅ |
 | `usage-events.jsonl` | 本地事件日志（gitignored） | ❌ |
 | `.collect-state.json` | 幂等采集状态（gitignored） | ❌ |
 
@@ -65,3 +67,25 @@ python .llm/prompt-cache/collect-usage.py --project /path/to/claude-project --dr
 - 回归样本逐例基线待下次自然运行对应工作流时回填（`baseline.*` 字段）。
 - 模板/模型/工具定义变更后：运行同一批回归样本，只有质量检查通过时缓存指标变化才算有效优化。
 - Codex 桌面未提供可由项目自动读取的 provider usage 边界，因此不写入或混入 Claude 的缓存指标；它只复用同一份提示缓存规则。
+
+## 守卫
+
+`cache-guard.py` 把上面的基线变成可执行的验收协议，生成侧（`--freeze`）与校验侧（默认对照）共用同一份统计代码，避免两边口径漂移：
+
+```bash
+python3 .llm/prompt-cache/cache-guard.py            # 对照最新基线
+python3 .llm/prompt-cache/cache-guard.py --json      # 机器可读
+python3 .llm/prompt-cache/cache-guard.py --quiet     # 只在需要行动时输出（健康检查用）
+python3 .llm/prompt-cache/cache-guard.py --freeze    # 冻结新基线（已存在则需 --force）
+```
+
+判定（需要该层 ≥10 个变更后上下文，即「7 天或 10 个上下文」协议）：
+
+| 层 | 主指标 | PASS | 冲刺 | WARN | REGRESS |
+| --- | --- | --- | --- | --- | --- |
+| 主会话 | 每上下文全价输入中位数 | ≤0.70× 基线 | ≤0.50× | >0.90× | >1.00× |
+| 子代理 | 同上 | ≤0.50× 基线 | — | >0.90× | >1.00× |
+
+同时校验三个推理旋钮（`effortLevel` / `thinkingBudget` / `savedProviderEffort.claude`）是否仍等于冻结值：静默回写会让测量失效，因此按失败处理。本机无账本或无设置文件视为「无数据」，不算失败。
+
+退出码：`0` 通过或数据不足，`1` 需要行动（回归或旋钮漂移），`2` 错误。已接入 `workflow-health-check.sh`（`.codex/scripts/` 与 `.claude/scripts/` 各一份）——旋钮与指标两层都做过注入测试，空绿不成立。

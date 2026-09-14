@@ -36,7 +36,8 @@ BASELINE_GLOB = "baseline-*.json"
 KNOB_KEYS = ("effortLevel", "thinkingBudget", "savedProviderEffort.claude")
 
 
-def load_events(path: Path) -> list[dict]:
+def load_events(path: str | Path) -> list[dict]:
+    path = Path(path).expanduser()
     events = []
     for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
         line = line.strip()
@@ -86,8 +87,9 @@ def stats(events: list[dict], cache_read_price_ratio: float) -> dict:
     }
 
 
-def read_knobs(path: Path) -> tuple[dict, str | None]:
+def read_knobs(path: str | Path) -> tuple[dict, str | None]:
     """Return only the guard-relevant knobs; never echo unrelated settings."""
+    path = Path(path).expanduser()
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
     except FileNotFoundError:
@@ -136,6 +138,9 @@ def newest_baseline(directory: Path) -> Path:
 
 
 def cmd_freeze(args: argparse.Namespace) -> int:
+    if not Path(args.events).expanduser().exists():
+        print(f"error: ledger not found: {args.events}", file=sys.stderr)
+        return 2
     events = load_events(args.events)
     if not events:
         print(f"error: no events in {args.events}", file=sys.stderr)
@@ -202,14 +207,21 @@ def cmd_compare(args: argparse.Namespace) -> int:
     baseline = json.loads(baseline_path.read_text(encoding="utf-8"))
     cut = baseline["freeze_cut_utc"]
     ratio = baseline["pricing"]["cache_read_price_ratio"]
-    events = [e for e in load_events(args.events) if (e.get("timestamp") or "") > cut]
+    events_path = Path(args.events).expanduser()
+    # A machine without a local ledger cannot be measured, but that is absence of data,
+    # not a regression: compare against zero post-change events instead of failing.
+    events = [e for e in load_events(events_path) if (e.get("timestamp") or "") > cut] if events_path.exists() else []
     by_layer = {layer: stats([e for e in events if layer_of(e) == layer], ratio) for layer in ("main", "subagent")}
     knobs_now, knob_error = read_knobs(args.settings)
     expected = baseline.get("knobs") or {}
-    knob_problems = []
+    knob_problems: list[str] = []
+    knob_notes: list[str] = []
     if knob_error:
-        knob_problems.append(knob_error)
+        # Same reasoning: a missing settings file on a non-Claudian machine is not drift.
+        knob_notes.append(knob_error)
     for key in KNOB_KEYS:
+        if knob_error:
+            break
         want = expected.get(key)
         got = knobs_now.get(key)
         if want is not None and got != want:
@@ -231,7 +243,7 @@ def cmd_compare(args: argparse.Namespace) -> int:
             "post_change_events": len(events),
             "layers": {layer: s for layer, s, _v, _r in rows},
             "verdicts": {layer: {"verdict": v, "ratio": r} for layer, _s, v, r in rows},
-            "knobs": {"expected": expected, "actual": knobs_now, "problems": knob_problems},
+            "knobs": {"expected": expected, "actual": knobs_now, "problems": knob_problems, "notes": knob_notes},
             "actionable": actionable,
         }, indent=2, ensure_ascii=False))
         return 1 if actionable else 0
@@ -250,11 +262,14 @@ def cmd_compare(args: argparse.Namespace) -> int:
         )
     for line in knob_problems:
         print(f"KNOB DRIFT: {line}")
-    if not knob_problems:
+    for line in knob_notes:
+        print(f"note: {line}")
+    if not knob_problems and not knob_notes:
         print("knobs: " + ", ".join(f"{k}={knobs_now.get(k)}" for k in KNOB_KEYS) + "  OK")
     if actionable:
+        sys.stdout.flush()
         print("verdict: ACTIONABLE — investigate before trusting further measurements", file=sys.stderr)
-    elif all(v[2].startswith("insufficient") for _l, _s, v, _r in rows):
+    elif all(v.startswith("insufficient") for _l, _s, v, _r in rows):
         print(f"verdict: PENDING — need >={baseline['targets']['min_contexts']} post-change contexts per layer")
     else:
         print("verdict: see per-layer verdicts above")
