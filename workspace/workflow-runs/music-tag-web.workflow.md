@@ -10,7 +10,7 @@ topic: "如何使用 Music Tag Web（自托管音乐标签编辑器）"
 project_slug: "music-tag-web"
 created_at: "2026-09-14"
 last_updated: "2026-09-14"
-current_phase: P3
+current_phase: P4
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：music-tag-web
 > 项目标识：music-tag-web
 > 创建时间：2026-09-14
-> 当前阶段：阶段 3
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -77,7 +77,7 @@ quality_gate_due: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中 {in_progress}
+> [P3] ✅ 已完成 {complete}
 
 ---
 
@@ -89,7 +89,7 @@ quality_gate_due: ""
 
 **进度**：0/待大纲确定
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中 {in_progress}
 
 ---
 
@@ -133,6 +133,7 @@ quality_gate_due: ""
 | P0 | 笔记类型=实战/操作指南；深度=上手；基础=有 Docker 基础未用过本项目；输出=项目 output | 2026-09-14 |
 | P1→P2 | 素材质量确认；方向选定 **D 折中主线**（A 为主线，B 播放侧与 C 进阶/FAQ 收进附录） | 2026-09-14 |
 | P2→P3 | 深度素材确认；**模式选定 A 大纲模式（逐章写）**；已知悉 P6 将给出拆分建议 | 2026-09-14 |
+| P3→P4 | 大纲结构与顺序确认；9 项开放问题按推荐默认定案（威联通=写「官方手册未见专页」；T8/T9 压为一节术语对照；NAS 保持 2.6 小节；激活写成必过门槛） | 2026-09-14 |
 
 ---
 
