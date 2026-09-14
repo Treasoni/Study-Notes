@@ -10,7 +10,7 @@ topic: "如何使用 slskd（自托管 Soulseek 客户端）"
 project_slug: "slskd-usage"
 created_at: "2026-09-14"
 last_updated: "2026-09-14"
-current_phase: P5
+current_phase: P7
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：slskd-usage
 > 项目标识：slskd-usage
 > 创建时间：2026-09-14
-> 当前阶段：阶段 5
+> 当前阶段：阶段 7
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -95,25 +95,29 @@ quality_gate_due: ""
 ---
 
 ## 阶段 5：收尾组装
-- [ ] 所有章节文件已检查
-- [ ] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
-- [ ] 过渡语已添加
-- [ ] 目录已生成
-- [ ] 标题层级已统一
-- [ ] 引用已检查
-- [ ] 完整笔记已保存：`./output/final_note.md`
+- [x] 所有章节文件已检查（5 个文件，合计 49,371 汉字）
+- [x] 组装方式已确认（**C: 保持零散**——P3 已确认分册发布；模板单文件 `final_note.md` 路径不适用）
+- [x] 过渡语已添加（每章头/尾导航条 + 章末「下一章预告」）
+- [x] 目录已生成（`README.md`「四章一览」表 + 推荐阅读顺序）
+- [x] 标题层级已统一（5 个文件一致：frontmatter → `##` 标题 → `###` 小节 → `####` 子节）
+- [x] 引用已检查（锚点链接 63 条 + 纯文件链接 36 条，0 条断裂；内部研究文档坐标已清理）
+- [x] 完整笔记已保存：`./output/slskd自托管Soulseek客户端/`（README + 01–04 共 5 个文件）
 
-> [P5] 🔲 进行中 {in_progress}
+> [P5] ✅ 已完成 {complete}
 
 ---
 
 ## 阶段 6：Obsidian 美化与发布
-- [ ] 已读取 Obsidian 输出规则
-- [ ] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
-- [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
-- [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
+- [x] 已读取 Obsidian 输出规则（`.claude/rules/obsidian/note-system.md` + `note-beautifier`）
+- [x] 用户已确认最终保存位置：vault `D:\Study-Notes` + `docker/slskd自托管Soulseek客户端/`（P0 确认 `docker/`，P3 确认分册目录）
+- [x] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
+  - 删掉 11 处字面量 `#### [!tip] 大白话（…）` 冗余标题（正文本来就有对应 callout）
+  - 第 3 章收尾由 `### 本章小结` + `### 下一章预告` 改为 `> [!summary] 本章要点` + 裸过渡段，与第 1/2/4 章体例统一
+  - 清掉正文里只在项目工作区成立的坐标（`§六 M1`/`§七-7`/`§八 O9`/`§九`/`02_deep_research.md`）
+  - README 增加「出处记号怎么读」，使 `Options.cs:1461` 一类取证记号对读者可解析
+- [x] 最终 Markdown 已保存到用户指定位置：`docker/slskd自托管Soulseek客户端/`（5 文件，与 canonical 逐字节一致）
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -123,7 +127,7 @@ quality_gate_due: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] 🔲 进行中 {in_progress}
 
 ---
 
@@ -136,6 +140,7 @@ quality_gate_due: ""
 | P2 | 确认写作路径：A 大纲模式（先出 03_outline.md 逐章大纲，确认后再逐章写） | 2026-09-14 |
 | P3 | 确认大纲：4 章 + 分册规划（README 索引 + 一章一文件 + prev/next 双链 + MOC 一条索引项）；#1429/#1805 主责第 2 章 §2.4；第 4 章压缩至 7,000 汉字，反代以配置片段为主 | 2026-09-14 |
 | P4 | 用户指令「继续操作」「全部写完」：豁免逐章用户确认检查点，授权第 1–4 章一次写完；父进程仍逐章独立验收（回源比对 + 结构/键名/篇幅核对），缺陷已单独上报 | 2026-09-14 |
+| P6 | 发布位置沿用 P0/P3 已确认的 vault `D:\Study-Notes` + `docker/slskd自托管Soulseek客户端/`；目标目录发布前不存在，publish_mode=copy，无覆盖 | 2026-09-14 |
 
 ---
 
