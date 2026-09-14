@@ -114,6 +114,7 @@ The first command regenerates only the marked block in `<agent-dir>/rules/workfl
 - `block PN` marks an open phase in progress, writes `current_status: blocked`, and records a reason; completed and skipped phases are terminal.
 - After `complete` or `skip`, the script advances `current_phase` to the next `⬜ 未开始` phase, or to `done` when no pending phase remains.
 - Treat run states as active coordination data. After completion, archive or remove them according to the target repository policy; durable history belongs in changelogs, release notes, or ADRs.
+- Never hand-edit a phase status line, `current_phase`, or `current_status`. The script is the only writer of phase state. When editing a state file for anything else (checkboxes, notes, frontmatter), exclude the `> [PN] ...` lines from the edit, then verify with `grep -n '^> \[P' <state-file>`; a hand-written phase line disagrees with the machine state and is silently overwritten on the next script call.
 
 ## When Retrofitting A Project
 

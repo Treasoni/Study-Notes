@@ -2,7 +2,7 @@ apiVersion: agent-platform/v1
 kind: Skill
 metadata:
   name: note-updater
-  version: 1.0.0
+  version: 1.1.0
   description: "Refresh out-of-date note sections with minimal, evidence-based patches."
 spec:
   entrypoint: SKILL.md

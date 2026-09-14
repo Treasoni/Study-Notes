@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from collections import Counter, defaultdict
 from dataclasses import dataclass
 from datetime import datetime
@@ -226,13 +227,18 @@ def render_markdown(summary: dict) -> str:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", default=".")
-    parser.add_argument("--skills-dir", default=".agents/skills")
-    parser.add_argument("--rules-file", default="AGENTS.md")
-    parser.add_argument("--hooks-path", default=".codex/hooks")
+    parser.add_argument("--skills-dir", default=".claude/skills")
+    parser.add_argument("--rules-file", default="CLAUDE.md")
+    parser.add_argument("--hooks-path", default=".claude/hooks")
     parser.add_argument("--line-threshold", type=int, default=100)
     parser.add_argument("--active-only", action="store_true")
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args()
+    # Windows 上 print() 默认继承 ANSI 代码页（GBK），而报告正文全是中文，
+    # 不设 UTF-8 会打出乱码或 UnicodeEncodeError，维护者只能凭乱码做判断。
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="replace")
     root = Path(args.root).resolve()
     records = collect_records(root, args.skills_dir, include_archive=not args.active_only)
     summary = summarize(root, records, args)

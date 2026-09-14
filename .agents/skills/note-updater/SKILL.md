@@ -34,6 +34,10 @@ description: 更新过时的既有学习笔记。用于用户说“更新这篇�
 5. **Obsidian 同步**
    - 如果目标在 vault 内，检查双链、标签、MOC。
    - 如提供 `moc_path`，调用 `moc-organizer` 同步索引。
+6. **登记 vault / workspace 漂移**
+   - 如果旧笔记在 vault 内，而项目工作区（`chapters/`、`output/`）存在同名副本，那么本次更新只改了 vault 一侧，两边**必然**长期漂移。
+   - 在 `update_report.md` 里写明「哪一侧已更新、另一侧停留在何时」，不要把漂移留在沉默里。
+   - 不要默认回写 workspace，也不要默认 vault 就是权威稿：问用户是重跑组装同步 workspace，还是以 vault 为准、弃用旧副本。
 
 ## Output Files
 
