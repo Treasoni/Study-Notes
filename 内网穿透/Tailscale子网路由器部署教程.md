@@ -180,6 +180,7 @@ services:
 ```
 
 
+
 > [!note] 为什么用 host 网络
 > Docker 对 host 网络不额外创建 iptables 规则（来源 S8），且 tailscaled 需在宿主机网络命名空间建 `tailscale0`、改路由。这是社区共识基线（来源 S2, S3, S0）。
 
