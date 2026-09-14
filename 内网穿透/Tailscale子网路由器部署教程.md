@@ -168,7 +168,7 @@ services:
     cap_add:
       - NET_ADMIN                         # 建 tun、改路由所需（privileged 下为双保险）
     volumes:
-      - /var/lib/tailscale:/var/lib/tailscale   # 状态持久化
+      - ./tailscale-state:/var/lib/tailscale   # 状态持久化
       - /dev/net/tun:/dev/net/tun               # 挂载 TUN 设备
     environment:
       - TS_AUTHKEY=tskey-auth-xxxxxxxx      # 生成时必须勾选 Reusable
