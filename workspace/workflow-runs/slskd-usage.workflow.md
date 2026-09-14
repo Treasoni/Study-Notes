@@ -11,7 +11,7 @@ project_slug: "slskd-usage"
 created_at: "2026-09-14"
 last_updated: "2026-09-14"
 current_phase: P3
-current_status: ready
+current_status: in_progress
 mode: outline
 blocked_reason: ""
 quality_gate: pending
@@ -56,14 +56,14 @@ quality_gate_due: ""
 ---
 
 ## 阶段 2：深度收集
-- [ ] 已根据用户选择的方向启动深度收集
-- [ ] 核心概念/理论素材已收集
-- [ ] 实战代码/项目案例已收集
-- [ ] 常见坑/最佳实践已收集
-- [ ] 工具链/生态已收集
-- [ ] 进阶路径/学习资源已收集
-- [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
-- [ ] 深度素材已保存：`./02_deep_research.md`
+- [x] 已根据用户选择的方向启动深度收集
+- [x] 核心概念/理论素材已收集
+- [x] 实战代码/项目案例已收集
+- [x] 常见坑/最佳实践已收集
+- [x] 工具链/生态已收集
+- [x] 进阶路径/学习资源已收集
+- [x] 素材质量已确认（官方文档数、教程数、深度文章数）
+- [x] 深度素材已保存：`./02_deep_research.md`
 
 > [P2] ✅ 已完成 {complete}
 
@@ -77,7 +77,7 @@ quality_gate_due: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] ⬜ 未开始
+> [P3] 🔲 进行中 {in_progress}
 
 ---
 
@@ -132,6 +132,7 @@ quality_gate_due: ""
 |------|----------|------|
 | P0 | 确认意图文件：实战·操作指南，入门→上手，输出 docker/，MOC = docker/Docker MOC.md | 2026-09-14 |
 | P1 | 确认方向菜单选择：1+2+3 主线，4 压缩为末章，5 并入各章常见坑 | 2026-09-14 |
+| P2 | 确认写作路径：A 大纲模式（先出 03_outline.md 逐章大纲，确认后再逐章写） | 2026-09-14 |
 
 ---
 
