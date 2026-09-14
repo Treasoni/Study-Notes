@@ -10,7 +10,7 @@ topic: "如何使用 Music Tag Web（自托管音乐标签编辑器）"
 project_slug: "music-tag-web"
 created_at: "2026-09-14"
 last_updated: "2026-09-14"
-current_phase: P5
+current_phase: P6
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：music-tag-web
 > 项目标识：music-tag-web
 > 创建时间：2026-09-14
-> 当前阶段：阶段 5
+> 当前阶段：阶段 6
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -112,7 +112,7 @@ quality_gate_due: ""
 **拆分判据**：>30KB ✅ / 章节数 >3 ✅ —— 两条阈值同时超过，P5→P6 确认点须提交拆分提案
 **组装脚本**：`_verify/assemble.py`（父进程 python 合并，规避 writer 子 agent 的输出上限）
 
-> [P5] 🔲 进行中 {in_progress}
+> [P5] ✅ 已完成 {complete}
 
 ---
 
@@ -122,7 +122,7 @@ quality_gate_due: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] 🔲 进行中 {in_progress}
 
 ---
 
