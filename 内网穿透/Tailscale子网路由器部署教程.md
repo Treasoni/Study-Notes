@@ -179,7 +179,37 @@ services:
     restart: unless-stopped                 # 开机自启 + 异常自动拉起
 ```
 
+在官方 Tailscale 容器中，环境变量实际上就是容器启动脚本（`containerboot`）替你执行 CLI 命令时的参数映射：
 
+- **`TS_ROUTES=192.168.1.0/24`** 等同于命令行中的 `--advertise-routes=192.168.1.0/24`。
+- **`TS_HOSTNAME=fnos-subnet-router`** 等同于命令行中的 `--hostname=fnos-subnet-router`。
+#### 两者的核心对应关系与区别
+
+|**对比维度**|**Docker 环境变量（docker-compose）**|**宿主机 CLI 命令（tailscale set/up）**|
+|---|---|---|
+|**等效命令**|自动拼接并执行 `tailscale up --advertise-routes=... --hostname=...`|手动执行 `tailscale set --advertise-routes=...`|
+|**生效机制**|**声明式**：容器每次启动、重建时，由脚本自动读取并同步到 Tailscale 状态中|**命令式**：即时修改运行中的 `tailscaled` 配置|
+|**持久性**|配置文件在，环境就在；即使销毁重做容器，只要 Compose 文件不变，配置就不会丢失|保存在本机的 `/var/lib/tailscale` 状态库中，若重装系统或清理目录需重新输入|
+
+#### 运行机制说明
+
+1. **容器启动脚本的行为**：Tailscale 官方镜像的入口程序是 `containerboot`。当它检测到你设置了 `TS_ROUTES` 和 `TS_HOSTNAME` 时，底层执行的正是：
+
+    ```
+    
+   tailscale up --advertise-routes=192.168.1.0/24 --hostname=fnos-subnet-router ...
+    ```
+2. **多网段支持**：如果你需要同时宣告多个网段（如同你示例中的两条路由），在 `TS_ROUTES` 中同样支持用逗号分隔，例如：
+
+    ```
+    - TS_ROUTES=192.0.2.0/24,198.51.100.0/24
+    ```
+
+**重要提醒：**
+
+宣告路由只是完成了**客户端通告**。无论通过哪种方式配置，宣告之后都必须前往 **Tailscale Admin Console（网页后台）**，在对应机器的 `Edit route settings` 选项中，手动勾选批准（Approve）该网段，其他节点才能真正通过此路由访问内网。
+
+![](../Pasted%20image%2020260914225231.png)
 
 > [!note] 为什么用 host 网络
 > Docker 对 host 网络不额外创建 iptables 规则（来源 S8），且 tailscaled 需在宿主机网络命名空间建 `tailscale0`、改路由。这是社区共识基线（来源 S2, S3, S0）。
