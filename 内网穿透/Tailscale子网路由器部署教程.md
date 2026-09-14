@@ -151,6 +151,9 @@ fnOS 桌面打开 **Docker → Compose → 新建项目**，粘贴 YAML，填项
 > [!warning] 界面路径以实机为准
 > 社区帖路径（来源 S2, S3）可能随 fnOS 版本微调（待实机确认）。核心逻辑不变：新建 Compose 项目 → 粘贴 YAML → 部署。
 
+先获得tailscale的认证需要的key（在settings->Keys，中的Auth keys）：
+![](../Pasted%20image%2020260914211452.png)
+
 ### 2.2 推荐版 Compose（privileged，省心）
 
 ```yaml
