@@ -10,7 +10,6 @@
 | `components_Search_Searches.jsx` | `src/web/src/components/Search/Searches.jsx` | 3.1（搜索入口、输入框 placeholder） |
 | `components_Search_List_SearchList.jsx` | `src/web/src/components/Search/List/SearchList.jsx` | 3.1（搜索列表列名与排序） |
 | `components_Search_List_SearchListRow.jsx` | `src/web/src/components/Search/List/SearchListRow.jsx` | 3.1（单行单元格：Locked/Ended） |
-| `components_Search_List_SearchActionIcon.jsx` | `src/web/src/components/Search/List/SearchActionIcon.jsx` | 3.1（列表操作图标） |
 | `components_Search_SearchStatusIcon.jsx` | `src/web/src/components/Search/SearchStatusIcon.jsx` | 3.1（搜索状态取值与图标语义） |
 | `components_Search_Detail_SearchDetail.jsx` | `src/web/src/components/Search/Detail/SearchDetail.jsx` | 3.1（排序两项、三个开关默认值、筛选输入框、分页 +5） |
 | `components_Search_Detail_SearchDetailHeader.jsx` | `src/web/src/components/Search/Detail/SearchDetailHeader.jsx` | 3.1（Search Again / Stop / Delete 按钮） |
@@ -53,4 +52,6 @@
 | 官方 Web UI 操作文档（不存在） | 3.0–3.3 | §3.0 显式声明「官方无操作文档」+ 取证层级 |
 | 热重载 / 待重启日志的**实际输出文本** | 3.4（EX-37） | EX-37 标「日志原文未取证，仅据源码语义与 Web UI 的 'Pending Action' 提示推写，待实测核对」 |
 | `data.jsdelivr.com` 目录清单（仅用于列文件，未随章节长期保存） | — | 不作为正文证据，只作抓取路径依据 |
+| `src/web/src/components/Search/List/SearchActionIcon.jsx`（未取到） | 3.1 | §3.1 只据 `SearchList.jsx` / `SearchListRow.jsx` 写列表列与操作，未描述该图标组件 |
+| `src/web/src/lib/browse.js`（jsDelivr 404，该路径不存在） | 3.3 | Browse 的缓存逻辑直接写在 `Browse.jsx` 内，正文只引用 `Browse.jsx` |
 | 「页面内 JS 交互的真实手感」（折行、虚拟滚动等渲染细节） | 3.1、3.2 | 涉及交互手感处标「源码可读，实际效果需自测」 |

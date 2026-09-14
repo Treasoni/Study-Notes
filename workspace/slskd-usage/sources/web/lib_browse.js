@@ -1,1 +1,0 @@
-Couldn't find the requested file /src/web/src/lib/browse.js in slskd/slskd.
