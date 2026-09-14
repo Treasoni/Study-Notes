@@ -1,6 +1,6 @@
 ---
 name: note-assembler
-description: "Assemble completed chapter files into one coherent learning note with transitions, a table of contents, and consistent formatting."
+description: "Assemble completed chapters (preferring a parent-produced merged file) into one coherent learning note with transitions, a table of contents, and consistent formatting."
 tools: Read, Write, Glob
 model: sonnet
 color: green
@@ -70,10 +70,10 @@ If no chapter files exist, inform the user that they need to complete the writin
 
 ### Step 1: Discover and Read Chapters
 
-1. List all files in `${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}/chapters/` directory
-2. Read each chapter file in order (sorted by chapter number)
-3. Read the outline file (if exists) to understand the intended structure
-4. Read the intent file to understand user preferences
+0. **Prefer the parent-produced merged file** (2026-09-14): if `${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}/chapters/_merged.md` exists, read that single file instead of reading chapters one by one. The parent produces it with `python .codex/scripts/merge_files.py --input-dir <chapters dir>`; chapters are marked with `<!-- SOURCE: ... -->` / `<!-- END: ... -->` separators.
+1. If `_merged.md` is absent: list all files in `${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}/chapters/` (excluding `_merged.md`) and read them in order (sorted by chapter number); note in your report that the parent should pre-merge next time.
+2. Read the outline file (if exists) to understand the intended structure
+3. Read the intent file to understand user preferences
 
 ### Step 2: Determine Assembly Strategy
 
@@ -223,7 +223,7 @@ If you encounter issues:
 1. **Missing chapters**: List which chapters are missing and ask the user to complete them first
 2. **Formatting inconsistencies**: Fix them during assembly and report what was changed
 3. **Conflicting content**: Flag the conflicts and ask the user how to resolve them
-4. **Large files**: If the assembled output would exceed the Write output cap (~100KB), STOP and report to the parent so it can merge parts (`cat part2 >> final`). Do not create `final_note_part2.md` or temp files yourself — you have no Bash/Edit, so you cannot run merge scripts.
+4. **Large files**: If the assembled output would exceed the Write output cap (~100KB), STOP and report to the parent so it can merge parts (`python .codex/scripts/merge_files.py --input-dir <dir>`, or `cat part2 >> final`). Do not create `final_note_part2.md` or temp files yourself — you have no Bash/Edit, so you cannot run scripts.
 
 ## Integration Notes
 

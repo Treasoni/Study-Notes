@@ -10,6 +10,9 @@ Known mapping (documented compatible equivalent):
   - template_id     -> "claude-code.session"; every request is the session-level prompt.
   - cache_write     -> usage.cache_creation_input_tokens (0 in this environment).
   - request_type    -> inferred from the session's first user message via keyword rules.
+  - subagent files  -> any <session>/subagents/agent-*.jsonl; request_type is "subagent" and
+                       metadata carries layer / parent_session / attribution_agent.
+                       (Added 2026-09-14: subagent spend was previously invisible here.)
 """
 
 from __future__ import annotations
@@ -101,13 +104,16 @@ def main() -> int:
         if not transcript_path.is_file() or transcript_path.suffix != ".jsonl":
             parser.error("--transcript must name an existing .jsonl file")
         session_paths = [transcript_path]
+        project_dir = transcript_path.parent
     elif args.project:
-        project_path = Path(args.project).expanduser()
-        if not project_path.is_dir():
+        project_dir = Path(args.project).expanduser()
+        if not project_dir.is_dir():
             parser.error("--project must name an existing transcript directory")
-        session_paths = sorted(project_path.glob("*.jsonl"))
+        session_paths = sorted(project_dir.glob("*.jsonl"))
     else:
         parser.error("provide --project, --transcript, or invoke from a Claude Code hook")
+    # Subagent transcripts live under <project>/<session>/subagents/agent-*.jsonl.
+    sub_paths = sorted(project_dir.glob("*/subagents/agent-*.jsonl"))
 
     out_path = Path(args.out)
     state_path = out_path.with_name(".collect-state.json")
@@ -115,15 +121,24 @@ def main() -> int:
 
     new_events = []
     processed_pairs = 0
-    for session_path in session_paths:
+    for session_path in session_paths + sub_paths:
         rel_name = session_path.name
-        request_type = classify_request_type(first_user_text(session_path))
-        done_keys = set(state.get(rel_name, []))
+        is_subagent = session_path.parent.name == "subagents"
+        if is_subagent:
+            key = f"{session_path.parent.parent.name}/subagents/{rel_name}"
+            request_type = "subagent"
+        else:
+            key = rel_name
+            request_type = classify_request_type(first_user_text(session_path))
+        attribution_agent = None
+        done_keys = set(state.get(key, []))
         for line in open(session_path, encoding="utf-8", errors="replace"):
             try:
                 rec = json.loads(line)
             except json.JSONDecodeError:
                 continue
+            if attribution_agent is None and rec.get("attributionAgent"):
+                attribution_agent = rec["attributionAgent"]
             if rec.get("type") != "assistant":
                 continue
             msg = rec.get("message") or {}
@@ -137,6 +152,12 @@ def main() -> int:
             processed_pairs += 1
             if args.dry_run:
                 continue
+            metadata = {"source": "claude-code-transcript", "message_id": msg_id}
+            if is_subagent:
+                metadata["layer"] = "subagent"
+                metadata["parent_session"] = session_path.parent.parent.name
+                if attribution_agent:
+                    metadata["attribution_agent"] = attribution_agent
             event = {
                 "timestamp": rec.get("timestamp", ""),
                 "request_type": request_type,
@@ -150,13 +171,16 @@ def main() -> int:
                 "latency_ms": None,  # transcripts do not record per-request latency
                 "status": "success",
                 "input_reference": rel_name,  # safe: file name only, no content
-                "metadata": {"source": "claude-code-transcript", "message_id": msg_id},
+                "metadata": metadata,
             }
             new_events.append(event)
-        state[rel_name] = sorted(done_keys)
+        state[key] = sorted(done_keys)
 
     if args.dry_run:
-        print(f"would add {processed_pairs} events ({processed_pairs} new messages scanned, {len(session_paths)} transcript(s) scanned)")
+        print(
+            f"would add {processed_pairs} events ({processed_pairs} new messages scanned; "
+            f"{len(session_paths)} session + {len(sub_paths)} subagent transcripts)"
+        )
         return 0
 
     with open(out_path, "a", encoding="utf-8") as fh:

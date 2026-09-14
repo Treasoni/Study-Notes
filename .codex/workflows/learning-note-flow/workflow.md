@@ -24,7 +24,7 @@
 - **负责技能**: /research-collector
 - **前置条件**: 阶段 0 完成
 - **检查项**:
-  - [ ] 已派出 2-3 个 subagent 并行探测
+  - [ ] 已派出 2-3 个批量子代理并行探测（同类并发 ≤4）
   - [ ] 探测结果已汇总
   - [ ] 方向菜单已展示给用户
   - [ ] 用户已选择学习方向
@@ -63,6 +63,7 @@
 ### 阶段 4: 逐章写作
 - **负责技能**: chapter-writer agent
 - **前置条件**: 阶段 3 完成
+- **派发约束**: chapter-writer 每批 ≤3 章；同一子代理续写、章间确认保留（见 `.codex/rules/common/agent-invocation.md`、`context-discipline.md`）
 - **检查项**:
   - [ ] 第 1 章已写完并确认
   - [ ] 第 2 章已写完并确认
@@ -74,6 +75,7 @@
 ### 阶段 5: 收尾组装
 - **负责技能**: note-assembler agent
 - **前置条件**: 阶段 4 完成
+- **预合并**: 父流程先运行 `python .codex/scripts/merge_files.py --input-dir <chapters 目录>` 生成 `chapters/_merged.md`；assembler 读该文件，不逐章读取
 - **检查项**:
   - [ ] 所有章节文件已检查
   - [ ] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
@@ -119,6 +121,7 @@ ${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}/
 ├── chapters/                 # 章节目录（阶段 4）
 │   ├── 01_xxx.md
 │   ├── 02_xxx.md
+│   ├── _merged.md            # 父流程预合并产物（阶段 5，merge_files.py）
 │   └── ...
 └── output/                   # 项目内暂存产物（阶段 5-6）
     ├── final_note.md

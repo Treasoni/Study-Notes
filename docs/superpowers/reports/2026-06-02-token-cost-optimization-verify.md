@@ -5,6 +5,8 @@
 **Verify Mode:** full
 **Branch:** token-cost-optimization
 
+> **状态补记（2026-09-14）**：本报告验证的实现（`scripts/batch_fetch.py`、`merge_sources.py` 及 v1 collector/curator/writer 改动）已于 **2026-07-11 的 v1 架构拆除**（commit `7cde633f`，vault backup）随批删除；报告中的 −85% / −32% 是**设计期估算，从未实测**。抓取职能现由 `research-collector` 的 crawl4ai 脚本（`scripts/crawl.sh`）承接；合并职能至今空缺，2026-09-14 计划以 `merge_files.py` 复活（见 `docs/superpowers/reports/2026-09-14-token-cost-optimization.md`）。
+
 ## Summary
 
 All verification checks passed. The implementation correctly adds Python scripts to reduce token consumption by replacing serial tool calls with batch operations.
