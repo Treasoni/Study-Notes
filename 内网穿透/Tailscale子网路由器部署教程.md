@@ -166,7 +166,8 @@ services:
     network_mode: host                    # 关键：直接用宿主机网络栈
     privileged: true                      # 省心：完整设备访问权限
     cap_add:
-      - NET_ADMIN                         # 建 tun、改路由所需（privileged 下为双保险）
+      - NET_ADMIN                         # 建 tun、改路由、iptables
+      - NET_RAW                           # 原始 socket，部分场景建 tun 需要
     volumes:
       - ./tailscale-state:/var/lib/tailscale   # 状态持久化
       - /dev/net/tun:/dev/net/tun               # 挂载 TUN 设备
