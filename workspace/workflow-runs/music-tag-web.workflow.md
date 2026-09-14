@@ -10,11 +10,11 @@ topic: "如何使用 Music Tag Web（自托管音乐标签编辑器）"
 project_slug: "music-tag-web"
 created_at: "2026-09-14"
 last_updated: "2026-09-14"
-current_phase: P6
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
 blocked_reason: ""
-quality_gate: pending
+quality_gate: passed
 quality_gate_owner: ""
 quality_gate_due: ""
 ---
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：music-tag-web
 > 项目标识：music-tag-web
 > 创建时间：2026-09-14
-> 当前阶段：阶段 6
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -101,7 +101,7 @@ quality_gate_due: ""
 
 ## 阶段 5：收尾组装
 - [x] 所有章节文件已检查（8 篇：脚注自洽、代码块全带语言标识、引用清扫完成）
-- [ ] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）—— **待用户在 P5→P6 确认点定夺**
+- [x] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）—— **用户 2026-09-14 答「你推荐的来」：选**方案二**（分册），单文件稿仍保留在 `output/final_note.md`**
 - [x] 过渡语已添加（各章章末过渡语为写作期生成，自包含，组装时未新增散文）
 - [x] 目录已生成（8 条 wikilink，链接目标已校验存在）
 - [x] 标题层级已统一（代码块外标题统一降一级；成稿 1 个 H1 / 9 个 H2 / 66 个 H3 / 48 个 H4）
@@ -117,22 +117,39 @@ quality_gate_due: ""
 ---
 
 ## 阶段 6：Obsidian 美化与发布
-- [ ] 已读取 Obsidian 输出规则
-- [ ] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
-- [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
-- [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
+- [x] 已读取 Obsidian 输出规则（`.claude/rules/obsidian/note-system.md`）
+- [x] 用户已确认最终保存位置（2026-09-14 用户答「你推荐的来」，授权按推荐决定）
+- [x] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
+- [x] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] 🔲 进行中 {in_progress}
+**发布形态**：方案二 分册 —— 总目录 + 8 册（5 正文 + 3 附录）
+**vault 落点**：`docker/MusicTagWeb音乐标签/`（体例对齐 vault 内既有分册 `docker/OpenList网盘挂载/`）
+**publish_mode**：copy（目标目录此前不存在，无覆盖风险）
+**暂存副本**：`workspace/music-tag-web/output/series/`；单文件稿 `output/final_note.md` 保留
+**发布脚本**：`_verify/publish_series.py`（含「组装稿切片 vs 章节源文件逐字校对」，不一致即停止发布）
+**复核结果**：9 个文件；脚注定义 76 全配对，无未定义/未引用/重复；结尾体例统一（`## 下一册预告` → `## 参考来源` → `## 相关笔记` → 分册导航）；wikilink 死链 0
+**体例处理**：第 1 册原有 18 处行内 `[D6](url)` 式引注转为与其余各册一致的脚注（URL 逐字保留，6 个定义）；各册 H1 去掉「（可跳读）」标注
+
+> [P6] ✅ 已完成 {complete}
 
 ---
 
 ## 阶段 7：MOC 同步
-- [ ] 已定位或创建 MOC 文件
-- [ ] 新笔记双链已加入 MOC
-- [ ] 已去重并更新摘要/标签
-- [ ] MOC 只保留索引，不复制正文
+- [x] 已定位或创建 MOC 文件
+- [x] 新笔记双链已加入 MOC
+- [x] 已去重并更新摘要/标签
+- [x] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+**MOC 文件**：`docker/Docker MOC.md`（既有 Docker 知识索引，未新建）
+**插入位置**：3 处，全部只加索引、不搬正文
+- `## 快速导航` 表新增一行：`| 批量整理音乐文件的标签与封面 | [[MusicTagWeb-00-总目录]] |`
+- 新增 `### 音乐标签与整理` 小节（置于 `### 网盘聚合与挂载` 与 `### CI 与镜像推送` 之间），1 行带说明 + 标签的系列索引
+- `## 更新日志` 顶部新增 1 行（2026-09-14，8 册系列）
+**去重**：索引行内无同名双链重复；`MusicTagWeb-00-总目录` 3 处出现分别位于导航表 / 系列节 / 更新日志，均为既定位置
+**校验**：`_verify/check_moc.py` —— 新增 0 死链（既有 `../linux/...`、`../外网...` 两处相对链接为原文遗留，非本次产物）；系列节块仅 1 行、无正文搬运；无列表内嵌表格
+**frontmatter**：`updated` 原已是 2026-09-14，未改动
+
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -144,6 +161,8 @@ quality_gate_due: ""
 | P1→P2 | 素材质量确认；方向选定 **D 折中主线**（A 为主线，B 播放侧与 C 进阶/FAQ 收进附录） | 2026-09-14 |
 | P2→P3 | 深度素材确认；**模式选定 A 大纲模式（逐章写）**；已知悉 P6 将给出拆分建议 | 2026-09-14 |
 | P3→P4 | 大纲结构与顺序确认；9 项开放问题按推荐默认定案（威联通=写「官方手册未见专页」；T8/T9 压为一节术语对照；NAS 保持 2.6 小节；激活写成必过门槛） | 2026-09-14 |
+| P5→P6 | 组装方式与发布位置：用户答「你推荐的来」→ 采纳方案二（分册），落点 `docker/MusicTagWeb音乐标签/` | 2026-09-14 |
+| P6→P7 | MOC 同步：用户答「做」→ 按列出的 3 处插入点更新 `docker/Docker MOC.md` | 2026-09-14 |
 
 ---
 
@@ -173,10 +192,10 @@ quality_gate_due: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战 / 操作指南（自托管软件上手）
+- **总字数**：36,223 汉字（8 册正文合计；单文件稿 35,626 汉字）
+- **章节数**：8 册（5 正文 + 3 附录），另加 `MusicTagWeb-00-总目录`
+- **输出格式**：Obsidian Markdown（分册）
+- **文件路径**：`docker/MusicTagWeb音乐标签/`（暂存副本 `workspace/music-tag-web/output/series/`；单文件稿 `workspace/music-tag-web/output/final_note.md`）
+- **Obsidian Vault**：`D:\Study-Notes`
+- **MOC 路径**：`docker/Docker MOC.md`（P7 已同步，3 处索引插入）

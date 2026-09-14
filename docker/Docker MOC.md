@@ -27,6 +27,7 @@ tags: [docker, MOC, 索引]
 | 解决权限问题 | [[docker里的GID和UID]] |
 | 让容器读写宿主机文件 | [[Docker容器服务访问宿主机文件]] |
 | 把网盘挂载给容器（OpenList → WebDAV → Rclone） | [[OpenList网盘挂载-00-总目录]] |
+| 批量整理音乐文件的标签与封面 | [[MusicTagWeb-00-总目录]] |
 | 排查常见错误 | [[docker容器搭建错误的知识讲解]] \| [[docker镜像拉取DNS解析超时排错]] |
 | 向 GHCR 推送镜像 | [[GHCR 推送镜像权限配置]] |
 
@@ -89,6 +90,9 @@ tags: [docker, MOC, 索引]
 - [[OpenList网盘挂载-04-Rclone挂载]] - 第 4 册：rclone mount、VFS 缓存档、开机自启
 - [[OpenList网盘挂载-05-Docker映射]] - 第 5 册：bind mount 映射给容器、运行身份
 - [[OpenList网盘挂载-06-排障速查]] - 第 6 册：链路各段「症状 → 原因 → 动作」
+
+### 音乐标签与整理
+- [[MusicTagWeb-00-总目录]] - **8 册系列总目录**：自托管音乐标签编辑器（Music Tag Web），Docker Compose 部署 → 首次登录与 V2 激活 → 刮削与标签编辑 → 整理与批处理；附录含播放生态、进阶配置、排错 FAQ #docker #MusicTagWeb #音乐管理 #实战笔记
 
 ### CI 与镜像推送
 - [[GHCR 推送镜像权限配置]] - GitHub Actions 向 GHCR 推送镜像的权限配置完整指南（Classic PAT + Secret + Workflow 兜底 + 排错） #docker #GitHub-Actions #GHCR
@@ -157,6 +161,7 @@ tags: [docker, MOC, 索引]
 
 ## 更新日志
 
+- 2026-09-14：新增 [[MusicTagWeb-00-总目录]]（自托管音乐标签编辑器 Music Tag Web 实战，8 册系列：项目定位 → 部署 → 首次登录与激活 → 刮削与标签编辑 → 整理与批处理，附附录 A 播放生态 / B 进阶配置 / C 排错 FAQ）
 - 2026-09-14：重写 [[docker里的GID和UID]]（原为 4 节口语化小文，现为完整入门指南：概念 → 根因 → 三招解法 → 排查三步 → 常见坑；修正「PUID/PGID 是通用做法」的事实错误，补 frontmatter）
 - 2026-09-14：新增 [[厚浪镜像HLmirror使用指南]]（前缀重写式加速器完整指南：三类机制分野 / 全链路实操 / compose·k8s 改写代价 / 常见坑）；同日在 [[镜像加速器vs代理-概念对比]] 顶部补「镜像加速器不止一类」订正块
 - 2026-09-12：更新 [[OpenList网盘挂载-03-WebDAV服务]]（新增 §3.6「反向对照：OpenList 也能当 WebDAV 客户端」——补「地址/账号填谁的」方向对照，附坚果云、群晖 NAS、另一台 OpenList 三个实例；第 2 册 §2.6 加交叉双链）
