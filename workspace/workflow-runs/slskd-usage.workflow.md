@@ -10,7 +10,7 @@ topic: "如何使用 slskd（自托管 Soulseek 客户端）"
 project_slug: "slskd-usage"
 created_at: "2026-09-14"
 last_updated: "2026-09-14"
-current_phase: P1
+current_phase: P2
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：slskd-usage
 > 项目标识：slskd-usage
 > 创建时间：2026-09-14
-> 当前阶段：阶段 1
+> 当前阶段：阶段 2
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -45,13 +45,13 @@ quality_gate_due: ""
 ---
 
 ## 阶段 1：探测式收集
-- [ ] 已派出 2-3 个 subagent 并行探测
-- [ ] 探测结果已汇总
-- [ ] 方向菜单已展示给用户
-- [ ] 用户已选择学习方向
-- [ ] 探测结果已保存：`./01_explore_result.md`
+- [x] 已派出 2-3 个 subagent 并行探测
+- [x] 探测结果已汇总
+- [x] 方向菜单已展示给用户
+- [x] 用户已选择学习方向：1+2+3 主线（部署与运行 / 账号与共享机制 / 日常使用与配置详解），方向 4 压缩为末章「安全与进阶速览」，方向 5 排错并入各章「常见坑」
+- [x] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] 🔲 进行中 {in_progress}
+> [P1] ✅ 已完成 {complete}
 
 ---
 
@@ -65,7 +65,7 @@ quality_gate_due: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] ⬜ 未开始
+> [P2] 🔲 进行中 {in_progress}
 
 ---
 
@@ -130,7 +130,8 @@ quality_gate_due: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
-| | | |
+| P0 | 确认意图文件：实战·操作指南，入门→上手，输出 docker/，MOC = docker/Docker MOC.md | 2026-09-14 |
+| P1 | 确认方向菜单选择：1+2+3 主线，4 压缩为末章，5 并入各章常见坑 | 2026-09-14 |
 
 ---
 
