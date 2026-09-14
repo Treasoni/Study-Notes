@@ -2,8 +2,8 @@ apiVersion: agent-platform/v1
 kind: Subagent
 metadata:
   name: chapter-writer
-  version: 1.1.0
-  description: "Write one confirmed learning-note chapter at a time."
+  version: 1.2.0
+  description: "Write learning-note chapters in confirmed batches of up to three; resume in the same context between chapters."
 spec:
   entrypoint: ../chapter-writer.md
   capabilities:

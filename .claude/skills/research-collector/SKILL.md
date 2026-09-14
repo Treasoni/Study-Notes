@@ -34,14 +34,14 @@ Before the first crawl of a run:
 ## P1 — Explore
 
 1. Read the intent artifact and select at most three independent research lenses.
-2. Dispatch the smallest useful parallel set. Each delegate receives the same immutable role, output schema, source policy, and a final `Parameters` block containing only the lens and query.
+2. Dispatch the smallest useful parallel set — **at most 3 delegates per phase** (one per lens). Each delegate receives the same immutable role, output schema, source policy, and a final `Parameters` block containing only the lens and query. Never dispatch one delegate per source.
 3. Require 3–5 compact candidates per lens: title, URL, source tier, one-sentence relevance, date, and a 1–5 score. Delegates must return records, not copied page text.
 4. Deduplicate by canonical URL and publish `01_explore_result.md` with a direction menu, coverage gaps, and estimated P2 scope.
 5. Complete P1 and wait for the user's direction choice.
 
 ## P2 — Deep research
 
-1. Reuse the accepted P1 candidates. Fetch only the selected 3–5 core sources and add sources solely to fill explicit gaps.
+1. Reuse the accepted P1 candidates. Fetch only the selected 3–5 core sources and add sources solely to fill explicit gaps. Batch deep reading into ≤3 delegates (one per source group) instead of one delegate per source.
 2. Extract claim-level notes with anchors or section names; keep quotations short and preserve source attribution.
 3. Write `02_deep_research.md` with: scope, source table, claim/source map, contradictions, practical guidance, open questions, and a concise downstream handoff.
 4. Keep full source bodies in local cache only when necessary for reproducibility; downstream stages receive paths, anchors, summaries, and source IDs.
@@ -52,6 +52,7 @@ Before the first crawl of a run:
 - Keep role, schema, quality bar, and tool set byte-stable within a request family; put query, dates, file excerpts, state, and URLs in the final parameter block.
 - Read only the relevant sections of `01_explore_result.md` and `02_deep_research.md`; do not paste them into subagent prompts.
 - Cap delegate output at 150 Chinese characters per source record and return source IDs plus conclusions to the parent.
+- Fan-out caps: ≤3 delegates per phase, ≤4 same-type subagents concurrently in a session; prefer resuming one delegate over spawning siblings that re-read the same material.
 - Reuse the same `template_id`, `template_version`, model, and fixed tool set for comparable runs. Record usage only through the project telemetry contract when the runtime supplies it.
 
 ## Completion criteria

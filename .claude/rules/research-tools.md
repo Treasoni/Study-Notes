@@ -13,6 +13,7 @@ paths:
 | --- | --- | --- |
 | 网页检索 | `WebSearch`、`mcp__MiniMax__web_search` | 快速查找最新资料、获取标题/URL/摘要 |
 | 网页正文阅读 | `WebFetch` | 把公开网页正文转为 Markdown；不支持图片、登录页与鉴权 URL，跨域跳转需重新调用 |
+| 批量 / 深度正文抓取 | `research-collector` 的 `scripts/crawl.sh`（crawl4ai；单 URL → stdout，批量加 `--output-dir`） | 一次抓多篇、需要 JS 渲染或正文清洗的深读；先 `bash scripts/crawl.sh --help` 探测，退出码 2 则先跑 `scripts/setup.sh` |
 | 动态页面 / 登录交互 | `mcp__browsermcp__browser_navigate`、`browser_snapshot`、`browser_click`、`browser_type`、`browser_screenshot` | 需要登录、滚动、点击、下拉选择或截图核验的页面 |
 | 本地图片阅读 | `Read`（PNG/JPG/WebP/GIF） | 读取已在工作区内的图片、图表或截图 |
 | 图片理解（本地或 URL） | `mcp__MiniMax__understand_image` | 从图片提取文字、描述图表、核验视觉内容；仅 JPEG/PNG/WebP |
@@ -31,7 +32,9 @@ paths:
 
 ## 选择顺序
 
-1. 先搜索：`WebSearch` 或 `mcp__MiniMax__web_search` 找候选，再用 `WebFetch` 打开官方文档、论文、规范或一手公告；用页面内的锚点/小节名定位具体主张。
+1. 先搜索：`WebSearch` 或 `mcp__MiniMax__web_search` 找候选，再打开官方文档、论文、规范或一手公告；用页面内的锚点/小节名定位具体主张。
+   - 单页或少量页面：`WebFetch`。
+   - 成批抓取，或需要 JS 渲染 / 正文清洗（learning-note-flow 的 P2 深读）：`research-collector` 的 `scripts/crawl.sh`（先 `--help` 探测环境，退出码 2 时先跑 `scripts/setup.sh`）；不要逐页串行 WebFetch。
 2. 需要登录、动态交互或可视化核验的页面，用 `mcp__browsermcp__*`（snapshot 定位 → click/type → screenshot 核验）。
 3. 图片/截图：本地文件用 `Read` 或 `mcp__MiniMax__understand_image`；公开 URL 图片用 `mcp__MiniMax__understand_image`。
 4. 需要系统化研究时，使用 `research`；处于学习笔记工作流的 P1/P2 时使用 `research-collector`，遵守状态文件和用户确认点。
