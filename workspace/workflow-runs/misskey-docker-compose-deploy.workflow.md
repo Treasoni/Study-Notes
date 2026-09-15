@@ -10,11 +10,11 @@ topic: "使用 Docker Compose 部署 Misskey"
 project_slug: "misskey-docker-compose-deploy"
 created_at: "2026-09-15"
 last_updated: "2026-09-15"
-current_phase: P7
-current_status: ready
+current_phase: done
+current_status: complete
 mode: outline
 blocked_reason: ""
-quality_gate: pending
+quality_gate: passed
 quality_gate_owner: ""
 quality_gate_due: ""
 ---
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：misskey-docker-compose-deploy
 > 项目标识：misskey-docker-compose-deploy
 > 创建时间：2026-09-15
-> 当前阶段：阶段 7
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -119,12 +119,12 @@ quality_gate_due: ""
 ---
 
 ## 阶段 7：MOC 同步
-- [ ] 已定位或创建 MOC 文件
-- [ ] 新笔记双链已加入 MOC
-- [ ] 已去重并更新摘要/标签
-- [ ] MOC 只保留索引，不复制正文
+- [x] 已定位或创建 MOC 文件
+- [x] 新笔记双链已加入 MOC
+- [x] 已去重并更新摘要/标签
+- [x] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -136,6 +136,7 @@ quality_gate_due: ""
 | P2 | 范围＝A（最小闭环）+ C（NAS 与运维）；移除 S3 与邮件 | 2026-09-15 |
 | P3 | 大纲确认，开始逐章写 | 2026-09-15 |
 | P4 | 「全部写完」——确认第 1 章，并授权一次写完第 2–6 章（覆盖原「逐章确认」门） | 2026-09-15 |
+| P6/P7 | 发布位置＝vault `docker/`；MOC＝`docker/Docker MOC.md` 追加索引项 | 2026-09-15 |
 
 ---
 
@@ -169,6 +170,7 @@ quality_gate_due: ""
 - **总字数**：约 7.7 万字符（中文按字符计；2025 行）
 - **章节数**：6
 - **输出格式**：Obsidian Markdown（frontmatter + Callout + 双链 + 脚注）
-- **文件路径**：`workspace/output/final_note.md`
-- **Obsidian Vault**：待用户指定（当前工作目录本身即 vault 根，候选目录 `docker/`）
-- **MOC 路径**：待用户指定（vault 内已有 `docker/Docker MOC.md`）
+- **文件路径**：`workspace/output/final_note.md`（项目 output，保留）
+- **Obsidian Vault**：当前仓库根目录即 vault 根（相对路径 `.`）
+- **发布路径**：`docker/使用DockerCompose部署Misskey.md`（用户确认：docker/）
+- **MOC 路径**：`docker/Docker MOC.md`（已追加索引项）

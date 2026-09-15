@@ -1,7 +1,7 @@
 ---
 title: Docker 知识索引
 created: 2026-04-06
-updated: 2026-09-14
+updated: 2026-09-15
 tags: [docker, MOC, 索引]
 
 ---
@@ -29,6 +29,7 @@ tags: [docker, MOC, 索引]
 | 把网盘挂载给容器（OpenList → WebDAV → Rclone） | [[OpenList网盘挂载-00-总目录]] |
 | 排查常见错误 | [[docker容器搭建错误的知识讲解]] \| [[docker镜像拉取DNS解析超时排错]] |
 | 向 GHCR 推送镜像 | [[GHCR 推送镜像权限配置]] |
+| 部署一个完整自建服务（Misskey） | [[使用DockerCompose部署Misskey]] |
 
 ---
 
@@ -89,6 +90,9 @@ tags: [docker, MOC, 索引]
 - [[OpenList网盘挂载-04-Rclone挂载]] - 第 4 册：rclone mount、VFS 缓存档、开机自启
 - [[OpenList网盘挂载-05-Docker映射]] - 第 5 册：bind mount 映射给容器、运行身份
 - [[OpenList网盘挂载-06-排障速查]] - 第 6 册：链路各段「症状 → 原因 → 动作」
+
+### 自建服务部署
+- [[使用DockerCompose部署Misskey]] - **完整自建实战（6 章）**：三份产物落位 → `compose.yml`/`default.yml`/`docker.env` 逐份拆解 → 构建·初始化·启动 → 升级流程与 NAS 遗留约束 #docker #docker-compose #misskey #自建服务
 
 ### CI 与镜像推送
 - [[GHCR 推送镜像权限配置]] - GitHub Actions 向 GHCR 推送镜像的权限配置完整指南（Classic PAT + Secret + Workflow 兜底 + 排错） #docker #GitHub-Actions #GHCR
@@ -157,6 +161,7 @@ tags: [docker, MOC, 索引]
 
 ## 更新日志
 
+- 2026-09-15：新增 [[使用DockerCompose部署Misskey]]（Misskey 自建部署 6 章完整实战：产物落位 / 编排文件 / 应用配置与不可变项 / 数据库口令 / 构建初始化启动 / 升级与 NAS 遗留约束）
 - 2026-09-14：重写 [[docker里的GID和UID]]（原为 4 节口语化小文，现为完整入门指南：概念 → 根因 → 三招解法 → 排查三步 → 常见坑；修正「PUID/PGID 是通用做法」的事实错误，补 frontmatter）
 - 2026-09-14：新增 [[厚浪镜像HLmirror使用指南]]（前缀重写式加速器完整指南：三类机制分野 / 全链路实操 / compose·k8s 改写代价 / 常见坑）；同日在 [[镜像加速器vs代理-概念对比]] 顶部补「镜像加速器不止一类」订正块
 - 2026-09-12：更新 [[OpenList网盘挂载-03-WebDAV服务]]（新增 §3.6「反向对照：OpenList 也能当 WebDAV 客户端」——补「地址/账号填谁的」方向对照，附坚果云、群晖 NAS、另一台 OpenList 三个实例；第 2 册 §2.6 加交叉双链）
