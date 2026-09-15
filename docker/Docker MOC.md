@@ -1,7 +1,7 @@
 ---
 title: Docker 知识索引
 created: 2026-04-06
-updated: 2026-09-14
+updated: 2026-09-15
 tags: [docker, MOC, 索引]
 
 ---
@@ -30,6 +30,7 @@ tags: [docker, MOC, 索引]
 | 批量整理音乐文件的标签与封面 | [[MusicTagWeb-00-总目录]] |
 | 排查常见错误 | [[docker容器搭建错误的知识讲解]] \| [[docker镜像拉取DNS解析超时排错]] |
 | 向 GHCR 推送镜像 | [[GHCR 推送镜像权限配置]] |
+| 部署一个完整自建服务（Misskey） | [[使用DockerCompose部署Misskey]] |
 
 ---
 
@@ -96,6 +97,9 @@ tags: [docker, MOC, 索引]
 
 ### 自托管文件共享
 - [[slskd自托管Soulseek客户端/README|slskd：自托管 Soulseek 客户端]] - **4 册系列总目录**：slskd 自托管 Soulseek 客户端实战（部署与运行 → 账号与共享机制 → 日常使用与配置详解 → 安全与进阶速览），含端口三线语义、容器运行身份、配置源合并陷阱、公网部署最小动作清单 #docker #slskd #soulseek #自托管
+
+### 自建服务部署
+- [[使用DockerCompose部署Misskey]] - **完整自建实战（6 章）**：三份产物落位 → `compose.yml`/`default.yml`/`docker.env` 逐份拆解 → 构建·初始化·启动 → 升级流程与 NAS 遗留约束 #docker #docker-compose #misskey #自建服务
 
 ### CI 与镜像推送
 - [[GHCR 推送镜像权限配置]] - GitHub Actions 向 GHCR 推送镜像的权限配置完整指南（Classic PAT + Secret + Workflow 兜底 + 排错） #docker #GitHub-Actions #GHCR
@@ -164,6 +168,7 @@ tags: [docker, MOC, 索引]
 
 ## 更新日志
 
+- 2026-09-15：新增 [[使用DockerCompose部署Misskey]]（Misskey 自建部署 6 章完整实战：产物落位 / 编排文件 / 应用配置与不可变项 / 数据库口令 / 构建初始化启动 / 升级与 NAS 遗留约束）
 - 2026-09-14：新增 [[slskd自托管Soulseek客户端/README|slskd：自托管 Soulseek 客户端]]（自托管 Soulseek 客户端实战，4 册系列：部署与运行 → 账号与共享机制 → 日常使用与配置详解 → 安全与进阶速览）
 - 2026-09-14：新增 [[MusicTagWeb-00-总目录]]（自托管音乐标签编辑器 Music Tag Web 实战，8 册系列：项目定位 → 部署 → 首次登录与激活 → 刮削与标签编辑 → 整理与批处理，附附录 A 播放生态 / B 进阶配置 / C 排错 FAQ）
 - 2026-09-14：重写 [[docker里的GID和UID]]（原为 4 节口语化小文，现为完整入门指南：概念 → 根因 → 三招解法 → 排查三步 → 常见坑；修正「PUID/PGID 是通用做法」的事实错误，补 frontmatter）
