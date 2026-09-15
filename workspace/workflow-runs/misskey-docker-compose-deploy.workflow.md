@@ -10,7 +10,7 @@ topic: "使用 Docker Compose 部署 Misskey"
 project_slug: "misskey-docker-compose-deploy"
 created_at: "2026-09-15"
 last_updated: "2026-09-15"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：misskey-docker-compose-deploy
 > 项目标识：misskey-docker-compose-deploy
 > 创建时间：2026-09-15
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -83,15 +83,15 @@ quality_gate_due: ""
 
 ## 阶段 4：逐章写作
 - [x] 第 1 章已写完并确认 —— 部署前置与三份产物落位
-- [ ] 第 2 章已写完并确认 —— `compose.yml`：服务栈、依赖顺序、网络与挂载
-- [ ] 第 3 章已写完并确认 —— `.config/default.yml`：应用配置必改字段与不可变项
-- [ ] 第 4 章已写完并确认 —— `.config/docker.env`：数据库口令与变量注入
-- [ ] 第 5 章已写完并确认 —— 构建 → 初始化 → 启动：跑通链路
-- [ ] 第 6 章已写完并确认 —— 升级流程与 NAS 遗留约束
+- [x] 第 2 章已写完并确认 —— `compose.yml`：服务栈、依赖顺序、网络与挂载
+- [x] 第 3 章已写完并确认 —— `.config/default.yml`：应用配置必改字段与不可变项
+- [x] 第 4 章已写完并确认 —— `.config/docker.env`：数据库口令与变量注入
+- [x] 第 5 章已写完并确认 —— 构建 → 初始化 → 启动：跑通链路
+- [x] 第 6 章已写完并确认 —— 升级流程与 NAS 遗留约束
 
-**进度**：0/6
+**进度**：6/6
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -104,7 +104,7 @@ quality_gate_due: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
