@@ -11,7 +11,7 @@ project_slug: "misskey-docker-compose-deploy"
 created_at: "2026-09-15"
 last_updated: "2026-09-15"
 current_phase: P2
-current_status: ready
+current_status: in_progress
 mode: outline
 blocked_reason: ""
 quality_gate: pending
@@ -65,7 +65,7 @@ quality_gate_due: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] ⬜ 未开始
+> [P2] 🔲 进行中 {in_progress}
 
 ---
 
