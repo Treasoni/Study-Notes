@@ -343,3 +343,8 @@ StatusError: 500 Internal Server Error
 ## 下一章预告
 
 编排文件已经读通：容器怎么起、谁等谁、数据落哪，都清楚了。但 `web` 容器里跑起来之后要连哪个域名、用哪个数据库用户、端口对不对得上，这些不在 `compose.yml` 里，而在通过只读挂载送进去的那份应用配置里。下一章就打开 `.config/default.yml`，逐个过一遍**必须改**的字段、哪些可留默认，以及那几个「启动后改了就出事」的不可变项。
+
+---
+
+[^c2-1]: [compose_example.yml — misskey-dev/misskey](https://github.com/misskey-dev/misskey/blob/master/compose_example.yml)
+[^c2-2]: [Issue #9613 容器内已上传文件无法访问 — misskey-dev/misskey](https://github.com/misskey-dev/misskey/issues/9613)
