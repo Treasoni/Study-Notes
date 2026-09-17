@@ -320,7 +320,7 @@ class HomeAssistantAdapter(...):
 - **➖ 是本章刻意保留的一类。** 表里 6 条场景的答案不是「Hermes 也能做」，而是「这件事本来就更该由 HA 的确定性机制做」。把它们标出来，是为了让下一章的判据有落脚点——否则读者很容易把「agent 也能干」当成「agent 应该干」。
 - **🔁 的四条全部指向同一条出路。** 历史、写配置、摄像头这三类缺口，在第 3 章的路线选型里会收敛到一个答案；第 4、5 章分别给出两条 MCP 子路线的可用配置。
 
-**本章小结**
+### 本章小结
 
 - 「接入成功」只等于 `HASS_TOKEN` 被设上、四个工具被挂载，它是一个开关，不是能力清单。
 - 内置 HA 工具恰好四个，全部走 `/api/states` 与 `/api/services` 两组端点；历史/统计、写配置、摄像头与结构化 AI 任务三类能力，在内置路径下没有任何表达方式。
@@ -568,7 +568,7 @@ Suggest 按钮还有一条容易被忽略的限定：官方原文说它「**This
 3. **需要读历史 / 写配置 / 看图吗？** 需要，就走 MCP 路线（第 3 章给选型，第 4、5 章给配置）。
 4. **它是管理类任务吗？** 是，两条路线都要额外过权限关；内建 LLM 路线直接排除（HAS-16），MCP 路线看版本（HAS-25 / 第 5 章）。
 
-**本章小结**
+### 本章小结
 
 - 「只控制已暴露实体」这句边界的正确归属是**四个 LLM 集成页**（`HAS-18/19/20/21`）的 `Control Home Assistant` 配置项描述，前面还有一句「If the model is allowed to interact with Home Assistant.」；`HAS-17` 与 `HAS-09` 都没有这句。
 - 开发者文档给了比集成页更硬的一条：Assist API 与内建 conversation agent 能力等价，且**管理类任务做不了**（HAS-16）。
@@ -847,7 +847,7 @@ def register(ctx):
 2. **再看缺的是知识还是能力**：能力已在、只是不知道怎么调 → SKILL.md；能力在进程外 → MCP；必须在进程内 → plugin。
 3. **最后收权限**：MCP 一律先 `trust: untrusted` + `tools.include` 白名单起步；plugin 走原生审批面。这一层的细节在第 7 章统一处理。
 
-**本章小结**
+### 本章小结
 
 - 三条路线不是「强弱排序」而是**补不同东西**：SKILL.md 补**知识**、MCP server 补**外部能力**、自定义 plugin 补**进程内能力**，彼此互补。
 - 自建 SKILL.md **表达不了新能力**——官方把它定义为「on-demand knowledge documents」（HMS-05），`openhue` 之所以能只靠一份 skill 干活，是因为 `prerequisites.commands: [openhue]` 声明的那个 CLI 真实存在；HA 场景不存在可调的 `ha` CLI，所以 SKILL.md 只在能力已由别的方式提供后才有意义。
@@ -1215,6 +1215,10 @@ mcp_servers:
 下一章换到另一条 MCP 子路线：Home Assistant 官方的 `mcp_server` 集成。它的能力比 ha-mcp 窄——实体作用域只有"已暴露给 Assist 的那些"，也没有写配置、历史、摄像头——但它最大的不同是：**官方页面给了 6 个第三方客户端示例，里面没有 Hermes**。所以第 5 章那份配置是拼出来的，会整份标注"拼接·未验证"，并且要在 2026.9 与 2026.10 两个 HA 版本之间分清一个行为相反的点。
 
 ---
+### 本章来源
+
+本章采用**脚注体**引用：正文里的上标与该章的脚注定义一一对应，下附脚注定义块即本章来源清单，每条开头标注 canonical ID（`HAS-*` / `HMS-*` / `SRC-*` / `COM-*`）。其余各章为来源表体，两处内容等价。
+
 
 [^c4-COM01-A]: COM-01（https://github.com/homeassistant-ai/ha-mcp，README），对照表一行：官方 MCP Server 集成 `Only entities exposed to Assist` vs ha-mcp `Everything in Home Assistant`。本册同时在 D-9 标记为"官方明文的路线差异"。
 
@@ -1520,6 +1524,10 @@ mcp_servers:
 下一章换一个方向：不再讨论"怎么把工具接进来"，而是讨论"接进来之后，谁来触发它"。事件转发默认一条都不开、逐实体限流、cron 把结果投回 HA 时有两条分支、以及长报告为什么会被静默砍尾——那是一份 `platforms.homeassistant.extra` 配置片段。
 
 ---
+### 本章来源
+
+本章采用**脚注体**引用：正文里的上标与该章的脚注定义一一对应，下附脚注定义块即本章来源清单，每条开头标注 canonical ID（`HAS-*` / `HMS-*` / `SRC-*` / `COM-*`）。其余各章为来源表体，两处内容等价。
+
 
 [^c5-COM01-SCOPE]: COM-01（ha-mcp README）对照表：官方 MCP Server 集成 `Only entities exposed to Assist` vs ha-mcp `Everything in Home Assistant`。本册 D-9 标记为"官方明文的路线差异"。
 
@@ -2453,6 +2461,7 @@ mcp_servers:
 安全讲完，下一章要处理的是另一个方向的失败：**你按文档配的东西，代码里可能根本不存在**。第 8 章会把本册收集到的 12 条「文档说 X、实际是 Y」摆成一张对照表，并给出一套「从仓库到分支到 docstring 到提交史」的自查路径——它同时也是本章多处结论（例如 `/api/mcp` 的 admin 要求、`Control Home Assistant` 这个开关）为什么必须带版本号的原因。
 
 ### 本章来源
+
 | ID | 档位 | 位置 | 核对结果 |
 |---|---|---|---|
 | `SRC-14` | 一手源码 | `homeassistant/auth/__init__.py`、`homeassistant/components/auth/__init__.py`（master，2026-09-18 重取） | 逐字命中：`async_create_access_token` 只编码 `iss`/`iat`/`exp`（L607–615）；`auth/long_lived_access_token` 装饰器为 `ws_require_user`（L519–527）；`async_create_refresh_token(connection.user, ...)`（L533–539）；`connection.user.refresh_tokens` 只含本人 |
@@ -2830,7 +2839,7 @@ print(f'工具数={len(tools)}  字符数={total}  约={total//4} tokens')
 "
 ```
 
-**这个「除以 4」不是官方口径**：`1 token is equal to approx 4 characters` 是 HA 论坛一位用户的转述经验值（`COM-22` 帖内 post 12），**本轮未做独立回源**。把它当量级估算可以，当换算标准不行。
+**这个「除以 4」不是官方口径**：`1 token is equal to approx 4 characters` 是 HA 论坛一位用户的转述经验值（`COM-22` 帖内 post 12，用户 rossk，原句前缀为 `From what I read`——**连他自己也是转述**）。定稿后已回源逐字核验并留下全文快照，**仍然不是官方口径**。把它当量级估算可以，当换算标准不行。
 
 **9.1.2 社区报的量级：引用时必须降格**
 
@@ -2848,7 +2857,7 @@ print(f'工具数={len(tools)}  字符数={total}  约={total//4} tokens')
 
 **禁止**写成「实测 60.3k」。同样禁止把这个数字当成你自己的预算基线——它是一个量级信号，不是一条测量值。
 
-同帖另有两条相邻引语（post 2 的「110k Tokens」、以及那张 `Bildschirmfoto 2026-07-06 um 09.34.51` 截图），本册素材明确标注**未逐条核验**，正文不引用。
+同帖另有两条相邻引语（post 2 的「110k Tokens」、以及那张 `Bildschirmfoto 2026-07-06 um 09.34.51` 截图）。定稿后已回源核验：post 2（用户 Mercator）原句是 `Die Messages schnappen sich aktuell 110k Tokens.`，与 post 3 一样是在**转述 Claude 的回答**（post 3 的段落开头同样是 `Claude sagt dazu:`），截图也确实在 post 1。两者都不是 tokenizer 计数，因此**核验的结论是「不引用」，而不是「引用」**。
 
 > [!tip] 大白话
 > 工具 schema 像**每次开会前都发一遍的全套说明书**：哪怕今天只讨论一件事，你也得把 77 本手册抱进会议室。开会内容再简单，搬运成本不变。所以「把用不上的工具摘掉」不是省钱技巧，而是这项开销**唯一**有效的削减方式——这也正是第 7 章清单第 5 条（`tools.include` 白名单）在成本上的意义。
@@ -2876,7 +2885,7 @@ print(f'工具数={len(tools)}  字符数={total}  约={total//4} tokens')
 
 - **`339.000` 是欧陆千分位写法，等于 339,000**，不是「339 个 token」。同帖还有 `200 000`、`130,000` 两种写法混用，引用时要统一并注明原写法。
 - **帖子是 2024-06 的内容**。HA 的 Assist / LLM 管线此后有变更，引用时必须带这个时间戳，否则读者会以为它反映当前版本。
-- 该帖的取回路径也不理想：直连被 Cloudflare 拦截，最终数字来自对 `/t/736566.json` 的抽取，**未落盘可比对字节**，判定置信度为「中」。正文若要带引号引用具体数字，须标注「未经本地快照核验」。
+- 该帖的取回路径值得记一笔：HTML 直连被 Cloudflare 拦截，数字来自对 `/t/736566.json` 的抽取。**取回时未落盘可比对字节，当时判定置信度为「中」**；定稿后已重取并落盘全文快照（20 帖），上表四个数字与该帖所有引语均已逐字复核，**置信度升为「高」**。举证定性的降格（不是对照实验）**不因置信度升级而改变**。
 
 **9.2.2 那么成本真正由什么决定**
 
@@ -3009,10 +3018,11 @@ budget:
 九章正文到此结束。最后是附录：一份**实机核对清单**（4 条命令，每条都写明「答案会改变正文哪一句」）、一张**未解决问题分级表**（4 条阻塞项 + 13 条非阻塞缺口），以及一份**延伸阅读索引**——最后这份要如实说明：本轴素材薄弱，只有官方文档索引与项目清单，**没有体系化的进阶路径**。
 
 ### 本章来源
+
 | ID | 档位 | 位置 | 核对结果 |
 |---|---|---|---|
-| `COM-16` | 社区帖（德语，**已回源，举证性质降格**） | `community.simon42.com/t/ha-mcp-macht-den-kontext-voll/88707` | 楼主 post 1 原话仅「über 60k Tokens」；`60,3k` 与 `1,8k–3,4k` 出处在 post 3，段落开头为 `Claude sagt dazu:`（**模型自述，非 tokenizer 计数**）。相邻引语「110k Tokens」与截图**未核验**，未引用 |
-| `COM-22` | 社区帖（**已回源，部分支持**） | `community.home-assistant.io/t/736566` | 数字逐字命中，但分属 skycryer（post 1，context tokens）/ Kolossboss（post 2、14，generated tokens）/ Ollijung（post 11）；**无单变量对照实验**；`339.000` = 339,000；帖为 2024-06；快照缺失，置信度「中」 |
+| `COM-16` | 社区帖（德语，**已回源，举证性质降格**） | `community.simon42.com/t/ha-mcp-macht-den-kontext-voll/88707` | 楼主 post 1 原话仅「über 60k Tokens」；`60,3k` 与 `1,8k–3,4k` 出处在 post 3，段落开头为 `Claude sagt dazu:`（**模型自述，非 tokenizer 计数**）。相邻引语「110k Tokens」（post 2）与截图（post 1）**已核验**，同为转述 Claude 的自述，故仍**不引用** |
+| `COM-22` | 社区帖（**已回源，部分支持**） | `community.home-assistant.io/t/736566` | 数字逐字命中，但分属 skycryer（post 1，context tokens）/ Kolossboss（post 2、14，generated tokens）/ Ollijung（post 11）；**无单变量对照实验**；`339.000` = 339,000；帖为 2024-06；全文快照已落盘，置信度「**高**」 |
 | `COM-19` | 社区帖（**社区自报，未复核**） | HA 官方论坛帖 927713 | 16GB VRAM 起、8–16K context、eGPU 约 $1200 |
 | `COM-17` | 社区帖（**社区自报，未复核**） | HA 官方论坛帖 944860 | 延迟分档自述、32 / 53 实体、误报形态 |
 | `COM-11` | 一手项目 README（**子代理采集，主流程未逐条回源**） | `Moballo-LLC/ha-mcp-assist` | 「dynamic discovery instead of full entity dumps」「gets expensive, slow, and unreliable as your home grows」 |
@@ -3020,8 +3030,8 @@ budget:
 | `SRC-07` | 一手源码 | Hermes `hermes_cli/mcp_config.py` | 逐字命中：`details["schema_chars"]` 逐工具注册 schema 字符数，注释说明用途为桌面端估算 per-call token 成本；`hermes mcp test` 只打印工具名与描述 |
 | `G-9` / `G-10` / `G-12` | 缺口记录 | `02_deep_research.md` §7.2 | 误报率无分母 / 无三者齐全的 >6 个月记录 / Reddit 未覆盖 |
 
-[^c9-1]: `COM-16`，https://community.simon42.com/t/ha-mcp-macht-den-kontext-voll/88707 ，post 1（Mathias42）与 post 3（转述 Claude 回答）。
-[^c9-2]: `COM-22`，https://community.home-assistant.io/t/736566 ，post 1 / 2 / 11 / 14。该帖无本地快照，引用具体数字时须标注「未经本地快照核验」。
+[^c9-1]: `COM-16`，https://community.simon42.com/t/ha-mcp-macht-den-kontext-voll/88707 ，post 1（Mathias42）、post 2（Mercator，`110k Tokens` 的出处）与 post 3（转述 Claude 回答）。全文快照已落盘。
+[^c9-2]: `COM-22`，https://community.home-assistant.io/t/736566 ，post 1 / 2 / 11 / 14（另 post 5 给出 `13 API requests / 130,000 tokens / totalling 0.66$`，本册未引用）。全文快照已落盘（20 帖），上表四个数字与 `post 12` 引语均已逐字核验；原帖为 2024-06。
 
 ---
 

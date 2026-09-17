@@ -330,14 +330,28 @@ P1 记 `user-guide/features/creating-skills.md`，仓库中不存在（站点 40
 | HAS-05 | **支持** | 10 年说的是 **LLT**，吊销说的是 **refresh token**——**两条独立链路**，不得由后者推出「吊销 refresh token 会撤销该用户的 LLT」。两句均逐字命中，**吊销句请引全**（`_verify/HAS-05/` L232）：Revoking a refresh token will immediately revoke **the refresh token and** all access tokens that it has ever granted.（本节初记曾漏掉加粗那半句） |
 | HAS-06 | **部分支持** | 四档粒度（entity / domain / area / device）逐字成立；但「**不是 token 属性**」在该页**全页无原文**（全页 `token` 零命中）。只能写「判定以 user 对象 / `context.user_id` 为准」，**不得加引号**。另须补 **first-match 顺序**与 **owner 豁免** |
 | COM-16 | **支持，但举证性质须降格** | `60,3k` 与 `1,8k–3,4k` 的唯一出处是帖内 **Claude 的自述**（该段开头即 `Claude sagt dazu:`），**不是 tokenizer 计数**；楼主原话只有「über 60k Tokens」。正文**禁止**写「实测 60.3k」，只能写「社区用户报告（经 Claude 自述），无第三方复现」 |
-| COM-22 | **部分支持** | 数字逐字命中，但**不是对照实验**：230 / 340→100 / 242 分属**三个不同用户·会话·模型**，帖内没有任何单变量收紧实验；且计量口径混用（post 1 是 context tokens，post 2 是 generated tokens）。`339.000` 是欧陆千分位 = 339,000 |
+| COM-22 | **部分支持** | 数字逐字命中，但**不是对照实验**：230 / 340→100 / 242 分属**三个不同用户·会话·模型**，帖内没有任何单变量收紧实验；且计量口径混用（post 1 是 context tokens，post 2 是 generated tokens）。`339.000` 是欧陆千分位 = 339,000。**（快照与全部引语已于 §5.7.1 复验，置信度升「高」；「部分支持」的定性不变）** |
 
 **两个工具坑（记下来，别再踩）**
 
-1. **`crawl.sh` / `curl` 被 Cloudflare 拦时，Discourse 站点改打 `/t/<id>.json`**。COM-22 的 HTML 路径全部返 403/522，Wayback 当时整站离线且无该 URL 快照，最终靠 JSON 端点拿到 post 1–20——**未落盘可比对字节**，判定置信度为「中」，定稿前建议在有浏览器环境重存快照。
+1. **`crawl.sh` / `curl` 被 Cloudflare 拦时，Discourse 站点改打 `/t/<id>.json`**。COM-22 的 HTML 路径全部返 403/522，Wayback 当时整站离线且无该 URL 快照，最终靠 JSON 端点拿到 post 1–20——**未落盘可比对字节**，判定置信度为「中」，定稿前建议在有浏览器环境重存快照。（**已办**：P7 定稿后补齐可比对快照并把置信度升为「高」，见 §5.7.1）
 2. **crawl4ai 的 HTML 快照会漏 Discourse 的楼层正文**：COM-16 的 `60,3k` 只在 post 3，而 HTML 快照**漏掉了 post 3 正文**——只看原快照会误判「找不到 60.3k」。
 
 **本轮遗留**：3 条相邻引语（COM-22 的 `0.66$`、`1 token ≈ 4 characters`；COM-16 的 `110k Tokens`）随抓取到手但**未逐条核验**，正文引用前须单独核。
+
+#### 5.7.1 回填（P7 定稿后补做，2026-09-18）
+
+上条「本轮遗留」的 3 条相邻引语**已逐条核验完毕**，两条快照同时补齐（`sources/COM-22-homeassistant-forum-736566.json` 20 帖全文 / `sources/COM-16-simon42-88707.json` 4 帖全文；`curl` 直打各自 Discourse 的 `/t/<id>.json`，均 HTTP 200，未再被拦）：
+
+| 引语 | 出处（逐字复核） | 结论 |
+|---|---|---|
+| `1 token is equal to approx 4 characters` | COM-22 **post 12**，用户 `rossk`，原句前缀 `From what I read` | 命中。**连转述者本人也是转述**——正文据此仍不当作口径 |
+| `totalling 0.66$` | COM-22 **post 5**，用户 `Ollijung`（同帖 `13 API requests` / `130,000 tokens`） | 命中。本册**未引用**，保持不引用 |
+| `Die Messages schnappen sich aktuell 110k Tokens.` | COM-16 **post 2**，用户 `Mercator`；与 post 3 同属转述 Claude 的回答 | 命中。**同为模型自述**，故核验结论仍是「不引用」，不是「可以引用」 |
+
+COM-22 正文引用的四个数字一并复验，全部逐字命中：post 1（skycryer）`339.000 context tokens` / `1800 generated tokens` / `around 230 entities`；post 2（Kolossboss）`16 request and already 200 000 generated tokens`；post 11（Ollijung）`242 entities`；post 14（Kolossboss）`from 340 to 100` / `Still Using 5000 Tokens for a simple request`。
+
+因此下列早前判定**升级**：COM-22 的置信度「中」→「**高**」（快照可比对、引语逐字核验）；§5.7 表格里 COM-22 行的「快照缺失」作废。`339.000` = 339,000（欧陆千分位）复验成立，同帖 `200 000` / `130,000` 两种写法混用的记录也成立。
 
 ---
 

@@ -10,11 +10,11 @@ topic: "用 Hermes Agent 控制 Home Assistant：能力地图与实现路线"
 project_slug: "hermes-home-assistant"
 created_at: "2026-09-18"
 last_updated: "2026-09-18"
-current_phase: P6
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
 blocked_reason: ""
-quality_gate: pending
+quality_gate: passed
 quality_gate_owner: ""
 quality_gate_due: ""
 ---
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：hermes-home-assistant
 > 项目标识：hermes-home-assistant
 > 创建时间：2026-09-18
-> 当前阶段：阶段 6
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -110,8 +110,8 @@ quality_gate_due: ""
 - [x] 引用已检查
 - [x] 完整笔记已保存：`./output/final_note.md`
 
-**组装记录**：由 `workspace/hermes-home-assistant/assemble_note.py` 确定性拼接（不改写正文、不动引用机制）。成品 269814 B / 正文 44220 汉字，10 个章标题、60 条目录、脚注定义 45 条对引用 68 处（去重后一一对应）。归一动作三处：① 第 1–3 章章号由「第一章」改为「第 1 章」；② 尾部导航三种写法（粗体引导词 / 裸段落 / `###` 标题）收敛为 `###`；③ 各章尾部空行与 `---` 幂等剥离。
-**已知不一致（未修，留用户定夺）**：章尾导航小节覆盖不齐——`### 下一章预告` 9 章齐（附录本就无）；`### 本章来源` 仅 7 章（第 4、5 章以脚注定义块承担来源，无此小节标题）；`### 本章小结` 仅 4 章（第 6–9 章）。补齐前两项需新增内容而非确定性拼接，故本阶段不动，建议并入 P6 决定。
+**组装记录**（本段数字为 P5 时点值）：由 `workspace/hermes-home-assistant/assemble_note.py` 确定性拼接（不改写正文、不动引用机制）。成品 270384 B / 正文 44352 汉字，10 个章标题、60 条目录、脚注定义 45 条对引用 68 处（去重后一一对应）。P6 给第 4、5 章补了「本章来源」体例说明块后，重跑同一脚本得 **271254 B / 正文 44499 汉字**（增量为两个说明块，正文一字未改）；脚本幂等，连跑两次 md5 不变。归一动作三处：① 第 1–3 章章号由「第一章」改为「第 1 章」；② 尾部导航三种写法（粗体引导词 / 裸段落 / `###` 标题）收敛为 `###`；③ 各章尾部空行与 `---` 幂等剥离。
+**订正**：本记录初稿写的「`### 本章来源` 仅 7 章」「`### 本章小结` 仅 4 章」两处计数有误。准确值是——`### 下一章预告` 9 章（附录无）；`### 本章来源` **9 章**（补齐第 4、5 章后，见 P6）；`### 本章小结` **7 章**（第 1、2、3 章原为粗体 `**本章小结**`，已归一；第 6–9 章原就是 `###`）。第 4、5 章的小结是 `> [!summary] 本章小结` Callout 形态，不是标题，故不计入。真正没有小结的只有第 10 章（附录）。
 **未进目录的 5 个标题**（含反引号/竖线，Obsidian 锚点不安全，正文中仍存在）：1.4、6.4、8.2、8.3、8.6。
 
 > [P5] ✅ 已完成 {complete}
@@ -119,22 +119,47 @@ quality_gate_due: ""
 ---
 
 ## 阶段 6：Obsidian 美化与发布
-- [ ] 已读取 Obsidian 输出规则
-- [ ] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
-- [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
-- [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
+- [x] 已读取 Obsidian 输出规则
+- [x] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
+- [x] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
+- [x] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] 🔲 进行中 {in_progress}
+**发布记录**：形态按 vault 惯例拆成分册文件夹，路径 `AI学习/Hermes Agent/Hermes × Home Assistant 实战/`（vault 根 = 仓库根 `D:\Study-Notes`），含 `README.md` + 10 篇。单文件 `workspace/hermes-home-assistant/output/final_note.md` 保留为存档。发布器 `workspace/hermes-home-assistant/publish_volume.py`，每篇结构 `frontmatter → 导航行 → # 标题 → 正文`，源文的 `## 第 N 章` / `### N.x` 整体升一级，用逆变换断言逐字可逆。frontmatter 字段与既有四分册一致（title / tags / created / updated / status: 已完成 / source_project）。双链 16 个去重目标全部校验存在，脚注 45 条全局唯一。
+
+**偏离已批准方案（三要素）**
+1. 章尾来源小节
+   - 原方案：用户选「只补『本章来源』标题」——给第 4、5 章已有的脚注定义块加 `### 本章来源`。
+   - 实际做法：标题之外再加一行体例说明（该章为脚注体、正文上标与脚注定义一一对应、其余各章为来源表体）。
+   - 理由：裸标题压在脚注定义块上方，渲染出来是一个空小节，点目录锚点会落到空白处；加一行说明不新增任何来源论断（引用条目一条未改），且该行陈述的是既有事实。
+2. 双链写法
+   - 原方案：沿用既有四分册的短链（`[[06-多平台接入与定时任务]]`）。
+   - 实际做法：全部改为 vault 全文路径。
+   - 理由：本 vault 的 `workspace/` 也在 vault 内部并被 Obsidian 索引，章节源文件与发布件同名，`README` 在 vault 中有 30 处同名——短链解析到哪一个不确定。既有四分册有同样的隐患，本册不复刻。
+
+**归一位置的调整**：尾部导航归一本只在 `assemble_note.py` 里做，导致「合并件被归一、发布件没被归一」——发布器直接取 `chapters/` 源文，把没归一的原文发了出去。已移到 `workspace/hermes-home-assistant/normalize_chapters.py`，做在源文件上，下游只做机械变换。
+**脚本缺陷（已修）**：`normalize_chapters.py` 插体例说明时原先取「文件中第一个脚注定义」，但第 4、5 章的脚注定义是分散写的（前中部散着、文末一个密集块），标题因此落进了正文中段；已改为定位**尾部连续定义块**。同轮另发现该脚本对「裸段落过渡语」的规则是零宽前瞻、重复运行会重复插标题并累积空行，已改为「上一非空行已是该标题则不再插」，连跑三遍验证幂等。
+
+> [P6] ✅ 已完成 {complete}
 
 ---
 
 ## 阶段 7：MOC 同步
-- [ ] 已定位或创建 MOC 文件
-- [ ] 新笔记双链已加入 MOC
-- [ ] 已去重并更新摘要/标签
-- [ ] MOC 只保留索引，不复制正文
+- [x] 已定位或创建 MOC 文件
+- [x] 新笔记双链已加入 MOC
+- [x] 已去重并更新摘要/标签
+- [x] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+**MOC 记录**：目标 `AI学习/Hermes Agent/Hermes Agent MOC.md`（vault 内唯一一本 Hermes Agent MOC；新分册 README 已反向双链到它）。三处改动：① 导航 Callout「四册并存」→「五册并存」并追加一条 HA 实战分册导语；② `## 核心笔记` 表追加一行索引项（一行说明，不复制正文）；③ `updated: 2026-08-30` → `2026-09-18`。未做去重删除（原表无同名双链），`## 待扩展` 保持「暂无」。链接用本 MOC 既有的「文件夹/README」短形式，5 条同族链接经全 vault 后缀匹配校验各唯一解析 1 处。
+
+**定稿后回源（把「中」置信度闭掉）**：P6 遗留的 `COM-22` 快照缺失已补做。`curl` 直打 Discourse `/t/<id>.json`，两帖均 HTTP 200 并落盘全文快照——`sources/COM-22-homeassistant-forum-736566.json`（20 帖）、`sources/COM-16-simon42-88707.json`（4 帖）。三条待核引语**全部逐字命中**：`1 token is equal to approx 4 characters`（COM-22 post 12，用户 rossk，原句前缀 `From what I read`——转述者本人也是转述）、`totalling 0.66$`（COM-22 post 5，Ollijung，本册未引用）、`Die Messages schnappen sich aktuell 110k Tokens.`（COM-16 post 2，Mercator，与 post 3 同属转述 Claude 的自述）。§9.2 表格引用的四个数字（`339.000` context / `1800` generated / `200 000` generated / `242` entities / `340→100`）一并复验逐字命中。据此改了三处正文 + 来源表 + 两条脚注：COM-22 置信度「中」→「**高**」；**举证定性不变**（仍非对照实验，仍「部分支持」）；COM-16 的 `110k` 与截图由「未核验」改为「已核验，结论仍是不引用」。回填写入 `02_deep_research.md` 新增 §5.7.1，并在 §5.7 两处旧结论后加「已办」指针（保留原判断痕迹，不改写历史）。第 9 章改动后重跑组装与发布，10 篇逐行复核仍全部一致。
+
+**四项待定的处置（用户授权由我决定）**
+1. **P7 完成与质量门**：置 `quality_gate: passed`。依据是本节已列的复核（10 篇逐行一致、链接 16 目标唯一、脚注 45 条全局唯一、无残留旧形态、无越级标题）。
+2. **是否登记进 `homeassistant/Home Assistant MOC`**：**不登记**。该 MOC 的分组是「部署指南 / 开发集成 / 客户项目 / Inbox」，均是 HA 自身的事务；本册是 Hermes 侧的集成实战，其归宿是 Hermes Agent MOC；分册 README 已单向链到 HA MOC，方向正确（具体→总览）。若你要求，补一行即可。
+3. **引用体例是否统一**：**不统一**。第 1/2/3/8 章文内括注、第 4/5/7/9 章脚注体、第 6–9 章另有来源表。理由是发布形态已拆成 10 篇独立分册，**篇内自洽**才是读者看到的一致性，且每篇都在「本章来源」里自述体例；统一意味着重写 4 篇以上的引用机制，直接触碰 45 条脚注定义／68 处引用，是拿真实回归风险换观感。
+4. **`workspace/` 是否加入 Obsidian 忽略目录**：**不改**。收益只是自动补全少几个同名项（第 6 节的短链隐患已用全文路径绕开），代价是 Obsidian 侧搜不到你的 workflow 产物、源快照与研究档，且「已排除的文件」在不同 Obsidian 版本对文件浏览器的表现不一致，我在这里无法验证。另：本机 `obsidian` 可执行文件存在但**CLI 未启用**（Settings → General → Advanced），无法用 API 可靠落这项配置。若你要开，UI 路径是 设置 → 文件与链接 → 已排除的文件，加 `workspace/`。
+
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -177,10 +202,11 @@ quality_gate_due: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战笔记（A 能力地图 + B 路线选型）
+- **总字数**：正文 44499 汉字（不含代码块；含代码块为 45521）；成品 271254 B（单文件版，md5 `ac94dcc6…`）；分册 10 篇 + README 合计 277014 B / 46238 汉字
+- **章节数**：9 章 + 附录（发布为 10 篇）
+- **输出格式**：Obsidian Markdown，按 vault 惯例拆成 分册文件夹（`README.md` + 10 篇）
+- **文件路径**：`AI学习/Hermes Agent/Hermes × Home Assistant 实战/`；单文件存档 `workspace/hermes-home-assistant/output/final_note.md`
+- **Obsidian Vault**：`D:\Study-Notes`（vault 根与仓库根同一目录）
+- **MOC 路径**：`AI学习/Hermes Agent/Hermes Agent MOC.md`
+- **未闭合项**：附录 B 的 Q-1～Q-4（4 条实机命令，本机无 `hermes` CLI，需你执行后回填）；G-1～G-13（材料缺口，多数是「官方确实没写」的否定结论，不因再检索消失）

@@ -72,25 +72,9 @@ def check_fences(name, text):
         raise SystemExit("!! {} 的代码块 fence 未闭合（{} 行）".format(name, n))
 
 
-# 尾部导航标记归一：把各章三种写法收敛成同一套 `###` 标题。
-# 原因：第 1–3 章用粗体引导词、第 4–5 章是裸段落、第 6–9 章已是标题。
-# 不改动 chapters/ 下的原文件——归一只发生在成品上。
-NAV_NORM = [
-    (re.compile(r"^\*\*下一章预告\*\*[：:]\s*", re.M), "### 下一章预告\n\n"),
-    (re.compile(r"^\*\*本章引用来源\*\*（按 canonical ID）[：:]\s*", re.M), "### 本章来源\n\n"),
-    (re.compile(r"^### 本章来源与回源核对\s*$", re.M), "### 本章来源"),
-]
-# 裸段落形式：第 4、5 章的过渡段直接以「下一章」开头，在它上面补标题
-NAV_BARE = re.compile(r"^(下一章)", re.M)
-
-
-def normalize_nav(text):
-    for pat, repl in NAV_NORM:
-        text = pat.sub(repl, text)
-    text = NAV_BARE.sub(r"### 下一章预告\n\n\1", text)
-    return text
-
-
+# 尾部导航的归一只做一次，且做在源文件上（见 normalize_chapters.py）。
+# 这里刻意不再持有归一规则：否则「合并件被归一、发布件没被归一」，
+# 同一份源文会产出两种形态。下游一律只做机械变换。
 def strip_code(text):
     """剥掉 fenced 代码块与行内代码，用于脚注/ID 扫描（避免把正则字符类当脚注）。"""
     text = re.sub(r"```.*?```", "", text, flags=re.S)
@@ -131,8 +115,6 @@ def main():
                 raise SystemExit("!! {} 首行标题里找不到 {}".format(name, old_word))
             lines[idx] = lines[idx].replace(old_word, new_word, 1)
             body = "\n".join(lines)
-
-        body = normalize_nav(body)
 
         bodies.append((name, body))
         report.append((name, removed, len(body.encode("utf-8"))))
@@ -181,7 +163,7 @@ def main():
     if n_ch != len(ORDER):
         problems.append("章标题数 {} != {}".format(n_ch, len(ORDER)))
 
-    for nav, expect in (("下一章预告", 9), ("本章来源", 7), ("本章小结", 4)):
+    for nav, expect in (("下一章预告", 9), ("本章来源", 9), ("本章小结", 7)):
         got = len(re.findall(r"^###\s+" + re.escape(nav) + r"\s*$", merged, re.M))
         if got != expect:
             problems.append("`### {}` 出现 {} 次（期望 {}）".format(nav, got, expect))
