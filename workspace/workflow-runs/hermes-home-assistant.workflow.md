@@ -3,14 +3,14 @@ workflow_id: learning-note-flow
 workflow_name: 学习笔记工作流
 workflow_version: 1
 state_file_type: workflow-run
-run_id: "vm-bios-uefi"
-task: "虚拟机固件选择 —— BIOS(Legacy/SeaBIOS) vs UEFI(OVMF/EFI)"
+run_id: "hermes-home-assistant"
+task: "用 Hermes Agent 控制 Home Assistant：能力地图与实现路线"
 created_from: ".claude/workflows/learning-note-flow/state-template.md"
-topic: "虚拟机固件选择 —— BIOS(Legacy/SeaBIOS) vs UEFI(OVMF/EFI)"
-project_slug: "vm-bios-uefi"
-created_at: "2026-09-17"
+topic: "用 Hermes Agent 控制 Home Assistant：能力地图与实现路线"
+project_slug: "hermes-home-assistant"
+created_at: "2026-09-18"
 last_updated: "2026-09-18"
-current_phase: P2
+current_phase: P0
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -22,11 +22,11 @@ quality_gate_due: ""
 # 学习笔记工作流 - 执行检查清单
 
 > 工作流：learning-note-flow
-> 主题：虚拟机固件选择 —— BIOS(Legacy/SeaBIOS) vs UEFI(OVMF/EFI)
-> 运行标识：vm-bios-uefi
-> 项目标识：vm-bios-uefi
-> 创建时间：2026-09-17
-> 当前阶段：阶段 2
+> 主题：用 Hermes Agent 控制 Home Assistant：能力地图与实现路线
+> 运行标识：hermes-home-assistant
+> 项目标识：hermes-home-assistant
+> 创建时间：2026-09-18
+> 当前阶段：阶段 0
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -40,18 +40,18 @@ quality_gate_due: ""
 - [ ] 如发布到 Obsidian，vault_path、note_folder、moc_path 已确认或标记待补
 - [ ] 意图文件已生成：`./00_intent.md`
 
-> [P0] ✅ 已完成 {complete}
+> [P0] 🔲 进行中 {in_progress}
 
 ---
 
 ## 阶段 1：探测式收集
-- [x] 已派出 2-3 个 subagent 并行探测
-- [x] 探测结果已汇总
-- [x] 方向菜单已展示给用户
-- [x] 用户已选择学习方向
-- [x] 探测结果已保存：`./01_explore_result.md`
+- [ ] 已派出 2-3 个 subagent 并行探测
+- [ ] 探测结果已汇总
+- [ ] 方向菜单已展示给用户
+- [ ] 用户已选择学习方向
+- [ ] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] ✅ 已完成 {complete}
+> [P1] ⬜ 未开始
 
 ---
 
@@ -65,7 +65,7 @@ quality_gate_due: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] 🔲 进行中 {in_progress}
+> [P2] ⬜ 未开始
 
 ---
 
