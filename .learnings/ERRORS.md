@@ -4,9 +4,18 @@
 
 最近一次维护：2026-09-18（`/digest`）。本轮新增 3 条，全部来自 `learning-note-flow / hermes-home-assistant`
 的 P5–P7 收尾轮：归一层错位（发布件漏归一）、归一脚本两处缺陷（插入点 + 非幂等）、记录数字取自历史输出。
-三条的处置办法已提炼进 `.learnings/RULES.md`；源头修复点分别是
-`workspace/hermes-home-assistant/normalize_chapters.py`（本轮新建）、
-`note-beautifier` 的分册发布自检节、以及 RULES 的记录纪律条。
+
+**源头修复状态（未全部完成，需 `/maintain-learnings` 接手）**：
+
+- `-008` / `-009`：本轮的直接修复是新建 `workspace/hermes-home-assistant/normalize_chapters.py`（把归一做在源文件上、
+  连跑三遍验证幂等），但**项目级 skill 还没改**——`note-beautifier` 的分册发布自检节应补「单一归一层 + 幂等验收（跑两遍 diff 为空）」两项。
+- `-010`：处置办法已写进 `.learnings/RULES.md` 的 Do 节，**尚未**落到任何 skill 或 workflow 的产出记录模板。
+- **压缩阈值已破**：本文件现 122 行（阈值 100）。本轮不压缩，因为三条新错误都是**未在源头修复**的活跃条目，
+  归档等于把未修的问题埋掉。请下一轮 `/maintain-learnings` 先做源头修复（改 `note-beautifier` 分册发布自检节 +
+  产出记录模板），验证后再连 `LRN-20260912-012` 一起评估归档。
+- 注意：`-008` / `-009` 与 RULES.md 既有的「拼接式文档生成：追加前先对既有尾部做幂等归一」属**同一类**，
+  说明该条规则**在真实运行里没有拦住**（规则存在≠会被读到）。这属于「同类错误复发 + 已有规则仍失效」，
+  按 `digest` 的规定应转 `maintain-learnings` 做源头修复，而不是就地再压一遍。
 
 上一次维护：2026-09-14（`/maintain-learnings`）。本轮两条活跃错误均已在源头修复后归档：
 `learning-note-flow / P6 分册发布脚本自造 4 处文本缺陷` → 落到 `note-beautifier` 的
