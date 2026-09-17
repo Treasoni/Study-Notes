@@ -10,8 +10,8 @@ topic: "虚拟机固件选择 —— BIOS(Legacy/SeaBIOS) vs UEFI(OVMF/EFI)"
 project_slug: "vm-bios-uefi"
 created_at: "2026-09-17"
 last_updated: "2026-09-18"
-current_phase: P2
-current_status: in_progress
+current_phase: P3
+current_status: ready
 mode: outline
 blocked_reason: ""
 quality_gate: pending
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：vm-bios-uefi
 > 项目标识：vm-bios-uefi
 > 创建时间：2026-09-17
-> 当前阶段：阶段 2
+> 当前阶段：阶段 3
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -56,16 +56,16 @@ quality_gate_due: ""
 ---
 
 ## 阶段 2：深度收集
-- [ ] 已根据用户选择的方向启动深度收集
-- [ ] 核心概念/理论素材已收集
-- [ ] 实战代码/项目案例已收集
-- [ ] 常见坑/最佳实践已收集
-- [ ] 工具链/生态已收集
-- [ ] 进阶路径/学习资源已收集
-- [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
-- [ ] 深度素材已保存：`./02_deep_research.md`
+- [x] 已根据用户选择的方向启动深度收集
+- [x] 核心概念/理论素材已收集
+- [x] 实战代码/项目案例已收集
+- [x] 常见坑/最佳实践已收集
+- [x] 工具链/生态已收集
+- [x] 进阶路径/学习资源已收集
+- [x] 素材质量已确认（官方文档数、教程数、深度文章数）
+- [x] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] 🔲 进行中 {in_progress}
+> [P2] ✅ 已完成 {complete}
 
 ---
 
