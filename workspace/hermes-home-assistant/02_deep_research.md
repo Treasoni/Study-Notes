@@ -52,8 +52,8 @@ P1 用 `HAS-/HMS-/COM-`，P2 三组精读各自带回了**局部编号**（`H-*`
 | HAS-02 | https://www.home-assistant.io/integrations/mcp/ （HA 作 MCP client，与 HAS-01 是两页） | 官方文档 | 未复核 |
 | HAS-03 | https://developers.home-assistant.io/docs/api/rest/ | 官方文档 | 未复核 |
 | HAS-04 | https://developers.home-assistant.io/docs/api/websocket/ | 官方文档 | 未复核 |
-| HAS-05 | https://developers.home-assistant.io/docs/auth_api/ | 官方文档 | 未复核 |
-| HAS-06 | https://developers.home-assistant.io/docs/auth_permissions/ | 官方文档 | 未复核 |
+| HAS-05 | https://developers.home-assistant.io/docs/auth_api/ | 官方文档 | **已回源**（判定：支持；须把 LLT 期限与 refresh token 吊销拆成两条独立链路，见 §5.7） |
+| HAS-06 | https://developers.home-assistant.io/docs/auth_permissions/ | 官方文档 | **已回源**（部分支持：四档粒度成立，但「不是 token 属性」全页无原文，见 §5.7） |
 | HAS-07 | https://www.home-assistant.io/blog/2025/09/11/ai-in-home-assistant/ | 官方博客 | **已回源**（两句结论确证；**通篇无版本号**） |
 | HAS-08 | https://www.home-assistant.io/integrations/ai_task/ | 官方文档 | 未复核 |
 | HAS-09 | https://www.home-assistant.io/voice_control/voice_remote_expose_devices/ | 官方文档 | **已回源**（全文仅 1187 字） |
@@ -83,10 +83,10 @@ P1 用 `HAS-/HMS-/COM-`，P2 三组精读各自带回了**局部编号**（`H-*`
 |---|---|---|
 | HMS-01 | `tools/homeassistant_tool.py`（P1 归入 HMS，实为源码 → 见 SRC-01） | — |
 | HMS-02 | `plugins/platforms/homeassistant/adapter.py`（→ SRC-02） | — |
-| HMS-03 | `website/docs/reference/toolsets-reference.md` | 未复核 |
+| HMS-03 | `website/docs/reference/toolsets-reference.md` | **已回源**（判定：支持。L136 逐字「the built-in tools **plus** the server's `mcp__<server>__*` tools; neither side shadows the other」） |
 | HMS-04 | `website/docs/reference/mcp-config-reference.md` | **已回源**（`mcp__<server>__<tool>` **正确**） |
 | HMS-05 | `website/docs/user-guide/features/skills.md` | **已回源**（L0/L1/L2、运行时目录树；字段表与 HMS-12 冲突） |
-| HMS-06 | `website/docs/user-guide/features/plugins.md` + `developer-guide/plugins/index.md` | 未复核 |
+| HMS-06 | `website/docs/user-guide/features/plugins.md` + `developer-guide/plugins/index.md` | **已回源**（部分支持：注册签名成立，但「默认 opt-in」限定词是 `General`，见 §5.7） |
 | HMS-07 | `website/docs/reference/cli-commands.md` | **已回源**（`hermes mcp` 全部子命令、`--version`） |
 | HMS-08 | https://hermes-agent.nousresearch.com/docs/user-guide/messaging/homeassistant | **已回源**（**只写 `persistent_notification.create` 一条路**） |
 | HMS-09 | `website/docs/user-guide/features/cron.md`（67495 字节） | **已回源**（`homeassistant` 全文仅 1 次命中，Example 列空） |
@@ -134,13 +134,13 @@ P1 用 `HAS-/HMS-/COM-`，P2 三组精读各自带回了**局部编号**（`H-*`
 | COM-13 | https://github.com/home-assistant/core/issues/177476 | 一手 issue | area 过滤**静默**漏掉无 area 的已暴露实体；**closed as `completed`，2026-09-08 已修复** |
 | COM-14 | https://github.com/home-assistant/core/issues/133460 | 一手 issue | **未暴露实体被 toggle**；`not_planned` 关闭、无维护者解释 |
 | COM-15 | https://github.com/home-assistant/core/issues/134848 | 一手 issue | brightness 0–255 vs 0–100 单位不一致致误动作 |
-| COM-16 | https://community.simon42.com/t/ha-mcp-macht-den-kontext-voll/88707 | 社区帖（德语） | 77 工具 schema 常驻 **60.3k tokens**，最贵单工具 1.8k–3.4k |
+| COM-16 | https://community.simon42.com/t/ha-mcp-macht-den-kontext-voll/88707 | 社区帖（德语） | **已回源｜举证性质降格**：楼主原话只有「über 60k Tokens」；`60,3k` 与 `1,8k–3,4k` 的唯一出处是帖内 **Claude 的自述**（该段开头即 `Claude sagt dazu:`），**非 tokenizer 计数**。见 §5.7 |
 | COM-17 | https://community.home-assistant.io/t/944860 | 社区帖 | 本地语音长期复盘：延迟、32/53 实体、误报形态 |
 | COM-18 | https://community.home-assistant.io/t/937847 | 社区帖 | `ha_assign_label` 覆写致 entity registry 损坏 |
 | COM-19 | https://community.home-assistant.io/t/927713 | 社区帖 | 本地推理硬件门槛：16GB VRAM 起、8–16K context |
 | COM-20 | https://community.home-assistant.io/t/930648 | 社区帖 | 模型输出工具调用 JSON 但未执行（`llama2:13b does not support tools`） |
 | COM-21 | https://community.home-assistant.io/t/636500 | 社区帖 | 最早一批「只读询问导致误动作」报告 |
-| COM-22 | https://community.home-assistant.io/t/736566 | 社区帖 | Assist + LLM token 实测（230/340/100 实体对照） |
+| COM-22 | https://community.home-assistant.io/t/736566 | 社区帖 | **已回源｜部分支持**：数字逐字命中，但**不是对照实验**——230 / 340→100 / 242 分属三个不同用户·会话·模型，且计量口径混用（context tokens vs generated tokens）。见 §5.7 |
 | COM-23 | https://homeassistant-ai.github.io/ha-mcp/setup/ | 一手项目文档 | **Setup Wizard 含 Hermes Agent**：专属 YAML 模板、`/reload-mcp`、`mcp__home_assistant__<tool>` |
 
 ### 2.6 局部编号 → canonical 映射
@@ -194,13 +194,13 @@ P1 用 `HAS-/HMS-/COM-`，P2 三组精读各自带回了**局部编号**（`H-*`
 |---|---|---|
 | B-1 | 「装个现成 skill」在 HA 场景**不存在**：bundled + optional skills 中 smart-home 类只有 `openhue` 一个 | HMS-05 |
 | B-2 | 三条路线：自建 SKILL.md / MCP server / 自定义 plugin；**互补而非替代** | HMS-05、HMS-04、HMS-06 |
-| B-3 | MCP 与内置 toolset **同名不遮蔽**：解析为内置 4 个 + server 工具**叠加** | HMS-03 |
+| B-3 | MCP 与内置 toolset **同名不遮蔽**：解析为内置 4 个 + server 工具**叠加** | HMS-03（**已回源**，L136 逐字；见 §5.7） |
 | B-4 | MCP 工具注册名 = **`mcp__<server>__<tool>`**（双下划线） | **SRC-04**（`MCP_TOOL_NAME_PREFIX = "mcp__"`） |
 | B-5 | server 名/工具名中的 `-`、`.` → `_`；超 64 字符截断 + 8 位 sha256 后缀 | SRC-04 |
 | B-6 | `tools.include` / `tools.exclude` 用**原始 MCP 工具名**（带连字符/点），不是注册名；`include` 优先 | SRC-04 → HMS-04；COM-23 同 |
 | B-7 | `trust: untrusted` 下，凡无 `readOnlyHint: true` 的写工具**都需审批**；未识别值按 `untrusted` 处理（fail-closed） | HMS-04 |
 | B-8 | `readOnlyHint` 只是**服务端自报**的提示；「a lying server can at most skip approval for tools it claims are read-only, never gain extra access」 | HMS-04 |
-| B-9 | 自定义 plugin 最小示例与 `ctx.register_tool(name=, toolset=, schema=, handler=)`；plugins **默认 opt-in**，须 `hermes plugins enable` | HMS-06 |
+| B-9 | 自定义 plugin 最小示例与 `ctx.register_tool(name=, toolset=, schema=, handler=)`；plugins **默认 opt-in**——**已回源，措辞须收窄**：限定词是「**General** plugins and user-installed backends」，同页例外表里 bundled platform/backend、memory、context engine、model provider **全部自动加载** | HMS-06（见 §5.7） |
 | B-10 | `hermes mcp add/test/login`、会话内 `/reload-mcp` | HMS-07、HMS-10 |
 | B-11 | **ha-mcp 的 Setup Wizard 支持 Hermes**，给专属 YAML 模板 + `${env:VAR}` 从 `~/.hermes/.env` 解析 + `/reload-mcp` 提示 | **COM-23** |
 | B-12 | ha-mcp 端点是 **Streamable HTTP only**（POST-only），SSE 预检返 **405** | COM-23 |
@@ -233,16 +233,16 @@ P1 用 `HAS-/HMS-/COM-`，P2 三组精读各自带回了**局部编号**（`H-*`
 | # | 主张 | 来源 + 锚点 |
 |---|---|---|
 | D-1 | LLT **不带 scope claim**（`async_create_access_token` 只编码 `iss`/`iat`/`exp`），权限来自**用户上下文** | SRC-14 |
-| D-2 | 「token 权限 = 创建它的用户」属**源码级推论**，HA 文档从未明文写 | SRC-14 + probe-04 |
-| D-3 | LLT **有效期 10 年**；吊销 = revoke refresh token，立即连带撤销其签发的全部 access token | HAS-05 + SRC-14 |
+| D-2 | 「token 权限 = 创建它的用户」属**源码级推论**，HA 文档从未明文写 | SRC-14 + probe-04；HAS-06 **已回源**确认全页 `token` 零命中 → 只能写「判定以 user 对象 / `context.user_id` 为准」，不得加引号 |
+| D-3 | LLT **有效期 10 年**；吊销 = revoke refresh token，立即连带撤销其签发的全部 access token（两句均**已回源**逐字命中，但**属两条独立链路**，不可推出「吊销 refresh token 会撤销该用户的 LLT」） | HAS-05 + SRC-14 |
 | D-4 | **non-admin 也能创建 LLT**（`@websocket_api.ws_require_user()`，非 `@require_admin`） | SRC-14 |
-| D-5 | 想做细粒度只读只能靠**受限用户/组**（entity/domain/area/device 粒度，是**用户属性不是 token 属性**） | HAS-06 |
+| D-5 | 想做细粒度只读只能靠**受限用户/组**——entity / domain / area / device 四档粒度**已回源**逐字成立；但「**不是 token 属性**」该页**无原文**，正文改写为「判定以 user 对象 / `context.user_id` 为准」，并补 first-match 顺序与 owner 豁免 | HAS-06（见 §5.7） |
 | D-6 | Assist 暴露粒度 = 逐实体 + 多选批量，**无 domain/area 批量** | HAS-09 |
 | D-7 | mcp_server：`/api/mcp/assist` 恒可用；**其他 API ID 要求 admin** | HAS-01 / HAS-25 |
 | D-8 | **暴露列表是软约束**：COM-14 记录「只读提问 → 未暴露实体被 toggle」，`not_planned` 关闭；COM-12 作者直言「it is hard to validate whether a query is only using exposed entities」 | COM-14、COM-12 |
 | D-9 | ha-mcp 的实体作用域是 **`Everything in Home Assistant`**（官方内建为 `Only entities exposed to Assist`）——这是**官方明文的路线差异** | COM-01 |
-| D-10 | MCP 工具 schema 本身有 token 代价：77 工具 ≈ **60.3k tokens** 常驻 | COM-16 |
-| D-11 | 成本不随暴露实体数单调变化：同帖内 242 实体报 0.6 分/次，而 340→100 实体仍报「简单请求 5000 tokens」 | COM-22 |
+| D-10 | MCP 工具 schema 本身有 token 代价——**举证已降格**：正文写「社区用户报告工具集占用超过 60k tokens（其中 `60,3k` 系 Claude 自述，非 tokenizer 计数），无第三方复现」，**禁止**写「实测 60.3k」 | COM-16（见 §5.7） |
+| D-11 | 成本不随暴露实体数单调变化——**举证须降格**：三个数字分属**三个不同用户·会话·模型**，帖内无单变量收紧实验，且计量口径混用（context tokens vs generated tokens）。只能写「社区多个用户报告的量级差异」，**不得写成对照结论** | COM-22（见 §5.7） |
 | D-12 | 本地推理非免费：16GB VRAM 起、仅 8–16K context | COM-19 |
 | D-13 | 误报的具体机理有来源：只读询问触发写动作（COM-21）、brightness 单位不一致（COM-15）、模型不支持 tools 却输出 JSON（COM-20） | COM-15 / COM-20 / COM-21 |
 | D-14 | 写权限事故有实例：`ha_assign_label` 覆写导致 entity registry 损坏 | COM-18 |
@@ -318,6 +318,26 @@ P1 记 `user-guide/features/creating-skills.md`，仓库中不存在（站点 40
 - `HA 出站 4096 硬截断` —— **维持**
 - `MCP 与内置 toolset 同名叠加不遮蔽` —— **维持**（HMS-03，本轮未复核）
 - `HA 侧无现成 HA skill` —— **维持**（HMS-05）
+
+### 5.7 P4 前置核验结果（6 项定点回源，2026-09-18）
+
+原始记录：`research/verify-09-unverified-sources.md`（24.8 KB）。核验为**回源原页 / 原始 JSON**，快照存于 `sources/_verify/` 下 5 个子目录（各用独立 `--output-dir`，未覆盖原快照）。
+
+| 项 | 判定 | 必须落地的改写 |
+|---|---|---|
+| HMS-03 | **支持** | 无需改写。可交叉引证 HMS-06（同页 L140 已写 plugin 用 `ctx.register_tool()` 注册 toolset） |
+| HMS-06 | **部分支持** | 「plugins 默认 opt-in」**过宽**：原文限定词是「**General** plugins and user-installed backends」。同页有整张例外表——bundled platform/backend、memory、context engine、model provider **全部自动加载** |
+| HAS-05 | **支持** | 10 年说的是 **LLT**，吊销说的是 **refresh token**——**两条独立链路**，不得由后者推出「吊销 refresh token 会撤销该用户的 LLT」（两句本身均逐字命中） |
+| HAS-06 | **部分支持** | 四档粒度（entity / domain / area / device）逐字成立；但「**不是 token 属性**」在该页**全页无原文**（全页 `token` 零命中）。只能写「判定以 user 对象 / `context.user_id` 为准」，**不得加引号**。另须补 **first-match 顺序**与 **owner 豁免** |
+| COM-16 | **支持，但举证性质须降格** | `60,3k` 与 `1,8k–3,4k` 的唯一出处是帖内 **Claude 的自述**（该段开头即 `Claude sagt dazu:`），**不是 tokenizer 计数**；楼主原话只有「über 60k Tokens」。正文**禁止**写「实测 60.3k」，只能写「社区用户报告（经 Claude 自述），无第三方复现」 |
+| COM-22 | **部分支持** | 数字逐字命中，但**不是对照实验**：230 / 340→100 / 242 分属**三个不同用户·会话·模型**，帖内没有任何单变量收紧实验；且计量口径混用（post 1 是 context tokens，post 2 是 generated tokens）。`339.000` 是欧陆千分位 = 339,000 |
+
+**两个工具坑（记下来，别再踩）**
+
+1. **`crawl.sh` / `curl` 被 Cloudflare 拦时，Discourse 站点改打 `/t/<id>.json`**。COM-22 的 HTML 路径全部返 403/522，Wayback 当时整站离线且无该 URL 快照，最终靠 JSON 端点拿到 post 1–20——**未落盘可比对字节**，判定置信度为「中」，定稿前建议在有浏览器环境重存快照。
+2. **crawl4ai 的 HTML 快照会漏 Discourse 的楼层正文**：COM-16 的 `60,3k` 只在 post 3，而 HTML 快照**漏掉了 post 3 正文**——只看原快照会误判「找不到 60.3k」。
+
+**本轮遗留**：3 条相邻引语（COM-22 的 `0.66$`、`1 token ≈ 4 characters`；COM-16 的 `110k Tokens`）随抓取到手但**未逐条核验**，正文引用前须单独核。
 
 ---
 
@@ -420,10 +440,11 @@ P1 记 `user-guide/features/creating-skills.md`，仓库中不存在（站点 40
 | G-12 | **Reddit 未被覆盖** | 三轮精读均未返回 reddit.com 结果 |
 | G-13 | **进阶路径/学习资源轴最薄** | 见 §9.2 |
 
-### 7.3 需在 P4 复核（我自己造的转述风险）
+### 7.3 P4 复核状态（已执行，2026-09-18）
 
-- probe-06/07/08 中标 **【子代理采集】** 的社区条目（COM-16~22 等）主流程**未逐条回源**；凡被当成「实测数字」引用前，需按同一标准直读核验，尤其是 **COM-16（60.3k tokens）** 与 **COM-22（token 消耗）**
-- 本文件 §3 的每条主张都已挂 ID + 锚点，但**引用时仍须回原文逐字比对**，不得只凭本表措辞落笔
+- probe-06/07/08 中标 **【子代理采集】** 的社区条目已定点回源 6 项，结果见 **§5.7**。其中 **COM-16 与 COM-22 的举证性质均须降格**——两处都是社区帖里的**自述数字**，不是受控测量；正文不得写成「实测」。
+- 其余未回源的社区条目（COM-17 ~ COM-21 等）在正文中**只能标「社区自报，未复核」**。
+- 本文件 §3 的每条主张都已挂 ID + 锚点，但**引用时仍须回原文逐字比对**，不得只凭本表措辞落笔。
 
 ---
 
@@ -449,7 +470,7 @@ P1 记 `user-guide/features/creating-skills.md`，仓库中不存在（站点 40
 | 一手源码 | **14 条**（SRC-01..14，跨 Hermes 与 HA core 两仓库、含 dev/rc/master 三分支与提交史） | **最强的一档**；前缀、分支条件、权限模型、跨版本差异全部源码级 |
 | 社区 / 第三方 / issue | **23 条**（COM-01..23） | 够用；提供场景灵感与失败实例，但 **COM-16~22 主流程未逐条回源** |
 | 官方 issue（一手） | 3 条（COM-13/14/15） | 关键；其中 1 条已修复、2 条 `not_planned` 无解释 |
-| 待核对 / 未解决 | **14 项**（§7.2 的 G-1..G-13 + §7.1 待实机 4 项） | 集中在「文档与代码不一致」与「官方不写」，**均已如实标注，不阻塞开写** |
+| 待核对 / 未解决 | **14 项**（§7.2 的 G-1..G-13 + §7.1 待实机 4 项）；其中 **6 个原「未复核」来源已于 P4 前定点回源**（见 §5.7） | 集中在「文档与代码不一致」与「官方不写」，**均已如实标注，不阻塞开写**；COM-16 / COM-22 的举证性质已降格 |
 
 ### 9.2 对 P2 检查项的自评
 
