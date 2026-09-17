@@ -510,7 +510,7 @@ qm set 9000 --scsihw virtio-scsi-pci --boot order=scsi0
 - `--boot order=scsi0` 限定只从该盘引导，BIOS 会跳过光驱探测，加快启动。
 - 若是 **Cloud-Init 镜像**，还要加一个 cloud-init 数据盘光驱：`qm set 9000 --ide2 local-lvm:cloudinit`，并常配 `serial0`。
 
-> 一句话：PVE 里 **ISO 走「挂光驱 + 空盘 + 安装器」**，**IMG / raw / qcow2 走「导入 → attach → 设引导」**，对应命令完全不同；而且 `.img` / `.raw` 不需要你预先转换，PVE 会自己按目标存储的格式落盘。
+> 一句话：PVE 里 **ISO 走「挂光驱 + 空盘 + 安装器」**，**IMG 走「导入 → attach → 设引导」**，对应命令完全不同。
 
 ---
 
