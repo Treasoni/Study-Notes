@@ -10,12 +10,12 @@
 
 ## 目录
 
-- [第一章：固件做什么、BIOS 与 UEFI 差在哪](#第一章固件做什么bios-与-uefi-差在哪)
-- [第二章：什么时候必须用 UEFI —— 选型决策](#第二章什么时候必须用-uefi--选型决策)
-- [第三章：VMware Workstation 实操](#第三章vmware-workstation-实操)
-- [第四章：VirtualBox 实操](#第四章virtualbox-实操)
-- [第五章：PVE 实操（SeaBIOS vs OVMF）](#第五章pve-实操seabios-vs-ovmf)
-- [第六章：UEFI 排错 —— 症状、根因、处置](#第六章uefi-排错--症状根因处置)
+- [[#第一章：固件做什么、BIOS 与 UEFI 差在哪]]
+- [[#第二章：什么时候必须用 UEFI —— 选型决策]]
+- [[#第三章：VMware Workstation 实操]]
+- [[#第四章：VirtualBox 实操]]
+- [[#第五章：PVE 实操（SeaBIOS vs OVMF）]]
+- [[#第六章：UEFI 排错 —— 症状、根因、处置]]
 
 ---
 
@@ -1539,10 +1539,6 @@ MBR2GPT: Validation completed successfully
 - **Secure Boot 拦截**的处置是「签名」或「关掉」；但 VMware 在 VBS 启用时**两项都不可编辑**，「关掉」这条路走不通 [^c6-GEN12][^c6-GEN2SEC][^c6-L1-1]。
 - **两条迁移路径**：客户机内先 `mbr2gpt` 再改固件为 UEFI（不能转非系统盘、主分区不超过三个、转换后固件必须重配、Win7/8/8.1 离线转换不受官方支持，且该页不含虚拟机字样），或保留磁盘、新建 UEFI 虚拟机把盘挂过去 [^c6-MBR2GPT][^c6-L3-1]。
 - **一个防误读的术语**：`L3-1` 的 MBR 指分区方案，`gdisk` 的 `MBR: protective` 指 GPT 的兼容外壳，两者不可混读 [^c6-L3-1][^c6-L3-3]。
-
----
-
-至此六章正文结束：第 1、2 章给出概念对齐与选型决策，第 3、4、5 章分别落到 VMware Workstation、VirtualBox、PVE 三处操作，第 6 章把失败现象收敛成症状表。**下一步是组装与发布** —— 把六章按顺序拼接成完整笔记、统一标题层级与引用编号、补上章间过渡语，随后按 Obsidian 规范补 frontmatter、标签与 Callout，发布到你的 vault，并在 MOC 里加一条索引。你手上那台机器的真实报错（原文或截图）随时发过来，会回读第 6 章对应行并按真实报错重写。
 
 ---
 
