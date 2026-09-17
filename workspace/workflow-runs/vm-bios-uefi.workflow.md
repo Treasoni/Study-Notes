@@ -1,16 +1,4 @@
 ---
-workflow: unknown
-topic: ""
-project_slug: ""
-created_at: ""
-last_updated: "2026-09-18"
-current_phase: P5
-current_status: in_progress
-mode: standard
-blocked_reason: ""
----
-| | | | |
----
 workflow_id: learning-note-flow
 workflow_name: 学习笔记工作流
 workflow_version: 1
@@ -22,7 +10,7 @@ topic: "虚拟机固件选择 —— BIOS(Legacy/SeaBIOS) vs UEFI(OVMF/EFI)"
 project_slug: "vm-bios-uefi"
 created_at: "2026-09-17"
 last_updated: "2026-09-18"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -108,13 +96,13 @@ quality_gate_due: ""
 ---
 
 ## 阶段 5：收尾组装
-- [ ] 所有章节文件已检查
-- [ ] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
-- [ ] 过渡语已添加
-- [ ] 目录已生成
-- [ ] 标题层级已统一
-- [ ] 引用已检查
-- [ ] 完整笔记已保存：`./output/final_note.md`
+- [x] 所有章节文件已检查
+- [x] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
+- [x] 过渡语已添加
+- [x] 目录已生成
+- [x] 标题层级已统一
+- [x] 引用已检查
+- [x] 完整笔记已保存：`./output/final_note.md`
 
 > [P5] 🔲 进行中 {in_progress}
 
