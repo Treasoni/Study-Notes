@@ -1,3 +1,14 @@
+---
+workflow: unknown
+topic: ""
+project_slug: ""
+created_at: ""
+last_updated: "2026-09-18"
+current_phase: P5
+current_status: in_progress
+mode: standard
+blocked_reason: ""
+---
 | | | | |
 ---
 workflow_id: learning-note-flow
@@ -27,7 +38,7 @@ quality_gate_due: ""
 > 运行标识：vm-bios-uefi
 > 项目标识：vm-bios-uefi
 > 创建时间：2026-09-17
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -84,15 +95,15 @@ quality_gate_due: ""
 
 ## 阶段 4：逐章写作
 - [x] 第 1 章 固件做什么、BIOS 与 UEFI 差在哪 已写完并确认
-- [ ] 第 2 章 什么时候必须用 UEFI —— 选型决策 已写完并确认
-- [ ] 第 3 章 VMware Workstation 实操 已写完并确认
-- [ ] 第 4 章 VirtualBox 实操 已写完并确认
-- [ ] 第 5 章 PVE 实操（SeaBIOS vs OVMF） 已写完并确认
-- [ ] 第 6 章 UEFI 排错 —— 症状、根因、处置 已写完并确认
+- [x] 第 2 章 什么时候必须用 UEFI —— 选型决策 已写完并确认
+- [x] 第 3 章 VMware Workstation 实操 已写完并确认
+- [x] 第 4 章 VirtualBox 实操 已写完并确认
+- [x] 第 5 章 PVE 实操（SeaBIOS vs OVMF） 已写完并确认
+- [x] 第 6 章 UEFI 排错 —— 症状、根因、处置 已写完并确认
 
-**进度**：1/6
+**进度**：6/6
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -105,7 +116,7 @@ quality_gate_due: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 

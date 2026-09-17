@@ -1,0 +1,478 @@
+# Configuration
+
+Configuration is done entirely in the Home Assistant UI using subentry flows. A *subentry* is a discrete, independently configured capability — for example a Model Provider, a Feature set, or Sentinel. Each subentry has its own settings and can be added, reconfigured, or removed without affecting others.
+
+The configuration UI is available in English, Czech, and Turkish, with a partial Russian translation. Text follows your Home Assistant language settings and falls back to English for untranslated strings. To contribute a new language, see [Translations](contributing.md#translations).
+
+- [Basic Setup](#basic-setup)
+- [Model Providers](#model-providers)
+- [Features](#features)
+- [Tool Retrieval (RAG)](#tool-retrieval-rag)
+- [Control Home Assistant (LLM API)](#control-home-assistant-llm-api)
+- [Speech-to-Text (STT)](#speech-to-text-stt)
+- [Text-to-Speech (TTS)](#text-to-speech-tts)
+- [Schema-first YAML Mode](#schema-first-yaml-mode)
+- [Critical Action PIN](#critical-action-pin)
+- [Global Options](#global-options)
+
+---
+
+## Basic Setup
+
+1. Open **Settings → Devices & Services → Home Generative Agent**.
+2. Click **+ Model Provider** to add a provider (Cloud or Edge → provider type → credentials → model defaults).
+   - The first provider added is automatically assigned to all features.
+   - A provider must exist before you can run **+ Setup**.
+3. Click **+ Setup** to enable features. Choose a setup mode:
+   - **Basic** — enables all features (Conversation, Camera Image Analysis, Conversation Summary) with recommended defaults and creates the database subentry automatically. No database prompt appears.
+   - **Advanced** — step through each feature individually to assign providers, models, and fallback chains; includes a database configuration step.
+4. Use the **gear icon** on any feature to adjust its model settings later.
+5. Click **+ Sentinel** to configure proactive anomaly detection (see [Sentinel guide](sentinel.md)). Choose a setup mode:
+   - **Basic** — enables anomaly alerting with recommended defaults. Prompts for notify service, daily digest, and an optional level-increase PIN.
+   - **Advanced** — exposes all Sentinel options: intervals, cooldowns, quiet hours, triage, baseline, discovery, the Home Assistant & network security audit (master switch and thresholds), camera entry links, and per-entity rule exclusions.
+
+> **No database?** The entry loads without a Database subentry, but only with in-memory storage: conversation history is lost on every reload or restart, long-term memory and face recognition are unavailable, and the Sentinel baseline anomaly detector is off (rules, notifications, and the audit trail keep working). Two paths lead there: **+ Setup** was never run after the integration was added, or in Advanced mode the wizard was closed at the final **Database setup** step (the feature subentries are saved before it, for example after a "cannot connect" error). Once a Model Provider exists, Home Assistant shows a repair issue under **Settings → Repairs** and the log carries a warning; run **+ Setup → Advanced** again and complete the Database step to fix it. With the bundled PostgreSQL with pgvector app the defaults (`localhost`, port `5432`, database `ha_db`, user `ha_user`) are correct.
+
+> **Reconfiguring:** Running **+ Setup** or **+ Sentinel** again when a subentry already exists opens the same mode selector. Advanced mode pre-populates every field with the current saved values. Basic mode always starts from recommended defaults and warns before overwriting.
+
+> **Removing Sentinel:** Delete the Sentinel subentry from the integration page to stop all monitoring immediately. Sentinel background tasks stop, the health sensor transitions to `disabled`, and the network audit's persisted auth inventory and pseudonymization salt are deleted.
+
+---
+
+## Model Providers
+
+Supported providers and their default models:
+
+| Category | Provider | Default model | Purpose |
+|---|---|---|---|
+| Chat | OpenAI | gpt-5 | Reasoning and planning |
+| Chat | Ollama | gpt-oss | Reasoning and planning |
+| Chat | Gemini | gemini-3.5-flash-lite | Reasoning and planning |
+| Chat | Anthropic | claude-sonnet-4-6 | Reasoning and planning |
+| Chat | OpenAI Compatible | gpt-4o | Reasoning and planning |
+| VLM | Ollama | qwen3-vl:8b | Image scene analysis |
+| VLM | OpenAI | gpt-5-nano | Image scene analysis |
+| VLM | Gemini | gemini-3.5-flash-lite | Image scene analysis |
+| VLM | Anthropic | claude-sonnet-4-6 | Image scene analysis |
+| VLM | OpenAI Compatible | gpt-4o | Image scene analysis |
+| Summarization | Ollama | qwen3:8b | Context summarization |
+| Summarization | OpenAI | gpt-5-nano | Context summarization |
+| Summarization | Gemini | gemini-3.5-flash-lite | Context summarization |
+| Summarization | Anthropic | claude-haiku-4-5-20251001 | Context summarization |
+| Summarization | OpenAI Compatible | gpt-4o | Context summarization |
+| Embeddings | Ollama | mxbai-embed-large | Semantic search |
+| Embeddings | OpenAI | text-embedding-3-small | Semantic search |
+| Embeddings | Gemini | gemini-embedding-001 | Semantic search |
+| Embeddings | OpenAI Compatible | text-embedding-3-small | Semantic search |
+
+**Embedding model selection:** Embeddings are configured like any other feature: enable the **Embeddings** feature under **+ Setup** (Advanced mode) and assign it a provider and model. The embedding provider can be completely separate from the chat provider — e.g. llama.cpp for chat and a dedicated llama.cpp or Ollama server for embeddings. When the Embeddings feature is disabled, the provider is chosen automatically: the Conversation provider if it supports embeddings, otherwise the first embedding-capable provider.
+
+**Multiple providers:** You can add multiple Model Provider subentries and assign them per-feature. For example: a "Primary Ollama" provider for chat and a "Vision Ollama" provider for camera analysis. You can also mix types — a local vLLM server as **OpenAI Compatible** alongside an Ollama provider, or two cloud providers side by side (Anthropic for Conversation and Summary, Gemini for Camera Image Analysis and Embeddings).
+
+Add each one with **+ Model Provider** on the integration page. The flow's first step asks **Edge** or **Cloud**, and that choice is what determines the provider types the next step lists — **Edge** offers Ollama and OpenAI Compatible, **Cloud** offers OpenAI, Gemini, and Anthropic. Reconfiguring an existing provider *replaces it in place* (the subentry keeps its identity, and every feature pointing at it moves with it), so use **+ Model Provider** — not reconfigure — when you want a second provider alongside the first.
+
+**Anthropic has no embeddings endpoint.** It can serve Chat, VLM, and Summarization but never Embeddings, so it is absent from the Embeddings row of the table above and from the Embeddings feature's provider picker. If Anthropic is your only provider, add an embedding-capable one (OpenAI, Gemini, Ollama, or OpenAI Compatible) alongside it to keep long-term semantic memory working. A feature pinned to a provider that cannot serve its category is skipped at runtime in favor of a capable provider rather than failing silently.
+
+### Provider Fallbacks
+
+Feature setup can include an ordered list of fallback providers. A fallback applies only to that feature category, so a chat fallback does not automatically cover VLM, summarization, or embeddings.
+
+Fallbacks are evaluated at setup/reload time and at runtime:
+
+- If the primary provider is unavailable when the integration starts or reloads, HGA selects the first usable configured fallback and logs `Fallback selected at setup ...`. That selected provider remains active until the integration is reloaded or Home Assistant restarts. If the primary provider comes back online later, HGA does not automatically switch back during the same runtime.
+- If the active provider fails during a model call with a retryable error, HGA tries the next configured fallback provider for that call and logs the runtime fallback activation. Retryable failures include local transport/connectivity errors, timeouts, rate limits, and transient provider/server errors.
+- If no fallback is configured for a category and the primary provider is unavailable at setup, HGA keeps a placeholder model for that category and logs this at debug level. Configure a fallback for each category that should degrade to another provider.
+
+When a fallback becomes active, HGA also notifies the user once per category/provider for the current runtime. If `notify_service` is configured, the notification is sent to that mobile notify service. If no notify service is configured, HGA creates a Home Assistant persistent notification instead. Runtime fallback notifications are deduplicated, so repeated video-analysis, summarization, chat, or embedding retries do not spam the user. When the active fallback is a cloud provider, the notification includes a cost warning: `Cloud model usage may incur provider costs.`
+
+Fallback model settings come from the fallback provider itself. For chat, VLM, and summarization, HGA first uses the fallback provider subentry's category-specific model setting (`chat_model`, `vlm_model`, or `summarization_model`). If that provider does not define a category-specific model, HGA uses the recommended model for that provider/category from `const.py` (`MODEL_CATEGORY_SPECS`). Category temperature defaults also come from `const.py` when not otherwise set. Ollama fallbacks additionally use the category defaults for context, keepalive, top-p, repeat penalty, and related tuning values unless the provider settings override them.
+
+Chat fallback chains are invoked as complete model calls rather than direct token streams. The Home Assistant chat UI can still stream LangGraph conversation events, but HGA does not switch providers after partial provider text has already been emitted. This avoids mixed responses where a failed primary provider starts a reply and a fallback provider finishes with different content.
+
+To switch back to a recovered primary provider, reload the Home Generative Agent integration or restart Home Assistant.
+
+> **llama-server embeddings** — OpenAI-compatible base URLs are normalized to include the `/v1` prefix, so embedding requests reach llama-server's OpenAI-format `/v1/embeddings` endpoint (its bare `/embeddings` route returns a non-OpenAI response that used to crash embedding calls). Enter the base URL with or without `/v1` — both work. Start llama-server with `--embeddings` on the instance that serves the embedding model. If you still see `Memory semantic search failed — embedding endpoint returned an incompatible response` in the logs, the agent has fallen back to recency-based memory retrieval; check the embedding server's response format or use a dedicated Ollama provider with `mxbai-embed-large`.
+
+---
+
+## Features
+
+Each feature is enabled separately under **+ Setup** and has its own model/provider assignment:
+
+- **Conversation** — the main conversational agent
+- **Camera Image Analysis** — on-demand and proactive vision analysis
+- **Conversation Summary** — automatic context window management
+- **Embeddings** — embedding model for semantic memory and tool retrieval; assign it a dedicated provider/server or leave it off for automatic selection
+
+Global options such as system prompt, face recognition URL, context management parameters, and the critical-action PIN live in the integration's **Options** flow (gear icon on the integration page).
+
+### Per-Model Thinking / Reasoning
+
+The Conversation feature's model form has a **Thinking / reasoning** setting (and,
+for providers that support one, a **Thinking budget** in tokens). Settings are
+remembered **per model name**: switch the chat model from, say, Gemma (thinking on,
+budget 512) to Qwen (thinking off) and back, and each model's configuration is
+restored automatically — the conversation itself is unaffected.
+
+What each choice sends depends on the provider:
+
+| Provider | Off | On | Effort levels | Budget |
+| --- | --- | --- | --- | --- |
+| Ollama | `reasoning: false` | `reasoning: true` | passed through for gpt-oss models; other models treat any effort as On | not supported by the Ollama API |
+| OpenAI Compatible (llama.cpp, vLLM, …) | `reasoning_effort: none` + `chat_template_kwargs: {enable_thinking: false}` | `chat_template_kwargs: {enable_thinking: true}` | `reasoning_effort` — free-form values (e.g. `xhigh`) pass through verbatim; the server owns the vocabulary | `thinking_budget_tokens` (recent llama.cpp servers; older servers ignore it) |
+| OpenAI | not sent (cloud reasoning models cannot disable thinking) | not sent | `reasoning_effort` (known levels only); a model that rejects it is retried without it automatically | not supported |
+| Gemini | `thinking_budget: 0` | `thinking_budget` (dynamic when no budget set) | not offered | `thinking_budget` |
+| Anthropic | not sent (thinking is off by default) | extended thinking with `budget_tokens` | not applicable (only Off/On offered) | `budget_tokens`, clamped to 1024–32768; `max_tokens` is raised above the budget and temperature is pinned to 1, as the API requires |
+
+**Provider default** sends nothing, leaving the server/model behavior unchanged.
+
+Notes:
+
+- Entering a **budget** while the thinking select is at Provider default counts
+  as turning thinking **On** — a budget only means something with thinking
+  enabled.
+- Switching to a model with **no remembered entry** starts it at Provider
+  default — the thinking values still on screen belong to the previous model
+  and are never carried over. Save again to configure the new model.
+- The chat model's thinking settings apply **everywhere the chat model is
+  used** — conversation, Sentinel triage and discovery, and explanation
+  generation — so a large budget also slows and bills those background calls.
+- llama.cpp: a `--reasoning-budget` set on the server command line overrides the
+  per-request budget. If a model ignores the toggle, check that its chat template
+  supports `enable_thinking` (Qwen-style) or `reasoning_effort`.
+- Gemini: only `thinking_budget` is sent — the pinned `google-ai-generativelanguage`
+  protobuf cannot express `thinking_level`, so level control (Gemini 3-style) has
+  to wait for the langchain-google-genai 4.x upgrade. A model that cannot disable
+  thinking rejects **Off**; prefer **Provider default** there.
+- Fallback providers follow the same per-model memory: a fallback model uses its
+  own remembered entry if one exists, otherwise the provider default.
+
+> **Models that pin temperature** — Some OpenAI models (o-series and other reasoning-style models) only accept their default `temperature`/`top_p` and reject any other value with a 400 error. When that happens, HGA logs a warning and automatically retries the call without the rejected parameter, so conversation, camera analysis, summarization, and Sentinel keep working. In a multi-provider fallback chain the retry is applied per provider; a provider that still rejects its sampling settings fails over to the next provider in the chain and counts toward the circuit breaker. To avoid the extra retry on every call, leave the feature's temperature at the model's supported default (`top_p` has no UI setting — its default is a code-only constant, see the [Constants Reference](constants.md)).
+
+> **Gemini 3 temperature** — Google strongly recommends leaving Gemini 3 models at their default temperature of `1.0`; lower values can cause looping or degraded reasoning. Gemini accepts a low temperature without error, so HGA handles this at setup time instead: when a Gemini 3-family model is selected and the feature's temperature is still the recommended default (`0.2`, which predates Gemini 3), HGA sends `1.0` and leaves `top_p` unset so the API defaults apply. A temperature you have explicitly changed away from the default is sent as configured — with a warning in the log pointing at Google's guidance. Gemini 2.5 and earlier models always use the configured values. This applies to primary and fallback Gemini models alike; non-Gemini models in the same feature keep the configured temperature.
+
+---
+
+## Tool Retrieval (RAG)
+
+> **Thanks to [1Jamie](https://github.com/1Jamie) for this feature!**
+
+On startup the integration indexes all available tools as vector embeddings in PostgreSQL. Each turn, only the most relevant tools for the user's message are loaded into the agent's prompt — keeping context short and tool selection accurate.
+
+The tool universe is per-request: Home Assistant exposes some Assist tools only for certain devices (the timer intents — `HassStartTimer` and friends — exist only when the requesting device supports timers), and MCP tools exist only while their server is reachable. The index reconciles tool *presence* with this automatically in both directions (a tool whose description or schema changes without renaming keeps its stored definition until the next indexing pass, as before). When a turn's device exposes tools the index has never seen, they are indexed inline before retrieval runs, so the very first "set a timer for two minutes" from a voice satellite already has `HassStartTimer` available for retrieval — no restart or repeat needed (selection still follows normal relevance ranking). Conversely, indexed tools that don't exist for the current turn (timer tools in a browser chat, tools of an MCP server that failed to load) are never bound.
+
+A few tools bypass similarity ranking: `GetLiveContext` is always available (whenever the Assist API that provides it is loaded for the turn), and `add_automation` is guaranteed to be available whenever your message signals automation-creation intent — explicit wording ("automate...", "remind me every 30 minutes") or an action verb plus a when/if trigger clause ("turn on the porch light when motion is detected"). Read-only state questions ("check if the garage door is open") do not trigger it. These are appended on top of the retrieval limit, so they never crowd out ranked tools. Intent detection is English-only for now; see [Architecture](architecture.md#tools) for details.
+
+Two options in the **Options** flow control this:
+
+- **Retrieval Limit** (`tool_retrieval_limit`, default `5`) — maximum tools made available per turn. Raise if the agent misses tools on complex multi-step requests; lower to reduce prompt size.
+- **Relevance Threshold** (`tool_relevance_threshold`, default `0.15`) — cosine similarity cutoff. Lower if the agent misses tools it should pick up; raise to tighten selectivity.
+
+### Excluded tools
+
+Retrieval is probabilistic: it ranks by semantic similarity, so a server exposing `web_search`, `web_search_images`, `web_search_news` and `web_search_videos` can hand the agent a near neighbour of the one you wanted. **Excluded tools** (`tool_exclusions`) is the deterministic complement — a picker in the **Options** flow listing every tool of every selected LLM API, grouped by API name. Anything you tick there is removed from the tool set the agent loads, so it is never advertised to the model, never retrieved, and never executed: a call to an excluded tool by name is rejected outright rather than run.
+
+It applies to every selected API, not only MCP servers, so Assist's intent tools can be trimmed the same way. This is worth doing for local and smaller models in particular, where tool definitions consume a meaningful share of the context window.
+
+The picker is *subtractive*, and that shapes three behaviours worth knowing:
+
+- **Empty is the default.** No exclusions means every tool of every selected API is exposed — exactly the behaviour before this option existed.
+- **New tools arrive enabled.** A tool a server adds later was never ticked, so it is available immediately without you revisiting the form. If you want it gone, tick it.
+- **Exclusions survive an outage.** If a server is unreachable when you open the Options form, its tools cannot be listed — but your stored exclusions for it are kept and still ticked, labelled with *why* they are missing: `(not currently available)` for a server that is unreachable or gone from Home Assistant, and `(API not selected)` for one you simply unticked under **Control Home Assistant**. They keep applying, and deselecting one is always an explicit action on your part. If nothing at all can be listed and nothing is stored, the field is hidden rather than rendered empty, so saving the form cannot silently clear your selection.
+
+Two details about what the picker shows:
+
+- **Device-gated tools are included.** Home Assistant exposes some Assist tools only to devices that support them — the timer intents are the usual case, offered only when the request comes from a timer-capable voice satellite. An options form has no device, so those tools cannot be listed by asking Home Assistant directly; they are taken from the tool index instead, which records what the agent has actually seen. Without that they would be callable on every voice turn and impossible to switch off.
+- **Tool names are shown defanged.** Names come from the server, not from you, so they are stripped of hidden characters, length-capped, and have their parentheses rewritten to square brackets before display. That last one matters: a server could otherwise name a tool `something (not currently available)` and have it render exactly like a tool that is switched off, so you would skip past a tool that is in fact live.
+
+Excluded tools stay in the vector index (which is global and cumulative by design), so re-enabling one takes effect on the next turn without a re-index.
+
+### Always-included tools
+
+The relevance threshold cuts both ways: a genuinely general-purpose tool can score *below* it on exactly the queries it exists for. "Who won the FIFA World Cup?" shares almost no vocabulary with a `web_search` tool's description, so retrieval never selects it — and no system-prompt instruction can help, because the model cannot call a tool that was filtered out before it saw the list. Lowering the global threshold instead would drag in irrelevant tools on every turn.
+
+**Always-included tools** (`tool_inclusions`) is the additive complement to the exclusions: a second picker in the **Options** flow, listing the same tools, where anything you tick is appended to the tool list *after* vector retrieval — on top of the retrieval limit, like `GetLiveContext`, so an inclusion never crowds out a ranked tool. The model still decides whether to actually call it.
+
+It shares the exclusion picker's contract: empty is the default (nothing extra is bound), stored selections survive a server outage labelled with why they cannot be listed, and the field is hidden when nothing can be listed so a save cannot clear your selection. Three boundaries apply on every turn:
+
+- **An exclusion always wins.** The form refuses a tool ticked in both lists, and the runtime enforces the same rule against configurations written programmatically — the exclusion is a security control and fails closed.
+- **The API must be active.** An inclusion under an API you have deselected (or that failed to load this turn) stays unbound.
+- **The tool must exist this turn.** An inclusion is reconciled against the live tool universe like every other candidate; a tool the server no longer advertises is skipped, not invented.
+- **Inclusions survive the read-only strip.** On read-only state questions ("which doors are open?") the agent normally drops actuation tools from the turn's list; an always-included actuation tool stays bound anyway — always means always. The critical-action PIN still gates any critical call at execution time, and at most 16 inclusions are honoured per turn.
+
+Each inclusion adds its schema and description to the prompt on every turn, so keep the list short — it is meant for the one or two fallback tools (typically web search) that similarity ranking systematically misses, not as a way around retrieval.
+
+A **Tool Index Status** diagnostic sensor (`sensor.tool_index_status`) shows the current index state:
+
+| State | Meaning |
+|---|---|
+| `indexing` | Embedding in progress — the first full run at startup, or a mid-turn top-up adding newly discovered tools |
+| `ready` | Index available; tools retrieved per-turn by semantic search |
+| `failed` | Embedding provider unreachable; agent falls back to a keyword-filtered tool list capped at the retrieval limit |
+| `unknown` | Index state not yet reported |
+
+The sensor's `tools_indexed` attribute reports the cumulative number of tools in the index — not the size of the last indexing batch — and `last_updated` records the time of the last successful index update.
+
+Subsequent restarts skip unchanged tools using SHA-256 content hashing, so re-indexing is fast.
+
+---
+
+## Control Home Assistant (LLM API)
+
+The **Control Home Assistant** option in the Options flow is a multi-select that controls which HA LLM APIs the agent can use.
+
+- **Assist** (`assist`) — the built-in HA Assist API. Grants entity-control intents and the full entity list. Select this for standard voice-assistant control.
+- **MCP server integrations** — any [Model Context Protocol](https://www.home-assistant.io/integrations/mcp_server/) integration you have configured registers its own LLM API (e.g. `mcp-<entry_id>`). Those entries appear in the list once added.
+
+You can select any combination. Selecting both Assist and one or more MCP APIs merges all their tools into a single combined API. Note that deselecting everything does **not** disable HA control: an empty selection is stored as "unset", which the agent reads as the Assist default, so Assist is silently re-enabled on the next save. Running with no LLM API at all is currently not expressible through the form (tracked in `TODOS.md`).
+
+**Adding an MCP server:**
+
+1. Go to **Settings → Devices & Services → Add Integration** → search **Model Context Protocol**.
+2. Enter the server URL and complete setup.
+3. The MCP integration registers an LLM API automatically.
+4. Open **Settings → Devices & Services → Home Generative Agent → Configure**.
+5. Select the new entry in **Control Home Assistant** and save.
+
+**Removing an MCP server:** if a selected server's integration is removed (or is temporarily unavailable), its entry stays selected and is shown as `<id> (no longer available)` so the form remains saveable and your selection is never dropped behind your back. Deselect the dead entry and save to clean it up. While it stays selected, a warning is logged when the options form is built and each time the agent loads its APIs; other selected APIs keep working, but if the unavailable entry is the *only* selection, conversations fail with "No LLM APIs could be loaded" until the server returns or you deselect it.
+
+---
+
+## Speech-to-Text (STT)
+
+HGA provides a built-in STT engine — no separate STT integration required. Two provider types are supported: **OpenAI** (Whisper API) and **Local** (any OpenAI-compatible transcription server, e.g. [Speaches](https://speaches.ai/) serving faster-whisper). A local server can run on any machine Home Assistant can reach; it does not have to be the box that serves your LLM.
+
+1. Open **Settings → Devices & Services → Home Generative Agent**.
+2. Click **+ STT Provider**.
+3. Choose **OpenAI** or **Local (OpenAI-compatible)** and give it a name.
+4. On the **Credentials** step:
+   - **OpenAI:** either reuse an existing OpenAI Model Provider subentry or select **Use a separate key** and enter a dedicated API key.
+   - **Local:** enter the server URL (e.g. `http://192.168.1.100:8000` — a missing `/v1` suffix is added automatically). The API key is optional; leave it blank for servers without authentication. The endpoint is validated when you submit the form.
+5. On **Model & advanced options**, pick a model and set optional fields:
+   - model: recommended `gpt-4o-mini-transcribe` (OpenAI) or `deepdml/faster-whisper-large-v3-turbo-ct2` (Local; any custom model ID your server exposes can be typed in)
+   - `language` (optional): e.g. `en` or `en-US`
+   - `prompt` (optional): hints for domain-specific vocabulary
+   - `temperature` (optional): 0–1
+   - `translate`: on OpenAI only `whisper-1` supports it (other models fall back to transcription); local whisper servers support it for every model
+   - `extra request body` (optional): a JSON **object** merged into the request body, for parameters HGA does not expose as fields. It is merged last, so it can also override a parameter set above (`model` or `response_format`, say). It cannot set `stream`, `file` or `input_audio` — HGA owns how the audio and the response are carried. Invalid JSON, JSON that is not an object, or one of those three keys keeps you on the form.
+   - `request format` (Local only): how the audio goes on the wire — see [Provider-specific request options](#provider-specific-request-options) below
+6. Go to **Settings → Voice assistants → Assist pipelines** and select **STT - OpenAI** / **STT - Local** (or your chosen name) for Speech-to-text.
+
+**Credential changes take effect on the next utterance.** Each STT entity keeps one OpenAI client, built on Home Assistant's shared HTTP client, and rebuilds it when the resolved API key or server URL changes — no restart or integration reload needed. If the entry is linked to a Model Provider subentry, that provider's key is the only one used: linking blanks the separate STT key, so a linked provider without a usable key fails the utterance with an `STT API key missing` warning in the log rather than falling back to a stale key.
+
+### Provider-specific request options
+
+Some endpoints accept transcription parameters that are not part of the OpenAI API — keyword biasing, speaker diarization, vocabulary hints. The **extra request body** field passes them through, but *how* the request is sent decides whether they arrive.
+
+**Multipart upload (the default)** is OpenAI's own shape: the audio is uploaded as a form file. Use it for OpenAI and for local servers such as Speaches, which accept only this shape. Extra body fields become form fields, which works for flat values a local server understands (e.g. `hotwords`) but not for nested objects.
+
+**JSON with base64 audio** posts a JSON body with the audio inline under `input_audio`. This is [OpenRouter's native transcription shape](https://openrouter.ai/docs/guides/overview/multimodal/stt); their multipart endpoint is an OpenAI compatibility layer that supports only `file`, `model`, `language`, `temperature`, `response_format` and `timestamp_granularities`, so nested `provider.options` never arrives over multipart no matter how it is encoded. Two consequences worth knowing before you pick it:
+
+- There is **no translations endpoint** for this shape, so `translate` degrades to transcription with a warning in the log.
+- The **`prompt` field is not sent** — this shape has no such parameter. (OpenRouter ignores `prompt` on multipart too, so nothing is lost there.) If your endpoint wants one, put it in the extra request body.
+- The extra request body **cannot set `stream`, `file` or `input_audio`**. These decide how the audio and the response are carried rather than how the audio is transcribed, and overriding them cannot do anything useful: an endpoint that honours `stream` replies with an event stream, which would be handed back as the transcript itself with no error.
+
+Example: biasing OpenRouter's `microsoft/mai-transcribe-2` towards names its model mishears. Set **request format** to *JSON with base64 audio* and put this in **extra request body**:
+
+```json
+{
+  "provider": {
+    "options": {
+      "azure": {
+        "phraseList": {
+          "phrases": ["Frigate", "Proxmox", "Réaltín"]
+        }
+      }
+    }
+  }
+}
+```
+
+The key under `options` is the provider slug that actually serves the model, which you get from `https://openrouter.ai/api/v1/models/<model>/endpoints` (the `tag` field). Only the options for the provider serving the request are forwarded, and the field names are that provider's own — so check their transcription API reference, not OpenAI's. Providers differ in how they treat unknown fields: some drop them silently, others return an error.
+
+Expect biasing to *steer* recognition rather than guarantee a spelling. A name the model cannot spell may still come back approximated — what matters for a voice assistant is that it lands close enough for the conversation agent to match the entity, which is usually where a phrase list gets it. List the terms themselves (names, rooms, devices) rather than whole sentences, and add a term's common inflections if you use them out loud.
+
+> **Note:** the JSON format is offered on the **Local (OpenAI-compatible)** provider type only, because the OpenAI API itself accepts multipart alone. Configure OpenRouter as a Local provider with the server URL `https://openrouter.ai/api/v1` and your OpenRouter key.
+
+### Running a local STT server
+
+Any server exposing the OpenAI `/v1/audio/transcriptions` endpoint works. Speaches runs on any machine Home Assistant can reach — a dedicated box, the LLM server, or a spare machine with an older GPU. `faster-whisper-large-v3-turbo` needs roughly 1.5–2 GB of VRAM and transcribes a short command in well under a second on even a Pascal-class card; without a GPU pick a smaller whisper model (`Systran/faster-whisper-small`, for example) and the CPU image (`latest-cpu`). Speaches only serves models that have already been downloaded, so list the model in `PRELOAD_MODELS` (or `POST /v1/models/<model-id>` once) before the first utterance:
+
+```yaml
+# docker-compose.yaml on the speech server
+services:
+  speaches:
+    image: ghcr.io/speaches-ai/speaches:latest-cuda
+    ports:
+      - "8000:8000"
+    volumes:
+      - hf-hub-cache:/home/ubuntu/.cache/huggingface/hub
+    environment:
+      - PRELOAD_MODELS=["deepdml/faster-whisper-large-v3-turbo-ct2", "speaches-ai/Kokoro-82M-v1.0-ONNX"]
+      - STT_MODEL_TTL=-1            # keep the model resident; the first utterance after a reload pays several seconds
+      - WHISPER__TTL=-1             # same setting under the name older Speaches images read; harmless to set both
+      # - WHISPER__COMPUTE_TYPE=int8_float32   # required on Pascal GPUs (GTX 10xx): float16 is not supported there
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+volumes:
+  hf-hub-cache:
+```
+
+> **Tip:** local whisper models occasionally hallucinate short phrases ("Thank you.") from silence or noise. The **Speech input filters** in the integration options (**Configure**) drop such phantom transcriptions before they reach the agent — add the phrases you see under **Ignored exact STT phrases**.
+
+---
+
+## Text-to-Speech (TTS)
+
+HGA also provides a built-in TTS engine for Assist pipelines, so a reply can be spoken by the OpenAI speech API or by a local server — the same Speaches container that handles speech-to-text can serve both, but the two providers are configured independently and can point at different machines. Two provider types are supported: **OpenAI** and **Local** (any server exposing the OpenAI `/v1/audio/speech` endpoint, e.g. [Speaches](https://speaches.ai/) serving Kokoro or piper voices).
+
+1. Open **Settings → Devices & Services → Home Generative Agent**.
+2. Click **+ TTS Provider**.
+3. Choose **OpenAI** or **Local (OpenAI-compatible)** and give it a name. The name is what the Assist pipeline's Text-to-speech dropdown shows.
+4. On the **Credentials** step:
+   - **OpenAI:** reuse an existing OpenAI Model Provider subentry or select **Use a separate key** and enter a dedicated API key.
+   - **Local:** enter the server URL (e.g. `http://192.168.1.100:8000` — a missing `/v1` suffix is added automatically). The API key is optional; leave it blank for servers without authentication. The endpoint is validated when you submit the form.
+5. On **Model, voice & advanced options**:
+   - model: `gpt-4o-mini-tts` (recommended), `tts-1`, or `tts-1-hd` for OpenAI; `speaches-ai/Kokoro-82M-v1.0-ONNX` (recommended) or any model ID your server serves for Local
+   - voice: OpenAI offers `alloy`, `ash`, `ballad`, `cedar`, `coral`, `echo`, `fable`, `marin`, `nova`, `onyx`, `sage`, `shimmer`, and `verse`; for Local, type a voice id the model provides (Kokoro: `af_heart`, `af_bella`, `am_adam`, `bf_emma`, `bm_george`, …; piper: the voice name from the model id, e.g. `hfc_female` for `speaches-ai/piper-en_US-hfc_female-medium`)
+   - speed: 0.25–4.0, default 1.0
+   - voice instructions (optional): tone and pacing hints, used only by OpenAI's `gpt-4o-mini-tts` models and ignored elsewhere
+6. Go to **Settings → Voice assistants → Assist pipelines** and select **TTS - OpenAI** / **TTS - Local** (or your chosen name) for Text-to-speech. The configured voice is the pipeline's default; the pipeline's own voice picker lists the OpenAI voices, or the single configured voice for a local server.
+
+Audio is requested as mp3 (or wav/flac/pcm when the pipeline asks for it) and Home Assistant converts to whatever the satellite needs, so a Voice PE's 16 kHz wav request works with either provider. Credential and server changes take effect on the next reply, like STT.
+
+### Running a local TTS server
+
+The Speaches container from the [STT section](#running-a-local-stt-server) serves TTS too. Speaches only serves models that are already downloaded, so add the TTS model to `PRELOAD_MODELS` (the compose example above lists Kokoro) or download it once with `POST /v1/models/<model-id>`:
+
+```bash
+curl -X POST http://192.168.1.100:8000/v1/models/speaches-ai/Kokoro-82M-v1.0-ONNX
+```
+
+Two things to know about the local backend:
+
+- **Kokoro needs a reasonably modern machine.** On a modern CPU (AVX2) or a recent GPU it is fast and sounds good. On an old CPU without AVX2 it can take several times the audio duration to synthesize a sentence, and ONNX Runtime's CUDA path does not help it on Pascal-class GPUs. In that case use a piper voice instead — `speaches-ai/piper-en_US-hfc_female-medium` (voice `hfc_female`) or a `-low` variant — which synthesizes a sentence in about a second on CPU and needs no GPU. Browse the available models with `GET /v1/registry?task=text-to-speech`.
+- **Speaches does not produce opus or aac.** HGA never asks it to; a pipeline that wants those gets mp3 converted by Home Assistant.
+
+---
+
+## Schema-first YAML Mode
+
+**Schema-first JSON for YAML requests** controls how the agent handles YAML-style requests (automations, dashboards, or "show me YAML").
+
+| Setting | Behavior |
+|---|---|
+| **ON** | Agent returns strict JSON converted to YAML for display. Automations are not auto-registered — YAML is shown in chat. To save a file, ask the agent to **save the YAML**; it writes under `/config/www/` and returns a `/local/...` URL. |
+| **OFF** | Dashboard generation is disabled. Automations are auto-registered; YAML is not shown in chat. Other YAML requests follow standard prompt behavior. |
+
+> Note: YAML rendered in the chat window may not preserve indentation due to UI rendering — use the saved file if you need valid YAML to copy.
+
+Example: *"Save this YAML to a file called garage-light."*
+
+---
+
+## Critical Action PIN
+
+Protects sensitive actions (unlocking doors, opening covers) behind a second verification step.
+
+**Setup:** Go to **Settings → Devices & Services → Home Generative Agent → Configure** and toggle **Require critical action PIN**. Enter a 4–10 digit PIN. The value is stored as a salted hash. Leaving the field blank while the toggle is on clears the stored PIN; turning the toggle off removes the guard entirely.
+
+> **You must turn off "Prefer handling commands locally"** in your voice assistant pipeline for this PIN to protect anything.
+>
+> The PIN can only guard commands the agent actually receives. With that option enabled, Home Assistant matches simple commands against its own built-in sentences and executes them itself — "unlock the front door" included — before the conversation agent is ever called. HGA never sees the turn, so it cannot hold it for a PIN. This is Home Assistant's designed behavior and no integration can intercept it. (The related `CONTROL` capability flag does not help here: it only diverts *state questions* and media search to the agent, never control commands.)
+>
+> Since 3.30.9 HGA detects this combination and raises a repair issue under **Settings → System → Repairs** naming the affected pipeline, so the gap cannot sit there silently.
+>
+> Two other paths also bypass the PIN, and turning the option off does not close them:
+>
+> - **Sentence triggers.** Home Assistant runs those ahead of any conversation agent, so a sentence trigger you author yourself that unlocks a door is never screened.
+> - **Anything that is not the conversation agent** — dashboard buttons, scripts, other automations. The PIN guards what the agent is asked to do, not the underlying service call.
+>
+> If a lock or cover must never be voice-operable at all, the reliable control is to stop exposing it to Assist (**Settings → Voice assistants → Expose**) rather than relying on the PIN.
+
+**Protected actions:**
+- Unlocking or opening locks
+- Opening covers whose `entity_id` includes `door`, `gate`, or `garage` — via `open_cover`, `open`, `toggle`, or `set_cover_position`, since all four open a closed door
+- Using HA intent tools on locks
+- **Creating an automation that performs any of the above** — "unlock the front door whenever I get home" is held for the PIN just like the direct command
+
+Alarm control panels use their own alarm code, which is separate from the critical-action PIN.
+
+**Language.** The PIN prompts and confirmation messages the agent returns in chat are fixed strings, not model output. They follow the Home Assistant server language (**Settings → System → General**) and are currently available in English and Czech; any other language falls back to English. Diagnostic log lines stay in English.
+
+**Automation screening.** Automations are screened after Home Assistant validates them, so blueprint inputs are resolved and every nested branch (`choose`, `if`/`then`/`else`, `repeat`, `parallel`, `sequence`) is inspected. Nothing is written to `automations.yaml` and no reload happens until the PIN is confirmed.
+
+Screening classifies each step with Home Assistant's own action taxonomy and lets it through only when it is provably harmless. A service call is not the only way an automation can unlock a door, so these are protected too:
+
+- **Device actions** (`device_id` + `domain` + `type`), which carry no service name but still call `lock.unlock`. A device action's `type` is not the service it runs — each integration maps it in its own code — so *any* device action on a guarded domain asks for the PIN, including harmless ones like locking a lock or closing a cover.
+- **`scene.apply`**, which sets entity states inline — Home Assistant reproduces an `unlocked` lock state by calling `lock.unlock`. `scene.create` only snapshots current state, but the scene it stores can be activated later, so it is screened the same way.
+- **`homeassistant.turn_on` / `turn_off` / `toggle`**, screened against each target entity's own domain.
+
+Screening also **fails closed** — it asks for the PIN rather than guessing — when it cannot see what a step will do:
+
+- A service name built from a template.
+- A target that is an area, device, label, floor, group, entity registry ID, or `entity_id: all`, *when the call's domain and service otherwise match a protected rule*. The entities such a target resolves to are not known at write time, so an `entity_id` substring rule cannot be checked against them and is treated as matching. An ordinary `light.turn_on` over an area is unaffected.
+- Activating a scene, calling a script, triggering another automation, firing an event, pressing a button (a template button's press field is a full script, and the check cannot tell a template button from a plain one, so all of them prompt), calling `python_script` / `shell_command` / `rest_command`, or handing text to `conversation.process` (which can dispatch an intent whose `intent_script` unlocks a door): those all run configuration stored elsewhere. Expect a PIN prompt for these even when the target is harmless.
+- **Any generic `homeassistant.*` call whose targets are not all named entities** — this one gates unconditionally, whatever the service. `homeassistant.turn_on` forwards by resolved domain, and an area, group, or entity registry ID can resolve to a script, or to a template entity whose `turn_on` runs one. The integration cannot resolve those before the automation is written, so it asks.
+- A step type this integration does not recognize, including one a future Home Assistant release introduces.
+
+**What screening cannot see.** Screening runs before the automation is written and has no access to Home Assistant's entity registry, so it cannot expand a group or an area, resolve a registry ID, or tell that a given `switch.x` is a template switch whose `turn_on` runs a stored script. That is why unresolvable targets are gated rather than reasoned about. Separately, the check matches domains and services, so a *transport* service that reaches a lock without naming the lock domain is invisible to it. The realistic case is `mqtt.publish` to a lock's command topic — an MQTT-backed lock (Zigbee2MQTT, ring-mqtt) can be opened by publishing to its topic, and no service-name rule can distinguish that from any other MQTT message. The same is true of any **raw protocol write** that addresses a device beneath the entity layer: `zwave_js.set_value` can write a Door Lock command class directly (as a service call or as a device action), and `zha.issue_zigbee_cluster_command` is equivalent for Zigbee. These are not gated by default because they are ordinary tools on those stacks and gating them would prompt on routine automations.
+
+If you run locks on one of these transports and want them covered, add the relevant entry to the critical actions — `{"domain": "mqtt", "service": "publish"}`, `{"domain": "zwave_js", "service": "set_value"}`, or `{"domain": "zha", "service": "issue_zigbee_cluster_command"}` — accepting that every automation using that transport will then ask for the PIN.
+
+**Blueprint automations are attested at approval time only.** A blueprint-based automation is stored in `automations.yaml` as a `use_blueprint:` reference, and Home Assistant re-substitutes the blueprint on every reload. Screening reads the substituted actions, so the PIN confirms what the blueprint did *when you approved it*. Editing that blueprint file afterwards changes what the approved automation runs, without a fresh prompt. For plain YAML automations the config that is written is the one that was screened.
+
+**Flow:** When you request a protected action, the agent queues the request and asks for the PIN. Reply with the digits to complete the action. After five bad attempts or 10 minutes, the queued action expires and you must ask again. Only the user who made the request can confirm it. If the guard is toggled on but no PIN has been set, a direct command logs a warning and proceeds, while an automation is refused outright — an automation persists and keeps firing, so there is no safe way to let it through unconfirmed. Set a PIN in Options for the guard to take effect.
+
+---
+
+## Global Options
+
+The **Options** flow (gear icon on the integration page) exposes:
+
+- System prompt override
+- **Camera description language** (`vlm_response_language`) — optional, e.g. `Czech`. When set, camera image descriptions (chat camera tool, `save_and_analyze_snapshot`, and the proactive video analyzer) are requested in that language. Leave empty for English. The internal `Scene unchanged.` repeated-scene reply is deliberately kept in English — it is matched by code, not shown to users (see [Camera Entities](camera-entities.md)).
+- **Additional camera analysis instructions** (`vlm_prompt_extra`) — optional multiline text appended to the VLM prompt, e.g. `Ignore cars in the driveway`. Appended after the built-in rules, never replacing them; where your instruction conflicts with or narrows the built-in description request, your instruction takes precedence (the `Scene unchanged.` contract always still applies). It is restated on the per-image request itself because chat-tuned VLMs can ignore system-prompt-only instructions; when the chat agent analyzes a camera for specific objects you asked about in conversation, that live request is left untouched.
+- Face recognition service URL
+- Context management parameters (`max_messages_in_context`, `max_tokens_in_context`, `manage_context_with_tokens`)
+- Critical action PIN toggle and value
+- Tool retrieval limit and relevance threshold
+- **Excluded tools** (`tool_exclusions`) — per-tool allow/deny picker across every selected LLM API, including MCP servers (see [Excluded tools](#excluded-tools))
+- **Always-included tools** (`tool_inclusions`) — tools appended after vector retrieval, on top of the retrieval limit (see [Always-included tools](#always-included-tools))
+
+### Prompt caching
+
+Cloud providers only reuse a cached prompt when the *beginning* of the request is byte-identical to an earlier one. HGA therefore renders the system prompt in two parts and always sends the stable part first:
+
+| Part | Contents | Changes |
+|------|----------|---------|
+| Stable prefix | your system prompt, the timezone line, Critical Action PIN and YAML-mode guidance, the tool-error rule, the exposed-entity context from the selected LLM APIs | only when you edit options or expose/rename entities |
+| Volatile tail | Home Assistant's `Current time is … Today's date is …` line, the memories retrieved for this request, the running conversation summary | every turn |
+
+What each provider does with that:
+
+- **Anthropic** — the stable prefix gets an explicit `cache_control` breakpoint and the request also carries the automatic last-block breakpoint, so the prefix is written once (`cache_creation` in the debug log's `usage_metadata`) and read back on later calls (`cache_read`). Reads are billed at a fraction of the input price; writes at a premium. Both breakpoints use Anthropic's default 5-minute cache lifetime, refreshed on every hit: every model call inside a turn and any follow-up turn within five minutes reads the prefix, while a turn after a longer pause writes it again. A prefix shorter than the model's minimum cacheable length (1,024 tokens for Sonnet, 4,096 for Haiku 4.5, 512 for the Claude 5 models) is processed uncached without error.
+- **OpenAI, Gemini** — both cache prefixes implicitly; the same ordering lets them match.
+- **Ollama, OpenAI-compatible servers** — receive a single plain string with no Anthropic-only fields; the only difference from before is that the date/time line, memories and summary now sit at the end of the prompt instead of the beginning. Local servers keep their own KV-cache behaviour.
+
+Two things still prevent a hit between turns, by design of the providers' caches:
+
+- **A different tool set.** Tool Retrieval (RAG) selects tools per request, and the tool array precedes the system prompt in the cached prefix, so a turn that binds a different set of tools cannot read the previous turn's entry. Consecutive turns on the same topic, and every model call after the first inside one turn (a tool call followed by the answer), do hit. Raising the retrieval limit or adding always-included tools makes the bound set more stable. Memories are retrieved once per turn and reused by every model call in it, so a memory written by a tool mid-turn appears from the next turn on.
+- **Time-dependent expressions in your own system prompt.** The prompt is a Home Assistant template; a `{{ now() }}` or a state lookup in it re-renders differently each turn and lands in the stable part. Keep such values out of the prompt, or accept that the prefix will be rewritten on every turn.
+
+If you use a fallback chain, each member is shaped for its own provider: an OpenAI fallback behind an Anthropic primary receives the plain string, never the Anthropic cache key.
+- `model_provider_uncontended` — bypass all local GPU gates when the server has dedicated capacity
+- **Video analyzer mode** — disable / notify_on_anomaly / always_notify
+- **Enable perceptual-hash frame filter (dHash)** — skip visually identical frames before VLM analysis (off by default; always active for ring-mqtt `event_select` capture loops regardless of this setting; see caveat in [Camera Entities](camera-entities.md#advanced-options))
+- **Motion sensor → camera overrides** — one `binary_sensor.X: camera.Y` pair per line; use when automatic resolution picks the wrong camera (see [Motion → camera resolution](camera-entities.md#motion--camera-resolution))
+
+See [Architecture](architecture.md#llm-context-management) for detail on context management parameters.
+
+---
+
+> **Developer reference:** For a complete listing of every named constant — including code-only tuning knobs and module-level internals — see the [Constants Reference](constants.md).

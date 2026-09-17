@@ -1,0 +1,421 @@
+# Mylo
+
+A persistent, memory-aware AI agent that lives inside your Home Assistant as a sidebar panel add-on.
+
+Mylo connects deeply to your HA instance over websocket — it knows your entities, devices, areas, automations, dashboards, integrations, and learned preferences. It can read, create, and modify your HA configuration, control devices, detect anomalies, and proactively surface issues. It remembers across sessions.
+
+> **Status:** v1.4.0. Tested daily against a 2200-entity production HA instance. Pre-built images for amd64 and aarch64.
+
+## Install
+
+1. **Settings → Add-ons → Add-on Store → ⋮ → Repositories**
+2. Add: `https://github.com/Oasis-Enterprise/mylo`
+3. Install **Mylo**, set your API key in the Configuration tab
+4. Start — it appears as a sidebar panel
+
+Pre-built images available for **amd64** (x86 mini PCs, NUCs, Proxmox) and **aarch64** (Raspberry Pi 4/5). If no pre-built image exists for your architecture, the add-on builds from source on install.
+
+The add-on is **free and open source**. You bring your own API key — Anthropic (Claude), OpenAI, Google Gemini, or Ollama (fully local, $0).
+
+### Running without HAOS (Docker, Kubernetes)
+
+Mylo also runs as a standalone container outside the HA Supervisor — Docker Compose, Kubernetes, or any container runtime. See the [**Standalone Container Guide**](docs/standalone-container.md) for full setup instructions including Docker Compose and Kubernetes examples with secrets management. Community-contributed by [@mossholderm](https://github.com/mossholderm).
+
+---
+
+## What Mylo can do
+
+### Query your home
+
+Ask natural questions and get real answers from live data, not guesses.
+
+- "What lights are on in the kitchen?"
+- "Show me all unavailable sensors"
+- "Which automations haven't fired in the last week?"
+- "What devices are in the garage?"
+- "What's in my error log from the last 6 hours?"
+- "Show me my dashboard config for the overview"
+
+**Tools used:** `query_entities`, `query_devices`, `query_automations`, `query_dashboard`, `query_logs`, `query_system`, `read_config_file`
+
+Mylo queries your live HA registries and state — it doesn't guess or hallucinate entity names. An entity resolver with fuzzy matching validates every entity reference and catches mistakes with `did_you_mean` suggestions.
+
+### Control devices
+
+Turn things on/off, lock/unlock, run scripts, trigger scenes — with explicit confirmation for every action.
+
+- "Turn on the living room lights"
+- "Lock the front door"
+- "Set the thermostat to 72"
+- "Run the vacuum"
+- "Turn off all lights downstairs"
+
+**Tools used:** `call_service`
+
+Every service call requires user approval — you see what's about to happen and click Apply. Certain services are **hard-blocked** and can never be called through Mylo:
+- `homeassistant/restart`, `homeassistant/stop`
+- `hassio/host_reboot`, `hassio/host_shutdown`
+
+Others get an **extra warning** before confirmation:
+- Unlocking locks
+- Disarming alarm panels
+- Opening covers (garage doors, blinds)
+
+### Build automations
+
+Describe what you want in plain English. Mylo writes the YAML, validates it, and shows you a diff before applying.
+
+- "Create an automation that turns off kitchen lights at 11pm"
+- "Build an automation that locks the front door when everyone leaves"
+- "Make the hallway light turn on at 50% when motion is detected after sunset"
+- "Disable the morning routine automation"
+
+**Tools used:** `modify_automation`, `write_config_file`, `patch_config_file`, `verify_change`, `reload_config`
+
+Every automation write goes through: **dry-run preview → user approval → atomic write → HA reload → verification**. If the reload fails, Mylo rolls back automatically and tells you what went wrong.
+
+### Build dashboards
+
+Create and modify Lovelace views through conversation. Supports mushroom cards, mini-graph, conditional cards, and more.
+
+- "Add a mobile-friendly view to my overview dashboard with room tiles and quick actions"
+- "Create a card that shows my energy usage for the last 24 hours"
+- "Add a conditional card that only shows when the garage door is open"
+
+**Tools used:** `modify_dashboard` (create, add_cards, update_view, replace_card, remove_card, delete), `query_dashboard`
+
+Dashboard operations are surgical — Mylo can replace a single view by path, swap one card by index, or remove a card without touching the rest of your dashboard. For new views, it builds incrementally: creates the view with an initial batch of cards, then adds more in follow-up calls.
+
+**Entity validation:** Every entity reference in card configs (including inside Jinja templates like `states('sensor.temp')`) is validated against the live registry before preview. If Mylo hallucinates an entity ID, it gets caught and corrected with fuzzy-match suggestions before you ever see a broken card.
+
+### Create helper entities
+
+Create HA helpers through conversation instead of clicking through Settings → Helpers.
+
+- "Create a toggle helper called guest mode"
+- "Add an input_number for target temperature with a range of 60-80"
+- "Create a timer called laundry with a 45 minute duration"
+- "Delete the old sleep mode toggle"
+
+**Tools used:** `manage_helpers`
+
+Supports all 9 helper types: input_boolean, input_number, input_select, input_text, input_datetime, input_button, timer, counter, and schedule (weekly on/off). All type-specific options (min/max, step, options, duration, weekly time blocks, etc.) are available. Immediate via websocket — no file writes or reload needed.
+
+### Build scripts
+
+Create, update, and delete reusable action sequences — scripts that can be called from automations, dashboards, or via `call_service`.
+
+- "Build a script that flashes the porch light 3 times"
+- "Create a script that announces dinner is ready on all speakers"
+- "Delete the old welcome home script"
+
+**Tools used:** `modify_script`
+
+Scripts are stored alongside automations in `packages/agent.yaml`. Same dry-run → approve → write → reload flow as automations with automatic rollback on failure.
+
+### Build scenes
+
+Create, edit, and activate scenes — including snapshotting the current state of a room.
+
+- "Save the living room exactly as it is now as a scene called movie night"
+- "Make a 'bedtime' scene that turns off all lights and locks the doors"
+- "Activate the morning scene"
+
+**Tools used:** `modify_scene`
+
+On create, Mylo can snapshot the live state and attributes of the entities you name. Same dry-run → approve → write → rollback flow as automations.
+
+### Manage zones
+
+Create, edit, and delete zones (home/work/school) that drive presence automations.
+
+- "Add a work zone at my office address with a 150m radius"
+- "Create a school zone for the kids"
+
+**Tools used:** `modify_zones`
+
+The built-in `home` zone is protected from edits. Updates merge — only the fields you change are touched.
+
+### Debug automations and scripts
+
+Ask *why* an automation did or didn't run — Mylo reads HA's run traces.
+
+- "Why didn't my morning routine fire today?"
+- "Show me the last run of the porch light automation"
+- "What stopped the away-mode script?"
+
+**Tools used:** `query_traces`
+
+Returns the trigger, which steps ran, where it stopped, and any error — the fastest way to debug an automation without digging through HA's trace UI.
+
+### Query entity history
+
+Ask about trends and past state, not just current values.
+
+- "Show me the kitchen temperature over the last 48 hours"
+- "When was the front door last unlocked?"
+- "How often did the motion sensor trigger today?"
+
+**Tools used:** `query_history`
+
+Returns a compact summary (first/last/min/max/avg/count) for numeric sensors or state distribution for binary entities. Raw mode available for detailed state-change lists.
+
+### Organize entities
+
+Bulk rename, reorganize areas, manage labels — clean up your HA without clicking through 200 settings pages.
+
+- "Rename all the kitchen entities to follow snake_case with area prefix"
+- "Move the office devices to the new upstairs area"
+- "Create a 'needs-attention' label and assign it to all unavailable sensors"
+- "Rename sensor.temp_1 to sensor.kitchen_temperature"
+
+**Tools used:** `rename_entities`, `modify_areas`, `manage_labels`
+
+Entity renames include an **optional reference cascade** — Mylo scans your automations.yaml, packages/agent.yaml, and all storage-mode dashboards for the old entity ID and shows you how many references exist before applying.
+
+### Remember things
+
+Mylo has persistent memory that survives across sessions. Tell it things and it remembers.
+
+- "Remember that the basement motion sensor is unreliable"
+- "The kids go to bed at 7pm — don't turn on their lights after that"
+- "The garage is being converted to a workshop"
+- "We prefer mushroom cards for dashboards"
+- "The outdoor sprinkler system goes offline in winter, that's normal"
+
+**Tools used:** `memory_note`
+
+Notes are stored immediately in a scratchpad and available for the next turn. A **nightly reconciler** (powered by Haiku to keep costs low) merges scratchpad notes into the structured context file, detects contradictions, and merges duplicates.
+
+**Memory tab:** You can browse, edit, and delete everything Mylo knows — household members, preferences, notes, known issues, patterns, conflicts. Full transparency, nothing hidden. A "Sync now" button triggers the reconciler on demand.
+
+### Monitor your home
+
+Set up sensor monitoring through conversation — Mylo discovers your sensors and lets you pick which ones to track.
+
+- "Help me set up monitoring for my home"
+- "Monitor my energy sensors and the basement humidity"
+- "What sensors should I be watching?"
+
+**Tools used:** `manage_monitored`, `query_entities`
+
+**Learned norms — confidence over frequency.** Instead of fixed rules ("light on > 4 hours"), Mylo learns what's normal for *each* device from a rolling history of its state changes, and only flags genuine deviations. A device earns the right to be alerted on — it stays quiet until Mylo has watched it long enough (~2 weeks) to know its normal behavior, so you don't get a wall of noise on day one.
+
+**What it watches:**
+- **Duration anomalies** — a device left on/unlocked/open far longer than *its own* history. "Kitchen light has been on 8h — the longest you've ever left it is 6h." Locks and doors get tighter margins.
+- **On while away** — a light or switch on while everyone's out, but only when that's unusual for that entity (a porch light you always leave on won't nag).
+- **Sensor anomalies** — a z-score check against a 7-day baseline (mean + standard deviation), recomputed nightly — but a finding fires only on a strong deviation (3.5σ) sustained across two consecutive checks, so one-hour blips don't alert.
+- **Availability sweep** (hourly) — newly-unavailable entities and stale automations (>48h since last trigger).
+- **Behavioral patterns** (nightly) — learns recurring time-of-day behaviors from 14 days of transitions ("light.kitchen turns off around 23:00 on weekdays").
+
+**Findings stay clean.** They're deduplicated, capped at a handful, auto-resolve the moment the condition clears, expire after 48h, and can be dismissed with a 7-day snooze. Presence is decided only from definitive person states, so a tracker glitch at 3am can't trigger an "away" alert while you're in bed. Everything surfaces in the catch-up banner when you next open Mylo, not as a stream of pings.
+
+### Control findings
+
+Monitor findings surface only inside the Mylo panel (findings badge + catch-up banner) — Mylo never sends push or HA notifications. Suppress specific finding types through conversation.
+
+- "Stop flagging stale automations"
+- "Don't alert me when the sprinkler system goes unavailable"
+- "Mute all proactive findings"
+
+**Tools used:** `manage_notification_filters`
+
+**Suppression types:**
+| Type | What it suppresses |
+|------|-------------------|
+| `stale_automation` | Automations that haven't fired in >48h |
+| `unavailable` | Entities that went unavailable |
+| `anomaly` | Sensor z-score anomaly alerts |
+| `duration_anomaly` | A device on/unlocked/open far longer than its learned norm |
+| `while_away` | A device on while away when that's unusual for it |
+| `sync_conflict` | Memory sync conflict alerts |
+| `*` | All proactive findings |
+
+Suppressions can be **global** (all of a type) or **entity-scoped** (just `sensor.sprinkler_system`). They're stored in memory and persist across sessions.
+
+**Built-in guardrails:**
+- **Bounded findings** — at most 5 active, 48h TTL, dismiss = 7-day snooze
+- **Monitoring toggle** — `proactive_notifications` is the master switch for the hourly background sweep
+
+---
+
+## The three-tab panel
+
+### Chat
+Conversational interface with SSE streaming. User messages appear as right-aligned bubbles; Mylo's responses flow as prose. Tool calls show inline with status dots (green = success, red = error, amber = awaiting approval), tool name, duration, and an expandable params view.
+
+When Mylo proposes a change, an **approval card** appears inline with the diff preview. Click **Apply** to commit or **Reject** to cancel.
+
+A **catch-up banner** appears when you return after a gap (>2 hours), summarizing what happened while you were away — memory syncs, background actions, failures. Built from existing data, no LLM call, zero token cost.
+
+**"+ New" button** in the header archives the current conversation and starts fresh. Old conversations stay in the database — nothing is deleted.
+
+### Memory
+Browse everything Mylo knows: household members, preferences, notes, known issues, patterns, rejected suggestions, and pending conflicts. Each item has a delete button. Conflicts show the two claims side by side with Keep A / Keep B / Dismiss controls.
+
+A **"Pending — not yet synced"** section at the top shows scratchpad notes that are already being used in conversations but haven't been folded into the main memory yet. Hit **Sync now** to trigger the reconciler.
+
+### Activity
+Audit timeline of every tool call Mylo has made, grouped by day. Each entry shows the tool name, result (success/failure/rolled back/denied), dry-run status, tier level, timestamp, and expandable params + details. Filterable by All / Success / Failures.
+
+---
+
+## Cost management
+
+Running on an LLM API costs real money. A free add-on that burns $5/day isn't free. Mylo attacks this from multiple angles:
+
+| Optimization | What it does | Savings |
+|-------------|-------------|---------|
+| **Result summarization** | After the model processes a tool result, the full payload is replaced with a compact summary in conversation history | ~7,800 tokens saved per subsequent turn for a typical entity query |
+| **Minimal detail queries** | Entity queries default to `detail=minimal` (~30 tokens/entity) instead of full attributes (~150 tokens/entity) | 5x reduction on broad queries |
+| **One broad gather** | For a big task Mylo makes a single broad query (default limit 200) instead of dozens of narrow ones, and keeps the entity IDs it fetched so it never re-queries the same scope | Turns a hundreds-of-lookups task into a handful |
+| **Conversation history caching** | Within a turn the prior history is reused from Anthropic's prompt cache across each step instead of being re-sent at full price | ~90% off the repeated context — the biggest lever on long tasks |
+| **Repeat-read dedup** | Identical read calls within a turn are served from a per-turn cache (with a nudge to move on); read results are also cached for 120s across turns | Eliminates redundant HA queries and re-query loops |
+| **Topology routing** | The home topology in the system prompt often answers questions without a tool call at all | Saves entire tool call round trips |
+| **Prompt cache optimization** | System prompt + tool definitions stay stable across turns (timestamp lives on the user message) so Anthropic's cache hits reliably | ~5,500+ tokens at ~90% discount per turn |
+| **Cost & cache telemetry** | Every turn reports an estimated USD cost and cache-hit ratio (logs + chat response) | Makes spend measurable, not a mystery |
+| **Rate limit retry** | Anthropic 429 / 5xx (incl. 529 overloaded) retry with exponential backoff instead of crashing | Prevents panic-retry amplification |
+| **History safety ceiling** | A turn only compacts if it grows toward the context-window limit (~150K tokens); otherwise history stays append-only and cache-friendly | Backstop without breaking the cache |
+| **Budget warnings** | When session cost hits 80% of the configured cap, Mylo mentions it naturally (disabled for Ollama) | Prevents surprise bills |
+
+**Session budget:** Configurable per-session cap (default $0.50). The UI footer shows running cost and token budget.
+
+**Monthly budget:** Configurable monthly cap (default $15.00).
+
+**Typical session cost:** $0.10–$0.30 on Claude Sonnet for a multi-turn conversation with tool calls.
+
+**$0 option:** Use Ollama with a local model. Tool calling quality depends on the model — llama3.1 and qwen2 work best.
+
+---
+
+## LLM providers
+
+| Provider | Config value | API key | Default model | Cost | Notes |
+|----------|-------------|---------|---------------|------|-------|
+| **Anthropic** | `anthropic` | Anthropic key | `claude-sonnet-4-6` | ~$3–15/Mtok | Default. Best tool calling quality. |
+| **OpenAI** | `openai` | OpenAI key | `gpt-4o` | ~$2.50–10/Mtok | GPT-4o, GPT-4-turbo, etc. |
+| **Gemini** | `gemini` | Google AI Studio key | `gemini-2.5-flash` | ~$0.15–10/Mtok | Via Google's OpenAI-compatible endpoint. |
+| **Ollama** | `ollama` | none | `llama3.1` | $0 | Local models. Needs Ollama running on host. |
+
+All providers use the same `api_key` field in the Configuration tab — just put the right key for your chosen provider. If you switch providers but forget to update the `model` field, Mylo auto-detects the mismatch and falls back to the provider's default model.
+
+For Ollama: set `ollama_url` in the Configuration tab to your Ollama server's address (e.g. `http://192.168.1.50:11434/v1`). Default is `http://host.docker.internal:11434/v1` which works if Ollama runs on the same machine as HA. Leave `api_key` empty — Ollama doesn't use one. Budget warnings are automatically disabled since cost is $0.
+
+**Ollama model sizing guide:** Mylo has 21 tools with complex schemas. Smaller models struggle to produce valid tool calls reliably.
+
+| Size | Examples | Experience |
+|------|----------|-----------|
+| **7B** | llama3.1:7b, mistral:7b | Not recommended. Struggles with complex tool parameters, frequently produces malformed JSON, and hallucinates entity IDs. May not self-correct after errors. |
+| **14B** | qwen2.5:14b | Usable for simple queries (lights, sensors, basic automations). Will struggle with multi-step tasks like dashboard building or entity rename cascades. |
+| **32B** | qwen2.5:32b, deepseek-r1:32b | Good. Handles most Mylo features reliably. Best balance of quality vs hardware requirements. |
+| **70B+** | llama3.1:70b | Near cloud-API quality. Requires significant hardware (64GB+ RAM or a dedicated GPU). |
+
+**Minimum recommended: 14B.** For the best local experience: **32B.**
+
+---
+
+## Configuration
+
+Set in the add-on **Configuration** tab:
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `api_key` | — | API key for your chosen provider (required for Anthropic/OpenAI/Gemini) |
+| `llm_provider` | `anthropic` | LLM backend: `anthropic`, `openai`, `gemini`, or `ollama` |
+| `model` | `claude-sonnet-4-6` | Primary chat model (auto-corrects if mismatched with provider) |
+| `reconciliation_model` | `claude-haiku-4-5-20251001` | Model for nightly memory sync (use a cheap model) |
+| `ollama_url` | — | Ollama server URL (e.g. `http://192.168.1.50:11434/v1`) |
+| `sync_frequency` | `nightly` | Memory sync schedule: `nightly` / `weekly` / `manual` |
+| `memory_token_limit` | `8000` | Max tokens for the memory section of the system prompt |
+| `proactive_notifications` | `true` | Enable the hourly background monitoring sweep (findings shown in the panel) |
+| `session_budget_usd` | `0.50` | Per-conversation cost cap in USD |
+| `monthly_budget_usd` | `15.00` | Monthly cost cap in USD |
+
+---
+
+## Safety model
+
+Mylo uses a three-tier permission system:
+
+| Tier | Actions | Approval required | Examples |
+|------|---------|-------------------|----------|
+| **Tier 1 — Read** | Query entities, devices, automations, logs, system info, read config files, record memory notes, list labels/areas/monitored entities/notification filters | No | `query_entities`, `memory_note`, `manage_labels list` |
+| **Tier 2 — Modify** | Write config files, modify automations, rename entities, modify dashboards, modify areas, manage monitored entities, manage notification filters | Yes (dry-run first) | `modify_automation`, `rename_entities`, `modify_dashboard` |
+| **Tier 3 — Action** | Call HA services (lights, locks, covers, scripts, scenes), reload configuration | Yes (explicit confirmation) | `call_service`, `reload_config` |
+
+**Hard-blocked services** (can never be called, even with approval):
+- `homeassistant/restart`, `homeassistant/stop`
+- `hassio/host_reboot`, `hassio/host_shutdown`, `hassio/supervisor_reload`
+
+**Restricted services** (extra warning before confirmation):
+- Unlocking locks, disarming alarm panels, opening covers
+
+**Audit logging:** Every tool call is logged to an append-only JSON Lines audit file with timestamp, tool name, tier, parameters, dry-run status, approval status, and result. Browse the full history in the Activity tab.
+
+**Rollback:** Tier-2 file writes use atomic write → reload → verify → rollback-on-failure. If a config change causes a reload error, the original file is restored automatically.
+
+---
+
+## Things you might not know you can do
+
+**Tell Mylo about your household:**
+- "I work from home most days"
+- "The kids go to bed at 7pm"
+- "My wife prefers warm lighting"
+
+This gets stored in the household section of memory and influences future behavior — Mylo won't suggest turning on kids' lights after bedtime.
+
+**Suppress specific entities from monitoring:**
+- "The sprinkler system goes offline in winter, stop alerting about it"
+- "Ignore the Bluetooth sensor being unavailable, it's flaky"
+
+**Ask for troubleshooting help:**
+- "Why isn't my motion sensor working?"
+- "The garage door automation stopped firing, help me debug it"
+- "Show me errors from the last 6 hours"
+
+Mylo pulls relevant logs, checks automation traces, and cross-references against known issues in its memory.
+
+**Review what happened while you were away:**
+Open the panel after a gap and the catch-up banner shows what changed — memory syncs, background actions, failures. No LLM cost for this.
+
+**Use slash commands:**
+- `/clear` or `/new` — archive conversation and start fresh
+- `/help` — show available commands
+
+**Check the cost of your session:**
+The footer shows `budget: Nk/200k tokens · cost: $X.XX this session` in real time.
+
+---
+
+## Local development
+
+Requires Python 3.12+, Node 20+.
+
+```bash
+git clone https://github.com/Oasis-Enterprise/mylo.git
+cd mylo
+
+python3 -m venv .venv
+.venv/bin/pip install -e '.[dev]'
+cd ui && npm install && cd ..
+
+cp .env.example .env
+# Edit .env: HA_URL, HA_TOKEN, ANTHROPIC_API_KEY, MYLO_CONFIG_DIR
+```
+
+```bash
+.venv/bin/python -m mylo              # run server
+.venv/bin/python -m mylo.scripts.chat # CLI chat (debugging)
+.venv/bin/pytest tests/unit/          # tests
+.venv/bin/mypy src/                   # type check
+.venv/bin/ruff check src/             # lint
+```
+
+## Architecture
+
+See [`MYLO_SPEC.md`](MYLO_SPEC.md) for the full specification and [`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md) for the build plan with current status.
+
+## License
+
+Apache 2.0 — see [LICENSE](LICENSE).

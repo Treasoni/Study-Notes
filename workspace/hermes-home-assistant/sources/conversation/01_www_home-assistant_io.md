@@ -1,0 +1,174 @@
+---
+url: "https://www.home-assistant.io/integrations/conversation/"
+title: "Conversation - Home Assistant"
+scraped_at: 2026-09-17T16:37:54+00:00
+---
+
+The **Conversation** integrationIntegrations connect and integrate Home Assistant with your devices, services, and more.[ [Learn more]](https://www.home-assistant.io/getting-started/concepts-terminology/#integrations) allows you to converse with Home Assistant. You can either converse by pressing the microphone in the frontend (supported browsers only (no iOS)) or by calling the `conversation.process` action with the transcribed text.
+Screenshot of the conversation interface in Home Assistant. 
+
+```
+# Example base configuration.yaml entry
+conversation:
+```
+
+YAML
+Copy
+## Default sentences 
+By default, a collection of [community contributed sentences](https://github.com/home-assistant/intents/) are supported in a growing [list of languages](https://developers.home-assistant.io/docs/voice/intent-recognition/supported-languages).
+In English, you can say things like “turn on kitchen lights” or “turn off lights in the bedroom” if you have an area named “bedroom”.
+## Sentence triggers 
+Sentence triggers start an automation when Assist matches a sentence. They use the default conversation agent and work with Home Assistant Assist. External conversation agents, such as OpenAI Conversation or Google Generative AI Conversation, only use sentence triggers when **Prefer handling commands locally** is enabled.
+Sentence triggers use the same [template sentence syntax](https://developers.home-assistant.io/docs/voice/intent-recognition/template-sentence-syntax) as custom sentences. You can define optional words with square brackets and alternatives with parentheses.
+TriggerA trigger is a set of values or conditions of a platform that are defined to cause an automation to run.[ [Learn more]](https://www.home-assistant.io/docs/automation/trigger/)
+
+```
+trigger: conversation
+command:
+  - "[it's ]party time"
+  - "happy (new year|birthday)"
+```
+
+YAML
+Copy
+The first example matches both “party time” and “it’s party time”. The second example matches both “happy new year” and “happy birthday”. Punctuation and capitalization are ignored.
+For a complete example, see [adding a custom sentence to trigger an automation](https://www.home-assistant.io/voice_control/custom_sentences/#adding-a-custom-sentence-to-trigger-an-automation).
+### Sentence wildcards 
+You can use lists as wildcards to capture text from the matched sentence. Captured text is available in `trigger.slots`. For the full data structure, including `trigger.details`, see [sentence trigger data](https://www.home-assistant.io/docs/automation/templating/#sentence).
+AutomationAutomations in Home Assistant allow you to automatically respond to things that happen in and around your home.[ [Learn more]](https://www.home-assistant.io/docs/automation/)
+
+```
+triggers:
+  - trigger: conversation
+    command: "play {album} by {artist}"
+actions:
+  - action: media_player.play_media
+    target:
+      entity_id: media_player.living_room
+    data:
+      media_content_id: "{{ trigger.slots.album }}"
+      media_content_type: "album"
+```
+
+YAML
+Copy
+Wildcards match greedily. If a wildcard captures more text than expected, add extra words around the wildcard to make the sentence more specific.
+### Inline number ranges 
+Number ranges can be matched with ranges like `{0..100:brightness}`. This matches numbers from `0` to `100` and stores the value in the `brightness` slot. It works for digits and words, so the sentence `set brightness to {0..100:brightness} percent` matches both “set brightness to 50 percent” and “set brightness to fifty percent”.
+In both cases, `trigger.slots.brightness` is `50`. To get the spoken or written text, use `trigger.details`, such as `trigger.details.brightness.text`.
+## Adding custom sentences 
+You can add your own [sentence templates](https://developers.home-assistant.io/docs/voice/intent-recognition/template-sentence-syntax) to teach Home Assistant about new sentences. These sentences can work with the [built-in intents](https://developers.home-assistant.io/docs/intent_builtin/) or trigger a custom action by defining custom intentsIntent is a term used with voice assistants. The intent is what Home Assistant thinks you want it to do when it extracts a command from your voice or text utterance.[ [Learn more]](https://developers.home-assistant.io/docs/intent_builtin) with the [intent script integration](https://www.home-assistant.io/integrations/intent_script/).
+To get started, create a `custom_sentences/<language>` directory in your Home Assistant `config` directory where `<language>` is the [language code](https://developers.home-assistant.io/docs/voice/intent-recognition/supported-languages) of your language, such as `en` for English. These YAML files are automatically merged, and may contain intents, lists, or expansion rules.
+For an English example, create the file `config/custom_sentences/en/temperature.yaml` and add:
+
+```
+# Example temperature.yaml entry
+language: "en"
+intents:
+  CustomOutsideHumidity:
+    data:
+      - sentences:
+          - "What is the humidity outside"
+```
+
+YAML
+Copy
+To teach Home Assistant how to handle the custom `CustomOutsideHumidity` intentIntent is a term used with voice assistants. The intent is what Home Assistant thinks you want it to do when it extracts a command from your voice or text utterance.[ [Learn more]](https://developers.home-assistant.io/docs/intent_builtin), create an `intent_script` entry in your `configuration.yaml`The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.[ [Learn more]](https://www.home-assistant.io/docs/configuration/) file:
+
+```
+# Example configuration.yaml entry
+intent_script:
+  CustomOutsideHumidity:
+    speech:
+      text: "It is currently {{ states('sensor.outside_humidity') }} percent humidity outside."
+```
+
+YAML
+Copy
+More complex [actions](https://www.home-assistant.io/docs/scripts/) can be done in `intent_script`, such as performing actions and firing events.
+## Extending built-in intents 
+Extending the built-in intentsIntent is a term used with voice assistants. The intent is what Home Assistant thinks you want it to do when it extracts a command from your voice or text utterance.[ [Learn more]](https://developers.home-assistant.io/docs/intent_builtin), such as `HassTurnOn` and `HassTurnOff`, can be done as well.
+For example, create the file `config/custom_sentences/en/on_off.yaml` and add:
+
+```
+# Example on_off.yaml entry
+language: "en"
+intents:
+  HassTurnOn:
+    data:
+      - sentences:
+          - "engage [the] kitchen lights"
+        slots:
+          name: "kitchen lights"
+  HassTurnOff:
+    data:
+      - sentences:
+          - "disengage [the] kitchen lights"
+        slots:
+          name: "kitchen lights"
+```
+
+YAML
+Copy
+Now when you say “engage the kitchen lights”, it will turn on a light named “kitchen lights”. Saying “disengage kitchen lights” will turn it off.
+Let’s generalize this to other entities. The built-in `{name}` and `{area}` lists contain the names of your Home Assistant entities and areas.
+Adding `{name}` to `config/custom_sentences/en/on_off.yaml`:
+
+```
+# Example on_off.yaml entry
+language: "en"
+intents:
+  HassTurnOn:
+    data:
+      - sentences:
+          - "engage [the] {name}"
+  HassTurnOff:
+    data:
+      - sentences:
+          - "disengage [the] {name}"
+```
+
+YAML
+Copy
+You can now “engage” or “disengage” any entity.
+Lastly, let’s add sentences for turning lights on and off in specific areas:
+
+```
+# Example on_off.yaml entry
+language: "en"
+intents:
+  HassTurnOn:
+    data:
+      - sentences:
+          - "engage [the] {name}"
+      - sentences:
+          - "engage [all] lights in [the] {area}"
+        slots:
+          name: "all"
+          domain: "light"
+  HassTurnOff:
+    data:
+      - sentences:
+          - "disengage [the] {name}"
+      - sentences:
+          - "disengage [all] lights in [the] {area}"
+        slots:
+          name: "all"
+          domain: "light"
+```
+
+YAML
+Copy
+It’s now possible to say “engage all lights in the bedroom”, which will turn on every light in the area named “bedroom”.
+## List of actions 
+The Conversation integrationIntegrations connect and integrate Home Assistant with your devices, services, and more.[ [Learn more]](https://www.home-assistant.io/getting-started/concepts-terminology/#integrations) provides the following actions. Each link below opens a dedicated page with examples, parameters, and a step-by-step UI walkthrough.
+  * [Process conversation](https://www.home-assistant.io/actions/conversation.process/) (`conversation.process`) Sends text to a conversation agent for processing.
+  * [Reload conversation agents](https://www.home-assistant.io/actions/conversation.reload/) (`conversation.reload`) Reloads the intent configuration of conversation agents.
+
+
+For an overview of every action across all integrations, see the [actions reference](https://www.home-assistant.io/actions/).
+####  **Help us improve our documentation**
+Suggest an edit to this page, or provide/view feedback for this page. 
+
+
+Back to top

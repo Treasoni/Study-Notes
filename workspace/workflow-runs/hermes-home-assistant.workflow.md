@@ -10,7 +10,7 @@ topic: "用 Hermes Agent 控制 Home Assistant：能力地图与实现路线"
 project_slug: "hermes-home-assistant"
 created_at: "2026-09-18"
 last_updated: "2026-09-18"
-current_phase: P1
+current_phase: P2
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：hermes-home-assistant
 > 项目标识：hermes-home-assistant
 > 创建时间：2026-09-18
-> 当前阶段：阶段 1
+> 当前阶段：阶段 2
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -47,11 +47,11 @@ quality_gate_due: ""
 ## 阶段 1：探测式收集
 - [x] 已派出 2-3 个 subagent 并行探测（5 批：HA 路线 / Hermes 工具 / 场景 / 权限成本 / 配方）
 - [x] 探测结果已汇总
-- [ ] 方向菜单已展示给用户
-- [ ] 用户已选择学习方向
+- [x] 方向菜单已展示给用户
+- [x] 用户已选择学习方向（A+B + 三处增补：三方对照轴 / 安全独立成章 / 文档与代码不一致成坑）
 - [x] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] 🔲 进行中 {in_progress}
+> [P1] ✅ 已完成 {complete}
 
 ---
 
@@ -65,7 +65,7 @@ quality_gate_due: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] ⬜ 未开始
+> [P2] 🔲 进行中 {in_progress}
 
 ---
 
@@ -131,6 +131,7 @@ quality_gate_due: ""
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
 | P0 | 确认意图与研究计划：A 能力地图 + B 路线选型；上手实战深度；先落 `workspace/output/`，P6 再定 vault 位置 | 2026-09-18 |
+| P1 | 确认素材质量与方向：采纳三处增补（三方对照轴 / 安全与限界独立成章 / 文档与代码不一致成坑）；形态定为单册 | 2026-09-18 |
 
 ---
 
