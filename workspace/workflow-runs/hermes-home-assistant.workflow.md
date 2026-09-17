@@ -10,7 +10,7 @@ topic: "用 Hermes Agent 控制 Home Assistant：能力地图与实现路线"
 project_slug: "hermes-home-assistant"
 created_at: "2026-09-18"
 last_updated: "2026-09-18"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：hermes-home-assistant
 > 项目标识：hermes-home-assistant
 > 创建时间：2026-09-18
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -90,14 +90,14 @@ quality_gate_due: ""
 - [x] 第 4 章已写完并确认
 - [x] 第 5 章已写完并确认
 - [x] 第 6 章已写完并确认
-- [ ] 第 7 章已写完并确认
+- [x] 第 7 章已写完并确认
 - [x] 第 8 章已写完并确认
-- [ ] 第 9 章已写完并确认
-- [ ] 附录 A/B/C 已写完并确认
+- [x] 第 9 章已写完并确认
+- [x] 附录 A/B/C 已写完并确认
 
-**进度**：7/9 章 + 附录（大纲已定：9 章 + 1 附录；原第十章已降格为附录 C）。第 1–8 章的「确认」由用户「全部写完」指令豁免逐章检查点；各章仍逐章通过了父流程的定点回源复核（第 6 章复核时补了 SRC-03/08/09 三份缺失快照）。
+**进度**：9/9 章 + 附录（10 个文件全部落盘）。「确认」由用户「全部写完」指令豁免逐章检查点；各章仍逐章通过了父流程的定点回源复核（复核中补了 SRC-03/08/09/14 四份缺失快照，并据 HAS-05 原件更正了 §5.7 中一处漏引）。
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -110,7 +110,7 @@ quality_gate_due: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 

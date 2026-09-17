@@ -327,7 +327,7 @@ P1 记 `user-guide/features/creating-skills.md`，仓库中不存在（站点 40
 |---|---|---|
 | HMS-03 | **支持** | 无需改写。可交叉引证 HMS-06（同页 L140 已写 plugin 用 `ctx.register_tool()` 注册 toolset） |
 | HMS-06 | **部分支持** | 「plugins 默认 opt-in」**过宽**：原文限定词是「**General** plugins and user-installed backends」。同页有整张例外表——bundled platform/backend、memory、context engine、model provider **全部自动加载** |
-| HAS-05 | **支持** | 10 年说的是 **LLT**，吊销说的是 **refresh token**——**两条独立链路**，不得由后者推出「吊销 refresh token 会撤销该用户的 LLT」（两句本身均逐字命中） |
+| HAS-05 | **支持** | 10 年说的是 **LLT**，吊销说的是 **refresh token**——**两条独立链路**，不得由后者推出「吊销 refresh token 会撤销该用户的 LLT」。两句均逐字命中，**吊销句请引全**（`_verify/HAS-05/` L232）：Revoking a refresh token will immediately revoke **the refresh token and** all access tokens that it has ever granted.（本节初记曾漏掉加粗那半句） |
 | HAS-06 | **部分支持** | 四档粒度（entity / domain / area / device）逐字成立；但「**不是 token 属性**」在该页**全页无原文**（全页 `token` 零命中）。只能写「判定以 user 对象 / `context.user_id` 为准」，**不得加引号**。另须补 **first-match 顺序**与 **owner 豁免** |
 | COM-16 | **支持，但举证性质须降格** | `60,3k` 与 `1,8k–3,4k` 的唯一出处是帖内 **Claude 的自述**（该段开头即 `Claude sagt dazu:`），**不是 tokenizer 计数**；楼主原话只有「über 60k Tokens」。正文**禁止**写「实测 60.3k」，只能写「社区用户报告（经 Claude 自述），无第三方复现」 |
 | COM-22 | **部分支持** | 数字逐字命中，但**不是对照实验**：230 / 340→100 / 242 分属**三个不同用户·会话·模型**，帖内没有任何单变量收紧实验；且计量口径混用（post 1 是 context tokens，post 2 是 generated tokens）。`339.000` 是欧陆千分位 = 339,000 |
