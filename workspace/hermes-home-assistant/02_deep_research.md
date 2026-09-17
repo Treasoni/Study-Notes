@@ -102,13 +102,13 @@ P1 用 `HAS-/HMS-/COM-`，P2 三组精读各自带回了**局部编号**（`H-*`
 |---|---|---|
 | SRC-01 | Hermes `tools/homeassistant_tool.py` | 4 个内置工具、正则校验、blocked domains 黑名单、`_check_ha_available()` gating |
 | SRC-02 | Hermes `plugins/platforms/homeassistant/adapter.py` | `watch_*` 过滤、per-entity `cooldown_seconds`、事件模板、**出站两条分支**、4096 硬截断 |
-| SRC-03 | Hermes `plugins/platforms/homeassistant/plugin.yaml` | description：两条出站路并存，**未给触发条件** |
+| SRC-03 | Hermes `plugins/platforms/homeassistant/plugin.yaml` | description：两条出站路并存，**未给触发条件**（快照 `sources/SRC-03-ha-plugin.yaml`，2026-09-18 复核逐字成立） |
 | SRC-04 | Hermes `tools/mcp_tool_schema.py` | **`MCP_TOOL_NAME_PREFIX = "mcp__"`（前缀定论）**、`sanitize_mcp_name_component`、64 字符截断 |
 | SRC-05 | Hermes `agent/anthropic_adapter.py` | `_MCP_TOOL_PREFIX = "mcp__"`、`_normalize_to_mcp_wire()`；**docstring 已过期** |
 | SRC-06 | Hermes `tests/agent/test_anthropic_mcp_prefix_strip.py` | 测试 docstring 亦过期；断言无法区分两种命名 |
 | SRC-07 | Hermes `hermes_cli/mcp_config.py` | `hermes mcp test` 打印**原生工具名**；`tools.include` 用原生名 |
-| SRC-08 | Hermes `cron/scheduler_delivery.py` | `_deliver_result` docstring：**分支条件唯一权威表述** |
-| SRC-09 | Hermes `gateway/platform_registry.py` | `standalone_sender_fn` 字段声明 |
+| SRC-08 | Hermes `cron/scheduler_delivery.py` | `_deliver_result` docstring：**分支条件唯一权威表述**（快照 `sources/SRC-08-cron-scheduler_delivery.py`，94267 B，@ `64ea66b0`；2026-09-18 复核 L1760–1763 逐字成立） |
+| SRC-09 | Hermes `gateway/platform_registry.py` | `standalone_sender_fn` 字段声明（快照 `sources/SRC-09-gateway-platform_registry.py`，2026-09-18 复核 L101 逐字成立） |
 | SRC-10 | Hermes `gateway/platforms/base.py` + 各平台 adapter | `splits_long_messages` 基线：HA 未设 → 硬截断；Telegram/Discord/Slack/Signal 均分片 |
 | SRC-11 | HA core `components/mcp_server/` @ `master`/`rc`（=2026.9） | **无** `CONF_REQUIRE_ADMIN`；docstring 明说 `/api/mcp` 不要求 admin |
 | SRC-12 | HA core `components/mcp_server/` @ `dev`（=2026.10） | `CONF_REQUIRE_ADMIN`、UI 文案 `Require an administrator account`、`_validate_admin`、迁移默认 `False` |
