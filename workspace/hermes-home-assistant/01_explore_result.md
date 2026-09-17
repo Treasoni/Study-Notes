@@ -13,7 +13,7 @@
 |---|---|---|---|
 | probe-01 | HA 侧四条技术路线（官方 MCP / 社区 MCP / Assist / REST·WS） | `research/probe-01-ha-routes.md` | 7 条 |
 | probe-02 | Hermes 侧工具清单、平台适配器、MCP / skill / plugin | `research/probe-02-hermes-tools.md` | 8 条 |
-| probe-03 | 真实用例场景清单（14 个场景） | `research/probe-03-scenarios.md` | 9 条 |
+| probe-03 | 真实用例场景清单（15 个场景） | `research/probe-03-scenarios.md` | 9 条 |
 | probe-04 | HA 权限模型 与 审批 / 成本控制（源码级） | `research/probe-04-permissions-cost.md` | 9 条 |
 | probe-05 | 三条路线的可抄配方 | `research/probe-05-recipes.md` | 8 条 |
 

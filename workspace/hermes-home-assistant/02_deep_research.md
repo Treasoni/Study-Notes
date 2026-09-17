@@ -180,7 +180,7 @@ P1 用 `HAS-/HMS-/COM-`，P2 三组精读各自带回了**局部编号**（`H-*`
 | A-1 | Hermes 内置 HA 工具**恰好 4 个**：`ha_list_entities` / `ha_get_state` / `ha_list_services` / `ha_call_service` | SRC-01（docstring） |
 | A-2 | 工具集由 `bool(get_secret("HASS_TOKEN"))` 开关 | SRC-01 |
 | A-3 | 缺三块能力：**历史/统计**、**写配置（自动化）**、**摄像头/结构化 AI 任务** | SRC-01（工具清单）+ probe-03 场景表 |
-| A-4 | 全部 14 个场景都落在 4 个内置工具内，凡涉 A-3 三类的场景必须换路线 | probe-03（结构性结论） |
+| A-4 | probe-03 场景表共 **15 行**（P2 记的「14 个」是漏数）。判定分三态：落在 4 工具内 5 条 / 必须换路线 4 条 / 本就属 HA 确定性自动化 6 条——「需要 A-3 三类能力」的场景在内置路径下没有对应工具 | probe-03（逐行核对，P4 第 1 章修正） |
 | A-5 | 硬防线：blocked domains = `shell_command` / `command_line` / `python_script` / `pyscript` / `hassio` / `rest_command`；先格式校验后黑名单 | SRC-01 |
 | A-6 | `ha_list_entities` 的 `area` 参数匹配 friendly_name / area 属性，**不是** HA area registry | SRC-01 |
 | A-7 | 事件驱动：默认**一条都不转发**；`watch_domains` / `watch_entities` / `ignore_entities` / `watch_all` | SRC-02 |
@@ -418,7 +418,7 @@ P1 记 `user-guide/features/creating-skills.md`，仓库中不存在（站点 40
 | G-10 | 无「月账单 + 实体数 + 模型名」三者齐全的 >6 个月记录 | 最长记录缺项 |
 | G-11 | 未找到 HA 侧 prompt injection / 恶意实体名触发的实测帖 | 仅媒体定性警告（二手，未采信） |
 | G-12 | **Reddit 未被覆盖** | 三轮精读均未返回 reddit.com 结果 |
-| G-13 | **进阶路径/学习资源轴最薄** | 见 §9.5 |
+| G-13 | **进阶路径/学习资源轴最薄** | 见 §9.2 |
 
 ### 7.3 需在 P4 复核（我自己造的转述风险）
 

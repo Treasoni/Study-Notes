@@ -7,11 +7,12 @@
 - **运行标识**: vm-bios-uefi
 - **工作流**: learning-note-flow
 - **创建时间**: 2026-09-17
-- **当前阶段**: 阶段 0
-- **输出目标**: project-output（`workspace/vm-bios-uefi/output/`）
-- **Vault 路径**: 待指定（建议 `D:\Study-Notes`）
-- **笔记目录**: 待指定（建议 `虚拟机/`）
-- **MOC 路径**: 待指定（建议 `虚拟机/虚拟机 MOC.md`）
+- **当前阶段**: 阶段 7（已完成；2026-09-18 发布）
+- **输出目标**: obsidian（vault 内 `虚拟机/`；项目内保留副本 `workspace/vm-bios-uefi/output/final_note.md`）
+- **Vault 路径**: 当前 Obsidian vault 根目录
+- **笔记目录**: `虚拟机/`
+- **MOC 路径**: `虚拟机/虚拟机 MOC.md`（已追加「固件与启动」分组索引）
+- **发布文件**: `虚拟机/虚拟机固件选择 BIOS 与 UEFI.md`
 
 ## 用户原始诉求
 

@@ -2,7 +2,7 @@
 type: moc
 status: active
 created: 2026-07-30
-updated: 2026-09-17
+updated: 2026-09-18
 tags:
   - moc
   - 虚拟机
@@ -12,13 +12,17 @@ tags:
 # 虚拟机 MOC
 
 > [!summary] 目录概览
-> 虚拟化技术的实操指南与原理笔记，涵盖 VMware Workstation 使用、虚拟网络模式等内容。
+> 虚拟化技术的实操指南与原理笔记，涵盖 VMware Workstation 使用、虚拟网络模式、固件选型与启动排错等内容。
 
 ---
 
 ## 概念与入门
 
 - [[虚拟机/虚拟机的概念和使用.md]] - 零基础入门虚拟机：概念、VirtualBox/VMware 实操、快照、网络与选型避坑 #虚拟机 #入门 #教程
+
+## 固件与启动
+
+- [[虚拟机/虚拟机固件选择 BIOS 与 UEFI.md]] - 建机前定固件：Legacy BIOS/SeaBIOS 与 UEFI/OVMF 的选型决策表、VMware/VirtualBox/PVE 三平台开启 UEFI 的前置条件，以及「切固件起不来 / 停在 EFI Shell / Secure Boot 拦截」的症状 → 根因 → 处置表 #虚拟机 #固件 #UEFI #排错
 
 ## VMware 实操
 
