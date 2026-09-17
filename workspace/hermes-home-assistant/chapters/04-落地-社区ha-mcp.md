@@ -54,7 +54,7 @@ mcp_servers:
 
 下面三条是 Wizard 生成的**原始形态**，我逐字对照过 HTML 快照。
 
-#### 4.2.1 HTTP（Streamable HTTP）
+**HTTP（Streamable HTTP）**
 
 ```yaml
 # ~/.hermes/config.yaml
@@ -67,7 +67,7 @@ Wizard 里这条只有一个键：`url`。它对应的实际地址，来自 ha-m
 
 这条是**最省事也最该先试**的一条：不需要本地装 Docker 或 `uvx`，server 跑在 HA 那一侧；Hermes 只负责发 HTTP 请求。
 
-#### 4.2.2 `uvx` stdio
+**`uvx` stdio**
 
 ```yaml
 # ~/.hermes/config.yaml
@@ -83,7 +83,7 @@ mcp_servers:
 
 差别有两处值得点出。第一，`url` 键换成了 `command` + `args`：Hermes 会在本机起一个子进程，通过标准输入输出跟它说话。第二，凭据从 HTTP 那条的 `headers` 挪到了 `env` 块——因为 stdio 形态下这个进程就在你本机跑，直接给它环境变量即可。
 
-#### 4.2.3 Docker stdio
+**Docker stdio**
 
 ```yaml
 # ~/.hermes/config.yaml
@@ -161,7 +161,7 @@ mcp_servers:
 
 ### 4.4 传输与只读端点
 
-#### 4.4.1 传输必须是 Streamable HTTP
+**传输必须是 Streamable HTTP**
 
 Wizard 对 HTTP 形态的提醒原文：
 
@@ -175,7 +175,7 @@ Hermes 侧确实存在切到 SSE 的开关——配置参考里 `transport` 键�
 
 还有一条相邻的坑值得提前记下，因为它长得跟"连接失败"很像。Hermes 的 HTTP 客户端在连接前会做一次**快速的内容类型探测**（fail-fast content-type probe），如果某个端点对 HEAD / GET 请求返回的不是 MCP 的内容类型，这次探测就会把它判死。配置参考里为此留了一个旁路开关 `skip_preflight`：默认 `false`，设为 `true` 时跳过这次探测，用于"确实是合法的 Streamable HTTP 端点、但 HEAD / GET 答的不是 MCP 内容类型"的情况。[^c4-HMS04-SKIP] 注意适用边界很窄——它是给**合法的**端点绕开误判用的，不是给配错的 URL 硬撑用的。如果你连的是 ha-mcp 且 URL 正确，通常用不上它；但当你换到第 5 章的官方端点、或前面挂了一层反代时，先想起这个键，比反复怀疑网络要省时间。
 
-#### 4.4.2 只读端点：`/readonly` 是连接级，不是凭证级
+**只读端点：`/readonly` 是连接级，不是凭证级**
 
 如果只是想让 agent 看，不想让它写，README 给的做法是给 HTTP MCP 端点加 `/readonly` 后缀：
 
@@ -210,7 +210,7 @@ mcp_servers:
 
 ### 4.5 工具集裁剪与排错
 
-#### 4.5.1 用 `tools.include` 裁剪，写原生名
+**用 `tools.include` 裁剪，写原生名**
 
 ha-mcp 暴露的工具很多，全量注入会挤占上下文。Wizard 给的做法是：
 
@@ -234,7 +234,7 @@ ha-mcp 暴露的工具很多，全量注入会挤占上下文。Wizard 给的做
 
 glob 的用处是把一整族工具一次收进来，而不用逐个点名——配置参考给的例子形态是 `*_radar_*`、`get_zones_*` 这类模式。[^c4-HMS04-TOOLS] 落到 ha-mcp 上，最常见的用法是历史类：与其把每个历史查询工具都列一遍，不如写 `ha_get_history*` 一次覆盖。代价是 glob 会随上游改名而"静默变宽或变窄"——上游把工具拆成两个，你的白名单就自动多收一个。**要确定性就逐个点名，要省事就用 glob，但每升一次 ha-mcp 版本重看一眼名单。**
 
-#### 4.5.2 工具数不给单值
+**工具数不给单值**
 
 ha-mcp 到底有多少工具？**这个问题没有单一答案，因为同一个 README 里有三个互不一致的数字**：
 
@@ -248,7 +248,7 @@ ha-mcp 到底有多少工具？**这个问题没有单一答案，因为同一�
 
 **顺带埋一个点，第 9 章展开。** 工具集不是免费的：这些工具的 schema 会作为常驻开销进入上下文。社区有用户报告过 ha-mcp 的工具集占用**超过 60k tokens**——需要说明的是，这个帖子里 `60,3k` 与 `1,8k–3,4k` 两个更精确的数字，唯一出处是**帖内 Claude 的自述**（该段开头即 `Claude sagt dazu:`），**不是 tokenizer 计数**；楼主本人原话只有「über 60k Tokens」，且**无第三方复现**。[^c4-COM16] 所以正文只写"社区用户报告"，不写"实测"。这个量级意味着：一个不能延迟加载工具列表的客户端，光是把工具摆在那儿就要付这笔钱——第 9 章讲怎么算、怎么省。
 
-#### 4.5.3 排错三则
+**排错三则**
 
 **第一则：同一个 server，不要在一个客户端里留两条条目。** README 有一条加粗警告，并且点了具体的翻车组合：
 
