@@ -1,3 +1,4 @@
+| | | | |
 ---
 workflow_id: learning-note-flow
 workflow_name: 学习笔记工作流
@@ -10,7 +11,7 @@ topic: "虚拟机固件选择 —— BIOS(Legacy/SeaBIOS) vs UEFI(OVMF/EFI)"
 project_slug: "vm-bios-uefi"
 created_at: "2026-09-17"
 last_updated: "2026-09-18"
-current_phase: P3
+current_phase: P4
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +27,7 @@ quality_gate_due: ""
 > 运行标识：vm-bios-uefi
 > 项目标识：vm-bios-uefi
 > 创建时间：2026-09-17
-> 当前阶段：阶段 3
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -77,19 +78,21 @@ quality_gate_due: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中 {in_progress}
+> [P3] ✅ 已完成 {complete}
 
 ---
 
 ## 阶段 4：逐章写作
-- [ ] 第 1 章已写完并确认
-- [ ] 第 2 章已写完并确认
-- [ ] 第 3 章已写完并确认
-- [ ] ...（根据实际章节数添加）
+- [x] 第 1 章 固件做什么、BIOS 与 UEFI 差在哪 已写完并确认
+- [ ] 第 2 章 什么时候必须用 UEFI —— 选型决策 已写完并确认
+- [ ] 第 3 章 VMware Workstation 实操 已写完并确认
+- [ ] 第 4 章 VirtualBox 实操 已写完并确认
+- [ ] 第 5 章 PVE 实操（SeaBIOS vs OVMF） 已写完并确认
+- [ ] 第 6 章 UEFI 排错 —— 症状、根因、处置 已写完并确认
 
-**进度**：0/待大纲确定
+**进度**：1/6
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中 {in_progress}
 
 ---
 

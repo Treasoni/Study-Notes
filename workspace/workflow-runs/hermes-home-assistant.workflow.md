@@ -45,11 +45,11 @@ quality_gate_due: ""
 ---
 
 ## 阶段 1：探测式收集
-- [ ] 已派出 2-3 个 subagent 并行探测
-- [ ] 探测结果已汇总
+- [x] 已派出 2-3 个 subagent 并行探测（5 批：HA 路线 / Hermes 工具 / 场景 / 权限成本 / 配方）
+- [x] 探测结果已汇总
 - [ ] 方向菜单已展示给用户
 - [ ] 用户已选择学习方向
-- [ ] 探测结果已保存：`./01_explore_result.md`
+- [x] 探测结果已保存：`./01_explore_result.md`
 
 > [P1] 🔲 进行中 {in_progress}
 
