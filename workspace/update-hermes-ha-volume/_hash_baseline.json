@@ -1,0 +1,106 @@
+{
+  "chapters": {
+    "01-结论先行与能力地图.md": {
+      "sha256": "df3c581cde764c8d1b1444fc617caf91717d4d18d6b7a3d47472b95e0c197517",
+      "bytes": 23557
+    },
+    "02-三方对照轴.md": {
+      "sha256": "22eb7f77981ea4630ce6ea83fc083f3338a9aa7452b4e2b936d1a510110f5933",
+      "bytes": 24586
+    },
+    "03-路线选型.md": {
+      "sha256": "ead8a25a498860100ec2dc1d6713e8dce23bea9e287ee7767414fb48d0251fa3",
+      "bytes": 24799
+    },
+    "04-落地-社区ha-mcp.md": {
+      "sha256": "3e7e71ea7a232eb73b256d42db2b6163d688adf4727cc05b9928657133a5dd33",
+      "bytes": 31625
+    },
+    "05-落地-官方mcp_server.md": {
+      "sha256": "410b37b4834696274bc4ab201764915c08f035e49a85b31f2cb7c69556adc3d2",
+      "bytes": 24861
+    },
+    "06-事件驱动与定时任务.md": {
+      "sha256": "4fb9bbea9b7488217da09e8976fe66eb5c9c3e438734f9a67786546716ec971b",
+      "bytes": 35233
+    },
+    "07-安全与限界.md": {
+      "sha256": "330fd54d105df44e1b8c190483f56b4788f67153c89a4d8d27d0ba609d876fa5",
+      "bytes": 36889
+    },
+    "08-文档与代码不一致.md": {
+      "sha256": "29ce08571963622153fb513938cf67c209cada425f840bb8aa44cad6afa39fc1",
+      "bytes": 29813
+    },
+    "09-成本与可靠性.md": {
+      "sha256": "09213664be7708010f5187a5a0be1762715475cf7ec912244edf13e4e223b3e3",
+      "bytes": 22974
+    },
+    "10-附录.md": {
+      "sha256": "58a690b57d59d073ae5837049b8b498d3532cd79b018477065f9bfb5f61d0ce5",
+      "bytes": 14089
+    }
+  },
+  "volume": {
+    "01-结论先行与能力地图.md": {
+      "sha256": "2b49fd05ff282a7a0e14d639007551126c9f8a6d956bd1f4b471f8ea09ad114c",
+      "bytes": 23951
+    },
+    "02-三方对照轴.md": {
+      "sha256": "f3d4c4cb0470bfd5dd2b743f68c4f408ccf7904c5a6c74a290fdab95827458fa",
+      "bytes": 25096
+    },
+    "03-路线选型.md": {
+      "sha256": "d65d0332751fa64c953d9bb16de0f514ff12f3c9d6b3f0fc952081e19eedd437",
+      "bytes": 25301
+    },
+    "04-落地-社区ha-mcp.md": {
+      "sha256": "b6ef586478c70ce91690b70577d59cd8bea058ff75c388acf8bd51677dc62aae",
+      "bytes": 32140
+    },
+    "05-落地-官方mcp_server.md": {
+      "sha256": "518a880be5afeb2faaa108c75e29dd46f6fc199fef5b99d939666cff8805a4f3",
+      "bytes": 25397
+    },
+    "06-事件驱动与定时任务.md": {
+      "sha256": "d927e1a397051ecb6c86f415b3a7133033054d16b00cf3cea51b21b9672a1d7b",
+      "bytes": 35282
+    },
+    "07-安全与限界.md": {
+      "sha256": "11276211708472ed643051946203b99eeb364f1a5348196c88d9a986bfea2ad8",
+      "bytes": 37420
+    },
+    "08-文档与代码不一致.md": {
+      "sha256": "9bdf2521da047a72a041353e04cbb4efe21cf0c762376bf50b828b3a932e5f4d",
+      "bytes": 30297
+    },
+    "09-成本与可靠性.md": {
+      "sha256": "d03c72a4d86c17e652b3772bce4731d13fa30f9ac7d6c9e085c408c60e656821",
+      "bytes": 23519
+    },
+    "10-附录-核对清单与延伸阅读.md": {
+      "sha256": "8635a603d372b174365a779e98a37581e50ba69e6b19a16fe85d4693d6ebf46c",
+      "bytes": 14350
+    },
+    "README.md": {
+      "sha256": "b8f97c5a5a329e60d1023e7a6a8632c8faa84a121f321039419e3e65ce25e69c",
+      "bytes": 4261
+    }
+  },
+  "output": {
+    "final_note.md": {
+      "sha256": "65d40104fd9d112c08f22f30947a757b2c0a2fde8833a2ddc754c384c6d5b6c0",
+      "bytes": 271254
+    }
+  },
+  "research": {
+    "02_deep_research.md": {
+      "sha256": "9feb03c40b5293b93aa17a068aa0f804ae2bfb9780208780c4e013f393f56bcd",
+      "bytes": 51984
+    },
+    "01_explore_result.md": {
+      "sha256": "1d5e0820aca3a79b454ae60654a05f6f37d8b6a6f9d45a503bc20e5fde75984b",
+      "bytes": 11934
+    }
+  }
+}

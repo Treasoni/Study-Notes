@@ -1,6 +1,6 @@
 # ERRORS.md
 
-活跃错误记录。当前 3 条（`ERR-20260918-008` / `-009` / `-010`，均已 fixed，待 `/maintain-learnings` 复核后归档）。
+活跃错误记录。当前 **4** 条（`ERR-20260918-008` / `-009` / `-010` / `-011`，均已 fixed，待 `/maintain-learnings` 复核后归档）。
 
 最近一次维护：2026-09-18（`/digest`）。本轮新增 3 条，全部来自 `learning-note-flow / hermes-home-assistant`
 的 P5–P7 收尾轮：归一层错位（发布件漏归一）、归一脚本两处缺陷（插入点 + 非幂等）、记录数字取自历史输出。
@@ -10,7 +10,9 @@
 - `-008` / `-009`：本轮的直接修复是新建 `workspace/hermes-home-assistant/normalize_chapters.py`（把归一做在源文件上、
   连跑三遍验证幂等），但**项目级 skill 还没改**——`note-beautifier` 的分册发布自检节应补「单一归一层 + 幂等验收（跑两遍 diff 为空）」两项。
 - `-010`：处置办法已写进 `.learnings/RULES.md` 的 Do 节，**尚未**落到任何 skill 或 workflow 的产出记录模板。
-- **压缩阈值已破**：本文件现 122 行（阈值 100）。本轮不压缩，因为三条新错误都是**未在源头修复**的活跃条目，
+- `-011`（python 文本模式写盘把 state file 转成 CRLF）：两条预防措施已收进 `.learnings/RULES.md` 的 Don't 节（① 禁止用文本模式重写按行解析的文件 ② 禁止手工改 `> [PN]` 阶段行）；**尚未**落到 `todo-state.sh` 与项目级规则文件。
+  与 `RULES.md` 同属「按行解析的文件不得用 `read_text`/`write_text`」这一类，建议 `/maintain-learnings` 一并收成一条规则。
+- **压缩阈值已破**：本文件现 175 行（阈值 100）。本轮不压缩，因为三条新错误都是**未在源头修复**的活跃条目，
   归档等于把未修的问题埋掉。请下一轮 `/maintain-learnings` 先做源头修复（改 `note-beautifier` 分册发布自检节 +
   产出记录模板），验证后再连 `LRN-20260912-012` 一起评估归档。
 - 注意：`-008` / `-009` 与 RULES.md 既有的「拼接式文档生成：追加前先对既有尾部做幂等归一」属**同一类**，
@@ -121,5 +123,55 @@ workflow state file 里写下的成品数字与产物实际不符：记录「271
 - 写进「最终产出 / 组装记录」的体积、字数、章数、脚注数，必须**当场重新运行取数或重新计数**，并把命令一起留着；不要从上下文里的旧输出誊抄。
 - 产物在记录之后又被改动时，同一组数字的所有出现处都要一并 grep 更新（本轮 state file 的 P5 段与「最终产出」段就是两处）。
 - 手算的合计值不算数：体积/字数用工具算（`ls -l` / python 计数），算完再复核一遍。
+
+---
+
+## ERR-20260918-011 — python 文本模式写盘把 state file 整篇转成 CRLF，静默打穿 todo-state 守卫
+
+**Date**: 2026-09-18
+**Status**: fixed
+**Area**: workflow state file / 行尾纪律 / 状态机守卫
+
+### Summary
+用 python 的 `Path.read_text()` / `write_text()` 改 workflow state file 的一行状态，
+在 Windows 上会把**整篇**文件的 LF 换成 CRLF（176 行）。`todo-state.sh` 用 perl 逐行正则判定
+「前置阶段是否已关闭」，行尾多出的 `\r` 让 `\{(?:complete|skipped)\}$` 失配，于是**已完成的 P0 被判为未关闭**，
+`complete P3` 直接失败。守卫本身没坏，行尾把它骗过了。
+
+### Error
+```
+todo-state: previous phase is not complete or skipped: P0
+todo-state: phase must be in progress before complete: P3
+```
+
+### Context
+两处叠加：
+
+1. **行尾**：`read_text(encoding="utf-8")` 默认 `newline=None`，读取时把 CRLF 折成 LF；
+   写回时 `open(..., "w")` 同样 `newline=None`，又把 `
+` 按 `os.linesep` 展开成 CRLF。
+   于是一次「只改一行」的编辑变成全文件行尾重写，且**没有任何输出提示**。
+2. **越权改状态行**：同一轮里我先是**手工**把 `> [P3] 🔲 进行中 {in_progress}` 改成 `{complete}`——
+   而阶段状态行按项目规则只能由 `todo-state.sh` 写。脚本读到 `{complete}` 后拒绝再 complete，
+   报「phase must be in progress before complete」，把行尾问题掩盖了一层，多花了一轮才定位到真因。
+
+### 修复
+```python
+b = p.read_bytes()
+b = b.replace(b"\r\n", b"\n")
+p.write_bytes(b)          # CRLF 176 -> 0，LF 176
+```
+归一后 `.claude/scripts/todo-state.sh … complete P3` 一次通过。
+
+### 预防措施
+- 改 workflow state file（以及任何会被 shell / perl / awk **按行解析**的文件）一律用
+  `read_bytes()` / `write_bytes()`，或 `open(..., newline="")`；**不要**用 `read_text` / `write_text`。
+- 改完当场数一遍行尾：python `b.count(b"\r\n") == 0`。别靠肉眼看 `file` 输出的 "UTF-8 text"
+  （CRLF 文件同样是 "UTF-8 text"，看不出区别）。
+- **不要手工碰 `> [PN] …` 阶段行**。要改状态就调 `todo-state.sh`；
+  要先写产物再推进状态的话，顺序是「先写说明段落与复选框 → 再 `todo-state.sh complete PN`」，
+  阶段行留给脚本写。手工写进去的 `{complete}` 会让脚本的 `phase_has_status "in_progress"` 预检失败。
+- 排查这类「脚本说前置阶段没完成」时，**先验行尾再查内容**：这类假阴性只有一个来源，
+  而内容层面的原因往往要读全脚本才排除得掉。
 
 ---

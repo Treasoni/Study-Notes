@@ -30,10 +30,13 @@ Read before starting any new Study System task.
 - 快照与中间产物**直接落到仓库内路径**（`workspace/<slug>/sources/…`），用仓库相对路径读回；不要拿 `/tmp` 当跨调用中转（沙箱 `/tmp` 映射在 Bash 调用之间不保证一致），也不要把「命令存在」当成「命令可用」——能否用某 API 落配置，先做一次最小可用性探测再写进方案
 - 自校验脚本报出「几十条同一性质告警」时，先怀疑**校验器自己**再改被检对象；校验通过 ≠ 产物正确，发布类脚本跑绿之后仍要**逐行读一遍成品**
 - 「合并 / 保留外部条目」型生成器（如 hook 配置 bootstrap），校验必须跑在**合并之后的完整结果**上，而不是只跑本次渲染的子集；否则「保留路径」天然免检。退役一个 hook 时，删脚本与删注册必须**同时**做（脚本在 git 里被删，不会让注册表自动更新）
+- 核对**联邦 / 聚合式**注册表（Skills Hub、插件市场、包索引、模型仓库）时，先找到它自己的**中央索引 / API 端点**并在索引上检索，**不要**用「本仓库内的目录清单」代替；写全称否定结论（「没有 X」「不存在 Y」）前先自问**作用范围是否等同**，并把范围写进句子本身（「`official` 支里只有 X」而非「Hub 里只有 X」）
 
 ## Don't
 
 - 不要把表格嵌套在列表项内（带缩进），Obsidian 无法渲染列表内的表格
+- 不要用 python 的 `read_text()`/`write_text()`（或 `newline=None` 的文本模式）改 workflow state file 及任何被 shell/perl/awk 按行解析的文件：Windows 上 `write_text` 会按 `os.linesep` 把整篇 LF 写成 CRLF，静默打穿 `todo-state.sh` 的阶段判定（`previous phase is not complete`）。用 `read_bytes`/`write_bytes`，改完数一遍 `b.count(b"\r\n") == 0`
+- 不要手工改 workflow state file 的 `> [PN] …` 阶段行（只能由 `todo-state.sh` 写）；手写 `{complete}` 会让脚本的 `phase_has_status "in_progress"` 预检失败
 
 ## Domain
 

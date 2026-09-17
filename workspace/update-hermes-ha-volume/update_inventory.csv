@@ -1,0 +1,14 @@
+id,relative_path,title,updated,status,reason,priority,size_bytes
+N01,03-路线选型.md,路线选型——自建 skill / MCP server / 自定义 plugin 何时用,2026-09-18,ready,命中错误结论 18 处,P1,25301
+N02,01-结论先行与能力地图.md,结论先行与能力地图——4 个内置工具的天花板,2026-09-18,ready,命中错误结论 11 处,P1,23951
+N03,workspace/hermes-home-assistant/02_deep_research.md,阶段 2 深度素材：用 Hermes Agent 控制 Home Assistant,,ready,命中错误结论 5 处,P1,51984
+N04,workspace/hermes-home-assistant/01_explore_result.md,阶段 1 探测结果：用 Hermes Agent 控制 Home Assistant,,ready,命中错误结论 4 处,P1,11934
+N05,04-落地-社区ha-mcp.md,落地（一）——用社区 ha-mcp 接 Hermes（有官方模板，照抄即可）,2026-09-18,ready,命中错误结论 1 处,P2,32140
+N06,02-三方对照轴.md,三方对照轴——什么该交给 agent，什么本来就该用自动化,2026-09-18,skip,无错误结论命中,-,25096
+N07,05-落地-官方mcp_server.md,落地（二）——用 HA 官方 mcp_server 接 Hermes（无官方示例，拼接并标注）,2026-09-18,skip,无错误结论命中,-,25397
+N08,06-事件驱动与定时任务.md,事件驱动与定时任务——白名单过滤、逐实体限流、投递两条分支与 4096 截断,2026-09-18,skip,无错误结论命中,-,35282
+N09,07-安全与限界.md,安全与限界——LLT 权限真相、暴露列表的真实效力、最小化清单,2026-09-18,skip,无错误结论命中,-,37420
+N10,08-文档与代码不一致.md,文档与代码不一致——12 条实例与自查方法,2026-09-18,skip,无错误结论命中,-,30297
+N11,09-成本与可靠性.md,成本与可靠性——工具 schema 常驻开销、误报机理、没有分母的误报率,2026-09-18,skip,无错误结论命中,-,23519
+N12,10-附录-核对清单与延伸阅读.md,附录：实机核对清单、未解决问题与延伸阅读,2026-09-18,candidate,无错误结论；附录 C 来源索引需补 Hub 中央索引一条,P3,14350
+N13,README.md,Hermes × Home Assistant 实战,2026-09-18,skip,无错误结论命中，导语未复述该结论（原方案列了它，扫描后撤销）,-,4261

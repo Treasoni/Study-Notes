@@ -1,7 +1,10 @@
 # LEARNINGS.md
 
-最近一次维护：2026-09-18（`/digest`）。本轮新增 `LRN-20260918-017`（Discourse 正文只走 `/t/<id>.json`）、
-`LRN-20260918-018`（产物落点用仓库内路径；工具可用性先探测）。两条的处置办法已提炼进 RULES.md。
+最近一次维护：2026-09-18（`/digest`，后由 `update-hermes-ha-volume` 运行补记 `LRN-20260918-019`）。
+本轮新增 `LRN-20260918-017`（Discourse 正文只走 `/t/<id>.json`）、
+`LRN-20260918-018`（产物落点用仓库内路径；工具可用性先探测）、
+`LRN-20260918-019`（核对 Hermes Skills Hub 必须查中央索引，不能用仓库内 `optional-skills/` 代替）。
+三条的处置办法已提炼进 RULES.md。
 `LRN-20260912-012`（vault 并发写入，写者身份未定）继续挂起，**不可归档**。
 RULES.md 里「拼接式文档生成：追加前先对既有尾部做幂等归一」一条**本轮在真实运行里没拦住**
 （见 `ERRORS.md` 的 `-008` / `-009`），按 digest 规定应转 `maintain-learnings` 做源头修复。
@@ -88,5 +91,46 @@ vault / workspace 漂移」）、`LRN-20260914-014` / `-015` / `-016`（处置�
 ### Suggested Action
 - 落盘产物一律用仓库内相对路径（`workspace/<slug>/sources/…`），不要用 `/tmp` 当跨调用中转。
 - 判断某工具/配置项能否落地，先做一次最小可用性探测（读配置文件 / `--help` / 退出码），再决定要不要写进方案。
+
+---
+
+## [LRN-20260918-019] research-collector — 核对 Hermes Skills Hub 必须查中央索引，不能用仓库内目录代替
+
+**Logged**: 2026-09-18T02:40:00+0800
+**Priority**: high
+**Status**: 已办（本轮据此推翻并更正了已发布分册里的一处事实性错误结论）
+**Area**: research-collector / source policy / 已发布笔记更正
+
+### Summary
+把「Hermes Skills Hub」当成 Hermes 仓库里的 `optional-skills/` 目录去核对，会得到与事实相反的结论。
+Hub 是**联邦注册表**，它的检索由一份**中央索引**回答；仓库内目录只是其中的 `official` 一支
+（150 条，占索引 97,986 条的一支）。本轮据此发现已发布分册里「Hub 里没有现成的 Home Assistant skill」是错的
+——明示 Home Assistant 的 skill 实为 **64 条**。
+
+### Details
+- 事实：中央索引 `https://nousresearch.github.io/hermes-agent/docs/api/skills.json`（单行 JSON，约 60.8 MB）。
+  截至 2026-09-18 的快照：97,986 条记录；明示 Home Assistant 的 **64 条**（ClawHub 52 + skills.sh 12）；
+  `category: smart-home` 但未点名 HA 的 13 条；`official` 支 150 条。索引支持 8 类来源：
+  `official` / `skills-sh` / `well-known` / `url` / `github` / `clawhub` / `lobehub` / `browse-sh`。
+- 事实：**这一层错本可以被自己的来源拦住**——该册自己的来源 `HMS-05`（`skills.md`）就写着 Hub 是联邦索引、
+  并列出了这 8 类来源。所以错误不是「缺来源」，而是**没读全已有的来源**。
+- 根因：把「本仓库里有什么」当成了「整个注册表里有什么」。联邦制系统里本地目录只是其中一个 source，
+  用它的结果去下全称结论（「不存在」「没有可装的」）几乎必然出错。
+- 连带的第二层错：同一册还断言「HA 场景并不存在一个可以让 skill 去指挥的 `ha` CLI」。`hass-cli`
+  （`home-assistant-ecosystem/home-assistant-cli`，596★，2026-08-04 pushed，未归档）存在，Hub 里也有封装它的条目；
+  但它是 **Home Assistant Ecosystem 组织**的社区事实标准，**不是 HA core 官方出品**——Hub 条目自述里的 "official"
+  措辞不精确，不能沿用。
+- 教训：「skill 不存在」与「CLI 不存在」是**两个各自独立**的核对项，不能互相推出，也不能一并结案。
+- 方法论收获：两个错误都被**同一句正确洞察**兜住——「skill 是知识，不是能力」。结论错的地方，洞察是对的；
+  更正时保留了洞察、只修事实与作用域，避免把对的部分一起推翻。
+
+### Suggested Action
+- 核对任何**联邦 / 聚合式**注册表（Skills Hub、插件市场、包索引、模型仓库）时，先找到它自己的
+  **中央索引或 API 端点**并在索引上检索；**不要**用「本仓库内的目录清单」代替。
+- 写全称否定结论（「没有 X」「不存在 Y」）之前先自问：**我核对的这个范围，是不是就是这句话的作用范围？**
+  并把作用域写进句子本身——「`official` 支里只有 `openhue`」而不是「Hub 里只有 `openhue`」。
+- 索引类证据必须带时点限定（「截至 YYYY-MM-DD 的快照」），并把快照落盘到 `workspace/<slug>/sources/` 以便逐字复验。
+- 更正依赖否定结论的旧笔记时**分两层**处理：范围错（查错了地方）与事实错（断言本身为假）分开写、
+  分开改，不要混成一次「补充说明」——两层的原因与修法都不同。
 
 ---

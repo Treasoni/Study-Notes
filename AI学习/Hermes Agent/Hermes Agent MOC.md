@@ -40,7 +40,7 @@ source_project: hermes-agent
 | [[Hermes Tool 配置指南/README|Hermes Tool 配置指南（分册）]] | 6 章工具配置实战：工具体系总览与配置入口、内置 toolsets 全解（terminal/Docker）、Tool Gateway 接入与权限审批、自定义工具开发与注册、MCP 接入与排错、Skills 与工具关系 · 安全基线 |
 | [[Hermes Docker 部署指南/README|Hermes Docker 部署指南（分册）]] | 10 章 Docker 部署实战：镜像/数据卷/首次 setup、Gateway 常驻与 Compose 编排、微信个人号 iLink、企业微信 AI Bot、飞书建应用与事件收发、QQ 官方 Bot 与 NapCat 替代、多平台运维与日志、安全基线 |
 | [[Hermes Rules 配置指南/README|Hermes Rules 配置指南（分册）]] | 6 章规则配置实战：文件地图、SOUL.md 全局身份、AGENTS.md 项目规则、Claude Code 对照迁移、config.yaml hooks、验证与排错 |
-| [[Hermes × Home Assistant 实战/README|Hermes × Home Assistant 实战（分册）]] | 9 章 + 附录实战笔记：四条结论与内置工具的能力天花板、三方对照轴（什么该交给 agent）、自建 skill / MCP server / 自定义 plugin 选型、社区 ha-mcp 落地、HA 官方 mcp_server 落地（拼接并标注）、事件驱动与定时任务、安全与限界最小化清单、文档与代码不一致 12 条实例、成本与可靠性 + 实机核对清单/未解决问题/延伸阅读 |
+| [[Hermes × Home Assistant 实战/README|Hermes × Home Assistant 实战（分册）]] | 9 章 + 附录实战笔记：四条结论与内置工具的能力天花板、三方对照轴（什么该交给 agent）、Hub 现成 HA skill 清单 / 自建 skill / MCP server / 自定义 plugin 选型、社区 ha-mcp 落地、HA 官方 mcp_server 落地（拼接并标注）、事件驱动与定时任务、安全与限界最小化清单、文档与代码不一致 12 条实例、成本与可靠性 + 实机核对清单/未解决问题/延伸阅读 |
 
 ---
 

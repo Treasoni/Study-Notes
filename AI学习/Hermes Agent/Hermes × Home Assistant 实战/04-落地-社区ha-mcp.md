@@ -21,7 +21,7 @@ source_project: hermes-home-assistant
 
 先把"为什么是它"说清楚，再动手抄配置。
 
-**理由一：它是唯一能一次补齐三类缺口的路。** 历史/统计、写配置、摄像头这三块，内置 4 工具没有对应工具，自建 `SKILL.md` 也表达不了——skill 只能教 agent 怎么调**已有**的命令行工具，HA 场景下并不存在这样一个 `ha` CLI。剩下能补能力的只有 MCP server 与自定义 plugin，而自定义 plugin 的成本明显更高。所以"要能力"这个需求，默认落点就是 MCP server。
+**理由一：它是唯一能一次补齐三类缺口的路。** 历史/统计、写配置、摄像头这三块，内置 4 工具没有对应工具，自建 `SKILL.md` 也表达不了——skill 只能教 agent 怎么调**已有**的命令行工具，HA 场景**有**可调的 CLI（`hass-cli` 指的是 `home-assistant-ecosystem/home-assistant-cli`，**Home Assistant Ecosystem 组织**维护的命令行工具，是社区里的事实标准，**不是 HA core 官方出品**）；Hub 里也**有**封装它的 skill（`clawhub/homeassistant-cli`），但这类 skill 仍然只是知识件，不新增任何工具。剩下能补能力的只有 MCP server 与自定义 plugin，而自定义 plugin 的成本明显更高。所以"要能力"这个需求，默认落点就是 MCP server。
 
 **理由二：ha-mcp 与官方路径的能力边界，是官方明文的路线差异，不是营销话术。** ha-mcp 的 README 里有一张与 Home Assistant 自带 MCP Server 集成的对照表：官方那条建在 **Assist** 管道上，实体作用域是 `Only entities exposed to Assist`；ha-mcp 那侧写的是 `Everything in Home Assistant`，覆盖范围含 automations / dashboards / helpers / backups。[^c4-COM01-A]
 
