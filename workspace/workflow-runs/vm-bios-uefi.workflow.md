@@ -11,7 +11,7 @@ project_slug: "vm-bios-uefi"
 created_at: "2026-09-17"
 last_updated: "2026-09-18"
 current_phase: P3
-current_status: ready
+current_status: in_progress
 mode: outline
 blocked_reason: ""
 quality_gate: pending
@@ -77,7 +77,7 @@ quality_gate_due: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] ⬜ 未开始
+> [P3] 🔲 进行中 {in_progress}
 
 ---
 

@@ -10,7 +10,7 @@ topic: "用 Hermes Agent 控制 Home Assistant：能力地图与实现路线"
 project_slug: "hermes-home-assistant"
 created_at: "2026-09-18"
 last_updated: "2026-09-18"
-current_phase: P0
+current_phase: P1
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,21 +26,21 @@ quality_gate_due: ""
 > 运行标识：hermes-home-assistant
 > 项目标识：hermes-home-assistant
 > 创建时间：2026-09-18
-> 当前阶段：阶段 0
+> 当前阶段：阶段 1
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
 
 ## 阶段 0：意图澄清
-- [ ] 用户输入已分析
-- [ ] 笔记类型已确定（实战/概念/心得/对比）
-- [ ] 学习深度已确定（入门/上手/精通）
-- [ ] 用户基础已确定（零基础/有了解/熟悉）
-- [ ] 输出位置策略已确定（项目 output / 用户指定 Obsidian vault）
-- [ ] 如发布到 Obsidian，vault_path、note_folder、moc_path 已确认或标记待补
-- [ ] 意图文件已生成：`./00_intent.md`
+- [x] 用户输入已分析
+- [x] 笔记类型已确定（实战：A 能力地图 + B 路线选型）
+- [x] 学习深度已确定（上手实战：每个能力给可落地写法）
+- [x] 用户基础已确定（非零起点：已完成 Hermes ↔ HA 接入）
+- [x] 输出位置策略已确定（先落项目 output，P6 再定 vault）
+- [x] 如发布到 Obsidian，vault_path、note_folder、moc_path 已标记待补
+- [x] 意图文件已生成：`./00_intent.md`
 
-> [P0] 🔲 进行中 {in_progress}
+> [P0] ✅ 已完成 {complete}
 
 ---
 
@@ -51,7 +51,7 @@ quality_gate_due: ""
 - [ ] 用户已选择学习方向
 - [ ] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] ⬜ 未开始
+> [P1] 🔲 进行中 {in_progress}
 
 ---
 
@@ -130,7 +130,7 @@ quality_gate_due: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
-| | | |
+| P0 | 确认意图与研究计划：A 能力地图 + B 路线选型；上手实战深度；先落 `workspace/output/`，P6 再定 vault 位置 | 2026-09-18 |
 
 ---
 

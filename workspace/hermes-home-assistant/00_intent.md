@@ -70,6 +70,16 @@
 2. HA 侧三条技术路线对比：官方 MCP Server 集成 / Assist 语音管道 / REST·WebSocket 直连
 3. 安全与限界：LLT 权限最小化、事件白名单与洪泛控制、审批门、token 成本
 
+### 已核实的关键前提（P0 阶段探测所得，2026-09-18）
+
+- **Skills Hub 没有 Home Assistant skill**（smart-home 类仅 `openhue`）→ "装个现成 skill 就能用"这条路在 HA 场景不成立
+- **内置 HA 工具只有 4 个**：无历史/logbook 查询、无模板渲染、`area` 参数匹配的是 friendly_name / area 属性而非 HA area registry
+- 源码含 **blocked domains 黑名单**（`shell_command` / `command_line` / `python_script` / `pyscript` / `hassio` / `rest_command`）与 SSRF 路径穿越防护 —— 现有笔记 06 未覆盖
+- MCP server 与同名内置 toolset **叠加而非遮蔽**；`untrusted` server 的写操作需过审批面
+- 原始记录：`research/probe-01-ha-routes.md`、`research/probe-02-hermes-tools.md`（两份均带「待核对」清单）
+
+**写作取向（用户已确认）**：把「Skill 路线在 HA 场景其实空缺」前置为开篇结论之一。
+
 ### 其他
 
-- 用户只说了"可以"确认方向，未指定 vault 位置；按项目规则先落 `workspace/output/`，发布阶段（P6）再确认
+- 用户未指定 vault 位置；按项目规则先落 `workspace/output/`，发布阶段（P6）再确认
