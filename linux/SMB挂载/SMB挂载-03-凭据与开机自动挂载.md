@@ -72,13 +72,13 @@ whoami
 echo %USERDOMAIN%
 ```
 
-`whoami` 的输出形如 `DESKTOP-ABC\zhq`，**反斜杠后面那半截**就是 `username=`；`echo %USERDOMAIN%` 的输出就是 `domain=`。
+`whoami` 的输出形如 `DESKTOP-ABC\smbuser`，**反斜杠后面那半截**就是 `username=`；`echo %USERDOMAIN%` 的输出就是 `domain=`。
 
 > [!warning] 两条是实操惯例，本笔记没有为它们挂来源
 > 1. **非域环境**的 `domain` 填 `WORKGROUP`、共享端机器名，或整行删掉——这是通行做法，素材中没有对应的官方锚点（FNOS 默认值相关的问题本来就在「已知缺口」里，见 `02_deep_research.md` §六.5）。
 > 2. **用微软账号登录的 Windows**，`%USERDOMAIN%` 常显示为 `MicrosoftAccount`，照抄即可，同样无来源支撑。
 >
-> 之所以不用 `[社区]`/`[缺口]` 标记：这两条既不是社区帖里的说法，也不属于「素材未覆盖、正文不写」，而是本节新增的实操惯例，故以文字声明其来源状态。
+> 之所以不套用正文里的两类标注标记（社区经验 / 缺口）：这两条既不是社区帖里的说法，也不属于「素材未覆盖、正文不写」，而是本节新增的实操惯例，故以文字声明其来源状态。
 
 填完先用手工挂载验证，成功了再写 fstab（fstab 行见 3.3）：
 

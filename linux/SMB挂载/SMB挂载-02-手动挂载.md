@@ -250,7 +250,7 @@ sudo mount -t cifs //winhost/docs /mnt/share \
   -o credentials=/root/.smbcred,uid=1000,gid=1000,iocharset=utf8
 ```
 
-**Windows 侧两个值的查法**（`username` / `domain`）：在 cmd 里跑 `whoami` 与 `echo %USERDOMAIN%`。`whoami` 输出形如 `DESKTOP-ABC\zhq`，反斜杠后面那半截是 `username=`；`echo %USERDOMAIN%` 的输出是 `domain=`。三个键的完整对照见第 3 册 3.1.1。
+**Windows 侧两个值的查法**（`username` / `domain`）：在 cmd 里跑 `whoami` 与 `echo %USERDOMAIN%`。`whoami` 输出形如 `DESKTOP-ABC\smbuser`，反斜杠后面那半截是 `username=`；`echo %USERDOMAIN%` 的输出是 `domain=`。三个键的完整对照见第 3 册 3.1.1。
 
 ### 2.5.2 飞牛 FNOS 共享
 
