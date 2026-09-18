@@ -267,6 +267,9 @@ S11（飞牛官方论坛）提供的是 Linux 挂载 FNOS 共享时的路径写�
 
 ### 2.5.3 Home Assistant 的 Samba share 插件
 
+![](../../Pasted%20image%2020260918164410.png)
+
+
 Home Assistant OS 装上 `Samba share` 插件之后，HA 本身就是一台 SMB 服务器。挂载侧命令与 2.3 完全一致，要改的只有插件侧那几项（S18a、S18b）。
 
 | 插件选项 | 默认值 | 对应到挂载侧 |
