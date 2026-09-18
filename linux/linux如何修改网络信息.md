@@ -60,6 +60,8 @@ network:
           - 8.8.8.8           # Google DNS
 ```
 
+注意：这里的网关不一定是以1结尾的，用ip route show去看一下网关
+![](../Pasted%20image%2020260918184148.png)
 #### 4. DHCP 配置示例
 
 ```yaml
