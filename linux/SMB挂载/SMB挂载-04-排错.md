@@ -205,11 +205,12 @@ Get-SmbClientConfiguration | FL RequireSecuritySignature
 
 ## 4.6 常见坑
 
-> [!warning] 排错时最容易踩的四处
+> [!warning] 排错时最容易踩的五处
 > - **看到 13 就去查网络**：先看内核日志里同现的状态码，`NT_STATUS_LOGON_FAILURE` 指向凭据/认证（S08 `Issue`）。
 > - **把 112 记成 `EHOSTUNREACH`**：112 是 `EHOSTDOWN`，`EHOSTUNREACH` 是 113（S15）。
 > - **把 errno 数值当官方映射表背**：`errno(3)` 明确不列数值，因为同一符号名在不同 UNIX/架构上编号不同（S14 `Error numbers and names`）。
 > - **Windows 连不上先降 `vers=`**：签名才是优先方向，且 `STATUS_INVALID_SIGNATURE` / `0xc000a000` 改协议版本绕不过去（S07 `SMB signing behavior`、S04 开头段）。
+> - **把服务端白名单当成网络不通**：Home Assistant 的 Samba 插件用 `allow_hosts` 限制哪些网段可访问，默认覆盖 `10.0.0.0/8`、`172.16.0.0/12`、`192.168.0.0/16`、`169.254.0.0/16`（S18a、S18b `allow_hosts`）。客户端 IP 不在其中会被**直接拒绝**——它是服务端侧的准入判断，不在这几条错误码的证据链里，所以先确认这一项，再回头读错误码，否则会在挂载参数上白找（第 2 册 2.5.3）。
 
 ## 本章小结
 
@@ -233,6 +234,7 @@ Get-SmbClientConfiguration | FL RequireSecuritySignature
 - **S07** → 签名强制三档粒度、签名机制、`STATUS_INVALID_SIGNATURE` / `0xc000a000`、签名与来宾访问的关联、`Get-SmbClientConfiguration | FL RequireSecuritySignature`。
 - **S04** → SMBv1 在 Windows 11 / Server 2019+ 默认不安装；微软反对用关协议/关签名绕过连接失败；页面日期标注 2025-03-12。
 - **S03** → 凭据文件语法限制（`Login errors` 小节，作为 `mount -vvv` 输出后的核对方向）。
+- **S18a／S18b** → Home Assistant Samba 插件的 `allow_hosts` 语义与默认白名单（4.6 的第五条坑；插件侧其余选项见第 2 册 2.5.3）。
 
 ## 相关笔记
 

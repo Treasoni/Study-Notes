@@ -45,7 +45,7 @@ flowchart TD
 ## 前置要求
 
 - 一台 Debian / Ubuntu 服务器，有 root 或 sudo 权限。
-- 一个可用的 SMB/CIFS 共享端：Windows 主机、NAS（本系列以飞牛 FNOS 为例）或 Samba 服务器。
+- 一个可用的 SMB/CIFS 共享端：Windows 主机、NAS（本系列以飞牛 FNOS 为例）或 Samba 服务器（Home Assistant 装了 `Samba share` 插件也算一种，见第 2 册 2.5.3）。
 - 会基本的命令行操作；对 `mount`、`/etc/fstab` 有概念更好，没有也能跟下来（第 2 册从零开始）。
 - 第 5 册额外需要：Docker 基本使用经验；没有也不影响第 1–4 册的连贯性。
 
@@ -106,6 +106,8 @@ flowchart TD
 | S16 | 历史一手 | **2007**，对 SMB3.1.1/NFSv4.2 已过时 | 第 1 册 |
 | S17a | official | Samba **4.17.12**（2023-10-10）／ **4.22.8**（2026-02-19），两版相关段落逐字一致 | 第 2、4 册 |
 | S17b | official | util-linux 2.43.devel-1062-f，2026-08-03 | 第 2、3、4 册 |
+| S18a | official | 取 `home-assistant/addons` **master 分支**，无版本/日期标注 | 第 2、4 册 |
+| S18b | official | 同 S18a（master 分支，无版本/日期标注） | 第 2、4 册 |
 
 ## 已知缺口与待核实
 
@@ -123,6 +125,7 @@ flowchart TD
 | G8 | `mount -a` 与 fstab 联动的语义 | 素材无描述，只作命令使用，不展开语义（第 3、4 册） |
 | G9 | Windows 侧自动协商「在何种条件下选中哪个方言」 | 官方文档未说明，只写默认方言与手工 `vers=`（第 4 册 4.3） |
 | G10 | `serverino` 何时该用 `noserverino` | 原文只说「默认启用」，不给建议，正文不提 |
+| G11 | Home Assistant Samba 插件选项**默认值的版本边界** | S18 取自 `home-assistant/addons` 的 **master 分支**，未取得插件版本号与页面日期；选项集合与用户界面显示一致，但默认值可能随版本变动。正文只声明「默认白名单为这几段」，**不承诺跨版本不变**（第 2 册 2.5.3） |
 
 > [!note] 顺带一提：两个抓取环境的坑
 > 记录在此供后续复用——`crawl.sh` 的输出文件名按域名生成，同域名不同 URL 会**互相覆盖**（不同 suite / 不同页面必须建子目录）；`www.samba.org` 官方 man 页对本机环境返回 HTTP 403（反爬），改用 `manpages.debian.org` 镜像并 diff 两个 Samba 版本确认段落一致（详见 `02_deep_research.md` §七）。

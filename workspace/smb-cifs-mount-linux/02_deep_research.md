@@ -40,11 +40,14 @@
 | S16 | A New Network File System is Born: Comparison of SMB2, CIFS, and NFS（S. French, IBM/Samba Team, OLS） | https://www.kernel.org/doc/ols/2007/ols2007v1-pages-131-140.pdf | 历史一手 | **2007**，对 SMB3.1.1/NFSv4.2 已过时 | 协议设计意图与边界（仅此层面可用） |
 | S17a | smbclient(1) — Samba 套件 | Debian manpages 镜像：https://manpages.debian.org/bookworm/smbclient/smbclient.1.en.html ／ https://manpages.debian.org/trixie/smbclient/smbclient.1.en.html （**samba.org 官方页对本环境返回 HTTP 403**） | official | Samba **4.17.12**（2023-10-10）／ **4.22.8**（2026-02-19），两版相关段落逐字一致 | 挂载前探测共享、`-L`/`-N`/`-A` 用法、`posix_whoami` 判匿名 |
 | S17b | findmnt(8) — util-linux | https://man7.org/linux/man-pages/man8/findmnt.8.html | official | util-linux 2.43.devel-1062-f，2026-08-03 | 核对挂载是否存在、`-t cifs` 过滤、`--verify` 校验 fstab |
+| S18a | Samba share 插件选项 schema — Home Assistant add-ons | https://raw.githubusercontent.com/home-assistant/addons/master/samba/config.yaml | official | 取 **master 分支**，文件内无版本号/日期标注 | 插件选项名、类型与默认值（`allow_hosts` 白名单、`enabled_shares` 合法值正则） |
+| S18b | Samba share 插件文档 — Home Assistant add-ons | https://raw.githubusercontent.com/home-assistant/addons/master/samba/DOCS.md | official | 同 S18a（master 分支，无版本/日期标注） | 各选项语义、共享名清单、兼容模式原文、凭据与 HA 登录无关 |
 
 **缓存路径**（正文不入仓，按需回查）：
 - G1：`workspace/smb-cifs-mount-linux/.cache/p2_sources/g1_mount_semantics/{trixie,bookworm,archwiki}/`
 - G2：`workspace/smb-cifs-mount-linux/.cache/p2_sources/g2_persistence/`（trixie 页另存 `trixie/` 子目录）
 - G3：`workspace/smb-cifs-mount-linux/.cache/p2_sources/g3_dialect_errors/{S04,signing,01_access_redhat_com,GAP1,GAP1b2,GAP1c,GAP2b,GAP2c}`
+- S18：**无本地缓存**（发布后补录，直接读取 `raw.githubusercontent.com` 上的上游文件；未走 `crawl.sh`，故无 `p2_sources` 目录）
 
 ---
 
@@ -158,6 +161,21 @@
 | `--verify` 原文只说校验 "parsability and usability"，未列具体检查项，**不验证远端共享是否真能挂上** | S17b `-x\|--verify` → `[推断]` |
 | 包名：`smbclient` 属 Samba 套件（Debian 包名 `smbclient`）；`findmnt` 属 `util-linux` | S17a／S17b 原文 |
 
+### 3.9 Home Assistant Samba 插件（S18，发布后补录）
+
+> 补录说明：本节是发布完成后、用户在插件配置现场提问时追加的，**不属于 P1/P2 的探测结果**。S18 只补插件侧的选项与共享名，不修改、不推翻任何既有主张；标注计数（社区 9／推断 12／缺口 6）不受影响。
+
+| 主张 | 来源 + 锚点 |
+| --- | --- |
+| 插件选项名与默认值：`username`（str，默认 `homeassistant`）、`password`（password，无默认）、`workgroup`（str，默认 `WORKGROUP`）、`enabled_shares`（list，默认七项全开）、`compatibility_mode`（bool，默认 `false`）、`allow_hosts`（list，默认 `10.0.0.0/8`、`172.16.0.0/12`、`192.168.0.0/16`、`169.254.0.0/16`、`fe80::/10`、`fc00::/7`） | S18a 键值 |
+| `enabled_shares` 的合法值由正则限定：`^(?i:(local_apps\|app_configs\|addons\|addon_configs\|backup\|config\|media\|share\|ssl))$`——即旧名 `addons`／`addon_configs` 仍被接受 | S18a `enabled_shares` |
+| schema 对 `username` **只声明 `str`**，未给长度/字符/保留名的进一步校验规则。这是「文档化地没有约束」，**不等于**「任何用户名都一定会被 Samba 接受」；后者无来源，不得写成结论 | S18a `username` |
+| 各共享名对应的内容；旧名与新名**同时暴露、指向同一目录**；从列表移除的共享将不可访问 | S18b `Sharing`／`enabled_shares` |
+| 插件凭据与 Home Assistant 登录账号**没有任何关系** | S18b `Options` |
+| `allow_hosts` 为必填项，语义是「允许访问共享的主机/网络列表」 | S18b `allow_hosts` |
+| `compatibility_mode=true` 会启用旧版 Samba 协议，"might solve issues with some clients that cannot handle the newer protocols, however, it lowers security"，官方建议 "Only use this when you absolutely need it and understand the possible consequences" | S18b `compatibility_mode` |
+| 同 schema 中另有一批默认开启项：`netbios`／`local_master`／`network_discovery`／`apple_compatibility_mode` 默认 `true`，`server_signing` 默认 `default`，`veto_files` 默认含 `._*`／`.DS_Store`／`Thumbs.db`／`icon?`／`.Trashes`。**本笔记只用到 `allow_hosts` 与 `compatibility_mode`**，其余不展开 | S18a／S18b 键值 |
+
 ## 四、冲突与需并列呈现之处
 
 | # | 冲突 | 处理建议 |
@@ -203,6 +221,7 @@
 | 8 | `mount -a` 与 fstab 联动的语义 | 三份 G1 来源均无描述；`mount.cifs(8)` 全文只出现 1 次 umount | 不展开 `mount -a` 语义，只作命令使用 |
 | 9 | Windows 侧自动协商"在何种条件下选中哪个方言" | S04/S07 均未说明 | 不写协商选择规则，只写默认方言与手工 `vers=` |
 | 10 | `serverino` 何时该用 `noserverino` | 原文只说"默认启用" | 不提，或标"原文未给建议" |
+| 11 | Home Assistant Samba 插件选项默认值的**版本边界** | S18 取自 `home-assistant/addons` 的 **master 分支**，未取得插件版本号与页面日期；schema 的选项集合与用户界面显示一致，但**默认值可能随版本变动** | 只写「默认白名单为这几段」，**不承诺跨版本不变**；登记为已缺口 G11 |
 
 ---
 

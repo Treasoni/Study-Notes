@@ -234,7 +234,7 @@ sudo mount -t smb3 //server/share /mnt/share \
 
 `serverino`/`noserverino`：man page 原文**只说「默认启用」**，没有给「什么情况下该改用 `noserverino`」的建议（`02_deep_research.md` §六.10）。所以此处标「**原文未给建议**」，不展开——与其编一个使用场景，不如告诉你这个问题的答案不存在于现有材料里。
 
-## 2.5 两个落地例
+## 2.5 三个落地例
 
 ### 2.5.1 Windows 共享
 
@@ -264,6 +264,49 @@ sudo mount -t cifs //winhost/docs /mnt/share \
 S11（飞牛官方论坛）提供的是 Linux 挂载 FNOS 共享时的路径写法与权限排查讨论（S11，[社区]）。同样只作社区经验参考。
 
 **FNOS 侧的凭据怎么填**：`username` 填 FNOS 后台建的共享用户（不是 NAS 管理员账号），`domain` 填后台「文件服务 / SMB」里的工作组名。对照表见第 3 册 3.1.1——注意该小节的这两条是实操惯例，本笔记未为它们挂来源。
+
+### 2.5.3 Home Assistant 的 Samba share 插件
+
+Home Assistant OS 装上 `Samba share` 插件之后，HA 本身就是一台 SMB 服务器。挂载侧命令与 2.3 完全一致，要改的只有插件侧那几项（S18a、S18b）。
+
+| 插件选项 | 默认值 | 对应到挂载侧 |
+| --- | --- | --- |
+| `username` | `homeassistant` | 凭据文件的 `username=` |
+| `password` | 无（必填） | 凭据文件的 `password=` |
+| `workgroup` | `WORKGROUP` | 凭据文件的 `domain=` |
+| `enabled_shares` | 七项全开 | 决定 `//IP/共享名` 里存在哪些路径 |
+| `allow_hosts` | 见下方警告块 | 决定你的客户端**能不能连上** |
+| `compatibility_mode` | `false` | 一般不用动 |
+
+插件文档特别说明：插件的用户名与密码**与 Home Assistant 的登录账号没有任何关系**（S18b `Options`）——别把 HA 登录密码填进去。
+
+`enabled_shares` 的合法值由正则限定，旧名 `addons` / `addon_configs` 仍被接受（S18a `enabled_shares`）。文档里各共享对应的内容如下（S18b `Sharing`）：
+
+| 共享名 | 里面是什么 | 建议 |
+| --- | --- | --- |
+| `share` | 插件与 HA 之间共享的数据 | 想往服务器上放文件就留它 |
+| `media` | 本地媒体文件 | 按需 |
+| `backup` | 备份文件 | 按需（体积大，不建议自动挂载） |
+| `config` | 整个 Home Assistant 配置目录 | 不建议长期挂载 |
+| `ssl` | SSL 证书（含私钥） | 不建议长期挂载 |
+| `local_apps` | 本地插件（旧名 `addons`） | 不做插件开发就移除 |
+| `app_configs` | 插件的配置文件（旧名 `addon_configs`） | 不做插件开发就移除 |
+
+旧名与新名**同时暴露、指向同一目录**；**从列表里移除的共享将不可访问**（S18b `Sharing`、`enabled_shares`）。`config` 与 `ssl` 等于把运行中的 HA 配置和私钥挂成一块可写网络盘，除非明确需要，不要长期挂着。
+
+> [!warning] `allow_hosts` 是这个场景独有的坑
+> 它是 schema 里的**必填项**，语义是「允许访问共享的主机/网络列表」，默认值为 `10.0.0.0/8`、`172.16.0.0/12`、`192.168.0.0/16`、`169.254.0.0/16`、`fe80::/10`、`fc00::/7`（S18a、S18b `allow_hosts`）。
+> **挂载端 IP 不在这几段里会被直接拒绝**，现象是连不上，而不是挂载参数不对——所以先查这一项，再回头读错误码（第 4 章 4.6）。
+> 常见家庭网段 `192.168.x.x` 与 `10.x.x.x` 已在默认值内，无需改动；服务器若在别的网段（例如 `100.64.0.0/10` 这类默认列表之外的地址），必须显式加上。
+> 不要图省事改成 `0.0.0.0/0`：那等于把 HA 的配置目录向整个网络敞开。
+
+**`compatibility_mode` 保持关闭。** 文档对它的原文是：开启后会启用旧版 Samba 协议，"might solve issues with some clients that cannot handle the newer protocols, however, it lowers security"，并建议 "Only use this when you absolutely need it and understand the possible consequences"（S18b `compatibility_mode`）。客户端是 Linux 内核的 `cifs.ko`，默认协商到 SMB 2.1+，用不上它；只有方言协商失败时才临时开来验证一次（方言排查见第 4 章 4.3）。
+
+```bash
+# HA 的 Samba 插件：把共享名换成 enabled_shares 里的项即可
+sudo mount -t cifs //192.168.1.10/share /mnt/ha-share \
+  -o credentials=/root/.smbcred,uid=1000,gid=1000,iocharset=utf8
+```
 
 ## 2.6 挂载后核对：实际协商到哪一版方言
 
@@ -335,6 +378,8 @@ grep -i dialect /proc/fs/cifs/DebugData
 | S07 | Windows 侧签名现象与排查指向（2.5.1） |
 | S10 | FNOS 社区实测例（含密码明文反面示例） |
 | S11 | FNOS 挂载侧社区经验 |
+| S18a | HA Samba 插件的选项名与默认值（`allow_hosts` 白名单、`enabled_shares` 合法值）；2.5.3 |
+| S18b | HA Samba 插件的选项语义、共享名清单、兼容模式原文、凭据与 HA 登录无关；2.5.3 |
 | S13 | `vers=` 三档协商默认；`seal`；`smb3` fstype 与 `mount.smb3`；`/proc/fs/cifs/DebugData` |
 | S17a | `smbclient -L` 探测、`-N`、`-A`、`posix_whoami`、NetBIOS 名说明 |
 | S17b | `findmnt -T`/`-M`/`-t` 与退出码语义 |
