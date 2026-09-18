@@ -250,6 +250,8 @@ sudo mount -t cifs //winhost/docs /mnt/share \
   -o credentials=/root/.smbcred,uid=1000,gid=1000,iocharset=utf8
 ```
 
+**Windows 侧两个值的查法**（`username` / `domain`）：在 cmd 里跑 `whoami` 与 `echo %USERDOMAIN%`。`whoami` 输出形如 `DESKTOP-ABC\zhq`，反斜杠后面那半截是 `username=`；`echo %USERDOMAIN%` 的输出是 `domain=`。三个键的完整对照见第 3 册 3.1.1。
+
 ### 2.5.2 飞牛 FNOS 共享
 
 > [!warning] 整段为社区经验，不写默认值
@@ -260,6 +262,8 @@ sudo mount -t cifs //winhost/docs /mnt/share \
 我们引用它只是为了说明「有人这么干过」，**不复制它的凭据写法**——正确做法见第 3 章 3.1 与 3.3。
 
 S11（飞牛官方论坛）提供的是 Linux 挂载 FNOS 共享时的路径写法与权限排查讨论（S11，[社区]）。同样只作社区经验参考。
+
+**FNOS 侧的凭据怎么填**：`username` 填 FNOS 后台建的共享用户（不是 NAS 管理员账号），`domain` 填后台「文件服务 / SMB」里的工作组名。对照表见第 3 册 3.1.1——注意该小节的这两条是实操惯例，本笔记未为它们挂来源。
 
 ## 2.6 挂载后核对：实际协商到哪一版方言
 

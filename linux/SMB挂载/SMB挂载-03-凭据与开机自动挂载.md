@@ -55,6 +55,43 @@ sudo chmod 700 /root
 
 [缺口] 还有一个版本边界要记住：`password2=` 键在 **7.4-1（trixie）** 中受支持，但在 **7.0-2（bookworm）** 上**超出该版本文档范围**，只有 `username`/`password`/`domain` 三项（S01a / S01b `credentials=`、`02_deep_research.md` §四.8）。以 Debian 12 为目标时，别用 `password2=`。
 
+### 3.1.1 三个键分别填什么（FNOS / Windows 对照）
+
+三行里最常填错的是 `username`：**它是共享端（SMB 服务器）上的账号，不是这台 Linux 的本地用户**。三个键的值都来自共享端，一个都不来自挂载端。
+
+| 键 | 填什么 | 怎么查到 |
+| --- | --- | --- |
+| `username` | 共享端上的账号 | Windows：平时映射网络驱动器用的那个账号；FNOS：NAS 后台建的**共享用户**（不是 NAS 管理员账号） |
+| `password` | 该账号的密码，明文（所以必须 `chmod 600`） | — |
+| `domain` | 域环境填 AD 域名；非域环境填工作组名或共享端机器名 | Windows：cmd 里 `echo %USERDOMAIN%`；FNOS：后台「文件服务 / SMB」里的工作组名 |
+
+在 Windows 侧一次把两个值查齐：
+
+```cmd
+whoami
+echo %USERDOMAIN%
+```
+
+`whoami` 的输出形如 `DESKTOP-ABC\zhq`，**反斜杠后面那半截**就是 `username=`；`echo %USERDOMAIN%` 的输出就是 `domain=`。
+
+> [!warning] 两条是实操惯例，本笔记没有为它们挂来源
+> 1. **非域环境**的 `domain` 填 `WORKGROUP`、共享端机器名，或整行删掉——这是通行做法，素材中没有对应的官方锚点（FNOS 默认值相关的问题本来就在「已知缺口」里，见 `02_deep_research.md` §六.5）。
+> 2. **用微软账号登录的 Windows**，`%USERDOMAIN%` 常显示为 `MicrosoftAccount`，照抄即可，同样无来源支撑。
+>
+> 之所以不用 `[社区]`/`[缺口]` 标记：这两条既不是社区帖里的说法，也不属于「素材未覆盖、正文不写」，而是本节新增的实操惯例，故以文字声明其来源状态。
+
+填完先用手工挂载验证，成功了再写 fstab（fstab 行见 3.3）：
+
+```bash
+sudo chmod 600 /root/.smbcred && sudo chown root:root /root/.smbcred
+
+# 手工试挂（//服务器/共享名 换成自己的）
+sudo mount -t cifs //server/share /mnt/share \
+  -o credentials=/root/.smbcred,uid=1000,gid=1000,iocharset=utf8
+```
+
+注意这里 `uid`/`gid` 填的是**挂载端**的本地用户（`id -u` / `id -g` 的输出，第一个普通用户通常是 `1000`），与上面三个「来自共享端」的键方向相反；不填则默认 `0`（见第 2 册 2.4.1）。
+
 ## 3.2 凭据文件的解析限制
 
 凭据文件不是万能容器，它有两个已记录的解析限制（S01a `BUGS`，7.0-2 与此一致）：
