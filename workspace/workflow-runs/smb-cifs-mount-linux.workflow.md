@@ -10,7 +10,7 @@ topic: "把 SMB/CIFS 共享文件夹挂载到 Linux 服务器"
 project_slug: "smb-cifs-mount-linux"
 created_at: "2026-09-18"
 last_updated: "2026-09-18"
-current_phase: P0
+current_phase: P1
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：smb-cifs-mount-linux
 > 项目标识：smb-cifs-mount-linux
 > 创建时间：2026-09-18
-> 当前阶段：阶段 0
+> 当前阶段：阶段 1
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -40,7 +40,7 @@ quality_gate_due: ""
 - [ ] 如发布到 Obsidian，vault_path、note_folder、moc_path 已确认或标记待补
 - [ ] 意图文件已生成：`./00_intent.md`
 
-> [P0] 🔲 进行中 {in_progress}
+> [P0] ✅ 已完成 {complete}
 
 ---
 
@@ -51,7 +51,7 @@ quality_gate_due: ""
 - [ ] 用户已选择学习方向
 - [ ] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] ⬜ 未开始
+> [P1] 🔲 进行中 {in_progress}
 
 ---
 
@@ -130,6 +130,7 @@ quality_gate_due: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P0 | 确认意图：SMB/CIFS 主线（sma=SMB 笔误）、挂载端 Debian/Ubuntu、共享端通用+FNOS/NAS 与 Windows 双例、上手实战深度、五个探索方向全要、输出先落 workspace/output/ | 2026-09-18 |
 | | | |
 
 ---
