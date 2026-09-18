@@ -7,11 +7,11 @@
 - **运行标识**: smb-cifs-mount-linux
 - **工作流**: learning-note-flow
 - **创建时间**: 2026-09-18
-- **当前阶段**: 阶段 0
-- **输出目标**: project-output（`workspace/smb-cifs-mount-linux/output/`）
-- **Vault 路径**: 待指定
-- **笔记目录**: 待指定
-- **MOC 路径**: 待指定
+- **当前阶段**: 阶段 6（Obsidian 美化与发布）
+- **输出目标**: project-output（`workspace/smb-cifs-mount-linux/output/`）+ Obsidian vault 发布
+- **Vault 路径**: `D:\Study-Notes`
+- **笔记目录**: `linux/SMB挂载/`（拆分系列：`SMB挂载-00-总目录.md` + `SMB挂载-01..05-*.md`）
+- **MOC 路径**: `linux/linux MOC.md`（另在 `docker/Docker MOC.md` 加第 5 册索引）
 
 ## 学习目标
 
