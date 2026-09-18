@@ -10,7 +10,7 @@ topic: "把 SMB/CIFS 共享文件夹挂载到 Linux 服务器"
 project_slug: "smb-cifs-mount-linux"
 created_at: "2026-09-18"
 last_updated: "2026-09-18"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：smb-cifs-mount-linux
 > 项目标识：smb-cifs-mount-linux
 > 创建时间：2026-09-18
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -89,7 +89,7 @@ quality_gate_due: ""
 
 **进度**：0/待大纲确定
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -102,7 +102,7 @@ quality_gate_due: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
@@ -130,6 +130,7 @@ quality_gate_due: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P4 | 确认五章全部写完。第 1 章超大纲篇幅预算（1,629 中文字 vs 800–1,200）经确认**保留现状、不删小节**；组装方式（独立章节 + 前后导航双链 + MOC 索引页）留待 P5 确认 | 2026-09-18 |
 | P3 | 确认大纲：5 章骨架、篇幅与深度合适；**保留第 5 章**（容器，作可选小节）；同意回补 `smbclient`/`findmnt` 来源缺口；**授权「全部写完」——第 1–5 章连续写作、不再逐章暂停**（仍按每批 ≤3 章分批派发） | 2026-09-18 |
 | P2 | 确认素材够用（16 条：official 11 / secondary 1 / community 3 / 历史一手 1）；确认执行模式 = **大纲模式**（非随性）；接受 5 项未解问题按「不得写成官方结论」处理 | 2026-09-18 |
 | P1 | 确认素材质量与方向：选 **A 均衡实战**（协议选型→手动挂载→凭据+fstab→排错→容器为可选小节），5 章；接受 FNOS 段落按 community 层级标注、112/115/2 按 errno 推断、容器只作一小节 | 2026-09-18 |
