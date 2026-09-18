@@ -72,7 +72,7 @@
   - `[社区]` FNOS 段落：S10 / S11，仅 community，**不写默认方言值**
   - `[推断]` `mapposix` 默认状态：02 §四.2 —— 并列 S01a 与 S06，标注「ArchWiki 说法未在 man page 中得到确认」
   - `[缺口]` `file_mode`/`dir_mode` 默认数值：02 §六.7 —— **不写具体数值**
-  - `[缺口]` `smbclient`、`findmnt`：00_intent 列为工具链，但 02 未收集到锚点 —— 只能作「社区常用命令」出现，或标注需回补来源
+  - `[一手]` `smbclient` 探测与 `findmnt` 核对：S17a / S17b（**P2 追加补录，原 `[缺口]` 已闭合**）—— 用法与限制见 02 §3.8
 - **`[!tip] 大白话` 落点**：`uid`/`gid` 与 `file_mode`/`dir_mode` 的分工处 1 个；`vers=` 协商处 1 个
 - **「常见坑」小节**：留
 
@@ -302,3 +302,10 @@
 | Windows 侧协商选择规则 | §六.9 | 第 2/4 章不写 |
 | `serverino`/`noserverino` 使用建议 | §六.10 | 第 2 章不提或标「原文未给建议」 |
 | `smbclient` / `findmnt` 无一手锚点 | 00_intent 列出，02 未收集 | 只能作「社区常用命令」出现 |
+
+---
+
+## 补录记录（P3 后追加）
+
+- **2026-09-18**：用户确认大纲时同意回补 `smbclient`/`findmnt` 来源缺口。现已补录为 **S17a（smbclient，Samba 4.17.12 / 4.22.8 双版本比对）/ S17b（findmnt，util-linux）**，写入 `02_deep_research.md` §3.8。
+- **受影响的落点**：第 2 章（`smbclient -L` 作挂载前探测、连接后 `posix_whoami` 判匿名身份）、第 3 章（`findmnt --verify` 校验 fstab）、第 4 章（两者并入排错证据链）。写作时按 `[一手]` 处理，须挂 SID + 锚点。

@@ -38,6 +38,8 @@
 | S14 | errno(3) — man7.org | https://man7.org/linux/man-pages/man3/errno.3.html | official | n/a | **明确不列数值**（跨架构不同），仅给名称与语义 |
 | S15 | Linux 内核 uapi `errno-base.h` / `errno.h` | https://raw.githubusercontent.com/torvalds/linux/master/include/uapi/asm-generic/errno-base.h ／ https://raw.githubusercontent.com/torvalds/linux/master/include/uapi/asm-generic/errno.h | official | 内核源码 master | 数值↔名称硬对应 |
 | S16 | A New Network File System is Born: Comparison of SMB2, CIFS, and NFS（S. French, IBM/Samba Team, OLS） | https://www.kernel.org/doc/ols/2007/ols2007v1-pages-131-140.pdf | 历史一手 | **2007**，对 SMB3.1.1/NFSv4.2 已过时 | 协议设计意图与边界（仅此层面可用） |
+| S17a | smbclient(1) — Samba 套件 | Debian manpages 镜像：https://manpages.debian.org/bookworm/smbclient/smbclient.1.en.html ／ https://manpages.debian.org/trixie/smbclient/smbclient.1.en.html （**samba.org 官方页对本环境返回 HTTP 403**） | official | Samba **4.17.12**（2023-10-10）／ **4.22.8**（2026-02-19），两版相关段落逐字一致 | 挂载前探测共享、`-L`/`-N`/`-A` 用法、`posix_whoami` 判匿名 |
+| S17b | findmnt(8) — util-linux | https://man7.org/linux/man-pages/man8/findmnt.8.html | official | util-linux 2.43.devel-1062-f，2026-08-03 | 核对挂载是否存在、`-t cifs` 过滤、`--verify` 校验 fstab |
 
 **缓存路径**（正文不入仓，按需回查）：
 - G1：`workspace/smb-cifs-mount-linux/.cache/p2_sources/g1_mount_semantics/{trixie,bookworm,archwiki}/`
@@ -141,6 +143,21 @@
 
 ---
 
+### 3.8 探测与核对命令（S17，P2 补录；闭合大纲中的 `[缺口]` 项）
+
+| 主张 | 来源 + 锚点 |
+| --- | --- |
+| 挂载前用 `smbclient -L //server -N` 列出服务器上的共享，确认目标共享名存在；NetBIOS 名与 DNS 名不一致或跨网段时补 `-I <ip>` | S17a `-L\|--list` |
+| 服务不需要密码时**必须显式加 `-N`**，否则客户端仍会提示输密码；命令行同时给密码与 `-N` 时，命令行密码被**静默忽略** | S17a `-N\|--no-pass` |
+| 脚本场景别把密码写命令行：用 `-A` 凭据文件（`username =`／`password =`／`domain =` 三行），必须收紧文件权限 | S17a `-A\|--authentication-file` |
+| 连接后在 `smb:\>` 下用 `dir` 确认可读，`posix_whoami` 查看服务端认定的 guest 状态与用户，判断是否真以匿名身份进入 | S17a `OPERATIONS` |
+| 目标写作 `//server/service`，其中 server 是 NetBIOS 名，**不一定是** IP/DNS 主机名；`-p` 默认 TCP 139 | S17a `DESCRIPTION`／`-p` |
+| 核对挂载点：`findmnt -T /mnt/share`（逐级向上回溯）对比 `-M`（严格匹配挂载点）；`-t cifs` 按类型过滤（输出自动切 list 格式）；`-S` 可按设备／`UUID=`／`LABEL=` 限定 | S17b `-t`／`-S`／`-T`／`-M` |
+| 判定存在性可直接读退出码：**0 = 有内容可显示，1 = 任何错误**（含按过滤条件无匹配、设备或挂载点不存在） | S17b `EXIT STATUS` |
+| 改完 fstab 用 `findmnt --verify`（加 `--verbose` 看细节）检查可解析性与可用性；`-s` 可在 `/etc/fstab` 中搜索条目 | S17b `-x\|--verify`、`-s\|--fstab` |
+| `--verify` 原文只说校验 "parsability and usability"，未列具体检查项，**不验证远端共享是否真能挂上** | S17b `-x\|--verify` → `[推断]` |
+| 包名：`smbclient` 属 Samba 套件（Debian 包名 `smbclient`）；`findmnt` 属 `util-linux` | S17a／S17b 原文 |
+
 ## 四、冲突与需并列呈现之处
 
 | # | 冲突 | 处理建议 |
@@ -195,6 +212,7 @@
 2. **`Added in version` 标注行的存在性因文档而异**：`systemd.mount(5)` 的 trixie/unstable 页有（如 `Added in version 233`），bookworm 页没有；`mount.cifs(8)` **两版都没有**。据此判断"选项何时引入"时，先确认该页是否有此标注，否则只能用页脚版本行 + 选项表差集推得并标 `[推断]`。
 3. **markdown 转换会压掉 man page 的 `<dt>` 结构**，选项名可能丢失；必要时回原始 HTML 取选项名。
 4. **`git.samba.org` / Debian sources 对 cifs-utils 源码的抓取被 429 拒绝**，未解问题 1 因此无法闭环。
+5. **`www.samba.org` 官方 man 页对本环境返回 HTTP 403（反爬）**，`crawl.sh` 与带浏览器 UA 的 `curl` 均被拒。S17a 因此改用 Debian manpages 镜像，并 diff 两个 Samba 版本确认相关段落一致。后续需要 Samba 官方页时，直接走 `manpages.debian.org` 更省事。
 
 ---
 
@@ -214,3 +232,4 @@
   - S09（邮件列表）标注"未获上游确认的用户报告"。
   - 「官方文档说」类表述必须能回指到本文档的 SID + 锚点。
 - **来源台账**：S01a/S01b 双版本、S02 三版本已就绪；引用选项默认值时必须带版本（如「cifs-utils 7.4-1」或「systemd 252」）。
+- **S17 已补录**（P2 追加，原为 `[缺口]`）：`smbclient` 用于挂载前探测共享与判定匿名身份（第 2、4 章），`findmnt` 用于核对挂载与 `--verify` 校验 fstab（第 3、4 章）；包名分别为 `smbclient` 与 `util-linux`。
