@@ -1,7 +1,7 @@
 ---
 title: Docker 知识索引
 created: 2026-04-06
-updated: 2026-09-15
+updated: 2026-09-18
 tags: [docker, MOC, 索引]
 
 ---
@@ -82,6 +82,8 @@ tags: [docker, MOC, 索引]
 
 ### 挂载与文件访问
 - [[Docker容器服务访问宿主机文件]] - 容器读写宿主机文件的挂载选型、权限对齐与安全边界完整实战 #docker #挂载 #权限 #安全
+- [[SMB挂载-00-总目录]] - **5 册系列总目录**：SMB/CIFS 共享挂载到 Linux 服务器（协议选型 → 手动挂载 → 凭据与开机自动挂载 → 排错 → 容器内挂载）；只有第 5 册与本目录相关 #smb #cifs #nas #挂载 #实战笔记
+- [[SMB挂载-05-容器内挂载]] - 第 5 册：容器内直接挂 CIFS 的争议（`SYS_ADMIN`+`DAC_READ_SEARCH` 仍报 `mount error 13`；`--privileged` 可行但被版主反对）与两条替代路径（宿主机挂载 + bind mount / 本地驱动 named volume），**全册为社区经验** #docker #smb #挂载 #容器
 
 ### 网盘聚合与挂载
 - [[OpenList网盘挂载-00-总目录]] - **6 册系列总目录**：OpenList 聚合网盘 → 开 WebDAV → Rclone 挂载到本地 → 映射给 Docker 容器 #docker #openlist #webdav #rclone #网盘
@@ -168,6 +170,7 @@ tags: [docker, MOC, 索引]
 
 ## 更新日志
 
+- 2026-09-18：新增 [[SMB挂载-05-容器内挂载]]（[[SMB挂载-00-总目录|SMB/CIFS 挂载到 Linux]] 5 册系列之第 5 册：容器内直挂 CIFS 的两说并存与两条替代路径——宿主机挂载 + bind mount / 本地驱动 named volume；全册为社区经验，无 Docker 官方依据）
 - 2026-09-15：新增 [[使用DockerCompose部署Misskey]]（Misskey 自建部署 6 章完整实战：产物落位 / 编排文件 / 应用配置与不可变项 / 数据库口令 / 构建初始化启动 / 升级与 NAS 遗留约束）
 - 2026-09-14：新增 [[slskd自托管Soulseek客户端/README|slskd：自托管 Soulseek 客户端]]（自托管 Soulseek 客户端实战，4 册系列：部署与运行 → 账号与共享机制 → 日常使用与配置详解 → 安全与进阶速览）
 - 2026-09-14：新增 [[MusicTagWeb-00-总目录]]（自托管音乐标签编辑器 Music Tag Web 实战，8 册系列：项目定位 → 部署 → 首次登录与激活 → 刮削与标签编辑 → 整理与批处理，附附录 A 播放生态 / B 进阶配置 / C 排错 FAQ）

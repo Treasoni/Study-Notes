@@ -10,11 +10,11 @@ topic: "把 SMB/CIFS 共享文件夹挂载到 Linux 服务器"
 project_slug: "smb-cifs-mount-linux"
 created_at: "2026-09-18"
 last_updated: "2026-09-18"
-current_phase: P6
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
 blocked_reason: ""
-quality_gate: pending
+quality_gate: passed
 quality_gate_owner: ""
 quality_gate_due: ""
 ---
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：smb-cifs-mount-linux
 > 项目标识：smb-cifs-mount-linux
 > 创建时间：2026-09-18
-> 当前阶段：阶段 6
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -112,7 +112,7 @@ quality_gate_due: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] 🔲 进行中 {in_progress}
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -122,7 +122,7 @@ quality_gate_due: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -130,6 +130,8 @@ quality_gate_due: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P7 | 确认 MOC 同步：`linux/linux MOC.md` 加入磁盘与存储区（新增 §2.3 + 快速导航行 + 最近更新）、`docker/Docker MOC.md` 加入挂载与文件访问区（总目录 + 第 5 册 + 更新日志）；全部双链经 `os.path.exists` 逐条校验通过；MOC 只加索引、不复制正文。最终阶段质量门 `quality_gate: passed` | 2026-09-18 |
+| P6 | 确认发布结果：`D:\Study-Notes\linux\SMB挂载\` 共 6 个文件（总目录 + 5 册）；逐字搬运经脚本证明（demote 只允许去掉一个 `#`、写盘后读回字节级 + SHA256 一致）；独立校验用子序列回溯证明五册正文 895 行全部按序可追回、缺口 0；标注零损失（社区 9 · 推断 12 · 缺口 6，与组装稿逐项相等）；双链目标逐条存在。用户以「好了吗？」确认收尾，据此进入 P7 | 2026-09-18 |
 | P5 | 确认组装结果：`output/final_note.md` 12,362 中文字 / 一级标题 1 个 / 标注零损失（社区 9・推断 12・缺口 6，脚本复核）；**确认发布格式 = 拆分系列**，vault_path=`D:\Study-Notes`、note_folder=`linux/SMB挂载/`、moc_path=`linux/linux MOC.md`（另在 `docker/Docker MOC.md` 加容器册索引） | 2026-09-18 |
 | P4 | 确认五章全部写完。第 1 章超大纲篇幅预算（1,629 中文字 vs 800–1,200）经确认**保留现状、不删小节**；组装方式（独立章节 + 前后导航双链 + MOC 索引页）留待 P5 确认 | 2026-09-18 |
 | P3 | 确认大纲：5 章骨架、篇幅与深度合适；**保留第 5 章**（容器，作可选小节）；同意回补 `smbclient`/`findmnt` 来源缺口；**授权「全部写完」——第 1–5 章连续写作、不再逐章暂停**（仍按每批 ≤3 章分批派发） | 2026-09-18 |
