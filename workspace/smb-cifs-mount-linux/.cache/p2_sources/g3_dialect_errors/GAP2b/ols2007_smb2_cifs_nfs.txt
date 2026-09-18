@@ -1,0 +1,577 @@
+A New Network File System is Born: Comparison of SMB2, CIFS, and
+                                        NFS
+
+                                                   Steven M. French
+                                                           IBM
+
+                                                      Samba Team
+
+                                                    sfrench@us.ibm.com
+
+Abstract                                                   sharing programs and data. More than twenty years
+                                                           later, the successors to the ancient NFS and SMB proto-
+In early 2007, SMB2 became the first widely deployed       cols are still the default network file systems on almost
+network file system protocol since NFS version 4.          all operating systems.
+This presentation will compare it with its predecessors
+(CIFS and SMB) as well as with common alternatives.        Even if HTTP were considered a network file system
+The strengths and weaknesses of SMB/CIFS (the most         protocol, it is relatively recent, dating from the early
+widely deployed network file system protocol) and NFS      1990s, and its first RFC [RFC 1945] was dated May
+versions 3 and 4 (the next most popular protocols) and     1996. HTTP would clearly be a poor protocol for a
+SMB2 will also be described.                               general purpose network file system on most operat-
+                                                           ing systems including Linux. Since HTTP lacked suf-
+Now that the CIFS POSIX Protocol extensions are im-        ficient support for "distributed authoring" without lock-
+plemented in the Linux kernel, Samba, and multiple op-     ing operations, with little file metadata and lacking di-
+erating systems, it is a good time to analyze whether      rectory operations, "HTTP Extensions for Distributed
+SMB2 would be better for Linux comprared to CIFS           Authoring--WEBDAV" (RFC 2518) was released in
+POSIX Protocol extensions. In addition, alternatives       February 1999. WEBDAV did not, however, displace
+such as HTTP, WebDav, and cluster file systems will be     CIFS or NFS, and few operating systems have a usable
+reviewed. Implementations of SMB2 are included in not      in-kernel implementation of WEBDAV.
+just Vista and Longhorn, but also Samba client libraries
+and Wireshark (decoding support). Linux implemen-          So after more than twenty years, despite the invention
+tation progress and alternatives for SMB2 clients and      of some important cluster file systems and the explosion
+servers will also be described along with recommenda-      of interest in web servers, we are almost back where we
+tions for future work in this area.                        started--comparing NFS [3] Version 4 with the current
+                                                           CIFS extensions and with a new SMB--the SMB2 pro-
+1 Introduction                                             tocol. File systems still matter. Network file systems
+                                                           are still critical in many small and large enterprises. File
+The SMB2 protocol, introduced in Microsoft Vista this      systems represent about 10% (almost 500KLOC) of the
+year, is the default network file system on most new PCs.  2.6.21 Linux Kernel source code, and are among the
+It differs from its predecessors in interesting ways.      most actively maintained and optimized components.
+                                                           The nfs1 and cifs modules are among the larger in-kernel
+Although a few experimental network file system pro-       file systems.
+tocols were developed earlier, the first to be widely de-
+ployed started in the mid-1980s: SMB (by IBM, Mi-          Network file systems matter--the protocols that they de-
+crosoft and others), AT&T's RFS protocol, AFS from         pend on are more secure, full featured and much more
+Carnegie-Mellon University, NFS version 2--Sun [1]
+and Novell's NCP. The rapid increase in numbers of per-        1lowercase "nfs" and "cifs" are used to refer to the implementa-
+sonal computers and engineering workstations quickly       tion of the NFS and CIFS protocol (e.g. for Linux the nfs.ko and
+made network file systems an important mechanism for       cifs.ko kernel modules), while uppercase "NFS" and "CIFS" re-
+                                                           fer to the network protocol.
+
+· 131 ·
+132 · A New Network File System is Born: Comparison of SMB2, CIFS, and NFS
+
+complex than their ancestors. Some of the better NAS2                  system on the client. Network file system opera-
+implementations can perform as well as SAN and clus-                   tions on the wire often match one to one with the
+ter file systems for key workloads.                                    abstract VFS operations (read, write, open, close,
+                                                                       create, rename, delete) required by the operating
+2 Network File System Characteristics                                  system. The OS/2 heritage of early SMB/CIFS im-
+                                                                       plementations and the Solaris heritage of NFS are
+Network protocols can be considered to be layered.                     visible in a few network file system requests.
+Network file system protocols are the top layer--far
+removed from the physical devices such as Ethernet                  · Directory Hierarchy: Most network file systems as-
+adapters that send bits over the wire. In the Open Sys-                sume a hierarchical namespace for file and direc-
+tem Interconnection (OSI) model, network file system                   tory objects and the directories that contain them.
+protocols would be considered as layer 6 and 7 ("Pre-
+sentation" and "Application") protocols. Network file               · Server room vs. intranet vs. Internet: Modern net-
+system protocols rely on lower level transport protocols               work file system protocols have security and per-
+(e.g. TCP) for reliable delivery of the network file sys-              formance features that make them usable outside
+tems protocol data units (PDUs), or include intermedi-                 of the server room (while many cluster file sys-
+ate layers (as NFS has done with SunRPC) to ensure                     tems are awkward to deploy securely across mul-
+reliable delivery.                                                     tiple sites). Despite this, HTTP and primitive FTP
+                                                                       are still the most commonly used choices for file
+Network file system protocols share some fundamental                   transfers over the Internet. Extensions to NFS ver-
+characteristics that distinguish them from other "appli-               sion 4 and CIFS (DFS) allow construction of a
+cation level" protocols. Network file system clients and               global hierarchical namespace facilitating transpar-
+servers (and the closely related Network Attached Stor-                ent failover and easier configuration.
+age, NAS, servers) differ in key ways from cluster file
+systems and web browsers/servers:                                   · Application optimization: Because the pattern of
+                                                                       network file system protocol requests often more
+   · Files vs. Blocks or Objects: This distinction is easy             closely matches the requests made by the applica-
+      to overlook when comparing network file system                   tion than would be the case for a SAN, and since
+      protocols with network block devices, cluster file               the security and process context of most applica-
+      systems and SANs. Network file systems read and                  tion requests can be easily determined, network file
+      write files not blocks of storage on a device. A file            system servers and NAS servers can do interesting
+      is more abstract--a container for a sequential series            optimizations.
+      of bytes. A file is seekable. A file conventionally
+      contains useful metadata such as ACLs or other se-            · Transparency: Network file systems attempt to
+      curity information, timestamps and size. Network                 provide local remote transparency so that local ap-
+      file systems request data by file handle or filename             plications detect little or no difference between
+      or identifier, while cluster file systems operate on             running over a network file system and a local file
+      raw blocks of data. Network file system protocols                system.
+      are therefore more abstract, less sensitive to disk
+      format, and can more easily leverage file owner-              · Heterogeneity: Network file system clients and
+      ship and security information.                                   servers are often implemented on quite different
+                                                                       operating systems--clients access files without re-
+   · Network file system protocol operations match lo-                 gard to their on-disk format. In most large enter-
+      cal file system entry points: Network file system                prises, client machines running quite different op-
+      protocol operations closely mirror the function lay-             erating systems access the same data on the same
+      ering of the file system layer (VFS) of the operating            server at the same time. The CIFS (or NFS) net-
+                                                                       work file system client that comes by default with
+    2Network Attached Storage (NAS) servers are closely related to     their operating system neither knows nor cares
+network file servers.                                                  about the operating system of the server. Samba
+                                                                       server has been ported to dozens of operating sys-
+                                                                       tems, yet the server operating system is mostly
+                                                            2007 Linux Symposium, Volume One · 133
+
+      transparent to SMB/CIFS clients. Network file sys-    earlier SMB implementations (which had been docu-
+      tems are everywhere, yet are not always seen when     mented by X/Open). The SMB protocol increasingly
+      running in multi-tier storage environments. They      was used for purposes other than file serving, includ-
+      often provide consistent file access under large web  ing remote server administration, network printing, net-
+      servers or database servers or media servers. A net-  working messaging, locating network resources and se-
+      work file system server such as Samba can easily      curity management. For these purposes, support for var-
+      export data on other network file systems, on re-     ious network interprocess communication mechanisms
+      movable media (CD or DVD), or on a local file sys-    was added to the SMB protocol including: Mailslots,
+      tem (ext3, XFS, JFS)--and with far more flexibil-     Named Pipes, and the LANMAN RPC. Eventually more
+      ity than is possible with most cluster file systems.  complex IPC mechanisms were built allowing encap-
+                                                            sulating DCE/RPC traffic over SMB (even supporting
+Network file systems differ in fundamental ways from        complex object models such as DCOM).
+web clients/servers and cluster file systems.
+                                                            In the mid 1990s, the SMBFS file system for Linux was
+2.1 History of SMB Protocol                                 developed. Leach and Naik authored various CIFS IETF
+                                                            Drafts in 1997, but soon CIFS Documentation activity
+The SMB protocol was invented by Dr. Barry Feigen-          moved to SNIA. Soon thereafter CIFS implementations
+baum of IBM's Boca Raton laboratory during the early        were completed for various operating systems including
+development of personal computer operating system           OS/400 and HP/UX. The CIFS VFS for Linux was in-
+software. It was briefly named after his initials ("BAF")   cluded in the Linux 2.6 kernel. After nearly four years,
+before changing the protocol name to "Server Message        the SNIA CIFS Technical Reference [4] was released
+Block" or SMB. IBM published the initial SMB Spec-          in 2002, and included not just Microsoft extensions to
+ification book at the 1984 IBM PC Conference. A             CIFS, but also CIFS Unix and Mac Extensions.
+few years later a companion document, a detailed LAN
+Technical Reference for the NetBIOS protocol (which         In 2003 an additional set of CIFS Unix Extensions was
+was used to transport SMB frames), was published.           proposed, and Linux and Samba prototype implemen-
+An alternative transport mechanism using TCP/IP rather      tations were begun. By 2005, Linux client and Samba
+than the Netbeui frames protocol was documented in          server had added support for POSIX ACLs,3 POSIX4
+RFCs 1001 and 1002 in 1987.                                 path names, a request to return all information needed
+                                                            by statfs. Support for very large read requests and very
+Microsoft, with early assistance from Intel and 3Com,       large write responses was also added.
+periodically released documents describing new dialects
+of the SMB protocol. The LANMAN1.0 SMB dialect              In April 2006, support for POSIX (rather than Windows-
+became the default SMB dialect used by OS/2. At least       like) byte range lock semantics were added to the Samba
+two other dialects were added to subsequent OS/2 ver-       server and Linux cifs client (Linux Kernel 2.6.17). Ad-
+sions.                                                      ditional CIFS extensions were proposed to allow file I/O
+                                                            to be better POSIX compliant. In late 2006, and early
+In 1992, X/Open CAE Specification C209 provied bet-         2007, joint work among four companies and the Samba
+ter documentation for this increasingly important stan-     team to define additional POSIX extensions to the CIFS
+dard. The SMB protocol was not only the default             protocol led to creation of a CIFS Unix Extensions wiki,
+network file system for DOS and Windows, but also           as well as implementations of these new extensions [8]
+for OS/2. IBM added Kerberos and Directory inte-
+gration to the SMB protocol in its DCE DSS project              3"POSIX ACLs" are not part of the official POSIX API. POSIX
+in the early 1990s. A few years later Microsoft also        1003.1e draft 17 was abandoned before standardization.
+added Kerberos security to their SMB security negoti-
+ation to their Windows 2000 products. Microsoft's Ker-          4In this paper, "POSIX" refers narrowly to the file API seman-
+beros authentication encapsulated service tickets using     tics that a POSIX-compliant operating system needs to implement.
+SPNEGO in a new SMB SessionSetup variant, rather            When the file system uses the CIFS network file system protocol,
+than using the original SecPkgX mechanism used by           providing POSIX-like file API behavior to applications requires ex-
+                                                            tensions to the CIFS network protocol. The CIFS "POSIX" Proto-
+                                                            col Extensions are not part of the POSIX standard, rather a set of
+                                                            extensions to the network file system protocol to make it easier for
+                                                            network file system implementations to provide POSIX-like file API
+                                                            semantics.
+134 · A New Network File System is Born: Comparison of SMB2, CIFS, and NFS
+
+in the Linux CIFS client and Samba server (Mac client        NFS VERSION 2 Operations      New NFS Version 4 Operations
+and others in progress). The CIFS protocol continues to
+evolve, with security and clustering extensions among        GETATTR                   1   CLOSE           4
+the suggestions for the next round of extensions. As the
+technical documentation of these extensions improves,        SETATTR                   2   DELEGPURGE      7
+more formal documentation is being considered.
+                                                             ROOT                      3   DELEGRETURN     8
+2.2 History of NFS Protocol
+                                                             LOOKUP                    4   GETFH           10
+NFS version 1 was not widely distributed, but NFS ver-
+sion 2 became popular in the 1980s, and was docu-            READLINK                  5   LOCK            12
+mented in RFC 1094 in 1989. Approximately 10 years
+after NFS version 2, NFS version 3 was developed. It         WRITE                     8   LOCKT           13
+was documented by Sun in RFC 1813 citerfc1813 in
+1995. Eight years later RFC 3530 defined NFS ver-            CREATE                    9   LOCKU           14
+sion 4 (obsoleting the earlier RFC 3010, and complet-
+ing a nearly five year standardization process). An ex-      REMOVE       10               LOOKUPP         16
+tension to NFS version 3, "WebNFS," documented by
+Sun in 1996, attempted to show the performance advan-        RENAME       11               NVERIFY         17
+tages of a network file system for Internet file traffic in
+some workloads (over HTTP). The discussion of Web-           LINK         12               OPEN            18
+NFS increased the pressure on other network file sys-
+tems to perform better over the Internet, and may have       SYMLINK      13               OPENATTR        19
+been a factor in the renaming of the SMB protocol--
+from "Server Message Block" to "Common Internet File         MKDIR        14               OPEN-CONFIRM    20
+System." Related to the work on NFS version 4 was
+an improvement to the SunRPC layer that NFS uses             RMDIR        15               OPEN-DOWNGRADE  21
+to transport its PDUs. The improved RPCSECGSS al-
+lowed support for Kerberos for authentication (as does       READDIR      16               PUTFH           22
+CIFS), and allows negotiation of security features in-
+cluding whether to sign (for data integrity) or seal (for    STATFS       17               PUTPUBFH        23
+data privacy) all NFS traffic from a particular client to a
+particular server. The NFS working group is developing       New NFS VERSION 3 Operations  PUTROOTFH       24
+additional extensions to NFS (NFS version 4.1, pNFS,
+NFS over RDMA, and improvements to NFS's support             ACCESS                    4   RENEW           30
+for a global namespace).
+                                                             READ                      6   RESTOREFH       31
+
+                                                             MKNOD        11               SAVEFH          32
+
+                                                             READDIRPLUS  17               SECINFO         33
+
+                                                             FSSTAT       18               SETATTR         34
+
+                                                             FSINFO       19               SETCLIENTID     35
+
+                                                             PATHCONF     20               SETCLIENTID-CONFIRM 36
+
+                                                             COMMIT       21               VERIFY          37
+
+                                                                                           RELEASE-LOCKOWNER 39
+
+                                                             3 Current Network File System Alternatives
+
+                                                             Today there are a variety of network file systems in-
+                                                             cluded in the Linux kernel, which support various proto-
+                                                             cols including: NFS, SMB/CIFS, NCP, AFS, and Plan9.
+                                                             In addition there are two cluster file systems now in the
+                                                             mainline Linux kernel: OCFS2 and GFS2. A few pop-
+                                                             ular kernel cluster file systems for Linux that are not
+                                                             in mainline are Lustre and IBM's GPFS. The cifs and
+                                                             nfs file system clients for Linux are surprisingly simi-
+                                                             lar in size (between 20 and 30 thousand lines of code)
+                                                             and change rate. The most common SMB/CIFS server
+                                                             for Linux is Samba, which is significantly larger than
+                                                             the Linux NFS server in size and scope. The most com-
+                                                             mon Linux NFS server is of course nfsd, implemented
+                                                             substantially in kernel.
+
+                                                             Windows Vista also includes support for various
+                                                             network file system protocols including SMB/CIFS,
+                                                             SMB2, and NFS.
+
+                                                             4 SMB2 Under the Hood
+
+                                                             The SMB2 protocol differs [7] from the SMB and CIFS
+                                                             protocols in the following ways:
+
+The following shows new protocol operations intro-           · The SMB header is expanded to 64 bytes, and bet-
+duced by NFS protocol versions 3 and 4:                         ter aligned. This allows for increased limits on the
+                                                         2007 Linux Symposium, Volume One · 135
+
+   number of active connections (uid and tids) as well   5 POSIX Conformance
+   as the number of process ids (pids).
+                                                         5.1 NFS
+· The SMB header signature string is no longer
+   0xFF followed by "SMB" but rather 0xFE and then       NFS version 3 defined 21 network file system operations
+   "SMB." In the early 1990s, LANtastic did a sim-       (four more than NFS version 2) roughly corresponding
+   ilar change in signature string (in that case from    to common VFS (Virtual File System) entry points that
+   "SMB" to "SNB") to distinguish their requests         Unix-like operating systems require. NFS versions 2
+   from SMB requests.                                    and 3 were intended to be idempotent (stateless), and
+                                                         thus had difficulty preserving POSIX semantics. With
+· Most operations are handle based, leaving Cre-         the addition of a stateful lock daemon, an NFS version 3
+   ate (Open/Create/OpenDirectory) as the only path      client could achieve better application compatibility, but
+   based operation.                                      still can behave differently [6] than local file systems in
+                                                         at least four areas:
+· Many redundant and/or obsolete commands have
+   been eliminated.                                        1. Rename of an open file. For example, the silly re-
+                                                               name approach often used by nfs clients for renam-
+· The file handle has been increased to 64 bits.               ing open files could cause rm -rf to fail.
+
+· Better support for symlinks has been added. Win-         2. Deleting an existing file or directory can appear to
+   dows Services for Unix did not have native support          fail (as if the file were not present) if the request is
+   for symlinks, but emulated them.                            retransmitted.
+
+· Various improvements to DFS and other miscella-          3. Byte range lock security (Since these services are
+   neous areas of the protocol that will become usable         distinct from the nfs server, both lockd and statd
+   when new servers are available.                             have had problems in this area).
+
+· "Durable file handles" [10] allowing easier recon-       4. write semantics (when caching was done on the
+   nection after temporary network failure.                    client).
+
+· Larger maximum operation sizes, and improved           NFS also required additional protocol extensions to be
+   compound operation ("AndX") support also have         able to support POSIX ACLs, and also lacked sup-
+   been claimed but not proved.                          port for xattrs (OS/2 EAs), creation time (birth time),
+                                                         nanosecond timestamps, and certain file flags (im-
+Currently 19 SMB2 commands are known:                    mutable, append-only etc.). Confusingly, the NFS pro-
+                                                         tocol lacked a file open and close operation until NFS
+0x00  NegotiateProtocol  0x0A  Lock                      version 4, and thus could only implement a weak cache
+0x01  SessionSetupAndX   0x0B  Ioctl                     consistency model.
+0x02  SessionLogoff      0x0C  Cancel
+0x03  TreeConnect        0x0D  KeepAlive                 5.2 NFSv4
+0x04  TreeDisconnect     0x0E  Find
+0x05  Create             0x0F  Notify                    NFS version 4, borrowing ideas from other protocols in-
+0x06  Close              0x10  GetInfo                   cluding CIFS, added support for an open and close op-
+0x07  Flush              0x11  SetInfo                   eration, became stateful, added support for a rich ACL
+0x08  Read               0x12  Break                     model similar to NTFS/CIFS ACLs, and added sup-
+0x09  Write                                              port for safe caching and a wide variety of extended
+                                                         attributes (additional file metadata). It is possible for
+Many of the infolevels used by the GetInfo/SetInfo com-  an NFS version 4 implementation to achieve better ap-
+mands will be familiar to those who have worked with     plication compatibility than before without necessarily
+CIFS.                                                    sacrificing performance.
+136 · A New Network File System is Born: Comparison of SMB2, CIFS, and NFS
+
+5.3 CIFS                                                    A range of information levels above 0x200
+                                                            has been reserved by Microsoft and the SNIA
+The CIFS protocol can be used by a POSIX compli-            CIFS Working Group for Unix Extensions.
+ant operating system for most operations, but compen-       These include Query/SetFileInformation and
+sations are needed in order to properly handle POSIX        Query/SetPathInformation levels:
+locks, special files, and to determine approximate rea-
+sonable values for the mode and owner fields. There are     QUERY FILE UNIX BASIC      0x200  Part of the initial Unix Extensions
+other problematic operations that, although not strictly    QUERY FILE UNIX LINK       0x201  Part of the initial Unix Extensions
+speaking POSIX issues, are important for a network          QUERY POSIX ACL            0x204  Requires
+file system in order to achieve true local remote trans-                                      CIFS UNIX POSIX ACL CAP
+parency. They include symlink, statfs, POSIX ACL op-        QUERY XATTR                0x205  Requires
+erations, xattrs, directory change notification (including                                    CIFS UNIX XATTR CAP
+inotify) and some commonly used ioctls (for example         QUERY ATTR FLAGS           0x206  Requires
+those used for the lsattr and chattr utilities). Without                                      CIFS UNIX EXTATTR CAP
+protocol extensions, the CIFS protocol can adequately       QUERY POSIX PERMISSION     0x207
+be used for most important operations but differences       QUERY POSIX LOCK           0x208  Requires
+are visible as seen in figure 1.                                                              CIFS UNIX FCNTL CAP
+                                                            SMB POSIX PATH OPEN        0x209  Requires
+                                                                                              CIFS UNIX POSIX PATH OPS CAP
+                                                            SMB POSIX PATH UNLINK      0x20a  Requires
+                                                                                              CIFS UNIX POSIX PATH OPS CAP
+                                                            SMB QUERY FILE UNIX INFO2  0x20b  Requires
+                                                                                              CIFS UNIX EXTATTR CAP
+
+5.4 CIFS with Unix Protocol Extensions                      Currently the CIFS Unix Extensions also include the
+                                                            following Query/SetFileSystemInformation levels that
+As can be seen in figure 2, with the CIFS Unix Exten-       allow retrieving information about a particular mounted
+sions it is possible to more accurately emulate local se-   export ("tree connection"), and negotiating optional ca-
+mantics for complex applications such as a Linux desk-      pabilities. Note that unlike NFS and SMB/CIFS, the
+top.                                                        CIFS Unix Extensions allow different capabilities to be
+                                                            negotiated in a more granular fashion, by "tree connec-
+The Unix Extensions to the CIFS Protocol have been          tion" rather than by server session.
+improved in stages. An initial set, which included var-
+ious new infolevels to TRANSACT2 commands in the            If a server is exporting resources located on two very
+range from 0x200 to 0x2FF (inclusive), was available        different file systems, this can be helpful.
+when CAP_UNIX was included among the capabilities
+returned by the SMB negotiate protocol response.            SMB QUERY CIFS UNIX INFO          0x200  (Part of the orig-
+                                                                                                     inal Unix Exten-
+Additional POSIX extensions are negotiated via a get        SMB QUERY POSIX FS INFO           0x201  sions)
+and set capabilities request on the tree connection via a   SMB QUERY POSIX WHO AM I          0x202
+Unix QueryFSInfo and SetFSInfo level. Following is a
+list of the capabilties that may be negotiated currently:   These Unix Extensions allow a CIFS client to set and
+                                                            return fields such as uid, gid and mode, which otherwise
+   · CIFS_UNIX_FCNTL_LOCKS_CAP                              have to be approximated based on CIFS ACLs. They
+                                                            also drastically reduce the number of network roundtrips
+   · CIFS_UNIX_POSIX_ACLS_CAP                               and operations required for common path based opera-
+                                                            tions. For example, with the older CIFS Unix Exten-
+   · CIFS_UNIX_XATTR_CAP                                    sions, a file create operation takes many network opera-
+                                                            tions: QueryPathInfo, NTCreateX, SetPathInfo, Query-
+   · CIFS_UNIX_EXATTR_CAP                                   PathInfo in order to implement local Unix create seman-
+                                                            tics correctly. File creation can be done in one network
+   · CIFS_UNIX_POSIX_PATHNAMES_CAP (all                     roundtip using the new SMB_POSIX_PATH_OPEN,
+      except slash supported in pathnames)                  which reduces latency and allows the server to better
+
+   · CIFS_UNIX_POSIX_PATH_OPS_CAP
+                                                            2007 Linux Symposium, Volume One · 137
+
+Figure 1: Without extensions to CIFS, local (upper window) vs. remote (below) transparency problems are easily
+visible
+
+optimize. The improved atomicity of mkdir and create        servers so that clients and/or "Browse Masters" contain
+makes error handling easier (e.g. in case a server failed   current lists of the active servers in a resource domain.
+after a create operation, but before the SetPathInfo).
+                                                            There are differences between these protocols that could
+5.5 SMB2                                                    significantly affect performance. Some examples in-
+                                                            clude: compound operations, maximum read and write
+The SMB2 protocol improves upon its predecessors by         sizes, maximum number of concurrent operations, en-
+including symlink support. However, retrieving mode         dian transformations, packet size, field alignment, dif-
+and Unix uid and gid from NTFS/CIFS ACLs is still           ficult to handle operations, and incomplete operations
+awkward. SMB2 appears to be only slightly improved          that require expensive compensations.
+in this area, and substantially worse than the CIFS Unix
+Extensions for this purpose.                                To contrast features that would affect performance it is
+                                                            helpful to look at some examples.
+6 Performance
+                                                            6.1 Opening an existing file
+CIFS has often been described as a chatty protocol, im-
+plying that it is inherently slower than NFS, but this is   The SMB2 implementation needs a surprising eight re-
+misleading. Most of the chattiness observed in CIFS         quests to handle this simple operation.
+is the result of differences between the operating sys-
+tem implementations being compared (e.g. Windows vs.        6.2 Creating a new file
+Linux). Another factor that leads to the accusation of the
+CIFS protocol being chatty (wasteful of network band-       The SMB2 protocol appears to match perfectly the re-
+width) is due to periodic broadcast frames that contain     quirements of the Windows client here. Attempting a
+server announcements (mostly in support of the Win-         simple operation like:
+dows Network Neighborhood). These are not a required
+part of CIFS, but are commonly enabled on Windows             echo new file data > newfile
+                                                            results in the minimum number of requests that would
+                                                            reasonably be expected (opencreate, write, close). Three
+                                                            requests and three responses (823 bytes total).
+138 · A New Network File System is Born: Comparison of SMB2, CIFS, and NFS
+
+Figure 2: Better local (upper window) vs. remote (below) transparency with CIFS Unix extensions
+
+6.3 Mount (NET USE)                                        SMB/CIFS protocol, and should be slightly better de-
+                                                           spite the slightly larger frame size caused by the larger
+Once again the SMB2 protocol appears to match well         header. With fewer commands to optimize and better
+the requirement of the client with only 11 requests        aligned fields, performance may be slightly improved as
+(four are caused by the Windows desktop trying to open     server developers better tune their SMB2 implementa-
+Desktop.ini and AutoRun.inf).                              tions.
+
+7 Linux Implementation                                     Despite the addition of support for symlinks, the SMB2
+                                                           protocol lacks sufficient support for features needed by
+Much of the progress on SMB2 has been due to ex-           Unix and Linux clients. Adding Unix extensions to
+cellent work by the Samba 4 team, led by Dr. Andrew        SMB2, similar to what has been done with CIFS, is pos-
+Tridgell. Over the past year and a half, they have imple-  sible and could reuse some of the existing Unix specific
+mented a comprehensive client library for SMB2, im-        infolevels.
+plemented a test suite (not as comprehensive yet), im-
+plemented DCE/RPC over SMB2 (for remote admin-             With current Linux kernels, NFS version 4 and CIFS
+istration), implemented a SMB2 server (not complete),      (cifs client/Samba server) are good choices for network
+and in cooperation with Ronnie Sahlberg, implemented       file systems for Linux to Linux. NFS performance
+a wireshark (ethereal) protocol analyzer.                  for large file copy workloads is better, and NFS offers
+                                                           some security options that the Linux cifs client does
+8 Future Work and Conclusions                              not. In heterogeneous environments that include Win-
+                                                           dows clients and servers, Samba is often much easier to
+Although great progress has been made on a proto-          configure.
+type user space client in Samba 4, an implementation
+of SMB2 in kernel on Linux also needs to be com-           9 Acknowledgements
+pleted. We have started a prototype. The SMB2 pro-
+tocol represents a modest improvement over the older       The author would like to express his appreciation to the
+                                                           Samba team, members of the SNIA CIFS technical work
+                                                                              2007 Linux Symposium, Volume One · 139
+
+octet 1                      2              3  4                           5       6                7                        8
+
+RFC 1001 SMB length (some reserve top 7 bits)     0xFF                        'S'     'M'              'B'
+
+msg type
+
+(session)
+
+SMB              Status (error) code                                          SMB flags SMB flags2
+Command
+
+Process ID (high order)         SMB Signature
+
+SMB signature (continued) Reserved                Tree Identifier                     Process Id (Low)
+
+SMB User Identifier             Word Count     (variable number of 16 bit     Byte Count (size of data area) (data area
+                                               parameters follow)                                                  follows)
+
+Table 1: SMB Header Format (39 bytes + size of command specific wct area)
+
+octet 1                      2              3  4                           5       6                7                        8
+
+RFC 1001         SMB length                       0xFE                        'S'     'M'              'B'
+msg type
+(session)
+
+SMB Header length (64)          reserved          Status (error) code
+                                                  SMB2 Flags
+SMB2 Command                    Unknown           Sequence number
+                                                  Process Id
+Reserved                                          SMB User Identifier
+                                                  SMB Signature
+Sequence Number (continued)
+
+Tree Identifier
+
+SMB User Identifier
+
+SMB Signature (continued)
+
+SMB Signature (continued)                         SMB2 Parameter length (in           Variable         Variable
+                                                  bytes)                              length SMB       length SMB
+                                                                                      Parm             Data
+
+Table 2: SMB2 Header Format (usually 68 bytes + size of command specific parameter area)
+
+octet 1                      2              3  4                           5       6                7                        8
+
+SunRPC Fragment Header                            XID
+
+Message Type (Request vs. Response)               SunRPC Version
+
+Program: NFS (100003)                             Program Version (e.g. 3)
+
+NFS Command                                       Authentication Flavor (e.g. AUTH_UNIX)
+
+Credential Length                                 Credential Stamp
+
+Machine Name length                               Machine name (variable size)
+
+Machine Name (continued, variable length)
+
+Unix UID                                          Unix GID
+
+Auxiliary GIDs (can be much larger)
+
+Verifier Flavor                                   Verifier Length
+
+NFS Command Parameters and/or Data follow
+
+Table 3: SunRPC/NFSv3 request header format (usually more than 72 bytes + size of nfs command)
+140 · A New Network File System is Born: Comparison of SMB2, CIFS, and NFS
+
+group, and others in analyzing and documenting the              [7] Dr. A. Tridgell. Exploring the SMB2 Protocol.
+SMB/CIFS protocol and related protocols so well over                 SNIA Storage Developer Conference. September
+the years. This is no easy task. In addition, thanks to the          2006.
+Wireshark team and Tridge for helping the world under-               http://samba.org/~tridge/smb2.pdf
+stand the SMB2 protocol better, and of course thanks to
+the Linux NFSv4 developers and the NFS RFC authors,             [8] CIFS Unix Extensions. http://wiki.samba.
+for implementing and documenting such a complex pro-                 org/index.php/UNIX_Extensions
+tocol. Thanks to Dr. Mark French for pointing out some
+of the many grammar errors that slipped through.                [9] Linux CIFS Client and Documentation.
+                                                                     http://linux-cifs.samba.org
+10 Legal Statement
+                                                                [10] What's new in SMB in Windows Vista
+This work represents the view of the author and does not nec-        http://blogs.msdn.com/chkdsk/
+essarily represent the view of IBM. IBM, OS/2, GPFS, and             archive/2006/03/10/548787.aspx
+OS/400 are registered trademarks of International Business
+Machines Corporation in the United States and/or other coun-
+tries. Microsoft, Windows and Windows Vista are either a
+registered trademark or trademark of Microsoft Corporation
+in the United States and/or other countries. UNIX is a reg-
+istered trademark of The Open Group in the United States
+and other countries. POSIX is a registered trademark of The
+IEEE in the United States and other countries. Linux is a reg-
+istered trademark of Linus Torvalds. Other company, product
+and service names may be trademarks or service marks of
+others.
+
+References
+
+[1] Sun Microsystems Inc. RFC 1094: NFS: Network
+     File System Protocol Specification. March 1989.
+     See http:
+     //www.ietf.org/rfc/rfc1094.txt
+
+[2] Callaghan et al. RFC 1813: NFS Version 3
+     Protocol Specification. June 1995. See http:
+     //www.ietf.org/rfc/rfc1813.txt
+
+[3] S. Shepler, et al. RFC 3530: Network File System
+     (NFS) version 4 Protocol. April 2003. See http:
+     //www.ietf.org/rfc/rfc3530.txt
+
+[4] J. Norton, et al. SNIA CIFS Technical Reference.
+     March 2002. See http:
+     //www.snia.org/tech_activities/
+     CIFS/CIFS-TR-1p00_FINAL.pdf
+
+[5] C. Hertel. Implementing CIFS. 2004. See
+     http://ubiqx.org/cifs/
+
+[6] O. Kirch. Why NFS Sucks. Proceedings of the
+     2006 Ottawa Linux Symposium, Ottawa, Canada,
+     July 2006.
+Proceedings of the
+Linux Symposium
+
+        Volume One
+
+   June 27th-30th, 2007
+      Ottawa, Ontario
+           Canada
+Conference Organizers
+
+   Andrew J. Hutton, Steamballoon, Inc., Linux Symposium,
+                            Thin Lines Mountaineering
+
+   C. Craig Ross, Linux Symposium
+
+Review Committee
+
+   Andrew J. Hutton, Steamballoon, Inc., Linux Symposium,
+                            Thin Lines Mountaineering
+
+   Dirk Hohndel, Intel
+   Martin Bligh, Google
+   Gerrit Huizenga, IBM
+   Dave Jones, Red Hat, Inc.
+   C. Craig Ross, Linux Symposium
+
+Proceedings Formatting Team
+
+   John W. Lockhart, Red Hat, Inc.
+   Gurhan Ozen, Red Hat, Inc.
+   John Feeney, Red Hat, Inc.
+   Len DiMaggio, Red Hat, Inc.
+   John Poelstra, Red Hat, Inc.
+
