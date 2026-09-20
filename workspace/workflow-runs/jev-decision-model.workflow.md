@@ -10,7 +10,7 @@ topic: "Jev 决策模型"
 project_slug: "jev-decision-model"
 created_at: "2026-09-20"
 last_updated: "2026-09-20"
-current_phase: P3
+current_phase: P4
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：jev-decision-model
 > 项目标识：jev-decision-model
 > 创建时间：2026-09-20
-> 当前阶段：阶段 3
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -77,7 +77,7 @@ quality_gate_due: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中 {in_progress}
+> [P3] ✅ 已完成 {complete}
 
 ---
 
@@ -89,7 +89,7 @@ quality_gate_due: ""
 
 **进度**：0/待大纲确定
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中 {in_progress}
 
 ---
 
@@ -133,6 +133,7 @@ quality_gate_due: ""
 | P0 | 用户确认意图文件与研究计划（concept+practice / 上手 / 有 LLM 基础；探索方向 A–E） | 2026-09-20 |
 | P1 | 用户确认素材质量并选定方向 1（核心 5 源 S01/S07/S06/S11/S12，另补抓 4 源用于裁决冲突） | 2026-09-20 |
 | P2 | 用户确认素材质量，选择大纲模式（模式 A）；并确认 C7 第一方矛盾如实并列、性能数字全程标注厂商自报 | 2026-09-20 |
+| P3 | 用户确认大纲（7 章，约 30 页）；接受素材缺口，不追加 P2，缺口在对应章节标注未解/待补 | 2026-09-20 |
 
 ---
 
