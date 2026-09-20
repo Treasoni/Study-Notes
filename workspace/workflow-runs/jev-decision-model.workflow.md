@@ -11,7 +11,7 @@ project_slug: "jev-decision-model"
 created_at: "2026-09-20"
 last_updated: "2026-09-20"
 current_phase: P6
-current_status: ready
+current_status: in_progress
 mode: outline
 blocked_reason: ""
 quality_gate: pending
@@ -115,7 +115,7 @@ quality_gate_due: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] 🔲 进行中 {in_progress}
 
 ---
 
@@ -138,6 +138,7 @@ quality_gate_due: ""
 | P2 | 用户确认素材质量，选择大纲模式（模式 A）；并确认 C7 第一方矛盾如实并列、性能数字全程标注厂商自报 | 2026-09-20 |
 | P3 | 用户确认大纲（7 章，约 30 页）；接受素材缺口，不追加 P2，缺口在对应章节标注未解/待补 | 2026-09-20 |
 | P4 | 用户要求一次写完 7 章（「全部写完」），放弃逐章确认检查点；写作按 P2 的六条禁令执行 | 2026-09-20 |
+| P5 | 用户确认组装成品（118,489 字节 / 7 章 / 52 条目录锚点已核）；选定 P6 落点：**拆分发布**到 `AI学习/03-技术专题/Jev 决策模型/`（总览 + 7 章 + 双向导航双链），MOC 在 `### 03-技术专题` 加索引 | 2026-09-20 |
 
 ---
 
