@@ -10,7 +10,7 @@ topic: "Jev 决策模型"
 project_slug: "jev-decision-model"
 created_at: "2026-09-20"
 last_updated: "2026-09-20"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：jev-decision-model
 > 项目标识：jev-decision-model
 > 创建时间：2026-09-20
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -82,17 +82,17 @@ quality_gate_due: ""
 ---
 
 ## 阶段 4：逐章写作
-- [ ] 第 1 章已写完并确认：决策模型的位置——Jev 与 LLM 的分工
-- [ ] 第 2 章已写完并确认：厂商自报的性能与定价（速查表）
-- [ ] 第 3 章已写完并确认：三原语与一次最小调用
-- [ ] 第 4 章已写完并确认：读结果——probability、confidence 与阈值设计
-- [ ] 第 5 章已写完并确认：接入与设计模式——成本、SDK、三种官方模式
-- [ ] 第 6 章已写完并确认：独立实测——三方数据与它们各自的口径
-- [ ] 第 7 章已写完并确认：适用边界与已知弱项
+- [x] 第 1 章已写完并确认：决策模型的位置——Jev 与 LLM 的分工
+- [x] 第 2 章已写完并确认：厂商自报的性能与定价（速查表）
+- [x] 第 3 章已写完并确认：三原语与一次最小调用
+- [x] 第 4 章已写完并确认：读结果——probability、confidence 与阈值设计
+- [x] 第 5 章已写完并确认：接入与设计模式——成本、SDK、三种官方模式
+- [x] 第 6 章已写完并确认：独立实测——三方数据与它们各自的口径
+- [x] 第 7 章已写完并确认：适用边界与已知弱项
 
-**进度**：0/7
+**进度**：7/7
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -105,7 +105,7 @@ quality_gate_due: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
