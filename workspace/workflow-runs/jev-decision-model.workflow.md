@@ -10,11 +10,11 @@ topic: "Jev 决策模型"
 project_slug: "jev-decision-model"
 created_at: "2026-09-20"
 last_updated: "2026-09-20"
-current_phase: P6
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
 blocked_reason: ""
-quality_gate: pending
+quality_gate: passed
 quality_gate_owner: ""
 quality_gate_due: ""
 ---
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：jev-decision-model
 > 项目标识：jev-decision-model
 > 创建时间：2026-09-20
-> 当前阶段：阶段 6
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -115,17 +115,17 @@ quality_gate_due: ""
 - [x] frontmatter、标签、Callout、双链已按 Obsidian 规则处理（8 个文件均 frontmatter → H1 → `> [!info]` 导航 → 正文；48 条双链逐条断言目标存在）
 - [x] 最终 Markdown 已保存到用户指定位置（8 个文件 / 118,796 字节；`./output/final_note.md` 单文件版同时保留）
 
-> [P6] 🔲 进行中 {in_progress}
+> [P6] ✅ 已完成 {complete}
 
 ---
 
 ## 阶段 7：MOC 同步
-- [ ] 已定位或创建 MOC 文件
-- [ ] 新笔记双链已加入 MOC
-- [ ] 已去重并更新摘要/标签
-- [ ] MOC 只保留索引，不复制正文
+- [x] 已定位或创建 MOC 文件（`AI学习/00-索引/AI学习 MOC.md`，第 102 行 `### 03-技术专题`）
+- [x] 新笔记双链已加入 MOC（第 107 行 `- [[Jev 决策模型 MOC]] - … #AI学习 #Jev #决策模型`；双链 stem 全库唯一）
+- [x] 已去重并更新摘要/标签（写入前断言 MOC 内 Jev 出现 0 次；frontmatter `updated` 2026-09-04 → 2026-09-20）
+- [x] MOC 只保留索引，不复制正文（仅 1 行索引；原文件 CRLF 行尾原样保留，未整文件重写）
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -140,6 +140,7 @@ quality_gate_due: ""
 | P4 | 用户要求一次写完 7 章（「全部写完」），放弃逐章确认检查点；写作按 P2 的六条禁令执行 | 2026-09-20 |
 | P5 | 用户确认组装成品（118,489 字节 / 7 章 / 52 条目录锚点已核）；选定 P6 落点：**拆分发布**到 `AI学习/03-技术专题/Jev 决策模型/`（总览 + 7 章 + 双向导航双链），MOC 在 `### 03-技术专题` 加索引 | 2026-09-20 |
 
+| P6→P7 | 用户接受拆分发布成品（8 文件 / 118,796 字节 / 48 条双链全部有效）；选定方案 A：执行全局 MOC 索引行，不同步 `03-技术专题/sortspec.md` | 2026-09-20 |
 ---
 
 ## 跳过记录
@@ -169,10 +170,10 @@ quality_gate_due: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：concept + practice 混合（概念打底 + 接入/速查实战）
+- **总字数**：中文 24,422 字（拆分版 8 个文件合计；单文件版 24,688 字）
+- **章节数**：7 章 + 主题总览 MOC
+- **输出格式**：Obsidian Markdown（拆分发布：frontmatter + `[!info]` 导航 callout + 前后章双链）
+- **文件路径**：`AI学习/03-技术专题/Jev 决策模型/`（8 个文件 / 118,796 字节）；项目内单文件版并存于 `workspace/jev-decision-model/output/final_note.md`
+- **Obsidian Vault**：本仓库根（vault 根 = 项目根，未写入机器绝对路径）
+- **MOC 路径**：`AI学习/00-索引/AI学习 MOC.md` → `### 03-技术专题` 索引行

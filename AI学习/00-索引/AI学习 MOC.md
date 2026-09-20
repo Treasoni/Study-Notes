@@ -2,7 +2,7 @@
 title: "AI学习 MOC"
 tags: [moc]
 created: 2026-05-14
-updated: 2026-09-04
+updated: 2026-09-20
 ---
 
 # AI学习 MOC
@@ -104,6 +104,7 @@ graph TB
 - [[AI 助手辅助视频剪辑的方法与工作流]] - 用 Codex/Claude Code 等编码 agent 剪视频：能力边界、人机协作流水线、安全执行与 FFmpeg/Whisper 工具链 #AI学习 #视频剪辑 #FFmpeg #人机协作
 - [[Codex手动配置指南]]
 - [[GLM系列模型完整对比]]
+- [[Jev 决策模型 MOC]] - 上线第五天的 Jev 决策模型读笔记：概念定位、一次调用的形状、结果怎么读、适用边界 #AI学习 #Jev #决策模型
 - [[ModelScope-Ollama-ClaudeCode部署指南]] - 从 ModelScope 拉取 GGUF 模型 → Ollama 本地部署 → Claude Code 免 Key 接入全流程实战指南 #LLM #本地模型 #实战指南
 - [[ModelScope 模型文件类型]] - 看懂模型仓库四类文件、四种权重格式（safetensors/bin/GGUF/ONNX）与三条使用路径的概念指南 #LLM #ModelScope #模型文件
 - [[OCR概念笔记]]
