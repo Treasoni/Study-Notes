@@ -8,6 +8,7 @@
 全程 LF；代码围栏内的 # 行不参与降级。
 """
 from pathlib import Path
+import re
 
 ROOT = Path(__file__).resolve().parent
 CH = ROOT / "chapters"
@@ -37,6 +38,13 @@ header = pick(lambda b: b.startswith("# Jev 决策模型"), "头部块")
 toc    = pick(lambda b: b.startswith("## 目录"), "目录")
 tail   = pick(lambda b: b.startswith("## 结语"), "结语")
 assert "口径纪律声明" in header and "3. **官方博客" in header, "头部块内容不符"
+
+# 锚点归一：标题去掉标点后会留下连续空白，Obsidian 与 GFM 都把连续连字符折叠为一个。
+# 组装器原稿在 3 条含 `≠` / `/` 的标题（4.2、4.5、6.4）上留下了 `--`，这里统一折叠。
+toc, n_anchor_fix = re.subn(r"\]\(#([^)]*)\)", lambda m: "](#" + re.sub("-{2,}", "-", m.group(1)) + ")", toc)
+leftover = [a for a in re.findall(r"\]\(#([^)]*)\)", toc) if "--" in a]
+assert not leftover, f"目录仍有未折叠的连续连字符: {leftover}"
+print(f"锚点归一：处理 {n_anchor_fix} 条目录链接")
 
 # ---------- 2. 逐章降级 + 去注释 ----------
 chapters = sorted(p for p in CH.glob("*.md") if p.name != "_merged.md")
@@ -94,7 +102,6 @@ assert not [l for l in prose if l.startswith("#####")], "出现 5 级以上标�
 assert all(fence_langs), f"存在无语言标识的代码块: {fence_langs}"
 
 # 目录契约：收录「章」(H2) 与「编号小节」(H3)；不收录 N.M.K 子节(H4)与章末小结/预告
-import re
 toc_texts = re.findall(r"^\s*(?:[-*]\s+)?\d*\.?\s*\[([^\]]+)\]\(#", toc, re.M)
 heads = set(l.lstrip("#").strip() for l in prose if re.match(r"^#{2,4} ", l))
 missing = [x for x in toc_texts if x not in heads]
