@@ -11,7 +11,7 @@ project_slug: "jev-decision-model"
 created_at: "2026-09-20"
 last_updated: "2026-09-20"
 current_phase: P3
-current_status: ready
+current_status: in_progress
 mode: outline
 blocked_reason: ""
 quality_gate: pending
@@ -77,7 +77,7 @@ quality_gate_due: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] ⬜ 未开始
+> [P3] 🔲 进行中 {in_progress}
 
 ---
 
@@ -132,6 +132,7 @@ quality_gate_due: ""
 |------|----------|------|
 | P0 | 用户确认意图文件与研究计划（concept+practice / 上手 / 有 LLM 基础；探索方向 A–E） | 2026-09-20 |
 | P1 | 用户确认素材质量并选定方向 1（核心 5 源 S01/S07/S06/S11/S12，另补抓 4 源用于裁决冲突） | 2026-09-20 |
+| P2 | 用户确认素材质量，选择大纲模式（模式 A）；并确认 C7 第一方矛盾如实并列、性能数字全程标注厂商自报 | 2026-09-20 |
 
 ---
 
