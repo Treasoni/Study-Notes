@@ -53,6 +53,8 @@
 | S13 | https://github.com/OmarMujahid/jev-decision-bench |
 | S14 | https://github.com/APUS-AI-Lab/fast-browser-use |
 | S15 | https://github.com/intikhab49/open-jev-typed-decision-engine |
+| G1a | https://docs.typesafe.ai/confidence （P2 补抓，填缺口 1） |
+| G1b | https://docs.typesafe.ai/patterns （P2 补抓，填缺口 1/4） |
 
 ### 各来源相关性（代理摘要，未核）
 
