@@ -110,10 +110,10 @@ quality_gate_due: ""
 ---
 
 ## 阶段 6：Obsidian 美化与发布
-- [ ] 已读取 Obsidian 输出规则
-- [ ] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
-- [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
-- [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
+- [x] 已读取 Obsidian 输出规则（`.claude/rules/obsidian/note-system.md` + `AI学习/` 内既有笔记的实际排版惯例）
+- [x] 用户已确认最终保存位置（vault_path `D:/Study-Notes`；note_folder `AI学习/03-技术专题/Jev 决策模型/`，选「拆分发布」）
+- [x] frontmatter、标签、Callout、双链已按 Obsidian 规则处理（8 个文件均 frontmatter → H1 → `> [!info]` 导航 → 正文；48 条双链逐条断言目标存在）
+- [x] 最终 Markdown 已保存到用户指定位置（8 个文件 / 118,796 字节；`./output/final_note.md` 单文件版同时保留）
 
 > [P6] 🔲 进行中 {in_progress}
 
@@ -155,6 +155,7 @@ quality_gate_due: ""
 | 时间 | 阶段 | 问题描述 | 处理方式 |
 |------|------|---------|---------|
 | | | | |
+| 2026-09-20 | P6 | 首版发布后逐行复读成品，发现 MOC 的「目录导航」说明与正文副标题重复，且导航 callout 排在 H1 之前（与 vault 既有笔记「标题在前」的排版相反） | 改 `publish_notes.py` 的导航文案与排版（H1 → callout），整目录白名单清理后重发，8 文件结构复核通过 |
 
 ---
 
