@@ -168,6 +168,10 @@ sudo ip addr add 192.168.1.100/24 dev ens18
 # 临时设置网关
 sudo ip route add default via 192.168.1.1
 
+或
+
+sudo ip route replace default via 192.168.110.119
+
 # 临时设置 DNS（使用 systemd-resolved）
 sudo resolvectl dns ens18 223.5.5.5 8.8.8.8
 
