@@ -75,6 +75,19 @@ network:
 
 #### 5. 应用配置
 
+### 1. 应用新配置（立即生效）
+
+如果你是通过 SSH 远程连接的 Ubuntu，**强烈建议优先使用 `try` 命令**（防止 YAML 缩进错误导致断网失联）：
+
+```
+sudo netplan try
+```
+
+- 执行后系统会尝试应用配置并倒计时（默认 120 秒）。如果网络正常没有断开，按回车即可确认保存；如果出现异常导致断网，超时后会自动回滚到原配置。
+
+如果你在物理机屏幕前操作，也可以直接强制生效：
+
+
 ```bash
 sudo netplan apply
 ```
@@ -156,6 +169,10 @@ sudo ip addr add 192.168.1.100/24 dev ens18
 
 # 临时设置网关
 sudo ip route add default via 192.168.1.1
+
+或
+
+sudo ip route replace default via 192.168.110.119
 
 # 临时设置 DNS（使用 systemd-resolved）
 sudo resolvectl dns ens18 223.5.5.5 8.8.8.8
