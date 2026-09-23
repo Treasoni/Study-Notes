@@ -10,8 +10,8 @@ topic: "VPS 自建节点零基础全流程（面板流）"
 project_slug: "vps-node-panel-tutorial"
 created_at: "2026-09-23"
 last_updated: "2026-09-24"
-current_phase: P3
-current_status: ready
+current_phase: P4
+current_status: in_progress
 mode: outline
 blocked_reason: ""
 quality_gate: pending
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：vps-node-panel-tutorial
 > 项目标识：vps-node-panel-tutorial
 > 创建时间：2026-09-23
-> 当前阶段：阶段 3
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -77,7 +77,7 @@ quality_gate_due: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] ⬜ 未开始
+> [P3] ✅ 已完成 {complete}
 
 ---
 
@@ -89,7 +89,7 @@ quality_gate_due: ""
 
 **进度**：0/待大纲确定
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中 {in_progress}
 
 ---
 
@@ -132,6 +132,7 @@ quality_gate_due: ""
 |------|----------|------|
 | P0 | 用户确认意图与方向：新建独立笔记（方案1）；笔记目录沿用 `自建代理节点/`；既有笔记的内核直配内容只做指引不重复展开 | 2026-09-23 |
 | P1 | 用户确认取材侧重 [1] 全流程均衡（概念25%/落地50%/运维25%）；A-2 arXiv 论文**纳入**（仅取摘要数字） | 2026-09-23 |
+| P2 | 用户确认素材质量与大纲顺序/深度：「按推荐」；并授权跳过逐章确认，一次写完全部章节 | 2026-09-24 |
 
 ---
 
