@@ -1,5 +1,4 @@
 [
-  "obsidian-git",
   "manual-sorting",
   "obsidian-language-learner",
   "obsidian42-brat",
@@ -10,5 +9,6 @@
   "obsidian-enhancing-export",
   "custom-sort",
   "realclaudian",
-  "code-styler"
+  "code-styler",
+  "obsidian-git"
 ]
