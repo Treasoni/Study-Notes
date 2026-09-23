@@ -9,9 +9,9 @@ created_from: ".claude/workflows/learning-note-flow/state-template.md"
 topic: "VPS 自建节点零基础全流程（面板流）"
 project_slug: "vps-node-panel-tutorial"
 created_at: "2026-09-23"
-last_updated: "2026-09-23"
-current_phase: P1
-current_status: in_progress
+last_updated: "2026-09-24"
+current_phase: P2
+current_status: ready
 mode: outline
 blocked_reason: ""
 quality_gate: pending
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：vps-node-panel-tutorial
 > 项目标识：vps-node-panel-tutorial
 > 创建时间：2026-09-23
-> 当前阶段：阶段 1
+> 当前阶段：阶段 2
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -51,7 +51,7 @@ quality_gate_due: ""
 - [ ] 用户已选择学习方向
 - [ ] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] 🔲 进行中 {in_progress}
+> [P1] ✅ 已完成 {complete}
 
 ---
 
@@ -130,7 +130,7 @@ quality_gate_due: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
-| | | |
+| P0 | 用户确认意图与方向：新建独立笔记（方案1）；笔记目录沿用 `自建代理节点/`；既有笔记的内核直配内容只做指引不重复展开 | 2026-09-23 |
 
 ---
 
