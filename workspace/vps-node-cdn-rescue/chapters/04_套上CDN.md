@@ -49,7 +49,7 @@ Cloudflare 默认代理的 HTTP / HTTPS 端口共 **13 个**（来源：B-3 | `#
 
 Cloudflare **支持代理的 WebSocket 连接，无需额外配置**；开关在 dashboard 的 **Network** 页，**所有套餐可用**（来源：D-1 | 首段、`## Enable WebSockets`、`## Availability`）。
 
-要留意三个「会断」的时机（来源：D-1 | `### Technical note`、`### Best practices`、`### Idle timeout`）：**空闲超时**——两个方向都没有数据达到一定时长即被关闭，官方建议客户端实现 **heartbeat（ping/pong）** 保活；**发布新代码**——Cloudflare 给全球网络发布新代码时可能重启服务器，**会中止 WebSocket 连接**；官方最佳实践是「实现 keepalive」并「检查、移除或延长源站 / 客户端侧的超时设置」。
+要留意两个「会断」的时机（来源：D-1 | `### Technical note`、`### Idle timeout`）：**空闲超时**——两个方向都没有数据达到一定时长即被关闭，官方建议客户端实现 **heartbeat（ping/pong）** 保活；**发布新代码**——Cloudflare 给全球网络发布新代码时可能重启服务器，**会中止 WebSocket 连接**；官方最佳实践是「实现 keepalive」并「检查、移除或延长源站 / 客户端侧的超时设置」。
 
 Xray 侧的 `wsSettings` 字段（按官方字段名列出，**非完整可用配置**，来源：C-1 | `WebSocketObject`）：
 

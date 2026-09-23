@@ -10,7 +10,7 @@ topic: "VPS 被墙节点 CDN 拯救实战（Cloudflare CDN 回源）"
 project_slug: "vps-node-cdn-rescue"
 created_at: "2026-09-24"
 last_updated: "2026-09-24"
-current_phase: P5
+current_phase: P6
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：vps-node-cdn-rescue
 > 项目标识：vps-node-cdn-rescue
 > 创建时间：2026-09-24
-> 当前阶段：阶段 5
+> 当前阶段：阶段 6
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -102,7 +102,7 @@ quality_gate_due: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中 {in_progress}
+> [P5] ✅ 已完成 {complete}
 
 ---
 
@@ -112,7 +112,7 @@ quality_gate_due: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] 🔲 进行中 {in_progress}
 
 ---
 
@@ -134,6 +134,8 @@ quality_gate_due: ""
 | P1 | 用户确认：P2 取材侧重 `[1] 全流程均衡取材`；两篇 USENIX 论文**纳入**（各一两句结论并标注引用） | 2026-09-24 |
 | P3 | 用户确认：① 本篇定位为**深水区**——第三章代理状态/pending 压成速查表并链面板流第 7 章，第五章分层自检压成一句并链第 9 章，回收额度加厚第二、四章；② 导读改**两篇分工表**，删除指向不存在的 `自建代理节点搭建实战.md` 的链接，内核直配口径改为「属官方文档范畴，本系列未成篇」；③ 面板流第 7/9 章的回改**不在本次范围**，P6 后单独处理 | 2026-09-24 |
 | P4 | 用户决定：**取消逐章/逐批确认停等，一次写完全部 7 个部分**（前项确认节奏问题按用户指令作废）；第四章 4.5「443 复用两条路」**保留完整篇幅**。章节仍按每批 ≤3 章分 3 批执行，由同一 chapter-writer 子代理续写 | 2026-09-24 |
+| P4-验收 | 父流程逐条回原文核对三批共 60+ 处挂源论断（B-1/B-2/B-3/B-4/B-5/B-8/C-1/C-2/C-3/C-4/C-5/C-6/C-7/D-1/D-2/A-1~A-4），含锚点名称核验；结论：无口径偏差 | 2026-09-24 |
+| P5 | 父流程执行：`merge_files.py` 合并 7 个部分 → 归一（去章末导航 7 处）→ `note-assembler` 组装 → 父流程修正 3 处（① 3.5「域名前置」→「前置条件：域名与 NS」并加术语消歧 Callout，② 4.3「三个会断时机」→「两个」，③ 目录 47 条锚点 GitHub slug → Obsidian `[[#标题]]`）。断言：目录失效锚点 0、残留 slug 0、标题计数 7/7 | 2026-09-24 |
 
 ---
 
