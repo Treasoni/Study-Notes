@@ -10,8 +10,8 @@ topic: "自建代理节点（概念入门到上手实战）"
 project_slug: "self-hosted-proxy-node"
 created_at: "2026-09-23"
 last_updated: "2026-09-23"
-current_phase: P7
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
 blocked_reason: ""
 quality_gate: passed
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：self-hosted-proxy-node
 > 项目标识：self-hosted-proxy-node
 > 创建时间：2026-09-23
-> 当前阶段：阶段 7
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -125,7 +125,7 @@ quality_gate_due: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] 🔲 进行中 {in_progress}
+> [P7] ✅ 已完成 {complete}
 
 ---
 
