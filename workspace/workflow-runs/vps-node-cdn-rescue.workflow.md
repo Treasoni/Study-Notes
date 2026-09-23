@@ -10,8 +10,8 @@ topic: "VPS 被墙节点 CDN 拯救实战（Cloudflare CDN 回源）"
 project_slug: "vps-node-cdn-rescue"
 created_at: "2026-09-24"
 last_updated: "2026-09-24"
-current_phase: P3
-current_status: in_progress
+current_phase: P4
+current_status: ready
 mode: outline
 blocked_reason: ""
 quality_gate: pending
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：vps-node-cdn-rescue
 > 项目标识：vps-node-cdn-rescue
 > 创建时间：2026-09-24
-> 当前阶段：阶段 3
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -77,7 +77,7 @@ quality_gate_due: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中 {in_progress}
+> [P3] ✅ 已完成 {complete}
 
 ---
 
@@ -131,6 +131,8 @@ quality_gate_due: ""
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
 | P0 | 用户确认：来源与章节结构无误；输出到 Obsidian `自建代理节点/`；概念+实战混合；域名前置只做指路；纳入 Cloudflare 免费版端口表与限制清单；与进行中的 `vps-node-panel-tutorial` 按「本篇不复述装面板/建节点」去冲突 | 2026-09-24 |
+| P1 | 用户确认：P2 取材侧重 `[1] 全流程均衡取材`；两篇 USENIX 论文**纳入**（各一两句结论并标注引用） | 2026-09-24 |
+| P3 | 用户确认：① 本篇定位为**深水区**——第三章代理状态/pending 压成速查表并链面板流第 7 章，第五章分层自检压成一句并链第 9 章，回收额度加厚第二、四章；② 导读改**两篇分工表**，删除指向不存在的 `自建代理节点搭建实战.md` 的链接，内核直配口径改为「属官方文档范畴，本系列未成篇」；③ 面板流第 7/9 章的回改**不在本次范围**，P6 后单独处理 | 2026-09-24 |
 
 ---
 
