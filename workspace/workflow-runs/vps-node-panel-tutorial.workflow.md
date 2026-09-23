@@ -10,11 +10,11 @@ topic: "VPS 自建节点零基础全流程（面板流）"
 project_slug: "vps-node-panel-tutorial"
 created_at: "2026-09-23"
 last_updated: "2026-09-24"
-current_phase: P7
-current_status: ready
+current_phase: done
+current_status: complete
 mode: outline
 blocked_reason: ""
-quality_gate: pending
+quality_gate: passed
 quality_gate_owner: ""
 quality_gate_due: ""
 ---
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：vps-node-panel-tutorial
 > 项目标识：vps-node-panel-tutorial
 > 创建时间：2026-09-23
-> 当前阶段：阶段 7
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -122,7 +122,7 @@ quality_gate_due: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -164,10 +164,12 @@ quality_gate_due: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战笔记（概念铺垫 + 全流程实战 + 速查表）
+- **总字数**：17,084 中文字（发布件合计）
+- **章节数**：10 章 + 附录（12 个文件：索引页 + 10 章 + 附录）
+- **输出格式**：Obsidian Markdown（YAML frontmatter + Callout + 行内来源 ID）
+- **文件路径**：`自建代理节点/VPS 自建节点零基础全流程/`
+- **Obsidian Vault**：D:\Study-Notes
+- **MOC 路径**：`自建代理节点/自建代理节点 MOC.md`
+- **工作区产物**：`workspace/vps-node-panel-tutorial/`（00_intent / 01_explore / 02_deep_research / 03_outline / chapters / output / sources 21 篇）
+- **质量门**：passed（链接零死链、来源回源审计 0 存疑、发布幂等；全文逐行精读覆盖 3/12 文件，其余过自动化结构体检）
