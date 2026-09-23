@@ -10,7 +10,7 @@ topic: "旁路由进阶使用（旁路由原理深化、配置进阶与功能扩
 project_slug: "bypass-router-advanced"
 created_at: "2026-09-23"
 last_updated: "2026-09-23"
-current_phase: P2
+current_phase: P3
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：bypass-router-advanced
 > 项目标识：bypass-router-advanced
 > 创建时间：2026-09-23
-> 当前阶段：阶段 2
+> 当前阶段：阶段 3
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -65,7 +65,7 @@ quality_gate_due: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] 🔲 进行中 {in_progress}
+> [P2] ✅ 已完成 {complete}
 
 ---
 
@@ -77,7 +77,7 @@ quality_gate_due: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] ⬜ 未开始
+> [P3] 🔲 进行中 {in_progress}
 
 ---
 
@@ -132,6 +132,7 @@ quality_gate_due: ""
 |------|----------|------|
 | P0 | 用户确认意图文件与研究计划；确认学习主线 A 原理深化 + B 配置进阶 + D 功能扩展；确认精通型定位；确认发布到 `软路由教程/`；确认主线顺序 A→B→D 并保留 IPv6 横切议题 | 2026-09-23 |
 | P1 | 用户确认探测结果与来源核对结论（含 2 条假来源废弃、4 组来源分歧标注）；确认 P2 方向为 A2 三种接管模式、A4 硬件加速失效、B2+B1 网关与 DHCP 下发体系、D1 多出口与故障转移；确认排错方法论单独成节 | 2026-09-23 |
+| P2 | 用户确认素材质量（Tier 1 官方 21 条 + 社区 7 条、66 条带锚点 claim、10 组矛盾、7 项缺口）；确认 4 处引文待人工复核的事实；确认执行模式为大纲模式（不切换随性模式） | 2026-09-23 |
 | | | |
 
 ---
