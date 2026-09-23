@@ -89,10 +89,10 @@
 | 灰云（DNS-only）记录**返回源站真实 IP**，暴露源站地址 | B-1 | `Proxied records` / `DNS-only records` |
 | Cloudflare 是反向代理：所有请求先穿越 Cloudflare 网络才到达源站 | A-2 | `## Cloudflare CDN architecture and design` |
 | Domain fronting 的抗封锁来自「附带损害」：要禁掉它，审查方必须封掉用户访问**整个 CDN**，导致该 CDN 上所有域名不可达 | D-2 | §2.3 The Rise and Fall of Domain Fronting（含原文引句） |
-| 若只封被禁域名，**任一允许的域名都能当日落域名**，使同 CDN 上其他所有域名可用 | D-2 | §6.1.3（含原文引句） |
-| Domain shadowing 更难封：要封掉一个域名，审查方必须封掉**所有允许 domain shadowing 的 CDN**，附带损害远大于 domain fronting | D-2 | §6.1.3 Blocking a CDN |
+| 若只封被禁域名，**任一允许的域名都能当日落域名**，使同 CDN 上其他所有域名可用 | D-2 | §2.3（含原文引句） |
+| Domain shadowing 更难封：要封掉一个域名，审查方必须封掉**所有允许 domain shadowing 的 CDN**，附带损害远大于 domain fronting | D-2 | §6.1.3 IP Blocking |
 | Domain shadowing 使连接 URL、TLS SNI、HTTP(S) Host 头**全部看起来属于被允许的那个域名** | A-5 | Abstract |
-| 即使审查方封掉某一个 CDN，也**不能禁用 domain shadowing**，因为用户可以换到其他仍允许该手法的 CDN | D-2 | §6.1.3（末段） |
+| 即使审查方封掉某一个 CDN，也**不能禁用 domain shadowing**，因为用户可以换到其他仍允许该手法的 CDN | D-2 | §6.3.3 Completely Blocking a CDN |
 | GFW 自 2021-11 起对"全加密流量"实施**纯被动实时检测与封锁**（观察窗口至 2023-02） | A-6 | Abstract；§1 |
 | GFW 不正面定义"全加密流量"，而是用**五条粗粒度豁免规则**放过"不像全加密"的流量，其余一律封锁 | A-6 | §4 / Algorithm 1 |
 | 豁免规则逐条：① popcount 比率 ≤3.4 或 ≥4.6；② 前 6 字节（或更多）落在 `[0x20,0x7e]`；③ >50% 字节落在 `[0x20,0x7e]`；④ >20 个连续字节落在 `[0x20,0x7e]`；⑤ 匹配 TLS 或 HTTP 协议指纹 | A-6 | §4 Algorithm 1（推断所得） |
