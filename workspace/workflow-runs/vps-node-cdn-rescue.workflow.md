@@ -10,7 +10,7 @@ topic: "VPS 被墙节点 CDN 拯救实战（Cloudflare CDN 回源）"
 project_slug: "vps-node-cdn-rescue"
 created_at: "2026-09-24"
 last_updated: "2026-09-24"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：vps-node-cdn-rescue
 > 项目标识：vps-node-cdn-rescue
 > 创建时间：2026-09-24
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -89,7 +89,7 @@ quality_gate_due: ""
 
 **进度**：0/待大纲确定
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -102,7 +102,7 @@ quality_gate_due: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
