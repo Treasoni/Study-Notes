@@ -1,3 +1,20 @@
+---
+title: "第 2 章 为什么 CDN 能救被墙节点（原理与边界）"
+tags:
+  - 自建节点
+  - 代理
+  - VPS
+  - CDN
+  - Cloudflare
+  - 网络
+  - 学习
+created: 2026-09-24
+updated: 2026-09-24
+status: 完成
+source_project: vps-node-cdn-rescue
+chapter: 2
+---
+
 # 第 2 章 为什么 CDN 能救被墙节点（原理与边界）
 
 上一章我们把 CDN 讲成了「缓存 + 加速」，但缓存与加速本身与被墙无关——纯缓存的 CDN 不会让节点更难封。真正让它能救节点的，是它在网络拓扑里的第二个身份，以及这个身份背后的三层原理。本章要回答：套上 CDN 后，封锁方「看得见」的是什么？这层保护从哪来，又到哪为止？
@@ -77,10 +94,12 @@ domain fronting 依赖一个实现细节：许多 CDN **不检查 SNI 与 Host �
 - 第一层「换脸」：代理记录的 DNS 答案不含源站 IP，且连接 URL、TLS SNI、HTTP(S) Host 对外全呈现为同一被允许域名（来源：B-1 | `## Proxied records`；A-5 | Abstract）。
 - 第二层「附带损害」：封一个域要连坐整个 CDN 上所有域名，故审查方顾虑代价；domain shadowing 需连坐**所有**允许该手法的 CDN，更难封（来源：D-2 | §2.3、§6.1.3、§6.3.3）。
 - 第三层「被动检测豁免」：GFW 全加密流量被动检测下，**Akamai、Cloudflare 这类大型 CDN AS 不在 2022-05、仅 port 80 扫描的受影响之列**；该结论仅限此机制、观察窗口 2021-11 ~ 2023-02，不能外推为「CDN 免疫」或「有意豁免」（来源：A-6 | §6.2、Abstract、§4.4；02_deep_research.md | §三-12）。
-- 边界清单：域名被污染救不了；附带损害是可被厂商撤销的商业选择（domain fronting 已被强制 SNI=Host 关停）；CDN 被整段封锁或片区故障时方案整体失效；退路是面板流第 9 章的分层排除与换 IP（来源：D-2 | §2.3、§6.2；A-4 | `There are also downsides to using CDNs`）。
+- 边界清单：域名被污染救不了；附带损害是可被厂商撤销的商业选择（domain fronting 已被强制 SNI=Host 关停）；CDN 被整段封锁或片区故障时方案整体失效；退路是 [[09 节点被墙的判定与换 IP（分厂商分操作）]] 的分层排除与换 IP（来源：D-2 | §2.3、§6.2；A-4 | `There are also downsides to using CDNs`）。
 
 ### 下一章预告
 
 原理成立的前提是：你的域名真的由 Cloudflare 接管。这一步的坑，比想象中多。
 
-> 上一篇：[[01_CDN是什么]] ｜ 返回索引：[[00 VPS 自建节点零基础全流程]] ｜ 下一篇：[[03_接入Cloudflare]]
+---
+
+> 上一篇：[[01 CDN 是什么]] ｜ 返回索引：[[00 CDN 拯救被墙节点]] ｜ 下一篇：[[03 接入 Cloudflare 与域名解析]]

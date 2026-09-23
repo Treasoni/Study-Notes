@@ -10,13 +10,13 @@ topic: "VPS 被墙节点 CDN 拯救实战（Cloudflare CDN 回源）"
 project_slug: "vps-node-cdn-rescue"
 created_at: "2026-09-24"
 last_updated: "2026-09-24"
-current_phase: P6
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
 blocked_reason: ""
-quality_gate: pending
-quality_gate_owner: ""
-quality_gate_due: ""
+quality_gate: passed
+quality_gate_owner: "父流程（P6 断言全绿 + 成品逐行复核）"
+quality_gate_due: "2026-09-24"
 ---
 
 # 学习笔记工作流 - 执行检查清单
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：vps-node-cdn-rescue
 > 项目标识：vps-node-cdn-rescue
 > 创建时间：2026-09-24
-> 当前阶段：阶段 6
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -112,7 +112,7 @@ quality_gate_due: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] 🔲 进行中 {in_progress}
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -122,7 +122,7 @@ quality_gate_due: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -136,6 +136,9 @@ quality_gate_due: ""
 | P4 | 用户决定：**取消逐章/逐批确认停等，一次写完全部 7 个部分**（前项确认节奏问题按用户指令作废）；第四章 4.5「443 复用两条路」**保留完整篇幅**。章节仍按每批 ≤3 章分 3 批执行，由同一 chapter-writer 子代理续写 | 2026-09-24 |
 | P4-验收 | 父流程逐条回原文核对三批共 60+ 处挂源论断（B-1/B-2/B-3/B-4/B-5/B-8/C-1/C-2/C-3/C-4/C-5/C-6/C-7/D-1/D-2/A-1~A-4），含锚点名称核验；结论：无口径偏差 | 2026-09-24 |
 | P5 | 父流程执行：`merge_files.py` 合并 7 个部分 → 归一（去章末导航 7 处）→ `note-assembler` 组装 → 父流程修正 3 处（① 3.5「域名前置」→「前置条件：域名与 NS」并加术语消歧 Callout，② 4.3「三个会断时机」→「两个」，③ 目录 47 条锚点 GitHub slug → Obsidian `[[#标题]]`）。断言：目录失效锚点 0、残留 slug 0、标题计数 7/7 | 2026-09-24 |
+| P6 | 用户选定发布方案 **A（拆成文件夹）**：`自建代理节点/CDN 拯救被墙节点/`，7 个文件，保留章末「上一篇/下一篇」双链，跨文件指代改写为 `[[文件]]` 形式。父流程执行 `normalize_chapters.py`（直引号 → 「」66 处，第五章 40 + 第六章 26；反引号包住的 wikilink 脱壳 8 处）→ `publish_to_vault.py` 写盘。断言全绿：7 个文件往返逐字一致、旧式链接 0、反引号 wikilink 0、链接目标全部存在、frontmatter/H1/导航行齐全；发布后逐行读完 7 个成品 | 2026-09-24 |
+| P7 | 父流程按 `moc-organizer` 规则同步 MOC：在 `自建代理节点 MOC.md` 新增分组「抗封锁与加速」，追加 1 条索引（`[[00 CDN 拯救被墙节点\|CDN 拯救被墙节点]]`），未复制正文；两条既有/新增双链均校验存在 | 2026-09-24 |
+| 质量门 | `quality_gate: passed`。判定依据：P6 全部断言绿灯 + 父流程逐行复核 7 个成品 + 发布前 `normalize_chapters.py` 的确定性归一 + 素材层 60+ 处挂源论断回原文核验（P4-验收） | 2026-09-24 |
 
 ---
 
@@ -165,10 +168,11 @@ quality_gate_due: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：概念 + 实战混合（系列深水区）
+- **总字数**：11645 汉字（导读 791 + 正文 10854）
+- **章节数**：7 个部分（1 导读 + 6 正文章）
+- **输出格式**：Obsidian Markdown，拆成文件夹分册
+- **文件路径**：`自建代理节点/CDN 拯救被墙节点/00 CDN 拯救被墙节点.md` ~ `06 排错速查.md`
+- **项目内单文件版**：`workspace/vps-node-cdn-rescue/output/final_note.md`（11744 汉字，P5 产物）
+- **Obsidian Vault**：`D:\Study-Notes`
+- **MOC 路径**：`自建代理节点/自建代理节点 MOC.md`（P7 同步）
