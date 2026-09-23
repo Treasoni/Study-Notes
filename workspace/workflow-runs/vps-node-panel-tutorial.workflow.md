@@ -10,7 +10,7 @@ topic: "VPS 自建节点零基础全流程（面板流）"
 project_slug: "vps-node-panel-tutorial"
 created_at: "2026-09-23"
 last_updated: "2026-09-24"
-current_phase: P4
+current_phase: P6
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：vps-node-panel-tutorial
 > 项目标识：vps-node-panel-tutorial
 > 创建时间：2026-09-23
-> 当前阶段：阶段 4
+> 当前阶段：阶段 6
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -89,7 +89,7 @@ quality_gate_due: ""
 
 **进度**：0/待大纲确定
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -102,7 +102,7 @@ quality_gate_due: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] ✅ 已完成 {complete}
 
 ---
 
@@ -112,7 +112,7 @@ quality_gate_due: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] 🔲 进行中 {in_progress}
 
 ---
 
