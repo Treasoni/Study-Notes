@@ -6,7 +6,8 @@
    base/variables.css
    ============================================ */
 /* Brand & semantic color tokens */
-.claudian-container {
+.claudian-container,
+.claudian-settings {
   --claudian-brand: #D97757;
   --claudian-brand-rgb: 217, 119, 87;
   --claudian-brand-claude: #D97757;
@@ -22,7 +23,7 @@
   --claudian-error: #dc3545;
   --claudian-error-rgb: 220, 53, 69;
   --claudian-compact: #5bc0de;
-  /* Shared side-chat accent; formerly the instruction-mode border colour. */
+  /* Shared side-chat accent. */
   --claudian-side-chat: #60a5fa;
 }
 
@@ -1570,6 +1571,10 @@ body.theme-dark .claudian-session-metadata-popover {
   border-end-end-radius: 4px;
 }
 
+.claudian-message-user ol {
+  list-style-position: inside;
+}
+
 .claudian-message-user ol > li::marker {
   color: inherit;
 }
@@ -2206,6 +2211,79 @@ body.theme-light .claudian-message-content pre {
 .claudian-code-wrapper .copy-code-button:hover {
   background: var(--background-modifier-hover);
   color: var(--text-normal);
+}
+
+.claudian-container .claudian-mermaid img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.claudian-container .claudian-mermaid {
+  position: relative;
+  padding: 32px 8px 8px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 6px;
+}
+
+.claudian-container .claudian-mermaid > img[hidden],
+.claudian-container .claudian-mermaid-toggle[hidden] {
+  display: none;
+}
+
+.claudian-container .claudian-mermaid-toggle {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  height: 24px;
+  width: 24px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.claudian-container .claudian-mermaid-toggle:hover,
+.claudian-container .claudian-mermaid-toggle:focus-visible {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: var(--text-normal);
+}
+
+.claudian-container .claudian-mermaid-toggle:disabled {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: var(--text-faint);
+  cursor: default;
+}
+
+.claudian-container .claudian-mermaid-toggle svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+}
+
+.claudian-mermaid-staging {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Match Obsidian's treatment of its bundled Mermaid renderer's light palette. */
+.theme-dark .claudian-container .claudian-mermaid img {
+  filter: invert(100%) hue-rotate(180deg) saturate(1.25);
+}
+
+.claudian-container .claudian-mermaid--source {
+  padding: 0;
+  border: none;
 }
 
 
@@ -3208,12 +3286,6 @@ button.claudian-input-nav-btn[aria-disabled='true'] {
   width: 14px;
   height: 14px;
   color: currentColor;
-}
-
-/* Green border when instruction mode is active */
-.claudian-input-wrapper.claudian-input-instruction-mode {
-  --claudian-input-wrapper-border-color: var(--color-green);
-  --claudian-input-wrapper-box-shadow: 0 0 0 1px var(--color-green);
 }
 
 /* Side-chat colour preview while the command is only typed. */
@@ -7770,172 +7842,6 @@ button.claudian-image-modal-close:hover {
 
 
 /* ============================================
-   modals/instruction.css
-   ============================================ */
-/* Instruction Mode */
-
-/* Instruction Confirm Modal */
-.claudian-instruction-modal {
-  max-width: 500px;
-}
-
-.claudian-instruction-section {
-  margin-bottom: 16px;
-}
-
-.claudian-instruction-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-muted);
-  margin-bottom: 6px;
-}
-
-.claudian-instruction-original {
-  padding: 10px 12px;
-  background: var(--background-secondary);
-  border-radius: 6px;
-  font-size: 13px;
-  color: var(--text-muted);
-  font-style: italic;
-  white-space: pre-wrap;
-}
-
-.claudian-instruction-refined {
-  padding: 12px;
-  background: var(--background-primary-alt);
-  border: 1px solid var(--background-modifier-border);
-  border-radius: 6px;
-  font-size: 14px;
-  color: var(--text-normal);
-  line-height: 1.5;
-  white-space: pre-wrap;
-}
-
-.claudian-instruction-clarification {
-  padding: 12px;
-  background: var(--background-primary-alt);
-  border: 1px solid var(--background-modifier-border);
-  border-radius: 6px;
-  font-size: 14px;
-  color: var(--text-normal);
-  line-height: 1.5;
-  white-space: pre-wrap;
-}
-
-.claudian-instruction-edit-container {
-  margin-top: 6px;
-}
-
-.claudian-instruction-edit-textarea {
-  width: 100%;
-  padding: 10px 12px;
-  font-size: 14px;
-  line-height: 1.5;
-  border: 1px solid var(--background-modifier-border);
-  border-radius: 6px;
-  background: var(--background-primary);
-  color: var(--text-normal);
-  resize: vertical;
-  min-height: 80px;
-}
-
-.claudian-instruction-edit-textarea:focus {
-  outline: none;
-  border-color: var(--interactive-accent);
-}
-
-.claudian-instruction-response-textarea {
-  width: 100%;
-  padding: 10px 12px;
-  font-size: 14px;
-  line-height: 1.5;
-  border: 1px solid var(--background-modifier-border);
-  border-radius: 6px;
-  background: var(--background-primary);
-  color: var(--text-normal);
-  resize: vertical;
-  min-height: 60px;
-}
-
-.claudian-instruction-response-textarea:focus {
-  outline: none;
-  border-color: var(--interactive-accent);
-}
-
-.claudian-instruction-buttons {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-  margin-top: 16px;
-}
-
-.claudian-instruction-btn {
-  padding: 8px 16px;
-  font-size: 13px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.claudian-instruction-reject-btn {
-  background: var(--background-modifier-border);
-  color: var(--text-normal);
-}
-
-.claudian-instruction-reject-btn:hover {
-  background: var(--background-modifier-border-hover);
-}
-
-.claudian-instruction-edit-btn {
-  background: var(--background-modifier-border);
-  color: var(--text-normal);
-}
-
-.claudian-instruction-edit-btn:hover {
-  background: var(--background-modifier-border-hover);
-}
-
-.claudian-instruction-accept-btn {
-  background: var(--interactive-accent);
-  color: var(--text-on-accent);
-}
-
-.claudian-instruction-accept-btn:hover {
-  opacity: 0.9;
-}
-
-/* Instruction loading state */
-.claudian-instruction-loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 20px;
-  color: var(--text-muted);
-}
-
-.claudian-instruction-spinner {
-  width: 18px;
-  height: 18px;
-  border: 2px solid var(--background-modifier-border);
-  border-top-color: var(--interactive-accent);
-  border-radius: 50%;
-  animation: claudian-spin 0.8s linear infinite;
-}
-
-/* Instruction modal content sections */
-.claudian-instruction-content-section {
-  margin: 8px 0;
-}
-
-.claudian-instruction-clarification-section,
-.claudian-instruction-confirmation-section {
-  margin-top: 8px;
-}
-
-
-/* ============================================
    modals/fork-target.css
    ============================================ */
 /* Fork Target Modal */
@@ -8164,6 +8070,10 @@ button.claudian-fork-target-option:disabled {
 }
 
 /* Custom section descriptions - align with items */
+.claudian-opencode-migration-notice {
+  margin-bottom: var(--size-4-5);
+}
+
 .claudian-sp-settings-desc {
   padding: 0 12px;
 }
@@ -8261,7 +8171,7 @@ button.claudian-fork-target-option:disabled {
   width: 200px;
 }
 
-/* ── Shared settings panel layout (used by slash-settings + agent-settings) ── */
+/* ── Shared settings panel layout (used by command, skill, and provider agent settings) ── */
 
 .claudian-sp-header {
   display: flex;
@@ -8463,6 +8373,10 @@ button.claudian-fork-target-option:disabled {
   color: var(--text-normal);
 }
 
+.claudian-claude-installation .claudian-cli-installation-icon {
+  color: var(--claudian-brand-claude);
+}
+
 .claudian-cli-installation-dot {
   position: absolute;
   right: -2px;
@@ -8508,6 +8422,7 @@ button.claudian-fork-target-option:disabled {
 
 .claudian-cli-installation-location {
   display: flex;
+  padding-inline: var(--size-4-4);
   min-width: 0;
   flex-wrap: wrap;
   gap: 3px 8px;
@@ -8560,18 +8475,24 @@ button.claudian-fork-target-option:disabled {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 10px;
-  padding: 0 16px 16px;
+  padding: 0;
 }
 
 .claudian-cli-installation-body[hidden] {
   display: none;
 }
 
-.claudian-cli-installation-body .setting-item {
+.claudian-settings .claudian-cli-installation-body > .setting-item {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 10px;
-  padding: 0;
+  margin: 0;
+  padding: var(--size-4-4);
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+.claudian-settings .claudian-cli-installation-body > .setting-item::before {
+  content: none;
 }
 
 .claudian-cli-installation-body .setting-item-info {
@@ -8624,7 +8545,7 @@ button.claudian-fork-target-option:disabled {
 
 .claudian-cli-installation-body .claudian-cli-path-validation {
   grid-column: 1 / -1;
-  margin: 0;
+  margin: 0 var(--size-4-4) var(--size-4-4);
 }
 
 
@@ -8939,13 +8860,6 @@ button.claudian-fork-target-option:disabled {
   color: var(--text-muted);
   text-transform: uppercase;
 }
-
-
-/* ============================================
-   settings/agent-settings.css
-   ============================================ */
-/* Agent Settings — all structural rules live in base.css .claudian-sp-* */
-/* This file is kept as a placeholder for future agent-specific overrides. */
 
 
 /* ============================================
@@ -9307,9 +9221,6 @@ button.claudian-fork-target-option:disabled {
 }
 
 .claudian-provider-model-picker-catalog {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
   padding: 10px 12px;
   background: var(--background-secondary);
   border-radius: 6px;
@@ -9326,20 +9237,6 @@ button.claudian-fork-target-option:disabled {
 
 .claudian-provider-model-picker-catalog-summary::-webkit-details-marker {
   display: none;
-}
-
-.claudian-provider-model-picker-catalog-caret {
-  font-size: 16px;
-  color: var(--text-muted);
-  transition: transform 0.12s ease;
-  display: inline-flex;
-  width: 18px;
-  justify-content: center;
-  line-height: 1;
-}
-
-.claudian-provider-model-picker-catalog[open] .claudian-provider-model-picker-catalog-caret {
-  transform: rotate(90deg);
 }
 
 .claudian-provider-model-picker-catalog-title {
@@ -9359,6 +9256,7 @@ button.claudian-fork-target-option:disabled {
   flex-wrap: wrap;
   gap: 8px;
   align-items: center;
+  margin-top: 8px;
 }
 
 .claudian-provider-model-picker-search {
