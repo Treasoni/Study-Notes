@@ -1,6 +1,6 @@
 # ERRORS.md
 
-活跃错误记录。当前 **4** 条（`ERR-20260918-008` / `-009` / `-010` / `-011`，均已 fixed，待 `/maintain-learnings` 复核后归档）。
+活跃错误记录。当前 **5** 条（`ERR-20260918-008` / `-009` / `-010` / `-011` / `ERR-20260924-012`，均已 fixed，待 `/maintain-learnings` 复核后归档）。
 
 最近一次维护：2026-09-18（`/digest`）。本轮新增 3 条，全部来自 `learning-note-flow / hermes-home-assistant`
 的 P5–P7 收尾轮：归一层错位（发布件漏归一）、归一脚本两处缺陷（插入点 + 非幂等）、记录数字取自历史输出。
@@ -173,5 +173,43 @@ p.write_bytes(b)          # CRLF 176 -> 0，LF 176
   阶段行留给脚本写。手工写进去的 `{complete}` 会让脚本的 `phase_has_status "in_progress"` 预检失败。
 - 排查这类「脚本说前置阶段没完成」时，**先验行尾再查内容**：这类假阴性只有一个来源，
   而内容层面的原因往往要读全脚本才排除得掉。
+
+---
+
+## [ERR-20260924-012] learning-note-flow / P0 — workflow.md 记载的 `confirm` / `mode` 两个 todo-state 动作在脚本里不存在
+
+### Summary
+`.claude/workflows/learning-note-flow/workflow.md` 的用户确认检查点表写明用
+`todo-state.sh <state> confirm P0` 记录确认、用 `mode` 动作切换大纲/随性模式；
+但 `.claude/scripts/todo-state.sh` 只实现了 `start|complete|skip|block` 四个动作，
+执行 `confirm P0` 直接报 `unknown action: confirm` 并非零退出。
+状态文件里的 `mode: outline` 是我手工写进去的，不是脚本写的。
+
+### Error
+```
+$ bash .claude/scripts/todo-state.sh "workspace/workflow-runs/....workflow.md" confirm P0
+todo-state: unknown action: confirm
+```
+
+### Context
+- 运行：`vps-node-panel-tutorial`（learning-note-flow，P0 检查点）。
+- workflow.md 是 canonical 工件（`.codex/` 侧），todo-state.sh 同属 scripts 区域，
+  两者分属不同 canonical 目录、由不同 profile 路径同步，**没有任何校验会发现二者口径不一致**。
+- 同类风险面：workflow.md 里凡出现"用某某动作"的句子，都要与脚本的 action 白名单对齐。
+
+### 修复
+本轮改为**手工**在 state file 的「用户确认记录」表追加确认行（python 写入，
+`assert t.count(old)==1` 保证插入点唯一，`newline=''` 防 CRLF 回归），
+并在推进状态时只用脚本支持的 `complete`。**未修源头。**
+
+### 预防措施
+- 源头修复二选一：① 给 `todo-state.sh` 补 `confirm` / `mode` 动作；
+  ② 改 workflow.md，把确认记录改为「由父流程写表格 + 用 `complete` 推进状态」。
+  **推荐 ②**，因为确认记录本质是自由文本表格，脚本化收益低。
+- 在 `.claude/scripts/sync-workflow-routing.sh --check` 之外，增加一项
+  「workflow.md 提到的 todo-state 动作 ⊆ 脚本白名单」的一致性检查，
+  否则这类跨 canonical 目录的文档漂移会一直靠人工撞出来。
+- 保持既有做法：**凡在文档里看到脚本动作，先在脚本源码里 grep 白名单再执行**，
+  不要照文档直接跑。
 
 ---
