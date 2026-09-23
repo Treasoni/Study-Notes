@@ -10,8 +10,8 @@ topic: "旁路由进阶使用（旁路由原理深化、配置进阶与功能扩
 project_slug: "bypass-router-advanced"
 created_at: "2026-09-23"
 last_updated: "2026-09-23"
-current_phase: P1
-current_status: in_progress
+current_phase: P2
+current_status: ready
 mode: outline
 blocked_reason: ""
 quality_gate: pending
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：bypass-router-advanced
 > 项目标识：bypass-router-advanced
 > 创建时间：2026-09-23
-> 当前阶段：阶段 1
+> 当前阶段：阶段 2
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -51,7 +51,7 @@ quality_gate_due: ""
 - [ ] 用户已选择学习方向
 - [ ] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] 🔲 进行中 {in_progress}
+> [P1] ✅ 已完成 {complete}
 
 ---
 
