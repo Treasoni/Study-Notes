@@ -77,12 +77,15 @@ def crawl_one(sid, url):
     os.makedirs(tmpdir, exist_ok=True)
     proc = subprocess.run(
         ["bash", CRAWL, "--url", url, "--output-dir", tmpdir],
-        capture_output=True, text=True, timeout=420,
+        capture_output=True, timeout=420,
     )
+    # 不用 text=True：本机 locale 为 GBK，会解码失败并吞掉错误信息
+    err = (proc.stderr or b"").decode("utf-8", "replace")
+    out = (proc.stdout or b"").decode("utf-8", "replace")
     produced = sorted(f for f in os.listdir(tmpdir) if f.endswith(".md"))
     if proc.returncode != 0 or len(produced) != 1:
         print(f"[warn] {sid} 抓取异常 rc={proc.returncode} files={produced}")
-        print((proc.stderr or proc.stdout)[-400:])
+        print((err or out)[-400:])
         return "failed"
     shutil.move(os.path.join(tmpdir, produced[0]), dst)
     shutil.rmtree(tmpdir)
