@@ -10,7 +10,7 @@ topic: "自建代理节点（概念入门到上手实战）"
 project_slug: "self-hosted-proxy-node"
 created_at: "2026-09-23"
 last_updated: "2026-09-23"
-current_phase: P3
+current_phase: P5
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：self-hosted-proxy-node
 > 项目标识：self-hosted-proxy-node
 > 创建时间：2026-09-23
-> 当前阶段：阶段 3
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -77,19 +77,22 @@ quality_gate_due: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中 {in_progress}
+> [P3] ✅ 已完成 {complete}
 
 ---
 
 ## 阶段 4：逐章写作
-- [ ] 第 1 章已写完并确认
-- [ ] 第 2 章已写完并确认
-- [ ] 第 3 章已写完并确认
-- [ ] ...（根据实际章节数添加）
+- [x] 第 1 章已写完并确认
+- [x] 第 2 章已写完并确认
+- [x] 第 3 章已写完并确认
+- [x] 第 4 章已写完并确认
+- [x] 第 5 章已写完并确认
+- [x] 第 6 章已写完并确认
+- [x] 第 7 章已写完并确认
 
-**进度**：0/6
+**进度**：7/7
 
-> [P4] ⬜ 未开始
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -102,7 +105,7 @@ quality_gate_due: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 

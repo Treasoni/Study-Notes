@@ -2,16 +2,17 @@
 
 > 笔记类型：实战笔记（前部概念铺垫 + 后部可照做的搭建流程）
 > 方向：B 内核直配（Xray-core 原生配置，概念与字段对齐）
-> 预计总篇幅：约 7500 字（目标区间 6000-9000）
-> 章节数：6 章（概念 2 章 + 实战 4 章，概念章全部排在实战章之前）
+> 预计总篇幅：约 8500 字（目标区间 6000-9000）
+> 章节数：7 章（概念 2 章 + 实战 5 章，概念章全部排在实战章之前）
 > 信源基线：全部 tier-1；以下「素材引用」中的 ID 均对应 `02_deep_research.md` 信源表
 > 写作边界：不写获取渠道、订阅链接、机场推荐或任何规避监管的操作指引；不做无信源的性能断言
 > 推断标注：凡 `02_deep_research.md` 标为 inference 的内容，正文必须显式写「据官方文档归纳 / 推断」，不得写成官方口径
 
 ## 结构总览
 
-- 概念部分（第 1-2 章）：先建立配置模型与 REALITY 原理，为第 4-5 章的字段配对提供依据。
-- 实战部分（第 3-6 章）：VPS 硬化基线 → 服务端 → 客户端 → 连通校验，按官方示例的真实结构展开。
+- 概念部分（第 1-2 章）：先建立配置模型与 REALITY 原理，为第 5-6 章的字段配对提供依据。
+- 实战部分（第 3-7 章）：硬化基线 → 监控与入侵处置 → 服务端 → 客户端 → 连通校验。
+- **第 3 章与第 4 章的分工**：第 3 章是「搭节点前必须做的配置」，第 4 章是「长期在线后要看的东西」，两者不互相依赖，可分别阅读。
 
 ---
 
@@ -43,56 +44,69 @@
 - **代码/配置示例**：无（纯原理章；仅用 `dest`/`serverNames` 名称示意，不计为配置示例）
 - **含推断**：是——回落被 CDN 偷跑流量的代价与缓解（confidence: medium）；限速本身是特征
 
-### 第三章：落地前的 VPS 硬化与运维基线
+### 第三章：落地前的 VPS 硬化基线
 
-- **篇幅**：中（约 1300 字，压缩为 1 章，按需取用 S-10 系列，不逐节搬）
+- **篇幅**：中（约 1100 字）
 - **节结构**：
   - 3.1 安全策略与风险模型（要保护什么/防什么/谁来做；Security is a process；短边界优于长边界；优先停用不需要的服务，包过滤是补充）
   - 3.2 防火墙 nftables（表/链/verdict 语义；`/etc/nftables.conf` 持久化与 `systemctl enable nftables`；`iptables-translate` 迁移路径）
   - 3.3 fail2ban（定位与机制、能力边界、配置四类文件、`jail.d/` 覆盖约定、默认 `bantime/findtime/maxretry = 10m/10m/5`）
-  - 3.4 监控与完整性校验（logcheck 默认 server 模式、AIDE 基线库局限、`dpkg -V` 局限、suricata 按有效性约束）
-  - 3.5 拥塞控制 sysctl（`tcp_congestion_control` / `tcp_available_congestion_control` / `tcp_allowed_congestion_control` / `tcp_ecn` / `tcp_slow_start_after_idle`）
-  - 3.6 被入侵后的处置顺序（发现线索 → 断网 → 保全证据 → 重装 → 取证分析；成像/重装/分析存在交叠）
-- **覆盖要点**：硬化最小集、fail2ban 正确改法、nftables 默认框架、处置顺序的官方交叠
-- **素材引用**：S-10, S-10a, S-10b, S-10c, S-11, S-12
+  - 3.4 拥塞控制 sysctl（`tcp_congestion_control` / `tcp_available_congestion_control` / `tcp_allowed_congestion_control` / `tcp_ecn` / `tcp_slow_start_after_idle`）
+- **覆盖要点**：硬化最小集、fail2ban 正确改法（不直接改 `jail.conf`）、nftables 默认框架、sysctl 字段语义
+- **素材引用**：S-10, S-10a, S-10b, S-11, S-12
 - **代码/配置示例**：有（nft 最小规则集、`jail.d` 片段、sysctl 键名）
 - **含推断**：是——面向 VPS 的最小开放规则集为自行编写（S-10a 只给语法与装载方式，须标 inference）；切换拥塞算法前提 confidence: medium；BBR 未在内核文档点名，只写参数名不做性能断言
+- **不写**：BBR 的具体性能收益、任何实测吞吐数字
 
-### 第四章：服务端配置——VLESS + XTLS Vision + REALITY
+### 第四章：监控、文件完整性与被入侵后的处置
+
+- **篇幅**：中（约 1100 字）
+- **节结构**：
+  - 4.1 日志监控 logcheck（默认每小时检查；`server` 为默认且推荐多数服务器的模式；`cracking.d/` 与 `violations.d/` 规则分类）
+  - 4.2 文件完整性与包校验（AIDE 基线库 `/var/lib/aide/aide.db`、`aideinit`、每日 cron 校验；`dpkg -V` 的校验和取自本机、攻击者可同步更新）
+  - 4.3 网络层检测 suricata（`HOME_NET` 与监控 interface 为最小配置；`LISTENMODE=pcap` 约定；有效性受限于网卡实际看到的流量）
+  - 4.4 被入侵后的处置顺序（发现线索 → 断网 → 保全证据 → 重装 → 取证分析；**显式说明成像 / 重装 / 分析存在交叠**，不按小节号机械排序）
+- **覆盖要点**：长期在线的可观测手段、各类手段的**固有局限**（基线库与校验和都可被 root 攻击者篡改）、处置流程与交叠
+- **素材引用**：S-10b, S-10c, S-10（章节总纲）
+- **代码/配置示例**：有（`ls -al /proc/<pid>/exe` 等最小命令集、`jail.d` 之外的配置文件路径）
+- **含推断**：是——原文未给统一的事件响应清单，处置顺序系从各小节归纳；suricata/AIDE 的取舍建议亦为归纳
+- **不写**：具体历史漏洞的利用细节
+
+### 第五章：服务端配置——VLESS + XTLS Vision + REALITY
 
 - **篇幅**：长（约 1600 字，核心实战章）
 - **节结构**：
-  - 4.1 服务端骨架（`inbounds[0]`：`port 443`、`protocol vless`、`network tcp`、`security reality`；`decryption: "none"`；`clients[0]` 的 `id`(UUID) 与 `flow: "xtls-rprx-vision"`）
-  - 4.2 REALITY 服务端四参数（`target`(必填，旧称 `dest`)、`serverNames`(必填，不支持 `*`)、`privateKey`(`./xray x25519`)、`shortIds`(必填)）
-  - 4.3 路由与嗅探（`sniffing.destOverride: [http,tls,quic]` + `routeOnly: true`；`outbounds` 单 freedom `tag: direct`）
-  - 4.4 进阶字段（`mldsa65Seed`/`mldsa65Verify`、`xver`、`maxClientVer`/`minClientVer`/`maxTimeDiff`、`show`）
-  - 4.5 新旧命名与字段表口径（`target` ↔ `dest` 别名；字段表一律以 `DOCSRC_reality.md` 为准，不抄抓取版）
+  - 5.1 服务端骨架（`inbounds[0]`：`port 443`、`protocol vless`、`network tcp`、`security reality`；`decryption: "none"`；`clients[0]` 的 `id`(UUID) 与 `flow: "xtls-rprx-vision"`）
+  - 5.2 REALITY 服务端四参数（`target`(必填，旧称 `dest`)、`serverNames`(必填，不支持 `*`)、`privateKey`(`./xray x25519`)、`shortIds`(必填)）
+  - 5.3 路由与嗅探（`sniffing.destOverride: [http,tls,quic]` + `routeOnly: true`；`outbounds` 单 freedom `tag: direct`）
+  - 5.4 进阶字段（`mldsa65Seed`/`mldsa65Verify`、`xver`、`maxClientVer`/`minClientVer`/`maxTimeDiff`、`show`）
+  - 5.5 新旧命名与字段表口径（`target` ↔ `dest` 别名；字段表一律以 `DOCSRC_reality.md` 为准，不抄抓取版）
 - **覆盖要点**：可照抄的服务端配置结构、四参数生成与含义、嗅探路由、别名过渡
 - **素材引用**：S-2, S-6a, S-6c
 - **代码/配置示例**：有（完整服务端 `config.json`）
 - **含推断**：否——字段语义均有官方原文/示例支撑；仅需交代新旧命名
 
-### 第五章：客户端配置——结构对称与字段配对
+### 第六章：客户端配置——结构对称与字段配对
 
 - **篇幅**：中（约 1200 字）
 - **节结构**：
-  - 5.1 客户端骨架（本地 SOCKS 入站 `127.0.0.1:10808`、`settings.udp: true`）
-  - 5.2 出站与传输层对齐（`protocol vless`、`address`/`port`/`id`/`encryption: "none"`/`flow`、`tag: "proxy"`；`id` 必须与服务端 `clients[0].id` 一致）
-  - 5.3 客户端 REALITY 字段（`password`(旧称 `publicKey`)、`serverName`、`shortId`、`fingerprint`、`spiderX`）
-  - 5.4 配对关系与地雷（`shortId` 长度为 2 的倍数、最大 16；`fingerprint` 不得用 `unsafe`；客户端绝不能填 `target`；指定 flow 后客户端必须启用 XTLS）
+  - 6.1 客户端骨架（本地 SOCKS 入站 `127.0.0.1:10808`、`settings.udp: true`）
+  - 6.2 出站与传输层对齐（`protocol vless`、`address`/`port`/`id`/`encryption: "none"`/`flow`、`tag: "proxy"`；`id` 必须与服务端 `clients[0].id` 一致）
+  - 6.3 客户端 REALITY 字段（`password`(旧称 `publicKey`)、`serverName`、`shortId`、`fingerprint`、`spiderX`）
+  - 6.4 配对关系与地雷（`shortId` 长度为 2 的倍数、最大 16；`fingerprint` 不得用 `unsafe`；客户端绝不能填 `target`；指定 flow 后客户端必须启用 XTLS）
 - **覆盖要点**：客户端与服务端传输层结构对称、五字段配对关系、易错点
 - **素材引用**：S-2, S-6b, S-6c
 - **代码/配置示例**：有（完整客户端 `config.json`）
 - **含推断**：否——字段语义与约束均来自官方文档/示例
 
-### 第六章：连通校验与字段对齐排错
+### 第七章：连通校验与字段对齐排错
 
 - **篇幅**：中（约 1000 字）
 - **节结构**：
-  - 6.1 本地 SOCKS 自检（起客户端后经 `127.0.0.1:10808` 验证链路）
-  - 6.2 字段配对检查清单（`id`、`password` ↔ `privateKey`、`serverName` ∈ `serverNames`、`shortId` ∈ `shortIds`、`flow` 一致）
-  - 6.3 新旧命名对不上（S-6a/S-6b 用 `dest`/`publicKey`，S-2 用 `target`/`password`；两处都在 tier-1 官方源里）
-  - 6.4 失败信号解读（`shortId` 奇数位报错并自动补 0、`serverName` 不匹配、进入 spider 模式的含义）
+  - 7.1 本地 SOCKS 自检（起客户端后经 `127.0.0.1:10808` 验证链路）
+  - 7.2 字段配对检查清单（`id`、`password` ↔ `privateKey`、`serverName` ∈ `serverNames`、`shortId` ∈ `shortIds`、`flow` 一致）
+  - 7.3 新旧命名对不上（S-6a/S-6b 用 `dest`/`publicKey`，S-2 用 `target`/`password`；两处都在 tier-1 官方源里）
+  - 7.4 失败信号解读（`shortId` 奇数位报错并自动补 0、`serverName` 不匹配、进入 spider 模式的含义）
 - **覆盖要点**：校验路径、配对清单、命名过渡陷阱、失败信号
 - **素材引用**：S-6b, S-2, S-6c，并引 `02_deep_research.md` 第五节「矛盾、别名与注意点」
 - **代码/配置示例**：有（校验用最小命令/片段）
@@ -119,13 +133,14 @@
 
 ### 建议学习顺序
 
-- 按 1 → 6 顺序阅读；第 1-2 章是概念地基，务必先读，后续实战依赖其中的分层与字段依据
-- 只想尽快部署：可 1 → 2 → 4 → 5 → 6，把第 3 章硬化在对外暴露 443 前回补
-- 建议时长：概念（1-2 章）约 1.5 小时；实战（4-6 章）约 2-3 小时；硬化运维（3 章）约 1 小时
+- 按 1 → 7 顺序阅读；第 1-2 章是概念地基，务必先读，后续实战依赖其中的分层与字段依据
+- 只想尽快部署：可 1 → 2 → 5 → 6 → 7，把第 3 章硬化在对外暴露 443 前回补
+- 第 4 章（监控与入侵处置）不阻塞部署，可在节点跑起来后按需阅读
+- 建议时长：概念（1-2 章）约 1.5 小时；实战（5-7 章）约 2-3 小时；硬化与运维（3-4 章）约 1.5 小时
 
 ### 已知缺口（写作时按此处理，不补全）
 
-- 分享链接与订阅格式无 tier-1 规范：本篇剔除，不在第 6 章展开
+- 分享链接与订阅格式无 tier-1 规范：本篇剔除，不在第 7 章展开
 - BBR 未在内核文档点名：只写 sysctl 参数名，不做性能断言
 - 协议横向对比无官方对照文档：不单列对比章；如涉及只标 inference
 - 客户端 GUI（mihomo/Clash 系）未纳入本次方向：不立章

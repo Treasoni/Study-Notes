@@ -11,7 +11,7 @@ project_slug: "bypass-router-advanced"
 created_at: "2026-09-23"
 last_updated: "2026-09-23"
 current_phase: P2
-current_status: ready
+current_status: in_progress
 mode: outline
 blocked_reason: ""
 quality_gate: pending
@@ -65,7 +65,7 @@ quality_gate_due: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] ⬜ 未开始
+> [P2] 🔲 进行中 {in_progress}
 
 ---
 
@@ -131,6 +131,7 @@ quality_gate_due: ""
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
 | P0 | 用户确认意图文件与研究计划；确认学习主线 A 原理深化 + B 配置进阶 + D 功能扩展；确认精通型定位；确认发布到 `软路由教程/`；确认主线顺序 A→B→D 并保留 IPv6 横切议题 | 2026-09-23 |
+| P1 | 用户确认探测结果与来源核对结论（含 2 条假来源废弃、4 组来源分歧标注）；确认 P2 方向为 A2 三种接管模式、A4 硬件加速失效、B2+B1 网关与 DHCP 下发体系、D1 多出口与故障转移；确认排错方法论单独成节 | 2026-09-23 |
 | | | |
 
 ---
@@ -155,7 +156,8 @@ quality_gate_due: ""
 
 | 时间 | 原方向 | 新方向 | 是否需要补充收集 |
 |------|--------|--------|-----------------|
-| | | | |
+| 2026-09-23 | P1 菜单 12 个方向全量（A1-A4 / B1-B5 / D1-D3） | P2 收敛为 4 项：A2 三种接管模式、A4 硬件加速失效、B2+B1 网关与 DHCP 下发体系、D1 多出口与故障转移；排错方法论单独成节 | 是。需补 3 个缺口：A4 的 OpenWrt 官方 flow offloading/NFQUEUE 锚点、mwan3 nftables 版官方文档、DNS 相关内容本轮不做但需在笔记中说明已由既有笔记覆盖 |
+| 2026-09-23 | A3 非对称路由与 MASQUERADE 深化、B3 DNS 分层、B4 分流规则、B5 IPv6、D2 浮动网关、D3 可观测性 | 本轮不做 | 否。已在笔记中通过交叉引用既有笔记 `软路由教程/旁路由原理详解.md` 承接 MASQUERADE 概念，避免重复 |
 
 ---
 
