@@ -10,8 +10,8 @@ topic: "VPS 自建节点零基础全流程（面板流）"
 project_slug: "vps-node-panel-tutorial"
 created_at: "2026-09-23"
 last_updated: "2026-09-24"
-current_phase: P6
-current_status: in_progress
+current_phase: P7
+current_status: ready
 mode: outline
 blocked_reason: ""
 quality_gate: pending
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：vps-node-panel-tutorial
 > 项目标识：vps-node-panel-tutorial
 > 创建时间：2026-09-23
-> 当前阶段：阶段 6
+> 当前阶段：阶段 7
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -112,7 +112,7 @@ quality_gate_due: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] 🔲 进行中 {in_progress}
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -133,6 +133,8 @@ quality_gate_due: ""
 | P0 | 用户确认意图与方向：新建独立笔记（方案1）；笔记目录沿用 `自建代理节点/`；既有笔记的内核直配内容只做指引不重复展开 | 2026-09-23 |
 | P1 | 用户确认取材侧重 [1] 全流程均衡（概念25%/落地50%/运维25%）；A-2 arXiv 论文**纳入**（仅取摘要数字） | 2026-09-23 |
 | P2 | 用户确认素材质量与大纲顺序/深度：「按推荐」；并授权跳过逐章确认，一次写完全部章节 | 2026-09-24 |
+| P6 | 用户确认发布形式：拆分发布（索引页 + 10 章 + 附录）到 `自建代理节点/VPS 自建节点零基础全流程/`；不加 Canvas/Base | 2026-09-24 |
+| — | 用户决策：既有笔记《自建代理节点搭建实战》系**有意删除**，不做恢复；本篇 7 处互链改为纯文本提及，附录 B 改写为「本篇的内容边界」，MOC 并清死条目 | 2026-09-24 |
 
 ---
 

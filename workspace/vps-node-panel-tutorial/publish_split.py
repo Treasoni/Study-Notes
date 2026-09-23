@@ -125,7 +125,7 @@ def strip_heads(text):
 
 
 def fm(title, extra=None):
-    lines = ["---", f"title: {title}", "tags:"] + [f"  - {t}" for t in TAGS]
+    lines = ["---", f'title: "{title}"', "tags:"] + [f"  - {t}" for t in TAGS]
     lines += [f"created: {DATE}", f"updated: {DATE}", "status: 完成",
               f"source_project: {PROJECT}"]
     if extra:
@@ -163,11 +163,10 @@ def main():
     # ---- 索引页 ----
     toc = "\n".join(f"- [[{n}]] — {d}" for n, d in CHAPTERS + [APPENDIX])
     idx = (
-        fm(INDEX)
+        fm("VPS 自建节点零基础全流程")
         + f"# VPS 自建节点零基础全流程\n\n"
         + "> [!abstract] 一句话\n"
         + "> 从买一台 VPS 到客户端可用，全程用 3x-ui 面板点选，不手写配置文件。\n\n"
-        + preamble.split("\n", 1)[1].strip() + "\n\n"
         + "> [!warning] 关于来源\n"
         + "> 本篇以一条 YouTube 教程的章节顺序为骨架。**该视频无任何字幕轨**，"
         + "口播内容未被引用；正文事实性内容全部来自官方文档与一手研究，"
@@ -198,7 +197,7 @@ def main():
             fail(f"{fname}: 期望恰好 1 个 H2 提升，实际 {counts['h2']}")
         prev = files[i - 1] if i > 0 else None
         nxt = files[i + 2] if i + 2 < len(files) else APPENDIX[0]
-        doc = (fm(fname, [f"chapter: {i + 1}"]) + body + "\n\n---\n\n"
+        doc = (fm(title, [f"chapter: {i + 1}"]) + body + "\n\n---\n\n"
                + nav(prev, nxt) + "\n")
         io.open(os.path.join(OUTDIR, fname + ".md"), "w",
                 encoding="utf-8", newline="").write(doc)
@@ -214,7 +213,7 @@ def main():
         if ap_body.count("## " + t) != 1:
             fail(f"附录小标题 {t} 在成品中不是恰好 1 次")
     i = len(CHAPTERS)
-    doc = (fm(APPENDIX[0]) + "# 附录\n\n" + ap_body + "\n\n---\n\n"
+    doc = (fm("附录 速查表与内容边界") + "# 附录\n\n" + ap_body + "\n\n---\n\n"
            + nav(files[i], None) + "\n")
     io.open(os.path.join(OUTDIR, APPENDIX[0] + ".md"), "w",
             encoding="utf-8", newline="").write(doc)
