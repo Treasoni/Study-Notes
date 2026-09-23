@@ -4,11 +4,11 @@
 
 ## 1.1 它是什么
 
-CDN（Content Delivery Network，内容分发网络）是**地理分布的一组服务器**，通过把内容缓存在离用户更近的位置来加速分发（来源：A-1 | 首段 / `## What is a CDN?`）。它缓存的对象是加载网页所需的各类资源：HTML 页面、JavaScript 文件、样式表、图片与视频（来源：A-1 | `## What is a CDN?`）。Cloudflare 的表述是，如今多数网页流量都经由 CDN 提供，包括 Facebook、Netflix、Amazon 这类大站（来源：A-1 | `## What is a CDN?`）。
+CDN（Content Delivery Network，内容分发网络）是**地理分布的一组服务器**，通过把内容缓存在离用户更近的位置来加速分发；缓存对象是加载网页所需的各类资源——HTML 页面、JavaScript 文件、样式表、图片与视频（来源：A-1 | 首段 / `## What is a CDN?`）。官方称如今多数网页流量都经由 CDN 提供，包括 Facebook、Netflix、Amazon 这类大站（来源：A-1 | `## What is a CDN?`）。
 
-这里有一个最常见的误解要先拆掉：**CDN 不托管内容，也不能替代虚拟主机**。官方文档的原话是，CDN 不 host content、不能取代正经的 web hosting，它做的是在网络边缘（network edge）缓存内容从而提升性能（来源：A-1 | `## Is a CDN the same as a web host?`）。你的源站仍然是内容的唯一出处，CDN 只是在它前面多放了一层货架。
+这里有一个最常见的误解要先拆掉：**CDN 不托管内容，也不能替代虚拟主机**。官方原话是，CDN 不 host content、不能取代正经的 web hosting，它做的是在网络边缘（network edge）缓存内容从而提升性能（来源：A-1 | `## Is a CDN the same as a web host?`）。你的源站仍是内容的唯一出处，CDN 只是在它前面多放了一层货架。
 
-它凭什么能更快？关键在服务器摆在哪里。CDN 会把服务器放在**不同网络之间的交换点（IXP）**上——这些是各家运营商彼此接通流量的主要位置，接上这些高速互联点后，CDN 提供商就能降低高速分发中的成本与传输时延（来源：A-1 | `## How does a CDN work?`）。时延的缩短来自四类机制：缩短用户与资源之间的物理距离、负载均衡与 SSD 之类的软硬件优化、通过压缩与 minify 减小文件体积、以及连接复用与 TLS false start（来源：A-1 | `## Latency`）。
+它凭什么更快？关键在服务器摆在哪里：CDN 把服务器放在**不同网络之间的交换点（IXP）**上，接上这些高速互联点就能降低高速分发中的成本与传输时延（来源：A-1 | `## How does a CDN work?`）。时延的缩短来自四类机制：缩短用户与资源之间的物理距离、负载均衡与 SSD 等软硬件优化、通过压缩与 minify 减小文件体积、以及连接复用与 TLS false start（来源：A-1 | `## Latency`）。
 
 但对我们这个场景而言，比「加速」更要紧的是它的第二个身份：**Cloudflare 是一个反向代理**——它接收客户端请求，再把请求代理回客户的源站服务器，因此**每个请求都要先穿越 Cloudflare 的网络，才到达客户的网络**（来源：A-2 | `## Cloudflare CDN architecture and design`）。正是这一层位置，让第二章的「隐藏真实 IP」成为可能。
 
@@ -98,9 +98,9 @@ CDN 不是白拿的。官方文档明确列出使用 CDN 相对自托管静态�
 
 - **对第三方服务的额外依赖**：CDN 若宕机、**在某地区被封锁**、或被永久关停，你的网站就会故障；
 - **多一层攻击面**：攻击者若能攻破 CDN，就可能向你的用户投送恶意内容；
-- **与直觉相反，CDN 也可能降低性能**：与第三方站点建立连接意味着更多轮 DNS 查询与内容协商；且现代浏览器出于隐私原因**不在不同源之间共享同一资源的缓存**，同一份资源仍可能被反复下载。
+- **与直觉相反，CDN 也可能降低性能**：与第三方站点建立连接意味着更多轮 DNS 查询与内容协商；且现代浏览器出于隐私原因**不在不同源之间共享同一资源的缓存**，同一份资源仍会被反复下载。
 
-最后一条有个延伸：CDN 片区故障时是**整站故障**，而 anycast 的意义正是应对这种情况——若某个数据中心整体出问题，anycast 路由会把流量转到其他可用数据中心（来源：A-1 | `## Reliability and redundancy`）。
+注意第一条与 anycast 的关系：某个数据中心整体出问题时，anycast 路由会把流量转到其他可用数据中心（来源：A-1 | `## Reliability and redundancy`）；但如果整个 CDN 在某地区被封或被关停，就没有「其他可用节点」可转了——那是整站故障。
 
 > [!warning] 厂商自述数据要打折看
 > Cloudflare 自称其 anycast 网络覆盖全球**数百个城市**、**50 ms 内触达 95%** 的联网人口、网络容量**超过 405 Tbps**；Argo Smart Routing 平均带来 **30%** 的 web 资源性能提升（来源：A-2 | `## Cloudflare CDN architecture and design`、`### Argo Smart Routing`）。这些数字均为 **Cloudflare 自称**，素材中**无第三方核验**，只当量级参考。
