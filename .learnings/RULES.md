@@ -23,6 +23,9 @@ Read before starting any new Study System task.
 - 解释抽象概念按「它是什么/解决什么问题 → 具体产物长什么样 → 带具体值的可代入例子（目录树/路径/命令输出）→ 对比表 → 大白话类比」落地；正文去掉类比后仍要能让「没懂」的读者靠表格/例子读懂，不只抛抽象结论（默认写作标准，用户当日连续两次明确要求「都要这样」）
 - 给子 agent 派活时**不要转述来源论断**：只传来源 ID + 检索位置，要求「先回原文核对再落笔」；确需带结论必须成对标注（原文加引号 / 概述标「待核对」）。章节验收对每处「官方口径是 / 官方说明 / 原文」逐条回源比对，不只看有没有挂来源 ID
 - 中文文本的组装、拆分、统计一律走 python（`re.findall(r'[一-鿿]', t)` 计字数）；批量文本改写脚本必须打印「本次改动 N 处」，N=0 时人工复核，不许静默通过
+- `02_deep_research.md` 是**中间产物**、不是可信终点：写作者落具体数值/默认值/版本号前回 `sources/` 按行号核对（抓取错位常见——`tcp_ecn` 曾被记成 `tcp_ecn_option_beacon` 的默认值 3）；核对不了就只写语义、不写数值
+- RULES 里出现「X 不存在，所以走 Y」这类**绕行规则**时，先查 X 是否本该存在（状态模板、上下游文档、调用点）；能修实现就修，修完把那条绕行规则改写或删除。把缺陷写成规则会让缺口变成「既定契约」，再没人回头
+- **官方引文摆放**：一段要摆 ≥3 处引文、或含任一整句英文、或长度 >300 字符时，改用「官方原文 / 说人话」两列对照表 + 结论单独成句 + 关键误读用 `[!warning]`；**只有 1 处短引文时行内保留**，不为形式套表。引文逐字与脚注编号/来源归属一律不动，只改摆放；验收时遮住英文列读一遍「说人话」列，不能只核对引文是否正确（用户反馈「让人很难去理解和看懂啊」）
 
 ## Don't
 
@@ -35,9 +38,14 @@ Read before starting any new Study System task.
 ## Watch For
 
 - YAML frontmatter 的 sources 字段中所有含特殊字符（`[]`, `:`）的值必须正确引用，否则 Obsidian 解析失败
-- 并行派发 chapter-writer 时，章节过渡语必须自包含（按大纲），不要依赖读取上一章文件；`todo-state.sh` 只有 `start|complete|skip|block`（**没有 `confirm`**），固定走 `start PN` → `complete PN`；**最后一个阶段**还需 frontmatter 写 `quality_gate: passed`（走豁免则同时补 `quality_gate_owner` + `quality_gate_due`）
+- 并行派发 chapter-writer 时，章节过渡语必须自包含（按大纲），不要依赖读取上一章文件
+- `todo-state.sh` 动作为 `start|complete|skip|block|mode|confirm`：常规走 `start PN` → `complete PN`；`mode PN <值>` 只改 frontmatter `mode` 键、`confirm PN "说明"` 只追加一行到 `## 用户确认记录`，**两者都不动阶段状态行、不要求前置阶段闭幕**；**最后一个阶段**还需 frontmatter 写 `quality_gate: passed`（走豁免则同时补 `quality_gate_owner` + `quality_gate_due`）
+- 并行写作 ≥2 章前先冻结**跨章共享口径**（字段名、术语、命名风格）并写进每个 dispatch：各章「忠于自己手边的来源」合起来可能互相矛盾（官方示例写 `network: "tcp"`、权威文档只文档化 `method` → 同一篇笔记里两章打架）；交付后对「可照抄的配置块」做一次跨章 grep
 - note-assembler 等 writer 子 agent 无 Bash/Edit 且 Write 有输出上限；>100KB 长文档由父进程 python 合并；反向扫描定位插入点时必须**同时跳过空行和 `---` 分隔线**，否则扫描停错位置且静默不生效
+- 组装脚本调整标题层级时必须**级联到子标题**：只把章标题降一级、不管章内 `## N.M` 与 `## 小结`，会让章标题与节标题同级、大纲整体塌陷；降级后要重新解析标题树逐层校验
+- 「合并/保留外部条目」的生成器，校验必须跑在**合并结果**上，不是只跑本次渲染的子集，否则保留路径天然免检（`.agent-sync/bootstrap.py --check` 曾对指向已删脚本的 hook 注册报 `[OK]`）
 - 并行子 agent 不得直接修改共享 workflow state file；状态推进由 orchestrator 集中经 todo-state.sh 处理
+- workflow 已 `done` 的笔记再被 note-updater 单篇更新时，workspace 侧 `chapters/`、`output/` 副本**不会**跟着变，两边同名文件必然长期漂移：至少登记「vault 已于 <日期> 更新，workspace 副本停留在 <日期>」，并让用户二选一（重跑 note-assembler 同步 / 明确弃用副本），不要默认「以 vault 为准」就收工
 - P6 发布前校验最终产物并**建议**拆分：>30KB 或多于 3 章时给出「分册子目录 + README + 每章独立文件 + 前后导航 + MOC 指向 README」方案，但**用户明确选单文件就按单文件发布**（2026-09-11 一篇 43k 汉字 / 228KB 笔记经用户确认单文件落地，非违规）
 - iStoreOS 官方 iStore 商店不含代理插件；Passwall SourceForge 源只含 passwall_luci/passwall_packages/passwall2（不含 OpenClash）；OpenClash `.run` 包 `+core` 表示内置内核
 - WebFetch 拦截的域名（raw.githubusercontent.com、github.com）改用 `curl api.github.com` 替代

@@ -15,7 +15,7 @@ A1（已有笔记覆盖）、A3、B3 DNS 分层、B4 分流规则、B5 IPv6、D2
 
 | 现象 | 影响 | 处置 |
 |------|------|------|
-| `openwrt.org` 对自动化抓取返回 **Anubis 反爬挑战页**（HTTP 200，约 4–4.3KB，标题 `Testing to determine if you are a bot!`） | S4/S5/S5a/S6/S6a 及 G1 的 OpenWrt 官方引文**未能落盘**，均由 WebFetch 渲染提取 | 引号内引文为提取所得短引，**定稿前需人工复核**：S4 的 "not channel-bonding" 句、S5 的 `"3,192.168.1.1 6,192.168.1.1"` 句、G1 的 `masq_allow_invalid` 句 |
+| `openwrt.org` 对 `crawl4ai`（curl 通道）返回 **Anubis 反爬挑战页**（HTTP 200，约 4–4.3KB，标题 `Testing to determine if you are a bot!`），故 S4/S5/S5a/S6/S6a/S4b 未落盘 | 上述页面的引文改由 **WebFetch 通道**取得（该通道未被 Anubis 拦截） | **已于 2026-09-23 完成逐字复核**：用只给检索锚点、不给待验文本的提示词重新取原文，S4/S5/S5a/S6/S6a/S4b 六页的引文**全部逐字命中**。复核同时发现 3 处**来源归属与写法错误**（非引文错），已就地修正：B1-6、T-7、D1-9，另修正 A4-3 大小写与 A4 关键词清单。Wayback Machine 不可用（`web.archive.org` TLS 被拦，archive.org API 返回 429），故未采用存档路径 |
 | `crawl.sh` 按**域名**命名输出文件，同域名多 URL 互相覆盖 | 曾发生 mankier 首发被覆盖 | 后续批量抓取统一使用独立子目录（本轮 G1/G2/G3 已改用 `cache/g1-luci/`、`cache/g2-kernel/` 等） |
 | 社区教程站（S9）无署名、无发布日期，仅"最后查看"日期，页面含推广位 | 不可作为配置语义依据 | 仅用作入门流程与排查方法论，任何配置结论不得冒用官方口径 |
 | DeepWiki 等 AI 聚合页含 `TPROXY High / TUN Medium` 类对比表 | 来源可信度不足 | **已排除**，未写入任何 claim |
@@ -31,12 +31,12 @@ A1（已有笔记覆盖）、A3、B3 DNS 分层、B4 分流规则、B5 IPv6、D2
 | S3a | `.../config/inbound/listeners/tproxy/` | mihomo 官方 | 未标注 | ✅ `cache/s3a_tproxy.md` | A2 |
 | S3b | `.../config/inbound/listeners/tun/` | mihomo 官方 | 未标注 | ✅ `cache/s3b_tun.md` | A2 |
 | S3c | `.../config/inbound/tun/` | mihomo 官方 | 未标注 | ✅ | A2 |
-| S4 | `openwrt.org/docs/guide-user/perf_and_log/flow_offloading` | OpenWrt Wiki（phinn） | 2026/08/17 | ⚠️ 未落盘 | A4 |
-| S4b | `openwrt.org/docs/guide-user/firewall/firewall_configuration` | OpenWrt Wiki | 未标注 | ⚠️ 未落盘 | A4、排错 |
-| S5 | `openwrt.org/docs/guide-user/base-system/dhcp` | OpenWrt Wiki | 未标注 | ⚠️ 未落盘 | B1+B2 |
-| S5a | `.../base-system/dhcp_configuration` | OpenWrt Wiki | 未标注 | ⚠️ 未落盘 | B1+B2 |
-| S6 | `openwrt.org/docs/guide-user/network/wan/multiwan/mwan3` | OpenWrt Wiki（jamesmacwhite） | 2026/07/25 | ⚠️ 未落盘 | D1 |
-| S6a | `.../multiwan/mwan3-nft` | OpenWrt Wiki 托管，社区移植 | 2026/08/31 | ⚠️ 未落盘 | D1 |
+| S4 | `openwrt.org/docs/guide-user/perf_and_log/flow_offloading` | OpenWrt Wiki（phinn） | 2026/08/17 | ⚠️ 未落盘（WebFetch 逐字复核通过 2026-09-23） | A4 |
+| S4b | `openwrt.org/docs/guide-user/firewall/firewall_configuration` | OpenWrt Wiki | 未标注 | ⚠️ 未落盘（WebFetch 逐字复核通过 2026-09-23） | A4、排错 |
+| S5 | `openwrt.org/docs/guide-user/base-system/dhcp` | OpenWrt Wiki | 未标注 | ⚠️ 未落盘（WebFetch 逐字复核通过 2026-09-23） | B1+B2 |
+| S5a | `.../base-system/dhcp_configuration` | OpenWrt Wiki | 未标注 | ⚠️ 未落盘（WebFetch 逐字复核通过 2026-09-23） | B1+B2 |
+| S6 | `openwrt.org/docs/guide-user/network/wan/multiwan/mwan3` | OpenWrt Wiki（jamesmacwhite） | 2026/07/25 | ⚠️ 未落盘（WebFetch 逐字复核通过 2026-09-23） | D1 |
+| S6a | `.../multiwan/mwan3-nft` | OpenWrt Wiki 托管，社区移植 | 2026/08/31 | ⚠️ 未落盘（WebFetch 逐字复核通过 2026-09-23） | D1 |
 | S2 | `doc.istoreos.com/zh/guide/istoreos/practice/BypassRouter.html` | iStoreOS 官方文档 | 未标注 | ✅ `cache/03_doc_istoreos_com.md` | B1+B2 |
 | S7 | `github.com/istoreos/istoreos/issues/2066` | istoreos 官方仓库 | 2025-01-17 起，末帖 2025-10-08 | ✅ `cache/02_github_com.md` | B1+B2 |
 | SG1-02 | `raw.githubusercontent.com/openwrt/luci/master/.../luci-app-firewall/htdocs/luci-static/resources/view/firewall/zones.js` | OpenWrt LuCI 上游源码 | master | ✅ `cache/g1-luci/` | 排错 |
@@ -47,6 +47,7 @@ A1（已有笔记覆盖）、A3、B3 DNS 分层、B4 分流规则、B5 IPv6、D2
 | SG3-01 | `tcpdump.org/manpages/tcpdump.1.html` | tcpdump.org | 未标注 | ✅ `cache/g3-tcpdump/` | 排错 |
 | SG3-02 | `conntrack-tools.netfilter.org/manual.html` | netfilter.org | — | ✅ | 排错 |
 | SG3-03 | `mankier.com/8/iptables` | 上游 man page 镜像 | 未标注 | ✅ `cache/g3-iptables/` | 排错 |
+| SA2-01 | `ipset.netfilter.org/iptables-extensions.man.html` | netfilter 项目官方站点 | 未标注 | ⚠️ 未落盘（WebFetch 逐字核对 2026-09-23，见 A2-11） | A2（补 REDIRECT 机制缺口） |
 
 ### Tier 3 社区操作经验（仅作标注后的经验引用）
 
@@ -78,6 +79,8 @@ A1（已有笔记覆盖）、A3、B3 DNS 分层、B4 分流规则、B5 IPv6、D2
 | A2-8 | 官方对两种 TUN 入口的分工："顶层 `tun` 配置用于接管系统流量，适合需要自动路由、DNS 劫持或按应用分流的场景。"；"Listener 中的 TUN 面向高级使用场景。普通用户应优先使用顶层 TUN 配置。" | S3 · 开篇、Note；S3b · 首行注意 |
 | A2-9 | TUN 的 stack 建议："如无使用问题，建议使用 `mixed`栈，默认 `gvisor`" | S3c · stack |
 | A2-10 | `auto-redirect`："仅支持 Linux，自动配置 iptables/nftables 以重定向 TCP 连接，需要`auto-route`已启用"；`gso`"启用通用分段卸载，仅支持 Linux" | S3c · auto-route/auto-redirect、gso |
+| A2-11 | **REDIRECT target 的官方机制（2026-09-23 新增，补 1.2 的机制缺口）**：① 作用范围——"This target is only valid in the nat table, in the PREROUTING and OUTPUT chains, and user-defined chains which are only called from those chains."；② 作用方式——"It redirects the packet to the machine itself by changing the destination IP to the primary address of the incoming interface"，且 "locally-generated packets are mapped to the localhost address, 127.0.0.1 for IPv4 and ::1 for IPv6"；③ `--to-ports`——"This specifies a destination port or range of ports to use: without this, the destination port is never altered."；④ `--random`——"If option --random is used then port mapping will be randomized (kernel >= 2.6.22)."；⑤ "IPv6 support available starting Linux kernels >= 3.7." | SA2-01 · REDIRECT target 段 |
+| A2-11a | **必须区分的一处层次（关键）**：SA2-01 中 "This is only valid if the rule also specifies one of the following protocols: tcp, udp, dccp or sctp." 一句**挂在选项 `--to-ports` 之下**（同样出现在 MASQUERADE 的 `--to-ports` 下），**不是** REDIRECT target 本身的协议限制。man page **未**对 REDIRECT target 规定协议范围。→ 该句的准确含义是「**若要改写目的端口**，规则必须同时限定 tcp/udp/dccp/sctp 之一」，与「REDIRECT 只能处理 TCP」是两回事 | SA2-01 · REDIRECT `--to-ports` 项（归属已二次核对） |
 
 **A2 的两个结构性缺口（必须在笔记中如实呈现，不得用二手补白）**
 
@@ -90,7 +93,7 @@ A1（已有笔记覆盖）、A3、B3 DNS 分层、B4 分流规则、B5 IPv6、D2
 |---|-------|------------|
 | A4-1 | flow offloading 的定义："bypasses the CPU-intensive Netfilter stack (firewall processing) for established traffic flows"，并"significantly increases network throughput" | S4 · 页面导言 |
 | A4-2 | 软件卸载 SFO："typically increases bandwidth by 2-3x over firewall filtering each packet"；"Since SFO is a software feature it is widely supported on all CPUs" | S4 · SFO |
-| A4-3 | 硬件卸载 HFO："requires specialized SoC hardware to bypass QoS traffic controls at high priority"；"handles a limited number of concurrent connections (64 queues is typical)"；"also incompatible with QoS features such as SQM" | S4 · HFO |
+| A4-3 | 硬件卸载 HFO："Hardware Flow Offloading requires specialized SoC hardware to bypass QoS traffic controls at high priority,"；"However, this handles a limited number of concurrent connections (64 queues is typical),"；"It is also incompatible with QoS features such as SQM."；官方另注明"officially supported by small number of platforms, primarily MediaTek Filogic SoCs" | S4 · HFO |
 | A4-4 | 适用范围限定："applies to forwarded connections"，"including those to containers like LXC or podman, but not locally running web-server" | S4 · 适用范围 |
 | A4-5 | 开关项：`flow_offloading`（默认 0）"Enable software flow offloading for connections. (decrease cpu load / increase routing throughput)"；`flow_offloading_hw`（默认 0）"Enable hardware flow offloading for connections. (depends on flow_offloading and hw capability)" | S4b · defaults 表 |
 | **A4-6** | **机制层证实**：内核官方原文："A packet that finds a matching entry in the flowtable (ie. flowtable hit) is transmitted to the output netdevice via `neigh_xmit()`, hence, packets bypass the classic IP forwarding path (the visible effect is that you do not see these packets from any of the Netfilter hooks coming after ingress)." | SG2-01 · Overview |
@@ -98,7 +101,7 @@ A1（已有笔记覆盖）、A3、B3 DNS 分层、B4 分流规则、B5 IPv6、D2
 | A4-8 | NFQUEUE 的机制基础：hook 返回值 "NF_QUEUE: queue the packet (usually for userspace handling)." → 排队必须发生在某个被遍历的 hook 内 | SG2-04 · §3.1 |
 | **A4-9** | **[推断]** 由 A4-6～A4-8 推出："启用 flow offloading 后，依赖 NFQUEUE 的透明代理会拦不到已建立连接的后续包。"**机制前提已被官方原文证实，但内核与 OpenWrt 官方均未提及 NFQUEUE 或透明代理**，故此结论本身须标为推断，不得写成官方口径 | 组合推断 |
 
-> **A4 必须纠正的一处官方边界**：S4 官方**全文未出现 NFQUEUE**（关键词核对：netfilter 出现、flowtable 出现、nftables 未出现、NFQUEUE 未出现）。因此「卸载后绕过 NFQUEUE」不能当官方说法引用。
+> **A4 必须纠正的一处官方边界**：S4 官方**全文未出现 NFQUEUE**。关键词核对（2026-09-23 复核）：`Netfilter` **出现**（"bypasses the CPU-intensive Netfilter stack"）、`nftables` **未出现**、`NFQUEUE` **未出现**。因此「卸载后绕过 NFQUEUE」不能当官方说法引用。
 
 ### B2+B1｜网关与 DHCP 下发体系
 
@@ -109,7 +112,7 @@ A1（已有笔记覆盖）、A3、B3 DNS 分层、B4 分流规则、B5 IPv6、D2
 | B1-3 | 强制下发的区别："Exactly the same as dhcp_option (note the underscores), but it will be translated to --dhcp-option-force"，"meaning that the DHCP option will be sent regardless on whether the client requested it."，"dhcp_option_force available since 18.06" | S5 · dhcp_option_force 条目 |
 | B1-4 | tag 机制官方表述："you can use the dhcp_option list to add DHCP options to be sent to hosts with this tag (or networkid)."；"tag classifying sections have one configuration option: values of DHCP options to assign to this tag." | S5 · tag 条目 |
 | B1-5 | tag 的官方写法：`uci set dhcp.tag1="tag"` + `dhcp.tag1.dhcp_option="6,8.8.8.8,8.8.4.4"`，host 侧 `dhcp.@host[-1].tag="tag1"` | S5a · tag classifier 段 |
-| B1-6 | 用 MAC classifier 压掉默认网关的官方写法：`dhcp.mac1.dhcp_option="3"` 表示 "Disable default gateway"，再配 `"6,192.168.1.3"` 自定义 DNS | S5a · MAC classifier 段 |
+| B1-6 | 用 MAC classifier 压掉默认网关的官方写法（**2026-09-23 修正**）：官方该小节导语为 "Disable default gateway and specify custom DNS."，命令用 **`uci add_list`**（`dhcp_option` 是 list，不是 `set`）：`uci set dhcp.mac1="mac"` + `uci set dhcp.mac1.mac="00:FF:*:*:*:*"` + `uci set dhcp.mac1.networkid="vpn"` + `uci add_list dhcp.mac1.dhcp_option="3"` + `uci add_list dhcp.mac1.dhcp_option="6,192.168.1.3"`。**注意**："Disable default gateway" 是该示例的**小节标题/目的说明**，不是页面给取值 `3` 写的字段释义；页面另在 DHCP 选项清单里把 `3` 列为 "alternative default gateway" | S5a · MAC classifier 段（含小节导语） |
 | B1-7 | **社区实现与官方语义交叉印证**：tag 的实测渲染结果为 `dhcp-option=tag:proxynode,3,10.0.0.2` 与 `dhcp-option=tag:proxynode,6,10.0.0.2,1.1.1.1`；作者解释"3 是网关地址，6 是 DNS 地址，多个 DNS 地址用逗号分隔；不同的 dhcp_option 使用空格分隔" | S12 ·「tag 单独配置网关地址和 DNS」「检查配置」 |
 | B1-8 | tag 下发的前提（社区）：需要"先给设备分配静态 IP 并添加 tag"，即 tag 下发依赖主机条目 | S12 ·「给设备分配添加 Tag」 |
 | B1-9 | LuCI 局限（社区）："页面没有直接配置 tag 的网关和 DNS 的选项，需要通过命令行来配置" | S12 ·「tag 单独配置网关地址和 DNS」 |
@@ -138,7 +141,7 @@ A1（已有笔记覆盖）、A3、B3 DNS 分层、B4 分流规则、B5 IPv6、D2
 | D1-6 | 健康探测与失效（官方）：track_ip `"The host(s) to test if interface is still alive. If this value is missing the interface is always considered up."`；`"When an interface goes down, mwan3 deletes all the rules and routes to that interface."` | S6 · Tracking 段 |
 | D1-7 | 版本支持口径（官方）：`"mwan3 has not been updated to natively support nftables yet"`；25.12 行 `"It is no longer recommended to use the official mwan3 package at this time, given it is based on iptables"`；24.10 行 `"Unlikely to function properly due to still being iptables based."` | S6 · 版本支持表 |
 | D1-8 | nft 版的定位：页面标题 `"mwan3 (nftables unofficial)"`；`"The official mwan3 is the original iptables version maintained by feckert"`；`"Community member dl12345 has ported the original mwan3 codebase to be compatible with nftables"`；`"the nftables version is referred to as mwan3-nft."` | S6a · 版本定位段 |
-| D1-9 | nft 版的可用性边界（官方托管页自述）：`"The nftables version of mwan3 is only supported on OpenWrt 25.12 or newer releases."`；`"opkg packages do not exist for the nftables version."`；`"is currently not available in official OpenWrt package feeds"`；需 nftables + firewall4，用 apk 安装 | S6a · Installation 段 |
+| D1-9 | nft 版的可用性边界（官方托管页自述）：`"The nftables version of mwan3 is only supported on OpenWrt 25.12 or newer releases."`；`"opkg packages do not exist for the nftables version."`；`"This version is currently not available in official OpenWrt package feeds"`（另有同义句 `"This version of mwan3 is currently not available in the OpenWrt packages feed, but can be installed with apk manually."`）。**2026-09-23 修正**：页面**未**陈述"需 nftables + firewall4"这一依赖要求；实测要点为——需从 GitHub 手动取 apk 安装，且因包未签名须加 `--allow-untrusted`；LuCI 可选装独立包 `luci-app-mwan3`（官方原文 `"The LuCI package is arch independent."`）；附加探测方式（arping/httping/nping）"if the required packages are installed" | S6a · Installation 段 |
 | D1-10 | 迁移行为：`"apk will perform an upgrade if the older mwan3 iptables version is installed"`，并有 `"a one-time run migration that is automatically triggered on post-install"` | S6a · Migration 段 |
 | D1-11 | 配置仍为 UCI `/etc/config/mwan3`，sections 含 `config globals/interface/member/policy/rule/ipset`；差异在 `"All iptables/ipset usage with nftables equivalents"`、新增按源 MAC 建规则、mwan3rtmon 改为 ucode | S6a · Configuration / Changes vs iptables 段 |
 
@@ -152,13 +155,15 @@ A1（已有笔记覆盖）、A3、B3 DNS 分层、B4 分流规则、B5 IPv6、D2
 | T-4 | **社区处置路径一**："在OpenWrt中解决的方法也很简单，首先在'防火墙'页面中关闭'丢弃无效数据包'" | S8 · 修复步骤 1 |
 | T-5 | **社区处置路径二**："若OpenWrt通过独立线路（在防火墙的WAN Zone）连接主路由，则在一些特定情况下（比如因为一些组网需求，对一些内网网段开启了masquerade），还要打开WAN Zone – 编辑 – 连接追踪设置 – 允许'无效'流量" | S8 · 修复步骤 2 |
 | T-6 | **对应官方条目（缺口 G1 已填）**：T-4 对应全局 `drop_invalid`（boolean，文档默认值 `0`），官方原文 "Drop invalid packets (e.g. not matching any active connection)."；LuCI 界面名 `_('Drop invalid packets')` | SG1-01 · Defaults 表；SG1-02 · defaults 区 |
-| T-7 | **T-5 对应的官方条目是 zone 级 `masq_allow_invalid`**（boolean，文档默认值 `0`），官方原文 `"Do not add DROP INVALID rules, if masquerading is used."`，续句 `"The DROP rules are supposed to prevent NAT leakage"`；LuCI 中位于 zone 弹窗的 **conntrack 页签**，界面名 `_('Allow "invalid" traffic')`，说明原文 `"Do not install extra rules to reject forwarded traffic with conntrack state invalid. This may be required for complex asymmetric route setups."` | SG1-01 · Zones 表；SG1-02 · conntrack 页签 |
+| T-7 | **T-5 对应的官方条目是 zone 级 `masq_allow_invalid`**（boolean，文档默认值 `0`），官方原文 `"Do not add `DROP INVALID` rules, if masquerading is used."`，续句 `"The `DROP` rules are supposed to prevent NAT leakage (see commit in firewall3)."` | SG1-01 · Zones 表 |
+| T-7a | **LuCI 侧的界面名与说明原文（2026-09-23 修正归属）**：位于 zone 弹窗的 **conntrack 页签**，界面名 `_('Allow "invalid" traffic')`，说明原文 `_('Do not install extra rules to reject forwarded traffic with conntrack state <em>invalid</em>. This may be required for complex asymmetric route setups.')`。**此串出自 SG1-02（LuCI 上游源码 zones.js），不在 SG1-01 的 wiki 页面里**——复核确认 `asymmetric` 一词未出现在 `firewall_configuration` wiki 页上，此前把它一并挂到 SG1-01 名下属归属错误 | SG1-02 · `zones.js` 第 291 行（`cache/g1-luci/01_raw_githubusercontent_com.md:291`） |
 | T-8 | **纠正**：OpenWrt 官方只存在上述**两个** invalid 相关条目；「zone 级允许无效流量」不是独立的 conntrack 选项，S8 的口头路径对应的就是 `masq_allow_invalid` | SG1-01 · Zones 节正文（反证） |
 | T-9 | 抓包工具：双向抓包须分别指定接口，`-i`/`--interface` 官方用途为 "Listen, report the list of link-layer types, … on interface." → **不能用单一接口推断全链路** | SG3-01 · `-i` 条 |
 | T-10 | 握手判定依据（官方）：_Tcpflags_ 为 "some combination of S (SYN), F (FIN), P (PSH), R (RST), U (URG), W (CWR), E (ECE), e (AE) or `.` (ACK)"；官方握手序列原文："1) Caller sends SYN　2) Recipient responds with SYN, ACK　3) Caller sends ACK" → 据此定位 T-2 中缺失的一步 | SG3-01 · OUTPUT FORMAT、Particular TCP Flag Combinations |
 | T-11 | 官方示例命令（打印每个 TCP 会话的起止包）：`tcpdump -n 'tcp[tcpflags] & (tcp-syn|tcp-fin) != 0'` | SG3-01 · EXAMPLES |
 | T-12 | 连接跟踪查看（官方）："You can list the existing flows using the conntrack utility via command:" 后接 `# conntrack -L`；过滤示例 `# conntrack -L -p tcp --dport 993`，"You can filter out the listing without using grep" | SG3-02 · Chapter 5 |
 | T-13 | **判定连接是否已被 flowtable 卸载（官方，A4 的直接诊断手段）**："You can identify offloaded flows through the [OFFLOAD] tag when listing your connection tracking table."示例输出含 `... [OFFLOAD] mark=0 use=2`；另一处官方原文："you will observe that the counter rule in the example above does not get updated for the packets that are being forwarded through the forwarding bypass." | SG2-01 · Counters |
+| T-13a | **必须一并写出的第二个标签（2026-09-23 补，本素材原漏）**：同一官方页面还定义 `[HW_OFFLOAD]`，并明确区分二者——"You can identify hardware offloaded flows through the [HW_OFFLOAD] tag when listing your connection tracking table. Please, note that the [OFFLOAD] tag refers to the software offload mode, so there is a distinction between [OFFLOAD] which refers to the software flowtable fastpath and [HW_OFFLOAD] which refers to the hardware offload datapath being used by the flow."→ **诊断含义**：开了硬件卸载（`flow_offloading_hw=1`）的连接带 `[HW_OFFLOAD]` 而非 `[OFFLOAD]`；若正文只教读者找 `[OFFLOAD]`，启用 HFO 的读者会找不到标签并误判「未被卸载」。另：官方说明硬件卸载有 workqueue 延迟——"a few packets might still run over the flowtable software path until the workqueue has a chance to offload the flow to the network device." | SG2-01 · Hardware offload 段、Counters 段 |
 | T-14 | conntrack 工具文档自身把 INVALID 与丢弃规则集关联："You have a stateful rule-set that drops traffic in INVALID state." —— 与 T-6/T-7 互相印证 | SG3-02 · Chapter 5 末尾 |
 | T-15 | NAT 规则查看（官方）：`iptables -L` 的 `-L` 条原文 "List all rules in the selected chain. If no chain is selected, all chains are listed. Like every other iptables command, it applies to the specified table (filter is the default), so NAT rules get listed by" 后接示例 `iptables -t nat -n -L` | SG3-03 · `-L` 条 |
 
@@ -198,13 +203,34 @@ A1（已有笔记覆盖）、A3、B3 DNS 分层、B4 分流规则、B5 IPv6、D2
 5. **mwan3 与旁路由场景无交集**：S6/S6a 不涉及单臂旁路由与非对称上下行；S9 明确排除"多出口负载"。→ D1 与排错小节之间**缺少可引用的官方桥接材料**，只能靠 [推断] 连接。
 6. **IPv6 DNS 是否可用 dhcp_option 下发**：S5 的 odhcpd 条目只说 "Only IPv6 addresses are accepted. To configure IPv4 DNS servers, use dhcp_option."，**未见"IPv6 DNS 不能用 dhcp_option"的官方明确表述** → 该说法标 [未证]。本轮不做 IPv6，仅记录。
 7. **无一手定量性能数据**（TUN vs TProxy 吞吐/CPU）。
+8. **「redir 模式只支持 TCP、UDP 必须用 TProxy」这一社区常识，在本批未取得官方锚点** → 标 **[未证]**。SA2-01 的 man page 只界定到 target 层（且那句协议限制实为 `--to-ports` 的约束，见 A2-11a），**未**界定透明代理 redir 模式的协议范围；两者**不在同一层次**。→ 写作时**不得**写成「官方说 REDIRECT 支持 UDP」，也**不得**写成「官方说 REDIRECT 只支持 TCP」；只能如实说明：社区口径如此，本批未找到区分 target 层与代理实现层的官方材料。（此项为 REDIRECT 机制补写时发现的缺口，2026-09-23 登记）
 
-### 待人工复核（因 Anubis 拦截，引文经渲染提取）
+### 引文复核记录（2026-09-23 已完成，原为 Anubis 拦截项）
 
-- S4 的 `"not channel-bonding"` 与 SFO/HFO 三条引文
-- S5 的 `"3,192.168.1.1 6,192.168.1.1"` 与 `dhcp_option_force` 条目
-- S6 的 `"not channel-bonding"` 句与版本支持表
-- SG1-01 的 `masq_allow_invalid` 原文
+**方法**：改用 WebFetch 通道重取原文（该通道未被 Anubis 拦截）。提示词**只给检索锚点、不给待验文本**，避免确认偏误；逐条比对是否字字命中。
+
+**结果：六页引文全部逐字命中。** 逐条明细：
+
+| 原待复核项 | 复核结果 |
+|-----------|---------|
+| S4 的 SFO/HFO 三条引文（A4-2、A4-3） | ✅ 逐字命中。A4-3 的官方首字母大写与 "However," 起句已回填 |
+| S4 的适用范围（A4-4 `applies to forwarded connections` / `LXC`） | ✅ 逐字命中 |
+| S4 的 `NFQUEUE` 边界 | ✅ 确认**未出现** `NFQUEUE`；另确认 `Netfilter` 出现、`nftables` 未出现 |
+| S4b 的 `flow_offloading` / `flow_offloading_hw` 条目与默认值（A4-5） | ✅ 逐字命中，两项均为 defaults 默认 `0` |
+| S5 的 `"3,192.168.1.1 6,192.168.1.1"` 句（B1-2） | ✅ 逐字命中 |
+| S5 的 `dhcp_option` / `dhcp_option_force` / `tag` 条目（B1-1、B1-3、B1-4） | ✅ 逐字命中，含 `available since 18.06` 与 `--dhcp-option-force` 转写说明 |
+| S5a 的 tag classifier 与 MAC classifier 命令（B1-5、B1-6） | ✅ 引文命中；**但发现写法错误**：MAC classifier 用 `uci add_list`（list 语义），原记录写成 `set`，已修正 B1-6 |
+| S6 的 `"not channel-bonding"` 全句（D1-2） | ✅ 全句命中：`Linux outgoing network traffic load-balancing is performed on a per-IP connection basis -- it is not channel-bonding, where a single connection (e.g. a single download) will use multiple WAN connections simultaneously`（中段过渡符为双减号） |
+| S6 的版本支持表（D1-7） | ✅ 两行命中。24.10 行完整原文：`Unlikely to function properly due to still being iptables based. The unofficial port also is not supported on 24.10`；25.12 行含 `It is no longer recommended to use the official mwan3 package at this time` 与 `which is no longer the firewall backend of OpenWrt.` |
+| S6 的引用链与语义条目（D1-4、D1-5、D1-6） | ✅ 逐字命中 |
+| S6a 的版本定位、可用性、迁移、变更清单（D1-8～D1-11） | ✅ 命中。补齐 `refered to as mwan3-nft` 全句、`Key changes` 的 8 条 bullet 原文；**并修正 D1-9**：页面未陈述"需 nftables + firewall4" |
+| SG1-01 的 `masq_allow_invalid` 原文（T-7） | ✅ 逐字命中，含 zone 级、默认 `0`、`prevent NAT leakage (see commit in firewall3)` |
+| SG1-01 的 `drop_invalid` 原文（T-6） | ✅ 逐字命中，defaults 默认 `0` |
+| SG1-01 的 LuCI 界面名与 `asymmetric` 说明（原并入 T-7） | ⚠️ **归属错误，已修正**：该串实际出自 **SG1-02（`zones.js` 第 291 行，本地缓存已验）**，不在 SG1-01 wiki 页上；现已拆为独立的 T-7a |
+
+**未复核项（物料性低，不影响正文）**：D1-6 中 track_ip 的字段释义前半句（`The host(s) to test if interface is still alive.`）与 D1-11 的 "largely unchanged" 均已在本轮命中；仅"25.12 行中段具体用词"因 WebFetch 的 125 字符引文上限被截断，以官方口径概括表述，正文不得对其逐字引用。
+
+**结论**：4 条原定"定稿前须人工复核"的引文**已全部升级为已复核**，不再阻断 P4。下游 chapter-writer 可直接引用；需遵守的只是修正后的 B1-6 写法、T-7/T-7a 归属与 D1-9 边界描述。
 
 ### 已被推翻、不得写入的引用
 

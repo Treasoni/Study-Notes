@@ -137,6 +137,23 @@ Every chapter must follow this structure:
 
 自检标准：把「大白话」类比遮住后，正文能否仅靠上面的实体/表格/例子，让「有点没懂」的读者独立读懂；若不能，说明还没解释透。
 
+#### 官方引文摆放要求（所有笔记类型通用，用户明确要求）
+
+引文**逐字准确**和引文**摆得让人看懂**是两件事。把同一份文档的多条隔壁条目用分号串进一个段落，保真没错，但读者看不懂——用户明确反馈过「**你这样写，让人很难去理解和看懂啊**」。默认规则：
+
+1. 一段要摆 **≥3 处引文**、或含**任一整句英文**、或段落**长度 >300 字符**时，改用两列对照表：
+
+   ```markdown
+   | 它管什么 | 官方原文 | 说人话 |
+   |---------|---------|--------|
+   | 在哪生效 | 「…逐字引文…」[^cN-xxx] | 一句中文解释，必要的代码用反引号 |
+   ```
+
+2. 表后把结论**单独成句**（"一句话概括：……"），不要让它埋在引文里。
+3. 常见误读用 `> [!warning]` 单独点出（写明「常被读错的地方是什么、正确的层次是什么」）。
+4. **只有 1 处短引文时，行内引用即可，不要套表**——一张只有一行的对照表比行内引用更难读。本规则针对的是「引文墙」，不是所有引文。
+5. 改写只动摆放：**引文逐字不改，脚注 ID 与来源归属（如 SG1-01 vs SG1-02）一律不动**，不得因为换形式而改写、删减或合并引文。
+
 ### Code Examples (when applicable)
 - Every code example must be complete and runnable
 - Add comments on key lines explaining non-obvious logic
@@ -197,9 +214,11 @@ Before presenting each chapter, verify:
 - [ ] Writing style matches the note type
 - [ ] Code examples (if any) are complete and have comments
 - [ ] Sources are cited properly
+- [ ] 数值类断言（具体数值 / 默认值 / 版本号）已回 `sources/` 原始文件按行号核对；核对不了就只写语义、不写数值（`02_deep_research.md` 是中间产物，抓取错位常见）
 - [ ] Chapter summary captures key takeaways
 - [ ] Core concepts have `[!tip] 大白话` plain-language callouts (analogy + back to practical meaning)
 - [ ] 抽象概念解释有「可见落点」：先给产物/目录树/前后对比/对比表再下结论，遮住大白话仍可独立读懂
+- [ ] 引文摆放：多引文段落（≥3 处 / 含整句英文 / >300 字符）已改为「官方原文 / 说人话」对照表 + 结论单独成句；**实际读一遍**，遮住英文列仍能读懂；引文逐字与脚注归属未因换形式而改动
 - [ ] Next chapter preview creates a natural bridge
 - [ ] Consistent tone and terminology with previous chapters
 - [ ] File is saved to the correct path

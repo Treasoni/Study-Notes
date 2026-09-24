@@ -16,6 +16,7 @@ Workflow、Skill、Subagent 和 Hook 都必须在各自工件目录下的 `manif
 - 新增、删除、重命名或实质修改上述工件时，同步更新其 manifest 的版本、依赖和最小权限。
 - 入口路径相对 manifest 目录解析，且不得离开该工件的配置根目录。
 - 变更后运行 `python3 .codex/platform/manifest-registry.py --root . validate`；Hook 还必须继续在 `.claude/settings.json` 中注册。
+- 交接或提交前运行 `.claude/scripts/workflow-health-check.sh`：它是上述各条校验的统一入口，聚合 routing 表校准、manifest 注册校验、跨机器可移植性检查，以及「workflow 定义只能调用 `todo-state.sh` 真实实现的动作」守卫。
 - 复用到其他项目时，使用项目内 `manifest-platform` Skill 的安装脚本，不把该平台配置写入全局配置目录（如 `~/.codex/`、`~/.claude/`）。
 
 ## Core Workflow
@@ -50,7 +51,7 @@ batch-note-updater -> note-updater
 
 - 命中 `Required: yes` 的工作流时，必须读取对应 `.claude/workflows/{workflow-id}/workflow.md`，创建或恢复命名 workflow state file，并通过 `.claude/scripts/todo-state.sh` 启动当前 phase 后才能执行。
 - 无法判断工作流是否命中时，先请求用户确认；不得直接绕过工作流执行。
-- 每次工作流新增、修改、重命名或删除后，必须运行 `.claude/scripts/sync-workflow-routing.sh`，并确保 `.claude/scripts/sync-workflow-routing.sh --check` 通过。
+- 每次工作流新增、修改、重命名或删除后，必须运行 `.claude/scripts/sync-workflow-routing.sh`，并确保 `.claude/scripts/sync-workflow-routing.sh --check` 通过；随后用 `.claude/scripts/workflow-health-check.sh` 收口，它会探测 workflow 定义里调用的每个 `todo-state.sh` 动作是否真实存在。
 
 项目工作区默认使用 `WORKSPACE_PATH=./workspace`。不要写死 `/workspace`。最终笔记位置由用户指定；未指定时只写入项目工作区的 `output/`。
 

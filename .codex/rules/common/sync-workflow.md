@@ -33,6 +33,12 @@ python3 .agent-sync/sync_agents.py --root . --apply --scope <area>
 python3 .agent-sync/sync_agents.py --root . --check
 ```
 
+最后跑一次伞形健康检查，把 routing 表、manifest 注册、跨机器可移植性和 workflow 定义动作守卫一次性覆盖：
+
+```bash
+.codex/scripts/workflow-health-check.sh
+```
+
 ## What It Does
 
 1. 读取 canonical profile（`.agent-sync/agents/codex.yaml`，`canonical: true`）与 target profile（`.agent-sync/agents/claude.yaml`）的 `paths` 映射。

@@ -15,7 +15,7 @@ Install into another project:
 skills/workflow-todo-state/scripts/install.sh /path/to/target-project --agent-dir .agent --with-skill --init-layout --update-agents
 ```
 
-Use `--profile <name>` for any built-in layout in `profiles/*.yaml`, or `--agent-dir`, `--skills-dir`, and `--entry-file` for a custom layout. The Codex profile correctly separates `.agents/skills` from `.codex`; omitting profile options keeps the historical `.claude` + `CLAUDE.md` default.
+Use `--profile <name>` for any built-in layout in `profiles/*.yaml`, or `--agent-dir`, `--skills-dir`, and `--entry-file` for a custom layout. The Claude Code profile correctly separates `.claude/skills` from `.codex`; omitting profile options keeps the historical `.claude` + `CLAUDE.md` default.
 
 Then:
 
@@ -35,6 +35,8 @@ Then:
    <agent-dir>/scripts/todo-state.sh "${WORKFLOW_STATE_FILE}" complete P1
    <agent-dir>/scripts/todo-state.sh "${WORKFLOW_STATE_FILE}" skip P2 "not needed"
    <agent-dir>/scripts/todo-state.sh "${WORKFLOW_STATE_FILE}" block P3 "waiting for user input"
+   <agent-dir>/scripts/todo-state.sh "${WORKFLOW_STATE_FILE}" mode P3 freeform "user chose the freeform branch"
+   <agent-dir>/scripts/todo-state.sh "${WORKFLOW_STATE_FILE}" confirm P3 "user approved the outline"
    ```
 
 ## Recommended Layout
@@ -112,6 +114,8 @@ The first command regenerates only the marked block in `<agent-dir>/rules/workfl
 - Completing the final phase requires `quality_gate: passed`. A temporary `waived` gate also requires a non-empty owner and due date.
 - `skip PN` refuses completed phases and records a reason.
 - `block PN` marks an open phase in progress, writes `current_status: blocked`, and records a reason; completed and skipped phases are terminal.
+- `mode PN <value>` persists the run mode in frontmatter and leaves the phase status line untouched. Use it before completing the phase whose outcome the mode records.
+- `confirm PN "note"` appends a row to the `## 用户确认记录` table and leaves the phase status line untouched.
 - After `complete` or `skip`, the script advances `current_phase` to the next `⬜ 未开始` phase, or to `done` when no pending phase remains.
 - Treat run states as active coordination data. After completion, archive or remove them according to the target repository policy; durable history belongs in changelogs, release notes, or ADRs.
 
