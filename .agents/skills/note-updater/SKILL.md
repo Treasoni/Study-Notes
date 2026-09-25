@@ -35,9 +35,10 @@ description: 更新过时的既有学习笔记。用于用户说“更新这篇�
    - 如果目标在 vault 内，检查双链、标签、MOC。
    - 如提供 `moc_path`，调用 `moc-organizer` 同步索引。
 6. **登记 vault / workspace 漂移**
-   - 如果旧笔记在 vault 内，而项目工作区（`chapters/`、`output/`）存在同名副本，那么本次更新只改了 vault 一侧，两边**必然**长期漂移。
-   - 在 `update_report.md` 里写明「哪一侧已更新、另一侧停留在何时」，不要把漂移留在沉默里。
-   - 不要默认回写 workspace，也不要默认 vault 就是权威稿：问用户是重跑组装同步 workspace，还是以 vault 为准、弃用旧副本。
+   - 本次改动落在 vault 内时，检查该项目工作区是否留有同名副本（`${WORKSPACE_PATH:-./workspace}/{project_slug}/chapters/`、`output/`）：本次只更新了 vault 一侧，两边**必然**长期漂移。
+   - 若该 run 已是 `current_phase: done`，workspace 副本不会再被任何流程更新，而两边文件名相同，极易被误当权威稿。
+   - 在 `update_report.md` 里登记「vault 已于 <日期> 更新，workspace 副本停留在 <日期>」，不要把漂移留在沉默里。
+   - 不要默认回写 workspace，也不要默认「以 vault 为准」就收工：让用户二选一——重跑 note-assembler 同步 workspace，或明确弃用 workspace 副本。
 
 ## Output Files
 

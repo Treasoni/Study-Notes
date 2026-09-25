@@ -8,8 +8,12 @@ Usage:
   <agent-dir>/scripts/todo-state.sh <workflow-state.md> complete P1
   <agent-dir>/scripts/todo-state.sh <workflow-state.md> skip P3 "reason"
   <agent-dir>/scripts/todo-state.sh <workflow-state.md> block P2 "reason"
+  <agent-dir>/scripts/todo-state.sh <workflow-state.md> mode P2 freeform "reason"
+  <agent-dir>/scripts/todo-state.sh <workflow-state.md> confirm P2 "confirmation note"
 
 Updates the phase status line, YAML recovery metadata, and visible current phase.
+`mode` persists the run mode in frontmatter; `confirm` appends a row to the
+confirmation record table. Neither changes the phase status line.
 USAGE
 }
 
@@ -21,7 +25,12 @@ fi
 TODO_FILE="$1"
 ACTION="$2"
 PHASE="$3"
+MODE_VALUE=""
 REASON="${4:-}"
+if [ "$ACTION" = "mode" ]; then
+  MODE_VALUE="${4:-}"
+  REASON="${5:-}"
+fi
 
 if [ ! -f "$TODO_FILE" ]; then
   echo "todo-state: file not found: $TODO_FILE" >&2
@@ -29,7 +38,7 @@ if [ ! -f "$TODO_FILE" ]; then
 fi
 
 case "$ACTION" in
-  start|complete|skip|block) ;;
+  start|complete|skip|block|mode|confirm) ;;
   *)
     echo "todo-state: unknown action: $ACTION" >&2
     usage
@@ -246,6 +255,22 @@ ensure_exception_table() {
   fi
 }
 
+append_confirmation_record() {
+  local content="$1"
+  content="${content//|//}"
+  NOW="$NOW" PHASE="$PHASE" CONTENT="$content" perl -0pi -e '
+    my $row = "| $ENV{PHASE} | $ENV{CONTENT} | $ENV{NOW} |\n";
+    s/(## 用户确认记录\n\n\|[^\n]*\n\|[^\n]*\n)/$1$row/s;
+  ' "$TODO_FILE"
+}
+
+ensure_confirmation_table() {
+  if ! grep -qF "## 用户确认记录" "$TODO_FILE"; then
+    echo "todo-state: confirmation table not found" >&2
+    exit 1
+  fi
+}
+
 case "$ACTION" in
   start)
     ensure_previous_phases_closed
@@ -307,5 +332,26 @@ case "$ACTION" in
     set_recovery_state "$PHASE" "blocked" "$REASON"
     set_visible_current_phase "$PHASE"
     append_exception_record "阻塞：${REASON:-未填写原因}" "停在当前阶段，等待用户确认或补充资料"
+    ;;
+  mode)
+    if [ -z "$MODE_VALUE" ]; then
+      echo "todo-state: mode requires a value, e.g. mode P2 freeform" >&2
+      exit 2
+    fi
+    ensure_frontmatter
+    set_frontmatter_key "last_updated" "$(yaml_quote "$TODAY")"
+    set_frontmatter_key "mode" "$(yaml_quote "$MODE_VALUE")"
+    printf 'todo-state: mode set to %s for %s%s\n' "$MODE_VALUE" "$PHASE" "${REASON:+ ($REASON)}"
+    ;;
+  confirm)
+    if [ -z "$REASON" ]; then
+      echo "todo-state: confirm requires a note, e.g. confirm P2 \"user approved the outline\"" >&2
+      exit 2
+    fi
+    ensure_confirmation_table
+    ensure_frontmatter
+    set_frontmatter_key "last_updated" "$(yaml_quote "$TODAY")"
+    append_confirmation_record "$REASON"
+    printf 'todo-state: confirmation recorded for %s: %s\n' "$PHASE" "$REASON"
     ;;
 esac

@@ -2,7 +2,7 @@
 
 活跃错误记录。当前 **5** 条（`ERR-20260918-008` / `-009` / `-010` / `-011` / `ERR-20260924-012`，均已 fixed，待 `/maintain-learnings` 复核后归档）。
 
-最近一次维护：2026-09-18（`/digest`）。本轮新增 3 条，全部来自 `learning-note-flow / hermes-home-assistant`
+本机最近一次维护：2026-09-18（`/digest`）。本轮新增 3 条，全部来自 `learning-note-flow / hermes-home-assistant`
 的 P5–P7 收尾轮：归一层错位（发布件漏归一）、归一脚本两处缺陷（插入点 + 非幂等）、记录数字取自历史输出。
 
 **源头修复状态（未全部完成，需 `/maintain-learnings` 接手）**：
@@ -19,6 +19,13 @@
   说明该条规则**在真实运行里没有拦住**（规则存在≠会被读到）。这属于「同类错误复发 + 已有规则仍失效」，
   按 `digest` 的规定应转 `maintain-learnings` 做源头修复，而不是就地再压一遍。
 
+另一台机器上的一轮维护：2026-09-23（`/maintain-learnings`）。本轮归档三条 2026-09-23 错误记录，
+均在源头修复（原文摘要、修复路径与验证方式见 `.learnings/archive/2026-09-23-maintenance.md`）：
+
+- `note-assembler：章标题降级未级联到子标题` → Step 4 改为「子树下沉 + 重新解析标题树断言层级」
+- `todo-state.sh：workflow 定义调用了未实现的动作` → 脚本补齐 `mode` / `confirm`，并新增探针式动作守卫
+- `chapter-writer：官方引文被串成 828 字符引文墙` → 写作规范新增引文摆放阈值与反例边界
+
 上一次维护：2026-09-14（`/maintain-learnings`）。本轮两条活跃错误均已在源头修复后归档：
 `learning-note-flow / P6 分册发布脚本自造 4 处文本缺陷` → 落到 `note-beautifier` 的
 「分册 / 长文档发布」自检节；`workflow state file 手工改写阶段行` → 落到
@@ -29,7 +36,8 @@
 `.agents/skills/research-collector/SKILL.md` 的 Source policy 增加「不得转述论断」硬约束，
 详见 `.learnings/archive/2026-09-11-maintenance.md`。
 
-新增错误请按 `digest` 的格式追加到本文件末尾。
+新增错误请按 `digest` 的格式追加到本文件末尾（错误 / 触发场景 / 根因 / 修复 / 预防措施）；
+修复落到机制并验证通过后，才可移入 `.learnings/archive/`。
 
 ---
 
@@ -211,5 +219,16 @@ todo-state: unknown action: confirm
   否则这类跨 canonical 目录的文档漂移会一直靠人工撞出来。
 - 保持既有做法：**凡在文档里看到脚本动作，先在脚本源码里 grep 白名单再执行**，
   不要照文档直接跑。
+
+### 补记（2026-09-26 合并 `origin/main` 时）
+
+另一台机器在 2026-09-23 的 `/maintain-learnings` 轮里独立撞上同一事故，并**修了源头**；本次合并已把那部分改动
+（连同 `.learnings/archive/2026-09-23-maintenance.md`）落进本机：
+
+- `.claude/scripts/todo-state.sh` / `.codex/scripts/todo-state.sh` 动作白名单补上 `mode` / `confirm`，各自带处理器（`mode` 只改 frontmatter `mode` 键，`confirm` 只追加 `## 用户确认记录`）。
+- `.claude/scripts/workflow-health-check.sh` / `.codex/scripts/workflow-health-check.sh` 新增**探针式动作守卫**：解析每个 workflow 定义里对 `todo-state.sh` 的调用并按实际探针逐个执行，带控制组探针与「空绿」保护；已在 `sync-workflow.md` 注册调用点。
+- `.learnings/RULES.md` 的 Watch For 里那条「`todo-state.sh` 只有 `start|complete|skip|block`（没有 `confirm`）」的绕行规则，已随合并改写为现行语义。
+
+因此本条按「已源头修复」处理，与本机其余 4 条一并等 `/maintain-learnings` 复核后归档。
 
 ---

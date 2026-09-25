@@ -109,6 +109,8 @@ Before any action that changes project files, runs project commands, or calls ex
    <agent-dir>/scripts/todo-state.sh "${WORKFLOW_STATE_FILE}" complete P3
    <agent-dir>/scripts/todo-state.sh "${WORKFLOW_STATE_FILE}" skip P3 "optional phase not needed"
    <agent-dir>/scripts/todo-state.sh "${WORKFLOW_STATE_FILE}" block P3 "waiting for confirmation"
+   <agent-dir>/scripts/todo-state.sh "${WORKFLOW_STATE_FILE}" mode P2 freeform "user chose the freeform branch"
+   <agent-dir>/scripts/todo-state.sh "${WORKFLOW_STATE_FILE}" confirm P2 "user approved the research direction"
    ```
 
 ## Validation Checklist
@@ -118,4 +120,5 @@ Before any action that changes project files, runs project commands, or calls ex
 - Try starting P2 before P1 is complete; it should fail.
 - Try skipping an optional phase; `current_phase` should advance to the next pending phase.
 - Confirm `## 异常记录` receives skip/block rows when present.
+- Confirm `mode P2 <value>` rewrites only the frontmatter `mode` key, and `confirm P2 "note"` appends only to `## 用户确认记录`; neither touches the `[P2]` status line.
 - Change a `routing.yaml` value, confirm `sync-workflow-routing.sh --check` fails, then synchronize and confirm it passes.

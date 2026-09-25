@@ -1,6 +1,6 @@
 # LEARNINGS.md
 
-最近一次维护：2026-09-18（`/digest`，后由 `update-hermes-ha-volume` 运行补记 `LRN-20260918-019`）。
+本机最近一次维护：2026-09-18（`/digest`，后由 `update-hermes-ha-volume` 运行补记 `LRN-20260918-019`）。
 本轮新增 `LRN-20260918-017`（Discourse 正文只走 `/t/<id>.json`）、
 `LRN-20260918-018`（产物落点用仓库内路径；工具可用性先探测）、
 `LRN-20260918-019`（核对 Hermes Skills Hub 必须查中央索引，不能用仓库内 `optional-skills/` 代替）。
@@ -15,6 +15,39 @@ vault / workspace 漂移」）、`LRN-20260914-014` / `-015` / `-016`（处置�
 早前归档 `LRN-20260911-009` / `LRN-20260914-013`（规则已入 RULES.md）。
 逐条的修复路径、验证方式与处理结果见 `.learnings/archive/2026-09-14-maintenance.md`（本轮）
 与 `.learnings/archive/2026-09-14-archived.md`（digest 压缩）。
+
+另一台机器上的一轮维护：2026-09-23（`/maintain-learnings`）。本轮把 7 条「教训已进 `RULES.md`、记录仍留在活跃文件」
+的记录逐条追回源头，落到可执行机制后归档；原文摘要、修复路径、验证方式与遗留项见
+`.learnings/archive/2026-09-23-maintenance.md`：
+
+- `LRN-20260912-011` workflow — vault 与 workspace 副本漂移未登记 → `note-updater` 新增漂移登记步骤
+- `LRN-20260923-014` workflow — 并行写作跨章口径未冻结 → `learning-note-flow` 阶段 4 新增口径表检查点
+- `LRN-20260923-015` workflow — workflow 定义调用了未实现的动作 → `workflow-health-check.sh` 新增动作守卫
+- `LRN-20260923-017` correction — 逐字引文串成引文墙 → `chapter-writer` 摆放规范与验收清单已在位
+
+更早一批（`digest` 于同日压缩）见 `.learnings/archive/2026-09-23-archived.md`。
+
+> 注：该轮维护已把 `LRN-20260912-012` 的副本按「事件已报告用户并终结、无待办动作」归档进
+> `.learnings/archive/2026-09-23-archived.md`；本机这份记录判为**不可归档**（写者身份未定）。
+> 两处并存，留待下一轮 `/maintain-learnings` 裁定去留。
+
+新增记录请按 `digest` 的格式追加到本文件末尾：
+
+```markdown
+## [LRN-YYYYMMDD-NNN] area — 一句话结论
+
+**Logged**: YYYY-MM-DD
+**Priority**: high | medium | low
+**Status**: pending | in_progress | resolved
+**Area**: 受影响的 skill / agent / workflow
+
+### Summary
+### Details
+### Suggested Action
+```
+
+只有**已落到机制并被验证**的记录才可归档（`.learnings/archive/YYYY-MM-DD-maintenance.md`）；
+未修复、未验证或仍需观察的记录继续留在本文件。
 
 ## [LRN-20260912-012] anomaly — vault 被本会话之外的写者改动，先隔离再报告，不要顺手"修回去"
 

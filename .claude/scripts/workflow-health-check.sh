@@ -88,6 +88,88 @@ for template in "$this_dir"/workflows/*/state-template.md; do
   fi
 done
 
+# A workflow definition must only call todo-state.sh actions the script actually
+# implements. A documented-but-missing action breaks the branch that uses it at
+# its very first command (`unknown action`, exit 2) while every doc still reads
+# fine -- that is how `mode` / `confirm` sat broken in workflow.md until someone
+# ran the freeform branch for real. Parse the calls out of the definitions and
+# probe the script: a list of action names copied into this guard would drift
+# from the implementation, which is the failure mode being guarded against.
+todo_state="$this_dir/scripts/todo-state.sh"
+probed_invocations=0
+if [ -f "$todo_state" ]; then
+  # Control probe: a known-good action must be accepted on a fresh state file.
+  # Without it, a script that aborts before its action dispatch (or a broken
+  # probe harness) would make every workflow call look "implemented" and the
+  # guard below would pass for the wrong reason.
+  control_template=""
+  for candidate in "$this_dir"/workflows/*/state-template.md; do
+    [ -f "$candidate" ] && control_template="$candidate" && break
+  done
+  if [ -z "$control_template" ]; then
+    fail "No workflow state template found to probe todo-state.sh against."
+  else
+    control_state="$(mktemp "${TMPDIR:-/tmp}/todo-state-control.XXXXXX")"
+    cp "$control_template" "$control_state"
+    if ! control_out="$(bash "$todo_state" "$control_state" mode P1 "health-check control" 2>&1)"; then
+      printf '%s\n' "$control_out" >&2
+      fail "Control probe failed: todo-state.sh rejected a known-good action on a fresh state file."
+    fi
+    rm -f "$control_state"
+  fi
+
+  for doc in "$this_dir"/workflows/*/workflow.md; do
+    [ -f "$doc" ] || continue
+
+    template="$(dirname "$doc")/state-template.md"
+    if [ ! -f "$template" ]; then
+      fail "Workflow definition has no state template to probe against: $doc"
+      continue
+    fi
+
+    probe_state="$(mktemp "${TMPDIR:-/tmp}/todo-state-probe.XXXXXX")"
+    cp "$template" "$probe_state"
+
+    while IFS= read -r line; do
+      rest="${line#*todo-state.sh}"
+      # Only a real invocation has an argument right after the script name; a
+      # prose mention (e.g. "调用 `.claude/scripts/todo-state.sh`，避免…") does not.
+      case "$rest" in
+        "$line" | " "*) ;;
+        *) continue ;;
+      esac
+
+      # Two shapes appear in the definitions: `<script> <state-file> <action>
+      # <phase>` and the terse `<script> <action> <phase>` used inside prose.
+      # Read the action as the bare lowercase word right before a phase token, so
+      # neither shape has to be guessed from positional position.
+      while read -r action phase; do
+        [ -n "$action" ] || continue
+        probed_invocations=$((probed_invocations + 1))
+
+        probe_out="$(bash "$todo_state" "$probe_state" "$action" "${phase:-P1}" "health-check probe" 2>&1 || true)"
+        if printf '%s' "$probe_out" | grep -q "unknown action"; then
+          printf '%s: %s\n' "$doc" "$action" >&2
+          fail "Workflow definition calls a todo-state.sh action the script does not implement: $action"
+        fi
+      done < <(
+        printf '%s\n' "$rest" |
+          awk '{for (i = 2; i <= NF; i++) if ($i ~ /^P[0-9]+$/) {a = $(i - 1); if (a ~ /^[a-z][a-z-]*$/) print a, $i}}' |
+          sort -u
+      )
+    done < <(grep -n "todo-state\.sh" "$doc" || true)
+
+    rm -f "$probe_state"
+  done
+fi
+
+# Who guards the guard: a scan that matched nothing would leave the loop above
+# harmless and this check green while verifying nothing at all.
+if [ "$probed_invocations" -eq 0 ]; then
+  fail "No todo-state.sh invocations were found in any workflow definition; the action guard verified nothing."
+fi
+echo "todo-state action guard: $probed_invocations invocation(s) probed against $todo_state"
+
 if ! "$this_dir/scripts/sync-workflow-routing.sh" --check; then
   fail "Workflow routing table is stale."
 fi

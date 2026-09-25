@@ -124,7 +124,9 @@ Based on the chosen strategy, perform the assembly:
 
 Ensure consistent formatting throughout:
 
-1. **Headings**: Ensure heading levels are consistent (H1 for title, H2 for chapters, H3 for sections)
+1. **Headings**: Make heading levels consistent (H1 for title, H2 for chapters, H3 for sections). Demoting chapter headings is a **subtree** operation, not a single-pattern replacement: every descendant heading inside a chapter (`## N.M` sections, `## 小结` summaries, `####` sub-sections) must be demoted with it. A half-demotion renders fine and raises no error — `## 第一章：…`, `## 1.1 …` and `## 小结` all landing on `##` collapses the outline to one flat level, and only re-parsing the tree reveals it.
+   - Verify by re-parsing the assembled document's heading tree and asserting depth increases strictly with nesting: chapter < section < sub-section. Checking only the pattern you replaced is not verification.
+   - Print how many headings changed level (e.g. `heading levels adjusted: N`). An `N` smaller than "every descendant of every demoted chapter" means the cascade stopped early.
 2. **Code blocks**: Ensure all code blocks have language identifiers
 3. **Lists**: Ensure consistent list formatting (bullet style, numbering)
 4. **Links**: Ensure all links are properly formatted
@@ -200,7 +202,7 @@ Before finalizing the assembly, verify:
 - [ ] Chapter order is logical (either original or reorganized)
 - [ ] Transitions between chapters are smooth
 - [ ] Table of contents is accurate and complete
-- [ ] Heading levels are consistent throughout
+- [ ] Heading levels are consistent throughout, verified by re-parsing the heading tree: chapter < section < sub-section strictly. A chapter heading and a section heading sharing one level is a defect (the demotion did not cascade), not a style choice.
 - [ ] Code blocks have proper language identifiers
 - [ ] Links and references are valid
 - [ ] No duplicate content or sections
