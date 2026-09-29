@@ -470,7 +470,7 @@ Hermes 的自我描述则明确把「本机」列为要摆脱的默认：
 
 两条架构细节各自支撑这个姿态。OpenClaw 一侧：`一台主机一个 Gateway` 加上默认绑 loopback，意味着它默认是本机可达、外网不可达，要开放得走「认证入口」而不是公网绑定。Hermes 一侧：网关默认一个 profile 一个，但可以多路复用——`把 gateway.multiplex_profiles: true 打开后，一个进程就同时服务默认 profile 和 profiles/ 下每一个活跃目录`（`research/hermes/gw/01_hermes-agent_nousresearch_com.md:451`）。
 
-记忆的落盘位置也随部署姿态走。OpenClaw 的记忆就是工作区里的普通 Markdown，`模型只记得被写进磁盘的东西，没有隐藏状态`（`research/openclaw/extra/02_docs_openclaw_ai.md:10`）；Hermes 的记忆默认存在 `~/.hermes/memories/`，并且有硬字符上限——MEMORY.md `2,200 字符（约 800 token）`、USER.md `1,375 字符（约 500 token）`，合计约 `约 1,300 token` 固定注入（`research/hermes/05_hermes-agent_nousresearch_com_memory.md:14-15,302`）。
+记忆的落盘位置也随部署姿态走。OpenClaw 的记忆就是工作区里的普通 Markdown，`模型只记得被写进磁盘的东西，没有隐藏状态`（`research/openclaw/extra/02_docs_openclaw_ai.md:10`）；Hermes 的记忆默认存在 `~/.hermes/memories/`，并且有硬字符上限——MEMORY.md `2,200 字符（约 800 token）`、USER.md `1,375 字符（约 500 token）`，合计 `约 1,300 token` 固定注入（`research/hermes/05_hermes-agent_nousresearch_com_memory.md:14-15,302`）。
 
 > [!tip] 大白话
 > 这一轴像问「你的管家住哪」。OpenClaw 的管家住在你家里，顺手就能翻你的书柜、用你的厨房，但要让外面的朋友找他，得先给他开个门。Hermes 的管家住在云上的一间小办公室，7×24 在岗、从任何地方都能联系，但他够不到你家书柜，除非你自己往里搬东西。
