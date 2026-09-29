@@ -53,6 +53,7 @@ import html as htmllib
 import pathlib
 import re
 import sys
+import unicodedata
 
 try:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -105,6 +106,13 @@ def denoise(t):
     t = re.sub(r"!?\[([^\]]*)\]\([^)]*\)", r"\1", t)      # 链接 / 图片
     t = re.sub(r"</?[a-zA-Z][a-zA-Z0-9]*(?:\s[^>]*)?/?>", "", t)
     t = re.sub(r"<https?://[^>]*>", "", t)
+    # 抓回来的原料常是 PDF / arxiv 提取件，**LaTeX 会漏进正文**：语料里写的是
+    # `ℒ\mathcal{L}`，笔记侧写的是干净的 `ℒ`——一个字都对不上，真引文被判 weak
+    # （实测 `13_arxiv_2606.20683v1_fulltext.md:98`，覆盖率 0.77）。
+    # 必须先剥 LaTeX 命令、再做 markdown 反斜杠转义：顺序反了，`\mathcal{L}` 里的
+    # 反斜杠会被当转义吃掉，变成 `mathcal{L}`，永远对不上。
+    t = re.sub(r"\\[a-zA-Z]+\s*\{([^{}]*)\}", r"\1", t)
+    t = re.sub(r"\\[a-zA-Z]+", " ", t)
     t = re.sub(r"\\(.)", r"\1", t)
     t = t.replace("&#x20;", " ").replace("&nbsp;", " ")
     for m in ("**", "__", "*", "`", "[", "]"):
@@ -117,8 +125,13 @@ def norm(t):
 
     与 `music-tag-web/_verify/sweep_quotes.py` 的 normalize 保持一致——那个脚本
     是这套判据的源头，别在两边分别演化。
+
+    额外做一次 **NFKC**：PDF / arxiv 提取件里的兼容字符与笔记侧的正常字符编码不同，
+    同一句话会变成两串（`ℒ` U+2112 vs `L`、`ﬁ` vs `fi`、全角括号 vs 半角）。
+    NFKC 只影响 V 的比对（S1/S2 走原始文本的 `cjk_only`），不会掩盖改字：
+    `and argue that` 与 `we argue that` 这类字母差异 NFKC 一概不动。
     """
-    return ELISION.sub("", re.sub(r"[\s　]+", "", denoise(t)))
+    return ELISION.sub("", re.sub(r"[\s　]+", "", unicodedata.normalize("NFKC", denoise(t))))
 
 
 def spans(line):
@@ -337,7 +350,12 @@ def check_verbatim(files, primary, derived):
                     continue
                 for seg in verbatim_segments(q):
                     total += 1
-                    nq = norm(seg)
+                    # 笔记侧也要去**行首注释 / 标题符**：引文里被引的常常正是来源文档的
+                    # 一行标题或一行注释（`#### 1. Secondary profiles must not start
+                    # their own gateway`、`# Paths that bypass JWT middleware …`）。
+                    # 语料侧走了 corpus_norm、笔记侧却只走 norm，同一个 `#` 一边被去掉
+                    # 一边留着，两条真引文被误判成 weak（实测覆盖率 0.92 / 0.98）。
+                    nq = corpus_norm(seg)
                     if nq in pb:
                         continue
                     (weak if nq in db else miss).append((path.name, i, kind, seg[:150]))
