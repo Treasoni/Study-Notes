@@ -1,49 +1,17 @@
 # ERRORS.md
 
-活跃错误记录：当前 **3** 条 —— `ERR-20260929-013` / `-014` / `-015`，均为 2026-09-29 本轮新记，
+活跃错误记录：当前 **2** 条 —— `ERR-20260929-014` / `-015`，均为 2026-09-29 记，
 状态 `pending`（机制已落地，尚未在下一轮运行中被验证）。
 
-最近一次维护 2026-09-29（`/maintain-learnings`）：归档 5 条旧记录（`-008` / `-009` / `-010` /
-`-011` / `ERR-20260924-012`），条目全文见 `.learnings/archive/2026-09-29-archived.md`，
-处置路径与验证方式见 `.learnings/archive/2026-09-29-maintenance.md`；更早各轮见同目录对应文件。
+最近一次维护 2026-09-30（`/maintain-learnings`）：归档 `ERR-20260929-013`
+（机制已机器化，改由共享引文校验器 `.codex/scripts/note-citation-check.py` 的 `V` 族强制，
+并已验证），条目全文见 `.learnings/archive/2026-09-30-archived.md`，
+处置路径与验证方式见 `.learnings/archive/2026-09-30-maintenance.md`。
+再上一次 2026-09-29 归档 5 条旧记录（`-008` / `-009` / `-010` / `-011` / `ERR-20260924-012`），
+见同目录对应文件。
 
 新增错误追加到本文件末尾（错误 / 触发场景 / 根因 / 修复 / 预防措施）；
 修复落到机制并验证通过后，才可移入 `.learnings/archive/`。
-
----
-
-## [ERR-20260929-013] research-collector / P2→P4 — 中间产物里的逐字引文被改动，沿引用链传进正文
-
-**Logged**: 2026-09-29T23:20:00+0800
-**Priority**: high
-**Status**: fixed（已回原文订正；源头闸已落 research-collector）
-**Area**: research-collector / chapter-writer / 引文纪律
-
-### Summary
-`02_deep_research.md:313` 把来源句 `and argue that` 写成了 `we argue that`，第 1 章正文照抄。
-缺陷源于**上游研究件本身**，不是写作代理擅自改写——而下游只核「这句引文在不在」，
-核不出被替换掉的一个代词。
-
-### Error
-```
-(无报错) 引文带来源 ID、句子存在、锚点可解析，逐字却与原文不一致
-```
-
-### Context
-- 来源原文：`research/framework/13_arxiv_2606.20683v1_fulltext.md:61`。
-- 发现路径：第 6 章写作代理按「落笔前回原文核对」逐条回源时撞见。
-- 关键点：这类错误**能骗过所有「有没有挂来源」的检查**，只有逐字比对才抓得到。
-
-### 修复
-- 回原文核对，上游与正文两处一并改为来源全句；同段落第二处引文经核为逐字正确，保留。
-- 源头闸：`.agents/skills/research-collector/SKILL.md` 的
-  「The intermediate artifact is not an authority」要求引文**逐字比对后**才落盘、
-  记录源 ID + 行号，且产物在 handoff 头部自述为中间产物；P2 新增 self-check 步骤，
-  完成标准要求输出「引文 N 处逐字核对 / 数值 M 处重新计数」行。
-
-### 预防措施
-- 引文不是「大意对了就行」的字段：落盘前逐字比对，禁止凭记忆或凭更早的摘要重构。
-- 「有没有来源 ID」与「引文是否逐字正确」是**两个独立核对项**，不能互相推出。
 
 ---
 

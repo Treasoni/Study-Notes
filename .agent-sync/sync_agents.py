@@ -13,6 +13,11 @@ from typing import Any, Iterable
 
 TEXT_SUFFIXES = {".md", ".py", ".sh", ".json", ".yaml", ".yml", ".toml", ".txt"}
 PRIVATE_SKILL_PARTS = {"agents"}
+# 字节码缓存不是源：canonical 目录里被 python 顺手写出的 `__pycache__/*.pyc`
+# 既不进镜像，也不该让 `--check` 永远报一条「[DRIFT] created」——apply 会把它
+# 复制进镜像，check 又永远追不平。生成物一律不参与同步。
+IGNORED_PARTS = {"__pycache__"}
+IGNORED_SUFFIXES = {".pyc", ".pyo"}
 MCP_BEGIN = "# BEGIN agent-sync:mcp"
 MCP_END = "# END agent-sync:mcp"
 PATH_KEYS = {"skills", "rules", "hooks", "hook_config", "scripts", "workflows", "agents", "instructions", "mcp"}
@@ -177,6 +182,8 @@ def source_files(base: Path, *, skill_mode: bool = False) -> dict[Path, Path]:
         if not path.is_file():
             continue
         rel = path.relative_to(base)
+        if IGNORED_PARTS.intersection(rel.parts) or path.suffix.lower() in IGNORED_SUFFIXES:
+            continue
         if skill_mode and PRIVATE_SKILL_PARTS.intersection(rel.parts):
             continue
         files[rel] = path

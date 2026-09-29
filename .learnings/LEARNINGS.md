@@ -1,11 +1,14 @@
 # LEARNINGS.md
 
-活跃学习记录：当前 **4** 条 —— `LRN-20260912-012`（挂起）、`LRN-20260929-020` / `-021`
-（2026-09-29 记）与 `LRN-20260930-022`（2026-09-30 记，状态均 `pending`）。
+活跃学习记录：当前 **3** 条 —— `LRN-20260912-012`（挂起）、`LRN-20260929-020` / `-021`
+（2026-09-29 记，状态 `pending`）。
 
-最近一次维护 2026-09-29（`/maintain-learnings`）：归档 3 条已落机制且经验证的记录
-（`LRN-20260918-017` / `-018` / `-019`），条目全文见 `.learnings/archive/2026-09-29-archived.md`，
-处置路径与验证方式见 `.learnings/archive/2026-09-29-maintenance.md`；更早各轮见同目录对应文件。
+最近一次维护 2026-09-30（`/maintain-learnings`）：归档 `LRN-20260930-022`
+（该偏好的四条判据已全部机器化，改由共享引文校验器的 `S1` / `S2` / `S3` / `S4` 与 `C` 强制），
+条目全文见 `.learnings/archive/2026-09-30-archived.md`，
+处置路径与验证方式见 `.learnings/archive/2026-09-30-maintenance.md`。
+再上一次 2026-09-29 归档 3 条已落机制且经验证的记录（`LRN-20260918-017` / `-018` / `-019`），
+见同目录对应文件。
 
 `LRN-20260912-012`（vault 被本会话之外的写者改动，写者身份未定）**不可归档**，继续挂起。
 
@@ -94,31 +97,3 @@ P1 的候选记录（标题 / URL / tier / 相关性 / 分数）本身不区分*
 
 ---
 
-## [LRN-20260930-022] best_practice — 「引文中译 + 逐字留档」的规则要落在**生成**侧，不能只留在美化侧验收清单
-
-**Logged**: 2026-09-30T01:05:00+0800
-**Priority**: high
-**Status**: pending（机制已落 chapter-writer / learning-note-flow 阶段 4-5 / note-system 规则，下轮运行复核后归档）
-**Area**: learning-note-flow / chapter-writer
-
-### Summary
-用户先对单篇成品说「那个英文我不是很想看，我更想直接看中文」，随后明确「**生成笔记时，引用都这样**」——
-即升格为默认。首轮只把规则写进 `note-beautifier` 的 Step 4 验收清单与 `.learnings/RULES.md`，
-两份工件都在**美化阶段**：下一个运行里，章节生成时照样会写出成句英文引文，到美化阶段还得整篇回改一遍。
-
-### Details
-- 事实：规则落点跟着「**发现问题的阶段**」走（缺陷在成品里被看到 → 写进美化侧），而不是跟着
-  「**产生该形态的阶段**」走（写作阶段）。
-- 根因：把「验收条目」当成「生成约束」用。验收条目只证明「这一次改对了」，只有生成侧条目
-  才让「下次不用改」；只补验收，等于把同一笔返工留给每个后续运行。
-- 下次做法：任何「产出形态」类偏好，先在生成侧工件落地——`chapter-writer.md` 的写作要求
-  + Quality Checklist、`workflow.md` 的阶段检查项、`rules/obsidian/note-system.md`；
-  美化侧只留验收条目（多份副本逐字比对、撞车与边界叠字复扫、出处宁空不猜）。
-
-### Suggested Action
-已按此落地：`chapter-writer.md` 新增「引文语言要求（所有笔记类型通用）」节 + Quality Checklist 一条；
-`learning-note-flow/workflow.md` 阶段 4、阶段 5 检查项各加一条；`rules/obsidian/note-system.md`
-新增 `## 引文语言（所有笔记的默认要求）`；`.learnings/RULES.md` 的「引文语言」规则标明
-「生成阶段就照此写」。`note-beautifier` / `chapter-writer` / `learning-note-flow` 的 manifest 版本随之提升。
-
----

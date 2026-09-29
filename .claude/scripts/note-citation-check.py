@@ -12,14 +12,14 @@
 用法（在项目根目录运行）：
 
     # 组装前：单章的文本级检查（V + S，不含跨副本——此时一章只有一份副本）
-    python .codex/scripts/note-citation-check.py workspace/<project-slug> --mode text
+    python .claude/scripts/note-citation-check.py workspace/<project-slug> --mode text
 
     # 收集阶段：核对自己的中间产物有没有把来源引错（ERR-20260929-013 的源头）
-    python .codex/scripts/note-citation-check.py workspace/<project-slug> \
+    python .claude/scripts/note-citation-check.py workspace/<project-slug> \
         --mode verbatim --file 02_deep_research.md
 
     # 组装 / 发布后：三族全跑
-    python .codex/scripts/note-citation-check.py workspace/<project-slug> \
+    python .claude/scripts/note-citation-check.py workspace/<project-slug> \
         [--vault-note "AI学习/.../某篇.md"]
 
 ## 三类检查
