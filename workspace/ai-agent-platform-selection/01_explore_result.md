@@ -71,7 +71,7 @@ P0 假设是：*不是产品同质，而是使用者的场景划分尚未建立�
 
 | 观察 | 支撑来源 |
 |---|---|
-| **OpenClaw 官方发布专页，对 Hermes 做 17 轴 source-verified 对照**（钉在 Hermes commit `6defe7eb6c`，reviewed 2026-08-27）——**同层的最强证据** | `docs.openclaw.ai/start/why-openclaw/openclaw-and-hermes-agent` |
+| **OpenClaw 官方发布专页，对 Hermes 做 source-verified 对照（15 行属性）**（钉在 Hermes commit `6defe7eb6c`，reviewed 2026-08-27）——**同层的最强证据** | `docs.openclaw.ai/start/why-openclaw/openclaw-and-hermes-agent` |
 | OpenClaw 官方称 "The recurring comparison is [Hermes Agent]" | 同上 / `research/openclaw/extra2/01_docs_openclaw_ai.md` |
 | Hermes 官方**内置从 OpenClaw 迁移的命令** `hermes claw migrate` | #9 + 源码 `hermes_cli/claw.py` |
 | **双向迁移**：OpenClaw 也能从 Hermes 导入记忆（`import existing local memory from Codex, Claude Code, and Hermes`） | `research/openclaw/extra/02_docs_openclaw_ai.md:26` |
@@ -93,7 +93,7 @@ P0 假设是：*不是产品同质，而是使用者的场景划分尚未建立�
 >
 > ⚠️ 本条目前**仅记录在本文件内**，尚未正式写入 `.learnings/`——应由 `digest` / `maintain-learnings` 流程落库，不要在别处引用为「已入库」。
 
-### 3.2 新增高价值来源：OpenClaw 官方 17 轴对照表（**有立场，需标注**）
+### 3.2 新增高价值来源：OpenClaw 官方 15 行属性对照表（**有立场，需标注**）
 
 `docs.openclaw.ai/start/why-openclaw/openclaw-and-hermes-agent` 是本次探测的最高价值单品，且**必须按有立场来源处理**：
 

@@ -30,7 +30,9 @@
 | `05_docs_openclaw_ai.md` | `start/teams` |
 | `06_raw_githubusercontent_com.md` | README |
 | `extra/01..04` | `agent-runtimes` / `memory` / `security` / `tools-skills` |
-| `extra2/01` | **`start/why-openclaw/openclaw-and-hermes-agent`（官方 17 轴对照表）** |
+| `extra2/01` | **`start/why-openclaw/openclaw-and-hermes-agent`（官方 15 行属性对照表）** |
+
+> **口径订正（2026-09-29）**：本节初稿把这张表记作「17 轴」。实测 `research/openclaw/extra2/01_docs_openclaw_ai.md` 中 `^|` 行共 **17 行**，其中含表头 1 行（`:15`）与分隔行 1 行（`:16`），**属性行实为 15 条**（`:17-31`）。现全库统一为「15 行属性对照表」；`01_explore_result.md`、`03_outline.md` 已同步订正。对照表出处、立场标注（OpenClaw 单方制作）与钉住的 commit（`6defe7eb6c`）均不变。
 | `extra2/02` | `cli/fleet` |
 | `community/01, 02` | 腾讯云开发者社区两篇（2026-04-13 / 2026-05-26） |
 
@@ -120,7 +122,7 @@
 - `The public plugin SDK publishes about 150 entrypoints` — 同上
 - `ClawHub is OpenClaw's registry, with publishing, moderation, security audits` — 同上
 
-**A6 与另两者的关系** — **官方专页对 Hermes 做 17 轴 source-verified 对照；Octop 零提及**
+**A6 与另两者的关系** — **官方专页对 Hermes 做 source-verified 对照（15 行属性）；Octop 零提及**
 - `The recurring comparison is [Hermes Agent]` — `why-openclaw`
 - `condenses the source-verified contrast with Hermes` — 同上 → `extra2/01`
 - 官方逐字引用 Hermes 安全政策：`The only security boundary against an adversarial LLM is the operating system.` — 同上（引自 Hermes `SECURITY.md`）
@@ -293,7 +295,7 @@
 - **修正**：命名的外部 agent 工具**只有 ACP runner**，内置 **7 个**：`opencode` / `codebuddy` / `claude_code` / `codex` / `kimi_code` / `cursor_cli` / `pi` — `docs/acp.md:29-38`（先前写成「唯一是 `claude_code`」有误，实为一张 7 行表；由 chapter-writer 回原文核对时发现）
 - 方向定义：`| **Outbound** | OpenCode, CodeBuddy, … | Octop (acp_runner tool) | Octop agent delegates coding tasks |` — `docs/acp.md:8`
 - → **Octop 的邻近参照物是「本地 CLI 阵营」（Claude Code / Codex），不是 OpenClaw / Hermes**；且这份关系是**集成**（委派编码任务），不是竞品对照
-- 与 OpenClaw 侧对称：OpenClaw 官方为 Hermes 做了 17 轴对照页；Octop 未被 OpenClaw / Hermes 任一方提及，Octop 亦不提它们
+- 与 OpenClaw 侧对称：OpenClaw 官方为 Hermes 做了 15 行属性对照专页；Octop 未被 OpenClaw / Hermes 任一方提及，Octop 亦不提它们
 
 **A7 运维成本与官方声明的限制**
 - 收益 / 代价成对声明：`| Zero external dependencies | Vertical scaling only (one machine) |`、`| Simple deployment (one process, one port) | Heavy CPU tasks block the event loop |`、`| Fast local dev | No horizontal worker scaling |` — `docs/adr/001-single-process-model.md:27-29`
@@ -376,7 +378,7 @@
 
 **租户语汇的分布本身也是证据**：三者中**只有 OpenClaw** 有租户词汇（`experimental per-tenant fleet cells`），且自带 experimental 标注；Hermes 与 Octop **各有且仅有一处** `tenant`，都是**消息路由字段**（Slack workspace / `tenant_id=agent_id`），均**不得**读成租户模型。
 
-**层判断**：OpenClaw 与 Hermes **同层**（双向迁移 + 官方 17 轴对照 + 权威清单同归类）；Octop 与之是**同层不同重心**，不是「层不同」。**一条旁证**：Octop 命名的外部 agent 工具只有 ACP runner，内置 7 个（`opencode` / `codebuddy` / `claude_code` / `codex` / `kimi_code` / `cursor_cli` / `pi`，`docs/acp.md:29-38`），全是编码类且以命令行接入 —— 即它的邻近参照物落在**本地 CLI 阵营**（把 7 个逐个归入该层属**推断**，官方未使用这一分类词），而 OpenClaw 与 Hermes 互为对照物 —— 三方各自站位，在「谁把谁当参照」上再次显形。
+**层判断**：OpenClaw 与 Hermes **同层**（双向迁移 + 官方对照（15 行属性） + 权威清单同归类）；Octop 与之是**同层不同重心**，不是「层不同」。**一条旁证**：Octop 命名的外部 agent 工具只有 ACP runner，内置 7 个（`opencode` / `codebuddy` / `claude_code` / `codex` / `kimi_code` / `cursor_cli` / `pi`，`docs/acp.md:29-38`），全是编码类且以命令行接入 —— 即它的邻近参照物落在**本地 CLI 阵营**（把 7 个逐个归入该层属**推断**，官方未使用这一分类词），而 OpenClaw 与 Hermes 互为对照物 —— 三方各自站位，在「谁把谁当参照」上再次显形。
 
 **写作硬约束**：后续任何章节**不得**不加限定语地使用「多用户」一词；首次出现必须指明是上表三层语义中的哪一层。
 
@@ -396,7 +398,7 @@
 
 ### 禁止事项（传给下游 writer）
 - 不得使用 P1 来源 #11、#14（均抓取失败，仅搜索摘要）
-- 引用 OpenClaw 17 轴对照表时**必须标注「OpenClaw 单方制作」**，不得当作中立评测
+- 引用 OpenClaw 15 行属性对照表时**必须标注「OpenClaw 单方制作」**，不得当作中立评测
 - 引用 `workspace/hermes-agent/chapters/*` 的内容时须标为**本仓库二次加工**，不得标为官方口径
 - 不得使用 Star 数作为选型依据
 - **不得**把聊天端点只挂 `Depends(current_user)` 写成「Octop 读访问无权限控制」——admin 域读端点确实要 `require_permission`（`users.py:270-272` 等），准确说法是**权限键管管理页 / 写操作，数据隔离由 `user_id` 行级归属另负**
@@ -411,5 +413,5 @@
 2. **多用户治理的版本边界**：RBAC（`0.9.24`）与按用户配额（`0.9.33`）确为增量加入，但「多用户」本身是否 1.0 之前即存在未验证（`docs/versioned-history.md` 未抓）
 3. **Octop 归属的完整表清单**：只确认 `agents.user_id`，`knowledge_bases` / `usage_log` / `audit_log` 为间接证据，未逐表核对
 4. `research/openclaw/community/01` 正文未抓全，「Hermes（大脑）+ OpenClaw（执行者）」协同架构**仅有标题与导语**，不足以支撑断言
-5. **Hermes 侧对 OpenClaw 17 轴对照表的回应**：未找到（未检索 Hermes 是否有反向对照页）
+5. **Hermes 侧对 OpenClaw 15 行属性对照表的回应**：未找到（未检索 Hermes 是否有反向对照页）
 6. **P1 流程教训尚未落库 `.learnings/`**（见 `01_explore_result.md` §3.1）
