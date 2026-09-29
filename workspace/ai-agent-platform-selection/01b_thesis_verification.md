@@ -48,8 +48,15 @@ Hermes 官方文档明确有多用户能力：
 | `To give one person a privileged profile and everyone else a restricted one, declare the privileged sender route first, add a platform-wide catch-all route to the restricted profile after it` | 同上 |
 
 **但**（必须并列记录）：
-- 对 `workspace/hermes-agent/research/` 全目录 grep，**未发现在任何官方文本中提及 `tenant` / `multi-tenant` / `SaaS`**
+- 全库检索 `multi-tenant` / `multitenant` / `multi-user` / `SaaS` —— **零命中**；唯一 1 处 `tenant` 指的是**消息平台的**租户命名空间（Slack workspace），不是 Hermes 自身的租户模型：
+  - `Sender ids are also namespaced per tenant on some platforms — a Slack user id is workspace-local` — `research/hermes/02_..._multi-profile-gateways.md:643`
+  - → 不得把这一处读成「Hermes 有租户能力」
 - 上述能力全部落在**单机、单进程、单所有者**范围内，是**准入与分级**，不构成平台级多租户
+- **分级的实际边界很窄**（P2 补）：
+  - `**What the tiers gate today:** slash commands. ... Plain chat is not affected — non-admins can still talk to the agent.` — `research/hermes/03_raw_githubusercontent_com_messaging-index.md:378`
+  - → Admin/Regular 分档**目前只管 slash 命令**，普通对话不受限
+- **sender 路由不是授权**（P2 补）：
+  - `Sender routing selects a profile; it is not deny-by-default authorization.` — 同上 `:645`
 - Hermes 自身的定位语言仍是个人助手：`A personal assistant on one Telegram bot and a coding agent on another`（multi-profile-gateways 页面示例）
 
 → 因此我的措辞错误在于把「多用户」当成了一个二值属性。**精确说法：Hermes 有官方多用户准入/分级，没有多租户。**

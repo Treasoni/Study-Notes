@@ -32,7 +32,7 @@
 | 11 | ~~知乎：对比 OpenClaw 与 Hermes-Agent 的设计哲学~~ **【P2 降级：抓取失败】** | https://zhuanlan.zhihu.com/p/2047204065948471698 | **不可用** | **P2 三路抓取均失败**（`crawl.sh` / curl+浏览器 UA / WebFetch 全 403，且搜索引擎确认该链接未被索引）。P1 该条**仅来自搜索摘要，从未取得原文** → **不得作为引文来源**。替代佐证见 `research/openclaw/community/01_cloud_tencent_cn.md`（2026-04-13，仅标题与导语可用） | 未获取 | ~~4~~ **0** |
 | 12 | 腾讯云开发者社区：三个 Agent Harness 框架对比 | https://cloud.tencent.cn/developer/article/2674122 | 社区 | 把 OpenClaw、Hermes、OpenHuman 同归为「Agent Harness」，比进程/线程模型、记忆层数、技能生成方式 | — | 4 |
 | 13 | arXiv 2606.20683 · From QA to Task Completion: A Survey on Agent System and Harness Design | https://arxiv.org/abs/2606.20683 | 权威 | **选型框架底稿**：agent 能力 = 「模型–harness 配对」属性；harness 拆为观察/上下文/控制/动作/状态/验证六项职责 | 2026-06 | **5** |
-| 14 | 知乎问题：ai agent 的架构好像都差不多啊？有啥比较特别的吗？ | https://www.zhihu.com/question/1959742114519844109 | 社区 | 中文社区正面处理「同质化」（≈你的原问题）：用 LLM 接口范式、ReAct 收敛、MCP 标准化、token 成本约束解释架构趋同 | ~2025 | 4 |
+| 14 | ~~知乎问题：ai agent 的架构好像都差不多啊？有啥比较特别的吗？~~ **【P2 降级：抓取失败】** | https://www.zhihu.com/question/1959742114519844109 | **不可用** | **P2 全程 HTTP 403**（`crawl.sh` 报 `Blocked by anti-bot protection`；直连 UA 伪装、`zhuanlan` 变体、`/api/v4/questions/...` 均失败；检索无原文转载）。P1 该条所述「LLM 接口范式 / ReAct 收敛 / MCP 标准化 / token 成本约束」四条归因**未能逐字取到** → **不得作为引文来源**。替代社区源 `research/framework/zh/01_szhshp_org.md`（2026-07-11，归因角度不同） | 未获取 | ~~4~~ **0** |
 | 15 | HN · Revenge of the GPT Wrappers: Defensibility in a world of commoditized AI models | https://news.ycombinator.com/item?id=42971442 | 社区 | 模型商品化后 agent 应用还剩什么护城河（135 分 / 44 评论） | 2025-02-07 | 4 |
 | 16 | OpenHands software-agent-sdk Issue #3112 | https://github.com/OpenHands/software-agent-sdk/issues/3112 | 一手 | 项目自身 issue 对比「自托管 OpenHands」与「本地 CLI Claude Code」在工具集/系统提示/耗时上的边界 | 开帖日期未确认 | 4 |
 | 17 | Agenta-AI/awesome-ai-agent-platforms | https://github.com/Agenta-AI/awesome-ai-agent-platforms | 一手 | 按 AI coworker / agent builder / workflow automation / browser agent / coding agent 分类，标注许可证与托管形态 —— 现成的平台分层坐标 | 持续更新 | 4 |
@@ -85,8 +85,13 @@ P0 假设是：*不是产品同质，而是使用者的场景划分尚未建立�
 
 | # | P1 原表述 | P2 复核结果 |
 |---|---|---|
-| 1 | 「Hermes 侧**无官方多用户/多租户文档**（仅 PR 与第三方封装）」 | **错误**。Hermes 官方有多用户文档（allowlist 准入、`Admins vs Regular Users` 分级、per-user profile 路由）。精确说法：**有官方多用户准入/分级，无多租户**（`tenant`/`multi-tenant`/`SaaS` 全目录 grep 零命中）。已在 `01b_thesis_verification.md` 完整记录 |
+| 1 | 「Hermes 侧**无官方多用户/多租户文档**（仅 PR 与第三方封装）」 | **错误**。Hermes 官方有多用户文档（allowlist 准入、`Admins vs Regular Users` 分级、per-user profile 路由）。精确说法：**有官方多用户准入/分级，无多租户**（`multi-tenant`/`multi-user`/`SaaS` 零命中；全库唯一 1 处 `tenant` 指的是**消息平台的**租户命名空间，如 Slack workspace，非 Hermes 自身租户模型）。已在 `01b_thesis_verification.md` 记录 |
 | 2 | 「社区已存在『Hermes 指挥、OpenClaw 执行』的互补用法」（来源 #11 知乎） | **降级**。#11 三路抓取全失败且未被搜索引擎索引，P1 该条**仅来自搜索摘要**。替代源仅存标题与导语可用，**不足以支撑该断言** |
+| 3 | 中文社区「用 LLM 接口范式 / ReAct 收敛 / MCP 标准化 / token 成本约束解释架构趋同」（来源 #14 知乎） | **降级**。#14 全程 HTTP 403（含 UA 伪装与 API 变体），四条归因**未能逐字取到**。替代社区源归因角度为「Agent 工程 = 软件工程概念的翻版」，与原文四条**不重合**，不可互相替换 |
+
+> **P1 流程教训（待记入 `.learnings/`）**：第 1 轮探测把「搜索摘要级」结果与「已抓取原文」混在同一张表里，并按结果给了评分与日期。来源 #11、#14 两条均属此类。**P1 的候选表不能当作已验证来源使用**；凡未实际抓取的条目，必须在表内显式标注「未获取原文」。
+>
+> ⚠️ 本条目前**仅记录在本文件内**，尚未正式写入 `.learnings/`——应由 `digest` / `maintain-learnings` 流程落库，不要在别处引用为「已入库」。
 
 ### 3.2 新增高价值来源：OpenClaw 官方 17 轴对照表（**有立场，需标注**）
 
