@@ -10,7 +10,7 @@ topic: "自托管 AI Agent 平台选型（Octop / OpenClaw / Hermes）"
 project_slug: "ai-agent-platform-selection"
 created_at: "2026-09-29"
 last_updated: "2026-09-29"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：ai-agent-platform-selection
 > 项目标识：ai-agent-platform-selection
 > 创建时间：2026-09-29
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -82,14 +82,19 @@ quality_gate_due: ""
 ---
 
 ## 阶段 4：逐章写作
-- [ ] 第 1 章已写完并确认
-- [ ] 第 2 章已写完并确认
-- [ ] 第 3 章已写完并确认
-- [ ] ...（根据实际章节数添加）
+- [x] 第 1 章已写完并确认
+- [x] 第 2 章已写完并确认
+- [x] 第 3 章已写完并确认
+- [x] 第 4 章已写完并确认
+- [x] 第 5 章已写完并确认
+- [x] 第 6 章已写完并确认
+- [x] 第 7 章已写完并确认
+- [x] 并行写作 ≥2 章时：已冻结跨章口径表并写进每个 dispatch（见下「并行写作的跨章口径」）
+- [x] 全部章节交付后：已对「可照抄的配置块」做跨章 grep 比对
 
-**进度**：0/7
+**进度**：7/7
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -102,7 +107,7 @@ quality_gate_due: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
@@ -151,7 +156,10 @@ quality_gate_due: ""
 
 | 时间 | 阶段 | 问题描述 | 处理方式 |
 |------|------|---------|---------|
-| | | | |
+| 2026-09-29 | P4 | **逐字引文被改动**：`02_deep_research.md:313` 把来源句的 `and argue that` 写成 `we argue that`，第 1 章正文照抄。缺陷源于上游研究件本身，非写作代理擅自改写 | 核对 `research/framework/13_arxiv_2606.20683v1_fulltext.md:61` 原文，上游与正文两处均改为来源全句；同段落第二处引文经核为逐字正确，保留 |
+| 2026-09-29 | P4 | **数值断言数错**：`02_deep_research.md` / `01_explore_result.md` / `03_outline.md` 把 OpenClaw 官方对照表记作「17 轴」，实为 **15 条属性行**（17 是 `^\|` 行总数，含表头与分隔行） | 由第 6 章写作代理回原文核对时发现；全库 12 处订正为「15 行属性对照表」，并在 `02_deep_research.md` 留「口径订正」块记录数错原因 |
+| 2026-09-29 | P4 | **跨章冻结标签漂移**：Hermes 那一档在 ch.2 锚表写「准入**与**很窄的分级」，ch.3 / ch.7 写「准入 **+** 很窄分级」 | 按 `workflow.md` 阶段 4「可照抄的配置块」跨章比对规则发现；以 `03_outline.md:15` 硬约束行 + ch.2 §2.1 锚表为 canonical，全库 33 处归一 |
+| 2026-09-29 | P4 | 5 处 checker 引文回源失败 | 逐条核对，全部为假阳性：代码标识符（`POST /market/...`）、行内散片段（`（List installed plugins）只挂`）、跨注释行拼接（`claw.py:33-34` 的 `#` 前缀）。无需改动 |
 
 ---
 

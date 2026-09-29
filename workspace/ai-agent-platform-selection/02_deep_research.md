@@ -33,6 +33,11 @@
 | `extra2/01` | **`start/why-openclaw/openclaw-and-hermes-agent`（官方 15 行属性对照表）** |
 
 > **口径订正（2026-09-29）**：本节初稿把这张表记作「17 轴」。实测 `research/openclaw/extra2/01_docs_openclaw_ai.md` 中 `^|` 行共 **17 行**，其中含表头 1 行（`:15`）与分隔行 1 行（`:16`），**属性行实为 15 条**（`:17-31`）。现全库统一为「15 行属性对照表」；`01_explore_result.md`、`03_outline.md` 已同步订正。对照表出处、立场标注（OpenClaw 单方制作）与钉住的 commit（`6defe7eb6c`）均不变。
+
+> **跨章口径统一（P4 验收，2026-09-29）**：P4 要求对「可照抄的配置块」做跨章比对（`workflow.md` 阶段 4）。两侧结果：
+> 1. **配置键**：七章 **无围栏代码块**（全文停在「上手」深度，配置只用行内 code span），故无同名键多取值可统一；全库唯一的 `KEY=VALUE` 片段是 `TELEGRAM_ALLOWED_USERS=...`，仅出现 1 次，无冲突。
+> 2. **冻结标签**：比对出 **1 处真实漂移**——Hermes 那一档在 ch.2 锚表写作「准入**与**很窄的分级」，在 ch.3/ch.7 写作「准入 **+** 很窄分级」。以 `03_outline.md:15` 硬约束行 + ch.2 §2.1 锚表（自称「全篇的锚」）为 canonical，**全库 33 处统一为「准入与很窄的分级」**（`01_explore_result.md` / `02_deep_research.md` / `03_outline.md` / 七章正文）。此为纯措辞归一，不涉及语义等价主张，故不标推断。
+> 3. **其余冻结项复核**：层名（本地 CLI 阵营 / 个人助手 harness / 多用户平台）、另两档标签（不提供隔离 / 行级归属）、7 个 ACP runner 名单，跨章一致，无漂移。
 | `extra2/02` | `cli/fleet` |
 | `community/01, 02` | 腾讯云开发者社区两篇（2026-04-13 / 2026-05-26） |
 
@@ -154,7 +159,7 @@
 - `Run it on a $5 VPS, a GPU cluster, or serverless infrastructure that costs nearly nothing when idle. It's not tied to your laptop` — 同上 ← **与 OpenClaw 的「laptop」定位正面分野**
 - 权威清单一句话定位：`[Hermes Agent](...) - Personal agent with memory, skills, tools, scheduled jobs, and messaging channels.` — `framework/17`
 
-**A2「多用户」= 准入 + 很窄的分级 + profile 路由；无租户语汇**
+**A2「多用户」= 准入与很窄的分级 + profile 路由；无租户语汇**
 - 负面结论：检索 `multi-tenant` / `multitenant` / `multi-user` / `SaaS` **零命中**；唯一 1 处 `tenant` 指**消息平台的**租户命名空间
   - `Sender ids are also namespaced per tenant on some platforms — a Slack user id is workspace-local` — `multi-profile-gateways`
 - 准入：`**By default, the gateway denies all users who are not in an allowlist or paired via DM.**` — messaging `index.md`
@@ -363,7 +368,7 @@
 | | 「多用户」在其语境中的实际含义 | 关键原文 |
 |---|---|---|
 | OpenClaw | 同一信任域内的**协作**；明确非安全边界。多租户靠一租户一 Gateway 绕开，且明确无企业版 | `usability features, not security boundaries` / `One gateway per tenant` / `There is no enterprise edition.` |
-| Hermes | 单机单所有者范围内的**准入 + 很窄的分级**（分档目前只管 slash 命令）+ profile 路由 | `The admin / user split` / `What the tiers gate today: slash commands` |
+| Hermes | 单机单所有者范围内的**准入与很窄的分级**（分档目前只管 slash 命令）+ profile 路由 | `The admin / user split` / `What the tiers gate today: slash commands` |
 | Octop | **架构内建**的多用户（JWT + 行级归属 + RBAC + 按用户配额），限定家庭与小团队单实例 | `Agent ownership is enforced at the **row** level` / `households and small teams` |
 
 **硬结论**：**多用户平台 ≠ 多租户平台**。
@@ -373,7 +378,7 @@
 | 强度 | 平台 | 官方措辞 |
 |---|---|---|
 | 明确声明**不提供**隔离 | OpenClaw | `usability features, not security boundaries` / `It is not an authorization or isolation boundary.` |
-| 准入 + 很窄的分级 | Hermes | `The admin / user split` / `What the tiers gate today: slash commands` |
+| 准入与很窄的分级 | Hermes | `The admin / user split` / `What the tiers gate today: slash commands` |
 | **行级归属**（真正的数据隔离，且隔离边界延伸到运维动作） | Octop | `Agent ownership is enforced at the **row** level` / `只选当前用户自己的 agent，不包含其他用户或共享 agent` |
 
 **租户语汇的分布本身也是证据**：三者中**只有 OpenClaw** 有租户词汇（`experimental per-tenant fleet cells`），且自带 experimental 标注；Hermes 与 Octop **各有且仅有一处** `tenant`，都是**消息路由字段**（Slack workspace / `tenant_id=agent_id`），均**不得**读成租户模型。
@@ -388,7 +393,7 @@
 
 ### 可直接用作骨架的四条轴
 1. **术语轴**（主线）：多用户 / 多租户 / 准入分级的三义切分
-2. **隔离强度轴**：不提供隔离（OpenClaw）→ 准入 + 很窄分级（Hermes）→ 行级归属（Octop）
+2. **隔离强度轴**：不提供隔离（OpenClaw）→ 准入与很窄的分级（Hermes）→ 行级归属（Octop）
 3. **层内差异轴**：OpenClaw `runs on your own computer` / `personal assistant on a laptop` **vs** Hermes `It's not tied to your laptop`（$5 VPS / serverless）—— 同层内部最可直接回答「什么场景用哪个」的一根轴
 4. **框架轴**：arXiv 六职责（观察 / 上下文 / 控制 / 动作 / 状态 / 验证与治理）作为**问对问题**的清单，配 awesome-list 的五类用途定位
 
