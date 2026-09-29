@@ -379,15 +379,13 @@ def transform_title_only(lines, trans, stats, tag):
 
 
 def callout_already(lines):
-    return any(APPENDIX_TITLE in l or "关于引文" in l for l in lines)
+    # 只认 callout 自己的标记。不能拿 APPENDIX_TITLE 判：附录标题
+    # 「### 引文对照（原文 / 中译）」包含它，会导致插完附录后自认为已插过 callout。
+    return any(CALLOUT[0] in l for l in lines)
 
 
 def insert_callout(lines):
-    """把「关于引文」callout 插到组装本的目录之后。"""
-    for i, l in enumerate(lines):
-        if l.startswith("## 参考文档"):
-            return lines
-    # 目录之后 = 第一个 `## 第 1 章` 之前
+    """把「关于引文」callout 插到目录之后、第 1 章正文之前。"""
     for i, l in enumerate(lines):
         if re.match(r"^## 第 1 章", l):
             return lines[:i] + CALLOUT + lines[i:]
