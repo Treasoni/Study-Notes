@@ -60,10 +60,18 @@ Before the first crawl of a run:
 
 1. Reuse the accepted P1 candidates. Fetch every `snippet-only` candidate that the chosen direction relies on, and add sources solely to fill explicit gaps. Batch deep reading into ≤3 delegates (one per source group) instead of one delegate per source.
 2. Extract claim-level notes with anchors or section names; keep quotations short and preserve source attribution.
-3. **Self-check the artifact before writing it** (this is the gate that downstream writers cannot provide): re-compare every verbatim quotation against `sources/` character by character, and recount every number, default, version, and row count against the original. Report the check as a line in the handoff (`引文 N 处逐字核对 / 数值 M 处重新计数`); if any item cannot be re-verified, drop the value and keep the semantics.
-4. Write `02_deep_research.md` with: scope, source table, claim/source map, contradictions, practical guidance, open questions, and a concise downstream handoff — including the intermediate-artifact header described in the source policy.
-5. Keep full source bodies in local cache only when necessary for reproducibility; downstream stages receive paths, anchors, summaries, and source IDs.
-6. Complete P2 and present source counts, tier mix, unresolved gaps, and the next user decision.
+3. **Self-check the artifact before writing it** (this is the gate that downstream writers cannot provide): run the shared checker on the artifact itself —
+
+   ```bash
+   python .codex/scripts/note-citation-check.py ${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG} \
+       --mode verbatim --file 02_deep_research.md
+   ```
+
+   It hard-fails on a quotation that traces nowhere (未命中) and on one that traces **only into your own intermediates**; for each weak hit it prints how far the quote traces into the raw sources plus the nearest corpus text, so the verdict 「提取件标记差异 / 跨项目来源 / 我自己的概括被当成引文」 is one glance instead of a hunt. Do not hand-roll another checker for this — add the missing judgement to `.codex/scripts/note-citation-check.py` (`--mode verbatim --file` exists precisely for this check; ERR-20260929-013 is the defect it was built for). Then recount every number, default, version, and row count against the original. The script covers **English整句引文 only**; Chinese quotations and all numbers remain a manual character-by-character comparison — do not let the script's green light stand for those. Report the check as a line in the handoff (`引文 N 处逐字核对（校验器 V 全绿）/ 数值 M 处重新计数`); if any item cannot be re-verified, drop the value and keep the semantics.
+4. **Quotes taken from another workspace must be reachable from here.** A project sometimes quotes a capture that lives in a sibling project's tree, written as a pointer that resolves in *this* project's `research/` — that file does not exist, so the citation chain is cut the moment the reader follows it. Add the other tree explicitly (`--corpus ../<other-project>/research`) and cite the full cross-project path, not a bare-looking `research/04_..._honcho.md`.
+5. Write `02_deep_research.md` with: scope, source table, claim/source map, contradictions, practical guidance, open questions, and a concise downstream handoff — including the intermediate-artifact header described in the source policy.
+6. Keep full source bodies in local cache only when necessary for reproducibility; downstream stages receive paths, anchors, summaries, and source IDs.
+7. Complete P2 and present source counts, tier mix, unresolved gaps, and the next user decision.
 
 ## Token and cache discipline
 
@@ -76,7 +84,7 @@ Before the first crawl of a run:
 ## Completion criteria
 
 - Every material claim maps to a source record or is explicitly marked as an inference.
-- Every verbatim quotation in the artifact has a re-verified source ID plus line number, and every number has a counting basis; the self-check line is present.
+- Every verbatim quotation in the artifact has a re-verified source ID plus line number, and every number has a counting basis; the self-check line is present, and the checker's `V` line for the artifact itself reads 未命中 0 / 仅中间产物命中 0 (or every remaining weak hit is named and explained in the handoff).
 - Every candidate is marked `snippet-only` or `fetched`, and no `snippet-only` row is treated as evidence.
 - P1 or P2 output is present, compact, and matches the active state phase.
 - The next phase is not started without the user gate.

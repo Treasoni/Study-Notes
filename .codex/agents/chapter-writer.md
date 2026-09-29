@@ -251,6 +251,11 @@ Before presenting each chapter, verify:
 - [ ] 抽象概念解释有「可见落点」：先给产物/目录树/前后对比/对比表再下结论，遮住大白话仍可独立读懂
 - [ ] 引文摆放：多引文段落（≥3 处 / 含整句英文 / >300 字符）已改为「官方原文 / 说人话」对照表 + 结论单独成句；**实际读一遍**，遮住英文列仍能读懂；引文逐字与脚注归属未因换形式而改动
 - [ ] 引文语言：正文里的**成句英文引文**已给中译（代码 / 命令 / 配置键 / 路径 / 文件名 / 产品名 / 单个术语保留原文），且本章末尾有「引文对照（原文 / 中译 / 出处）」表留档逐字原文
+- [ ] 交章前跑过引文校验器：`python .codex/scripts/note-citation-check.py workspace/<slug> --mode text`
+      —— `V 逐字回源` 的**未命中**与**只在自制中间产物里命中**、以及 `S4 对照表结构` 都是硬失败，
+      退出码非 0 就不交章；`S1/S2/S3` 是候选清单，逐条判「真缺陷 / 巧合」，判「不动」的写一句理由。
+      **不要现写临时校验脚本**——缺哪条判据就加进 `.codex/scripts/note-citation-check.py`；
+      副本一致性（`--mode all`）此时只能比到章文件本身，等组装后再跑。
 - [ ] Next chapter preview creates a natural bridge
 - [ ] Consistent tone and terminology with previous chapters
 - [ ] File is saved to the correct path

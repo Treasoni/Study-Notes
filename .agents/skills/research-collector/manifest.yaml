@@ -2,8 +2,8 @@ apiVersion: agent-platform/v1
 kind: Skill
 metadata:
   name: research-collector
-  version: 2.3.0
-  description: "Collect and curate staged, source-backed research with a cache-stable prompt contract and batched fan-out (<=3 delegates per phase); forbids paraphrase-as-citation in downstream dispatch."
+  version: 2.4.0
+  description: "Collect and curate staged, source-backed research with a cache-stable prompt contract and batched fan-out (<=3 delegates per phase); forbids paraphrase-as-citation in downstream dispatch and requires the shared citation checker on the artifact before write-out."
 spec:
   entrypoint: SKILL.md
   capabilities:
@@ -12,7 +12,7 @@ spec:
   permissions:
     filesystem: write
     network: allow
-    subprocess: none
+    subprocess: allow
     git: none
   dependsOn:
     - Skill/prompt-cache-optimizer

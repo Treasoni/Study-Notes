@@ -47,6 +47,13 @@ S1/S2/S3 是**候选清单**（要人工判，不自动判罪）；V 的未命�
 就是它——中间件把来源的 `and argue that` 写成 `we argue that`，下游照抄，而下游
 「挂着来源 ID、句子也在」，所有形式检查都过得去。不查 `--file`，这个错误要等
 user 读出来的那一刻才被发现。
+
+**跨项目来源**：项目常引用**别的工作区**里的抓取件（实测
+`ai-agent-platform-selection/02_deep_research.md` 引了 `hermes-agent/research/` 的三句
+Honcho 原文，写作 `research/04_..._honcho.md`——本项目里解析不了）。这类引文在**本项目**
+语料里必然判 weak，这不是缺陷但也不是无事：用 `--corpus <另一项目>/research` 把它挂上，
+能逐字回源才算引用链没断。**只写一个本项目内解析不了的指针 = 把引用链剪断**，
+读者回源时找不到那份文件。
 """
 import argparse
 import html as htmllib
