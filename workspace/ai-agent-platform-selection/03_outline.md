@@ -31,7 +31,7 @@
 - **素材引用**：
   - `02_deep_research.md` §4.1（arXiv 2606.20683：agent 性能是**模型–harness 配对**的属性；`a task is not merely an application label but a pressure profile over observation, context, control, action, state, and governance`；六职责表）
   - `02_deep_research.md` §4.2（awesome-list 五类分类，`Each project appears once, under the category that best matches its main use.`；**`coding agents` 是独立一类**，与 OpenClaw / Hermes 所在的 `AI coworkers and teammates` 节并列）
-  - `02_deep_research.md` §3.3 A6（ACP 事实：Octop 唯一命名的外部 agent 工具是 `| claude_code | npx | -y, @zed-industries/claude-agent-acp |`，方向为 **outbound** 委派，`research/octop/docs/acp.md:8,33`）
+  - `02_deep_research.md` §3.3 A6（ACP 事实：Octop 命名的外部 agent 工具**只有 ACP runner，内置 7 个**——`opencode` / `codebuddy` / `claude_code` / `codex` / `kimi_code` / `cursor_cli` / `pi`，方向为 **outbound** 委派，`research/octop/docs/acp.md:8,29-38`。**注意不是「唯一是 `claude_code`」**）
   - `02_deep_research.md` §5 C2（Star 数互相矛盾，标注不可靠，不作选型证据）
   - `00_intent.md`「诊断假设」段（工具先于场景落位）
   - 锚点：`research/framework/13_arxiv_2606.20683v1_fulltext.md`、`research/framework/abs/01_arxiv_org.md`、`research/framework/17_awesome-ai-agent-platforms_README.md`
@@ -53,7 +53,7 @@
 | 第 2 层 个人助手 harness | 是 —— 常驻 gateway / 长驻进程 | 单数 | OpenClaw、Hermes | 本文比较对象 |
 | 第 3 层 多用户平台 | 是 —— 常驻服务，单实例承载多用户 | 复数 | Octop | 本文比较对象 |
 
-- **判据来源与证据边界（必须显式写出）**：这一层的证据在 `02_deep_research.md` 中**最弱**，只能引用两处 —— §4.2 的 awesome-list 五类分类（其中 `coding agents` 是**独立一类**，与 `AI coworkers and teammates` 并列），以及 §3.3 A6 的 ACP 事实（Octop 唯一命名的外部 agent 工具是 `claude_code`，且关系是**集成 / 委派**而非竞品）。
+- **判据来源与证据边界（必须显式写出）**：这一层的证据在 `02_deep_research.md` 中**最弱**，只能引用两处 —— §4.2 的 awesome-list 五类分类（其中 `coding agents` 是**独立一类**，与 `AI coworkers and teammates` 并列），以及 §3.3 A6 的 ACP 事实（Octop 命名的外部 agent 工具**只有 ACP runner，内置 7 个且全是编码类 CLI**，关系是**集成 / 委派**而非竞品）。**把 7 个逐个归入「本地 CLI 阵营」属推断**，官方未使用该分类词。
 - **显式声明**：第 1 层在本文中**只作坐标系**，本文的比较对象是**第 2、3 层**；第 1 层不展开，也不得引用 `01_explore_result.md` 候选表里未落盘的条目（例如 #16 OpenHands issue）作为证据。
 - **为什么必须在这里做这一步**：「感觉都一样」的范畴错误，本质就是把第 1 / 2 / 3 层的东西放进同一张功能清单比较；先把坐标立起来，后面五章的比较才有共同刻度。
 
@@ -150,7 +150,7 @@
 - **素材引用**：
   - `02_deep_research.md` §3.1 A6：`The recurring comparison is [Hermes Agent]` / `condenses the source-verified contrast with Hermes` / `Hermes is built by Nous Research, a venture-funded company` / README 全文对 `hermes`、`octop` 提及均为 0（锚点 `research/openclaw/02_docs_openclaw_ai.md`、`extra2/01`、`06_raw_githubusercontent_com.md`、`05_docs_openclaw_ai.md`）
   - §3.2 A6：`## Migrating from OpenClaw` / `If you're coming from OpenClaw, Hermes can automatically import your settings, memories, skills, and API keys.` / `hermes claw migrate` / 源码 `_OPENCLAW_DIR_NAMES = (".openclaw", ".clawdbot", ".moltbot")` / 36 个具名迁移项 / `Secrets are never included implicitly`（锚点 `research/hermes/01_raw_githubusercontent_com_README.md`、`src/claw.py:1,29,33-34`、`src/openclaw_to_hermes.py:40-190`）
-  - §3.3 A6：Octop 全库检索 `openclaw|hermes` **零命中**；唯一显式外部 agent 工具是 ACP 出站 runner `| claude_code | npx | -y, @zed-industries/claude-agent-acp |`（锚点 `research/octop/docs/acp.md:8,33`）
+  - §3.3 A6：Octop 全库检索 `openclaw|hermes` **零命中**；命名的外部 agent 工具**只有 ACP runner，内置 7 个**（`opencode` / `codebuddy` / `claude_code` / `codex` / `kimi_code` / `cursor_cli` / `pi`）（锚点 `research/octop/docs/acp.md:8,29-38`）。**不是「唯一是 `claude_code`」**
   - §4.2（Octop / Tencent 未被 awesome-list 收录）
   - §5 C1、C4（README 零提及 vs docs 站有专页，并列记录；开源冲突已裁决）
   - §6 层判断旁证（Octop 的邻近参照物是本地 CLI 阵营）
@@ -160,7 +160,7 @@
   1. 开篇给判据：同层与否不看功能，看**互相引用与互迁**；这是可证伪的硬证据。
   2. OpenClaw 侧：有官方 17 轴对照专页，但 README 全文零提及 —— 门面与文档深度不一致，**并列记录不合并**；引用对照表时**必须标注「OpenClaw 单方制作」**，不是中立评测。
   3. Hermes 侧：迁移命令是双向同层的铁证（README 与源码三处交叉一致）；点出密钥默认不迁这一安全姿态；引用本仓库既有章节时必须标为「本仓库二次加工」。
-  4. Octop 侧：双向零提及，且它唯一命名的外部 agent 工具是走 ACP 的本地 CLI —— 回指第 1 章的三层坐标：它的邻近参照物落在**第 1 层**，三方各自站位由此显形。
+  4. Octop 侧：双向零提及，且它命名的外部 agent 工具只有 ACP runner（内置 7 个，全是编码类 CLI）—— 回指第 1 章的三层坐标：它的邻近参照物落在**第 1 层**。**注意**：把这 7 个逐个归入「本地 CLI 阵营」属**推断**（官方未使用该分类词），写作时必须标注为推断，不得当成官方口径。
 
 ---
 

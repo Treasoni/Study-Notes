@@ -289,7 +289,7 @@
 
 **A6 与另两者的关系** — **双向零提及**；唯一命名的外部 agent 工具是本地 CLI（走 ACP）
 - 全库检索 `openclaw|hermes`（`README` / `README_CN` / `AGENTS.md` / `docs/` / `plugins/`）**零命中**
-- 唯一显式提到的外部 agent 工具是 ACP 出站 runner：`| claude_code | npx | -y, @zed-industries/claude-agent-acp |` — `docs/acp.md:33`
+- **修正**：命名的外部 agent 工具**只有 ACP runner**，内置 **7 个**：`opencode` / `codebuddy` / `claude_code` / `codex` / `kimi_code` / `cursor_cli` / `pi` — `docs/acp.md:29-38`（先前写成「唯一是 `claude_code`」有误，实为一张 7 行表；由 chapter-writer 回原文核对时发现）
 - 方向定义：`| **Outbound** | OpenCode, CodeBuddy, … | Octop (acp_runner tool) | Octop agent delegates coding tasks |` — `docs/acp.md:8`
 - → **Octop 的邻近参照物是「本地 CLI 阵营」（Claude Code / Codex），不是 OpenClaw / Hermes**；且这份关系是**集成**（委派编码任务），不是竞品对照
 - 与 OpenClaw 侧对称：OpenClaw 官方为 Hermes 做了 17 轴对照页；Octop 未被 OpenClaw / Hermes 任一方提及，Octop 亦不提它们
@@ -375,7 +375,7 @@
 
 **租户语汇的分布本身也是证据**：三者中**只有 OpenClaw** 有租户词汇（`experimental per-tenant fleet cells`），且自带 experimental 标注；Hermes 与 Octop **各有且仅有一处** `tenant`，都是**消息路由字段**（Slack workspace / `tenant_id=agent_id`），均**不得**读成租户模型。
 
-**层判断**：OpenClaw 与 Hermes **同层**（双向迁移 + 官方 17 轴对照 + 权威清单同归类）；Octop 与之是**同层不同重心**，不是「层不同」。**一条旁证**：Octop 唯一命名的外部 agent 工具是走 ACP 的本地 CLI（`claude_code`），即它的邻近参照物是**本地 CLI 阵营**，而 OpenClaw 与 Hermes 互为对照物 —— 三方各自站位，在「谁把谁当参照」上再次显形。
+**层判断**：OpenClaw 与 Hermes **同层**（双向迁移 + 官方 17 轴对照 + 权威清单同归类）；Octop 与之是**同层不同重心**，不是「层不同」。**一条旁证**：Octop 命名的外部 agent 工具只有 ACP runner，内置 7 个（`opencode` / `codebuddy` / `claude_code` / `codex` / `kimi_code` / `cursor_cli` / `pi`，`docs/acp.md:29-38`），全是编码类且以命令行接入 —— 即它的邻近参照物落在**本地 CLI 阵营**（把 7 个逐个归入该层属**推断**，官方未使用这一分类词），而 OpenClaw 与 Hermes 互为对照物 —— 三方各自站位，在「谁把谁当参照」上再次显形。
 
 **写作硬约束**：后续任何章节**不得**不加限定语地使用「多用户」一词；首次出现必须指明是上表三层语义中的哪一层。
 
