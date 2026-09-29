@@ -10,7 +10,7 @@ topic: "自托管 AI Agent 平台选型（Octop / OpenClaw / Hermes）"
 project_slug: "ai-agent-platform-selection"
 created_at: "2026-09-29"
 last_updated: "2026-09-29"
-current_phase: P3
+current_phase: P4
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：ai-agent-platform-selection
 > 项目标识：ai-agent-platform-selection
 > 创建时间：2026-09-29
-> 当前阶段：阶段 3
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -77,7 +77,7 @@ quality_gate_due: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中 {in_progress}
+> [P3] ✅ 已完成 {complete}
 
 ---
 
@@ -87,9 +87,9 @@ quality_gate_due: ""
 - [ ] 第 3 章已写完并确认
 - [ ] ...（根据实际章节数添加）
 
-**进度**：0/待大纲确定
+**进度**：0/7
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中 {in_progress}
 
 ---
 
@@ -130,6 +130,7 @@ quality_gate_due: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P3 | 用户确认大纲（7 章，12.4k–15.1k 字）；要求在第 1 章末尾补「三层归位」小节把本地 CLI 阵营点名成层（第 7 章根节点维持「层」不变）；确认后进 P4 | 2026-09-29 23:04 |
 | P2 | 用户确认 P2 素材与 7 章骨架（术语轴 + 隔离强度轴 + 层内差异轴 + 框架轴 + 决策树）；选择 A：进 P3 大纲模式 | 2026-09-29 23:00 |
 | P1 | 用户选择方向 A（分层归位+场景决策树，吸收 B/C）；要求先验证「三者不同层」主线再立骨架 | 2026-09-29 22:39 |
 | P0 | 用户确认意图文件和研究计划（补充 OpenClaw/Hermes 实际用途，诊断假设成立） | 2026-09-29 22:34 |
