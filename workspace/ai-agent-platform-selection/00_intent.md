@@ -78,3 +78,21 @@
   - `NousResearch/hermes-agent` — 249,977★，定位 "The agent that grows with you"
 - 待用户补充：三个平台各自的实际使用场景（若有），其权重高于官方自述
 - 项目内同类历史运行可复用、不重复收集：`hermes-agent`、`hermes-docker-deploy`、`hermes-tool-config`、`hermes-rules-config`、`hermes-home-assistant`、`deepseek-harness-agent-preset`
+
+---
+
+## 决策记录
+
+### 2026-09-29 · P2 前置定向验证后**修正主线**（用户已确认）
+
+| 项 | 内容 |
+|---|---|
+| 原主线 T | 「OpenClaw 与 Hermes 同层；Octop 是另一层（多用户平台）」→ 表述为「不是产品同质，是**层**没分开」 |
+| 验证方法 | 3 个代理定向**反驳**，默认裁决「存疑」（证据见 `01b_thesis_verification.md`） |
+| 验证结果 | 2 支持 / 1 反驳 |
+| **硬伤** | 原判断中「Hermes 无官方多用户支持」被官方文档**证伪**（allowlist 准入、`Admins vs Regular Users` 分级、per-user profile 路由） |
+| **采纳的新主线 T′** | 「不是产品同质，是**术语同质**」——「多用户」一词三义：OpenClaw = 同一信任域内的协作；Hermes = 单机单所有者的准入与分级；Octop = 架构内建多用户 |
+| **新增硬结论** | **多用户平台 ≠ 多租户平台**。Octop 是前者（家庭/小团队单实例、垂直扩展）；OpenClaw 明确拒绝后者（`not hostile multi-tenant isolation inside one shared Gateway`，`There is no enterprise edition.`）；Hermes 不在此轴上（无 tenant 语汇） |
+| 变软的判断 | Octop 与 OpenClaw/Hermes 的差异不是「层不同」，而是「**同层不同重心**」。原「拆成两层来问」的建议保留，但**理由替换**为「术语歧义导致横向比较失效」 |
+| 未被动摇 | OpenClaw 与 Hermes **同层**成立：`hermes claw migrate` 在 README 与源码三处交叉确认 |
+| 对写作的约束 | 后续章节禁止在任何地方使用「多用户」一词而不加限定语；首次出现时必须指明指三层语义中的哪一层 |
