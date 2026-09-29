@@ -1,0 +1,65 @@
+### final_note.md  [905 行]
+关于引文=1  引文对照=8
+     7| # 自托管 AI Agent 平台选型（Octop / OpenClaw / Hermes）
+    14| ## 目录
+    27| ## 第 1 章 为什么「感觉都一样」是范畴错误 —— 从功能清单叠影说起
+   165| ### 引文对照（原文 / 中译）
+   202| ## 第 2 章 「多用户」一词三义 —— 三方原文并置
+   293| ### 引文对照（原文 / 中译）
+   334| ## 第 3 章 隔离强度梯度 —— 不提供隔离 / 准入与很窄的分级 / 行级归属
+   425| ### 引文对照（原文 / 中译）
+   448| ## 第 4 章 同层内部怎么分 —— OpenClaw「跑在你自己电脑上」对比 Hermes「不绑在你的笔记本上」
+   521| ### 引文对照（原文 / 中译）
+   547| ## 第 5 章 Octop 回答的是不是另一个问题 —— 单实例多用户平台，家庭与小团队
+   644| ### 引文对照（原文 / 中译）
+   669| ## 第 6 章 「谁把谁当参照」—— 迁移命令、官方对照页、双向零提及说明什么
+   754| ### 引文对照（原文 / 中译）
+   787| ## 第 7 章 选型框架 + 落到你场景的决策树（个人助手 / 企业多人）
+   885| ### 引文对照（原文 / 中译）
+   899| ## 相关文档
+  --- 尾部 12 行 ---
+   894| | 4 | `It's not tied to your laptop` | 不绑在你的笔记本上 | — |
+   895| | 5 | `a task is not merely an application label but a pressure profile over observation, context, control, action, state, and governance` | 任务不只是一个应用标签，而是施加在观察、上下文、控制、行动、状态与治理之上的一个压力剖面 | `research/framework/13_arxiv_2606.20683v1_fulltext.md:212` |
+   896| | 6 | `Vertical scaling only` | 只支持垂直扩展 | — |
+   897| | 7 | `No horizontal worker scaling` | 不支持 worker 的横向扩展 | — |
+   898| 
+   899| ## 相关文档
+   900| 
+   901| - [[../openclaw/OpenClaw MOC]] - OpenClaw 学习索引
+   902| - [[../openclaw/选型层/OpenClaw与国内仿制品对比]] - 同一产品线内的另一类选型比较
+   903| - [[../../Hermes Agent/Hermes Agent MOC]] - Hermes Agent 学习索引
+   904| - [[../../00-索引/AI学习 MOC]] - AI 学习总索引
+   905| 
+
+### 自托管 Agent 平台选型.md  [905 行]
+关于引文=1  引文对照=8
+     7| # 自托管 AI Agent 平台选型（Octop / OpenClaw / Hermes）
+    14| ## 目录
+    27| ## 第 1 章 为什么「感觉都一样」是范畴错误 —— 从功能清单叠影说起
+   165| ### 引文对照（原文 / 中译）
+   202| ## 第 2 章 「多用户」一词三义 —— 三方原文并置
+   293| ### 引文对照（原文 / 中译）
+   334| ## 第 3 章 隔离强度梯度 —— 不提供隔离 / 准入与很窄的分级 / 行级归属
+   425| ### 引文对照（原文 / 中译）
+   448| ## 第 4 章 同层内部怎么分 —— OpenClaw「跑在你自己电脑上」对比 Hermes「不绑在你的笔记本上」
+   521| ### 引文对照（原文 / 中译）
+   547| ## 第 5 章 Octop 回答的是不是另一个问题 —— 单实例多用户平台，家庭与小团队
+   644| ### 引文对照（原文 / 中译）
+   669| ## 第 6 章 「谁把谁当参照」—— 迁移命令、官方对照页、双向零提及说明什么
+   754| ### 引文对照（原文 / 中译）
+   787| ## 第 7 章 选型框架 + 落到你场景的决策树（个人助手 / 企业多人）
+   885| ### 引文对照（原文 / 中译）
+   899| ## 相关文档
+  --- 尾部 12 行 ---
+   894| | 4 | `It's not tied to your laptop` | 不绑在你的笔记本上 | — |
+   895| | 5 | `a task is not merely an application label but a pressure profile over observation, context, control, action, state, and governance` | 任务不只是一个应用标签，而是施加在观察、上下文、控制、行动、状态与治理之上的一个压力剖面 | `research/framework/13_arxiv_2606.20683v1_fulltext.md:212` |
+   896| | 6 | `Vertical scaling only` | 只支持垂直扩展 | — |
+   897| | 7 | `No horizontal worker scaling` | 不支持 worker 的横向扩展 | — |
+   898| 
+   899| ## 相关文档
+   900| 
+   901| - [[../openclaw/OpenClaw MOC]] - OpenClaw 学习索引
+   902| - [[../openclaw/选型层/OpenClaw与国内仿制品对比]] - 同一产品线内的另一类选型比较
+   903| - [[../../Hermes Agent/Hermes Agent MOC]] - Hermes Agent 学习索引
+   904| - [[../../00-索引/AI学习 MOC]] - AI 学习总索引
+   905| 

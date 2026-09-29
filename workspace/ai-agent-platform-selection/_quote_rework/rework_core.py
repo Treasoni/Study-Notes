@@ -32,6 +32,9 @@ PRISTINE = HERE / "pristine"
 
 CITE = re.compile(r"^(research|workspace)/|:\d+([-,]\d+)*$")
 CH_HEAD = re.compile(r"^(#{1,3}) 第 (\d) 章")
+# 组装本正文之后的文档级尾节。第 7 章的附录必须插到它**之前**。
+# 别只认「参考文档」：本 vault 的成品用的是「相关文档」。
+FOOTER = re.compile(r"^## (参考文档|相关文档|参考资料)")
 
 # 目标文件：(路径, 类型, 章标题层级) —— 类型决定附录插到哪
 #   chapter   单章文件，附录追加到 EOF
@@ -75,10 +78,16 @@ CALLOUT = [
 
 
 def load_trans():
-    """把 03_trans.py 当数据模块读进来（文件名以数字开头，不能直接 import）。"""
+    """把 03_trans.py 当数据模块读进来（文件名以数字开头，不能直接 import）。
+
+    顺手剥掉译文的「」皮：这些值会渲染进**反引号代码 span**里，span 本身
+    已经是定界符，再套一层引用号就是双重引号（`` `「易用性功能」` ``）。
+    """
     spec = importlib.util.spec_from_file_location("trans03", HERE / "03_trans.py")
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
+    mod.TRANS = {k: (v[1:-1] if v.startswith("「") and v.endswith("」") else v)
+                 for k, v in mod.TRANS.items()}
     return mod
 
 
@@ -238,10 +247,10 @@ def split_sections(lines, kind):
                 if lines[i].startswith("<!-- END:"):
                     stop = i
                     break
-        else:  # assembled：最后一章的正文到「参考文档」为止
+        else:  # assembled：最后一章的正文到「相关文档」这类尾节为止
             stop = len(lines)
             for i in range(start, len(lines)):
-                if lines[i].startswith("## 参考文档"):
+                if FOOTER.match(lines[i]):
                     stop = i
                     break
         out.append((chap, start, stop))

@@ -136,7 +136,7 @@ TRANS 键 105 个；未命中 0 个。
 | `（例如 #16 OpenHands issue）` | 4 | 4 | 01_为什么感觉都一样是范畴错误.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |
 | `（Slack workspace）` | 4 | 4 | 02_多用户一词三义.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |
 | `把 agent id 复用为消息路由的 tenant id` | 4 | 4 | 02_多用户一词三义.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |
-| `是 deny-by-default，` | 4 | 4 | 02_多用户一词三义.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |
+| `Hermes 的默认准入是 deny-by-default，` | 4 | 4 | 02_多用户一词三义.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |
 | `plain chat` | 4 | 4 | 07_选型框架与决策树.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |
 | `每个用户的 agent runtime` | 4 | 4 | 05_Octop回答的是不是另一个问题.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |
 | `两句自我限定。第一句是它属于易用性功能：` | 4 | 4 | 02_多用户一词三义.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |

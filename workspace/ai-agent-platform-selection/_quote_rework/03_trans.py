@@ -295,7 +295,7 @@ FIXES = [
     ("（Slack workspace）", "（Slack 工作区）", 4),
     ("把 agent id 复用为消息路由的 tenant id",
      "把 agent ID 复用为消息路由的租户 ID", 4),
-    ("是 deny-by-default，", "默认拒绝入内，", 4),
+    ("Hermes 的默认准入是 deny-by-default，", "Hermes 的默认准入策略是「默认拒绝」，", 4),
     ("plain chat", "普通对话", 4),
     ("每个用户的 agent runtime", "每个用户的 agent 运行时", 4),
     # —— 中文引导语已经说过一遍引文意思：删掉重复引导 ——

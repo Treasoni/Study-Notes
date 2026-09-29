@@ -35,7 +35,7 @@
 再看判据②：
 
 - **Octop = 复数**：`Octop 是一个面向家庭与小团队的自托管 AI 助手平台`（`research/octop/README.md:69`）——一台实例、一个共用的控制面数据库，服务多个账号，每个账号在数据上归属自己。
-- **OpenClaw = 单数**：`默认的 OpenClaw 是一个受信的单操作者助手`（`research/openclaw/02_docs_openclaw_ai.md:64`，出自官方 `「我们不做哪些声明」` 一节，是官方的自我限定而非本文推断）。它确实有「多用户」（① 同一信任域内的协作），但官方明说那属于易用性功能：`「它不构成授权或隔离边界」`（`research/openclaw/03_docs_openclaw_ai.md:118`）——所有者仍是单数。
+- **OpenClaw = 单数**：`默认的 OpenClaw 是一个受信的单操作者助手`（`research/openclaw/02_docs_openclaw_ai.md:64`，出自官方 `我们不做哪些声明` 一节，是官方的自我限定而非本文推断）。它确实有「多用户」（① 同一信任域内的协作），但官方明说那属于易用性功能：`它不构成授权或隔离边界`（`research/openclaw/03_docs_openclaw_ai.md:118`）——所有者仍是单数。
 - **Hermes = 单数**：`默认情况下，网关拒绝所有不在白名单内、也未通过 DM 配对的用户`（`research/hermes/03_raw_githubusercontent_com_messaging-index.md:327`）——默认全拒，放行的也只是同一个所有者认可、且同处一个信任域的人（「多用户」= ② 准入与很窄的分级）。要给不同的人各自的 agent，官方的做法是多开 profile / 多开实例（每个 profile `各有自己的 bot token、会话与记忆`，`research/hermes/02_hermes-agent_nousresearch_com_multi-profile-gateways.md:9`），**不是在一台实例里装多个账号**。
 
 判据① 三家取值一致、判据② 一分为二：第 1 层由判据① 分出去（那里是「否」），第 2 层与第 3 层由判据② 分开（单数所有者 vs 复数账号）。三层至此分完。
@@ -79,7 +79,7 @@ arXiv 2606.20683 的模型–harness 分析提供了一把更好的尺子。它�
 | ⑥ | 验证与治理层 | `通过测试、断言、验证器模型、沙箱策略、权限闸、回滚、重试、预算控制、安全约束与审计追踪来检查、约束和修复执行` |
 
 > [!warning] 一处需要并列记录的措辞差异
-> 同一篇论文的 abs 页把第六条写成 `「观察、上下文、控制、行动、状态与验证」`（`research/framework/abs/01_arxiv_org.md:16`），全文写成 `验证/治理`。本文按全文口径，两版差异并列保留、不合并（另见 `02_deep_research.md` §5 C7）。
+> 同一篇论文的 abs 页把第六条写成 `观察、上下文、控制、行动、状态与验证`（`research/framework/abs/01_arxiv_org.md:16`），全文写成 `验证/治理`。本文按全文口径，两版差异并列保留、不合并（另见 `02_deep_research.md` §5 C7）。
 
 论文给的「选型透镜」是（逐字）：`任务不只是一个应用标签，而是施加在观察、上下文、控制、行动、状态与治理之上的一个压力剖面`（`research/framework/13_arxiv_2606.20683v1_fulltext.md:212`）。它还把话说死了：`尽管这六个组件在分析上可以分开，它们并不独立运作：一个组件上的设计选择常常会重新分配其他组件上的负担`（同文件 :209）——职责之间互相牵动，所以不能逐项独立打钩。
 
@@ -103,7 +103,7 @@ arXiv 2606.20683 的模型–harness 分析提供了一把更好的尺子。它�
 
 本章先不判定谁和谁同层——那个判断只由第 6 章的互引互迁证据支撑。但有两组客观证据会让人产生「它们是一类」的直觉，先摆出来：
 
-1. **权威清单同归类。** awesome-ai-agent-platforms 把项目按用途分成五类：`AI 同事与队友、agent 构建工具与框架、工作流自动化平台、浏览器 agent 与编码 agent`（`research/framework/17_awesome-ai-agent-platforms_README.md:10`），分类规则是 `每个项目只出现一次，归在与其主要用途最匹配的那一类下`（同文件 :112）。OpenClaw 与 Hermes 同收在 `「AI 同事与队友」` 一节下（同文件 :36、:41）；而 `编码 agent` 是**独立的一类**（该节定义 `「专门写代码、改代码、发布代码的 agent」`，同文件 :93），与前者并列而不混同。
+1. **权威清单同归类。** awesome-ai-agent-platforms 把项目按用途分成五类：`AI 同事与队友、agent 构建工具与框架、工作流自动化平台、浏览器 agent 与编码 agent`（`research/framework/17_awesome-ai-agent-platforms_README.md:10`），分类规则是 `每个项目只出现一次，归在与其主要用途最匹配的那一类下`（同文件 :112）。OpenClaw 与 Hermes 同收在 `AI 同事与队友` 一节下（同文件 :36、:41）；而 `编码 agent` 是**独立的一类**（该节定义 `专门写代码、改代码、发布代码的 agent`，同文件 :93），与前者并列而不混同。
 2. **官方口径把对方当同类。** OpenClaw 官方有一张专页，逐轴对照的对象是 Hermes——`反复被拿来对照的对象是 Hermes Agent（原文此处带一个指向对方仓库的链接）`（`02_deep_research.md` §3.1 A6）。这条本章只用来交代「看起来同层」的证据来自哪里，具体引用与站位判断留到第 6 章。
 
 ## 1.5 为什么不能拿 Star 数当依据
@@ -119,8 +119,8 @@ Star 数量的是「有多少人注意到了它」，不是「它适不适合你
 
 三层坐标里，第 1 层的证据最弱，必须显式声明其边界。本章关于第 1 层只能说两件事：
 
-- **分类上独立成类**：上一节已给出，`编码 agent` 在权威清单里是与 `「AI 同事与队友」` 并列的独立一类。
-- **Octop 的邻近参照物落在第 1 层（本文的推断）**：Octop 全库检索 `openclaw|hermes` **零命中**；它在 ACP 文档里命名的外部 agent 工具**只有 ACP runner，内置 7 个**（`opencode`、`codebuddy`、`claude_code`、`codex`、`kimi_code`、`cursor_cli`、`pi`，`research/octop/docs/acp.md:29-38`），均为编码类、以命令行接入，方向是 **outbound 委派**——`「Octop agent 委派编码任务」`（同文件 :8）。
+- **分类上独立成类**：上一节已给出，`编码 agent` 在权威清单里是与 `AI 同事与队友` 并列的独立一类。
+- **Octop 的邻近参照物落在第 1 层（本文的推断）**：Octop 全库检索 `openclaw|hermes` **零命中**；它在 ACP 文档里命名的外部 agent 工具**只有 ACP runner，内置 7 个**（`opencode`、`codebuddy`、`claude_code`、`codex`、`kimi_code`、`cursor_cli`、`pi`，`research/octop/docs/acp.md:29-38`），均为编码类、以命令行接入，方向是 **outbound 委派**——`Octop agent 委派编码任务`（同文件 :8）。
 
   需要说明的是：把这 7 个逐个归入「本地 CLI 阵营」是**本文的推断**——官方并未使用这个分类词，官方给的只有上面这张 runner 表。推断的依据是判据①（它们都不是常驻服务）与它的用途（承接编码类委派）；读者可以据此自行判断是否接受这一步。
 
@@ -152,8 +152,8 @@ Star 数量的是「有多少人注意到了它」，不是「它适不适合你
 | 4 | `Manage the Octop system service (systemd on Linux, launchd on macOS).` | 把 Octop 作为系统服务来管理（Linux 上用 systemd，macOS 上用 launchd） | `research/octop/docs/cli.md:120` |
 | 5 | `Octop is a self-hosted AI assistant platform for households and small teams.` | Octop 是一个面向家庭与小团队的自托管 AI 助手平台 | `research/octop/README.md:69` |
 | 6 | `Default OpenClaw is a trusted single-operator assistant.` | 默认的 OpenClaw 是一个受信的单操作者助手 | `research/openclaw/02_docs_openclaw_ai.md:64` |
-| 7 | `## What we do not claim` | 「我们不做哪些声明」 | `research/openclaw/03_docs_openclaw_ai.md:118` |
-| 8 | `It is not an authorization or isolation boundary.` | 「它不构成授权或隔离边界」 | `research/openclaw/03_docs_openclaw_ai.md:118` |
+| 7 | `## What we do not claim` | 我们不做哪些声明 | `research/openclaw/03_docs_openclaw_ai.md:118` |
+| 8 | `It is not an authorization or isolation boundary.` | 它不构成授权或隔离边界 | `research/openclaw/03_docs_openclaw_ai.md:118` |
 | 9 | `**By default, the gateway denies all users who are not in an allowlist or paired via DM.**` | 默认情况下，网关拒绝所有不在白名单内、也未通过 DM 配对的用户 | `research/hermes/03_raw_githubusercontent_com_messaging-index.md:327` |
 | 10 | `with its own bot tokens, sessions, and memory` | 各有自己的 bot token、会话与记忆 | `research/hermes/02_hermes-agent_nousresearch_com_multi-profile-gateways.md:9` |
 | 11 | `We analyze the limits of model-centric scaling for long-horizon task completion and argue that agent performance is a property of the model–harness pairing.` | 我们分析了以模型为中心的扩展在长程任务完成上的局限，并论证 agent 的表现是「模型–harness 配对」的属性 | `research/framework/13_arxiv_2606.20683v1_fulltext.md:61` |
@@ -163,19 +163,19 @@ Star 数量的是「有多少人注意到了它」，不是「它适不适合你
 | 15 | `maps model outputs to executable operations, such as function calls, MCP tools, shell or code execution, browser actions, file operations, API calls, and sub-agent invocations.` | 把模型输出映射为可执行操作，例如函数调用、MCP 工具、shell 或代码执行、浏览器动作、文件操作、API 调用与子 agent 调用 | — |
 | 16 | `persists execution state and products, including conversation history, plans, scratchpads, checkpoints, logs, traces, diffs, memory records, generated files, and task artifacts.` | 持久化执行状态与产物，包括对话历史、计划、草稿本、检查点、日志、追踪、差异、记忆记录、生成的文件与任务工件 | — |
 | 17 | `checks, constrains, and repairs execution through tests, assertions, verifier models, sandbox policies, permission gates, rollback, retry, budget control, safety constraints, and audit traces.` | 通过测试、断言、验证器模型、沙箱策略、权限闸、回滚、重试、预算控制、安全约束与审计追踪来检查、约束和修复执行 | — |
-| 18 | `observation, context, control, action, state, and verification` | 「观察、上下文、控制、行动、状态与验证」 | `research/framework/abs/01_arxiv_org.md:16` |
+| 18 | `observation, context, control, action, state, and verification` | 观察、上下文、控制、行动、状态与验证 | `research/framework/abs/01_arxiv_org.md:16` |
 | 19 | `a task is not merely an application label but a pressure profile over observation, context, control, action, state, and governance` | 任务不只是一个应用标签，而是施加在观察、上下文、控制、行动、状态与治理之上的一个压力剖面 | `research/framework/13_arxiv_2606.20683v1_fulltext.md:212` |
 | 20 | `Although the six components are analytically separable, they do not operate independently. Design choices in one component often reshape the burden on others.` | 尽管这六个组件在分析上可以分开，它们并不独立运作：一个组件上的设计选择常常会重新分配其他组件上的负担 | `research/framework/13_arxiv_2606.20683v1_fulltext.md:212` |
 | 21 | `AI coworkers and teammates, agent builders and frameworks, workflow automation platforms, browser agents, and coding agents` | AI 同事与队友、agent 构建工具与框架、工作流自动化平台、浏览器 agent 与编码 agent | `research/framework/17_awesome-ai-agent-platforms_README.md:10` |
 | 22 | `Each project appears once, under the category that best matches its main use.` | 每个项目只出现一次，归在与其主要用途最匹配的那一类下 | `research/framework/17_awesome-ai-agent-platforms_README.md:10` |
-| 23 | `AI coworkers and teammates` | 「AI 同事与队友」 | `research/framework/17_awesome-ai-agent-platforms_README.md:10` |
+| 23 | `AI coworkers and teammates` | AI 同事与队友 | `research/framework/17_awesome-ai-agent-platforms_README.md:10` |
 | 24 | `coding agents` | 编码 agent | `research/framework/17_awesome-ai-agent-platforms_README.md:10` |
-| 25 | `Agents specialized in writing, editing, and shipping code.` | 「专门写代码、改代码、发布代码的 agent」 | `research/framework/17_awesome-ai-agent-platforms_README.md:10` |
+| 25 | `Agents specialized in writing, editing, and shipping code.` | 专门写代码、改代码、发布代码的 agent | `research/framework/17_awesome-ai-agent-platforms_README.md:10` |
 | 26 | `The recurring comparison is [Hermes Agent]` | 反复被拿来对照的对象是 Hermes Agent（原文此处带一个指向对方仓库的链接） | `02_deep_research.md` |
 | 27 | `Inclusion is not an endorsement, and star counts, funding, and company size are not criteria.` | 入选不等于推荐，星标数、融资额与公司规模都不是入选标准 | `research/framework/17_awesome-ai-agent-platforms_README.md:112` |
 | 28 | `coding agents` | 编码 agent | — |
-| 29 | `AI coworkers and teammates` | 「AI 同事与队友」 | — |
-| 30 | `Octop agent delegates coding tasks` | 「Octop agent 委派编码任务」 | `research/octop/docs/acp.md:29-38` |
+| 29 | `AI coworkers and teammates` | AI 同事与队友 | — |
+| 30 | `Octop agent delegates coding tasks` | Octop agent 委派编码任务 | `research/octop/docs/acp.md:29-38` |
 
 # 第 2 章 「多用户」一词三义 —— 三方原文并置
 
@@ -191,7 +191,7 @@ Star 数量的是「有多少人注意到了它」，不是「它适不适合你
 
 | 平台 | 限定语后的准确语义 | 关键原文（逐字） | 锚点 |
 | --- | --- | --- | --- |
-| OpenClaw | **同一信任域内的协作**：多个受信的人操作同一个 agent、共享同一个信任域；此处「多用户」是「易用性功能」，明确不是安全边界 | `多用户模式让多个受信的人操作同一个 OpenClaw agent` / `「易用性功能，不是安全边界」` / `「它不构成授权或隔离边界」` | `research/openclaw/03_docs_openclaw_ai.md:10,12,118` |
+| OpenClaw | **同一信任域内的协作**：多个受信的人操作同一个 agent、共享同一个信任域；此处「多用户」是「易用性功能」，明确不是安全边界 | `多用户模式让多个受信的人操作同一个 OpenClaw agent` / `易用性功能，不是安全边界` / `它不构成授权或隔离边界` | `research/openclaw/03_docs_openclaw_ai.md:10,12,118` |
 | Hermes | **准入与很窄的分级**：默认拒绝所有不在白名单、未配对的用户；进来后再分 admin / user 两档，且分级目前只管 斜杠命令；无租户语汇 | ``默认情况下，网关拒绝所有不在白名单内、也未通过 DM 配对的用户`` / `白名单回答「这个人能不能够到这个 bot」，而 **admin / user 分级**回答「进来之后允许他做什么」` / `发送者路由只是在挑 profile，不是默认拒绝式的授权` | `research/hermes/03_raw_githubusercontent_com_messaging-index.md:327,369`、`research/hermes/02_hermes-agent_nousresearch_com_multi-profile-gateways.md:645` |
 | Octop | **行级归属**：JWT 准入 + 行级归属（`agents.user_id`）为真正的数据隔离；单实例承载多个账号，官方规模口径限定为家庭与小团队 | ``每个请求都先过 JWT 认证，再落到一行 User 记录`` / `agent 归属在**行级**强制执行` / `Octop 是一个面向家庭与小团队的自托管 AI 助手平台` | `research/octop/docs/architecture.md:69,71`、`research/octop/README.md:69` |
 
@@ -205,9 +205,9 @@ OpenClaw 的「多用户」（同一信任域内的协作）官方定义是：`�
 
 三层分别是不可变的 Creator、可指派的 Owner、按历史记录的 Participants。准入走 DM 配对码：`队友第一次私聊这个 bot 时会拿到一个配对码`（`research/openclaw/05_docs_openclaw_ai.md:38`）；分级靠命名角色：`命名操作者角色把已认证的 profile 绑定到一套策略上`（同文件 :49）。
 
-关键在于官方给这套能力的两句自我限定。第一句：`「易用性功能，不是安全边界」`（`research/openclaw/03_docs_openclaw_ai.md:12`）。第二句更直接：`「它不构成授权或隔离边界」`（同文件 :118）。换句话说，OpenClaw 的「多用户」（① 同一信任域内的协作）是「让团队看清谁在做什么」的显示层，不是把用户彼此隔开的边界。官方还补了一句对照：`这只是一个信任域内部挑选账号的便利，而不是与管理员、或与以 Gateway 系统用户身份运行的代码隔离`（同文件 :72）。`因此单用户网关看起来几乎没有变化`（同文件 :91）。
+关键在于官方给这套能力的两句自我限定。第一句：`易用性功能，不是安全边界`（`research/openclaw/03_docs_openclaw_ai.md:12`）。第二句更直接：`它不构成授权或隔离边界`（同文件 :118）。换句话说，OpenClaw 的「多用户」（① 同一信任域内的协作）是「让团队看清谁在做什么」的显示层，不是把用户彼此隔开的边界。官方还补了一句对照：`这只是一个信任域内部挑选账号的便利，而不是与管理员、或与以 Gateway 系统用户身份运行的代码隔离`（同文件 :72）。`因此单用户网关看起来几乎没有变化`（同文件 :91）。
 
-还有两条边界值得记住。其一，`一个 Gateway 就是一个信任域`（`research/openclaw/05_docs_openclaw_ai.md:21`）——协作 guardrails 是在这个域**之内**生效的。其二，`「每个逻辑会话的默认准入上限是 32 个身份」`（`research/openclaw/03_docs_openclaw_ai.md:126`）。这两条一起说明：OpenClaw 的「多用户」（同一信任域内的协作）是往单用户模型上叠的一层，而不是把它换成多租户模型。
+还有两条边界值得记住。其一，`一个 Gateway 就是一个信任域`（`research/openclaw/05_docs_openclaw_ai.md:21`）——协作 guardrails 是在这个域**之内**生效的。其二，`每个逻辑会话的默认准入上限是 32 个身份`（`research/openclaw/03_docs_openclaw_ai.md:126`）。这两条一起说明：OpenClaw 的「多用户」（同一信任域内的协作）是往单用户模型上叠的一层，而不是把它换成多租户模型。
 
 > [!tip] 大白话
 > 把 OpenClaw 的「多用户」（同一信任域内的协作）想成一本全家共用的记账本：谁都能翻、能写、还看得出谁记了哪一笔（三层署名），但没有人被挡在账本外面。它管的是「看得清」，不是「防得住」。
@@ -249,7 +249,7 @@ Octop 的「多用户」（行级归属）是架构内建的。``每个请求都
 
 **硬结论：多用户平台 ≠ 多租户平台。** 三方中只有 OpenClaw 有租户词汇，且自带 experimental 标注：`租户意味着一个租户一个 gateway cell，而 fleet 目前仍是实验性的`（`research/openclaw/02_docs_openclaw_ai.md:65`）。它明确拒绝在一个 Gateway 内做多租户：`OpenClaw 的默认安全模型是「每个 Gateway 一个受信操作者边界」，而不是在共享的同一个 Gateway 内部做敌意多租户隔离`（`research/openclaw/04_docs_openclaw_ai.md:10`）。`没有企业版`（`research/openclaw/02_docs_openclaw_ai.md:20`）。Hermes 与 Octop 都不在这条轴上。
 
-三方的站位因此是：Octop 是**多用户平台**（家庭与小团队、单实例、行级归属），OpenClaw 明确**拒绝**做多租户（`「不是在同一个共享 Gateway 内部做敌意多租户隔离」`），Hermes 根本没有租户语汇。把「多用户」和「多租户」当成同一件事，是本章最需要防住的一次混读。
+三方的站位因此是：Octop 是**多用户平台**（家庭与小团队、单实例、行级归属），OpenClaw 明确**拒绝**做多租户（`不是在同一个共享 Gateway 内部做敌意多租户隔离`），Hermes 根本没有租户语汇。把「多用户」和「多租户」当成同一件事，是本章最需要防住的一次混读。
 
 > [!warning] 两处 `tenant` 是假阳性，别读成租户模型
 > Hermes 与 Octop **各有且仅有一处** `tenant`，两处都是消息路由字段，结构完全对称：
@@ -260,8 +260,8 @@ Octop 的「多用户」（行级归属）是架构内建的。``每个请求都
 ## 本章小结
 
 - 三方都说「支持多用户」，但这词有三个互不相同的限定语义：OpenClaw = 同一信任域内的协作，Hermes = 准入与很窄的分级，Octop = 行级归属。
-- OpenClaw 的这套能力被官方明确标注为 `「易用性功能，不是安全边界」`。
-- Hermes 的默认准入默认拒绝入内，但两档分级目前只管 斜杠命令，profile 路由不是授权。
+- OpenClaw 的这套能力被官方明确标注为 `易用性功能，不是安全边界`。
+- Hermes 的默认准入策略是「默认拒绝」，但两档分级目前只管 斜杠命令，profile 路由不是授权。
 - Octop 方（③ 行级归属）：架构内建，数据隔离靠行级归属，规模口径限定为家庭与小团队。
 - 功能清单叠影的根因是**同词异指**，不是产品雷同。
 - 硬结论：多用户平台 ≠ 多租户平台；Hermes 与 Octop 各一处 `tenant` 都是消息字段，非租户。
@@ -278,8 +278,8 @@ Octop 的「多用户」（行级归属）是架构内建的。``每个请求都
 | # | 原文（逐字） | 中译 | 出处 |
 | --- | --- | --- | --- |
 | 1 | `Multi-user mode lets several trusted people operate the same OpenClaw agent.` | 多用户模式让多个受信的人操作同一个 OpenClaw agent | `research/openclaw/03_docs_openclaw_ai.md:10,12,118` |
-| 2 | `usability features, not security boundaries` | 「易用性功能，不是安全边界」 | `research/openclaw/03_docs_openclaw_ai.md:10,12,118` |
-| 3 | `It is not an authorization or isolation boundary.` | 「它不构成授权或隔离边界」 | `research/openclaw/03_docs_openclaw_ai.md:10,12,118` |
+| 2 | `usability features, not security boundaries` | 易用性功能，不是安全边界 | `research/openclaw/03_docs_openclaw_ai.md:10,12,118` |
+| 3 | `It is not an authorization or isolation boundary.` | 它不构成授权或隔离边界 | `research/openclaw/03_docs_openclaw_ai.md:10,12,118` |
 | 4 | `**By default, the gateway denies all users who are not in an allowlist or paired via DM.**` | 默认情况下，网关拒绝所有不在白名单内、也未通过 DM 配对的用户 | `research/hermes/03_raw_githubusercontent_com_messaging-index.md:327,369` |
 | 5 | `Allowlists answer "can this person reach the bot at all?" The **admin / user split** answers "now that they're in, what are they allowed to do?"` | 白名单回答「这个人能不能够到这个 bot」，而 **admin / user 分级**回答「进来之后允许他做什么」 | `research/hermes/03_raw_githubusercontent_com_messaging-index.md:327,369` |
 | 6 | `Sender routing selects a profile; it is not deny-by-default authorization.` | 发送者路由只是在挑 profile，不是默认拒绝式的授权 | `research/hermes/03_raw_githubusercontent_com_messaging-index.md:327,369` |
@@ -290,12 +290,12 @@ Octop 的「多用户」（行级归属）是架构内建的。``每个请求都
 | 11 | `Every session carries up to three layers of attribution:` | 每个会话最多携带三层归属信息： | — |
 | 12 | `the first time a teammate DMs the bot they get a pairing code` | 队友第一次私聊这个 bot 时会拿到一个配对码 | `research/openclaw/05_docs_openclaw_ai.md:38` |
 | 13 | `Named operator roles bind authenticated profiles to a policy` | 命名操作者角色把已认证的 profile 绑定到一套策略上 | `research/openclaw/05_docs_openclaw_ai.md:38` |
-| 14 | `usability features, not security boundaries` | 「易用性功能，不是安全边界」 | `research/openclaw/03_docs_openclaw_ai.md:12` |
-| 15 | `It is not an authorization or isolation boundary.` | 「它不构成授权或隔离边界」 | `research/openclaw/03_docs_openclaw_ai.md:12` |
+| 14 | `usability features, not security boundaries` | 易用性功能，不是安全边界 | `research/openclaw/03_docs_openclaw_ai.md:12` |
+| 15 | `It is not an authorization or isolation boundary.` | 它不构成授权或隔离边界 | `research/openclaw/03_docs_openclaw_ai.md:12` |
 | 16 | `This is account-selection convenience inside one trust domain, not isolation from administrators or code running as the Gateway OS user.` | 这只是一个信任域内部挑选账号的便利，而不是与管理员、或与以 Gateway 系统用户身份运行的代码隔离 | `research/openclaw/03_docs_openclaw_ai.md:12` |
 | 17 | `A single-user gateway therefore looks unchanged.` | 因此单用户网关看起来几乎没有变化 | `research/openclaw/03_docs_openclaw_ai.md:12` |
 | 18 | `A gateway is one trust domain.` | 一个 Gateway 就是一个信任域 | `research/openclaw/05_docs_openclaw_ai.md:21` |
-| 19 | `The normal admission limit is 32 identities per logical session.` | 「每个逻辑会话的默认准入上限是 32 个身份」 | `research/openclaw/03_docs_openclaw_ai.md:126` |
+| 19 | `The normal admission limit is 32 identities per logical session.` | 每个逻辑会话的默认准入上限是 32 个身份 | `research/openclaw/03_docs_openclaw_ai.md:126` |
 | 20 | `**By default, the gateway denies all users who are not in an allowlist or paired via DM.**` | 默认情况下，网关拒绝所有不在白名单内、也未通过 DM 配对的用户 | `research/hermes/03_raw_githubusercontent_com_messaging-index.md:327` |
 | 21 | `Every allowed user falls into one of two tiers per scope (DM vs group/channel):` | 每个被放行的用户在每个作用域里（私聊 vs 群组 / 频道）都落在两档之一： | — |
 | 22 | `Allowlists answer "can this person reach the bot at all?" The **admin / user split** answers "now that they're in, what are they allowed to do?"` | 白名单回答「这个人能不能够到这个 bot」，而 **admin / user 分级**回答「进来之后允许他做什么」 | — |
@@ -308,9 +308,9 @@ Octop 的「多用户」（行级归属）是架构内建的。``每个请求都
 | 29 | `Tenancy means one gateway cell per tenant, and fleet is still experimental.` | 租户意味着一个租户一个 gateway cell，而 fleet 目前仍是实验性的 | `research/openclaw/02_docs_openclaw_ai.md:65` |
 | 30 | `OpenClaw's default security model is one trusted operator boundary per Gateway, not hostile multi-tenant isolation inside one shared Gateway.` | OpenClaw 的默认安全模型是「每个 Gateway 一个受信操作者边界」，而不是在共享的同一个 Gateway 内部做敌意多租户隔离 | `research/openclaw/04_docs_openclaw_ai.md:10` |
 | 31 | `There is no enterprise edition.` | 没有企业版 | `research/openclaw/02_docs_openclaw_ai.md:20` |
-| 32 | `not hostile multi-tenant isolation inside one shared Gateway` | 「不是在同一个共享 Gateway 内部做敌意多租户隔离」 | — |
+| 32 | `not hostile multi-tenant isolation inside one shared Gateway` | 不是在同一个共享 Gateway 内部做敌意多租户隔离 | — |
 | 33 | `Sender ids are also namespaced per tenant on some platforms — a Slack user id is workspace-local` | 在某些平台上，发送者 ID 也按租户加了命名空间——Slack 的用户 ID 是工作区局部的 | `research/hermes/02_hermes-agent_nousresearch_com_multi-profile-gateways.md:643` |
-| 34 | `usability features, not security boundaries` | 「易用性功能，不是安全边界」 | — |
+| 34 | `usability features, not security boundaries` | 易用性功能，不是安全边界 | — |
 
 # 第 3 章 隔离强度梯度 —— 不提供隔离 / 准入与很窄的分级 / 行级归属
 
@@ -326,7 +326,7 @@ Octop 的「多用户」（行级归属）是架构内建的。``每个请求都
 
 | 强度（由弱到强） | 平台 | 官方措辞（逐字） | 一句话后果 |
 | --- | --- | --- | --- |
-| 不提供隔离 | OpenClaw | `「易用性功能，不是安全边界」` / `「它不构成授权或隔离边界」` | 「多用户」是同一信任域内的协作便利，不是安全边界 |
+| 不提供隔离 | OpenClaw | `易用性功能，不是安全边界` / `它不构成授权或隔离边界` | 「多用户」是同一信任域内的协作便利，不是安全边界 |
 | 准入与很窄的分级 | Hermes | `**admin / user 分级**` / `目前分级管的是什么：斜杠命令` | 挡在门外靠白名单；进来后只分两档，且只管 斜杠命令 |
 | 行级归属 | Octop | `agent 归属在**行级**强制执行` / `只选当前用户自己的 agent，不包含其他用户或共享 agent` | 数据按行归属，越权在数据层被拒 |
 
@@ -337,9 +337,9 @@ Octop 的「多用户」（行级归属）是架构内建的。``每个请求都
 
 ## 3.2 弱档：OpenClaw 明确声明不提供隔离
 
-OpenClaw 这一档的强度是「不提供隔离」，而且这句话是官方自己反复说的：这些能力是 `「易用性功能，不是安全边界」`（`research/openclaw/03_docs_openclaw_ai.md:12`），`「它不构成授权或隔离边界」`（同文件 :118）。它不是「忘了做」，而是在产品定位里主动放弃：`没有企业版`（`research/openclaw/02_docs_openclaw_ai.md:20`）。
+OpenClaw 这一档的强度是「不提供隔离」，而且这句话是官方自己反复说的：这些能力是 `易用性功能，不是安全边界`（`research/openclaw/03_docs_openclaw_ai.md:12`），`它不构成授权或隔离边界`（同文件 :118）。它不是「忘了做」，而是在产品定位里主动放弃：`没有企业版`（`research/openclaw/02_docs_openclaw_ai.md:20`）。
 
-隔离既然不在一个 Gateway 内提供，跨信任域就靠「一租户一实例」绕开——`「不是在同一个共享 Gateway 内部做敌意多租户隔离」`（`research/openclaw/04_docs_openclaw_ai.md:10`）。这条绕行路线（fleet）留到第 6 章，本章只需记住：**OpenClaw 档意味着「多用户」是同一信任域内的协作便利，不是把互不信任的人隔开的安全机制**。参与者集合另有默认上界 `「每个逻辑会话的默认准入上限是 32 个身份」`（`research/openclaw/03_docs_openclaw_ai.md:126`），但那是会话内的记录上限，不是权限边界。
+隔离既然不在一个 Gateway 内提供，跨信任域就靠「一租户一实例」绕开——`不是在同一个共享 Gateway 内部做敌意多租户隔离`（`research/openclaw/04_docs_openclaw_ai.md:10`）。这条绕行路线（fleet）留到第 6 章，本章只需记住：**OpenClaw 档意味着「多用户」是同一信任域内的协作便利，不是把互不信任的人隔开的安全机制**。参与者集合另有默认上界 `每个逻辑会话的默认准入上限是 32 个身份`（`research/openclaw/03_docs_openclaw_ai.md:126`），但那是会话内的记录上限，不是权限边界。
 
 这一档对选型的含义是明确的：如果你的需求是把互不信任的人隔开，OpenClaw 这一档不提供答案——而这不是「配置没开对」，是产品模型本身如此（`没有企业版`）。要跨信任域，只能换形态：一个租户一个实例。
 
@@ -412,16 +412,16 @@ Octop 这一档的强度最高，机制是**三层叠加、各管一段**：准�
 
 | # | 原文（逐字） | 中译 | 出处 |
 | --- | --- | --- | --- |
-| 1 | `usability features, not security boundaries` | 「易用性功能，不是安全边界」 | — |
-| 2 | `It is not an authorization or isolation boundary.` | 「它不构成授权或隔离边界」 | — |
+| 1 | `usability features, not security boundaries` | 易用性功能，不是安全边界 | — |
+| 2 | `It is not an authorization or isolation boundary.` | 它不构成授权或隔离边界 | — |
 | 3 | `The admin / user split` | **admin / user 分级** | — |
 | 4 | `What the tiers gate today: slash commands` | 目前分级管的是什么：斜杠命令 | — |
 | 5 | `Agent ownership is enforced at the **row** level` | agent 归属在**行级**强制执行 | — |
-| 6 | `usability features, not security boundaries` | 「易用性功能，不是安全边界」 | `research/openclaw/03_docs_openclaw_ai.md:12` |
-| 7 | `It is not an authorization or isolation boundary.` | 「它不构成授权或隔离边界」 | `research/openclaw/02_docs_openclaw_ai.md:20` |
+| 6 | `usability features, not security boundaries` | 易用性功能，不是安全边界 | `research/openclaw/03_docs_openclaw_ai.md:12` |
+| 7 | `It is not an authorization or isolation boundary.` | 它不构成授权或隔离边界 | `research/openclaw/02_docs_openclaw_ai.md:20` |
 | 8 | `There is no enterprise edition.` | 没有企业版 | `research/openclaw/02_docs_openclaw_ai.md:20` |
-| 9 | `not hostile multi-tenant isolation inside one shared Gateway` | 「不是在同一个共享 Gateway 内部做敌意多租户隔离」 | `research/openclaw/04_docs_openclaw_ai.md:10` |
-| 10 | `The normal admission limit is 32 identities per logical session.` | 「每个逻辑会话的默认准入上限是 32 个身份」 | `research/openclaw/03_docs_openclaw_ai.md:126` |
+| 9 | `not hostile multi-tenant isolation inside one shared Gateway` | 不是在同一个共享 Gateway 内部做敌意多租户隔离 | `research/openclaw/04_docs_openclaw_ai.md:10` |
+| 10 | `The normal admission limit is 32 identities per logical session.` | 每个逻辑会话的默认准入上限是 32 个身份 | `research/openclaw/03_docs_openclaw_ai.md:126` |
 | 11 | `There is no enterprise edition.` | 没有企业版 | — |
 | 12 | `**By default, the gateway denies all users who are not in an allowlist or paired via DM.**` | 默认情况下，网关拒绝所有不在白名单内、也未通过 DM 配对的用户 | `research/hermes/03_raw_githubusercontent_com_messaging-index.md:327` |
 | 13 | `Every allowed user falls into one of two tiers per scope (DM vs group/channel):` | 每个被放行的用户在每个作用域里（私聊 vs 群组 / 频道）都落在两档之一： | — |
@@ -455,14 +455,14 @@ Hermes 的自我描述则明确把「本机」列为要摆脱的默认：
 
 `把它跑在一台 5 美元的 VPS、一个 GPU 集群，或者空闲时几乎不花钱的 serverless 基础设施上——它不绑在你的笔记本上`（`research/hermes/01_raw_githubusercontent_com_README.md:26`）
 
-一边是 `「跑在你自己的电脑上」`，一边是 `「不绑在你的笔记本上」`——这两句并排放，分野自己就出来了。OpenClaw 的架构落点也是本机形态：`一台主机一个 Gateway`（`research/openclaw/01_docs_openclaw_ai.md:14`）、`Gateway 默认绑定到 loopback`（`research/openclaw/05_docs_openclaw_ai.md:24`）。Hermes 的落点则是跨机器：网关是常驻进程，`消息网关是一个常驻进程，通过统一的架构把 Hermes 接到 20 多个外部消息平台上`（`research/hermes/gw/01_hermes-agent_nousresearch_com.md:9`）。
+一边是 `跑在你自己的电脑上`，一边是 `不绑在你的笔记本上`——这两句并排放，分野自己就出来了。OpenClaw 的架构落点也是本机形态：`一台主机一个 Gateway`（`research/openclaw/01_docs_openclaw_ai.md:14`）、`Gateway 默认绑定到 loopback`（`research/openclaw/05_docs_openclaw_ai.md:24`）。Hermes 的落点则是跨机器：网关是常驻进程，`消息网关是一个常驻进程，通过统一的架构把 Hermes 接到 20 多个外部消息平台上`（`research/hermes/gw/01_hermes-agent_nousresearch_com.md:9`）。
 
 ## 4.3 部署姿态对照表
 
 | 维度 | OpenClaw | Hermes |
 | --- | --- | --- |
 | 产品主语 | 你自己电脑上的助手 | 跨机器常驻、不绑本机的助手 |
-| 在哪跑 | `「跑在你自己的电脑上」`；`「作为笔记本上的私人助手」` | `$5 VPS` / GPU 集群 / serverless；`「不绑在你的笔记本上」` |
+| 在哪跑 | `跑在你自己的电脑上`；`作为笔记本上的私人助手` | `$5 VPS` / GPU 集群 / serverless；`不绑在你的笔记本上` |
 | 常驻形态 | 一主机一 Gateway，默认绑 loopback | 单进程接 20+ 平台；默认一 profile 一网关，可多路复用 |
 | 记忆落盘 | 工作区里的 Markdown（默认 `~/.openclaw/workspace`） | `~/.hermes/memories/` 下的 MEMORY.md / USER.md（有字符上限） |
 | 典型场景 | 与本地文件系统 / 桌面环境耦合 | 7×24 常驻、按需计费、多端接入 |
@@ -495,7 +495,7 @@ Hermes 的自我描述则明确把「本机」列为要摆脱的默认：
 ## 本章小结
 
 - 在 OpenClaw 与 Hermes 之间，第一根能直接决策的轴是**部署姿态**（跑在哪）。
-- 两句原文正面对冲：OpenClaw `「跑在你自己的电脑上」`；Hermes `「不绑在你的笔记本上」`。
+- 两句原文正面对冲：OpenClaw `跑在你自己的电脑上`；Hermes `不绑在你的笔记本上`。
 - 本机常驻耦合本地文件系统与桌面环境，默认绑 loopback；VPS / serverless 对应 7×24 常驻、按需计费、多端接入。
 - 记忆落盘位置随姿态走：OpenClaw 用工作区 Markdown，Hermes 用 `~/.hermes/memories/` 下的定长文件。
 - 两者有共同底色（常驻 gateway + 本地文件记忆 + 技能目录扩展），本章不是「谁更好」的比较。
@@ -513,14 +513,14 @@ Hermes 的自我描述则明确把「本机」列为要摆脱的默认：
 | --- | --- | --- | --- |
 | 1 | `OpenClaw is an open-source AI assistant that runs on your own computer` | OpenClaw 是一个跑在你自己电脑上的开源 AI 助手 | `research/openclaw/06_raw_githubusercontent_com.md:25` |
 | 2 | `Run it on a $5 VPS, a GPU cluster, or serverless infrastructure that costs nearly nothing when idle. It's not tied to your laptop` | 把它跑在一台 5 美元的 VPS、一个 GPU 集群，或者空闲时几乎不花钱的 serverless 基础设施上——它不绑在你的笔记本上 | `research/hermes/01_raw_githubusercontent_com_README.md:26` |
-| 3 | `runs on your own computer` | 「跑在你自己的电脑上」 | `research/openclaw/01_docs_openclaw_ai.md:14` |
-| 4 | `It's not tied to your laptop` | 「不绑在你的笔记本上」 | `research/openclaw/01_docs_openclaw_ai.md:14` |
+| 3 | `runs on your own computer` | 跑在你自己的电脑上 | `research/openclaw/01_docs_openclaw_ai.md:14` |
+| 4 | `It's not tied to your laptop` | 不绑在你的笔记本上 | `research/openclaw/01_docs_openclaw_ai.md:14` |
 | 5 | `One Gateway per host.` | 一台主机一个 Gateway | `research/openclaw/01_docs_openclaw_ai.md:14` |
 | 6 | `The Gateway binds to loopback by default.` | Gateway 默认绑定到 loopback | `research/openclaw/05_docs_openclaw_ai.md:24` |
 | 7 | `The messaging gateway is the long-running process that connects Hermes to 20+ external messaging platforms through a unified architecture.` | 消息网关是一个常驻进程，通过统一的架构把 Hermes 接到 20 多个外部消息平台上 | `research/hermes/gw/01_hermes-agent_nousresearch_com.md:9` |
-| 8 | `runs on your own computer` | 「跑在你自己的电脑上」 | — |
-| 9 | `as a personal assistant on a laptop` | 「作为笔记本上的私人助手」 | — |
-| 10 | `not tied to your laptop` | 「不绑在你的笔记本上」 | — |
+| 8 | `runs on your own computer` | 跑在你自己的电脑上 | — |
+| 9 | `as a personal assistant on a laptop` | 作为笔记本上的私人助手 | — |
+| 10 | `not tied to your laptop` | 不绑在你的笔记本上 | — |
 | 11 | `One Gateway per host.` | 一台主机一个 Gateway | `research/hermes/gw/01_hermes-agent_nousresearch_com.md:451` |
 | 12 | `With gateway.multiplex_profiles: true one process serves the default profile plus every live directory under profiles/` | 把 gateway.multiplex_profiles: true 打开后，一个进程就同时服务默认 profile 和 profiles/ 下每一个活跃目录 | `research/hermes/gw/01_hermes-agent_nousresearch_com.md:451` |
 | 13 | `The model only remembers what gets saved to disk; there is no hidden state.` | 模型只记得被写进磁盘的东西，没有隐藏状态 | `research/openclaw/extra/02_docs_openclaw_ai.md:10` |
@@ -528,8 +528,8 @@ Hermes 的自我描述则明确把「本机」列为要摆脱的默认：
 | 15 | `1,375 chars (~500 tokens)` | 1,375 字符（约 500 token） | `research/hermes/05_hermes-agent_nousresearch_com_memory.md:14-15,302` |
 | 16 | `~1,300 tokens` | 约 1,300 token | `research/hermes/05_hermes-agent_nousresearch_com_memory.md:14-15,302` |
 | 17 | `talk to it from Telegram while it works on a cloud VM` | 它在云上的 VM 里干活时，你可以从 Telegram 跟它说话 | `research/hermes/01_raw_githubusercontent_com_README.md:26` |
-| 18 | `runs on your own computer` | 「跑在你自己的电脑上」 | — |
-| 19 | `It's not tied to your laptop` | 「不绑在你的笔记本上」 | — |
+| 18 | `runs on your own computer` | 跑在你自己的电脑上 | — |
+| 19 | `It's not tied to your laptop` | 不绑在你的笔记本上 | — |
 
 # 第 5 章 Octop 回答的是不是另一个问题 —— 单实例多用户平台，家庭与小团队
 
@@ -573,7 +573,7 @@ Octop 的架构不是「顺便长这样」，而是这份定位倒逼出来的�
 
 为什么「服务多人」会推出一体式进程？因为一个实例要同时扛 web 服务、CLI、每个用户的 agent 运行时、IM 通道连接和定时调度：`Octop 需要同时跑 web 服务、CLI、每个用户的 Agent 运行时、IM 通道连接和定时调度`（`research/octop/docs/adr/001-single-process-model.md:10`）。工程师的取舍是「运维负担优先于扩展」——`对目标人群来说，加一个 Redis 或进程守护会成倍增加运维负担`（`research/octop/docs/adr/001-single-process-model.md`）——目标人群（家庭与小团队）不需要集群，需要的是「一个进程、一个端口、装完就能用」。
 
-控制面后端可选 SQLite 或 PostgreSQL：`| OCTOP_DATABASE_DRIVER | sqlite | postgresql | sqlite | Storage backend |`（`research/octop/docs/configuration.md:158`），但只有全新安装才能选 PG：`「只支持全新安装——没有 SQLite→PG 的数据迁移工具」`（`research/octop/docs/adr/002-database-backends.md:45`）。
+控制面后端可选 SQLite 或 PostgreSQL：`| OCTOP_DATABASE_DRIVER | sqlite | postgresql | sqlite | Storage backend |`（`research/octop/docs/configuration.md:158`），但只有全新安装才能选 PG：`只支持全新安装——没有 SQLite→PG 的数据迁移工具`（`research/octop/docs/adr/002-database-backends.md:45`）。
 
 > [!example] 部署形态清单
 > Octop 官方给出的安装方式覆盖了几种典型自托管姿势：脚本安装 / PyPI / Docker / 桌面客户端（Wails）/ 飞牛 NAS 应用包 `Octop-fnos-docker-<version>.fpk`（见 `research/octop/README_CN.md` 快速开始）。桌面端只是 **Wails 外壳**，底层仍是同一套服务，并不存在独立的「单用户桌面模式」。
@@ -590,10 +590,10 @@ Octop 的架构不是「顺便长这样」，而是这份定位倒逼出来的�
 
 （三行分别见 `research/octop/docs/adr/001-single-process-model.md:27-29`。）
 
-翻成人话：它**没有外部队列、没有独立 worker、只能垂直扩展**——也就是「换更强的机器」而不是「加更多的机器」。重 CPU 任务会阻塞事件循环；数据库也是单写者定位：`「同一时刻只有一个 Octop 写入者；不承诺多实例写入」`（`research/octop/docs/adr/002-database-backends.md:44`）。官方甚至预告了未来的扩展缝在哪：`将来要横向扩展，得把 worker 拆成独立进程并加一个队列`（`research/octop/docs/adr/001-single-process-model.md`）——注意用的是**将来时**，说明这还不是现状。
+翻成人话：它**没有外部队列、没有独立 worker、只能垂直扩展**——也就是「换更强的机器」而不是「加更多的机器」。重 CPU 任务会阻塞事件循环；数据库也是单写者定位：`同一时刻只有一个 Octop 写入者；不承诺多实例写入`（`research/octop/docs/adr/002-database-backends.md:44`）。官方甚至预告了未来的扩展缝在哪：`将来要横向扩展，得把 worker 拆成独立进程并加一个队列`（`research/octop/docs/adr/001-single-process-model.md`）——注意用的是**将来时**，说明这还不是现状。
 
 > [!warning] 不要给 Octop 编造人数上限
-> 官方**没有发布任何并发用户数、吞吐或压测数字**，只有 `「只支持垂直扩展」`、`「不支持 worker 的横向扩展」`、`「同一时刻每个 agent 只有一个写入者」` 这类定性表述（`02_deep_research.md` §3.3 裁决 2、§8 开放问题 1）。所以本章只给「一台机器垂直扩展」这一条**硬边界**，**不给任何人数上限**。任何「支持 N 个用户」的说法都是杜撰。
+> 官方**没有发布任何并发用户数、吞吐或压测数字**，只有 `只支持垂直扩展`、`不支持 worker 的横向扩展`、`同一时刻每个 agent 只有一个写入者` 这类定性表述（`02_deep_research.md` §3.3 裁决 2、§8 开放问题 1）。所以本章只给「一台机器垂直扩展」这一条**硬边界**，**不给任何人数上限**。任何「支持 N 个用户」的说法都是杜撰。
 
 > [!example] 官方 Roadmap 里的未完成项
 > 更能说明「水平扩展还不是现状」的，是 Octop 自己列在 Roadmap 上的未完成项：`- [ ] **Managed Agents** — 平台托管的 Agent 生命周期（开通、伸缩与运维），无需自行维护完整自托管栈。`，以及同段的 `- [ ] **云边端一体** — 本地运行 Octop，同时可将选定任务调度到云端执行`（`research/octop/README_CN.md:172`）。两条都还打着未勾选的方框——「伸缩」「云端调度」是官方承认要做、但**当前没有**的能力。选型时按现状读，不要按 Roadmap 读。
@@ -613,7 +613,7 @@ Octop 的记忆是**独立子系统**（octop-memory），分层加全文检索�
 - `**Octop Memory** — 分层记忆与全文检索，让 Agent 的记忆随工作区一同迁移。`（`research/octop/README_CN.md:104`）
 - 默认落盘：`控制面用 SQLite 时，agent 记忆留在 {workspace}/memory.sqlite`（`research/octop/docs/configuration.md:187`）
 
-换到 PostgreSQL 时，记忆默认复用同一个 DSN、按 agent 分 schema：`控制面用 PostgreSQL 时，agent 记忆**默认复用同一个 DSN**`，schema 名为 `agent_<id>`（`research/octop/docs/configuration.md:189`）。这里藏着两条迁移限制，选型时要留意：官方明确 `「没有 SQLite→PG 的记忆数据自动迁移」`（`research/octop/docs/configuration.md:200`），且记忆表结构由 octop-memory 自己拥有（`「记忆表的 DDL 由 octop-memory 自己拥有」`，`research/octop/docs/architecture.md:115`）。
+换到 PostgreSQL 时，记忆默认复用同一个 DSN、按 agent 分 schema：`控制面用 PostgreSQL 时，agent 记忆**默认复用同一个 DSN**`，schema 名为 `agent_<id>`（`research/octop/docs/configuration.md:189`）。这里藏着两条迁移限制，选型时要留意：官方明确 `没有 SQLite→PG 的记忆数据自动迁移`（`research/octop/docs/configuration.md:200`），且记忆表结构由 octop-memory 自己拥有（`记忆表的 DDL 由 octop-memory 自己拥有`，`research/octop/docs/architecture.md:115`）。
 
 记忆的**归身边界还延伸到运维动作**，这一点和「行级归属」一脉相承：`对话的 --all 与本地管理 CLI 范围不同：只选当前用户自己的 agent，不包含其他用户或共享 agent。`（`research/octop/docs/memory-slim.md:87`）。另有两条当前限制：瘦身整理只支持 SQLite（`PG 瘦身，只支持 SQLite`，`research/octop/docs/memory-slim.md:57`），外部 IM 的记忆维护尚未开放（`外部 IM 的记忆维护需要已验证的发送者权限，暂未开放。`，`research/octop/README_CN.md:422`）。
 
@@ -645,16 +645,16 @@ Octop 的记忆是**独立子系统**（octop-memory），分层加全文检索�
 | 6 | `Everything runs in a single Python process served by uvicorn. There is no external queue (Redis, RabbitMQ, Celery), no separate worker process, and no required backing services beyond the LLM provider.` | 一切都跑在一个由 uvicorn 提供服务的 Python 进程里：没有外部队列（Redis、RabbitMQ、Celery），没有单独的 worker 进程，除了 LLM 供应商之外不需要任何后端服务 | `research/octop/docs/adr/001-single-process-model.md:14` |
 | 7 | `Octop needs to run a web server, a CLI, per-user Agent runtimes, IM channel connections, and cron schedulers simultaneously.` | Octop 需要同时跑 web 服务、CLI、每个用户的 Agent 运行时、IM 通道连接和定时调度 | `research/octop/docs/adr/001-single-process-model.md:10` |
 | 8 | `Adding Redis or a process supervisor doubles the ops burden for the primary audience.` | 对目标人群来说，加一个 Redis 或进程守护会成倍增加运维负担 | `research/octop/docs/adr/001-single-process-model.md` |
-| 9 | `- Greenfield only — no SQLite→PG data migrator.` | 「只支持全新安装——没有 SQLite→PG 的数据迁移工具」 | `research/octop/docs/adr/002-database-backends.md:45` |
-| 10 | `- Single active Octop writer; no multi-instance write promise.` | 「同一时刻只有一个 Octop 写入者；不承诺多实例写入」 | `research/octop/docs/adr/002-database-backends.md:44` |
+| 9 | `- Greenfield only — no SQLite→PG data migrator.` | 只支持全新安装——没有 SQLite→PG 的数据迁移工具 | `research/octop/docs/adr/002-database-backends.md:45` |
+| 10 | `- Single active Octop writer; no multi-instance write promise.` | 同一时刻只有一个 Octop 写入者；不承诺多实例写入 | `research/octop/docs/adr/002-database-backends.md:44` |
 | 11 | `Future scale-out would require extracting the worker into a separate process and adding a queue` | 将来要横向扩展，得把 worker 拆成独立进程并加一个队列 | `research/octop/docs/adr/001-single-process-model.md` |
-| 12 | `Vertical scaling only` | 「只支持垂直扩展」 | `02_deep_research.md` |
-| 13 | `No horizontal worker scaling` | 「不支持 worker 的横向扩展」 | `02_deep_research.md` |
-| 14 | `one writer per agent at a time` | 「同一时刻每个 agent 只有一个写入者」 | `02_deep_research.md` |
+| 12 | `Vertical scaling only` | 只支持垂直扩展 | `02_deep_research.md` |
+| 13 | `No horizontal worker scaling` | 不支持 worker 的横向扩展 | `02_deep_research.md` |
+| 14 | `one writer per agent at a time` | 同一时刻每个 agent 只有一个写入者 | `02_deep_research.md` |
 | 15 | `- Control plane SQLite → agent memory stays {workspace}/memory.sqlite` | 控制面用 SQLite 时，agent 记忆留在 {workspace}/memory.sqlite | `research/octop/docs/configuration.md:187` |
 | 16 | `Control plane PostgreSQL → agent memory **defaults to the same DSN**` | 控制面用 PostgreSQL 时，agent 记忆**默认复用同一个 DSN** | `research/octop/docs/configuration.md:189` |
-| 17 | `no automatic SQLite→PG memory data migration.` | 「没有 SQLite→PG 的记忆数据自动迁移」 | `research/octop/docs/configuration.md:200` |
-| 18 | `Agent memory DDL is owned by octop-memory.` | 「记忆表的 DDL 由 octop-memory 自己拥有」 | `research/octop/docs/architecture.md:115` |
+| 17 | `no automatic SQLite→PG memory data migration.` | 没有 SQLite→PG 的记忆数据自动迁移 | `research/octop/docs/configuration.md:200` |
+| 18 | `Agent memory DDL is owned by octop-memory.` | 记忆表的 DDL 由 octop-memory 自己拥有 | `research/octop/docs/architecture.md:115` |
 
 # 第 6 章 「谁把谁当参照」—— 迁移命令、官方对照页、双向零提及说明什么
 
@@ -692,7 +692,7 @@ OpenClaw 对 Hermes 的引用是全篇最重的一处——有**官方专页级�
 > [!warning] 引用规则
 > 这张对照表是 **OpenClaw 单方制作，不是中立评测**。它在 `治理` 与 `资金与营收` 两行把自身写成 `独立 501(c)(3)，靠捐赠资助`，把 Hermes 写成 `风险投资（Paradigm 领投的 A 轮）`——一行对照里就带着立场，不能当作客观横向测评来引。同时它引用的对方公司背景 `Hermes 由 Nous Research 打造，一家接受风险投资的公司`（`research/openclaw/02_docs_openclaw_ai.md`）也是**站在 OpenClaw 立场**转述的。
 
-这张逐项对照表本次落盘件含 15 行属性（`research/openclaw/extra2/01_docs_openclaw_ai.md:17-31`），其中 `「角色与多用户」` 行对 Hermes 的判定是 `「在某个适配器的授权集合内是同等信任」`，对自身多租户工具则标为 `「实验性的每租户 fleet cell」`。注意：这两句都出自 OpenClaw 单方，转述时仍要带上这个标注。
+这张逐项对照表本次落盘件含 15 行属性（`research/openclaw/extra2/01_docs_openclaw_ai.md:17-31`），其中 `角色与多用户` 行对 Hermes 的判定是 `在某个适配器的授权集合内是同等信任`，对自身多租户工具则标为 `实验性的每租户 fleet cell`。注意：这两句都出自 OpenClaw 单方，转述时仍要带上这个标注。
 
 ## 6.3 Hermes 侧：迁移命令是双向同层的铁证
 
@@ -762,9 +762,9 @@ Octop 在这张参照网上是完全缺席的：全库检索 `openclaw|hermes` *
 | 10 | `Independent 501(c)(3) funded by donations` | 独立 501(c)(3)，靠捐赠资助 | `research/openclaw/02_docs_openclaw_ai.md` |
 | 11 | `Venture-funded (Paradigm-led Series A)` | 风险投资（Paradigm 领投的 A 轮） | `research/openclaw/02_docs_openclaw_ai.md` |
 | 12 | `Hermes is built by Nous Research, a venture-funded company` | Hermes 由 Nous Research 打造，一家接受风险投资的公司 | `research/openclaw/02_docs_openclaw_ai.md` |
-| 13 | `Roles and multi-user` | 「角色与多用户」 | `research/openclaw/extra2/01_docs_openclaw_ai.md:17-31` |
-| 14 | `Equal trust within an adapter's authorized set` | 「在某个适配器的授权集合内是同等信任」 | `research/openclaw/extra2/01_docs_openclaw_ai.md:17-31` |
-| 15 | `experimental per-tenant fleet cells` | 「实验性的每租户 fleet cell」 | `research/openclaw/extra2/01_docs_openclaw_ai.md:17-31` |
+| 13 | `Roles and multi-user` | 角色与多用户 | `research/openclaw/extra2/01_docs_openclaw_ai.md:17-31` |
+| 14 | `Equal trust within an adapter's authorized set` | 在某个适配器的授权集合内是同等信任 | `research/openclaw/extra2/01_docs_openclaw_ai.md:17-31` |
+| 15 | `experimental per-tenant fleet cells` | 实验性的每租户 fleet cell | `research/openclaw/extra2/01_docs_openclaw_ai.md:17-31` |
 | 16 | `## Migrating from OpenClaw` | 从 OpenClaw 迁移 | `research/hermes/01_raw_githubusercontent_com_README.md` |
 | 17 | `If you're coming from OpenClaw, Hermes can automatically import your settings, memories, skills, and API keys.` | 如果你是从 OpenClaw 过来的，Hermes 可以自动导入你的设置、记忆、技能和 API 密钥 | `research/hermes/01_raw_githubusercontent_com_README.md` |
 | 18 | `**During first-time setup:** The setup wizard (hermes setup) automatically detects ~/.openclaw and offers to migrate before configuration begins.` | **首次安装时：**安装向导（hermes setup）会自动检测 ~/.openclaw，并在配置开始前询问是否迁移 | — |
@@ -804,8 +804,8 @@ Octop 在这张参照网上是完全缺席的：全库检索 `openclaw|hermes` *
 
 归位到**第 2 层（个人助手 harness）**，意味着你已经确定：要常驻服务，且用户是单人 / 单一所有者。此时第 4 章那根轴立刻可用——**部署姿态**：
 
-- 要助手**本机常驻**、与本地文件系统和桌面环境耦合（`「跑在你自己的电脑上」`）→ 走 **OpenClaw** 分支。
-- 要助手**不绑本机**、7×24 常驻、多端接入、按需计费（`「不绑在你的笔记本上」`）→ 走 **Hermes** 分支。
+- 要助手**本机常驻**、与本地文件系统和桌面环境耦合（`跑在你自己的电脑上`）→ 走 **OpenClaw** 分支。
+- 要助手**不绑本机**、7×24 常驻、多端接入、按需计费（`不绑在你的笔记本上`）→ 走 **Hermes** 分支。
 
 正如第 4 章强调的：这不是「谁更好」，而是「你的助手默认该和谁待在一起」。
 
@@ -830,7 +830,7 @@ Octop 在这张参照网上是完全缺席的：全库检索 `openclaw|hermes` *
 | --- | --- | --- | --- | --- | --- |
 | 术语轴 | 它说的「多用户」是哪一层语义？ | 第 2 章 | 同一信任域内的协作 | 准入与很窄的分级 | 行级归属 |
 | 隔离强度轴 | 越权被拒得有多硬？ | 第 3 章 | 不提供隔离 | 准入与很窄的分级 | 行级归属 |
-| 层内差异轴 | 助手跑在哪台机器？ | 第 4 章 | `「跑在你自己的电脑上」` | `「不绑在你的笔记本上」` | 单机单进程平台 |
+| 层内差异轴 | 助手跑在哪台机器？ | 第 4 章 | `跑在你自己的电脑上` | `不绑在你的笔记本上` | 单机单进程平台 |
 | 框架轴（提问透镜） | 你的压力压在哪一环？ | 第 1 章 | 对三方同样适用 | 对三方同样适用 | 对三方同样适用 |
 
 第四轴的用法是把任务当**压力剖面**问，而不是当应用标签——`任务不只是一个应用标签，而是施加在观察、上下文、控制、行动、状态与治理之上的一个压力剖面`（`research/framework/13_arxiv_2606.20683v1_fulltext.md:212`）。翻成六问：**观察接口 / 上下文管理 / 控制循环 / 动作接口 / 状态与产物 / 验证与治理**——哪一环压力最大，就往那一环强的平台上靠。
@@ -869,7 +869,7 @@ Octop 在这张参照网上是完全缺席的：全库检索 `openclaw|hermes` *
 
 ### 后续观察点（本文的开放问题，留待将来复核）
 
-1. **Octop 的并发容量**：官方只给 `「只支持垂直扩展」`、`「不支持 worker 的横向扩展」` 这类定性表述，**没有任何人数上限数据**。将来若官方发布容量说明，本篇第 5、7 章的硬边界需据以更新。
+1. **Octop 的并发容量**：官方只给 `只支持垂直扩展`、`不支持 worker 的横向扩展` 这类定性表述，**没有任何人数上限数据**。将来若官方发布容量说明，本篇第 5、7 章的硬边界需据以更新。
 2. **针对「多用户」的治理能力之版本边界**：RBAC（`0.9.24`）与按用户配额（`0.9.33`）确为增量加入，但「多用户」本身是否在 1.0 之前即存在**未验证**。拿旧版本对照时，第 3 章的分档描述可能对不上。
 3. **归属表的完整清单**：目前只确认 `agents.user_id` 一个字段；`knowledge_bases` / `usage_log` / `audit_log` 只是间接证据，未逐表核对。清单补齐后，第 3 章「行级归属」的边界可写得更精确。
 
@@ -879,12 +879,12 @@ Octop 在这张参照网上是完全缺席的：全库检索 `openclaw|hermes` *
 
 | # | 原文（逐字） | 中译 | 出处 |
 | --- | --- | --- | --- |
-| 1 | `runs on your own computer` | 「跑在你自己的电脑上」 | — |
-| 2 | `It's not tied to your laptop` | 「不绑在你的笔记本上」 | — |
-| 3 | `runs on your own computer` | 「跑在你自己的电脑上」 | — |
-| 4 | `It's not tied to your laptop` | 「不绑在你的笔记本上」 | — |
+| 1 | `runs on your own computer` | 跑在你自己的电脑上 | — |
+| 2 | `It's not tied to your laptop` | 不绑在你的笔记本上 | — |
+| 3 | `runs on your own computer` | 跑在你自己的电脑上 | — |
+| 4 | `It's not tied to your laptop` | 不绑在你的笔记本上 | — |
 | 5 | `a task is not merely an application label but a pressure profile over observation, context, control, action, state, and governance` | 任务不只是一个应用标签，而是施加在观察、上下文、控制、行动、状态与治理之上的一个压力剖面 | `research/framework/13_arxiv_2606.20683v1_fulltext.md:212` |
-| 6 | `Vertical scaling only` | 「只支持垂直扩展」 | — |
-| 7 | `No horizontal worker scaling` | 「不支持 worker 的横向扩展」 | — |
+| 6 | `Vertical scaling only` | 只支持垂直扩展 | — |
+| 7 | `No horizontal worker scaling` | 不支持 worker 的横向扩展 | — |
 
 <!-- END: 07_选型框架与决策树.md -->
