@@ -10,12 +10,12 @@
 
 分野最先出现在产品主语上。OpenClaw 与 Hermes 的主语是单数「你」，Octop 的主语是「一台机器上的实例」，收益归于「每个用户」：
 
-- `支持多用户、多 Agent 的自托管 AI 助手 — 更聪明，更懂你。`（`research/octop/README_CN.md:6`）
+- `支持多用户、多 Agent 的自托管 AI 助手 — 更聪明，更懂你。`（`research/octop/README_CN.md:6`）——引号内是官方 README 原句用词，不作改动；按第 2 章切分，此处的「多用户」是 ③ 行级归属这一层
 - `Octop is a self-hosted AI assistant platform for households and small teams.`（`research/octop/README.md:69`）
 - `同时为每个用户配备一组可按场景切换的专业 Agent。`（`research/octop/README_CN.md:70`）
 - 面向 agent 的手册同调：`**Octop** — self-hosted AI assistant platform (multi-user, multi-agent).`（`research/octop/AGENTS.md:37`）
 
-所以它回答的问题可以写死成一句：**一台机器上的一个实例，怎么同时服务多个用户。**这句话在 OpenClaw 与 Hermes 的语境里根本不存在——两者的默认形态是「受信的单操作者助手」（`Default OpenClaw is a trusted single-operator assistant.`，`research/openclaw/02_docs_openclaw_ai.md`），多用户是叠加上去的一层。Octop 反过来：多用户是出发点，单用户才是要特判的少数情况。这一点下一节会展开。
+所以它回答的问题可以写死成一句：**一台机器上的一个实例，怎么同时服务多个用户。**这句话在 OpenClaw 与 Hermes 的语境里根本不存在——两者的默认形态是「受信的单操作者助手」（`Default OpenClaw is a trusted single-operator assistant.`，`research/openclaw/02_docs_openclaw_ai.md`），③ 行级归属意义上的「多用户」在两者那里都是叠加上去的一层。Octop 反过来：「多用户」（③ 行级归属）是它的出发点，单用户才是要特判的少数情况。这一点下一节会展开。
 
 > [!tip] 大白话
 > 把 OpenClaw / Hermes 想成**你的私人笔记本**：问的是「你带哪台笔记本出门、它默认能不能被外面够到」。把 Octop 想成**家里的公用电脑**：它默认就是一台机器、好几个人用，问的是「这台电脑怎么让全家人各有各的账户和文件柜」。前者是「谁在哪」，后者是「一台怎么分给多个」。
@@ -71,7 +71,7 @@ Octop 的架构不是「顺便长这样」，而是这份定位倒逼出来的�
 
 - `**个人助理** — 让专属 Agent 帮你写周报、整理资料、定日程，记忆随工作区长期保留。`（`research/octop/README_CN.md:75`）
 
-关键在于理解「退化」二字：单用户在 Octop 里就是**用户表里的一行**，走的是同一套 JWT、归属、模块权限——不是把多用户模块关掉换一套单用户内核。所以它不像「个人助手 harness」，更像是「本来给多人用的平台，恰好只放了一个人」。这也解释了为什么第 1 章的三层坐标里，Octop 该归到第 3 层（多用户平台，此处「多用户」= ③ 行级归属），而不是第 2 层。
+关键在于理解「退化」二字：单用户在 Octop 里就是**用户表里的一行**，走的是同一套 JWT、归属、模块权限——不是把「多用户」（③ 行级归属）那层能力关掉换一套单用户内核。所以它不像「个人助手 harness」，更像是「本来给多人用的平台，恰好只放了一个人」。这也解释了为什么第 1 章的三层坐标里，Octop 该归到第 3 层（多用户平台，此处「多用户」= ③ 行级归属），而不是第 2 层。
 
 ## 5.6 记忆：独立库，落工作区，随工作区迁移
 
