@@ -231,28 +231,35 @@ def cite_for(line, a, b, prior):
 
 
 def split_sections(lines, kind):
-    """→ [(chap, start, stop)]，stop 是该章附录的插入位置（行下标）。"""
+    """→ [(chap, start, stop)]，stop 是该章附录的插入位置（行下标）。
+
+    stop 必须取「下一个章标题」**和**「本章结束标记」两者中靠前的那个：
+    非末章时只看下一个章标题，`<!-- END: -->` / `<!-- SOURCE: -->` 就会被
+    附录挤在中间——第一版就踩了这个坑，`_merged.md` 的 1–6 章附录全跑到
+    下一章的 SOURCE 标记后面去了。
+    """
     if kind == "chapter":
-        m = CH_HEAD.match(lines[0])
-        return [(int(m.group(2)) if m else 0, 0, len(lines))]
+        for i in range(min(8, len(lines))):
+            m = CH_HEAD.match(lines[i])
+            if m:
+                return [(int(m.group(2)), 0, len(lines))]
+        return [(0, 0, len(lines))]
 
     heads = [(int(m.group(2)), i) for i, l in enumerate(lines) if (m := CH_HEAD.match(l))]
     out = []
     for n, (chap, start) in enumerate(heads):
-        if n + 1 < len(heads):
-            stop = heads[n + 1][1]
-        elif kind == "merged":
-            stop = len(lines)
-            for i in range(start, len(lines)):
-                if lines[i].startswith("<!-- END:"):
-                    stop = i
-                    break
-        else:  # assembled：最后一章的正文到「相关文档」这类尾节为止
-            stop = len(lines)
-            for i in range(start, len(lines)):
-                if FOOTER.match(lines[i]):
-                    stop = i
-                    break
+        stop = heads[n + 1][1] if n + 1 < len(heads) else len(lines)
+        if kind == "merged":
+            tag = "<!-- END:"
+        else:  # assembled
+            tag = None
+        for i in range(start, stop):
+            if tag and lines[i].startswith(tag):
+                stop = i
+                break
+            if tag is None and FOOTER.match(lines[i]):
+                stop = i
+                break
         out.append((chap, start, stop))
     return out
 

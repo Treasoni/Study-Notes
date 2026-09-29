@@ -136,9 +136,6 @@ Star 数量的是「有多少人注意到了它」，不是「它适不适合你
 - 第 1 层只作坐标系，本文比较对象是第 2、3 层。
 
 **下一章预告**：既然功能清单会叠影，就先拆开撞得最狠的那一行——「多用户」。第 2 章把三方在这一行上各自说的到底是哪件事，用官方原话逐方并置，你会看到这个词被用成了三种互不相同的语义。
-<!-- END: 01_为什么感觉都一样是范畴错误.md -->
-
-<!-- SOURCE: 02_多用户一词三义.md | 13676 bytes -->
 
 ## 引文对照（原文 / 中译）
 
@@ -177,6 +174,9 @@ Star 数量的是「有多少人注意到了它」，不是「它适不适合你
 | 29 | `AI coworkers and teammates` | AI 同事与队友 | — |
 | 30 | `Octop agent delegates coding tasks` | Octop agent 委派编码任务 | `research/octop/docs/acp.md:29-38` |
 
+<!-- END: 01_为什么感觉都一样是范畴错误.md -->
+
+<!-- SOURCE: 02_多用户一词三义.md | 13676 bytes -->
 # 第 2 章 「多用户」一词三义 —— 三方原文并置
 
 ## 本章要解决的问题
@@ -267,9 +267,6 @@ Octop 的「多用户」（行级归属）是架构内建的。``每个请求都
 - 硬结论：多用户平台 ≠ 多租户平台；Hermes 与 Octop 各一处 `tenant` 都是消息字段，非租户。
 
 **下一章预告**：三种语义目前还是三个并列的说法。第 3 章把它们翻译成一条**可测量、可排序**的轴——隔离强度梯度「不提供隔离 → 准入与很窄的分级 → 行级归属」，并给出每一档对应的现实后果。
-<!-- END: 02_多用户一词三义.md -->
-
-<!-- SOURCE: 03_隔离强度梯度.md | 11607 bytes -->
 
 ## 引文对照（原文 / 中译）
 
@@ -312,6 +309,9 @@ Octop 的「多用户」（行级归属）是架构内建的。``每个请求都
 | 33 | `Sender ids are also namespaced per tenant on some platforms — a Slack user id is workspace-local` | 在某些平台上，发送者 ID 也按租户加了命名空间——Slack 的用户 ID 是工作区局部的 | `research/hermes/02_hermes-agent_nousresearch_com_multi-profile-gateways.md:643` |
 | 34 | `usability features, not security boundaries` | 易用性功能，不是安全边界 | — |
 
+<!-- END: 02_多用户一词三义.md -->
+
+<!-- SOURCE: 03_隔离强度梯度.md | 11607 bytes -->
 # 第 3 章 隔离强度梯度 —— 不提供隔离 / 准入与很窄的分级 / 行级归属
 
 ## 本章要解决的问题
@@ -402,9 +402,6 @@ Octop 这一档的强度最高，机制是**三层叠加、各管一段**：准�
 - 强档也有例外：隔离可由 owner 主动放宽（专家共享），且治理能力是增量加入的。
 
 **下一章预告**：梯度讲的是「同一件事的强弱」。但 OpenClaw 与 Hermes 这两方在第 1 章的三层坐标里同属第 2 层（个人助手 harness），它们之间还有没有一根能直接回答「什么场景用哪个」的轴？第 4 章给出这根轴——部署姿态：本机常驻，还是「不绑本机」。
-<!-- END: 03_隔离强度梯度.md -->
-
-<!-- SOURCE: 04_同层内部怎么分.md | 8282 bytes -->
 
 ## 引文对照（原文 / 中译）
 
@@ -429,6 +426,9 @@ Octop 这一档的强度最高，机制是**三层叠加、各管一段**：准�
 | 15 | `Sender routing selects a profile; it is not deny-by-default authorization.` | 发送者路由只是在挑 profile，不是默认拒绝式的授权 | `research/hermes/02_hermes-agent_nousresearch_com_multi-profile-gateways.md:645` |
 | 16 | `Read access and agent use in chat are never gated.` | 读取权限与在对话中使用 agent 从不受分级限制 | — |
 
+<!-- END: 03_隔离强度梯度.md -->
+
+<!-- SOURCE: 04_同层内部怎么分.md | 8282 bytes -->
 # 第 4 章 同层内部怎么分 —— OpenClaw「跑在你自己电脑上」对比 Hermes「不绑在你的笔记本上」
 
 ## 本章要解决的问题
@@ -501,9 +501,6 @@ Hermes 的自我描述则明确把「本机」列为要摆脱的默认：
 - 两者有共同底色（常驻 gateway + 本地文件记忆 + 技能目录扩展），本章不是「谁更好」的比较。
 
 **下一章预告**：OpenClaw 与 Hermes 的二选一在这根轴上能走通。但 Octop 根本不在这个二选一里——第 5 章说明：Octop 的「多用户」（行级归属）不是第 3 章那根梯度轴上的更强档，而是**另一个问句的答案**。
-<!-- END: 04_同层内部怎么分.md -->
-
-<!-- SOURCE: 05_Octop回答的是不是另一个问题.md | 11974 bytes -->
 
 ## 引文对照（原文 / 中译）
 
@@ -531,6 +528,9 @@ Hermes 的自我描述则明确把「本机」列为要摆脱的默认：
 | 18 | `runs on your own computer` | 跑在你自己的电脑上 | — |
 | 19 | `It's not tied to your laptop` | 不绑在你的笔记本上 | — |
 
+<!-- END: 04_同层内部怎么分.md -->
+
+<!-- SOURCE: 05_Octop回答的是不是另一个问题.md | 11974 bytes -->
 # 第 5 章 Octop 回答的是不是另一个问题 —— 单实例多用户平台，家庭与小团队
 
 ## 本章要解决的问题
@@ -627,9 +627,6 @@ Octop 的记忆是**独立子系统**（octop-memory），分层加全文检索�
 - 记忆是独立库（octop-memory），落工作区、随工作区迁移；SQLite→PG 无自动迁移、瘦身只支持 SQLite。
 
 **下一章预告**：本章说 Octop 是「另一个问句的答案」。这个说法能不能被独立证据检验？第 6 章换一个角度看三方——**谁把谁当参照**：迁移命令、OpenClaw 的官方逐项对照页、以及 Octop 的双向零提及，会把前面第 2–5 章的结论反向校验一遍。
-<!-- END: 05_Octop回答的是不是另一个问题.md -->
-
-<!-- SOURCE: 06_谁把谁当参照.md | 10568 bytes -->
 
 ## 引文对照（原文 / 中译）
 
@@ -656,6 +653,9 @@ Octop 的记忆是**独立子系统**（octop-memory），分层加全文检索�
 | 17 | `no automatic SQLite→PG memory data migration.` | 没有 SQLite→PG 的记忆数据自动迁移 | `research/octop/docs/configuration.md:200` |
 | 18 | `Agent memory DDL is owned by octop-memory.` | 记忆表的 DDL 由 octop-memory 自己拥有 | `research/octop/docs/architecture.md:115` |
 
+<!-- END: 05_Octop回答的是不是另一个问题.md -->
+
+<!-- SOURCE: 06_谁把谁当参照.md | 10568 bytes -->
 # 第 6 章 「谁把谁当参照」—— 迁移命令、官方对照页、双向零提及说明什么
 
 ## 本章要解决的问题
@@ -740,9 +740,6 @@ Octop 在这张参照网上是完全缺席的：全库检索 `openclaw|hermes` *
 - 三张证据互证：OpenClaw 与 Hermes 同层，Octop 是另一个问句的答案。
 
 **下一章预告**：定位、术语、隔离、部署姿态、参照关系——六个维度看完了，该怎么用？第 7 章把它们收成一个**决策树**和一个**可迁移的提问清单**，并针对「个人助手」与「企业多人」两类真实场景给出可解释的结论。
-<!-- END: 06_谁把谁当参照.md -->
-
-<!-- SOURCE: 07_选型框架与决策树.md | 9825 bytes -->
 
 ## 引文对照（原文 / 中译）
 
@@ -777,6 +774,9 @@ Octop 在这张参照网上是完全缺席的：全库检索 `openclaw|hermes` *
 | 25 | `Workspace instructions` | 工作区指令 | `SOUL.md` |
 | 26 | `Secrets are never included implicitly: --migrate-secrets is required even under --preset full` | 密钥默认不迁：即使加了 --preset full，也必须显式给出 --migrate-secrets | `SOUL.md` |
 
+<!-- END: 06_谁把谁当参照.md -->
+
+<!-- SOURCE: 07_选型框架与决策树.md | 9825 bytes -->
 # 第 7 章 选型框架 + 落到你场景的决策树（个人助手 / 企业多人）
 
 ## 本章要解决的问题

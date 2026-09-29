@@ -1,0 +1,9 @@
+ch1: ✅ 4 份副本逐字相同  (32 行 / 01_为什么感觉都一样是、_merged.md、final_note.m、自托管 Agent 平台)
+ch2: ✅ 4 份副本逐字相同  (36 行 / 02_多用户一词三义.m、_merged.md、final_note.m、自托管 Agent 平台)
+ch3: ✅ 4 份副本逐字相同  (18 行 / 03_隔离强度梯度.md、_merged.md、final_note.m、自托管 Agent 平台)
+ch4: ✅ 4 份副本逐字相同  (21 行 / 04_同层内部怎么分.m、_merged.md、final_note.m、自托管 Agent 平台)
+ch5: ✅ 4 份副本逐字相同  (20 行 / 05_Octop回答的是、_merged.md、final_note.m、自托管 Agent 平台)
+ch6: ✅ 4 份副本逐字相同  (28 行 / 06_谁把谁当参照.md、_merged.md、final_note.m、自托管 Agent 平台)
+ch7: ✅ 4 份副本逐字相同  (9 行 / 07_选型框架与决策树.、_merged.md、final_note.m、自托管 Agent 平台)
+
+总判定：✅ 全部一致
