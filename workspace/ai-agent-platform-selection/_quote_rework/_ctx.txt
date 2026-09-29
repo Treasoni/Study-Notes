@@ -1,0 +1,63 @@
+########## slash
+ 177| | Hermes   | **准入与很窄的分级**：默认拒绝所有不在白名单、未配对的用户；进来后再分 admin / user 两档，且分级目前只管 slash 命令；无租户语汇 | ``**By default, the gateway denies all users who are not in an allowlist or paired via DM.**`` / `Allowlists answer "can this person reach the bot at all?" The **admin / user split** answers "now that they're in, what are they allowed to do?"` / `Sender routing selects a profile; it is not deny-by-default a
+ 203| 但「分级」的实际边界很窄，必须把实证写出来：`**What the tiers gate today:** slash commands. ... Plain chat is not affected — non-admins can still talk to the agent.`（同文件 :378）。也就是说，这两档目前**只管 slash 命令**，普通对话不受限。
+ 210| > 把 Hermes 的「多用户」（准入与很窄的分级）想成公司门禁：刷卡才能进楼（白名单 / 配对），进楼后分「管理员」和「普通员工」两种卡——但这张卡目前只管你能不能按电梯里的少数几个按钮（slash 命令），走廊里聊天说话（普通对话）根本没人拦。
+ 246| - Hermes 的默认准入是 deny-by-default，但两档分级目前只管 slash 命令，profile 路由不是授权。
+ 268| | 准入与很窄的分级 | Hermes | `The admin / user split` / `What the tiers gate today: slash commands` | 挡在门外靠白名单；进来后只分两档，且只管 slash 命令 |
+ 294| - 两档目前只管 slash 命令：`**What the tiers gate today:** slash commands. ... Plain chat is not affected — non-admins can still talk to the agent.`（同文件 :378）。
+ 297| 所以中档的准确描述是「**准入与很窄的分级**」：门禁是真的（deny-by-default），进门后的隔离却很薄（两档、只覆盖 slash 命令）。它挡住的不是「恶意用户」，而是「不在名单上的人」。
+ 300| > 这一档像有前台的公司：名单外的人进不来（白名单），进来后前台给你一张「管理员」或「普通员工」的卡。但这张卡目前只管你能不能按电梯里少数几个按钮（slash 命令），进了办公区怎么走、跟谁说话，没人再管。
+ 338| - 中档（Hermes）：deny-by-default 的准入是真的，但分级只有两档且只管 slash 命令，profile 路由不是授权。
+ 636| - 你要的是**单机单所有者的准入与很窄的分级** → Hermes 档。硬边界：分级目前只覆盖 slash 命令，plain chat 不受影响。
+
+########## vs Hermes
+  19| 4. 第 4 章 同层内部怎么分 —— OpenClaw「跑在你自己电脑上」vs Hermes「It's not tied to your laptop」
+ 344| ## 第 4 章 同层内部怎么分 —— OpenClaw「跑在你自己电脑上」vs Hermes「It's not tied to your laptop」
+
+########## OpenHands issue
+ 149| 因此显式声明：**第 1 层（本地 CLI 阵营）在本文中只作坐标系，本文的比较对象是第 2、3 层；第 1 层不展开。** 并且不得引用 `01_explore_result.md` 候选表里未落盘原文的条目（例如 #16 OpenHands issue）作为证据。
+
+########## vs docs
+ 580| | OpenClaw | 提及 Hermes；不提 Octop | 官方逐项 source-verified 对照专页 | 单向（OpenClaw 写 Hermes） | README 零提及 vs docs 有专页，并列；专页为 **OpenClaw 单方制作** |
+
+########## ACP runner
+ 145| - **Octop 的邻近参照物落在第 1 层（本文的推断）**：Octop 全库检索 `openclaw|hermes` **零命中**；它在 ACP 文档里命名的外部 agent 工具**只有 ACP runner，内置 7 个**（`opencode`、`codebuddy`、`claude_code`、`codex`、`kimi_code`、`cursor_cli`、`pi`，`research/octop/docs/acp.md:29-38`），均为编码类、以命令行接入，方向是 **outbound 委派**——`Octop agent delegates coding tasks`（同文件 :8）。
+ 569| 那 Octop 把谁当参照？答案在它的集成文档里——**命名的外部 agent 工具只有 ACP runner，内置 7 个**：`opencode` / `codebuddy` / `claude_code` / `codex` / `kimi_code` / `cursor_cli` / `pi`（`research/octop/docs/acp.md:29-38`）。方向定义写得很清楚，这是**出站委派**，不是竞品对照：`| **Outbound** | OpenCode, CodeBuddy, … | Octop (acp_runner tool) | Octop agent delegates coding tasks |`（`research/octop/docs/acp.md:8`）。
+ 582| | Octop | 双方零提及 | 唯一命名的外部 agent 工具是 ACP runner（内置 7 个） | 无 | 7 个归入本地 CLI 阵营属**推断** |
+ 594| - Octop 双向零提及；唯一命名的外部 agent 工具是 ACP runner 内置 7 个，方向是**出站委派**，邻近参照物落在第 1 层。归入「本地 CLI 阵营」**属推断**。
+ 620| 不展开不等于没有方法，只给一个方向：第 1 层内部的选型比的是另一组东西——**与本地终端 / 文件系统的耦合度、模型接入方式、能不能被脚本化编排**。它的相邻参照物正是第 6 章里 Octop 那 7 个 ACP runner（`opencode` / `codebuddy` / `claude_code` / `codex` / `kimi_code` / `cursor_cli` / `pi`）。记得带上第 6 章的标注：把这 7 个归入「本地 CLI 阵营」**是本文的推断**，官方未使用该分类词。
+
+########## Slack workspace
+ 238| > - Hermes：`Sender ids are also namespaced per tenant on some platforms — a Slack user id is workspace-local`（`research/hermes/02_hermes-agent_nousresearch_com_multi-profile-gateways.md:643`）——这里的 tenant 指消息平台（Slack workspace），不是 Hermes 自身的租户。
+
+########## agent id
+ 239| > - Octop：`tenant_id=agent_id,`（`research/octop/src/octop/api/routers/chat/turn.py:348`）——这是把 agent id 复用为消息路由的 tenant id，同样不是租户模型。
+
+########## tenant id
+ 239| > - Octop：`tenant_id=agent_id,`（`research/octop/src/octop/api/routers/chat/turn.py:348`）——这是把 agent id 复用为消息路由的 tenant id，同样不是租户模型。
+
+########## agent X
+ 312| 看一个带具体值的判定，理解第三层到底在做什么。设 agent X 行上 `user_id = 9`，调用者 Alice 的 id = 7。归属判定只有几行代码：`user_owns_agent` 要求 `row.user_id is not None and row.user_id == user.id`（`research/octop/src/octop/api/common/agent.py:14-15`）；`assert_agent_owner` 在非 admin 时，只要 `row.user_id is None or row.user_id != user.id` 就抛 `agent not owned by user`（同文件 :18-23）。代入数值：9 ≠ 7 且 Alice 非 admin，于是拒绝。唯一能放行的三种情形是——本人、`agent_is_shared(row
+
+########## deny-by-default
+ 177| | Hermes   | **准入与很窄的分级**：默认拒绝所有不在白名单、未配对的用户；进来后再分 admin / user 两档，且分级目前只管 slash 命令；无租户语汇 | ``**By default, the gateway denies all users who are not in an allowlist or paired via DM.**`` / `Allowlists answer "can this person reach the bot at all?" The **admin / user split** answers "now that they're in, what are they allowed to do?"` / `Sender routing selects a profile; it is not deny-by-default a
+ 205| 另一处容易误读的是 profile 路由。它不是授权：`Sender routing selects a profile; it is not deny-by-default authorization.`（`research/hermes/02_hermes-agent_nousresearch_com_multi-profile-gateways.md:645`）。profile 的示例用途之一是「同一个人的多个 agent」，不是多个租户：`A personal assistant on one Telegram bot and a coding agent on another`（同文件 :13）。
+ 246| - Hermes 的默认准入是 deny-by-default，但两档分级目前只管 slash 命令，profile 路由不是授权。
+ 295| - profile 路由不是授权：`Sender routing selects a profile; it is not deny-by-default authorization.`（`research/hermes/02_hermes-agent_nousresearch_com_multi-profile-gateways.md:645`）。
+ 297| 所以中档的准确描述是「**准入与很窄的分级**」：门禁是真的（deny-by-default），进门后的隔离却很薄（两档、只覆盖 slash 命令）。它挡住的不是「恶意用户」，而是「不在名单上的人」。
+ 338| - 中档（Hermes）：deny-by-default 的准入是真的，但分级只有两档且只管 slash 命令，profile 路由不是授权。
+
+########## agent runtime
+ 457| 为什么「服务多人」会推出一体式进程？因为一个实例要同时扛 web 服务、CLI、每个用户的 agent runtime、IM 通道连接和定时调度：`Octop needs to run a web server, a CLI, per-user Agent runtimes, IM channel connections, and cron schedulers simultaneously.`（`research/octop/docs/adr/001-single-process-model.md:10`）。工程师的取舍是「运维负担优先于扩展」——`Adding Redis or a process supervisor doubles the ops burden for the primary audience.`（`research/octop/docs/adr/001-singl
+
+########## plain chat
+ 636| - 你要的是**单机单所有者的准入与很窄的分级** → Hermes 档。硬边界：分级目前只覆盖 slash 命令，plain chat 不受影响。
+
+########## AI coworkers
+ 128| 1. **权威清单同归类。** awesome-ai-agent-platforms 把项目按用途分成五类：`AI coworkers and teammates, agent builders and frameworks, workflow automation platforms, browser agents, and coding agents`（`research/framework/17_awesome-ai-agent-platforms_README.md:10`），分类规则是 `Each project appears once, under the category that best matches its main use.`（同文件 :112）。OpenClaw 与 Hermes 同收在 `AI coworkers and teammates` 一节下（同文件 
+ 144| - **分类上独立成类**：上一节已给出，`coding agents` 在权威清单里是与 `AI coworkers and teammates` 并列的独立一类。
+
+########## coding agents
+ 128| 1. **权威清单同归类。** awesome-ai-agent-platforms 把项目按用途分成五类：`AI coworkers and teammates, agent builders and frameworks, workflow automation platforms, browser agents, and coding agents`（`research/framework/17_awesome-ai-agent-platforms_README.md:10`），分类规则是 `Each project appears once, under the category that best matches its main use.`（同文件 :112）。OpenClaw 与 Hermes 同收在 `AI coworkers and teammates` 一节下（同文件 
+ 144| - **分类上独立成类**：上一节已给出，`coding agents` 在权威清单里是与 `AI coworkers and teammates` 并列的独立一类。
+

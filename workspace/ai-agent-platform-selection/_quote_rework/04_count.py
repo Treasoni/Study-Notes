@@ -58,7 +58,7 @@ for name, want in core.TITLE_EXPECT.items():
     flag = "" if want == got else " ❌"
     if flag:
         bad_title.append((name, want, got))
-    w("| %s | %d | %d%s |\n" % (name, want, got))
+    w("| %s | %d | %d |%s\n" % (name, want, got, flag))
 
 # ---------------------------------------------------------------- 4. 附录
 w("\n## 4. 每章「引文对照」表行数（未解析出处 %d 行）\n" % stats["src_missing"])

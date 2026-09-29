@@ -239,10 +239,15 @@ def run(trans, write_files=False):
     for path, kind in TARGETS:
         lines, eol = read(path)
         tag = path.name
+        # 先把引文账从**改之前**的正文上收下来：替换之后 span 已经变中文，
+        # 再按 TRANS 键回查就一条都查不到了。TRANS/FIXES 都不增减行数，
+        # 所以这里算出来的章边界在替换之后依然有效。
+        sections = split_sections(lines, kind)
+        rows_by_chap = {c: appendix_rows(lines, s, e, trans) for c, s, e in sections}
         lines = transform(lines, trans, stats, tag)
         # 附录：逐章插到该章末尾（自后向前插，避免下标位移）
-        for chap, start, stop in reversed(split_sections(lines, kind)):
-            rows = appendix_rows(lines, start, stop, trans)
+        for chap, _start, stop in reversed(sections):
+            rows = rows_by_chap[chap]
             stats["appendix"][tag] = stats["appendix"].get(tag, {})
             stats["appendix"][tag][chap] = len(rows)
             stats["src_missing"] += sum(1 for r in rows if not r["src"])
