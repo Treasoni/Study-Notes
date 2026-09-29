@@ -10,11 +10,11 @@ topic: "自托管 AI Agent 平台选型（Octop / OpenClaw / Hermes）"
 project_slug: "ai-agent-platform-selection"
 created_at: "2026-09-29"
 last_updated: "2026-09-29"
-current_phase: P7
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
 blocked_reason: ""
-quality_gate: pending
+quality_gate: passed
 quality_gate_owner: ""
 quality_gate_due: ""
 ---
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：ai-agent-platform-selection
 > 项目标识：ai-agent-platform-selection
 > 创建时间：2026-09-29
-> 当前阶段：阶段 7
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -133,12 +133,21 @@ quality_gate_due: ""
 ---
 
 ## 阶段 7：MOC 同步
-- [ ] 已定位或创建 MOC 文件
-- [ ] 新笔记双链已加入 MOC
-- [ ] 已去重并更新摘要/标签
-- [ ] MOC 只保留索引，不复制正文
+- [x] 已定位或创建 MOC 文件
+- [x] 新笔记双链已加入 MOC
+- [x] 已去重并更新摘要/标签
+- [x] MOC 只保留索引，不复制正文
 
-> [P7] 🔲 进行中 {in_progress}
+**P7 实际处理**：
+- 新建 `自托管 Agent 选型 MOC.md`（本目录原无 MOC；全库无同名文件，无需去重合并）
+- MOC 采用本 vault 房子风格（对照 `openclaw/OpenClaw MOC.md`）：3 字段 frontmatter + `# 自托管 Agent 选型 MOC` + `> [!info] 概述` + `## 快速导航` 表 + ASCII 学习体系树 + `## 笔记详情` 表 + `## 相关文档`；**未加 `#锚点` 双链**（本篇标题含 `「」`/`——`/全角斜杠，各渲染器锚点规则不一致）
+- 新建本目录 `sortspec.md`（`自托管 Agent 选型 MOC` → `自托管 Agent 平台选型`），与 `openclaw/sortspec.md` 同构
+- 总索引 `AI学习/00-索引/AI学习 MOC.md` 挂 3 处：mermaid 树 `Projects --> ST[自托管 Agent 选型]`、`#### 自托管 Agent 选型` 索引节、`updated` 日期 → `2026-09-29`
+- **未改** `AI学习/04-项目实践/` 与 `AI学习/sortspec.md`：前者无 sortspec，后者只列到 `04-项目实践` 一层，新增子目录不需要动它
+- 双链断言：新目录内 2 份文件全部 wikilink 逐条解析，**死链 0**；两个新笔记 basename 在库内唯一（`find | wc -l` = 1/1），裸名双链可解析
+- MOC 只含索引与一句话说明，未复制正文段落
+
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -185,10 +194,10 @@ quality_gate_due: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：对比笔记 · 选型决策型
+- **总字数**：15,616 汉字（7 章正文 15,193 + 概述/目录/相关文档 423）；成品 686 行 / 82.5 KB
+- **章节数**：7 章（生产件 7 个 `chapters/0N_*.md`）
+- **输出格式**：Obsidian Markdown（frontmatter 3 字段 + `[!info] 概述` + 27 个 Callout + 107 处 `research/...:NN` 溯源锚点 + 70 行表格）
+- **文件路径**：`AI学习/04-项目实践/自托管 Agent 选型/自托管 Agent 平台选型.md`（项目内副本 `workspace/ai-agent-platform-selection/output/final_note.md`，md5 一致）
+- **Obsidian Vault**：当前仓库根即 vault 根；主题目录 `AI学习/04-项目实践/自托管 Agent 选型/`（新建）
+- **MOC 路径**：`AI学习/04-项目实践/自托管 Agent 选型/自托管 Agent 选型 MOC.md`（新建）；已挂入 `AI学习/00-索引/AI学习 MOC.md`

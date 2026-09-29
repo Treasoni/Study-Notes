@@ -2,7 +2,7 @@
 title: "AI学习 MOC"
 tags: [moc]
 created: 2026-05-14
-updated: 2026-09-20
+updated: 2026-09-29
 ---
 
 # AI学习 MOC
@@ -50,6 +50,7 @@ graph TB
     OC --> OC3[参考层]
     OC --> OC4[应用层]
     OC --> OC5[选型层]
+    Projects --> ST[自托管 Agent 选型]
 
     Claude --> C1[高级功能]
 
@@ -140,6 +141,10 @@ graph TB
 ##### 选型层
 
 - [[OpenClaw与国内仿制品对比]]
+
+#### 自托管 Agent 选型
+
+- [[自托管 Agent 平台选型]] - 7 章对比与选型笔记：术语同质论断、三方「多用户」语义切分、隔离强度梯度、选型框架与场景决策树 #ai-agent #选型 #自托管
 
 ### Claude Code 教程
 
