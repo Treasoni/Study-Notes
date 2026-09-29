@@ -68,7 +68,12 @@ TITLE_EXPECT = {
 }
 
 APPENDIX_TITLE = "引文对照（原文 / 中译）"
-APPENDIX_LEAD = "本章正文里出现过的英文引文，逐字原文与中译对照如下。出处与正文同源。"
+# 引导句要把「—」讲清楚，否则读者会以为漏填：`—` 不是没查，是正文那一处本就
+# 没标出处（表格单元格的引文尤其常见——出处写在表的引导句上），我们不去替它
+# 猜一个。同理，同一句话一章里出现多次也只列一行。
+APPENDIX_LEAD = ("本章正文里出现过的英文引文，逐字原文与中译对照如下。"
+                 "同一句话在本章出现多次只列一行；「出处」沿用正文该处标注的出处，"
+                 "正文该处没标出处的记 `—`。")
 CALLOUT = [
     "> [!note] 关于引文",
     "> 正文里凡是**成句的英文**都给了中译；**代码、命令、配置键、路径、文件名、产品名与单个技术术语**保留原文。"
@@ -162,7 +167,13 @@ def ticks(text):
 
 
 CITE_FULL = re.compile(r"^(research|workspace)/\S+\.md(:[\d,\-]+)*$")
-CITE_NAME = re.compile(r"^[A-Za-z0-9_\-]+\.md(:[\d,\-]+)*$")
+# 裸文件名只有在是**本项目自己的编号中间产物**时才算出处（`00_intent.md`、
+# `01_explore_result.md`、`02_deep_research.md`，全库就这 3 种）。放宽成
+# 「任何 X.md」会把正文里列举的**产品文件名**当成出处：第 6 章
+# 「迁移内容清单（README）：`SOUL.md` / `记忆`（MEMORY.md + USER.md）/…」
+# 那一行，紧跟 `SOUL.md` 的 8 条引文全被标成出处 `SOUL.md`——错的出处
+# 比空着更糟，空着读者知道「这里没标」，标错了读者会去查错文件。
+CITE_NAME = re.compile(r"^\d\d_[A-Za-z0-9_\-]+\.md(:[\d,\-]+)*$")
 CITE_BARE = re.compile(r"^[^/]{0,10}[:：]\s*[\d][\d,\-、:：]*$")
 STRIP_LINENO = re.compile(r":[\d,\-、:：]+$")
 
@@ -265,7 +276,14 @@ def split_sections(lines, kind):
 
 
 def appendix_rows(lines, start, stop, trans, lp):
-    """扫描 [start, stop) 里的 span，收集本章被翻译过的引文。"""
+    """扫描 [start, stop) 里的 span，收集本章被翻译过的引文。
+
+    同一个英文引文在一章里出现多次（表格里一次、正文里再说一次）时**只留一行**：
+    表头承诺的是「本章正文里出现过的英文引文」，同一句话列两遍是重复行。合并时
+    取首次出现的顺序，出处取这一组里**第一个解析出来的**——同一句话在别处有
+    出处，那一行就不该是 `—`。
+    """
+    seen = {}
     rows = []
     for i in range(start, stop):
         prior = lp[i - 1] if i else None
@@ -275,11 +293,15 @@ def appendix_rows(lines, start, stop, trans, lp):
             verbatim = trans.VERBATIM_FIX.get(s, s)
             if "|" in verbatim or "|" in trans.TRANS[s]:
                 raise AssertionError("引文/译文含 '|'，会撕裂表格：%r" % s)
-            rows.append({
-                "verbatim": verbatim,
-                "zh": trans.TRANS[s],
-                "src": cite_for(lines[i], a, b, prior),
-            })
+            src = cite_for(lines[i], a, b, prior)
+            if verbatim in seen:
+                row = seen[verbatim]
+                if row["src"] is None and src:
+                    row["src"] = src        # 补上缺口，不新增行
+                continue
+            row = {"verbatim": verbatim, "zh": trans.TRANS[s], "src": src}
+            seen[verbatim] = row
+            rows.append(row)
     return rows
 
 

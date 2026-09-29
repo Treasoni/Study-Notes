@@ -1,0 +1,76 @@
+# 附录「出处」列的全部取值（去重、按次数）
+
+—                                                                 92 次
+SOUL.md                                                           32 次
+出处                                                                28 次
+---                                                               28 次
+research/openclaw/02_docs_openclaw_ai.md                          24 次
+research/framework/17_awesome-ai-agent-platforms_README.md:10     20 次
+02_deep_research.md                                               16 次
+research/framework/13_arxiv_2606.20683v1_fulltext.md:212          12 次
+research/openclaw/03_docs_openclaw_ai.md:10,12,118                12 次
+research/hermes/03_raw_githubusercontent_com_messaging-index.md:327,369  12 次
+research/octop/docs/architecture.md:69,71                         12 次
+research/openclaw/03_docs_openclaw_ai.md:12                       12 次
+research/openclaw/02_docs_openclaw_ai.md:20                       12 次
+research/openclaw/01_docs_openclaw_ai.md:14                       12 次
+research/hermes/05_hermes-agent_nousresearch_com_memory.md:14-15,302  12 次
+research/openclaw/extra2/01_docs_openclaw_ai.md:17-31             12 次
+research/hermes/gw/01_hermes-agent_nousresearch_com.md:9           8 次
+research/octop/docs/adr/001-single-process-model.md:14             8 次
+research/octop/README.md:69                                        8 次
+research/openclaw/03_docs_openclaw_ai.md:118                       8 次
+research/hermes/03_raw_githubusercontent_com_messaging-index.md:327   8 次
+research/openclaw/05_docs_openclaw_ai.md:38                        8 次
+research/openclaw/03_docs_openclaw_ai.md:126                       8 次
+research/hermes/02_hermes-agent_nousresearch_com_multi-profile-gateways.md:645   8 次
+research/openclaw/02_docs_openclaw_ai.md:65                        8 次
+research/openclaw/04_docs_openclaw_ai.md:10                        8 次
+research/hermes/01_raw_githubusercontent_com_README.md:26          8 次
+research/octop/docs/adr/001-single-process-model.md                8 次
+research/openclaw/04_docs_openclaw_ai.md:23                        8 次
+research/hermes/01_raw_githubusercontent_com_README.md             8 次
+research/openclaw/01_docs_openclaw_ai.md:11                        4 次
+research/octop/docs/cli.md:120                                     4 次
+research/openclaw/02_docs_openclaw_ai.md:64                        4 次
+research/hermes/02_hermes-agent_nousresearch_com_multi-profile-gateways.md:9   4 次
+research/framework/13_arxiv_2606.20683v1_fulltext.md:61            4 次
+research/framework/abs/01_arxiv_org.md:16                          4 次
+research/framework/17_awesome-ai-agent-platforms_README.md:112     4 次
+research/octop/docs/acp.md:29-38                                   4 次
+research/openclaw/05_docs_openclaw_ai.md:21                        4 次
+research/hermes/02_hermes-agent_nousresearch_com_multi-profile-gateways.md:643   4 次
+research/openclaw/06_raw_githubusercontent_com.md:25               4 次
+research/openclaw/05_docs_openclaw_ai.md:24                        4 次
+research/hermes/gw/01_hermes-agent_nousresearch_com.md:451         4 次
+research/openclaw/extra/02_docs_openclaw_ai.md:10                  4 次
+research/octop/AGENTS.md:37                                        4 次
+research/octop/docs/architecture.md:32                             4 次
+research/octop/docs/adr/001-single-process-model.md:10             4 次
+research/octop/docs/adr/002-database-backends.md:45                4 次
+research/octop/docs/adr/002-database-backends.md:44                4 次
+research/octop/docs/configuration.md:187                           4 次
+research/octop/docs/configuration.md:189                           4 次
+research/octop/docs/configuration.md:200                           4 次
+research/octop/docs/architecture.md:115                            4 次
+research/openclaw/02_docs_openclaw_ai.md:17                        4 次
+research/openclaw/02_docs_openclaw_ai.md:43                        4 次
+research/openclaw/extra2/02_docs_openclaw_ai.md:11                 4 次
+research/openclaw/extra2/01_docs_openclaw_ai.md:8                  4 次
+
+合计 57 种、568 次
+
+# 正文里所有裸文件名 span（判断哪些是来源件、哪些是产品文件名）
+
+02_deep_research.md           20 次   例：01_为什么感觉都一样是范畴错误.md:81
+01_explore_result.md           4 次   例：01_为什么感觉都一样是范畴错误.md:126
+SOUL.md                        4 次   例：06_谁把谁当参照.md:48
+00_intent.md                   4 次   例：07_选型框架与决策树.md:63
+
+# 上表里**全小写**的（本项目来源件命名习惯）
+    小写  02_deep_research.md      20 次
+    小写  01_explore_result.md     4 次
+    小写  00_intent.md             4 次
+
+# 上表里**含大写**的（产品/内容文件名，不该当出处）
+    含大写 SOUL.md                 4 次

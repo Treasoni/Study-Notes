@@ -15,7 +15,7 @@
 - `同时为每个用户配备一组可按场景切换的专业 Agent。`（`research/octop/README_CN.md:70`）
 - 面向 agent 的手册同调：`**Octop**：自托管 AI 助手平台（多用户、多 agent）`（`research/octop/AGENTS.md:37`）
 
-所以它回答的问题可以写死成一句：**一台机器上的一个实例，怎么同时服务多个用户。**这句话在 OpenClaw 与 Hermes 的语境里根本不存在——两者的默认形态是「受信的单操作者助手」（`默认的 OpenClaw 是一个受信的单操作者助手`，`research/openclaw/02_docs_openclaw_ai.md`），③ 行级归属意义上的「多用户」在两者那里都是叠加上去的一层。Octop 反过来：「多用户」（③ 行级归属）是它的出发点，单用户才是要特判的少数情况。这一点下一节会展开。
+所以它回答的问题可以写死成一句：**一台机器上的一个实例，怎么同时服务多个用户。**这句话在 OpenClaw 与 Hermes 的语境里根本不存在——两者的默认形态是「受信的单操作者助手」（`research/openclaw/02_docs_openclaw_ai.md`），③ 行级归属意义上的「多用户」在两者那里都是叠加上去的一层。Octop 反过来：「多用户」（③ 行级归属）是它的出发点，单用户才是要特判的少数情况。这一点下一节会展开。
 
 > [!tip] 大白话
 > 把 OpenClaw / Hermes 想成**你的私人笔记本**：问的是「你带哪台笔记本出门、它默认能不能被外面够到」。把 Octop 想成**家里的公用电脑**：它默认就是一台机器、好几个人用，问的是「这台电脑怎么让全家人各有各的账户和文件柜」。前者是「谁在哪」，后者是「一台怎么分给多个」。
@@ -38,7 +38,7 @@ Octop 的架构不是「顺便长这样」，而是这份定位倒逼出来的�
 - `Octop 不依赖外部消息队列或中间件，而是通过进程内的 HarnessProcessor 统一路由所有入口`（`research/octop/README_CN.md:107`）
 - 重启语义：`单进程架构。重启后从控制面数据库重建状态（默认本地 SQLite；可选 PostgreSQL）。`（`research/octop/README_CN.md:483`）
 
-为什么「服务多人」会推出一体式进程？因为一个实例要同时扛 web 服务、CLI、每个用户的 agent 运行时、IM 通道连接和定时调度：`Octop 需要同时跑 web 服务、CLI、每个用户的 Agent 运行时、IM 通道连接和定时调度`（`research/octop/docs/adr/001-single-process-model.md:10`）。工程师的取舍是「运维负担优先于扩展」——`对目标人群来说，加一个 Redis 或进程守护会成倍增加运维负担`（`research/octop/docs/adr/001-single-process-model.md`）——目标人群（家庭与小团队）不需要集群，需要的是「一个进程、一个端口、装完就能用」。
+为什么「服务多人」会推出一体式进程？因为一个实例要同时扛多项职责：`Octop 需要同时跑 web 服务、CLI、每个用户的 Agent 运行时、IM 通道连接和定时调度`（`research/octop/docs/adr/001-single-process-model.md:10`）。工程师的取舍是「运维负担优先于扩展」——`对目标人群来说，加一个 Redis 或进程守护会成倍增加运维负担`（`research/octop/docs/adr/001-single-process-model.md`）——目标人群（家庭与小团队）不需要集群，需要的是「一个进程、一个端口、装完就能用」。
 
 控制面后端可选 SQLite 或 PostgreSQL：`| OCTOP_DATABASE_DRIVER | sqlite | postgresql | sqlite | Storage backend |`（`research/octop/docs/configuration.md:158`），但只有全新安装才能选 PG：`只支持全新安装——没有 SQLite→PG 的数据迁移工具`（`research/octop/docs/adr/002-database-backends.md:45`）。
 
@@ -80,7 +80,7 @@ Octop 的记忆是**独立子系统**（octop-memory），分层加全文检索�
 - `**Octop Memory** — 分层记忆与全文检索，让 Agent 的记忆随工作区一同迁移。`（`research/octop/README_CN.md:104`）
 - 默认落盘：`控制面用 SQLite 时，agent 记忆留在 {workspace}/memory.sqlite`（`research/octop/docs/configuration.md:187`）
 
-换到 PostgreSQL 时，记忆默认复用同一个 DSN、按 agent 分 schema：`控制面用 PostgreSQL 时，agent 记忆**默认复用同一个 DSN**`，schema 名为 `agent_<id>`（`research/octop/docs/configuration.md:189`）。这里藏着两条迁移限制，选型时要留意：官方明确 `没有 SQLite→PG 的记忆数据自动迁移`（`research/octop/docs/configuration.md:200`），且记忆表结构由 octop-memory 自己拥有（`记忆表的 DDL 由 octop-memory 自己拥有`，`research/octop/docs/architecture.md:115`）。
+记忆落点：`控制面用 PostgreSQL 时，agent 记忆**默认复用同一个 DSN**`，schema 名为 `agent_<id>`（`research/octop/docs/configuration.md:189`）。这里藏着两条迁移限制，选型时要留意：官方明确 `没有 SQLite→PG 的记忆数据自动迁移`（`research/octop/docs/configuration.md:200`），且记忆表结构由 octop-memory 自己拥有（`research/octop/docs/architecture.md:115`）。
 
 记忆的**归身边界还延伸到运维动作**，这一点和「行级归属」一脉相承：`对话的 --all 与本地管理 CLI 范围不同：只选当前用户自己的 agent，不包含其他用户或共享 agent。`（`research/octop/docs/memory-slim.md:87`）。另有两条当前限制：瘦身整理只支持 SQLite（`PG 瘦身，只支持 SQLite`，`research/octop/docs/memory-slim.md:57`），外部 IM 的记忆维护尚未开放（`外部 IM 的记忆维护需要已验证的发送者权限，暂未开放。`，`research/octop/README_CN.md:422`）。
 
@@ -97,25 +97,24 @@ Octop 的记忆是**独立子系统**（octop-memory），分层加全文检索�
 
 ## 引文对照（原文 / 中译）
 
-本章正文里出现过的英文引文，逐字原文与中译对照如下。出处与正文同源。
+本章正文里出现过的英文引文，逐字原文与中译对照如下。同一句话在本章出现多次只列一行；「出处」沿用正文该处标注的出处，正文该处没标出处的记 `—`。
 
 | # | 原文（逐字） | 中译 | 出处 |
 | --- | --- | --- | --- |
 | 1 | `Octop is a self-hosted AI assistant platform for households and small teams.` | Octop 是一个面向家庭与小团队的自托管 AI 助手平台 | `research/octop/README.md:69` |
 | 2 | `**Octop** — self-hosted AI assistant platform (multi-user, multi-agent).` | **Octop**：自托管 AI 助手平台（多用户、多 agent） | `research/octop/AGENTS.md:37` |
 | 3 | `Default OpenClaw is a trusted single-operator assistant.` | 默认的 OpenClaw 是一个受信的单操作者助手 | `research/openclaw/02_docs_openclaw_ai.md` |
-| 4 | `Octop is a self-hosted AI assistant platform for households and small teams.` | Octop 是一个面向家庭与小团队的自托管 AI 助手平台 | `research/octop/README.md:69` |
-| 5 | `The whole stack is one process. There is no separate worker, no external queue, no required external services beyond whatever LLM provider the user configures.` | 整个技术栈就是一个进程：没有单独的 worker、没有外部队列，除了用户自己配置的 LLM 供应商之外不依赖任何外部服务 | `research/octop/docs/architecture.md:32` |
-| 6 | `Everything runs in a single Python process served by uvicorn. There is no external queue (Redis, RabbitMQ, Celery), no separate worker process, and no required backing services beyond the LLM provider.` | 一切都跑在一个由 uvicorn 提供服务的 Python 进程里：没有外部队列（Redis、RabbitMQ、Celery），没有单独的 worker 进程，除了 LLM 供应商之外不需要任何后端服务 | `research/octop/docs/adr/001-single-process-model.md:14` |
-| 7 | `Octop needs to run a web server, a CLI, per-user Agent runtimes, IM channel connections, and cron schedulers simultaneously.` | Octop 需要同时跑 web 服务、CLI、每个用户的 Agent 运行时、IM 通道连接和定时调度 | `research/octop/docs/adr/001-single-process-model.md:10` |
-| 8 | `Adding Redis or a process supervisor doubles the ops burden for the primary audience.` | 对目标人群来说，加一个 Redis 或进程守护会成倍增加运维负担 | `research/octop/docs/adr/001-single-process-model.md` |
-| 9 | `- Greenfield only — no SQLite→PG data migrator.` | 只支持全新安装——没有 SQLite→PG 的数据迁移工具 | `research/octop/docs/adr/002-database-backends.md:45` |
-| 10 | `- Single active Octop writer; no multi-instance write promise.` | 同一时刻只有一个 Octop 写入者；不承诺多实例写入 | `research/octop/docs/adr/002-database-backends.md:44` |
-| 11 | `Future scale-out would require extracting the worker into a separate process and adding a queue` | 将来要横向扩展，得把 worker 拆成独立进程并加一个队列 | `research/octop/docs/adr/001-single-process-model.md` |
-| 12 | `Vertical scaling only` | 只支持垂直扩展 | `02_deep_research.md` |
-| 13 | `No horizontal worker scaling` | 不支持 worker 的横向扩展 | `02_deep_research.md` |
-| 14 | `one writer per agent at a time` | 同一时刻每个 agent 只有一个写入者 | `02_deep_research.md` |
-| 15 | `- Control plane SQLite → agent memory stays {workspace}/memory.sqlite` | 控制面用 SQLite 时，agent 记忆留在 {workspace}/memory.sqlite | `research/octop/docs/configuration.md:187` |
-| 16 | `Control plane PostgreSQL → agent memory **defaults to the same DSN**` | 控制面用 PostgreSQL 时，agent 记忆**默认复用同一个 DSN** | `research/octop/docs/configuration.md:189` |
-| 17 | `no automatic SQLite→PG memory data migration.` | 没有 SQLite→PG 的记忆数据自动迁移 | `research/octop/docs/configuration.md:200` |
-| 18 | `Agent memory DDL is owned by octop-memory.` | 记忆表的 DDL 由 octop-memory 自己拥有 | `research/octop/docs/architecture.md:115` |
+| 4 | `The whole stack is one process. There is no separate worker, no external queue, no required external services beyond whatever LLM provider the user configures.` | 整个技术栈就是一个进程：没有单独的 worker、没有外部队列，除了用户自己配置的 LLM 供应商之外不依赖任何外部服务 | `research/octop/docs/architecture.md:32` |
+| 5 | `Everything runs in a single Python process served by uvicorn. There is no external queue (Redis, RabbitMQ, Celery), no separate worker process, and no required backing services beyond the LLM provider.` | 一切都跑在一个由 uvicorn 提供服务的 Python 进程里：没有外部队列（Redis、RabbitMQ、Celery），没有单独的 worker 进程，除了 LLM 供应商之外不需要任何后端服务 | `research/octop/docs/adr/001-single-process-model.md:14` |
+| 6 | `Octop needs to run a web server, a CLI, per-user Agent runtimes, IM channel connections, and cron schedulers simultaneously.` | Octop 需要同时跑 web 服务、CLI、每个用户的 Agent 运行时、IM 通道连接和定时调度 | `research/octop/docs/adr/001-single-process-model.md:10` |
+| 7 | `Adding Redis or a process supervisor doubles the ops burden for the primary audience.` | 对目标人群来说，加一个 Redis 或进程守护会成倍增加运维负担 | `research/octop/docs/adr/001-single-process-model.md` |
+| 8 | `- Greenfield only — no SQLite→PG data migrator.` | 只支持全新安装——没有 SQLite→PG 的数据迁移工具 | `research/octop/docs/adr/002-database-backends.md:45` |
+| 9 | `- Single active Octop writer; no multi-instance write promise.` | 同一时刻只有一个 Octop 写入者；不承诺多实例写入 | `research/octop/docs/adr/002-database-backends.md:44` |
+| 10 | `Future scale-out would require extracting the worker into a separate process and adding a queue` | 将来要横向扩展，得把 worker 拆成独立进程并加一个队列 | `research/octop/docs/adr/001-single-process-model.md` |
+| 11 | `Vertical scaling only` | 只支持垂直扩展 | `02_deep_research.md` |
+| 12 | `No horizontal worker scaling` | 不支持 worker 的横向扩展 | `02_deep_research.md` |
+| 13 | `one writer per agent at a time` | 同一时刻每个 agent 只有一个写入者 | `02_deep_research.md` |
+| 14 | `- Control plane SQLite → agent memory stays {workspace}/memory.sqlite` | 控制面用 SQLite 时，agent 记忆留在 {workspace}/memory.sqlite | `research/octop/docs/configuration.md:187` |
+| 15 | `Control plane PostgreSQL → agent memory **defaults to the same DSN**` | 控制面用 PostgreSQL 时，agent 记忆**默认复用同一个 DSN** | `research/octop/docs/configuration.md:189` |
+| 16 | `no automatic SQLite→PG memory data migration.` | 没有 SQLite→PG 的记忆数据自动迁移 | `research/octop/docs/configuration.md:200` |
+| 17 | `Agent memory DDL is owned by octop-memory.` | 记忆表的 DDL 由 octop-memory 自己拥有 | `research/octop/docs/architecture.md:115` |

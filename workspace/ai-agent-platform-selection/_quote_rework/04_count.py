@@ -21,6 +21,18 @@ HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import rework_core as core
 
+# —— 0. 幂等闸：目标文件必须是「没改过」的原始状态 ——
+# 改过的文件里，附录「原文（逐字）」列本身就全是英文，且都是 `TRANS` 的键，
+# 于是本脚本会把附录当成正文重新统计一遍 —— 数字看着像模像样，全是假的。
+dirty = [p.name for p, _k in core.TARGETS
+         if core.APPENDIX_TITLE in p.read_bytes().decode("utf-8")]
+if dirty:
+    print("这些文件里已经有「%s」，说明本脚本跑在改过的文件上：" % core.APPENDIX_TITLE)
+    for n in dirty:
+        print("  - %s" % n)
+    print("拒绝统计。要重跑请先从 _quote_rework/pristine/ 回滚。")
+    sys.exit(2)
+
 trans = core.load_trans()
 bad_table = core.validate_trans(trans)
 stats, results = core.run(trans, write_files=False)

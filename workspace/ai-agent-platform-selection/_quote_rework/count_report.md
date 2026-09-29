@@ -149,6 +149,17 @@ TRANS 键 105 个；未命中 0 个。
 | `deny-by-default` | 0 | 8 | 03_隔离强度梯度.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |
 | `- 两档目前只管 slash 命令：` | 4 | 4 | 03_隔离强度梯度.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |
 | `slash 命令` | 0 | 36 | 02_多用户一词三义.md, 03_隔离强度梯度.md, 07_选型框架与决策树.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |
+| `因为一个实例要同时扛 web 服务、CLI、每个用户的 agent 运行时、IM 通道连接和定时调度` | 4 | 4 | 05_Octop回答的是不是另一个问题.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |
+| `换到 PostgreSQL 时，记忆默认复用同一个 DSN、按 agent 分 schema：` | 4 | 4 | 05_Octop回答的是不是另一个问题.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |
+| `- 首次安装向导会自动检测：` | 4 | 4 | 06_谁把谁当参照.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |
+| ` 斜杠命令` | 0 | 28 | 02_多用户一词三义.md, 03_隔离强度梯度.md, 07_选型框架与决策树.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |
+| `默认拒绝 的准入` | 0 | 4 | 03_隔离强度梯度.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |
+| `普通对话 不受影响` | 0 | 4 | 07_选型框架与决策树.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |
+| `官方有一张专页，逐轴对照的对象是 Hermes——` | 4 | 4 | 01_为什么感觉都一样是范畴错误.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |
+| `这里要点出与前两方的结构性差别：官方给的规模口径是家庭与小团队——` | 4 | 4 | 02_多用户一词三义.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |
+| `（`默认的 OpenClaw 是一个受信的单操作者助手`，` | 4 | 4 | 05_Octop回答的是不是另一个问题.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |
+| `（`记忆表的 DDL 由 octop-memory 自己拥有`，` | 4 | 4 | 05_Octop回答的是不是另一个问题.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |
+| `安全姿态也值得记一笔——密钥默认不迁：` | 4 | 4 | 06_谁把谁当参照.md, _merged.md, final_note.md, 自托管 Agent 平台选型.md |
 
 ## 3. TITLE_FIX 命中（期望 / 实际）
 
@@ -163,20 +174,20 @@ TRANS 键 105 个；未命中 0 个。
 | 自托管 Agent 平台选型.md | 2 | 2 |
 | 03_outline.md | 1 | 1 |
 
-## 4. 每章「引文对照」表行数（未解析出处 140 行）
+## 4. 每章「引文对照」表行数（未解析出处 124 行）
 
 | 文件 | 第 1 章 | 第 2 章 | 第 3 章 | 第 4 章 | 第 5 章 | 第 6 章 | 第 7 章 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 01_为什么感觉都一样是范畴错误.md | 30 | 0 | 0 | 0 | 0 | 0 | 0 |
-| 02_多用户一词三义.md | 0 | 34 | 0 | 0 | 0 | 0 | 0 |
-| 03_隔离强度梯度.md | 0 | 0 | 16 | 0 | 0 | 0 | 0 |
-| 04_同层内部怎么分.md | 0 | 0 | 0 | 19 | 0 | 0 | 0 |
-| 05_Octop回答的是不是另一个问题.md | 0 | 0 | 0 | 0 | 18 | 0 | 0 |
+| 01_为什么感觉都一样是范畴错误.md | 28 | 0 | 0 | 0 | 0 | 0 | 0 |
+| 02_多用户一词三义.md | 0 | 24 | 0 | 0 | 0 | 0 | 0 |
+| 03_隔离强度梯度.md | 0 | 0 | 13 | 0 | 0 | 0 | 0 |
+| 04_同层内部怎么分.md | 0 | 0 | 0 | 15 | 0 | 0 | 0 |
+| 05_Octop回答的是不是另一个问题.md | 0 | 0 | 0 | 0 | 17 | 0 | 0 |
 | 06_谁把谁当参照.md | 0 | 0 | 0 | 0 | 0 | 26 | 0 |
-| 07_选型框架与决策树.md | 0 | 0 | 0 | 0 | 0 | 0 | 7 |
-| _merged.md | 30 | 34 | 16 | 19 | 18 | 26 | 7 |
-| final_note.md | 30 | 34 | 16 | 19 | 18 | 26 | 7 |
-| 自托管 Agent 平台选型.md | 30 | 34 | 16 | 19 | 18 | 26 | 7 |
+| 07_选型框架与决策树.md | 0 | 0 | 0 | 0 | 0 | 0 | 5 |
+| _merged.md | 28 | 24 | 13 | 15 | 17 | 26 | 5 |
+| final_note.md | 28 | 24 | 13 | 15 | 17 | 26 | 5 |
+| 自托管 Agent 平台选型.md | 28 | 24 | 13 | 15 | 17 | 26 | 5 |
 
 ## 5. 改完之后正文里剩下的英文串（>= 2 词，已排除反引号 span 内的 cite）
 
@@ -184,7 +195,6 @@ TRANS 键 105 个；未命中 0 个。
 | --- | --- | --- |
 | final_note.md | ACP runner | 5 |
 | final_note.md | Hermes Agent | 3 |
-| final_note.md | OpenClaw agent | 2 |
 | final_note.md | gateway cell | 2 |
 | final_note.md | AI Agent | 1 |
 | final_note.md | Claude Code | 1 |
@@ -193,6 +203,7 @@ TRANS 键 105 个；未命中 0 个。
 | final_note.md | bot token | 1 |
 | final_note.md | Octop agent | 1 |
 | final_note.md | agent ID | 1 |
+| final_note.md | OpenClaw agent | 1 |
 | final_note.md | Telegram bot | 1 |
 | final_note.md | agent X | 1 |
 | final_note.md | Nous Research | 1 |
@@ -203,7 +214,6 @@ TRANS 键 105 个；未命中 0 个。
 | final_note.md | Hermes Agent/Hermes Agent MOC | 1 |
 | 自托管 Agent 平台选型.md | ACP runner | 5 |
 | 自托管 Agent 平台选型.md | Hermes Agent | 3 |
-| 自托管 Agent 平台选型.md | OpenClaw agent | 2 |
 | 自托管 Agent 平台选型.md | gateway cell | 2 |
 | 自托管 Agent 平台选型.md | AI Agent | 1 |
 | 自托管 Agent 平台选型.md | Claude Code | 1 |
@@ -212,6 +222,7 @@ TRANS 键 105 个；未命中 0 个。
 | 自托管 Agent 平台选型.md | bot token | 1 |
 | 自托管 Agent 平台选型.md | Octop agent | 1 |
 | 自托管 Agent 平台选型.md | agent ID | 1 |
+| 自托管 Agent 平台选型.md | OpenClaw agent | 1 |
 | 自托管 Agent 平台选型.md | Telegram bot | 1 |
 | 自托管 Agent 平台选型.md | agent X | 1 |
 | 自托管 Agent 平台选型.md | Nous Research | 1 |

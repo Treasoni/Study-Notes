@@ -1,0 +1,9 @@
+132: 2. **官方口径把对方当同类。** OpenClaw 官方有一张专页做逐轴对照：`反复被拿来对照的对象是 Hermes Agent（原文此处带一个指向对方仓库的链接）`（`02_deep_research.md` §3.1 A6）。这条本章只用来交代「看起来同层」的证据来自哪里，具体引用与站位判断留到第 6 章。
+
+254: 这里要点出与前两方的结构性差别——官方规模口径：`Octop 是一个面向家庭与小团队的自托管 AI 助手平台`（`research/octop/README.md:69`）；中文口径把它说得更直白：`**家庭共享** — 一个管理员账号，全家共用；按成员分配不同 Agent 与专家角色`（`research/octop/README_CN.md:76`）。这是一个「一个管理员 + 成员」的模型，不是一个平等多租户模型。
+
+545: 所以它回答的问题可以写死成一句：**一台机器上的一个实例，怎么同时服务多个用户。**这句话在 OpenClaw 与 Hermes 的语境里根本不存在——两者的默认形态是「受信的单操作者助手」（`research/openclaw/02_docs_openclaw_ai.md`），③ 行级归属意义上的「多用户」在两者那里都是叠加上去的一层。Octop 反过来：「多用户」（③ 行级归属）是它的出发点，单用户才是要特判的少数情况。这一点下一节会展开。
+
+610: 记忆落点：`控制面用 PostgreSQL 时，agent 记忆**默认复用同一个 DSN**`，schema 名为 `agent_<id>`（`research/octop/docs/configuration.md:189`）。这里藏着两条迁移限制，选型时要留意：官方明确 `没有 SQLite→PG 的记忆数据自动迁移`（`research/octop/docs/configuration.md:200`），且记忆表结构由 octop-memory 自己拥有（`research/octop/docs/architecture.md:115`）。
+
+696: 迁移内容清单（README）：`SOUL.md` / `记忆`（MEMORY.md + USER.md）/ `技能`（迁往 `~/.hermes/skills/openclaw-imports/`）/ `命令白名单` / `消息设置` / `API 密钥` / `TTS 素材` / `工作区指令`。安全姿态也值得记一笔：`密钥默认不迁：即使加了 --preset full，也必须显式给出 --migrate-secrets`（`research/hermes/src/claw.py:33-34`）。

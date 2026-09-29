@@ -28,9 +28,12 @@ if bad:
 # —— 0. 幂等闸：已经改过的文件不许再改一遍 ——
 # 第二遍跑不会「什么都不做」：附录的「原文（逐字）」列本身就是英文，
 # FIXES 里的字面替换会把它一起改掉，逐字原文就毁了。必须在写之前拦住。
-already = [p.name for p, _k in core.TARGETS if core.callout_already(core.read(p)[0])]
+# 用附录标题判、不用「关于引文」callout 判：callout 只加在组装本上，
+# 分章文件没有，拿它当闸会让改过的分章文件溜过去。
+already = [p.name for p, _k in core.TARGETS
+           if core.APPENDIX_TITLE in p.read_bytes().decode("utf-8")]
 if already:
-    print("这些文件已经有了「关于引文」callout，说明本脚本已经跑过：")
+    print("这些文件已经有了「%s」，说明本脚本已经跑过：" % core.APPENDIX_TITLE)
     for n in already:
         print("  - %s" % n)
     print("拒绝重复落盘。要重跑请先从 _quote_rework/pristine/ 回滚。")
@@ -73,13 +76,15 @@ lines = ["# 落盘报告", "",
          "回滚点：`_quote_rework/pristine/`（%d 个文件，逐字节）" % len(manifest), ""]
 lines.append("合计（11 个文件累加，含 4 份副本的重复）：")
 lines.append("")
-lines.append("- 正文引文中译：**%d** 处 = 150 个引文行位 × 4 份副本。"
+lines.append("- 正文引文中译：**%d** 处 = 引文总出现次数 × 4 份副本。"
              % sum(d["n"] for d in stats["span"].values()))
 lines.append("- 字面改写：**%d** 处。" % sum(d["got"] for d in stats["fix"].values()))
 lines.append("- 章标题翻译：**%d** 处（第 4 章标题，4 份笔记 + 提纲）。"
              % sum(stats["title"].values()))
-lines.append("- 出处未解析的表格行：**%d** 条（跨 4 份副本计；唯一行 35 条）。"
+lines.append("- 出处未解析的表格行：**%d** 条（跨 4 份副本累加，除以 4 即每份的行数）。"
              % stats["src_missing"])
+lines.append("- 附录表按「逐字原文」去重：同一句话在一章里出现多次只列一行，"
+             "出处取该组里第一个解析出来的。")
 lines += ["", "## 逐文件", "",
           "| 文件 | 类型 | 行尾 | 标题命中 | 附录行数（按章） |",
           "| --- | --- | --- | --- | --- |"]
