@@ -100,8 +100,11 @@ Hermes 官方文档明确有多用户能力：
 | `User-scoped custom MCP tools: (user_id, server_name, fingerprint) -> tools` | `src/octop/infra/agents/manager.py` |
 | `Per-user named policies: workspace root, token quota, and future rows.` | `src/octop/infra/users/resource_policy.py` |
 
-**需并列记录的歧义句**（字面可被读成「读访问不加门」，与行级归属共同解读时应为「权限键管管理页/写操作，数据隔离另由 user_id 归属保证」）：
-- `Read access and agent use in chat are never gated. ``admin`` bypasses all.` — `src/octop/infra/users/permissions.py`
+**歧义句 —— 已裁决（P2 读调用点后修正，见 `02_deep_research.md` §3.3 裁决 1）**：
+- 原文：`Read access and agent use in chat are never gated. ``admin`` bypasses all.` — `src/octop/infra/users/permissions.py`
+- 准确含义是三层独立机制：① 准入（全局 JWT + 白名单豁免）② 模块权限键（**管管理页与写 / 配置动作**）③ 归属（`agents.user_id` 行级，真正的数据隔离）
+- ⚠️ **字面读法被推翻**：admin 域（users / user_roles / invites）的**可读端点确实要权限键** —— `GET ""`(list users) → `require_permission("users")`（`src/octop/api/routers/users.py:270-272`）、`GET /{user_id}` → 同（`:431-435`）、`GET ""`(list role templates) → 同（`src/octop/api/routers/user_roles.py:183-186`）
+- 成立的部分：聊天 / 会话读端点确实只挂 `Depends(current_user)`（`src/octop/api/routers/chat/history.py:104,150,166,217,253,289`）
 
 **其他限定**：RBAC 与按用户配额是后续版本增量加入（CHANGELOG `## [0.9.24] - 2026-08-15`、`## [0.9.33] - 2026-09-11`）；官方主动提供跨用户共享能力（`is_shared` / `user_id IS NULL`）；桌面端只是同一多用户服务端的 Wails 外壳，**没有独立的单用户模式**（单用户 = 只有一行 user 记录）。
 
@@ -126,7 +129,12 @@ Hermes 官方文档明确有多用户能力：
 
 ## 未解决 / 待补
 
-- Octop 的 `Read access and agent use in chat are never gated.` 与行级归属的准确关系（需读 `permissions.py` 全文与调用点）
-- OpenClaw `Fleet` 的实际成熟度（experimental 具体到什么程度）
+**已由 P2 解决（详见 `02_deep_research.md`）**：
+- ~~Octop 的 `Read access and agent use in chat are never gated.` 与行级归属的准确关系~~ → **已裁决**（§3.3 裁决 1；字面读法被推翻）
+- ~~Octop 单进程模型在多用户并发下的实际瓶颈~~ → **已裁决**（§3.3 裁决 2；官方**无任何容量数据**，只有定性权衡）
+
+**仍未解**：
+- OpenClaw `Fleet` 的实际成熟度（official 仅标 experimental，无具体边界）
 - Hermes multi-profile 路由与 OpenClaw 多用户模式的**具体机制对照**（两者都能「一人一 profile」，差异在哪）
-- Octop 单进程模型在多用户并发下的实际瓶颈（§P1 缺口，未解）
+- Octop 归属的完整表清单（仅确认 `agents.user_id`，其余为间接证据）
+- Octop「多用户」是否 1.0 之前即存在（`docs/versioned-history.md` 未抓）

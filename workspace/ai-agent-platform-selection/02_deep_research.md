@@ -3,7 +3,7 @@
 - **运行**: `ai-agent-platform-selection`（learning-note-flow）
 - **阶段**: P2 深度收集
 - **日期**: 2026-09-29
-- **状态**: **进行中** — Octop 轴待并入（见 §4）
+- **状态**: 完成 — 三平台七轴齐备（Octop 轴见 §3.3）
 
 ---
 
@@ -12,7 +12,7 @@
 - 主线段落已定向验证并修正（见 `01b_thesis_verification.md`），采纳主线 **T′**（详见 §6）
 - P2 由 3 个批量子代理按**七轴统一口径**提取 claim 级笔记；代理为 P2 前置验证轮的**续写**，不重读材料
 - 全部 claim 落盘原文见 `research/{octop,openclaw,hermes,framework}/`
-- 抓取走 `.claude/skills/research-collector/scripts/crawl.sh`（`WebFetch` 对相关域名被网络策略拦截）
+- 抓取走 `.claude/skills/research-collector/scripts/crawl.sh`（`WebFetch` 对相关域名被网络策略拦截）；Octop 侧改用 `curl https://raw.githubusercontent.com/...` 直取（`WebFetch` / `git clone` / codeload tarball 均被拒，与 `crawl.sh` 同一取数路径）
 
 **七轴口径**：A1 定位与产品主语 / A2「多用户」的具体语义 / A3 架构形态 / A4 记忆与上下文 / A5 工具与扩展体系 / A6 与另两者的显式关系 / A7 运维成本与官方限制
 
@@ -44,6 +44,20 @@
 | `gw/01_...md` | `developer-guide/gateway-internals` |
 | `src/claw.py`（531 行） | 迁移命令实现 |
 | `src/openclaw_to_hermes.py`（3254 行） | 迁移脚本（36 个具名迁移项） |
+
+### Octop — `research/octop/`（106 个文件，2.9 MB，顶层按仓库根镜像布局）
+| 文件 | 对应内容 |
+|---|---|
+| `README_CN.md` / `README.md` / `AGENTS.md` | 定位与 Overview / 家庭共享 / 快速开始 / Roadmap |
+| `CHANGELOG.md` | RBAC（`0.9.24`）与按用户配额（`0.9.33`）的引入记录 |
+| `docs/architecture.md` | 五层分层、单进程启动树、`§ Per-user isolation`（行级归属） |
+| `docs/adr/001-single-process-model.md` | 单进程决策与 Trade-offs |
+| `docs/adr/002-database-backends.md` | SQLite / PG 控制面选型与限制 |
+| `docs/configuration.md` / `memory-slim.md` / `acp.md` | 存储默认值与迁移边界 / 记忆维护的归身边界 / ACP 出入站 |
+| `plugins/README_CN.md` | 插件契约与 `kind` 四类 |
+| `src/octop/**`（79 个源文件） | `api/deps.py`、`api/common/agent.py`、`api/routers/**`、`infra/users/**` 等 |
+| `tree.json` | GitHub API 全量文件树（3697 blobs） |
+| `_crawl/` | `crawl.sh` 原生命名产物（带 `url` + `scraped_at`） |
 
 ### 横向框架 — `research/framework/`
 | 文件 | 对应内容 |
@@ -198,9 +212,96 @@
 
 ### 3.3 Octop
 
-> ⏳ **P2 进行中，待并入。**
-> 已确认的部分见 `01b_thesis_verification.md`（多用户为架构内建：全局 JWT 中间件、`agents.user_id` 行级归属、RBAC 权限目录、按用户配额与工作区策略；官方口径限定为 `households and small teams`，`Vertical scaling only (one machine)`；桌面端只是同一多用户服务端的 Wails 外壳，无独立单用户模式）。
-> 本轮待补：① `permissions.py` 中 `Read access and agent use in chat are never gated.` 与行级归属的准确关系；② 单进程模型在多用户并发下的真实瓶颈。
+#### 两个遗留未决点的裁决
+
+**裁决 1 —— `Read access and agent use in chat are never gated.` 的准确含义**
+
+裁决：**是「权限键管管理页 / 写操作，数据隔离另由 `user_id` 归属保证」，但必须加一条修正——admin 域模块（users / user_roles / invites）连读也受权限键管。** 三层互相独立、不互相替代：
+
+| 层 | 机制 | 锚点 |
+|---|---|---|
+| ① 准入 | `Require JWT for all /api/* routes except an explicit allowlist.`（白名单仅 `/api/health`、`/api/auth/{login,captcha,oidc/*,oauth/*,invite/validate,invite/redeem}`、`/api/docs` 等） | `src/octop/api/middleware/jwt_auth.py:1`、`src/octop/api/deps.py:73-87` |
+| ② 模块权限键 | `A permission is a module key (e.g. "browser", "users"). Possessing a key grants access to that module's management page and write/configure actions.` | `src/octop/infra/users/permissions.py:3-4` |
+| ③ 归属（真正的隔离） | `Agent ownership is enforced at the **row** level (agents.user_id matched against the caller`；`if row.user_id is None or row.user_id != user.id: raise OctopError(ErrorCode.FORBIDDEN, "agent not owned by user")`；`_user_may_access` = 本人 / `agent_is_shared` / admin 三选一 | `docs/architecture.md:71`、`src/octop/api/common/agent.py:18-23, 26-31, 51-53` |
+
+- **同模块内「读不加键、写加键」的硬证据**：`GET ""`(List installed plugins) 只用 `current_user`（`src/octop/api/routers/plugins.py:99-104`），而 `POST /reload` 用 `require_permission("plugins")`（`:110`）；`GET /market` 只用 `current_user`（`:207`），而 `POST /market/{plugin_id}/install` 用 `require_permission("plugins")`（`:221`）
+- ⚠️ **修正（推翻该句的字面读法）**：admin 域的可读端点**确实加键** —— `GET ""`(list users) → `require_permission("users")`（`src/octop/api/routers/users.py:270-272`）、`GET /{user_id}` → 同（`:431-435`）、`GET ""`(list role templates) → 同（`src/octop/api/routers/user_roles.py:183-186`）。→ **「读访问完全不加门」不成立**
+- 「agent use in chat never gated」的实证：聊天 / 会话读端点只挂 `Depends(current_user)`，无任何 `require_permission` — `src/octop/api/routers/chat/history.py:104,150,166,217,253,289`
+
+**裁决 2 —— 单进程模型在多用户并发下的实际瓶颈**
+
+裁决：**官方只给定性权衡，未给任何并发量 / 吞吐 / 压测数字。**
+
+- `| Simple deployment (one process, one port) | Heavy CPU tasks block the event loop |` — `docs/adr/001-single-process-model.md:28`
+- `| Zero external dependencies | Vertical scaling only (one machine) |` — 同上 `:27`
+- `| Fast local dev | No horizontal worker scaling |` — 同上 `:29`
+- `- **SQLite is sufficient:** Concurrent writes are rare (one writer per agent at a time); WAL mode handles the load.` — 同上 `:20`
+- `- Single active Octop writer; no multi-instance write promise.` — `docs/adr/002-database-backends.md:44`
+- 未来的扩展缝：`Future scale-out would require extracting the worker into a separate process and adding a queue; that seam is already partially visible in infra/gateway/processor.py.` — `adr/001` §Consequences
+- → **无法据以判断实际可用人数上限**；选型时只能按「单机垂直扩展」这一条硬边界处理
+
+#### 七轴
+
+**A1 定位与产品主语** — 主语是「一台机器上的实例」，收益归于「每个用户」
+- `支持多用户、多 Agent 的自托管 AI 助手 — 更聪明，更懂你。` — `README_CN.md:6`
+- `Octop is a self-hosted AI assistant platform for households and small teams.` — `README.md:69`（中文同口径 `README_CN.md:68`）
+- `同时为每个用户配备一组可按场景切换的专业 Agent。` — `README_CN.md:70`
+- agent-facing 手册同调：`**Octop** — self-hosted AI assistant platform (multi-user, multi-agent).` — `AGENTS.md:37`
+- **单用户用法被官方承认**：`**个人助理** — 让专属 Agent 帮你写周报、整理资料、定日程，记忆随工作区长期保留。` — `README_CN.md:75`
+
+**A2「多用户」= 单实例内的多用户 + 行级归属；无租户语汇**
+- 准入非自助注册：`交互式向导会在 ~/.octop/ 下创建 SQLite 数据库、JWT 密钥，并引导你设置首个管理员账号。` — `README_CN.md:259`
+- 邀请制（1–365 天）：`class InviteCreateBody(BaseModel):` / `expires_in_days: int = Field(` — `src/octop/api/routers/invites.py:55,57`
+- 分级：`role: str  # role-template public id: admin | user | custom ULID` — `src/octop/infra/users/identity.py:20`
+- 权限键是枚举式模块目录（channels / connectors / knowledge_bases / terminal / browser / desktop / mobile / users / sso / plugins / security / backup / tls / update …）— `src/octop/infra/users/permissions.py:59`
+- 归属粒度：`每位用户可创建多个专家；各自拥有独立工作区、供应商、通道和定时任务` — `README_CN.md:117`
+- 但隔离**可由 owner 主动放宽**：`**专家共享** — 支持用户将自有专家共享给其他用户使用` — `README_CN.md:162`
+- **官方模型是「一个管理员 + 全家共用」的家庭模型，不是平等多租户**：`**家庭共享** — 一个管理员账号，全家共用；按成员分配不同 Agent 与专家角色` — `README_CN.md:76`
+- 按用户资源策略：`Per-user named policies: workspace root, token quota, and future rows.` — `src/octop/infra/users/resource_policy.py:1`
+- **「租户」概念不存在**：文档全库检索无 `tenant`；唯一 1 处是消息路由字段把 agent id 复用为 tenant id —— `tenant_id=agent_id,` — `src/octop/api/routers/chat/turn.py:348` → **不得读成租户模型**（与 Hermes 的 `tenant` 假阳性**结构完全对称**：两侧各有且仅有一处，都是消息字段）
+- 治理能力是增量加入，非初版即有：`权限：新增按用户模块权限（RBAC）及管理员绕过` — `CHANGELOG.md:396`（`## [0.9.24] - 2026-08-15`）；`按用户限制存储根目录与 Token 配额；创建专家可带默认知识库与连接器` — `CHANGELOG.md:192`（`## [0.9.33] - 2026-09-11`）
+
+**A3 架构** — 全栈一个进程，无独立 worker、无外部队列；per-user runtime 是进程模型的前提
+- `The whole stack is one process. There is no separate worker, no` — `docs/architecture.md:32`
+- `Octop needs to run a web server, a CLI, per-user Agent runtimes, IM channel connections, and cron schedulers simultaneously.` — `docs/adr/001-single-process-model.md:10`
+- `Everything runs in a single Python process served by uvicorn. There is no external queue (Redis, RabbitMQ, Celery), no separate worker process` — 同上 `:14`
+- `Octop 不依赖外部消息队列或中间件，而是通过进程内的 HarnessProcessor 统一路由所有入口` — `README_CN.md:107`
+- 重启语义：`单进程架构。重启后从控制面数据库重建状态（默认本地 SQLite；可选 PostgreSQL）。` — `README_CN.md:483`
+- 控制面后端：`| OCTOP_DATABASE_DRIVER | sqlite | postgresql | sqlite | Storage backend |` — `docs/configuration.md:158`；`- Greenfield only — no SQLite→PG data migrator.` — `docs/adr/002-database-backends.md:45`
+- 部署形态：脚本安装 / PyPI / Docker / 桌面客户端（Wails）/ 飞牛 NAS `Octop-fnos-docker-<version>.fpk` — `README_CN.md` 快速开始
+
+**A4 记忆** — 独立库（octop-memory），分层 + 全文检索，落在 agent 工作区，随工作区迁移
+- `| 🧠 | **可迁移记忆系统** | 基于 Octop Memory，记忆随工作区迁移 |` — `README_CN.md:56`
+- `**Octop Memory** — 分层记忆与全文检索，让 Agent 的记忆随工作区一同迁移。` — `README_CN.md:104`
+- 默认落盘：`- Control plane SQLite → agent memory stays {workspace}/memory.sqlite` — `docs/configuration.md:187`
+- PG 路径：`Control plane PostgreSQL → agent memory **defaults to the same DSN**`，按 `agent_<id>` schema 分片 — 同上 `:189`；`Agent memory DDL is owned by octop-memory.` — `docs/architecture.md:115`；`no automatic SQLite→PG memory data migration.` — `docs/configuration.md:200`
+- **归身边界延伸到运维动作**：`对话的 --all 与本地管理 CLI 范围不同：只选当前用户自己的 agent，不包含其他用户或共享 agent。` — `docs/memory-slim.md:87`
+- 限制：`PG 瘦身，只支持 SQLite；本次未执行整理，可以继续聊天。` — `docs/memory-slim.md:57`；`外部 IM 的记忆维护需要已验证的发送者权限，暂未开放。` — `README_CN.md:422`
+
+**A5 扩展** — 插件四类 `kind`，默认全局关闭需管理员开启；技能按 agent 挂载
+- `| demo-turn-logger | hook | 注册 AgentMiddleware，在模型调用前后打日志 |` — `plugins/README_CN.md:17`（`kind` = tool / skill / hook / **ui**）
+- **默认关闭是治理设计**：`并在 config.json 里写成 **全局关闭**；管理员在 Dashboard 插件页打开后再给 Agent 用。` — `plugins/README_CN.md:9`
+- 契约：`├── plugin.yaml    # id、version、name、kind、entry；可选 icon / ui` — 同上 `:26`
+- 技能：`@router.get("/agents/{agent_id}/skills")` — `src/octop/api/routers/skills.py:454`；另有全局技能包 `summary="Replace global skill packages mounted on an agent",` — 同上 `:531`
+- 子智能体：`@router.get("/subagent-catalog", summary="List bundled subagent definitions")` — `src/octop/api/routers/subagents.py:112`
+- 外部服务：`通过 **Connector**（OAuth + MCP）接入外部服务，通过 **ACP** 与 IDE / 终端 AI 工具双向协作。` — `README_CN.md:43`
+- 安全层另计（不属扩展层）：`JWT 多用户隔离、工具审批、Shell 命令防护与敏感信息脱敏，数据留在本地` — `README_CN.md:53`
+
+**A6 与另两者的关系** — **双向零提及**；唯一命名的外部 agent 工具是本地 CLI（走 ACP）
+- 全库检索 `openclaw|hermes`（`README` / `README_CN` / `AGENTS.md` / `docs/` / `plugins/`）**零命中**
+- 唯一显式提到的外部 agent 工具是 ACP 出站 runner：`| claude_code | npx | -y, @zed-industries/claude-agent-acp |` — `docs/acp.md:33`
+- 方向定义：`| **Outbound** | OpenCode, CodeBuddy, … | Octop (acp_runner tool) | Octop agent delegates coding tasks |` — `docs/acp.md:8`
+- → **Octop 的邻近参照物是「本地 CLI 阵营」（Claude Code / Codex），不是 OpenClaw / Hermes**；且这份关系是**集成**（委派编码任务），不是竞品对照
+- 与 OpenClaw 侧对称：OpenClaw 官方为 Hermes 做了 17 轴对照页；Octop 未被 OpenClaw / Hermes 任一方提及，Octop 亦不提它们
+
+**A7 运维成本与官方声明的限制**
+- 收益 / 代价成对声明：`| Zero external dependencies | Vertical scaling only (one machine) |`、`| Simple deployment (one process, one port) | Heavy CPU tasks block the event loop |`、`| Fast local dev | No horizontal worker scaling |` — `docs/adr/001-single-process-model.md:27-29`
+- 运维负担优先于扩展：`Adding Redis or a process supervisor doubles the ops burden for the primary audience.` — 同上 §Rationale
+- 插件 UI 必须预构建：`请一并打入预构建的 ui/dist/（**不要**依赖服务器执行 npm install）。` — `plugins/README_CN.md:98`
+- 升级：`refuse cross-engine restore.` — `docs/adr/002-database-backends.md` §Control-plane adapter
+- 资源门槛：`现代多核 CPU，并预留数 GB 内存供进程与模型/Embedding 缓存使用` — `README_CN.md` 环境要求
+- **Roadmap 未完成项**：`- [ ] **Managed Agents** — 平台托管的 Agent 生命周期（开通、伸缩与运维），无需自行维护完整自托管栈。` — `README_CN.md:172`；`- [ ] **云边端一体** — 本地运行 Octop，同时可将选定任务调度到云端执行` — 同段
+- 进行中项：移动端客户端 `*（内测中）*`、AgentTeams 仍 Beta — `README_CN.md` 进行中段
 
 ---
 
@@ -241,7 +342,7 @@
 
 | # | 冲突 | 各方 | 处理 |
 |---|---|---|---|
-| C1 | Octop harness 核心是否开源 | 社区称「核心未开源」**vs** 三库已于 2026-09-24 公开 | 时间点不同，待 Octop 轴并入时裁决 |
+| C1 | Octop harness 核心是否开源 | 社区称「核心未开源」**vs** 三库已于 2026-09-24 公开 | **已裁决**：主仓库本身即含 harness 源码（本轮实抓 `src/octop/**` 79 个源文件），另有三库独立公开。原「核心未开源」说法在 2026-09-24 之后**不成立** |
 | C2 | 各项目 Star 数 | 自媒体 6 万~24 万+ 互相矛盾；GitHub API 直读 openclaw 390,772 / hermes 249,977 | **标注不可靠，不作选型证据** |
 | C3 | OpenClaw 是否面向企业 | `anyone, individual or enterprise, to build on` / `councils on ... enterprise deployment` **vs** `There is no enterprise edition.` / `no enterprise edition under a different license` | 治理/受众措辞 vs 版本/许可声明，语义不同，并列 |
 | C4 | OpenClaw 官方内部对 Hermes 提及深度 | README 全文 grep `hermes` = 0 **vs** docs 站有专页级对照与逐字引述 | 门面 vs 文档深度，并列 |
@@ -263,7 +364,18 @@
 | Octop | **架构内建**的多用户（JWT + 行级归属 + RBAC + 按用户配额），限定家庭与小团队单实例 | `Agent ownership is enforced at the **row** level` / `households and small teams` |
 
 **硬结论**：**多用户平台 ≠ 多租户平台**。
-**层判断**：OpenClaw 与 Hermes **同层**（双向迁移 + 官方 17 轴对照 + 权威清单同归类）；Octop 与之是**同层不同重心**，不是「层不同」。
+
+**新增一条可分级、可验证的轴 —— 「多用户」的隔离强度（三方形成梯度）**：
+
+| 强度 | 平台 | 官方措辞 |
+|---|---|---|
+| 明确声明**不提供**隔离 | OpenClaw | `usability features, not security boundaries` / `It is not an authorization or isolation boundary.` |
+| 准入 + 很窄的分级 | Hermes | `The admin / user split` / `What the tiers gate today: slash commands` |
+| **行级归属**（真正的数据隔离，且隔离边界延伸到运维动作） | Octop | `Agent ownership is enforced at the **row** level` / `只选当前用户自己的 agent，不包含其他用户或共享 agent` |
+
+**租户语汇的分布本身也是证据**：三者中**只有 OpenClaw** 有租户词汇（`experimental per-tenant fleet cells`），且自带 experimental 标注；Hermes 与 Octop **各有且仅有一处** `tenant`，都是**消息路由字段**（Slack workspace / `tenant_id=agent_id`），均**不得**读成租户模型。
+
+**层判断**：OpenClaw 与 Hermes **同层**（双向迁移 + 官方 17 轴对照 + 权威清单同归类）；Octop 与之是**同层不同重心**，不是「层不同」。**一条旁证**：Octop 唯一命名的外部 agent 工具是走 ACP 的本地 CLI（`claude_code`），即它的邻近参照物是**本地 CLI 阵营**，而 OpenClaw 与 Hermes 互为对照物 —— 三方各自站位，在「谁把谁当参照」上再次显形。
 
 **写作硬约束**：后续任何章节**不得**不加限定语地使用「多用户」一词；首次出现必须指明是上表三层语义中的哪一层。
 
@@ -271,10 +383,11 @@
 
 ## 7. 下游交接
 
-### 可直接用作骨架的三条轴
-1. **术语轴**（主线）：多用户/多租户/准入分级的三义切分
-2. **层内差异轴**：OpenClaw `runs on your own computer` / `personal assistant on a laptop` **vs** Hermes `It's not tied to your laptop`（$5 VPS / serverless）—— 同层内部最可直接回答「什么场景用哪个」的一根轴
-3. **框架轴**：arXiv 六职责（观察/上下文/控制/动作/状态/验证与治理）作为**问对问题**的清单，配 awesome-list 的五类用途定位
+### 可直接用作骨架的四条轴
+1. **术语轴**（主线）：多用户 / 多租户 / 准入分级的三义切分
+2. **隔离强度轴**：不提供隔离（OpenClaw）→ 准入 + 很窄分级（Hermes）→ 行级归属（Octop）
+3. **层内差异轴**：OpenClaw `runs on your own computer` / `personal assistant on a laptop` **vs** Hermes `It's not tied to your laptop`（$5 VPS / serverless）—— 同层内部最可直接回答「什么场景用哪个」的一根轴
+4. **框架轴**：arXiv 六职责（观察 / 上下文 / 控制 / 动作 / 状态 / 验证与治理）作为**问对问题**的清单，配 awesome-list 的五类用途定位
 
 ### 可用素材位置
 - Hermes 侧可直接复用：`workspace/hermes-agent/chapters/01_定位与核心理念.md`（已含 OpenClaw 竞品对照段）、`workspace/hermes-home-assistant/chapters/02-三方对照轴.md`（对照轴方法先例）
@@ -285,13 +398,17 @@
 - 引用 OpenClaw 17 轴对照表时**必须标注「OpenClaw 单方制作」**，不得当作中立评测
 - 引用 `workspace/hermes-agent/chapters/*` 的内容时须标为**本仓库二次加工**，不得标为官方口径
 - 不得使用 Star 数作为选型依据
+- **不得**把聊天端点只挂 `Depends(current_user)` 写成「Octop 读访问无权限控制」——admin 域读端点确实要 `require_permission`（`users.py:270-272` 等），准确说法是**权限键管管理页 / 写操作，数据隔离由 `user_id` 行级归属另负**
+- **不得**给出 Octop 的并发人数上限（官方无任何容量数据）
+- **不得**把 Hermes 或 Octop 那一处 `tenant` 字段读成租户模型（两者都是消息路由字段）
 
 ---
 
 ## 8. 开放问题
 
-1. **Octop 轴未并入**（§3.3）—— 阻塞 P3 大纲，因为三方对照表需要第三列
-2. **C1** Octop harness 开源状态裁决
-3. `research/openclaw/community/01` 正文未抓全，「Hermes（大脑）+ OpenClaw（执行者）」协同架构**仅有标题与导语**，不足以支撑断言
-4. **Hermes 侧对 OpenClaw 17 轴对照表的回应**：未找到（未检索 Hermes 是否有反向对照页）
-5. **P1 流程教训尚未落库 `.learnings/`**（见 `01_explore_result.md` §3.1）
+1. **Octop 并发容量上限**：官方未发布任何并发用户数 / 吞吐 / 压测数据，只有 `Vertical scaling only`、`No horizontal worker scaling`、`one writer per agent at a time` 这类定性表述 → 笔记中**不得给出人数上限**，只能给硬边界
+2. **多用户治理的版本边界**：RBAC（`0.9.24`）与按用户配额（`0.9.33`）确为增量加入，但「多用户」本身是否 1.0 之前即存在未验证（`docs/versioned-history.md` 未抓）
+3. **Octop 归属的完整表清单**：只确认 `agents.user_id`，`knowledge_bases` / `usage_log` / `audit_log` 为间接证据，未逐表核对
+4. `research/openclaw/community/01` 正文未抓全，「Hermes（大脑）+ OpenClaw（执行者）」协同架构**仅有标题与导语**，不足以支撑断言
+5. **Hermes 侧对 OpenClaw 17 轴对照表的回应**：未找到（未检索 Hermes 是否有反向对照页）
+6. **P1 流程教训尚未落库 `.learnings/`**（见 `01_explore_result.md` §3.1）

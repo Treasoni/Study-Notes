@@ -81,7 +81,7 @@ P0 假设是：*不是产品同质，而是使用者的场景划分尚未建立�
 | Octop 是「multiple users **and** agents」的平台，含 per-user 隔离与 harness teams | #1 #2 #5 |
 | **Octop 在 OpenClaw 与 Hermes 全部已抓取官方材料中零提及**（grep 计数 0） | 双向 grep 复核 |
 
-### 3.1 P1 被推翻/降级的两处（来源纪律修正）
+### 3.1 P1 被推翻/降级的三处（来源纪律修正）
 
 | # | P1 原表述 | P2 复核结果 |
 |---|---|---|
@@ -132,7 +132,7 @@ P0 假设是：*不是产品同质，而是使用者的场景划分尚未建立�
 
 | # | 冲突 | 各方说法 | 处理要求 |
 |---|---|---|---|
-| C1 | Octop harness 核心是否开源 | 社区普遍称「harness 核心未开源」**vs** `octop-harness`/`octop-memory`/`octop-gateway` 已于 2026-09-24 公开 | 两者**时间点不同**，不得合并；P2 读仓库与 Releases 裁决 |
+| C1 | Octop harness 核心是否开源 | 社区普遍称「harness 核心未开源」**vs** `octop-harness`/`octop-memory`/`octop-gateway` 已于 2026-09-24 公开 | **P2 已裁决**：主仓库本身即含 harness 源码（实抓 `src/octop/**` 79 个源文件），另有三库独立公开。原「核心未开源」在 2026-09-24 之后不成立。详见 `02_deep_research.md` §5 |
 | C2 | 各项目 Star 数 | 自媒体口径 **6 万 ~ 24 万+**，互相矛盾；GitHub API 直读为 openclaw 390,772 / hermes-agent 249,977 | 数据严重不一致 → **标注为不可靠，不作为选型证据**（star 数本就不是好的选型依据，可在笔记中作为「反例」点出） |
 | C3 | 谁做产品 / 谁做研究基础设施 | 自媒体互相矛盾 | 只采信一手仓库与官方文档表述 |
 
