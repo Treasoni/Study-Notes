@@ -56,28 +56,31 @@ assert not badtit, "标题命中数不符：%r" % badtit
 # —— 4. 报告 ——
 lines = ["# 落盘报告", "",
          "回滚点：`_quote_rework/pristine/`（%d 个文件，逐字节）" % len(manifest), ""]
-lines.append("| 文件 | 类型 | 行尾 | 字数命中 | 字面命中 | 标题命中 | 附录行数（按章） |")
-lines.append("| --- | --- | --- | --- | --- | --- | --- |")
+lines.append("合计（11 个文件累加，含 4 份副本的重复）：")
+lines.append("")
+lines.append("- 正文引文中译：**%d** 处 = 150 个引文行位 × 4 份副本。"
+             % sum(d["n"] for d in stats["span"].values()))
+lines.append("- 字面改写：**%d** 处。" % sum(d["got"] for d in stats["fix"].values()))
+lines.append("- 章标题翻译：**%d** 处（第 4 章标题，4 份笔记 + 提纲）。"
+             % sum(stats["title"].values()))
+lines.append("- 出处未解析的表格行：**%d** 条（跨 4 份副本计；唯一行 35 条）。"
+             % stats["src_missing"])
+lines += ["", "## 逐文件", "",
+          "| 文件 | 类型 | 行尾 | 标题命中 | 附录行数（按章） |",
+          "| --- | --- | --- | --- | --- |"]
 for path, kind in core.TARGETS:
-    _lines, _eol = core.read(path)
     raw = path.read_bytes()
     eol = "CRLF" if b"\r\n" in raw else "LF"
-    span = sum(d["n"] for d in stats["span"].values() if path.name in d["tags"])
-    fix = sum(d["got"] for d in stats["fix"].values() if path.name in d["tags"])
     ap = stats["appendix"].get(path.name, {})
-    lines.append("| %s | %s | %s | %d | %d | %d | %s |"
-                 % (path.name, kind, eol, span, fix,
-                    stats["title"].get(path.name, 0),
+    lines.append("| %s | %s | %s | %d | %s |"
+                 % (path.name, kind, eol, stats["title"].get(path.name, 0),
                     "、".join("%d:%d" % (c, ap[c]) for c in sorted(ap))))
 for path in core.TITLE_ONLY:
-    lines.append("| %s | title_only | %s | 0 | 0 | %d | — |"
+    lines.append("| %s | title_only | %s | %d | — |"
                  % (path.name, "CRLF" if b"\r\n" in path.read_bytes() else "LF",
                     stats["title"].get(path.name, 0)))
-lines += ["", "合计：正文引文中译 %d 处，字面改写 %d 处，章标题翻译 %d 处。"
-          % (sum(d["n"] for d in stats["span"].values()),
-             sum(d["got"] for d in stats["fix"].values()),
-             sum(stats["title"].values())),
-          "", "出处未解析的表格行：%d 条（跨 4 份副本计）。" % stats["src_missing"]]
+lines += ["", "（不在表里逐文件列引文中译数：每个键的计数是全局的，"
+          "按文件列会把同一个数重复计到它的 4 份副本上，是假精度。）"]
 (HERE / "apply_report.md").write_bytes(("\n".join(lines) + "\n").encode("utf-8"))
 print("报告 -> apply_report.md")
 for l in lines:
