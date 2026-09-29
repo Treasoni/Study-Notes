@@ -44,7 +44,23 @@ updated: 2026-09-29
 
 这三行不是三个并列的类别，而是同一根轴上的三段：从左到右，「常驻」和「复数」两个条件逐个亮起。
 
-**判据怎么落到具体产物上？** 看判据①，OpenClaw 官方说 `A single long-lived **Gateway** owns all messaging surfaces`（`research/openclaw/01_docs_openclaw_ai.md:11`），Hermes 官方说 `The messaging gateway is the long-running process that connects Hermes to 20+ external messaging platforms through a unified architecture.`（`research/hermes/gw/01_hermes-agent_nousresearch_com.md:9`），Octop 官方说 `The whole stack is one process.`（`research/octop/docs/architecture.md:32`）——三者都有「一直挂着的服务进程」，都过判据①。再看判据②，Octop 的定位是 `Octop is a self-hosted AI assistant platform for households and small teams.`（`research/octop/README.md:69`），一台实例服务多个人；而 OpenClaw 的默认形态是 `Default OpenClaw is a trusted single-operator assistant.`（`research/openclaw/02_docs_openclaw_ai.md:64`）。判据①相同、判据②不同，第 2 层与第 3 层就是这样分开的。
+**判据怎么落到具体产物上？** 两问分开读原文。先要说清判据② 数的是什么：数的是**所有者 / 信任域的个数**，不是「能有几个人接触到这台实例」。
+
+先看判据①（是不是常驻服务）：
+
+- **OpenClaw**：`A single long-lived **Gateway** owns all messaging surfaces`（`research/openclaw/01_docs_openclaw_ai.md:11`）。
+- **Hermes**：`The messaging gateway is the long-running process that connects Hermes to 20+ external messaging platforms through a unified architecture.`（`research/hermes/gw/01_hermes-agent_nousresearch_com.md:9`）。
+- **Octop**：`Everything runs in a single Python process served by uvicorn.`（`research/octop/docs/adr/001-single-process-model.md:14`），且启停交由系统服务托管——`Manage the Octop system service (systemd on Linux, launchd on macOS).`（`research/octop/docs/cli.md:120`）。
+
+三家都是「一直挂着的服务进程」，没有一家是「用完即退」的，所以**三家都不在第 1 层**。
+
+再看判据②：
+
+- **Octop = 复数**：`Octop is a self-hosted AI assistant platform for households and small teams.`（`research/octop/README.md:69`）——一台实例、一个共用的控制面数据库，服务多个账号，每个账号在数据上归属自己。
+- **OpenClaw = 单数**：`Default OpenClaw is a trusted single-operator assistant.`（`research/openclaw/02_docs_openclaw_ai.md:64`，出自官方 `## What we do not claim` 一节，是官方的自我限定而非本文推断）。它确实有「多用户」（① 同一信任域内的协作），但官方明说那属于易用性功能：`It is not an authorization or isolation boundary.`（`research/openclaw/03_docs_openclaw_ai.md:118`）——所有者仍是单数。
+- **Hermes = 单数**：`**By default, the gateway denies all users who are not in an allowlist or paired via DM.**`（`research/hermes/03_raw_githubusercontent_com_messaging-index.md:327`）——默认全拒，放行的也只是同一个所有者认可、且同处一个信任域的人（「多用户」= ② 准入与很窄的分级）。要给不同的人各自的 agent，官方的做法是多开 profile / 多开实例（每个 profile `with its own bot tokens, sessions, and memory`，`research/hermes/02_hermes-agent_nousresearch_com_multi-profile-gateways.md:9`），**不是在一台实例里装多个账号**。
+
+判据① 三家取值一致、判据② 一分为二：第 1 层由判据① 分出去（那里是「否」），第 2 层与第 3 层由判据② 分开（单数所有者 vs 复数账号）。三层至此分完。
 
 > [!warning] 关于「多用户」这个词
 > 本文任何位置都不裸用「多用户」。它至少有三层互不相同的限定语义，本文固定表述为：① 同一信任域内的协作；② 准入与很窄的分级；③ 行级归属。第 3 层的层名「多用户平台」，用的是 ③ 行级归属这一层语义。三种语义的逐方切分是第 2 章的主题，本章不展开。
@@ -186,7 +202,7 @@ Hermes 的「多用户」（准入与很窄的分级）起点是一句默认拒�
 
 但「分级」的实际边界很窄，必须把实证写出来：`**What the tiers gate today:** slash commands. ... Plain chat is not affected — non-admins can still talk to the agent.`（同文件 :378）。也就是说，这两档目前**只管 slash 命令**，普通对话不受限。
 
-另一处容易误读的是 profile 路由。它不是授权：`Sender routing selects a profile; it is not deny-by-default authorization.`（`research/hermes/02_hermes-agent_nousresearch_com_multi-profile-gateways.md:645`）。profile 的示例用途是「同一个人的多个 agent」，不是多个租户：`A personal assistant on one Telegram bot and a coding agent on another`（同文件 :13）。
+另一处容易误读的是 profile 路由。它不是授权：`Sender routing selects a profile; it is not deny-by-default authorization.`（`research/hermes/02_hermes-agent_nousresearch_com_multi-profile-gateways.md:645`）。profile 的示例用途之一是「同一个人的多个 agent」，不是多个租户：`A personal assistant on one Telegram bot and a coding agent on another`（同文件 :13）。
 
 把这四句连起来读，Hermes 的「多用户」（准入与很窄的分级）可以概括成：一台机器、一个所有者，决定「谁能够到这个 bot」，以及「够到之后分几档」。它不是「一台机器服务多个互不信任的主体」——那恰恰是它通篇没有租户语汇的原因。
 
