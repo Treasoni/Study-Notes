@@ -1,53 +1,21 @@
 # LEARNINGS.md
 
-本机最近一次维护：2026-09-18（`/digest`，后由 `update-hermes-ha-volume` 运行补记 `LRN-20260918-019`）。
-本轮新增 `LRN-20260918-017`（Discourse 正文只走 `/t/<id>.json`）、
-`LRN-20260918-018`（产物落点用仓库内路径；工具可用性先探测）、
-`LRN-20260918-019`（核对 Hermes Skills Hub 必须查中央索引，不能用仓库内 `optional-skills/` 代替）。
-三条的处置办法已提炼进 RULES.md。
-`LRN-20260912-012`（vault 并发写入，写者身份未定）继续挂起，**不可归档**。
-RULES.md 里「拼接式文档生成：追加前先对既有尾部做幂等归一」一条**本轮在真实运行里没拦住**
-（见 `ERRORS.md` 的 `-008` / `-009`），按 digest 规定应转 `maintain-learnings` 做源头修复。
+活跃学习记录：当前 **3** 条 —— `LRN-20260912-012`（挂起）与 `LRN-20260929-020` / `-021`
+（2026-09-29 本轮新记，状态 `pending`）。
 
-上一次维护：2026-09-14（`/maintain-learnings`）。已源头修复或已提升为 RULES 铁律的条目移入
-`.learnings/archive/`，本轮归档 `LRN-20260912-011`（→ `note-updater` Workflow 第 6 步「登记
-vault / workspace 漂移」）、`LRN-20260914-014` / `-015` / `-016`（处置办法已完整落在 RULES.md），
-早前归档 `LRN-20260911-009` / `LRN-20260914-013`（规则已入 RULES.md）。
-逐条的修复路径、验证方式与处理结果见 `.learnings/archive/2026-09-14-maintenance.md`（本轮）
-与 `.learnings/archive/2026-09-14-archived.md`（digest 压缩）。
+最近一次维护 2026-09-29（`/maintain-learnings`）：归档 3 条已落机制且经验证的记录
+（`LRN-20260918-017` / `-018` / `-019`），条目全文见 `.learnings/archive/2026-09-29-archived.md`，
+处置路径与验证方式见 `.learnings/archive/2026-09-29-maintenance.md`；更早各轮见同目录对应文件。
 
-另一台机器上的一轮维护：2026-09-23（`/maintain-learnings`）。本轮把 7 条「教训已进 `RULES.md`、记录仍留在活跃文件」
-的记录逐条追回源头，落到可执行机制后归档；原文摘要、修复路径、验证方式与遗留项见
-`.learnings/archive/2026-09-23-maintenance.md`：
+`LRN-20260912-012`（vault 被本会话之外的写者改动，写者身份未定）**不可归档**，继续挂起。
 
-- `LRN-20260912-011` workflow — vault 与 workspace 副本漂移未登记 → `note-updater` 新增漂移登记步骤
-- `LRN-20260923-014` workflow — 并行写作跨章口径未冻结 → `learning-note-flow` 阶段 4 新增口径表检查点
-- `LRN-20260923-015` workflow — workflow 定义调用了未实现的动作 → `workflow-health-check.sh` 新增动作守卫
-- `LRN-20260923-017` correction — 逐字引文串成引文墙 → `chapter-writer` 摆放规范与验收清单已在位
+新增记录追加到本文件末尾，头格式 `## [LRN-YYYYMMDD-NNN] <category> — 一句话结论`，
+正文含 `**Logged**` / `**Priority**` / `**Status**` / `**Area**` 与
+`### Summary` / `### Details` / `### Suggested Action`。
 
-更早一批（`digest` 于同日压缩）见 `.learnings/archive/2026-09-23-archived.md`。
+只有**已落到机制并被验证**的记录才可归档；未修复、未验证或仍需观察的继续留在本文件。
 
-> 注：该轮维护已把 `LRN-20260912-012` 的副本按「事件已报告用户并终结、无待办动作」归档进
-> `.learnings/archive/2026-09-23-archived.md`；本机这份记录判为**不可归档**（写者身份未定）。
-> 两处并存，留待下一轮 `/maintain-learnings` 裁定去留。
-
-新增记录请按 `digest` 的格式追加到本文件末尾：
-
-```markdown
-## [LRN-YYYYMMDD-NNN] area — 一句话结论
-
-**Logged**: YYYY-MM-DD
-**Priority**: high | medium | low
-**Status**: pending | in_progress | resolved
-**Area**: 受影响的 skill / agent / workflow
-
-### Summary
-### Details
-### Suggested Action
-```
-
-只有**已落到机制并被验证**的记录才可归档（`.learnings/archive/YYYY-MM-DD-maintenance.md`）；
-未修复、未验证或仍需观察的记录继续留在本文件。
+---
 
 ## [LRN-20260912-012] anomaly — vault 被本会话之外的写者改动，先隔离再报告，不要顺手"修回去"
 
@@ -72,98 +40,56 @@ vault / workspace 漂移」）、`LRN-20260914-014` / `-015` / `-016`（处置�
 
 ---
 
-## [LRN-20260918-017] knowledge_gap — Discourse 论坛的帖子正文只走 `/t/<id>.json`，HTML 路径会漏抓
+## [LRN-20260929-020] correction — 跨章一致性比对只查「可照抄的配置块」，漏掉散文式转述与定义句
 
-**Logged**: 2026-09-18T01:21:05+0800
+**Logged**: 2026-09-29T23:35:00+0800
 **Priority**: high
-**Status**: 已办（已写进 `02_deep_research.md` §5.7 工具坑 + §5.7.1 回填）
-**Area**: research-collector / 来源取回
+**Status**: pending（机制已落 workflow 阶段 4，下轮复核后归档）
+**Area**: learning-note-flow / chapter-writer
 
 ### Summary
-以 Discourse 为底座的社区论坛（`community.home-assistant.io`、`community.simon42.com` 等）取**帖子正文**的可靠路径是
-`curl 'https://<host>/t/<topic-id>.json'`（多页用 `?page=N`，或看响应的 `post_stream.stream` 拿全部 post id），
-走 HTML / crawl4ai 会拿到 403/522 或只有壳而无帖子正文。
+`workflow.md` 阶段 4 的跨章比对只覆盖「可照抄的配置块」（且只比冻结标签），不覆盖
+**对同一份来源的散文式转述**与**定义 / 判据句**。第 2 章 L44 把 Hermes 文档的 4 条 profile
+用途概括成「示例用途是「同一个人的多个 agent」」，而同一份文档 `:14` 是「每个家庭成员一个」
+——两章对同一份清单做了相反定性，靠用户读已发布笔记才被发现。
 
 ### Details
-- 事实：本轮两帖（`COM-22` = `…/t/736566.json`、`COM-16` = `…/t/88707.json`）HTML 路径被 Cloudflare 拦住；
-  换 `/t/<id>.json` 后均 **HTTP 200**，落盘全文快照分别是 20 帖 / 4 帖，**逐字命中**了此前无法核验的三条引语
-  （`1 token is equal to approx 4 characters`、`totalling 0.66$`、`Die Messages schnappen sich aktuell 110k Tokens.`）
-  以及 §9.2 表格的四个数字。
-- 事实：快照可用普通 `grep` 对引语逐字比对——这就是「可比对字节」，是把证据置信度从「中」升到「高」的唯一凭据。
-- 根因：Discourse 的 SPA 壳负责渲染，正文由 API 返回；抓 HTML 的通用工具（crawl4ai）只能拿到壳与首帖摘要，
-  **不报错、静默漏抓**，很容易被误判成「来源不可得」。
-- 教训（已落进笔记）：漏抓 ≠ 来源不可得。**在把置信度降格、或写「未核验」之前，必须先换取回路径再试一次**；
-  本轮就是这样把先前记的「置信度中 / 未核验」闭掉的。
+- 事实：`research/hermes/02_hermes-agent_nousresearch_com_multi-profile-gateways.md:9` 是
+  多 profile / 多实例路径，`:14` 是「每个家庭成员一个」。L44 的「示例用途是」把一个**并列清单
+  中的一条**说成了全部。
+- 根因：比对规则的作用面是「可照抄的配置块」，而这类漂移发生在**散文**里；验收只看
+  「有没有引到原文」，不看「同一来源在别处是怎么被定性的」。
+- 同轮的第二例（同一根因家族、不同检测目标）：上游判据句与下游术语框架冲突，见
+  `ERRORS.md` 的 `ERR-20260929-015`。
+- 下次做法：三类全覆盖——① 可照抄的配置块 ② 同一来源的转述与定性并排读 ③ 定义 / 判据句
+  对冻结语义框架自洽。并列清单要说「其中一条」，不说「就是」。
 
 ### Suggested Action
-- 遇到 `community.*` 且页面像 Discourse（`/t/<slug>/<id>` 结构），直接用 `/t/<id>.json`。
-- 把「抓取产物里没有目标段落」先当成**取回方式问题**，而不是来源缺失；换路径重试后再决定是否降格证据。
-- 落盘快照到 `workspace/<slug>/sources/`，命名带来源 ID，便于日后逐字复验。
+- `workflow.md` 阶段 4「并行写作的跨章口径」已扩到三类，新增第 ④ 条要求把比对结果
+  （命中处 / 归一结果 / 判定为合法异体的理由）写进 state file 的异常记录。
+- 该比对属**父流程 P4 关卡**：单章写作代理看不到其他章，不要下放成逐章自检。
 
 ---
 
-## [LRN-20260918-018] best_practice — 沙箱里的产物落点：用仓库内路径 + 仓库相对路径读回
+## [LRN-20260929-021] knowledge_gap — P1 的搜索摘要级候选与已抓原文混放，须标注证据形态
 
-**Logged**: 2026-09-18T01:21:05+0800
+**Logged**: 2026-09-29T23:20:00+0800
 **Priority**: medium
-**Status**: 已办（本轮照此改法即成功）
-**Area**: 工具使用 / 沙箱
+**Status**: pending（机制已落 research-collector，下轮复核后归档）
+**Area**: research-collector / P1
 
 ### Summary
-在 Bash 里 `curl -o /tmp/x.json`，再在**另一次调用**里用 Python 读 `/tmp/x.json`，会 `[Errno 2] No such file or directory`
-——shell 的工作目录与沙箱的 `/tmp` 映射在调用之间不保证一致。快照/中间产物应**直接落到仓库内路径**，用仓库相对路径读回。
+P1 的候选记录（标题 / URL / tier / 相关性 / 分数）本身不区分**证据形态**：一条只是搜索结果
+摘要，一条已取回正文，两者在 `01_explore_result.md` 里外观相同。本轮只把这件事写在了
+该文件 §3.1 的说明文字里，没有变成字段或校验。
 
 ### Details
-- 事实：`curl -o /tmp/com16.json` 成功，紧接着的 Python 读 `/tmp/com16.json` 报 `[Errno 2]`；改成
-  直接写 `workspace/hermes-home-assistant/sources/COM-16-simon42-88707.json`、再用同一相对路径读，一次通过。
-- 事实（同一轮的相邻教训）：「能不能用 API 落这项配置」要先探测可用性——本机 `obsidian` 可执行文件**存在**，
-  但 **CLI 未启用**，因此「改 Obsidian 忽略目录」这件事根本无法用 API 落，最终决定不改用户配置。
-  探测动作很小（读 `.obsidian/app.json`），但结论改变了决策。
-- 根因：把宿主 `/tmp` 当作跨调用稳定的暂存区；把「命令存在」当作「命令可用」。
+- 事实：搜索摘要级信息与已抓取原文在同一个候选表里，下游无法从记录本身判断某条能否当证据用。
+- 根因：与「转述带引用」同属一类——**把弱形态的证据当强形态用**，且没有任何字段拦住它。
+- 下次做法：每个候选标注 `snippet-only` 或 `fetched`；P2 只把 `snippet-only` 当线索去取，
+  不当证据。
 
 ### Suggested Action
-- 落盘产物一律用仓库内相对路径（`workspace/<slug>/sources/…`），不要用 `/tmp` 当跨调用中转。
-- 判断某工具/配置项能否落地，先做一次最小可用性探测（读配置文件 / `--help` / 退出码），再决定要不要写进方案。
-
----
-
-## [LRN-20260918-019] research-collector — 核对 Hermes Skills Hub 必须查中央索引，不能用仓库内目录代替
-
-**Logged**: 2026-09-18T02:40:00+0800
-**Priority**: high
-**Status**: 已办（本轮据此推翻并更正了已发布分册里的一处事实性错误结论）
-**Area**: research-collector / source policy / 已发布笔记更正
-
-### Summary
-把「Hermes Skills Hub」当成 Hermes 仓库里的 `optional-skills/` 目录去核对，会得到与事实相反的结论。
-Hub 是**联邦注册表**，它的检索由一份**中央索引**回答；仓库内目录只是其中的 `official` 一支
-（150 条，占索引 97,986 条的一支）。本轮据此发现已发布分册里「Hub 里没有现成的 Home Assistant skill」是错的
-——明示 Home Assistant 的 skill 实为 **64 条**。
-
-### Details
-- 事实：中央索引 `https://nousresearch.github.io/hermes-agent/docs/api/skills.json`（单行 JSON，约 60.8 MB）。
-  截至 2026-09-18 的快照：97,986 条记录；明示 Home Assistant 的 **64 条**（ClawHub 52 + skills.sh 12）；
-  `category: smart-home` 但未点名 HA 的 13 条；`official` 支 150 条。索引支持 8 类来源：
-  `official` / `skills-sh` / `well-known` / `url` / `github` / `clawhub` / `lobehub` / `browse-sh`。
-- 事实：**这一层错本可以被自己的来源拦住**——该册自己的来源 `HMS-05`（`skills.md`）就写着 Hub 是联邦索引、
-  并列出了这 8 类来源。所以错误不是「缺来源」，而是**没读全已有的来源**。
-- 根因：把「本仓库里有什么」当成了「整个注册表里有什么」。联邦制系统里本地目录只是其中一个 source，
-  用它的结果去下全称结论（「不存在」「没有可装的」）几乎必然出错。
-- 连带的第二层错：同一册还断言「HA 场景并不存在一个可以让 skill 去指挥的 `ha` CLI」。`hass-cli`
-  （`home-assistant-ecosystem/home-assistant-cli`，596★，2026-08-04 pushed，未归档）存在，Hub 里也有封装它的条目；
-  但它是 **Home Assistant Ecosystem 组织**的社区事实标准，**不是 HA core 官方出品**——Hub 条目自述里的 "official"
-  措辞不精确，不能沿用。
-- 教训：「skill 不存在」与「CLI 不存在」是**两个各自独立**的核对项，不能互相推出，也不能一并结案。
-- 方法论收获：两个错误都被**同一句正确洞察**兜住——「skill 是知识，不是能力」。结论错的地方，洞察是对的；
-  更正时保留了洞察、只修事实与作用域，避免把对的部分一起推翻。
-
-### Suggested Action
-- 核对任何**联邦 / 聚合式**注册表（Skills Hub、插件市场、包索引、模型仓库）时，先找到它自己的
-  **中央索引或 API 端点**并在索引上检索；**不要**用「本仓库内的目录清单」代替。
-- 写全称否定结论（「没有 X」「不存在 Y」）之前先自问：**我核对的这个范围，是不是就是这句话的作用范围？**
-  并把作用域写进句子本身——「`official` 支里只有 `openhue`」而不是「Hub 里只有 `openhue`」。
-- 索引类证据必须带时点限定（「截至 YYYY-MM-DD 的快照」），并把快照落盘到 `workspace/<slug>/sources/` 以便逐字复验。
-- 更正依赖否定结论的旧笔记时**分两层**处理：范围错（查错了地方）与事实错（断言本身为假）分开写、
-  分开改，不要混成一次「补充说明」——两层的原因与修法都不同。
+- `research-collector` SKILL.md 的 P1 第 3 步已要求标注证据形态，完成标准已加断言。
 
 ---

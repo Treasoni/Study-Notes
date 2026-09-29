@@ -31,14 +31,14 @@ Read before starting any new Study System task.
 - 自校验脚本报出「几十条同一性质告警」时，先怀疑**校验器自己**再改被检对象；校验通过 ≠ 产物正确，发布类脚本跑绿之后仍要**逐行读一遍成品**
 - 「合并 / 保留外部条目」型生成器（如 hook 配置 bootstrap），校验必须跑在**合并之后的完整结果**上，而不是只跑本次渲染的子集；否则「保留路径」天然免检。退役一个 hook 时，删脚本与删注册必须**同时**做（脚本在 git 里被删，不会让注册表自动更新）
 - 核对**联邦 / 聚合式**注册表（Skills Hub、插件市场、包索引、模型仓库）时，先找到它自己的**中央索引 / API 端点**并在索引上检索，**不要**用「本仓库内的目录清单」代替；写全称否定结论（「没有 X」「不存在 Y」）前先自问**作用范围是否等同**，并把范围写进句子本身（「`official` 支里只有 X」而非「Hub 里只有 X」）
-- `02_deep_research.md` 是**中间产物**、不是可信终点：写作者落具体数值/默认值/版本号前回 `sources/` 按行号核对（抓取错位常见——`tcp_ecn` 曾被记成 `tcp_ecn_option_beacon` 的默认值 3）；核对不了就只写语义、不写数值
+- `01_explore_result.md` / `02_deep_research.md` 是**中间产物**、不是可信终点：**引文**要逐字回 `sources/` 比对后再落盘（一个字都不能凭记忆或凭更早的摘要重构——`and argue that` 曾被写成 `we argue that`，沿引用链传进正文，且骗过所有「有没有挂来源」的检查）；**数值/默认值/版本号/行数**要重新计数而不是誊抄（数表格只数**数据行**，表头与分隔行不是属性——15 行属性表曾被记成「17 轴」并扩散到 3 份文件 12 处；同源错误在多处一致会被误读成「多处印证」）；产物要在 handoff 头部自述「本文件是中间产物：引文与数值请回 sources/ 按行号核对」；核对不了就只写语义、不写数值
 - RULES 里出现「X 不存在，所以走 Y」这类**绕行规则**时，先查 X 是否本该存在（状态模板、上下游文档、调用点）；能修实现就修，修完把那条绕行规则改写或删除。把缺陷写成规则会让缺口变成「既定契约」，再没人回头
 - **官方引文摆放**：一段要摆 ≥3 处引文、或含任一整句英文、或长度 >300 字符时，改用「官方原文 / 说人话」两列对照表 + 结论单独成句 + 关键误读用 `[!warning]`；**只有 1 处短引文时行内保留**，不为形式套表。引文逐字与脚注编号/来源归属一律不动，只改摆放；验收时遮住英文列读一遍「说人话」列，不能只核对引文是否正确（用户反馈「让人很难去理解和看懂啊」）
 
 ## Don't
 
 - 不要把表格嵌套在列表项内（带缩进），Obsidian 无法渲染列表内的表格
-- 不要用 python 的 `read_text()`/`write_text()`（或 `newline=None` 的文本模式）改 workflow state file 及任何被 shell/perl/awk 按行解析的文件：Windows 上 `write_text` 会按 `os.linesep` 把整篇 LF 写成 CRLF，静默打穿 `todo-state.sh` 的阶段判定（`previous phase is not complete`）。用 `read_bytes`/`write_bytes`，改完数一遍 `b.count(b"\r\n") == 0`
+- 不要用 python 的 `read_text()`/`write_text()`（或 `newline=None` 的文本模式）改 workflow state file 及任何被 shell/perl/awk 按行解析的文件：Windows 上 `write_text` 会按 `os.linesep` 把整篇 LF 写成 CRLF，静默打穿 `todo-state.sh` 的阶段判定（`previous phase is not complete`）。用 `read_bytes`/`write_bytes`，改完数一遍 `b.count(b"\r\n") == 0`。`todo-state.sh` 现已内置行尾守卫（检测到 CRLF 即告警并归一）；出现该告警说明有工具在文本模式下重写了 state file，要去查那个工具而不是手工把它修回去
 - 不要手工改 workflow state file 的 `> [PN] …` 阶段行（只能由 `todo-state.sh` 写）；手写 `{complete}` 会让脚本的 `phase_has_status "in_progress"` 预检失败
 
 ## Domain
@@ -50,7 +50,7 @@ Read before starting any new Study System task.
 - YAML frontmatter 的 sources 字段中所有含特殊字符（`[]`, `:`）的值必须正确引用，否则 Obsidian 解析失败
 - 并行派发 chapter-writer 时，章节过渡语必须自包含（按大纲），不要依赖读取上一章文件
 - `todo-state.sh` 动作为 `start|complete|skip|block|mode|confirm`：常规走 `start PN` → `complete PN`；`mode PN <值>` 只改 frontmatter `mode` 键、`confirm PN "说明"` 只追加一行到 `## 用户确认记录`，**两者都不动阶段状态行、不要求前置阶段闭幕**；**最后一个阶段**还需 frontmatter 写 `quality_gate: passed`（走豁免则同时补 `quality_gate_owner` + `quality_gate_due`）
-- 并行写作 ≥2 章前先冻结**跨章共享口径**（字段名、术语、命名风格）并写进每个 dispatch：各章「忠于自己手边的来源」合起来可能互相矛盾（官方示例写 `network: "tcp"`、权威文档只文档化 `method` → 同一篇笔记里两章打架）；交付后对「可照抄的配置块」做一次跨章 grep
+- 并行写作 ≥2 章前先冻结**跨章共享口径**（字段名、术语、命名风格）并写进每个 dispatch：各章「忠于自己手边的来源」合起来可能互相矛盾（官方示例写 `network: "tcp"`、权威文档只文档化 `method` → 同一篇笔记里两章打架）；交付后做**三类**跨章一致性比对，缺一类等于没查：① 可照抄的配置块（跨章 grep 同名键取值）② 同一来源被 ≥2 章引用时，各章**怎么转述它**的并排读（同一份清单 A 章写「用途是 X」、B 章写「用途是 not-X」，两处都能引到原文却互相打脸；并列项要说「**其中一条**」，过强概括是主要形态）③ 上游「判据/分类/梯度」句与下游术语框架逐条对读，确认两边能**同时对同一对象成立**（判据句描述的对象必须是框架真正切分的那个维度——判据写「用户数单复数」而框架按「所有者/信任域」切分时，读者必然读不通）
 - note-assembler 等 writer 子 agent 无 Bash/Edit 且 Write 有输出上限；>100KB 长文档由父进程 python 合并；反向扫描定位插入点时必须**同时跳过空行和 `---` 分隔线**，否则扫描停错位置且静默不生效
 - 组装脚本调整标题层级时必须**级联到子标题**：只把章标题降一级、不管章内 `## N.M` 与 `## 小结`，会让章标题与节标题同级、大纲整体塌陷；降级后要重新解析标题树逐层校验
 - 「合并/保留外部条目」的生成器，校验必须跑在**合并结果**上，不是只跑本次渲染的子集，否则保留路径天然免检（`.agent-sync/bootstrap.py --check` 曾对指向已删脚本的 hook 注册报 `[OK]`）
@@ -61,6 +61,7 @@ Read before starting any new Study System task.
 - WebFetch 拦截的域名（raw.githubusercontent.com、github.com）改用 `curl api.github.com` 替代
 - Discourse 论坛（`community.home-assistant.io`、`community.simon42.com` 这类 `/t/<slug>/<id>` 结构）取**帖子正文**只走 `curl 'https://<host>/t/<id>.json'`（多页 `?page=N`，或读 `post_stream.stream`）；HTML / crawl4ai 路径会 403/522，或**静默只给壳与首帖摘要**。抓取产物里没有目标段落时，先当成**取回方式问题**换取回路径重试，再决定是否把证据置信度降格——漏抓 ≠ 来源不可得（2026-09-18 靠这一条把两帖的「置信度中 / 未核验」闭成「高 / 已核验」）
 - 往 Obsidian 笔记加双链前，先核实目标笔记**真实存在**（逐条 `os.path.exists` 断言），不要给 vault 里不存在的概念词埋死链；章级锚点**避开含反引号/箭头/竖线的标题**（如 `2.7.3 主路径：导出 \`.reg\` → …`），改链到不含特殊字符的上级标题
+- P1 候选必须标**证据形态**：`snippet-only`（只有搜索摘要）还是 `fetched`（正文已取回）；两者不得在 `01_explore_result.md` 里静默混放——搜索摘要被后来当作已取回的来源用，与「转述带引用」是同一类错。P2 只把 `snippet-only` 当线索去取，不当证据
 - 文本比对工具一律**行尾不敏感**比较：本机 `core.autocrlf=true`，工作区是 CRLF，而 `Path.read_text` 会把 CRLF 折成 LF——按原始字节比较的工具在这里会**永久误报**（`[DRIFT] updated: CLAUDE.md` 拖了整轮），把本该可信的门变成人人忽略的噪音。`--check` 退出 1 就先怀疑换行符，别先改内容
 - 把某个区域纳入同步范围前，**先双向 diff 两侧**再决定 canonical 方向：`.claude/agents/` 曾严格领先于 `.codex/agents/`（多出 5 处经验），若直接以 `.codex` 为 canonical 跑 `--apply` 会静默删掉它们。正确顺序是「先把领先侧回收进 canonical → 再加 `paths.<area>` 与 `canonical_scopes` → 再 apply」，并用「apply 后镜像逐字节不变」证明回收完整
 - 在 canonical 文档里**不要写死 canonical/目标路径字面量**：同步的路径替换会把镜像里那句 `.codex/agents/` 改写成 `.claude/agents/`，于是「canonical 是 X」在镜像里变成「canonical 是 Y」——方向说反。描述方向时用 profile 键名（`paths.agents`、`canonical_scopes`），或写成「哪一侧由 profile 决定」
