@@ -11,6 +11,14 @@
 
 用法（在项目根目录运行）：
 
+    # 组装前：单章的文本级检查（V + S，不含跨副本——此时一章只有一份副本）
+    python .codex/scripts/note-citation-check.py workspace/<project-slug> --mode text
+
+    # 收集阶段：核对自己的中间产物有没有把来源引错（ERR-20260929-013 的源头）
+    python .codex/scripts/note-citation-check.py workspace/<project-slug> \
+        --mode verbatim --file 02_deep_research.md
+
+    # 组装 / 发布后：三族全跑
     python .codex/scripts/note-citation-check.py workspace/<project-slug> \
         [--vault-note "AI学习/.../某篇.md"]
 
@@ -28,8 +36,17 @@
 - **C 多副本一致**：章文件 → `chapters/_merged.md` → `output/final_note.md` → vault 成品，
   逐章逐字比对（改一份就发布，副本必然漂移）。
 
-S1/S2/S3 是**候选清单**（要人工判，不自动判罪）；S4 与 C 是**硬失败**。
-退出码：0 = 无硬失败；1 = 有硬失败；2 = 用法或路径错误。
+S1/S2/S3 是**候选清单**（要人工判，不自动判罪）；V 的未命中与本中间产物命中、S4、C
+是**硬失败**。退出码：0 = 无硬失败；1 = 有硬失败；2 = 用法或路径错误。
+
+**`--mode text`** = V + S，不含跨副本比对：一章刚写完时只有一份章文件，跑 C 会
+「一组都没比」（反静默通过会判失败），所以交章时用 `text`，组装 / 发布后再跑 `all`。
+
+**`--file`** = 额外要逐字回源的文件（相对项目目录解析），只喂给 V。用途：核对
+**自己的中间产物**（`02_deep_research.md`）有没有把来源引错。ERR-20260929-013 的源头
+就是它——中间件把来源的 `and argue that` 写成 `we argue that`，下游照抄，而下游
+「挂着来源 ID、句子也在」，所有形式检查都过得去。不查 `--file`，这个错误要等
+user 读出来的那一刻才被发现。
 """
 import argparse
 import html as htmllib
@@ -449,7 +466,11 @@ def main():
     ap.add_argument("project", help="项目工作区目录，如 workspace/<slug>")
     ap.add_argument("--vault-note", default=None, help="发布到 vault 的成品文件")
     ap.add_argument("--corpus", action="append", default=[], help="逐字回源的语料（文件或目录，可重复）")
-    ap.add_argument("--mode", default="all", choices=["all", "verbatim", "style", "copies"])
+    ap.add_argument("--file", action="append", default=[],
+                    help="额外逐字回源的文件（相对项目目录解析，可重复），只用于 V；"
+                         "典型用途是核对 `02_deep_research.md` 这类自己的中间产物")
+    ap.add_argument("--mode", default="all", choices=["all", "text", "verbatim", "style", "copies"],
+                    help="all=V+S+C；text=V+S（组装前单章用）；copies 需要同一章 >=2 份副本")
     ap.add_argument("--appendix-title", default="引文对照")
     ap.add_argument("--allow-weak", action="store_true",
                     help="把「仅在自己的中间产物里命中」降级为提醒（默认按硬失败处理）")
@@ -471,6 +492,17 @@ def main():
     final = project / "output" / "final_note.md"
     vault = pathlib.Path(args.vault_note) if args.vault_note else None
 
+    # `--file` 相对**项目目录**解析（调用方常在仓库根运行，写 `02_deep_research.md`
+    # 的意图是「项目里那份」，不是仓库根那份）。只进 V 的检查集，不进 S/C。
+    extra_files, missing = [], []
+    for f in args.file:
+        q = pathlib.Path(f)
+        q = q if q.is_absolute() else (project / f)
+        (extra_files if q.is_file() else missing).append(q)
+    if missing:
+        print("--file 指定的文件不存在：%s" % ", ".join(str(m) for m in missing))
+        return 2
+
     body_files = list(chapter_files)
     if merged.is_file():
         body_files.append(merged)
@@ -483,16 +515,19 @@ def main():
         return 2
 
     print("=" * 72)
-    print("引文纪律校验  project=%s" % project.as_posix())
-    print("待检查 %d 个文件；章文件 %d 个" % (len(body_files), len(chapter_files)))
+    print("引文纪律校验  project=%s  mode=%s" % (project.as_posix(), args.mode))
+    print("待检查 %d 个文件；章文件 %d 个%s"
+          % (len(body_files), len(chapter_files),
+             ("；额外逐字回源 %d 个（%s）" % (len(extra_files), ", ".join(p.name for p in extra_files)))
+             if extra_files else ""))
     print("=" * 72)
 
     hard_fail = 0
     report = {}
 
-    if args.mode in ("all", "verbatim"):
+    if args.mode in ("all", "text", "verbatim"):
         primary, derived = collect_corpus(project, args.corpus)
-        total, weak, miss, names = check_verbatim(body_files, primary, derived)
+        total, weak, miss, names = check_verbatim(body_files + extra_files, primary, derived)
         print("\n[V] 逐字回源：英文整句引文 %d 处；原始来源命中 %d / 仅自己中间产物命中 %d / 未命中 %d"
               % (total, total - len(weak) - len(miss), len(weak), len(miss)))
         print("    语料 %d 个文件（primary %d / derived %d）" % (len(names), len(primary), len(derived)))
@@ -516,7 +551,7 @@ def main():
             print("    → 判定：仅中间产物命中按硬失败处理（--allow-weak 可降级为提醒）")
             hard_fail += 1
 
-    if args.mode in ("all", "style"):
+    if args.mode in ("all", "text", "style"):
         boundary, collide, ascii_left, table_bad = check_style(body_files, args.appendix_title)
         print("\n[S1] 边界叠字候选：%d 处（人工判：真叠字 / 巧合）" % len(boundary))
         for tag, line, ch, ctx in boundary[:20]:
@@ -570,7 +605,7 @@ def main():
 
     print("\n" + "=" * 72)
     if hard_fail:
-        print("判定：❌ 有硬失败（S4 对照表结构 / C 多副本一致）")
+        print("判定：❌ 有硬失败（V 逐字回源 / S4 对照表结构 / C 多副本一致）")
         return 1
     print("判定：✅ 无硬失败（S1/S2/S3 是候选清单，仍需人工判）")
     return 0
