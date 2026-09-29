@@ -10,7 +10,7 @@ topic: "自托管 AI Agent 平台选型（Octop / OpenClaw / Hermes）"
 project_slug: "ai-agent-platform-selection"
 created_at: "2026-09-29"
 last_updated: "2026-09-29"
-current_phase: P6
+current_phase: P7
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：ai-agent-platform-selection
 > 项目标识：ai-agent-platform-selection
 > 创建时间：2026-09-29
-> 当前阶段：阶段 6
+> 当前阶段：阶段 7
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -114,12 +114,21 @@ quality_gate_due: ""
 ---
 
 ## 阶段 6：Obsidian 美化与发布
-- [ ] 已读取 Obsidian 输出规则
-- [ ] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
-- [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
-- [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
+- [x] 已读取 Obsidian 输出规则
+- [x] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
+- [x] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
+- [x] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] 🔲 进行中 {in_progress}
+**P6 实际处理**（正文零改动，仅加两处外壳）：
+- frontmatter 跟随 vault 现状（`tags` / `created` / `updated` 三字段），未套项目规则全字段
+- 新增 `> [!info] 概述`（H1 之后、`## 目录` 之前）：`**一句话定义**` 取自第 1、2 章自有论断，`**🎯 比喻**` 复用第 2 章 §2.5 原文比喻（泳池 25 米 / 浮潜 / 横渡海峡），无新增断言
+- 新增 `## 相关文档`（文末）：4 条相对路径 wikilink，格式对齐 vault 房子风格（`- [[路径]] - 说明`，无别名）；4 个目标逐条 `os.path.exists` 断言通过
+- 未埋死链：未对「OpenClaw」「Hermes」「Octop」等概念词添加 vault 内不存在的双链
+- 发布位置：`AI学习/04-项目实践/自托管 Agent 选型/自托管 Agent 平台选型.md`（新建目录）；与 `output/final_note.md` md5 一致（`0b3e1f9799817fd022303eb90fa24187`）
+
+**美化后保真度复测**（`_verify_assembly.py`，仍以 `chapters/_merged.md` 为基准）：`research` 锚点 **107/107**、Callout 头 26→27（+1 为新增概述）、表格行 **70/70**、正文实义行缺失 **0**；结构 H1=1 / H2=9（+1 为相关文档）/ H3=54 / H4=1；汉字 15,616（合并件 15,309，+307 为概述与相关文档）。
+
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -129,7 +138,7 @@ quality_gate_due: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] 🔲 进行中 {in_progress}
 
 ---
 
