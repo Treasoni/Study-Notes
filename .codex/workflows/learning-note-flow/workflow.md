@@ -113,6 +113,10 @@
   - [ ] 标题层级已统一，且**降级已级联到章内标题**（`## N.M`、`## 小结` 随章标题一起下沉）；已重新解析标题树确认 章 > 节 > 小结 逐层递减
   - [ ] 引用已检查
   - [ ] 各章「引文对照」表随组装原样保留：逐章行数在合并件 / 组装件 / vault 成品里一致，未被标题降级或合并破坏
+  - [ ] 组装后跑统一引文校验器三族全跑：`python .codex/scripts/note-citation-check.py ${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG}`
+        —— `C 多副本一致` 必须 **0 处差异**，且输出里 `实际比对 N 组` 的 **N > 0**
+        （一章副本都没认出来 = 根本没比，是硬失败不是通过）；`V` 的未命中 / 仅中间产物命中必须为 0。
+        引文一改就四份一起改（章文件 → 合并件 → 组装件 → vault 成品），改一份即漂移。
   - [ ] 完整笔记已保存：`./output/final_note.md`
 - **输出文件**: `output/final_note.md`
 - **状态**: [P5] ⬜ 未开始
@@ -124,6 +128,11 @@
   - [ ] 已读取 Obsidian 输出规则
   - [ ] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
   - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
+  - [ ] 发布前跑统一引文校验器（带上 vault 成品一起比）：
+        `python .codex/scripts/note-citation-check.py ${WORKSPACE_PATH:-./workspace}/${PROJECT_SLUG} --vault-note "<vault 相对路径>"`
+        —— 退出码非 0 即**停止发布**；`C` 报的差异就是「章文件改了、成品没跟上」的位置。
+        用 `--allow-weak` 放行必须把理由写进 state file 的异常记录（说出来的例外，不是默认姿态）。
+  - [ ] 自查没有绕开共享校验器：本轮没有新增项目内置的引文校验脚本（判据缺哪条就补进 `.codex/scripts/note-citation-check.py`）
   - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 - **输出文件**: 用户指定的 Obsidian 笔记路径，或 `output/final_note.md`
 - **状态**: [P6] ⬜ 未开始
