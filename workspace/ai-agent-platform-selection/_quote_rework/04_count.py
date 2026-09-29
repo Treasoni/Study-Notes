@@ -22,10 +22,17 @@ sys.path.insert(0, str(HERE))
 import rework_core as core
 
 trans = core.load_trans()
+bad_table = core.validate_trans(trans)
 stats, results = core.run(trans, write_files=False)
 
 rep = []
 w = rep.append
+
+# ---------------------------------------------------------------- 0. 替换表自检
+w("# 预检报告（只算不写）\n")
+w("替换表自检问题：%d 条。\n" % len(bad_table))
+for what, k in bad_table:
+    w("- %s：`%s`\n" % (what, k[:80]))
 
 # ---------------------------------------------------------------- 1. TRANS 命中
 miss = [k for k in trans.TRANS if stats["span"].get(k, {}).get("n", 0) == 0]
@@ -87,6 +94,9 @@ for path, _kind in core.TARGETS:
 
 (HERE / "count_report.md").write_bytes("".join(rep).encode("utf-8"))
 
-print("TRANS keys=%d missed=%d | FIXES mismatch=%d | TITLE mismatch=%d | src missing=%d"
-      % (len(trans.TRANS), len(miss), len(bad_fix), len(bad_title), stats["src_missing"]))
-sys.exit(1 if (miss or bad_fix or bad_title) else 0)
+print("table=%d TRANS keys=%d missed=%d | FIXES mismatch=%d | TITLE mismatch=%d | src missing=%d"
+      % (len(bad_table), len(trans.TRANS), len(miss), len(bad_fix), len(bad_title),
+         stats["src_missing"]))
+for old, want, got in bad_fix:
+    print("  FIX  %r want=%d got=%d" % (old[:60], want, got))
+sys.exit(1 if (bad_table or miss or bad_fix or bad_title) else 0)

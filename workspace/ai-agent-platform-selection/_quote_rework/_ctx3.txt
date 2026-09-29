@@ -1,0 +1,74 @@
+########## 01_为什么感觉都一样是范畴错误.md  lines 66-84
+  66| 
+  67| arXiv 2606.20683 的模型–harness 分析提供了一把更好的尺子。它的核心论断是（逐字引文，取该条贡献句原文全句）：`We analyze the limits of model-centric scaling for long-horizon task completion and argue that agent performance is a property of the model–harness pairing.`（`research/framework/13_arxiv_2606.20683v1_fulltext.md:61`）——agent 的能力不是模型单方面的属性，而是「模型 + harness 配对」的属性。
+  68| 
+  69| 据此，论文把 harness 拆成六个耦合的运行时职责，逐字定义为（`research/framework/13_arxiv_2606.20683v1_fulltext.md:94-104`）：
+  70| 
+  71| | # | 职责 | 逐字定义 |
+  72| | --- | --- | --- |
+  73| | ① | Observation interface | `transforms raw environment signals into model-usable observations, including terminal output, file diffs, screenshots, DOM states, API responses, logs, retrieved passages, and event streams.` |
+  74| | ② | Context manager | `determines what information enters the model context, when it enters, and in what form, covering prompt construction, system instructions, retrieval, memory selection, compression, summarization, tool descriptions, and current task state.` |
+  75| | ③ | Control loop | `orchestrates the observe-reason-act-feedback cycle, including step scheduling, stopping criteria, retries, reflection, delegation, handoffs, and multi-agent coordination.` |
+  76| | ④ | Action interface | `maps model outputs to executable operations, such as function calls, MCP tools, shell or code execution, browser actions, file operations, API calls, and sub-agent invocations.` |
+  77| | ⑤ | State and artifact store | `persists execution state and products, including conversation history, plans, scratchpads, checkpoints, logs, traces, diffs, memory records, generated files, and task artifacts.` |
+  78| | ⑥ | Verification and governance layer | `checks, constrains, and repairs execution through tests, assertions, verifier models, sandbox policies, permission gates, rollback, retry, budget control, safety constraints, and audit traces.` |
+  79| 
+  80| > [!warning] 一处需要并列记录的措辞差异
+  81| > 同一篇论文的 abs 页把第六条写成 `observation, context, control, action, state, and verification`（`research/framework/abs/01_arxiv_org.md:16`），全文写成 `verification/governance`。本文按全文口径，两版差异并列保留、不合并（另见 `02_deep_research.md` §5 C7）。
+  82| 
+  83| 论文给的「选型透镜」是（逐字）：`a task is not merely an application label but a pressure profile over observation, context, control, action, state, and governance`（`research/framework/13_arxiv_2606.20683v1_fulltext.md:212`）。它还把话说死了：`Although the six components are analytically separable, they do not operate independently. Design choices in one component often reshape the burden on others.`（同文件 :209）——职责之间互相牵动，所以不能逐项独立打钩。
+  84| 
+
+########## 03_隔离强度梯度.md  lines 8-20
+   8| 
+   9| 为什么需要这条轴？第 2 章的三义是三个**并列**的说法，而并列的说法之间无法比较——你没法说「同一信任域内的协作」比「行级归属」更好还是更差，因为它们根本不同类。梯度把它们投射到同一维度上：一旦都改问「对越权的拒绝有多硬」，三种说法就变成三个可以排序的档位。
+  10| 
+  11| 排序判据是：对一个用户能否碰到另一个用户的数据与能力，官方给出的**拒绝有多硬**。三档由弱到强是——**不提供隔离 → 准入与很窄的分级 → 行级归属**。
+  12| 
+  13| | 强度（由弱到强） | 平台 | 官方措辞（逐字） | 一句话后果 |
+  14| | --- | --- | --- | --- |
+  15| | 不提供隔离 | OpenClaw | `usability features, not security boundaries` / `It is not an authorization or isolation boundary.` | 「多用户」是同一信任域内的协作便利，不是安全边界 |
+  16| | 准入与很窄的分级 | Hermes | `The admin / user split` / `What the tiers gate today: slash commands` | 挡在门外靠白名单；进来后只分两档，且只管 slash 命令 |
+  17| | 行级归属 | Octop | `Agent ownership is enforced at the **row** level` / `只选当前用户自己的 agent，不包含其他用户或共享 agent` | 数据按行归属，越权在数据层被拒 |
+  18| 
+  19| 注意三档与第 2 章三义的对应是**逐字对齐**的：同一信任域内的协作 → 不提供隔离；准入与很窄的分级 → 准入与很窄的分级；行级归属 → 行级归属。后两档同名不是巧合——第 2 章回答的是「这是什么」，本章排的是「这在隔离轴上多强」，同一件事换了个提问方式而已。
+  20| 
+
+########## 04_同层内部怎么分.md  lines 28-36
+  28| 
+  29| ## 4.3 部署姿态对照表
+  30| 
+  31| | 维度 | OpenClaw | Hermes |
+  32| | --- | --- | --- |
+  33| | 产品主语 | 你自己电脑上的助手 | 跨机器常驻、不绑本机的助手 |
+  34| | 在哪跑 | `runs on your own computer`；`as a personal assistant on a laptop` | `$5 VPS` / GPU 集群 / serverless；`not tied to your laptop` |
+  35| | 常驻形态 | 一主机一 Gateway，默认绑 loopback | 单进程接 20+ 平台；默认一 profile 一网关，可多路复用 |
+  36| | 记忆落盘 | 工作区里的 Markdown（默认 `~/.openclaw/workspace`） | `~/.hermes/memories/` 下的 MEMORY.md / USER.md（有字符上限） |
+
+########## 07_选型框架与决策树.md  lines 48-56
+  48| 把前六章的比较维度收成一张表。前三轴能直接指出平台站位，第四轴是对任何平台都适用的提问透镜：
+  49| 
+  50| | 轴 | 提问 | 回指 | OpenClaw | Hermes | Octop |
+  51| | --- | --- | --- | --- | --- | --- |
+  52| | 术语轴 | 它说的「多用户」是哪一层语义？ | 第 2 章 | 同一信任域内的协作 | 准入与很窄的分级 | 行级归属 |
+  53| | 隔离强度轴 | 越权被拒得有多硬？ | 第 3 章 | 不提供隔离 | 准入与很窄的分级 | 行级归属 |
+  54| | 层内差异轴 | 助手跑在哪台机器？ | 第 4 章 | `runs on your own computer` | `It's not tied to your laptop` | 单机单进程平台 |
+  55| | 框架轴（提问透镜） | 你的压力压在哪一环？ | 第 1 章 | 对三方同样适用 | 对三方同样适用 | 对三方同样适用 |
+  56| 
+
+########## 06_谁把谁当参照.md  lines 33-46
+  33| 
+  34| > [!warning] 引用规则
+  35| > 这张对照表是 **OpenClaw 单方制作，不是中立评测**。它在 `Governance` 与 `Funding and revenue` 两行把自身写成 `Independent 501(c)(3) funded by donations`，把 Hermes 写成 `Venture-funded (Paradigm-led Series A)`——一行对照里就带着立场，不能当作客观横向测评来引。同时它引用的对方公司背景 `Hermes is built by Nous Research, a venture-funded company`（`research/openclaw/02_docs_openclaw_ai.md`）也是**站在 OpenClaw 立场**转述的。
+  36| 
+  37| 这张逐项对照表本次落盘件含 15 行属性（`research/openclaw/extra2/01_docs_openclaw_ai.md:17-31`），其中 `Roles and multi-user` 行对 Hermes 的判定是 `Equal trust within an adapter's authorized set`，对自身多租户工具则标为 `experimental per-tenant fleet cells`。注意：这两句都出自 OpenClaw 单方，转述时仍要带上这个标注。
+  38| 
+  39| ## 6.3 Hermes 侧：迁移命令是双向同层的铁证
+  40| 
+  41| 如果 OpenClaw 只是「单方面把 Hermes 当对手」，那还可能是蹭热度。Hermes 侧的证据把方向补全了——它为 OpenClaw 用户做了**可执行的迁移工具**：
+  42| 
+  43| - README 有专节：`## Migrating from OpenClaw`，正文 `If you're coming from OpenClaw, Hermes can automatically import your settings, memories, skills, and API keys.`（`research/hermes/01_raw_githubusercontent_com_README.md`）
+  44| - 首次安装向导会自动检测：`**During first-time setup:** The setup wizard (hermes setup) automatically detects ~/.openclaw and offers to migrate before configuration begins.`
+  45| - 命令是 `hermes claw migrate`；源码兼容**三代**目录名：`_OPENCLAW_DIR_NAMES = (".openclaw", ".clawdbot", ".moltbot")`（`research/hermes/src/claw.py:29`）
+  46| - 迁移脚本共 **36 个具名迁移项**，覆盖 MCP servers / Cron / Hooks / Gateway / Session / Approval rules（`research/hermes/src/openclaw_to_hermes.py:40-190`）
+

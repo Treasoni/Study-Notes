@@ -82,6 +82,36 @@ def load_trans():
     return mod
 
 
+def validate_trans(trans):
+    """→ [(问题, 键)]。空列表才算过。
+
+    译文里出现反引号是最容易犯、后果最隐蔽的一条：原 span 大多只有 1 个
+    反引号定界，1 个反引号的 span 内部不能再出现反引号，否则 Markdown 会在
+    那里提前闭合，把后半句漏到代码格式外面（还要连带吃掉后面的 cite）。
+    """
+    bad = []
+    for k, v in trans.TRANS.items():
+        if "\n" in k:
+            bad.append(("键里有换行", k))
+        if "`" in v:
+            bad.append(("译文里有反引号", k))
+        if "|" in v:
+            bad.append(("译文里有竖线", k))
+        if "\n" in v:
+            bad.append(("译文里有换行", k))
+        if k != k.strip():
+            bad.append(("键首尾有空白", k))
+    for k in trans.VERBATIM_FIX:
+        if k not in trans.TRANS:
+            bad.append(("VERBATIM_FIX 的键不在 TRANS 里", k))
+    for old, _new, want in trans.FIXES:
+        if "\n" in old:
+            bad.append(("FIXES 旧串里有换行", old))
+        if want < 0:
+            bad.append(("FIXES 期望次数为负", old))
+    return bad
+
+
 def read(path):
     """→ (lines, eol)。行尾按文件现状保留。"""
     raw = path.read_bytes()
@@ -122,14 +152,72 @@ def ticks(text):
     return t + text + t
 
 
-def cite_after(line, pos):
-    """正文里引文后面紧跟的那个 `路径:行号` span。找不到返回 None。"""
-    for a, b, s, _k in spans(line):
-        if a < pos:
+CITE_FULL = re.compile(r"^(research|workspace)/\S+\.md(:[\d,\-]+)*$")
+CITE_NAME = re.compile(r"^[A-Za-z0-9_\-]+\.md(:[\d,\-]+)*$")
+CITE_BARE = re.compile(r"^[^/]{0,10}[:：]\s*[\d][\d,\-、:：]*$")
+STRIP_LINENO = re.compile(r":[\d,\-、:：]+$")
+
+
+def cite_kind(s):
+    """→ ("full"|"bare"|None, 文本)。full = 自带文件名，可原样当出处；
+    bare = 只有行号（`同文件 :378` 这种），要回填最近一次出现的文件名。"""
+    s = s.strip("*").strip()
+    if CITE_FULL.match(s) or CITE_NAME.match(s):
+        return "full", s
+    if CITE_BARE.match(s):
+        return "bare", s
+    return None, s
+
+
+def last_path_by_line(lines):
+    """→ [path or None]，第 i 项 = 第 0..i 行里最后出现的完整文件名。"""
+    out, cur = [], None
+    for l in lines:
+        for _a, _b, s, _k in spans(l):
+            kind, txt = cite_kind(s)
+            if kind == "full":
+                cur = txt
+        out.append(cur)
+    return out
+
+
+def _path_before(sp, pos, prior):
+    cur = prior
+    for a, b, s, _k in sp:
+        if b <= pos:
+            kind, txt = cite_kind(s)
+            if kind == "full":
+                cur = txt
+    return cur
+
+
+def cite_for(line, a, b, prior):
+    """给引用 span [a, b) 找出处：先看同一行其后，再看同一行其前，最后放弃。
+
+    `同文件 :N` 用「本行该位置之前最后出现过的文件名」回填；找不到文件名
+    就返回 None（宁可空着，也不猜一个错的出处）。
+    """
+    sp = spans(line)
+    for _a2, b2, s2, _k in sp:
+        if _a2 < b:
             continue
-        s = s.strip("*")
-        if CITE.search(s) and ("/" in s or s.startswith(":")):
-            return s
+        kind, txt = cite_kind(s2)
+        if kind == "full":
+            return txt
+        if kind == "bare":
+            base = _path_before(sp, _a2, prior)
+            if base:
+                return STRIP_LINENO.sub("", base) + ":" + txt.split("：")[-1].split(":")[-1]
+    for _a2, b2, s2, _k in reversed(sp):
+        if b2 > a:
+            continue
+        kind, txt = cite_kind(s2)
+        if kind == "full":
+            return txt
+        if kind == "bare":
+            base = _path_before(sp, _a2, prior)
+            if base:
+                return STRIP_LINENO.sub("", base) + ":" + txt.split("：")[-1].split(":")[-1]
     return None
 
 
@@ -160,10 +248,11 @@ def split_sections(lines, kind):
     return out
 
 
-def appendix_rows(lines, start, stop, trans):
+def appendix_rows(lines, start, stop, trans, lp):
     """扫描 [start, stop) 里的 span，收集本章被翻译过的引文。"""
     rows = []
     for i in range(start, stop):
+        prior = lp[i - 1] if i else None
         for a, b, s, _k in spans(lines[i]):
             if s not in trans.TRANS:
                 continue
@@ -173,7 +262,7 @@ def appendix_rows(lines, start, stop, trans):
             rows.append({
                 "verbatim": verbatim,
                 "zh": trans.TRANS[s],
-                "src": cite_after(lines[i], b),
+                "src": cite_for(lines[i], a, b, prior),
             })
     return rows
 
@@ -243,10 +332,11 @@ def run(trans, write_files=False):
         # 再按 TRANS 键回查就一条都查不到了。TRANS/FIXES 都不增减行数，
         # 所以这里算出来的章边界在替换之后依然有效。
         sections = split_sections(lines, kind)
-        rows_by_chap = {c: appendix_rows(lines, s, e, trans) for c, s, e in sections}
+        lp = last_path_by_line(lines)
+        rows_by_chap = {c: appendix_rows(lines, s, e, trans, lp) for c, s, e in sections}
         lines = transform(lines, trans, stats, tag)
         # 附录：逐章插到该章末尾（自后向前插，避免下标位移）
-        for chap, _start, stop in reversed(sections):
+        for chap, start, stop in reversed(sections):
             rows = rows_by_chap[chap]
             stats["appendix"][tag] = stats["appendix"].get(tag, {})
             stats["appendix"][tag][chap] = len(rows)

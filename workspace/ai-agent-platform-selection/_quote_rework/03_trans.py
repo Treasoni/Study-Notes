@@ -262,49 +262,58 @@ VERBATIM_FIX = {
 }
 
 # span 替换之后做的字面替换，**自上而下顺序敏感**：(旧, 新, 期望命中次数)。
-# 每一处都要能在文件里精确命中期望次数，否则脚本报错退出——不静默跳过。
+# 期望次数是**跨全部目标文件的总数**：每篇笔记有 4 份副本（分章文件、_merged、
+# final_note、vault 笔记），所以「每份出现一次」= 4。0 表示只替换、不校验。
+# 任何一条对不上，脚本报错退出——不静默跳过。
 FIXES = [
     # —— 英文表格单元格 / 英文清单 ——
     ("| Zero external dependencies | Vertical scaling only (one machine) |",
-     "| 零外部依赖 | 只支持垂直扩展（一台机器） |", 1),
+     "| 零外部依赖 | 只支持垂直扩展（一台机器） |", 4),
     ("| Simple deployment (one process, one port) | Heavy CPU tasks block the event loop |",
-     "| 部署简单（一个进程、一个端口） | 重 CPU 任务会阻塞事件循环 |", 1),
+     "| 部署简单（一个进程、一个端口） | 重 CPU 任务会阻塞事件循环 |", 4),
     ("| Fast local dev | No horizontal worker scaling |",
-     "| 本地开发快 | 不支持 worker 的横向扩展 |", 1),
+     "| 本地开发快 | 不支持 worker 的横向扩展 |", 4),
     ("session ownership、participant history、live presence、owner filtering",
-     "会话归属、参与者历史、实时在场、按所有者过滤", 1),
+     "会话归属、参与者历史、实时在场、按所有者过滤", 4),
     ("MCP servers / Cron / Hooks / Gateway / Session / Approval rules",
-     "MCP 服务器 / 定时任务 / 钩子 / Gateway / 会话 / 审批规则", 1),
+     "MCP 服务器 / 定时任务 / 钩子 / Gateway / 会话 / 审批规则", 4),
     # 六职责名（表格里是纯文本，不是 span）
-    ("| ① | Observation interface |", "| ① | 观察接口 |", 1),
-    ("| ② | Context manager |", "| ② | 上下文管理 |", 1),
-    ("| ③ | Control loop |", "| ③ | 控制循环 |", 1),
-    ("| ④ | Action interface |", "| ④ | 行动接口 |", 1),
-    ("| ⑤ | State and artifact store |", "| ⑤ | 状态与工件存储 |", 1),
-    ("| ⑥ | Verification and governance layer |", "| ⑥ | 验证与治理层 |", 1),
-    ("`verification/governance`", "`验证/治理`", 1),
+    ("| ① | Observation interface |", "| ① | 观察接口 |", 4),
+    ("| ② | Context manager |", "| ② | 上下文管理 |", 4),
+    ("| ③ | Control loop |", "| ③ | 控制循环 |", 4),
+    ("| ④ | Action interface |", "| ④ | 行动接口 |", 4),
+    ("| ⑤ | State and artifact store |", "| ⑤ | 状态与工件存储 |", 4),
+    ("| ⑥ | Verification and governance layer |", "| ⑥ | 验证与治理层 |", 4),
+    ("`verification/governance`", "`验证/治理`", 4),
     # 代码清单里的英文旁注
-    ("（List installed plugins）", "（列出已安装插件）", 1),
-    ("（list users）", "（列出用户）", 1),
-    ("（list role templates）", "（列出角色模板）", 1),
-    # 术语
-    ("是 deny-by-default，", "默认拒绝入内，", 1),
-    ("plain chat", "普通对话", 1),
-    ("每个用户的 agent runtime", "每个用户的 agent 运行时", 1),
+    ("（List installed plugins）", "（列出已安装插件）", 4),
+    ("（list users）", "（列出用户）", 4),
+    ("（list role templates）", "（列出角色模板）", 4),
+    # —— 夹在中文里的英文短语（产品名、路径名保留） ——
+    ("README 零提及 vs docs 有专页", "README 零提及、docs 有专页", 4),
+    ("（例如 #16 OpenHands issue）", "（例如 #16 这条 OpenHands issue）", 4),
+    ("（Slack workspace）", "（Slack 工作区）", 4),
+    ("把 agent id 复用为消息路由的 tenant id",
+     "把 agent ID 复用为消息路由的租户 ID", 4),
+    ("是 deny-by-default，", "默认拒绝入内，", 4),
+    ("plain chat", "普通对话", 4),
+    ("每个用户的 agent runtime", "每个用户的 agent 运行时", 4),
     # —— 中文引导语已经说过一遍引文意思：删掉重复引导 ——
-    ("两句自我限定。第一句是它属于易用性功能：", "两句自我限定。第一句：", 1),
-    ("因此单用户网关看起来几乎没变：", "", 1),
-    ("其一，整个 Gateway 就是一个信任域：", "其一，", 1),
-    ("其二，参与者集合有默认上界：", "其二，", 1),
-    ("每个请求先过 JWT，再落到一行用户记录：", "", 1),
-    ("，并且明确无企业版：", "。", 1),
-    ("，不是隔离边界。", "。", 1),
+    ("两句自我限定。第一句是它属于易用性功能：", "两句自我限定。第一句：", 4),
+    ("因此单用户网关看起来几乎没变：", "", 4),
+    ("其一，整个 Gateway 就是一个信任域：", "其一，", 4),
+    ("其二，参与者集合有默认上界：", "其二，", 4),
+    ("每个请求先过 JWT，再落到一行用户记录：", "", 4),
+    ("，并且明确无企业版：", "。", 4),
+    ("，不是隔离边界。", "。", 4),
+    # —— 兜底：上面那条「是 deny-by-default，」先命中，剩下单独出现的 ——
+    ("deny-by-default", "默认拒绝", 0),
     # —— `slash` 放最后：上面的引导语编辑要按原文写法先命中 ——
-    ("- 两档目前只管 slash 命令：", "- 官方原文：", 1),
+    ("- 两档目前只管 slash 命令：", "- 官方原文：", 4),
     ("slash 命令", "斜杠命令", 0),   # 0 = 只替换、不校验次数
 ]
 
 # 第 4 章标题里的英文句子（标题、目录、以及 03_outline 的章节标题共 5 处）。
-# 计数按文件分别断言，见 05_apply.py 的 FILES。
+# 计数按文件分别断言，见 rework_core.TITLE_EXPECT。
 TITLE_FIX = ("第 4 章 同层内部怎么分 —— OpenClaw「跑在你自己电脑上」vs Hermes「It's not tied to your laptop」",
-             "第 4 章 同层内部怎么分 —— OpenClaw「跑在你自己电脑上」vs Hermes「不绑在你的笔记本上」")
+             "第 4 章 同层内部怎么分 —— OpenClaw「跑在你自己电脑上」对比 Hermes「不绑在你的笔记本上」")

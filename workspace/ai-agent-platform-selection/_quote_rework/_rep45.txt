@@ -1,0 +1,57 @@
+## 4. 每章「引文对照」表行数（未解析出处 216 行）
+
+| 文件 | 第 1 章 | 第 2 章 | 第 3 章 | 第 4 章 | 第 5 章 | 第 6 章 | 第 7 章 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 01_为什么感觉都一样是范畴错误.md | 30 | 0 | 0 | 0 | 0 | 0 | 0 |
+| 02_多用户一词三义.md | 0 | 34 | 0 | 0 | 0 | 0 | 0 |
+| 03_隔离强度梯度.md | 0 | 0 | 16 | 0 | 0 | 0 | 0 |
+| 04_同层内部怎么分.md | 0 | 0 | 0 | 19 | 0 | 0 | 0 |
+| 05_Octop回答的是不是另一个问题.md | 0 | 0 | 0 | 0 | 18 | 0 | 0 |
+| 06_谁把谁当参照.md | 0 | 0 | 0 | 0 | 0 | 26 | 0 |
+| 07_选型框架与决策树.md | 0 | 0 | 0 | 0 | 0 | 0 | 7 |
+| _merged.md | 30 | 34 | 16 | 19 | 18 | 26 | 7 |
+| final_note.md | 30 | 34 | 16 | 19 | 18 | 26 | 7 |
+| 自托管 Agent 平台选型.md | 30 | 34 | 16 | 19 | 18 | 26 | 7 |
+
+## 5. 改完之后正文里剩下的英文串（>= 2 词，已排除反引号 span 内的 cite）
+
+| 文件 | 串 | 次数 |
+| --- | --- | --- |
+| final_note.md | ACP runner | 5 |
+| final_note.md | Hermes Agent | 3 |
+| final_note.md | OpenClaw agent | 2 |
+| final_note.md | gateway cell | 2 |
+| final_note.md | AI Agent | 1 |
+| final_note.md | Claude Code | 1 |
+| final_note.md | Codex CLI | 1 |
+| final_note.md | OpenHands issue | 1 |
+| final_note.md | bot token | 1 |
+| final_note.md | Octop agent | 1 |
+| final_note.md | agent ID | 1 |
+| final_note.md | Telegram bot | 1 |
+| final_note.md | agent X | 1 |
+| final_note.md | Nous Research | 1 |
+| final_note.md | fleet cell | 1 |
+| final_note.md | hermes setup | 1 |
+| final_note.md | preset full | 1 |
+| final_note.md | openclaw/OpenClaw MOC | 1 |
+| final_note.md | Hermes Agent/Hermes Agent MOC | 1 |
+| 自托管 Agent 平台选型.md | ACP runner | 5 |
+| 自托管 Agent 平台选型.md | Hermes Agent | 3 |
+| 自托管 Agent 平台选型.md | OpenClaw agent | 2 |
+| 自托管 Agent 平台选型.md | gateway cell | 2 |
+| 自托管 Agent 平台选型.md | AI Agent | 1 |
+| 自托管 Agent 平台选型.md | Claude Code | 1 |
+| 自托管 Agent 平台选型.md | Codex CLI | 1 |
+| 自托管 Agent 平台选型.md | OpenHands issue | 1 |
+| 自托管 Agent 平台选型.md | bot token | 1 |
+| 自托管 Agent 平台选型.md | Octop agent | 1 |
+| 自托管 Agent 平台选型.md | agent ID | 1 |
+| 自托管 Agent 平台选型.md | Telegram bot | 1 |
+| 自托管 Agent 平台选型.md | agent X | 1 |
+| 自托管 Agent 平台选型.md | Nous Research | 1 |
+| 自托管 Agent 平台选型.md | fleet cell | 1 |
+| 自托管 Agent 平台选型.md | hermes setup | 1 |
+| 自托管 Agent 平台选型.md | preset full | 1 |
+| 自托管 Agent 平台选型.md | openclaw/OpenClaw MOC | 1 |
+| 自托管 Agent 平台选型.md | Hermes Agent/Hermes Agent MOC | 1 |
