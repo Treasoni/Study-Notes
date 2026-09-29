@@ -10,7 +10,7 @@ topic: "自托管 AI Agent 平台选型（Octop / OpenClaw / Hermes）"
 project_slug: "ai-agent-platform-selection"
 created_at: "2026-09-29"
 last_updated: "2026-09-29"
-current_phase: P0
+current_phase: P1
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：ai-agent-platform-selection
 > 项目标识：ai-agent-platform-selection
 > 创建时间：2026-09-29
-> 当前阶段：阶段 0
+> 当前阶段：阶段 1
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -40,7 +40,7 @@ quality_gate_due: ""
 - [ ] 如发布到 Obsidian，vault_path、note_folder、moc_path 已确认或标记待补
 - [ ] 意图文件已生成：`./00_intent.md`
 
-> [P0] 🔲 进行中 {in_progress}
+> [P0] ✅ 已完成 {complete}
 
 ---
 
@@ -51,7 +51,7 @@ quality_gate_due: ""
 - [ ] 用户已选择学习方向
 - [ ] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] ⬜ 未开始
+> [P1] 🔲 进行中 {in_progress}
 
 ---
 
@@ -130,6 +130,7 @@ quality_gate_due: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P0 | 用户确认意图文件和研究计划（补充 OpenClaw/Hermes 实际用途，诊断假设成立） | 2026-09-29 22:34 |
 | | | |
 
 ---
