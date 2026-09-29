@@ -5,8 +5,12 @@
 
 1. **键是逐字原文**（反引号 span 内的完整文本，不含定界符）。`04_apply.py`
    会断言每个键都能在笔记里命中 >= 1 次；命中 0 次即报错退出，绝不静默跳过。
-2. 值必须是**单行**、不含 `|`（会写进 Markdown 表格）。值里可以自带行内代码
-   反引号（例如 `` `User` ``），那是给读者看的字段名。
+2. 值必须是**单行**、不含 `|`（会写进 Markdown 表格）、**不含反引号**。
+   反引号这条不是洁癖：原 span 大多只用 1 个反引号定界，而 1 个反引号的
+   span 里**不能**再出现反引号——Markdown 会把它当成新的定界符，
+   在那里提前闭合（`With gateway.multiplex_profiles: true …` 与
+   `**During first-time setup:** …` 两条就是这么被撕开的）。字段名、
+   配置键在中文里裸写即可，精确形态由每章末尾的「引文对照」表承担。
 3. 只翻「成句的英文散文」。代码、命令、配置键、路径、文件名、产品名、单个
    技术术语（`Gateway` / `fleet` / `guardrails` / `README` …）一律保留原文。
 
@@ -80,7 +84,7 @@ TRANS = {
     "Allowlists answer \"can this person reach the bot at all?\" The **admin / user split** answers \"now that they're in, what are they allowed to do?\"":
         "白名单回答「这个人能不能够到这个 bot」，而 **admin / user 分级**回答「进来之后允许他做什么」",
     "Every request is authenticated via JWT and resolved to a `User` row.":
-        "每个请求都先过 JWT 认证，再落到一行 `User` 记录",
+        "每个请求都先过 JWT 认证，再落到一行 User 记录",
     "Agent ownership is enforced at the **row** level":
         "agent 归属在**行级**强制执行",
     "Every session carries up to three layers of attribution:":
@@ -98,7 +102,7 @@ TRANS = {
     "The normal admission limit is 32 identities per logical session.":
         "「每个逻辑会话的默认准入上限是 32 个身份」",
     "**What the tiers gate today:** slash commands. ... Plain chat is not affected — non-admins can still talk to the agent.":
-        "目前分级管的是什么：slash 命令。……普通对话不受影响——非管理员仍然可以和 agent 说话",
+        "目前分级管的是什么：斜杠命令。……普通对话不受影响——非管理员仍然可以和 agent 说话",
     "A personal assistant on one Telegram bot and a coding agent on another":
         "一个 Telegram bot 上跑私人助手、另一个上跑编码 agent",
     "Tenancy means one gateway cell per tenant, and fleet is still experimental.":
@@ -120,7 +124,7 @@ TRANS = {
     "The admin / user split":
         "**admin / user 分级**",
     "What the tiers gate today: slash commands":
-        "目前分级管的是什么：slash 命令",
+        "目前分级管的是什么：斜杠命令",
     "Read access and agent use in chat are never gated.":
         "读取权限与在对话中使用 agent 从不受分级限制",
 
@@ -144,7 +148,7 @@ TRANS = {
     "talk to it from Telegram while it works on a cloud VM":
         "它在云上的 VM 里干活时，你可以从 Telegram 跟它说话",
     "With gateway.multiplex_profiles: true one process serves the default profile plus every live directory under profiles/":
-        "把 `gateway.multiplex_profiles: true` 打开后，一个进程就同时服务默认 profile 和 `profiles/` 下每一个活跃目录",
+        "把 gateway.multiplex_profiles: true 打开后，一个进程就同时服务默认 profile 和 profiles/ 下每一个活跃目录",
     "The model only remembers what gets saved to disk; there is no hidden state.":
         "模型只记得被写进磁盘的东西，没有隐藏状态",
 
@@ -176,7 +180,7 @@ TRANS = {
     "Control plane PostgreSQL → agent memory **defaults to the same DSN**":
         "控制面用 PostgreSQL 时，agent 记忆**默认复用同一个 DSN**",
     "- Control plane SQLite → agent memory stays {workspace}/memory.sqlite":
-        "控制面用 SQLite 时，agent 记忆留在 `{workspace}/memory.sqlite`",
+        "控制面用 SQLite 时，agent 记忆留在 {workspace}/memory.sqlite",
     "no automatic SQLite→PG memory data migration.":
         "「没有 SQLite→PG 的记忆数据自动迁移」",
     "Agent memory DDL is owned by octop-memory.":
@@ -214,7 +218,7 @@ TRANS = {
     "If you're coming from OpenClaw, Hermes can automatically import your settings, memories, skills, and API keys.":
         "如果你是从 OpenClaw 过来的，Hermes 可以自动导入你的设置、记忆、技能和 API 密钥",
     "**During first-time setup:** The setup wizard (hermes setup) automatically detects ~/.openclaw and offers to migrate before configuration begins.":
-        "**首次安装时：**安装向导（`hermes setup`）会自动检测 `~/.openclaw`，并在配置开始前询问是否迁移",
+        "**首次安装时：**安装向导（hermes setup）会自动检测 ~/.openclaw，并在配置开始前询问是否迁移",
     "Memories":
         "记忆",
     "Skills":
@@ -230,7 +234,7 @@ TRANS = {
     "Workspace instructions":
         "工作区指令",
     "Secrets are never included implicitly: --migrate-secrets is required even under --preset full":
-        "密钥默认不迁：即使加了 `--preset full`，也必须显式给出 `--migrate-secrets`",
+        "密钥默认不迁：即使加了 --preset full，也必须显式给出 --migrate-secrets",
 
     # 第 4 章（记忆上限的计量单位）
     "2,200 chars (~800 tokens)":
