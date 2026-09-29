@@ -95,6 +95,17 @@ def read_text(path):
     return path.read_bytes().decode("utf-8", errors="replace")
 
 
+def _latex_cmd(m):
+    """`\\mathcal{L}` → `L`；但提取件常把**符号与它的 LaTeX 都打出来**（`ℒ\\mathcal{L}`），
+    那就整条命令扔掉，只留前面那个真符号（实测 `13_arxiv_2606.20683v1_fulltext.md:98`：
+    语料 `LL` vs 笔记 `L`，真引文被判 weak）。"""
+    body = unicodedata.normalize("NFKC", m.group(1))
+    prev = m.string[m.start() - 1] if m.start() else ""
+    if prev and unicodedata.normalize("NFKC", prev) == body:
+        return ""
+    return m.group(1)
+
+
 def denoise(t):
     """去掉 Markdown 装饰与 HTML 实体，**保留空白与省略号**。
 
@@ -111,7 +122,7 @@ def denoise(t):
     # （实测 `13_arxiv_2606.20683v1_fulltext.md:98`，覆盖率 0.77）。
     # 必须先剥 LaTeX 命令、再做 markdown 反斜杠转义：顺序反了，`\mathcal{L}` 里的
     # 反斜杠会被当转义吃掉，变成 `mathcal{L}`，永远对不上。
-    t = re.sub(r"\\[a-zA-Z]+\s*\{([^{}]*)\}", r"\1", t)
+    t = re.sub(r"\\[a-zA-Z]+\s*\{([^{}]*)\}", _latex_cmd, t)
     t = re.sub(r"\\[a-zA-Z]+", " ", t)
     t = re.sub(r"\\(.)", r"\1", t)
     t = t.replace("&#x20;", " ").replace("&nbsp;", " ")
@@ -334,6 +345,27 @@ def corpus_norm(t):
     return norm(re.sub(r"(?m)^[ \t]*#+[ \t]?", "", t))
 
 
+def nearest(corpus, nq):
+    """→ (最长可回源前缀长度, 语料里那一截的上下文)。(0, "") = 一个字都对不上。
+
+    weak 判定不给断点，人就只能自己开个脚本去语料里翻——「回原料核」这句要求
+    写在报告里等于没写。给出断点和旁边那截语料，判「提取件标记差异」还是
+    「中间件真改了字」是一眼的事：`and argue that` / `we argue that` 这种差异
+    会明明白白落在断点上。二分找最长可匹配前缀，代价是 17 次子串查找。
+    """
+    lo, hi = 0, len(nq)
+    while lo < hi:
+        mid = (lo + hi + 1) // 2
+        if nq[:mid] in corpus:
+            lo = mid
+        else:
+            hi = mid - 1
+    if lo < 8:
+        return lo, ""
+    j = corpus.find(nq[max(0, lo - 40):lo])
+    return lo, corpus[max(0, j - 24):j + 104]
+
+
 def check_verbatim(files, primary, derived):
     """三态判定：ok（在原始来源里命中）/ weak（只在自己的中间产物里命中）/ miss。"""
     pb = corpus_norm("\n".join(t for _n, t in primary))
@@ -358,7 +390,11 @@ def check_verbatim(files, primary, derived):
                     nq = corpus_norm(seg)
                     if nq in pb:
                         continue
-                    (weak if nq in db else miss).append((path.name, i, kind, seg[:150]))
+                    if nq in db:
+                        got, snip = nearest(pb, nq)
+                        weak.append((path.name, i, kind, seg, got, len(nq), snip))
+                    else:
+                        miss.append((path.name, i, kind, seg))
     return total, weak, miss, [n for n, _ in primary] + [n for n, _ in derived]
 
 
@@ -550,11 +586,12 @@ def main():
               % (total, total - len(weak) - len(miss), len(weak), len(miss)))
         print("    语料 %d 个文件（primary %d / derived %d）" % (len(names), len(primary), len(derived)))
         print("    ⚠ 只在自己的中间产物里命中——中间件本身可能错了一手（ERR-20260929-013），回原料核：")
-        for tag, line, kind, q in weak[:20]:
-            print("    · %-28s L%-5d %s" % (tag, line, q))
+        for tag, line, kind, q, got, tot, snip in weak[:20]:
+            print("    · %-28s L%-5d 最长可回源 %d/%d %s" % (tag, line, got, tot, q[:110]))
+            print("      语料最接近处：%s" % (snip or "（任何原始语料都对不上——疑似自己的概括被当成引文）"))
         print("    ✗ 未命中：")
         for tag, line, kind, q in miss[:40]:
-            print("    · %-28s L%-5d [%s] %s" % (tag, line, kind, q))
+            print("    · %-28s L%-5d [%s] %s" % (tag, line, kind, q[:130]))
         if len(miss) > 40:
             print("    ... 另有 %d 处" % (len(miss) - 40))
         report["verbatim"] = {"total": total, "weak": weak, "miss": miss}
