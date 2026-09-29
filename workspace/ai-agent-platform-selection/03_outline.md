@@ -89,7 +89,7 @@
   - `02_deep_research.md` §6（隔离强度梯度表：三档与官方措辞）
   - §3.1 A2/A7：`usability features, not security boundaries` / `It is not an authorization or isolation boundary.` / `The normal admission limit is 32 identities per logical session.` / `not hostile multi-tenant isolation inside one shared Gateway`（锚点 `research/openclaw/03_...multi-user`、`04_...multi-tenant-hosting`）
   - §3.2 A2：`Every allowed user falls into one of two tiers per scope` / `**What the tiers gate today:** slash commands. ... Plain chat is not affected — non-admins can still talk to the agent.`（锚点 `research/hermes/02_..._multi-profile-gateways.md`、`03_..._messaging-index.md`）
-  - §3.3 裁决 1（三层机制表：① 准入 JWT + 白名单豁免 ② 模块权限键管管理页 / 写操作 ③ `agents.user_id` 行级归属）+ 字面读法被推翻的修正（`research/octop/src/octop/api/middleware/jwt_auth.py`、`src/octop/api/deps.py:73-87`、`src/octop/infra/users/permissions.py:3-4`、`src/octop/api/common/agent.py:18-23,26-31,51-53`、`src/octop/api/routers/users.py:270-272`）
+  - §3.3 裁决 1（三层机制表：① 准入 JWT + 白名单豁免 ② 模块权限键管管理页 / 写操作 ③ `agents.user_id` 行级归属）+ 字面读法被推翻的修正（`research/octop/src/octop/api/deps.py:65-89`、`src/octop/infra/users/permissions.py:3-4`、`src/octop/api/common/agent.py:18-23,26-31,51-53`、`src/octop/api/routers/users.py:270-272`）。⚠️ `src/octop/api/middleware/jwt_auth.py` **未落盘**，不得引用其逐字句；该文件存在由 `src/octop/api/app.py:16,137` 佐证
   - §3.3 A4（归身边界延伸到运维动作：`只选当前用户自己的 agent，不包含其他用户或共享 agent`，`research/octop/docs/memory-slim.md:87`）
   - §6 硬结论（多用户平台 ≠ 多租户平台）
 - **示例**：**有**。两张表：① **隔离强度梯度表**（三档 + 官方措辞 + 一句话后果）；② **Octop 三层机制表**（准入 / 权限键 / 归属各自的机制、边界与锚点）。
@@ -110,7 +110,7 @@
   - `02_deep_research.md` §7 第 3 条（层内差异轴）
   - §3.1 A1/A3：`OpenClaw is an open-source AI assistant that runs on your own computer` / `A single long-lived **Gateway** owns all messaging surfaces` / `One Gateway per host.` / `The Gateway binds to loopback by default.`（锚点 `research/openclaw/06_raw_githubusercontent_com.md`、`research/openclaw/01_docs_openclaw_ai.md`、`05_docs_openclaw_ai.md`）
   - §3.2 A1/A3：`Run it on a $5 VPS, a GPU cluster, or serverless infrastructure that costs nearly nothing when idle. It's not tied to your laptop` / `Standalone (one gateway per profile)` / `With gateway.multiplex_profiles: true one process serves the default profile plus every live directory under profiles/` / `Seven terminal backends`（锚点 `research/hermes/01_raw_githubusercontent_com_README.md`、`research/hermes/gw/01_...md`）
-  - §3.1 A4 / §3.2 A4（记忆落盘位置随部署姿态变化：OpenClaw 记忆 = 工作区里的 Markdown；Hermes 内置记忆有硬上限约 1,300 token + Honcho 建模）
+  - §3.1 A4 / §3.2 A4（记忆落盘位置随部署姿态变化：OpenClaw 记忆 = 工作区里的 Markdown；Hermes 内置记忆有硬上限约 1,300 token + Honcho 建模）。**Hermes 侧的硬上限数字锚点**：`research/hermes/05_hermes-agent_nousresearch_com_memory.md:14-15,302`（官方文档页，2026-09-29 重抓，`MEMORY.md 2,200 chars (~800 tokens)` / `USER.md 1,375 chars (~500 tokens)` / `Capacity ~1,300 tokens total`）；**不得**引用 `workspace/hermes-agent/` 下的同名抓取件路径
   - §5 C8（时效：本地件 2026-08-27 与远程 2026-09-29 内容一致，无冲突；多用户结论时效为 2026-08-27）
 - **示例**：**有**。一张 **OpenClaw vs Hermes 部署姿态对照表**（列：产品主语 / 在哪跑 / 常驻形态 / 记忆落盘 / 典型场景），末尾附一条「时效说明」注。
 - **写作要点**：

@@ -176,17 +176,18 @@
 - 限制：`Shared-ingress platforms (WhatsApp bridge, Relay) run on the default profile only` — `gateway-internals`
 
 **A4 记忆** — 内置记忆小且有硬上限；Honcho 做辩证式用户建模
-- `| **MEMORY.md** | Agent's personal notes ... | 2,200 chars (~800 tokens) |` — `gaps/06_..._memory.md`
-- `| **Capacity** | ~1,300 tokens total | ... |` / `| **Cost** | Token cost in every prompt |` — 同上
+- `| **MEMORY.md** | Agent's personal notes — environment facts, conventions, things learned | 2,200 chars (~800 tokens) |` / `| **USER.md** | User profile — your preferences, communication style, expectations | 1,375 chars (~500 tokens) |` — `research/hermes/05_hermes-agent_nousresearch_com_memory.md:14-15`
+- `| **Capacity** | ~1,300 tokens total | Unlimited (all sessions) |` / `| **Cost** | Token cost in every prompt |` — 同上 `:302,304`
+- **锚点说明（2026-09-29 补）**：该文件是本轮**重新抓取**的 Hermes 官方文档页 `https://hermes-agent.nousresearch.com/docs/user-guide/features/memory`。此前本节曾引用另一项目目录下的同名抓取件（`workspace/hermes-agent/research/gaps/06_...`，抓取于 2026-08-27），**内容逐字一致**、仅行号位移，现改为自包含锚点。旧路径不再引用。
 - `**Dialectic reasoning** : After each conversation turn (gated by `dialecticCadence`), Honcho analyzes the exchange and derives insights about the user's preferences, habits, and goals.` — `research/04_..._honcho.md`
 - Honcho 的「多 agent」是同一用户的多个 agent：`When multiple Hermes instances talk to the same user (e.g., a coding assistant and a personal assistant), Honcho maintains separate "peer" profiles.` — 同上 ← **再次印证「多用户」在不同产品里含义不同**
 - 闭环：`A closed learning loop`（agent 策展记忆 + 自主技能创建 + 技能自我改进 + FTS5 会话检索 + Honcho 建模）— README
-- 限制：`Don't point two agent processes at the same Hermes home directory. ... Memory is scoped per [profile] by design` — `gaps/06`
+- 限制：`Don't point two agent processes at the same Hermes home directory. ... Memory is scoped per [profile] by design` — `research/hermes/05_hermes-agent_nousresearch_com_memory.md:18`
 
 **A5 扩展** — 技能是按需加载的知识文档，agent 可自建自改自删
-- `Skills are on-demand knowledge documents the agent can load when needed. They follow a **progressive disclosure** pattern to minimize token usage` — `gaps/07_..._skills.md`
-- `The agent can create, update, and delete its own skills via the `skill_manage` tool. This is the agent's **procedural memory**` — 同上
-- 默认自由写：`By default the agent writes skills freely — including from the [background self-improvement review]` — 同上
+- `Skills are on-demand knowledge documents the agent can load when needed. They follow a **progressive disclosure** pattern to minimize token usage` — `research/hermes/06_hermes-agent_nousresearch_com_skills.md:9`
+- `The agent can create, update, and delete its own skills via the `skill_manage` tool. This is the agent's **procedural memory**` — 同上 `:1066`
+- 默认自由写：`By default the agent writes skills freely — including from the [background self-improvement review]` — 同上 `:1091`
 - `Compatible with the <a href="https://agentskills.io">agentskills.io</a> open standard.` — README
 - ⚠️ 层级标注：`自改进的实质：改的是技能层，不是模型权重` 出自 **本仓库既有产物** `workspace/hermes-agent/chapters/01_定位与核心理念.md`，属**二次加工**，非官方原文
 
@@ -204,8 +205,8 @@
 
 **A7 成本与限制**
 - `serverless infrastructure that costs nearly nothing when idle` — README
-- 记忆代价：`| **Token cost** | Fixed per session (~1,300 tokens) | On-demand (searched when needed) |` — `gaps/06`
-- `The review fork can burn a meaningful share of total tokens on busy hosts.` — 同上
+- 记忆代价：`| **Token cost** | Fixed per session (~1,300 tokens) | On-demand (searched when needed) |` — `research/hermes/05_hermes-agent_nousresearch_com_memory.md:307`
+- `The review fork can burn a meaningful share of total tokens on busy hosts.` — 同上 `:456`
 - 多路复用的代价：`Collapsing such a fleet replaces a kernel-enforced boundary (file ownership, `User=`) with in-process isolation, which is an operator's decision.` — `multi-profile-gateways`
 
 ---
@@ -220,7 +221,7 @@
 
 | 层 | 机制 | 锚点 |
 |---|---|---|
-| ① 准入 | `Require JWT for all /api/* routes except an explicit allowlist.`（白名单仅 `/api/health`、`/api/auth/{login,captcha,oidc/*,oauth/*,invite/validate,invite/redeem}`、`/api/docs` 等） | `src/octop/api/middleware/jwt_auth.py:1`、`src/octop/api/deps.py:73-87` |
+| ① 准入 | 全局 JWT 中间件 + 白名单豁免。可引原文：`# Paths that bypass JWT middleware (setup wizard, health, login).`，其下列 `_JWT_EXEMPT_PREFIXES` 与 `_JWT_EXEMPT_EXACT`（`/api/health`、`/api/auth/{login,captcha,oidc/*,oauth/*,invite/validate,invite/redeem}`、`/api/docs`、`/api/openapi.json` 等） | `src/octop/api/deps.py:65-89`。⚠️ **中间件本体 `src/octop/api/middleware/jwt_auth.py` 未落盘**（该目录抓取为空），其存在由 `src/octop/api/app.py:16`（`from octop.api.middleware.jwt_auth import install as install_jwt_auth`）、`:137`（`install_jwt_auth(app, server)`）与 `docs/api.md:37` 佐证；**先前引用的逐字句 `Require JWT for all /api/* routes except an explicit allowlist.` 无法核对，已弃用，不得再引用** |
 | ② 模块权限键 | `A permission is a module key (e.g. "browser", "users"). Possessing a key grants access to that module's management page and write/configure actions.` | `src/octop/infra/users/permissions.py:3-4` |
 | ③ 归属（真正的隔离） | `Agent ownership is enforced at the **row** level (agents.user_id matched against the caller`；`if row.user_id is None or row.user_id != user.id: raise OctopError(ErrorCode.FORBIDDEN, "agent not owned by user")`；`_user_may_access` = 本人 / `agent_is_shared` / admin 三选一 | `docs/architecture.md:71`、`src/octop/api/common/agent.py:18-23, 26-31, 51-53` |
 
