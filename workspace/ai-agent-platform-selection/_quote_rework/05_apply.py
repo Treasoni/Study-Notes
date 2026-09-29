@@ -25,14 +25,29 @@ if bad:
         print("  - %s: %r" % (what, key))
     sys.exit(1)
 
-# —— 1. 回滚点 ——
+# —— 0. 幂等闸：已经改过的文件不许再改一遍 ——
+# 第二遍跑不会「什么都不做」：附录的「原文（逐字）」列本身就是英文，
+# FIXES 里的字面替换会把它一起改掉，逐字原文就毁了。必须在写之前拦住。
+already = [p.name for p, _k in core.TARGETS if core.callout_already(core.read(p)[0])]
+if already:
+    print("这些文件已经有了「关于引文」callout，说明本脚本已经跑过：")
+    for n in already:
+        print("  - %s" % n)
+    print("拒绝重复落盘。要重跑请先从 _quote_rework/pristine/ 回滚。")
+    sys.exit(1)
+
+# —— 1. 回滚点（只写一次，不覆盖已有的 pristine） ——
 pristine = core.PRISTINE
 pristine.mkdir(exist_ok=True)
 manifest = []
 for path, _kind in core.TARGETS + [(p, "title_only") for p in core.TITLE_ONLY]:
     raw = path.read_bytes()
     eol = "CRLF" if b"\r\n" in raw else "LF"
-    shutil.copyfile(path, pristine / path.name)
+    dst = pristine / path.name
+    if dst.exists():
+        print("回滚点已存在，保持不动（不会用改后的内容覆盖原始备份）：%s" % dst.name)
+    else:
+        shutil.copyfile(path, dst)
     manifest.append("%-44s %-4s %7d bytes  %s"
                     % (path.name, eol, len(raw), path))
 (core.PRISTINE / "README.txt").write_bytes(
