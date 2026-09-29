@@ -1,13 +1,7 @@
 ---
-title: 自托管 AI Agent 平台选型（Octop / OpenClaw / Hermes）
-tags:
-  - 自托管
-  - AI-Agent
-  - 平台选型
+tags: [ai-agent, 选型, 自托管, openclaw, hermes, octop, 对比]
 created: 2026-09-29
 updated: 2026-09-29
-status: draft
-source_project: ai-agent-platform-selection
 ---
 
 # 自托管 AI Agent 平台选型（Octop / OpenClaw / Hermes）

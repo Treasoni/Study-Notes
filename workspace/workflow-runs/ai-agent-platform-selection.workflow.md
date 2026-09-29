@@ -10,8 +10,8 @@ topic: "自托管 AI Agent 平台选型（Octop / OpenClaw / Hermes）"
 project_slug: "ai-agent-platform-selection"
 created_at: "2026-09-29"
 last_updated: "2026-09-29"
-current_phase: P5
-current_status: in_progress
+current_phase: P6
+current_status: ready
 mode: outline
 blocked_reason: ""
 quality_gate: pending
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：ai-agent-platform-selection
 > 项目标识：ai-agent-platform-selection
 > 创建时间：2026-09-29
-> 当前阶段：阶段 5
+> 当前阶段：阶段 6
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -99,15 +99,17 @@ quality_gate_due: ""
 ---
 
 ## 阶段 5：收尾组装
-- [ ] 所有章节文件已检查
-- [ ] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
-- [ ] 过渡语已添加
-- [ ] 目录已生成
-- [ ] 标题层级已统一
-- [ ] 引用已检查
-- [ ] 完整笔记已保存：`./output/final_note.md`
+- [x] 所有章节文件已检查
+- [x] 组装方式已确认（A: 按顺序拼接）
+- [x] 过渡语已添加（判定为「由既有 `**下一章预告**` 承担」：7 章各带一条预告，已完整衔接；额外过渡行只会复述预告内容，故不另加）
+- [x] 目录已生成（`## 目录`，7 条编号；不做锚点链接——标题含 `「」`/`——`/全角括号，各渲染器锚点规则不一致）
+- [x] 标题层级已统一（逐级下沉：章 H1→H2、X.Y H2→H3、`本章要解决的问题`/`本章小结` H2→H3；实测 H1=1 / H2=8 / H3=54 / H4=1）
+- [x] 引用已检查（`research/...:NN` 锚点 107/107 逐字节存活）
+- [x] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中 {in_progress}
+**组装保真度实测**（`_verify_assembly.py`，以 `chapters/_merged.md` 为基准）：锚点 107/107、Callout 头 26/26、表格行 70/70、正文实义行缺失 **0**；汉字 15,366（合并件 15,309，+57 为目录与 H1 标题）。
+
+> [P5] ✅ 已完成 {complete}
 
 ---
 
