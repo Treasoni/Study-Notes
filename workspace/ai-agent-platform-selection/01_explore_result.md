@@ -29,7 +29,7 @@
 | 8 | OpenClaw Docs · Gateway architecture | https://docs.openclaw.ai/concepts/architecture | 官方/一手 | Gateway 单守护进程、每主机唯一、串行执行 session → 是「控制平面」而非纯 agent 内核 | — | 4 |
 | 9 | Hermes Agent README | https://github.com/NousResearch/hermes-agent | 官方/一手 | 「The agent that grows with you」；内置学习回路、自建技能、Honcho 用户建模、多终端后端；**提供 `hermes claw migrate` 从 OpenClaw 迁移** | v2026.9.24 | **5** |
 | 10 | Hermes Docs · Gateway internals / developer guide | https://hermes-agent.nousresearch.com/docs/developer-guide/gateway-internals | 官方/一手 | 内核为 AIAgent 中心的 agent-loop；CLI/Gateway/API/Batch 共用一个内核 → harness/运行时形态 | — | 4 |
-| 11 | 知乎：对比 OpenClaw 与 Hermes-Agent 的设计哲学 | https://zhuanlan.zhihu.com/p/2047204065948471698 | 社区 | 第三方按实例/隔离/共享轴对照；并称有用户采用「**Hermes 指挥、OpenClaw 执行**」的互补用法 | — | 4 |
+| 11 | ~~知乎：对比 OpenClaw 与 Hermes-Agent 的设计哲学~~ **【P2 降级：抓取失败】** | https://zhuanlan.zhihu.com/p/2047204065948471698 | **不可用** | **P2 三路抓取均失败**（`crawl.sh` / curl+浏览器 UA / WebFetch 全 403，且搜索引擎确认该链接未被索引）。P1 该条**仅来自搜索摘要，从未取得原文** → **不得作为引文来源**。替代佐证见 `research/openclaw/community/01_cloud_tencent_cn.md`（2026-04-13，仅标题与导语可用） | 未获取 | ~~4~~ **0** |
 | 12 | 腾讯云开发者社区：三个 Agent Harness 框架对比 | https://cloud.tencent.cn/developer/article/2674122 | 社区 | 把 OpenClaw、Hermes、OpenHuman 同归为「Agent Harness」，比进程/线程模型、记忆层数、技能生成方式 | — | 4 |
 | 13 | arXiv 2606.20683 · From QA to Task Completion: A Survey on Agent System and Harness Design | https://arxiv.org/abs/2606.20683 | 权威 | **选型框架底稿**：agent 能力 = 「模型–harness 配对」属性；harness 拆为观察/上下文/控制/动作/状态/验证六项职责 | 2026-06 | **5** |
 | 14 | 知乎问题：ai agent 的架构好像都差不多啊？有啥比较特别的吗？ | https://www.zhihu.com/question/1959742114519844109 | 社区 | 中文社区正面处理「同质化」（≈你的原问题）：用 LLM 接口范式、ReAct 收敛、MCP 标准化、token 成本约束解释架构趋同 | ~2025 | 4 |
@@ -67,14 +67,39 @@ P0 假设是：*不是产品同质，而是使用者的场景划分尚未建立�
 
 探测材料支持这个方向，并进一步给出**更强的版本**：
 
+> ⚠️ **本表已于 P2 复核，两行原判断被推翻或降级**（详见 §3.1）。P1 当时的表述以删除线标出。
+
 | 观察 | 支撑来源 |
 |---|---|
-| OpenClaw 与 Hermes 被第三方同归为「Agent Harness」 | #12 |
-| Hermes 官方**内置从 OpenClaw 迁移的命令** | #9 |
-| Hermes 侧承认竞品为 OpenClaw | 透镜 2 缺口说明 |
-| 社区已存在「Hermes 指挥、OpenClaw 执行」的**互补**用法 | #11 |
+| **OpenClaw 官方发布专页，对 Hermes 做 17 轴 source-verified 对照**（钉在 Hermes commit `6defe7eb6c`，reviewed 2026-08-27）——**同层的最强证据** | `docs.openclaw.ai/start/why-openclaw/openclaw-and-hermes-agent` |
+| OpenClaw 官方称 "The recurring comparison is [Hermes Agent]" | 同上 / `research/openclaw/extra2/01_docs_openclaw_ai.md` |
+| Hermes 官方**内置从 OpenClaw 迁移的命令** `hermes claw migrate` | #9 + 源码 `hermes_cli/claw.py` |
+| **双向迁移**：OpenClaw 也能从 Hermes 导入记忆（`import existing local memory from Codex, Claude Code, and Hermes`） | `research/openclaw/extra/02_docs_openclaw_ai.md:26` |
+| OpenClaw 与 Hermes 被第三方同归为「Agent Harness」 | #12（社区，2026-05-26） |
+| ~~Hermes 侧承认竞品为 OpenClaw~~ → 修正：**双方官方都已把对方立为对照物** | 见上两行 |
+| ~~社区已存在「Hermes 指挥、OpenClaw 执行」的互补用法~~ → **降级**：原 #11 抓取失败，替代源仅存标题与导语 | `community/01`（2026-04-13），**非 #11** |
 | Octop 是「multiple users **and** agents」的平台，含 per-user 隔离与 harness teams | #1 #2 #5 |
-| Hermes 侧**无官方多用户/多租户文档**（仅 PR 与第三方封装） | 透镜 2 缺口说明 |
+| **Octop 在 OpenClaw 与 Hermes 全部已抓取官方材料中零提及**（grep 计数 0） | 双向 grep 复核 |
+
+### 3.1 P1 被推翻/降级的两处（来源纪律修正）
+
+| # | P1 原表述 | P2 复核结果 |
+|---|---|---|
+| 1 | 「Hermes 侧**无官方多用户/多租户文档**（仅 PR 与第三方封装）」 | **错误**。Hermes 官方有多用户文档（allowlist 准入、`Admins vs Regular Users` 分级、per-user profile 路由）。精确说法：**有官方多用户准入/分级，无多租户**（`tenant`/`multi-tenant`/`SaaS` 全目录 grep 零命中）。已在 `01b_thesis_verification.md` 完整记录 |
+| 2 | 「社区已存在『Hermes 指挥、OpenClaw 执行』的互补用法」（来源 #11 知乎） | **降级**。#11 三路抓取全失败且未被搜索引擎索引，P1 该条**仅来自搜索摘要**。替代源仅存标题与导语可用，**不足以支撑该断言** |
+
+### 3.2 新增高价值来源：OpenClaw 官方 17 轴对照表（**有立场，需标注**）
+
+`docs.openclaw.ai/start/why-openclaw/openclaw-and-hermes-agent` 是本次探测的最高价值单品，且**必须按有立场来源处理**：
+
+- **性质**：OpenClaw 单方制作，钉在 Hermes commit `6defe7eb6c`（reviewed 2026-08-27）。页面自述 "not a live adversarial test or a guarantee about every deployment"，页脚另注 "Responses are generated using AI and may contain mistakes."
+- **不可当第三方中立评测使用**。表内含对 Hermes 不利内容（如引述 CVE-2026-14625 vendor non-response、v0.8.0 用户自审报告、更新器/gateway 内存泄漏 issue 编号）。
+- **但轴的选择本身即证据**：两产品被放在同一组属性上逐项对照 —— 这组属性就是「同层」的操作性定义。
+- **其中 `Roles and multi-user` 行直接印证主线 T′**：
+  - OpenClaw：`Configured person-level role ceilings and default role; scopes and session attribution; experimental per-tenant fleet cells`
+  - Hermes：`Equal trust within an adapter's authorized set; slash-command controls and separate profiles, including profile multiplexing`
+  - → **两家的「多用户」确实不是一回事**，与 T′ 独立吻合。
+- **尚缺 Hermes 侧的反驳或回应**（见缺口）
 
 → **推断（待 P2 验证）**：OpenClaw 与 Hermes 同层（单机常驻的个人助手 / harness），Octop 是另一层（多用户平台）。若成立，则「三者该选哪个」的问法本身需要先拆成两层来问。
 
