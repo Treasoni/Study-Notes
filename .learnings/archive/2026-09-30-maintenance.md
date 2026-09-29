@@ -126,10 +126,32 @@ F 同 E + --allow-weak           exit=0（期望 0）  PASS
 | 8 | `.agents/skills/research-collector/manifest.yaml` | 2.3.0 → 2.4.0 |
 | 9 | `.codex/workflows/learning-note-flow/workflow.md` | 阶段 4 交章前 `--mode text`；阶段 5 组装后 `--mode all`（含 `实际比对 N 组 > 0`）；阶段 6 发布前带 `--vault-note` |
 | 10 | `.codex/workflows/learning-note-flow/manifest.yaml` | 1.3.0 → 1.4.0 |
-| 11 | `.learnings/RULES.md` | 新增「引文只用共享校验器，不要为单个项目再写一个」（含「门禁必须能红」与「N > 0」两条反静默通过） |
+| 11 | `.learnings/RULES.md` | 新增 `Do` 一条「引文只用共享校验器，不要为单个项目再写一个」（含「门禁必须能红」与「N > 0」两条反静默通过）；`Watch For` 两条：可移植性校验器的正则字面量假阳性、生成物（`__pycache__`）不参与同步 |
+| 12 | `.agent-sync/sync_agents.py` | 同步时忽略 `__pycache__/` 与 `*.pyc`/`*.pyo`（见下方「验收时顺手发现的两个真问题」） |
+| 13 | `.codex/scripts/note-citation-check.py` | 分隔行的正则字符类改写（消除 `validate_portability.py` 的假阳性，见同节） |
 
 同步流程（canonical → mirror）：`.agent-sync/sync_agents.py --check --scope <area>` → `--apply`
 → 全量 `--check` → `.claude/scripts/workflow-health-check.sh`。
+
+### 验收时顺手发现的两个真问题
+
+跑同步与健康检查时，机制自身暴露出两个缺陷。两条都不是「本次改动的副作用」，而是**一直存在、
+只是这轮第一次被跑到**：
+
+1. **同步器会把字节码缓存当源文件镜像。** `python` 在 canonical 脚本目录里留下
+   `__pycache__/note-citation-check.cpython-314.pyc` 后，`--check --scope scripts` 报
+   `[DRIFT] created: .claude\scripts\…pyc`：`--apply` 会把这个构建产物复制进镜像，
+   而下次 check 又追不平。已在 `source_files()` 加 `IGNORED_PARTS = {"__pycache__"}` 与
+   `IGNORED_SUFFIXES = {".pyc", ".pyo"}`，并把这个说明写成注释放在常量旁边
+   （**生成物不参与同步**）。修完复跑：scripts 作用域只剩两个真实新增文件，`--check` 退出码由 1 转 0。
+2. **可移植性校验器有一个假阳性类：源码里的正则字面量。**
+   `validate_portability.py` 的 `ABSOLUTE_PATH = /Users/|/home/|[A-Za-z]:[\\/]` 会把
+   **一行合法正则**里的「单个字母 + 冒号 + 反斜杠」读成盘符路径
+   （本例是分隔行判定的字符类，`: ` 紧挨 `\` 的那一段），于是整个共享资产被判「不可移植」。
+   已改的是**被检文件**（字符类换个等价写法，语义完全相同）而**不是校验器**——
+   放宽 `ABSOLUTE_PATH` 会削弱一条有真实战功的守卫（它抓到过提交进 Windows 检出的 macOS
+   解释器路径）。代价是这类字面量在源码与注释里都不能写，已写进代码注释。
+   **这类假阳性会复发**，见「下轮维护提示」。
 
 ---
 
@@ -178,6 +200,53 @@ F 同 E + --allow-weak           exit=0（期望 0）  PASS
 
 ---
 
+## 四·五、收口结果与遗留
+
+**同步 / 注册 / 路由 / 可移植性**（本轮全绿）：
+
+| 检查 | 结果 |
+| --- | --- |
+| `sync_agents.py --check --scope {skills,agents,workflows,scripts}` | 差异符合预期 → `--apply` 四个作用域全部 `[OK]` |
+| `sync_agents.py --check`（全量） | `[OK] shared agent configuration is synchronized`，exit 0 |
+| `.codex/platform/manifest-registry.py --root . validate` | `passed (60 artifacts)` |
+| `.claude/scripts/sync-workflow-routing.sh --check` | `up to date` |
+| `.agent-sync/validate_portability.py --root .` | `[OK] shared agent sources are portable` |
+| todo-state 动作守卫（health check 内） | `15 invocation(s) probed` 全部存在 |
+
+**`workflow-health-check.sh` 仍 exit 1，唯一失败项是 prompt-cache guard**，与本轮改动无关：
+
+```
+KNOB DRIFT: effortLevel='high' expected 'medium'
+KNOB DRIFT: thinkingBudget='xhigh' expected 'medium'
+KNOB DRIFT: savedProviderEffort.claude='high' expected 'medium'
+subagent … 1.461x REGRESS
+```
+
+- 该守卫的两个输入都是**运行时而外的文件**：冻结基线
+  `.llm/prompt-cache/baseline-2026-09-14.json`（2026-09-14 冻结，未改动）与
+  `.claudian/claudian-settings.json`（mtime **2026-09-30 00:41**，早于本轮文件编辑；
+  `.claudian/` 未进 git 索引）。本轮改的是 skill / agent / workflow / 脚本，不在其输入里。
+- 也就是说：**是本地运行时的 effort 旋钮被调高了**（medium → high / xhigh），
+  守卫按设计如实报警；`subagent 1.461x` 是同一批事件的落后指标。
+- **没有自动重冻基线。** 重冻等于把这次旋钮漂移洗成「新常态」，守卫从此失效；
+  正确处置是用户二选一：① 认可高 effort 就**有意**重冻（`cache-guard.py --freeze`）并说明；
+  ② 想回到基线就把旋钮调回 `medium`。见「下轮维护提示」第 5 条。
+
+**工作区卫生（已做）**：删掉本轮产生的 9 个临时产物
+（`workspace/_paths.txt`、`_weak_diag.txt`、`_c1/_c2/_file/_st/_text.log`、
+项目下 `_one_diag.py`、`_weak_diag.py`）。其中 4 个已被自动化 `vault backup` 提交
+（`a5fd84ef vault backup: 2026-09-30 01:03:40`）扫进版本库，因此它们的删除会以
+「删除已跟踪文件」的形式出现在 `git status` 里。
+
+两个**刻意保留**的：
+
+- `workspace/ai-agent-platform-selection/_verify_assembly.py`：被 workflow state file
+  第 110 / 129 行引为**组装保真度的实测工具**，删掉会让已记录的证据不可复现。它是
+  `_verify/*` 这一族「项目内一次性校验器」的又一个例子，属下一轮考虑收编的对象。
+- `workspace/ai-agent-platform-selection/_quote_rework/`（13 个 `.py`，含 `_lcs.py` /
+  `_bare.py` / `_dup2.py`）：**这正是本轮 RULES 新条目的物证**——历史上每轮都现写一个
+  校验脚本丢在项目工作区。本轮起不再新增同类脚本；这批历史脚本是否清理由用户决定。
+
 ## 五、下轮维护提示
 
 1. **优先级最高的候选**：把「数值 / 计数」也机器化一部分——至少能自动列出
@@ -190,3 +259,14 @@ F 同 E + --allow-weak           exit=0（期望 0）  PASS
    「一个从没红过的门禁不是门禁」。
 4. 若引文形态再变（例如引入非英文来源），先看 `--corpus` / `--file` 两个逃生口够不够，
    再考虑改判定本身。
+5. **prompt-cache guard 的旋钮漂移需要一个决定**（见「收口结果与遗留」）：要么有意重冻基线
+   并记录原因，要么把旋钮调回 `medium`。在决定之前，`workflow-health-check.sh` 会一直 exit 1——
+   注意这会让**其它检查的失败被这条噪音淹没**，属于该优先处理的项。
+6. **可移植性校验器的假阳性类**（源码里的正则字面量）值得治本：现在的规避方式
+   （源码和注释里都不写那段字面量）靠人记。若再撞一次，考虑给 `ABSOLUTE_PATH` 加一个
+   「命中处在正则字面量/字符类内则跳过」的判定，**但要先写一个能红的用例**证明放宽后
+   仍能抓到真盘符路径，再改。
+7. `workspace/` 下的 `_*` 临时产物会被自动化 `vault backup` 一并提交。本轮不新增忽略规则
+   （`workspace/*/_*.py` 会误伤 `research/**/__init__.py` 与各项目 `_verify/`、`_split_*.py`
+   这类**有意保留**的工作脚本）；更好的做法是**不产生**临时产物——判据进共享校验器，
+   一次性文件用完即删。
