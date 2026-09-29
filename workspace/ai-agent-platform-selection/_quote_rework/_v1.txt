@@ -1,0 +1,25 @@
+## 1. 回滚点 == git HEAD ?
+  01_为什么感觉都一样是范畴错误.md                    MISMATCH (HEAD 23182 / pristine 16248)
+  02_多用户一词三义.md                          MISMATCH (HEAD 20465 / pristine 13772)
+  03_隔离强度梯度.md                           MISMATCH (HEAD 14129 / pristine 11697)
+  04_同层内部怎么分.md                          MISMATCH (HEAD 11502 / pristine 8354)
+  05_Octop回答的是不是另一个问题.md                 MISMATCH (HEAD 16066 / pristine 11974)
+  06_谁把谁当参照.md                           MISMATCH (HEAD 15112 / pristine 10568)
+  07_选型框架与决策树.md                         MISMATCH (HEAD 10822 / pristine 9920)
+  _merged.md                             MISMATCH (HEAD 112060 / pristine 83508)
+  final_note.md                          MISMATCH (HEAD 113520 / pristine 84730)
+  03_outline.md                          MISMATCH (HEAD 28246 / pristine 28457)
+  自托管 Agent 平台选型.md                      MISMATCH (HEAD 115315 / pristine 85823)
+
+## 2. 行尾保留
+  01_为什么感觉都一样是范畴错误.md                    CRLF -> CRLF OK
+  02_多用户一词三义.md                          CRLF -> CRLF OK
+  03_隔离强度梯度.md                           CRLF -> CRLF OK
+  04_同层内部怎么分.md                          CRLF -> CRLF OK
+  05_Octop回答的是不是另一个问题.md                 LF   -> LF   OK
+  06_谁把谁当参照.md                           LF   -> LF   OK
+  07_选型框架与决策树.md                         CRLF -> CRLF OK
+  _merged.md                             CRLF -> CRLF OK
+  final_note.md                          CRLF -> CRLF OK
+  03_outline.md                          CRLF -> CRLF OK
+  自托管 Agent 平台选型.md                      LF   -> LF   OK
