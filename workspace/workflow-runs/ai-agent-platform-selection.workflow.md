@@ -11,7 +11,7 @@ project_slug: "ai-agent-platform-selection"
 created_at: "2026-09-29"
 last_updated: "2026-09-29"
 current_phase: P6
-current_status: ready
+current_status: in_progress
 mode: outline
 blocked_reason: ""
 quality_gate: pending
@@ -119,7 +119,7 @@ quality_gate_due: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] 🔲 进行中 {in_progress}
 
 ---
 
