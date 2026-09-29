@@ -310,7 +310,7 @@
 
 ### 4.1 arXiv 2606.20683 — agent 能力是「模型–harness 配对」的属性
 
-- 核心论断：`we argue that agent performance is a property of the model–harness pairing`；`Benchmark scores should therefore be interpreted as outcomes of a _model–harness pairing_`
+- 核心论断（逐字，取贡献句原文全句）：`We analyze the limits of model-centric scaling for long-horizon task completion and argue that agent performance is a property of the model–harness pairing.`；`Benchmark scores should therefore be interpreted as outcomes of a _model–harness pairing_`
 - harness 形式化为六元组：`ℋ=⟨ℐobs,𝒞,ℒ,ℐact,𝒮,𝒱⟩`
 - 六职责原始定义（逐字）：
 
