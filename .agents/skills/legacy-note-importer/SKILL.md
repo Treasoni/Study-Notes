@@ -85,7 +85,7 @@ id,relative_path,title,heading_count,has_frontmatter,has_tags,has_wikilinks,has_
 每批读取 workflow state file 和 `02_migration_plan.md`，只处理本批文件。对每篇 `normalize` 笔记：
 
 1. 读取原文。
-2. 应用 `.codex/rules/obsidian/note-system.md`。
+2. 应用 `.codex/rules/obsidian/note-system.md`（格式）与 `.codex/rules/obsidian/note-style.md`（内容可读性，入门优先；速查类可豁免精简）。
 3. 补齐 YAML frontmatter：`title`、`tags`、`created`、`updated`、`status`、`source_project`、`source_note_path`。
 4. 只添加高价值双链，不把普通名词全部链接化。
 5. 用 Callout 表达结构意义：总结、核心概念、实践建议、易错点、示例。

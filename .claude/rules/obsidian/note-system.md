@@ -2,6 +2,8 @@
 
 本项目最终笔记面向 Obsidian。美化、发布、更新、MOC 都应以 Obsidian 可用性为第一目标。
 
+> 本文件只管**格式**（frontmatter、标签、Callout、双链、MOC）。**内容可读性**标准见 `note-style.md`（小白友好写作契约，入门优先 + 参考类豁免），产出或改写笔记内容的环节必须同时遵守。
+
 ## User-Specified Destination
 
 每次创建或发布笔记前必须确认目标位置：
