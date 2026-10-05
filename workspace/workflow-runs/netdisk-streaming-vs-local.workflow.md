@@ -10,11 +10,11 @@ topic: "网盘影视播放与本地存储的取舍（网盘在线播放 vs 302 �
 project_slug: "netdisk-streaming-vs-local"
 created_at: "2026-10-05"
 last_updated: "2026-10-05"
-current_phase: P5
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: outline
 blocked_reason: ""
-quality_gate: pending
+quality_gate: passed
 quality_gate_owner: ""
 quality_gate_due: ""
 ---
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：netdisk-streaming-vs-local
 > 项目标识：netdisk-streaming-vs-local
 > 创建时间：2026-10-05
-> 当前阶段：阶段 5
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -102,7 +102,7 @@ quality_gate_due: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] 🔲 进行中 {in_progress}
+> [P5] ✅ 已完成 {complete}
 
 ---
 
@@ -112,7 +112,7 @@ quality_gate_due: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -122,7 +122,7 @@ quality_gate_due: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -130,6 +130,7 @@ quality_gate_due: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P5 | 用户确认发布到 流媒体与影音/，并移入两篇旧笔记 | 2026-10-05 21:43 |
 | P4 | 用户要求一次写完全部章节；8 章已交付并完成跨章口径比对 | 2026-10-05 20:08 |
 | P3 | 用户确认大纲，要求一次写完全部 8 章（跳过逐章确认） | 2026-10-05 20:07 |
 | P2 | 用户确认素材质量，进入大纲模式 | 2026-10-05 20:05 |
@@ -165,10 +166,10 @@ quality_gate_due: ""
 
 ## 最终产出
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：对比笔记（入门级概念对比科普）
+- **总字数**：约 9000 字
+- **章节数**：8 章（另含目录与首屏导读）
+- **输出格式**：Obsidian Markdown（含 YAML frontmatter、Callout、双链）
+- **文件路径**：`workspace/netdisk-streaming-vs-local/output/final_note.md`
+- **Obsidian Vault**：`/Users/zhqznc/Documents/项目` → `流媒体与影音/网盘影视播放与本地存储的取舍.md`
+- **MOC 路径**：`流媒体与影音 MOC.md`
