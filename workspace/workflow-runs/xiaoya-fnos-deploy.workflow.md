@@ -10,11 +10,11 @@ topic: "在 fnOS（飞牛 OS）中部署纯净版小雅（单容器）——飞�
 project_slug: "xiaoya-fnos-deploy"
 created_at: "2026-10-06"
 last_updated: "2026-10-06"
-current_phase: P7
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: "outline"
 blocked_reason: ""
-quality_gate: pending
+quality_gate: passed
 quality_gate_owner: ""
 quality_gate_due: ""
 ---
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：xiaoya-fnos-deploy
 > 项目标识：xiaoya-fnos-deploy
 > 创建时间：2026-10-06
-> 当前阶段：阶段 7
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -124,12 +124,12 @@ quality_gate_due: ""
 ---
 
 ## 阶段 7：MOC 同步
-- [ ] 已定位或创建 MOC 文件
-- [ ] 新笔记双链已加入 MOC
-- [ ] 已去重并更新摘要/标签
-- [ ] MOC 只保留索引，不复制正文
+- [x] 已定位或创建 MOC 文件（`流媒体与影音 MOC.md`，`updated` 更新为 2026-10-06）
+- [x] 新笔记双链已加入 MOC（新增 `## 部署与配置` 分组，1 条索引项指向入口页）
+- [x] 已去重并更新摘要/标签（4 条链接全落地、无重复；标签 #流媒体 #小雅 #fnOS #Docker）
+- [x] MOC 只保留索引，不复制正文（无 >200 字符长段）
 
-> [P7] 🔲 进行中 {in_progress}
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -137,6 +137,7 @@ quality_gate_due: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P7 | 用户确认将新笔记同步进 `流媒体与影音 MOC.md` | 2026-10-06 |
 | P6 | 用户确认组装方式**B（拆分多文件 + 入口页）**；进入 P6 美化与发布 | 2026-10-06 |
 | P5 | 用户确认逐章交付，进入收尾组装 | 2026-10-06 |
 | P4 | 用户确认第 7 章（运维与收尾），7/7 章完成 | 2026-10-06 |
@@ -160,7 +161,9 @@ quality_gate_due: ""
 
 | 时间 | 阶段 | 问题描述 | 处理方式 |
 |------|------|---------|---------|
-| | | | |
+| 2026-10-06 | P6 | 短链→全路径的归一最初只落在 `output/`，导致 `--mode all` 的 C 报 3 处差异（第 1/2/3 章） | 按「清洗只归属最上游一层」把 3 处替换上移到 `chapters/`，`output/` 与合并件仅机械重生成；复跑 C → 0 差异 |
+| 2026-10-06 | P6 | 带 `--vault-note` 比对时每章报 1 处差异（分册导航尾行 `> 📖 …` 被当成正文） —— 共享校验器的判据缺口 | 补 `.codex/scripts/note-citation-check.py` 的 `FOOTER` 认上导航尾行；`.agent-sync --apply --scope scripts` + 全量 `--check` 通过；复跑 7 章 `--vault-note` 全 EXIT=0（C 0 差异，compared 8 组） |
+| 2026-10-06 | P7 | `workflow-health-check.sh` 报 prompt-cache guard FAIL（effortLevel/thinkingBudget knob 与冻结基线漂移） | 与本轮改动无关（运行时模型档位，非项目文件缺陷）；routing/manifest(60)/可移植性/todo-state 动作守卫(15) 均通过 |
 
 ---
 
@@ -176,11 +179,11 @@ quality_gate_due: ""
 
 > **取数纪律**：下表的体积 / 字数 / 章数 / 锚点数 / Callout 数必须**当场重新运行取数或重新计数**，并把命令留在「取数命令」一行；不要从上下文里的历史输出誊抄，也不要手算合计。产物在记录之后又被改动时，grep 同一数字的**所有**出现处一并更新（同一组数字常同时出现在阶段段落与本节）。
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
-- **取数命令**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **笔记类型**：实战 + 对比（混合）——① 飞牛影视能否替代 Emby 的选型对比 ② 单容器部署步骤
+- **总字数**：19,837 汉字（7 章正文，`chapters/` 合计）
+- **章节数**：7（另有入口页 1 个）
+- **输出格式**：Obsidian Markdown，**拆分多文件**（入口页 + 01–07，共 8 个文件）
+- **取数命令**：`python -c "import glob,re;print(sum(len(re.findall(r'[一-鿿]',open(f,encoding='utf-8').read())) for f in glob.glob('workspace/xiaoya-fnos-deploy/chapters/0*.md')))"`
+- **文件路径**：`流媒体与影音/小雅 fnOS 单容器部署/`（入口页 `小雅 fnOS 单容器部署（总览）.md` + `01 开篇定位.md` … `07 运维与收尾.md`）；项目内 `workspace/xiaoya-fnos-deploy/output/`
+- **Obsidian Vault**：本仓库根即 vault 根（按 vault 相对路径发布，未写入机器绝对路径）
+- **MOC 路径**：`流媒体与影音 MOC.md`（`## 部署与配置` 分组）
