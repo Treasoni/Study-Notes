@@ -10,7 +10,7 @@ topic: "在 fnOS（飞牛 OS）中部署纯净版小雅（单容器）——飞�
 project_slug: "xiaoya-fnos-deploy"
 created_at: "2026-10-06"
 last_updated: "2026-10-06"
-current_phase: P4
+current_phase: P5
 current_status: in_progress
 mode: "outline"
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：xiaoya-fnos-deploy
 > 项目标识：xiaoya-fnos-deploy
 > 创建时间：2026-10-06
-> 当前阶段：阶段 4
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -88,13 +88,13 @@ quality_gate_due: ""
 - [x] 第 4 章已写完并确认
 - [x] 第 5 章已写完并确认
 - [x] 第 6 章已写完并确认
-- [ ] 第 7 章已写完并确认
-- [ ] 并行写作 ≥2 章时：已冻结跨章口径表并写进每个 dispatch
-- [ ] 全部章节交付后：已做跨章一致性比对三类全覆盖（可照抄的配置块 / 同一来源的散文式转述与定性 / 定义与判据句对冻结语义框架自洽）
+- [x] 第 7 章已写完并确认
+- [x] 并行写作 ≥2 章时：已冻结跨章口径表并写进每个 dispatch
+- [x] 全部章节交付后：已做跨章一致性比对三类全覆盖（可照抄的配置块 / 同一来源的散文式转述与定性 / 定义与判据句对冻结语义框架自洽）
 
-**进度**：3/7
+**进度**：7/7
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -107,7 +107,7 @@ quality_gate_due: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
