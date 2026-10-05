@@ -30,6 +30,11 @@ publish_mode: copy | overwrite | patch
    - `[!example]` 示例
 4. 代码块必须带语言标识。
 5. Dataview/Bases 只在用户 vault 支持时加入；不确定时保持普通 Markdown。
+6. Callout 内要放表格或分多段时，**中间每个空行也必须写成 `>`**：裸空行会终止 callout，
+   其后的表格 / 段落掉出框外、渲染散架。这与「表格不嵌进列表项」同类——都是**合法 Markdown
+   却渲染异常**的形态，内容校验（引文 / 副本一致性）查不到，必须单独跑结构自检
+   （`.claude/scripts/check-md-structure.py`，见 `note-beautifier` Step 4）。**生成阶段**就要写对，
+   不要留到美化阶段回改。
 
 ## 引文语言（所有笔记的默认要求）
 
