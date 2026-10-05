@@ -1,7 +1,9 @@
 # ERRORS.md
 
-活跃错误记录：当前 **2** 条 —— `ERR-20260929-014` / `-015`，均为 2026-09-29 记，
-状态 `pending`（机制已落地，尚未在下一轮运行中被验证）。
+活跃错误记录：当前 **4** 条 —— `ERR-20260929-014` / `-015`（2026-09-29 记）与
+`ERR-20261006-016` / `-017`（2026-10-06 记）。本文件里的 E 编号与
+`LEARNINGS.md` 的 L 编号各自独立计数；`-016` / `-017` 的机制化（落 note-beautifier
+结构自检）尚未完成，见各自 `预防措施`。
 
 最近一次维护 2026-09-30（`/maintain-learnings`）：归档 `ERR-20260929-013`
 （机制已机器化，改由共享引文校验器 `.codex/scripts/note-citation-check.py` 的 `V` 族强制，
@@ -87,5 +89,86 @@ OpenClaw 官方对照表被记作「17 轴」，实为 **15 条属性行**——
 - 判据句描述的对象，必须是下游框架真正切分的那个维度；两处各自自洽不算过关，
   要能**同时对同一对象成立**。
 - 「引文逐字正确」不能替代「论述可读」——校验绿灯与引文核对都通过，成品仍可能读不通。
+
+---
+
+## [ERR-20261006-016] learning-note-flow / P6 发布 — Obsidian callout 续行缺 `>`，表格掉出框外；内容校验全绿仍被用户读到才发现
+
+**Logged**: 2026-10-06
+**Priority**: high
+**Status**: fixed（上游 `chapters/` 修，下游机械重生成并重新发布；机制待落 note-beautifier 结构自检）
+**Area**: learning-note-flow / P6 发布 / Obsidian 结构
+
+### Summary
+已发布的第 3 章 `> [!note] 「dav 还是 guest」…` callout 里，引导句与表格之间的**空行没带 `>`**。
+Obsidian 在裸空行处终止 callout，其后的表格掉出框外、渲染散架。用户读**已发布**笔记时才报「渲染有问题」。
+
+### Error
+```
+用户：（贴出 callout 内的对照表）渲染有问题你
+```
+
+### Context
+- 触发点：callout 内嵌表格时，表格前的空行写成了裸空行（无 `>`）。
+- 为什么没被拦住：行尾无关的引文校验器（V/S/C 族）与「8 份副本逐字一致」全部绿灯——
+  它们查的是**内容**（引文可回源、副本一致），**不查 Markdown 结构是否可渲染**。
+  这是 RULES「Do：校验通过 ≠ 产物正确」的又一实例。
+- 全 8 文件扫描：此形态**仅 1 处**（`chapters/03` L103），属个案而非系统性。
+
+### 修复
+- 在最上游 `chapters/03_动手前准备.md` 把该裸空行改成 `>`（只加 1 个 ASCII 字符）。
+- 从 `chapters/` 机械重生成 `output/01–07` + `final_note.md`，重新发布 7 章到 vault，入口页不变。
+- 复验：8/8 成品与 `output/` 逐字一致；`--mode all` ✅ 无硬失败；7 章 `--vault-note` 全 EXIT=0。
+
+### 预防措施
+- 发布前跑**结构自检**（本次新增，可复用；在成品目录内运行）：
+  ```bash
+  PYTHONIOENCODING=utf-8 python - <<'PY'
+  import glob
+  for f in glob.glob("*.md"):
+      L = open(f, encoding="utf-8").read().split("\n")
+      for i, l in enumerate(L):
+          if l.startswith("|") and i and L[i-1].strip() and not L[i-1].startswith("|"):
+              print(f"[{f}] L{i+1} 表格前缺空行")          # 表格不渲染
+          if l.startswith("> |") and not L[i-1].startswith(">"):
+              print(f"[{f}] L{i+1} callout 内表格未续接 `>`")  # 掉出 callout
+  PY
+  ```
+- callout 内**每个空行**（分段、表格前后）一律写 `>`；与 RULES「Don't：表格不嵌列表」同类——
+  **合法 Markdown 却渲染异常的两种形态**。
+
+---
+
+## [ERR-20261006-017] note-citation-check.py — 分册导航尾行 `> 📖` 被当正文，`--vault-note` 每章误报 1 处差异
+
+**Logged**: 2026-10-06
+**Priority**: medium
+**Status**: fixed（改 canonical 校验器 `FOOTER` 判据 + `.agent-sync` 同步，全量 `--check` 通过）
+**Area**: shared checker / P6 副本一致（C 族）
+
+### Summary
+分册模式下每章文件底部有一行导航尾行 `> 📖 返回总览：…`。共享校验器
+`note-citation-check.py` 的 `FOOTER` 只认 `## 参考/相关文档`，把该行当**正文**，于是
+`--vault-note` 逐章报 `行数 119 vs 121` 之类的 1 处差异——**校验器假阳性**，产物本身正确。
+
+### Error
+```
+[C] … 发现 1 处差异（行数 119 vs 121）    # 7 章一致复现，每章都停在同一行
+```
+
+### Context
+- 触发场景：拆分多文件发布（每章带 callout 导航尾行），C 族拿 vault 成品与章节源比对。
+- 根因：判据（装饰 / 页脚识别）没覆盖这种新布局形态——与「校验器必须覆盖每种布局」同类。
+- 假阳性与假阴性同为缺陷：C 误报会逼人给**正确的**产物打 waiver，久了门就废了。
+
+### 修复
+- 改 canonical `.codex/scripts/note-citation-check.py`：
+  `FOOTER = re.compile(r"^(?:## (参考文档|相关文档|参考资料)|>\s*📖)")`。
+- `.agent-sync --apply --scope scripts` 同步到 `.claude/scripts/`，全量 `--check` 通过；
+  复跑 7 章 `--vault-note` 全 EXIT=0（C 0 差异，compared 8 组）。
+
+### 预防措施
+- 出现一种新布局形态（导航尾行、新装饰行）时，先问「校验器的**装饰 / 页脚判据**认不认它」，
+  认不出就补判据（RULES「Do」第 38 条），**不要**改用 waiver 或临场删行来迁就校验器。
 
 ---
