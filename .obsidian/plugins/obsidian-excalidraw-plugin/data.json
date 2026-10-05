@@ -62,7 +62,6 @@
   "penModeDoubleTapEraser": true,
   "penModeSingleFingerPanning": true,
   "penModeCrosshairVisible": true,
-  "panWithRightMouseButton": false,
   "renderImageInMarkdownReadingMode": false,
   "renderImageInHoverPreviewForMDNotes": false,
   "renderImageInMarkdownToPDF": false,
@@ -1021,6 +1020,7 @@
     "margin": "normal"
   },
   "disableContextMenu": false,
+  "panWithRightMouseButton": false,
   "onceOffGPTVersionReset": true,
   "autosave": true,
   "isDebugMode": false
