@@ -3,6 +3,10 @@
 活跃错误记录：当前 **2** 条 —— `ERR-20260929-014` / `-015`（2026-09-29 记，机制已落地、
 尚未在下一轮运行中被验证）。本文件里的 E 编号与 `LEARNINGS.md` 的 L 编号各自独立计数。
 
+最近一次维护 2026-10-06（`/maintain-learnings`，第二次）：归档 `ERR-20261006-018`（夸克口径的
+绝对否定），机制 = `note-updater` v1.3.0「口径核对」+ `RULES.md` 作用范围铁律；
+见 `.learnings/archive/2026-10-06-maintenance.md` 第四节。
+
 最近一次维护 2026-10-06（`/maintain-learnings`）：归档 `ERR-20261006-016`（callout 续行
 缺 `>`，机制 = `.codex/scripts/check-md-structure.py` 结构自检）与 `ERR-20261006-017`
 （共享校验器 `FOOTER` 判据缺口），处置路径与验证方式见
