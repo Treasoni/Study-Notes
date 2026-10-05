@@ -10,7 +10,7 @@ topic: "在 fnOS（飞牛 OS）中部署纯净版小雅（单容器）——飞�
 project_slug: "xiaoya-fnos-deploy"
 created_at: "2026-10-06"
 last_updated: "2026-10-06"
-current_phase: P5
+current_phase: P7
 current_status: in_progress
 mode: "outline"
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：xiaoya-fnos-deploy
 > 项目标识：xiaoya-fnos-deploy
 > 创建时间：2026-10-06
-> 当前阶段：阶段 5
+> 当前阶段：阶段 7
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -99,25 +99,27 @@ quality_gate_due: ""
 ---
 
 ## 阶段 5：收尾组装
-- [ ] 所有章节文件已检查
-- [ ] 组装方式已确认（A: 按顺序拼接 / B: 重新排序 / C: 保持零散）
-- [ ] 过渡语已添加
-- [ ] 目录已生成
-- [ ] 标题层级已统一
-- [ ] 引用已检查
-- [ ] 完整笔记已保存：`./output/final_note.md`
+- [x] 所有章节文件已检查
+- [x] 组装方式已确认（**B: 拆分多文件 + 入口页**）
+- [x] 过渡语已添加（各章章末「下一章预告」保留；入口页「怎么读」两条路径）
+- [x] 目录已生成（入口页「章节目录」7 条双链 + 一句说明）
+- [x] 标题层级已统一（每章保留各自 `# 第 N 章` H1；入口页 H1→H2）
+- [x] 引用已检查（`note-citation-check.py --mode text` ✅ 无硬失败）
+- [x] 完整笔记已保存：`./output/`（入口页 `小雅 fnOS 单容器部署（总览）.md` + `01 开篇定位.md` … `07 运维与收尾.md`；**偏离**：拆分模式无单篇 `final_note.md`，`--mode all` 的 C 于发布前 compared=0 属固有状态，P6 发布后再跑）
 
-> [P5] 🔲 进行中 {in_progress}
+> [P5] ✅ 已完成 {complete}
 
 ---
 
 ## 阶段 6：Obsidian 美化与发布
-- [ ] 已读取 Obsidian 输出规则
-- [ ] 用户已确认最终保存位置（vault_path + note_folder，或仅项目 output）
-- [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
-- [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
+- [x] 已读取 Obsidian 输出规则
+- [x] 用户已确认最终保存位置（vault 内 `流媒体与影音/小雅 fnOS 单容器部署/`）
+- [x] frontmatter、标签、Callout、双链已按 Obsidian 规则处理（8 个成品补 YAML frontmatter；双链一律补全为 vault 全路径）
+- [x] 最终 Markdown 已保存到 `流媒体与影音/小雅 fnOS 单容器部署/`（入口页 + 01–07 共 8 个文件）
+  - 段落纪律：`note-citation-check.py --mode all` → ✅ 无硬失败（V 4/4，C 8 份副本 7 组比对 0 差异）；8/8 文件与 `output/` 逐字一致；11 个 wikilink 目标全部落盘
+  - **归一收口**：短链→全路径的清洗统一上移到最上游 `chapters/`，`output/` 与合并件只做机械重生成
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -127,7 +129,7 @@ quality_gate_due: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] 🔲 进行中 {in_progress}
 
 ---
 
@@ -135,6 +137,9 @@ quality_gate_due: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P6 | 用户确认组装方式**B（拆分多文件 + 入口页）**；进入 P6 美化与发布 | 2026-10-06 |
+| P5 | 用户确认逐章交付，进入收尾组装 | 2026-10-06 |
+| P4 | 用户确认第 7 章（运维与收尾），7/7 章完成 | 2026-10-06 |
 | P3 | 用户确认大纲（7 章），进入逐章写作 | 2026-10-06 00:31 |
 | P2 | 用户确认 P2 素材质量；选择写作模式 A（大纲模式） | 2026-10-06 00:29 |
 | P1 | 用户选择方向1（部署主线+飞牛影视作前端）；附加：应用中心版排除过程、云盘风控与清理小节；外网访问并入飞牛影视段 | 2026-10-06 00:21 |
