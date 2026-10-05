@@ -40,7 +40,7 @@ Read before starting any new Study System task.
 
 ## Don't
 
-- 不要把表格嵌套在列表项内（带缩进），Obsidian 无法渲染列表内的表格；同理，callout（`> [!type]`）里要放表格或分多段时，**中间每个空行也必须写成 `>`**——裸空行会终止 callout，其后的表格/段落掉出框外、渲染散架（`ERR-20261006-016`）。发布前扫两件事：① callout 内表格（`> |`）**前一行**是否带 `>` ② 表格行**前一行**是否为空；两件事同属「合法 Markdown 却渲染异常」，内容校验器（V/S/C）查不到，必须单独跑结构自检
+- 不要把表格嵌套在列表项内（带缩进），Obsidian 无法渲染列表内的表格；同理，callout（`> [!type]`）里要放表格或分多段时，**中间每个空行也必须写成 `>`**——裸空行会终止 callout，其后的表格/段落掉出框外、渲染散架。发布前跑 `python .codex/scripts/check-md-structure.py "<成品目录>"`（`note-beautifier` Step 4 已挂）：查 ① callout 内表格（`> |`）**前一行**是否带 `>` ② 表格行**前一行**是否为空 ③ 缩进表格（疑似嵌列表）。这些同属「合法 Markdown 却渲染异常」，内容校验器（V/S/C）查不到，必须单独跑结构自检（原记录见 `.learnings/archive/2026-10-06-maintenance.md`）
 - 不要用 python 的 `read_text()`/`write_text()`（或 `newline=None` 的文本模式）改 workflow state file 及任何被 shell/perl/awk 按行解析的文件：Windows 上 `write_text` 会按 `os.linesep` 把整篇 LF 写成 CRLF，静默打穿 `todo-state.sh` 的阶段判定（`previous phase is not complete`）。用 `read_bytes`/`write_bytes`，改完数一遍 `b.count(b"\r\n") == 0`。`todo-state.sh` 现已内置行尾守卫（检测到 CRLF 即告警并归一）；出现该告警说明有工具在文本模式下重写了 state file，要去查那个工具而不是手工把它修回去
 - 不要手工改 workflow state file 的 `> [PN] …` 阶段行（只能由 `todo-state.sh` 写）；手写 `{complete}` 会让脚本的 `phase_has_status "in_progress"` 预检失败
 
