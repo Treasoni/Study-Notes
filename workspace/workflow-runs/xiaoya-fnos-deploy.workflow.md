@@ -10,7 +10,7 @@ topic: "在 fnOS（飞牛 OS）中部署纯净版小雅（单容器）——飞�
 project_slug: "xiaoya-fnos-deploy"
 created_at: "2026-10-06"
 last_updated: "2026-10-06"
-current_phase: P3
+current_phase: P4
 current_status: in_progress
 mode: "outline"
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：xiaoya-fnos-deploy
 > 项目标识：xiaoya-fnos-deploy
 > 创建时间：2026-10-06
-> 当前阶段：阶段 3
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -77,7 +77,7 @@ quality_gate_due: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中 {in_progress}
+> [P3] ✅ 已完成 {complete}
 
 ---
 
@@ -91,7 +91,7 @@ quality_gate_due: ""
 
 **进度**：0/待大纲确定
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中 {in_progress}
 
 ---
 
@@ -132,6 +132,7 @@ quality_gate_due: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P3 | 用户确认大纲（7 章），进入逐章写作 | 2026-10-06 00:31 |
 | P2 | 用户确认 P2 素材质量；选择写作模式 A（大纲模式） | 2026-10-06 00:29 |
 | P1 | 用户选择方向1（部署主线+飞牛影视作前端）；附加：应用中心版排除过程、云盘风控与清理小节；外网访问并入飞牛影视段 | 2026-10-06 00:21 |
 | P0 | 用户确认意图文件和研究计划 | 2026-10-06 00:15 |
