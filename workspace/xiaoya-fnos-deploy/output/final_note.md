@@ -398,7 +398,7 @@
 
 > [!note] 「`dav` 还是 `guest`」其实是**两条路线**，不是同一个冲突
 > 论坛帖的 compose 注释写「默认用户为 dav」（`sources/forum/tid-9690.md:55`），楼主实测答复写 `guest` / `guest_Api789`（`sources/forum/tid-9690.md:72`、官方镜像页 `sources/01_hub_docker_com.md:18`）。回头核对 monlor 仓库的 `env` 模板，能看到同一条注释的两半：
-
+>
 > | monlor `env` 原文 | 说人话 |
 > | --- | --- |
 > | `webdav用户名为dav，设置密码。默认用户密码：guest/guest_Api789` | monlor 路线把 WebDAV **用户名设成 `dav`**（密码由 `WEBDAV_PASSWORD` 设）；`guest` / `guest_Api789` 是**默认账号** |
