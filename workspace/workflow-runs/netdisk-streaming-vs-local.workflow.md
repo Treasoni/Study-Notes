@@ -10,7 +10,7 @@ topic: "网盘影视播放与本地存储的取舍（网盘在线播放 vs 302 �
 project_slug: "netdisk-streaming-vs-local"
 created_at: "2026-10-05"
 last_updated: "2026-10-05"
-current_phase: P3
+current_phase: P5
 current_status: in_progress
 mode: outline
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：netdisk-streaming-vs-local
 > 项目标识：netdisk-streaming-vs-local
 > 创建时间：2026-10-05
-> 当前阶段：阶段 3
+> 当前阶段：阶段 5
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -77,7 +77,7 @@ quality_gate_due: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] 🔲 进行中 {in_progress}
+> [P3] ✅ 已完成 {complete}
 
 ---
 
@@ -87,9 +87,9 @@ quality_gate_due: ""
 - [ ] 第 3 章已写完并确认
 - [ ] ...（根据实际章节数添加）
 
-**进度**：0/8
+**进度**：8/8
 
-> [P4] ⬜ 未开始
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -102,7 +102,7 @@ quality_gate_due: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] 🔲 进行中 {in_progress}
 
 ---
 
@@ -130,6 +130,8 @@ quality_gate_due: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P4 | 用户要求一次写完全部章节；8 章已交付并完成跨章口径比对 | 2026-10-05 20:08 |
+| P3 | 用户确认大纲，要求一次写完全部 8 章（跳过逐章确认） | 2026-10-05 20:07 |
 | P2 | 用户确认素材质量，进入大纲模式 | 2026-10-05 20:05 |
 | P1 | 用户选择 P2 方向 A：三方式全景对比 | 2026-10-05 20:03 |
 | P0 | 用户确认意图文件和研究计划 | 2026-10-05 19:58 |
