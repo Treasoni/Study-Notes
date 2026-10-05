@@ -40,6 +40,14 @@ description: 更新过时的既有学习笔记。用于用户说“更新这篇�
    - 在 `update_report.md` 里登记「vault 已于 <日期> 更新，workspace 副本停留在 <日期>」，不要把漂移留在沉默里。
    - 不要默认回写 workspace，也不要默认「以 vault 为准」就收工：让用户二选一——重跑 note-assembler 同步 workspace，或明确弃用 workspace 副本。
 
+## 写作风格
+
+改写内容时遵循 `.codex/rules/obsidian/note-style.md`（入门优先 + 参考类豁免）：
+
+- 目标是把内容「说得更清楚」，保留原文结构与深度，不做降级改写。
+- 原文未解释的关键术语，趁更新补一句大白话；原文是新手向笔记时，新增段落也维持白话风格。
+- 若原文是参考 / 速查类笔记，保持精简，不强行加白话铺垫。
+
 ## Output Files
 
 默认在同目录生成：

@@ -17,7 +17,7 @@ Read before starting any new Study System task.
 - 用户决策点用紧凑文本菜单 + 推荐默认值，不要用多问题 AskUserQuestion 对话框（用户会拒绝）
 - 合并多篇独立章节前/后按章命名空间化脚注 ID（`[^cN-…]`），并 grep 校验无重复
 - GitHub 项目取文档优先 `raw.githubusercontent.com/{owner}/{repo}/{branch}/...`；github.io 镜像可能 404
-- 本机 `python3` **可用**（原生 CPython 3.14，非微软商店存根；2026-09-11 复核）——中文文本处理优先 python；若用 perl 兜底，必须 `use utf8;` + `use open ":std", ":encoding(UTF-8)"`，否则字符类正则静默 no-op
+- 中文文本处理优先 python；**但 `python3` 版本随机器而异**（Windows 侧曾为原生 CPython 3.14；macOS 侧默认可能是 3.9），且本仓库部分脚本（`sync-workflow-routing.sh` / `workflow-health-check.sh`）要求 3.10+——在旧 `python3` 上会假报 FAIL，需显式指定更高版本：`PYTHON=$(command -v python3.12) .claude/scripts/workflow-health-check.sh`，不要据此改内容。若用 perl 兜底，必须 `use utf8;` + `use open ":std", ":encoding(UTF-8)"`，否则字符类正则静默 no-op
 - 写 OpenWrt/iStoreOS 第三方插件安装步骤前，先用 GitHub API（`curl api.github.com/.../contents`、`/releases/tags/{tag}`）核实软件源 feed 内容与 release 真实文件名，再写命令；示例 URL 必须来自实际存在的文件
 - 用户明确说「删掉」误导内容时，直接删除整节并重排编号，不要加 warning 补丁保留
 - 解释抽象概念按「它是什么/解决什么问题 → 具体产物长什么样 → 带具体值的可代入例子（目录树/路径/命令输出）→ 对比表 → 大白话类比」落地；正文去掉类比后仍要能让「没懂」的读者靠表格/例子读懂，不只抛抽象结论（默认写作标准，用户当日连续两次明确要求「都要这样」）

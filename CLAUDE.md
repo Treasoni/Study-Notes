@@ -89,6 +89,7 @@ batch-note-updater -> note-updater
 - `.claude/rules/common/sync-workflow.md`
 - `.claude/rules/workflow-routing.md`
 - `.claude/rules/obsidian/note-system.md`
+- `.claude/rules/obsidian/note-style.md`
 - `.claude/rules/research-tools.md`
 
 项目本地 hooks 使用本 runtime 的 hook 注册文件（见 `.agent-sync/agents/*.yaml` 的 `paths.hook_config`）注册，脚本放在本 runtime 的 hooks 目录。该注册文件由 `.agent-sync/bootstrap.py` 在当前机器生成；不要把本项目 hooks 写到全局配置目录；如果当前 runtime 提示信任 hook，仅信任本项目路径。

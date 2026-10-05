@@ -125,6 +125,8 @@ Every chapter must follow this structure:
 
 #### 通俗化要求（所有笔记类型通用，用户明确偏好）
 
+> 本节的 canonical 契约见 `.codex/rules/obsidian/note-style.md`（小白友好写作契约，入门优先 + 参考类豁免）；本节是其在逐章写作场景的展开实现，冲突时以该文件为准。
+
 每个章节必须为**核心概念**添加 `[!tip] 大白话` Callout，用生活化类比让零基础读者也能看懂：
 
 - 选 2-5 个本章最关键的概念，各配一个 `[!tip] 大白话` 通俗解释

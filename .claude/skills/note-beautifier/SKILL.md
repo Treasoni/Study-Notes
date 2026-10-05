@@ -7,6 +7,14 @@ description: Obsidian 笔记智能美化与发布。用于将最终学习笔记�
 
 将学习笔记处理成适合 Obsidian 的 Markdown。不要默认导出其他格式；本阶段面向 Obsidian vault。
 
+## 写作风格契约
+
+格式遵循 `.claude/rules/obsidian/note-system.md`；内容可读性遵循 `.claude/rules/obsidian/note-style.md`（小白友好写作契约，入门优先 + 参考类豁免）。
+
+- 美化只应「让内容更好读」，不得为排版把内容改浅或删解释；术语解释、大白话 Callout 属于要保留的内容。
+- 若原文缺结论先行、术语解释、可跳过分区，可在美化阶段补齐。
+- 参考 / 速查类笔记保持精简，不强行加白话铺垫。
+
 ## 核心架构
 
 ```
