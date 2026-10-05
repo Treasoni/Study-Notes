@@ -142,7 +142,7 @@ tier 分布：official 6 ｜ reputable 2 ｜ community 6 ｜ 未获取 2。
 ## 七、未决问题 / 待核实（不得写成结论）
 
 1. **「纯净版」无官方定义**——社区俗称，须在正文说明。
-2. **`/data` 凭据文件的确切文件名与机制**：未在任何已抓官方来源出现；仅社区回帖（S13 回帖）为证。
+2. **`/data` 凭据文件的确切文件名与机制**：~~未在任何已抓官方来源出现；仅社区回帖为证~~ → **已由 P4 回补更新（见文末「补记」）：文件名三件套已坐实，目录随路线**。
 3. **`ghcr.io` 无「官方」小雅镜像**——社区指的是 monlor 的 `ghcr.io/monlor/xiaoya-alist`。
 4. **`xiaoya.host` 是否官方域**：未证，仅社区链路描述。
 5. **飞牛影视支持 STRM 的起始版本**：来源冲突，未定。
@@ -166,3 +166,31 @@ tier 分布：official 6 ｜ reputable 2 ｜ community 6 ｜ 未获取 2。
 - 中文/英文逐字引文 **17 处**已完成按行号子串精确比对（见第四节）。
 - 数值：推荐配置表 4 行、端口清单、模式编号 0/1/3/4/5 均逐行重数。
 - `note-citation-check.py --mode verbatim --file 02_deep_research.md`：见本轮运行输出。
+
+---
+
+## 补记（P4 回补，2026-10-06）
+
+> 目的：第 3 章写作时发现「凭据文件侧」证据不足（原未决 #2），经用户同意回补抓取。**新增来源不改变 P2 结论，仅补齐一处证据缺口。**
+
+**新增来源**
+
+| ID | 标题 | tier | 快照（repo 相对） |
+|---|---|---|---|
+| S16 | 博客园 z-addone《安装小雅Alist》(2025-04-13) | community | `sources/p3/z-addone/01_www_cnblogs_com.md` |
+| S17 | 博客园 gnz48《群晖 docker 部署小雅全家桶》 | community | `sources/p3/gnz48/01_www_cnblogs_com.md` |
+| S18 | GitHub API：`xiaoyaDev/xiaoya-alist` 仓库文件清单 | official | `sources/p3/github-api/listing.json.md` |
+| S19 | monlor/docker-xiaoya `env` 模板 | project-official | `sources/p3/monlor-env/01_raw_githubusercontent_com.md` |
+
+**补齐的证据（逐字，含行号）**
+- 凭据文件三件套：`mytoken.txt`（S16:23、S17:25）、`myopentoken.txt`（S16:24、S17:25）、`temp_transfer_folder_id.txt`（S16:25、S17:32）。官方侧仅 `mytoken.txt` 可证（S6:65，`/etc/xiaoya/mytoken.txt`）；另两份为**社区教程**支撑（tier=community）。
+- 放置位置社区说法：`_data_` 目录（S16:28）、`docker/xiaoya`（S17:32）。
+- **WebDAV 用户名冲突有解**：monlor `env` 注释逐字「webdav用户名为dav，设置密码。默认用户密码：guest/guest_Api789」（S19:32）→ `dav` 属 monlor 路线、`guest/guest_Api789` 为默认账号；原「矛盾 #3」应改写为「两路线取值不同」。
+- S18 佐证 S2 兼容表脚本名确实存在于官方仓库（`all_in_one.sh` / `main.sh` / `emby_config_editor.sh` / `xiaoya_notify.sh`）。
+
+**对未决清单的更新**
+- 未决 #2（`/data` 凭据文件机制）：文件名已坐实，**降级为「文件名已证、目录随路线」**。
+- 矛盾 #3（WebDAV dav vs guest）：**改写为路线差异**，不再是来源冲突。
+
+**口径变更（下游须同步）**
+- 第 3 章已按此回补：新增文件侧三件套表、WebDAV「两条路线」说明，更新小结与「引文对照」表（新增 #17–#20）。
