@@ -40,6 +40,7 @@ Read before starting any new Study System task.
 - **改「多文件（拆分）笔记」前先列齐整套**：目标若是「总览 + 分章文件（另有 `chapters/`、`output/`、vault 副本）」的**集合**，先一次列齐全部成员、通读总览与各章标题/小结，得出**受影响文件集**，**再**逐文件最小读取改写；口径类改动横跨多章，**不要边改边发现还有文件没看**——结束时对**未修改成员**说明「为何没动」、对集合外相关笔记登记同步范围（机制已落 `note-updater` SKILL.md Step 1）
 - **回答澄清问题 / 下定性结论前，回一手来源 + 用户实际处境，并把作用范围写进句子**：「有没有 / 能不能 / 只有…才…」只对**本体库**成立的，就写「**本体库**不能…」，**不要**写成「小雅不能…」（抹掉作用范围的绝对否定是本类错误的典型形态）；无来源的数字 / 比例（「覆盖 85%~90%」）**不写进笔记**。**既有笔记——乃至自己上一轮写进笔记的结论——不是可信起点**，它可能正是待修正对象（机制已落 `note-updater` SKILL.md「口径核对」）
 - **配方类内容（env / config / command）只写「文档逐字给出」或「实测得到」的取值**：官方文档只给字段名、没给示例值时，**不要用常识补**（第 11 章曾把文档里的 `scrypt$…` 字段填成 bcrypt `$2b$12$`）——标「待核」或回原始载体（源码 / 官方示例 / 实测输出）取；把文档**转写成派生产物**（docker-compose 片段 / 示例配置 / 命令拼接）落笔前**必做最小实测**（如 `docker compose config`），**「读文档」不等于「跑得通」**——Compose 会把 `$`+字母当变量插值，scrypt 哈希须写成 `$$`（YAML 引号 / `env_file` / `.env` 都挡不住，只有 `$$` 有效；`$`+数字反而安全）（机制已落 `note-updater` v1.4.0「配方类内容」+ `chapter-writer` v1.5.0 同名小节与 Checklist；原记录见同批 `LRN-20261006-025` / `ERR-20261006-019`）
+- **复现上游产物（compose / 配置 / 命令 / 参数表）前，先拿到该产物的权威原文再动笔**：以仓库 raw 文件 / 官方示例**本身**为落笔依据，**搜索摘要与 WebFetch 摘要只能用于定位，不能用于定值**。**一手原文与二手摘要冲突时以一手为准**——对一手存疑就再取一次一手（换 raw 路径 / 换文件 / 换分支），**不要在两个二手来源之间投票**；反过来，也不要因为「摘要是小模型读的」就把一手判成笔误。**与上游的任何出入（增删行、改默认值、换镜像标签）必须逐条显式列出并给出处**，不得静默改写。**同一纪律在收集流程内的落地**：`research-collector` P1 的每个候选必须标 `snippet-only` / `fetched`，两者不得在 `01_explore_result.md` 里静默混放，P2 只把 `snippet-only` 当线索去取、不当证据（原记录见 `LRN-20261006-026` / `-027`、`ERR-20261006-020`；P1 落地部分见 `LRN-20260929-021`）
 
 ## Don't
 
@@ -67,7 +68,6 @@ Read before starting any new Study System task.
 - WebFetch 拦截的域名（raw.githubusercontent.com、github.com）改用 `curl api.github.com` 替代
 - Discourse 论坛（`community.home-assistant.io`、`community.simon42.com` 这类 `/t/<slug>/<id>` 结构）取**帖子正文**只走 `curl 'https://<host>/t/<id>.json'`（多页 `?page=N`，或读 `post_stream.stream`）；HTML / crawl4ai 路径会 403/522，或**静默只给壳与首帖摘要**。抓取产物里没有目标段落时，先当成**取回方式问题**换取回路径重试，再决定是否把证据置信度降格——漏抓 ≠ 来源不可得（2026-09-18 靠这一条把两帖的「置信度中 / 未核验」闭成「高 / 已核验」）
 - 往 Obsidian 笔记加双链前，先核实目标笔记**真实存在**（逐条 `os.path.exists` 断言），不要给 vault 里不存在的概念词埋死链；章级锚点**避开含反引号/箭头/竖线的标题**（如 `2.7.3 主路径：导出 \`.reg\` → …`），改链到不含特殊字符的上级标题
-- P1 候选必须标**证据形态**：`snippet-only`（只有搜索摘要）还是 `fetched`（正文已取回）；两者不得在 `01_explore_result.md` 里静默混放——搜索摘要被后来当作已取回的来源用，与「转述带引用」是同一类错。P2 只把 `snippet-only` 当线索去取，不当证据
 - 文本比对工具一律**行尾不敏感**比较：本机 `core.autocrlf=true`，工作区是 CRLF，而 `Path.read_text` 会把 CRLF 折成 LF——按原始字节比较的工具在这里会**永久误报**（`[DRIFT] updated: CLAUDE.md` 拖了整轮），把本该可信的门变成人人忽略的噪音。`--check` 退出 1 就先怀疑换行符，别先改内容
 - 把某个区域纳入同步范围前，**先双向 diff 两侧**再决定 canonical 方向：`.claude/agents/` 曾严格领先于 `.codex/agents/`（多出 5 处经验），若直接以 `.codex` 为 canonical 跑 `--apply` 会静默删掉它们。正确顺序是「先把领先侧回收进 canonical → 再加 `paths.<area>` 与 `canonical_scopes` → 再 apply」，并用「apply 后镜像逐字节不变」证明回收完整
 - 在 canonical 文档里**不要写死 canonical/目标路径字面量**：同步的路径替换会把镜像里那句 `.codex/agents/` 改写成 `.claude/agents/`，于是「canonical 是 X」在镜像里变成「canonical 是 Y」——方向说反。描述方向时用 profile 键名（`paths.agents`、`canonical_scopes`），或写成「哪一侧由 profile 决定」
