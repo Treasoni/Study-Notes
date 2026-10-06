@@ -84,6 +84,7 @@ batch-note-updater -> note-updater
 - `.agents/skills/{skill-name}/SKILL.md`
 - `.codex/rules/common/skill-invocation.md`
 - `.codex/rules/common/agent-invocation.md`
+- `.codex/rules/common/context-discipline.md`
 - `.codex/rules/common/env.md`
 - `.codex/rules/common/sync-workflow.md`
 - `.codex/rules/workflow-routing.md`

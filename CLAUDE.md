@@ -84,6 +84,7 @@ batch-note-updater -> note-updater
 - `.claude/skills/{skill-name}/SKILL.md`
 - `.claude/rules/common/skill-invocation.md`
 - `.claude/rules/common/agent-invocation.md`
+- `.claude/rules/common/context-discipline.md`
 - `.claude/rules/common/env.md`
 - `.claude/rules/common/sync-workflow.md`
 - `.claude/rules/workflow-routing.md`

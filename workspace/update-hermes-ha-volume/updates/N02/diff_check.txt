@@ -1,0 +1,25 @@
+== diff check：01-结论先行与能力地图.md <- updated_note.md ==
+原文行数 263 -> 新文行数 263；差异块 6 个
+合计 删除 6 行 / 新增 6 行
+
+--- hunk 1 [replace] 原 L40 -> 新 L40  ✅ 在允许区内
+  - **结论二：「装个现成 skill 就能用」在 HA 场景不成立。**
+  + **结论二：Hub 里有可装的 HA skill——但可装不等于能补能力。**
+--- hunk 2 [replace] 原 L42 -> 新 L42  ✅ 在允许区内
+  - 两层依据。第一层是事实核对：Hermes 官方 optional skills 目录的 smart-home 分类下**只有一个条目**，是 `openhue`——原文描述为 “Control Philips Hue lights, scenes, rooms via OpenHue CLI.”；bundled skills 目录里连 smart-home 这个分类都还没有；而技能系统的说明页 `website/docs/user-guide/features/skills.md`（HMS-05）全文未出现 Home Assistant。
+  + 两层依据。第一层是范围核对：**official 支**（Hermes 仓库内的 optional skills）的 smart-home 分类下只有一个条目，是 `openhue`——原文描述为 “Control Philips Hue lights, scenes, rooms via OpenHue CLI.”；bundled skills 目录里连 smart-home 这个分类都还没有；而技能系统的说明页 `website/docs/user-guide/features/skills.md`（HMS-05）全文未出现 Home Assistant。但这三条说的都只是 `official` 这一支：HMS-05 自己写着，Hub 的搜索由一份**联邦索引**回答，覆盖 `official` 之外的外部注册表（skills.sh、ClawHub、LobeHub、browse.sh、well-known 端点、GitHub taps），`official`（Hermes 仓库内的 optional/bundled skills）只是其中一支——「Hub 里只有 `openhue` 一个」这句话，说的只是它。
+--- hunk 3 [replace] 原 L44 -> 新 L44  ✅ 在允许区内
+  - 第二层是更根本的原因，这里只点一句、第 3 章展开：**skill 不是能力，是知识**。它教 agent 怎么调已有的工具，不新增工具；而 HA 场景并不存在一个可以让 skill 去指挥的 `ha` CLI。所以「搜一个 HA skill 装上」这条路，在能搜到的那一刻之前就已经断了。
+  + 第二层是更根本的原因，这里只点一句、第 3 章展开：**skill 不是能力，是知识**。它教 agent 怎么调已有的工具，不新增工具；而 HA 场景**有**可调的 CLI——`hass-cli` 指的是 `home-assistant-ecosystem/home-assistant-cli`，**Home Assistant Ecosystem 组织**维护的命令行工具，是社区里的事实标准，**不是 HA core 官方出品**（Hub 里 `clawhub/homeassistant-cli` 条目的自述称其为 “official”，措辞不精确，本册不沿用）；Hub 里也**有**封装它的 skill（`clawhub/homeassistant-cli`）。所以这条路的准确说法不是「搜不到」，而是「搜得到、装得上，但装完仍然**不提供新能力**」。
+--- hunk 4 [replace] 原 L47 -> 新 L47  ✅ 在允许区内
+  - > 把 skill 想成一份「岗位说明书」：它告诉你现有这几台机器怎么操作，但不会凭空给你添一台新机器。HA 场景现在缺的是机器，不是说明书。
+  + > 把 skill 想成一份「岗位说明书」：它告诉你现有这几台机器怎么操作，但不会凭空给你添一台新机器。机器有（`hass-cli`），说明书得自己找——Hub 里有；但说明书再全，机器还是那几台。
+--- hunk 5 [replace] 原 L252 -> 新 L252  ✅ 在允许区内
+  - - 「装个现成 HA skill」这条路不存在：官方 optional skills 的 smart-home 分类下只有 `openhue` 一个，而 skill 本身也不提供新能力。
+  + - 「装个现成 HA skill」这条路**有东西可装**，但**可装不等于能补能力**：Hub 的搜索由一份联邦索引回答，「只有 `openhue` 一个」说的只是 `official` 支；skill 本身仍然只是知识，不提供新工具。
+--- hunk 6 [replace] 原 L262 -> 新 L262  ✅ 在允许区内
+  - SRC-01 `tools/homeassistant_tool.py`、SRC-02 `plugins/platforms/homeassistant/adapter.py`、SRC-10 `gateway/platforms/base.py`（均在 github.com/NousResearch/hermes-agent）；HMS-03 `website/docs/reference/toolsets-reference.md`；HMS-05 `website/docs/user-guide/features/skills.md`；COM-01 ha-mcp README（github.com/homeassistant-ai/ha-mcp）；COM-23 ha-mcp Setup Wizard（homeassistant-ai.github.io/ha-mcp/setup/）。场景表来自 `research/probe-03-scenarios.md`，该表不在 canonical 注册表内，本章按其原文逐行核对后使用。
+  + SRC-01 `tools/homeassistant_tool.py`、SRC-02 `plugins/platforms/homeassistant/adapter.py`、SRC-10 `gateway/platforms/base.py`（均在 github.com/NousResearch/hermes-agent）；HMS-03 `website/docs/reference/toolsets-reference.md`；HMS-05 `website/docs/user-guide/features/skills.md`；COM-01 ha-mcp README（github.com/homeassistant-ai/ha-mcp）；COM-23 ha-mcp Setup Wizard（homeassistant-ai.github.io/ha-mcp/setup/）；COM-24 `home-assistant-ecosystem/home-assistant-cli`（github.com/home-assistant-ecosystem/home-assistant-cli；PyPI `homeassistant-cli` 1.0.0）。场景表来自 `research/probe-03-scenarios.md`，该表不在 canonical 注册表内，本章按其原文逐行核对后使用。
+
+## 问题
+- 无

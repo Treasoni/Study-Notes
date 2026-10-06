@@ -1,0 +1,13 @@
+== diff check：10-附录.md <- updated_note.md ==
+原文行数 151 -> 新文行数 152；差异块 1 个
+合计 删除 0 行 / 新增 1 行
+
+--- hunk 1 [insert] 原 L111（插入点） -> 新 L111  ✅ 在允许区内
+  + | `HMS-13` | Skills Hub **中央索引**（联邦索引，8 类来源：`official` / `skills-sh` / `well-known` / `url` / `github` / `clawhub` / `lobehub` / `browse-sh`；截至 2026-09-18 的 Hub 中央索引快照，明示 Home Assistant 的 skill 64 条） | `nousresearch.github.io/hermes-agent/docs/api/skills.json` |
+
+## 提示（非失败）
+- 原文件行尾为 CRLF（150 行）；apply_update.py 会按原行尾写回，不产生无关的行尾改动
+- hunk 1 是 insert（不是纯替换）
+
+## 问题
+- 无

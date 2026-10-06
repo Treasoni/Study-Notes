@@ -37,6 +37,18 @@ if [ ! -f "$TODO_FILE" ]; then
   exit 1
 fi
 
+# Guard: CRLF line endings silently defeat every line-oriented phase check below.
+# Those checks use `\{complete\}$`-style regexes; a trailing `\r` makes an already
+# closed phase read as not-closed, so `complete PN` fails with the misleading
+# "previous phase is not complete". Normalize before parsing so the guard cannot
+# be fooled by line endings again.
+CRLF_COUNT="$(perl -0777 -ne '$n = () = /\r\n/g; print $n' "$TODO_FILE")"
+if [ "${CRLF_COUNT:-0}" -gt 0 ]; then
+  echo "todo-state: WARNING: $TODO_FILE had CRLF line endings ($CRLF_COUNT lines); normalized to LF." >&2
+  echo "todo-state: this usually means the file was rewritten with read_text/write_text instead of read_bytes/write_bytes." >&2
+  perl -0777 -i -pe 's/\r\n/\n/g' "$TODO_FILE"
+fi
+
 case "$ACTION" in
   start|complete|skip|block|mode|confirm) ;;
   *)

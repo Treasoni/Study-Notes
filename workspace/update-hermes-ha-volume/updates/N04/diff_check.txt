@@ -1,0 +1,32 @@
+== diff check：01_explore_result.md <- updated_note.md ==
+原文行数 160 -> 新文行数 167；差异块 6 个
+合计 删除 4 行 / 新增 11 行
+
+--- hunk 1 [replace] 原 L8 -> 新 L8-12  ✅ 在允许区内
+  - 内置 HA 工具只有 4 个且**无历史/无写配置/无摄像头**能力，所以"能做什么"的上限由"走哪条路线"决定——这正是把 A、B 合成一篇的理由。而"推荐个 skill 装上就行"这条最省事的路，在 HA 场景**不存在**。
+  + 内置 HA 工具只有 4 个且**无历史/无写配置/无摄像头**能力，所以"能做什么"的上限由"走哪条路线"决定——这正是把 A、B 合成一篇的理由。而"推荐个 skill 装上就行"这条最省事的路，在 HA 场景**有东西可装**——**截至 2026-09-18 的 Hub 中央索引快照**里，明示 Home Assistant 的 skill 有 **64 条**，但它们只是**知识件**，补不了能力。
+  + 
+  + ## 勘误（2026-09-18，轮次 `update-hermes-ha-volume`）
+  + 
+  + 本文档 F2 曾断言「装个现成 skill」这条路在 HA 场景**不存在**，并据此写成「没有 Home Assistant skill」「HA 场景不存在可调的 `ha` CLI」。这是**范围错误**：当时的核对只覆盖了 `official` 支（Hermes 仓库内的 bundled / optional skill 目录，即索引里的 150 条），而本文档自己的来源 HMS-05 就已写明，Hub 的搜索由一份**联邦索引**回答，覆盖 `official` 之外的外部注册表，`official` 只是其中一支。本轮重取中央索引复核：**截至 2026-09-18 的 Hub 中央索引快照**共 97,986 条记录，其中明示 Home Assistant 的 skill 有 64 条；`hass-cli`（`home-assistant-ecosystem/home-assistant-cli`）也确实存在。据此 F2 改了三处：标题改为「有东西可装，但补不了能力」；原「没有 Home Assistant skill」一句收窄为 `official` 支的范围并补上可装条数；结论 bullet 补上「可装的只是知识件」这一限定。新增来源已登记在第四节的来源索引里。**未改动**的是洞察与结论：skill 仍然只是**知识件**，不新增任何工具；skill 路线在 HA 场景仍然等于自建 SKILL.md，路线选型结论不变。
+--- hunk 2 [replace] 原 L29 -> 新 L33  ✅ 在允许区内
+  - ### F2 "装个现成 skill"这条路不存在
+  + ### F2 "装个现成 skill"这条路：有东西可装，但补不了能力
+--- hunk 3 [replace] 原 L31 -> 新 L35  ✅ 在允许区内
+  - - Skills Hub 全部 bundled + optional skill 中，smart-home 类**只有 `openhue` 一个**；**没有 Home Assistant skill**（来源 HMS-04、HMS-05）
+  + - `official` 支（Hermes 仓库内的 bundled + optional skill）里，smart-home 类**只有 `openhue` 一个**；但这只是整个 Hub 的一支——Hub 的搜索由一份**联邦索引**回答，覆盖 `official` 之外的外部注册表；据**截至 2026-09-18 的 Hub 中央索引快照**，97,986 条记录中**明示 Home Assistant 的 skill 有 64 条**（来源 HMS-04、HMS-05、HMS-13）
+--- hunk 4 [replace] 原 L33 -> 新 L37  ✅ 在允许区内
+  - - 结论：HA 场景下 skill 路线 = **自建** SKILL.md
+  + - 结论：HA 场景下 skill 路线 = **自建** SKILL.md——Hub 里可装的 HA skill 只是**知识件**，不新增任何工具；能力缺口要么自己写 SKILL.md，要么换 MCP / plugin 路线（见 F3）
+--- hunk 5 [insert] 原 L108（插入点） -> 新 L112  ✅ 在允许区内
+  + | HMS-13 | https://nousresearch.github.io/hermes-agent/docs/api/skills.json（Skills Hub **中央索引**，联邦索引、8 类来源；明示 Home Assistant 的 skill 64 条） |
+--- hunk 6 [insert] 原 L123（插入点） -> 新 L128-129  ✅ 在允许区内
+  + | COM-24 | https://github.com/home-assistant-ecosystem/home-assistant-cli | 596★，pushed 2026-08-04，未归档；PyPI `homeassistant-cli` 1.0.0。归属 **Home Assistant Ecosystem**（社区组织），**不是** HA core 官方出品——Hub 里 `clawhub/homeassistant-cli` 条目的自述称其为 "official"，措辞不精确，本册不沿用 |
+  + | COM-25 | https://github.com/homeassistant-ai/skills | 749★，pushed 2026-09-16；遵循开放的 Agent Skills 标准（agentskills.io），含 skill `home-assistant-best-practices`；与 COM-01 是**同一个组织** |
+
+## 提示（非失败）
+- hunk 5 是 insert（不是纯替换）
+- hunk 6 是 insert（不是纯替换）
+
+## 问题
+- 无

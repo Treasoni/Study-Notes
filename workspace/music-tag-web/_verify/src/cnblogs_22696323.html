@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />            
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="referrer" content="origin-when-cross-origin" />
+    <title>Docker部署Navidrome+MusicTagWeb搭建私人音乐库 - ivoinkwell - 博客园</title>
+    <meta name="keywords" content="博客 / 零碎随笔" />
+    <meta name="description" content="如果你是一个使用旧电脑，性能比较差的设备跑NAS，但是又想体验很多功能，那么轻量的Navidrome一定是一个不错的选择，但是安装后却发现音乐播放与之前自己充vip的听歌体验并不相同，虽然喜欢极简的播放器，但是把歌词和封面省略着实是不应该了。但是如果自己去一个一个下载，不说资源好不好找，就光是这个动" />    
+    <meta property="og:description" content="如果你是一个使用旧电脑，性能比较差的设备跑NAS，但是又想体验很多功能，那么轻量的Navidrome一定是一个不错的选择，但是安装后却发现音乐播放与之前自己充vip的听歌体验并不相同，虽然喜欢极简的播放器，但是把歌词和封面省略着实是不应该了。但是如果自己去一个一个下载，不说资源好不好找，就光是这个动" />
+    <meta property="og:image" content="https://assets.cnblogs.com/images/wechat-share.jpg" />
+    <meta property="bytedance:published_time" content="2026-08-26T12:44:53+08:00" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=KfLyuLMZaPHu2efhy8nBKPx3bMumMNp9nRxl0_2_Kls" />
+    <link id="MainCss" rel="stylesheet" href="/skins/codinglife/bundle-codinglife.min.css?v=OoXodbwwI3L_K8YuS0R8JGzat2V4cVm2BqPumUhOLaY" />
+    <link media="(prefers-color-scheme: light)" id="highlighter-theme-prism-solarizedlight" type="text/css" rel="stylesheet" href="/css/prismjs/prism-solarizedlight.css?v=278ChCYdhj8w7EmLSI3-_Z0GIaUwPzWEPIntaHH086I" />
+    <link media="(prefers-color-scheme: dark)" id="highlighter-theme-prism-night-owl-dark" type="text/css" rel="stylesheet" href="/css/prismjs/prism-night-owl.css?v=QUZD4Y1ZlH0J27Hu9rGFQclKH8ZTLiPFguN__Q8Pg-c" />
+    
+    <link type="text/css" rel="stylesheet" href="/css/fonts/Consolas.min.css" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/codinglife/bundle-codinglife-mobile.min.css?v=tZ9Q_q_o7Nas4JT-ZCSvDsm8Rn1D600VYv_6pgsFyzw" />
+    
+    <link id="favicon" rel="icon" type="image/x-icon" sizes="32x32" href="https://assets.cnblogs.com/favicon_v3_3.ico" />
+    <link id="favicon_svg" rel="icon" type="image/svg+xml" href="https://assets.cnblogs.com/favicon_v3_3.svg" />
+    <link rel="apple-touch-icon" href="https://assets.cnblogs.com/apple-touch-icon.png?v=2" />
+    <link rel="canonical" href="https://www.cnblogs.com/ivoink/articles/22696323" />
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/ivoink/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/ivoink/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/ivoink/wlwmanifest.xml" />
+    
+    <script type="application/ld&#x2B;json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "@id": "https://www.cnblogs.com/ivoink/articles/22696323",
+      "headline": "Docker部署Navidrome&#x2B;MusicTagWeb搭建私人音乐库",
+      "description": "如果你是一个使用旧电脑，性能比较差的设备跑NAS，但是又想体验很多功能，那么轻量的Navidrome一定是一个不错的选择，但是安装后却发现音乐播放与之前自己充vip的听歌体验并不相同，虽然喜欢极简的播放器，但是把歌词和封面省略着实是不应该了。但是如果自己去一个一个下载，不说资源好不好找，就光是这个动",
+      "image": [
+        
+      ],
+      "author": {
+        "@type": "Person",
+        "@id": "https://www.cnblogs.com/ivoink/",
+        "name": "ivoinkwell",
+        "url": "https://www.cnblogs.com/ivoink/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://www.cnblogs.com/",
+        "name": "博客园",
+        "url": "https://www.cnblogs.com/"
+      },
+      "datePublished": "2026-08-26T12:45:00.0000000&#x2B;08:00",
+      "dateModified": "2026-08-26T12:45:00.0000000&#x2B;08:00",
+      "wordCount": "1298",
+      "isPartOf": {
+        "@type": "Blog",
+        "@id": "https://www.cnblogs.com/ivoink/",
+        "name": "Ivo&#x27;s Inkwell",
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://www.cnblogs.com/",
+          "name": "博客园"
+        }
+      }
+    }
+    </script>
+
+    <script>
+        var currentBlogId = 843561;
+        var currentBlogApp = 'ivoink';
+        var isLogined = false;
+        var isBlogOwner = false;
+        window.isCorp = false;
+        window.skinName = 'CodingLife';
+        var visitorUserId = '';
+        window.hasCustomScript = false;
+        window.cb_enable_mathjax = false;
+        window.mathEngine = 1;
+        window.codeHighlightEngine = 2;
+        window.enableCodeLineNumber = true;
+        window.codeHighlightTheme = 'prism-solarizedlight';
+        window.darkModeCodeHighlightTheme = 'prism-night-owl';
+        window.isDarkCodeHighlightTheme = false;
+        window.isDarkModeCodeHighlightThemeDark = true;
+        window.isDisableCodeHighlighter = false;
+        window.enableCodeThemeTypeFollowSystem = true;
+        window.enableMacStyleCodeBlock = false;        
+    </script>
+        <script>
+            window.currentPostId = 22696323;
+            window.currentPostDateAdded = '2026-08-26 12:45';
+        </script>
+    <script src="https://assets.cnblogs.com/scripts/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn-www.cnblogs.com/js/blog-common.min.js?v=J5DDsURifN4xhi9MGS4J_bCo9eew4qgmTEm-6Ir7_jQ"></script>
+    
+</head>
+<body class="skin-codinglife has-navbar">
+    <a name="top"></a>
+    <div id="top_nav" class="navbar forpc">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园" role="banner">
+                        <img src="//assets.cnblogs.com/logo.svg" alt="博客园logo" />
+                    </a>
+                </li>
+                <li><a href="https://cnblogs.vip/">会员</a></li>
+                <li><a href="https://cnblogs.vip/store">周边</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="countClicks('nav', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="countClicks('nav', 'skin-navbar-q')">博问</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="countClicks('nav', 'skin-navbar-ing')">闪存</a></li>                
+                <li><a href="https://www.cnblogs.com/cmt/p/19316348">赞助商</a></li>
+                <li><a href="https://chat2db-ai.com/" target="_blank">Chat2DB</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search dropdown" action="https://zzk.cnblogs.com/s" method="get" role="search">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="search" tabindex="3" autocomplete="off" />
+                        <button id="zzk_search_button" onclick="window.navbarSearchManager.triggerActiveOption()">
+                            <img id="search_icon" class="focus-hidden" src="//assets.cnblogs.com/icons/search.svg" alt="搜索" />
+                            <img class="hidden focus-visible" src="//assets.cnblogs.com/icons/enter.svg" alt="搜索" />
+                        </button>
+                        <ul id="navbar_search_options" class="dropdown-menu quick-search-menu">
+                            <li tabindex="0" class="active" onclick="zzkSearch(event, document.getElementById('zzk_search_input').value)">
+                                <div class="keyword-wrapper">
+                                    <img src="//assets.cnblogs.com/icons/search.svg" alt="搜索" />
+                                    <div class="keyword"></div>
+                                </div>
+                                <span class="search-area">所有博客</span>
+                            </li>
+                                    <li tabindex="1" onclick="zzkBlogSearch(event, 'ivoink', document.getElementById('zzk_search_input').value)">
+                                        <div class="keyword-wrapper">
+                                            <img src="//assets.cnblogs.com/icons/search.svg" alt="搜索" />
+                                            <div class="keyword"></div>
+                                        </div>
+                                        <span class="search-area">当前博客</span>
+                                    </li>
+                        </ul>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a class="navbar-user-info navbar-blog" href="https://i.cnblogs.com/EditPosts.aspx?opt=1" alt="写随笔" title="写随笔">
+                        <img id="new_post_icon" class="navbar-icon" src="//assets.cnblogs.com/icons/newpost.svg" alt="写随笔" />
+                    </a>
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://www.cnblogs.com/my" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="//assets.cnblogs.com/icons/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="//assets.cnblogs.com/icons/message.svg" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <a id="navbar_lite_mode_indicator" data-current-page="blog" style="display: none" href="javascript:void(0)" alt="简洁模式" title="简洁模式启用，您在访问他人博客时会使用简洁款皮肤展示">
+                        <img class="navbar-icon" src="//assets.cnblogs.com/icons/lite-mode-on.svg" alt="简洁模式" />
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="//assets.cnblogs.com/icons/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://www.cnblogs.com/my">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="https://vip.cnblogs.com/my">会员中心</a>
+                            <a href="javascript:void(0)" id="navbar_lite_mode_toggle" title="简洁模式会使用简洁款皮肤显示所有博客">
+    简洁模式 <span id="navbar_lite_mode_spinner" class="hide">...</span>
+</a>
+
+                            <a href="javascript:void(0)" onclick="account.logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup">注册</a>
+                    <a class="navbar-anonymous" href="javascript:void(0);" onclick="account.login()">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+
+    <div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/ivoink/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/ivoink">Ivo's Inkwell</a>
+</h1>
+<h2></h2>
+
+
+
+
+		
+	</div>
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/ivoink/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/ivoinkwell">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/ivoink/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			<div id="blog_stats_place_holder"><script>loadBlogStats();</script></div>
+		</div>
+	</div>
+</div>
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                <a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/ivoink/articles/22696323" title="发布于 2026-08-26 12:44">
+    
+
+    <span role="heading" aria-level="2">Docker部署Navidrome+MusicTagWeb搭建私人音乐库</span>
+    
+
+</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+<p>如果你是一个使用旧电脑，性能比较差的设备跑NAS，但是又想体验很多功能，那么轻量的Navidrome一定是一个不错的选择，但是安装后却发现音乐播放与之前自己充vip的听歌体验并不相同，虽然喜欢极简的播放器，但是把歌词和封面省略着实是不应该了。但是如果自己去一个一个下载，不说资源好不好找，就光是这个动作就已经非常浪费时间了，所以MusicTagWeb的自动刮削也是必不可少的。</p>
+<h2 id="为什么不用nas软件商店中的navidrome">为什么不用NAS软件商店中的Navidrome？</h2>
+<p>对于我来说确实不是非常好控制路径，所以选择我Docker更放心一些。正好将两个容器放在一个compose里面部署也简洁省事</p>
+<h2 id="如何搭建和部署">如何搭建和部署</h2>
+<p><strong>下面是我的compose文件：</strong></p>
+<pre><code class="language-dockerfile">version: "3"
+services:
+  # Navidrome 音乐服务器
+  navidrome:
+    image: deluan/navidrome:latest
+    container_name: navidrome
+    ports:
+      - "4533:4533"
+    environment:
+      - ND_LOGLEVEL=info
+      - ND_MUSICFOLDER=/music
+      - ND_DATAFOLDER=/data
+      - ND_ENABLEDOWNLOADS=true
+    volumes:
+      - /vol1/1001/06_Music:/music  # 你的音乐目录，和NAS路径对应
+      - ./navidrome:/data  # Navidrome 数据持久化
+    restart: always
+    networks:
+      - music-network
+
+  # MusicTagWeb 音乐标签编辑器
+  musictagweb:
+    image: xhongc/music_tag_web:latest
+    container_name: musictagweb
+    ports:
+      - "8002:8002"  # 前端访问端口，可自行修改
+    volumes:
+      - /vol1/1001/06_Music:/app/media  # 挂载和Navidrome相同的音乐目录，直接编辑标签
+      - ./musictagweb/data:/app/data  # 挂载数据存储目录
+    restart: unless-stopped
+    networks:
+      - music-network
+
+# 自定义网桥，两个容器互通
+networks:
+  music-network:
+    driver: bridge
+</code></pre>
+<h2 id="这样部署为什么会适合老旧设备">这样部署为什么会适合老旧设备？</h2>
+<p>在MusicTagWeb上面，启动模式是<code>unless-stopped</code>，也就是可以随时手动停止，等到需要添加歌曲的时候再手动打开容器搜刮歌词和图片即可。</p>
+
+
+</div>
+<div class="clear"></div>
+<div id="blog_post_info_block" role="contentinfo" class="post-meta-container">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date" data-last-update-days="0" data-date-updated="2026-08-26 12:45">2026-08-26 12:44</span>&nbsp;
+<a href="https://www.cnblogs.com/ivoink">ivoinkwell</a>&nbsp;
+阅读(<span id="post_view_count">6</span>)&nbsp;
+评论(<span id="post_comment_count">0</span>)&nbsp;
+&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(22696323);return false;">收藏</a>&nbsp;
+<a href="https://report.cnblogs.com?targetLink=https%3A%2F%2Fwww.cnblogs.com%2Fivoink%2Farticles%2F22696323&targetId=22696323&targetType=0" target="_blank">举报</a>
+</div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script>
+    var cb_entryId = 22696323, cb_entryCreatedDate = '2026-08-26 12:44', cb_postType = 2, cb_postTitle = 'Docker部署Navidrome+MusicTagWeb搭建私人音乐库';
+    var allowComments = true, cb_blogId = 843561, cb_blogApp = 'ivoink', cb_blogUserGuid = 'f4f2f3c7-11cc-4f48-0cae-08dd6d1d0201';
+    mermaidRender.render()
+    markdown_highlight()
+    zoomManager.apply("#cnblogs_post_body img:not(.code_img_closed):not(.code_img_opened)");    
+</script>
+<a id="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav">
+        <div class="comment-nav-right">
+            <span id="span_refresh_tips"></span><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a>
+        </div>
+    </div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+        <div id="cnblogs_ch"></div>
+    <div id="opt_under_post"></div>
+        <div id="blog_c1" class="under-post-card below-post-card">
+            <a href="https://www.doubao.com/download/desktop?ug_apk_token=FxCjd" rel="nofollow" target="_blank" onclick="countCreativeClicks('C1-字节-豆包')">
+                <img src="https://img2024.cnblogs.com/blog/35695/202609/35695-20260905201441417-1701437871.webp" onload="countCreativeImpressions('C1-字节-豆包')" alt="" style="width:300px!important;height:250px!important;min-width:300px!important;max-width:300px!important;" />
+                <span id="c1_impression" style="display:none"></span>
+            </a>
+        </div>
+    <div id="under_post_card1"></div>
+    <div id="related_posts_card"></div>
+    <div id="under_post_card2"></div>
+    <div id="HistoryToday" class="under-post-card below-post-card"></div>
+    <script type="text/javascript">
+        var commentManager = new blogCommentManager();
+        commentManager.renderComments(0);
+        fixPostBody();
+        window.footnoteTipManager.generateFootnoteTips();
+
+            window.tocManager.displayDisableTocTips = false;
+            window.tocManager.generateToc();
+            
+            setTimeout(function() { countViews(cb_blogId, cb_entryId); }, 50);
+            
+            deliverT2();
+            deliverC1C2();
+            loadNewsAndKb();
+            
+            LoadPostCategoriesTags(cb_blogId, cb_entryId);
+            
+            LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+            GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+            loadOptUnderPost();
+            GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+                </script>
+</div>
+
+	</div>
+	</div>
+	<div id="sideBar">
+		<div id="sideBarMain">
+			<div id="sidebar_news" class="newsItem">
+    <h3 class="catListTitle">公告</h3>
+<div id="blog-news" class="sidebar-news">
+    <div id="sidebar_news_container">
+    </div>
+</div>
+<script>loadBlogNews();</script>
+
+
+</div>
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+					<script>loadBlogSideColumn()</script>
+			</div>			
+		</div>
+	</div>
+	<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+	<div id="footer">
+		<a href="https://www.cnblogs.com/" id="footer_site_link" class="footer-brand">博客园</a>
+<span class="footer-copyright"> &nbsp;&copy;&nbsp; 2004-2026</span>
+<br /><span class="footer-icp">
+    <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602011771"><img src="//assets.cnblogs.com/images/ghs.png" />浙公网安备 33010602011771号</a>
+    <a href="https://beian.miit.gov.cn" target="_blank">浙ICP备2021040463号-3</a>
+</span>
+
+
+
+	</div>
+</div>
+
+
+
+    
+
+    <input type="hidden" id="antiforgery_token" value="CfDJ8Ow5-In01nBEvFwaadRGjqFrIqjeOefXvIyCeDXz32B-SRqXJwqMiOvBxnZ79AVNSSbMP7axf8yc_TqibIjdpW1htssRhH1jnOrOkZPFvFD1yGHFIjBilQw4qe3Tuif7v6y70CoRqOrRH-VFNIqfIzI" />
+    <script defer src="https://hm.baidu.com/hm.js?866c9be12d4a814454792b1fd0fed295"></script>
+</body>
+</html>

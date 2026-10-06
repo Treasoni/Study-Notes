@@ -321,12 +321,12 @@ docker run -d --name frontend -p 80:80 myapp/frontend
 
 网上教程里你可能见过两种写法：`docker-compose`（带连字符）和 `docker compose`（带空格）。这俩**不是同一个东西**，必须分清 [v1→v2 迁移文档](https://docs.docker.com/compose/migrate/)：
 
-| | v1 | v2 |
-|---|---|---|
-| 命令 | `docker-compose`（连字符） | `docker compose`（空格） |
-| 实现 | 独立 Python 工具 | Go 编写的 Docker CLI 插件 |
-| 状态 | 已弃用、停止维护 | 现行标准，随 Docker Desktop / Engine 安装 |
-| 配置文件 | `docker-compose.yml` | 无需修改，直接通用 |
+|      | v1                    | v2                                |
+| ---- | --------------------- | --------------------------------- |
+| 命令   | `docker-compose`（连字符） | `docker compose`（空格）              |
+| 实现   | 独立 Python 工具          | Go 编写的 Docker CLI 插件              |
+| 状态   | 已弃用、停止维护              | 现行标准，随 Docker Desktop / Engine 安装 |
+| 配置文件 | `docker-compose.yml`  | 无需修改，直接通用                         |
 
 **迁移方法**：把连字符换成空格即可，绝大多数命令 drop-in 兼容：
 

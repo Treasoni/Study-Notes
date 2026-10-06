@@ -186,6 +186,18 @@ if ! python3 .agent-sync/validate_portability.py --root .; then
   fail "Shared agent assets are not portable across machines."
 fi
 
+# Usage-ledger guard. The frozen baseline in .llm/prompt-cache/ pins the reasoning knobs
+# (effortLevel / thinkingBudget / savedProviderEffort.claude) and the per-context
+# full-price input medians. It stays quiet until >=10 post-change contexts exist per
+# layer, then fails on regression or silent knob drift; a machine without a local ledger
+# or settings file is absence of data, not a failure. Both layers are injection-tested
+# (see docs/superpowers/reports/2026-09-14-token-cost-optimization.md).
+if [ -f .llm/prompt-cache/cache-guard.py ]; then
+  if ! python3 .llm/prompt-cache/cache-guard.py --quiet; then
+    fail "Prompt-cache guard reported an actionable problem (regression or knob drift)."
+  fi
+fi
+
 if [ "$status" -eq 0 ]; then
   echo "Workflow health check passed."
 fi

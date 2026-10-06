@@ -1,0 +1,1839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>smbclient(1) — smbclient — Debian trixie — Debian Manpages</title>
+<style type="text/css">
+@font-face {
+  font-family: 'Inconsolata';
+  src: local('Inconsolata'), url(/Inconsolata.woff2) format('woff2'), url(/Inconsolata.woff) format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto'), local('Roboto Regular'), local('Roboto-Regular'), url(/Roboto-Regular.woff2) format('woff2'), url(/Roboto-Regular.woff) format('woff');
+  font-display: swap;
+}
+
+body {
+	color: #000;
+	background-color: white;
+	background-image: linear-gradient(to bottom, #d7d9e2, #fff 70px);
+	background-position: 0 0;
+	background-repeat: repeat-x;
+	font-family: sans-serif;
+	font-size: 100%;
+	line-height: 1.2;
+	letter-spacing: 0.15px;
+	margin: 0;
+	padding: 0;
+}
+
+body > div#header {
+	padding: 0 10px 0 52px;
+}
+
+#logo {
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-left: 1px solid transparent;
+	border-right: 1px solid transparent;
+	border-bottom: 1px solid transparent;
+	width: 50px;
+	height: 5.07em;
+	min-height: 65px;
+}
+
+#logo a {
+	display: block;
+	height: 100%;
+}
+
+#logo img {
+	margin-top: 5px;
+	position: absolute;
+	bottom: 0.3em;
+	overflow: auto;
+	border: 0;
+}
+
+p.section {
+	margin: 0;
+	padding: 0 5px 0 5px;
+	font-size: 13px;
+	line-height: 16px;
+	color: white;
+	letter-spacing: 0.08em;
+	position: absolute;
+	top: 0px;
+	left: 52px;
+	background-color: #c70036;
+}
+
+p.section a {
+	color: white;
+	text-decoration: none;
+}
+
+.hidecss {
+	display: none;
+}
+
+#searchbox {
+	text-align:left;
+	line-height: 1;
+	margin: 0 10px 0 0.5em;
+	padding: 1px 0 1px 0;
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: .75em;
+}
+
+#navbar {
+	border-bottom: 1px solid #c70036;
+}
+
+#navbar ul {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+#navbar li {
+	list-style: none;
+	float: left;
+}
+
+#navbar a {
+	display: block;
+	padding: 1.75em .5em .25em .5em;
+	color: #0035c7;
+	text-decoration: none;
+	border-left: 1px solid transparent;
+	border-right: 1px solid transparent;
+}
+
+#navbar a:hover
+, #navbar a:visited:hover {
+	background-color: #f5f6f7;
+	border-left: 1px solid  #d2d3d7;
+	border-right: 1px solid #d2d3d7;
+	text-decoration: underline;
+}
+
+a:link {
+	color: #0035c7;
+}
+
+a:visited {
+	color: #54638c;
+}
+
+#breadcrumbs {
+	line-height: 2;
+	min-height: 20px;
+	margin: 0;
+	padding: 0;
+	font-size: 0.75em;
+	background-color: #f5f6f7;
+	border-bottom: 1px solid #d2d3d7;
+}
+
+#breadcrumbs:before {
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+}
+
+#content {
+    margin: 0 10px 0 52px;
+    display: flex;
+    flex-direction: row;
+    word-wrap: break-word;
+}
+
+.paneljump {
+    background-color: #d70751;
+    padding: 0.5em;
+    border-radius: 3px;
+    margin-right: .5em;
+    display: none;
+}
+
+.paneljump a,
+.paneljump a:visited,
+.paneljump a:hover,
+.paneljump a:focus {
+    color: white;
+}
+
+@media all and (max-width: 800px) {
+    #content {
+	flex-direction: column;
+	margin: 0.5em;
+    }
+    .paneljump {
+	display: block;
+    }
+}
+
+.panels {
+    display: block;
+    order: 2;
+}
+
+.maincontent {
+    width: 100%;
+    max-width: 80ch;
+    order: 1;
+}
+
+.mandoc {
+    font-family: monospace;
+    font-size: 1.04rem;
+}
+
+.mandoc pre {
+    white-space: pre-wrap;
+}
+
+body > div#footer {
+	border: 1px solid #dfdfe0;
+	border-left: 0;
+	border-right: 0;
+	background-color: #f5f6f7;
+	padding: 1em;
+	margin: 1em 10px 0 52px;
+	font-size: 0.75em;
+	line-height: 1.5em;
+}
+
+hr {
+	border-top: 1px solid #d2d3d7;
+	border-bottom: 1px solid white;
+	border-left: 0;
+	border-right: 0;
+	margin: 1.4375em 0 1.5em 0;
+	height: 0;
+	background-color: #bbb;
+}
+
+#content p {
+    padding-left: 1em;
+}
+
+ 
+
+a, a:hover, a:focus, a:visited {
+    color: #0530D7;
+    text-decoration: none;
+}
+
+ 
+.panel {
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.panel-heading, .panel details {
+  margin: -15px -15px 0px;
+  background-color: #d70751;
+  border-bottom: 1px solid #dddddd;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+}
+
+.panel-heading, .panel summary {
+  padding: 5px 5px;
+  font-size: 17.5px;
+  font-weight: 500;
+  color: #ffffff;
+  outline-style: none;
+}
+
+.panel summary {
+    padding-left: 7px;
+}
+
+summary, details {
+    display: block;
+}
+
+.panel details ul {
+  margin: 0;
+}
+
+.panel-footer {
+  padding: 5px 5px;
+  margin: 15px -15px -15px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #dddddd;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+.panel-info {
+  border-color: #bce8f1;
+}
+
+.panel-info .panel-heading {
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+
+.list-group {
+  padding-left: 0;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+}
+
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: 5px 5px 5px 5px;
+  margin-bottom: -1px;
+  border: 1px solid #dddddd;
+}
+
+.list-group-item > .list-item-key {
+  min-width: 27%;
+  display: inline-block;
+}
+.list-group-item > .list-item-key.versions-repository {
+  min-width: 40%;
+}
+.list-group-item > .list-item-key.versioned-links-version {
+  min-width: 40%
+}
+
+
+.versioned-links-icon {
+  margin-right: 2px;
+}
+.versioned-links-icon a {
+  color: black;
+}
+.versioned-links-icon a:hover {
+  color: blue;
+}
+.versioned-links-icon-inactive {
+  opacity: 0.5;
+}
+
+.list-group-item:first-child {
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+}
+
+.list-group-item:last-child {
+  margin-bottom: 0;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.list-group-item-heading {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.list-group-item-text {
+  margin-bottom: 0;
+  line-height: 1.3;
+}
+
+.list-group-item:hover {
+  background-color: #f5f5f5;
+}
+
+.list-group-item.active a {
+  z-index: 2;
+}
+
+.list-group-item.active {
+  background-color: #efefef;
+}
+
+.list-group-flush {
+  margin: 15px -15px -15px;
+}
+.panel .list-group-flush {
+  margin-top: -1px;
+}
+
+.list-group-flush .list-group-item {
+  border-width: 1px 0;
+}
+
+.list-group-flush .list-group-item:first-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.list-group-flush .list-group-item:last-child {
+  border-bottom: 0;
+}
+
+ 
+
+.panel {
+float: right;
+clear: right;
+min-width: 200px;
+}
+
+.toc {
+     
+    width: 200px;
+}
+
+.toc li {
+    font-size: 98%;
+    letter-spacing: 0.02em;
+    display: flex;
+}
+
+.otherversions {
+     
+    width: 200px;
+}
+
+.otherversions li,
+.otherlangs li {
+    display: flex;
+}
+
+.otherversions a,
+.otherlangs a {
+    flex-shrink: 0;
+}
+
+.pkgversion,
+.pkgname,
+.toc a {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.pkgversion,
+.pkgname {
+    margin-left: auto;
+    padding-left: 1em;
+}
+
+ 
+
+.mandoc {
+     
+    overflow: hidden;
+    margin-top: .5em;
+    margin-right: 45px;
+}
+table.head, table.foot {
+    width: 100%;
+}
+.head-vol {
+    text-align: center;
+}
+.head-rtitle {
+    text-align: right;
+}
+
+ 
+.spacer, .Pp {
+    min-height: 1em;
+}
+
+pre {
+    margin-left: 2em;
+}
+
+.anchor {
+    margin-left: .25em;
+    visibility: hidden;
+}
+
+h1:hover .anchor,
+h2:hover .anchor,
+h3:hover .anchor,
+h4:hover .anchor,
+h5:hover .anchor,
+h6:hover .anchor {
+    visibility: visible;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    letter-spacing: .07em;
+    margin-top: 1.5em;
+    margin-bottom: .35em;
+}
+
+h1 {
+    font-size: 150%;
+}
+
+h2 {
+    font-size: 125%;
+}
+
+@media print {
+    #header, #footer, .panel, .anchor, .paneljump {
+	display: none;
+    }
+    #content {
+	margin: 0;
+    }
+    .mandoc {
+	margin: 0;
+    }
+}
+
+ 
+ 
+
+.Bd { }
+.Bd-indent {	margin-left: 3.8em; }
+
+.Bl-bullet {	list-style-type: disc;
+		padding-left: 1em; }
+.Bl-bullet > li { }
+.Bl-dash {	list-style-type: none;
+		padding-left: 0em; }
+.Bl-dash > li:before {
+		content: "\2014  "; }
+.Bl-item {	list-style-type: none;
+		padding-left: 0em; }
+.Bl-item > li { }
+.Bl-compact > li {
+		margin-top: 0em; }
+
+.Bl-enum {	padding-left: 2em; }
+.Bl-enum > li { }
+.Bl-compact > li {
+		margin-top: 0em; }
+
+.Bl-diag { }
+.Bl-diag > dt {
+		font-style: normal;
+		font-weight: bold; }
+.Bl-diag > dd {
+		margin-left: 0em; }
+.Bl-hang { }
+.Bl-hang > dt { }
+.Bl-hang > dd {
+		margin-left: 5.5em; }
+.Bl-inset { }
+.Bl-inset > dt { }
+.Bl-inset > dd {
+		margin-left: 0em; }
+.Bl-ohang { }
+.Bl-ohang > dt { }
+.Bl-ohang > dd {
+		margin-left: 0em; }
+.Bl-tag {	margin-left: 5.5em; }
+.Bl-tag > dt {
+		float: left;
+		margin-top: 0em;
+		margin-left: -5.5em;
+		padding-right: 1.2em;
+		vertical-align: top; }
+.Bl-tag > dd {
+		clear: both;
+		width: 100%;
+		margin-top: 0em;
+		margin-left: 0em;
+		vertical-align: top;
+		overflow: auto; }
+.Bl-compact > dt {
+		margin-top: 0em; }
+
+.Bl-column { }
+.Bl-column > tbody > tr { }
+.Bl-column > tbody > tr > td {
+		margin-top: 1em; }
+.Bl-compact > tbody > tr > td {
+		margin-top: 0em; }
+
+.Rs {		font-style: normal;
+		font-weight: normal; }
+.RsA { }
+.RsB {		font-style: italic;
+		font-weight: normal; }
+.RsC { }
+.RsD { }
+.RsI {		font-style: italic;
+		font-weight: normal; }
+.RsJ {		font-style: italic;
+		font-weight: normal; }
+.RsN { }
+.RsO { }
+.RsP { }
+.RsQ { }
+.RsR { }
+.RsT {		text-decoration: underline; }
+.RsU { }
+.RsV { }
+
+.eqn { }
+.tbl { }
+
+.HP {		margin-left: 3.8em;
+		text-indent: -3.8em; }
+
+ 
+
+table.Nm { }
+code.Nm {	font-style: normal;
+		font-weight: bold;
+		font-family: inherit; }
+.Fl {		font-style: normal;
+		font-weight: bold;
+		font-family: inherit; }
+.Cm {		font-style: normal;
+		font-weight: bold;
+		font-family: inherit; }
+.Ar {		font-style: italic;
+		font-weight: normal; }
+.Op {		display: inline; }
+.Ic {		font-style: normal;
+		font-weight: bold;
+		font-family: inherit; }
+.Ev {		font-style: normal;
+		font-weight: normal;
+		font-family: monospace; }
+.Pa {		font-style: italic;
+		font-weight: normal; }
+
+ 
+
+.Lb { }
+code.In {	font-style: normal;
+		font-weight: bold;
+		font-family: inherit; }
+a.In { }
+.Fd {		font-style: normal;
+		font-weight: bold;
+		font-family: inherit; }
+.Ft {		font-style: italic;
+		font-weight: normal; }
+.Fn {		font-style: normal;
+		font-weight: bold;
+		font-family: inherit; }
+.Fa {		font-style: italic;
+		font-weight: normal; }
+.Vt {		font-style: italic;
+		font-weight: normal; }
+.Va {		font-style: italic;
+		font-weight: normal; }
+.Dv {		font-style: normal;
+		font-weight: normal;
+		font-family: monospace; }
+.Er {		font-style: normal;
+		font-weight: normal;
+		font-family: monospace; }
+
+ 
+
+.An { }
+.Lk { }
+.Mt { }
+.Cd {		font-style: normal;
+		font-weight: bold;
+		font-family: inherit; }
+.Ad {		font-style: italic;
+		font-weight: normal; }
+.Ms {		font-style: normal;
+		font-weight: bold; }
+.St { }
+.Ux { }
+
+ 
+
+.Bf {		display: inline; }
+.No {		font-style: normal;
+		font-weight: normal; }
+.Em {		font-style: italic;
+		font-weight: normal; }
+.Sy {		font-style: normal;
+		font-weight: bold; }
+.Li {		font-style: normal;
+		font-weight: normal;
+		font-family: monospace; }
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.mandoc, .mandoc pre, .mandoc code, p.section {
+  font-family: 'Inconsolata', monospace;
+}
+
+</style>
+<link rel="search" title="Debian manpages" type="application/opensearchdescription+xml" href="/opensearch.xml">
+<link rel="alternate" href="/trixie/smbclient/smbclient.1.en.html" hreflang="en">
+<link rel="alternate" href="/trixie/manpages-zh/smbclient.1.zh_CN.html" hreflang="zh-CN">
+<link rel="alternate" href="/trixie/manpages-zh/smbclient.1.zh_TW.html" hreflang="zh-TW">
+</head>
+<body>
+<div id="header">
+   <div id="upperheader">
+   <div id="logo">
+  <a href="https://www.debian.org/" title="Debian Home"><img src="/openlogo-50.svg" alt="Debian" width="50" height="61"></a>
+  </div>
+  <p class="section"><a href="/">MANPAGES</a></p>
+  <div id="searchbox">
+    <form action="https://dyn.manpages.debian.org/jump" method="get">
+      <input type="hidden" name="suite" value="trixie">
+      <input type="hidden" name="binarypkg" value="smbclient">
+      <input type="hidden" name="section" value="1">
+      <input type="hidden" name="language" value="en">
+      <input type="text" name="q" placeholder="manpage name" required>
+      <input type="submit" value="Jump">
+    </form>
+  </div>
+ </div>
+<div id="navbar">
+<p class="hidecss"><a href="#content">Skip Quicknav</a></p>
+<ul>
+   <li><a href="/">Index</a></li>
+   <li><a href="/about.html">About Manpages</a></li>
+   <li><a href="/faq.html">FAQ</a></li>
+   <li><a href="https://wiki.debian.org/manpages.debian.org">Service Information</a></li>
+</ul>
+</div>
+   <p id="breadcrumbs">&nbsp;
+     
+     &#x2F; <a href="/contents-trixie.html">trixie</a>
+     
+     
+     
+     &#x2F; <a href="/trixie/smbclient/index.html">smbclient</a>
+     
+     
+     
+     &#x2F; smbclient(1)
+     
+     </p>
+</div>
+<div id="content">
+
+
+<div class="panels" id="panels">
+<div class="panel" role="complementary">
+<div class="panel-heading" role="heading">
+links
+</div>
+<div class="panel-body">
+<ul class="list-group list-group-flush">
+<li class="list-group-item">
+<a href="/trixie/smbclient/smbclient.1">language-indep link</a>
+</li>
+<li class="list-group-item">
+<a href="https://tracker.debian.org/pkg/smbclient">package tracker</a>
+</li>
+<li class="list-group-item">
+<a href="/trixie/smbclient/smbclient.1.en.gz">raw man page</a>
+</li>
+</ul>
+</div>
+</div>
+
+<div class="panel toc" role="complementary" style="padding-bottom: 0">
+<details>
+<summary>
+table of contents
+</summary>
+<div class="panel-body">
+<ul class="list-group list-group-flush">
+
+<li class="list-group-item">
+  <a class="toclink" href="#NAME" title="NAME">NAME</a>
+</li>
+
+<li class="list-group-item">
+  <a class="toclink" href="#SYNOPSIS" title="SYNOPSIS">SYNOPSIS</a>
+</li>
+
+<li class="list-group-item">
+  <a class="toclink" href="#DESCRIPTION" title="DESCRIPTION">DESCRIPTION</a>
+</li>
+
+<li class="list-group-item">
+  <a class="toclink" href="#OPTIONS" title="OPTIONS">OPTIONS</a>
+</li>
+
+<li class="list-group-item">
+  <a class="toclink" href="#OPERATIONS" title="OPERATIONS">OPERATIONS</a>
+</li>
+
+<li class="list-group-item">
+  <a class="toclink" href="#NOTES" title="NOTES">NOTES</a>
+</li>
+
+<li class="list-group-item">
+  <a class="toclink" href="#ENVIRONMENT_VARIABLES" title="ENVIRONMENT VARIABLES">ENVIRONMENT VARIABLES</a>
+</li>
+
+<li class="list-group-item">
+  <a class="toclink" href="#INSTALLATION" title="INSTALLATION">INSTALLATION</a>
+</li>
+
+<li class="list-group-item">
+  <a class="toclink" href="#DIAGNOSTICS" title="DIAGNOSTICS">DIAGNOSTICS</a>
+</li>
+
+<li class="list-group-item">
+  <a class="toclink" href="#VERSION" title="VERSION">VERSION</a>
+</li>
+
+<li class="list-group-item">
+  <a class="toclink" href="#AUTHOR" title="AUTHOR">AUTHOR</a>
+</li>
+
+</ul>
+</div>
+</details>
+</div>
+
+<div class="panel otherversions" role="complementary">
+<div class="panel-heading" role="heading">
+other versions
+</div>
+<div class="panel-body">
+<ul class="list-group list-group-flush">
+
+<li class="list-group-item active">
+<a href="/trixie/smbclient/smbclient.1.en.html">trixie</a> <span class="pkgversion" title="2:4.22.11&#43;dfsg-0&#43;deb13u1">2:4.22.11&#43;dfsg-0&#43;deb13u1</span>
+</li>
+
+<li class="list-group-item">
+<a href="/trixie-backports/smbclient/smbclient.1.en.html">trixie-backports</a> <span class="pkgversion" title="2:4.24.7&#43;dfsg-1~bpo13&#43;1">2:4.24.7&#43;dfsg-1~bpo13&#43;1</span>
+</li>
+
+<li class="list-group-item">
+<a href="/testing/smbclient/smbclient.1.en.html">testing</a> <span class="pkgversion" title="2:4.24.6&#43;dfsg-1">2:4.24.6&#43;dfsg-1</span>
+</li>
+
+<li class="list-group-item">
+<a href="/unstable/smbclient/smbclient.1.en.html">unstable</a> <span class="pkgversion" title="2:4.24.7&#43;dfsg-1">2:4.24.7&#43;dfsg-1</span>
+</li>
+
+<li class="list-group-item">
+<a href="/experimental/smbclient/smbclient.1.en.html">experimental</a> <span class="pkgversion" title="2:4.25.0~rc1&#43;dfsg-1">2:4.25.0~rc1&#43;dfsg-1</span>
+</li>
+
+</ul>
+</div>
+</div>
+
+
+<div class="panel otherlangs" role="complementary">
+<div class="panel-heading" role="heading">
+other languages
+</div>
+<div class="panel-body">
+<ul class="list-group list-group-flush">
+
+<li class="list-group-item active">
+<a href="/trixie/smbclient/smbclient.1.en.html" title="English (en)">English</a>
+
+</li>
+
+<li class="list-group-item">
+<a href="/trixie/manpages-zh/smbclient.1.zh_CN.html" title="Chinese (zh_CN)">中文 (zh-CN)</a>
+
+</li>
+
+<li class="list-group-item">
+<a href="/trixie/manpages-zh/smbclient.1.zh_TW.html" title="Chinese (zh_TW)">繁體中文 (zh-TW)</a>
+
+</li>
+
+</ul>
+</div>
+</div>
+
+
+
+
+
+</div>
+
+<div class="maincontent">
+<p class="paneljump"><a href="#panels">Scroll to navigation</a></p>
+<div class="mandoc">
+<table class="head">
+  <tbody><tr>
+    <td class="head-ltitle">SMBCLIENT(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">SMBCLIENT(1)</td>
+  </tr>
+</tbody></table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME">NAME<a class="anchor" href="#NAME">¶</a></h1>
+<p class="Pp">smbclient - ftp-like client to access SMB/CIFS resources on
+    servers</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS">SYNOPSIS<a class="anchor" href="#SYNOPSIS">¶</a></h1>
+<p class="Pp HP">smbclient [-M|--message=HOST] [-I|--ip-address=IP]
+    [-E|--stderr] [-L|--list=HOST] [-T|--tar=&lt;c|x&gt;IXFvgbNan]
+    [-D|--directory=DIR] [-b|--send-buffer=BYTES] [-t|--timeout=SECONDS]
+    [-p|--port=PORT] [-g|--grepable] [-q|--quiet] [-B|--browse] [-?|--help]
+    [--usage] [-d|--debuglevel=DEBUGLEVEL] [--debug-stdout]
+    [-s|--configfile=CONFIGFILE] [--option=name=value]
+    [-l|--log-basename=LOGFILEBASE] [--leak-report] [--leak-report-full]
+    [-R|--name-resolve=NAME-RESOLVE-ORDER] [-O|--socket-options=SOCKETOPTIONS]
+    [-m|--max-protocol=MAXPROTOCOL] [-n|--netbiosname=NETBIOSNAME]
+    [--netbios-scope=SCOPE] [-W|--workgroup=WORKGROUP] [--realm=REALM]
+    [-U|--user=[DOMAIN/]USERNAME%[PASSWORD]] [-N|--no-pass] [--password=STRING]
+    [--pw-nt-hash] [-A|--authentication-file=FILE] [-P|--machine-pass]
+    [--simple-bind-dn=DN] [--use-kerberos=desired|required|off]
+    [--use-krb5-ccache=CCACHE] [--use-winbind-ccache]
+    [--client-protection=sign|encrypt|off] [-V|--version]
+  [-c|--command=STRING]</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION">DESCRIPTION<a class="anchor" href="#DESCRIPTION">¶</a></h1>
+<p class="Pp">This tool is part of the <a href="/trixie/samba-common-bin/samba.7.en.html">samba(7)</a> suite.</p>
+<p class="Pp">smbclient is a client that can &#39;talk&#39; to an SMB/CIFS server. It
+    offers an interface similar to that of the ftp program (see <a href="/trixie/gftp-text/ftp.1.en.html">ftp(1)</a>).
+    Operations include things like getting files from the server to the local
+    machine, putting files from the local machine to the server, retrieving
+    directory information from the server and so on.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS">OPTIONS<a class="anchor" href="#OPTIONS">¶</a></h1>
+<p class="Pp">servicename</p>
+<div class="Bd-indent">servicename is the name of the service you want to use on
+  the server. A service name takes the form //server/service where <i>server
+  </i> is the NetBIOS name of the SMB/CIFS server offering the desired service
+  and <i>service</i> is the name of the service offered. Thus to connect to the
+  service &#34;printer&#34; on the SMB/CIFS server &#34;smbserver&#34;, you
+  would use the servicename //smbserver/printer
+<p class="Pp">Note that the server name required is NOT necessarily the IP (DNS)
+    host name of the server ! The name required is a NetBIOS server name, which
+    may or may not be the same as the IP hostname of the machine running the
+    server.</p>
+<p class="Pp">The server name is looked up according to either the
+    <i>-R|--name-resolve</i> parameter to smbclient or using the name resolve
+    order parameter in the <a href="/trixie/samba-common-bin/smb.conf.5.en.html">smb.conf(5)</a> file, allowing an administrator to
+    change the order and methods by which server names are looked up.</p>
+</div>
+<p class="Pp">password</p>
+<div class="Bd-indent">The password required to access the specified service on
+  the specified server. If this parameter is supplied, the <i>-N</i> option
+  (suppress password prompt) is assumed.
+<p class="Pp">There is no default password. If no password is supplied on the
+    command line (either by using this parameter or adding a password to the
+    <i>-U</i> option (see below)) and the <i>-N</i> option is not specified, the
+    client will prompt for a password, even if the desired service does not
+    require one. (If no password is required, simply press ENTER to provide a
+    null password.)</p>
+<p class="Pp">Note: Some servers (including OS/2 and Windows for Workgroups)
+    insist on an uppercase password. Lowercase or mixed case passwords may be
+    rejected by these servers.</p>
+<p class="Pp">Be cautious about including passwords in scripts.</p>
+</div>
+<p class="Pp">-M|--message NetBIOS name</p>
+<div class="Bd-indent">This options allows you to send messages, using the
+  &#34;WinPopup&#34; protocol, to another computer. Once a connection is
+  established you then type your message, pressing ^D (control-D) to end.
+<p class="Pp">If the receiving computer is running WinPopup the user will
+    receive the message and probably a beep. If they are not running WinPopup
+    the message will be lost, and no error message will occur.</p>
+<p class="Pp">The message is also automatically truncated if the message is over
+    1600 bytes, as this is the limit of the protocol.</p>
+<p class="Pp">One useful trick is to pipe the message through smbclient. For
+    example: smbclient -M FRED &lt; mymessage.txt will send the message in the
+    file mymessage.txt to the machine FRED.</p>
+<p class="Pp">You may also find the <i>-U</i> and <i>-I</i> options useful, as
+    they allow you to control the FROM and TO parts of the message.</p>
+<p class="Pp">See the <i>message command</i> parameter in the <a href="/trixie/samba-common-bin/smb.conf.5.en.html">smb.conf(5)</a>
+    for a description of how to handle incoming WinPopup messages in Samba.</p>
+<p class="Pp"><i>Note</i>: Copy WinPopup into the startup group on your WfWg PCs
+    if you want them to always be able to receive messages.</p>
+</div>
+<p class="Pp">-p|--port port</p>
+<div class="Bd-indent">This number is the TCP port number that will be used when
+  making connections to the server. The standard (well-known) TCP port number
+  for an SMB/CIFS server is 139, which is the default.</div>
+<p class="Pp">-g|--grepable</p>
+<div class="Bd-indent">This parameter provides combined with <i>-L</i> easy
+  parseable output that allows processing with utilities such as grep and
+  cut.</div>
+<p class="Pp">-m|--max-protocol protocol</p>
+<div class="Bd-indent">This allows the user to select the highest SMB protocol
+  level that smbclient will use to connect to the server. By default this is set
+  to highest available SMB3 protocol version. To connect using SMB2 or SMB1
+  protocol, use the strings SMB2 or NT1 respectively. Note that to connect to a
+  Windows 2012 server with encrypted transport selecting a max-protocol of SMB3
+  is required.</div>
+<p class="Pp">-P|--machine-pass</p>
+<div class="Bd-indent">Make queries to the external server using the machine
+  account of the local server.</div>
+<p class="Pp">-I|--ip-address IP-address</p>
+<div class="Bd-indent"><i>IP address</i> is the address of the server to connect
+  to. It should be specified in standard &#34;a.b.c.d&#34; notation.
+<p class="Pp">Normally the client would attempt to locate a named SMB/CIFS
+    server by looking it up via the NetBIOS name resolution mechanism described
+    above in the <i>name resolve order</i> parameter above. Using this parameter
+    will force the client to assume that the server is on the machine with the
+    specified IP address and the NetBIOS name component of the resource being
+    connected to will be ignored.</p>
+<p class="Pp">There is no default for this parameter. If not supplied, it will
+    be determined automatically by the client as described above.</p>
+</div>
+<p class="Pp">-E|--stderr</p>
+<div class="Bd-indent">This parameter causes the client to write messages to the
+  standard error stream (stderr) rather than to the standard output stream.
+<p class="Pp">By default, the client writes messages to standard output -
+    typically the user&#39;s tty.</p>
+</div>
+<p class="Pp">-L|--list</p>
+<div class="Bd-indent">This option allows you to look at what services are
+  available on a server. You use it as smbclient -L host and a list should
+  appear. The <i>-I </i> option may be useful if your NetBIOS names don&#39;t match
+  your TCP/IP DNS host names or if you are trying to reach a host on another
+  network.</div>
+<p class="Pp">-b|--send-buffer buffersize</p>
+<div class="Bd-indent">When sending or receiving files, smbclient uses an
+  internal buffer sized by the maximum number of allowed requests to the
+  connected server. This command allows this size to be set to any range between
+  0 (which means use the default server controlled size) bytes and 16776960
+  (0xFFFF00) bytes. Using the server controlled size is the most efficient as
+  smbclient will pipeline as many simultaneous reads or writes needed to keep
+  the server as busy as possible. Setting this to any other size will slow down
+  the transfer. This can also be set using the iosize command inside
+  smbclient.</div>
+<p class="Pp">-B|--browse</p>
+<div class="Bd-indent">Browse SMB servers using DNS.</div>
+<p class="Pp">-t|--timeout &lt;timeout-seconds&gt;</p>
+<div class="Bd-indent">This allows the user to tune the default timeout used for
+  each SMB request. The default setting is 20 seconds. Increase it if requests
+  to the server sometimes time out. This can happen when SMB3 encryption is
+  selected and smbclient is overwhelming the server with requests. This can also
+  be set using the timeout command inside smbclient.</div>
+<p class="Pp">-T|--tar tar options</p>
+<div class="Bd-indent">smbclient may be used to create <a href="/trixie/tar/tar.1.en.html">tar(1)</a> compatible backups
+  of all the files on an SMB/CIFS share. The secondary tar flags that can be
+  given to this option are:
+<div class="Bd-indent">
+<p class="Pp"></p>
+<div class="Bd-indent">•<i>c</i> - Create a tar backup archive on the
+  local system. Must be followed by the name of a tar file, tape device or
+  &#34;-&#34; for standard output. If using standard output you must turn the
+  log level to its lowest value -d0 to avoid corrupting your tar file. This flag
+  is mutually exclusive with the <i>x</i> flag.</div>
+<p class="Pp"></p>
+<div class="Bd-indent">•<i>n</i> - In combination with the <i>c</i> flag,
+  do not actually create the archive, instead perform a dry run that attempts
+  everything that involved in creation other than writing the file.</div>
+<p class="Pp"></p>
+<div class="Bd-indent">•<i>x</i> - Extract (restore) a local tar file
+  back to a share. Unless the -D option is given, the tar files will be restored
+  from the top level of the share. Must be followed by the name of the tar file,
+  device or &#34;-&#34; for standard input. Mutually exclusive with the
+  <i>c</i> flag. Restored files have their creation times (mtime) set to the
+  date saved in the tar file. Directories currently do not get their creation
+  dates restored properly.</div>
+<p class="Pp"></p>
+<div class="Bd-indent">•<i>I</i> - Include files and directories. Is the
+  default behavior when filenames are specified above. Causes files to be
+  included in an extract or create (and therefore everything else to be
+  excluded). See example below. Filename globbing works in one of two ways. See
+  <i>r</i> below.</div>
+<p class="Pp"></p>
+<div class="Bd-indent">•<i>X</i> - Exclude files and directories. Causes
+  files to be excluded from an extract or create. See example below. Filename
+  globbing works in one of two ways. See <i>r</i> below.</div>
+<p class="Pp"></p>
+<div class="Bd-indent">•<i>F</i> - File containing a list of files and
+  directories. The <i>F</i> causes the name following the tarfile to create to
+  be read as a filename that contains a list of files and directories to be
+  included in an extract or create (and therefore everything else to be
+  excluded). See example below. Filename globbing works in one of two ways. See
+  <i>r</i> below.</div>
+<p class="Pp"></p>
+<div class="Bd-indent">•<i>b</i> - Blocksize. Must be followed by a valid
+  (greater than zero) blocksize. Causes tar file to be written out in
+  blocksize*TBLOCK (512 byte) blocks.</div>
+<p class="Pp"></p>
+<div class="Bd-indent">•<i>g</i> - Incremental. Only back up files that
+  have the archive bit set. Useful only with the <i>c</i> flag.</div>
+<p class="Pp"></p>
+<div class="Bd-indent">•<i>v</i> - Verbose. Makes tar print out the files
+  being processed. By default tar is not verbose. This is the same as tarmode
+  verbose.</div>
+<p class="Pp"></p>
+<div class="Bd-indent">•<i>r</i> - Use wildcard matching to include or
+  exclude. Deprecated.</div>
+<p class="Pp"></p>
+<div class="Bd-indent">•<i>N</i> - Newer than. Must be followed by the
+  name of a file whose date is compared against files found on the share during
+  a create. Only files newer than the file specified are backed up to the tar
+  file. Useful only with the <i>c</i> flag.</div>
+<p class="Pp"></p>
+<div class="Bd-indent">•<i>a</i> - Set archive bit. Causes the archive
+  bit to be reset when a file is backed up. Useful with the <i>g</i> and
+  <i>c</i> flags.</div>
+<p class="Pp"></p>
+</div>
+<i>Tar Long File Names</i>
+<p class="Pp">smbclient&#39;s tar option now supports long file names both on backup
+    and restore. However, the full path name of the file must be less than 1024
+    bytes. Also, when a tar archive is created, smbclient&#39;s tar option places
+    all files in the archive with relative names, not absolute names.</p>
+<p class="Pp"><i>Tar Filenames</i></p>
+<p class="Pp">All file names can be given as DOS path names (with &#39;\\&#39; as the
+    component separator) or as UNIX path names (with &#39;/&#39; as the component
+    separator).</p>
+<p class="Pp"><i>Examples</i></p>
+<p class="Pp">Restore from tar file backup.tar into myshare on mypc (no password
+    on share).</p>
+<p class="Pp">smbclient //mypc/myshare &#34;&#34; -N -Tx backup.tar</p>
+<p class="Pp">Restore everything except users/docs</p>
+<p class="Pp">smbclient //mypc/myshare &#34;&#34; -N -TXx backup.tar
+    users/docs</p>
+<p class="Pp">Create a tar file of the files beneath users/docs.</p>
+<p class="Pp">smbclient //mypc/myshare &#34;&#34; -N -Tc backup.tar
+  users/docs</p>
+<p class="Pp">Create the same tar file as above, but now use a DOS path
+  name.</p>
+<p class="Pp">smbclient //mypc/myshare &#34;&#34; -N -Tc backup.tar
+    users\edocs</p>
+<p class="Pp">Create a tar file of the files listed in the file tarlist.</p>
+<p class="Pp">smbclient //mypc/myshare &#34;&#34; -N -TcF backup.tar
+  tarlist</p>
+<p class="Pp">Create a tar file of all the files and directories in the
+  share.</p>
+<p class="Pp">smbclient //mypc/myshare &#34;&#34; -N -Tc backup.tar *</p>
+</div>
+<p class="Pp">-D|--directory initial directory</p>
+<div class="Bd-indent">Change to initial directory before starting. Probably
+  only of any use with the tar -T option.</div>
+<p class="Pp">-c|--command command string</p>
+<div class="Bd-indent">command string is a semicolon-separated list of commands
+  to be executed instead of prompting from stdin. <i> -N</i> is implied by
+  <i>-c</i>.
+<p class="Pp">This is particularly useful in scripts and for printing stdin to
+    the server, e.g. -c &#39;print -&#39;.</p>
+</div>
+<p class="Pp">-?|--help</p>
+<div class="Bd-indent">Print a summary of command line options.</div>
+<p class="Pp">--usage</p>
+<div class="Bd-indent">Display brief usage message.</div>
+<p class="Pp">-d|--debuglevel=level</p>
+<div class="Bd-indent"><i>level</i> is an integer from 0 to 10. The default
+  value if this parameter is not specified is 1 for client applications.
+<p class="Pp">The higher this value, the more detail will be logged to the log
+    files about the activities of the server. At level 0, only critical errors
+    and serious warnings will be logged. Level 1 is a reasonable level for
+    day-to-day running - it generates a small amount of information about
+    operations carried out.</p>
+<p class="Pp">Levels above 1 will generate considerable amounts of log data, and
+    should only be used when investigating a problem. Levels above 3 are
+    designed for use only by developers and generate HUGE amounts of log data,
+    most of which is extremely cryptic.</p>
+<p class="Pp">Note that specifying this parameter here will override the <b>log
+    level</b> parameter in the /etc/samba/smb.conf file.</p>
+</div>
+<p class="Pp">--debug-stdout</p>
+<div class="Bd-indent">This will redirect debug output to STDOUT. By default all
+  clients are logging to STDERR.</div>
+<p class="Pp">--configfile=&lt;configuration file&gt;</p>
+<div class="Bd-indent">The file specified contains the configuration details
+  required by the client. The information in this file can be general for client
+  and server or only provide client specific like options such as <b>client smb
+  encrypt</b>. See /etc/samba/smb.conf for more information. The default
+  configuration file name is determined at compile time.</div>
+<p class="Pp">--option=&lt;name&gt;=&lt;value&gt;</p>
+<div class="Bd-indent">Set the <a href="/trixie/samba-common-bin/smb.conf.5.en.html">smb.conf(5)</a> option
+  &#34;&lt;name&gt;&#34; to value &#34;&lt;value&gt;&#34; from the command
+  line. This overrides compiled-in defaults and options read from the
+  configuration file. If a name or a value includes a space, wrap whole
+  --option=name=value into quotes.</div>
+<p class="Pp">-l|--log-basename=logdirectory</p>
+<div class="Bd-indent">Base directory name for log/debug files. The extension
+  <b>&#34;.progname&#34;</b> will be appended (e.g. log.smbclient, log.smbd,
+  etc...). The log file is never removed by the client.</div>
+<p class="Pp">--leak-report</p>
+<div class="Bd-indent">Enable talloc leak reporting on exit.</div>
+<p class="Pp">--leak-report-full</p>
+<div class="Bd-indent">Enable full talloc leak reporting on exit.</div>
+<p class="Pp">-V|--version</p>
+<div class="Bd-indent">Prints the program version number.</div>
+<p class="Pp">-R|--name-resolve=NAME-RESOLVE-ORDER</p>
+<div class="Bd-indent">This option is used to determine what naming services and
+  in what order to resolve host names to IP addresses. The option takes a
+  space-separated string of different name resolution options. The best is to
+  wrap the whole --name-resolve=NAME-RESOLVE-ORDER into quotes.
+<p class="Pp">The options are: &#34;lmhosts&#34;, &#34;host&#34;,
+    &#34;wins&#34; and &#34;bcast&#34;. They cause names to be resolved as
+    follows:</p>
+<div class="Bd-indent">
+<p class="Pp"></p>
+<div class="Bd-indent">•<b>lmhosts</b>: Lookup an IP address in the Samba
+  lmhosts file. If the line in lmhosts has no name type attached to the NetBIOS
+  name (see the <a href="/trixie/samba-common-bin/lmhosts.5.en.html">lmhosts(5)</a> for details) then any name type matches for
+  lookup.</div>
+<p class="Pp"></p>
+<div class="Bd-indent">•<b>host</b>: Do a standard host name to IP
+  address resolution, using the system /etc/hosts, NIS, or DNS lookups. This
+  method of name resolution is operating system dependent, for instance on IRIX
+  or Solaris this may be controlled by the /etc/nsswitch.conf file). Note that
+  this method is only used if the NetBIOS name type being queried is the 0x20
+  (server) name type, otherwise it is ignored.</div>
+<p class="Pp"></p>
+<div class="Bd-indent">•<b>wins</b>: Query a name with the IP address
+  listed in the <i>wins server</i> parameter. If no WINS server has been
+  specified this method will be ignored.</div>
+<p class="Pp"></p>
+<div class="Bd-indent">•<b>bcast</b>: Do a broadcast on each of the known
+  local interfaces listed in the <i>interfaces</i> parameter. This is the least
+  reliable of the name resolution methods as it depends on the target host being
+  on a locally connected subnet.</div>
+<p class="Pp"></p>
+</div>
+If this parameter is not set then the name resolve order defined in the
+  /etc/samba/smb.conf file parameter (<b>name resolve order</b>) will be used.
+<p class="Pp">The default order is lmhosts, host, wins, bcast. Without this
+    parameter or any entry in the <b>name resolve order</b> parameter of the
+    /etc/samba/smb.conf file, the name resolution methods will be attempted in
+    this order.</p>
+</div>
+<p class="Pp">-O|--socket-options=SOCKETOPTIONS</p>
+<div class="Bd-indent">TCP socket options to set on the client socket. See the
+  socket options parameter in the /etc/samba/smb.conf manual page for the list
+  of valid options.</div>
+<p class="Pp">-m|--max-protocol=MAXPROTOCOL</p>
+<div class="Bd-indent">The value of the parameter (a string) is the highest
+  protocol level that will be supported by the client.
+<p class="Pp">Note that specifying this parameter here will override the
+    <b>client max protocol</b> parameter in the /etc/samba/smb.conf file.</p>
+</div>
+<p class="Pp">-n|--netbiosname=NETBIOSNAME</p>
+<div class="Bd-indent">This option allows you to override the NetBIOS name that
+  Samba uses for itself. This is identical to setting the <b>netbios name</b>
+  parameter in the /etc/samba/smb.conf file. However, a command line setting
+  will take precedence over settings in /etc/samba/smb.conf.</div>
+<p class="Pp">--netbios-scope=SCOPE</p>
+<div class="Bd-indent">This specifies a NetBIOS scope that nmblookup will use to
+  communicate with when generating NetBIOS names. For details on the use of
+  NetBIOS scopes, see rfc1001.txt and rfc1002.txt. NetBIOS scopes are
+  <i>very</i> rarely used, only set this parameter if you are the system
+  administrator in charge of all the NetBIOS systems you communicate with.</div>
+<p class="Pp">-W|--workgroup=WORKGROUP</p>
+<div class="Bd-indent">Set the SMB domain of the username. This overrides the
+  default domain which is the domain defined in smb.conf. If the domain
+  specified is the same as the servers NetBIOS name, it causes the client to log
+  on using the servers local SAM (as opposed to the Domain SAM).
+<p class="Pp">Note that specifying this parameter here will override the
+    <b>workgroup</b> parameter in the /etc/samba/smb.conf file.</p>
+</div>
+<p class="Pp">-r|--realm=REALM</p>
+<div class="Bd-indent">Set the realm for the domain.
+<p class="Pp">Note that specifying this parameter here will override the
+    <b>realm</b> parameter in the /etc/samba/smb.conf file.</p>
+</div>
+<p class="Pp">-U|--user=[DOMAIN\]USERNAME[%PASSWORD]</p>
+<div class="Bd-indent">Sets the SMB username or username and password.
+<p class="Pp">If %PASSWORD is not specified, the user will be prompted. The
+    client will first check the <b>USER</b> environment variable (which is also
+    permitted to also contain the password separated by a %), then the
+    <b>LOGNAME</b> variable (which is not permitted to contain a password) and
+    if either exists, the value is used. If these environmental variables are
+    not found, the username found in a Kerberos Credentials cache may be
+  used.</p>
+<p class="Pp">A third option is to use a credentials file which contains the
+    plaintext of the username and password. This option is mainly provided for
+    scripts where the admin does not wish to pass the credentials on the command
+    line or via environment variables. If this method is used, make certain that
+    the permissions on the file restrict access from unwanted users. See the
+    <i>-A</i> for more details.</p>
+<p class="Pp">Be cautious about including passwords in scripts or passing
+    user-supplied values onto the command line. For security it is better to let
+    the Samba client tool ask for the password if needed, or obtain the password
+    once with kinit.</p>
+<p class="Pp">While Samba will attempt to scrub the password from the process
+    title (as seen in ps), this is after startup and so is subject to a
+  race.</p>
+</div>
+<p class="Pp">-N|--no-pass</p>
+<div class="Bd-indent">If specified, this parameter suppresses the normal
+  password prompt from the client to the user. This is useful when accessing a
+  service that does not require a password.
+<p class="Pp">Unless a password is specified on the command line or this
+    parameter is specified, the client will request a password.</p>
+<p class="Pp">If a password is specified on the command line and this option is
+    also defined the password on the command line will be silently ignored and
+    no password will be used.</p>
+</div>
+<p class="Pp">--password</p>
+<div class="Bd-indent">Specify the password on the commandline.
+<p class="Pp">Be cautious about including passwords in scripts or passing
+    user-supplied values onto the command line. For security it is better to let
+    the Samba client tool ask for the password if needed, or obtain the password
+    once with kinit.</p>
+<p class="Pp">If --password is not specified, the tool will check the
+    <b>PASSWD</b> environment variable, followed by <b>PASSWD_FD</b> which is
+    expected to contain an open file descriptor (FD) number.</p>
+<p class="Pp">Finally it will check <b>PASSWD_FILE</b> (containing a file path
+    to be opened). The file should only contain the password. Make certain that
+    the permissions on the file restrict access from unwanted users!</p>
+<p class="Pp">While Samba will attempt to scrub the password from the process
+    title (as seen in ps), this is after startup and so is subject to a
+  race.</p>
+</div>
+<p class="Pp">--pw-nt-hash</p>
+<div class="Bd-indent">The supplied password is the NT hash.</div>
+<p class="Pp">-A|--authentication-file=filename</p>
+<div class="Bd-indent">This option allows you to specify a file from which to
+  read the username and password used in the connection. The format of the file
+  is:
+<p class="Pp"></p>
+<div class="Bd-indent">
+<pre>				username = &lt;value&gt;
+				password = &lt;value&gt;
+				domain   = &lt;value&gt;
+			</pre>
+</div>
+<p class="Pp">Make certain that the permissions on the file restrict access from
+    unwanted users!</p>
+</div>
+<p class="Pp">-P|--machine-pass</p>
+<div class="Bd-indent">Use stored machine account password.</div>
+<p class="Pp">--simple-bind-dn=DN</p>
+<div class="Bd-indent">DN to use for a simple bind.</div>
+<p class="Pp">--use-kerberos=desired|required|off</p>
+<div class="Bd-indent">This parameter determines whether Samba client tools will
+  try to authenticate using Kerberos. For Kerberos authentication you need to
+  use dns names instead of IP addresses when connecting to a service.
+<p class="Pp">Note that specifying this parameter here will override the
+    <b>client use kerberos</b> parameter in the /etc/samba/smb.conf file.</p>
+</div>
+<p class="Pp">--use-krb5-ccache=CCACHE</p>
+<div class="Bd-indent">Specifies the credential cache location for Kerberos
+  authentication.
+<p class="Pp">This will set --use-kerberos=required too.</p>
+</div>
+<p class="Pp">--use-winbind-ccache</p>
+<div class="Bd-indent">Try to use the credential cache by winbind.</div>
+<p class="Pp">--client-protection=sign|encrypt|off</p>
+<div class="Bd-indent">Sets the connection protection the client tool should
+  use.
+<p class="Pp">Note that specifying this parameter here will override the
+    <b>client protection</b> parameter in the /etc/samba/smb.conf file.</p>
+<p class="Pp">In case you need more fine grained control you can use:
+    --option=clientsmbencrypt=OPTION, --option=clientipcsigning=OPTION,
+    --option=clientsigning=OPTION.</p>
+</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPERATIONS">OPERATIONS<a class="anchor" href="#OPERATIONS">¶</a></h1>
+<p class="Pp">Once the client is running, the user is presented with a prompt
+  :</p>
+<p class="Pp">smb:\&gt;</p>
+<p class="Pp">The backslash (&#34;\\&#34;) indicates the current working
+    directory on the server, and will change if the current working directory is
+    changed.</p>
+<p class="Pp">The prompt indicates that the client is ready and waiting to carry
+    out a user command. Each command is a single word, optionally followed by
+    parameters specific to that command. Command and parameters are
+    space-delimited unless these notes specifically state otherwise. All
+    commands are case-insensitive. Parameters to commands may or may not be case
+    sensitive, depending on the command.</p>
+<p class="Pp">You can specify file names which have spaces in them by quoting
+    the name with double quotes, for example &#34;a long file name&#34;.</p>
+<p class="Pp">Parameters shown in square brackets (e.g.,
+    &#34;[parameter]&#34;) are optional. If not given, the command will use
+    suitable defaults. Parameters shown in angle brackets (e.g.,
+    &#34;&lt;parameter&gt;&#34;) are required.</p>
+<p class="Pp">Note that all commands operating on the server are actually
+    performed by issuing a request to the server. Thus the behavior may vary
+    from server to server, depending on how the server was implemented.</p>
+<p class="Pp">The commands available are given here in alphabetical order.</p>
+<p class="Pp">? [command]</p>
+<div class="Bd-indent">If <i>command</i> is specified, the ? command will
+  display a brief informative message about the specified command. If no command
+  is specified, a list of available commands will be displayed.</div>
+<p class="Pp">! [shell command]</p>
+<div class="Bd-indent">If <i>shell command</i> is specified, the ! command will
+  execute a shell locally and run the specified shell command. If no command is
+  specified, a local shell will be run.</div>
+<p class="Pp">allinfo file</p>
+<div class="Bd-indent">The client will request that the server return all known
+  information about a file or directory (including streams).</div>
+<p class="Pp">altname file</p>
+<div class="Bd-indent">The client will request that the server return the
+  &#34;alternate&#34; name (the 8.3 name) for a file or directory.</div>
+<p class="Pp">archive &lt;number&gt;</p>
+<div class="Bd-indent">Sets the archive level when operating on files. 0 means
+  ignore the archive bit, 1 means only operate on files with this bit set, 2
+  means only operate on files with this bit set and reset it after operation, 3
+  means operate on all files and reset it after operation. The default is
+  0.</div>
+<p class="Pp">backup</p>
+<div class="Bd-indent">Toggle the state of the &#34;backup intent&#34; flag
+  sent to the server on directory listings and file opens. If the &#34;backup
+  intent&#34; flag is true, the server will try and bypass some file system
+  checks if the user has been granted SE_BACKUP or SE_RESTORE privileges. This
+  state is useful when performing a backup or restore operation.</div>
+<p class="Pp">blocksize &lt;number&gt;</p>
+<div class="Bd-indent">Sets the blocksize parameter for a tar operation. The
+  default is 20. Causes tar file to be written out in blocksize*TBLOCK (normally
+  512 byte) units.</div>
+<p class="Pp">cancel jobid0 [jobid1] ... [jobidN]</p>
+<div class="Bd-indent">The client will request that the server cancel the
+  printjobs identified by the given numeric print job ids.</div>
+<p class="Pp">case_sensitive</p>
+<div class="Bd-indent">Toggles the setting of the flag in SMB packets that tells
+  the server to treat filenames as case sensitive. Set to OFF by default (tells
+  file server to treat filenames as case insensitive). Only currently affects
+  Samba 3.0.5 and above file servers with the case sensitive parameter set to
+  auto in the smb.conf.</div>
+<p class="Pp">cd &lt;directory name&gt;</p>
+<div class="Bd-indent">If &#34;directory name&#34; is specified, the current
+  working directory on the server will be changed to the directory specified.
+  This operation will fail if for any reason the specified directory is
+  inaccessible.
+<p class="Pp">If no directory name is specified, the current working directory
+    on the server will be reported.</p>
+</div>
+<p class="Pp">chmod file mode in octal</p>
+<div class="Bd-indent">This command depends on the server supporting the CIFS
+  UNIX extensions and will fail if the server does not. The client requests that
+  the server change the UNIX permissions to the given octal mode, in standard
+  UNIX format.</div>
+<p class="Pp">chown file uid gid</p>
+<div class="Bd-indent">This command depends on the server supporting the CIFS
+  UNIX extensions and will fail if the server does not. The client requests that
+  the server change the UNIX user and group ownership to the given decimal
+  values. Note there is currently no way to remotely look up the UNIX uid and
+  gid values for a given name. This may be addressed in future versions of the
+  CIFS UNIX extensions.</div>
+<p class="Pp">close &lt;fileid&gt;</p>
+<div class="Bd-indent">Closes a file explicitly opened by the open command. Used
+  for internal Samba testing purposes.</div>
+<p class="Pp">del &lt;mask&gt;</p>
+<div class="Bd-indent">The client will request that the server attempt to delete
+  all files matching <i>mask</i> from the current working directory on the
+  server.</div>
+<p class="Pp">deltree &lt;mask&gt;</p>
+<div class="Bd-indent">The client will request that the server attempt to delete
+  all files and directories matching <i>mask</i> from the current working
+  directory on the server. Note this will recursively delete files and
+  directories within the directories selected even without the recurse command
+  being set. If any of the delete requests fail the command will stop processing
+  at that point, leaving files and directories not yet processed untouched. This
+  is by design.</div>
+<p class="Pp">dir &lt;mask&gt;</p>
+<div class="Bd-indent">A list of the files matching <i>mask</i> in the current
+  working directory on the server will be retrieved from the server and
+  displayed.</div>
+<p class="Pp">du &lt;filename&gt;</p>
+<div class="Bd-indent">Does a directory listing and then prints out the current
+  disk usage and free space on a share.</div>
+<p class="Pp">echo &lt;number&gt; &lt;data&gt;</p>
+<div class="Bd-indent">Does an SMBecho request to ping the server. Used for
+  internal Samba testing purposes.</div>
+<p class="Pp">exit</p>
+<div class="Bd-indent">Terminate the connection with the server and exit from
+  the program.</div>
+<p class="Pp">get &lt;remote file name&gt; [local file name]</p>
+<div class="Bd-indent">Copy the file called remote file name from the server to
+  the machine running the client. If specified, name the local copy local file
+  name. Note that all transfers in smbclient are binary. See also the lowercase
+  command.</div>
+<p class="Pp">getfacl &lt;filename&gt;</p>
+<div class="Bd-indent">Requires the server support the UNIX extensions. Requests
+  and prints the POSIX ACL on a file.</div>
+<p class="Pp">hardlink &lt;src&gt; &lt;dest&gt;</p>
+<div class="Bd-indent">Creates a hardlink on the server using Windows CIFS
+  semantics.</div>
+<p class="Pp">help [command]</p>
+<div class="Bd-indent">See the ? command above.</div>
+<p class="Pp">history</p>
+<div class="Bd-indent">Displays the command history.</div>
+<p class="Pp">iosize &lt;bytes&gt;</p>
+<div class="Bd-indent">When sending or receiving files, smbclient uses an
+  internal buffer sized by the maximum number of allowed requests to the
+  connected server. This command allows this size to be set to any range between
+  0 (which means use the default server controlled size) bytes and 16776960
+  (0xFFFF00) bytes. Using the server controlled size is the most efficient as
+  smbclient will pipeline as many simultaneous reads or writes needed to keep
+  the server as busy as possible. Setting this to any other size will slow down
+  the transfer.</div>
+<p class="Pp">lcd [directory name]</p>
+<div class="Bd-indent">If <i>directory name</i> is specified, the current
+  working directory on the local machine will be changed to the directory
+  specified. This operation will fail if for any reason the specified directory
+  is inaccessible.
+<p class="Pp">If no directory name is specified, the name of the current working
+    directory on the local machine will be reported.</p>
+</div>
+<p class="Pp">link target linkname</p>
+<div class="Bd-indent">This command depends on the server supporting the CIFS
+  UNIX extensions and will fail if the server does not. The client requests that
+  the server create a hard link between the linkname and target files. The
+  linkname file must not exist.</div>
+<p class="Pp">listconnect</p>
+<div class="Bd-indent">Show the current connections held for DFS purposes.</div>
+<p class="Pp">lock &lt;filenum&gt; &lt;r|w&gt; &lt;hex-start&gt;
+  &lt;hex-len&gt;</p>
+<div class="Bd-indent">This command depends on the server supporting the CIFS
+  UNIX extensions and will fail if the server does not. Tries to set a POSIX
+  fcntl lock of the given type on the given range. Used for internal Samba
+  testing purposes.</div>
+<p class="Pp">logon &lt;username&gt; &lt;password&gt;</p>
+<div class="Bd-indent">Establishes a new vuid for this session by logging on
+  again. Replaces the current vuid. Prints out the new vuid. Used for internal
+  Samba testing purposes.</div>
+<p class="Pp">logoff</p>
+<div class="Bd-indent">Logs the user off the server, closing the session. Used
+  for internal Samba testing purposes.</div>
+<p class="Pp">lowercase</p>
+<div class="Bd-indent">Toggle lowercasing of filenames for the get and mget
+  commands.
+<p class="Pp">When lowercasing is toggled ON, local filenames are converted to
+    lowercase when using the get and mget commands. This is often useful when
+    copying (say) MSDOS files from a server, because lowercase filenames are the
+    norm on UNIX systems.</p>
+</div>
+<p class="Pp">ls &lt;mask&gt;</p>
+<div class="Bd-indent">See the dir command above.</div>
+<p class="Pp">mask &lt;mask&gt;</p>
+<div class="Bd-indent">This command allows the user to set up a mask which will
+  be used during recursive operation of the mget and mput commands.
+<p class="Pp">The masks specified to the mget and mput commands act as filters
+    for directories rather than files when recursion is toggled ON.</p>
+<p class="Pp">The mask specified with the mask command is necessary to filter
+    files within those directories. For example, if the mask specified in an
+    mget command is &#34;source*&#34; and the mask specified with the mask
+    command is &#34;*.c&#34; and recursion is toggled ON, the mget command
+    will retrieve all files matching &#34;*.c&#34; in all directories below
+    and including all directories matching &#34;source*&#34; in the current
+    working directory.</p>
+<p class="Pp">Note that the value for mask defaults to blank (equivalent to
+    &#34;*&#34;) and remains so until the mask command is used to change it.
+    It retains the most recently specified value indefinitely. To avoid
+    unexpected results it would be wise to change the value of mask back to
+    &#34;*&#34; after using the mget or mput commands.</p>
+</div>
+<p class="Pp">md &lt;directory name&gt;</p>
+<div class="Bd-indent">See the mkdir command.</div>
+<p class="Pp">mget &lt;mask&gt;</p>
+<div class="Bd-indent">Copy all files matching <i>mask</i> from the server to
+  the machine running the client.
+<p class="Pp">Note that <i>mask</i> is interpreted differently during recursive
+    operation and non-recursive operation - refer to the recurse and mask
+    commands for more information. Note that all transfers in smbclient are
+    binary. See also the lowercase command.</p>
+</div>
+<p class="Pp">mkdir &lt;directory name&gt;</p>
+<div class="Bd-indent">Create a new directory on the server (user access
+  privileges permitting) with the specified name.</div>
+<p class="Pp">more &lt;file name&gt;</p>
+<div class="Bd-indent">Fetch a remote file and view it with the contents of your
+  PAGER environment variable.</div>
+<p class="Pp">mput &lt;mask&gt;</p>
+<div class="Bd-indent">Copy all files matching <i>mask</i> in the current
+  working directory on the local machine to the current working directory on the
+  server.
+<p class="Pp">Note that <i>mask</i> is interpreted differently during recursive
+    operation and non-recursive operation - refer to the recurse and mask
+    commands for more information. Note that all transfers in smbclient are
+    binary.</p>
+</div>
+<p class="Pp">notify &lt;dir name&gt;</p>
+<div class="Bd-indent">Query a directory for change notifications. This command
+  issues a recursive filechangenotify call for all possible changes. As changes
+  come in will print one line per change. See
+  <a href="https://msdn.microsoft.com/en-us/library/dn392331.aspx">https://msdn.microsoft.com/en-us/library/dn392331.aspx</a> for a description of
+  the action numbers that this command prints.
+<p class="Pp">This command never ends, it waits for event indefinitely.</p>
+</div>
+<p class="Pp">posix</p>
+<div class="Bd-indent">Query the remote server to see if it supports the CIFS
+  UNIX extensions and prints out the list of capabilities supported. If so, turn
+  on POSIX pathname processing and large file read/writes (if available),.</div>
+<p class="Pp">posix_encrypt &lt;domain&gt; &lt;username&gt; &lt;password&gt;</p>
+<div class="Bd-indent">This command depends on the server supporting the CIFS
+  UNIX extensions and will fail if the server does not. Attempt to negotiate SMB
+  encryption on this connection. If smbclient connected with kerberos
+  credentials (-k) the arguments to this command are ignored and the kerberos
+  credentials are used to negotiate GSSAPI signing and sealing instead. See also
+  the -e option to smbclient to force encryption on initial connection. This
+  command is new with Samba 3.2.</div>
+<p class="Pp">posix_open &lt;filename&gt; &lt;octal mode&gt;</p>
+<div class="Bd-indent">This command depends on the server supporting the CIFS
+  UNIX extensions and will fail if the server does not. Opens a remote file
+  using the CIFS UNIX extensions and prints a fileid. Used for internal Samba
+  testing purposes.</div>
+<p class="Pp">posix_mkdir &lt;directoryname&gt; &lt;octal mode&gt;</p>
+<div class="Bd-indent">This command depends on the server supporting the CIFS
+  UNIX extensions and will fail if the server does not. Creates a remote
+  directory using the CIFS UNIX extensions with the given mode.</div>
+<p class="Pp">posix_rmdir &lt;directoryname&gt;</p>
+<div class="Bd-indent">This command depends on the server supporting the CIFS
+  UNIX extensions and will fail if the server does not. Deletes a remote
+  directory using the CIFS UNIX extensions.</div>
+<p class="Pp">posix_unlink &lt;filename&gt;</p>
+<div class="Bd-indent">This command depends on the server supporting the CIFS
+  UNIX extensions and will fail if the server does not. Deletes a remote file
+  using the CIFS UNIX extensions.</div>
+<p class="Pp">posix_whoami</p>
+<div class="Bd-indent">Query the remote server for the user token using the CIFS
+  UNIX extensions WHOAMI call. Prints out the guest status, user, group, group
+  list and sid list that the remote server is using on behalf of the logged on
+  user.</div>
+<p class="Pp">print &lt;file name&gt;</p>
+<div class="Bd-indent">Print the specified file from the local machine through a
+  printable service on the server.</div>
+<p class="Pp">prompt</p>
+<div class="Bd-indent">Toggle prompting for filenames during operation of the
+  mget and mput commands.
+<p class="Pp">When toggled ON, the user will be prompted to confirm the transfer
+    of each file during these commands. When toggled OFF, all specified files
+    will be transferred without prompting.</p>
+</div>
+<p class="Pp">put &lt;local file name&gt; [remote file name]</p>
+<div class="Bd-indent">Copy the file called local file name from the machine
+  running the client to the server. If specified, name the remote copy remote
+  file name. Note that all transfers in smbclient are binary. See also the
+  lowercase command.</div>
+<p class="Pp">queue</p>
+<div class="Bd-indent">Displays the print queue, showing the job id, name, size
+  and current status.</div>
+<p class="Pp">quit</p>
+<div class="Bd-indent">See the exit command.</div>
+<p class="Pp">readlink symlinkname</p>
+<div class="Bd-indent">This command depends on the server supporting the CIFS
+  UNIX extensions and will fail if the server does not. Print the value of the
+  symlink &#34;symlinkname&#34;.</div>
+<p class="Pp">rd &lt;directory name&gt;</p>
+<div class="Bd-indent">See the rmdir command.</div>
+<p class="Pp">recurse</p>
+<div class="Bd-indent">Toggle directory recursion for the commands mget and
+  mput.
+<p class="Pp">When toggled ON, these commands will process all directories in
+    the source directory (i.e., the directory they are copying from ) and will
+    recurse into any that match the mask specified to the command. Only files
+    that match the mask specified using the mask command will be retrieved. See
+    also the mask command.</p>
+<p class="Pp">When recursion is toggled OFF, only files from the current working
+    directory on the source machine that match the mask specified to the mget or
+    mput commands will be copied, and any mask specified using the mask command
+    will be ignored.</p>
+</div>
+<p class="Pp">rename &lt;old filename&gt; &lt;new filename&gt; [-f]</p>
+<div class="Bd-indent">Rename files in the current working directory on the
+  server from <i>old filename</i> to <i>new filename</i>. The optional -f switch
+  allows for superseding the destination file, if it exists. This is supported
+  by NT1 protocol dialect and SMB2 protocol family.</div>
+<p class="Pp">rm &lt;mask&gt;</p>
+<div class="Bd-indent">Remove all files matching <i>mask</i> from the current
+  working directory on the server.</div>
+<p class="Pp">rmdir &lt;directory name&gt;</p>
+<div class="Bd-indent">Remove the specified directory (user access privileges
+  permitting) from the server.</div>
+<p class="Pp">scopy &lt;source filename&gt; &lt;destination filename&gt;</p>
+<div class="Bd-indent">Attempt to copy a file on the server using the most
+  efficient server-side copy calls. Falls back to using read then write if
+  server doesn&#39;t support server-side copy.</div>
+<p class="Pp">setmode &lt;filename&gt; &lt;perm=[+|\-]rsha&gt;</p>
+<div class="Bd-indent">A version of the DOS attrib command to set file
+  permissions. For example:
+<p class="Pp">setmode myfile +r</p>
+<p class="Pp">would make myfile read only.</p>
+</div>
+<p class="Pp">showconnect</p>
+<div class="Bd-indent">Show the currently active connection held for DFS
+  purposes.</div>
+<p class="Pp">stat file</p>
+<div class="Bd-indent">This command depends on the server supporting the CIFS
+  UNIX extensions and will fail if the server does not. The client requests the
+  UNIX basic info level and prints out the same info that the Linux stat command
+  would about the file. This includes the size, blocks used on disk, file type,
+  permissions, inode number, number of links and finally the three timestamps
+  (access, modify and change). If the file is a special file (symlink, character
+  or block device, fifo or socket) then extra information may also be
+  printed.</div>
+<p class="Pp">symlink target linkname</p>
+<div class="Bd-indent">This command depends on the server supporting the CIFS
+  UNIX extensions and will fail if the server does not. The client requests that
+  the server create a symbolic hard link between the target and linkname files.
+  The linkname file must not exist. Note that the server will not create a link
+  to any path that lies outside the currently connected share. This is enforced
+  by the Samba server.</div>
+<p class="Pp">tar &lt;c|x&gt;[IXbgNa]</p>
+<div class="Bd-indent">Performs a tar operation - see the <i>-T</i> command line
+  option above. Behavior may be affected by the tarmode command (see below).
+  Using g (incremental) and N (newer) will affect tarmode settings. Note that
+  using the &#34;-&#34; option with tar x may not work - use the command line
+  option instead.</div>
+<p class="Pp">blocksize &lt;blocksize&gt;</p>
+<div class="Bd-indent">Blocksize. Must be followed by a valid (greater than
+  zero) blocksize. Causes tar file to be written out in <i>blocksize</i>*TBLOCK
+  (512 byte) blocks.</div>
+<p class="Pp">tarmode
+    &lt;full|inc|reset|noreset|system|nosystem|hidden|nohidden|verbose|noverbose&gt;</p>
+<div class="Bd-indent">Changes tar&#39;s behavior with regard to DOS attributes.
+  There are 4 modes which can be turned on or off.
+<p class="Pp">Incremental mode (default off). When off (using full) tar will
+    back up everything regardless of the <i>archive</i> bit setting. When on
+    (using inc), tar will only back up files with the archive bit set.</p>
+<p class="Pp">Reset mode (default off). When on (using reset), tar will remove
+    the archive bit on all files it backs up (implies read/write share). Use
+    noreset to turn off.</p>
+<p class="Pp">System mode (default on). When off, tar will not backup system
+    files. Use nosystem to turn off.</p>
+<p class="Pp">Hidden mode (default on). When off, tar will not backup hidden
+    files. Use nohidden to turn off.</p>
+</div>
+<p class="Pp">timeout &lt;per-operation timeout in seconds&gt;</p>
+<div class="Bd-indent">This allows the user to tune the default timeout used for
+  each SMB request. The default setting is 20 seconds. Increase it if requests
+  to the server sometimes time out. This can happen when SMB3 encryption is
+  selected and smbclient is overwhelming the server with requests.</div>
+<p class="Pp">unlock &lt;filenum&gt; &lt;hex-start&gt; &lt;hex-len&gt;</p>
+<div class="Bd-indent">This command depends on the server supporting the CIFS
+  UNIX extensions and will fail if the server does not. Tries to unlock a POSIX
+  fcntl lock on the given range. Used for internal Samba testing purposes.</div>
+<p class="Pp">volume</p>
+<div class="Bd-indent">Prints the current volume name of the share.</div>
+<p class="Pp">vuid &lt;number&gt;</p>
+<div class="Bd-indent">Changes the currently used vuid in the protocol to the
+  given arbitrary number. Without an argument prints out the current vuid being
+  used. Used for internal Samba testing purposes.</div>
+<p class="Pp">tcon &lt;sharename&gt;</p>
+<div class="Bd-indent">Establishes a new tree connect (connection to a share).
+  Replaces the current tree connect. Prints the new tid (tree id). Used for
+  internal Samba testing purposes.</div>
+<p class="Pp">tdis</p>
+<div class="Bd-indent">Close the current share connection (tree disconnect).
+  Used for internal Samba testing purposes.</div>
+<p class="Pp">tid &lt;number&gt;</p>
+<div class="Bd-indent">Changes the current tree id (tid) in the protocol to a
+  new arbitrary number. Without an argument, it prints out the tid currently
+  used. Used for internal Samba testing purposes.</div>
+<p class="Pp">utimes &lt;filename&gt; &lt;create time&gt; &lt;access time&gt;
+    &lt;write time&gt; &lt; change time&gt;</p>
+<div class="Bd-indent">Changes the timestamps on a file by name. Times should be
+  specified in the format [YY]YY:MM:DD-HH:MM:SS or -1 for no change.</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES">NOTES<a class="anchor" href="#NOTES">¶</a></h1>
+<p class="Pp">Some servers are fussy about the case of supplied usernames,
+    passwords, share names (AKA service names) and machine names. If you fail to
+    connect try giving all parameters in uppercase.</p>
+<p class="Pp">It is often necessary to use the -n option when connecting to some
+    types of servers. For example OS/2 LanManager insists on a valid NetBIOS
+    name being used, so you need to supply a valid name that would be known to
+    the server.</p>
+<p class="Pp">smbclient supports long file names where the server supports the
+    LANMAN2 protocol or above.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ENVIRONMENT_VARIABLES">ENVIRONMENT VARIABLES<a class="anchor" href="#ENVIRONMENT_VARIABLES">¶</a></h1>
+<p class="Pp">See the --user and --password options for details on ways to
+    specify a username and password via an environment variable.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="INSTALLATION">INSTALLATION<a class="anchor" href="#INSTALLATION">¶</a></h1>
+<p class="Pp">The location of the client program is a matter for individual
+    system administrators. The following are thus suggestions only.</p>
+<p class="Pp">It is recommended that the smbclient software be installed in the
+    /usr/local/samba/bin/ or /usr/samba/bin/ directory, this directory readable
+    by all, writeable only by root. The client program itself should be
+    executable by all. The client should <i>NOT</i> be setuid or setgid!</p>
+<p class="Pp">The client log files should be put in a directory readable and
+    writeable only by the user.</p>
+<p class="Pp">To test the client, you will need to know the name of a running
+    SMB/CIFS server. It is possible to run <a href="/trixie/samba/smbd.8.en.html">smbd(8)</a> as an ordinary user -
+    running that server as a daemon on a user-accessible port (typically any
+    port number over 1024) would provide a suitable test server.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DIAGNOSTICS">DIAGNOSTICS<a class="anchor" href="#DIAGNOSTICS">¶</a></h1>
+<p class="Pp">Most diagnostics issued by the client are logged in a specified
+    log file. The log file name is specified at compile time, but may be
+    overridden on the command line.</p>
+<p class="Pp">The number and nature of diagnostics available depends on the
+    debug level used by the client. If you have problems, set the debug level to
+    3 and peruse the log files.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSION">VERSION<a class="anchor" href="#VERSION">¶</a></h1>
+<p class="Pp">This man page is part of version
+    4.22.8-Debian-4.22.8+dfsg-0+deb13u1 of the Samba suite.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR">AUTHOR<a class="anchor" href="#AUTHOR">¶</a></h1>
+<p class="Pp">The original Samba software and related utilities were created by
+    Andrew Tridgell. Samba is now developed by the Samba Team as an Open Source
+    project similar to the way the Linux kernel is developed.</p>
+</section>
+</div>
+<table class="foot">
+  <tbody><tr>
+    <td class="foot-date">02/19/2026</td>
+    <td class="foot-os">Samba 4.22.8-Debian-4.22.8+dfs</td>
+  </tr>
+</tbody></table>
+</div>
+</div>
+</div>
+<div id="footer">
+
+<p><table>
+<tr>
+<td>
+Source file:
+</td>
+<td>
+smbclient.1.en.gz (from <a href="http://snapshot.debian.org/package/samba/2:4.22.11&#43;dfsg-0&#43;deb13u1/">smbclient 2:4.22.11&#43;dfsg-0&#43;deb13u1</a>)
+</td>
+</tr>
+
+<tr>
+<td>
+Source last updated:
+</td>
+<td>
+2026-07-28T12:02:03Z
+</td>
+</tr>
+
+<tr>
+<td>
+Converted to HTML:
+</td>
+<td>
+2026-09-14T03:02:37Z
+</td>
+</tr>
+</table></p>
+
+<hr>
+<div id="fineprint">
+<p>debiman df2f1b6, see <a
+href="https://github.com/Debian/debiman/">github.com/Debian/debiman</a>.
+Found a problem? See the <a href="/faq.html">FAQ</a>.</p>
+</div>
+</div>
+
+<script type="application/ld+json">
+{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"Thing","@id":"/contents-trixie.html","name":"trixie"}},{"@type":"ListItem","position":2,"item":{"@type":"Thing","@id":"/trixie/smbclient/index.html","name":"smbclient"}},{"@type":"ListItem","position":3,"item":{"@type":"Thing","@id":"","name":"smbclient(1)"}}]}
+</script>

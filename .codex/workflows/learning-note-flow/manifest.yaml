@@ -2,8 +2,8 @@ apiVersion: agent-platform/v1
 kind: Workflow
 metadata:
   name: learning-note-flow
-  version: 1.2.0
-  description: "Produce a learning note from intent clarification through Obsidian publication."
+  version: 1.4.0
+  description: "Produce a learning note from intent clarification through Obsidian publication; batches writer/collector fan-out, pre-merges chapters with merge_files.py, and gates chapters/assembly/publication on the shared citation checker (text / all / --vault-note)."
 spec:
   entrypoint: workflow.md
   capabilities:

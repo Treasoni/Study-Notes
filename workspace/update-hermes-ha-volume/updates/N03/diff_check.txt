@@ -1,0 +1,71 @@
+== diff check：02_deep_research.md <- updated_note.md ==
+原文行数 551 -> 新文行数 575；差异块 14 个
+合计 删除 10 行 / 新增 34 行
+
+--- hunk 1 [replace] 原 L80 -> 新 L80  ✅ 在允许区内
+  - ### 2.3 HMS — Hermes 官方文档（12 条）
+  + ### 2.3 HMS — Hermes 官方文档（13 条）
+--- hunk 2 [insert] 原 L96（插入点） -> 新 L96  ✅ 在允许区内
+  + | HMS-13 | https://nousresearch.github.io/hermes-agent/docs/api/skills.json（Skills Hub **中央索引**，联邦索引、8 类来源） | **本轮新增**（截至 2026-09-18 快照：97,986 条记录，明示 Home Assistant 64 条） |
+--- hunk 3 [replace] 原 L118 -> 新 L119  ✅ 在允许区内
+  - ### 2.5 COM — 社区 / 第三方 / issue（23 条）
+  + ### 2.5 COM — 社区 / 第三方 / issue（25 条）
+--- hunk 4 [insert] 原 L145（插入点） -> 新 L146-147  ✅ 在允许区内
+  + | COM-24 | https://github.com/home-assistant-ecosystem/home-assistant-cli（596★，pushed 2026-08-04，未归档；PyPI `homeassistant-cli` 1.0.0） | 一手项目 | **本册 `hass-cli` 的所指**：**Home Assistant Ecosystem 组织**维护的命令行工具，**不是 HA core 官方出品**（Hub 里 `clawhub/homeassistant-cli` 条目的自述称其为 “official”，措辞不精确，本册不沿用）。核实于 2026-09-18 |
+  + | COM-25 | https://github.com/homeassistant-ai/skills （749★，pushed 2026-09-16） | 一手项目 README | 遵循 **Agent Skills 标准**（agentskills.io），含 `home-assistant-best-practices`；与 **COM-01**（`homeassistant-ai/ha-mcp`）**是同一个组织**。核实于 2026-09-18 |
+--- hunk 5 [replace] 原 L195 -> 新 L198  ✅ 在允许区内
+  - | B-1 | 「装个现成 skill」在 HA 场景**不存在**：bundled + optional skills 中 smart-home 类只有 `openhue` 一个 | HMS-05 |
+  + | B-1 | 「装个现成 skill」的结论**已按 scope 更正**（2026-09-18）：`official` 支（Hermes 仓库内的 bundled + optional skills）的 smart-home 分类下确实只有 `openhue` 一个——**这层事实本身没错**，错在把它当成了整个 Hub 的结论。Hub 的搜索由一份**联邦索引**回答，`official` 只是其中一支；据**截至 2026-09-18 的 Hub 中央索引快照**，97,986 条记录中**明示 Home Assistant 的 skill 有 64 条**，其中**有**封装 `hass-cli` 的 skill。准确说法是「装得上，但不提供新能力」（§5.8） | HMS-05、HMS-13、COM-25 |
+--- hunk 6 [replace] 原 L314 -> 新 L317  ✅ 在允许区内
+  - ### 5.6 对 P1 结论的确认（未变）
+  + ### 5.6 对 P1 结论的确认（2026-09-18 复核：4 项维持 / 1 项推翻）
+--- hunk 7 [replace] 原 L320 -> 新 L323  ✅ 在允许区内
+  - - `HA 侧无现成 HA skill` —— **维持**（HMS-05）
+  + - `HA 侧无现成 HA skill` —— **推翻**（2026-09-18 复核）：当时只查了 `official` 支（Hermes 仓库内的 optional/bundled skills），而 Hub 的搜索由一份**联邦索引**回答——**这一点 HMS-05 自己就写着**。据**截至 2026-09-18 的 Hub 中央索引快照**，97,986 条记录中明示 Home Assistant 的有 **64 条**。详见 §5.8
+--- hunk 8 [replace] 原 L335 -> 新 L338  ✅ 在允许区内
+  - **两个工具坑（记下来，别再踩）**
+  + **三个工具坑（记下来，别再踩）**
+--- hunk 9 [insert] 原 L339（插入点） -> 新 L342  ✅ 在允许区内
+  + 3. **核对 Hermes Skills Hub 要查「中央索引」，不是仓库内的 `optional-skills/` 目录**——Hub 是**联邦**注册表，`optional-skills/` 只是 `official` 那一支；只查目录会把「Hub 里只有 `openhue` 一个」误当成整个 Hub 的结论。（轮次 `update-hermes-ha-volume`，2026-09-18）
+--- hunk 10 [insert] 原 L358（插入点） -> 新 L362-381  ✅ 在允许区内
+  + ### 5.8 本轮勘误（2026-09-18，轮次 `update-hermes-ha-volume`）
+  + 
+  + **被推翻的原文**（保留在此以便对照，不再作为结论）：B-1 断言「装个现成 skill」在 HA 场景**不存在**；§5.6 曾把「HA 侧无现成 skill」列为 P1 的**维持**项；§6.1 第 1 条据此写了「HA 场景下不存在可调的 `ha` CLI」；§10.1 第 0 章沿用同一措辞。
+  + 
+  + **错在哪**：这是**范围错误**，不是编造。B-1 只核了 `official` 支——Hermes 仓库内的 optional/bundled skills，那一支的 smart-home 分类下确实只有 `openhue` 一个，**这层事实本身没错**，错在把它当成了整个 Hub 的结论。而 Hub 的搜索由一份**联邦索引**回答，`official`（Hermes 仓库内的 optional/bundled skills）只是其中一支——**这一点 HMS-05 自己就写着**，当时的结论漏读了它。
+  + 
+  + **怎么复核的**：按 HMS-05 指明的**中央索引**取快照后逐条抽取（新增来源 HMS-13）。据**截至 2026-09-18 的 Hub 中央索引快照**，97,986 条记录中**明示 Home Assistant 的 skill 有 64 条**（ClawHub 52 + skills.sh 12），另有 13 条 `category: smart-home` 未点名 HA；`official` 支本身只有 150 条。同时补登两个物证来源：`hass-cli` 的仓库（COM-24）与同组织的 skills 仓库（COM-25）。
+  + 
+  + | 落点 | 改动前 | 更正后 |
+  + |---|---|---|
+  + | §2.3 / §9.1 来源条数 | HMS **12** 条 | HMS **13** 条（新增 HMS-13：Hub 中央索引） |
+  + | §2.5 / §9.1 来源条数 | COM **23** 条 | COM **25** 条（新增 COM-24 `home-assistant-ecosystem/home-assistant-cli`、COM-25 `homeassistant-ai/skills`） |
+  + | §3.2 B-1 的举证 | 断言 HA 场景没有可装的现成 skill | Hub 是**联邦索引**；`official` 支的 `openhue` 事实降级为该支内的陈述；**上游有东西可装，但不提供新能力** |
+  + | §5.6 结论清单 | 「HA 侧无现成 skill」维持 | **推翻**（同节 4 项维持 / 1 项推翻） |
+  + | §6.1 第 1 条的 CLI 举证 | 断言没有可调的 `ha` CLI | **有**可调的 CLI：`hass-cli` = `home-assistant-ecosystem/home-assistant-cli`，**Home Assistant Ecosystem 组织**维护、社区里的事实标准、**不是 HA core 官方出品** |
+  + | §5.7 工具坑清单 | 两条 | **三条**（新增「核对 Hub 要查中央索引」） |
+  + | §10.1 第 0 章措辞 | 沿用「装个现成 skill」不成立的说法 | 「装得上，但不补能力」 |
+  + 
+  + **刻意没变**：「**skill 是知识，不是能力**」这条洞察成立，仍是本册骨架——补正的是**举证**，不是**结论**；三条路线「互补而非替代」（B-2）不变；默认落点仍是 **MCP server**（§6.1 首选），因为「skill 不新增工具」这一条不受本次更正影响。
+  + 
+--- hunk 11 [replace] 原 L364 -> 新 L388  ✅ 在允许区内
+  - 1. **自建 SKILL.md 表达不了新能力**——它只能教 agent 怎么调已有 CLI/工具；HA 场景下不存在可调的 `ha` CLI（B-1、B-2）。只有当你已经用别的方式（如 `curl` + HA REST）提供了能力，SKILL.md 才有意义。
+  + 1. **自建 SKILL.md 表达不了新能力**——它只能教 agent 怎么调已有 CLI/工具；HA 场景**有**可调的 CLI，只是它不叫 `ha`：`hass-cli` 指的是 `home-assistant-ecosystem/home-assistant-cli`——**Home Assistant Ecosystem 组织**维护的命令行工具，是社区里的事实标准，**不是 HA core 官方出品**；Hub 里也**有**封装它的 skill（B-1、B-2、COM-24）。但这类 skill 仍然只是**知识件**，不新增任何工具。只有当你已经用别的方式（如 `curl` + HA REST）提供了能力，SKILL.md 才有意义。
+--- hunk 12 [replace] 原 L483 -> 新 L507  ✅ 在允许区内
+  - | Hermes 官方文档 | **12 条**（HMS-01..12） | 够用；发现两处文档漂移（E-1、E-10） |
+  + | Hermes 官方文档 | **13 条**（HMS-01..13） | 够用；发现两处文档漂移（E-1、E-10） |
+--- hunk 13 [replace] 原 L485 -> 新 L509  ✅ 在允许区内
+  - | 社区 / 第三方 / issue | **23 条**（COM-01..23） | 够用；提供场景灵感与失败实例，但 **COM-16~22 主流程未逐条回源** |
+  + | 社区 / 第三方 / issue | **25 条**（COM-01..25） | 够用；提供场景灵感与失败实例，但 **COM-16~22 主流程未逐条回源** |
+--- hunk 14 [replace] 原 L516 -> 新 L540  ✅ 在允许区内
+  - | 0 | 开篇结论：能做什么由路线决定；「装个现成 skill」不存在 | B-1、A-3、COM-23 |
+  + | 0 | 开篇结论：能做什么由路线决定；「装个现成 skill」**装得上，但不补能力** | B-1、A-3、COM-23、COM-25 |
+
+## 提示（非失败）
+- hunk 2 是 insert（不是纯替换）
+- hunk 4 是 insert（不是纯替换）
+- hunk 9 是 insert（不是纯替换）
+- hunk 10 是 insert（不是纯替换）
+
+## 问题
+- 无

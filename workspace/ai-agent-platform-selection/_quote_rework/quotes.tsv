@@ -1,0 +1,194 @@
+id	kind	chap	n	first_line	text
+001	prose	1	1	51	A single long-lived **Gateway** owns all messaging surfaces
+002	cite	1	1	51	research/openclaw/01_docs_openclaw_ai.md:11
+003	prose	1	2	52	The messaging gateway is the long-running process that connects Hermes to 20+ external messaging platforms through a unified architecture.
+004	cite	1	2	52	research/hermes/gw/01_hermes-agent_nousresearch_com.md:9
+005	prose	1	1	53	Everything runs in a single Python process served by uvicorn.
+006	cite	1	2	53	research/octop/docs/adr/001-single-process-model.md:14
+007	code	1	1	53	Manage the Octop system service (systemd on Linux, launchd on macOS).
+008	cite	1	1	53	research/octop/docs/cli.md:120
+009	prose	1	5	59	Octop is a self-hosted AI assistant platform for households and small teams.
+010	cite	1	5	59	research/octop/README.md:69
+011	prose	1	2	60	Default OpenClaw is a trusted single-operator assistant.
+012	cite	1	1	60	research/openclaw/02_docs_openclaw_ai.md:64
+013	prose	1	1	60	## What we do not claim
+014	prose	1	5	60	It is not an authorization or isolation boundary.
+015	cite	1	1	60	research/openclaw/03_docs_openclaw_ai.md:118
+016	prose	1	4	61	**By default, the gateway denies all users who are not in an allowlist or paired via DM.**
+017	cite	1	3	61	research/hermes/03_raw_githubusercontent_com_messaging-index.md:327
+018	prose	1	1	61	with its own bot tokens, sessions, and memory
+019	cite	1	1	61	research/hermes/02_hermes-agent_nousresearch_com_multi-profile-gateways.md:9
+020	prose	1	1	90	We analyze the limits of model-centric scaling for long-horizon task completion and argue that agent performance is a property of the model–harness pairing.
+021	cite	1	1	90	research/framework/13_arxiv_2606.20683v1_fulltext.md:61
+022	cite	1	1	92	research/framework/13_arxiv_2606.20683v1_fulltext.md:94-104
+023	prose	1	1	96	transforms raw environment signals into model-usable observations, including terminal output, file diffs, screenshots, DOM states, API responses, logs, retrieved passages, and event streams.
+024	prose	1	1	97	determines what information enters the model context, when it enters, and in what form, covering prompt construction, system instructions, retrieval, memory selection, compression, summarization, tool descriptions, and current task state.
+025	prose	1	1	98	orchestrates the observe-reason-act-feedback cycle, including step scheduling, stopping criteria, retries, reflection, delegation, handoffs, and multi-agent coordination.
+026	prose	1	1	99	maps model outputs to executable operations, such as function calls, MCP tools, shell or code execution, browser actions, file operations, API calls, and sub-agent invocations.
+027	prose	1	1	100	persists execution state and products, including conversation history, plans, scratchpads, checkpoints, logs, traces, diffs, memory records, generated files, and task artifacts.
+028	prose	1	1	101	checks, constrains, and repairs execution through tests, assertions, verifier models, sandbox policies, permission gates, rollback, retry, budget control, safety constraints, and audit traces.
+029	prose	1	1	104	observation, context, control, action, state, and verification
+030	cite	1	1	104	research/framework/abs/01_arxiv_org.md:16
+031	prose	1	2	106	a task is not merely an application label but a pressure profile over observation, context, control, action, state, and governance
+032	cite	1	2	106	research/framework/13_arxiv_2606.20683v1_fulltext.md:212
+033	prose	1	1	106	Although the six components are analytically separable, they do not operate independently. Design choices in one component often reshape the burden on others.
+034	prose	1	1	128	AI coworkers and teammates, agent builders and frameworks, workflow automation platforms, browser agents, and coding agents
+035	cite	1	1	128	research/framework/17_awesome-ai-agent-platforms_README.md:10
+036	prose	1	1	128	Each project appears once, under the category that best matches its main use.
+037	prose	1	2	128	AI coworkers and teammates
+038	prose	1	1	128	Agents specialized in writing, editing, and shipping code.
+039	code	1	2	129	The recurring comparison is [Hermes Agent]
+040	prose	1	1	136	Inclusion is not an endorsement, and star counts, funding, and company size are not criteria.
+041	cite	1	1	136	research/framework/17_awesome-ai-agent-platforms_README.md:112
+042	cite	1	2	145	research/octop/docs/acp.md:29-38
+043	prose	1	1	145	Octop agent delegates coding tasks
+044	prose	2	2	176	Multi-user mode lets several trusted people operate the same OpenClaw agent.
+045	prose	2	5	176	usability features, not security boundaries
+046	cite	2	1	176	research/openclaw/03_docs_openclaw_ai.md:10,12,118
+047	prose	2	2	177	Allowlists answer "can this person reach the bot at all?" The **admin / user split** answers "now that they're in, what are they allowed to do?"
+048	code	2	3	177	Sender routing selects a profile; it is not deny-by-default authorization.
+049	cite	2	1	177	research/hermes/03_raw_githubusercontent_com_messaging-index.md:327,369
+050	cite	2	3	177	research/hermes/02_hermes-agent_nousresearch_com_multi-profile-gateways.md:645
+051	prose	2	2	178	Every request is authenticated via JWT and resolved to a `User` row.
+052	prose	2	3	178	Agent ownership is enforced at the **row** level
+053	cite	2	1	178	research/octop/docs/architecture.md:69,71
+054	cite	2	1	184	research/openclaw/03_docs_openclaw_ai.md:10
+055	prose	2	1	186	Every session carries up to three layers of attribution:
+056	prose	2	1	188	the first time a teammate DMs the bot they get a pairing code
+057	cite	2	1	188	research/openclaw/05_docs_openclaw_ai.md:38
+058	prose	2	1	188	Named operator roles bind authenticated profiles to a policy
+059	cite	2	2	190	research/openclaw/03_docs_openclaw_ai.md:12
+060	prose	2	1	190	This is account-selection convenience inside one trust domain, not isolation from administrators or code running as the Gateway OS user.
+061	prose	2	1	190	A single-user gateway therefore looks unchanged.
+062	prose	2	1	192	A gateway is one trust domain.
+063	cite	2	1	192	research/openclaw/05_docs_openclaw_ai.md:21
+064	prose	2	2	192	The normal admission limit is 32 identities per logical session.
+065	cite	2	2	192	research/openclaw/03_docs_openclaw_ai.md:126
+066	code	2	2	201	Every allowed user falls into one of two tiers per scope (DM vs group/channel):
+067	prose	2	2	203	**What the tiers gate today:** slash commands. ... Plain chat is not affected — non-admins can still talk to the agent.
+068	prose	2	1	205	A personal assistant on one Telegram bot and a coding agent on another
+069	cite	2	1	214	research/octop/docs/architecture.md:69
+070	code	2	1	214	expires_in_days: int = Field(
+071	cite	2	1	214	research/octop/src/octop/api/routers/invites.py:55,57
+072	cite	2	2	216	research/octop/README_CN.md:76
+073	prose	2	2	232	Tenancy means one gateway cell per tenant, and fleet is still experimental.
+074	cite	2	2	232	research/openclaw/02_docs_openclaw_ai.md:65
+075	prose	2	1	232	OpenClaw's default security model is one trusted operator boundary per Gateway, not hostile multi-tenant isolation inside one shared Gateway.
+076	cite	2	2	232	research/openclaw/04_docs_openclaw_ai.md:10
+077	prose	2	3	232	There is no enterprise edition.
+078	cite	2	2	232	research/openclaw/02_docs_openclaw_ai.md:20
+079	prose	2	2	234	not hostile multi-tenant isolation inside one shared Gateway
+080	prose	2	1	238	Sender ids are also namespaced per tenant on some platforms — a Slack user id is workspace-local
+081	cite	2	1	238	research/hermes/02_hermes-agent_nousresearch_com_multi-profile-gateways.md:643
+082	code	2	1	239	tenant_id=agent_id,
+083	cite	2	1	239	research/octop/src/octop/api/routers/chat/turn.py:348
+084	prose	3	1	268	The admin / user split
+085	prose	3	1	268	What the tiers gate today: slash commands
+086	cite	3	1	308	research/octop/src/octop/api/deps.py:65-89
+087	cite	3	1	309	research/octop/src/octop/infra/users/permissions.py:3-4
+088	cite	3	1	310	research/octop/docs/architecture.md:71
+089	cite	3	1	310	research/octop/src/octop/api/common/agent.py:18-23,26-31,51-53
+090	code	3	1	312	row.user_id is not None and row.user_id == user.id
+091	cite	3	1	312	research/octop/src/octop/api/common/agent.py:14-15
+092	code	3	1	312	row.user_id is None or row.user_id != user.id
+093	prose	3	1	312	agent not owned by user
+094	code	3	2	312	agent_is_shared(row)
+095	prose	3	1	314	Read access and agent use in chat are never gated.
+096	cite	3	1	316	research/octop/src/octop/api/routers/plugins.py:99-104
+097	code	3	1	316	POST /market/{plugin_id}/install
+098	cite	3	1	317	research/octop/src/octop/api/routers/users.py:270-272
+099	cite	3	1	317	research/octop/src/octop/api/routers/user_roles.py:183-186
+100	cite	3	1	318	research/octop/src/octop/api/routers/chat/history.py:104,150,166,217,253,289
+101	code	3	2	323	对话的 --all 与本地管理 CLI 范围不同：只选当前用户自己的 agent，不包含其他用户或共享 agent。
+102	cite	3	2	323	research/octop/docs/memory-slim.md:87
+103	cite	3	1	330	research/octop/README_CN.md:162
+104	cite	3	1	330	research/octop/src/octop/api/common/agent.py:51-53
+105	cite	3	1	332	research/octop/CHANGELOG.md:396
+106	prose	4	1	364	OpenClaw is an open-source AI assistant that runs on your own computer
+107	cite	4	1	364	research/openclaw/06_raw_githubusercontent_com.md:25
+108	code	4	1	368	Run it on a $5 VPS, a GPU cluster, or serverless infrastructure that costs nearly nothing when idle. It's not tied to your laptop
+109	cite	4	2	368	research/hermes/01_raw_githubusercontent_com_README.md:26
+110	prose	4	5	370	runs on your own computer
+111	prose	4	4	370	It's not tied to your laptop
+112	prose	4	2	370	One Gateway per host.
+113	cite	4	1	370	research/openclaw/01_docs_openclaw_ai.md:14
+114	prose	4	1	370	The Gateway binds to loopback by default.
+115	cite	4	1	370	research/openclaw/05_docs_openclaw_ai.md:24
+116	prose	4	1	377	as a personal assistant on a laptop
+117	prose	4	1	377	not tied to your laptop
+118	code	4	1	382	With gateway.multiplex_profiles: true one process serves the default profile plus every live directory under profiles/
+119	cite	4	1	382	research/hermes/gw/01_hermes-agent_nousresearch_com.md:451
+120	code	4	1	384	The model only remembers what gets saved to disk; there is no hidden state.
+121	cite	4	1	384	research/openclaw/extra/02_docs_openclaw_ai.md:10
+122	cite	4	1	384	research/hermes/05_hermes-agent_nousresearch_com_memory.md:14-15,302
+123	prose	4	1	394	talk to it from Telegram while it works on a cloud VM
+124	cite	5	1	429	research/octop/README_CN.md:6
+125	cite	5	1	431	research/octop/README_CN.md:70
+126	code	5	1	432	**Octop** — self-hosted AI assistant platform (multi-user, multi-agent).
+127	cite	5	1	432	research/octop/AGENTS.md:37
+128	cite	5	2	434	research/openclaw/02_docs_openclaw_ai.md
+129	prose	5	1	452	The whole stack is one process. There is no separate worker, no
+130	cite	5	1	452	research/octop/docs/architecture.md:32
+131	code	5	1	453	Everything runs in a single Python process served by uvicorn. There is no external queue (Redis, RabbitMQ, Celery), no separate worker process
+132	cite	5	1	454	research/octop/README_CN.md:107
+133	cite	5	1	455	research/octop/README_CN.md:483
+134	prose	5	1	457	Octop needs to run a web server, a CLI, per-user Agent runtimes, IM channel connections, and cron schedulers simultaneously.
+135	cite	5	1	457	research/octop/docs/adr/001-single-process-model.md:10
+136	prose	5	1	457	Adding Redis or a process supervisor doubles the ops burden for the primary audience.
+137	cite	5	2	457	research/octop/docs/adr/001-single-process-model.md
+138	code	5	1	459	| OCTOP_DATABASE_DRIVER | sqlite | postgresql | sqlite | Storage backend |
+139	cite	5	1	459	research/octop/docs/configuration.md:158
+140	prose	5	1	459	- Greenfield only — no SQLite→PG data migrator.
+141	cite	5	1	459	research/octop/docs/adr/002-database-backends.md:45
+142	prose	5	1	462	Octop-fnos-docker-<version>.fpk
+143	cite	5	1	462	research/octop/README_CN.md
+144	cite	5	1	474	research/octop/docs/adr/001-single-process-model.md:27-29
+145	code	5	1	476	- Single active Octop writer; no multi-instance write promise.
+146	cite	5	1	476	research/octop/docs/adr/002-database-backends.md:44
+147	prose	5	1	476	Future scale-out would require extracting the worker into a separate process and adding a queue
+148	prose	5	2	479	No horizontal worker scaling
+149	prose	5	1	479	one writer per agent at a time
+150	cite	5	1	482	research/octop/README_CN.md:172
+151	cite	5	1	488	research/octop/README_CN.md:75
+152	cite	5	1	496	research/octop/README_CN.md:104
+153	code	5	1	497	- Control plane SQLite → agent memory stays {workspace}/memory.sqlite
+154	cite	5	1	497	research/octop/docs/configuration.md:187
+155	prose	5	1	499	Control plane PostgreSQL → agent memory **defaults to the same DSN**
+156	cite	5	1	499	research/octop/docs/configuration.md:189
+157	prose	5	1	499	no automatic SQLite→PG memory data migration.
+158	cite	5	1	499	research/octop/docs/configuration.md:200
+159	prose	5	1	499	Agent memory DDL is owned by octop-memory.
+160	cite	5	1	499	research/octop/docs/architecture.md:115
+161	cite	5	1	501	research/octop/docs/memory-slim.md:57
+162	cite	5	1	501	research/octop/README_CN.md:422
+163	cite	6	1	536	research/openclaw/02_docs_openclaw_ai.md:17
+164	code	6	1	537	The [comparison table](...) condenses the source-verified contrast with Hermes.
+165	cite	6	1	537	research/openclaw/02_docs_openclaw_ai.md:43
+166	cite	6	1	539	research/openclaw/06_raw_githubusercontent_com.md
+167	cite	6	1	539	research/openclaw/05_docs_openclaw_ai.md
+168	code	6	1	541	Use one cell for each tenant trust boundary; do not use one shared Gateway as a hostile multi-tenant boundary.
+169	cite	6	1	541	research/openclaw/extra2/02_docs_openclaw_ai.md:11
+170	prose	6	1	541	The Fleet operator and the host are trusted by every tenant. Resistance to a compromised host is a non-goal.
+171	cite	6	1	541	research/openclaw/04_docs_openclaw_ai.md:23
+172	prose	6	1	541	No rung in this ladder changes the OpenClaw application trust model: one Gateway remains one trusted operator domain.
+173	code	6	1	545	The comparison below reflects source at 6defe7eb6c (reviewed August 27, 2026), not a live adversarial test or a guarantee about every deployment.
+174	cite	6	1	545	research/openclaw/extra2/01_docs_openclaw_ai.md:8
+175	code	6	1	548	Independent 501(c)(3) funded by donations
+176	code	6	1	548	Venture-funded (Paradigm-led Series A)
+177	prose	6	1	548	Hermes is built by Nous Research, a venture-funded company
+178	cite	6	1	550	research/openclaw/extra2/01_docs_openclaw_ai.md:17-31
+179	prose	6	1	550	Roles and multi-user
+180	prose	6	1	550	Equal trust within an adapter's authorized set
+181	prose	6	1	550	experimental per-tenant fleet cells
+182	prose	6	1	556	If you're coming from OpenClaw, Hermes can automatically import your settings, memories, skills, and API keys.
+183	cite	6	1	556	research/hermes/01_raw_githubusercontent_com_README.md
+184	code	6	1	557	**During first-time setup:** The setup wizard (hermes setup) automatically detects ~/.openclaw and offers to migrate before configuration begins.
+185	code	6	1	558	_OPENCLAW_DIR_NAMES = (".openclaw", ".clawdbot", ".moltbot")
+186	cite	6	1	558	research/hermes/src/claw.py:29
+187	cite	6	1	559	research/hermes/src/openclaw_to_hermes.py:40-190
+188	prose	6	1	561	~/.hermes/skills/openclaw-imports/
+189	code	6	1	561	Secrets are never included implicitly: --migrate-secrets is required even under --preset full
+190	cite	6	1	561	research/hermes/src/claw.py:33-34
+191	cite	6	1	563	workspace/hermes-agent/chapters/*
+192	code	6	1	569	| **Outbound** | OpenCode, CodeBuddy, … | Octop (acp_runner tool) | Octop agent delegates coding tasks |
+193	cite	6	1	569	research/octop/docs/acp.md:8

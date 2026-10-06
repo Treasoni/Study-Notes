@@ -1,0 +1,10 @@
+== diff check：04-落地-社区ha-mcp.md <- updated_note.md ==
+原文行数 401 -> 新文行数 401；差异块 1 个
+合计 删除 1 行 / 新增 1 行
+
+--- hunk 1 [replace] 原 L9 -> 新 L9  ✅ 在允许区内
+  - **理由一：它是唯一能一次补齐三类缺口的路。** 历史/统计、写配置、摄像头这三块，内置 4 工具没有对应工具，自建 `SKILL.md` 也表达不了——skill 只能教 agent 怎么调**已有**的命令行工具，HA 场景下并不存在这样一个 `ha` CLI。剩下能补能力的只有 MCP server 与自定义 plugin，而自定义 plugin 的成本明显更高。所以"要能力"这个需求，默认落点就是 MCP server。
+  + **理由一：它是唯一能一次补齐三类缺口的路。** 历史/统计、写配置、摄像头这三块，内置 4 工具没有对应工具，自建 `SKILL.md` 也表达不了——skill 只能教 agent 怎么调**已有**的命令行工具，HA 场景**有**可调的 CLI（`hass-cli` 指的是 `home-assistant-ecosystem/home-assistant-cli`，**Home Assistant Ecosystem 组织**维护的命令行工具，是社区里的事实标准，**不是 HA core 官方出品**）；Hub 里也**有**封装它的 skill（`clawhub/homeassistant-cli`），但这类 skill 仍然只是知识件，不新增任何工具。剩下能补能力的只有 MCP server 与自定义 plugin，而自定义 plugin 的成本明显更高。所以"要能力"这个需求，默认落点就是 MCP server。
+
+## 问题
+- 无

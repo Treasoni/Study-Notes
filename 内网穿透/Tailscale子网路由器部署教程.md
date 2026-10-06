@@ -151,6 +151,9 @@ fnOS 桌面打开 **Docker → Compose → 新建项目**，粘贴 YAML，填项
 > [!warning] 界面路径以实机为准
 > 社区帖路径（来源 S2, S3）可能随 fnOS 版本微调（待实机确认）。核心逻辑不变：新建 Compose 项目 → 粘贴 YAML → 部署。
 
+先获得tailscale的认证需要的key（在settings->Keys，中的Auth keys）：
+![](../Pasted%20image%2020260914211452.png)
+
 ### 2.2 推荐版 Compose（privileged，省心）
 
 ```yaml
@@ -163,9 +166,10 @@ services:
     network_mode: host                    # 关键：直接用宿主机网络栈
     privileged: true                      # 省心：完整设备访问权限
     cap_add:
-      - NET_ADMIN                         # 建 tun、改路由所需（privileged 下为双保险）
+      - NET_ADMIN                         # 建 tun、改路由、iptables
+      - NET_RAW                           # 原始 socket，部分场景建 tun 需要
     volumes:
-      - /var/lib/tailscale:/var/lib/tailscale   # 状态持久化
+      - ./tailscale-state:/var/lib/tailscale   # 状态持久化
       - /dev/net/tun:/dev/net/tun               # 挂载 TUN 设备
     environment:
       - TS_AUTHKEY=tskey-auth-xxxxxxxx      # 生成时必须勾选 Reusable
@@ -174,6 +178,38 @@ services:
       - TS_HOSTNAME=fnos-subnet-router      # 后台显示名，可自定
     restart: unless-stopped                 # 开机自启 + 异常自动拉起
 ```
+
+在官方 Tailscale 容器中，环境变量实际上就是容器启动脚本（`containerboot`）替你执行 CLI 命令时的参数映射：
+
+- **`TS_ROUTES=192.168.1.0/24`** 等同于命令行中的 `--advertise-routes=192.168.1.0/24`。
+- **`TS_HOSTNAME=fnos-subnet-router`** 等同于命令行中的 `--hostname=fnos-subnet-router`。
+#### 两者的核心对应关系与区别
+
+|**对比维度**|**Docker 环境变量（docker-compose）**|**宿主机 CLI 命令（tailscale set/up）**|
+|---|---|---|
+|**等效命令**|自动拼接并执行 `tailscale up --advertise-routes=... --hostname=...`|手动执行 `tailscale set --advertise-routes=...`|
+|**生效机制**|**声明式**：容器每次启动、重建时，由脚本自动读取并同步到 Tailscale 状态中|**命令式**：即时修改运行中的 `tailscaled` 配置|
+|**持久性**|配置文件在，环境就在；即使销毁重做容器，只要 Compose 文件不变，配置就不会丢失|保存在本机的 `/var/lib/tailscale` 状态库中，若重装系统或清理目录需重新输入|
+
+#### 运行机制说明
+
+1. **容器启动脚本的行为**：Tailscale 官方镜像的入口程序是 `containerboot`。当它检测到你设置了 `TS_ROUTES` 和 `TS_HOSTNAME` 时，底层执行的正是：
+
+    ```
+    
+   tailscale up --advertise-routes=192.168.1.0/24 --hostname=fnos-subnet-router ...
+    ```
+2. **多网段支持**：如果你需要同时宣告多个网段（如同你示例中的两条路由），在 `TS_ROUTES` 中同样支持用逗号分隔，例如：
+
+    ```
+    - TS_ROUTES=192.0.2.0/24,198.51.100.0/24
+    ```
+
+**重要提醒：**
+
+宣告路由只是完成了**客户端通告**。无论通过哪种方式配置，宣告之后都必须前往 **Tailscale Admin Console（网页后台）**，在对应机器的 `Edit route settings` 选项中，手动勾选批准（Approve）该网段，其他节点才能真正通过此路由访问内网。
+
+![](../Pasted%20image%2020260914225231.png)
 
 > [!note] 为什么用 host 网络
 > Docker 对 host 网络不额外创建 iptables 规则（来源 S8），且 tailscaled 需在宿主机网络命名空间建 `tailscale0`、改路由。这是社区共识基线（来源 S2, S3, S0）。
@@ -261,10 +297,30 @@ pgrep -a tailscaled    # 查宿主机是否已有 tailscaled
 
 容器起来了、Tailscale 认证了，但外网 ping 内网设备仍不通。高频原因：**宿主机内核默认不允许转发 IP 包**。Linux 开关 `net.ipv4.ip_forward` 默认是 0，而子网路由器正是靠它把从 `tailscale0` 进来的包转到内网网卡（来源 S1, S11）。
 
+注意：
+只有当这台机器需要充当“路由器”，替其他设备**中转/代发网络数据包**给第三方目标时，才必须开启内核转发。
+
+**必须开启的两种场景**
+- **子网路由（Subnet Router）**：你在外网通过 Tailscale 连进来，不仅要访问这台机器，还要顺带着访问**它所在局域网的其他设备**（比如家里的主路由器后台 `192.168.1.1`、NAS、打印机、智能家居设备等）。
+- **出口节点（Exit Node）**：把这台机器当作全局上网网关，让手机或笔记本在外网时把所有公网流量（包括刷网页、看视频）都通过它代理出去。
+
 > [!tip] 大白话
 > 内核转发像大楼的**货运电梯**，默认锁着。隧道把包裹送到大楼门口（tailscale0），电梯不开，包裹到不了内网。sysctl 就是开电梯的钥匙。
 
 ### 3.1 写入 sysctl 配置
+
+这里是在docker的宿主机中写，不是在docker容器内容写，因为：
+
+Docker 容器并不是独立的虚拟机，它**与宿主机共用同一个 Linux 内核**。网络数据包转发（Routing）属于内核核心功能，因此控制这一行为的底层开关最终都受宿主机内核管辖。
+
+具体有以下三个核心原因：
+
+**1. 容器没有独立的内核** Docker 容器只是通过 Namespaces 和 Cgroups 隔离出来的普通进程集合。你在容器内看到的所有网络栈，底层全由宿主机的 Linux 内核负责驱动。`net.ipv4.ip_forward` 是内核层面的全局网络开关，开关在宿主机上，无论流量经过容器还是物理网卡，最终都是同一个内核在处理路由。
+**2. 数据包的实际流向必须穿透宿主机** Tailscale 开启转发（作为子网路由器或出口节点）时，流量的生命周期如下：
+- 外部流量通过加密隧道进入 Tailscale 虚拟网卡（`tailscale0` / TUN）。
+- 数据包需要被转递给宿主机的真实物理网卡（如 `eth0`），再发送到局域网的其他设备或公网。
+- **从虚拟网卡跨越到物理网卡的过程，完全由宿主机内核执行路由决策。** 如果宿主机的 `ip_forward` 是关闭的（`0`），宿主机内核在发现数据包目标 IP 不是本机时，会将其直接丢弃。
+
 
 持久化写入，重启不丢。新建 `/etc/sysctl.d/99-tailscale.conf`：
 

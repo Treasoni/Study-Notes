@@ -333,6 +333,8 @@ docker compose ps
 docker compose logs -f hermes
 ```
 
+或是直接进入docker容器内部使用这些命令
+
 ### 逐段拆讲
 
 | 步骤 | 干什么 | 关键点 |

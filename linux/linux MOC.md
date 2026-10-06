@@ -1,7 +1,7 @@
 ---
 title: Linux 学习笔记 MOC
 created: 2026-04-06
-updated: 2026-09-01
+updated: 2026-09-18
 tags: [linux, moc, 索引]
 ---
 
@@ -30,6 +30,7 @@ tags: [linux, moc, 索引]
 |------|------|
 | [[linux磁盘相关的知识]] | 磁盘分区、格式化、挂载基础 |
 | [[linux的LVM管理]] | LVM 逻辑卷管理，动态扩容 |
+| [[SMB挂载-00-总目录]] | **5 册系列**：把 Windows/NAS 共享挂到 Linux（协议选型 → 手动挂载 → 凭据与开机自动挂载 → 排错 → 容器内挂载） |
 
 ### 常用命令参考
 
@@ -139,6 +140,13 @@ flowchart TD
 - **核心概念**：PV → VG → LV 三层架构
 - **常用场景**：动态扩容、快照备份
 - **相关**：[[linux磁盘相关的知识]] | [[cpu的线程和内核]]
+
+#### 2.3 SMB/CIFS 共享文件夹挂载（5 册系列）
+- **核心概念**：SMB 方言是**协商结果**而非固定版本（`vers=default`）、CIFS 挂载点的 `uid`/`gid`/`file_mode` 语义、凭据文件、`/etc/fstab` 与 systemd 的开机顺序
+- **常用命令**：`mount -t cifs`、`smbclient -L`、`findmnt`、`dmesg | grep -i cifs`、`mount -vvv`
+- **分册**：[[SMB挂载-01-协议选型]] → [[SMB挂载-02-手动挂载]] → [[SMB挂载-03-凭据与开机自动挂载]] → [[SMB挂载-04-排错]] → [[SMB挂载-05-容器内挂载]]
+- **最该记住的一句**：`mount error(13)` 不是结论、只是入口——先去内核日志找同现的 `NT_STATUS_LOGON_FAILURE` 判断方向，别看到 13 就去 ping
+- **相关**：[[linux磁盘相关的知识]] | [[linux的文件权限]] | [[Linux的文件系统结构]] | [[网络协议详解-WebDAV_Samba_FTP_iSCSI]]
 
 ---
 
@@ -387,6 +395,7 @@ graph TB
 
 | 文件 | 更新日期 |
 |------|----------|
+| [[SMB挂载-00-总目录]] | 2026-09-18 |
 | [[用命令文件下载（Linux-macOS）]] | 2026-08-31 |
 | [[linux/Ubuntu服务器配置代理与Docker出网/README\|Ubuntu 服务器配置代理与 Docker 出网]] | 2026-08-29 |
 | [[linux/GitHub 国内网络连接超时解决方案/README\|GitHub 国内网络连接超时解决方案]] | 2026-08-29 |

@@ -2,8 +2,8 @@ apiVersion: agent-platform/v1
 kind: Skill
 metadata:
   name: note-beautifier
-  version: 1.2.0
-  description: "Format and publish learning notes as Obsidian-friendly Markdown; requires wikilink targets to exist and anchors to avoid special characters."
+  version: 1.5.0
+  description: "Format and publish learning notes as Obsidian-friendly Markdown; requires wikilink targets to exist, anchors to avoid special characters, and both the shared citation checker (.claude/scripts/note-citation-check.py) and the structural self-check (.claude/scripts/check-md-structure.py) to pass before publishing."
 spec:
   entrypoint: SKILL.md
   capabilities:
@@ -11,7 +11,7 @@ spec:
   permissions:
     filesystem: write
     network: none
-    subprocess: none
+    subprocess: allow
     git: none
   dependsOn: []
   lifecycle:

@@ -1,6 +1,4 @@
 [
-  "obsidian-custom-attachment-location",
-  "obsidian-git",
   "manual-sorting",
   "obsidian-language-learner",
   "obsidian42-brat",
@@ -11,5 +9,6 @@
   "obsidian-enhancing-export",
   "custom-sort",
   "realclaudian",
-  "advanced-rename-and-delete-handler"
+  "code-styler",
+  "obsidian-git"
 ]

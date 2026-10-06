@@ -1,0 +1,2 @@
+429: This request was rate-limited due to too many requests from your network. Reduce the frequency of your requests or try again later.
+For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service).
