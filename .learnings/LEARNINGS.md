@@ -1,7 +1,15 @@
 # LEARNINGS.md
 
-活跃学习记录：当前 **3** 条 —— `LRN-20260912-012`（挂起）、`LRN-20260929-020` / `-021`
-（2026-09-29 记，状态均 `pending`）。
+活跃学习记录：当前 **4** 条 —— `LRN-20260912-012`（挂起）、`LRN-20260929-020` / `-021`
+（2026-09-29 记，状态均 `pending`）、`LRN-20261006-025`（2026-10-06 记，状态 `pending`）。
+
+本次 `/digest`（2026-10-06）：`LEARNINGS.md` 109 行已越过 100 行的压缩阈值，故**先走压缩检查**——
+但在册三条均不符合归档条件（`-020` / `-021` 待下轮复核，`-012` 明确挂起），
+**压缩为空操作，文件不截断**。
+
+同日 `/maintain-learnings`：把 `LRN-20261006-025` 的机制落到 `note-updater` v1.4.0「配方类内容」
++ `chapter-writer` v1.5.0 同名小节与 Checklist；**因尚未在下一次运行中被观察验证，本轮不归档**，
+状态转 `pending（机制已落，下轮复核后归档）`。处置见 `.learnings/archive/2026-10-06-maintenance.md` 第五节。
 
 最近一次维护 2026-10-06（`/maintain-learnings`，第二次，承接同日 `/digest`）：归档当日会话内
 就地修复的三条——`LRN-20261006-023` / `-024` 与 `ERR-20261006-018`（夸克口径出错的两族根因）。
@@ -104,6 +112,40 @@ P1 的候选记录（标题 / URL / tier / 相关性 / 分数）本身不区分*
 
 ### Suggested Action
 - `research-collector` SKILL.md 的 P1 第 3 步已要求标注证据形态，完成标准已加断言。
+
+---
+
+## [LRN-20261006-025] correction — 配方类内容：文档没逐字给出的取值不得用常识补，派生产物必先实测
+
+**Logged**: 2026-10-06T15:55:11+0800
+**Priority**: high
+**Status**: pending（机制已落 `note-updater` v1.4.0「配方类内容」+ `chapter-writer` v1.5.0 同名小节与 Checklist；下轮复核后归档）
+**Area**: 笔记生产 / 内容准确性（`chapter-writer` · `note-updater`）
+
+### Summary
+审计成品第 11 章「Dashboard 认证配置」发现两处同源缺陷：① 官方文档只给了字段名、没给示例值，
+撰写时用「常识」补了一串 **bcrypt** 哈希（`$2b$12$…`），而 Hermes 实际用的是 **scrypt**（`scrypt$`）；
+② 我本轮把该字段转写成 **docker-compose `environment:` 片段**时未实测就落笔，漏了 Compose 会把
+`$`+字母当作变量插值、哈希必须写成 `$$` 的坑。两处共同点：**把文档逐字照抄当终点，缺的用常识填、
+派生的不过测。**
+
+### Details
+- 出处：`AI学习/Hermes Agent/Hermes Docker 部署指南/11-Dashboard认证配置实战.md`。原文 2026-09-01 首建
+  （bcrypt 来自上一轮会话，提交 `cdf6678c`），compose 片段由我 2026-10-06 的编辑引入。
+- ① 取值编造：官方文档逐字写的是 `password_hash: ""  # scrypt$...`
+  （`…/sources/05_hermes-agent_nousresearch_com.md:513`、`…/sources/S11_configuration.md:2639`），
+  **从未出现 bcrypt**；写成 `$2b$12$` 属**用常识填补文档空白**。
+- ② 派生未测：把「环境变量名 + scrypt 串」翻成 compose YAML 是一个**新产物**，Compose 的 `$` 插值规则
+  （`$`+数字→字面量、`$`+字母/下划线→变量、`$$`→字面量 `$`）文档不会替你想。实测（Docker Compose
+  v5.0.2）确认：YAML 引号 / `env_file` / `.env` **都挡不住**，只有 `$$` 有效。
+- 结构性缺口：该章不在 workflow state 内（`workspace/workflow-runs/hermes-docker-deploy.workflow.md`
+  只登记 10 章、P4 已 `complete`），追加章节没有阶段门禁，属「工作流外产物」。
+
+### Suggested Action
+- 配方类内容（env / config / command）三分法：① 文档**逐字给出**才直接写；② 未给出就标「待核」或回
+  原始载体（源码 / 官方示例 / 实测输出）取；③ 由文档**派生**的新产物（compose / 示例配置 / 命令拼接）
+  落笔前**必做最小实测**——「读文档」不等于「跑得通」。
+- 同批 `ERR-20261006-019` 记录了具体产物缺陷；防护规则见 `RULES.md` `## Do` 新增条目。
 
 ---
 

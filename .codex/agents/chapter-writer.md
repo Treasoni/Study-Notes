@@ -187,6 +187,14 @@ Every chapter must follow this structure:
 章节会被组装多份副本（章文件 → 拼接件 → 组装件 → vault 成品）：改引文时四份一起改、
 改完逐字比对，改一份就发布必然漂移。
 
+#### 配方类内容要求（env / config / command，所有笔记类型通用）
+
+env / config / command 这类**可执行配方**，取值只有两个合法来源：**官方文档逐字给出**，或**你实测得到**。两者都没有时**不要用常识补**。
+
+1. 文档只给**字段名**、没给示例值时，**不要补一个像样的值**——典型翻车：把文档里的 `scrypt$…` 密码哈希字段「想当然」写成 bcrypt `$2b$12$`。拿不到就标「待核」，或回原始载体（源码 / 官方示例 / 容器内实跑输出）取。
+2. 把文档**转写成派生产物**（docker-compose 片段、示例配置、命令拼接）时，落笔前先做一次**最小实测**（如 `docker compose config`）。**「读文档」不等于「跑得通」**。
+3. 已知高危点（实测确认）：Compose 会把 `$`+字母/下划线当变量插值（`$`+数字反而安全），scrypt 之类含 `$` 的哈希写进 compose 必须逐段写成 `$$`；YAML 引号 / `env_file` / `.env` 都挡不住，只有 `$$` 有效。
+
 ### Code Examples (when applicable)
 - Every code example must be complete and runnable
 - Add comments on key lines explaining non-obvious logic
@@ -248,6 +256,7 @@ Before presenting each chapter, verify:
 - [ ] Code examples (if any) are complete and have comments
 - [ ] Sources are cited properly
 - [ ] 数值类断言（具体数值 / 默认值 / 版本号）已回 `sources/` 原始文件按行号核对；核对不了就只写语义、不写数值（`02_deep_research.md` 是中间产物，抓取错位常见）
+- [ ] 配方类内容（env / config / command）取值来自「文档逐字给出」或「实测得到」，没有用常识补值；由文档派生的产物（compose 片段 / 示例配置 / 命令拼接）已做最小实测
 - [ ] Chapter summary captures key takeaways
 - [ ] Core concepts have `[!tip] 大白话` plain-language callouts (analogy + back to practical meaning)
 - [ ] 抽象概念解释有「可见落点」：先给产物/目录树/前后对比/对比表再下结论，遮住大白话仍可独立读懂

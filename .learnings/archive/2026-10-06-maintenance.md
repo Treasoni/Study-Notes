@@ -113,3 +113,41 @@
 
 **结果**：`LRN-20261006-023` / `-024`、`ERR-20261006-018` 三条 **归档**；
 活跃文件回到 `LEARNINGS.md` 3 条、`ERRORS.md` 2 条。
+
+---
+
+## 五、第三次维护（同日，`/maintain-learnings`）—— 配方类内容机制落地
+
+承接同日 `/digest` 记录的 `LRN-20261006-025` / `ERR-20261006-019`（第 11 章 Dashboard 认证配置：
+bcrypt 取值编造 + compose `$` 未转义）。上一轮只写了 `RULES.md` 铁律，**没有源头机制**；
+本轮把它提升为**写作 / 更新环节的强制步骤**。
+
+### 机制改动
+
+| 工件 | 版本 | 新增内容 |
+| --- | --- | --- |
+| `note-updater` SKILL.md（`.agents/skills/`） | `1.3.0` → `1.4.0` | 新增「**配方类内容：只写『文档逐字给出』或『实测得到』的取值**」小节（在「口径核对」之后） |
+| `chapter-writer` agent（`.codex/agents/`） | `1.4.0` → `1.5.0` | `#### 配方类内容要求（env / config / command）` 小节 + `Quality Checklist` 新增一条 |
+
+三句要点：① 文档只给**字段名** ≠ 有取值，缺值标「待核」或回原始载体（源码 / 官方示例 / 容器内实跑输出）取，
+**不要用常识补**；② 把文档**转写成派生产物**（compose 片段 / 示例配置 / 命令拼接）落笔前**必做最小实测**
+（`docker compose config`）——「读文档」不等于「跑得通」；③ 已知高危点：Compose 的 `$`+字母/下划线会被
+当变量插值（`$`+数字反而安全），含 `$` 的哈希须逐段写成 `$$`。
+
+### 验证（`maintain-learnings` Step 5）
+
+1. **skill 元数据校验通过**：`note-updater` SKILL.md frontmatter 的 `name:` / `description:` / 定界符齐全。
+2. **记录 → 步骤映射**：两条记录都对应上表的**新小节 + Checklist**，不是「下次注意」。
+3. **同步与清单校验**：`sync_agents.py --apply --scope skills|agents` → 全量 `--check` 通过；
+   `manifest-registry.py --root . validate` → 60 artifacts 通过；`workflow-health-check.sh` 除既有
+   prompt-cache knob drift 外无新问题（routing 检查需 `PYTHON=python3.12`——PATH 上的 `python3` 是 3.9.6，
+   属环境问题，已复跑确认 routing 实为 up to date）。
+
+### 未归档（继续留在活跃文件）
+
+`LRN-20261006-025` / `ERR-20261006-019` 机制已落，但**尚未在下一次写作 / 更新运行中被观察验证**。
+按活跃文件头部策略（「只有已落到机制**并被验证**的记录才可归档」），本轮**保守不归档**，
+状态改为 `pending（机制已落 …，下轮复核后归档）`，保留在活跃文件。
+
+**结果**：本轮**无新增归档**；活跃文件仍为 `LEARNINGS.md` 4 条、`ERRORS.md` 3 条。
+（与 2026-09-29 批次 `-020` / `-021` / `ERR-014` / `-015` 同处「机制已落、待下轮复核」状态。）

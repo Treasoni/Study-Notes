@@ -2,8 +2,8 @@ apiVersion: agent-platform/v1
 kind: Subagent
 metadata:
   name: chapter-writer
-  version: 1.4.0
-  description: "Write learning-note chapters in confirmed batches of up to three; resume in the same context between chapters, and pass the shared citation checker (--mode text) before handing a chapter over."
+  version: 1.5.0
+  description: "Write learning-note chapters in confirmed batches of up to three; resume in the same context between chapters, pass the shared citation checker (--mode text) before handing a chapter over, and never invent values for recipe content (env/config/command)."
 spec:
   entrypoint: ../chapter-writer.md
   capabilities:
