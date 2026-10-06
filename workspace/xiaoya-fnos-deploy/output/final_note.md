@@ -19,9 +19,7 @@
 
 > 「小雅 Alist 是基于阿里云盘的影视聚合方案，维护着一份持续更新的影音资源目录，省去了自己找片、管片的麻烦。」（`sources/p2/newzone-xiaoya.md:10`）
 
-拆开这句看两层意思：**资源在哪**——在网盘上，由维护者持续更新，你不用自己找片；**你怎么拿到**——通过一个叫 AList 的程序把它变成一个能访问的服务。**提醒一句**：上面那句把它概括成「基于阿里云盘」，但这几年已经变了——小雅的资源现在分**本体库**（在**阿里云盘与 115 网盘**）和**分享区**（另有**夸克**、PikPak 等）两块，详见第 5 章 5.6。小雅官方镜像的作者自述也印证了这一点：
-
-> 「我把 alist.xiaoya.pro 的内容，内嵌在容器里发布了，并添加了 alist 本身没有的搜索功能。」（`sources/01_hub_docker_com.md:10`）
+拆开这句看两层意思：**资源在哪**——在网盘上，由维护者持续更新，你不用自己找片；**你怎么拿到**——通过一个叫 AList 的程序把它变成一个能访问的服务。**提醒一句**：上面那句把它概括成「基于阿里云盘」，但这几年已经变了——小雅的资源现在分**本体库**（在**阿里云盘与 115 网盘**）和**分享区**（另有**夸克**、PikPak 等）两块，详见第 5 章 5.6。
 
 所以「小雅」不是一个播放器，它更像一个**片源仓库**：它负责「有什么片、片在哪」，至于海报墙怎么排、点了之后怎么播，是另一层的事。这一层由 AList 承担——`Alist: 提供资源在线播放，WebDav服务`（`sources/p2/monlor-144.md:88`）。
 
@@ -78,14 +76,14 @@
 
 ## 1.5 「纯净版」是什么：一处必须澄清的叫法
 
-本篇标题里的「纯净版」，**不是官方术语**。在我们核对过的官方来源（官方镜像页、官方脚本仓库）里，**都没有出现过「纯净版」这个词**。它在社区里约定俗成地指「只装小雅 Alist、不装 Emby 全家桶」的那套轻量装法，官方语义上对应的是安装脚本菜单里的这一项：
+本篇标题里的「纯净版」，**不是官方术语**。在我们核对过的官方来源（官方脚本仓库等）里，**都没有出现过「纯净版」这个词**。它在社区里约定俗成地指「只装小雅 Alist、不装 Emby 全家桶」的那套轻量装法，官方语义上对应的是安装脚本菜单里的这一项：
 
 > 「安装 小雅Alist -> 1 1」（`sources/01_raw_githubusercontent_com.md:75`）
 
 而它旁边紧挨着的另一项就是「安装 Emby全家桶（一键） -> 2 1」（`sources/01_raw_githubusercontent_com.md:76`）——两个是**不同的菜单项**，这正是「只装 AList 是官方承认的独立装法」的依据。
 
 > [!warning] 别把「纯净版」当成官方产品名
-> 「纯净版」是**社区叫法，非官方术语**。你去搜索时，官方文档里对应的是「安装 小雅Alist」这一菜单项，或直接运行官方镜像 `xiaoyaliu/alist`。记住这一点，可以避免把社区黑话当成官方说法去问、去找，结果找不到。
+> 「纯净版」是**社区叫法，非官方术语**。你去搜索时，官方文档里对应的是「安装 小雅Alist」这一菜单项。记住这一点，可以避免把社区黑话当成官方说法去问、去找，结果找不到。
 
 ## 1.6 这篇怎么读：全文路线图
 
@@ -116,14 +114,19 @@
 | # | 原文（逐字） | 中译 / 说人话 | 出处 |
 | --- | --- | --- | --- |
 | 1 | `小雅 Alist 是基于阿里云盘的影视聚合方案，维护着一份持续更新的影音资源目录，省去了自己找片、管片的麻烦。` | 小雅是一套基于阿里云盘的影视聚合方案，帮你不自己找片 | `sources/p2/newzone-xiaoya.md:10` |
-| 2 | `我把 alist.xiaoya.pro 的内容，内嵌在容器里发布了，并添加了alist本身没有的搜索功能。` | 官方镜像作者把 alist.xiaoya.pro 的内容内嵌进容器，并加了搜索 | `sources/01_hub_docker_com.md:10` |
-| 3 | `Alist: 提供资源在线播放，WebDav服务` | Alist 负责资源在线播放与 WebDAV | `sources/p2/monlor-144.md:88` |
-| 4 | `Emby: 用家庭影视库的方式，可视化展示Alist中的资源` | Emby 用家庭影视库的方式把 Alist 的资源可视化 | `sources/p2/monlor-144.md:90` |
-| 5 | `部署 小雅的全家桶 除了emby` | 装了全家桶但把 Emby 去掉 | `sources/forum/tid-73955.md:32` |
-| 6 | `安装 小雅Alist -> 1 1` | 安装脚本里「只装小雅 Alist」这一项 | `sources/01_raw_githubusercontent_com.md:75` |
-| 7 | `安装 Emby全家桶（一键） -> 2 1` | 安装脚本里「装 Emby 全家桶」这一项 | `sources/01_raw_githubusercontent_com.md:76` |
-| 8 | `strm 只是 URL 指针` | STRM 文件只存一个 URL 指针，本身不是视频 | `sources/lens-b/fntvproxy/01_github_com.md:266` |
-| 9 | `Strm 文件可以实现 302 直链播放，流量不经过 Emby Server / Jellyfin Server / 飞牛影视服务器` | STRM 能实现 302 直链播放，流量不经过媒体服务器 | `sources/lens-b/mediawarp/01_github_com.md:53` |
+| 2 | `Alist: 提供资源在线播放，WebDav服务` | Alist 负责资源在线播放与 WebDAV | `sources/p2/monlor-144.md:88` |
+| 3 | `Emby: 用家庭影视库的方式，可视化展示Alist中的资源` | Emby 用家庭影视库的方式把 Alist 的资源可视化 | `sources/p2/monlor-144.md:90` |
+| 4 | `部署 小雅的全家桶 除了emby` | 装了全家桶但把 Emby 去掉 | `sources/forum/tid-73955.md:32` |
+| 5 | `安装 小雅Alist -> 1 1` | 安装脚本里「只装小雅 Alist」这一项 | `sources/01_raw_githubusercontent_com.md:75` |
+| 6 | `安装 Emby全家桶（一键） -> 2 1` | 安装脚本里「装 Emby 全家桶」这一项 | `sources/01_raw_githubusercontent_com.md:76` |
+| 7 | `strm 只是 URL 指针` | STRM 文件只存一个 URL 指针，本身不是视频 | `sources/lens-b/fntvproxy/01_github_com.md:266` |
+| 8 | `Strm 文件可以实现 302 直链播放，流量不经过 Emby Server / Jellyfin Server / 飞牛影视服务器` | STRM 能实现 302 直链播放，流量不经过媒体服务器 | `sources/lens-b/mediawarp/01_github_com.md:53` |
+
+## 更新记录
+
+| 日期 | 变更摘要 |
+|------|----------|
+| 2026-10-06 | **整套笔记统一为 monlor 单一路线，删除官方镜像路线（第 4 篇）**：删去 1.1 中「小雅官方镜像的作者自述」引文及其引导句（`sources/01_hub_docker_com.md:10`）；1.5 的「官方来源（官方镜像页、官方脚本仓库）」收窄为「官方来源（官方脚本仓库等）」，warning 里删去「或直接运行官方镜像 `xiaoyaliu/alist`」一句。引文对照删去官方镜像页 1 条（原第 2 行），重编号为 1–8。 |
 ---
 
 # 第 2 章 选型对比——飞牛影视能不能替代 Emby
@@ -171,7 +174,7 @@
 | --- | --- | --- |
 | **刮削与元数据来源** | 配套 `Metadata` 服务管理元数据；官方脚本还提供整套现成元数据包下载 | 让飞牛影视自己刮，或复用 Emby 侧刮好的 STRM |
 | **播放链路** | 播放层与 AList 同栈部署，Emby 代理走 `:8095` | 需把播放地址指向飞牛代理端口 `:28005` |
-| **播放兼容性** | 成熟播放器生态；脚本明确「没有计划支持硬解」 | 支持 `stream.mp4`/`stream.MOV` 等；网盘转码支持仍是待办 |
+| **播放兼容性** | 成熟播放器生态；脚本明确「没有计划支持硬解」 | 支持 `stream.mp4`/`stream.MOV` 等；AlistStrm 模式下支持网盘转码内容 |
 | **外网 / 蜂窝网可达性** | 同样要解决内网直链问题（代理改 302） | 关键坑同左：飞牛原生响应里的直链仍是内网地址 |
 
 ### 2.3.1 刮削与元数据来源
@@ -194,7 +197,7 @@
 
 飞牛影视作为播放端，第三方工具的实测给它提供了旁证：代理工具明确「基于**飞牛影视 0.9.3** 版本」（`sources/lens-b/fntvproxy/01_github_com.md:45`），并在问答里说明「飞牛代理支持 `stream.mp4`、`stream.MOV` 等所有格式」（`sources/lens-b/fntvproxy/01_github_com.md:281`）。
 
-但有一处要如实说明：**硬件解码/转码不在全家桶脚本的规划里**。维护者直言「脚本没有计划支持硬解，在我看来这个功能没有必要」（`sources/p2/monlor-144.md:58`）；而飞牛影视侧的「网盘转码」支持，在中间件的待办清单里还挂着一项「支持播放网盘转码内容（仅飞牛影视 AlistStrm 模式）」（`sources/lens-b/mediawarp/01_github_com.md:87`）——**待办 = 还没完成**，不能当成已有能力。
+但有一处要如实说明：**硬件解码/转码不在全家桶脚本的规划里**。维护者直言「脚本没有计划支持硬解，在我看来这个功能没有必要」（`sources/p2/monlor-144.md:58`）。飞牛影视侧则不同——**MediaWarp 已完成对飞牛影视的适配**，并且在 **AlistStrm 模式**下支持播放网盘转码内容（待办清单里这两项均为 `[x]`：`sources/lens-b/mediawarp/02_readme_todo.md:25`、`:26`）。
 
 硬解与软解的取舍另有专文，延伸阅读见 [[流媒体与影音/硬件解码vs软件解码]]。
 
@@ -243,17 +246,15 @@
 
 **这张表是「为什么可以不用 Emby」最直接的反衬**：你说不想用 Emby，除了功能偏好，往往还因为**不想为播放层付出 4G 内存 + 150G 硬盘的代价**——而单容器（仅 AList）恰好把这个代价压到了 1 核 / 512M / 512M。
 
-## 2.5 飞牛影视可作前端的旁证，与一处必须并列保留的未决
+## 2.5 飞牛影视可作前端的旁证
 
 **正面旁证**（说明飞牛影视确实被当成正经播放端对待）：
 
-- MediaWarp 的自我定位是「前置于 EmbyServer/Jellyfin/飞牛影视 的反向代理服务器」（`sources/lens-b/mediawarp/01_github_com.md:51`）——把飞牛影视和 Emby、Jellyfin 并列在同一位；
+- MediaWarp 的自我定位是「前置于 EmbyServer/Jellyfin/飞牛影视 的反向代理服务器」（`sources/lens-b/mediawarp/01_github_com.md:51`）——把飞牛影视和 Emby、Jellyfin 并列在同一位；其待办清单里 **`- [x] 适配 飞牛影视`** 为**已完成**（`sources/lens-b/mediawarp/02_readme_todo.md:25`）。
 - fntv-proxy 直接「基于飞牛影视 0.9.3 版本」开发（`sources/lens-b/fntvproxy/01_github_com.md:45`）。
 
-**但有一处必须并列保留、不合并、不下结论的**：同一个 MediaWarp 仓库，README 正文虽已把飞牛影视列为可代理对象，**它的待办清单（TODO LIST）里却仍挂着一项**——「适配 飞牛影视」（`sources/lens-b/mediawarp/01_github_com.md:86`）。
-
-> [!warning] 一处未决：别把「已列出」读成「已完善」
-> MediaWarp 对飞牛影视的**成熟度是未决的**：正文把它列为可代理对象，TODO 又仍列「适配 飞牛影视」。证据相互矛盾，本笔记**不合并、不裁断**——只能说「飞牛影视已被主流中间件纳入支持方向」，**不能说它已被完整适配**。实际以你部署时的实测为准。
+> [!note] 一处旧结论的更正：MediaWarp 对飞牛影视**已经支持**
+> 本笔记早前把 README 待办清单里的「适配 飞牛影视」读成**待办项**，据此判断「成熟度未决」。核对 raw Markdown 后确认，该行原文是 **`- [x] 适配 飞牛影视`（已完成）**，紧随的 `- [x] 支持播放网盘转码内容（仅飞牛影视 AlistStrm 模式）` 也已完成（`sources/lens-b/mediawarp/02_readme_todo.md:25`、`:26`）。误判根源是抓取存档在 HTML 转文本时丢了 checkbox 状态。**更正结论：飞牛影视是主流中间件的正式支持对象，不是「待适配」。**
 
 ## 2.6 Jellyfin 路线：官方安装方案已长久未维护
 
@@ -277,9 +278,9 @@
 ## 本章小结
 
 - **不必须 Emby**：全部来源无一处断言「必须」，已有社区实践走「全家桶去掉 Emby」，把 Emby 刮削的 STRM 喂给飞牛影视。
-- **四维差异**：刮削元数据（E 有现成元数据包 / F 要自备来源）、播放链路（共用 STRM + 302，只是代理端口不同）、播放兼容性（飞牛侧网盘转码仍是待办）、外网可达性（**两条路线共同的坑**）。
+- **四维差异**：刮削元数据（E 有现成元数据包 / F 要自备来源）、播放链路（共用 STRM + 302，只是代理端口不同）、播放兼容性（飞牛侧经 MediaWarp 的 AlistStrm 可播网盘转码内容）、外网可达性（**两条路线共同的坑**）。
 - **资源门槛差一个数量级**：仅 AList 1 核 / 512M / 512M，加 Emby 跳到 2 核 / 4G / 150G（维护者推荐、非官方硬性）。
-- **旁证与未决并列**：MediaWarp / fntv-proxy 都把飞牛影视当正经播放端，但 MediaWarp 的 TODO 仍列「适配 飞牛影视」——**成熟度未决，不下结论**。
+- **旁证已确证**：MediaWarp / fntv-proxy 都把飞牛影视当正经播放端，且 MediaWarp 的待办清单明确 **`[x] 适配 飞牛影视`**（已完成）——**飞牛影视已被主流中间件正式支持**。
 - **Jellyfin 官方安装方案已长久未维护**，不建议走官方脚本加装。
 
 **下一章预告**：判断做完，接下来该动手了。但在敲命令之前，第 3 章先把三张清单备好——**目录（哪些路径映射进容器）、端口（容器内端口和宿主映射要分开看）、凭据（阿里云盘三件套 + WebDAV 账号）**，并顺带确认 fnOS 在官方兼容性表里的状态。
@@ -302,15 +303,17 @@
 | 10 | `将播放器地址指向代理端口（飞牛 :28005，Emby :8095）` | 把播放器指到代理端口：飞牛用 28005、Emby 用 8095 | `sources/lens-b/fntvproxy/01_github_com.md:71` |
 | 11 | `基于飞牛影视 0.9.3 版本` | 这个代理工具是针对飞牛影视 0.9.3 版本做的 | `sources/lens-b/fntvproxy/01_github_com.md:45` |
 | 12 | `前置于 EmbyServer/Jellyfin/飞牛影视 的反向代理服务器` | 一个架在 Emby/Jellyfin/飞牛影视前面的反向代理 | `sources/lens-b/mediawarp/01_github_com.md:51` |
-| 13 | `适配 飞牛影视` | （待办清单里的一项）适配飞牛影视 | `sources/lens-b/mediawarp/01_github_com.md:86` |
-| 14 | `注意：目前官方 Jellyfin 安装方案已经长久未维护！` | 官方 Jellyfin 安装方案已经很久没人维护了 | `sources/01_raw_githubusercontent_com.md:180` |
-| 15 | `仅部署 Alist` | （资源表里的）「只部署 Alist」一行：1 核 / 512M / 512M | `sources/p2/monlor-144.md:78` |
-| 16 | `脚本没有计划支持硬解，在我看来这个功能没有必要` | 全家桶脚本没打算支持硬解，维护者认为没必要 | `sources/p2/monlor-144.md:58` |
+| 13 | `- [x] 适配 飞牛影视` | MediaWarp 已完成对飞牛影视的适配（待办清单勾选项） | `sources/lens-b/mediawarp/02_readme_todo.md:25` |
+| 14 | `- [x] 支持播放网盘转码内容（仅飞牛影视 AlistStrm 模式）` | 飞牛影视 AlistStrm 模式下支持播放网盘转码内容（已完成） | `sources/lens-b/mediawarp/02_readme_todo.md:26` |
+| 15 | `注意：目前官方 Jellyfin 安装方案已经长久未维护！` | 官方 Jellyfin 安装方案已经很久没人维护了 | `sources/01_raw_githubusercontent_com.md:180` |
+| 16 | `仅部署 Alist` | （资源表里的）「只部署 Alist」一行：1 核 / 512M / 512M | `sources/p2/monlor-144.md:78` |
+| 17 | `脚本没有计划支持硬解，在我看来这个功能没有必要` | 全家桶脚本没打算支持硬解，维护者认为没必要 | `sources/p2/monlor-144.md:58` |
 
 ## 更新记录
 
 | 日期 | 变更摘要 |
 |------|----------|
+| 2026-10-06 | **口径修正（MediaWarp）**：更正 2.5 与 2.3.3——此前把 MediaWarp README 的「适配 飞牛影视」读成**待办项**，据此判「成熟度未决」。核对 raw Markdown 后确认该行为 `- [x] 适配 飞牛影视`（已完成），`- [x] 支持播放网盘转码内容（仅飞牛影视 AlistStrm 模式）` 亦已完成（`sources/lens-b/mediawarp/02_readme_todo.md:25`、`:26`）；误判根源是旧抓取存档丢失 checkbox 状态。2.5 标题与结论由「未决」改为**已确证**；2.2 表「网盘转码仍是待办」改为「AlistStrm 模式下支持」；引文对照表原 13 行改为 `[x]` 口径并新增 14。 |
 | 2026-10-06 | 2.3.4 补充「外网远程观影」小节：区分**直接挂载（WebDAV）→ NAS 中转载流、吃上行带宽**与 **STRM + 302 → 客户端直连网盘、不过 NAS**（`sources/lens-b/mediawarp/01_github_com.md:53`）；说明飞牛「网盘优先直链（302）」主要面向飞牛原生挂载的网盘，小雅经 WebDAV 挂载时通常套不上 302 直链。 |
 ---
 
@@ -320,7 +323,7 @@
 
 动手部署之前，其实只需要备好**三张清单**：**目录**（哪些路径要映射进容器）、**端口**（容器内用什么端口、宿主机映射成什么端口）、**凭据**（阿里云盘三件套，加可选的夸克 / 115，以及 WebDAV 账号）。本章只准备清单，**不执行任何部署**——命令集中在下一章。标题里的「新手可跳过」指的是本章末尾那段配置片段，如果你只想先看懂结构，读三张清单即可，片段留到下一章照着用。
 
-先说一条贯穿全章的纪律：**「容器内」和「宿主机」是两套端口，绝不能混写**；同样，「官方镜像」和「monlor 镜像」是两条路线，镜像名也不能混写。下面逐张清单来。
+先说一条贯穿全章的纪律：**「容器内」和「宿主机」是两套端口，绝不能混写**；镜像名同理——本笔记全程只用 monlor 社区镜像 `ghcr.io/monlor/xiaoya-alist`，别跟别的镜像名混写。下面逐张清单来。
 
 ## 3.1 目录：哪些路径要映射进容器
 
@@ -346,10 +349,7 @@
 | 容器内挂载点 | 用途 | 谁在用 | 出处 |
 | --- | --- | --- | --- |
 | `/data` | AList 持久化数据（含 `docker_address.txt` 等） | alist 容器 | `sources/forum/tid-9690.md:38` |
-| `/etc/xiaoya` | 配置 / 凭据 / 元数据文件目录 | metadata 容器 | `sources/p2/monlor-144.md:182` |
-
-> [!note] 凭据文件的**文件名**已坐实，「放哪」看路线
-> 三份凭据文件的**文件名**现有多来源支撑：`mytoken.txt` 见官方仓库（`sources/01_github_com.md:65`），三件套对照见两份社区教程（`sources/p3/z-addone/01_www_cnblogs_com.md:23-25`、`sources/p3/gnz48/01_www_cnblogs_com.md:25`）。但**放进哪个目录**随路线而变（官方镜像读 `/data`，monlor 元数据容器用 `/etc/xiaoya`），且「其余文件由容器自动生成」目前只有社区说明（`sources/p3/z-addone/01_www_cnblogs_com.md:30`）。落地一律以你所用镜像的官方说明为准。
+| `/etc/xiaoya` | 配置 / 元数据文件目录 | metadata 容器 | `sources/p2/monlor-144.md:182` |
 
 > [!tip] 大白话
 > 把「目录映射」想成**给容器开一个抽屉**：容器是搬运工，它自己不带记忆；你把 NAS 上一个真实文件夹（上面那个 `data`）焊到它的 `/data` 抽屉上，它写进去的东西才留在你硬盘上、重启不丢。焊错了或者没焊，容器一重启，数据就没了。
@@ -362,7 +362,7 @@
 
 | 容器内端口 | 用途 | 出处 |
 | --- | --- | --- |
-| `5678` | AList Web 服务 | `sources/01_hub_docker_com.md:17`；`sources/forum/tid-9690.md:40` |
+| `5678` | AList Web 服务 | `sources/forum/tid-9690.md:40` |
 | `2345` | 备用端口 / 其他服务 | `sources/forum/tid-9690.md:41` |
 | `2346` | 备用端口 / 其他服务 | `sources/forum/tid-9690.md:42` |
 
@@ -375,9 +375,6 @@
 | `5346` | `2346` | 备用端口 | `sources/forum/tid-9690.md:42` |
 
 映射关系在 compose 里写作 `"宿主机:容器"`，帖子的注释点明了方向：「宿主机端口 5677 映射到容器的 5678 端口」（`sources/forum/tid-9690.md:40`），并提示「冒号左侧为宿主机端口，可以修改为你需要使用的端口，右侧不需要修改」（`sources/forum/tid-9690.md:32`）。
-
-> [!warning] 一处来源冲突，并列保留、不合并
-> 关于「**官方镜像**的容器内端口是多少」，两份来源说法不同：官方镜像页写「端口：5678」（`sources/01_hub_docker_com.md:17`）；而另一份部署笔记用的是同一个官方镜像 `xiaoyaliu/alist:latest`，却把宿主 `6789` 映射到**容器 `80`**（`sources/p2/newzone-xiaoya.md:18-23`）。同一「官方镜像」两种内端口说法，**本笔记不裁断**——结论只保留到「以你实际镜像文档为准」，不写死某一个数字。
 
 > [!tip] 大白话
 > 把端口想成**门牌号**：容器内的 `5678` 是它在屋里自己的门牌，宿主机的 `5677` 是你从大门口进去的门牌。访客（浏览器）走的是大门那个号（`5677`），屋里那个号（`5678`）访客看不见。所以写配置时，「左边（外面）随你改，右边（屋里）别乱动」。
@@ -398,25 +395,15 @@
 
 帖子把它们列为**必填项**：「`ALIYUN_TOKEN` `ALIYUN_OPEN_TOKEN` `ALIYUN_FOLDER_ID` 这三个是必填项」（`sources/forum/tid-9690.md:32`）。
 
-**另一条注入路线（文件）：** 官方镜像路线不走环境变量，而是读容器内的凭据文件——把三样凭据各写进一个 `.txt`，丢进映射给容器的数据目录即可，**文件名是固定约定**：
-
-| 凭据内容 | 文件名 | 出处 |
-| --- | --- | --- |
-| 阿里云盘 token（社区称 32 位） | `mytoken.txt` | `sources/01_github_com.md:65`（官方仓库）；`sources/p3/z-addone/01_www_cnblogs_com.md:23`、`sources/p3/gnz48/01_www_cnblogs_com.md:25`（社区教程） |
-| 阿里云盘 Open Token / refresh_token（社区称约 280 位） | `myopentoken.txt` | `sources/p3/z-addone/01_www_cnblogs_com.md:24`、`sources/p3/gnz48/01_www_cnblogs_com.md:25` |
-| 转存目录的 folder id | `temp_transfer_folder_id.txt` | `sources/p3/z-addone/01_www_cnblogs_com.md:25`、`sources/p3/gnz48/01_www_cnblogs_com.md:32` |
-
-社区教程对放置位置的描述是「创建 _data_ 文件夹，将三个 txt 文件放入」（`sources/p3/z-addone/01_www_cnblogs_com.md:28`）、「上传至群晖 docker/xiaoya 文件夹」（`sources/p3/gnz48/01_www_cnblogs_com.md:32`）——也就是映射进容器的那块数据目录。**文件名一致，但放哪个目录要看路线**：官方镜像读 `/data`，monlor 元数据容器用 `/etc/xiaoya`。
-
-**那么这三样怎么拿到？** 上面说的是「放哪里」，这里补「怎么拿」。**前两样现在都走「手机扫码」**——这是当前的主推方式（下面称**方案 A**），也是本笔记推荐的做法；旧的「按 `F12` 复制网页代码 → 解码站」那一套（方案 B）已被官方接口变更淘汰，见本节后面的提醒。三步对照如下：
+**那么这三个值怎么拿到？** 上面说的是「填什么」，这里补「怎么拿」。**前两样现在都走「手机扫码」**——这是当前的主推方式（下面称**方案 A**），也是本笔记推荐的做法；旧的「按 `F12` 复制网页代码 → 解码站」那一套（方案 B）已被阿里云盘接口变更淘汰，见本节后面的提醒。三步对照如下：
 
 | 要拿的东西 | 操作（主推：扫码） | 出处 |
 | --- | --- | --- |
-| `mytoken.txt`（阿里云盘 token） | 电脑浏览器打开 AList 文档的**阿里云盘**页 `https://alist.nn.ci/zh/guide/drivers/aliyundrive`，用**手机阿里云盘 App 扫码**授权，页面给出的 **32 位** token 就是它 | `sources/p5/slarker/01_wiki_slarker_me.md:29` |
-| `myopentoken.txt`（Open Token / refresh_token） | 同样扫码：打开 `https://alist.nn.ci/tool/aliyundrive/request.html`，点「Go to login」，用阿里云盘**手机 APP 扫码**登录，下一个页面的方框里给出的 **280 位** Open Token 就是它（另一份教程记作 **288~335 位**） | `sources/p3/gnz48/01_www_cnblogs_com.md:30`；`sources/p5/slarker/01_wiki_slarker_me.md:30` |
-| `temp_transfer_folder_id.txt`（folder id） | 登录阿里云盘网页版，在**资源盘**下新建一个文件夹（教程命名为 `xiaoya`），点进去后复制地址栏 URL 里的那串 folder id | `sources/p3/gnz48/01_www_cnblogs_com.md:31` |
+| `ALIYUN_TOKEN`（阿里云盘 token） | 电脑浏览器打开 AList 文档的**阿里云盘**页 `https://alist.nn.ci/zh/guide/drivers/aliyundrive`，用**手机阿里云盘 App 扫码**授权，页面给出的 **32 位** token 就是它 | `sources/p5/slarker/01_wiki_slarker_me.md:29` |
+| `ALIYUN_OPEN_TOKEN`（Open Token / refresh_token） | 同样扫码：打开 `https://alist.nn.ci/tool/aliyundrive/request.html`，点「Go to login」，用阿里云盘**手机 APP 扫码**登录，下一个页面的方框里给出的 **280 位** Open Token 就是它（另一份教程记作 **288~335 位**） | `sources/p3/gnz48/01_www_cnblogs_com.md:30`；`sources/p5/slarker/01_wiki_slarker_me.md:30` |
+| `ALIYUN_FOLDER_ID`（folder id） | 登录阿里云盘网页版，在**资源盘**下新建一个文件夹（教程命名为 `xiaoya`），点进去后复制地址栏 URL 里的那串 folder id | `sources/p3/gnz48/01_www_cnblogs_com.md:31` |
 
-近期教程把扫码的每一步写得更细，可照着做（`sources/p5/wsisp/01_www_wsisp_com.md:21-25`）：电脑浏览器打开**阿里云盘 Token 生成页** → 点「获取 Token」，页面出现**二维码** → 用**手机阿里云盘 App 扫码**（须最新版）→ 手机端点「授权」后，**电脑页面会显示一串字符** → 新建文本文件命名为 `mytoken.txt`，把这串字符粘进去（`sources/p5/wsisp/01_www_wsisp_com.md:25`）。
+近期教程把扫码的每一步写得更细，可照着做（`sources/p5/wsisp/01_www_wsisp_com.md:21-25`）：电脑浏览器打开**阿里云盘 Token 生成页** → 点「获取 Token」，页面出现**二维码** → 用**手机阿里云盘 App 扫码**（须最新版）→ 手机端点「授权」后，**电脑页面会显示一串字符** → 把这一串字符填进 `ALIYUN_TOKEN`（`sources/p5/wsisp/01_www_wsisp_com.md:21-25`）。
 
 > [!note] 来源给的位数不一，照抄即可、不必数
 > 同一样东西，不同来源的位数写法不同：阿里云盘 token，AList 文档与老教程写 **32 位**（`sources/p5/slarker/01_wiki_slarker_me.md:29`、`sources/p3/gnz48/01_www_cnblogs_com.md:26-29`），近期教程写 **40 位**（`sources/p5/wsisp/01_www_wsisp_com.md:24`）；Open Token 则写 **280 位**（`sources/p3/gnz48/01_www_cnblogs_com.md:30`）与 **288~335 位**（`sources/p5/slarker/01_wiki_slarker_me.md:30`）两种。差异可能来自页面改版，**本笔记不裁断**；你照着页面复制即可，别去数位数。
@@ -429,51 +416,45 @@
 > 3. **第三方工具要留意**：凡是把你的登录响应 / 扫码交给**非阿里官方的第三方站点**处理的，都要多一分谨慎；别把任何单一工具当唯一出路。
 
 > [!tip] 大白话
-> 三样东西对应三件事：**「你是谁」**（`mytoken.txt`，证明这个盘是你的）、**「开放接口的通行证」**（`myopentoken.txt`，小雅走开放接口取文件要用）、**「东西先放哪儿」**（`temp_transfer_folder_id.txt`，临时转存来的片先落在这个文件夹）。前两样都靠**手机扫码**换取，第三样是你在自己网盘里建个文件夹、把它地址栏里那串字符抄下来。
+> 三样东西对应三件事：**「你是谁」**（`ALIYUN_TOKEN`，证明这个盘是你的）、**「开放接口的通行证」**（`ALIYUN_OPEN_TOKEN`，小雅走开放接口取文件要用）、**「东西先放哪儿」**（`ALIYUN_FOLDER_ID`，临时转存来的片先落在这个文件夹）。前两样都靠**手机扫码**换取，第三样是你在自己网盘里建个文件夹、把它地址栏里那串字符抄下来。
+
+### 3.3.1 如何选用夸克和115
 
 **可选凭据：夸克与 115。** 如果你**主用夸克**（或想挂 115），还要多一份对应 cookie。配置注释把它标成**非必填**——它是「再挂一个盘」，不是「换掉阿里」：
 
 > 「QUARK_COOKIE: "" # 夸克网盘的 Cookie，需要用户填写，非必填。」（`sources/01_club_fnnas_com.md:48`）
 
-它有两种放法（与上面三件套同理，环境变量 `QUARK_COOKIE` 对应文件 `quark_cookie.txt`）：
+它以环境变量注入：
 
-| 凭据内容 | 放置方式 | 出处 |
+| 凭据内容 | 环境变量 | 出处 |
 | --- | --- | --- |
-| 夸克网盘 cookie | 文件 `quark_cookie.txt`；或环境变量 `QUARK_COOKIE` | `sources/forum/tid-8385880.md:26`、`sources/01_club_fnnas_com.md:48` |
-| 115 网盘 cookie | 环境变量 `PAN115_COOKIE`（同样非必填） | `sources/forum/tid-9690.md:49` |
-
-文件路线的写法，社区「小雅夸克玩法」讲得很直白：
-
-> 「1、在小雅 alist 的配置目录下增加 quark_cookie.txt 文件，填入夸克账户的 cookie 并保存；」（`sources/forum/tid-8385880.md:26`）
+| 夸克网盘 cookie | `QUARK_COOKIE` | `sources/01_club_fnnas_com.md:48` |
+| 115 网盘 cookie | `PAN115_COOKIE`（同样非必填） | `sources/forum/tid-9690.md:49` |
 
 夸克 cookie 管的是**小雅的夸克分享区**（`/🌀我的夸克分享`）与**挂载你自己的夸克**——它值不值得配、能覆盖多少，第 5 章 5.6 讲清了。
 **夸克 cookie 怎么拿？** 它和阿里那套不一样——**没有扫码，靠浏览器开发者工具手抓**。AList 官方文档给的就是一句：
 
 > 「按F12打开“调试”，选中“网络”，随意在左侧选择请求，找到携带 `Cookie` 参数的就可以」（`sources/p5/alist-docs/01_raw_githubusercontent_com.md:47`）
 
-拆成四步：① 用 **Chrome** 打开并登录**夸克网盘网页版** `pan.quark.cn`；② 按 `F12` 打开「调试」→ 切到「网络」；③ 刷新一下，在左边请求列表里**随便点一个**，找到**请求头里带 `Cookie` 参数**的那个；④ 把 **Cookie 整串**复制下来，粘贴进 `quark_cookie.txt`（或环境变量 `QUARK_COOKIE`）。
+拆成四步：① 用 **Chrome** 打开并登录**夸克网盘网页版** `pan.quark.cn`；② 按 `F12` 打开「调试」→ 切到「网络」；③ 刷新一下，在左边请求列表里**随便点一个**，找到**请求头里带 `Cookie` 参数**的那个；④ 把 **Cookie 整串**复制下来，填进 `docker-compose.yml` 里的 `QUARK_COOKIE`。
 
 > [!warning] 抓夸克 cookie 的两个坑
 > 1. **要用 Chrome 抓**：官方文档专门注明「请使用Chrome浏览器来获取Cookies，使用Firefox获取的Cookies或仍将停留在访客并请求登录。」（`sources/p5/alist-docs/01_raw_githubusercontent_com.md:63`）——Firefox 抓到的可能是「访客态」，填了也不认。
 > 2. **它会过期，而且很短**：官方仓库的修复 PR 说明，夸克的 `__puus` 会话 cookie **约 3 小时**就过期，且只有「请求不带 `__puus`」时夸克才重新签发；而客户端总是带上已存的 cookie，于是过期后**列表还能看、下载却 403，要重启才恢复**（`sources/gh/alist-9596.md:11`）。这正好解释了论坛那种「夸克 cookie 填进去却不出效果」的反馈（`sources/forum/tid-8385880.md:30`）。
 
-**WebDAV 账号**（用来把资源库当文件夹挂载），多处来源一致：
+### 3.3.2 WebDAV 账号
 
-> 「webdav 账号密码 用户: guest 密码: guest_Api789」（`sources/01_hub_docker_com.md:18`）
+**WebDAV 账号**（用来把资源库当文件夹挂载）。本笔记用的 monlor 镜像在 `env` 模板里写明了账号约定：
 
-论坛实测答复也一致：「webdav的配置的用户名和密码是guest/guest_Api789」（`sources/forum/tid-9690.md:72`），路径为 `/dav`（`sources/forum/tid-9690.md:280`）。凭据三件套与 WebDAV 账号的语境，我在 [[流媒体与影音/网盘影视播放与本地存储的取舍]] 里也有铺垫。
+> 「webdav用户名为dav，设置密码。默认用户密码：guest/guest_Api789」（`sources/p3/monlor-env/01_raw_githubusercontent_com.md:32`）
 
-> [!note] 「`dav` 还是 `guest`」其实是**两条路线**，不是同一个冲突
-> 论坛帖的 compose 注释写「默认用户为 dav」（`sources/forum/tid-9690.md:55`），楼主实测答复写 `guest` / `guest_Api789`（`sources/forum/tid-9690.md:72`、官方镜像页 `sources/01_hub_docker_com.md:18`）。回头核对 monlor 仓库的 `env` 模板，能看到同一条注释的两半：
->
-> | monlor `env` 原文 | 说人话 |
-> | --- | --- |
-> | `webdav用户名为dav，设置密码。默认用户密码：guest/guest_Api789` | monlor 路线把 WebDAV **用户名设成 `dav`**（密码由 `WEBDAV_PASSWORD` 设）；`guest` / `guest_Api789` 是**默认账号** |
->
-> 出处：`sources/p3/monlor-env/01_raw_githubusercontent_com.md:32`。所以这不是「谁写错了」，而是**按路线取值**：官方镜像用 `guest` / `guest_Api789`，monlor 路线注意用户名是 `dav`。本笔记两条并记。
+说人话：**用户名固定是 `dav`**，密码默认 `guest_Api789`（可用环境变量 `WEBDAV_PASSWORD` 改，`sources/forum/tid-9690.md:55`），路径 `/dav`（`sources/forum/tid-9690.md:280`）。挂载时三样照此填写。凭据三件套与 WebDAV 账号的语境，我在 [[流媒体与影音/网盘影视播放与本地存储的取舍]] 里也有铺垫。
+
+> [!warning] 用户名是 `dav`，不是 `guest`
+> 网上教程里 `guest` / `guest_Api789` 的说法很常见，但 monlor 模板把 **WebDAV 用户名固定为 `dav`**，`guest_Api789` 只是**默认密码**。挂载时用户名务必填 `dav`——填成 `guest` 会一直提示登录失败。
 
 > [!tip] 大白话
-> 把三件套想成**三把钥匙**：`ALIYUN_TOKEN` 是进阿里云盘大门的钥匙，`ALIYUN_OPEN_TOKEN` 是另一把「开放接口」的钥匙，`ALIYUN_FOLDER_ID` 则是告诉小雅「把临时借来的片放进哪个抽屉」。三者缺一，小雅就取不到片。WebDAV 的 `guest` / `guest_Api789` 则是给「挂载文件夹」用的门禁卡——只读、人人相同，别当成你自己的账号密码。
+> 把三件套想成**三把钥匙**：`ALIYUN_TOKEN` 是进阿里云盘大门的钥匙，`ALIYUN_OPEN_TOKEN` 是另一把「开放接口」的钥匙，`ALIYUN_FOLDER_ID` 则是告诉小雅「把临时借来的片放进哪个抽屉」。三者缺一，小雅就取不到片。WebDAV 的 `dav` / `guest_Api789` 则是给「挂载文件夹」用的门禁卡——只读、人人相同，别当成你自己的账号密码。
 
 ## 3.4 fnOS 兼容性：官方兼容表里是 ✅
 
@@ -503,20 +484,20 @@ services:
       ALIYUN_FOLDER_ID: ""    # 必填：文件夹 ID
 ```
 
-> [!warning] 这里出现的镜像是 monlor 的，**不是**官方镜像
-> `ghcr.io/monlor/xiaoya-alist` 是 monlor 维护者发布的镜像；官方镜像名是 `xiaoyaliu/alist`。**两者不可混写**：`ghcr.io` 侧**不是**「官方小雅镜像」。第 4 章会把两条镜像路线并排讲清楚，让你按凭据管理习惯二选一。
+> [!note] 这里出现的是 monlor 社区镜像，**不是**小雅官方发布
+> `ghcr.io/monlor/xiaoya-alist` 由社区维护者 monlor 发布，**不是**小雅官方的镜像。记住这一点，是为了你之后排查问题、找文档时**找对项目**——去官方仓库里核对是找不到它的。第 4 章给出完整部署流程（一键脚本 + Compose）。
 
 ## 本章小结
 
 - **只备清单，不部署**：本章给出目录、端口、凭据三张清单；命令集中在第 4 章。
-- **目录**：核心是持久化的 `/data` 映射；`/etc/xiaoya` 属配置/元数据；凭据文件名（`mytoken.txt` / `myopentoken.txt` / `temp_transfer_folder_id.txt`）有多来源，但**放哪个目录随路线而变**。
-- **端口务必分内外**：容器内 `5678` / `2345` / `2346`，宿主映射 `5677` / `5345` / `5346`；官方镜像的容器内端口存在 `5678` vs `80` 的**来源冲突，并列保留**。
-- **凭据两条路线**：环境变量路线三件套 `ALIYUN_TOKEN` / `ALIYUN_OPEN_TOKEN` / `ALIYUN_FOLDER_ID`（均必填）；文件路线三件套 `mytoken.txt` / `myopentoken.txt` / `temp_transfer_folder_id.txt`。WebDAV 默认账号 `guest` / `guest_Api789`；monlor 路线用户名是 `dav`（两条路线并记）。
-- **三件套怎么拿**：第 1、2 样（`mytoken.txt` / `myopentoken.txt`）都走**手机扫码**（方案 A，`sources/p5/slarker/01_wiki_slarker_me.md:29`、`sources/p5/wsisp/01_www_wsisp_com.md:21-25`）；旧的 `F12` + 解码站法已被接口变更淘汰、降为备选（`sources/p5/wsisp/01_www_wsisp_com.md:17`）。
-- **夸克 / 115 属可选凭据**：夸克用文件 `quark_cookie.txt` 或环境变量 `QUARK_COOKIE`（**非必填**）；主用夸克时正是靠它用上小雅的**夸克分享区**——夸克 cookie 用 **Chrome + `F12`** 手抓（`sources/p5/alist-docs/01_raw_githubusercontent_com.md:47`、`:63`）、约 3 小时会过期，详见第 5 章 5.6（`sources/forum/tid-8385880.md:26`、`sources/01_club_fnnas_com.md:48`）。
+- **目录**：核心是持久化的 `/data` 映射；`/etc/xiaoya` 属配置 / 元数据。
+- **端口务必分内外**：容器内 `5678` / `2345` / `2346`，宿主映射 `5677` / `5345` / `5346`；映射方向恒为「左宿主、右容器」。
+- **凭据只走环境变量**：三件套 `ALIYUN_TOKEN` / `ALIYUN_OPEN_TOKEN` / `ALIYUN_FOLDER_ID`（均必填），不用映射文件。WebDAV 用户名固定 `dav`，密码默认 `guest_Api789`，路径 `/dav`。
+- **三件套怎么拿**：第 1、2 样（`ALIYUN_TOKEN` / `ALIYUN_OPEN_TOKEN`）都走**手机扫码**（方案 A，`sources/p5/slarker/01_wiki_slarker_me.md:29`、`sources/p5/wsisp/01_www_wsisp_com.md:21-25`）；旧的 `F12` + 解码站法已被接口变更淘汰、降为备选（`sources/p5/wsisp/01_www_wsisp_com.md:17`）。
+- **夸克 / 115 属可选凭据**：夸克用环境变量 `QUARK_COOKIE`（**非必填**）；主用夸克时正是靠它用上小雅的**夸克分享区**——夸克 cookie 用 **Chrome + `F12`** 手抓（`sources/p5/alist-docs/01_raw_githubusercontent_com.md:47`、`:63`）、约 3 小时会过期，详见第 5 章 5.6（`sources/01_club_fnnas_com.md:48`）。
 - **fnOS 在官方兼容表里 ✅**（含一个已弃用脚本），部署前提无兼容性障碍。
 
-**下一章预告**：清单齐了，第 4 章进入部署实战——把单容器的两条镜像路线（官方 `xiaoyaliu/alist` 与 monlor `ghcr.io/monlor/xiaoya-alist`）并排摆开，给出完整的 `docker run` 与 `docker-compose`，并说明两条路线在**凭据注入方式**上的根本差异，让你按自己的习惯二选一。
+**下一章预告**：清单齐了，第 4 章进入部署实战——用 monlor 社区镜像 `ghcr.io/monlor/xiaoya-alist` 把**单容器**的小雅跑起来，给出一键脚本与手写 Compose 两条同等入口，以及部署后的五点自检。
 
 ## 引文对照（原文 / 中译）
 
@@ -525,45 +506,35 @@ services:
 | # | 原文（逐字） | 中译 / 说人话 | 出处 |
 | --- | --- | --- | --- |
 | 1 | `将容器中的 /data 目录映射到名为 xiaoya 的数据卷，用于持久化存储` | 把容器里的 /data 映射成宿主机卷，用来持久化存数据 | `sources/forum/tid-9690.md:38` |
-| 2 | `端口：5678 访问： http://xxxxx:5678/` | 端口 5678，浏览器访问 http://该设备 IP:5678/ | `sources/01_hub_docker_com.md:17` |
-| 3 | `宿主机端口 5677 映射到容器的 5678 端口，alist Web 服务` | 宿主 5677 对到容器 5678，跑 AList 网页服务 | `sources/forum/tid-9690.md:40` |
-| 4 | `宿主机端口 5345 映射到容器的 2345 端口，备用端口或其他服务使用` | 宿主 5345 对到容器 2345，备用端口 | `sources/forum/tid-9690.md:41` |
-| 5 | `通过环境变量配置阿里云盘token，无需映射文件` | 用环境变量注入阿里云盘 token，不用再映射文件 | `sources/p2/monlor-144.md:21` |
-| 6 | `ALIYUN_TOKEN: "" # 阿里云盘的访问令牌，需要用户填写` | ALIYUN_TOKEN：阿里云盘访问令牌，必填 | `sources/forum/tid-9690.md:45` |
-| 7 | `ALIYUN_OPEN_TOKEN: "" # 阿里云盘的开放访问令牌，需要用户填写` | ALIYUN_OPEN_TOKEN：开放访问令牌，必填 | `sources/forum/tid-9690.md:46` |
-| 8 | `ALIYUN_FOLDER_ID: "" # 阿里云盘的文件夹 ID，用于指定操作目录` | ALIYUN_FOLDER_ID：指定操作用哪个文件夹 | `sources/forum/tid-9690.md:47` |
-| 9 | `webdav 账号密码 用户: guest 密码: guest_Api789` | WebDAV 账号：用户 guest，密码 guest_Api789 | `sources/01_hub_docker_com.md:18` |
-| 10 | `webdav的配置的用户名和密码是guest/guest_Api789` | WebDAV 用户名密码就是 guest/guest_Api789 | `sources/forum/tid-9690.md:72` |
-| 11 | `WEBDAV_PASSWORD: "" # WebDAV 的用户密码，默认用户为 dav` | （yml 注释）WebDAV 密码，注释称默认用户为 dav（与实测冲突） | `sources/forum/tid-9690.md:55` |
-| 12 | `自动刷新/etc/xiaoya/mycheckintoken.txt、/etc/xiaoya/mytoken.txt` | 自动刷新 /etc/xiaoya 下的 mycheckintoken.txt、mytoken.txt | `sources/01_github_com.md:65` |
-| 13 | `fnOS (飞牛私有云)` | 兼容表里的 fnOS 一行，三项脚本均 ✅ | `sources/01_raw_githubusercontent_com.md:277` |
-| 14 | `all_in_one.sh` | 兼容表列名之一（主安装脚本） | `sources/01_raw_githubusercontent_com.md:236` |
-| 15 | `/data/docker_address.txt` | 报错日志里出现的容器内文件路径 | `sources/forum/tid-9690.md:96` |
-| 16 | `6789:80` | 另一份笔记的端口映射：宿主 6789 对容器 80 | `sources/p2/newzone-xiaoya.md:23` |
-| 17 | `mytoken.txt` | 凭据文件名：阿里云盘 token | `sources/p3/z-addone/01_www_cnblogs_com.md:23` |
-| 18 | `myopentoken.txt` | 凭据文件名：Open Token / refresh_token | `sources/p3/z-addone/01_www_cnblogs_com.md:24` |
-| 19 | `temp_transfer_folder_id.txt` | 凭据文件名：转存目录 folder id | `sources/p3/z-addone/01_www_cnblogs_com.md:25` |
-| 20 | `webdav用户名为dav，设置密码。默认用户密码：guest/guest_Api789` | （monlor env 注释）WebDAV 用户名 dav，密码自设；默认账号 guest/guest_Api789 | `sources/p3/monlor-env/01_raw_githubusercontent_com.md:32` |
-| 21 | `QUARK_COOKIE: "" # 夸克网盘的 Cookie，需要用户填写，非必填。` | 环境变量：夸克网盘 Cookie（非必填，用于夸克分享区 / 挂载自己的夸克） | `sources/01_club_fnnas_com.md:48` |
-| 22 | `1、在小雅 alist 的配置目录下增加 quark_cookie.txt 文件，填入夸克账户的 cookie 并保存；` | 「小雅夸克玩法」：在配置目录加 `quark_cookie.txt` 挂载自己的夸克 | `sources/forum/tid-8385880.md:26` |
-| 23 | `①Mytoken获取链接：<https://media.cooluc.com/decode_token/> 点击顶部“进入移动端网页登录入口` | 拿阿里云盘 token：先到这个解码站，点「进入移动端网页登录入口」 | `sources/p3/gnz48/01_www_cnblogs_com.md:26` |
-| 24 | `然后回到网页端，粘贴上步骤的“复制响应”数据到输入框，点击“解码Refresh Token”，在页面的上方就会弹出我们需要的手机端阿里云盘 Token（32位长）.` | 把复制的响应粘回去、点「解码 Refresh Token」，上方弹出的 32 位手机端 token 就是它 | `sources/p3/gnz48/01_www_cnblogs_com.md:29` |
-| 25 | `②myopentoken 获取链接：<https://alist.nn.ci/tool/aliyundrive/request.html> ，点击“Go to login”，然后直接用自己的阿里云盘手机端APP扫码登录。` | 拿 Open Token：打开该页点「Go to login」，用手机 APP 扫码 | `sources/p3/gnz48/01_www_cnblogs_com.md:30` |
-| 26 | `在资源盘下新建文件夹（xiaoya）,点击进入后复制阿里云盘转存目录folder` | 拿 folder id：在资源盘建文件夹，进去后复制转存目录的 folder id | `sources/p3/gnz48/01_www_cnblogs_com.md:31` |
-| 27 | `先转存这个[阿里云盘分享](https://www.aliyundrive.com/s/rP9gP3h9asE)到自己网盘。` | 取 folder id 之前，先把小雅这个分享转存到自己网盘 | `sources/p3/z-addone/01_www_cnblogs_com.md:25` |
-| 28 | `<https://alist.nn.ci/zh/tool/aliyundrive/request.html>` | 楼主对「Open 拿到的是 refresh_token，要怎么填」的答复链接 | `sources/01_club_fnnas_com.md:904` |
-| 29 | `PS:ALIYUN_TOKEN 第二天就失效了，需要重新获取` | 有用户反馈 ALIYUN_TOKEN 第二天就失效，需重新获取 | `sources/01_club_fnnas_com.md:157` |
-| 30 | `阿里云盘 Token（32 位长度）， [使用阿里云盘 App 点此扫码](https://alist.nn.ci/zh/guide/drivers/aliyundrive) 获取备用。` | 拿 32 位 token：手机阿里云盘 App 扫该链接指向的码 | `sources/p5/slarker/01_wiki_slarker_me.md:29` |
-| 31 | `阿里云盘 OpenToken（288~335 位长度）， [使用阿里云盘 App 点此扫码](https://alist.nn.ci/tool/aliyundrive/request.html) 获取备用。` | 拿 OpenToken：同样用手机 App 扫码（该教程记作 288~335 位） | `sources/p5/slarker/01_wiki_slarker_me.md:30` |
-| 32 | `最近阿里云盘更新了接口，旧版教程里直接复制网页代码的方法已经失效。` | 阿里云盘改了接口，旧教程「复制网页代码」那招已失效 | `sources/p5/wsisp/01_www_wsisp_com.md:17` |
-| 33 | `阿里云盘的Token就像是你家的门禁卡，有效期通常只有2-3个月。` | token 像门禁卡，有效期通常只有 2~3 个月 | `sources/p5/wsisp/01_www_wsisp_com.md:11` |
-| 34 | `有些用户获取Token时操作不规范，比如扫码后没有点击二次确认，导致拿到的根本是无效Token。` | 有人扫码后没点「二次确认」，拿到的是无效 token | `sources/p5/wsisp/01_www_wsisp_com.md:11` |
-| 35 | `用手机阿里云盘APP扫码（必须是最新版本）` | 扫码要用最新版手机 App | `sources/p5/wsisp/01_www_wsisp_com.md:23` |
-| 36 | `手机端点击授权后，电脑页面会显示40位字符串` | 手机端点授权后，电脑页面显示 40 位字符串 | `sources/p5/wsisp/01_www_wsisp_com.md:24` |
-| 37 | `新建文本文件命名为mytoken.txt，粘贴这段字符` | 新建文本文件命名 mytoken.txt，把扫出来的字符粘进去 | `sources/p5/wsisp/01_www_wsisp_com.md:25` |
-| 38 | ``按F12打开“调试”，选中“网络”，随意在左侧选择请求，找到携带 `Cookie` 参数的就可以`` | 拿夸克 cookie：F12 → 网络 → 随便点一个请求 → 复制带 `Cookie` 参数的那个 | `sources/p5/alist-docs/01_raw_githubusercontent_com.md:47` |
-| 39 | `注意：请使用Chrome浏览器来获取Cookies，使用Firefox获取的Cookies或仍将停留在访客并请求登录。` | 抓夸克 cookie 要用 Chrome；Firefox 抓的会停在访客、要求登录 | `sources/p5/alist-docs/01_raw_githubusercontent_com.md:63` |
-| 40 | ``The __puus session cookie expires after about 3 hours (see #830). Quark only re-issues it when a request does not carry the __puus field, but the driver always sends the stored cookie, so once it expires the driver can never refresh it in-process: file listing keeps working while downloads fail with 403 until restart.`` | 夸克 `__puus` 会话 cookie 约 3 小时过期；只有「请求不带 `__puus`」时夸克才重发，而客户端总带已存 cookie → 过期后列表可看、下载 403，重启才恢复 | `sources/gh/alist-9596.md:11` |
+| 2 | `宿主机端口 5677 映射到容器的 5678 端口，alist Web 服务` | 宿主 5677 对到容器 5678，跑 AList 网页服务 | `sources/forum/tid-9690.md:40` |
+| 3 | `宿主机端口 5345 映射到容器的 2345 端口，备用端口或其他服务使用` | 宿主 5345 对到容器 2345，备用端口 | `sources/forum/tid-9690.md:41` |
+| 4 | `通过环境变量配置阿里云盘token，无需映射文件` | 用环境变量注入阿里云盘 token，不用再映射文件 | `sources/p2/monlor-144.md:21` |
+| 5 | `ALIYUN_TOKEN: "" # 阿里云盘的访问令牌，需要用户填写` | ALIYUN_TOKEN：阿里云盘访问令牌，必填 | `sources/forum/tid-9690.md:45` |
+| 6 | `ALIYUN_OPEN_TOKEN: "" # 阿里云盘的开放访问令牌，需要用户填写` | ALIYUN_OPEN_TOKEN：开放访问令牌，必填 | `sources/forum/tid-9690.md:46` |
+| 7 | `ALIYUN_FOLDER_ID: "" # 阿里云盘的文件夹 ID，用于指定操作目录` | ALIYUN_FOLDER_ID：指定操作用哪个文件夹 | `sources/forum/tid-9690.md:47` |
+| 8 | `WEBDAV_PASSWORD: "" # WebDAV 的用户密码，默认用户为 dav` | （yml 注释）WebDAV 密码；注释称默认用户为 `dav` | `sources/forum/tid-9690.md:55` |
+| 9 | `fnOS (飞牛私有云)` | 兼容表里的 fnOS 一行，三项脚本均 ✅ | `sources/01_raw_githubusercontent_com.md:277` |
+| 10 | `all_in_one.sh` | 兼容表列名之一（主安装脚本） | `sources/01_raw_githubusercontent_com.md:236` |
+| 11 | `/data/docker_address.txt` | 报错日志里出现的容器内文件路径 | `sources/forum/tid-9690.md:96` |
+| 12 | `webdav用户名为dav，设置密码。默认用户密码：guest/guest_Api789` | （monlor env 注释）WebDAV 用户名 `dav`，密码自设；默认密码 `guest_Api789` | `sources/p3/monlor-env/01_raw_githubusercontent_com.md:32` |
+| 13 | `QUARK_COOKIE: "" # 夸克网盘的 Cookie，需要用户填写，非必填。` | 环境变量：夸克网盘 Cookie（非必填，用于夸克分享区 / 挂载自己的夸克） | `sources/01_club_fnnas_com.md:48` |
+| 14 | `①Mytoken获取链接：<https://media.cooluc.com/decode_token/> 点击顶部“进入移动端网页登录入口` | 拿阿里云盘 token：先到这个解码站，点「进入移动端网页登录入口」 | `sources/p3/gnz48/01_www_cnblogs_com.md:26` |
+| 15 | `然后回到网页端，粘贴上步骤的“复制响应”数据到输入框，点击“解码Refresh Token”，在页面的上方就会弹出我们需要的手机端阿里云盘 Token（32位长）.` | 把复制的响应粘回去、点「解码 Refresh Token」，上方弹出的 32 位手机端 token 就是它 | `sources/p3/gnz48/01_www_cnblogs_com.md:29` |
+| 16 | `②myopentoken 获取链接：<https://alist.nn.ci/tool/aliyundrive/request.html> ，点击“Go to login”，然后直接用自己的阿里云盘手机端APP扫码登录。` | 拿 Open Token：打开该页点「Go to login」，用手机 APP 扫码 | `sources/p3/gnz48/01_www_cnblogs_com.md:30` |
+| 17 | `在资源盘下新建文件夹（xiaoya）,点击进入后复制阿里云盘转存目录folder` | 拿 folder id：在资源盘建文件夹，进去后复制转存目录的 folder id | `sources/p3/gnz48/01_www_cnblogs_com.md:31` |
+| 18 | `先转存这个[阿里云盘分享](https://www.aliyundrive.com/s/rP9gP3h9asE)到自己网盘。` | 取 folder id 之前，先把小雅这个分享转存到自己网盘 | `sources/p3/z-addone/01_www_cnblogs_com.md:25` |
+| 19 | `<https://alist.nn.ci/zh/tool/aliyundrive/request.html>` | 楼主对「Open 拿到的是 refresh_token，要怎么填」的答复链接 | `sources/01_club_fnnas_com.md:904` |
+| 20 | `PS:ALIYUN_TOKEN 第二天就失效了，需要重新获取` | 有用户反馈 ALIYUN_TOKEN 第二天就失效，需重新获取 | `sources/01_club_fnnas_com.md:157` |
+| 21 | `阿里云盘 Token（32 位长度）， [使用阿里云盘 App 点此扫码](https://alist.nn.ci/zh/guide/drivers/aliyundrive) 获取备用。` | 拿 32 位 token：手机阿里云盘 App 扫该链接指向的码 | `sources/p5/slarker/01_wiki_slarker_me.md:29` |
+| 22 | `阿里云盘 OpenToken（288~335 位长度）， [使用阿里云盘 App 点此扫码](https://alist.nn.ci/tool/aliyundrive/request.html) 获取备用。` | 拿 OpenToken：同样用手机 App 扫码（该教程记作 288~335 位） | `sources/p5/slarker/01_wiki_slarker_me.md:30` |
+| 23 | `最近阿里云盘更新了接口，旧版教程里直接复制网页代码的方法已经失效。` | 阿里云盘改了接口，旧教程「复制网页代码」那招已失效 | `sources/p5/wsisp/01_www_wsisp_com.md:17` |
+| 24 | `阿里云盘的Token就像是你家的门禁卡，有效期通常只有2-3个月。` | token 像门禁卡，有效期通常只有 2~3 个月 | `sources/p5/wsisp/01_www_wsisp_com.md:11` |
+| 25 | `有些用户获取Token时操作不规范，比如扫码后没有点击二次确认，导致拿到的根本是无效Token。` | 有人扫码后没点「二次确认」，拿到的是无效 token | `sources/p5/wsisp/01_www_wsisp_com.md:11` |
+| 26 | `用手机阿里云盘APP扫码（必须是最新版本）` | 扫码要用最新版手机 App | `sources/p5/wsisp/01_www_wsisp_com.md:23` |
+| 27 | `手机端点击授权后，电脑页面会显示40位字符串` | 手机端点授权后，电脑页面显示 40 位字符串 | `sources/p5/wsisp/01_www_wsisp_com.md:24` |
+| 28 | ``按F12打开“调试”，选中“网络”，随意在左侧选择请求，找到携带 `Cookie` 参数的就可以`` | 拿夸克 cookie：F12 → 网络 → 随便点一个请求 → 复制带 `Cookie` 参数的那个 | `sources/p5/alist-docs/01_raw_githubusercontent_com.md:47` |
+| 29 | `注意：请使用Chrome浏览器来获取Cookies，使用Firefox获取的Cookies或仍将停留在访客并请求登录。` | 抓夸克 cookie 要用 Chrome；Firefox 抓的会停在访客、要求登录 | `sources/p5/alist-docs/01_raw_githubusercontent_com.md:63` |
+| 30 | ``The __puus session cookie expires after about 3 hours (see #830). Quark only re-issues it when a request does not carry the __puus field, but the driver always sends the stored cookie, so once it expires the driver can never refresh it in-process: file listing keeps working while downloads fail with 403 until restart.`` | 夸克 `__puus` 会话 cookie 约 3 小时过期；只有「请求不带 `__puus`」时夸克才重发，而客户端总带已存 cookie → 过期后列表可看、下载 403，重启才恢复 | `sources/gh/alist-9596.md:11` |
 
 ## 更新记录
 
@@ -572,90 +543,59 @@ services:
 | 2026-10-06 | **补充 3.3 缺失的「怎么拿」**：原文只写了三件套的**文件名与放置位置**，未写**获取方式**。新增三件套获取三步（`sources/p3/gnz48/01_www_cnblogs_com.md:25-31`：解码站取 32 位 `mytoken.txt`、`request.html` 扫码取 Open Token、资源盘建文件夹取 folder id），补另一份教程的「获取方式」对照与「先转存小雅分享」提醒（`sources/p3/z-addone/01_www_cnblogs_com.md:21-25`）、论坛楼主答复（`sources/01_club_fnnas_com.md:904`），以及 token 过期反馈（`sources/01_club_fnnas_com.md:157`）与第三方解码站风险提示；引文对照新增第 23–29 行。 |
 | 2026-10-06 | **改推「扫码法（方案 A）」，旧 F12 法降为备选**：阿里云盘接口变更后，老教程「复制网页代码 → 第三方解码站」取 token 的路已失效（`sources/p5/wsisp/01_www_wsisp_com.md:17`）。3.3「怎么拿」第 1 步由 F12 + 解码站改为**手机扫码**（`sources/p5/slarker/01_wiki_slarker_me.md:29`、`sources/p5/wsisp/01_www_wsisp_com.md:21-25`）；补 token 有效期 2~3 个月与扫码「二次确认」（`sources/p5/wsisp/01_www_wsisp_com.md:11`）；`[!warning]` 改为三条、新增位数差异 `[!note]`；引文对照新增第 30–37 行。 |
 | 2026-10-06 | **补 3.3「可选凭据」的「夸克 cookie 怎么拿」**：夸克 cookie 无扫码，靠浏览器手抓——官方文档「`F12` → 网络 → 找一个带 `Cookie` 参数的请求 → 复制整串」（`sources/p5/alist-docs/01_raw_githubusercontent_com.md:47`），且**要用 Chrome**（`:63`）；补「`__puus` 约 3 小时过期、过期后下载 403」的官方 PR 依据（`sources/gh/alist-9596.md:11`）。引文对照新增第 38–40 行。 |
-
+| 2026-10-06 | **整套笔记统一为 monlor 单一路线，删除官方镜像路线（第 2 篇）**：删去 3.3「另一条注入路线（文件）」小节（`mytoken.txt` / `myopentoken.txt` / `temp_transfer_folder_id.txt` 三件套与其放置说明）与 3.1 的凭据文件名 Callout；3.3「怎么拿」三行由文件名改为环境变量（`ALIYUN_TOKEN` / `ALIYUN_OPEN_TOKEN` / `ALIYUN_FOLDER_ID`）；夸克由「文件 `quark_cookie.txt` 或环境变量」收敛为**只用环境变量 `QUARK_COOKIE`**；3.2 删去「官方镜像容器内端口 5678 vs 80」来源冲突段，`5678` 行出处只留 `sources/forum/tid-9690.md:40`；WebDAV 由「官方 `guest`、monlor `dav` 两条并记」收敛为**用户名 `dav` + 默认密码 `guest_Api789` + 路径 `/dav`**（回源 `sources/p3/monlor-env/01_raw_githubusercontent_com.md:32`），原两条路线 Callout 改为「用户名是 `dav` 不是 `guest`」提醒；第 7 行纪律句、3.5 镜像 Callout、本章小结、下一章预告按第 4 章新章名回填。引文对照删除官方镜像页 2 条、文件凭据 4 条、端口冲突 1 条，共 10 行，重编号为 1–30。 |
 ---
 
-# 第 4 章 部署实战——单容器小雅（两条镜像路线）
+# 第 4 章 部署实战——单容器小雅（monlor 镜像）
 
 ## 本章要解决的问题
 
-第 3 章备好了目录、端口、凭据三张清单，本章把**单容器**的小雅真正跑起来。同样是「跑一个小雅」，社区有两条主流镜像路线：官方镜像 `xiaoyaliu/alist`，与社区维护者 monlor 发布的 `ghcr.io/monlor/xiaoya-alist`。两条路线最大的差别不在功能，而在**凭据怎么注入**——一条读文件，一条读环境变量。一句话结论：**先按你的习惯选一条路线，再照着那条路线的命令复制；两条路线不可混用。**
+第 3 章备好了目录、端口、凭据三张清单，本章把**单容器**的小雅真正跑起来。本笔记统一采用社区维护者 monlor 发布的镜像 `ghcr.io/monlor/xiaoya-alist`：它用 Docker Compose 编排，**凭据走环境变量**，一个 `docker-compose.yml` 就能管到底。一句话结论：**照着 4.2 的命令复制即可；只要 `EMBY_ENABLED` 与 `JELLYFIN_ENABLED` 保持 `"false"`，起来的就只有 alist 一个容器——这就是本章说的「单容器」。**
 
-## 4.1 先认路：两条镜像路线是什么
+## 4.1 为什么用 monlor 镜像
 
-| 路线 | 镜像名 | 谁在维护 | 凭据注入 | 部署入口 | 出处 |
-| --- | --- | --- | --- | --- | --- |
-| 官方路线 | `xiaoyaliu/alist` | 小雅官方发布 | 文件（三件套 `.txt`） | 一键脚本 | `sources/01_hub_docker_com.md:16` |
-| monlor 路线 | `ghcr.io/monlor/xiaoya-alist` | 社区（monlor） | 环境变量 | Compose / 一键脚本 | `sources/p2/monlor-144.md:21`；`sources/forum/tid-9690.md:36` |
+小雅的「资源层」是一个叫 AList 的程序（第 1 章讲过）。要把它跑起来，先得选一个容器镜像。本笔记选社区维护者 monlor 发布的那个，理由不全在功能，而在**凭据怎么注入**和**怎么编排**：
 
-> [!warning] 两个镜像名不可混写
-> `ghcr.io/monlor/xiaoya-alist` 是 **monlor 的社区镜像**，**不是**官方小雅镜像；官方镜像名是 `xiaoyaliu/alist`。两条路线的**容器内端口、凭据注入方式都不同**，把 A 的命令和 B 的配置混着抄，会两头不靠。第 3 章已经就这一点留过警告，本章把两条路线并排讲透。
+| 维度 | 这个镜像的做法 | 出处 |
+| --- | --- | --- |
+| 维护方 | 社区维护者 monlor（项目 `monlor/docker-xiaoya`） | `sources/p2/monlor-144.md:317` |
+| 凭据注入 | **环境变量三件套**，无需映射文件 | `sources/p2/monlor-144.md:21` |
+| 编排方式 | Docker Compose；一键脚本支持重复执行（重跑即更新） | `sources/p2/monlor-144.md:32` |
+| 单容器形态 | `EMBY_ENABLED=false` + `JELLYFIN_ENABLED=false`，只起 alist | `sources/forum/tid-9690.md:34-71` |
+| 镜像地址 | `ghcr.io/monlor/xiaoya-alist`；国内拉不动可换 `ghcr.nju.edu.cn` | `sources/forum/tid-9690.md:36`、`:942` |
+
+> [!note] 这是社区镜像，不是小雅官方发布
+> `ghcr.io/monlor/xiaoya-alist` 由社区维护者 monlor 发布，**不是**小雅官方的镜像。记住这一点，是为了你之后排查问题、找文档时**找对项目**，而不是把它当成「官方出品」去官方仓库里核对——那里找不到它。
 
 > [!tip] 大白话
-> 把两条路线想成**两个牌子的同款电器**：都能干同样的活（放出小雅影音库），但一个是原厂、一个是第三方改装；插座（端口）和电池仓（凭据）位置不一样。**配件不能跨牌子装**，所以先选牌子，再按那本说明书接线。
+> 把它想成**别人替你配好的「套装」**：零件（alist 本体）已经装好，你只需把三节电池（云盘凭据）装进**指定的电池仓**，再按说明书插电（`docker compose up -d`）。本笔记选这套的关键原因是——**电池仓在明面上**：凭据写在环境变量里，一个文件就能看全，不必去猜「哪个 `.txt` 该放进哪个目录」。
 
-## 4.2 路线一：官方镜像 `xiaoyaliu/alist`
+## 4.2 monlor 路线部署
 
-官方镜像页给出的最短路径是一条一键脚本。页面上的原话是：
+### 一键脚本
 
-> 「一键安装和更新容器」（`sources/01_hub_docker_com.md:16`）
-
-脚本命令为：
+monlor 项目提供了一键部署脚本，**支持重复执行**（重跑一遍即为更新）：
 
 ```bash
-# 在 NAS 的 SSH 终端执行（官方镜像的一键安装/更新脚本）
-# 出处：sources/01_hub_docker_com.md:16
-bash -c "$(curl -s http://docker.xiaoya.pro/update_new.sh)"
-```
-
-官方镜像页同时交代了三件事：访问端口是 `5678`（`sources/01_hub_docker_com.md:17`）、WebDAV 默认账号是 `guest` / `guest_Api789`（`sources/01_hub_docker_com.md:18`）、以及「重启就会自动更新数据库及搜索索引文件」（`sources/01_hub_docker_com.md:19`）。这个镜像的特点，页面自己描述为把站点内容内嵌、并加了 AList 本身没有的搜索功能（`sources/01_hub_docker_com.md:10`）。
-
-如果不用一键脚本、想手写容器命令，社区教程给过一条等价写法（**注意这是社区示例，不是官方页逐字给出的命令**）：
-
-```bash
-# 在 NAS 的 SSH 终端执行（官方镜像，社区示例写法）
-# 出处：sources/p3/gnz48/01_www_cnblogs_com.md:39
-docker run -d --restart=always --name="xiaoya" \
-  -p 5678:80 -p 2345:2345 -p 2346:2346 \
-  -v /volume1/docker/xiaoya:/data \
-  xiaoyaliu/alist:latest
-```
-
-这行里 `-v` 左边是你自建的数据目录（换成第 3 章清单里你自己那个路径），右边是容器内的 `/data`。
-
-> [!warning] 「容器内到底是几号端口」此处不裁断
-> 上面这条社区命令把宿主 `5678` 对到**容器 `80`**；而官方镜像页只写「端口：`5678`」（`sources/01_hub_docker_com.md:17`）。同一「官方镜像」出现两种容器内端口说法，**第 3 章已并列保留、本章不重复裁断**——落笔时只保留「以你实际镜像文档为准」。
-
-另有一个社区整合脚本（ddsrem 维护），可以一次装多种组件。菜单里对应项是「安装 小雅Alist -> 1 1」「安装 Emby全家桶（一键） -> 2 1」（`sources/01_raw_githubusercontent_com.md:75`、`sources/01_raw_githubusercontent_com.md:76`），入口是：
-
-```bash
-# 社区整合脚本入口（可装小雅 Alist / Emby 全家桶等）
-# 出处：sources/01_raw_githubusercontent_com.md:39
-bash -c "$(curl --insecure -fsSL https://ddsrem.com/xiaoya_install.sh)"
-```
-
-## 4.3 路线二：monlor 镜像 `ghcr.io/monlor/xiaoya-alist`
-
-monlor 路线用 Compose 编排，凭据走环境变量。维护者把这条差异点明：
-
-> 「通过环境变量配置阿里云盘token，无需映射文件」（`sources/p2/monlor-144.md:21`）
-
-它也有自己的**一键部署脚本**（`sources/p2/monlor-144.md:32`）：
-
-```bash
-# monlor 路线一键脚本
+# monlor 路线一键脚本（可重复执行）
 # 出处：sources/p2/monlor-144.md:32
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/monlor/docker-xiaoya/main/install.sh)"
 ```
 
-一手写、只跑「单容器小雅」的 Compose 长这样（**先看完整文件，再逐点解释**）：
+它维护者把这条路线与「映射文件」路线的差异点明了：
+
+> 「通过环境变量配置阿里云盘token，无需映射文件」（`sources/p2/monlor-144.md:21`）
+
+### 只跑「单容器小雅」的 Compose
+
+想自己掌控配置，就手写一份 Compose。下面这份只跑 alist 一个容器（**先看完整文件，再逐点解释**）：
 
 ```yaml
-# docker-compose.yml（monlor 路线，仅 alist 单容器）
+# docker-compose.yml（monlor 镜像，仅 alist 单容器）
 # 出处：sources/forum/tid-9690.md:34-71
 services:
   alist:
-    image: ghcr.io/monlor/xiaoya-alist:latest   # monlor 社区镜像（非官方）
+    image: ghcr.io/monlor/xiaoya-alist:latest   # monlor 社区镜像
     volumes:
       - /vol2/1000/docker2/xiaoya/data:/data     # 左=你的数据目录，右=容器内 /data
     ports:
@@ -698,47 +638,36 @@ docker compose logs      # 看启动日志
 ```
 
 > [!note] ghcr 镜像在国内可能拉不动
-> monlor 镜像托管在 `ghcr.io`，社区实测有拉取失败的情况，报错形如读 `ghcr.io/v2/` 时连接被重置（`sources/forum/tid-9690.md:410`）。同一帖子给出的绕法是改用国内镜像源，把镜像地址里的 `ghcr.io` 换成 `ghcr.nju.edu.cn`（`sources/forum/tid-9690.md:942`）。这是**社区绕法**，能否拉通因网络而异。
+> 这个镜像托管在 `ghcr.io`，社区实测有拉取失败的情况，报错形如读 `ghcr.io/v2/` 时连接被重置（`sources/forum/tid-9690.md:410`）。同一帖子给出的绕法是改用国内镜像源，把镜像地址里的 `ghcr.io` 换成 `ghcr.nju.edu.cn`（`sources/forum/tid-9690.md:942`）。这是**社区绕法**，能否拉通因网络而异。
 
-## 4.4 两条路线差异对照
-
-| 维度 | 官方路线 `xiaoyaliu/alist` | monlor 路线 `ghcr.io/monlor/xiaoya-alist` |
-| --- | --- | --- |
-| 维护方 | 小雅官方 | 社区（monlor） |
-| 凭据注入 | 文件三件套（第 3 章表二） | 环境变量三件套 |
-| 部署入口 | 一键脚本 / 手写 `docker run` | Compose / 一键脚本 |
-| 容器内 Web 端口 | 官方页写 `5678`；社区示例映射到 `80`（并列保留） | `5678` |
-| 与 Emby 的关系 | 全家桶另配 | Compose 里用 `EMBY_ENABLED` 开关 |
-| 出处 | `sources/01_hub_docker_com.md:16-19` | `sources/p2/monlor-144.md:21`；`sources/forum/tid-9690.md:36` |
-
-怎么选：习惯「三个 `.txt` 文件摆平一切」的，走官方路线；习惯「一个 `.env` / Compose 管到底」的，走 monlor 路线。两者都能停在**单容器**形态，之后接前端的方式（第 5 章）也一样。
-
-## 4.5 部署后自检：该看到什么
+## 4.3 部署后自检：该看到什么
 
 按顺序核对，能少走很多弯路：
 
-1. **容器状态**：`docker ps` 里应能看到容器在运行（重启策略为 `always` 或 `unless-stopped`）。
+1. **容器状态**：`docker ps` 里应能看到容器在运行（重启策略为 `unless-stopped`）。
 2. **首次打开网页会「失败」，这是正常的**。原帖把这一现象写得很直白：
 
    > 「刚开始页面会显示“获取设置失败”，这是正常情况」（`sources/p3/gnz48/01_www_cnblogs_com.md:46`）
 
    论坛里有人同样遇到「一直提示……获取设置失败：请稍后，正在加载储存」，楼主的答复只有一句：「等一会儿就好了！」（`sources/forum/tid-9690.md:200`）。初始化按网络情况**需要 1~5 分钟**（`sources/p3/gnz48/01_www_cnblogs_com.md:46`），别当成故障。
 3. **能播放**：在网页里随便点开一个视频，确认能播（`sources/p3/gnz48/01_www_cnblogs_com.md:69`）。
-4. **WebDAV 能挂**：用 `guest` / `guest_Api789`、路径 `/dav` 挂载（第 3 章已列，`sources/forum/tid-9690.md:72`、`:280`）。
+4. **WebDAV 能挂**：用户名 `dav`，密码默认 `guest_Api789`，路径 `/dav`（`sources/p3/monlor-env/01_raw_githubusercontent_com.md:32`、`sources/forum/tid-9690.md:72`、`:280`）。
 5. **token 会过期**：出现「无法加载列表 / 播放失败」时，先更新 token（`sources/p2/newzone-xiaoya.md:32`）。
 
 > [!warning] 两个高频报错
-> 一是 `/data/docker_address.txt: Operation not permitted`（`sources/forum/tid-9690.md:96`）——容器往 `/data` 写文件被拒，多为目录**权限**问题，检查映射目录的读写权限。二是拉镜像时 `ghcr.io/v2/` 连接被重置（`sources/forum/tid-9690.md:410`）——网络到 ghcr 不通，换镜像源（见 4.3 注）。
+> 一是 `/data/docker_address.txt: Operation not permitted`（`sources/forum/tid-9690.md:96`）——容器往 `/data` 写文件被拒，多为目录**权限**问题，检查映射目录的读写权限。二是拉镜像时 `ghcr.io/v2/` 连接被重置（`sources/forum/tid-9690.md:410`）——网络到 ghcr 不通，换镜像源（见 4.2 注）。
 
 > [!tip] 大白话
 > 小雅**第一次启动在「组装」**：它在拉取并索引资源目录，所以头几分钟网页打不开还报「获取设置失败」，就像新买的书柜还没装好、你急着往里塞书当然塞不进去。**等它装完**，再刷新就好了。
 
 ## 本章小结
 
-- **两条镜像路线**：官方 `xiaoyaliu/alist`（文件注入凭据）与 monlor `ghcr.io/monlor/xiaoya-alist`（环境变量注入凭据）；**镜像名不可混写**。
-- **官方路线**：一键脚本 `docker.xiaoya.pro/update_new.sh`；社区示例的 `docker run` 把宿主 `5678` 对到容器 `80`。
-- **monlor 路线**：Compose 起 alist，`EMBY_ENABLED` / `JELLYFIN_ENABLED` 保持 `false` 即单容器；ghcr 在国内可能需要换镜像源。
-- **部署后自检五点**：容器在跑、首次「获取设置失败」属正常（1~5 分钟）、能播、WebDAV 能挂、token 会过期要更新。
+- **本笔记只用 monlor 社区镜像** `ghcr.io/monlor/xiaoya-alist`（它不是小雅官方发布）；凭据走**环境变量三件套**，不用映射文件。
+- **部署两条入口**：一键脚本 `install.sh`（可重复执行，重跑即更新）；或手写 Compose。
+- **单容器的开关**：`EMBY_ENABLED` / `JELLYFIN_ENABLED` 保持 `"false"`，只起 alist 一个容器；改成 `true` 就落回全家桶侧。
+- **端口方向**：容器内 `5678` / `2345` / `2346`，宿主映射示例 `5677` / `5345` / `5346`，恒为「左宿主、右容器」。
+- **ghcr 在国内可能需要换镜像源**（`ghcr.nju.edu.cn`）。
+- **部署后自检五点**：容器在跑、首次「获取设置失败」属正常（1~5 分钟）、能播、WebDAV 能挂（`dav` / `guest_Api789`）、token 会过期要更新。
 - **两个高频报错**：`/data` 权限被拒、ghcr 拉取被重置。
 
 **下一章预告**：小雅跑起来了，但飞牛影视默认还不认识它。第 5 章讲**前端接入**——为什么不能把整个小雅库直接喂给飞牛影视刮削，如何用 STRM 文件（只存 URL 指针）配合 302 直链把资源接进媒体库，以及 SmartStrm / MediaWarp / fntv-proxy 这几个工具各自站在哪一环。
@@ -749,26 +678,23 @@ docker compose logs      # 看启动日志
 
 | # | 原文（逐字） | 中译 / 说人话 | 出处 |
 | --- | --- | --- | --- |
-| 1 | `bash -c "$(curl -s http://docker.xiaoya.pro/update_new.sh)"` | 官方镜像的一键安装/更新脚本命令 | `sources/01_hub_docker_com.md:16` |
-| 2 | `端口：5678 访问： http://xxxxx:5678/` | 官方镜像：端口 5678，浏览器访问该设备 IP 的 5678 | `sources/01_hub_docker_com.md:17` |
-| 3 | `webdav 账号密码 用户: guest 密码: guest_Api789` | WebDAV 默认账号 guest / guest_Api789 | `sources/01_hub_docker_com.md:18` |
-| 4 | `docker restart xiaoya` | 重启容器即自动更新数据库与搜索索引 | `sources/01_hub_docker_com.md:19` |
-| 5 | `-p 5678:80 -p 2345:2345 -p 2346:2346 -v /volume1/docker/xiaoya:/data` | 社区示例：宿主 5678→容器 80，并挂载数据目录 | `sources/p3/gnz48/01_www_cnblogs_com.md:39` |
-| 6 | `bash -c "$(curl --insecure -fsSL https://ddsrem.com/xiaoya_install.sh)"` | 社区整合脚本入口 | `sources/01_raw_githubusercontent_com.md:39` |
-| 7 | `安装 小雅Alist -> 1 1` | 整合脚本菜单：装小雅 Alist | `sources/01_raw_githubusercontent_com.md:75` |
-| 8 | `安装 Emby全家桶（一键） -> 2 1` | 整合脚本菜单：一键装 Emby 全家桶 | `sources/01_raw_githubusercontent_com.md:76` |
-| 9 | `通过环境变量配置阿里云盘token，无需映射文件` | monlor 路线用环境变量注入凭据，不用映射文件 | `sources/p2/monlor-144.md:21` |
-| 10 | `image: ghcr.io/monlor/xiaoya-alist:latest` | monlor 路线镜像（社区，非官方） | `sources/forum/tid-9690.md:36` |
-| 11 | `宿主机端口 5677 映射到容器的 5678 端口，alist Web 服务` | 宿主 5677 → 容器 5678，跑 AList 网页服务 | `sources/forum/tid-9690.md:40` |
-| 12 | `ALIYUN_TOKEN: "" # 阿里云盘的访问令牌，需要用户填写` | 环境变量：阿里云盘访问令牌，必填 | `sources/forum/tid-9690.md:45` |
-| 13 | `image: xiaoyaliu/alist:latest` | 官方镜像名 | `sources/p2/newzone-xiaoya.md:18` |
-| 14 | `6789:80` | 另一份笔记的端口映射：宿主 6789 → 容器 80 | `sources/p2/newzone-xiaoya.md:23` |
-| 15 | `仅部署 Alist` | monlor 配置推荐表一行：仅部署 Alist = 1 核 / 512M / 512M | `sources/p2/monlor-144.md:78` |
-| 16 | `刚开始页面会显示“获取设置失败”，这是正常情况` | 首次访问显示「获取设置失败」属正常 | `sources/p3/gnz48/01_www_cnblogs_com.md:46` |
-| 17 | `/data/docker_address.txt: Operation not permitted` | 常见报错：容器写 /data 无权限 | `sources/forum/tid-9690.md:96` |
-| 18 | `等一会儿就好了！` | 对「获取设置失败」的答复：等一会儿 | `sources/forum/tid-9690.md:200` |
-| 19 | `docker_address.txt` | 小雅自身地址文件（TVBox 等会用） | `sources/p2/newzone-xiaoya.md:58` |
-| 20 | `QUARK_COOKIE: "" # 夸克网盘的 Cookie，需要用户填写，非必填。` | 环境变量：夸克网盘 Cookie（非必填，用于夸克分享区 / 挂载自己的夸克） | `sources/forum/tid-9690.md:48` |
+| 1 | `通过环境变量配置阿里云盘token，无需映射文件` | monlor 镜像用环境变量注入凭据，不用映射文件 | `sources/p2/monlor-144.md:21` |
+| 2 | `image: ghcr.io/monlor/xiaoya-alist:latest` | 本笔记使用的镜像（社区维护，非官方） | `sources/forum/tid-9690.md:36` |
+| 3 | `宿主机端口 5677 映射到容器的 5678 端口，alist Web 服务` | 宿主 5677 → 容器 5678，跑 AList 网页服务 | `sources/forum/tid-9690.md:40` |
+| 4 | `ALIYUN_TOKEN: "" # 阿里云盘的访问令牌，需要用户填写` | 环境变量：阿里云盘访问令牌，必填 | `sources/forum/tid-9690.md:45` |
+| 5 | `# webdav用户名为dav，设置密码。默认用户密码：guest/guest_Api789` | WebDAV 用户名 `dav`，默认密码 `guest_Api789` | `sources/p3/monlor-env/01_raw_githubusercontent_com.md:32` |
+| 6 | `仅部署 Alist` | monlor 配置推荐表一行：仅部署 Alist = 1 核 / 512M / 512M | `sources/p2/monlor-144.md:78` |
+| 7 | `刚开始页面会显示“获取设置失败”，这是正常情况` | 首次访问显示「获取设置失败」属正常 | `sources/p3/gnz48/01_www_cnblogs_com.md:46` |
+| 8 | `/data/docker_address.txt: Operation not permitted` | 常见报错：容器写 /data 无权限 | `sources/forum/tid-9690.md:96` |
+| 9 | `等一会儿就好了！` | 对「获取设置失败」的答复：等一会儿 | `sources/forum/tid-9690.md:200` |
+| 10 | `docker_address.txt` | 小雅自身地址文件（TVBox 等会用） | `sources/p2/newzone-xiaoya.md:58` |
+| 11 | `QUARK_COOKIE: "" # 夸克网盘的 Cookie，需要用户填写，非必填。` | 环境变量：夸克网盘 Cookie（非必填，用于夸克分享区 / 挂载自己的夸克） | `sources/forum/tid-9690.md:48` |
+
+## 更新记录
+
+| 日期 | 变更摘要 |
+|------|----------|
+| 2026-10-06 | **整套笔记统一为 monlor 单一路线，删除官方镜像路线**：删去原 4.2「路线一：官方镜像 `xiaoyaliu/alist`」整节（含官方一键脚本 `docker.xiaoya.pro/update_new.sh`、社区 `docker run` 示例、容器内端口 `5678` vs `80` 的来源冲突段、整合脚本入口）；原 4.3 monlor 部署升为 **4.2**；原 4.1「两条镜像路线」与原 4.4「两条路线差异对照」合并重写为 **4.1 为什么用 monlor 镜像**（含维护方、凭据注入、编排、单容器形态、镜像地址五行表）；章名由「单容器小雅（两条镜像路线）」改为「单容器小雅（monlor 镜像）」。4.3 自检第 4 条 WebDAV 账号由「两条路线并记」收敛为 monlor 的 `dav` / `guest_Api789`（新增回源 `sources/p3/monlor-env/01_raw_githubusercontent_com.md:32`）。引文对照删除官方镜像相关 9 条（原第 1–8、13、14 行）并重编号为 1–11。 |
 ---
 
 # 第 5 章 前端接入——让飞牛影视认到小雅
@@ -886,14 +812,77 @@ services:
 
 ## 5.4 让 302 串起来：MediaWarp 与 fntv-proxy 站在哪一环
 
-STRM 生成了，还要有人把「客户端请求 → 302 跳到真实直链」这一环接上。社区有两个专门的中间件，定位不同：
+STRM 生成了，还要有人把「客户端请求 → 302 跳到真实直链」这一环接上。**MediaWarp 和 fntv-proxy 站的是同一环**——都是夹在「飞牛影视服务端」和「客户端」之间的**前置反向代理**。位置一样，区别只在能力与配套。本节以 MediaWarp 为主，fntv-proxy 作轻量备选。
 
 | 工具 | 定位原话 | 飞牛影视支持情况 | 关键端口 | 出处 |
 | --- | --- | --- | --- | --- |
-| MediaWarp | 「前置于 EmbyServer/Jellyfin/飞牛影视 的反向代理服务器」（`sources/lens-b/mediawarp/01_github_com.md:51`） | TODO 列表里「适配 飞牛影视」仍是**待办项**（`sources/lens-b/mediawarp/01_github_com.md:86`） | — | 同上 |
-| fntv-proxy | 「飞牛影视 / Emby 代理工具 - 自动解析 .strm 文件并重定向到真实直链」（`sources/lens-b/fntvproxy/01_github_com.md:44`） | 原帖称「基于飞牛影视 0.9.3 版本」（`sources/lens-b/fntvproxy/01_github_com.md:45`） | 飞牛 `:28005` / Emby `:8095` | 同上 |
+| **MediaWarp** | 「前置于 EmbyServer/Jellyfin/飞牛影视 的反向代理服务器」 | **已适配**（待办清单该项为 `[x] 适配 飞牛影视`） | 自定义（官方示例 `9000`） | `sources/lens-b/mediawarp/01_github_com.md:51`、`02_readme_todo.md:25` |
+| fntv-proxy | 「飞牛影视 / Emby 代理工具 - 自动解析 .strm 文件并重定向到真实直链」 | 原帖称「基于飞牛影视 0.9.3 版本」 | 飞牛 `:28005` / Emby `:8095` | `sources/lens-b/fntvproxy/01_github_com.md:44`、`:45` |
 
-fntv-proxy 的用法很直接：
+> [!note] 一处旧结论的更正：MediaWarp 对飞牛影视**已经支持**
+> 本笔记早前把 README 的「适配 飞牛影视」读成**待办项**，据此判「成熟度未决」。核对 raw Markdown 后确认，该行原文是 **`- [x] 适配 飞牛影视`（已完成）**，紧随的 `- [x] 支持播放网盘转码内容（仅飞牛影视 AlistStrm 模式）` 也已完成（`sources/lens-b/mediawarp/02_readme_todo.md:25`、`:26`）。误判根源是抓取存档在 HTML 转文本时丢了 checkbox 状态，把已完成项显示成了裸列表项。**更正结论：飞牛影视是 MediaWarp 的正式支持对象。**
+
+### 5.4.1 为什么可以选 MediaWarp
+
+MediaWarp 对自己的定位是一句话：
+
+> 「MediaWarp 定位于服务端于客户端的一个中间件（也就是名字中为什么会带有 Warp），客户端请求原画播放时流量不再经过客户端，需要转码时服务端也能正确推流」（`sources/lens-b/mediawarp/03_blog_akimio_top.md:31`）
+
+说人话：**能直连的就直连（302），直连不了的回退到服务器推流**——不是「一刀切禁止中转」，而是「尽量不让流量经过你的 NAS」。除了 302，它还能顺带提供（`sources/lens-b/mediawarp/02_readme_todo.md:33`）：
+
+- **屏蔽特定客户端**（按 User-Agent 黑白名单）；
+- **自定义 Web 前端样式 / 注入脚本**（弹幕、一起看等）；
+- **AlistStrm 模式下，飞牛影视可播放网盘转码内容**（`[x]` 已完成，`sources/lens-b/mediawarp/02_readme_todo.md:26`）。
+
+> [!warning] 一个例外：Web 页面美化对飞牛影视**不生效**
+> 官方教程：「Web 页面修改 (Web) 支持 Emby 和 Jellyfin，FNTV（飞牛影视）不支持」（`sources/lens-b/mediawarp/03_blog_akimio_top.md:129`）。冲着「美化飞牛影视界面」去选 MediaWarp 会落空——它的价值在 **302 与播放链**上。
+
+### 5.4.2 部署 MediaWarp（官方逐字骨架）
+
+官方教程以 0.2.0 版为例，Docker Compose 部署：
+
+```yaml
+# docker-compose.yml（MediaWarp）
+# 出处：sources/lens-b/mediawarp/03_blog_akimio_top.md:62-73
+services:
+  mediawarp:
+    image: akimio/mediawarp:0.2.0
+    container_name: MediaWarp
+    restart: unless-stopped
+    ports:
+      - 9000:9000
+    volumes:
+      - ./mediawarp/config:/config
+      - ./mediawarp/logs:/logs
+      - ./mediawarp/static:/static
+```
+
+配置要映射进容器的 `/config` 目录。两条纪律：**配置文件只支持 YAML**（旧版的 JSON/TOML 已弃用）；「具体配置以发布对应版本中的 `config.yaml.example` 为准」（`sources/lens-b/mediawarp/03_blog_akimio_top.md:76`、`:80`）——版本间字段会变，以你下载版本内的示例为准。
+
+对接飞牛影视，关键是把服务器类型写成 **`FNTV`**（`sources/lens-b/mediawarp/03_blog_akimio_top.md:96`、`:100`）：
+
+```yaml
+server:
+  type: FNTV      # 对于飞牛影视
+```
+
+### 5.4.3 选哪种 STRM 模式：HTTPStrm 还是 AlistStrm
+
+MediaWarp 认两种 STRM 内容形态，**取决于你的 `.strm` 里写的是什么**（`sources/lens-b/mediawarp/02_readme_todo.md:36`、`:38`）：
+
+| 模式 | STRM 内容 | 谁需要能访问到目标 | 备注 |
+| --- | --- | --- | --- |
+| **HTTPStrm** | 一个 HTTP 链接 | **客户端**要能访问该链接；MediaWarp 不必 | 与本章 5.3 用 SmartStrm 生成的「基础地址 + 路径」相符 |
+| **AlistStrm** | AList 上视频文件的路径（utf-8 编码） | **MediaWarp** 要能访问 AList 及其 `raw_url`；客户端不必 | 仅支持 AList v3 API（OpenList 兼容）；**不支持转码**、兼容性较差，可挂真实目录缓解 |
+
+两条实用建议：客户端在公网、Alist 在内网时，AlistStrm 的 `raw_url` 建议设为 `true`（直接回网盘直链，客户端不必访问 AList，`sources/lens-b/mediawarp/03_blog_akimio_top.md:114`）；若 `.strm` 只是普通 HTTP(S) 链接，就用 HTTPStrm，并**关掉 AlistStrm**。
+
+> [!tip] 把 302 直链想成**快递中转**
+> 包裹（视频）一直放在网盘仓库，从来不用搬进你家。客户端下单后，中间件只回一句「你去仓库这个门牌直接取」。中转站本身**不囤货**——只在 NAS 上占一点点流量，不占你的硬盘。**选谁做中转站，看你要不要它有额外功能**：只要 302 选 fntv-proxy；想要屏蔽客户端 / 注入脚本 / 飞牛侧网盘转码，选 MediaWarp。
+
+### 5.4.4 fntv-proxy：更轻的备选
+
+只要「STRM → 302」这一件事，fntv-proxy 更轻。用法很直接：
 
 > 「将播放器地址指向代理端口（飞牛 `:28005`，Emby `:8095`）」（`sources/lens-b/fntvproxy/01_github_com.md:71`）
 
@@ -914,15 +903,12 @@ services:
     restart: unless-stopped
 ```
 
-> [!warning] STRM 目录必须挂进中间件容器
+> [!warning] STRM 目录必须挂进中间件容器（两个工具都适用）
 > 工具文档专门加粗提醒：
 >
 > > 「strm 路径一定要挂载到 Docker 容器中，否则播放失败，找不到 strm 文件。」（`sources/lens-b/fntvproxy/01_github_com.md:139`）
 >
 > 而且挂载时**前后路径要一致**（宿主机是什么路径，容器内就写什么路径）。
-
-> [!tip] 大白话
-> 把 302 直链想成**快递中转**：包裹（视频）一直放在网盘仓库，从来不用搬进你家。客户端下单后，中间件只负责回一句「你去仓库这个门牌直接取」。中转站（中间件）本身**不囤货**——所以它只在 NAS 上占一点点流量，不占你的硬盘。
 
 ## 5.5 纪律：只挂 STRM 子目录，并把它挂进中间件
 
@@ -1057,7 +1043,7 @@ services:
 - **STRM = 一行 URL 的指针文件**：「strm 只是 URL 指针」（`sources/lens-b/fntvproxy/01_github_com.md:266`），媒体文件始终在网盘。
 - **生成 STRM 用 SmartStrm**：应用中心（滞后 1~2 版）或 Docker（版本更及时）；生成免费，302 代理收费、本章不用。
 - **基础地址决定外网可用性**：默认写局域网 IP 就只能内网；外网要填可公网访问的地址。
-- **接 302 用中间件**：MediaWarp（飞牛适配仍在 TODO）/ fntv-proxy（原帖称基于飞牛影视 0.9.3，播放器指向 `:28005`）；STRM 目录必须挂进容器且前后路径一致。
+- **接 302 用中间件**：**MediaWarp**（**已适配飞牛影视**，README 待办清单该项为 `[x]`；对接飞牛把 `server.type` 写 `FNTV`）作首选；fntv-proxy（原帖称基于飞牛影视 0.9.3，播放器指向 `:28005`）作轻量备选。两者站**同一环**（客户端 ↔ 飞牛影视之间的前置反向代理）。STRM 目录必须挂进容器且前后路径一致。
 
 - **没有阿里云盘会员、主要用夸克**：小雅必填的是阿里云盘**账号**、会员只影响速度（`sources/p2/monlor-144.md:273`）；夸克在小雅里有**两条正路**——**小雅的夸克分享区**（`/🌀我的夸克分享`，走夸克直链、吃夸克会员速度，`sources/gh/alist-tvbox-721.md:33`）与**挂你自己的夸克**（`QUARK_COOKIE`，`sources/forum/tid-8385880.md:26`）；但**本体库**没有「转夸克」开关，只能「阿里转存 115」（需 115 会员，`sources/p4/ycyc-2878.md:13`）。夸克分享区的实际覆盖以实机为准（索引默认未必加载，`sources/gh/alist-tvbox-721.md:16`、`:39`）。详见 5.6。
 
@@ -1082,36 +1068,40 @@ services:
 | 11 | `PORT=8024` | SmartStrm 管理端口 | `sources/01_smartstrm_github_io.md:31` |
 | 12 | `此应用其中302代理是收费的，但是我们不需要使用，用它免费的挂载网盘生成strm功能就行了` | 302 代理收费，我们只用免费的 STRM 生成 | `sources/p2/tid-57134.md:32` |
 | 13 | `前置于 EmbyServer/Jellyfin/飞牛影视 的反向代理服务器` | MediaWarp 是前置在三种媒体服务器前的反向代理 | `sources/lens-b/mediawarp/01_github_com.md:51` |
-| 14 | `适配 飞牛影视` | MediaWarp 的 TODO 项：适配飞牛影视（尚未完成） | `sources/lens-b/mediawarp/01_github_com.md:86` |
-| 15 | `飞牛影视 / Emby 代理工具 - 自动解析 .strm 文件并重定向到真实直链` | fntv-proxy 的定位：解析 STRM 并重定向到真实直链 | `sources/lens-b/fntvproxy/01_github_com.md:44` |
-| 16 | `基于飞牛影视 0.9.3 版本` | fntv-proxy 原帖称基于飞牛影视 0.9.3 | `sources/lens-b/fntvproxy/01_github_com.md:45` |
-| 17 | `将播放器地址指向代理端口（飞牛 :28005，Emby :8095）` | 播放器应连代理端口：飞牛 :28005，Emby :8095 | `sources/lens-b/fntvproxy/01_github_com.md:71` |
-| 18 | `strm 路径一定要挂载到 Docker 容器中，否则播放失败，找不到 strm 文件。` | STRM 目录必须挂进容器，否则找不到文件、播放失败 | `sources/lens-b/fntvproxy/01_github_com.md:139` |
-| 19 | `由于小雅本质是将别人阿里云盘的文件先转存到自己的阿里云盘内再进行播放，如此当时间久了就会是云盘空间不足` | 小雅本质是把片源转存进你自己的阿里云盘再播放，久则空间不足 | `sources/p3/z-addone/01_www_cnblogs_com.md:33` |
-| 20 | `目前阿里云盘推出了第三方应用权益包的月套餐，不付费就限速，问题是，付费了也只有1T，如果是刷剧，一下子就没了。` | 阿里云盘不付费就限速，付费也只有 1T 配额 | `sources/p2/monlor-144.md:273` |
-| 21 | `阿里云我充了一个月的svip试验，测试是还是限速的，在alist网页端能播放，但卡（380kb/s），所以就非常需要转存到115网盘。` | 用户实测：充 SVIP 仍限速（380kb/s），故需转存 115 | `sources/p2/monlor-144.md:279` |
-| 22 | `如有挂载夸克、115网盘的需求，也可以在配置文件里填写参数` | 夸克/115 属「按需额外挂载」，非必填 | `sources/01_club_fnnas_com.md:32` |
-| 23 | `QUARK_COOKIE: "" # 夸克网盘的 Cookie，需要用户填写，非必填。` | 配置里夸克 Cookie 明确标「非必填」 | `sources/01_club_fnnas_com.md:48` |
-| 24 | `如果用夸克上面是不是只填写夸克的Cookie就可以了？就不需要填写阿里云盘的那三个参数了吧？` | 社区同问：只填夸克能否免填阿里三件套（帖中无正面回答） | `sources/01_club_fnnas_com.md:732` |
-| 25 | `# 阿里云盘转存115播放` | 社区「阿里转存 115」思路（配置项 `ALIYUN_TO_115`） | `sources/p3/monlor-env/01_raw_githubusercontent_com.md:19` |
-| 26 | `飞牛代理主要针对 夸克网盘 在 openlist 的 夸克 TV 驱动 挂载下实现 302` | fntv-proxy 主要面向夸克网盘（OpenList 夸克 TV 驱动） | `sources/lens-b/fntvproxy/01_github_com.md:300` |
-| 27 | `代理只做透明 302 转发，不会 把 HLS 转成 mp4，也无法 凭空补全媒体库元数据。` | 代理只做 302，不转 HLS、不补元数据 | `sources/lens-b/fntvproxy/01_github_com.md:241` |
-| 28 | `于是乎小雅开始转战115网盘，因为115有个转存阿里云盘的功能，简单来说就是，如果这个阿里的资源在115网盘上也有，会立即转存到你自己的网盘中。这样就跳过了阿里云盘的限制。当然115这边也有限制，需要开通会员才可以实现这个功能。而且最新的很多资源小雅都放到了115网盘中，所以想要玩小雅Alist，必须要办个115会员了。` | 小雅转战 115：115 有「转存阿里云盘」功能，播放时把资源转存到你的 115、绕开阿里限速，需 115 会员 | `sources/p4/ycyc-2878.md:13` |
-| 29 | `这个文件是用来加速阿里云盘资源的，如果你没有办理阿里云盘的会员，但是有115的会员，可以配置这个文件来转存阿里的资源到115网盘，实现流畅观看视频。` | `ali2115.txt` 的作用：没阿里会员但有 115 会员时，把阿里资源转存到 115 播放 | `sources/p4/ycyc-2878.md:19` |
-| 30 | `115和夸克设置自己的token就可以了。没有115会员的话还是放弃吧。115速度时快时慢，体验差。` | 论坛回复：115 / 夸克各填自己的 token；没有 115 会员就放弃 | `sources/forum/tid-21673.md:11` |
-| 31 | `现在在用alist tvbox，但是没有阿里或者115会员的话，会限速到100k` | 没有阿里或 115 会员会被限速到 100k | `sources/forum/tid-21673.md:13` |
-| 32 | `1、在小雅 alist 的配置目录下增加 quark_cookie.txt 文件，填入夸克账户的 cookie 并保存；` | 「小雅夸克玩法」：加 `quark_cookie.txt` 挂载自己的夸克 | `sources/forum/tid-8385880.md:26` |
-| 33 | `我查日志发现，夸克cookie放进去etc/xiaoya，查日志还是只有阿里的直链，没有夸克的直链。` | 实测：填了夸克 cookie，日志里仍只有阿里直链、没有夸克直链 | `sources/forum/tid-8385880.md:30` |
-| 34 | `已经不行了，日志提示非115会员不支持此操作` | 115 转存报「非115会员不支持此操作」 | `sources/forum/tid-8385880.md:32` |
-| 35 | `如果刚好有115会员能行吗，它这个大于5G不支持是会员也不行吗` | 反馈：115 转存「大于 5G 不支持」，会员也存疑 | `sources/forum/tid-8385880.md:34` |
-| 36 | `index.quark.txt #夸克分享（通过手动在资源中添加小雅资源配置 data 目录中的 quarkshare_list.txt ，挂载目录为 /🌀我的夸克分享）` | 小雅有专门的**夸克分享区**，挂载目录 `/🌀我的夸克分享`，列表文件 `quarkshare_list.txt` | `sources/gh/alist-tvbox-721.md:33` |
-| 37 | `在使用小雅资源的时候，只使用了部分索引数据，导致很多挂载的资源无法被搜索到，例如小雅的夸克分享索引，115分享索引以及部分电影等。` | 小雅索引**默认只加载一部分**，夸克分享索引等常搜不到 | `sources/gh/alist-tvbox-721.md:16` |
-| 38 | `小雅资源自己的索引数据有大量目录路径实际不存在，并且大部分在三级或四级目录前就已经失效` | 小雅的索引数据大量路径实际不存在，多在三四级目录前失效 | `sources/gh/alist-tvbox-721.md:39` |
+| 14 | `- [x] 适配 飞牛影视` | MediaWarp 已完成对飞牛影视的适配（待办清单勾选项） | `sources/lens-b/mediawarp/02_readme_todo.md:25` |
+| 15 | `- [x] 支持播放网盘转码内容（仅飞牛影视 AlistStrm 模式）` | 飞牛影视 AlistStrm 模式下支持播放网盘转码内容（已完成） | `sources/lens-b/mediawarp/02_readme_todo.md:26` |
+| 16 | `MediaWarp 定位于服务端于客户端的一个中间件（也就是名字中为什么会带有 Warp），客户端请求原画播放时流量不再经过客户端，需要转码时服务端也能正确推流` | MediaWarp 是客户端与服务端之间的中间件：原画播放不经过 NAS，需要转码时再由服务器推流 | `sources/lens-b/mediawarp/03_blog_akimio_top.md:31` |
+| 17 | `Web 页面修改 (Web) 支持 Emby 和 Jellyfin，FNTV（飞牛影视）不支持。` | Web 页面美化支持 Emby/Jellyfin，飞牛影视不支持 | `sources/lens-b/mediawarp/03_blog_akimio_top.md:129` |
+| 18 | `飞牛影视 / Emby 代理工具 - 自动解析 .strm 文件并重定向到真实直链` | fntv-proxy 的定位：解析 STRM 并重定向到真实直链 | `sources/lens-b/fntvproxy/01_github_com.md:44` |
+| 19 | `基于飞牛影视 0.9.3 版本` | fntv-proxy 原帖称基于飞牛影视 0.9.3 | `sources/lens-b/fntvproxy/01_github_com.md:45` |
+| 20 | `将播放器地址指向代理端口（飞牛 :28005，Emby :8095）` | 播放器应连代理端口：飞牛 :28005，Emby :8095 | `sources/lens-b/fntvproxy/01_github_com.md:71` |
+| 21 | `strm 路径一定要挂载到 Docker 容器中，否则播放失败，找不到 strm 文件。` | STRM 目录必须挂进容器，否则找不到文件、播放失败 | `sources/lens-b/fntvproxy/01_github_com.md:139` |
+| 22 | `由于小雅本质是将别人阿里云盘的文件先转存到自己的阿里云盘内再进行播放，如此当时间久了就会是云盘空间不足` | 小雅本质是把片源转存进你自己的阿里云盘再播放，久则空间不足 | `sources/p3/z-addone/01_www_cnblogs_com.md:33` |
+| 23 | `目前阿里云盘推出了第三方应用权益包的月套餐，不付费就限速，问题是，付费了也只有1T，如果是刷剧，一下子就没了。` | 阿里云盘不付费就限速，付费也只有 1T 配额 | `sources/p2/monlor-144.md:273` |
+| 24 | `阿里云我充了一个月的svip试验，测试是还是限速的，在alist网页端能播放，但卡（380kb/s），所以就非常需要转存到115网盘。` | 用户实测：充 SVIP 仍限速（380kb/s），故需转存 115 | `sources/p2/monlor-144.md:279` |
+| 25 | `如有挂载夸克、115网盘的需求，也可以在配置文件里填写参数` | 夸克/115 属「按需额外挂载」，非必填 | `sources/01_club_fnnas_com.md:32` |
+| 26 | `QUARK_COOKIE: "" # 夸克网盘的 Cookie，需要用户填写，非必填。` | 配置里夸克 Cookie 明确标「非必填」 | `sources/01_club_fnnas_com.md:48` |
+| 27 | `如果用夸克上面是不是只填写夸克的Cookie就可以了？就不需要填写阿里云盘的那三个参数了吧？` | 社区同问：只填夸克能否免填阿里三件套（帖中无正面回答） | `sources/01_club_fnnas_com.md:732` |
+| 28 | `# 阿里云盘转存115播放` | 社区「阿里转存 115」思路（配置项 `ALIYUN_TO_115`） | `sources/p3/monlor-env/01_raw_githubusercontent_com.md:19` |
+| 29 | `飞牛代理主要针对 夸克网盘 在 openlist 的 夸克 TV 驱动 挂载下实现 302` | fntv-proxy 主要面向夸克网盘（OpenList 夸克 TV 驱动） | `sources/lens-b/fntvproxy/01_github_com.md:300` |
+| 30 | `代理只做透明 302 转发，不会 把 HLS 转成 mp4，也无法 凭空补全媒体库元数据。` | 代理只做 302，不转 HLS、不补元数据 | `sources/lens-b/fntvproxy/01_github_com.md:241` |
+| 31 | `于是乎小雅开始转战115网盘，因为115有个转存阿里云盘的功能，简单来说就是，如果这个阿里的资源在115网盘上也有，会立即转存到你自己的网盘中。这样就跳过了阿里云盘的限制。当然115这边也有限制，需要开通会员才可以实现这个功能。而且最新的很多资源小雅都放到了115网盘中，所以想要玩小雅Alist，必须要办个115会员了。` | 小雅转战 115：115 有「转存阿里云盘」功能，播放时把资源转存到你的 115、绕开阿里限速，需 115 会员 | `sources/p4/ycyc-2878.md:13` |
+| 32 | `这个文件是用来加速阿里云盘资源的，如果你没有办理阿里云盘的会员，但是有115的会员，可以配置这个文件来转存阿里的资源到115网盘，实现流畅观看视频。` | `ali2115.txt` 的作用：没阿里会员但有 115 会员时，把阿里资源转存到 115 播放 | `sources/p4/ycyc-2878.md:19` |
+| 33 | `115和夸克设置自己的token就可以了。没有115会员的话还是放弃吧。115速度时快时慢，体验差。` | 论坛回复：115 / 夸克各填自己的 token；没有 115 会员就放弃 | `sources/forum/tid-21673.md:11` |
+| 34 | `现在在用alist tvbox，但是没有阿里或者115会员的话，会限速到100k` | 没有阿里或 115 会员会被限速到 100k | `sources/forum/tid-21673.md:13` |
+| 35 | `1、在小雅 alist 的配置目录下增加 quark_cookie.txt 文件，填入夸克账户的 cookie 并保存；` | 「小雅夸克玩法」：加 `quark_cookie.txt` 挂载自己的夸克 | `sources/forum/tid-8385880.md:26` |
+| 36 | `我查日志发现，夸克cookie放进去etc/xiaoya，查日志还是只有阿里的直链，没有夸克的直链。` | 实测：填了夸克 cookie，日志里仍只有阿里直链、没有夸克直链 | `sources/forum/tid-8385880.md:30` |
+| 37 | `已经不行了，日志提示非115会员不支持此操作` | 115 转存报「非115会员不支持此操作」 | `sources/forum/tid-8385880.md:32` |
+| 38 | `如果刚好有115会员能行吗，它这个大于5G不支持是会员也不行吗` | 反馈：115 转存「大于 5G 不支持」，会员也存疑 | `sources/forum/tid-8385880.md:34` |
+| 39 | `index.quark.txt #夸克分享（通过手动在资源中添加小雅资源配置 data 目录中的 quarkshare_list.txt ，挂载目录为 /🌀我的夸克分享）` | 小雅有专门的**夸克分享区**，挂载目录 `/🌀我的夸克分享`，列表文件 `quarkshare_list.txt` | `sources/gh/alist-tvbox-721.md:33` |
+| 40 | `在使用小雅资源的时候，只使用了部分索引数据，导致很多挂载的资源无法被搜索到，例如小雅的夸克分享索引，115分享索引以及部分电影等。` | 小雅索引**默认只加载一部分**，夸克分享索引等常搜不到 | `sources/gh/alist-tvbox-721.md:16` |
+| 41 | `小雅资源自己的索引数据有大量目录路径实际不存在，并且大部分在三级或四级目录前就已经失效` | 小雅的索引数据大量路径实际不存在，多在三四级目录前失效 | `sources/gh/alist-tvbox-721.md:39` |
 
 ## 更新记录
 
 | 日期 | 变更摘要 |
 |------|----------|
+| 2026-10-06 | **口径修正（MediaWarp）**：更正 5.4——此前把 MediaWarp README 的「适配 飞牛影视」读成**待办项**，据此判「成熟度未决」。核对 raw Markdown 后确认该行为 `- [x] 适配 飞牛影视`（已完成），`- [x] 支持播放网盘转码内容（仅飞牛影视 AlistStrm 模式）` 亦已完成（`sources/lens-b/mediawarp/02_readme_todo.md:25`、`:26`）；误判根源是旧抓取存档丢失 checkbox 状态。5.4 改写为**以 MediaWarp 为主**：补 `server.type: FNTV`、HTTPStrm/AlistStrm 选择、官方 Compose 骨架与「Web 美化不支持 FNTV」例外；fntv-proxy 降为轻量备选。引文对照表同步（原 14 行改为 `[x]` 口径并新增 15–17）。 |
 | 2026-10-06 | 新增/重写 5.6「没有阿里云盘会员、只有夸克会员怎么办」：澄清小雅必填的是阿里云盘**账号**、会员只影响限速（`sources/p2/monlor-144.md:273`、`:279`）；说明「换播放盘」的开关只有 115（`ali2115.txt` / 阿里转存 115，需 115 会员，`sources/p4/ycyc-2878.md:13`、`:19`），没有「转存夸克」；夸克在小雅里只是 `quark_cookie.txt` / `QUARK_COOKIE` 挂载**你自己的夸克**、**不能**把小雅资源转成夸克播放（实测填了仍只有阿里直链，`sources/forum/tid-8385880.md:30`）；给出「只有夸克会员」的三条现实路径（`sources/forum/tid-21673.md:11`、`:13`），并保留「改挂你自己夸克库 + STRM + 302」备选链路（`sources/lens-b/fntvproxy/01_github_com.md:300`）及其 HLS 元数据坑（`:241`）。 |
 | 2026-10-06 | **口径修正（夸克）**：更正 5.6——此前把「小雅没有夸克来源」写得过绝。小雅**确有夸克分享区**（`/🌀我的夸克分享`，走夸克直链、吃夸克会员速度，`sources/gh/alist-tvbox-721.md:33`）；「换播放盘开关只有 115」限定为**本体库**。5.6 重写为「本体库走不了夸克、但夸克分享区能走夸克」，并补「覆盖以实机为准」警示（索引默认未必加载、大量路径失效，`sources/gh/alist-tvbox-721.md:16`、`:39`）。 |
 ---
@@ -1287,29 +1277,23 @@ bash -c "$(curl -sLk https://xiaoyahelper.ddsrem.com/aliyun_clear.sh | tail -n +
 
 ## 7.3 第二件事：怎么更新
 
-小雅是持续更新的项目，镜像会不断出新版。两条路线的更新方式，和第 4 章部署时完全对应，**不要混着记**：
+小雅是持续更新的项目，镜像会不断出新版。本笔记用的 monlor 社区镜像，更新方式与第 4 章部署时完全一致——**重跑一遍安装脚本即等于更新**：
 
-| 你当初的路线 | 更新怎么做 | 出处 |
-|---|---|---|
-| 官方镜像 `xiaoyaliu/alist` | 重跑「一键安装和更新容器」脚本 | `sources/01_hub_docker_com.md:16` |
-| 社区镜像 `ghcr.io/monlor/xiaoya-alist` | 重跑 monlor 的一键脚本（仓库说明「脚本支持重复执行」） | `sources/p2/monlor-144.md:29,32` |
+| 更新怎么做 | 出处 |
+|---|---|
+| 重跑 monlor 的一键安装脚本（仓库说明「脚本支持重复执行」；会自动覆盖 compose 文件，但不覆盖 env 文件） | `sources/p2/monlor-144.md:29,32` |
 
 ```bash
-# 官方路线：一键安装和更新容器
-bash -c "$(curl -s http://docker.xiaoya.pro/update_new.sh)"
-
-# 社区 monlor 路线：重复执行部署脚本即等于更新（会自动覆盖 compose 文件，但不覆盖 env 文件）
+# 重复执行部署脚本即等于更新
 # 出处：sources/p2/monlor-144.md:32
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/monlor/docker-xiaoya/main/install.sh)"
 ```
 
-官方镜像还有一个省事的地方：**重启就会自动更新数据库及搜索索引文件**，对应命令是 `docker restart xiaoya`（`sources/01_hub_docker_com.md:19`）。也就是说官方路线的基础数据不一定靠「更新镜像」，重启一次也常能刷新索引。
-
 > [!warning] 更新前先看第 4 章的镜像名纪律
-> 官方镜像是 `xiaoyaliu/alist`，社区镜像是 `ghcr.io/monlor/xiaoya-alist`（后者是 monlor 的社区镜像，**不是官方**）。更新脚本要和当初部署用的镜像对上，别拿 A 路的脚本去更新 B 路的容器。
+> 本笔记的镜像是 `ghcr.io/monlor/xiaoya-alist`（monlor 的社区镜像，**不是官方发布**）。更新脚本与部署脚本是同一个，别拿别的路线的一键脚本来更新这个容器。
 
 > [!tip] 大白话
-> 更新就像**给手机升系统**：官方路线是「跑一下官方升级包」，社区路线是「重跑一遍安装脚本（它自带更新）」；而自动重启刷新索引，相当于重启一下手机让新设置生效。
+> 更新就像**给手机升系统**：重跑一遍安装脚本，它自动拉取新版镜像并覆盖 compose；而 `env` 里填好的凭据不动，不用重新配。
 
 ## 7.4 第三件事：这套东西要多少硬件
 
@@ -1342,7 +1326,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/monlor/docker-xiaoya/mai
 | ①-a 刮削差异 | 飞牛影视直接扫整个小雅会触发转存/风控，只能挂已生成的 STRM 子目录；Emby 全家桶则自带专门的元数据服务 | 第 5、6 章 |
 | ①-b 播放差异 | STRM 只存 URL 指针，302 直链让流量不过媒体服务器；但飞牛原生直链默认是内网地址，外网要额外处理 | 第 5、6 章 |
 | ①-c 外网差异 | 手机在蜂窝网络下无法解析 NAS 内网域名；需要公网入口或代理端口 | 第 6 章 |
-| ② 单容器部署步骤 | 官方镜像 `docker run` 或社区 monlor 的 compose，二选一；装完跑一次转存清理、验一次播放链路 | 第 3、4 章 |
+| ② 单容器部署步骤 | 用 monlor 社区镜像 `ghcr.io/monlor/xiaoya-alist`（一键脚本或手写 compose）；装完跑一次转存清理、验一次播放链路 | 第 3、4 章 |
 
 如果上面每一行你都能不看笔记自己复述，这套「小雅 + 飞牛影视」你就真正跑通了。
 
@@ -1352,10 +1336,10 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/monlor/docker-xiaoya/mai
 
 | 未决项 | 目前证据到什么程度 | 本笔记怎么处理 |
 |---|---|---|
-| `ghcr.io` 有没有「官方」小雅镜像 | 没有。`ghcr.io/monlor/xiaoya-alist` 是 monlor 的镜像 | 全文按「社区路线」写，不叫它官方镜像 |
+| `ghcr.io` 上有没有小雅官方的镜像 | 没有。`ghcr.io/monlor/xiaoya-alist` 由社区维护者 monlor 发布，非官方 | 全文只写这一个镜像，并标明它是**社区镜像**、不是官方发布 |
 | `xiaoya.host` 是不是官方域名 | 未证，只有社区链路描述 | 只当作「内网地址」的举例，不宣称官方 |
 | 飞牛影视从哪个版本开始支持 STRM | 来源冲突，未定 | 不写「起始版本号」这种硬结论 |
-| `/data` 凭据文件名与目录 | 文件名三件套已证；但目录随路线（`/data` 或 `/etc/xiaoya`） | 第 3 章按「文件名已证、目录随路线」写 |
+| `/data` 与 `/etc/xiaoya` 各自装什么 | 目录用途已证；更细的文件级细节随部署形态而异 | 第 3 章只写「`/data` 持久化数据」「`/etc/xiaoya` 配置 / 元数据」，不写具体凭据文件名 |
 | MediaWarp 与 fntv-proxy 能否共存 / 版本矩阵 | 无来源 | 只作并列介绍，不写「可以共存」 |
 | 知乎《用飞牛影视连接小雅，可行吗？》、官方 Notion 配置指南 | 均未获取（crawler 被拦 / SPA 壳页） | 未作为证据、未引用 |
 | 「半分钟几个 T」的转存量级 | 原帖确有该说法，但属模糊定性、无精确值 | 只作「原帖称」引用，不当精确数据 |
@@ -1367,7 +1351,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/monlor/docker-xiaoya/mai
 
 - **装完要养**：小雅默认不清理转存缓存，必须自己安排定期清理，否则占容量、还可能触发风控。
 - **清理工具**：xiaoyakeeper（镜像 `ddsderek/xiaoyakeeper`）；模式 3 定时、模式 5 实时是推荐项，**模式 2 已废弃**；它还能顺带定时升级镜像和网盘签到。
-- **更新口径**：官方路线重跑一键脚本、社区 monlor 路线重跑其安装脚本（可重复执行）；官方镜像重启即可自动更新数据库与索引。
+- **更新口径**：本笔记用的 monlor 社区镜像，**重跑其一键安装脚本即等于更新**（可重复执行）；`env` 里的凭据不受影响。
 - **硬件参考**：单容器「仅部署 Alist」维护者推荐 1 核 / 512M / 512M，属**推荐非硬性**；加 Emby/Jellyfin 会跳档。
 - **诚实的收尾**：两问已有完整答案（见 7.5），同时有七项仍属未决，笔记里一律不做结论。
 
@@ -1387,6 +1371,10 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/monlor/docker-xiaoya/mai
 | 6 | 请勿将 xiaoyahelper 用于商业用途 | 该工具明确不得商用 | sources/01_github_com.md:82 |
 | 7 | 仅部署 Alist | 单容器方案行；对应推荐 1 核 / 512M / 512M | sources/p2/monlor-144.md:78 |
 | 8 | 脚本支持重复执行 | monlor 安装脚本可反复跑，等于更新 | sources/p2/monlor-144.md:29 |
-| 9 | 一键安装和更新容器 | 官方镜像的安装与更新是同一个脚本 | sources/01_hub_docker_com.md:16 |
-| 10 | 重启就会自动更新数据库及搜索索引文件 | 官方路线重启即刷新索引 | sources/01_hub_docker_com.md:19 |
-| 11 | 此脚本仅限发烧友使用，需要有一定的解决问题能力 | monlor 的测试版脚本只建议有排障能力的人用 | sources/p2/monlor-144.md:67 |
+| 9 | 此脚本仅限发烧友使用，需要有一定的解决问题能力 | monlor 的测试版脚本只建议有排障能力的人用 | sources/p2/monlor-144.md:67 |
+
+## 更新记录
+
+| 日期 | 变更摘要 |
+|------|----------|
+| 2026-10-06 | **整套笔记统一为 monlor 单一路线，删除官方镜像路线（第 3 篇）**：7.3「怎么更新」的更新口径表由「你当初的路线 / 更新怎么做」双列改为单列（只留 monlor 一键脚本可重复执行），删去官方路线命令 `docker.xiaoya.pro/update_new.sh` 与「官方镜像重启即自动更新数据库及搜索索引（`docker restart xiaoya`）」整段；7.2 代码块保留；7.3 镜像名对照 warning 与「给手机升系统」比喻改为单一路线口径；7.5 收尾自检第 ② 行由「官方 `docker run` 或 monlor compose 二选一」改为「monlor 社区镜像：一键脚本或 compose」；7.6 未决项表两行重写（`ghcr.io` 无官方镜像、`/data` 与 `/etc/xiaoya` 的目录用途口径）；本章小结更新口径一条改为单一路线。引文对照删去官方镜像页 2 条（原第 9、10 行），重编号为 1–9。 |

@@ -10,11 +10,11 @@ topic: "小雅 fnOS 单容器部署笔记集：统一为 monlor 镜像单一路�
 project_slug: "xiaoya-fnos-deploy"
 created_at: "2026-10-06"
 last_updated: "2026-10-06"
-current_phase: P4
-current_status: in_progress
+current_phase: done
+current_status: complete
 mode: standard
 blocked_reason: ""
-quality_gate: pending
+quality_gate: passed
 quality_gate_owner: ""
 quality_gate_due: ""
 ---
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：update-xiaoya-fnos-routes
 > 项目标识：xiaoya-fnos-deploy
 > 创建时间：2026-10-06
-> 当前阶段：阶段 4
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -77,23 +77,23 @@ quality_gate_due: ""
 ---
 
 ## 阶段 4：逐篇局部更新
-- [ ] 已按 batch_size 分批处理
-- [ ] 每篇笔记已生成 stale map
-- [ ] 每篇笔记已局部更新或标记需复核
-- [ ] 原文未被覆盖，除非 destination_mode 为 patch-in-place 且用户已确认
-- [ ] 批处理日志已追加：`./03_batch_update_log.md`
+- [x] 已按 batch_size 分批处理（批 1 = 04/03/07；批 2 = 01/总览；收口 = 03 小节回填 + 合并件重装配）
+- [x] 每篇笔记已生成 stale map（见 `./02_batch_update_plan.md` 的逐篇 stale 表，覆盖 5 个 update 篇）
+- [x] 每篇笔记已局部更新或标记需复核（update 篇全部落地，无 needs-review）
+- [x] 原文未被覆盖，除非 destination_mode 为 patch-in-place 且用户已确认（P0 已确认 patch-in-place + 全副本同步）
+- [x] 批处理日志已追加：`./03_batch_update_log.md`
 
-> [P4] 🔲 进行中 {in_progress}
+> [P4] ✅ 已完成 {complete}
 
 ---
 
 ## 阶段 5：汇总与 MOC 同步
-- [ ] 已汇总更新、跳过、失败和需复核数量
-- [ ] 已汇总每篇输出路径和风险
-- [ ] 如提供 MOC，已同步索引且未复制正文
-- [ ] 批量更新报告已保存：`./04_batch_update_report.md`
+- [x] 已汇总更新、跳过、失败和需复核数量（8 处理 / 6 更新 / 2 跳过 / 0 失败 / 0 需复核）
+- [x] 已汇总每篇输出路径和风险（见 `./04_batch_update_report.md` 第二、五节）
+- [x] 如提供 MOC，已同步索引且未复制正文（`流媒体与影音 MOC.md` 指向未改名的入口页，无需改动）
+- [x] 批量更新报告已保存：`./04_batch_update_report.md`
 
-> [P5] ⬜ 未开始
+> [P5] ✅ 已完成 {complete}
 
 ---
 
@@ -101,6 +101,7 @@ quality_gate_due: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P4 | 批 1（04/03/07）+ 批 2（01/总览）+ 收口（03 小节回填、合并件重装配）全部落地；三副本逐字节一致 | 2026-10-06 21:11 |
 | P2 | 用户确认批量计划：新章名「单容器小雅（monlor 镜像）」；4.1 与原 4.4 合并为「为什么用 monlor 镜像」；批 1 = 04/03/07，批 2 = 01/总览 | 2026-10-06 20:57 |
 | P1 | 用户确认更新清单可信（update 5 篇 / skip 3 篇）；并确认第 4 章 4.2 整节删除（含整合脚本入口） | 2026-10-06 20:55 |
 | P0 | 用户确认：范围=整套笔记统一；官方路线=彻底删除；destination_mode=patch-in-place + 全副本同步；batch_size=3 | 2026-10-06 20:47 |
@@ -121,6 +122,7 @@ quality_gate_due: ""
 | 时间 | 阶段 | 问题描述 | 处理方式 |
 |------|------|---------|---------|
 | 2026-10-06 20:57 | P3 | 跳过阶段：shared_research: no；本轮结论全部回源到 workspace/xiaoya-fnos-deploy/sources/ 已有素材（用户已确认） | 继续推进到下一未完成阶段 |
+| 2026-10-06 21:08 | P4/P5 | 并行会话（claude-03）同期改动第 5 章（MediaWarp 结论更正），与本运行编辑面不重叠；共享写点仅合并件 `output/final_note.md`（幂等） | 保持只读 05；收口前复跑 `publish_copies.py --check` 与 `note-citation-check.py`，快照确认 C 族 0 差异、三副本全 `==` |
 | | | | |
 
 ---
@@ -130,18 +132,21 @@ quality_gate_due: ""
 | 时间 | 批次 | 文件数 | 成功 | 需复核 | 输出位置 |
 |------|------|--------|------|--------|----------|
 | 2026-10-06 | 批 1 | 3 | 3 | 0 | `chapters/` 04、03、07 → `output/` 与 vault 三副本已同步 |
+| 2026-10-06 | 批 2 | 2 | 2 | 0 | `chapters/` 01 + 入口页`（总览）` → `output/` 与 vault 已同步 |
+| 2026-10-06 | 收口 | 2 | 2 | 0 | `chapters/` 03 小节回填；合并件 `output/final_note.md` 重装配 |
 
 ---
 
 ## 最终产出
 
-- **源路径**：
-- **更新目标**：
-- **处理文件数**：
-- **更新文件数**：
-- **跳过文件数**：
-- **需复核文件数**：
-- **输出模式**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+- **源路径**：`workspace/xiaoya-fnos-deploy/chapters/`
+- **更新目标**：小雅 fnOS 单容器部署笔记集全篇统一为 monlor 单一路线，删除官方 `xiaoyaliu/alist` 镜像路线
+- **处理文件数**：8（7 章 + 入口页；另重装配合并件 1）
+- **更新文件数**：6（第 1、3、4、7 章 + 入口页 + 合并件）
+- **跳过文件数**：2（第 5、6 章；第 2 章亦未变）
+- **需复核文件数**：0
+- **输出模式**：`patch-in-place` + 全副本同步
+- **文件路径**：`workspace/xiaoya-fnos-deploy/output/`（7 分册 + `final_note.md` + `（总览）.md`）
+- **Obsidian Vault**：`流媒体与影音/小雅 fnOS 单容器部署/`
+- **MOC 路径**：`流媒体与影音 MOC.md`（无需改动）
+- **质量门**：`quality_gate: passed`（引文校验 ✅ / 三副本全 `==` / 结构自检 0 处）
