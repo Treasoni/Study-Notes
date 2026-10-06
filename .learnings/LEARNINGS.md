@@ -1,6 +1,7 @@
 # LEARNINGS.md
 
-活跃学习记录：当前 **1** 条 —— `LRN-20260912-012`（anomaly，挂起，根因未消除，**不可归档**）。
+活跃学习记录：当前 **2** 条 —— `LRN-20260912-012`（anomaly，挂起，根因未消除，**不可归档**）、
+`LRN-20261006-028`（correction，机制已落 `note-updater` v1.5.0，待维护轮复核后归档）。
 
 **归档门槛（2026-10-06 修订）**：**机制在位 + 经一次维护轮复核通过**，即可归档；全文移入
 `.learnings/archive/`，`.learnings/RULES.md` 保留铁律。原门槛要求「机制在**下一轮真实运行中
@@ -47,7 +48,7 @@
 
 **Logged**: 2026-10-06
 **Priority**: high
-**Status**: pending（机制待落 canonical `note-updater` SKILL.md「配方类内容」小节）
+**Status**: pending（机制已落 canonical `note-updater` v1.5.0「配方类内容」小节 + 同步/校验通过；待一次维护轮复核通过后归档）
 **Area**: 学习笔记内容正确性 / 出处纪律
 
 ### Summary
@@ -60,7 +61,7 @@
 - 下次做法：注释只当**线索**；注释与多个独立来源 / 实测冲突时**以后者为准**，并把注释原文**逐字留档**（不静默删），在旁解释它为何易误读；写「注释里的 X 其实是 Y」这类纠正句前，先问「这句注释有没有可能把两个概念混写了」。
 
 ### Suggested Action
-- 把「字段旁注释 ≠ 权威取值；注释自相矛盾时取独立来源 + 实测一致的读法，并逐字留档」补进 canonical `note-updater` SKILL.md 的「配方类内容」小节，再走 `.agent-sync` 同步 + `workflow-health-check.sh` 收口（`.claude/` 为生成目录，不手工编辑）。
+- **已落地（2026-10-06）**：「字段旁注释 ≠ 权威取值；注释自相矛盾时取独立来源 + 实测一致的读法，并逐字留档」已补进 canonical `.agents/skills/note-updater/SKILL.md` 的「配方类内容」小节（manifest `1.4.0 → 1.5.0`，描述同步）；经 `.agent-sync/sync_agents.py --scope skills` 同步（`.claude/` 为生成目录，未手工编辑），全量 `--check` 绿、`manifest-registry validate` 60 件通过。
 - 引 `:行号` 前先 `rg -n` 定位一次，不凭上一轮转录誊抄。
 - 本次落地见 `ERR-20261006-021`；修正产物：`流媒体与影音/小雅 fnOS 单容器部署/03 动手前准备.md`、`04 部署实战.md`。
 
