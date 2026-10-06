@@ -2,8 +2,8 @@
 
 - 更新日期：2026-10-06
 - 目标文件：vault `流媒体与影音/小雅 fnOS 单容器部署/05 前端接入.md`
-- destination_mode：`patch-in-place`，**第 5 章三侧已同步**（chapters/ → output/ + vault + final_note）
-- 同步方式：反向提取 vault 05 正文 → `chapters/05_前端接入.md` → `publish_copies.py --apply --only 05` + `assemble_final.py --apply`（`vault==` 自证无反退）
+- destination_mode：`patch-in-place`；**03/04/05 三章均以 vault 为准同步到工作区**（chapters/ → output/ + vault + final_note）
+- 同步方式：反向提取 vault 正文 → `chapters/` → `publish_copies.py --apply` + `assemble_final.py --apply`（`vault==` 自证无反退）
 - update_goal：回答用户「mediawrap 的 docker 不是这么写的吗？」——用户把 **`docker-compose.yml`** 与 **MediaWarp 的 `config.yaml`** 抄成了一个文件
 
 ## 触发与决策
@@ -38,8 +38,8 @@ Compose v5.0.2。结论：`server` 不是 Compose 合法顶层键，`docker comp
 ## 登记的工作区漂移
 
 - 上游 run `update-xiaoya-fnos-routes`（`batch-note-update-flow`）已 `current_phase: done` / `quality_gate: passed`（2026-10-06 21:16），不会再被任何流程更新。
-- **05 已同步**（用户选择「以 vault 为准」）：vault → chapters/05 → output/05 + final_note，四侧一致（`publish_copies --check` 05 全 `=`）。
-- **其余漂移仍在**：`publish_copies --check` 显示 **03、04** 仍是 `vault=≠`（vault 比工作区新，mtime 21:27 / 21:40，均在 run 21:16 收口之后）：
-  - **03 动手前准备**：vault 比 chapters **少** ~519 字节——vault 把「WebDAV 用户名 `guest` / 路径 `/dav`」一段**并成一句话**，去掉了 output 里的原注释引文与 `[!warning] 用户名填 guest；dav 是路径` 提示框。
-  - **04 部署实战**：vault 比 chapters **多** ~272 字节——vault 新增令牌文件落盘说明与两张截图（`assets/04 部署实战/file-*.png`）。
-- 03/04 的处置**待用户决定**（尤其 03 方向存疑：vault 是删内容的那侧）。本报告不擅自覆盖。
+- **05 已同步**（用户选择「以 vault 为准」）：vault → chapters/05 → output/05 + final_note，四侧一致。
+- **03、04 亦已同步**（用户后续确认「都按 vault 同步」）：
+  - **03 动手前准备**：vault 侧把「WebDAV 用户名 `guest` / 路径 `/dav`」并成一句话，去掉了工作区里的原注释引文与 `[!warning] 用户名填 guest；dav 是路径` 提示框。按用户决定，以 vault 为准同步到工作区。
+  - **04 部署实战**：vault 侧新增令牌文件落盘说明与两张截图（`assets/04 部署实战/file-*.png`，文件存在），同步到工作区。
+- **收口校验**：`publish_copies.py --check` 七章全 `output== vault==`；`assemble_final.py --check` 0 章待更新。工作区与 vault 不再漂移。

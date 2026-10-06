@@ -446,12 +446,8 @@
 
 **WebDAV 账号**（用来把资源库当文件夹挂载）。本笔记用的 monlor 镜像只在 `env` 模板里留了一个密码项和一行注释：
 
-> 「webdav用户名为dav，设置密码。默认用户密码：guest/guest_Api789」（`sources/p3/monlor-env/01_raw_githubusercontent_com.md:31`）
+说人话：**用户名是 `guest`**，密码默认 `guest_Api789`（可用环境变量 `WEBDAV_PASSWORD` 改，`sources/forum/tid-9690.md:55`），路径 `/dav`（`sources/forum/tid-9690.md:280`）。挂载时三样照此填写。凭据三件套与 WebDAV 账号的语境，我在 [[流媒体与影音/网盘影视播放与本地存储的取舍]] 里也有铺垫。
 
-这行注释**容易读反**——句里的 `dav` 其实是**路径**，照下面实测出的三件套填写才不会错。说人话：**用户名是 `guest`**，密码默认 `guest_Api789`（可用环境变量 `WEBDAV_PASSWORD` 改，`sources/forum/tid-9690.md:55`），路径 `/dav`（`sources/forum/tid-9690.md:280`）。挂载时三样照此填写。凭据三件套与 WebDAV 账号的语境，我在 [[流媒体与影音/网盘影视播放与本地存储的取舍]] 里也有铺垫。
-
-> [!warning] 用户名填 `guest`；`dav` 是**路径**，不是用户名
-> monlor 的 env 注释写作「webdav用户名为dav」，只看这半句会以为用户名是 `dav`；但同一行紧接着又写「默认用户密码：guest/guest_Api789」。多个独立来源给出的三件套一致是**用户 `guest`、密码 `guest_Api789`、路径 `/dav`**（`sources/01_hub_docker_com.md:18`、`sources/forum/tid-9690.md:262`、`:280`、`sources/p3/z-addone/01_www_cnblogs_com.md:44`），实测亦然。挂载时用户名填 `guest`，把 `/dav` 填在**路径**一栏。
 
 > [!tip] 大白话
 > 把三件套想成**三把钥匙**：`ALIYUN_TOKEN` 是进阿里云盘大门的钥匙，`ALIYUN_OPEN_TOKEN` 是另一把「开放接口」的钥匙，`ALIYUN_FOLDER_ID` 则是告诉小雅「把临时借来的片放进哪个抽屉」。三者缺一，小雅就取不到片。WebDAV 的 `guest` / `guest_Api789` 则是给「挂载文件夹」用的门禁卡——只读、人人相同，别当成你自己的账号密码。
@@ -632,6 +628,17 @@ networks:
 - `EMBY_ENABLED` / `JELLYFIN_ENABLED` 保持 `"false"`，就只起 alist 一个容器——这才是本章说的**单容器**形态；把它改成 `true`，monlor 会连带起 metadata、emby 等容器，那就落回第 2 章讲过的「全家桶」侧。
 - 端口方向仍是「左宿主、右容器」（`sources/forum/tid-9690.md:40`）。
 
+这里会把你填写的这些令牌放入你这里配置的路径中：
+
+![](assets/04%20部署实战/file-20261006213730421.png)
+
+阿里云盘访问令牌：mytoken.txt
+开放访问令牌: myopentoken.txt
+文件夹 ID: temp_transfer_folder_id.txt
+夸克网盘 Cookie（用夸克分享区时填): quark_cookie.txt
+
+后续有令牌失效可以直接修改文件然后重启容器。
+
 落地命令：
 
 ```bash
@@ -656,7 +663,9 @@ docker compose logs      # 看启动日志
    论坛里有人同样遇到「一直提示……获取设置失败：请稍后，正在加载储存」，楼主的答复只有一句：「等一会儿就好了！」（`sources/forum/tid-9690.md:200`）。初始化按网络情况**需要 1~5 分钟**（`sources/p3/gnz48/01_www_cnblogs_com.md:46`），别当成故障。
 3. **能播放**：在网页里随便点开一个视频，确认能播（`sources/p3/gnz48/01_www_cnblogs_com.md:69`）。
 4. **WebDAV 能挂**：用户名 `guest`，密码默认 `guest_Api789`，路径 `/dav`（`sources/01_hub_docker_com.md:18`、`sources/forum/tid-9690.md:72`、`:280`）。
+![](assets/04%20部署实战/file-20261006213604699.png)
 5. **token 会过期**：出现「无法加载列表 / 播放失败」时，先更新 token（`sources/p2/newzone-xiaoya.md:32`）。
+
 
 > [!warning] 两个高频报错
 > 一是 `/data/docker_address.txt: Operation not permitted`（`sources/forum/tid-9690.md:96`）——容器往 `/data` 写文件被拒，多为目录**权限**问题，检查映射目录的读写权限。二是拉镜像时 `ghcr.io/v2/` 连接被重置（`sources/forum/tid-9690.md:410`）——网络到 ghcr 不通，换镜像源（见 4.2 注）。
