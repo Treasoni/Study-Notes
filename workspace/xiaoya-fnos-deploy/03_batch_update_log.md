@@ -38,6 +38,7 @@ chapters/XX.md  ──机械变换──▶  output/XX YYY.md  ──同源重�
 |------|----|------|------|------|--------|
 | 2026-10-06 | 收口 1 | `chapters/03_动手前准备.md` | 回填 vault 版（Obsidian 侧）已存在的两个小节标题 `### 3.3.1 如何选用夸克和115`、`### 3.3.2 WebDAV 账号` 到源头；**纯增不改**，回填后 output 与 vault 逐字节一致 | ✅ 成功 | output = vault = ✔ |
 | 2026-10-06 | 收口 2 | `output/final_note.md` | 单文件合并件按当前 7 章重装配（原停在 20:34 旧版，仍含已删的官方镜像路线） | ✅ 成功 | C 族 0 差异 |
+| 2026-10-06 | 收口 3 | `chapters/03_动手前准备.md`、`chapters/04_部署实战.md` | **WebDAV 默认用户由 `dav` 更正为 `guest`（用户实战反证）**：03 §3.3.2 正文 / warning / 大白话 / 本章小结、引文对照第 8、12 行中译并新增第 31–33 行、更新记录；04 自检第 4 条 / 本章小结 / 引文对照第 5 行中译 / 更新记录；monlor env 注释出处 `:32` → `:31` | ✅ 成功 | output = vault = ✔ |
 
 ## 校验记录
 
@@ -46,6 +47,7 @@ chapters/XX.md  ──机械变换──▶  output/XX YYY.md  ──同源重�
 - `python3 .claude/scripts/note-citation-check.py workspace/xiaoya-fnos-deploy`：**判定 ✅ 无硬失败**（V 逐字回源 / S4 对照表结构 / C 多副本一致 全通过）。C 族「8 份副本、比对 7 组、差异 0 处」。
 - `python3 .claude/scripts/check-md-structure.py`：改动篇 + 合并件扫描，0 处可疑。
 - 禁用词 grep：`两条镜像路线` / `路线一` / `官方镜像` / `xiaoyaliu` 在 chapters、output、vault 三处**正文命中为 0**；仅剩「更新记录」留痕行，以及 `# monlor 路线一键脚本（可重复执行）` 这类含「路线一键」的误命中。
+- **收口 3 后复跑**（WebDAV 用户名更正）：`publish_copies.py --check` 7 篇 `output==` / `vault==` 全通过；`assemble_final.py --check` 0 章需更新（重装时仅 03/04 变、01/02/05/06/07 逐字节不变）；`note-citation-check.py workspace/xiaoya-fnos-deploy` **判定 ✅ 无硬失败**，C 族「8 份副本、比对 7 组、差异 0 处」，S4 引文对照表 0 处不合格；`check-md-structure.py` 改动篇 + 合并件 + vault 副本，0 处可疑。残留 `dav` 命中仅三类：monlor env 注释的**逐字留档**、更正后的解释句、历史「更新记录」留痕行。
 
 ## 与计划的口径差异（记录，非偏离）
 

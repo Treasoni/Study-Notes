@@ -123,6 +123,7 @@ quality_gate_due: ""
 |------|------|---------|---------|
 | 2026-10-06 20:57 | P3 | 跳过阶段：shared_research: no；本轮结论全部回源到 workspace/xiaoya-fnos-deploy/sources/ 已有素材（用户已确认） | 继续推进到下一未完成阶段 |
 | 2026-10-06 21:08 | P4/P5 | 并行会话（claude-03）同期改动第 5 章（MediaWarp 结论更正），与本运行编辑面不重叠；共享写点仅合并件 `output/final_note.md`（幂等） | 保持只读 05；收口前复跑 `publish_copies.py --check` 与 `note-citation-check.py`，快照确认 C 族 0 差异、三副本全 `==` |
+| 2026-10-06 | 收口后 | 用户实战反证：WebDAV 默认用户是 `guest`，原稿据 monlor env 注释写成「用户名固定 `dav`」（方向写反） | 按 `note-updater` 就地修正 03 §3.3.2 与 04 自检/小结/引文对照，补独立来源回源；`publish_copies.py --apply`（03/04）+ `assemble_final.py --apply`，复跑三项校验全通过（详见 `03_batch_update_log.md` 收口 3） |
 | | | | |
 
 ---
