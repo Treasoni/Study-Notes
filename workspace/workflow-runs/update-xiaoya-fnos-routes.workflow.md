@@ -10,7 +10,7 @@ topic: "小雅 fnOS 单容器部署笔记集：统一为 monlor 镜像单一路�
 project_slug: "xiaoya-fnos-deploy"
 created_at: "2026-10-06"
 last_updated: "2026-10-06"
-current_phase: P1
+current_phase: P2
 current_status: in_progress
 mode: standard
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：update-xiaoya-fnos-routes
 > 项目标识：xiaoya-fnos-deploy
 > 创建时间：2026-10-06
-> 当前阶段：阶段 1
+> 当前阶段：阶段 2
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -50,7 +50,7 @@ quality_gate_due: ""
 - [x] 更新清单已保存：`./01_update_inventory.md`
 - [x] 机器清单已保存：`./update_inventory.csv`
 
-> [P1] 🔲 进行中 {in_progress}
+> [P1] ✅ 已完成 {complete}
 
 ---
 
@@ -62,7 +62,7 @@ quality_gate_due: ""
 - [ ] 批量更新计划已保存：`./02_batch_update_plan.md`
 - [ ] 用户已确认计划后才进入下一阶段
 
-> [P2] ⬜ 未开始
+> [P2] 🔲 进行中 {in_progress}
 
 ---
 
@@ -101,6 +101,7 @@ quality_gate_due: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P1 | 用户确认更新清单可信（update 5 篇 / skip 3 篇）；并确认第 4 章 4.2 整节删除（含整合脚本入口） | 2026-10-06 20:55 |
 | P0 | 用户确认：范围=整套笔记统一；官方路线=彻底删除；destination_mode=patch-in-place + 全副本同步；batch_size=3 | 2026-10-06 20:47 |
 | | | |
 
