@@ -246,3 +246,60 @@
 - 位数差异（32/40、280/288~335）**未裁断**，按项目「来源冲突并列保留」处理。
 - 总览页第 3 章一句话说明、第 2 章预告仍准确，**未改**。
 - 第 4 / 6 / 7 章未动。
+
+---
+
+# 追加更新：第 3 章 · 3.3「可选凭据」补「夸克 cookie 怎么拿」
+
+- 更新日期：2026-10-06
+- 目标文件：vault `流媒体与影音/小雅 fnOS 单容器部署/03 动手前准备.md`（拆分笔记第 3 章）
+- destination_mode：`patch-in-place`，**同步全部副本**（上游 `chapters/` + `output/` + `final_note.md` + vault）
+- update_goal：用户「**夸克网盘 cookie 如何的**」→「**放入**」；3.3 原文只写了夸克 cookie **放哪**，没写**怎么拿**
+
+## 依据（新增内容全部回源）
+
+| 论点 | 出处 |
+| --- | --- |
+| 夸克 cookie 拿法：`F12` → 网络 → 找一个携带 `Cookie` 参数的请求 → 复制 | `sources/p5/alist-docs/01_raw_githubusercontent_com.md:47`（AList 官方文档 `docs/zh/guide/drivers/quark.md` 原文） |
+| **必须用 Chrome**：Firefox 取的 cookie 会停在访客态 | `sources/p5/alist-docs/01_raw_githubusercontent_com.md:63` |
+| `__puus` 会话 cookie 约 3 小时过期；过期后列表正常、下载 403，重启才恢复 | `sources/gh/alist-9596.md:11`（AlistGo/alist PR #9596 正文） |
+| 「填了夸克 cookie 却只有阿里直链」的现场反馈 | `sources/forum/tid-8385880.md:30` |
+
+新增来源存档：
+- `sources/p5/alist-docs/01_raw_githubusercontent_com.md`（AList 官方文档夸克驱动页，raw Markdown 逐字存档）
+- `sources/gh/alist-9596.md`（AlistGo/alist PR #9596 正文）
+
+## 变更摘要
+
+| 位置 | 变更 |
+| --- | --- |
+| 3.3「可选凭据」 | 在「夸克 cookie 管的是…」之后新增「**夸克 cookie 怎么拿？**」段（官方文档逐字引用 + 四步操作）与 `[!warning]` **抓夸克 cookie 的两个坑**（Chrome；约 3 小时过期 → 下载 403） |
+| 引文对照 | 新增第 38–40 行（38/39 取自 AList 文档，40 为 PR 英文整句 + 中译） |
+| 本章小结 | 「夸克 / 115 属可选凭据」条补「用 **Chrome + `F12`** 手抓、约 3 小时会过期」 |
+| 文末 | `## 更新记录` 追加一行 |
+
+## 同步范围
+
+| 副本 | 状态 |
+| --- | --- |
+| `workspace/xiaoya-fnos-deploy/chapters/03_动手前准备.md` | 已更新（上游源） |
+| `workspace/xiaoya-fnos-deploy/output/03 动手前准备.md` | 已同步 |
+| `workspace/xiaoya-fnos-deploy/output/final_note.md` | 已替换第 3 章块 |
+| vault `流媒体与影音/小雅 fnOS 单容器部署/03 动手前准备.md` | 已同步 |
+
+## 校验
+
+- `note-citation-check.py … --mode all` → **✅ 无硬失败**（V 英文整句回源 **7/7**；S4 引文对照表 0 处不合格；C 9 份副本 8 组比对 **0 差异**）。
+- `check-md-structure.py <vault 03>` → **0 处可疑**。
+
+## 过程中的两个坑（已修，记录在案）
+
+1. **引文表反引号嵌套**：第 38 行原文本身含 `` `Cookie` ``，若整格再用单反引号包裹会嵌套破格。已把第 38、40 行的「原文」格改用**双反引号**定界。
+2. **vault 漂移（重要）**：第一轮「扫码法」写入后 C 比对曾为 0 差异，但本轮开始时发现 **vault 少了第一轮插入的一整段**（近期教程段 / `[!note]` 位数 / 另一份教程段 / `[!warning]` 三个提醒），而 `chapters/` 与 `output/` 完好——典型是**笔记在 Obsidian 中打开、其内存缓冲回写覆盖了磁盘**。已用「从 `chapters/` 提取同一段落原样补回 vault」的方式修复，并复跑 C 比对至 **0 差异**。
+   - 教训：**vault 侧笔记若正在 Obsidian 中打开，多次快速写盘可能被其缓冲回写吞掉**；每轮改完必须跑 C 比对，不能只信当次写入成功。
+
+## 未处理 / 风险
+
+- AList 文档已从 `alist.nn.ci` 307 跳转到 `alistgo.com`；本轮存档取的是 **raw.githubusercontent.com/AlistGo/docs** 的原文，站点改版不影响存档。
+- GitHub API 返回的 PR 标题存在**截断伪影**（标题被切在 70 字符处、余下片段落到正文首行）；已按两半拼接还原完整标题，正文引用的关键句（`:11`）未受截断影响。
+- 夸克 cookie 的**实际有效期随平台策略变化**，正文按官方 PR 口径写「约 3 小时」，未当定论。

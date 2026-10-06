@@ -447,6 +447,15 @@
 > 「1、在小雅 alist 的配置目录下增加 quark_cookie.txt 文件，填入夸克账户的 cookie 并保存；」（`sources/forum/tid-8385880.md:26`）
 
 夸克 cookie 管的是**小雅的夸克分享区**（`/🌀我的夸克分享`）与**挂载你自己的夸克**——它值不值得配、能覆盖多少，第 5 章 5.6 讲清了。
+**夸克 cookie 怎么拿？** 它和阿里那套不一样——**没有扫码，靠浏览器开发者工具手抓**。AList 官方文档给的就是一句：
+
+> 「按F12打开“调试”，选中“网络”，随意在左侧选择请求，找到携带 `Cookie` 参数的就可以」（`sources/p5/alist-docs/01_raw_githubusercontent_com.md:47`）
+
+拆成四步：① 用 **Chrome** 打开并登录**夸克网盘网页版** `pan.quark.cn`；② 按 `F12` 打开「调试」→ 切到「网络」；③ 刷新一下，在左边请求列表里**随便点一个**，找到**请求头里带 `Cookie` 参数**的那个；④ 把 **Cookie 整串**复制下来，粘贴进 `quark_cookie.txt`（或环境变量 `QUARK_COOKIE`）。
+
+> [!warning] 抓夸克 cookie 的两个坑
+> 1. **要用 Chrome 抓**：官方文档专门注明「请使用Chrome浏览器来获取Cookies，使用Firefox获取的Cookies或仍将停留在访客并请求登录。」（`sources/p5/alist-docs/01_raw_githubusercontent_com.md:63`）——Firefox 抓到的可能是「访客态」，填了也不认。
+> 2. **它会过期，而且很短**：官方仓库的修复 PR 说明，夸克的 `__puus` 会话 cookie **约 3 小时**就过期，且只有「请求不带 `__puus`」时夸克才重新签发；而客户端总是带上已存的 cookie，于是过期后**列表还能看、下载却 403，要重启才恢复**（`sources/gh/alist-9596.md:11`）。这正好解释了论坛那种「夸克 cookie 填进去却不出效果」的反馈（`sources/forum/tid-8385880.md:30`）。
 
 **WebDAV 账号**（用来把资源库当文件夹挂载），多处来源一致：
 
@@ -504,7 +513,7 @@ services:
 - **端口务必分内外**：容器内 `5678` / `2345` / `2346`，宿主映射 `5677` / `5345` / `5346`；官方镜像的容器内端口存在 `5678` vs `80` 的**来源冲突，并列保留**。
 - **凭据两条路线**：环境变量路线三件套 `ALIYUN_TOKEN` / `ALIYUN_OPEN_TOKEN` / `ALIYUN_FOLDER_ID`（均必填）；文件路线三件套 `mytoken.txt` / `myopentoken.txt` / `temp_transfer_folder_id.txt`。WebDAV 默认账号 `guest` / `guest_Api789`；monlor 路线用户名是 `dav`（两条路线并记）。
 - **三件套怎么拿**：第 1、2 样（`mytoken.txt` / `myopentoken.txt`）都走**手机扫码**（方案 A，`sources/p5/slarker/01_wiki_slarker_me.md:29`、`sources/p5/wsisp/01_www_wsisp_com.md:21-25`）；旧的 `F12` + 解码站法已被接口变更淘汰、降为备选（`sources/p5/wsisp/01_www_wsisp_com.md:17`）。
-- **夸克 / 115 属可选凭据**：夸克用文件 `quark_cookie.txt` 或环境变量 `QUARK_COOKIE`（**非必填**）；主用夸克时正是靠它用上小雅的**夸克分享区**，详见第 5 章 5.6（`sources/forum/tid-8385880.md:26`、`sources/01_club_fnnas_com.md:48`）。
+- **夸克 / 115 属可选凭据**：夸克用文件 `quark_cookie.txt` 或环境变量 `QUARK_COOKIE`（**非必填**）；主用夸克时正是靠它用上小雅的**夸克分享区**——夸克 cookie 用 **Chrome + `F12`** 手抓（`sources/p5/alist-docs/01_raw_githubusercontent_com.md:47`、`:63`）、约 3 小时会过期，详见第 5 章 5.6（`sources/forum/tid-8385880.md:26`、`sources/01_club_fnnas_com.md:48`）。
 - **fnOS 在官方兼容表里 ✅**（含一个已弃用脚本），部署前提无兼容性障碍。
 
 **下一章预告**：清单齐了，第 4 章进入部署实战——把单容器的两条镜像路线（官方 `xiaoyaliu/alist` 与 monlor `ghcr.io/monlor/xiaoya-alist`）并排摆开，给出完整的 `docker run` 与 `docker-compose`，并说明两条路线在**凭据注入方式**上的根本差异，让你按自己的习惯二选一。
@@ -552,6 +561,9 @@ services:
 | 35 | `用手机阿里云盘APP扫码（必须是最新版本）` | 扫码要用最新版手机 App | `sources/p5/wsisp/01_www_wsisp_com.md:23` |
 | 36 | `手机端点击授权后，电脑页面会显示40位字符串` | 手机端点授权后，电脑页面显示 40 位字符串 | `sources/p5/wsisp/01_www_wsisp_com.md:24` |
 | 37 | `新建文本文件命名为mytoken.txt，粘贴这段字符` | 新建文本文件命名 mytoken.txt，把扫出来的字符粘进去 | `sources/p5/wsisp/01_www_wsisp_com.md:25` |
+| 38 | ``按F12打开“调试”，选中“网络”，随意在左侧选择请求，找到携带 `Cookie` 参数的就可以`` | 拿夸克 cookie：F12 → 网络 → 随便点一个请求 → 复制带 `Cookie` 参数的那个 | `sources/p5/alist-docs/01_raw_githubusercontent_com.md:47` |
+| 39 | `注意：请使用Chrome浏览器来获取Cookies，使用Firefox获取的Cookies或仍将停留在访客并请求登录。` | 抓夸克 cookie 要用 Chrome；Firefox 抓的会停在访客、要求登录 | `sources/p5/alist-docs/01_raw_githubusercontent_com.md:63` |
+| 40 | ``The __puus session cookie expires after about 3 hours (see #830). Quark only re-issues it when a request does not carry the __puus field, but the driver always sends the stored cookie, so once it expires the driver can never refresh it in-process: file listing keeps working while downloads fail with 403 until restart.`` | 夸克 `__puus` 会话 cookie 约 3 小时过期；只有「请求不带 `__puus`」时夸克才重发，而客户端总带已存 cookie → 过期后列表可看、下载 403，重启才恢复 | `sources/gh/alist-9596.md:11` |
 
 ## 更新记录
 
@@ -559,6 +571,7 @@ services:
 |------|----------|
 | 2026-10-06 | **补充 3.3 缺失的「怎么拿」**：原文只写了三件套的**文件名与放置位置**，未写**获取方式**。新增三件套获取三步（`sources/p3/gnz48/01_www_cnblogs_com.md:25-31`：解码站取 32 位 `mytoken.txt`、`request.html` 扫码取 Open Token、资源盘建文件夹取 folder id），补另一份教程的「获取方式」对照与「先转存小雅分享」提醒（`sources/p3/z-addone/01_www_cnblogs_com.md:21-25`）、论坛楼主答复（`sources/01_club_fnnas_com.md:904`），以及 token 过期反馈（`sources/01_club_fnnas_com.md:157`）与第三方解码站风险提示；引文对照新增第 23–29 行。 |
 | 2026-10-06 | **改推「扫码法（方案 A）」，旧 F12 法降为备选**：阿里云盘接口变更后，老教程「复制网页代码 → 第三方解码站」取 token 的路已失效（`sources/p5/wsisp/01_www_wsisp_com.md:17`）。3.3「怎么拿」第 1 步由 F12 + 解码站改为**手机扫码**（`sources/p5/slarker/01_wiki_slarker_me.md:29`、`sources/p5/wsisp/01_www_wsisp_com.md:21-25`）；补 token 有效期 2~3 个月与扫码「二次确认」（`sources/p5/wsisp/01_www_wsisp_com.md:11`）；`[!warning]` 改为三条、新增位数差异 `[!note]`；引文对照新增第 30–37 行。 |
+| 2026-10-06 | **补 3.3「可选凭据」的「夸克 cookie 怎么拿」**：夸克 cookie 无扫码，靠浏览器手抓——官方文档「`F12` → 网络 → 找一个带 `Cookie` 参数的请求 → 复制整串」（`sources/p5/alist-docs/01_raw_githubusercontent_com.md:47`），且**要用 Chrome**（`:63`）；补「`__puus` 约 3 小时过期、过期后下载 403」的官方 PR 依据（`sources/gh/alist-9596.md:11`）。引文对照新增第 38–40 行。 |
 
 ---
 

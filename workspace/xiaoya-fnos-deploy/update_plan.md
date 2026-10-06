@@ -90,3 +90,30 @@
 | 旧「复制网页代码」法已失效（接口变更） | `sources/p5/wsisp/01_www_wsisp_com.md:17` |
 | 扫码五步流程 | `sources/p5/wsisp/01_www_wsisp_com.md:21-25` |
 | token 有效期 2~3 个月 / 扫码须二次确认 | `sources/p5/wsisp/01_www_wsisp_com.md:11` |
+
+---
+
+# 追加更新计划：第 3 章（动手前准备）· 3.3 补「夸克 cookie 怎么拿」
+
+- 更新日期：2026-10-06
+- 目标笔记：`流媒体与影音/小雅 fnOS 单容器部署/03 动手前准备.md`（vault，拆分笔记第 3 章）
+- 上游源：`workspace/xiaoya-fnos-deploy/chapters/03_动手前准备.md`
+- destination_mode：`patch-in-place`（并同步 output/ 与 vault，无漂移）
+- update_goal：用户「夸克网盘 cookie 如何的」→「放入」；补 3.3 缺失的夸克 cookie **获取方式**
+
+## Stale Map
+
+| 处理 | 内容 |
+| --- | --- |
+| 保留 | 3.1 / 3.2 / 3.4 / 3.5；3.3 前部四表；引文对照 1–37 行 |
+| 新增 | 3.3「夸克 cookie 怎么拿」段 + `[!warning]` 两个坑；引文对照 38–40 行；本章小结 1 处补充；`## 更新记录` 1 行 |
+| 改写 / 删除 | 无 |
+
+## 依据（新增内容全部回源）
+
+| 论点 | 出处 |
+| --- | --- |
+| 夸克 cookie 拿法（F12 → 网络 → 带 `Cookie` 参数的请求） | `sources/p5/alist-docs/01_raw_githubusercontent_com.md:47` |
+| 必须用 Chrome（Firefox 停在访客态） | `sources/p5/alist-docs/01_raw_githubusercontent_com.md:63` |
+| `__puus` 约 3 小时过期、过期后下载 403 | `sources/gh/alist-9596.md:11` |
+| 「填了不出效果」现场反馈 | `sources/forum/tid-8385880.md:30` |
