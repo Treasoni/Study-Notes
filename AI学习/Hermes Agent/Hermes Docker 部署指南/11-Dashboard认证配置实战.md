@@ -96,9 +96,20 @@ services:
   hermes:
     environment:
       HERMES_DASHBOARD_BASIC_AUTH_USERNAME: "admin"
-      HERMES_DASHBOARD_BASIC_AUTH_PASSWORD_HASH: "scrypt$..."   # 粘贴刚生成的哈希
+      HERMES_DASHBOARD_BASIC_AUTH_PASSWORD_HASH: "scrypt$$..."   # ⚠ 每个 $ 都要写成 $$
       HERMES_DASHBOARD_BASIC_AUTH_SECRET: "<32 字节以上随机串>"  # 让登录态在重启后仍然有效
 ```
+
+> [!warning] Compose 会把 `$` 当变量——哈希必须转义
+> Docker Compose 会解析 compose 文件里的 `$`：`$` 后面是**数字**的（`$16384`、`$8`、`$1`）会原样保留；`$` 后面是**字母/下划线**的会被当成变量，找不到就替换成**空串**（并打印 `variable is not set` 警告）。scrypt 串里的盐和哈希段是 base64（`A-Za-z0-9+/`），**大概率以字母开头**，所以直接粘贴会被悄悄破坏，表现为「Dashboard 永远提示密码错误」。正确做法：把**每个 `$` 都写成 `$$`**：
+>
+> ```yaml
+> HERMES_DASHBOARD_BASIC_AUTH_PASSWORD_HASH: "scrypt$$16384$$8$$1$$<盐>$$<哈希>"
+> ```
+>
+> 加 YAML 引号、改用 `env_file`、放进 `.env` 都**不能**躲开（三种都实测会被替换）。想彻底绕开：把哈希写进宿主 `~/.hermes/.env`（挂载进容器的那个文件），让 Hermes 自己读，Compose 不碰。若用命令行 `docker run -e` 注入，还要多防一层——**shell 会先展开 `$`**，给值加单引号。
+>
+> 注意：下面写进 `config.yaml` 的那份**不用**转义——Compose 不解析 `config.yaml`，只有走 compose 环境变量的才需要。
 
 > [!tip] `SECRET` 的值怎么来？
 > 它不是申领的，**自己随机生成**即可。官方要求 ≥32 字节，编码可以是 `base64 / hex / 原文`：
