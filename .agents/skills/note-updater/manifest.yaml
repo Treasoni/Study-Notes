@@ -2,8 +2,8 @@ apiVersion: agent-platform/v1
 kind: Skill
 metadata:
   name: note-updater
-  version: 1.5.0
-  description: "Refresh out-of-date note sections with minimal, evidence-based patches; recipe content (env/config/command) takes values only from verbatim docs or a minimal local test — a template's own side comment is a lead, never an authority, and is archived verbatim when it conflicts with independent sources or a local test."
+  version: 1.6.0
+  description: "Refresh out-of-date note sections with minimal, evidence-based patches; recipe content (env/config/command) takes values only from verbatim docs or a minimal local test — a template's own side comment is a lead, never an authority, and is archived verbatim when it conflicts with independent sources or a local test; config skeletons are checked field-by-field against the official complete example file (not one tutorial section), multi-file recipes label which file each block belongs to, and vault/workspace copy drift is audited in full before editing and reverse-synced only after a byte-exact round-trip self-proof."
 spec:
   entrypoint: SKILL.md
   capabilities:

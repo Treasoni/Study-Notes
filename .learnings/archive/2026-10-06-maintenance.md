@@ -349,3 +349,85 @@ bcrypt 取值编造 + compose `$` 未转义）。上一轮只写了 `RULES.md` �
   一条**（不要复活已归档条目），并按新门槛重新走一轮。
 - 活跃文件已轻，下轮维护应回到「正常审计 → 有复发才修源头」的节奏，不再有积压。
 - 本 vault 的**自动备份**（每 3~6 分钟 `zhq vault backup: …`）仍在，核对文件状态时先排除它。
+
+---
+
+## 八、第六次维护（同日，`/maintain-learnings`）—— 配置骨架完整性 + 副本漂移摸底
+
+### 触发（审计信号）
+
+- 审计脚本报 `note-updater` **活跃 2 条**（`LRN-20261006-029` 配置骨架漏字段 + `ERR-20261006-021`
+  注释半句当取值）——同一 skill ≥ 2 次，优先修源头。
+- `LEARNINGS.md` **114 行** > 100 行阈值。
+- 本会话新增 `LRN-20261006-030`（副本漂移没一次摸全）、`ERR-20261006-022`（反向提取越界），
+  同属 `note-updater` 面。
+
+### 机制改动
+
+同源纪律落在 **note-updater（更新侧）** 与 **chapter-writer（生成侧）** 两处，避免两者漂移
+（这正是 RULES `Do` 段「配方类内容」两处并存的由来）：
+
+1. **canonical `.agents/skills/note-updater/SKILL.md`**（`.claude/` 由同步生成，未手工改）：
+   - 「配方类内容」小节新增一条：**配置骨架以官方「完整示例文件」逐字段核对，不只抄教程某一节的
+     讲解段**；多文件配方每个代码块标注所属文件（`docker-compose.yml` vs `config.yaml`）。
+   - Workflow **Step 6** 改为「摸底**并**登记 vault / workspace 漂移」：① 改拆分子集**任一章前**先跑
+     全量副本比对（`publish_copies.py --check`）摸清**全部**漂移章；② 反向同步（vault → workspace）
+     须用**未漂移样本**做 byte-exact 往返自证；③ 定位「正文尾部」用章末导航块 / 最后一个匹配项，
+     不用 `[-k:]` 这类从文件尾数的索引；④ 方向未定先与用户确认，不默认回写。
+   - manifest `1.5.0 → 1.6.0`，description 同步。
+2. **canonical `.codex/agents/chapter-writer.md`**：
+   - 「配方类内容要求」新增第 4 条（同上「完整示例文件逐字段核对 + 多文件配方标注」）。
+   - Checklist 新增一项同样校验。
+   - manifest `1.5.0 → 1.6.0`，description 同步。
+
+### 验证（`maintain-learnings` Step 5）
+
+- skill 元数据：`note-updater/SKILL.md` 头部 frontmatter 校验通过（`skill metadata ok`）。
+- `python3 .codex/platform/manifest-registry.py --root . validate` → **60 件通过**。
+- `.agent-sync/sync_agents.py --check --scope skills` / `--scope agents` → 差异恰为预期 4 个生成文件；
+  `--apply` 后全量 `--check` → **`[OK] shared agent configuration is synchronized`**。
+- `.claude/scripts/workflow-health-check.sh` → todo-state 动作守卫（15 个 invocation）、routing、manifest、
+  可移植性全通过；**唯一 FAIL 是 prompt-cache guard 的 KNOB DRIFT**（`effortLevel` / `thinkingBudget` /
+  `savedProviderEffort` 与冻结基线不符）——属**会话侧设置漂移，与本次改动无关**，未处置（改基线会掩盖真问题）。
+
+### 归档记录（5 条）
+
+**1. `[LRN-20261006-028]` correction — 注释半句当权威取值（WebDAV 用户写反）**
+- 机制在位复核：note-updater「配方类内容」第 4 条（注释是线索不是权威、逐字留档）已在位。
+- 结果：**归档**。
+
+**2. `[ERR-20261006-021]` note-updater — 把模板注释的半个子句当权威取值，结论写反**
+- 与 `-028` 同根因；机制 = 同一条 v1.5.0 条款，已复核在位。
+- 结果：**归档**。
+
+**3. `[LRN-20261006-029]` knowledge_gap — 配置骨架照抄教程讲解段，漏 `port` / `server.addr`**
+- 机制 = 本轮 note-updater v1.6.0「配方类内容」新条 + chapter-writer v1.6.0 第 4 条。
+- 结果：**归档**。
+
+**4. `[LRN-20261006-030]` workflow — 改单章前没摸全副本漂移**
+- 机制 = 本轮 note-updater Step 6 首条（改前全量 `--check` 摸全）。
+- 结果：**归档**。
+
+**5. `[ERR-20261006-022]` 副本同步 — 反向提取发布件正文越界 + off-by-one**
+- 机制 = 本轮 note-updater Step 6（反向同步 byte-exact 自证 + 尾部边界用最后一个匹配项）。
+- 结果：**归档**。
+
+### 压缩结果
+
+| 文件 | 归档前 | 归档后 |
+| --- | ---: | --- |
+| `LEARNINGS.md` | 114 行 | 仅挂起的 `-012` + 头部（约 30 行） |
+| `ERRORS.md` | 56 行 | **0** 条活跃 |
+| `RULES.md` | 91 行 | 保留并新增 3 条铁律（`Do` 1 / `Watch For` 2） |
+
+**未归档**：`LRN-20260912-012`（vault 被本会话之外的写者改动，写者身份未定、根因未消除）继续**挂起**。
+
+### 下轮维护提示
+
+- 本轮 5 条的「观察项」是**软性**的：下轮若真的遇到对应场景，回来确认机制是否生效；**不生效就新开
+  一条**（不要复活已归档条目）。
+- 活跃文件已轻，下轮维护回到「正常审计 → 有复发才修源头」的节奏。
+- prompt-cache guard 的 KNOB DRIFT 若持续 FAIL，应确认是**有意调过会话 effort 设置**还是**基线过期**——
+  **不要用改基线的方式消掉 FAIL**。
+
+---
