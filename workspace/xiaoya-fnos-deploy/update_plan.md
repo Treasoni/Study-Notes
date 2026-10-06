@@ -62,3 +62,31 @@
 | 「获取方式」对照表 + 「先转存小雅分享」提醒 | `sources/p3/z-addone/01_www_cnblogs_com.md:21-25` |
 | 论坛楼主答复 = `request.html` | `sources/01_club_fnnas_com.md:904` |
 | `ALIYUN_TOKEN` 第二天失效（单条用户反馈） | `sources/01_club_fnnas_com.md:157` |
+
+---
+
+# 追加更新计划：第 3 章（动手前准备）· 扫码法（方案 A）
+
+- 更新日期：2026-10-06
+- 目标笔记：`流媒体与影音/小雅 fnOS 单容器部署/03 动手前准备.md`（vault，拆分笔记第 3 章）
+- 上游源：`workspace/xiaoya-fnos-deploy/chapters/03_动手前准备.md`
+- destination_mode：`patch-in-place`（并同步 output/ 与 vault，无漂移）
+- update_goal：用户「还是不会操作，有更简单详细的方法吗？」→ 把**手机扫码（方案 A）**写进 3.3，旧的 F12 + 解码站法降为备选
+
+## Stale Map
+
+| 处理 | 内容 |
+| --- | --- |
+| 保留 | 3.1 / 3.2 / 3.4 / 3.5；3.3 前部四表；引文对照 1–29 行 |
+| 改写 | 3.3「怎么拿」引言 + 三步表第 1 行（F12 → 扫码）；`[!tip]` 末句；`[!warning]` 由两条扩为三条 |
+| 新增 | 3.3「近期教程扫码流程细化」段；`[!note]` 位数差异；引文对照 30–37 行；本章小结 1 条；`## 更新记录` 1 行 |
+| 删除 | 无 |
+
+## 依据（新增内容全部回源）
+
+| 论点 | 出处 |
+| --- | --- |
+| 32 位 token / OpenToken 用手机 App 扫码 | `sources/p5/slarker/01_wiki_slarker_me.md:29`、`:30` |
+| 旧「复制网页代码」法已失效（接口变更） | `sources/p5/wsisp/01_www_wsisp_com.md:17` |
+| 扫码五步流程 | `sources/p5/wsisp/01_www_wsisp_com.md:21-25` |
+| token 有效期 2~3 个月 / 扫码须二次确认 | `sources/p5/wsisp/01_www_wsisp_com.md:11` |

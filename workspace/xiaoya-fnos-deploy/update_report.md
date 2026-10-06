@@ -182,3 +182,67 @@
 - 第 2 章「下一章预告」「凭据（阿里云盘三件套 + WebDAV 账号）」与本轮一致，**未改**。
 - 第 4 / 6 / 7 章未动；第 4 章既有「token 会过期要更新」的说法与新增 `:157` 反馈同向，无需修正。
 - 第三方解码站 `media.cooluc.com` 属社区工具，笔记只记「有风险、官方扫码更稳」，**不为其可用性背书**。
+
+---
+
+# 追加更新：第 3 章 · 把「扫码法（方案 A）」写进 3.3
+
+- 更新日期：2026-10-06
+- 目标文件：vault `流媒体与影音/小雅 fnOS 单容器部署/03 动手前准备.md`（拆分笔记第 3 章）
+- destination_mode：`patch-in-place`，**同步全部副本**（上游 `chapters/` + `output/` + `final_note.md` + vault）
+- update_goal：用户反馈「**还是不会操作，有更简单详细的方法吗？**」→ 选定**方案 A（手机扫码）**，要求「放入笔记」
+
+## 触发与口径
+
+- 上一轮 3.3「怎么拿」第 1 步给的是「登录网页版 → 按 `F12` → 复制 `login.do?appName=aliyun` 响应 → 丢进第三方解码站 `media.cooluc.com/decode_token/` 解码」。这条对新手门槛高，且**已被阿里云盘接口变更淘汰**。
+- 本轮改为：**第 1、2 样都走手机扫码**（方案 A，主推）；F12 + 解码站法**降为备选（方案 B）**，并明说它很可能已失效。
+- 新增来源件（此前 `sources/` 无对应件，按项目引用规范补档）：
+  - `sources/p5/slarker/01_wiki_slarker_me.md:29-31`（「影音资源库 - 小雅部署教程」的准备一节）
+  - `sources/p5/wsisp/01_www_wsisp_com.md:11/17/21-25`（「飞牛NAS小雅资源消失？三步搞定Docker配置与阿里云盘Token更新！」）
+
+## 变更摘要（3.3）
+
+| 位置 | 变更 |
+| --- | --- |
+| 3.3「怎么拿」引言 | 改为「前两样都走**手机扫码**（方案 A，主推）；旧 F12 法（方案 B）已被淘汰」 |
+| 3.3 三步表 | 第 1 行 `mytoken.txt` 由「F12 + 解码站」改为「AList 文档阿里云盘页**手机扫码**」（`p5/slarker/01_wiki_slarker_me.md:29`）；第 2 行 `myopentoken.txt` 出处补 slarker:30；第 3 行不变 |
+| 3.3 正文 | 新增「近期教程扫码流程细化」段（`p5/wsisp/01_www_wsisp_com.md:21-25`）；原 z-addone 对照段顺移其后并微调引语 |
+| Callout | 新增 `[!note]` **位数差异**（token 32 vs 40 位；OpenToken 280 vs 288~335 位，均并列、不裁断）；`[!warning]` 由**两条**改为**三条**：① token 有效期 2~3 个月 + 扫码「二次确认」（`p5/wsisp/01_www_wsisp_com.md:11`）② 旧方法失效（`p5/wsisp/01_www_wsisp_com.md:17`）③ 第三方工具留意；`[!tip]` 改「前两样都靠**手机扫码**换取」 |
+| 引文对照 | 新增第 30–37 行（8 条逐字回源；既有 1–29 行保留） |
+| 本章小结 | 新增 1 条「**三件套怎么拿**」 |
+| 文末 | `## 更新记录` 追加一行 |
+
+## 依据（新增内容全部回源）
+
+| 论点 | 出处 |
+| --- | --- |
+| 32 位 token 用**手机 App 扫码**获取 | `sources/p5/slarker/01_wiki_slarker_me.md:29` |
+| OpenToken 扫码获取（288~335 位） | `sources/p5/slarker/01_wiki_slarker_me.md:30` |
+| 中转文件夹目录 ID | `sources/p5/slarker/01_wiki_slarker_me.md:31` |
+| **旧「复制网页代码」法已失效** | `sources/p5/wsisp/01_www_wsisp_com.md:17` |
+| 扫码流程五步（出二维码 → 扫码 → 授权 → 显示字符串 → 存 `mytoken.txt`） | `sources/p5/wsisp/01_www_wsisp_com.md:21-25` |
+| token 有效期 2~3 个月 / 扫码后须二次确认 | `sources/p5/wsisp/01_www_wsisp_com.md:11` |
+
+## 同步范围（无漂移）
+
+| 副本 | 状态 |
+| --- | --- |
+| `workspace/xiaoya-fnos-deploy/chapters/03_动手前准备.md` | 已更新（上游源） |
+| `workspace/xiaoya-fnos-deploy/output/03 动手前准备.md` | 已同步 |
+| `workspace/xiaoya-fnos-deploy/output/final_note.md` | 已替换第 3 章块 |
+| vault `流媒体与影音/小雅 fnOS 单容器部署/03 动手前准备.md` | 已同步 |
+
+> 本轮编辑用「标记区间替换 + 同文本追加」在四处写入**逐字相同**的新增文本；vault 侧既有表格由 Obsidian 自动对齐，新增区块保持紧凑写法。
+
+## 校验
+
+- `note-citation-check.py workspace/xiaoya-fnos-deploy --vault-note <vault 03> --mode all` → **✅ 无硬失败**（V 逐字回源 4/4；S4 引文对照表 0 处不合格；C 9 份副本 8 组比对 **0 差异**）。S3 新增/保留 `Open Token`、`folder id` 均为术语保留类。
+- `check-md-structure.py <vault 03>` → **0 处可疑**（Callout 内无裸空行）。
+- 新增 8 条引文均对文件逐字核对（`p5/slarker/01_wiki_slarker_me.md:29/30`、`p5/wsisp/01_www_wsisp_com.md:11/17/23/24/25`）。
+
+## 未处理 / 风险
+
+- 「AList 文档阿里云盘页」是否稳定提供**扫码**入口，本轮只按 `p5/slarker/01_wiki_slarker_me.md:29` 的记录转述；若该页改版，以实机页面为准。
+- 位数差异（32/40、280/288~335）**未裁断**，按项目「来源冲突并列保留」处理。
+- 总览页第 3 章一句话说明、第 2 章预告仍准确，**未改**。
+- 第 4 / 6 / 7 章未动。
