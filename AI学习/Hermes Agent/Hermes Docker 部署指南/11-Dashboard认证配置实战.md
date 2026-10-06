@@ -100,6 +100,15 @@ services:
       HERMES_DASHBOARD_BASIC_AUTH_SECRET: "<32 字节以上随机串>"  # 让登录态在重启后仍然有效
 ```
 
+> [!tip] `SECRET` 的值怎么来？
+> 它不是申领的，**自己随机生成**即可。官方要求 ≥32 字节，编码可以是 `base64 / hex / 原文`：
+>
+> ```bash
+> openssl rand -hex 32   # 输出 64 位十六进制 = 32 字节，整串粘到上面
+> ```
+>
+> 不设也能跑，但每个进程各随机一次，**容器一重启就掉登录**。它属于密钥，别提交进 git。
+
 > [!tip] 只想「能用」的最短路径
 > 不折腾哈希的话，直接给明文环境变量即可：`HERMES_DASHBOARD_BASIC_AUTH_USERNAME` + `HERMES_DASHBOARD_BASIC_AUTH_PASSWORD`（加载时在内存里哈希）。想「配置里不存明文」，就改用 `_PASSWORD_HASH` 存 scrypt 哈希。
 
