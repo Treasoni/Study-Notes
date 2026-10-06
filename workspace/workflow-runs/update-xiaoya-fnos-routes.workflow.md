@@ -10,7 +10,7 @@ topic: "小雅 fnOS 单容器部署笔记集：统一为 monlor 镜像单一路�
 project_slug: "xiaoya-fnos-deploy"
 created_at: "2026-10-06"
 last_updated: "2026-10-06"
-current_phase: P2
+current_phase: P4
 current_status: in_progress
 mode: standard
 blocked_reason: ""
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：update-xiaoya-fnos-routes
 > 项目标识：xiaoya-fnos-deploy
 > 创建时间：2026-10-06
-> 当前阶段：阶段 2
+> 当前阶段：阶段 4
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -62,7 +62,7 @@ quality_gate_due: ""
 - [ ] 批量更新计划已保存：`./02_batch_update_plan.md`
 - [ ] 用户已确认计划后才进入下一阶段
 
-> [P2] 🔲 进行中 {in_progress}
+> [P2] ✅ 已完成 {complete}
 
 ---
 
@@ -72,7 +72,7 @@ quality_gate_due: ""
 - [ ] 每条资料已记录 URL、日期、适用范围和摘要
 - [ ] 来源库已保存：`./shared_research/source_bank.md`
 
-> [P3] ⬜ 未开始
+> [P3] ⏭️ 跳过 {skipped}
 
 ---
 
@@ -83,7 +83,7 @@ quality_gate_due: ""
 - [ ] 原文未被覆盖，除非 destination_mode 为 patch-in-place 且用户已确认
 - [ ] 批处理日志已追加：`./03_batch_update_log.md`
 
-> [P4] ⬜ 未开始
+> [P4] 🔲 进行中 {in_progress}
 
 ---
 
@@ -101,6 +101,7 @@ quality_gate_due: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P2 | 用户确认批量计划：新章名「单容器小雅（monlor 镜像）」；4.1 与原 4.4 合并为「为什么用 monlor 镜像」；批 1 = 04/03/07，批 2 = 01/总览 | 2026-10-06 20:57 |
 | P1 | 用户确认更新清单可信（update 5 篇 / skip 3 篇）；并确认第 4 章 4.2 整节删除（含整合脚本入口） | 2026-10-06 20:55 |
 | P0 | 用户确认：范围=整套笔记统一；官方路线=彻底删除；destination_mode=patch-in-place + 全副本同步；batch_size=3 | 2026-10-06 20:47 |
 | | | |
@@ -119,6 +120,7 @@ quality_gate_due: ""
 
 | 时间 | 阶段 | 问题描述 | 处理方式 |
 |------|------|---------|---------|
+| 2026-10-06 20:57 | P3 | 跳过阶段：shared_research: no；本轮结论全部回源到 workspace/xiaoya-fnos-deploy/sources/ 已有素材（用户已确认） | 继续推进到下一未完成阶段 |
 | | | | |
 
 ---
