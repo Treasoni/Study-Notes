@@ -44,11 +44,11 @@ quality_gate_due: ""
 ---
 
 ## 阶段 1：更新清单
-- [ ] 已扫描目标范围内的 Markdown 笔记
-- [ ] 已记录 frontmatter、标题、目录、更新时间和关键词命中
-- [ ] 已标记 candidate/ready/needs-review/skip
-- [ ] 更新清单已保存：`./01_update_inventory.md`
-- [ ] 机器清单已保存：`./update_inventory.csv`
+- [x] 已扫描目标范围内的 Markdown 笔记（`chapters/` 7 章 + 入口页 1 个；同时核对 `output/` 与 vault 三副本）
+- [x] 已记录 frontmatter、标题、目录、更新时间和关键词命中（8 类关键词逐篇计数）
+- [x] 已标记 candidate/ready/needs-review/skip（本清单用 update/skip：update 5 篇、skip 3 篇）
+- [x] 更新清单已保存：`./01_update_inventory.md`
+- [x] 机器清单已保存：`./update_inventory.csv`
 
 > [P1] 🔲 进行中 {in_progress}
 

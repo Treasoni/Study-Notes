@@ -1,0 +1,9 @@
+id,relative_path,title,updated,status,reason,priority,size_bytes
+1,workspace/xiaoya-fnos-deploy/chapters/01_开篇定位.md,第 1 章 开篇定位——小雅是什么，这篇要解决什么问题,2026-10-06,update,删 1 句「或直接运行官方镜像 xiaoyaliu/alist」；删引文对照中「官方镜像作者」1 条；「官方来源（官方镜像页、官方脚本仓库）」改口径,低,13191
+2,workspace/xiaoya-fnos-deploy/chapters/02_选型对比.md,第 2 章 选型对比——飞牛影视能不能替代 Emby,2026-10-06,skip,本章「两条路线」= Emby 全家桶(E) vs 飞牛影视(F)，与镜像路线无关；0 处官方镜像命中（按已确认边界保留脚本菜单旁证）,—,19019
+3,workspace/xiaoya-fnos-deploy/chapters/03_动手前准备.md,第 3 章 动手前准备——目录、端口与凭据（新手可跳过）,2026-10-06,update,删「文件凭据三件套」小节、「容器内端口 5678 vs 80」来源冲突段；WebDAV 账号由「官方 guest / monlor dav 两条并记」收敛为 monlor 的 dav + guest_Api789；改镜像警告 Callout、小结、下一章预告,高,31422
+4,workspace/xiaoya-fnos-deploy/chapters/04_部署实战.md,第 4 章 部署实战——单容器小雅（两条镜像路线）,2026-10-06,update,删 4.2「路线一：官方镜像」整节（含官方一键脚本、社区 docker run 示例、端口冲突 warning、整合脚本入口）；单一路线重排；对照表改版；引文对照删官方条目,高,14418
+5,workspace/xiaoya-fnos-deploy/chapters/05_前端接入.md,第 5 章 前端接入——让飞牛影视认到小雅,2026-10-06,skip,0 处官方镜像命中；文中 monlor 引用是其本身的 compose，与本次目标无关,—,31827
+6,workspace/xiaoya-fnos-deploy/chapters/06_避坑清单.md,第 6 章 避坑清单——装错地方、风控、外网与 UA,2026-10-06,skip,0 处路线关键词命中,—,11749
+7,workspace/xiaoya-fnos-deploy/chapters/07_运维与收尾.md,第 7 章 运维与收尾,2026-10-06,update,更新口径由双列改单列（monlor）；删官方镜像「重启即刷新索引」段；改镜像名对照 warning、比喻、易混点表、小结、引文对照 2 条,中,13488
+8,workspace/xiaoya-fnos-deploy/chapters/小雅 fnOS 单容器部署（总览）.md,小雅 fnOS 单容器部署（总览）.md,2026-10-06,update,章节目录第 4 章一句话说明含「两条镜像路线」；第 54 行「官方仓库说明」口径,低,0
