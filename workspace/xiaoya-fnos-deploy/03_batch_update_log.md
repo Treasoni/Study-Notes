@@ -60,6 +60,18 @@ chapters/XX.md  ──机械变换──▶  output/XX YYY.md  ──同源重�
 | `chapters/05_前端接入.md` | 0 处官方镜像命中；本轮不动（运行期间该章由**并行会话**改动，见「并发说明」） |
 | `chapters/06_避坑清单.md` | 0 处路线关键词命中 |
 
+## 外部改动登记（并行会话，事后补记）
+
+上表「未触碰」仅指**本 run 执行期间**。run 完成后，**并行会话**在 `chapters/02_选型对比.md` 与 `chapters/05_前端接入.md` 上做了 MediaWarp 302 口径修正（详见 `update_report_mediawarp-302.md`）：核对 raw Markdown 后确认 MediaWarp 的「适配 飞牛影视」为 **`- [x]`（已完成）**，此前「待办 / 成熟度未决」的结论作废。两章的三副本（`chapters/` → `output/` → vault）与合并件 `final_note.md` 均已同步。
+
+| 文件 | 本 run 动作 | 事后（并行会话） |
+|------|------------|------------------|
+| `chapters/02_选型对比.md` | 未触碰 | **已改**：2.5 标题与结论（未决→已确证）、2.2 表、2.3.3、小结、引文表、更新记录 |
+| `chapters/05_前端接入.md` | 未触碰（期间已由并行会话改） | **已改**：5.4 整节重写（以 MediaWarp 为主）+ 小结 + 引文表 + 更新记录 |
+| `chapters/06_避坑清单.md` | 未触碰 | 仍未改 |
+
+登记后已复跑 `publish_copies.py --check`（7 章全 `output==` / `vault==`）、`assemble_final.py --check`（0 章需更新）与 `note-citation-check.py --mode all`（✅ 无硬失败，C 族 0 差异）。
+
 ## 并发说明（重要）
 
 本轮执行期间，同一笔记集上有一个**并行会话**在改动第 5 章（内容是把「MediaWarp 对飞牛影视仍是待办项」的旧结论更正为「已适配」，依据是其新抓取的 `sources/lens-b/mediawarp/02_readme_todo.md` 与 `03_blog_akimio_top.md`）。

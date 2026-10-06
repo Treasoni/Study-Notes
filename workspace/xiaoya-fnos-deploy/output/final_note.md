@@ -197,7 +197,7 @@
 
 飞牛影视作为播放端，第三方工具的实测给它提供了旁证：代理工具明确「基于**飞牛影视 0.9.3** 版本」（`sources/lens-b/fntvproxy/01_github_com.md:45`），并在问答里说明「飞牛代理支持 `stream.mp4`、`stream.MOV` 等所有格式」（`sources/lens-b/fntvproxy/01_github_com.md:281`）。
 
-但有一处要如实说明：**硬件解码/转码不在全家桶脚本的规划里**。维护者直言「脚本没有计划支持硬解，在我看来这个功能没有必要」（`sources/p2/monlor-144.md:58`）。飞牛影视侧则不同——**MediaWarp 已完成对飞牛影视的适配**，并且在 **AlistStrm 模式**下支持播放网盘转码内容（待办清单里这两项均为 `[x]`：`sources/lens-b/mediawarp/02_readme_todo.md:25`、`:26`）。
+但有一处要如实说明：**硬件解码/转码不在全家桶脚本的规划里**。维护者直言「脚本没有计划支持硬解，在我看来这个功能没有必要」（`sources/p2/monlor-144.md:58`）。飞牛影视侧则不同——**MediaWarp 已完成对飞牛影视的适配**，并且在 **AlistStrm 模式**下支持播放网盘转码内容（待办清单里这两项均为 `[x]`：`sources/lens-b/mediawarp/02_readme_todo.md:23`、`:24`）。
 
 硬解与软解的取舍另有专文，延伸阅读见 [[流媒体与影音/硬件解码vs软件解码]]。
 
@@ -250,11 +250,11 @@
 
 **正面旁证**（说明飞牛影视确实被当成正经播放端对待）：
 
-- MediaWarp 的自我定位是「前置于 EmbyServer/Jellyfin/飞牛影视 的反向代理服务器」（`sources/lens-b/mediawarp/01_github_com.md:51`）——把飞牛影视和 Emby、Jellyfin 并列在同一位；其待办清单里 **`- [x] 适配 飞牛影视`** 为**已完成**（`sources/lens-b/mediawarp/02_readme_todo.md:25`）。
+- MediaWarp 的自我定位是「前置于 EmbyServer/Jellyfin/飞牛影视 的反向代理服务器」（`sources/lens-b/mediawarp/01_github_com.md:51`）——把飞牛影视和 Emby、Jellyfin 并列在同一位；其待办清单里 **`- [x] 适配 飞牛影视`** 为**已完成**（`sources/lens-b/mediawarp/02_readme_todo.md:23`）。
 - fntv-proxy 直接「基于飞牛影视 0.9.3 版本」开发（`sources/lens-b/fntvproxy/01_github_com.md:45`）。
 
 > [!note] 一处旧结论的更正：MediaWarp 对飞牛影视**已经支持**
-> 本笔记早前把 README 待办清单里的「适配 飞牛影视」读成**待办项**，据此判断「成熟度未决」。核对 raw Markdown 后确认，该行原文是 **`- [x] 适配 飞牛影视`（已完成）**，紧随的 `- [x] 支持播放网盘转码内容（仅飞牛影视 AlistStrm 模式）` 也已完成（`sources/lens-b/mediawarp/02_readme_todo.md:25`、`:26`）。误判根源是抓取存档在 HTML 转文本时丢了 checkbox 状态。**更正结论：飞牛影视是主流中间件的正式支持对象，不是「待适配」。**
+> 本笔记早前把 README 待办清单里的「适配 飞牛影视」读成**待办项**，据此判断「成熟度未决」。核对 raw Markdown 后确认，该行原文是 **`- [x] 适配 飞牛影视`（已完成）**，紧随的 `- [x] 支持播放网盘转码内容（仅飞牛影视 AlistStrm 模式）` 也已完成（`sources/lens-b/mediawarp/02_readme_todo.md:23`、`:24`）。误判根源是抓取存档在 HTML 转文本时丢了 checkbox 状态。**更正结论：飞牛影视是主流中间件的正式支持对象，不是「待适配」。**
 
 ## 2.6 Jellyfin 路线：官方安装方案已长久未维护
 
@@ -303,8 +303,8 @@
 | 10 | `将播放器地址指向代理端口（飞牛 :28005，Emby :8095）` | 把播放器指到代理端口：飞牛用 28005、Emby 用 8095 | `sources/lens-b/fntvproxy/01_github_com.md:71` |
 | 11 | `基于飞牛影视 0.9.3 版本` | 这个代理工具是针对飞牛影视 0.9.3 版本做的 | `sources/lens-b/fntvproxy/01_github_com.md:45` |
 | 12 | `前置于 EmbyServer/Jellyfin/飞牛影视 的反向代理服务器` | 一个架在 Emby/Jellyfin/飞牛影视前面的反向代理 | `sources/lens-b/mediawarp/01_github_com.md:51` |
-| 13 | `- [x] 适配 飞牛影视` | MediaWarp 已完成对飞牛影视的适配（待办清单勾选项） | `sources/lens-b/mediawarp/02_readme_todo.md:25` |
-| 14 | `- [x] 支持播放网盘转码内容（仅飞牛影视 AlistStrm 模式）` | 飞牛影视 AlistStrm 模式下支持播放网盘转码内容（已完成） | `sources/lens-b/mediawarp/02_readme_todo.md:26` |
+| 13 | `- [x] 适配 飞牛影视` | MediaWarp 已完成对飞牛影视的适配（待办清单勾选项） | `sources/lens-b/mediawarp/02_readme_todo.md:23` |
+| 14 | `- [x] 支持播放网盘转码内容（仅飞牛影视 AlistStrm 模式）` | 飞牛影视 AlistStrm 模式下支持播放网盘转码内容（已完成） | `sources/lens-b/mediawarp/02_readme_todo.md:24` |
 | 15 | `注意：目前官方 Jellyfin 安装方案已经长久未维护！` | 官方 Jellyfin 安装方案已经很久没人维护了 | `sources/01_raw_githubusercontent_com.md:180` |
 | 16 | `仅部署 Alist` | （资源表里的）「只部署 Alist」一行：1 核 / 512M / 512M | `sources/p2/monlor-144.md:78` |
 | 17 | `脚本没有计划支持硬解，在我看来这个功能没有必要` | 全家桶脚本没打算支持硬解，维护者认为没必要 | `sources/p2/monlor-144.md:58` |
@@ -313,7 +313,7 @@
 
 | 日期 | 变更摘要 |
 |------|----------|
-| 2026-10-06 | **口径修正（MediaWarp）**：更正 2.5 与 2.3.3——此前把 MediaWarp README 的「适配 飞牛影视」读成**待办项**，据此判「成熟度未决」。核对 raw Markdown 后确认该行为 `- [x] 适配 飞牛影视`（已完成），`- [x] 支持播放网盘转码内容（仅飞牛影视 AlistStrm 模式）` 亦已完成（`sources/lens-b/mediawarp/02_readme_todo.md:25`、`:26`）；误判根源是旧抓取存档丢失 checkbox 状态。2.5 标题与结论由「未决」改为**已确证**；2.2 表「网盘转码仍是待办」改为「AlistStrm 模式下支持」；引文对照表原 13 行改为 `[x]` 口径并新增 14。 |
+| 2026-10-06 | **口径修正（MediaWarp）**：更正 2.5 与 2.3.3——此前把 MediaWarp README 的「适配 飞牛影视」读成**待办项**，据此判「成熟度未决」。核对 raw Markdown 后确认该行为 `- [x] 适配 飞牛影视`（已完成），`- [x] 支持播放网盘转码内容（仅飞牛影视 AlistStrm 模式）` 亦已完成（`sources/lens-b/mediawarp/02_readme_todo.md:23`、`:24`）；误判根源是旧抓取存档丢失 checkbox 状态。2.5 标题与结论由「未决」改为**已确证**；2.2 表「网盘转码仍是待办」改为「AlistStrm 模式下支持」；引文对照表原 13 行改为 `[x]` 口径并新增 14。 |
 | 2026-10-06 | 2.3.4 补充「外网远程观影」小节：区分**直接挂载（WebDAV）→ NAS 中转载流、吃上行带宽**与 **STRM + 302 → 客户端直连网盘、不过 NAS**（`sources/lens-b/mediawarp/01_github_com.md:53`）；说明飞牛「网盘优先直链（302）」主要面向飞牛原生挂载的网盘，小雅经 WebDAV 挂载时通常套不上 302 直链。 |
 ---
 
@@ -816,26 +816,26 @@ STRM 生成了，还要有人把「客户端请求 → 302 跳到真实直链」
 
 | 工具 | 定位原话 | 飞牛影视支持情况 | 关键端口 | 出处 |
 | --- | --- | --- | --- | --- |
-| **MediaWarp** | 「前置于 EmbyServer/Jellyfin/飞牛影视 的反向代理服务器」 | **已适配**（待办清单该项为 `[x] 适配 飞牛影视`） | 自定义（官方示例 `9000`） | `sources/lens-b/mediawarp/01_github_com.md:51`、`02_readme_todo.md:25` |
+| **MediaWarp** | 「前置于 EmbyServer/Jellyfin/飞牛影视 的反向代理服务器」 | **已适配**（待办清单该项为 `[x] 适配 飞牛影视`） | 自定义（官方示例 `9000`） | `sources/lens-b/mediawarp/01_github_com.md:51`、`02_readme_todo.md:23` |
 | fntv-proxy | 「飞牛影视 / Emby 代理工具 - 自动解析 .strm 文件并重定向到真实直链」 | 原帖称「基于飞牛影视 0.9.3 版本」 | 飞牛 `:28005` / Emby `:8095` | `sources/lens-b/fntvproxy/01_github_com.md:44`、`:45` |
 
 > [!note] 一处旧结论的更正：MediaWarp 对飞牛影视**已经支持**
-> 本笔记早前把 README 的「适配 飞牛影视」读成**待办项**，据此判「成熟度未决」。核对 raw Markdown 后确认，该行原文是 **`- [x] 适配 飞牛影视`（已完成）**，紧随的 `- [x] 支持播放网盘转码内容（仅飞牛影视 AlistStrm 模式）` 也已完成（`sources/lens-b/mediawarp/02_readme_todo.md:25`、`:26`）。误判根源是抓取存档在 HTML 转文本时丢了 checkbox 状态，把已完成项显示成了裸列表项。**更正结论：飞牛影视是 MediaWarp 的正式支持对象。**
+> 本笔记早前把 README 的「适配 飞牛影视」读成**待办项**，据此判「成熟度未决」。核对 raw Markdown 后确认，该行原文是 **`- [x] 适配 飞牛影视`（已完成）**，紧随的 `- [x] 支持播放网盘转码内容（仅飞牛影视 AlistStrm 模式）` 也已完成（`sources/lens-b/mediawarp/02_readme_todo.md:23`、`:24`）。误判根源是抓取存档在 HTML 转文本时丢了 checkbox 状态，把已完成项显示成了裸列表项。**更正结论：飞牛影视是 MediaWarp 的正式支持对象。**
 
 ### 5.4.1 为什么可以选 MediaWarp
 
 MediaWarp 对自己的定位是一句话：
 
-> 「MediaWarp 定位于服务端于客户端的一个中间件（也就是名字中为什么会带有 Warp），客户端请求原画播放时流量不再经过客户端，需要转码时服务端也能正确推流」（`sources/lens-b/mediawarp/03_blog_akimio_top.md:31`）
+> 「MediaWarp 定位于服务端于客户端的一个中间件（也就是名字中为什么会带有 Warp），客户端请求原画播放时流量不再经过客户端，需要转码时服务端也能正确推流」（`sources/lens-b/mediawarp/03_blog_akimio_top.md:34`）
 
-说人话：**能直连的就直连（302），直连不了的回退到服务器推流**——不是「一刀切禁止中转」，而是「尽量不让流量经过你的 NAS」。除了 302，它还能顺带提供（`sources/lens-b/mediawarp/02_readme_todo.md:33`）：
+说人话：**能直连的就直连（302），直连不了的回退到服务器推流**——不是「一刀切禁止中转」，而是「尽量不让流量经过你的 NAS」。除了 302，它还能顺带提供（`sources/lens-b/mediawarp/02_readme_todo.md:38`）：
 
 - **屏蔽特定客户端**（按 User-Agent 黑白名单）；
 - **自定义 Web 前端样式 / 注入脚本**（弹幕、一起看等）；
-- **AlistStrm 模式下，飞牛影视可播放网盘转码内容**（`[x]` 已完成，`sources/lens-b/mediawarp/02_readme_todo.md:26`）。
+- **AlistStrm 模式下，飞牛影视可播放网盘转码内容**（`[x]` 已完成，`sources/lens-b/mediawarp/02_readme_todo.md:24`）。
 
 > [!warning] 一个例外：Web 页面美化对飞牛影视**不生效**
-> 官方教程：「Web 页面修改 (Web) 支持 Emby 和 Jellyfin，FNTV（飞牛影视）不支持」（`sources/lens-b/mediawarp/03_blog_akimio_top.md:129`）。冲着「美化飞牛影视界面」去选 MediaWarp 会落空——它的价值在 **302 与播放链**上。
+> 官方教程：「Web 页面修改 (Web) 支持 Emby 和 Jellyfin，FNTV（飞牛影视）不支持」（`sources/lens-b/mediawarp/03_blog_akimio_top.md:143`）。冲着「美化飞牛影视界面」去选 MediaWarp 会落空——它的价值在 **302 与播放链**上。
 
 ### 5.4.2 部署 MediaWarp（官方逐字骨架）
 
@@ -843,7 +843,7 @@ MediaWarp 对自己的定位是一句话：
 
 ```yaml
 # docker-compose.yml（MediaWarp）
-# 出处：sources/lens-b/mediawarp/03_blog_akimio_top.md:62-73
+# 出处：sources/lens-b/mediawarp/03_blog_akimio_top.md:67-77
 services:
   mediawarp:
     image: akimio/mediawarp:0.2.0
@@ -857,9 +857,9 @@ services:
       - ./mediawarp/static:/static
 ```
 
-配置要映射进容器的 `/config` 目录。两条纪律：**配置文件只支持 YAML**（旧版的 JSON/TOML 已弃用）；「具体配置以发布对应版本中的 `config.yaml.example` 为准」（`sources/lens-b/mediawarp/03_blog_akimio_top.md:76`、`:80`）——版本间字段会变，以你下载版本内的示例为准。
+配置要映射进容器的 `/config` 目录。两条纪律：**配置文件只支持 YAML**（旧版的 JSON/TOML 已弃用）；「具体配置以发布对应版本中的 `config.yaml.example` 为准」（`sources/lens-b/mediawarp/03_blog_akimio_top.md:92`、`:86`）——版本间字段会变，以你下载版本内的示例为准。
 
-对接飞牛影视，关键是把服务器类型写成 **`FNTV`**（`sources/lens-b/mediawarp/03_blog_akimio_top.md:96`、`:100`）：
+对接飞牛影视，关键是把服务器类型写成 **`FNTV`**（`sources/lens-b/mediawarp/03_blog_akimio_top.md:98`、`:111`）：
 
 ```yaml
 server:
@@ -868,14 +868,14 @@ server:
 
 ### 5.4.3 选哪种 STRM 模式：HTTPStrm 还是 AlistStrm
 
-MediaWarp 认两种 STRM 内容形态，**取决于你的 `.strm` 里写的是什么**（`sources/lens-b/mediawarp/02_readme_todo.md:36`、`:38`）：
+MediaWarp 认两种 STRM 内容形态，**取决于你的 `.strm` 里写的是什么**（`sources/lens-b/mediawarp/02_readme_todo.md:44`、`:45`）：
 
 | 模式 | STRM 内容 | 谁需要能访问到目标 | 备注 |
 | --- | --- | --- | --- |
 | **HTTPStrm** | 一个 HTTP 链接 | **客户端**要能访问该链接；MediaWarp 不必 | 与本章 5.3 用 SmartStrm 生成的「基础地址 + 路径」相符 |
 | **AlistStrm** | AList 上视频文件的路径（utf-8 编码） | **MediaWarp** 要能访问 AList 及其 `raw_url`；客户端不必 | 仅支持 AList v3 API（OpenList 兼容）；**不支持转码**、兼容性较差，可挂真实目录缓解 |
 
-两条实用建议：客户端在公网、Alist 在内网时，AlistStrm 的 `raw_url` 建议设为 `true`（直接回网盘直链，客户端不必访问 AList，`sources/lens-b/mediawarp/03_blog_akimio_top.md:114`）；若 `.strm` 只是普通 HTTP(S) 链接，就用 HTTPStrm，并**关掉 AlistStrm**。
+两条实用建议：客户端在公网、Alist 在内网时，AlistStrm 的 `raw_url` 建议设为 `true`（直接回网盘直链，客户端不必访问 AList，`sources/lens-b/mediawarp/03_blog_akimio_top.md:133`）；若 `.strm` 只是普通 HTTP(S) 链接，就用 HTTPStrm，并**关掉 AlistStrm**。
 
 > [!tip] 把 302 直链想成**快递中转**
 > 包裹（视频）一直放在网盘仓库，从来不用搬进你家。客户端下单后，中间件只回一句「你去仓库这个门牌直接取」。中转站本身**不囤货**——只在 NAS 上占一点点流量，不占你的硬盘。**选谁做中转站，看你要不要它有额外功能**：只要 302 选 fntv-proxy；想要屏蔽客户端 / 注入脚本 / 飞牛侧网盘转码，选 MediaWarp。
@@ -1068,10 +1068,10 @@ services:
 | 11 | `PORT=8024` | SmartStrm 管理端口 | `sources/01_smartstrm_github_io.md:31` |
 | 12 | `此应用其中302代理是收费的，但是我们不需要使用，用它免费的挂载网盘生成strm功能就行了` | 302 代理收费，我们只用免费的 STRM 生成 | `sources/p2/tid-57134.md:32` |
 | 13 | `前置于 EmbyServer/Jellyfin/飞牛影视 的反向代理服务器` | MediaWarp 是前置在三种媒体服务器前的反向代理 | `sources/lens-b/mediawarp/01_github_com.md:51` |
-| 14 | `- [x] 适配 飞牛影视` | MediaWarp 已完成对飞牛影视的适配（待办清单勾选项） | `sources/lens-b/mediawarp/02_readme_todo.md:25` |
-| 15 | `- [x] 支持播放网盘转码内容（仅飞牛影视 AlistStrm 模式）` | 飞牛影视 AlistStrm 模式下支持播放网盘转码内容（已完成） | `sources/lens-b/mediawarp/02_readme_todo.md:26` |
-| 16 | `MediaWarp 定位于服务端于客户端的一个中间件（也就是名字中为什么会带有 Warp），客户端请求原画播放时流量不再经过客户端，需要转码时服务端也能正确推流` | MediaWarp 是客户端与服务端之间的中间件：原画播放不经过 NAS，需要转码时再由服务器推流 | `sources/lens-b/mediawarp/03_blog_akimio_top.md:31` |
-| 17 | `Web 页面修改 (Web) 支持 Emby 和 Jellyfin，FNTV（飞牛影视）不支持。` | Web 页面美化支持 Emby/Jellyfin，飞牛影视不支持 | `sources/lens-b/mediawarp/03_blog_akimio_top.md:129` |
+| 14 | `- [x] 适配 飞牛影视` | MediaWarp 已完成对飞牛影视的适配（待办清单勾选项） | `sources/lens-b/mediawarp/02_readme_todo.md:23` |
+| 15 | `- [x] 支持播放网盘转码内容（仅飞牛影视 AlistStrm 模式）` | 飞牛影视 AlistStrm 模式下支持播放网盘转码内容（已完成） | `sources/lens-b/mediawarp/02_readme_todo.md:24` |
+| 16 | `MediaWarp 定位于服务端于客户端的一个中间件（也就是名字中为什么会带有 Warp），客户端请求原画播放时流量不再经过客户端，需要转码时服务端也能正确推流` | MediaWarp 是客户端与服务端之间的中间件：原画播放不经过 NAS，需要转码时再由服务器推流 | `sources/lens-b/mediawarp/03_blog_akimio_top.md:34` |
+| 17 | `Web 页面修改 (Web) 支持 Emby 和 Jellyfin，FNTV（飞牛影视）不支持。` | Web 页面美化支持 Emby/Jellyfin，飞牛影视不支持 | `sources/lens-b/mediawarp/03_blog_akimio_top.md:143` |
 | 18 | `飞牛影视 / Emby 代理工具 - 自动解析 .strm 文件并重定向到真实直链` | fntv-proxy 的定位：解析 STRM 并重定向到真实直链 | `sources/lens-b/fntvproxy/01_github_com.md:44` |
 | 19 | `基于飞牛影视 0.9.3 版本` | fntv-proxy 原帖称基于飞牛影视 0.9.3 | `sources/lens-b/fntvproxy/01_github_com.md:45` |
 | 20 | `将播放器地址指向代理端口（飞牛 :28005，Emby :8095）` | 播放器应连代理端口：飞牛 :28005，Emby :8095 | `sources/lens-b/fntvproxy/01_github_com.md:71` |
@@ -1101,7 +1101,7 @@ services:
 
 | 日期 | 变更摘要 |
 |------|----------|
-| 2026-10-06 | **口径修正（MediaWarp）**：更正 5.4——此前把 MediaWarp README 的「适配 飞牛影视」读成**待办项**，据此判「成熟度未决」。核对 raw Markdown 后确认该行为 `- [x] 适配 飞牛影视`（已完成），`- [x] 支持播放网盘转码内容（仅飞牛影视 AlistStrm 模式）` 亦已完成（`sources/lens-b/mediawarp/02_readme_todo.md:25`、`:26`）；误判根源是旧抓取存档丢失 checkbox 状态。5.4 改写为**以 MediaWarp 为主**：补 `server.type: FNTV`、HTTPStrm/AlistStrm 选择、官方 Compose 骨架与「Web 美化不支持 FNTV」例外；fntv-proxy 降为轻量备选。引文对照表同步（原 14 行改为 `[x]` 口径并新增 15–17）。 |
+| 2026-10-06 | **口径修正（MediaWarp）**：更正 5.4——此前把 MediaWarp README 的「适配 飞牛影视」读成**待办项**，据此判「成熟度未决」。核对 raw Markdown 后确认该行为 `- [x] 适配 飞牛影视`（已完成），`- [x] 支持播放网盘转码内容（仅飞牛影视 AlistStrm 模式）` 亦已完成（`sources/lens-b/mediawarp/02_readme_todo.md:23`、`:24`）；误判根源是旧抓取存档丢失 checkbox 状态。5.4 改写为**以 MediaWarp 为主**：补 `server.type: FNTV`、HTTPStrm/AlistStrm 选择、官方 Compose 骨架与「Web 美化不支持 FNTV」例外；fntv-proxy 降为轻量备选。引文对照表同步（原 14 行改为 `[x]` 口径并新增 15–17）。 |
 | 2026-10-06 | 新增/重写 5.6「没有阿里云盘会员、只有夸克会员怎么办」：澄清小雅必填的是阿里云盘**账号**、会员只影响限速（`sources/p2/monlor-144.md:273`、`:279`）；说明「换播放盘」的开关只有 115（`ali2115.txt` / 阿里转存 115，需 115 会员，`sources/p4/ycyc-2878.md:13`、`:19`），没有「转存夸克」；夸克在小雅里只是 `quark_cookie.txt` / `QUARK_COOKIE` 挂载**你自己的夸克**、**不能**把小雅资源转成夸克播放（实测填了仍只有阿里直链，`sources/forum/tid-8385880.md:30`）；给出「只有夸克会员」的三条现实路径（`sources/forum/tid-21673.md:11`、`:13`），并保留「改挂你自己夸克库 + STRM + 302」备选链路（`sources/lens-b/fntvproxy/01_github_com.md:300`）及其 HLS 元数据坑（`:241`）。 |
 | 2026-10-06 | **口径修正（夸克）**：更正 5.6——此前把「小雅没有夸克来源」写得过绝。小雅**确有夸克分享区**（`/🌀我的夸克分享`，走夸克直链、吃夸克会员速度，`sources/gh/alist-tvbox-721.md:33`）；「换播放盘开关只有 115」限定为**本体库**。5.6 重写为「本体库走不了夸克、但夸克分享区能走夸克」，并补「覆盖以实机为准」警示（索引默认未必加载、大量路径失效，`sources/gh/alist-tvbox-721.md:16`、`:39`）。 |
 ---
