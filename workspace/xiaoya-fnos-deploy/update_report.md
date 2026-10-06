@@ -127,3 +127,58 @@
 - 第 2 章「下一章预告」仍写「凭据（阿里云盘三件套 + WebDAV 账号）」——夸克是**可选**项，该措辞不算错，**按 scope 未改**。
 - 第 7 章（运维）未动。
 - 夸克分享区的**实际片量 / 可搜性无任何来源给出比例**，成稿只写「以实机为准」；用户若实测出稳定数字，可另立来源件后再回写。
+
+---
+
+# 追加更新：小雅 fnOS 单容器部署 · 第 3 章（动手前准备）
+
+- 更新日期：2026-10-06
+- 目标文件：vault `流媒体与影音/小雅 fnOS 单容器部署/03 动手前准备.md`（拆分笔记第 3 章）
+- destination_mode：`patch-in-place`，并**同步全部副本**（上游 `chapters/` + `output/` + `final_note.md` + vault）
+- update_goal：用户追问「**如何获取这些阿里云盘三件套**」——3.3 原文只写了**文件名与放置位置**，**未写获取方式**
+
+## Stale Map
+
+| 处理 | 内容 |
+| --- | --- |
+| 保留 | 3.1 / 3.2 / 3.4 / 3.5 全部结构；3.3 既有四张表与全部 Callout；引文对照第 1–22 行 |
+| 新增 | 3.3 内「**那么这三样怎么拿到？**」段（三步表 + 对照 + `[!warning]` 两个提醒 + `[!tip]` 大白话）；引文对照第 23–29 行；文末 `## 更新记录` |
+| 改写 | 无 |
+| 删除 | 无 |
+
+## 本次新增内容（全部回源）
+
+| 论点 | 出处 |
+| --- | --- |
+| 三步拿法：解码站取 32 位 `mytoken.txt` | `sources/p3/gnz48/01_www_cnblogs_com.md:26-29` |
+| `request.html` 扫码取 Open Token（280 位） | `sources/p3/gnz48/01_www_cnblogs_com.md:30` |
+| 资源盘建文件夹取 folder id | `sources/p3/gnz48/01_www_cnblogs_com.md:31` |
+| 另一份教程「获取方式」对照 + 「先转存小雅分享」 | `sources/p3/z-addone/01_www_cnblogs_com.md:21-25` |
+| 论坛楼主答复 = `request.html` | `sources/01_club_fnnas_com.md:904` |
+| token 第二天失效（单条用户反馈） | `sources/01_club_fnnas_com.md:157` |
+
+> **未采纳**：上一轮答复里提到过「网页 `F12` → Local Storage → `refresh_token`」这条路，因 `sources/` 无对应来源件，按「出处宁空不猜」**未写入笔记**。
+
+## 同步范围
+
+| 副本 | 状态 |
+| --- | --- |
+| `workspace/xiaoya-fnos-deploy/chapters/03_动手前准备.md` | 已更新（上游源） |
+| `workspace/xiaoya-fnos-deploy/output/03 动手前准备.md` | 已同步 |
+| `workspace/xiaoya-fnos-deploy/output/final_note.md` | 已替换第 3 章块 |
+| vault `流媒体与影音/小雅 fnOS 单容器部署/03 动手前准备.md` | 已同步 |
+
+> vault 侧 03 章在本轮之前已带 frontmatter / 导航 / 表格对齐等**美化层**（与 `chapters/` 朴素格式本就不同形态）；本次三处插入的**新增文本一致**。
+
+## 校验
+
+- `note-citation-check.py workspace/xiaoya-fnos-deploy --vault-note <vault 03> --mode all` → **✅ 无硬失败**（V 英文整句回源 4/4；S4 引文对照表 0 处不合格；C 9 份副本 8 组比对 **0 差异**）。S3 新增 1 处 `folder id`（术语保留类，与既有表格写法一致）。
+- `check-md-structure.py <vault 03>` → **0 处可疑**。
+- 新增 7 条引文均按 `sed -n` 逐字复核（`p3/gnz48/01_www_cnblogs_com.md:26/29/30/31`、`p3/z-addone/01_www_cnblogs_com.md:25`、`01_club_fnnas_com.md:157/904`）。
+
+## 未处理 / 风险
+
+- 总览页第 3 章一句话说明（「凭据文件准备清单」）仍准确，**未改**。
+- 第 2 章「下一章预告」「凭据（阿里云盘三件套 + WebDAV 账号）」与本轮一致，**未改**。
+- 第 4 / 6 / 7 章未动；第 4 章既有「token 会过期要更新」的说法与新增 `:157` 反馈同向，无需修正。
+- 第三方解码站 `media.cooluc.com` 属社区工具，笔记只记「有风险、官方扫码更稳」，**不为其可用性背书**。

@@ -35,3 +35,30 @@
 | **115 转存「非115会员不支持」/ >5G 不支持** | `sources/forum/tid-8385880.md:32`、`:34` |
 | 备选链路：夸克网盘 TV 驱动 | `sources/p2/tid-57134.md:32`；`sources/lens-b/fntvproxy/01_github_com.md:300` |
 | 夸克 HLS 元数据坑 | `sources/lens-b/fntvproxy/01_github_com.md:241` |
+
+---
+
+# 追加更新计划：第 3 章（动手前准备）
+
+- 更新日期：2026-10-06
+- 目标笔记：`流媒体与影音/小雅 fnOS 单容器部署/03 动手前准备.md`（vault，拆分笔记第 3 章）
+- 上游源：`workspace/xiaoya-fnos-deploy/chapters/03_动手前准备.md`
+- destination_mode：`patch-in-place`（并同步 output/ 与 vault，无漂移）
+- update_goal：补 3.3 缺失的「三件套**怎么拿**」（原文只有文件名 + 放置位置）
+
+## Stale Map
+
+| 处理 | 内容 |
+| --- | --- |
+| 保留 | 3.1 / 3.2 / 3.4 / 3.5；3.3 既有四表与 Callout；引文对照 1–22 行 |
+| 新增 | 3.3 内「那么这三样怎么拿到？」段；引文对照 23–29 行；`## 更新记录` |
+| 改写 / 删除 | 无 |
+
+## 依据（新增内容全部回源）
+
+| 论点 | 出处 |
+| --- | --- |
+| 三步拿法（解码站 / `request.html` 扫码 / 资源盘建夹取 folder id） | `sources/p3/gnz48/01_www_cnblogs_com.md:26-31` |
+| 「获取方式」对照表 + 「先转存小雅分享」提醒 | `sources/p3/z-addone/01_www_cnblogs_com.md:21-25` |
+| 论坛楼主答复 = `request.html` | `sources/01_club_fnnas_com.md:904` |
+| `ALIYUN_TOKEN` 第二天失效（单条用户反馈） | `sources/01_club_fnnas_com.md:157` |
