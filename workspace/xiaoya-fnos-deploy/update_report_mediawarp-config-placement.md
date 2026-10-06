@@ -2,7 +2,8 @@
 
 - 更新日期：2026-10-06
 - 目标文件：vault `流媒体与影音/小雅 fnOS 单容器部署/05 前端接入.md`
-- destination_mode：本次为 **vault 单侧 `patch-in-place`**（工作区副本未动，见文末漂移）
+- destination_mode：`patch-in-place`，**第 5 章三侧已同步**（chapters/ → output/ + vault + final_note）
+- 同步方式：反向提取 vault 05 正文 → `chapters/05_前端接入.md` → `publish_copies.py --apply --only 05` + `assemble_final.py --apply`（`vault==` 自证无反退）
 - update_goal：回答用户「mediawrap 的 docker 不是这么写的吗？」——用户把 **`docker-compose.yml`** 与 **MediaWarp 的 `config.yaml`** 抄成了一个文件
 
 ## 触发与决策
@@ -37,6 +38,8 @@ Compose v5.0.2。结论：`server` 不是 Compose 合法顶层键，`docker comp
 ## 登记的工作区漂移
 
 - 上游 run `update-xiaoya-fnos-routes`（`batch-note-update-flow`）已 `current_phase: done` / `quality_gate: passed`（2026-10-06 21:16），不会再被任何流程更新。
-- **vault 侧** `05 前端接入.md` 已于 **2026-10-06 22:09 之后**继续更新（含本次澄清）；**工作区副本停留在 21:12**：`workspace/xiaoya-fnos-deploy/chapters/05_前端接入.md`、`output/05 前端接入.md`、`output/final_note.md`。
-- 漂移**不止本次澄清**：vault 在 run 收口后还改过第 5 章（5.6 夸克等）。两侧文件名相同，易被误当权威稿。
-- 处置交由用户二选一：**重跑 note-assembler 同步工作区**，或**明确弃用工作区副本**。本报告不擅自回写工作区。
+- **05 已同步**（用户选择「以 vault 为准」）：vault → chapters/05 → output/05 + final_note，四侧一致（`publish_copies --check` 05 全 `=`）。
+- **其余漂移仍在**：`publish_copies --check` 显示 **03、04** 仍是 `vault=≠`（vault 比工作区新，mtime 21:27 / 21:40，均在 run 21:16 收口之后）：
+  - **03 动手前准备**：vault 比 chapters **少** ~519 字节——vault 把「WebDAV 用户名 `guest` / 路径 `/dav`」一段**并成一句话**，去掉了 output 里的原注释引文与 `[!warning] 用户名填 guest；dav 是路径` 提示框。
+  - **04 部署实战**：vault 比 chapters **多** ~272 字节——vault 新增令牌文件落盘说明与两张截图（`assets/04 部署实战/file-*.png`）。
+- 03/04 的处置**待用户决定**（尤其 03 方向存疑：vault 是删内容的那侧）。本报告不擅自覆盖。
