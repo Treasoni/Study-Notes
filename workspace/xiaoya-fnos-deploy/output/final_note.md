@@ -888,15 +888,31 @@ services:
       - ./mediawarp/static:/static
 ```
 
-配置要映射进容器的 `/config` 目录。两条纪律：**配置文件只支持 YAML**（旧版的 JSON/TOML 已弃用）；「具体配置以发布对应版本中的 `config.yaml.example` 为准」（`sources/lens-b/mediawarp/03_blog_akimio_top.md:92`、`:86`）——版本间字段会变，以你下载版本内的示例为准。
+配置要映射进容器的 `/config` 目录。两条纪律：**配置文件只支持 YAML**（旧版的 JSON/TOML 已弃用）；「具体配置以发布对应版本中的 `config.yaml.example` 为准」（`sources/lens-b/mediawarp/03_blog_akimio_top.md:92`、`:86`）——版本间字段会变，以你下载版本内的示例为准。(这里你需要先去mediawarp这个项目把config.yaml.example放到你的项目改成config.yaml然后按你的需求进行修改)
 
-对接飞牛影视，关键是把服务器类型写成 **`FNTV`**（`sources/lens-b/mediawarp/03_blog_akimio_top.md:98`、`:111`）：
+对接飞牛影视，关键是把服务器类型写成 **`FNTV`**（`sources/lens-b/mediawarp/03_blog_akimio_top.md:98`、`:111`）——但**别只写 `type`**，`config.yaml` 的最小可用配置是下面几行：
 
 ```yaml
 # config.yaml（MediaWarp 的配置文件，不是 docker-compose.yml）
-server:
-  type: FNTV      # 对于飞牛影视
+# 出处：sources/lens-b/mediawarp/04_config_yaml_example.md:8-13
+port: 9000                            # MediaWarp 监听端口（客户端要连的就是它）
+server:                               # 媒体服务器相关设置
+  type: FNTV                          # 对于飞牛影视
+  addr: http://<飞牛影视地址>:8005     # 媒体服务器地址（FNTV 默认端口 8005，不是 Emby 的 8096）
+  # auth 不用写——官方注释：FNTV 不需要这一项
 ```
+
+这几个字段各有分工（`sources/lens-b/mediawarp/04_config_yaml_example.md:8`、`:12`、`:13`）：
+
+| 字段 | 管什么 | 取值 |
+| --- | --- | --- |
+| `port` | MediaWarp 自己的**监听端口** | 示例 `9000`；**客户端要连的就是它** |
+| `server.type` | 前面站的是哪种媒体服务器 | 飞牛影视写 `FNTV` |
+| `server.addr` | **真正的飞牛影视在哪** | 官方示例是 Emby 的 `http://localhost:8096`；注释点明 **FNTV 默认端口 8005** |
+| `server.auth` | 媒体服务器认证 | FNTV **不需要**这一项 |
+
+> [!warning] 漏了 `server.addr`，MediaWarp 用不起来
+> 只写 `server.type`，只是告诉它「类型是飞牛影视」，**没告诉它飞牛影视在哪**，请求无处转发。`addr` 要填你飞牛影视的地址与端口（FNTV 默认 `8005`，以实机为准）。改完 `config.yaml` 记得**重启容器**才生效。
 
 > [!warning] `server.type` 属于 `config.yaml`，别贴进 `docker-compose.yml`
 > 上面两个代码块是**两个不同的文件**，不要拼成一个：
@@ -951,6 +967,29 @@ services:
 > > 「strm 路径一定要挂载到 Docker 容器中，否则播放失败，找不到 strm 文件。」（`sources/lens-b/fntvproxy/01_github_com.md:139`）
 >
 > 而且挂载时**前后路径要一致**（宿主机是什么路径，容器内就写什么路径）。
+
+### 5.4.5 装完不等于用上：让客户端改连中间件端口
+
+MediaWarp 是**前置反向代理**——「前置于 EmbyServer/Jellyfin/飞牛影视 的反向代理服务器」（`sources/lens-b/mediawarp/01_github_com.md:51`）。它不改变飞牛影视本身，而是让你**从它这扇门进**。所以部署完还有最后一步：**把客户端的服务器地址，改成 MediaWarp 的监听端口**。
+
+```text
+客户端（飞牛影视 App / Infuse / Fileball / Vidhub …）
+        │  服务器地址填 http://<NAS 的 IP 或域名>:9000   ← 走 MediaWarp
+        ▼
+   MediaWarp:9000 ──(strm 播放)──▶ 302 跳到网盘直链（流量不经 NAS）
+        │
+        └──(直连不了)──▶ 回退转发给飞牛影视（server.addr）推流
+```
+
+- **必须走 `port` 那个口（示例 `9000`）**；若继续用飞牛影视原来的端口，播放照样经过 NAS、照样吃上行带宽。
+- 这与 fntv-proxy 的用法同构——它也是「将播放器地址指向代理端口（飞牛 `:28005`，Emby `:8095`）」（`sources/lens-b/fntvproxy/01_github_com.md:71`）。
+- 前提：`port` 已**映射到宿主机**（5.4.2 的 compose 里 `9000:9000` 已做）；若改成 bridge 网络又换过端口，端口映射要同步改。
+
+> [!note] 直连不了会「回退」是正常设计
+> 客户端因浏览器跨域拦截、需要转码、或不支持该编码（如 H265）而**无法直连**时，MediaWarp 会把请求**转发回飞牛影视推流**，此时流量才再次经过 NAS（`sources/lens-b/mediawarp/03_blog_akimio_top.md:32`）。所以偶尔走 NAS 不是故障，是兜底。
+
+> [!tip] 验证有没有生效
+> 播一个由 SmartStrm 生成（5.3）的小雅 STRM 影片，应是**秒开、拖进度快**，且顺着 `:9000` 这个口进去、流量 302 出去不经过 NAS；去 MediaWarp 的日志里能确认。
 
 ## 5.5 纪律：只挂 STRM 子目录，并把它挂进中间件
 
@@ -1139,11 +1178,15 @@ services:
 | 40 | `在使用小雅资源的时候，只使用了部分索引数据，导致很多挂载的资源无法被搜索到，例如小雅的夸克分享索引，115分享索引以及部分电影等。` | 小雅索引**默认只加载一部分**，夸克分享索引等常搜不到 | `sources/gh/alist-tvbox-721.md:16` |
 | 41 | `小雅资源自己的索引数据有大量目录路径实际不存在，并且大部分在三级或四级目录前就已经失效` | 小雅的索引数据大量路径实际不存在，多在三四级目录前失效 | `sources/gh/alist-tvbox-721.md:39` |
 | 42 | `随后需要映射进容器的/config目录下` | MediaWarp 的 `config.yaml` 需映射进容器 `/config` 目录（不是写进 compose） | `sources/lens-b/mediawarp/03_blog_akimio_top.md:54` |
+| 43 | `port: 9000                                  # MideWarp 监听端口` | MediaWarp 监听端口（示例 9000）；客户端要连的就是它 | `sources/lens-b/mediawarp/04_config_yaml_example.md:8` |
+| 44 | `  addr: http://localhost:8096               # 媒体服务器地址（FNTV默认端口号为8005而不是5666）` | 媒体服务器地址；注释点明 **FNTV 默认端口 8005** | `sources/lens-b/mediawarp/04_config_yaml_example.md:12` |
+| 45 | `  auth: 2eaxxxxxxxxxa8                      # 媒体服务器认证方式（FNTV不需要这一项）` | 媒体服务器认证；FNTV **不需要** | `sources/lens-b/mediawarp/04_config_yaml_example.md:13` |
 
 ## 更新记录
 
 | 日期 | 变更摘要 |
 |------|----------|
+| 2026-10-06 | 5.4.2 补全 `config.yaml` **最小可用配置**（`port` / `server.type` / `server.addr` / `auth`）与字段分工表，并加「漏 `server.addr` 用不起来」警告；新增 **5.4.5**「装完不等于用上：让客户端改连中间件端口（示例 `9000`）」，含链路图、回退说明与验收；新增来源存档 `sources/lens-b/mediawarp/04_config_yaml_example.md`（官方 `config.yaml.example` 逐字）；引文对照表加 43–45 行。 |
 | 2026-10-06 | 5.4.2 补一条实操警告：MediaWarp 的 `server: type: FNTV` 属于**配置文件 `config.yaml`**（映射进容器 `/config`，`sources/lens-b/mediawarp/03_blog_akimio_top.md:54`），**不能**贴进 `docker-compose.yml` 顶层；实测 `docker compose config` 会报 `additional properties 'server' not allowed`。同时说明 `volumes:` 左侧宿主机路径可自定义。引文对照表加第 42 行。 |
 | 2026-10-06 | **口径修正（MediaWarp）**：更正 5.4——此前把 MediaWarp README 的「适配 飞牛影视」读成**待办项**，据此判「成熟度未决」。核对 raw Markdown 后确认该行为 `- [x] 适配 飞牛影视`（已完成），`- [x] 支持播放网盘转码内容（仅飞牛影视 AlistStrm 模式）` 亦已完成（`sources/lens-b/mediawarp/02_readme_todo.md:23`、`:24`）；误判根源是旧抓取存档丢失 checkbox 状态。5.4 改写为**以 MediaWarp 为主**：补 `server.type: FNTV`、HTTPStrm/AlistStrm 选择、官方 Compose 骨架与「Web 美化不支持 FNTV」例外；fntv-proxy 降为轻量备选。引文对照表同步（原 14 行改为 `[x]` 口径并新增 15–17）。 |
 | 2026-10-06 | 新增/重写 5.6「没有阿里云盘会员、只有夸克会员怎么办」：澄清小雅必填的是阿里云盘**账号**、会员只影响限速（`sources/p2/monlor-144.md:273`、`:279`）；说明「换播放盘」的开关只有 115（`ali2115.txt` / 阿里转存 115，需 115 会员，`sources/p4/ycyc-2878.md:13`、`:19`），没有「转存夸克」；夸克在小雅里只是 `quark_cookie.txt` / `QUARK_COOKIE` 挂载**你自己的夸克**、**不能**把小雅资源转成夸克播放（实测填了仍只有阿里直链，`sources/forum/tid-8385880.md:30`）；给出「只有夸克会员」的三条现实路径（`sources/forum/tid-21673.md:11`、`:13`），并保留「改挂你自己夸克库 + STRM + 302」备选链路（`sources/lens-b/fntvproxy/01_github_com.md:300`）及其 HLS 元数据坑（`:241`）。 |

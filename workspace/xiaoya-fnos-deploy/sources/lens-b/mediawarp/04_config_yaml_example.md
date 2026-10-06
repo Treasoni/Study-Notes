@@ -1,0 +1,95 @@
+---
+url: "https://raw.githubusercontent.com/AkimioJR/MediaWarp/main/config/config.yaml.example"
+title: "MediaWarp 官方配置示例 config.yaml.example"
+scraped_at: 2026-10-06T22:50:37+08:00
+note: "官方仓库 config/config.yaml.example 逐字抓取（raw）。含 port / server(type,addr,auth) / log / cache / web / client / http_strm / alist_strm / subtitle；原文首字节为 BOM，已去除。"
+---
+
+port: 9000                                  # MideWarp 监听端口
+
+server:                                     # 媒体服务器相关设置
+  type: Emby                                # 媒体服务器类型（可选选项：Emby、Jellyfin、 FNTV）
+  addr: http://localhost:8096               # 媒体服务器地址（FNTV默认端口号为8005而不是5666）
+  auth: 2eaxxxxxxxxxa8                      # 媒体服务器认证方式（FNTV不需要这一项）
+
+log:                                        # 日志设定
+  access:                                   # 访问日志设定
+    console: true                           # 是否将访问日志文件输出到终端中
+    file: false                             # 是否将访问日志文件记录到文件中
+  service:                                  # 服务日志设定
+    console: true                           # 是否将服务日志文件输出到终端中
+    file: true                              # 是否将服务日志文件记录到文件中
+
+# ttl 格式说明：
+# 有效的时间单位包括 "ns"（纳秒）、"us"（或 "µs"，微秒）、"ms"（毫秒）、"s"（秒）、"m"（分钟）、"h"（小时）
+# 支持的时间格式示例："300ms"、"-1.5h" 或 "2h45m" 等
+# 仅当值大于 0 时生效，否则表示禁用该项缓存
+# 如果你不清楚你在做什么，建议保持默认设置
+cache:                                        # 缓存相关设置
+  enable: true                                # 是否启用 HTTPStrm 重定向内存缓存
+  http_strm_ttl: 1m                           # 重定向缓存有效期（当启用 http_strm 中的 final_url 配置项时才生效）
+  alist_api_ttl: 10m                          # Alist API 缓存有效期
+  image_ttl: 10m                              # 图片缓存有效时间
+  subtitle_ttl: 2h                            # 字幕缓存有效时间
+
+web:                                        # Web 页面修改相关设置（FNTV 不支持）
+  enable: false                             # 总开关
+  custom: false                             # 是否加载自定义静态资源
+  index: false                              # 是否从 custom 目录读取 index.html 文件 
+  head: |                                   # 是否添加自定义字段到 index.html 的头部中
+    <script src="/MediaWarp/custom/emby-front-end-mod/actor-plus.js"></script>
+    <script src="/MediaWarp/custom/emby-front-end-mod/emby-swiper.js"></script>
+    <script src="/MediaWarp/custom/emby-front-end-mod/emby-tab.js"></script>
+    <script src="/MediaWarp/custom/emby-front-end-mod/fanart-show.js"></script>
+    <script src="/MediaWarp/custom/emby-front-end-mod/playbackRate.js"></script>
+
+  robots: |                                 # 自定义 robots.txt，若为空表示不修改
+    User-agent: *
+    Disallow: /
+
+  # 内置嵌入脚本
+  crx: false                                # crx 美化（Emby：https://github.com/Nolovenodie/emby-crx；Jellyfin：https://github.com/newday-life/jellyfin-crx；飞牛影视不支持）
+  actor_plus: true                          # 过滤没有头像的演员和制作人员（飞牛影视不支持）
+  fanart_show: false                        # 显示同人图（fanart 图）（飞牛影视不支持）
+  external_player_url: false                # 是否开启外置播放器（飞牛影视不支持）
+  danmaku: false                            # Web 弹幕（Emby：https://github.com/9channel/dd-danmaku；Jellyfin：https://github.com/Izumiko/jellyfin-danmaku；飞牛影视：https://github.com/AkimiJR/MediaWarp/static/fn-danmaku/fn-danmaku-dd.js）
+  video_together: false                     # 共同观影，详情见 https://videotogether.github.io
+
+client:                                     # 客户端过滤器
+  enable: false                             # 是否启用客户端过滤器
+  mode: BlackList # WhileList / BlackList   # 黑白名单模式
+  list:                                     # 名单列表
+    - Fileball
+    - Infuse
+
+http_strm:                                  # HTTPStrm 相关配置（Strm 文件内容是**标准 HTTP URL**）
+  enable: true                              # 是否开启 HttpStrm 重定向
+  proxy: false                              # 是否允许流量经过媒体服务器（true: 允许串流、转码行为；false: 仅支持直接播放）FNTV无效
+  final_url: true                           # 对 URL 进行重定向判断，找到非重定向地址再重定向给客户端，减少客户端重定向次数（适用于 Strm 内容是局域网地址但是想要在公网之中播放）
+  compatibility_mode: false                 # 兼容模式，开启后将使用更兼容但效率较低的方式获取最终 URL
+  prefix_list:                              # 媒体服务器中 Strm 文件的前缀（符合该前缀的 Strm 文件且被正确识别为 HTTP 协议都会路由到该规则下）
+    - /media/strm/http
+    - /media/strm/https
+
+alist_strm:                                 # AlistStrm 相关配置（Strm 文件内容是 AList 上文件的路径；**内容需要是 utf-8 编码**；目前仅支持适配 AList v3 API，**OpenList 目前兼容 AList v3 API**）
+  enable: true                              # 是否启用 AlistStrm 重定向
+  proxy: true                               # 是否允许流量经过媒体服务器（true: 允许串流、转码行为；false: 仅支持直接播放）FNTV无效
+  raw_url: false                            # Fasle：响应 AList 服务器的直链（要求客户端可以访问到 AList true：直接响应 AList 上游的真实链接（alist api 中的 raw_url 属性）
+  list:                                     # AList 服务关配置列表
+    - addr: http://192.168.1.100:5244       # AList 服务器地址
+      username: admin                       # AList 服务器账号
+      password: adminadmin                  # AList 服务器密码
+      prefix_list:                          # 媒体服务器中 Strm 文件的前缀（符合该前缀的 Strm 文件都会路由到该规则下）
+        - /media/strm/MyAlist               # 同一个 AList 可以有多个前缀规则
+        - /mnt/cd2/strm
+    - addr: https://xiaoya.com              # 可以填写多个配置
+      token: xxxxxxx                        # Token 优先级高于 Username 和 Password
+      prefix_list: 
+        - /media/strm
+
+subtitle:                                   # 字体相关设置（仅 Emby 支持）
+  enable: true                              # 启用
+  srt2ass: true                             # SRT 字幕转 ASS 字幕
+  ass_style:                                # SRT 字幕转 ASS 字幕使用的样式
+    - "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding"
+    - "Style: Default,楷体,20,&H03FFFFFF,&H00FFFFFF,&H00000000,&H02000000,-1,0,0,0,100,100,0,0,1,1,0,2,10,10,10,1"

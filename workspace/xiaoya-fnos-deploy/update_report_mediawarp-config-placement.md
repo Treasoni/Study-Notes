@@ -1,4 +1,4 @@
-# 更新报告：小雅 fnOS 单容器部署 · MediaWarp 配置文件放置澄清（第 5 章 5.4.2）
+# 更新报告：小雅 fnOS 单容器部署 · MediaWarp 配置放置澄清 + 配置补全与用法（第 5 章 5.4.2 / 5.4.5）
 
 - 更新日期：2026-10-06
 - 目标文件：vault `流媒体与影音/小雅 fnOS 单容器部署/05 前端接入.md`
@@ -43,3 +43,18 @@ Compose v5.0.2。结论：`server` 不是 Compose 合法顶层键，`docker comp
   - **03 动手前准备**：vault 侧把「WebDAV 用户名 `guest` / 路径 `/dav`」并成一句话，去掉了工作区里的原注释引文与 `[!warning] 用户名填 guest；dav 是路径` 提示框。按用户决定，以 vault 为准同步到工作区。
   - **04 部署实战**：vault 侧新增令牌文件落盘说明与两张截图（`assets/04 部署实战/file-*.png`，文件存在），同步到工作区。
 - **收口校验**：`publish_copies.py --check` 七章全 `output== vault==`；`assemble_final.py --check` 0 章待更新。工作区与 vault 不再漂移。
+
+## 追加更新：配置补全 + 客户端接入用法（2026-10-06，第 5 章 5.4.2 / 新增 5.4.5）
+
+- 起因：用户问「我配置好了 mediawarp，怎么用啊」→ 回一手来源发现 **5.4.2 只给了 `server.type`，缺 `port` / `server.addr`**，照笔记配会「配完了不知道怎么用」。
+- 新增来源存档：`sources/lens-b/mediawarp/04_config_yaml_example.md`（官方 `config/config.yaml.example` 逐字抓取，raw，87 行；去 BOM）。
+
+| 位置 | 变更 |
+| --- | --- |
+| `05` **5.4.2** | `config.yaml` 代码块补全为 `port: 9000` + `server{type:FNTV, addr, auth}`；加**字段分工表**（`port` 监听口 / `type` 类型 / `addr` 上游地址 / `auth` FNTV 不需要）；新增 `[!warning]` **漏 `server.addr` 用不起来** |
+| `05` **5.4.5（新增）** | 「装完不等于用上：让客户端改连中间件端口」：`客户端 → MediaWarp:9000 → 302 直连 / 回退推流` 链路图 + 「必须走 `port`」+ 与 fntv-proxy 同构 + 端口映射前提 + 回退为正常设计 + 验收方法 |
+| `05` 引文对照 | 新增 43–45 行（`port` / `addr` / `auth` 三行逐字，含 FNTV 默认端口 8005 的注释） |
+| `05` 更新记录 | 追加一行 |
+
+- 未引用的来源：飞牛论坛 `tid=54781` / `tid=24834` 有 WAF 拦截，取不到逐字原句，故**不引用**；「客户端走代理端口」这条改由已存档官方来源支撑（README 前置反代定义 `01_github_com.md:51`、配置 `port` 字段 `04_config_yaml_example.md:8`、fntv-proxy 的「指向代理端口」`fntvproxy/01_github_com.md:71`）。
+- 同步：反向提取 vault 05 → `chapters/05_前端接入.md` → `publish_copies.py --apply --only 05` + `assemble_final.py --apply`；`check-md-structure.py` 0 处可疑；`publish_copies --check` 七章全 `=`。
