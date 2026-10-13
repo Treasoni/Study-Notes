@@ -118,8 +118,6 @@
 | 9 | “underlying many of the security vulnerabilities in LLM applications is the fact that data and instructions are not provided in separate channels to the LLM, which allows attackers to use data channels to inject malicious instructions in inference-time attacks (a similar flaw to that which underlies decades-old SQL injection attacks).” | 许多 LLM 应用安全漏洞的根源在于数据与指令并非经由分离的通道提供，使攻击者能借数据通道注入恶意指令。 | sources/U4_nist-ai100-2e2025.md:2268-2271 |
 | 10 | “One potentially useful tool for addressing harm is red teaming—using manual or automated methods to adversarially probe a language model for harmful outputs, and then updating the model to avoid such outputs” | 应对危害的一个可能有用工具是红队——用人工或自动化方法对抗性地探测语言模型的有害输出，再据此更新模型。 | sources/U8_red-teaming-harms.md:15 |
 
-第 1 章把「破甲是什么」讲清了；顺理成章的问题是：既然模型被训练成会拒绝，为什么还能被绕过？
-
 # 第 2 章：为什么能破——对齐的固有局限
 
 ## 2.1 一句话看懂：对齐不是给模型「上锁」，而是在输出分布上「轻推一把」
@@ -213,8 +211,6 @@
 | 19 | “Safety alignment leads to a degradation of the reasoning capability of LRMs.” | 安全对齐会导致大推理模型（LRM）推理能力下降。 | sources/U24_safety-tax.md:10 |
 | 20 | “there exists a trade-off between reasoning and safety capability” | 推理能力与安全能力之间存在权衡。 | sources/U24_safety-tax.md:10 |
 | 33 | “Adversaries only need one attack to succeed, while red teams must be defend against all possible attacks.” | 攻击者只需一次成功，而红队必须防住所有可能的攻击。 | sources/U9_red-teaming-lms.md:230 |
-
-理解了「为什么能破」，接下来就在机制层看这些原理落成了哪几类攻击——本章只讲机制，不含任何可照做的配方。
 
 # 第 3 章：如何破甲——攻击分类与原理（机制层，不含载荷）
 
@@ -339,8 +335,6 @@
 | 31 | “we discover that chat in cipher can bypass the safety alignment techniques of LLMs, which are mainly conducted in natural languages.” | 我们发现，用密码交谈可以绕过 LLM 的安全对齐——而这类对齐主要是在自然语言上进行的。 | sources/U28_cipher.md:10 |
 | 32 | “we generate test inputs using an LM itself, and we use a classifier to detect harmful behavior on test inputs” | 我们用一个语言模型自身来生成测试输入，并用分类器检测测试输入上的有害行为。 | sources/U9_red-teaming-lms.md:18 |
 | 34 | “Our study categorizes jailbreaks into seven distinct types and elaborates on defense strategies that address these vulnerabilities.” | 我们的研究把破甲归为七种不同类型，并详述了针对这些脆弱性的防御策略。 | sources/U29_jailbreakzoo.md:10 |
-
-看清了攻击的机制，问题自然转向防御方：既然没有万能锁，究竟该怎么防、怎么评、怎么管？
 
 # 第 4 章：所以怎么办——检测、防御、评测与治理
 
@@ -475,8 +469,6 @@
 | 48 | “XSTest comprises 250 safe prompts across ten prompt types that well-calibrated models should not refuse to comply with, and 200 unsafe prompts as contrasts that models, for most applications, should refuse.” | XSTest 包含 10 种类型的 250 条安全提示，标定良好的模型不应拒绝它们；另配 200 条不安全提示作为对照，模型在多数应用场景下应当拒绝。 | sources/U21_xstest.md:10 |
 | 50 | “it expands the available attack surface, as GAI itself is vulnerable to attacks like prompt injection or data poisoning.” | 它扩大了可被攻击的面，因为生成式 AI 自身就容易受到提示注入或数据投毒等攻击。 | sources/U33_nist-ai-600-1.md:529-531 |
 | 51 | “Similarly, jailbreaking or prompt engineering tests may not systematically assess validity or reliability risks.” | 同理，越狱或提示工程类测试未必能系统性地评估有效性或可靠性风险。 | sources/U33_nist-ai-600-1.md:2649-2651 |
-
-上面的概念、数字和出处散在各章，最后一章把它们收成几张便于回查的表。
 
 # 第 5 章：术语与速查——把全篇收成几张表
 
