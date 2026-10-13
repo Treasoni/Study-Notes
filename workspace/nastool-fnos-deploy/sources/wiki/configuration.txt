@@ -2200,27 +2200,27 @@ source
 参数，以确保各配置间的区分和调用更加清晰。
 消息接收服务
 ：
-/api/v1/message/?token=your_api_token
+/api/v1/message/?token=moviepilot
 ，微信、SynologyChat、VoceChat的消息回调地址，其中
-your_api_token
+moviepilot
 修改为实际配置中的
 API_TOKEN
 的值。
 Webhook服务
 ：
-/api/v1/webhook?token=your_api_token
+/api/v1/webhook?token=moviepilot
 ，Emby、Jellyfin、Plex等Webhook回调地址，用于接入Webhook请求并传递到MoviePilot内部使用，其中
-your_api_token
+moviepilot
 修改为实际配置中的
 API_TOKEN
 的值。
 下载文件立即整理
 ：
-/api/v1/transfer/now?token=your_api_token
+/api/v1/transfer/now?token=moviepilot
 ，下载文件自动整理默认轮循下载器间隔为5分钟，如果是使用qbittorrent，可在
 QB设置
 ->
 下载完成时运行外部程序
 处填入：
-curl "http://localhost:3000/api/v1/transfer/now?token=your_api_token"
+curl "http://localhost:3000/api/v1/transfer/now?token=moviepilot"
 ，实现无需等待轮循下载完成后立即整理入库（地址、端口和token按实际调整，curl也可更换为wget）。

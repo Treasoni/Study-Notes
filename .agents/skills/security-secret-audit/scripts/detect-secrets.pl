@@ -89,7 +89,9 @@ while (my $line = <STDIN>) {
     push @rules, 'json-web-token'
         if $line =~ /\beyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\b/;
 
-    if (is_config_like_path() && $line =~ /\b($secret_name)\b\s*[:=]\s*(?:"([^"]*)"|'([^']*)'|([^\s,;\}\]\)#]+))/) {
+    # An unquoted value ends at markup, quote, or non-ASCII bytes so trailing
+    # HTML/prose after a short token is not folded into the captured value.
+    if (is_config_like_path() && $line =~ /\b($secret_name)\b\s*[:=]\s*(?:"([^"]*)"|'([^']*)'|([^\s,;\}\]\)#<>"'\x80-\xFF]+))/) {
         my $value = defined $2 ? $2 : defined $3 ? $3 : $4;
         push @rules, 'named-secret-literal'
             if length($value) >= 16 && !is_placeholder($value);
