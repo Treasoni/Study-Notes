@@ -1,0 +1,82 @@
+## 第 5 章：验证与排错：curl、403 与 extract 边界
+
+### 5.1 一句话看懂：一条 curl 就知道接得对不对
+
+前面三章把实例搭起来、开了 JSON、接上了 Hermes。这一章只解决最后一件事：**怎么确认真的接通了**。答案是——不用猜，一条 `curl` 命令就能给出裁决。它打印出一串结果条数，就说明三层全对了：容器在跑、JSON 开着、地址与端口跟 Hermes 配的一致；如果返回 `403` 或者干脆连不上，下面那张症状表能直接把你送到该回头看的章节。
+
+### 5.2 自检：期望输出长什么样
+
+把下面这条命令整段复制进终端（端口用你在第 2 章用的**宿主端口**，这里以 8888 为例）：[^c5-a]
+
+```bash
+curl -s "http://localhost:8888/search?q=test&format=json" | python3 -c \
+  "import sys,json; d=json.load(sys.stdin); print(f'{len(d[\"results\"])} results')"
+```
+
+命中时它会打印出一个数字，形如 `10 results`。**这个数字就是「JSON 通了」的铁证**。官方原话说得很直白：你应当看到类似 10 results 的输出；若拿到 `403 Forbidden`，说明 JSON 格式仍未启用，回去重查开 JSON 的那一步。[^c5-a]
+
+为什么这一条命令能一锤定音？因为它恰好踩在前后端唯一的接口面上：SearXNG 的搜索 API 只有两个端点，`/` 和 `/search`，两者都接受 GET 与 POST；而结果格式由请求里的 `format` 参数决定，不指定、或指定了一个没启用的格式，都会被拒。[^c5-b]
+
+> [!tip] 大白话
+> 这条 `curl` 就是**给实例打个电话问「在吗？」**，它回你一句「10 results」。回得出话，说明四件事同时成立：电话线（宿主端口）通了、号码（`SEARXNG_URL`）对了、对方开着机（容器在跑）、对方听得懂你的方言（`json` 格式已启用）。
+
+还有三个容易忽略的小坑，一并记住：[^c5-g] 一是**查询词里带空格或特殊字符时要 URL 编码**（命令行里手敲容易忘，脚本里用 `urllib.parse.quote()`）；二是**`SEARXNG_URL` 必须设**，没设的话整个后端都不工作；三是**给请求设超时**（`curl --max-time`，或 Python 侧传 `timeout=`），否则实例不可达时命令会一直挂在那里等。
+
+### 5.3 症状 → 病因 → 处置（对照表）
+
+所有「没接上」的表现，基本能归成下面五类。先看现象，再照「处置」列动手：[^c5-c]
+
+| 症状 | 病因 | 处置 |
+| --- | --- | --- |
+| `403 Forbidden` | JSON 格式没开 | 回第 3 章，把 `search.formats` 补上 `json` |
+| `Connection refused` | 容器没起，或 URL 写错 | 先看容器是否在跑；再核对 `SEARXNG_URL` 与**宿主端口**一致 |
+| 空结果（`0 results`） | 该实例挡住了这条查询 | 换个实例，或自建 |
+| 响应很慢 | 公共实例过载 | 自建，或换一个更闲的实例 |
+| `json` 格式不支持 | SearXNG 版本太旧 | 改用 `format=rss`，或升级 SearXNG |
+
+`403` 这一条要单独强调：它**不是命令写错**，而是第 3 章那一步没做或没生效——回去看 `search.formats` 里到底有没有 `json` 即可；同时留意，很多**公共**实例本就把这些格式关掉了。[^c5-b]
+
+如果连症状都拿不到（命令卡住、容器像没反应），先看日志、必要时进容器里查：[^c5-f]
+
+```bash
+# 路径②（官方编排，服务名是 core）
+docker compose logs -f core
+# 路径①（Hermes 单服务，容器名是 searxng）
+docker container logs -f searxng
+```
+
+```bash
+# 需要进容器内部排查时（以官方编排的 core 为例）
+docker compose exec -it --user root core /bin/sh -l
+```
+
+### 5.4 边界：`web_extract` 不走 SearXNG
+
+这是全篇最容易被误解、也最该钉死的一条边界：**SearXNG 只负责「搜」，不负责「取正文」**。三处互相独立的来源口径一致——官方文档明写它是 search-only、`web_extract` 需要另外的 extract provider；源码 docstring 也说它只是聚合上游引擎、并不去抓取 URL；Skill 文档同样标注它只回摘要片段、不返回整页正文。[^c5-d]
+
+所以第 4 章那一行 `extract_backend: "firecrawl"` 不是锦上添花，而是「想拿到全文」的必经之路。**搜得到 ≠ 取得到正文**。[^c5-e]
+
+> [!warning] 别把两种能力混为一谈
+> SearXNG 返回的只有标题、链接和**摘要片段**；要整页正文，得走另一个 provider（如 `firecrawl`）。
+> 这是两条独立链路——接上 SearXNG，并不会顺带把正文提取也解决掉。
+
+### 5.5 引文对照（原文 / 中译 / 出处）
+
+> 「出处」列写 `来源ID · sources/文件名:行`。本章每条引文都查得到具体来源，因此**没有用到 `—`**（`—` 表示「来源不明、宁空不猜」）。本章所引来源快照的取回日期均为 2026-10-07。
+
+| # | 原文（逐字） | 中译 | 出处 |
+| --- | --- | --- | --- |
+| 1 | `You should see something like 10 results. If you get a 403 Forbidden, JSON format is still disabled — recheck step 4.` | 你应当看到类似 10 results 的输出；若得到 403 Forbidden，说明 JSON 格式仍未启用——重查第 4 步。 | L3-1 · sources/l3-1_web-search.md:235 |
+| 2 | `SearXNG supports querying via a simple HTTP API. Two endpoints, / and /search, are supported for both GET and POST methods.` | SearXNG 支持通过一个简单的 HTTP API 查询；支持 `/` 与 `/search` 两个端点，均接受 GET 与 POST 方法。 | L2-6 · sources/l2-6_search_api.html:440-441 |
+| 3 | `Requesting an unset format will return a 403 Forbidden error. Be aware that many public instances have these formats disabled.` | 请求一个未启用的格式会返回 403 Forbidden 错误；注意许多公共实例已禁用这些格式。 | L2-6 · sources/l2-6_search_api.html:446-448 |
+| 4 | `Search-only — SearXNG aggregates upstream engines but does not fetch URLs.` | 仅搜索——SearXNG 只聚合上游引擎，并不抓取 URL。 | L3-5 · sources/l3-5_provider.py:3 |
+| 5 | `No content extraction: SearXNG returns snippets, not full page content. Use web_extract, browser tools, or curl for full articles.` | 不提供正文提取：SearXNG 返回的是摘要片段而非整页内容；要取全文请用 web_extract、浏览器工具或 curl。 | L3-4 · sources/l3-4_searxng-search-SKILL.md:166 |
+| 6 | `Public instances have rate limits, variable uptime, and may disable JSON format at any time. For production use, self-hosting is strongly recommended.` | 公共实例有限流、可用性波动，且可能随时禁用 JSON 格式；生产环境强烈建议自托管。 | L3-1 · sources/l3-1_web-search.md:265 |
+
+[^c5-a]: Hermes Docs · Web Search · 第 6 步自检（`l3-1_web-search.md:228-235`）
+[^c5-b]: Search API · 两端点与未设 format 返回 403（`l2-6_search_api.html:439-448`）
+[^c5-c]: SearXNG Search Skill · Troubleshooting 表（`l3-4_searxng-search-SKILL.md:171-179`）
+[^c5-d]: 三证：官方 search-only（`l3-1_web-search.md:147`）；源码 docstring（`l3-5_provider.py:1-3`）；Skill Limitations（`l3-4_searxng-search-SKILL.md:163-169`）
+[^c5-e]: SearXNG Search Skill · No content extraction（`l3-4_searxng-search-SKILL.md:166`）
+[^c5-f]: 看日志 / 进容器排查（`l2-1_installation-docker.html:559,563,601`）
+[^c5-g]: SearXNG Search Skill · Pitfalls（`l3-4_searxng-search-SKILL.md:181-184`）

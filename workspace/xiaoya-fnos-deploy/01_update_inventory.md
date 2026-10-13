@@ -1,53 +1,46 @@
-# 更新清单：小雅 fnOS 单容器部署笔记集
+# 阶段 1：更新清单（run: update-xiaoya-fnos-alist）
 
-- 生成时间：2026-10-06
-- 工作流：batch-note-update-flow ｜ 运行标识 `update-xiaoya-fnos-routes`
-- 更新目标：统一采用 monlor 社区镜像 `ghcr.io/monlor/xiaoya-alist` 单一路线，**彻底删除官方镜像 `xiaoyaliu/alist` 路线**
-- 已确认边界：**只删官方镜像路线**；xiaoyaDev / DDSRem 整合脚本菜单在第 1、2 章作为「纯净版 / 单容器」概念旁证**保留**
+## 扫描范围
 
-## 扫描范围与编辑面
+| 项 | 值 |
+| --- | --- |
+| 正文唯一来源 | `workspace/xiaoya-fnos-deploy/chapters/`（`0*.md`，7 章） |
+| 入口页 | `workspace/xiaoya-fnos-deploy/output/小雅 fnOS 单容器部署（总览）.md`（不在 `chapters/`） |
+| 派发副本 | `workspace/xiaoya-fnos-deploy/output/*.md` + `final_note.md`（由脚本机械重建） |
+| 发布副本 | `流媒体与影音/小雅 fnOS 单容器部署/*.md`（同上） |
 
-| 层 | 路径 | 角色 | 本次处理 |
-| --- | --- | --- | --- |
-| 最上游 | `workspace/xiaoya-fnos-deploy/chapters/01..07_*.md` | 7 章正文的编辑面 | 唯一人工编辑处 |
-| 中间件 | `workspace/xiaoya-fnos-deploy/output/*.md` | 装配产物（补 frontmatter + 章首尾导航栏） | 从 `chapters/` 机械重生成 |
-| 入口页 | `workspace/xiaoya-fnos-deploy/output/小雅 fnOS 单容器部署（总览）.md` | 入口页，**无 chapters 级源文件** | 直接改此处，再同步 vault |
-| 发布面 | `流媒体与影音/小雅 fnOS 单容器部署/*.md` | Obsidian vault 成品 | 从中间件机械同步 |
+副本不单独编辑：`publish_copies.py` 从 `chapters/` 重建 `output/` 与 vault，`assemble_final.py` 重建 `final_note.md`。
 
-已核实的机械变换：`output/ = chapters/ + YAML frontmatter + 章首导航行 + 章末「---」与返回导航行`（逐字等价，无其他改写）。
+## 清单一览
 
-**预先存在的漂移（不影响本次，但记录）**：`03 动手前准备.md` 的 vault 副本表格被 Obsidian 自动对齐过（单元格补空格），与 `output/` 有 26 行纯格式差异；本次同步时以「语义一致」为准，不追求 ASCII 对齐还原。
+| id | 文件 | 标题 | 体积(B) | monlor/dds 命中 | 状态 | 理由 |
+| --- | --- | --- | ---: | ---: | --- | --- |
+| ch01 | `chapters/01_开篇定位.md` | 第 1 章 开篇定位 | 13233 | 5 | ready | AList/Emby 组件描述引自 monlor；「官方脚本」措辞需校正 |
+| ch02 | `chapters/02_选型对比.md` | 第 2 章 选型对比 | 19987 | 15 | ready | 路线 E 组成、资源推荐表、硬解引文均据 monlor |
+| ch03 | `chapters/03_动手前准备.md` | 第 3 章 动手前准备 | 28096 | 14 | ready | 目录/端口/凭据三张清单全为 monlor 环境变量口径 |
+| ch04 | `chapters/04_部署实战.md` | 第 4 章 部署实战 | 12745 | 37 | ready | 整章围绕 monlor 镜像与 compose，需整体改写 |
+| ch05 | `chapters/05_前端接入.md` | 第 5 章 前端接入 | 45151 | 10 | ready | 少量 monlor 引文（阿里限速/转存 115）与 `ALIYUN_TO_115` 口径 |
+| ch06 | `chapters/06_避坑清单.md` | 第 6 章 避坑清单 | 11749 | 0 | candidate | 仅 1 处 monlor 环境变量 `AUTO_CLEAR_ENABLED` 提法 |
+| ch07 | `chapters/07_运维与收尾.md` | 第 7 章 运维与收尾 | 13677 | 17 | ready | 更新口径、资源推荐表、镜像纪律均按 monlor 写 |
+| overview | `output/小雅 fnOS 单容器部署（总览）.md` | 总览 | 3821 | 2 | ready | 读前须知点名 monlor 镜像与 monlor 项目 |
 
-## 命中统计（关键词计数）
+> `monlor/dds 命中` 为关键词粗筛（`monlor|ghcr|ddsrem|DDSRem|ddsderek|EMBY_ENABLED|JELLYFIN_ENABLED|docker compose`），仅用于排序人工复核，不等于精确改动行数。
 
-| # | 文件 | 官方镜像名 | 「官方」字样 | 官方脚本 | 文件凭据三件套 | guest_Api789 | 官方端口示例 | 双路线框架 | monlor |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `01_开篇定位.md` | 1 | 4 | 0 | 0 | 0 | 0 | 0 | 5 |
-| 2 | `02_选型对比.md` | 0 | 0 | 0 | 0 | 0 | 0 | 10 | 15 |
-| 3 | `03_动手前准备.md` | 3 | 13 | 0 | 27 | 14 | 1 | 9 | 27 |
-| 4 | `04_部署实战.md` | 8 | 19 | 9 | 0 | 4 | 5 | 14 | 47 |
-| 5 | `05_前端接入.md` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 8 |
-| 6 | `06_避坑清单.md` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| 7 | `07_运维与收尾.md` | 2 | 12 | 3 | 0 | 0 | 0 | 3 | 24 |
-| 8 | `（总览）.md`（仅 vault/output） | 0 | 2 | 0 | 0 | 0 | 0 | 1 | 0 |
+## 关键词命中分布（按文件）
 
-> 「双路线框架」在第 2 章计 10 处，指的是 **Emby 全家桶(E) vs 飞牛影视(F)**，与镜像路线无关，属保留项。
+| 文件 | monlor 系 | ddsrem 系 | 备注 |
+| --- | ---: | ---: | --- |
+| 01 | 5 | 0 | 组件描述 + 镜像提及 |
+| 02 | 15 | 0 | 路线 E 组成 3 条 + 资源表 1 条 + 硬解 1 条 |
+| 03 | 14 | 0 | 目录/端口/凭据全篇 |
+| 04 | 27 | 0 | 全章 |
+| 05 | 8 | 0 | 限速/转存 115 引文 |
+| 06 | 0 | 0 | 仅 `AUTO_CLEAR_ENABLED` 1 处（不含关键词列） |
+| 07 | 14 | 0 | 更新口径 + 资源表 + 未决项 |
 
-## 逐篇判定
+## 判定说明
 
-| # | 文件 | 标题 | 状态 | 优先级 | 判定依据 |
-| --- | --- | --- | --- | --- | --- |
-| 1 | `chapters/01_开篇定位.md` | 第 1 章 开篇定位——小雅是什么，这篇要解决什么问题 | **update** | 低 | 第 81 行「或直接运行官方镜像 `xiaoyaliu/alist`」属部署指引，删；引文对照第 2 行「官方镜像作者把…内嵌进容器」随镜像路线一起移除；第 74 行「官方来源（官方镜像页、官方脚本仓库）」收窄口径 |
-| 2 | `chapters/02_选型对比.md` | 第 2 章 选型对比——飞牛影视能不能替代 Emby | **skip** | — | 本章「两条路线」= Emby 全家桶 vs 飞牛影视；0 处官方镜像命中；脚本菜单旁证按已确认边界保留 |
-| 3 | `chapters/03_动手前准备.md` | 第 3 章 动手前准备——目录、端口与凭据（新手可跳过） | **update** | 高 | 删「文件凭据三件套」小节（27 处）与「容器内端口 5678 vs 80」来源冲突段；WebDAV 账号由两条并记收敛为 monlor 的 `dav` + `guest_Api789`（已回源 `sources/p3/monlor-env/01_raw_githubusercontent_com.md:32`）；改第 22 行纪律句、镜像警告 Callout、小结、下一章预告 |
-| 4 | `chapters/04_部署实战.md` | 第 4 章 部署实战——单容器小雅（两条镜像路线） | **update** | 高 | 删 4.2「路线一：官方镜像」整节（含官方一键脚本、社区 `docker run` 示例、端口冲突 warning、整合脚本入口）；章节标题去掉「两条镜像路线」；原 4.3 monlor 升为 4.2；4.4 对照表改版或删除；引文对照删官方条目 |
-| 5 | `chapters/05_前端接入.md` | 第 5 章 前端接入——让飞牛影视认到小雅 | **skip** | — | 0 处官方镜像命中；文中出现 monlor 是它自身 compose 的引用 |
-| 6 | `chapters/06_避坑清单.md` | 第 6 章 避坑清单——装错地方、风控、外网与 UA | **skip** | — | 0 处路线关键词命中 |
-| 7 | `chapters/07_运维与收尾.md` | 第 7 章 运维与收尾 | **update** | 中 | 更新口径表由双列改单列；删「官方镜像重启即刷新索引」段；改镜像名对照 warning、升级比喻、易混点表第 1 行、小结、引文对照 2 条（第 9、10 行） |
-| 8 | `output/小雅 fnOS 单容器部署（总览）.md` | 小雅 fnOS 单容器部署（总览） | **update** | 低 | 章节目录第 4 章一句话说明含「两条镜像路线」；第 54 行「以官方仓库说明为准」口径 |
-
-汇总：**update 5 篇 / skip 3 篇 / needs-review 0 篇**。
-
-## 需复核项
-
-- `04_部署实战.md` 4.2 节内的**整合脚本入口**（`sources/01_raw_githubusercontent_com.md:39`）：它不属于官方镜像，但位于待删小节内，且与本章「单一路线」目标冲突。**处置见 P2 计划的需确认项。**
+- **skip**：无。8 个文件全部进入处理（ch06 与 overview 属轻量校订）。
+- **needs-review**：无。
+- **前置引用**：`sources/01_raw_githubusercontent_com.md` 顶部 URL 即 `https://raw.githubusercontent.com/xiaoyaDev/xiaoya-alist/master/README.md`，**已是目标项目的 README**，无需换源，第 1–3 章现有引用可继续沿用。
+- **新增一手来源**：`sources/xiaoyaDev/all_in_one.sh`（6567 行，取自 `raw.githubusercontent.com/xiaoyaDev/xiaoya-alist/master/all_in_one.sh`）与 `sources/xiaoyaDev/main.sh`（bootstrap）。

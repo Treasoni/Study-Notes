@@ -1,0 +1,58 @@
+Home / Guides
+
+### REA guides.
+
+          Analyze a native function, an Electron export or a browser request.
+          Each guide includes a prompt, code and results.
+
+          First investigation
+
+### Set up REA
+
+            Connect your coding agent or use REA from the terminal.
+
+            Get started with REA
+
+          Native binaries
+
+### Recover a sound-pan calculation
+
+              Start with a Windows game executable. Inspect instructions, follow
+              a caller, read numeric constants and check the recovered C.
+
+              Instructions →
+              Caller →
+              Constants →
+              C function
+
+            Native analysis guide
+
+          JavaScript & Electron
+
+### Follow a CSV export
+
+              A small Notes app spreads one feature across the renderer, preload
+              and main process. Use REA to connect the API, IPC channel and file
+              writer.
+
+              Button →
+              Preload API →
+              IPC → CSV file
+
+            JavaScript & Electron guide
+
+              For a larger packaged app, follow
+              Notion's clipboard bridge.
+
+          Browser behavior
+
+### Observe a click
+
+              Open a working Notes example, capture an export request and find
+              the code that turns its response into a download.
+
+              Your click →
+              Captured request →
+              Export script
+
+            Browser observation guide

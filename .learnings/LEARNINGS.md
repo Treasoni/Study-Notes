@@ -13,9 +13,9 @@
 正文含 `**Logged**` / `**Priority**` / `**Status**` / `**Area**` 与
 `### Summary` / `### Details` / `### Suggested Action`。
 
-最近一次维护 **2026-10-06（第六次，`/maintain-learnings`）**：归档 `LRN-20261006-028` / `-029` / `-030`
-与 `ERR-20261006-021` / `-022` 五条；机制改动（note-updater + chapter-writer `1.5.0 → 1.6.0`）与逐条复核
-见 `.learnings/archive/2026-10-06-maintenance.md` 第八节。
+最近一次维护 **2026-10-07（第七次，`/maintain-learnings`）**：归档 `LRN-20261007-031` / `ERR-20261007-023`
+两条；机制改动（退役根守卫接线 + `research-collector` `2.5.0` / `note-updater` `1.7.0` / `batch-note-updater` `1.1.0`）
+与逐条复核见 `.learnings/archive/2026-10-07-maintenance.md`。
 更早的归档见 `.learnings/archive/`（`2026-08-15` / `2026-09-11` / `2026-09-14` / `2026-09-23`
 / `2026-09-29` / `2026-09-30` / `2026-10-06` 各维护报告与 `-archived.md`）。
 

@@ -1,0 +1,54 @@
+{
+  "schema": "prompt-cache-baseline/v1",
+  "frozen_at": "2026-10-07T09:41:45+08:00",
+  "freeze_cut_utc": "2026-10-07T01:07:58.987Z",
+  "events_total": 5622,
+  "pricing": {
+    "cache_read_price_ratio": 0.1,
+    "note": "billed_estimate = fresh + ratio*cread; ratio is an assumption, not a measured price"
+  },
+  "targets": {
+    "main_pass": 0.7,
+    "main_stretch": 0.5,
+    "subagent_pass": 0.5,
+    "warn": 0.9,
+    "min_contexts": 10
+  },
+  "knobs": {
+    "effortLevel": "max",
+    "thinkingBudget": "high",
+    "savedProviderEffort.claude": "max"
+  },
+  "layers": {
+    "main": {
+      "contexts": 138,
+      "events": 4727,
+      "fresh_total": 19053215,
+      "cread_total": 432976687,
+      "hit_rate": 0.9578,
+      "fresh_median_per_context": 110088.5,
+      "fresh_p25": 53915,
+      "fresh_p75": 173806,
+      "cread_median_per_context": 1175232.0,
+      "events_per_context": 34.25,
+      "billed_estimate": 62350884
+    },
+    "subagent": {
+      "contexts": 82,
+      "events": 895,
+      "fresh_total": 2696753,
+      "cread_total": 47926784,
+      "hit_rate": 0.9467,
+      "fresh_median_per_context": 28954.0,
+      "fresh_p25": 17997,
+      "fresh_p75": 41835,
+      "cread_median_per_context": 258240.0,
+      "events_per_context": 10.91,
+      "billed_estimate": 7489431
+    }
+  },
+  "fanout": {
+    "subagent_contexts_per_main_session": 0.59,
+    "subagent_fresh_share": 0.124
+  }
+}

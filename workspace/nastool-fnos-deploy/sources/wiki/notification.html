@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="zh"><head><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><meta name="msapplication-TileImage" content="/_assets/favicons/mstile-150x150.png"><title>通知 | MoviePilot Wiki</title><meta name="description" content="设置消息通知渠道以及远程控制"><meta property="og:title" content="通知"><meta property="og:type" content="website"><meta property="og:description" content="设置消息通知渠道以及远程控制"><meta property="og:image"><meta property="og:url" content="https://wiki.movie-pilot.org/notification"><meta property="og:site_name" content="MoviePilot Wiki"><link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/_assets/favicons/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicons/favicon-16x16.png"><link rel="mask-icon" href="/_assets/favicons/safari-pinned-tab.svg" color="#1976d2"><link rel="manifest" href="/_assets/manifest.json"><script type="f628c110d17e6aac7578c267-text/javascript">var siteConfig = {"title":"MoviePilot Wiki","theme":"default","darkMode":false,"tocPosition":"right","lang":"zh","rtl":false,"company":"","contentLicense":"alr","footerOverride":"","logoUrl":"/assets/logo.svg"}
+var siteLangs = []
+</script><link type="text/css" rel="stylesheet" href="/_assets/css/app.0f8c3acc9686d9d11765.css"><script type="f628c110d17e6aac7578c267-text/javascript" src="/_assets/js/runtime.js?1777631845"></script><script type="f628c110d17e6aac7578c267-text/javascript" src="/_assets/js/app.js?1777631845"></script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MRPCZR1JF5" type="f628c110d17e6aac7578c267-text/javascript"></script>
+<script type="f628c110d17e6aac7578c267-text/javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MRPCZR1JF5');
+</script>
+</head><body><div id="root"><page locale="zh" path="notification" title="通知" description="设置消息通知渠道以及远程控制" :tags="[]" created-at="2024-05-31T12:38:49.255Z" updated-at="2026-10-02T17:11:16.887Z" author-name="Administrator" :author-id="1" editor="markdown" :is-published="true" toc="W3sidGl0bGUiOiLns7vnu5/pgJrnn6UiLCJhbmNob3IiOiIj57O757uf6YCa55+lIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi6YCa55+l6ZqU56a7IiwiYW5jaG9yIjoiI+mAmuefpemalOemuyIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IuaZuuiDveWKqeaJi+a2iOaBr+S6pOS6kiIsImFuY2hvciI6IiPmmbrog73liqnmiYvmtojmga/kuqTkupIiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLlvq7kv6EiLCJhbmNob3IiOiIj5b6u5L+hIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoiVGVsZWdyYW0iLCJhbmNob3IiOiIjdGVsZWdyYW0iLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiJTbGFjayIsImFuY2hvciI6IiNzbGFjayIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IlN5bm9sb2d5Q2hhdCIsImFuY2hvciI6IiNzeW5vbG9neWNoYXQiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiJWb2NlQ2hhdCIsImFuY2hvciI6IiN2b2NlY2hhdCIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IkRpc2NvcmQiLCJhbmNob3IiOiIjZGlzY29yZCIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IldlYlB1c2giLCJhbmNob3IiOiIjd2VicHVzaCIsImNoaWxkcmVuIjpbXX1d" :page-id="18" sidebar="W3siaSI6InNkaS0xIiwiayI6ImhlYWRlciIsImwiOiLlvIDlp4siLCJjIjpudWxsLCJ5IjpudWxsLCJ0IjpudWxsfSx7ImkiOiJzZGktMiIsImsiOiJsaW5rIiwibCI6IueOr+Wig+WHhuWkhyIsImMiOiJtZGktY2hlY2stY2lyY2xlLW91dGxpbmUiLCJ5IjoicGFnZSIsInQiOiIvemgvcmVhZHkifSx7ImkiOiJzZGktMyIsImsiOiJsaW5rIiwibCI6IuWuieijheaMh+W8lSIsImMiOiJtZGktZmxhcmUiLCJ5IjoicGFnZSIsInQiOiIvemgvaW5zdGFsbCJ9LHsiaSI6InNkaS00IiwiayI6ImxpbmsiLCJsIjoi5pys5ZywIENMSSIsImMiOiJtZGktY29uc29sZSIsInkiOiJwYWdlIiwidCI6Ii96aC9jbGkifSx7ImkiOiJzZGktNSIsImsiOiJsaW5rIiwibCI6IumFjee9ruWPguiAgyIsImMiOiJtZGktY29nLW91dGxpbmUiLCJ5IjoicGFnZSIsInQiOiIvemgvY29uZmlndXJhdGlvbiJ9LHsiaSI6InNkaS02IiwiayI6ImxpbmsiLCJsIjoi5Y2H57qnIiwiYyI6Im1kaS1wdWJsaXNoIiwieSI6InBhZ2UiLCJ0IjoiL3poL3VwZ3JhZGUifSx7ImkiOiJzZGktNyIsImsiOiJsaW5rIiwibCI6IuWPkeihjOivtOaYjiIsImMiOiJtZGktZmlyZSIsInkiOiJwYWdlIiwidCI6Ii96aC9yZWxlYXNlIn0seyJpIjoic2RpLTgiLCJrIjoibGluayIsImwiOiLlkajovrnpobnnm64iLCJjIjoibWRpLW9yYml0IiwieSI6InBhZ2UiLCJ0IjoiL3poL2Vjb3N5c3RlbSJ9LHsiaSI6InNkaS05IiwiayI6ImhlYWRlciIsImwiOiLnlKjmiLfmjIfljZciLCJjIjpudWxsLCJ5IjpudWxsLCJ0IjpudWxsfSx7ImkiOiJzZGktMTAiLCJrIjoibGluayIsImwiOiLln7rnoYAiLCJjIjoibWRpLWN1YmUtb3V0bGluZSIsInkiOiJwYWdlIiwidCI6Ii96aC9iYXNpYyJ9LHsiaSI6InNkaS0xMSIsImsiOiJsaW5rIiwibCI6IuermeeCuSIsImMiOiJtZGktd2ViIiwieSI6InBhZ2UiLCJ0IjoiL3poL3NpdGUifSx7ImkiOiJzZGktMTIiLCJrIjoibGluayIsImwiOiLmkJzntKIiLCJjIjoibWRpLW1hZ25pZnkiLCJ5IjoicGFnZSIsInQiOiIvemgvc2VhcmNoIn0seyJpIjoic2RpLTEzIiwiayI6ImxpbmsiLCJsIjoi5LiL6L29IiwiYyI6Im1kaS1kb3dubG9hZCIsInkiOiJwYWdlIiwidCI6Ii96aC9kb3dubG9hZCJ9LHsiaSI6InNkaS0xNCIsImsiOiJsaW5rIiwibCI6IuiuoumYhSIsImMiOiJtZGktcnNzIiwieSI6InBhZ2UiLCJ0IjoiL3poL3N1YnNjcmliZSJ9LHsiaSI6InNkaS0xNSIsImsiOiJsaW5rIiwibCI6IuaWh+S7tuaVtOeQhiIsImMiOiJtZGktZmlsZSIsInkiOiJwYWdlIiwidCI6Ii96aC9yZW9yZ2FuaXplIn0seyJpIjoic2RpLTE2IiwiayI6ImxpbmsiLCJsIjoi6YCa55+lIiwiYyI6Im1kaS1tZXNzYWdlIiwieSI6InBhZ2UiLCJ0IjoiL3poL25vdGlmaWNhdGlvbiJ9LHsiaSI6InNkaS0xNyIsImsiOiJsaW5rIiwibCI6IuaPkuS7tiIsImMiOiJtZGktcHV6emxlIiwieSI6InBhZ2UiLCJ0IjoiL3poL3BsdWdpbiJ9LHsiaSI6InNkaS0xOCIsImsiOiJsaW5rIiwibCI6IuaZuuiDveWKqeaJiyIsImMiOiJtZGktcm9ib3QiLCJ5IjoicGFnZSIsInQiOiIvemgvYWdlbnQifSx7ImkiOiJzZGktMTkiLCJrIjoibGluayIsImwiOiJNQ1AiLCJjIjoibWRpLXRvb2xzIiwieSI6InBhZ2UiLCJ0IjoiL3poL21jcCJ9LHsiaSI6InNkaS0yMCIsImsiOiJsaW5rIiwibCI6Iui/m+mYtiIsImMiOiJtZGktYXBwbGljYXRpb24tY29nIiwieSI6InBhZ2UiLCJ0IjoiL3poL2FkdmFuY2VkIn0seyJpIjoic2RpLTIxIiwiayI6ImxpbmsiLCJsIjoi6K+K5pat5LiO5L+u5aSNIiwiYyI6Im1kaS1kb2N0b3IiLCJ5IjoicGFnZSIsInQiOiIvemgvZG9jdG9yIn0seyJpIjoic2RpLTIyIiwiayI6ImxpbmsiLCJsIjoi5bi46KeB6Zeu6aKYIiwiYyI6Im1kaS1mcmVxdWVudGx5LWFza2VkLXF1ZXN0aW9ucyIsInkiOiJwYWdlIiwidCI6Ii96aC90cm91Ymxlc2hvb3RpbmcifSx7ImkiOiJzZGktMjMiLCJrIjoiaGVhZGVyIiwibCI6IuW8gOWPkeiAhSIsImMiOm51bGwsInkiOm51bGwsInQiOm51bGx9LHsiaSI6InNkaS0yNCIsImsiOiJsaW5rIiwibCI6IuaPkuS7tuW8gOWPkSIsImMiOiJtZGktYXBwcyIsInkiOiJwYWdlIiwidCI6Ii96aC9wbHVnaW5kZXYifSx7ImkiOiJzZGktMjUiLCJrIjoibGluayIsImwiOiLkuLvpopjpo47moLwiLCJjIjoibWRpLXBhbGV0dGUiLCJ5IjoicGFnZSIsInQiOiIvemgvdGhlbWVkZXYifV0=" nav-mode="MIXED" comments-enabled effective-permissions="eyJjb21tZW50cyI6eyJyZWFkIjp0cnVlLCJ3cml0ZSI6ZmFsc2UsIm1hbmFnZSI6ZmFsc2V9LCJoaXN0b3J5Ijp7InJlYWQiOmZhbHNlfSwic291cmNlIjp7InJlYWQiOmZhbHNlfSwicGFnZXMiOnsicmVhZCI6dHJ1ZSwid3JpdGUiOmZhbHNlLCJtYW5hZ2UiOmZhbHNlLCJkZWxldGUiOmZhbHNlLCJzY3JpcHQiOmZhbHNlLCJzdHlsZSI6ZmFsc2V9LCJzeXN0ZW0iOnsibWFuYWdlIjpmYWxzZX19" edit-shortcuts="eyJlZGl0RmFiIjp0cnVlLCJlZGl0TWVudUJhciI6ZmFsc2UsImVkaXRNZW51QnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsQnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsTmFtZSI6IkdpdEh1YiIsImVkaXRNZW51RXh0ZXJuYWxJY29uIjoibWRpLWdpdGh1YiIsImVkaXRNZW51RXh0ZXJuYWxVcmwiOiJodHRwczovL2dpdGh1Yi5jb20vb3JnL3JlcG8vYmxvYi9tYWluL3tmaWxlbmFtZX0ifQ==" filename="notification.md"><template slot="contents"><div><h1 id="系统通知" class="toc-header"><a class="toc-anchor" href="#系统通知">¶</a> 系统通知</h1>
+<p>系统运行状态以及发生错误时，会通过系统通知进行提醒，可登录WEB管理界面，在右上角消息提醒中心进行查看。</p>
+<p>V3 通知模板可以使用 <code v-pre="true">{{ instance_name }}</code> 显示发送通知的实例主机名。例如，将标题写成 <code v-pre="true">[{{ instance_name }}] {{ title }}</code>，多台实例共用同一个通知群时即可区分来源。Docker Compose 可通过 <code>hostname</code> 为每个容器指定稳定名称；未指定时使用容器自身的主机名。</p>
+<blockquote class="is-info">
+<p><strong>V2版本变化说明</strong> <br> 1、v2.0.0+ 版本后<code>API_TOKEN</code>需要设置<strong>16位或以上的复杂字符串</strong> 。<br>
+2、如果同一类型的消息配置了多个，回调请求地址中还需要加上 <strong>&amp;source=配置名称</strong> 参数，其中配置名称建议使用英文，如果配置名称为中文或存在特殊字符（如空格），部分平台（如企业微信）可能需要进行URL编码。<br>
+3、为了方便识别和管理，建议统一在所有回调地址中添加<code>source</code>参数，以确保各配置间的区分和调用更加清晰。<br>
+4、API_TOKEN获取路径：设定 -&gt; 系统 -&gt; 基础设置 -&gt; API令牌<br>
+<img src="/api_token.jpg" alt="api_token.jpg"></p>
+</blockquote>
+<h1 id="通知隔离" class="toc-header"><a class="toc-anchor" href="#通知隔离">¶</a> 通知隔离</h1>
+<p>V2版本支持消息通知按用户隔离，<strong>需要在用户个人信息中维护对应通知渠道的ID</strong>，同时在设定中按消息类型选择好通知发送范围。</p>
+<ul>
+<li>使用远程消息或菜单命令交互进行交互时，交互类消息只有操作人才能收到。</li>
+<li>对于用户主动发起的操作或者有关联到对应用户的通知，比如开始下载、新增订阅、完成订阅等，按设定的通知发送范围设定，可发送给操作人、管理员或全体人员。</li>
+<li>对于入库、系统通知、各类插件通知等系统自动发起无法关联操作人员的广播类消息，按消息发送范围设定，可指定发送给管理员或者全体人员。</li>
+<li>通知渠道配置由超级管理员维护。选择“仅管理员”时，先使用超级管理员个人信息中维护的渠道ID；超级管理员没有维护时，使用该通知渠道配置中的默认ID作为超级管理员的目标。渠道默认ID只属于管理员范围，不能作为普通操作用户的渠道ID。</li>
+<li>选择“仅操作用户”时，只发送给当前操作用户，并且该用户必须在个人信息中维护当前通知渠道的ID；没有操作用户时才回退到管理员，操作用户存在但没有维护渠道ID时不发送，也不会回退到管理员。发送给全体的通知不受此限制。</li>
+<li>对于一些插件会添加订阅的，如果想实现该类订阅通知发送给特定人员，需要在系统中建立一个名称与该插件产生的订阅用户名一致的用户，并设定通知渠道ID。</li>
+</ul>
+<h1 id="智能助手消息交互" class="toc-header"><a class="toc-anchor" href="#智能助手消息交互">¶</a> 智能助手消息交互</h1>
+<p>当智能助手已启用，且对应通知渠道已完成接入后，消息入口不再只是用来收通知，也可以作为智能助手的远程交互入口。</p>
+<p>常见能力包括：</p>
+<ul>
+<li>发送文本让智能助手分析搜索、下载、整理、订阅问题</li>
+<li>在支持附件能力的渠道中发送图片，让智能助手辅助识别或判断</li>
+<li>在支持附件能力的渠道中发送文件，并由系统保存原始附件，再把本地文件路径交给智能助手处理</li>
+<li>在支持语音能力的渠道中发送语音，并先完成语音识别，再继续智能助手对话</li>
+</ul>
+<p class="is-info">关于智能助手本身的配置项、CLI 用法、图片输入开关等，参考 <a href="/agent" class="is-internal-link is-valid-page">智能助手</a>。</p>
+<h1 id="微信" class="toc-header"><a class="toc-anchor" href="#微信">¶</a> 微信</h1>
+<blockquote class="is-success">
+<p>在企业微信控制台<code>我的企业-&gt;微信插件</code>找到二维码，使用微信扫码后可直接在微信使用，无需打开企业微信客户端。</p>
+</blockquote>
+<ul>
+<li><strong>企业ID</strong>：在企业微信管理后台<code>我的企业</code>－<code>企业信息</code>下查看<code>企业ID</code>。</li>
+<li><strong>应用Secret</strong>： 在企业微信管理后台<code>应用管理</code>－<code>自建</code>下查看<code>Secret</code>。</li>
+<li><strong>应用AgentId</strong>：在企业微信管理后台<code>应用管理</code>－<code>自建</code>下查看<code>AgentId</code>。</li>
+<li><strong>消息推送代理</strong>：填写自己可用的<code>消息代理服务地址</code>，并将消息代理服务器的真实IP填写到企业微信应用<code>IP白名单</code>中。</li>
+</ul>
+<h3 id="微信消息回调" class="toc-header"><a class="toc-anchor" href="#微信消息回调">¶</a> 微信消息回调</h3>
+<ul>
+<li>在微信企业应用<code>接收消息</code>设置页面生成<code>Token</code>和<code>EncodingAESKey</code>并填入<code>设定-&gt;通知-&gt;微信</code>对应项，并<strong>保存</strong>。</li>
+<li>在微信企业应用<code>接收消息</code>页面输入此地址：<code>http(s)://DOMAIN:PORT/api/v1/message/?token=moviepilot</code>（其中<code>moviepilot</code>修改为实际配置中实际的<code>API_TOKEN</code>的值，DOMAIN、PORT替换为本工具的外网访问地址及端口，<strong>需要有公网IP域名并做好端口转发</strong>），能正常保存即设置成功。</li>
+<li>会自动生成微信控制菜单，无需手动维护。</li>
+</ul>
+<h3 id="消息代理服务器" class="toc-header"><a class="toc-anchor" href="#消息代理服务器">¶</a> 消息代理服务器</h3>
+<p>2022年6月后新建的企业微信应用需要有固定公网IP的代理才能接收到消息，<strong>需要使用有固定IP的VPS搭建代理服务</strong>，同时代理添加以下代码：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-nginx">location /cgi-bin/gettoken {
+    proxy_pass https://qyapi.weixin.qq.com;
+}
+location /cgi-bin/message/send {
+    proxy_pass https://qyapi.weixin.qq.com;
+}
+location  /cgi-bin/menu/create {
+    proxy_pass https://qyapi.weixin.qq.com;
+}
+</code></pre>
+<p>可以使用这个项目直接搭建：<a href="https://github.com/DDS-Derek/wxchat-Docker" class="is-external-link">wxchat-Docker</a></p>
+<p>感谢 <a href="https://github.com/snnh" class="is-external-link">@snnh</a> 提供的教程：<a href="/tencent_cdn_qywx" class="is-internal-link is-valid-page">使用腾讯云cdn实现企业微信反向代理</a></p>
+<p>或者使用 TCP 中转服务器来实现，以 socat 为例，使用 docker compose 搭建中转服务器</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-yml">version: "3.5"
+services:
+  wxqyapi-relay:
+      image: alpine/socat
+      container_name: wxqyapi-relay
+      command: "TCP-LISTEN:9090,fork,reuseaddr TCP:qyapi.weixin.qq.com:443"
+      expose:
+        - "9090"
+      ports:
+        - "443:9090"
+      restart: unless-stopped
+</code></pre>
+<p>然后添加 hosts 将 <a href="http://qyapi.weixin.qq.com" class="is-external-link">qyapi.weixin.qq.com</a> 指向该服务即可</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-hosts">ip_of_your_server qyapi.weixin.qq.com
+</code></pre>
+<p>如果 socat 服务不能使用 443 端口，需要配置 WECHAT_PROXY，比如 socat 监听的 8543 端口，需要设置 <code>WECHAT_PROXY=https://qyapi.weixin.qq.com:8543</code> 并同时配置 hosts</p>
+<p>TCP 中转服务也可以通过 Nginx 实现，通常 socat 用不了 443 端口都是因为 443 被 Nginx 占用了，方法参考 <a href="https://atpx.com/blog/nginx-tcp-proxy-forward-client-ip/" class="is-external-link">https://atpx.com/blog/nginx-tcp-proxy-forward-client-ip/</a></p>
+<h3 id="管理员白名单" class="toc-header"><a class="toc-anchor" href="#管理员白名单">¶</a> 管理员白名单</h3>
+<p>设置后，只有在<code>管理员白名单</code>的用户才可以使用微信应用号的菜单功能。</p>
+<h1 id="telegram" class="toc-header"><a class="toc-anchor" href="#telegram">¶</a> Telegram</h1>
+<ul>
+<li>采用消息轮循方式接收消息，无需特殊设置即具有Telegram消息交互能力。</li>
+<li>需要网络能正常连挡Telegram。</li>
+</ul>
+<h3 id="用户白名单" class="toc-header"><a class="toc-anchor" href="#用户白名单">¶</a> 用户白名单</h3>
+<p>设置后，只有<code>用户白名单</code>中的ID对应用户，才能关注你的机器人发送消息。</p>
+<h3 id="管理员白名单-1" class="toc-header"><a class="toc-anchor" href="#管理员白名单-1">¶</a> 管理员白名单</h3>
+<p>设置后，只有在<code>管理员白名单</code>的用户才可以关注你的机器人并操作命令功能。</p>
+<h1 id="slack" class="toc-header"><a class="toc-anchor" href="#slack">¶</a> Slack</h1>
+<ul>
+<li><a href="https://slack.com/intl/zh-cn/" class="is-external-link">https://slack.com/intl/zh-cn/</a> 创建工作区</li>
+<li><a href="https://api.slack.com/" class="is-external-link">https://api.slack.com/</a> 创建App应用，打开 <code>Socket Mode</code>。</li>
+<li>开启<code>Event Subscriptions</code>、<code>Bots</code>、<code>Permissions</code>。其中<code>Bot Token Scopes</code> 赋于 <code>chat:write</code>、<code>im:read</code>、<code>im:history</code> 、<code>channels:read</code>、<code>commands</code>、<code>groups:read</code>权限；<code>Subscribe to bot events</code> 赋于 <code>message.im</code>、<code>app_mention</code> 权限；按需维护<code>Interactivity &amp; Shortcuts</code>菜单，类型为<code>Global</code>，菜单Callback ID需与项目主页说明一致。</li>
+<li>创建 <code>App-Level Tokens</code> 并赋于 <code>connections:write</code> 权限。</li>
+<li>Install App 到工作区，登录工作区将App添加到<code>全体</code>频道。</li>
+<li><code>OAuth &amp; Permissions</code> 中 获取 <code>Bot User OAuth Token</code>，<code>Basic Information</code> 中 获取 <code>App-Level Tokens </code>填入相关设置项中，保存。</li>
+</ul>
+<h1 id="synologychat" class="toc-header"><a class="toc-anchor" href="#synologychat">¶</a> SynologyChat</h1>
+<ul>
+<li>群晖中安装<code>Synology Chat</code>。</li>
+<li><code>整合-&gt;机器人</code>中创建机器人，机器人勾选<code>启用整合</code>，取消<code>在聊天机器人列表中隐藏</code>，<code>传出URL</code>设置为<code>http://ip:port/api/v1/message/?token=moviepilot</code>，其中<code>moviepilot</code>修改为实际配置中实际的<code>API_TOKEN</code>的值，<code>ip:port</code>为实际MoviePilot的IP地址和端口。记录<code>机器人传入URL</code>和<code>令牌</code>。</li>
+<li>将<code>机器人传入URL</code>和<code>令牌</code>填入MoviePilot相关设置项，保存。</li>
+<li>Synology Chat界面中左侧机器人，点<code>+</code>号，添加机器人聊天。</li>
+</ul>
+<h1 id="vocechat" class="toc-header"><a class="toc-anchor" href="#vocechat">¶</a> VoceChat</h1>
+<ul>
+<li>参考 <a href="https://doc.voce.chat" class="is-external-link">https://doc.voce.chat</a> 搭建VoceChat服务，创建机器人，获取<code>机器人密钥</code>和<code>频道ID</code>连同<code>服务地址</code>填入对应设置项，保存。</li>
+<li>VoceChat机器人Webhook地址设置为：<code>http://ip:port/api/v1/message/?token=moviepilot</code>，其中<code>moviepilot</code>修改为实际配置中实际的<code>API_TOKEN</code>的值，<code>ip:port</code>为实际MoviePilot的IP地址和端口。</li>
+</ul>
+<h1 id="discord" class="toc-header"><a class="toc-anchor" href="#discord">¶</a> Discord</h1>
+<p>Discord 通知渠道配置方法</p>
+<ol>
+<li>
+<p>建立一个Discord bot</p>
+<ul>
+<li>打开并登录 <a href="https://discord.com/login?redirect_to=%2Fdevelopers%2Fapplications" class="is-external-link">https://discord.com/login?redirect_to=%2Fdevelopers%2Fapplications</a></li>
+<li>建立一个新应用，比如叫 MoviePilot。</li>
+<li>进入应用并导航到Bot页面（可以自己配置想用的icon），确保启用<code>Presence Intent</code>、<code>Server Members Intent</code> 以及<code>Message Content Intent</code></li>
+</ul>
+</li>
+<li>
+<p>安装bot到自己的Discord服务器</p>
+<ul>
+<li>导航到Installation，按照图示设置好权限。</li>
+<li>复制打开安装链接，选择需要安装的服务器安装。</li>
+</ul>
+</li>
+<li>
+<p>配置MoviePilot</p>
+<ul>
+<li>回到Bot页面，点击Reset Token。</li>
+<li>将这个Token放入MoviePilot通知渠道配置中的Bot Token。</li>
+<li>打开Discord并选择你想要发送MP通知的频道，右键复制链接，这个链接URL的最后一串数字是频道ID，前一串数字是服务器ID，将这两个ID填入通知渠道配置并保存。</li>
+</ul>
+</li>
+</ol>
+<h1 id="webpush" class="toc-header"><a class="toc-anchor" href="#webpush">¶</a> WebPush</h1>
+<p>WebPush基于PWA实现让网页应用能像App客户端一样发送消息通知，<strong>实现客户端级的消息通知使用体验</strong>，开启WebPush需要满足以下条件：</p>
+<ul>
+<li>使用域名访问MoviePilot，并设置启动好<code>SSL</code>。</li>
+<li>将MoviePilot网页发送到桌面图标，完成PWA应用安装。</li>
+<li>在桌面图标启动，完成登录，在提示窗口中点击允许发送消息权限。</li>
+<li>如果为IOS，需要<code>16.4</code>以上版本。</li>
+</ul>
+<p>建议将插件、站点等消息通过WebPush发送，其余媒体类消息则通知到微信等客户端，实现管理员消息通知和普通使用用户通知分离。</p>
+</div></template><template slot="comments"><div><comments></comments></div></template></page></div><script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="f628c110d17e6aac7578c267-|49" defer></script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a465c2383d57f57a',t:'MTc5MTMwMTE2NA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body></html>

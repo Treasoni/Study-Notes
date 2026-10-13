@@ -9,12 +9,12 @@ created_from: ".claude/workflows/learning-note-flow/state-template.md"
 topic: "在飞牛 fnOS 上搭建 nastool 家庭影院（以最新可用方案为主线）"
 project_slug: "nastool-fnos-deploy"
 created_at: "2026-10-06"
-last_updated: "2026-10-06"
-current_phase: P1
-current_status: in_progress
+last_updated: "2026-10-07"
+current_phase: done
+current_status: complete
 mode: outline
 blocked_reason: ""
-quality_gate: pending
+quality_gate: passed
 quality_gate_owner: ""
 quality_gate_due: ""
 ---
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：nastool-fnos-deploy
 > 项目标识：nastool-fnos-deploy
 > 创建时间：2026-10-06
-> 当前阶段：阶段 1
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -51,7 +51,7 @@ quality_gate_due: ""
 - [ ] 用户已选择学习方向
 - [ ] 探测结果已保存：`./01_explore_result.md`
 
-> [P1] 🔲 进行中 {in_progress}
+> [P1] ✅ 已完成 {complete}
 
 ---
 
@@ -65,7 +65,7 @@ quality_gate_due: ""
 - [ ] 素材质量已确认（官方文档数、教程数、深度文章数）
 - [ ] 深度素材已保存：`./02_deep_research.md`
 
-> [P2] ⬜ 未开始
+> [P2] ✅ 已完成 {complete}
 
 ---
 
@@ -77,7 +77,7 @@ quality_gate_due: ""
 - [ ] 大纲已展示给用户确认
 - [ ] 大纲已保存：`./03_outline.md`
 
-> [P3] ⬜ 未开始
+> [P3] ✅ 已完成 {complete}
 
 ---
 
@@ -91,7 +91,7 @@ quality_gate_due: ""
 
 **进度**：0/待大纲确定
 
-> [P4] ⬜ 未开始
+> [P4] ✅ 已完成 {complete}
 
 ---
 
@@ -104,7 +104,7 @@ quality_gate_due: ""
 - [ ] 引用已检查
 - [ ] 完整笔记已保存：`./output/final_note.md`
 
-> [P5] ⬜ 未开始
+> [P5] ✅ 已完成 {complete}
 
 ---
 
@@ -114,7 +114,7 @@ quality_gate_due: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -124,7 +124,7 @@ quality_gate_due: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -132,6 +132,12 @@ quality_gate_due: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P5 | 组装完成 output/final_note.md + chapters/_merged.md（**当时值** 20666 汉字；本次更新后最新值见「最终产出」）；C 比对 20 组 0 差异 | 2026-10-07 07:53 |
+| 收尾后更新 | 第 6 章新增 6.5「第二备选路：玩 BT」（note-updater 路径，用户选 A 案）；四份副本同步，副本漂移 0/10、C 比对 21 组 0 差异、结构自检 0 可疑、死链 0；重跑取数：vault 11 文件 23754 汉字，final_note.md 22328 汉字 | 2026-10-07 |
+| P4 | 10 章写作完成（约 20600 汉字）；校验 V/S/结构全绿 | 2026-10-07 01:32 |
+| P3 | 大纲确认：10 章；C 路留第 6 章；保留 3.5 端口免责节 | 2026-10-07 00:04 |
+| P2 | P2 素材与来源表确认；进入大纲模式 | 2026-10-07 00:04 |
+| P1 | 用户选定方向：A+C 双路合写（主路 MoviePilot V3，标注需 PT 认证；备选路不依赖 PT） | 2026-10-06 23:38 |
 | P0 | 用户确认意图文件与研究计划（选题=最新可用方案；目录=流媒体与影音/nastool 家庭影院 fnOS 部署） | 2026-10-06 23:25 |
 | | | |
 
@@ -149,7 +155,9 @@ quality_gate_due: ""
 
 | 时间 | 阶段 | 问题描述 | 处理方式 |
 |------|------|---------|---------|
-| | | | |
+| 2026-10-06 | P1 | 原计划派 3 个并行探测子代理（选型 / 部署 / 生态），用户中断该派发 | 改为按用户指示**只跑方向 1（现状与选型）**，由主流程自己用 WebSearch/WebFetch/crawl 核实；方向 2/3 延迟到 P2 |
+| 2026-10-06 | P1 | 预判「原版 nastool = jxxghp/nas-tools」有误 | 更正：原版仓库是 **NAStool/nas-tools**（2023-05-16 归档、只读）；`jxxghp/nas-tools` 为 404 |
+| 2026-10-06 | P1 | 发现 MoviePilot **需要 PT 站点认证**（官方 Wiki 确认），且 **V3 初始化方式已变** | 已写入 `01_explore_result.md` 并升级为 P1 用户关卡的先决问题；未确认前不进入 P2 |
 
 ---
 
@@ -157,7 +165,8 @@ quality_gate_due: ""
 
 | 时间 | 原方向 | 新方向 | 是否需要补充收集 |
 |------|--------|--------|-----------------|
-| | | | |
+| 2026-10-06 | 原版 nastool（视频口径） | MoviePilot V3（同作者最新主线） | 是——P2 需补齐 V3 一手来源 |
+| 2026-10-06 | 单路 A（MoviePilot 完整链路） | A+C 双路（主路 V3 + 不依赖 PT 的网盘流媒体备选路） | 是——P2 需补 C 路来源 |
 
 ---
 
@@ -165,11 +174,25 @@ quality_gate_due: ""
 
 > **取数纪律**：下表的体积 / 字数 / 章数 / 锚点数 / Callout 数必须**当场重新运行取数或重新计数**，并把命令留在「取数命令」一行；不要从上下文里的历史输出誊抄，也不要手算合计。产物在记录之后又被改动时，grep 同一数字的**所有**出现处一并更新（同一组数字常同时出现在阶段段落与本节）。
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
+- **笔记类型**：实战笔记（入门优先 · 照做即用），分册形式发布
+- **总字数**：23754 汉字（发布件 11 个文件合计；单一合并件 `output/final_note.md` 为 22328 汉字）
+- **章节数**：10 章 + 1 篇总览（共 11 个发布文件）
+- **输出格式**：Obsidian Markdown 分册（总览 + 10 章），含 frontmatter / Callout / 双链 / 章末引文对照表
 - **取数命令**：
+  ```bash
+  python3 - <<'PY'
+  import re, glob, os
+  d = "流媒体与影音/nastool 家庭影院 fnOS 部署"
+  cjk = re.compile(r'[一-鿿]'); tot = 0
+  for f in sorted(glob.glob(os.path.join(d, "*.md"))):
+      n = len(cjk.findall(open(f, encoding="utf-8").read())); tot += n
+      print("%-46s %8d" % (os.path.basename(f), n))
+  print("合计 %d 个文件 %d 汉字" % (len(glob.glob(os.path.join(d, "*.md"))), tot))
+  PY
+  ```
+  本次运行结果：11 个文件 / 23754 汉字（明细：01=2161、02=1560、03=2559、04=2501、05=2172、06=3056、07=2468、08=3029、09=2236、10=1284、总览=728）
 - **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+  - 工作区：`workspace/nastool-fnos-deploy/output/final_note.md`（合并件）、`workspace/nastool-fnos-deploy/chapters/`（10 章源文件）
+  - 发布件：`流媒体与影音/nastool 家庭影院 fnOS 部署/`（总览 + 10 章）
+- **Obsidian Vault**：`/Users/zhqznc/Documents/项目`（本仓库即 vault 根）
+- **MOC 路径**：`流媒体与影音 MOC.md`（已更新 `updated: 2026-10-07` 并追加 1 条索引项）

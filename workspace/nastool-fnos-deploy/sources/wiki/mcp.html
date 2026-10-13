@@ -1,0 +1,265 @@
+<!DOCTYPE html><html lang="zh"><head><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><meta name="msapplication-TileImage" content="/_assets/favicons/mstile-150x150.png"><title>MCP Server | MoviePilot Wiki</title><meta name="description" content="在第三方 Agent 工具中使用 MoviePilot MCP"><meta property="og:title" content="MCP Server"><meta property="og:type" content="website"><meta property="og:description" content="在第三方 Agent 工具中使用 MoviePilot MCP"><meta property="og:image"><meta property="og:url" content="https://wiki.movie-pilot.org/mcp"><meta property="og:site_name" content="MoviePilot Wiki"><link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/_assets/favicons/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicons/favicon-16x16.png"><link rel="mask-icon" href="/_assets/favicons/safari-pinned-tab.svg" color="#1976d2"><link rel="manifest" href="/_assets/manifest.json"><script type="c089960fd394bb3aa0452238-text/javascript">var siteConfig = {"title":"MoviePilot Wiki","theme":"default","darkMode":false,"tocPosition":"right","lang":"zh","rtl":false,"company":"","contentLicense":"alr","footerOverride":"","logoUrl":"/assets/logo.svg"}
+var siteLangs = []
+</script><link type="text/css" rel="stylesheet" href="/_assets/css/app.0f8c3acc9686d9d11765.css"><script type="c089960fd394bb3aa0452238-text/javascript" src="/_assets/js/runtime.js?1777631845"></script><script type="c089960fd394bb3aa0452238-text/javascript" src="/_assets/js/app.js?1777631845"></script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MRPCZR1JF5" type="c089960fd394bb3aa0452238-text/javascript"></script>
+<script type="c089960fd394bb3aa0452238-text/javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MRPCZR1JF5');
+</script>
+</head><body><div id="root"><page locale="zh" path="mcp" title="MCP Server" description="在第三方 Agent 工具中使用 MoviePilot MCP" :tags="[]" created-at="2026-05-07T08:03:33.426Z" updated-at="2026-07-05T01:50:49.869Z" author-name="Administrator" :author-id="1" editor="markdown" :is-published="true" toc="W3sidGl0bGUiOiLku4DkuYjmmK8gTW92aWVQaWxvdCBNQ1AgU2VydmVyIiwiYW5jaG9yIjoiI+S7gOS5iOaYry1tb3ZpZXBpbG90LW1jcC1zZXJ2ZXIiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLov57mjqXliY3lhYjnoa7orqTov5nlh6Dku7bkuosiLCJhbmNob3IiOiIj6L+e5o6l5YmN5YWI56Gu6K6k6L+Z5Yeg5Lu25LqLIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoiTW92aWVQaWxvdCBNQ1Ag55qE6YCa55So6L+e5o6l5Y+C5pWwIiwiYW5jaG9yIjoiI21vdmllcGlsb3QtbWNwLeeahOmAmueUqOi/nuaOpeWPguaVsCIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IuWFiOeUqOeugOWNleivt+axgumqjOivgeaYr+WQpuWPr+eUqCIsImFuY2hvciI6IiPlhYjnlKjnroDljZXor7fmsYLpqozor4HmmK/lkKblj6/nlKgiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLpgJrnlKjphY3nva7mqKHmnb8iLCJhbmNob3IiOiIj6YCa55So6YWN572u5qih5p2/IiwiY2hpbGRyZW4iOlt7InRpdGxlIjoi5o6o6I2Q5YaZ5rOV77ya6K+35rGC5aS06K6k6K+BIiwiYW5jaG9yIjoiI+aOqOiNkOWGmeazleivt+axguWktOiupOivgSIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IuWFnOW6leWGmeazle+8muafpeivouWPguaVsOiupOivgSIsImFuY2hvciI6IiPlhZzlupXlhpnms5Xmn6Xor6Llj4LmlbDorqTor4EiLCJjaGlsZHJlbiI6W119XX0seyJ0aXRsZSI6IuWcqCBPcGVuQ2xhdyDkuK3mjqXlhaUgTW92aWVQaWxvdCBNQ1AiLCJhbmNob3IiOiIj5ZyoLW9wZW5jbGF3LeS4reaOpeWFpS1tb3ZpZXBpbG90LW1jcCIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IuWcqCBDbGF1ZGUgQ29kZSAvIENsYXVkZSBEZXNrdG9wIOetieW3peWFt+S4reaOpeWFpSIsImFuY2hvciI6IiPlnKgtY2xhdWRlLWNvZGUtY2xhdWRlLWRlc2t0b3At562J5bel5YW35Lit5o6l5YWlIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi5aaC5L2V5p+l55yL5b2T5YmN5Y+v55So5bel5YW3IiwiYW5jaG9yIjoiI+WmguS9leafpeeci+W9k+WJjeWPr+eUqOW3peWFtyIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IuW4uOingemXrumimCIsImFuY2hvciI6IiPluLjop4Hpl67popgiLCJjaGlsZHJlbiI6W3sidGl0bGUiOiIxLiDov5Tlm54gNDAxIOaIluacquiupOivgSIsImFuY2hvciI6IiNoLTEt6L+U5ZueLTQwMS3miJbmnKrorqTor4EiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiIyLiDov57kuI3kuIogTW92aWVQaWxvdCIsImFuY2hvciI6IiNoLTIt6L+e5LiN5LiKLW1vdmllcGlsb3QiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiIzLiDlrqLmiLfnq6/opoHmsYIgU1NF77yM5oiW6L+e5LiK5ZCO5LiA55u05oqlIHRyYW5zcG9ydCDkuI3ljLnphY0iLCJhbmNob3IiOiIjaC0zLeWuouaIt+err+imgeaxgi1zc2XmiJbov57kuIrlkI7kuIDnm7TmiqUtdHJhbnNwb3J0LeS4jeWMuemFjSIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IjQuIOW3peWFt+WIl+ihqOWSjOWIq+S6uuaIquWbvuS4jeS4gOagtyIsImFuY2hvciI6IiNoLTQt5bel5YW35YiX6KGo5ZKM5Yir5Lq65oiq5Zu+5LiN5LiA5qC3IiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoiNS4g5oOz5pq06Zyy5Yiw5YWs572R57uZ6L+c56iLIEFnZW50IOeUqCIsImFuY2hvciI6IiNoLTUt5oOz5pq06Zyy5Yiw5YWs572R57uZ6L+c56iLLWFnZW50LeeUqCIsImNoaWxkcmVuIjpbXX1dfSx7InRpdGxlIjoi55u45YWz5paH5qGjIiwiYW5jaG9yIjoiI+ebuOWFs+aWh+ahoyIsImNoaWxkcmVuIjpbXX1d" :page-id="23" sidebar="W3siaSI6InNkaS0xIiwiayI6ImhlYWRlciIsImwiOiLlvIDlp4siLCJjIjpudWxsLCJ5IjpudWxsLCJ0IjpudWxsfSx7ImkiOiJzZGktMiIsImsiOiJsaW5rIiwibCI6IueOr+Wig+WHhuWkhyIsImMiOiJtZGktY2hlY2stY2lyY2xlLW91dGxpbmUiLCJ5IjoicGFnZSIsInQiOiIvemgvcmVhZHkifSx7ImkiOiJzZGktMyIsImsiOiJsaW5rIiwibCI6IuWuieijheaMh+W8lSIsImMiOiJtZGktZmxhcmUiLCJ5IjoicGFnZSIsInQiOiIvemgvaW5zdGFsbCJ9LHsiaSI6InNkaS00IiwiayI6ImxpbmsiLCJsIjoi5pys5ZywIENMSSIsImMiOiJtZGktY29uc29sZSIsInkiOiJwYWdlIiwidCI6Ii96aC9jbGkifSx7ImkiOiJzZGktNSIsImsiOiJsaW5rIiwibCI6IumFjee9ruWPguiAgyIsImMiOiJtZGktY29nLW91dGxpbmUiLCJ5IjoicGFnZSIsInQiOiIvemgvY29uZmlndXJhdGlvbiJ9LHsiaSI6InNkaS02IiwiayI6ImxpbmsiLCJsIjoi5Y2H57qnIiwiYyI6Im1kaS1wdWJsaXNoIiwieSI6InBhZ2UiLCJ0IjoiL3poL3VwZ3JhZGUifSx7ImkiOiJzZGktNyIsImsiOiJsaW5rIiwibCI6IuWPkeihjOivtOaYjiIsImMiOiJtZGktZmlyZSIsInkiOiJwYWdlIiwidCI6Ii96aC9yZWxlYXNlIn0seyJpIjoic2RpLTgiLCJrIjoibGluayIsImwiOiLlkajovrnpobnnm64iLCJjIjoibWRpLW9yYml0IiwieSI6InBhZ2UiLCJ0IjoiL3poL2Vjb3N5c3RlbSJ9LHsiaSI6InNkaS05IiwiayI6ImhlYWRlciIsImwiOiLnlKjmiLfmjIfljZciLCJjIjpudWxsLCJ5IjpudWxsLCJ0IjpudWxsfSx7ImkiOiJzZGktMTAiLCJrIjoibGluayIsImwiOiLln7rnoYAiLCJjIjoibWRpLWN1YmUtb3V0bGluZSIsInkiOiJwYWdlIiwidCI6Ii96aC9iYXNpYyJ9LHsiaSI6InNkaS0xMSIsImsiOiJsaW5rIiwibCI6IuermeeCuSIsImMiOiJtZGktd2ViIiwieSI6InBhZ2UiLCJ0IjoiL3poL3NpdGUifSx7ImkiOiJzZGktMTIiLCJrIjoibGluayIsImwiOiLmkJzntKIiLCJjIjoibWRpLW1hZ25pZnkiLCJ5IjoicGFnZSIsInQiOiIvemgvc2VhcmNoIn0seyJpIjoic2RpLTEzIiwiayI6ImxpbmsiLCJsIjoi5LiL6L29IiwiYyI6Im1kaS1kb3dubG9hZCIsInkiOiJwYWdlIiwidCI6Ii96aC9kb3dubG9hZCJ9LHsiaSI6InNkaS0xNCIsImsiOiJsaW5rIiwibCI6IuiuoumYhSIsImMiOiJtZGktcnNzIiwieSI6InBhZ2UiLCJ0IjoiL3poL3N1YnNjcmliZSJ9LHsiaSI6InNkaS0xNSIsImsiOiJsaW5rIiwibCI6IuaWh+S7tuaVtOeQhiIsImMiOiJtZGktZmlsZSIsInkiOiJwYWdlIiwidCI6Ii96aC9yZW9yZ2FuaXplIn0seyJpIjoic2RpLTE2IiwiayI6ImxpbmsiLCJsIjoi6YCa55+lIiwiYyI6Im1kaS1tZXNzYWdlIiwieSI6InBhZ2UiLCJ0IjoiL3poL25vdGlmaWNhdGlvbiJ9LHsiaSI6InNkaS0xNyIsImsiOiJsaW5rIiwibCI6IuaPkuS7tiIsImMiOiJtZGktcHV6emxlIiwieSI6InBhZ2UiLCJ0IjoiL3poL3BsdWdpbiJ9LHsiaSI6InNkaS0xOCIsImsiOiJsaW5rIiwibCI6IuaZuuiDveWKqeaJiyIsImMiOiJtZGktcm9ib3QiLCJ5IjoicGFnZSIsInQiOiIvemgvYWdlbnQifSx7ImkiOiJzZGktMTkiLCJrIjoibGluayIsImwiOiJNQ1AiLCJjIjoibWRpLXRvb2xzIiwieSI6InBhZ2UiLCJ0IjoiL3poL21jcCJ9LHsiaSI6InNkaS0yMCIsImsiOiJsaW5rIiwibCI6Iui/m+mYtiIsImMiOiJtZGktYXBwbGljYXRpb24tY29nIiwieSI6InBhZ2UiLCJ0IjoiL3poL2FkdmFuY2VkIn0seyJpIjoic2RpLTIxIiwiayI6ImxpbmsiLCJsIjoi6K+K5pat5LiO5L+u5aSNIiwiYyI6Im1kaS1kb2N0b3IiLCJ5IjoicGFnZSIsInQiOiIvemgvZG9jdG9yIn0seyJpIjoic2RpLTIyIiwiayI6ImxpbmsiLCJsIjoi5bi46KeB6Zeu6aKYIiwiYyI6Im1kaS1mcmVxdWVudGx5LWFza2VkLXF1ZXN0aW9ucyIsInkiOiJwYWdlIiwidCI6Ii96aC90cm91Ymxlc2hvb3RpbmcifSx7ImkiOiJzZGktMjMiLCJrIjoiaGVhZGVyIiwibCI6IuW8gOWPkeiAhSIsImMiOm51bGwsInkiOm51bGwsInQiOm51bGx9LHsiaSI6InNkaS0yNCIsImsiOiJsaW5rIiwibCI6IuaPkuS7tuW8gOWPkSIsImMiOiJtZGktYXBwcyIsInkiOiJwYWdlIiwidCI6Ii96aC9wbHVnaW5kZXYifSx7ImkiOiJzZGktMjUiLCJrIjoibGluayIsImwiOiLkuLvpopjpo47moLwiLCJjIjoibWRpLXBhbGV0dGUiLCJ5IjoicGFnZSIsInQiOiIvemgvdGhlbWVkZXYifV0=" nav-mode="MIXED" comments-enabled effective-permissions="eyJjb21tZW50cyI6eyJyZWFkIjp0cnVlLCJ3cml0ZSI6ZmFsc2UsIm1hbmFnZSI6ZmFsc2V9LCJoaXN0b3J5Ijp7InJlYWQiOmZhbHNlfSwic291cmNlIjp7InJlYWQiOmZhbHNlfSwicGFnZXMiOnsicmVhZCI6dHJ1ZSwid3JpdGUiOmZhbHNlLCJtYW5hZ2UiOmZhbHNlLCJkZWxldGUiOmZhbHNlLCJzY3JpcHQiOmZhbHNlLCJzdHlsZSI6ZmFsc2V9LCJzeXN0ZW0iOnsibWFuYWdlIjpmYWxzZX19" edit-shortcuts="eyJlZGl0RmFiIjp0cnVlLCJlZGl0TWVudUJhciI6ZmFsc2UsImVkaXRNZW51QnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsQnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsTmFtZSI6IkdpdEh1YiIsImVkaXRNZW51RXh0ZXJuYWxJY29uIjoibWRpLWdpdGh1YiIsImVkaXRNZW51RXh0ZXJuYWxVcmwiOiJodHRwczovL2dpdGh1Yi5jb20vb3JnL3JlcG8vYmxvYi9tYWluL3tmaWxlbmFtZX0ifQ==" filename="mcp.md"><template slot="contents"><div><h1 id="什么是-moviepilot-mcp-server" class="toc-header"><a class="toc-anchor" href="#什么是-moviepilot-mcp-server">¶</a> 什么是 MoviePilot MCP Server</h1>
+<p>MoviePilot 已内置标准 <code>MCP (Model Context Protocol)</code> 服务，第三方 Agent 工具可以直接把 MoviePilot 当成一个远程 MCP Server 接入，用自然语言调用 MoviePilot 的媒体检索、订阅、下载、整理等能力。</p>
+<p>这意味着你可以在 OpenClaw、Claude Code、Claude Desktop 以及其它支持远程 HTTP MCP 的客户端中，直接让 Agent 调用 MoviePilot，而不是自己手工拼 API。</p>
+<blockquote class="is-info">
+<p>MoviePilot 的 MCP Server 是 API 服务的一部分，不需要额外部署单独的 MCP 容器或桥接程序。</p>
+</blockquote>
+<h1 id="连接前先确认这几件事" class="toc-header"><a class="toc-anchor" href="#连接前先确认这几件事">¶</a> 连接前先确认这几件事</h1>
+<ol>
+<li>MoviePilot 已正常运行，并且第三方 Agent 工具能访问到 MoviePilot 的 API 地址。</li>
+<li>你已经拿到 <code>API_TOKEN</code>，它就是 MCP 的认证密钥，也是管理员级凭证。</li>
+<li>你使用的是 <code>API</code> 端口，默认是 <code>3001</code>，不是前端页面端口 <code>3000</code>。</li>
+</ol>
+<p><code>API_TOKEN</code> 可在系统设置中查看或修改，也可以从启动日志中搜索 <code>API_TOKEN</code> 获取。关于 <code>API_TOKEN</code> 的说明可参考 <a href="/basic" class="is-internal-link is-valid-page">基础</a>。</p>
+<blockquote class="is-warning">
+<p>持有 <code>API_TOKEN</code> 的 MCP 客户端可调用 MoviePilot 通过 MCP 暴露的业务工具。只把它配置给你信任的 Agent 工具或受控网关，不要交给不受信第三方服务。</p>
+</blockquote>
+<p>常见地址示例：</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>MCP 地址示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent 工具和 MoviePilot 在同一台机器</td>
+<td><code>http://127.0.0.1:3001/api/v1/mcp</code></td>
+</tr>
+<tr>
+<td>Agent 工具通过局域网访问 NAS / 服务器</td>
+<td><code>http://192.168.1.10:3001/api/v1/mcp</code></td>
+</tr>
+<tr>
+<td>已做反向代理或 HTTPS 域名</td>
+<td><code>https://moviepilot.example.com/api/v1/mcp</code></td>
+</tr>
+<tr>
+<td>Docker 同一网络内按服务名访问</td>
+<td><code>http://moviepilot:3001/api/v1/mcp</code></td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="is-warning">
+<p>如果第三方 Agent 工具不和 MoviePilot 运行在同一台机器上，<code>localhost</code> 或 <code>127.0.0.1</code> 指向的是 Agent 工具自己所在的机器，不是 MoviePilot。</p>
+</blockquote>
+<h1 id="moviepilot-mcp-的通用连接参数" class="toc-header"><a class="toc-anchor" href="#moviepilot-mcp-的通用连接参数">¶</a> MoviePilot MCP 的通用连接参数</h1>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MCP 端点</td>
+<td><code>/api/v1/mcp</code></td>
+</tr>
+<tr>
+<td>完整示例</td>
+<td><code>http://127.0.0.1:3001/api/v1/mcp</code></td>
+</tr>
+<tr>
+<td>推荐认证方式</td>
+<td>请求头 <code>X-API-KEY: &lt;API_TOKEN&gt;</code></td>
+</tr>
+<tr>
+<td>备用认证方式</td>
+<td>查询参数 <code>?apikey=&lt;API_TOKEN&gt;</code></td>
+</tr>
+<tr>
+<td>推荐传输类型</td>
+<td><code>HTTP</code> / <code>Remote HTTP</code> / <code>streamable-http</code></td>
+</tr>
+<tr>
+<td>支持协议版本</td>
+<td><code>2025-11-25</code>、<code>2025-06-18</code>、<code>2024-11-05</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>几个容易混淆的点：</p>
+<ul>
+<li>MoviePilot 直接使用 <code>.../api/v1/mcp</code> 作为 MCP 地址，不需要再拼 <code>/sse</code>、<code>/messages</code> 之类的额外路径。</li>
+<li>如果客户端配置字段名叫 <code>type</code>，通常填写 <code>http</code>。</li>
+<li>如果客户端配置字段名叫 <code>transport</code>，通常填写 <code>streamable-http</code>。</li>
+<li>如果客户端只能配置 URL、不能配置自定义请求头，可以退而求其次把 <code>API_TOKEN</code> 放到 <code>?apikey=</code> 查询参数里。</li>
+</ul>
+<blockquote class="is-warning">
+<p>推荐优先使用请求头认证，不建议把 <code>API_TOKEN</code> 直接写进 URL，因为 URL 更容易出现在日志、历史记录或截图里。</p>
+</blockquote>
+<blockquote class="is-warning">
+<p>如果需要让远程 Agent 访问 MoviePilot MCP，请先完成 HTTPS、访问控制、网络隔离或反向代理鉴权等部署防护，不要把带有管理员级凭证保护的接口直接裸露到公网。</p>
+</blockquote>
+<h1 id="先用简单请求验证是否可用" class="toc-header"><a class="toc-anchor" href="#先用简单请求验证是否可用">¶</a> 先用简单请求验证是否可用</h1>
+<p>在接入第三方 Agent 之前，建议先用 <code>curl</code> 测一下 MoviePilot MCP 是否可达。</p>
+<p>列出当前实例暴露的 MCP 工具：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-bash">curl -H "X-API-KEY: YOUR_API_TOKEN" \
+  http://127.0.0.1:3001/api/v1/mcp/tools
+</code></pre>
+<p>如果你能拿到一组 JSON 工具列表，说明网络、端口和认证基本都没问题。</p>
+<p>如果返回 <code>401</code>，通常就是 <code>API_TOKEN</code> 不正确或没有带上。</p>
+<h1 id="通用配置模板" class="toc-header"><a class="toc-anchor" href="#通用配置模板">¶</a> 通用配置模板</h1>
+<p>很多 Agent 工具都支持类似 <code>mcpServers</code> 的 JSON 配置。只要该工具支持远程 HTTP MCP，通常都可以直接套用下面这组信息。</p>
+<h2 id="推荐写法请求头认证" class="toc-header"><a class="toc-anchor" href="#推荐写法请求头认证">¶</a> 推荐写法：请求头认证</h2>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-json">{
+  "mcpServers": {
+    "moviepilot": {
+      "type": "http",
+      "url": "http://127.0.0.1:3001/api/v1/mcp",
+      "headers": {
+        "X-API-KEY": "YOUR_API_TOKEN"
+      }
+    }
+  }
+}
+</code></pre>
+<p>如果你的客户端不用 <code>type</code>，而是用 <code>transport</code> 字段，那么把上面的 <code>type: "http"</code> 改成 <code>transport: "streamable-http"</code> 即可。</p>
+<h2 id="兜底写法查询参数认证" class="toc-header"><a class="toc-anchor" href="#兜底写法查询参数认证">¶</a> 兜底写法：查询参数认证</h2>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-json">{
+  "mcpServers": {
+    "moviepilot": {
+      "type": "http",
+      "url": "http://127.0.0.1:3001/api/v1/mcp?apikey=YOUR_API_TOKEN"
+    }
+  }
+}
+</code></pre>
+<h1 id="在-openclaw-中接入-moviepilot-mcp" class="toc-header"><a class="toc-anchor" href="#在-openclaw-中接入-moviepilot-mcp">¶</a> 在 OpenClaw 中接入 MoviePilot MCP</h1>
+<p>OpenClaw 自己维护了一套 MCP Server registry。对于 MoviePilot 这种远程 HTTP MCP，建议明确写成 <code>streamable-http</code>，不要留空成默认的 <code>sse</code>。</p>
+<p>推荐命令：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-bash">openclaw mcp set moviepilot '{
+  "url": "http://127.0.0.1:3001/api/v1/mcp",
+  "transport": "streamable-http",
+  "headers": {
+    "X-API-KEY": "YOUR_API_TOKEN"
+  }
+}'
+</code></pre>
+<p>写入后可以检查：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-bash">openclaw mcp list
+openclaw mcp show moviepilot
+</code></pre>
+<p>如果你的 OpenClaw 环境不能方便地设置请求头，也可以改成：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-bash">openclaw mcp set moviepilot '{
+  "url": "http://127.0.0.1:3001/api/v1/mcp?apikey=YOUR_API_TOKEN",
+  "transport": "streamable-http"
+}'
+</code></pre>
+<p>对应的手工配置结构大致如下：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-json">{
+  "mcp": {
+    "servers": {
+      "moviepilot": {
+        "url": "http://127.0.0.1:3001/api/v1/mcp",
+        "transport": "streamable-http",
+        "headers": {
+          "X-API-KEY": "YOUR_API_TOKEN"
+        }
+      }
+    }
+  }
+}
+</code></pre>
+<p>需要注意：</p>
+<ul>
+<li><code>openclaw mcp set</code> 只是把 MoviePilot 注册到 OpenClaw 的 MCP 配置里，并不代表已经立即发起连接。</li>
+<li>如果 OpenClaw 和 MoviePilot 不在同一台主机或同一容器网络里，请把 <code>127.0.0.1</code> 改成 MoviePilot 的真实地址。</li>
+<li>如果你看到其它 OpenClaw 示例写的是 <code>type: "http"</code>，通常也能被 OpenClaw 兼容处理，但在 OpenClaw 自己的配置里，优先推荐 <code>transport: "streamable-http"</code> 这种写法。</li>
+</ul>
+<h1 id="在-claude-code-claude-desktop-等工具中接入" class="toc-header"><a class="toc-anchor" href="#在-claude-code-claude-desktop-等工具中接入">¶</a> 在 Claude Code / Claude Desktop 等工具中接入</h1>
+<p>如果你使用的是支持标准 <code>mcpServers</code> 配置的客户端，可以直接使用上面的通用 JSON 模板。</p>
+<p>对于 Claude Code，也可以直接使用 <code>add-json</code>：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-bash">claude mcp add-json moviepilot '{"type":"http","url":"http://127.0.0.1:3001/api/v1/mcp","headers":{"X-API-KEY":"YOUR_API_TOKEN"}}'
+</code></pre>
+<p>如果是 Claude Desktop 一类使用配置文件的客户端，可直接写：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-json">{
+  "mcpServers": {
+    "moviepilot": {
+      "url": "http://127.0.0.1:3001/api/v1/mcp",
+      "headers": {
+        "X-API-KEY": "YOUR_API_TOKEN"
+      }
+    }
+  }
+}
+</code></pre>
+<h1 id="如何查看当前可用工具" class="toc-header"><a class="toc-anchor" href="#如何查看当前可用工具">¶</a> 如何查看当前可用工具</h1>
+<p>MoviePilot 暴露给 MCP 的工具数量会随着版本变化，也可能因为已安装插件而增加，所以应以你当前实例实际返回的工具列表为准。</p>
+<p>常用接口：</p>
+<ul>
+<li><code>GET /api/v1/mcp/tools</code>：列出全部工具</li>
+<li><code>GET /api/v1/mcp/tools/{tool_name}</code>：查看单个工具定义</li>
+<li><code>GET /api/v1/mcp/tools/{tool_name}/schema</code>：查看参数 Schema</li>
+<li><code>POST /api/v1/mcp/tools/call</code>：按 REST 方式直接调用工具</li>
+</ul>
+<p>本地 CLI 用户也可以直接用：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-bash">moviepilot tool list
+moviepilot tool show search_torrents
+moviepilot tool show add_subscribe
+</code></pre>
+<blockquote class="is-info">
+<p>出于安全考虑，MoviePilot 不会通过 MCP 暴露 <code>execute_command</code>、<code>search_web</code>、<code>edit_file</code>、<code>write_file</code>、<code>read_file</code> 这类本地高风险工具。第三方 Agent 拿到的是 MoviePilot 业务能力相关的工具集，而不是系统级任意读写执行权限。隐藏这些本地高风险工具只是收敛 MCP 暴露面，不代表 <code>API_TOKEN</code> 支持按用户划分的细粒度权限。</p>
+</blockquote>
+<h1 id="常见问题" class="toc-header"><a class="toc-anchor" href="#常见问题">¶</a> 常见问题</h1>
+<h2 id="h-1-返回-401-或未认证" class="toc-header"><a class="toc-anchor" href="#h-1-返回-401-或未认证">¶</a> 1. 返回 401 或未认证</h2>
+<p>优先检查：</p>
+<ul>
+<li><code>API_TOKEN</code> 是否写错</li>
+<li>是否漏掉了 <code>X-API-KEY</code> 请求头</li>
+<li>如果使用 <code>?apikey=</code>，是否真的拼在了 <code>/api/v1/mcp</code> 后面</li>
+</ul>
+<h2 id="h-2-连不上-moviepilot" class="toc-header"><a class="toc-anchor" href="#h-2-连不上-moviepilot">¶</a> 2. 连不上 MoviePilot</h2>
+<p>最常见原因：</p>
+<ul>
+<li>端口写成了前端页面端口 <code>3000</code>，而不是 API 端口 <code>3001</code></li>
+<li>只映射了 WEB 端口，没有暴露 API 端口</li>
+<li>反向代理没有把 <code>/api/v1/mcp</code> 正确转发到 MoviePilot API 服务</li>
+<li>Agent 工具和 MoviePilot 不在同一台机器上，却还在用 <code>localhost</code></li>
+</ul>
+<p>如果你已经通过统一域名访问 MoviePilot 页面，也可以优先尝试 <code>https://你的域名/api/v1/mcp</code>。</p>
+<h2 id="h-3-客户端要求-sse或连上后一直报-transport-不匹配" class="toc-header"><a class="toc-anchor" href="#h-3-客户端要求-sse或连上后一直报-transport-不匹配">¶</a> 3. 客户端要求 SSE，或连上后一直报 transport 不匹配</h2>
+<p>MoviePilot 这边优先按远程 HTTP MCP 使用。</p>
+<p>处理建议：</p>
+<ul>
+<li>客户端有 <code>type</code> 时选 <code>http</code></li>
+<li>客户端有 <code>transport</code> 时选 <code>streamable-http</code></li>
+<li>不要把 MoviePilot 当成单独的 SSE 地址去配置</li>
+</ul>
+<p>如果某个 Agent 工具只支持 <code>stdio</code> 或强制要求某种固定的 <code>SSE</code> 远程格式，又不能配置 HTTP MCP，那它通常不能直接对接 MoviePilot，需要额外 MCP bridge 或代理层。</p>
+<h2 id="h-4-工具列表和别人截图不一样" class="toc-header"><a class="toc-anchor" href="#h-4-工具列表和别人截图不一样">¶</a> 4. 工具列表和别人截图不一样</h2>
+<p>这是正常现象，常见原因包括：</p>
+<ul>
+<li>MoviePilot 版本不同</li>
+<li>插件安装情况不同</li>
+<li>当前实例配置不同</li>
+<li>部分高风险工具被 MoviePilot 故意隐藏，不对外通过 MCP 暴露</li>
+</ul>
+<h2 id="h-5-想暴露到公网给远程-agent-用" class="toc-header"><a class="toc-anchor" href="#h-5-想暴露到公网给远程-agent-用">¶</a> 5. 想暴露到公网给远程 Agent 用</h2>
+<p>可以，但强烈建议：</p>
+<ul>
+<li>使用 <code>HTTPS</code></li>
+<li>在反向代理、网关或网络层增加访问控制，只允许可信客户端访问</li>
+<li>不要把 <code>API_TOKEN</code> 写进公开仓库或公开截图</li>
+<li>不要把带 <code>apikey=</code> 的 URL 随意分享</li>
+<li>把 <code>API_TOKEN</code> 视为管理员级高敏感凭证保管</li>
+</ul>
+<h1 id="相关文档" class="toc-header"><a class="toc-anchor" href="#相关文档">¶</a> 相关文档</h1>
+<ul>
+<li><a href="/basic" class="is-internal-link is-valid-page">基础</a></li>
+<li><a href="/configuration" class="is-internal-link is-valid-page">配置参考</a></li>
+<li><a href="/agent" class="is-internal-link is-valid-page">智能助手</a></li>
+</ul>
+</div></template><template slot="comments"><div><comments></comments></div></template></page></div><script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="c089960fd394bb3aa0452238-|49" defer></script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a465c23ebf7f1787',t:'MTc5MTMwMTE2NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body></html>

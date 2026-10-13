@@ -1,0 +1,6 @@
+Request ID：
+Request ID:
+appkey: "CF_APP_WAF", // 应用标识waf-nc-h5-mask var AC_Opt = {userUserId: requestInfo.userUserId
+TraceID: 6ae1f38617913011820835821e
+-->
+var requestInfo = {"type":"GET","data":"","token":"6ac5163e-551e-29b6-be89-b6b30bb170a0","sceneId":"19x5u7lo","userUserId":"KV1xJ+BGylU73MBMQb7V9g==","userId":"HpadJlQnz2zSKcSmjXBaqQvjYUvP4jMJIk/ZwGNDNiM=","region":"cn","traceid":"6ae1f38617913011820835821e"};

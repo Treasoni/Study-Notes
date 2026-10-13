@@ -1,79 +1,114 @@
-# 批量更新报告 — `update-xiaoya-fnos-routes`（P5 收口）
+# 批量更新汇总报告（run: update-xiaoya-fnos-alist）
 
-**运行**：`batch-note-update-flow` ｜ run_id `update-xiaoya-fnos-routes`
-**任务**：`流媒体与影音/小雅 fnOS 单容器部署/` 全篇**统一为 monlor 社区镜像单一路线，彻底删除官方 `xiaoyaliu/alist` 镜像路线**
-**目标模式**：`patch-in-place` + 全副本同步（机制甲：改上游 `chapters/` 发布源 → `output/` 分册 + vault 成品 + 合并件逐一同源重生成）
-**完成时间**：2026-10-06
+对应 `02_batch_update_plan.md` 与 `03_batch_update_log.md`。本文件是 P5 的收口件。
 
-## 一、总量
-
-| 范围 | 篇数 | 已更新 | 逐字节未变 | 跳过 | 失败 | 需复核 |
-| --- | --- | --- | --- | --- | --- | --- |
-| 发布源 `workspace/xiaoya-fnos-deploy/chapters/` | 7 | 4 | 3 | 0 | 0 | 0 |
-| 分册 `workspace/xiaoya-fnos-deploy/output/`（章） | 7 | 4 | 3 | 0 | 0 | 0 |
-| vault 成品 `流媒体与影音/小雅 fnOS 单容器部署/`（章） | 7 | 4 | 3 | 0 | 0 | 0 |
-| 入口页 `小雅 fnOS 单容器部署（总览）.md`（output + vault） | 2 | 2 | 0 | 0 | 0 | 0 |
-| 合并件 `output/final_note.md` | 1 | 1 | — | 0 | 0 | 0 |
-
-- **更新篇**：第 1、3、4、7 章 + 入口页 + 合并件。
-- **未变篇（`chapters/`/`output/`/vault 三处逐字节一致）**：第 2、5、6 章。
-- 批次：批 1 = 04 / 03 / 07；批 2 = 01 / 总览；收口 = 03 小节回填、合并件重装配。
-
-## 二、逐篇摘要（本运行）
-
-| 序 | 目标 | 章名 / 标题变化 | 体积 → 后（B） | 行数 → 后 | 要点 |
-| --- | --- | --- | --- | --- | --- |
-| 1 | `chapters/04_部署实战.md` | 「单容器小雅（**两条镜像路线**）」→「单容器小雅（**monlor 镜像**）」 | 11778 | 149 | 删原 4.2「路线一：官方镜像 `xiaoyaliu/alist`」整节（含官方一键脚本 `docker.xiaoya.pro/update_new.sh`、社区 `docker run` 示例、容器内端口 `5678` vs `80` 冲突段、整合脚本入口）；原 4.3 升 4.2；原 4.1 + 4.4 合并重写为 4.1「为什么用 monlor 镜像」；5 行「镜像地址」表；引文对照 **20 → 11** 条 |
-| 2 | `chapters/03_动手前准备.md` | 无（保持章名） | 27156 → **27217**（+61） | 227 | 删「另一条注入路线（文件）」整节与凭据文件名 Callout、端口冲突段；凭据/夸克收敛为**只用环境变量**（`ALIYUN_TOKEN` / `ALIYUN_OPEN_TOKEN` / `ALIYUN_FOLDER_ID` / `QUARK_COOKIE`）；WebDAV 收敛为 **用户名 `dav` + 默认密码 `guest_Api789` + 路径 `/dav`**，并加「用户名是 `dav` 不是 `guest`」提醒；收口时回填两小节标题 `### 3.3.1 如何选用夸克和115`、`### 3.3.2 WebDAV 账号`（+2 行）；引文对照 **40 → 30** 条 |
-| 3 | `chapters/07_运维与收尾.md` | 无 | 13677 | 154 | 7.3 更新口径表双列 → 单列（只留 monlor 一键脚本「可重复执行」）；删官方 `docker.xiaoya.pro/update_new.sh` 与「重启即刷新索引」整段；改 warning / 比喻 / 未决项表 / 小结；引文对照 **11 → 9** 条；补「更新记录」节 |
-| 4 | `chapters/01_开篇定位.md` | 无 | 13233 | 122 | 删 1.1「小雅官方镜像的作者自述」引文及引导句；1.5「官方来源（官方镜像页、官方脚本仓库）」收窄；warning 里删「或直接运行官方镜像 `xiaoyaliu/alist`」；引文对照 **9 → 8** 条；补「更新记录」节 |
-| 5 | 入口页 `（总览）` | 目录项改用新章名 | 3821 | 60 | 第 4 章目录项 →「单容器小雅（monlor 镜像）」；第 3 章目录项「凭据文件准备清单」→「凭据准备清单」；读前须知第 3 条改为「以你当时所用镜像的项目说明为准（本笔记用 `ghcr.io/monlor/xiaoya-alist`）」 |
-| 6 | 合并件 `output/final_note.md` | 无 | 134842 | 1380 | 按当前 7 章重装配（框架从原件自身推导，仅替换正文区）；收口前停在旧版、仍含已删的官方镜像路线 |
-
-## 三、判定口径与验收证据
-
-落盘全程**确定性**、可复现，不靠人工逐句比对：
-
-1. **发布变换**（`publish_copies.py`）：`chapters/XX.md → output/XX YYY.md → vault/XX YYY.md`。发布件分「文件头（frontmatter + 章首导航行）＋ 正文 ＋ 尾部空白 ＋ `---` ＋ 章末返回导航行」；正文区与尾部空白**从发布件自身推导**，不查 git、不假设 GAP 值。
-   - **自证**：对未改动篇重算，必须与原文逐字节相同 → 01/02/03/05/06/07 均通过。
-2. **合并件重装配**（`assemble_final.py`）：框架（头部说明 + 章间 `---` 分隔）同样从原件自身推导，只替换各章正文区；自证重建原文逐字节一致；未改动章 02/05/06 重装后逐字节不变。
-3. **收口校验**（2026-10-06 21:1x 快照）：
-   - `note-citation-check.py workspace/xiaoya-fnos-deploy` → **判定 ✅ 无硬失败**（V 逐字回源 / S4 对照表结构 / C 多副本一致 全通过）；C 族「8 份副本、比对 7 组、**差异 0 处**」。
-   - `publish_copies.py --check` → 7 篇 `output ==` 与 `vault ==` **全通过**。
-   - `check-md-structure.py`（改动篇 + 合并件）→ **0 处可疑**。
-   - 禁用词扫描（`两条镜像路线` / `路线一` / `官方镜像` / `xiaoyaliu`）在 chapters、output、vault 三处**正文命中为 0**（仅剩「更新记录」留痕行，及 `# monlor 路线一键脚本` 这类含「路线一键」的误命中）。
-
-**S1 / S2 / S3 人工判**（校验脚本明确标为「候选清单」，非硬失败）：
-- S1 边界叠字：0 处。
-- S2 LCS 撞车：仅「小雅的夸克分享区（`/🌀我的夸克分享`）」——专有名词 / UI 路径，第 3 章（凭据作用）与第 5 章 5.6（正路 ①）各司其职，判**保留**。
-- S3 反引号外相邻 ASCII 词串：`Docker Compose`、`TODO LIST`、`Open Token`、`folder id` 四处，均为行文中的英文术语 / 产品名，判**保留**。
-
-## 四、MOC 同步
-
-- `流媒体与影音 MOC.md` 第 26 行索引项指向**入口页**，而入口页标题未改名、内容性质未变 → **无需改动，未触碰**。
-- 未向 MOC 复制任何正文。
-
-## 五、风险与需复核
-
-| 项 | 说明 | 处置 |
-| --- | --- | --- |
-| 并行会话 | 执行期间另一会话在改第 5 章（MediaWarp 结论更正），与本运行编辑面不重叠；共享写点只有合并件 `output/final_note.md`，该步幂等 | 已在批处理日志「并发说明」记录；收口快照以 21:1x 为准，若并行会话继续编辑需重跑两项校验 |
-| 引文对照留档行 | 各章「更新记录」行保留 `官方镜像`/`xiaoyaliu` 字样，用于说明本轮删了什么 | 属留痕，不参与正文禁用词判定 |
-| 05 格式差异（已消除） | 运行中途 05 的 vault 副本曾出现 Obsidian 表格分隔行对齐（纯格式） | 由并行会话重建 05 时消除，本轮未触碰 05 |
-
-## 六、跳过的篇章（本运行未改，三副本核对）
-
-| 文件 | 原因 |
+| 项 | 值 |
 | --- | --- |
-| 第 2 章 `02_选型对比.md` | 本章「两条路线」= Emby 全家桶(E) vs 飞牛影视(F)，与镜像路线无关 |
-| 第 5 章 `05_前端接入.md` | 0 处官方镜像命中（运行期间由并行会话另行更新） |
-| 第 6 章 `06_避坑清单.md` | 0 处路线关键词命中 |
+| workflow_id | `batch-note-update-flow` |
+| run_id | `update-xiaoya-fnos-alist` |
+| project_slug | `xiaoya-fnos-deploy` |
+| 主题 | 小雅 fnOS 单容器部署笔记集：monlor 路线 → `xiaoyaDev/xiaoya-alist`（DDSRem）整合脚本路线 |
+| 输出模式 | **patch-in-place**（`updated_note` 即 `chapters/{file}`） |
+| 完成日期 | 2026-10-07 |
+| 最终判定 | ✅ 全部完成，引文校验无硬失败 |
 
-## 七、最终产出
+## 1. 数量汇总
 
-- **源路径**：`workspace/xiaoya-fnos-deploy/chapters/`
-- **输出模式**：`patch-in-place` + 全副本同步
-- **处理 / 更新 / 跳过 / 需复核**：8 / 6 / 2(章) / 0
-- **产出路径**：`workspace/xiaoya-fnos-deploy/output/`（7 分册 + 合并件 + 入口页）
-- **Obsidian Vault**：`流媒体与影音/小雅 fnOS 单容器部署/`
-- **MOC 路径**：`流媒体与影音 MOC.md`（无需改动）
+| 指标 | 数量 | 说明 |
+| --- | --- | --- |
+| 范围内笔记 | **8** | 7 章（`chapters/01..07`）+ 总览（`output/…（总览）.md`，**不在 `chapters/`**） |
+| 更新 | **8** | 全部 update，无 skip |
+| 跳过 | 0 | — |
+| 失败 | 0 | — |
+| 需复核 | 0 | 各章遗留项均已在 `updates/*/update_report.md` 逐条记录，无阻塞项 |
+| 引文对照表扩编 | 4 章 | ch01 8→13、ch02 17→28、ch05 23/24/28 行换源、ch06 12→22 |
+
+## 2. 每篇输出路径与风险
+
+| # | note_id | 源（=输出） | 发布副本 | 动作 | 主要风险 / 取舍 |
+| --- | --- | --- | --- | --- | --- |
+| 1 | ch01 | `chapters/01_开篇定位.md` | `output/01 开篇定位.md`、vault 同名 | update | 术语校正：**官方 = `xiaoyaliu/alist`**；整合脚本为非官方社区脚本（author DDSRem） |
+| 2 | ch02 | `chapters/02_选型对比.md` | `output/02 选型对比.md`、vault 同名 | update | §2.3.3 硬解结论**反转**（旧「不支持硬解」作废）；§2.4 撤回 monlor 硬件数字（**有意不给 CPU/内存数**） |
+| 3 | ch03 | `chapters/03_动手前准备.md` | `output/03 动手前准备.md`、vault 同名 | update | 端口口径反转（容器内 `80` / 宿主 `5678`）；凭据注入方式由 env 改为菜单 |
+| 4 | ch04 | `chapters/04_部署实战.md` | `output/04 部署实战.md`、vault 同名 | update（重写） | 两张 monlor 界面截图经 Obsidian 回收站删除；主线改一键脚本 |
+| 5 | ch05 | `chapters/05_前端接入.md` | `output/05 前端接入.md`、vault 同名 | update（轻） | 5.6 三处限速/转存论据换源；前端工具链（SmartStrm / MediaWarp / fntv-proxy）**未动** |
+| 6 | ch06 | `chapters/06_避坑清单.md` | `output/06 避坑清单.md`、vault 同名 | update（轻） | 6.2 清理口径分两处；新增 6.5 坑五（WebDAV 端口/用户名）；**章名扩为「…、UA 与登录」** |
+| 7 | ch07 | `chapters/07_运维与收尾.md` | `output/07 运维与收尾.md`、vault 同名 | update | 转存缓存清理口径换源（小雅助手 / 115清理助手） |
+| 8 | overview | `output/小雅 fnOS 单容器部署（总览）.md` | vault 同名（**两处手改**） | update | 章节目录第 4、6 条与读前须知换源；`updated` → 2026-10-07 |
+
+## 3. 主线换源的核心改动（跨章）
+
+- **部署形态**：monlor 社区镜像（`ghcr.io/monlor/xiaoya-alist`，项目 `monlor/docker-xiaoya`，最后提交 2025-03-27）→ **`xiaoyaDev/xiaoya-alist` 一键菜单脚本**（DDSRem 社区整合脚本，内部使用官方镜像 `xiaoyaliu/alist`）。
+- **术语边界**：`xiaoyaDev/xiaoya-alist` 是**社区整合脚本，不是官方**；「官方」仅指镜像 `xiaoyaliu/alist`（内容源 `alist.xiaoya.pro`）。monlor 仅出现在整合脚本 README 的「小雅周边工具集合」中。
+- **诚实用例（撤回而非改写）**：凡只有 monlor 一处来源支撑的结论，一律从正文撤回并记入更新记录——ch02 §2.4 硬件门槛表、ch02 §2.3.3 硬解结论、ch05 §5.6 限速论据、ch06 §6.2 清理口径。
+
+## 4. 验收规则核对（plan §2.6）
+
+规则：正文残留 `rg monlor` 应为空，仅允许出现在**更新记录**与 `sources/`。
+
+对 vault 成品全量扫描（`rg -n "monlor" 流媒体与影音/小雅 fnOS 单容器部署/`）结果：
+
+| 文件 | 命中 | 归类 |
+| --- | --- | --- |
+| ch06 | **0** | 正文/记录均无 monlor |
+| ch01 / ch02 / ch05 / ch07 | 各 1–2 | **全部在「更新记录」** |
+| ch03 | 4 | L82 **3.2 旧路线端口对照 warning**（有意保留）+ 3 行更新记录 |
+| ch04 | 7 | L24 **4.1 换路线背景** + L40 **「周边工具集合」note** + L118 **旧端口对照 note** + L173 **引文对照第 7 行**（逐字引 `monlor/docker-xiaoya` + 出处 `README:295`）+ 3 行更新记录 |
+| overview | 1 | L54 **读前须知**：说明早期 monlor 路线已停维护、步骤已整体替换（有意保留） |
+
+**结论**：无一处「未加说明的正文遗留」；6 处正文例外均为「早期路线 vs 本路线」的对照说明，来源可回源（`sources/01_raw_githubusercontent_com.md:295`）。
+
+## 5. 校验结果
+
+| 校验 | 命令 | 结果 |
+| --- | --- | --- |
+| 副本一致性 | `publish_copies.py --check`（7 章 output + vault） | ✅ 7/7 `OK`（output==、vault==） |
+| 装配件一致 | `assemble_final.py --check`（`output/final_note.md`） | ✅ `需更新 0 章` |
+| Markdown 结构 | `check-md-structure.py`（output 9 文件、vault 8 文件） | ✅ 0 处可疑 |
+| 引文纪律 | `note-citation-check.py workspace/xiaoya-fnos-deploy` | ✅ **无硬失败**（V 6/6 命中、S4 0 处、C 0 差异） |
+| 校验器自测 | `note-citation-check-selftest.py` | ✅ 七个用例全部符合预期 |
+| 配置同步 | `sync_agents.py --check` | ✅ synchronized |
+
+候选清单人工判（S1/S2/S3 非硬失败）：
+- **S1 边界叠字**：0 处。
+- **S2 LCS 撞车（10 处）**：全部为「引导语点名某条目 + 随后逐字引用同一条目」（如「适配 飞牛影视」←`- [x] 适配 飞牛影视`）或**功能名重复**（「小雅的夸克分享区」）。判为**良性**，非「引导语把引文又说一遍」的缺陷形态。
+- **S3 反引号外 ASCII 词串（去重 5 个）**：`raw Markdown`、`Open Token`、`folder id`、`alist tvbox`、`Docker Hub` —— 均为**保留类术语 / 产品名**，或位于「」引文内，判为**保留**。
+
+## 6. P5 期间的工具修正（非笔记缺陷）
+
+两处**校验器误报**在本轮暴露并修复（canonical 改 `.codex/scripts/`，同步至 `.claude/scripts/`）：
+
+| # | 误报 | 根因 | 修法 |
+| --- | --- | --- | --- |
+| 1 | S4「出处列非法」72 处 | 出处取值域只认 `.md/.txt/.html/.json`，而本主题的逐字引文出自一键脚本 `sources/xiaoyaDev/all_in_one.sh`（`.sh`） | `CITE_FULL` 扩展为 `(?:md\|txt\|html\|json\|sh)` |
+| 2 | S4「管道数 != 5」4 处 | 引文里引用一行 shell 管道或一行 Markdown 表格时，单元格内竖线写成**转义** `\|`（正确写法），被按原始 `\|` 计数 | 只计**未转义**竖线（`(?<!\\)\|`），并按未转义竖线切列；新增自测用例 **G** 守住该回归 |
+
+另修 ch05 §5.4.2 的 `docker compose config` 报错：由行内反引号改为**带语言标识的代码块**（命令输出不是英文散文引文），既符合 `note-system.md` 的代码块要求，也消除 V 的误判。
+
+## 7. MOC 同步
+
+`流媒体与影音 MOC.md` 已含小雅条目（指向 `小雅 fnOS 单容器部署（总览）`），描述为「单容器部署步骤 + 避坑与运维」，**不含 monlor / 旧路线字样**，本轮无需改动；`updated: 2026-10-07` 已是当日。**未复制正文**，符合 `note-system.md` 的 MOC 规则。
+
+## 8. 遗留（不阻塞，供后续参考）
+
+| # | 项 | 说明 |
+| --- | --- | --- |
+| 1 | 各章 `遗留 / 风险` 小节 | 见 `updates/{01..07}/*/update_report.md`；多为「vault 侧表格列宽由 Obsidian 自动补空格」这类渲染层差异 |
+| 2 | ch02 §2.4 不给硬件数字 | 有意取舍：原数字出自停更项目，不采用 |
+| 3 | ch05 前端链路整体未动 | SmartStrm / MediaWarp / fntv-proxy 与部署主线正交 |
+| 4 | ch06 坑五与 ch03 §3.3.2 的边界 | 完整端口/用户名对照在 ch03，ch06 只讲避法并交叉引用，不重复整表 |
+| 5 | ch04 副本曾滞留旧锚点 | 已在 P4 收口发现并重发布（详见 `03_batch_update_log.md` P4 收口行） |
+
+## 9. 收口健康检查（`.claude/scripts/workflow-health-check.sh`）
+
+P5 收口时运行一次，结果**与本次笔记改写无关**，均为**本机环境 / 运行时会话配置**层面：
+
+| 检查项 | 结果 | 判定 |
+| --- | --- | --- |
+| todo-state 动作守卫 | 15 个调用探测通过 | ✅ |
+| manifest 注册校验 | 60 个工件通过 | ✅ |
+| 跨机器可移植性 | shared agent sources portable | ✅ |
+| workflow-routing 表 | **FAIL「表已过期」** | ⚠️ **误报**：本机 `python3` 是 macOS 自带 **3.9.6**，`sync-workflow-routing.sh` 要求 **3.10+**，因而**没能真正比对**就判红。用 3.10+ 解释器重跑：`PYTHON=$HOME/.local/bin/python3.12 .claude/scripts/sync-workflow-routing.sh --check` → `up to date`（✅ 表其实是同步的） |
+| prompt-cache 守卫 | **FAIL knob drift**：`effortLevel` / `thinkingBudget` 会话值 `high` ≠ 冻结基线 `medium` | ⚠️ **环境/会话配置**：本仓库 `.llm/` 与 settings 在本次运行中**未被改动**（`git status` 无 `.llm/`），与笔记内容无关 |
+
+**结论**：本 run 产出的笔记、其副本一致性、引文纪律、结构自检、装配件、配置同步**全部通过**；健康检查的两处 FAIL 属于解释器选择与运行时旋钮，需在**环境/配置层**另行处理，不在本次批量更新范围内。本机若想一键跑通健康检查，可先 `export PYTHON=$HOME/.local/bin/python3.12`。

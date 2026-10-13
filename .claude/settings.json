@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"python\" \".claude/hooks/read_learnings.py\""
+            "command": "\"python3\" \".claude/hooks/read_learnings.py\""
           }
         ]
       }
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "PYTHONUTF8=1 python .llm/prompt-cache/collect-usage.py",
+            "command": "PYTHONUTF8=1 python3 .llm/prompt-cache/collect-usage.py",
             "timeout": 10
           }
         ]

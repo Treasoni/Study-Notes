@@ -2,7 +2,7 @@
 title: "AI学习 MOC"
 tags: [moc]
 created: 2026-05-14
-updated: 2026-09-29
+updated: 2026-10-13
 ---
 
 # AI学习 MOC
@@ -28,6 +28,7 @@ graph TB
     DeepSeekHarness[📁 DeepSeek-Harness 教程]
     OpenCode[📁 OpenCode]
     Hermes[📁 Hermes Agent]
+    REA[📁 REA 逆向工程]
     end
 
     Basics --> A1[AI Agents]
@@ -232,6 +233,12 @@ graph TB
 - [[DeepSeek-Harness 插件开发教程/README]] — 插件开发分册：00 速查 + 01 核心 + 02-03 配置 + 04-10 实战路径（git_log 写→配→验证→打包→安装）
 - [[DeepSeek-Harness 与ClaudeCode对照迁移]] — 实战：从零写自定义工具插件（每步对照 Claude Code）
 - [[DeepSeek-Harness 常见坑与速查]] — 插件开发速查：坑/命令/工具契约/配置引用
+
+### REA 逆向工程
+
+> [[REA 逆向工程 MOC]] — 完整目录与导航入口
+
+- [[REA 逆向工程 MOC|REA 逆向工程（8 章）]] — 从零认识 REA（把逆向工程能力接给 AI agent 的 MCP server + CLI）：是什么、22 类可分析目标全景、安装接入、两条「零引擎」实战（静态 JS/Electron、网站观测）、provider 与平台限制、边界与安全、速查附录 #AI学习 #逆向工程 #REA #MCP
 
 ---
 

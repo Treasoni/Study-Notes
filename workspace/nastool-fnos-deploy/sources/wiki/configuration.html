@@ -1,0 +1,1622 @@
+<!DOCTYPE html><html lang="zh"><head><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><meta name="msapplication-TileImage" content="/_assets/favicons/mstile-150x150.png"><title>配置参考 | MoviePilot Wiki</title><meta name="description" content="所有支持的配置项说明"><meta property="og:title" content="配置参考"><meta property="og:type" content="website"><meta property="og:description" content="所有支持的配置项说明"><meta property="og:image"><meta property="og:url" content="https://wiki.movie-pilot.org/configuration"><meta property="og:site_name" content="MoviePilot Wiki"><link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/_assets/favicons/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicons/favicon-16x16.png"><link rel="mask-icon" href="/_assets/favicons/safari-pinned-tab.svg" color="#1976d2"><link rel="manifest" href="/_assets/manifest.json"><script type="1cdec69ca3ff452413df1bd0-text/javascript">var siteConfig = {"title":"MoviePilot Wiki","theme":"default","darkMode":false,"tocPosition":"right","lang":"zh","rtl":false,"company":"","contentLicense":"alr","footerOverride":"","logoUrl":"/assets/logo.svg"}
+var siteLangs = []
+</script><link type="text/css" rel="stylesheet" href="/_assets/css/app.0f8c3acc9686d9d11765.css"><script type="1cdec69ca3ff452413df1bd0-text/javascript" src="/_assets/js/runtime.js?1777631845"></script><script type="1cdec69ca3ff452413df1bd0-text/javascript" src="/_assets/js/app.js?1777631845"></script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MRPCZR1JF5" type="1cdec69ca3ff452413df1bd0-text/javascript"></script>
+<script type="1cdec69ca3ff452413df1bd0-text/javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MRPCZR1JF5');
+</script>
+</head><body><div id="root"><page locale="zh" path="configuration" title="配置参考" description="所有支持的配置项说明" :tags="[]" created-at="2024-05-30T09:48:02.073Z" updated-at="2026-10-04T03:13:55.877Z" author-name="Administrator" :author-id="1" editor="markdown" :is-published="true" toc="W3sidGl0bGUiOiLnjq/looPlj5jph48iLCJhbmNob3IiOiIj546v5aKD5Y+Y6YePIiwiY2hpbGRyZW4iOlt7InRpdGxlIjoi56uZ54K56K6k6K+BIiwiYW5jaG9yIjoiI+ermeeCueiupOivgSIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IuWfuuehgOiuvue9riIsImFuY2hvciI6IiPln7rnoYDorr7nva4iLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiJIVFRQU+iuv+mXriIsImFuY2hvciI6IiNodHRwc+iuv+mXriIsImNoaWxkcmVuIjpbXX1dfSx7InRpdGxlIjoi6YWN572u5paH5Lu2IiwiYW5jaG9yIjoiI+mFjee9ruaWh+S7tiIsImNoaWxkcmVuIjpbeyJ0aXRsZSI6IuWJjeerr+mFjee9ruWFpeWPoyIsImFuY2hvciI6IiPliY3nq6/phY3nva7lhaXlj6MiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLln7rnoYDphY3nva4iLCJhbmNob3IiOiIj5Z+656GA6YWN572uIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi572R57ucJuS7o+eQhiIsImFuY2hvciI6IiPnvZHnu5zku6PnkIYiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLns7vnu5/ph43lkK8m5pu05pawIiwiYW5jaG9yIjoiI+ezu+e7n+mHjeWQr+abtOaWsCIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6Iue8k+WtmCIsImFuY2hvciI6IiPnvJPlrZgiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLmlbDmja7lupPphY3nva4iLCJhbmNob3IiOiIj5pWw5o2u5bqT6YWN572uIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi5a6J5YWo6K6k6K+B6YWN572uIiwiYW5jaG9yIjoiI+WuieWFqOiupOivgemFjee9riIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IuaXpeW/l+mFjee9riIsImFuY2hvciI6IiPml6Xlv5fphY3nva4iLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLlronlhagiLCJhbmNob3IiOiIj5a6J5YWoIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi5pm66IO95Yqp5omLIiwiYW5jaG9yIjoiI+aZuuiDveWKqeaJiyIsImNoaWxkcmVuIjpbeyJ0aXRsZSI6IuWbvueJh+S4jumZhOS7tiIsImFuY2hvciI6IiPlm77niYfkuI7pmYTku7YiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLor63pn7MiLCJhbmNob3IiOiIj6K+t6Z+zIiwiY2hpbGRyZW4iOltdfV19LHsidGl0bGUiOiLlqpLkvZPmlbTnkIYiLCJhbmNob3IiOiIj5aqS5L2T5pW055CGIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi5aqS5L2T6K+G5YirIiwiYW5jaG9yIjoiI+WqkuS9k+ivhuWIqyIsImNoaWxkcmVuIjpbeyJ0aXRsZSI6IlRNREIiLCJhbmNob3IiOiIjdG1kYiIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IlRWREIiLCJhbmNob3IiOiIjdHZkYiIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IkZhbmFydCIsImFuY2hvciI6IiNmYW5hcnQiLCJjaGlsZHJlbiI6W119XX0seyJ0aXRsZSI6IuWqkuS9k+acjeWKoeWZqCIsImFuY2hvciI6IiPlqpLkvZPmnI3liqHlmagiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLorqLpmIUiLCJhbmNob3IiOiIj6K6i6ZiFIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi56uZ54K5IiwiYW5jaG9yIjoiI+ermeeCuSIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IuaQnOe0oibkuIvovb0iLCJhbmNob3IiOiIj5pCc57Si5LiL6L29IiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoiQ29va2llQ2xvdWQiLCJhbmNob3IiOiIjY29va2llY2xvdWQiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLlkI7lj7DmnI3liqEiLCJhbmNob3IiOiIj5ZCO5Y+w5pyN5YqhIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi5o+S5Lu2IiwiYW5jaG9yIjoiI+aPkuS7tiIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IuWIhuS6qyIsImFuY2hvciI6IiPliIbkuqsiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLnvZHnm5giLCJhbmNob3IiOiIj572R55uYIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi5Liq5oCn5YyWIiwiYW5jaG9yIjoiI+S4quaAp+WMliIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IuaAp+iDvSIsImFuY2hvciI6IiPmgKfog70iLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLmlbDmja7muIXnkIYiLCJhbmNob3IiOiIj5pWw5o2u5riF55CGIiwiY2hpbGRyZW4iOltdfV19LHsidGl0bGUiOiLorr7nva7pobnkuI7lj5jph4/lr7nnhafooagiLCJhbmNob3IiOiIj6K6+572u6aG55LiO5Y+Y6YeP5a+554Wn6KGoIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi5a6J6KOFUmVkaXMiLCJhbmNob3IiOiIj5a6J6KOFcmVkaXMiLCJjaGlsZHJlbiI6W3sidGl0bGUiOiIxLiDlronoo4VSZWRpc+WuueWZqCIsImFuY2hvciI6IiNoLTEt5a6J6KOFcmVkaXPlrrnlmagiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiIyLiDphY3nva5Nb3ZpZVBpbG905L2/55SoUmVkaXMiLCJhbmNob3IiOiIjaC0yLemFjee9rm1vdmllcGlsb3Tkvb/nlKhyZWRpcyIsImNoaWxkcmVuIjpbXX1dfSx7InRpdGxlIjoi5a6J6KOFUG9zdGdyZXNxbCIsImFuY2hvciI6IiPlronoo4Vwb3N0Z3Jlc3FsIiwiY2hpbGRyZW4iOlt7InRpdGxlIjoiMS4g5a6J6KOFUG9zdGdyZVNRTOWuueWZqCIsImFuY2hvciI6IiNoLTEt5a6J6KOFcG9zdGdyZXNxbOWuueWZqCIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IjIuIOWIm+W7uueUqOaIt+adg+mZkCIsImFuY2hvciI6IiNoLTIt5Yib5bu655So5oi35p2D6ZmQIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoiMy4g5pWw5o2u6L+B56e777yI5Y+v6YCJ77yJIiwiYW5jaG9yIjoiI2gtMy3mlbDmja7ov4Hnp7vlj6/pgIkiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiI0LiDphY3nva5Nb3ZpZVBpbG905L2/55SoUG9zdGdyZVNRTCIsImFuY2hvciI6IiNoLTQt6YWN572ubW92aWVwaWxvdOS9v+eUqHBvc3RncmVzcWwiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiI1LiDpqozor4HphY3nva4iLCJhbmNob3IiOiIjaC01LemqjOivgemFjee9riIsImNoaWxkcmVuIjpbXX1dfSx7InRpdGxlIjoi5a+55aSW5pyN5Yqh6Lev5b6EIiwiYW5jaG9yIjoiI+WvueWkluacjeWKoei3r+W+hCIsImNoaWxkcmVuIjpbXX1d" :page-id="6" sidebar="W3siaSI6InNkaS0xIiwiayI6ImhlYWRlciIsImwiOiLlvIDlp4siLCJjIjpudWxsLCJ5IjpudWxsLCJ0IjpudWxsfSx7ImkiOiJzZGktMiIsImsiOiJsaW5rIiwibCI6IueOr+Wig+WHhuWkhyIsImMiOiJtZGktY2hlY2stY2lyY2xlLW91dGxpbmUiLCJ5IjoicGFnZSIsInQiOiIvemgvcmVhZHkifSx7ImkiOiJzZGktMyIsImsiOiJsaW5rIiwibCI6IuWuieijheaMh+W8lSIsImMiOiJtZGktZmxhcmUiLCJ5IjoicGFnZSIsInQiOiIvemgvaW5zdGFsbCJ9LHsiaSI6InNkaS00IiwiayI6ImxpbmsiLCJsIjoi5pys5ZywIENMSSIsImMiOiJtZGktY29uc29sZSIsInkiOiJwYWdlIiwidCI6Ii96aC9jbGkifSx7ImkiOiJzZGktNSIsImsiOiJsaW5rIiwibCI6IumFjee9ruWPguiAgyIsImMiOiJtZGktY29nLW91dGxpbmUiLCJ5IjoicGFnZSIsInQiOiIvemgvY29uZmlndXJhdGlvbiJ9LHsiaSI6InNkaS02IiwiayI6ImxpbmsiLCJsIjoi5Y2H57qnIiwiYyI6Im1kaS1wdWJsaXNoIiwieSI6InBhZ2UiLCJ0IjoiL3poL3VwZ3JhZGUifSx7ImkiOiJzZGktNyIsImsiOiJsaW5rIiwibCI6IuWPkeihjOivtOaYjiIsImMiOiJtZGktZmlyZSIsInkiOiJwYWdlIiwidCI6Ii96aC9yZWxlYXNlIn0seyJpIjoic2RpLTgiLCJrIjoibGluayIsImwiOiLlkajovrnpobnnm64iLCJjIjoibWRpLW9yYml0IiwieSI6InBhZ2UiLCJ0IjoiL3poL2Vjb3N5c3RlbSJ9LHsiaSI6InNkaS05IiwiayI6ImhlYWRlciIsImwiOiLnlKjmiLfmjIfljZciLCJjIjpudWxsLCJ5IjpudWxsLCJ0IjpudWxsfSx7ImkiOiJzZGktMTAiLCJrIjoibGluayIsImwiOiLln7rnoYAiLCJjIjoibWRpLWN1YmUtb3V0bGluZSIsInkiOiJwYWdlIiwidCI6Ii96aC9iYXNpYyJ9LHsiaSI6InNkaS0xMSIsImsiOiJsaW5rIiwibCI6IuermeeCuSIsImMiOiJtZGktd2ViIiwieSI6InBhZ2UiLCJ0IjoiL3poL3NpdGUifSx7ImkiOiJzZGktMTIiLCJrIjoibGluayIsImwiOiLmkJzntKIiLCJjIjoibWRpLW1hZ25pZnkiLCJ5IjoicGFnZSIsInQiOiIvemgvc2VhcmNoIn0seyJpIjoic2RpLTEzIiwiayI6ImxpbmsiLCJsIjoi5LiL6L29IiwiYyI6Im1kaS1kb3dubG9hZCIsInkiOiJwYWdlIiwidCI6Ii96aC9kb3dubG9hZCJ9LHsiaSI6InNkaS0xNCIsImsiOiJsaW5rIiwibCI6IuiuoumYhSIsImMiOiJtZGktcnNzIiwieSI6InBhZ2UiLCJ0IjoiL3poL3N1YnNjcmliZSJ9LHsiaSI6InNkaS0xNSIsImsiOiJsaW5rIiwibCI6IuaWh+S7tuaVtOeQhiIsImMiOiJtZGktZmlsZSIsInkiOiJwYWdlIiwidCI6Ii96aC9yZW9yZ2FuaXplIn0seyJpIjoic2RpLTE2IiwiayI6ImxpbmsiLCJsIjoi6YCa55+lIiwiYyI6Im1kaS1tZXNzYWdlIiwieSI6InBhZ2UiLCJ0IjoiL3poL25vdGlmaWNhdGlvbiJ9LHsiaSI6InNkaS0xNyIsImsiOiJsaW5rIiwibCI6IuaPkuS7tiIsImMiOiJtZGktcHV6emxlIiwieSI6InBhZ2UiLCJ0IjoiL3poL3BsdWdpbiJ9LHsiaSI6InNkaS0xOCIsImsiOiJsaW5rIiwibCI6IuaZuuiDveWKqeaJiyIsImMiOiJtZGktcm9ib3QiLCJ5IjoicGFnZSIsInQiOiIvemgvYWdlbnQifSx7ImkiOiJzZGktMTkiLCJrIjoibGluayIsImwiOiJNQ1AiLCJjIjoibWRpLXRvb2xzIiwieSI6InBhZ2UiLCJ0IjoiL3poL21jcCJ9LHsiaSI6InNkaS0yMCIsImsiOiJsaW5rIiwibCI6Iui/m+mYtiIsImMiOiJtZGktYXBwbGljYXRpb24tY29nIiwieSI6InBhZ2UiLCJ0IjoiL3poL2FkdmFuY2VkIn0seyJpIjoic2RpLTIxIiwiayI6ImxpbmsiLCJsIjoi6K+K5pat5LiO5L+u5aSNIiwiYyI6Im1kaS1kb2N0b3IiLCJ5IjoicGFnZSIsInQiOiIvemgvZG9jdG9yIn0seyJpIjoic2RpLTIyIiwiayI6ImxpbmsiLCJsIjoi5bi46KeB6Zeu6aKYIiwiYyI6Im1kaS1mcmVxdWVudGx5LWFza2VkLXF1ZXN0aW9ucyIsInkiOiJwYWdlIiwidCI6Ii96aC90cm91Ymxlc2hvb3RpbmcifSx7ImkiOiJzZGktMjMiLCJrIjoiaGVhZGVyIiwibCI6IuW8gOWPkeiAhSIsImMiOm51bGwsInkiOm51bGwsInQiOm51bGx9LHsiaSI6InNkaS0yNCIsImsiOiJsaW5rIiwibCI6IuaPkuS7tuW8gOWPkSIsImMiOiJtZGktYXBwcyIsInkiOiJwYWdlIiwidCI6Ii96aC9wbHVnaW5kZXYifSx7ImkiOiJzZGktMjUiLCJrIjoibGluayIsImwiOiLkuLvpopjpo47moLwiLCJjIjoibWRpLXBhbGV0dGUiLCJ5IjoicGFnZSIsInQiOiIvemgvdGhlbWVkZXYifV0=" nav-mode="MIXED" comments-enabled effective-permissions="eyJjb21tZW50cyI6eyJyZWFkIjp0cnVlLCJ3cml0ZSI6ZmFsc2UsIm1hbmFnZSI6ZmFsc2V9LCJoaXN0b3J5Ijp7InJlYWQiOmZhbHNlfSwic291cmNlIjp7InJlYWQiOmZhbHNlfSwicGFnZXMiOnsicmVhZCI6dHJ1ZSwid3JpdGUiOmZhbHNlLCJtYW5hZ2UiOmZhbHNlLCJkZWxldGUiOmZhbHNlLCJzY3JpcHQiOmZhbHNlLCJzdHlsZSI6ZmFsc2V9LCJzeXN0ZW0iOnsibWFuYWdlIjpmYWxzZX19" edit-shortcuts="eyJlZGl0RmFiIjp0cnVlLCJlZGl0TWVudUJhciI6ZmFsc2UsImVkaXRNZW51QnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsQnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsTmFtZSI6IkdpdEh1YiIsImVkaXRNZW51RXh0ZXJuYWxJY29uIjoibWRpLWdpdGh1YiIsImVkaXRNZW51RXh0ZXJuYWxVcmwiOiJodHRwczovL2dpdGh1Yi5jb20vb3JnL3JlcG8vYmxvYi9tYWluL3tmaWxlbmFtZX0ifQ==" filename="configuration.md"><template slot="contents"><div><blockquote class="is-warning">
+<p>配置优先级为：<code>环境变量</code> &gt; <code>env配置文件</code> == <code>WEB界面</code>。<strong>只要某项已通过环境变量注入，前端界面和 <code>app.env</code> 中的同名配置就不会覆盖它。</strong> 因此前端已有入口的设置，建议优先在 WEB 中调整；只有前端没有入口、部署启动参数或需要在首次启动前生效的项目，才建议写环境变量。</p>
+</blockquote>
+<blockquote class="is-info">
+<p>❗号标识的为必填项，其它为可选项，可选项可删除配置变量从而使用默认值。</p>
+</blockquote>
+<blockquote class="is-info">
+<p>本地 CLI 安装模式下，绝大多数常用配置均可通过 <code>moviepilot setup --wizard</code>、<code>moviepilot config ...</code> 或前端界面完成，不再需要手工维护多份配置文件。</p>
+</blockquote>
+<blockquote class="is-info">
+<p>V3 全新安装不再提供独立的设置向导：首次启动只需在 Web 初始化页面创建管理员用户名、密码和 API Key，保存后进入登录页面。V3 的下载器、媒体服务器、通知、存储和智能助手等配置在登录后按需完成；V1、V2 的本地 CLI / 设置向导流程保持不变。</p>
+</blockquote>
+<h1 id="环境变量" class="toc-header"><a class="toc-anchor" href="#环境变量">¶</a> 环境变量</h1>
+<p>认证站点和认证参数等个别参数需要通过环境变量设置，才能正常使用MoviePilot，没有❗标识的可以不用设置。</p>
+<h2 id="站点认证" class="toc-header"><a class="toc-anchor" href="#站点认证">¶</a> 站点认证</h2>
+<blockquote class="is-info">
+<p>不再持续更新，在MoviePilot中点击用头像，弹出菜单中 <code>用户认证</code> 可选择的站点即代表支持该站点认证。</p>
+</blockquote>
+<blockquote class="is-success">
+<p>本地 CLI 安装模式下，初始化向导也支持直接配置用户站点认证，会自动列出当前资源支持的站点并写入系统配置。</p>
+</blockquote>
+<ul>
+<li>
+<p><strong>❗AUTH_SITE：</strong> <strong>认证站点</strong>（认证通过后才能使用站点相关功能），支持配置多个认证站点，使用<code>,</code>分隔，如：<code>iyuu,hhclub</code>，会依次执行认证操作，直到有一个站点认证成功。</p>
+<blockquote class="is-success">
+<p>v2.0.7及以上版本，已支持通过UI进行用户认证：点击用户头像 -&gt; 用户认证，无需配置环境变量。</p>
+</blockquote>
+<p><strong>根据下表配置<code>AUTH_SITE</code>，以及对应站点的认证参数（最新支持情况以系统显示为准）：</strong></p>
+</li>
+</ul>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th style="text-align:center">站点名</th>
+<th style="text-align:center">AUTH_SITE</th>
+<th style="text-align:center">环境变量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">IYUU</td>
+<td style="text-align:center">iyuu</td>
+<td style="text-align:center"><code>IYUU_SIGN</code>：IYUU登录令牌</td>
+</tr>
+<tr>
+<td style="text-align:center">憨憨</td>
+<td style="text-align:center">hhclub</td>
+<td style="text-align:center"><code>HHCLUB_USERNAME</code>：用户名<br><code>HHCLUB_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">观众</td>
+<td style="text-align:center">audiences</td>
+<td style="text-align:center"><code>AUDIENCES_UID</code>：用户ID<br><code>AUDIENCES_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">高清杜比</td>
+<td style="text-align:center">hddolby</td>
+<td style="text-align:center"><code>HDDOLBY_ID</code>：用户ID<br><code>HDDOLBY_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">织梦</td>
+<td style="text-align:center">zmpt</td>
+<td style="text-align:center"><code>ZMPT_UID</code>：用户ID<br><code>ZMPT_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">自由农场</td>
+<td style="text-align:center">freefarm</td>
+<td style="text-align:center"><code>FREEFARM_UID</code>：用户ID<br><code>FREEFARM_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">红豆饭</td>
+<td style="text-align:center">hdfans</td>
+<td style="text-align:center"><code>HDFANS_UID</code>：用户ID<br><code>HDFANS_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">冬樱</td>
+<td style="text-align:center">wintersakura</td>
+<td style="text-align:center"><code>WINTERSAKURA_UID</code>：用户ID<br><code>WINTERSAKURA_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">红叶PT</td>
+<td style="text-align:center">leaves</td>
+<td style="text-align:center"><code>LEAVES_UID</code>：用户ID<br><code>LEAVES_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">1PTBA</td>
+<td style="text-align:center">ptba</td>
+<td style="text-align:center"><code>PTBA_UID</code>：用户ID<br><code>PTBA_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">冰淇淋</td>
+<td style="text-align:center">icc2022</td>
+<td style="text-align:center"><code>ICC2022_UID</code>：用户ID<br><code>ICC2022_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">杏坛</td>
+<td style="text-align:center">xingtan</td>
+<td style="text-align:center"><code>XINGTAN_UID</code>：用户ID<br><code>XINGTAN_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">象站</td>
+<td style="text-align:center">ptvicomo</td>
+<td style="text-align:center"><code>PTVICOMO_UID</code>：用户ID<br><code>PTVICOMO_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">AGSVPT</td>
+<td style="text-align:center">agsvpt</td>
+<td style="text-align:center"><code>AGSVPT_UID</code>：用户ID<br><code>AGSVPT_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">麒麟</td>
+<td style="text-align:center">hdkyl</td>
+<td style="text-align:center"><code>HDKYL_UID</code>：用户ID<br><code>HDKYL_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">青蛙</td>
+<td style="text-align:center">qingwa</td>
+<td style="text-align:center"><code>QINGWA_UID</code>：用户ID<br><code>QINGWA_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">蝶粉</td>
+<td style="text-align:center">discfan</td>
+<td style="text-align:center"><code>DISCFAN_UID</code>：用户ID<br><code>DISCFAN_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">海胆之家</td>
+<td style="text-align:center">haidan</td>
+<td style="text-align:center"><code>HAIDAN_ID</code>：用户ID<br><code>HAIDAN_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">Rousi</td>
+<td style="text-align:center">rousi</td>
+<td style="text-align:center"><code>ROUSI_UID</code>：用户ID<br><code>ROUSI_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">Sunny</td>
+<td style="text-align:center">sunny</td>
+<td style="text-align:center"><code>SUNNY_UID</code>：用户ID<br><code>SUNNY_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">咖啡</td>
+<td style="text-align:center">ptcafe</td>
+<td style="text-align:center"><code>PTCAFE_UID</code>：用户ID<br><code>PTCAFE_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">PTZone</td>
+<td style="text-align:center">ptzone</td>
+<td style="text-align:center"><code>PTZONE_UID</code>：用户ID<br><code>PTZONE_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">库非</td>
+<td style="text-align:center">kufei</td>
+<td style="text-align:center"><code>KUFEI_UID</code>：用户ID<br><code>KUFEI_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">YemaPT</td>
+<td style="text-align:center">yemapt</td>
+<td style="text-align:center"><code>YEMAPT_UID</code>：用户ID<br><code>YEMAPT_AUTH</code>：密钥<br>注意：需v2.2.0或以上版本</td>
+</tr>
+<tr>
+<td style="text-align:center">回声</td>
+<td style="text-align:center">hspt</td>
+<td style="text-align:center"><code>HSPT_UID</code>：用户ID<br><code>HSPT_AUTH</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">星陨阁</td>
+<td style="text-align:center">xingyunge</td>
+<td style="text-align:center"><code>XINGYUNGE_UID</code>：用户ID<br><code>XINGYUNGE_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">财神</td>
+<td style="text-align:center">cspt</td>
+<td style="text-align:center"><code>CSPT_UID</code>：用户ID<br><code>CSPT_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">唐门</td>
+<td style="text-align:center">tmpt</td>
+<td style="text-align:center"><code>TMPT_UID</code>：用户ID<br><code>TMPT_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">雨</td>
+<td style="text-align:center">raingfh</td>
+<td style="text-align:center"><code>RAINGFH_UID</code>：用户ID<br><code>RAINGFH_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">GTK</td>
+<td style="text-align:center">gtkpw</td>
+<td style="text-align:center"><code>GTKPW_UID</code>：用户ID<br><code>GTKPW_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">PTLGS</td>
+<td style="text-align:center">ptlgs</td>
+<td style="text-align:center"><code>PTLGS_UID</code>：用户ID<br><code>PTLGS_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">HDBAO</td>
+<td style="text-align:center">hdbao</td>
+<td style="text-align:center"><code>HDBAO_UID</code>：用户ID<br><code>HDBAO_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">下水道</td>
+<td style="text-align:center">sewerpt</td>
+<td style="text-align:center"><code>SEWERPT_UID</code>：用户ID<br><code>SEWERPT_PASSKEY</code>：密钥</td>
+</tr>
+<tr>
+<td style="text-align:center">PTS</td>
+<td style="text-align:center">ptskit</td>
+<td style="text-align:center"><code>PTSKIT_UID</code>：用户ID<br><code>PTSKIT_PASSKEY</code>：密钥</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="基础设置" class="toc-header"><a class="toc-anchor" href="#基础设置">¶</a> 基础设置</h2>
+<ul>
+<li><strong>❗NGINX_PORT</strong>：WEB服务端口，默认<code>3000</code>，可自行修改，不能与API服务端口冲突</li>
+<li><strong>❗PORT</strong>：API服务端口，默认<code>3001</code>，可自行修改，不能与WEB服务端口冲突</li>
+<li><strong>PUID</strong>：运行程序用户的<code>uid</code>，默认<code>0</code></li>
+<li><strong>PGID</strong>：运行程序用户的<code>gid</code>，默认<code>0</code></li>
+<li><strong>UMASK</strong>：掩码权限，默认<code>000</code>，可以考虑设置为<code>022</code></li>
+<li><strong>HOST</strong>：API监听地址，默认为 <code>0.0.0.0</code></li>
+<li><strong>CONFIG_DIR</strong>：配置文件目录。Docker / 套件环境通常为 <code>/config</code>；本地 CLI 安装默认使用程序目录外的系统配置目录：
+<ul>
+<li>macOS：<code>~/Library/Application Support/MoviePilot</code></li>
+<li>Linux：<code>${XDG_CONFIG_HOME:-~/.config}/moviepilot</code></li>
+</ul>
+</li>
+<li><strong>TZ</strong>：时区，默认为 <code>Asia/Shanghai</code></li>
+<li><strong>START_NOGOSU</strong>：以不切换容器内用户的方式启动容器，这有助于缓解无根容器的用户权限问题。例如，使用 Podman 的 <code>--group-add keep-groups</code>（需要 crun 运行时支持）以将宿主用户的附加组权限侧漏到容器中，同时使用 <code>START_NOGOSU=true</code> 避免容器内切换用户导致 <code>initgroups()</code> 被调用，使得侧漏进来的补充组权限被清空。将此环境变量设置为 <code>true</code> 会导致 <code>PUID</code> 与 <code>PGID</code> 环境变量失效，因为容器内不再会进行用户切换。默认为 <code>false</code>。</li>
+</ul>
+<h2 id="https访问" class="toc-header"><a class="toc-anchor" href="#https访问">¶</a> HTTPS访问</h2>
+<ul>
+<li><strong>ENABLE_SSL：</strong> 是否启动https访问，<code>true</code>/<code>false</code>，启用后需要设置完整相关参数，否则无法正常访问后台，<strong>仅支持Docker环境</strong></li>
+<li><strong>SSL_DOMAIN：</strong> SSL域名，用于申请证书，需要与实际的后台访问域名一致</li>
+<li><strong>SSL_NGINX_PORT：</strong> https访问端口，默认443</li>
+<li><strong>SSL_EMAIL：</strong> SSL证书申请使用的邮箱地址</li>
+<li><strong>AUTO_ISSUE_CERT：</strong> 是否自动签发证书，<code>true</code>/<code>false</code>，启用后会自动安装acme.sh签发证书并定时更新，仅支持DNS认证方式，需要同时以<code>ACME_ENV_</code>开关设置好DNS认证相关参数；不启用时，需要手动准备SSL证书文件，以文件名：<code>/config/certs/latest/fullchain.pem</code>、<code>/config/certs/latest/privkey.pem</code> 存放</li>
+<li><strong>DNS_PROVIDER：</strong> <a href="http://acme.sh" class="is-external-link">acme.sh</a> DNS认证方式，相关参数设置参考：<a href="https://github.com/acmesh-official/acme.sh/wiki/%E8%AF%B4%E6%98%8E" class="is-external-link">wiki</a></li>
+<li><strong>ACME_ENV_xx:</strong> acme.sh对应的DNS认证方式的相关参数，参数必须以<code>ACME_ENV_</code>开头才会被正常使用，比如 <code>ACME_ENV_CF_Token</code></li>
+</ul>
+<h1 id="配置文件" class="toc-header"><a class="toc-anchor" href="#配置文件">¶</a> 配置文件</h1>
+<p>V1版本有些进阶配置参数需要通过配置文件进行配置（不配置会自动使用默认值），配置文件名：<code>app.env</code>，放配置文件根目录，点击 <a href="https://raw.githubusercontent.com/jxxghp/MoviePilot/main/config/app.env" class="is-external-link">此处</a> 可下载模板。</p>
+<blockquote class="is-info">
+<p><strong>V2 版本变化说明</strong> <br> v2.0.0+ 版本后，常用设置优先通过前端维护：<code>设定 -&gt; 系统</code> 覆盖基础、进阶、搜索、订阅、站点、目录等入口；下载器、媒体服务器、通知渠道、存储目录、过滤规则等结构化配置也都应在对应页面配置。下面仍保留环境变量说明，主要用于前端没有入口的高级项、Docker 启动项、首次启动前必须生效的项目，以及批量部署场景。</p>
+</blockquote>
+<h2 id="前端配置入口" class="toc-header"><a class="toc-anchor" href="#前端配置入口">¶</a> 前端配置入口</h2>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>前端入口</th>
+<th>建议在此配置的项目</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>设定 -&gt; 系统 -&gt; 基础设置</code></td>
+<td>应用域名、API 密钥、壁纸、媒体服务器同步、识别来源、Github Token、OCR 服务、智能助手、LLM、音频输入、语音输出、AI 推荐</td>
+</tr>
+<tr>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>辅助认证、全局图片缓存、统计分享、大内存模式、SQLite WAL、自动更新、数据清理、代理、DOH、TMDB、Fanart、日志、插件热加载、编码探测、整理线程</td>
+</tr>
+<tr>
+<td><code>设定 -&gt; 系统 -&gt; 搜索设置</code></td>
+<td>搜索来源、过滤规则组、索引站点、种子标签、自动择优用户、搜索多个名称、下载站点字幕</td>
+</tr>
+<tr>
+<td><code>设定 -&gt; 系统 -&gt; 订阅设置</code></td>
+<td>订阅模式、订阅搜索、搜索间隔、RSS 间隔、本地存在检查、订阅站点与订阅过滤规则</td>
+</tr>
+<tr>
+<td><code>设定 -&gt; 系统 -&gt; 站点设置</code></td>
+<td>CookieCloud、站点数据刷新、站点消息、浏览器仿真、FlareSolverr</td>
+</tr>
+<tr>
+<td><code>设定 -&gt; 系统 -&gt; 目录设置</code></td>
+<td>刮削来源、电影/电视剧重命名格式、存储、目录、媒体分类</td>
+</tr>
+<tr>
+<td><code>插件 -&gt; 插件市场设置</code></td>
+<td>插件市场地址 <code>PLUGIN_MARKET</code></td>
+</tr>
+<tr>
+<td><code>设定 -&gt; 通知</code></td>
+<td>Telegram、企业微信、飞书等通知渠道配置；飞书 AppId、AppSecret、EncryptKey、VerificationToken 建议在这里填，不再作为全局环境变量维护</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="is-info">
+<p>下载器、媒体服务器、通知渠道、存储目录、过滤规则、工作流等属于结构化系统配置，不建议写环境变量。环境变量更适合部署参数、密钥兜底、数据库/缓存连接、低层安全开关和前端暂未提供入口的高级项。</p>
+</blockquote>
+<h2 id="基础配置" class="toc-header"><a class="toc-anchor" href="#基础配置">¶</a> 基础配置</h2>
+<ul>
+<li><strong>PROJECT_NAME：</strong> 项目名称，默认为 <code>MoviePilot</code>，会影响进程名、OpenAPI 标题和部分 Cookie 名称，一般无需修改</li>
+<li><strong>API_V1_STR：</strong> API 路由前缀，默认为 <code>/api/v1</code>，一般无需修改</li>
+<li><strong>FRONTEND_PATH：</strong> 前端静态文件路径，默认为 <code>/public</code>，Docker 官方镜像和本地 CLI 会自动维护</li>
+<li><strong>❗SUPERUSER：</strong> 超级管理员用户名。V1、V2 默认<code>admin</code>且仅在首次安装时生效；V3 默认为空，首次访问 Web 初始化页面并保存后写入运行时配置。</li>
+<li><strong>SUPERUSER_PASSWORD：</strong> 超级管理员初始密码。V2.8+ 的 V1、V2 版本支持通过环境变量预置，未配置时按原版本规则生成；V3 默认为空，启动时不会生成或写入数据库，仅在初始化页面提交后保存密码哈希。</li>
+<li><strong>❗API_TOKEN：</strong> API 密钥。V1 默认<code>moviepilot</code>；V2 仍要求大于等于 16 位的复杂字符串，不符合要求时按原版本规则重新生成；V3 全新安装由初始化页面生成并保存。该值用于媒体服务器 Webhook、微信回调、MoviePilot MCP 和兼容 Agent API 认证，请按管理员级 secret 保护。</li>
+<li><strong>DEBUG：</strong> 是否调试模式，默认为 <code>false</code></li>
+<li><strong>APP_DOMAIN：</strong> 应用域名，格式为 <code>https://movie-pilot.org</code>，默认为空</li>
+<li><strong>ADVANCED_MODE：</strong> 仅 V1、V2 支持，<code>v2.8.0+</code> 默认 <code>true</code>；V3 已移除该变量，登录后直接使用完整设置页面。</li>
+<li><strong>DEV:</strong> 开发者模式，<code>true</code>/<code>false</code>，默认<code>false</code>，仅用于本地开发使用，开启后会暂停所有定时任务，且插件代码文件的修改无需重启会自动重载生效</li>
+</ul>
+<h2 id="网络代理" class="toc-header"><a class="toc-anchor" href="#网络代理">¶</a> 网络&amp;代理</h2>
+<ul>
+<li><strong>PROXY_HOST：</strong> 网络代理，访问themoviedb或者重启更新需要使用代理访问，格式为<code>http(s)://ip:port</code>、<code>socks5://user:pass@host:port</code>、<code>socks5h://user:pass@host:port</code></li>
+<li><strong>DOH_ENABLE：</strong> DNS over HTTPS开关，<code>true</code>/<code>false</code>，默认<code>false</code>，开启后会使用DOH对设定域名进行解析，以减少被DNS污染的情况，提升网络连通性</li>
+<li><strong>DOH_DOMAINS：</strong> DOH域名清单，多个使用<code>,</code>分隔，默认为：</li>
+</ul>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">api.themoviedb.org,api.tmdb.org,webservice.fanart.tv,api.github.com,github.com,raw.githubusercontent.com,codeload.github.com,api.telegram.org
+</code></pre>
+<ul>
+<li><strong>DOH_RESOLVERS：</strong> DOH 解析服务器列表，多个使用<code>,</code>分隔，默认为 <code>1.0.0.1,1.1.1.1,9.9.9.9,149.112.112.112</code></li>
+<li><strong>GITHUB_TOKEN：</strong> Github token，提高自动更新、插件安装等请求Github Api的限流阈值，格式：ghp_**** 或 github_pat_****</li>
+<li><strong>GITHUB_PROXY：</strong> Github代理地址，用于加速版本及插件升级安装，格式：<code>https://mirror.ghproxy.com/</code></li>
+<li><strong>PIP_PROXY：</strong> pip镜像站点，格式：<code>https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple</code></li>
+<li><strong>REPO_GITHUB_TOKEN：</strong> 指定的仓库Github token，多个仓库使用,分隔，格式：<code>{user1}/{repo1}:ghp_****,{user2}/{repo2}:github_pat_****</code></li>
+</ul>
+<h2 id="系统重启更新" class="toc-header"><a class="toc-anchor" href="#系统重启更新">¶</a> 系统重启&amp;更新</h2>
+<ul>
+<li><strong>MOVIEPILOT_AUTO_UPDATE：</strong> 重启时自动更新，<code>true</code>/<code>release</code>/<code>dev</code>/<code>false</code>，默认<code>release</code>，需要能正常连接Github <strong>注意：如果出现网络问题可以配置<code>PROXY_HOST</code></strong></li>
+<li><strong>AUTO_UPDATE_RESOURCE</strong>：启动时自动检测和更新资源包（站点索引及认证等），<code>true</code>/<code>false</code>，默认<code>true</code>，需要能正常连接Github。Docker 环境可直接依赖该机制；本地 CLI 安装模式通常使用 <code>moviepilot update all</code> 来同步程序和资源</li>
+<li><strong>DOCKER_CLIENT_API：</strong> V1/V2 Docker 环境用于实现旧版内建重启功能，默认为：<code>tcp://127.0.0.1:38379</code>；V3 镜像改由容器内 supervisor 托管前端 Nginx 和后端进程，Web 重启不访问 Docker API，也不需要映射 Docker Socket。本地 CLI 安装模式由 <code>moviepilot start</code> 管理的进程控制器完成重启</li>
+</ul>
+<h2 id="缓存" class="toc-header"><a class="toc-anchor" href="#缓存">¶</a> 缓存</h2>
+<ul>
+<li><strong>CACHE_BACKEND_TYPE：</strong> V2新增配置项，缓存类型，支持 <code>cachetools</code> 和 <code>redis</code>，默认使用 <code>cachetools</code></li>
+<li><strong>CACHE_BACKEND_URL：</strong> V2新增配置项，缓存连接字符串，仅外部缓存（如 Redis）需要，格式为<code>redis://:password@host:port</code>，默认为<code>redis://localhost:6379</code></li>
+<li><strong>CACHE_REDIS_MAXMEMORY：</strong> V2新增配置项，<code>Redis</code> 缓存最大内存限制，为 <code>0</code> 时不限制，未配置时，如开启大内存模式时为 <code>1024mb</code>，未开启时为 <code>256mb</code></li>
+<li><strong>GLOBAL_IMAGE_CACHE：</strong> 全局图片缓存，将媒体图片缓存到本地，默认为 <code>false</code></li>
+<li><strong>GLOBAL_IMAGE_CACHE_DAYS：</strong> 全局图片缓存保留天数，默认<code>7</code>天</li>
+<li><strong>TEMP_FILE_DAYS：</strong>  临时文件保留天数，默认<code>3</code>天</li>
+<li><strong>META_CACHE_EXPIRE：</strong> 元数据识别缓存过期时间（小时），数字型，不配置或者配置为<code>0</code>时使用系统默认（普通模式为24小时，大内存模式为72小时），调大该值可减少themoviedb的访问次数</li>
+</ul>
+<p>使用 redis 作为缓存时时参考 <a href="#%E5%AE%89%E8%A3%85Redis">安装Redis</a> 安装配置Redis环境。</p>
+<h2 id="数据库配置" class="toc-header"><a class="toc-anchor" href="#数据库配置">¶</a> 数据库配置</h2>
+<ul>
+<li><strong>DB_TYPE：</strong> 数据库类型，支持 <code>sqlite</code> 和 <code>postgresql</code>（仅v2.7.3+），默认使用 <code>sqlite</code></li>
+<li><strong>DB_ECHO：</strong> 是否在控制台输出 SQL 语句，默认关闭</li>
+<li><strong>DB_WAL_ENABLE：</strong> 是否启用 WAL 模式，仅适用于SQLite，默认为 <code>true</code>，可提升读写并发性能，但可能在异常情况下增加数据丢失风险</li>
+<li><strong>DB_TIMEOUT：</strong> SQLite 的 busy_timeout 参数，默认为 <code>60</code> 秒</li>
+<li><strong>DB_POOL_TYPE：</strong> 数据库连接池类型，支持 <code>QueuePool</code> 和 <code>NullPool</code>，默认为 <code>QueuePool</code></li>
+<li><strong>DB_POOL_PRE_PING：</strong> 是否在获取连接时进行预先 ping 操作，默认为 <code>true</code></li>
+<li><strong>DB_POOL_RECYCLE：</strong> 数据库连接的回收时间（秒），默认为 <code>300</code></li>
+<li><strong>DB_POOL_TIMEOUT：</strong> 数据库连接池获取连接的超时时间（秒），默认为 <code>30</code></li>
+<li><strong>DB_SQLITE_POOL_SIZE：</strong> SQLite 连接池大小，默认为 <code>10</code></li>
+<li><strong>DB_SQLITE_MAX_OVERFLOW：</strong> SQLite 连接池溢出数量，默认为 <code>50</code></li>
+<li><strong>DB_POSTGRESQL_HOST：</strong> PostgreSQL 主机地址，默认为 <code>localhost</code></li>
+<li><strong>DB_POSTGRESQL_PORT：</strong> PostgreSQL 端口，默认为 <code>5432</code></li>
+<li><strong>DB_POSTGRESQL_DATABASE：</strong> PostgreSQL 数据库名，默认为 <code>moviepilot</code></li>
+<li><strong>DB_POSTGRESQL_USERNAME：</strong> PostgreSQL 用户名，默认为 <code>moviepilot</code></li>
+<li><strong>DB_POSTGRESQL_PASSWORD：</strong> PostgreSQL 密码，默认为 <code>moviepilot</code></li>
+<li><strong>DB_POSTGRESQL_POOL_SIZE：</strong> PostgreSQL 连接池大小，默认为 <code>10</code></li>
+<li><strong>DB_POSTGRESQL_MAX_OVERFLOW：</strong> PostgreSQL 连接池溢出数量，默认为 <code>50</code></li>
+</ul>
+<p>使用 PostgreSQL 数据库时参考 <a href="#%E5%AE%89%E8%A3%85Postgresql">安装Postgresql</a> 安装配置数据库环境。</p>
+<h2 id="安全认证配置" class="toc-header"><a class="toc-anchor" href="#安全认证配置">¶</a> 安全认证配置</h2>
+<ul>
+<li><strong>SECRET_KEY：</strong> 系统密钥，用于加密等安全操作，默认为随机生成的32位安全字符串</li>
+<li><strong>RESOURCE_SECRET_KEY：</strong> 资源密钥，用于资源访问控制，默认为随机生成的32位安全字符串</li>
+<li><strong>ALLOWED_HOSTS：</strong> 允许的域名列表，默认为 <code>["*"]</code>，表示允许所有域名</li>
+<li><strong>ACCESS_TOKEN_EXPIRE_MINUTES：</strong> TOKEN过期时间（分钟），默认为 <code>11520</code>（8天）</li>
+<li><strong>RESOURCE_ACCESS_TOKEN_EXPIRE_SECONDS：</strong> 资源访问TOKEN过期时间（秒），默认为 <code>1800</code>（30分钟）</li>
+<li><strong>AUXILIARY_AUTH_ENABLE：</strong> 辅助认证开关，允许通过外部服务进行认证、单点登录以及自动创建用户，默认为 <code>false</code></li>
+</ul>
+<h2 id="日志配置" class="toc-header"><a class="toc-anchor" href="#日志配置">¶</a> 日志配置</h2>
+<ul>
+<li><strong>LOG_LEVEL：</strong> 日志级别，支持 <code>DEBUG</code>、<code>INFO</code>、<code>WARNING</code>、<code>ERROR</code> 等，默认为 <code>INFO</code></li>
+<li><strong>LOG_MAX_FILE_SIZE：</strong> 日志文件最大大小（单位：MB），默认为 <code>5</code></li>
+<li><strong>LOG_BACKUP_COUNT：</strong> 备份的日志文件数量，默认为 <code>10</code></li>
+<li><strong>LOG_CONSOLE_FORMAT：</strong> 控制台日志格式，默认为 <code>%(leveltext)s[%(name)s] %(asctime)s %(message)s</code></li>
+<li><strong>LOG_FILE_FORMAT：</strong> 文件日志格式，默认为 <code>【%(levelname)s】%(asctime)s - %(message)s</code></li>
+<li><strong>ASYNC_FILE_QUEUE_SIZE：</strong> 异步文件写入队列大小，默认为 <code>1000</code></li>
+<li><strong>ASYNC_FILE_WORKERS：</strong> 异步文件写入线程数，默认为 <code>2</code></li>
+<li><strong>BATCH_WRITE_SIZE：</strong> 批量写入大小，默认为 <code>50</code></li>
+<li><strong>WRITE_TIMEOUT：</strong> 写入超时时间（秒），默认为 <code>3.0</code></li>
+</ul>
+<h2 id="安全" class="toc-header"><a class="toc-anchor" href="#安全">¶</a> 安全</h2>
+<ul>
+<li><strong>SECURITY_IMAGE_DOMAINS：</strong> 允许的图片缓存域名，默认为 <code>["image.tmdb.org", "static-mdb.v.geilijiasu.com", "bing.com", "doubanio.com", "lain.bgm.tv", "raw.githubusercontent.com", "github.com", "thetvdb.com", "cctvpic.com", "iqiyipic.com", "hdslb.com", "cmvideo.cn", "ykimg.com", "qpic.cn"]</code></li>
+<li><strong>SECURITY_IMAGE_SUFFIXES：</strong> 允许的图片文件后缀格式，默认为 <code>[".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg", ".avif"]</code></li>
+<li><strong>ENCODING_DETECTION_PERFORMANCE_MODE：</strong> V2新增配置项，编码探测性能模式，默认为<code>true</code>，优先提升探测效率，但可能降低编码探测的准确性</li>
+<li><strong>ENCODING_DETECTION_MIN_CONFIDENCE：</strong> 编码探测最低置信度，默认为 <code>0.8</code></li>
+<li><strong>META_CACHE_EXPIRE：</strong> 元数据识别缓存过期时间（小时），数字型，不配置或者配置为<code>0</code>时使用系统默认（普通模式为24小时，大内存模式为72小时）</li>
+<li><strong>PASSKEY_REQUIRE_UV：</strong> 通行密钥登录是否要求用户验证，默认为 <code>true</code></li>
+<li><strong>PASSKEY_ALLOW_REGISTER_WITHOUT_OTP：</strong> 是否允许在未启用 OTP 时直接注册通行密钥，v2.9.5版本新增，默认为<code>false</code></li>
+</ul>
+<h2 id="智能助手" class="toc-header"><a class="toc-anchor" href="#智能助手">¶</a> 智能助手</h2>
+<blockquote class="is-info">
+<p>智能助手的页面级说明参考 <a href="/agent" class="is-internal-link is-valid-page">智能助手</a>。这里仅列出主要配置项。</p>
+</blockquote>
+<ul>
+<li><strong>AI_AGENT_ENABLE：</strong> 是否启用智能助手总开关，默认为 <code>false</code></li>
+<li><strong>AI_AGENT_GLOBAL：</strong> 是否启用全局智能助手入口，默认为 <code>false</code></li>
+<li><strong>AI_AGENT_VERBOSE：</strong> 是否输出更详细的智能助手执行过程，默认为 <code>false</code></li>
+<li><strong>AI_AGENT_JOB_INTERVAL：</strong> 智能助手定时任务检查间隔（小时），<code>0</code> 代表关闭，默认为 <code>0</code></li>
+<li><strong>AI_AGENT_RETRY_TRANSFER：</strong> 是否允许智能助手自动重试整理失败记录，默认为 <code>false</code></li>
+<li><strong>SKILL_MARKET：</strong> 技能市场源列表，多个地址使用 <code>,</code> 分隔，供消息渠道中的 <code>/skills</code> 命令浏览和安装市场技能；默认包含 <code>https://clawhub.ai</code>、<code>https://github.com/openai/skills</code>、<code>https://github.com/anthropics/skills</code>、<code>https://github.com/vercel-labs/agent-skills</code></li>
+<li><strong>LLM_PROVIDER：</strong> LLM 提供商，默认为 <code>deepseek</code>，可选值以前端 <code>LLM提供商</code> 下拉和当前后端 provider 列表为准</li>
+<li><strong>LLM_MODEL：</strong> LLM 模型名称，默认为 <code>deepseek-chat</code></li>
+<li><strong>LLM_THINKING_LEVEL：</strong> 模型思考强度，默认为 <code>off</code>，可选值以当前前端下拉和模型能力为准</li>
+<li><strong>LLM_SUPPORT_IMAGE_INPUT：</strong> 是否启用图片输入能力，默认为 <code>true</code></li>
+<li><strong>LLM_SUPPORT_AUDIO_INPUT：</strong> 是否启用音频输入能力，默认为 <code>false</code></li>
+<li><strong>LLM_SUPPORT_AUDIO_OUTPUT：</strong> 是否启用语音输出能力，默认为 <code>false</code></li>
+<li><strong>LLM_API_KEY：</strong> LLM API 密钥</li>
+<li><strong>LLM_BASE_URL：</strong> LLM 接口基础地址；使用 OpenAI 兼容接口或第三方中转时需要配置</li>
+<li><strong>LLM_BASE_URL_PRESET：</strong> 前端基础地址预设标识，通常由 WEB 下拉选择后自动保存，手工维护时可留空</li>
+<li><strong>LLM_MAX_CONTEXT_TOKENS：</strong> 上下文窗口大小，单位为 <code>K</code>，默认为 <code>64</code></li>
+<li><strong>LLM_TEMPERATURE：</strong> LLM 温度参数，默认为 <code>0.3</code></li>
+<li><strong>LLM_MAX_ITERATIONS：</strong> 单次智能助手任务允许的最大迭代次数，默认为 <code>128</code></li>
+<li><strong>LLM_TOOL_TIMEOUT：</strong> 单次工具调用超时时间（秒），默认为 <code>300</code></li>
+<li><strong>LLM_VERBOSE：</strong> 是否输出底层 LLM 更详细日志，默认为 <code>false</code></li>
+<li><strong>LLM_MAX_MEMORY_MESSAGES：</strong> 智能助手记忆消息数量上限，默认为 <code>30</code></li>
+<li><strong>LLM_MEMORY_RETENTION_DAYS：</strong> 本地记忆保留天数，默认为 <code>1</code></li>
+<li><strong>LLM_REDIS_MEMORY_RETENTION_DAYS：</strong> Redis 记忆保留天数，默认为 <code>7</code></li>
+<li><strong>LLM_MAX_TOOLS：</strong> 工具选择中间件最大工具数量，<code>0</code> 代表关闭，默认为 <code>0</code></li>
+<li><strong>TAVILY_API_KEY：</strong> Tavily 搜索 API Key，多个 Key 可用<code>,</code>分隔；通常不需要手工配置，只有更换搜索能力或自备额度时使用</li>
+<li><strong>EXA_API_KEY：</strong> Exa 搜索 API Key，通常不需要手工配置，只有更换搜索能力或自备额度时使用</li>
+<li><strong>AI_RECOMMEND_ENABLED：</strong> 是否启用资源搜索 <code>AI智能推荐</code>，默认为 <code>false</code></li>
+<li><strong>AI_RECOMMEND_USER_PREFERENCE：</strong> 智能推荐时的用户偏好描述，默认为空</li>
+<li><strong>AI_RECOMMEND_MAX_ITEMS：</strong> 单次智能推荐返回条目上限，默认为 <code>50</code></li>
+</ul>
+<h3 id="图片与附件" class="toc-header"><a class="toc-anchor" href="#图片与附件">¶</a> 图片与附件</h3>
+<ul>
+<li>当 <code>LLM_SUPPORT_IMAGE_INPUT=true</code> 时，图片会按多模态方式直接发送给模型</li>
+<li>当 <code>LLM_SUPPORT_IMAGE_INPUT=false</code> 时，图片不会被拒绝，而是按本地附件保存并以 <code>local_path</code> 形式交给智能助手</li>
+<li>用户上传的文件会落盘到临时目录，路径位于 <code>TEMP_PATH/agent_uploads/&lt;session_id&gt;/...</code></li>
+<li>临时文件清理保留时间由 <code>TEMP_FILE_DAYS</code> 控制</li>
+</ul>
+<h3 id="语音" class="toc-header"><a class="toc-anchor" href="#语音">¶</a> 语音</h3>
+<ul>
+<li><strong>AUDIO_INPUT_PROVIDER：</strong> 音频转写提供商，默认为 <code>openai</code>，当前支持 <code>openai</code>、<code>openai_chat_audio</code>、<code>mimo</code></li>
+<li><strong>AUDIO_INPUT_API_KEY：</strong> 音频转写 API 密钥；该项独立于 <code>LLM_API_KEY</code>，如果同服务商也需要在音频字段中填写</li>
+<li><strong>AUDIO_INPUT_BASE_URL：</strong> 音频转写基础地址；OpenAI 官方接口可留空，OpenAI 兼容服务需填写对应 <code>/v1</code> 地址</li>
+<li><strong>AUDIO_INPUT_MODEL：</strong> 音频转写模型，默认为 <code>gpt-4o-mini-transcribe</code></li>
+<li><strong>AUDIO_INPUT_LANGUAGE：</strong> 音频转写语言提示，默认为 <code>zh</code></li>
+<li><strong>AUDIO_OUTPUT_PROVIDER：</strong> 语音合成提供商，默认为 <code>openai</code>，当前支持 <code>openai</code>、<code>openai_chat_audio</code>、<code>mimo</code></li>
+<li><strong>AUDIO_OUTPUT_API_KEY：</strong> 语音合成 API 密钥；该项独立于 <code>LLM_API_KEY</code></li>
+<li><strong>AUDIO_OUTPUT_BASE_URL：</strong> 语音合成基础地址；OpenAI 官方接口可留空，OpenAI 兼容服务需填写对应 <code>/v1</code> 地址</li>
+<li><strong>AUDIO_OUTPUT_MODEL：</strong> 语音合成模型，默认为 <code>gpt-4o-mini-tts</code></li>
+<li><strong>AUDIO_OUTPUT_VOICE：</strong> 语音合成发音人，默认为 <code>alloy</code></li>
+<li><strong>AUDIO_OUTPUT_INCLUDE_TEXT：</strong> 回复语音时是否同时附带文字说明，默认为 <code>false</code></li>
+</ul>
+<blockquote class="is-info">
+<p>音频输入和语音输出是两组独立配置：只需要“用户发语音，系统转成文字继续对话”时，打开 <code>LLM_SUPPORT_AUDIO_INPUT</code> 并配置 <code>AUDIO_INPUT_*</code> 即可；还希望智能助手回传语音时，再打开 <code>LLM_SUPPORT_AUDIO_OUTPUT</code> 并配置 <code>AUDIO_OUTPUT_*</code>。</p>
+</blockquote>
+<h2 id="媒体整理" class="toc-header"><a class="toc-anchor" href="#媒体整理">¶</a> 媒体整理</h2>
+<ul>
+<li>
+<p><strong>RMT_MEDIAEXT：</strong> 支持的媒体文件后缀格式，默认为 <code>['.mp4', '.mkv', '.ts', '.iso', '.rmvb', '.avi', '.mov', '.mpeg', '.mpg', '.wmv', '.3gp', '.asf', '.m4v', '.flv', '.m2ts', '.strm', '.tp', '.f4v']</code></p>
+</li>
+<li>
+<p><strong>RMT_SUBEXT：</strong> 支持的字幕文件后缀格式，默认为 <code>['.srt', '.ass', '.ssa', '.sup']</code></p>
+</li>
+<li>
+<p><strong>RMT_AUDIOEXT：</strong> 支持的音频文件后缀格式，默认为 <code>['.aac', '.ac3', '.amr', '.caf', '.cda', '.dsf', '.dff', '.kar', '.m4a', '.mp1', '.mp2', '.mp3', '.mid', '.mod', '.mka', '.mpc', '.nsf', '.ogg', '.pcm', '.rmi', '.s3m', '.snd', '.spx', '.tak', '.tta', '.vqf', '.wav', '.wma', '.aifc', '.aiff', '.alac', '.adif', '.adts', '.flac', '.midi', '.opus', '.sfalc']</code></p>
+</li>
+<li>
+<p><strong>MOVIE_RENAME_FORMAT：</strong> 电影重命名格式，默认内置了以下命名格式，如需自定义可参考 <a href="/advanced" class="is-internal-link is-valid-page">进阶</a> 自定义重命名格式章节说明。</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-jinja2" v-pre="true">{{title}}{% if year %} ({{year}}){% endif %}/{{title}}{% if year %} ({{year}}){% endif %}{% if part %}-{{part}}{% endif %}{% if videoFormat %} - {{videoFormat}}{% endif %}{{fileExt}}
+</code></pre>
+</li>
+<li>
+<p><strong>TV_RENAME_FORMAT：</strong> 电视剧重命名格式，默认内置了以下命名格式，如需自定义可参考 <a href="/advanced" class="is-internal-link is-valid-page">进阶</a> 自定义重命名格式章节说明。</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-jinja2" v-pre="true">{{title}}{% if year %} ({{year}}){% endif %}/Season {{season}}/{{title}} - {{season_episode}}{% if part %}-{{part}}{% endif %}{% if episode %} - 第 {{episode}} 集{% endif %}{{fileExt}}
+</code></pre>
+</li>
+<li>
+<p><strong>RENAME_FORMAT_S0_NAMES：</strong> 重命名时支持的S0别名，默认为 <code>["Specials", "SPs"]</code></p>
+</li>
+<li>
+<p><strong>DEFAULT_SUB：</strong> 为指定默认字幕添加.default后缀，默认为 <code>zh-cn</code></p>
+</li>
+<li>
+<p><strong>SCRAP_FOLLOW_TMDB：</strong> 新增已入库媒体是否跟随TMDB信息变化，默认为 <code>true</code></p>
+</li>
+<li>
+<p><strong>RECOGNIZE_PLUGIN_FIRST：</strong> 识别时是否优先使用插件识别结果，默认为 <code>false</code></p>
+</li>
+<li>
+<p><strong>MEDIA_RECOGNIZE_SHARE：</strong> 是否匿名分享媒体识别数据，默认为 <code>true</code></p>
+</li>
+<li>
+<p><strong>TRANSFER_THREADS：</strong> 文件整理线程数，v2.9.5新增，默认为 <code>1</code> ，设为 <code>1</code> 关闭多线程整理</p>
+</li>
+</ul>
+<h2 id="媒体识别" class="toc-header"><a class="toc-anchor" href="#媒体识别">¶</a> 媒体识别</h2>
+<ul>
+<li><strong>SEARCH_SOURCE：</strong> 媒体信息来源，支持 <code>themoviedb</code>/<code>douban</code>/<code>bangumi</code>，多个用<code>,</code>分隔，默认为 <code>themoviedb</code>。前端可在 <code>设定 -&gt; 系统 -&gt; 搜索设置</code> 中调整</li>
+<li><strong>RECOGNIZE_SOURCE：</strong> 媒体识别来源，支持 <code>themoviedb</code>/<code>douban</code>，默认为 <code>themoviedb</code></li>
+<li><strong>ANIME_GENREIDS：</strong> 电视剧动漫的分类genre_ids，默认为 <code>[16]</code></li>
+<li><strong>SCRAP_SOURCE：</strong> 刮削来源，支持 <code>themoviedb</code>/<code>douban</code>，默认为 <code>themoviedb</code></li>
+</ul>
+<h3 id="tmdb" class="toc-header"><a class="toc-anchor" href="#tmdb">¶</a> TMDB</h3>
+<ul>
+<li><strong>TMDB_IMAGE_DOMAIN：</strong> TMDB图片地址，默认为 <code>image.tmdb.org</code></li>
+<li><strong>TMDB_API_DOMAIN：</strong> TMDB API地址，默认为 <code>api.themoviedb.org</code></li>
+<li><strong>TMDB_LOCALE：</strong> TMDB元数据语言，默认为 <code>zh</code></li>
+<li><strong>TMDB_SCRAP_ORIGINAL_IMAGE：</strong> 刮削使用TMDB原始语种图片，默认为 <code>false</code></li>
+<li><strong>TMDB_API_KEY：</strong> TMDB API Key，不配置使用默认值</li>
+</ul>
+<h3 id="tvdb" class="toc-header"><a class="toc-anchor" href="#tvdb">¶</a> TVDB</h3>
+<ul>
+<li><strong>TVDB_V4_API_KEY：</strong> TVDB API Key，不配置使用默认值</li>
+<li><strong>TVDB_V4_API_PIN：</strong> TVDB API PIN，默认为空</li>
+</ul>
+<h3 id="fanart" class="toc-header"><a class="toc-anchor" href="#fanart">¶</a> Fanart</h3>
+<ul>
+<li><strong>FANART_ENABLE：</strong> Fanart开关，默认为 <code>true</code></li>
+<li><strong>FANART_LANG：</strong> Fanart语言，多个用<code>,</code>分隔，默认为 <code>zh,en</code></li>
+<li><strong>FANART_API_KEY：</strong> Fanart API Key，不配置使用默认值</li>
+</ul>
+<h2 id="媒体服务器" class="toc-header"><a class="toc-anchor" href="#媒体服务器">¶</a> 媒体服务器</h2>
+<ul>
+<li><strong>MEDIASERVER_SYNC_INTERVAL：</strong> 媒体服务器同步间隔（小时），默认为 <code>6</code></li>
+</ul>
+<h2 id="订阅" class="toc-header"><a class="toc-anchor" href="#订阅">¶</a> 订阅</h2>
+<ul>
+<li><strong>SUBSCRIBE_MODE：</strong> 订阅模式，默认为 <code>spider</code></li>
+<li><strong>SUBSCRIBE_RSS_INTERVAL：</strong> RSS订阅模式刷新时间间隔（分钟），默认为 <code>30</code></li>
+<li><strong>SUBSCRIBE_STATISTIC_SHARE：</strong> 是否匿名分享订阅数据，用于统计和展示用户热门订阅，<code>true</code>/<code>false</code>，默认<code>true</code></li>
+<li><strong>SUBSCRIBE_SEARCH：</strong> 订阅搜索开关，默认为 <code>false</code></li>
+<li><strong>SUBSCRIBE_SEARCH_INTERVAL：</strong> 订阅搜索间隔（小时），默认为 <code>24</code></li>
+</ul>
+<p>单条订阅可在编辑窗口的「搜索周期」中选择「跟随系统」或「自定义」，设置 1–8760 的整数小时数。<br>
+例如电影设为 24 小时、连载剧集设为 6 小时；电影、电视剧和音乐的默认订阅规则也可分别设置。<br>
+独立周期需要开启 <code>SUBSCRIBE_SEARCH</code>。系统每五分钟检查到期订阅，再按站点限流安排搜索，站点忙时可能延后。<br>
+最近一次主动搜索的开始时间会持久保存，重启不会重新计时；旧订阅尚无搜索记录时从添加时间起算。<br>
+新增订阅首次搜索、手动搜索及 RSS 刷新不受独立周期限制，手动主动搜索会更新最近搜索时间。<br>
+选择「跟随系统」并保存即可恢复全局间隔。</p>
+<ul>
+<li><strong>LOCAL_EXISTS_SEARCH：</strong> 检查本地媒体库是否存在资源开关，默认为 <code>true</code></li>
+</ul>
+<h2 id="站点" class="toc-header"><a class="toc-anchor" href="#站点">¶</a> 站点</h2>
+<ul>
+<li><strong>SITEDATA_REFRESH_INTERVAL：</strong> 站点数据刷新间隔（小时），默认为 <code>6</code></li>
+<li><strong>SITE_MESSAGE：</strong> 读取和发送站点消息，默认为 <code>true</code></li>
+<li><strong>NO_CACHE_SITE_KEY：</strong> 不缓存资源的站点域名关键字，多个使用<code>,</code>分隔，默认留空，即所有站点使用资源缓存。馒头也默认使用缓存，刷新会更新下载请求信息，实际下载时再换取临时链接，无需每次清空缓存并重新识别。如旧配置中显式设置了 <code>m-team</code>，需将此项清空才能采用新的默认策略。</li>
+<li><strong>BROWSER_EMULATION：</strong> 站点浏览器仿真类型，支持 <code>playwright</code> 或 <code>flaresolverr</code>，默认为 <code>playwright</code></li>
+<li><strong>FLARESOLVERR_URL：</strong> FlareSolverr 服务地址，例如 <code>http://127.0.0.1:8191</code>，默认为空</li>
+</ul>
+<h2 id="搜索下载" class="toc-header"><a class="toc-anchor" href="#搜索下载">¶</a> 搜索&amp;下载</h2>
+<ul>
+<li><strong>SEARCH_MULTIPLE_NAME：</strong> 搜索多个名称，默认为 <code>false</code></li>
+<li><strong>MAX_SEARCH_NAME_LIMIT：</strong> 最大搜索名称数量，默认为 <code>3</code>，前端暂未提供入口，如需调整请使用环境变量或配置文件</li>
+<li><strong>DOWNLOAD_TMPEXT：</strong> 下载器临时文件后缀，默认为 <code>['.!qb', '.part']</code></li>
+<li><strong>TORRENT_TAG：</strong> 种子标签，默认为 <code>MOVIEPILOT</code></li>
+<li><strong>DOWNLOAD_SUBTITLE：</strong> 下载站点字幕，<code>true</code>/<code>false</code>，默认<code>true</code></li>
+<li><strong>AUTO_DOWNLOAD_USER：</strong> 远程交互搜索时自动择优下载的用户ID（消息通知渠道的用户ID），多个用户使用,分割，设置为 <code>all</code> 代表全部用户自动择优下载，未设置需要手动选择资源或者回复<code>0</code>才自动择优下载</li>
+</ul>
+<h2 id="cookiecloud" class="toc-header"><a class="toc-anchor" href="#cookiecloud">¶</a> CookieCloud</h2>
+<ul>
+<li><strong>COOKIECLOUD_ENABLE_LOCAL：</strong> CookieCloud是否启动本地服务，默认为 <code>false</code></li>
+<li><strong>COOKIECLOUD_HOST：</strong> CookieCloud服务器地址，默认为 <code>https://movie-pilot.org/cookiecloud</code></li>
+<li><strong>COOKIECLOUD_KEY：</strong> CookieCloud用户KEY，默认为空</li>
+<li><strong>COOKIECLOUD_PASSWORD：</strong> CookieCloud端对端加密密码，默认为空</li>
+<li><strong>COOKIECLOUD_INTERVAL：</strong> CookieCloud同步间隔（分钟），默认为 <code>1440</code>（24小时）</li>
+<li><strong>COOKIECLOUD_BLACKLIST：</strong> CookieCloud同步黑名单，多个域名,分割，默认为空</li>
+</ul>
+<h2 id="后台服务" class="toc-header"><a class="toc-anchor" href="#后台服务">¶</a> 后台服务</h2>
+<ul>
+<li><strong>OCR_HOST：</strong> OCR识别服务器地址，格式：<code>http(s)://ip:port</code>，用于识别站点验证码实现自动登录获取Cookie等，不配置默认使用内建服务器<code>https://movie-pilot.org</code>，可使用 <a href="https://hub.docker.com/r/jxxghp/moviepilot-ocr" class="is-external-link">这个镜像</a> 自行搭建。</li>
+<li><strong>MP_SERVER_HOST：</strong> 服务器地址，对应 <a href="https://github.com/jxxghp/MoviePilot-Server" class="is-external-link">https://github.com/jxxghp/MoviePilot-Server</a> 项目，默认为 <code>https://movie-pilot.org</code></li>
+</ul>
+<h2 id="插件" class="toc-header"><a class="toc-anchor" href="#插件">¶</a> 插件</h2>
+<ul>
+<li>
+<p><strong>PLUGIN_MARKET：</strong> 插件市场仓库地址，仅支持Github仓库<code>main</code>分支，多个地址使用<code>,</code>分隔，通过查看<a href="https://github.com/jxxghp/MoviePilot-Plugins" class="is-external-link">MoviePilot-Plugins</a>项目的fork，或者查看频道置顶了解更多第三方插件仓库。详情参照 <a href="/plugin" class="is-internal-link is-valid-page">插件</a>。</p>
+</li>
+<li>
+<p><strong>PLUGIN_AUTO_RELOAD：</strong> 是否开启插件热加载，默认为 <code>false</code></p>
+</li>
+<li>
+<p><strong>PLUGIN_LOCAL_REPO_PATHS：</strong> 本地插件仓库路径，多个路径使用<code>,</code>分隔，默认为空</p>
+</li>
+</ul>
+<h2 id="分享" class="toc-header"><a class="toc-anchor" href="#分享">¶</a> 分享</h2>
+<ul>
+<li><strong>PLUGIN_STATISTIC_SHARE：</strong> 是否匿名分享插件安装统计数据，用于统计和显示插件下载安装次数，<code>true</code>/<code>false</code>，默认<code>true</code></li>
+<li><strong>WORKFLOW_STATISTIC_SHARE：</strong> 工作流数据共享，用于统计和展示用户工作流使用情况，<code>true</code>/<code>false</code>，默认<code>true</code></li>
+</ul>
+<h2 id="网盘" class="toc-header"><a class="toc-anchor" href="#网盘">¶</a> 网盘</h2>
+<ul>
+<li><strong>RCLONE_SNAPSHOT_CHECK_FOLDER_MODTIME：</strong> 对rclone进行快照对比时，是否检查文件夹的修改时间，默认为 <code>true</code></li>
+<li><strong>OPENLIST_SNAPSHOT_CHECK_FOLDER_MODTIME：</strong> 对OpenList进行快照对比时，是否检查文件夹的修改时间，默认为 <code>true</code></li>
+<li><strong>ALIPAN_SNAPSHOT_CHECK_FOLDER_MODTIME：</strong> 对阿里云盘进行快照对比时，是否检查文件夹的修改时间，默认为 <code>false</code></li>
+</ul>
+<h2 id="个性化" class="toc-header"><a class="toc-anchor" href="#个性化">¶</a> 个性化</h2>
+<ul>
+<li><strong>WALLPAPER：</strong> 登录页面电影海报，支持 <code>tmdb</code>/<code>bing</code>/<code>mediaserver</code>，默认为 <code>tmdb</code></li>
+<li><strong>CUSTOMIZE_WALLPAPER_API_URL：</strong> 自定义壁纸api地址，默认为空</li>
+</ul>
+<h2 id="性能" class="toc-header"><a class="toc-anchor" href="#性能">¶</a> 性能</h2>
+<ul>
+<li><strong>BIG_MEMORY_MODE：</strong> 大内存模式，默认为<code>false</code>，开启后会增加缓存数量，占用更多的内存，但响应速度会更快</li>
+<li><strong>ENCODING_DETECTION_PERFORMANCE_MODE：</strong> 是否启用编码探测的性能模式，默认为 <code>true</code>，优先提升探测效率，但可能降低编码探测的准确性</li>
+<li><strong>ENCODING_DETECTION_MIN_CONFIDENCE：</strong> 编码探测的最低置信度阈值，默认为 <code>0.8</code></li>
+<li><strong>MEMORY_GC_INTERVAL：</strong> 主动内存回收时间间隔（分钟），默认 <code>30</code>，<code>0</code> 为不启用</li>
+</ul>
+<h2 id="数据清理" class="toc-header"><a class="toc-anchor" href="#数据清理">¶</a> 数据清理</h2>
+<ul>
+<li><strong>DATA_CLEANUP_ENABLE：</strong> 是否启用历史数据自动清理，默认为 <code>false</code></li>
+<li><strong>DATA_CLEANUP_MESSAGE_DAYS：</strong> 消息记录保留天数，默认为 <code>90</code></li>
+<li><strong>DATA_CLEANUP_DOWNLOAD_HISTORY_DAYS：</strong> 下载历史保留天数，默认为 <code>180</code></li>
+<li><strong>DATA_CLEANUP_SITE_USERDATA_DAYS：</strong> 站点用户数据保留天数，默认为 <code>180</code></li>
+<li><strong>DATA_CLEANUP_TRANSFER_HISTORY_DAYS：</strong> 整理历史保留天数，默认为 <code>1095</code></li>
+</ul>
+<h1 id="设置项与变量对照表" class="toc-header"><a class="toc-anchor" href="#设置项与变量对照表">¶</a> 设置项与变量对照表</h1>
+<blockquote class="is-info">
+<p>表中“推荐入口”为 WEB 的项目，优先在前端配置；标为“环境变量/配置文件”的项目，通常是前端暂无入口、Docker 启动项、首次启动前生效项或低层高级项。</p>
+</blockquote>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>分类</th>
+<th>设置项 / 环境变量</th>
+<th>默认值</th>
+<th>推荐入口</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>部署</td>
+<td><code>NGINX_PORT</code></td>
+<td><code>3000</code></td>
+<td>环境变量</td>
+<td>WEB 服务端口</td>
+</tr>
+<tr>
+<td>部署</td>
+<td><code>PORT</code></td>
+<td><code>3001</code></td>
+<td>环境变量</td>
+<td>API 服务端口</td>
+</tr>
+<tr>
+<td>部署</td>
+<td><code>HOST</code></td>
+<td><code>0.0.0.0</code></td>
+<td>环境变量/配置文件</td>
+<td>API 监听地址</td>
+</tr>
+<tr>
+<td>部署</td>
+<td><code>TZ</code></td>
+<td><code>Asia/Shanghai</code></td>
+<td>环境变量</td>
+<td>容器或进程时区</td>
+</tr>
+<tr>
+<td>部署</td>
+<td><code>CONFIG_DIR</code></td>
+<td>自动判断</td>
+<td>环境变量</td>
+<td>配置目录</td>
+</tr>
+<tr>
+<td>Docker</td>
+<td><code>PUID</code> / <code>PGID</code> / <code>UMASK</code></td>
+<td><code>0</code> / <code>0</code> / <code>000</code></td>
+<td>环境变量</td>
+<td>容器文件权限</td>
+</tr>
+<tr>
+<td>Docker</td>
+<td><code>START_NOGOSU</code></td>
+<td><code>false</code></td>
+<td>环境变量</td>
+<td>无根容器权限兼容</td>
+</tr>
+<tr>
+<td>Docker</td>
+<td><code>ENABLE_SSL</code> / <code>SSL_DOMAIN</code> / <code>SSL_NGINX_PORT</code> / <code>SSL_EMAIL</code> / <code>AUTO_ISSUE_CERT</code> / <code>DNS_PROVIDER</code> / <code>ACME_ENV_*</code></td>
+<td>空</td>
+<td>环境变量</td>
+<td>Docker HTTPS 与证书申请</td>
+</tr>
+<tr>
+<td>Docker</td>
+<td><code>NGINX_CLIENT_MAX_BODY_SIZE</code></td>
+<td><code>50m</code></td>
+<td>环境变量</td>
+<td>Nginx 上传体积限制</td>
+</tr>
+<tr>
+<td>Docker</td>
+<td><code>DOCKER_CLIENT_API</code></td>
+<td><code>tcp://127.0.0.1:38379</code></td>
+<td>环境变量/配置文件</td>
+<td>V1/V2 Docker 内建重启接口；V3 不使用</td>
+</tr>
+<tr>
+<td>Docker</td>
+<td><code>PLAYWRIGHT_BROWSER_TYPE</code></td>
+<td><code>chromium</code></td>
+<td>环境变量/配置文件</td>
+<td>CookieCloud 浏览器类型</td>
+</tr>
+<tr>
+<td>基础</td>
+<td><code>PROJECT_NAME</code> / <code>API_V1_STR</code> / <code>FRONTEND_PATH</code></td>
+<td><code>MoviePilot</code> / <code>/api/v1</code> / <code>/public</code></td>
+<td>环境变量/配置文件</td>
+<td>项目名、API 前缀、前端静态目录，一般无需修改</td>
+</tr>
+<tr>
+<td>基础</td>
+<td><code>SUPERUSER</code></td>
+<td>V1/V2 为 <code>admin</code>；V3 为空</td>
+<td>V1/V2 首次启动环境变量/配置文件；V3 初始化页面</td>
+<td>超级管理员用户名；V3 首次访问时创建</td>
+</tr>
+<tr>
+<td>基础</td>
+<td><code>SUPERUSER_PASSWORD</code></td>
+<td>V1/V2 按原版本规则；V3 为空</td>
+<td>V1/V2 首次启动环境变量/配置文件；V3 初始化页面</td>
+<td>超级管理员初始密码；V3 不在启动阶段播种</td>
+</tr>
+<tr>
+<td>基础</td>
+<td><code>APP_DOMAIN</code></td>
+<td>空</td>
+<td><code>设定 -&gt; 系统 -&gt; 基础设置</code></td>
+<td>外部访问域名</td>
+</tr>
+<tr>
+<td>基础</td>
+<td><code>API_TOKEN</code></td>
+<td>V1/V2 按原版本规则；V3 初始化页面生成</td>
+<td>V1/V2 环境变量/系统设置；V3 初始化页面</td>
+<td>API、Webhook、MCP、兼容 Agent API 认证密钥</td>
+</tr>
+<tr>
+<td>基础</td>
+<td><code>DEBUG</code></td>
+<td><code>false</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>调试日志与调试模式</td>
+</tr>
+<tr>
+<td>基础</td>
+<td><code>ADVANCED_MODE</code></td>
+<td>V1/V2 为 <code>true</code>；V3 不适用</td>
+<td>V1/V2 环境变量/配置文件</td>
+<td>V1/V2 是否显示完整设置；V3 已移除</td>
+</tr>
+<tr>
+<td>基础</td>
+<td><code>DEV</code></td>
+<td><code>false</code></td>
+<td>环境变量/配置文件</td>
+<td>本地开发模式</td>
+</tr>
+<tr>
+<td>认证</td>
+<td><code>AUTH_SITE</code> 与站点认证变量</td>
+<td>空</td>
+<td><code>用户头像 -&gt; 用户认证</code></td>
+<td>前端已有认证入口，优先使用前端</td>
+</tr>
+<tr>
+<td>认证</td>
+<td><code>AUXILIARY_AUTH_ENABLE</code></td>
+<td><code>false</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>辅助认证 / SSO</td>
+</tr>
+<tr>
+<td>安全</td>
+<td><code>SECRET_KEY</code></td>
+<td>随机生成</td>
+<td>环境变量/配置文件</td>
+<td>系统加密密钥</td>
+</tr>
+<tr>
+<td>安全</td>
+<td><code>RESOURCE_SECRET_KEY</code></td>
+<td>随机生成</td>
+<td>环境变量/配置文件</td>
+<td>资源访问密钥</td>
+</tr>
+<tr>
+<td>安全</td>
+<td><code>ALLOWED_HOSTS</code></td>
+<td><code>["*"]</code></td>
+<td>环境变量/配置文件</td>
+<td>允许访问域名</td>
+</tr>
+<tr>
+<td>安全</td>
+<td><code>ACCESS_TOKEN_EXPIRE_MINUTES</code></td>
+<td><code>11520</code></td>
+<td>环境变量/配置文件</td>
+<td>登录 Token 有效期</td>
+</tr>
+<tr>
+<td>安全</td>
+<td><code>RESOURCE_ACCESS_TOKEN_EXPIRE_SECONDS</code></td>
+<td><code>1800</code></td>
+<td>环境变量/配置文件</td>
+<td>资源 Token 有效期</td>
+</tr>
+<tr>
+<td>安全</td>
+<td><code>PASSKEY_REQUIRE_UV</code></td>
+<td><code>true</code></td>
+<td>环境变量/配置文件</td>
+<td>通行密钥是否要求用户验证</td>
+</tr>
+<tr>
+<td>安全</td>
+<td><code>PASSKEY_ALLOW_REGISTER_WITHOUT_OTP</code></td>
+<td><code>false</code></td>
+<td>环境变量/配置文件</td>
+<td>未启用 OTP 时是否允许注册通行密钥</td>
+</tr>
+<tr>
+<td>网络</td>
+<td><code>PROXY_HOST</code></td>
+<td>空</td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>网络代理</td>
+</tr>
+<tr>
+<td>网络</td>
+<td><code>DOH_ENABLE</code></td>
+<td><code>false</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>DNS over HTTPS</td>
+</tr>
+<tr>
+<td>网络</td>
+<td><code>DOH_DOMAINS</code></td>
+<td>内置域名列表</td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>DOH 解析域名</td>
+</tr>
+<tr>
+<td>网络</td>
+<td><code>DOH_RESOLVERS</code></td>
+<td><code>1.0.0.1,1.1.1.1,9.9.9.9,149.112.112.112</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>DOH 解析服务器</td>
+</tr>
+<tr>
+<td>Github/PIP</td>
+<td><code>GITHUB_TOKEN</code></td>
+<td>空</td>
+<td><code>设定 -&gt; 系统 -&gt; 基础设置</code></td>
+<td>Github API 限流提升</td>
+</tr>
+<tr>
+<td>Github/PIP</td>
+<td><code>GITHUB_PROXY</code></td>
+<td>空</td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>Github 加速代理</td>
+</tr>
+<tr>
+<td>Github/PIP</td>
+<td><code>PIP_PROXY</code></td>
+<td>空</td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>pip 镜像地址</td>
+</tr>
+<tr>
+<td>Github/PIP</td>
+<td><code>REPO_GITHUB_TOKEN</code></td>
+<td>空</td>
+<td>环境变量/配置文件</td>
+<td>指定仓库 Token</td>
+</tr>
+<tr>
+<td>更新</td>
+<td><code>MOVIEPILOT_AUTO_UPDATE</code></td>
+<td><code>release</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>重启时自动更新</td>
+</tr>
+<tr>
+<td>更新</td>
+<td><code>AUTO_UPDATE_RESOURCE</code></td>
+<td><code>true</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>启动时自动更新资源包</td>
+</tr>
+<tr>
+<td>缓存</td>
+<td><code>CACHE_BACKEND_TYPE</code></td>
+<td><code>cachetools</code></td>
+<td>环境变量/配置文件</td>
+<td>缓存后端</td>
+</tr>
+<tr>
+<td>缓存</td>
+<td><code>CACHE_BACKEND_URL</code></td>
+<td><code>redis://localhost:6379</code></td>
+<td>环境变量/配置文件</td>
+<td>Redis 连接串</td>
+</tr>
+<tr>
+<td>缓存</td>
+<td><code>CACHE_REDIS_MAXMEMORY</code></td>
+<td>自动</td>
+<td>环境变量/配置文件</td>
+<td>Redis 最大内存</td>
+</tr>
+<tr>
+<td>缓存</td>
+<td><code>GLOBAL_IMAGE_CACHE</code></td>
+<td><code>false</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>全局图片缓存</td>
+</tr>
+<tr>
+<td>缓存</td>
+<td><code>GLOBAL_IMAGE_CACHE_DAYS</code></td>
+<td><code>7</code></td>
+<td>环境变量/配置文件</td>
+<td>图片缓存保留天数</td>
+</tr>
+<tr>
+<td>缓存</td>
+<td><code>TEMP_FILE_DAYS</code></td>
+<td><code>3</code></td>
+<td>环境变量/配置文件</td>
+<td>临时文件保留天数</td>
+</tr>
+<tr>
+<td>缓存</td>
+<td><code>META_CACHE_EXPIRE</code></td>
+<td><code>0</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td><code>0</code> 为普通模式24小时、大内存模式72小时</td>
+</tr>
+<tr>
+<td>数据库</td>
+<td><code>DB_TYPE</code></td>
+<td><code>sqlite</code></td>
+<td>安装向导/环境变量</td>
+<td>数据库类型，切换数据库建议在初始化前完成</td>
+</tr>
+<tr>
+<td>数据库</td>
+<td><code>DB_WAL_ENABLE</code></td>
+<td><code>true</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>SQLite WAL 开关</td>
+</tr>
+<tr>
+<td>数据库</td>
+<td><code>DB_ECHO</code> / <code>DB_TIMEOUT</code></td>
+<td><code>false</code> / <code>60</code></td>
+<td>环境变量/配置文件</td>
+<td>SQL 输出与 SQLite 等待时间</td>
+</tr>
+<tr>
+<td>数据库</td>
+<td><code>DB_POOL_TYPE</code> / <code>DB_POOL_PRE_PING</code> / <code>DB_POOL_RECYCLE</code> / <code>DB_POOL_TIMEOUT</code></td>
+<td><code>QueuePool</code> / <code>true</code> / <code>300</code> / <code>30</code></td>
+<td>环境变量/配置文件</td>
+<td>数据库连接池高级参数</td>
+</tr>
+<tr>
+<td>数据库</td>
+<td><code>DB_SQLITE_POOL_SIZE</code> / <code>DB_SQLITE_MAX_OVERFLOW</code></td>
+<td><code>10</code> / <code>50</code></td>
+<td>环境变量/配置文件</td>
+<td>SQLite 连接池</td>
+</tr>
+<tr>
+<td>数据库</td>
+<td><code>DB_POSTGRESQL_HOST</code> / <code>DB_POSTGRESQL_PORT</code> / <code>DB_POSTGRESQL_DATABASE</code> / <code>DB_POSTGRESQL_USERNAME</code> / <code>DB_POSTGRESQL_PASSWORD</code></td>
+<td><code>localhost</code> / <code>5432</code> / <code>moviepilot</code> / <code>moviepilot</code> / <code>moviepilot</code></td>
+<td>安装向导/环境变量</td>
+<td>PostgreSQL 连接参数</td>
+</tr>
+<tr>
+<td>数据库</td>
+<td><code>DB_POSTGRESQL_POOL_SIZE</code> / <code>DB_POSTGRESQL_MAX_OVERFLOW</code></td>
+<td><code>10</code> / <code>50</code></td>
+<td>环境变量/配置文件</td>
+<td>PostgreSQL 连接池</td>
+</tr>
+<tr>
+<td>日志</td>
+<td><code>LOG_LEVEL</code> / <code>LOG_MAX_FILE_SIZE</code> / <code>LOG_BACKUP_COUNT</code></td>
+<td><code>INFO</code> / <code>5</code> / <code>10</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>日志级别、单文件大小、备份数量</td>
+</tr>
+<tr>
+<td>日志</td>
+<td><code>LOG_CONSOLE_FORMAT</code> / <code>LOG_FILE_FORMAT</code></td>
+<td>内置格式</td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>日志格式</td>
+</tr>
+<tr>
+<td>日志</td>
+<td><code>ASYNC_FILE_QUEUE_SIZE</code> / <code>ASYNC_FILE_WORKERS</code> / <code>BATCH_WRITE_SIZE</code> / <code>WRITE_TIMEOUT</code></td>
+<td><code>1000</code> / <code>2</code> / <code>50</code> / <code>3.0</code></td>
+<td>环境变量/配置文件</td>
+<td>异步日志写入参数</td>
+</tr>
+<tr>
+<td>媒体源</td>
+<td><code>SEARCH_SOURCE</code></td>
+<td><code>themoviedb</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 搜索设置</code></td>
+<td>搜索媒体信息来源</td>
+</tr>
+<tr>
+<td>媒体源</td>
+<td><code>RECOGNIZE_SOURCE</code></td>
+<td><code>themoviedb</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 基础设置</code></td>
+<td>媒体识别来源</td>
+</tr>
+<tr>
+<td>媒体源</td>
+<td><code>SCRAP_SOURCE</code></td>
+<td><code>themoviedb</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 目录设置</code></td>
+<td>媒体刮削来源</td>
+</tr>
+<tr>
+<td>媒体源</td>
+<td><code>ANIME_GENREIDS</code></td>
+<td><code>[16]</code></td>
+<td>环境变量/配置文件</td>
+<td>动漫类型 ID</td>
+</tr>
+<tr>
+<td>TMDB</td>
+<td><code>TMDB_IMAGE_DOMAIN</code> / <code>TMDB_API_DOMAIN</code> / <code>TMDB_LOCALE</code> / <code>TMDB_SCRAP_ORIGINAL_IMAGE</code></td>
+<td><code>image.tmdb.org</code> / <code>api.themoviedb.org</code> / <code>zh</code> / <code>false</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>TMDB 图片、API、语言与原语种图片</td>
+</tr>
+<tr>
+<td>TMDB</td>
+<td><code>TMDB_API_KEY</code></td>
+<td>内置 Key</td>
+<td>环境变量/配置文件</td>
+<td>自定义 TMDB API Key</td>
+</tr>
+<tr>
+<td>TVDB</td>
+<td><code>TVDB_V4_API_KEY</code> / <code>TVDB_V4_API_PIN</code></td>
+<td>内置 Key / 空</td>
+<td>环境变量/配置文件</td>
+<td>TVDB V4 配置</td>
+</tr>
+<tr>
+<td>Fanart</td>
+<td><code>FANART_ENABLE</code> / <code>FANART_LANG</code></td>
+<td><code>true</code> / <code>zh,en</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>Fanart 开关与语言</td>
+</tr>
+<tr>
+<td>Fanart</td>
+<td><code>FANART_API_KEY</code></td>
+<td>内置 Key</td>
+<td>环境变量/配置文件</td>
+<td>自定义 Fanart Key</td>
+</tr>
+<tr>
+<td>整理</td>
+<td><code>RMT_MEDIAEXT</code> / <code>RMT_SUBEXT</code> / <code>RMT_AUDIOEXT</code></td>
+<td>内置列表</td>
+<td>环境变量/配置文件</td>
+<td>支持整理的媒体、字幕、音频后缀</td>
+</tr>
+<tr>
+<td>整理</td>
+<td><code>MOVIE_RENAME_FORMAT</code> / <code>TV_RENAME_FORMAT</code></td>
+<td>内置模板</td>
+<td><code>设定 -&gt; 系统 -&gt; 目录设置</code></td>
+<td>重命名格式</td>
+</tr>
+<tr>
+<td>整理</td>
+<td><code>RENAME_FORMAT_S0_NAMES</code> / <code>DEFAULT_SUB</code></td>
+<td><code>["Specials","SPs"]</code> / <code>zh-cn</code></td>
+<td>环境变量/配置文件</td>
+<td>S0 别名与默认字幕语言</td>
+</tr>
+<tr>
+<td>整理</td>
+<td><code>SCRAP_FOLLOW_TMDB</code></td>
+<td><code>true</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>已入库媒体跟随 TMDB 信息变化</td>
+</tr>
+<tr>
+<td>整理</td>
+<td><code>RECOGNIZE_PLUGIN_FIRST</code></td>
+<td><code>false</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>插件识别优先</td>
+</tr>
+<tr>
+<td>整理</td>
+<td><code>MEDIA_RECOGNIZE_SHARE</code></td>
+<td><code>true</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>匿名分享识别数据</td>
+</tr>
+<tr>
+<td>整理</td>
+<td><code>MEDIA_RECOGNIZE_SHARE_API</code></td>
+<td>空</td>
+<td>环境变量/配置文件</td>
+<td>自定义识别共享 API</td>
+</tr>
+<tr>
+<td>整理</td>
+<td><code>TRANSFER_THREADS</code></td>
+<td><code>1</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>文件整理线程数</td>
+</tr>
+<tr>
+<td>媒体服务器</td>
+<td><code>MEDIASERVER_SYNC_INTERVAL</code></td>
+<td><code>6</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 基础设置</code></td>
+<td>媒体服务器同步间隔</td>
+</tr>
+<tr>
+<td>订阅</td>
+<td><code>SUBSCRIBE_MODE</code></td>
+<td><code>spider</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 订阅设置</code></td>
+<td>订阅模式</td>
+</tr>
+<tr>
+<td>订阅</td>
+<td><code>SUBSCRIBE_RSS_INTERVAL</code></td>
+<td><code>30</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 订阅设置</code></td>
+<td>RSS 订阅刷新间隔</td>
+</tr>
+<tr>
+<td>订阅</td>
+<td><code>SUBSCRIBE_STATISTIC_SHARE</code></td>
+<td><code>true</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>匿名分享订阅统计</td>
+</tr>
+<tr>
+<td>订阅</td>
+<td><code>SUBSCRIBE_SEARCH</code> / <code>SUBSCRIBE_SEARCH_INTERVAL</code></td>
+<td><code>false</code> / <code>24</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 订阅设置</code></td>
+<td>订阅搜索与间隔</td>
+</tr>
+<tr>
+<td>订阅</td>
+<td><code>LOCAL_EXISTS_SEARCH</code></td>
+<td><code>true</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 订阅设置</code></td>
+<td>搜索前检查本地媒体库</td>
+</tr>
+<tr>
+<td>站点</td>
+<td><code>SITEDATA_REFRESH_INTERVAL</code></td>
+<td><code>6</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 站点设置</code></td>
+<td>站点数据刷新间隔</td>
+</tr>
+<tr>
+<td>站点</td>
+<td><code>SITE_MESSAGE</code></td>
+<td><code>true</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 站点设置</code></td>
+<td>读取和发送站点消息</td>
+</tr>
+<tr>
+<td>站点</td>
+<td><code>NO_CACHE_SITE_KEY</code></td>
+<td>空</td>
+<td>环境变量/配置文件</td>
+<td>不缓存资源的站点关键字；留空时所有站点使用缓存</td>
+</tr>
+<tr>
+<td>站点</td>
+<td><code>BROWSER_EMULATION</code> / <code>FLARESOLVERR_URL</code></td>
+<td><code>playwright</code> / 空</td>
+<td><code>设定 -&gt; 系统 -&gt; 站点设置</code></td>
+<td>浏览器仿真与 FlareSolverr</td>
+</tr>
+<tr>
+<td>搜索下载</td>
+<td><code>SEARCH_MULTIPLE_NAME</code></td>
+<td><code>false</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 搜索设置</code></td>
+<td>搜索多个名称</td>
+</tr>
+<tr>
+<td>搜索下载</td>
+<td><code>MAX_SEARCH_NAME_LIMIT</code></td>
+<td><code>3</code></td>
+<td>环境变量/配置文件</td>
+<td>最大搜索名称数量</td>
+</tr>
+<tr>
+<td>搜索下载</td>
+<td><code>TORRENT_TAG</code></td>
+<td><code>MOVIEPILOT</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 搜索设置</code></td>
+<td>种子标签</td>
+</tr>
+<tr>
+<td>搜索下载</td>
+<td><code>DOWNLOAD_SUBTITLE</code></td>
+<td><code>true</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 搜索设置</code></td>
+<td>下载站点字幕</td>
+</tr>
+<tr>
+<td>搜索下载</td>
+<td><code>AUTO_DOWNLOAD_USER</code></td>
+<td>空</td>
+<td><code>设定 -&gt; 系统 -&gt; 搜索设置</code></td>
+<td>远程交互自动择优用户</td>
+</tr>
+<tr>
+<td>搜索下载</td>
+<td><code>DOWNLOAD_TMPEXT</code></td>
+<td><code>['.!qb', '.part']</code></td>
+<td>环境变量/配置文件</td>
+<td>下载器临时文件后缀</td>
+</tr>
+<tr>
+<td>CookieCloud</td>
+<td><code>COOKIECLOUD_ENABLE_LOCAL</code> / <code>COOKIECLOUD_HOST</code> / <code>COOKIECLOUD_KEY</code> / <code>COOKIECLOUD_PASSWORD</code> / <code>COOKIECLOUD_INTERVAL</code> / <code>COOKIECLOUD_BLACKLIST</code></td>
+<td><code>false</code> / 官方服务 / 空 / 空 / <code>1440</code> / 空</td>
+<td><code>设定 -&gt; 系统 -&gt; 站点设置</code></td>
+<td>CookieCloud 同步</td>
+</tr>
+<tr>
+<td>后台服务</td>
+<td><code>OCR_HOST</code></td>
+<td><code>https://movie-pilot.org</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 基础设置</code></td>
+<td>OCR 服务地址</td>
+</tr>
+<tr>
+<td>后台服务</td>
+<td><code>MP_SERVER_HOST</code></td>
+<td><code>https://movie-pilot.org</code></td>
+<td>环境变量/配置文件</td>
+<td>MoviePilot Server 地址</td>
+</tr>
+<tr>
+<td>插件</td>
+<td><code>PLUGIN_MARKET</code></td>
+<td>官方市场</td>
+<td><code>插件 -&gt; 插件市场设置</code></td>
+<td>插件市场地址</td>
+</tr>
+<tr>
+<td>插件</td>
+<td><code>PLUGIN_AUTO_RELOAD</code></td>
+<td><code>false</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>插件热加载</td>
+</tr>
+<tr>
+<td>插件</td>
+<td><code>PLUGIN_LOCAL_REPO_PATHS</code></td>
+<td>空</td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>本地插件仓库路径</td>
+</tr>
+<tr>
+<td>分享</td>
+<td><code>PLUGIN_STATISTIC_SHARE</code> / <code>WORKFLOW_STATISTIC_SHARE</code></td>
+<td><code>true</code> / <code>true</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>插件与工作流匿名统计</td>
+</tr>
+<tr>
+<td>技能</td>
+<td><code>SKILL_MARKET</code></td>
+<td>内置市场列表</td>
+<td>环境变量/配置文件</td>
+<td><code>/skills</code> 命令使用的技能源</td>
+</tr>
+<tr>
+<td>网盘</td>
+<td><code>RCLONE_SNAPSHOT_CHECK_FOLDER_MODTIME</code> / <code>OPENLIST_SNAPSHOT_CHECK_FOLDER_MODTIME</code> / <code>ALIPAN_SNAPSHOT_CHECK_FOLDER_MODTIME</code></td>
+<td><code>true</code> / <code>true</code> / <code>false</code></td>
+<td>环境变量/配置文件</td>
+<td>网盘快照是否检查文件夹修改时间</td>
+</tr>
+<tr>
+<td>网盘</td>
+<td><code>U115_APP_ID</code> / <code>U115_AUTH_SERVER</code> / <code>ALIPAN_APP_ID</code></td>
+<td>内置值</td>
+<td>环境变量/配置文件</td>
+<td>115、阿里云盘应用配置</td>
+</tr>
+<tr>
+<td>个性化</td>
+<td><code>WALLPAPER</code> / <code>CUSTOMIZE_WALLPAPER_API_URL</code></td>
+<td><code>tmdb</code> / 空</td>
+<td><code>设定 -&gt; 系统 -&gt; 基础设置</code></td>
+<td>登录壁纸来源与自定义接口</td>
+</tr>
+<tr>
+<td>性能</td>
+<td><code>BIG_MEMORY_MODE</code></td>
+<td><code>false</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>大内存模式</td>
+</tr>
+<tr>
+<td>性能</td>
+<td><code>ENCODING_DETECTION_PERFORMANCE_MODE</code></td>
+<td><code>true</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>编码探测性能模式</td>
+</tr>
+<tr>
+<td>性能</td>
+<td><code>ENCODING_DETECTION_MIN_CONFIDENCE</code></td>
+<td><code>0.8</code></td>
+<td>环境变量/配置文件</td>
+<td>编码探测最低置信度</td>
+</tr>
+<tr>
+<td>性能</td>
+<td><code>MEMORY_GC_INTERVAL</code></td>
+<td><code>30</code></td>
+<td>环境变量/配置文件</td>
+<td>主动内存回收间隔</td>
+</tr>
+<tr>
+<td>安全资源</td>
+<td><code>SECURITY_IMAGE_DOMAINS</code></td>
+<td>内置域名列表</td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>允许代理缓存的图片域名</td>
+</tr>
+<tr>
+<td>安全资源</td>
+<td><code>SECURITY_IMAGE_SUFFIXES</code></td>
+<td>内置后缀列表</td>
+<td>环境变量/配置文件</td>
+<td>允许代理缓存的图片后缀</td>
+</tr>
+<tr>
+<td>数据清理</td>
+<td><code>DATA_CLEANUP_ENABLE</code></td>
+<td><code>false</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>自动清理总开关</td>
+</tr>
+<tr>
+<td>数据清理</td>
+<td><code>DATA_CLEANUP_MESSAGE_DAYS</code> / <code>DATA_CLEANUP_DOWNLOAD_HISTORY_DAYS</code> / <code>DATA_CLEANUP_SITE_USERDATA_DAYS</code> / <code>DATA_CLEANUP_TRANSFER_HISTORY_DAYS</code></td>
+<td><code>90</code> / <code>180</code> / <code>180</code> / <code>1095</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 进阶设置</code></td>
+<td>各类历史数据保留天数</td>
+</tr>
+<tr>
+<td>智能助手</td>
+<td><code>AI_AGENT_ENABLE</code> / <code>AI_AGENT_GLOBAL</code> / <code>AI_AGENT_VERBOSE</code></td>
+<td><code>false</code> / <code>false</code> / <code>false</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 基础设置</code></td>
+<td>智能助手开关</td>
+</tr>
+<tr>
+<td>智能助手</td>
+<td><code>AI_AGENT_JOB_INTERVAL</code></td>
+<td><code>0</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 基础设置</code></td>
+<td>定时唤醒间隔</td>
+</tr>
+<tr>
+<td>智能助手</td>
+<td><code>AI_AGENT_RETRY_TRANSFER</code></td>
+<td><code>false</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 基础设置</code></td>
+<td>整理失败智能接管</td>
+</tr>
+<tr>
+<td>LLM</td>
+<td><code>LLM_PROVIDER</code> / <code>LLM_MODEL</code></td>
+<td><code>deepseek</code> / <code>deepseek-chat</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 基础设置</code></td>
+<td>LLM 提供商与模型</td>
+</tr>
+<tr>
+<td>LLM</td>
+<td><code>LLM_THINKING_LEVEL</code></td>
+<td><code>off</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 基础设置</code></td>
+<td>思考强度</td>
+</tr>
+<tr>
+<td>LLM</td>
+<td><code>LLM_API_KEY</code> / <code>LLM_BASE_URL</code> / <code>LLM_BASE_URL_PRESET</code></td>
+<td>空 / <code>https://api.deepseek.com</code> / 空</td>
+<td><code>设定 -&gt; 系统 -&gt; 基础设置</code></td>
+<td>LLM 密钥、地址与前端预设</td>
+</tr>
+<tr>
+<td>LLM</td>
+<td><code>LLM_SUPPORT_IMAGE_INPUT</code></td>
+<td><code>true</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 基础设置</code></td>
+<td>图片输入能力</td>
+</tr>
+<tr>
+<td>LLM</td>
+<td><code>LLM_SUPPORT_AUDIO_INPUT</code> / <code>LLM_SUPPORT_AUDIO_OUTPUT</code></td>
+<td><code>false</code> / <code>false</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 基础设置</code></td>
+<td>音频输入与语音输出开关</td>
+</tr>
+<tr>
+<td>LLM</td>
+<td><code>LLM_MAX_CONTEXT_TOKENS</code></td>
+<td><code>64</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 基础设置</code></td>
+<td>上下文窗口，单位 K</td>
+</tr>
+<tr>
+<td>LLM</td>
+<td><code>LLM_TEMPERATURE</code> / <code>LLM_MAX_ITERATIONS</code> / <code>LLM_TOOL_TIMEOUT</code> / <code>LLM_VERBOSE</code></td>
+<td><code>0.3</code> / <code>128</code> / <code>300</code> / <code>false</code></td>
+<td>环境变量/配置文件</td>
+<td>LLM 高级运行参数</td>
+</tr>
+<tr>
+<td>LLM</td>
+<td><code>LLM_MAX_MEMORY_MESSAGES</code> / <code>LLM_MEMORY_RETENTION_DAYS</code> / <code>LLM_REDIS_MEMORY_RETENTION_DAYS</code></td>
+<td><code>30</code> / <code>1</code> / <code>7</code></td>
+<td>环境变量/配置文件</td>
+<td>智能助手记忆</td>
+</tr>
+<tr>
+<td>LLM</td>
+<td><code>LLM_MAX_TOOLS</code></td>
+<td><code>0</code></td>
+<td>环境变量/配置文件</td>
+<td>工具选择中间件限制</td>
+</tr>
+<tr>
+<td>AI 搜索</td>
+<td><code>TAVILY_API_KEY</code> / <code>EXA_API_KEY</code></td>
+<td>内置 Key</td>
+<td>环境变量/配置文件</td>
+<td>智能助手 Web 搜索服务 Key</td>
+</tr>
+<tr>
+<td>AI 推荐</td>
+<td><code>AI_RECOMMEND_ENABLED</code> / <code>AI_RECOMMEND_USER_PREFERENCE</code> / <code>AI_RECOMMEND_MAX_ITEMS</code></td>
+<td><code>false</code> / 空 / <code>50</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 基础设置</code></td>
+<td>搜索结果 AI 推荐</td>
+</tr>
+<tr>
+<td>音频输入</td>
+<td><code>AUDIO_INPUT_PROVIDER</code> / <code>AUDIO_INPUT_API_KEY</code> / <code>AUDIO_INPUT_BASE_URL</code> / <code>AUDIO_INPUT_MODEL</code> / <code>AUDIO_INPUT_LANGUAGE</code></td>
+<td><code>openai</code> / 空 / 空 / <code>gpt-4o-mini-transcribe</code> / <code>zh</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 基础设置</code></td>
+<td>音频转写配置</td>
+</tr>
+<tr>
+<td>音频输出</td>
+<td><code>AUDIO_OUTPUT_PROVIDER</code> / <code>AUDIO_OUTPUT_API_KEY</code> / <code>AUDIO_OUTPUT_BASE_URL</code> / <code>AUDIO_OUTPUT_MODEL</code> / <code>AUDIO_OUTPUT_VOICE</code> / <code>AUDIO_OUTPUT_INCLUDE_TEXT</code></td>
+<td><code>openai</code> / 空 / 空 / <code>gpt-4o-mini-tts</code> / <code>alloy</code> / <code>false</code></td>
+<td><code>设定 -&gt; 系统 -&gt; 基础设置</code></td>
+<td>语音回复配置</td>
+</tr>
+<tr>
+<td>飞书通知</td>
+<td><code>FEISHU_APP_ID</code> / <code>FEISHU_APP_SECRET</code> / <code>FEISHU_OPEN_ID</code> / <code>FEISHU_CHAT_ID</code> / <code>FEISHU_ADMINS</code> / <code>FEISHU_VERIFICATION_TOKEN</code> / <code>FEISHU_ENCRYPT_KEY</code></td>
+<td>空</td>
+<td><code>设定 -&gt; 通知 -&gt; 飞书</code></td>
+<td>建议作为通知渠道配置，不再作为全局环境变量维护</td>
+</tr>
+<tr>
+<td>结构化配置</td>
+<td><code>Directories</code> / <code>Storages</code> / <code>Downloaders</code> / <code>MediaServers</code> / <code>Notifications</code></td>
+<td>无</td>
+<td>对应 WEB 页面</td>
+<td>存储、目录、下载器、媒体服务器、通知渠道</td>
+</tr>
+<tr>
+<td>规则与站点</td>
+<td><code>SearchFilterRuleGroups</code> / <code>SubscribeFilterRuleGroups</code> / <code>BestVersionFilterRuleGroups</code> / <code>IndexerSites</code> / <code>RssSites</code></td>
+<td>无</td>
+<td>搜索/订阅/站点设置</td>
+<td>过滤规则、索引站点、RSS 订阅站点</td>
+</tr>
+</tbody>
+</table></div>
+<h1 id="安装redis" class="toc-header"><a class="toc-anchor" href="#安装redis">¶</a> 安装Redis</h1>
+<blockquote class="is-info">
+<p>使用Redis缓存可以进一步减少MoviePilot主程序内存占用，同时会将本地文件缓存自动迁移到Redis中，以提升运行效率。以下提供Docker环境下的Redis安装和配置指南。</p>
+</blockquote>
+<h2 id="h-1-安装redis容器" class="toc-header"><a class="toc-anchor" href="#h-1-安装redis容器">¶</a> 1. 安装Redis容器</h2>
+<p><strong>根据需要决定是否开启持久化，不开时重启Redis后缓存数据会丢失，但不会影响程序正常运行（建议设置复杂密码）</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-bash"># 创建持久化目录
+mkdir -p /volume1/docker/redis/data
+
+# 启动带持久化的Redis
+docker run \
+  --name my-redis \
+  -p 6379:6379 \
+  -v /volume1/docker/redis/data:/data \
+  -d redis redis-server --save 600 1 --requirepass "你的密码"
+</code></pre>
+<h2 id="h-2-配置moviepilot使用redis" class="toc-header"><a class="toc-anchor" href="#h-2-配置moviepilot使用redis">¶</a> 2. 配置MoviePilot使用Redis</h2>
+<p>在MoviePilot的环境变量或配置文件中设置以下参数（建议设置复杂密码）：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-bash"># 缓存类型，支持 cachetools 和 redis，默认使用 cachetools
+CACHE_BACKEND_TYPE=redis
+# 缓存连接字符串，仅Redis缓存需要
+CACHE_BACKEND_URL=redis://:你的密码@localhost:6379
+</code></pre>
+<p>重启MoviePilot生效。</p>
+<h1 id="安装postgresql" class="toc-header"><a class="toc-anchor" href="#安装postgresql">¶</a> 安装Postgresql</h1>
+<blockquote class="is-info">
+<p>使用PostgreSQL数据库可以提升MoviePilot的性能和并发处理能力，特别适合数据量较大的用户。以下提供Docker环境下的PostgreSQL安装和配置指南。</p>
+</blockquote>
+<h2 id="h-1-安装postgresql容器" class="toc-header"><a class="toc-anchor" href="#h-1-安装postgresql容器">¶</a> 1. 安装PostgreSQL容器</h2>
+<p>使用Docker运行PostgreSQL容器（请设置复杂密码，不要使用默认密码）：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-bash">docker run -d \
+  --name postgresql \
+  -p 5432:5432 \
+  -e POSTGRES_DB=moviepilot \
+  -e POSTGRES_USER=moviepilot \
+  -e POSTGRES_PASSWORD="你的密码" \
+  -v /volume1/docker/postgresql:/var/lib/postgresql/data \
+  postgres
+</code></pre>
+<blockquote class="is-warning">
+<p>请根据实际情况调整端口映射、数据卷路径和PostgreSQL版本。</p>
+</blockquote>
+<h2 id="h-2-创建用户权限" class="toc-header"><a class="toc-anchor" href="#h-2-创建用户权限">¶</a> 2. 创建用户权限</h2>
+<p>进入PostgreSQL容器设置用户权限：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-bash"># 进入容器
+docker exec -it postgresql bash
+
+# 连接到PostgreSQL
+psql -U moviepilot
+
+# 授予用户权限
+GRANT ALL PRIVILEGES ON SCHEMA public TO moviepilot;
+GRANT ALL PRIVILEGES ON DATABASE moviepilot TO moviepilot;
+ALTER USER moviepilot CREATEDB;
+
+# 退出psql
+\q
+</code></pre>
+<h2 id="h-3-数据迁移可选" class="toc-header"><a class="toc-anchor" href="#h-3-数据迁移可选">¶</a> 3. 数据迁移（可选）</h2>
+<p>如果要从SQLite迁移存量数据到PostgreSQL，可以使用pgloader工具，全新安装可忽略：</p>
+<ol>
+<li>将MoviePilot的 <code>user.db</code> 文件放置到 PostgreSQL 的配置目录</li>
+<li>在PostgreSQL容器内执行</li>
+</ol>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-bash"># 进入容器
+# docker exec -it postgresql bash
+apt update
+apt install pgloader
+
+pgloader sqlite:////var/lib/postgresql/data/user.db postgresql://moviepilot:你的密码@localhost:5432/moviepilot
+</code></pre>
+<blockquote class="is-warning">
+<p>注意：数据迁移前请备份原有SQLite数据库文件。</p>
+</blockquote>
+<h2 id="h-4-配置moviepilot使用postgresql" class="toc-header"><a class="toc-anchor" href="#h-4-配置moviepilot使用postgresql">¶</a> 4. 配置MoviePilot使用PostgreSQL</h2>
+<p>在MoviePilot的环境变量或配置文件中设置以下参数（请设置复杂密码，不要使用默认密码）：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-bash"># 数据库类型
+DB_TYPE=postgresql
+
+# PostgreSQL连接参数
+DB_POSTGRESQL_HOST=localhost
+DB_POSTGRESQL_PORT=5432
+DB_POSTGRESQL_DATABASE=moviepilot
+DB_POSTGRESQL_USERNAME=moviepilot
+DB_POSTGRESQL_PASSWORD="你的密码"
+</code></pre>
+<h2 id="h-5-验证配置" class="toc-header"><a class="toc-anchor" href="#h-5-验证配置">¶</a> 5. 验证配置</h2>
+<p><strong>如果是先升级到了 v2.7.3+ 版本再切换数据库的，在PostgreSQL对应数据库中执行以下语句，并重启MP，以触发数据库升级：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-sql"># 进入容器
+# docker exec -it postgresql bash
+# 连接到PostgreSQL
+# psql -U moviepilot
+update alembic_version set version_num = 'd58298a0879f';
+</code></pre>
+<p>重启MoviePilot后，检查日志确认PostgreSQL连接正常。</p>
+<h1 id="对外服务路径" class="toc-header"><a class="toc-anchor" href="#对外服务路径">¶</a> 对外服务路径</h1>
+<p>MoviePilot通过对外提供Api的方式实现消息接入、Webhook等功能，以下是涉及可能需要在其它软件中配置的回调地址。</p>
+<blockquote class="is-info">
+<p><strong>V2版本变化说明</strong> <br> v2.0.0+ 版本后<code>API_TOKEN</code>需要设置<strong>16位或以上的复杂字符串</strong> ，如果同一类型的消息和媒体服务器配置了多个，回调请求地址中还需要加上 <strong>&amp;source=配置名称</strong> 参数，其中配置名称建议使用英文，如果配置名称为中文或存在特殊字符（如空格），部分平台（如企业微信）可能需要进行URL编码。为了方便识别和管理，建议统一在所有回调地址中添加<code>source</code>参数，以确保各配置间的区分和调用更加清晰。</p>
+</blockquote>
+<ul>
+<li><strong>消息接收服务</strong>：<code>/api/v1/message/?token=your_api_token</code>，微信、SynologyChat、VoceChat的消息回调地址，其中<code>your_api_token</code>修改为实际配置中的<code>API_TOKEN</code>的值。</li>
+<li><strong>Webhook服务</strong>：<code>/api/v1/webhook?token=your_api_token</code>，Emby、Jellyfin、Plex等Webhook回调地址，用于接入Webhook请求并传递到MoviePilot内部使用，其中<code>your_api_token</code>修改为实际配置中的<code>API_TOKEN</code>的值。</li>
+<li><strong>下载文件立即整理</strong>：<code>/api/v1/transfer/now?token=your_api_token</code>，下载文件自动整理默认轮循下载器间隔为5分钟，如果是使用qbittorrent，可在 <code>QB设置</code>-&gt;<code>下载完成时运行外部程序</code> 处填入：<code>curl "http://localhost:3000/api/v1/transfer/now?token=your_api_token" </code>，实现无需等待轮循下载完成后立即整理入库（地址、端口和token按实际调整，curl也可更换为wget）。</li>
+</ul>
+</div></template><template slot="comments"><div><comments></comments></div></template></page></div><script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="1cdec69ca3ff452413df1bd0-|49" defer></script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a465b1efab1b094a',t:'MTc5MTMwMDQ5Nw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body></html>

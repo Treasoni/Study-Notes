@@ -1,0 +1,247 @@
+<!DOCTYPE html><html lang="zh"><head><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><meta name="msapplication-TileImage" content="/_assets/favicons/mstile-150x150.png"><title>本地 CLI | MoviePilot Wiki</title><meta name="description" content="使用 moviepilot 命令进行本地安装、初始化、更新与服务管理"><meta property="og:title" content="本地 CLI"><meta property="og:type" content="website"><meta property="og:description" content="使用 moviepilot 命令进行本地安装、初始化、更新与服务管理"><meta property="og:image"><meta property="og:url" content="https://wiki.movie-pilot.org/cli"><meta property="og:site_name" content="MoviePilot Wiki"><link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/_assets/favicons/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicons/favicon-16x16.png"><link rel="mask-icon" href="/_assets/favicons/safari-pinned-tab.svg" color="#1976d2"><link rel="manifest" href="/_assets/manifest.json"><script type="08b26e68248fca9ada8b4500-text/javascript">var siteConfig = {"title":"MoviePilot Wiki","theme":"default","darkMode":false,"tocPosition":"right","lang":"zh","rtl":false,"company":"","contentLicense":"alr","footerOverride":"","logoUrl":"/assets/logo.svg"}
+var siteLangs = []
+</script><link type="text/css" rel="stylesheet" href="/_assets/css/app.0f8c3acc9686d9d11765.css"><script type="08b26e68248fca9ada8b4500-text/javascript" src="/_assets/js/runtime.js?1777631845"></script><script type="08b26e68248fca9ada8b4500-text/javascript" src="/_assets/js/app.js?1777631845"></script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MRPCZR1JF5" type="08b26e68248fca9ada8b4500-text/javascript"></script>
+<script type="08b26e68248fca9ada8b4500-text/javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MRPCZR1JF5');
+</script>
+</head><body><div id="root"><page locale="zh" path="cli" title="本地 CLI" description="使用 moviepilot 命令进行本地安装、初始化、更新与服务管理" :tags="[]" created-at="2026-04-16T12:04:54.839Z" updated-at="2026-05-15T01:41:34.305Z" author-name="Administrator" :author-id="1" editor="markdown" :is-published="true" toc="W3sidGl0bGUiOiLor7TmmI4iLCJhbmNob3IiOiIj6K+05piOIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi5LiA6ZSu5a6J6KOFIiwiYW5jaG9yIjoiI+S4gOmUruWuieijhSIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IumFjee9ruebruW9lSIsImFuY2hvciI6IiPphY3nva7nm67lvZUiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLliJ3lp4vljJblkJHlr7wiLCJhbmNob3IiOiIj5Yid5aeL5YyW5ZCR5a+8IiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi5bi455So5ZG95LukIiwiYW5jaG9yIjoiI+W4uOeUqOWRveS7pCIsImNoaWxkcmVuIjpbeyJ0aXRsZSI6IuWuieijheS4juWIneWni+WMliIsImFuY2hvciI6IiPlronoo4XkuI7liJ3lp4vljJYiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLljbjovb0iLCJhbmNob3IiOiIj5Y246L29IiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi5pyN5Yqh566h55CGIiwiYW5jaG9yIjoiI+acjeWKoeeuoeeQhiIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IuabtOaWsCIsImFuY2hvciI6IiPmm7TmlrAiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiJBZ2VudCIsImFuY2hvciI6IiNhZ2VudCIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IumFjee9ruOAgeW3peWFt+S4juiwg+W6piIsImFuY2hvciI6IiPphY3nva4t5bel5YW35LiO6LCD5bqmIiwiY2hpbGRyZW4iOltdfV19LHsidGl0bGUiOiLluK7liqnkuI7lj5HnjrAiLCJhbmNob3IiOiIj5biu5Yqp5LiO5Y+R546wIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi5a6M5pW05ZG95Luk5riF5Y2VIiwiYW5jaG9yIjoiI+WujOaVtOWRveS7pOa4heWNlSIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IuebuOWFs+ivtOaYjiIsImFuY2hvciI6IiPnm7jlhbPor7TmmI4iLCJjaGlsZHJlbiI6W119XQ==" :page-id="21" sidebar="W3siaSI6InNkaS0xIiwiayI6ImhlYWRlciIsImwiOiLlvIDlp4siLCJjIjpudWxsLCJ5IjpudWxsLCJ0IjpudWxsfSx7ImkiOiJzZGktMiIsImsiOiJsaW5rIiwibCI6IueOr+Wig+WHhuWkhyIsImMiOiJtZGktY2hlY2stY2lyY2xlLW91dGxpbmUiLCJ5IjoicGFnZSIsInQiOiIvemgvcmVhZHkifSx7ImkiOiJzZGktMyIsImsiOiJsaW5rIiwibCI6IuWuieijheaMh+W8lSIsImMiOiJtZGktZmxhcmUiLCJ5IjoicGFnZSIsInQiOiIvemgvaW5zdGFsbCJ9LHsiaSI6InNkaS00IiwiayI6ImxpbmsiLCJsIjoi5pys5ZywIENMSSIsImMiOiJtZGktY29uc29sZSIsInkiOiJwYWdlIiwidCI6Ii96aC9jbGkifSx7ImkiOiJzZGktNSIsImsiOiJsaW5rIiwibCI6IumFjee9ruWPguiAgyIsImMiOiJtZGktY29nLW91dGxpbmUiLCJ5IjoicGFnZSIsInQiOiIvemgvY29uZmlndXJhdGlvbiJ9LHsiaSI6InNkaS02IiwiayI6ImxpbmsiLCJsIjoi5Y2H57qnIiwiYyI6Im1kaS1wdWJsaXNoIiwieSI6InBhZ2UiLCJ0IjoiL3poL3VwZ3JhZGUifSx7ImkiOiJzZGktNyIsImsiOiJsaW5rIiwibCI6IuWPkeihjOivtOaYjiIsImMiOiJtZGktZmlyZSIsInkiOiJwYWdlIiwidCI6Ii96aC9yZWxlYXNlIn0seyJpIjoic2RpLTgiLCJrIjoibGluayIsImwiOiLlkajovrnpobnnm64iLCJjIjoibWRpLW9yYml0IiwieSI6InBhZ2UiLCJ0IjoiL3poL2Vjb3N5c3RlbSJ9LHsiaSI6InNkaS05IiwiayI6ImhlYWRlciIsImwiOiLnlKjmiLfmjIfljZciLCJjIjpudWxsLCJ5IjpudWxsLCJ0IjpudWxsfSx7ImkiOiJzZGktMTAiLCJrIjoibGluayIsImwiOiLln7rnoYAiLCJjIjoibWRpLWN1YmUtb3V0bGluZSIsInkiOiJwYWdlIiwidCI6Ii96aC9iYXNpYyJ9LHsiaSI6InNkaS0xMSIsImsiOiJsaW5rIiwibCI6IuermeeCuSIsImMiOiJtZGktd2ViIiwieSI6InBhZ2UiLCJ0IjoiL3poL3NpdGUifSx7ImkiOiJzZGktMTIiLCJrIjoibGluayIsImwiOiLmkJzntKIiLCJjIjoibWRpLW1hZ25pZnkiLCJ5IjoicGFnZSIsInQiOiIvemgvc2VhcmNoIn0seyJpIjoic2RpLTEzIiwiayI6ImxpbmsiLCJsIjoi5LiL6L29IiwiYyI6Im1kaS1kb3dubG9hZCIsInkiOiJwYWdlIiwidCI6Ii96aC9kb3dubG9hZCJ9LHsiaSI6InNkaS0xNCIsImsiOiJsaW5rIiwibCI6IuiuoumYhSIsImMiOiJtZGktcnNzIiwieSI6InBhZ2UiLCJ0IjoiL3poL3N1YnNjcmliZSJ9LHsiaSI6InNkaS0xNSIsImsiOiJsaW5rIiwibCI6IuaWh+S7tuaVtOeQhiIsImMiOiJtZGktZmlsZSIsInkiOiJwYWdlIiwidCI6Ii96aC9yZW9yZ2FuaXplIn0seyJpIjoic2RpLTE2IiwiayI6ImxpbmsiLCJsIjoi6YCa55+lIiwiYyI6Im1kaS1tZXNzYWdlIiwieSI6InBhZ2UiLCJ0IjoiL3poL25vdGlmaWNhdGlvbiJ9LHsiaSI6InNkaS0xNyIsImsiOiJsaW5rIiwibCI6IuaPkuS7tiIsImMiOiJtZGktcHV6emxlIiwieSI6InBhZ2UiLCJ0IjoiL3poL3BsdWdpbiJ9LHsiaSI6InNkaS0xOCIsImsiOiJsaW5rIiwibCI6IuaZuuiDveWKqeaJiyIsImMiOiJtZGktcm9ib3QiLCJ5IjoicGFnZSIsInQiOiIvemgvYWdlbnQifSx7ImkiOiJzZGktMTkiLCJrIjoibGluayIsImwiOiJNQ1AiLCJjIjoibWRpLXRvb2xzIiwieSI6InBhZ2UiLCJ0IjoiL3poL21jcCJ9LHsiaSI6InNkaS0yMCIsImsiOiJsaW5rIiwibCI6Iui/m+mYtiIsImMiOiJtZGktYXBwbGljYXRpb24tY29nIiwieSI6InBhZ2UiLCJ0IjoiL3poL2FkdmFuY2VkIn0seyJpIjoic2RpLTIxIiwiayI6ImxpbmsiLCJsIjoi6K+K5pat5LiO5L+u5aSNIiwiYyI6Im1kaS1kb2N0b3IiLCJ5IjoicGFnZSIsInQiOiIvemgvZG9jdG9yIn0seyJpIjoic2RpLTIyIiwiayI6ImxpbmsiLCJsIjoi5bi46KeB6Zeu6aKYIiwiYyI6Im1kaS1mcmVxdWVudGx5LWFza2VkLXF1ZXN0aW9ucyIsInkiOiJwYWdlIiwidCI6Ii96aC90cm91Ymxlc2hvb3RpbmcifSx7ImkiOiJzZGktMjMiLCJrIjoiaGVhZGVyIiwibCI6IuW8gOWPkeiAhSIsImMiOm51bGwsInkiOm51bGwsInQiOm51bGx9LHsiaSI6InNkaS0yNCIsImsiOiJsaW5rIiwibCI6IuaPkuS7tuW8gOWPkSIsImMiOiJtZGktYXBwcyIsInkiOiJwYWdlIiwidCI6Ii96aC9wbHVnaW5kZXYifSx7ImkiOiJzZGktMjUiLCJrIjoibGluayIsImwiOiLkuLvpopjpo47moLwiLCJjIjoibWRpLXBhbGV0dGUiLCJ5IjoicGFnZSIsInQiOiIvemgvdGhlbWVkZXYifV0=" nav-mode="MIXED" comments-enabled effective-permissions="eyJjb21tZW50cyI6eyJyZWFkIjp0cnVlLCJ3cml0ZSI6ZmFsc2UsIm1hbmFnZSI6ZmFsc2V9LCJoaXN0b3J5Ijp7InJlYWQiOmZhbHNlfSwic291cmNlIjp7InJlYWQiOmZhbHNlfSwicGFnZXMiOnsicmVhZCI6dHJ1ZSwid3JpdGUiOmZhbHNlLCJtYW5hZ2UiOmZhbHNlLCJkZWxldGUiOmZhbHNlLCJzY3JpcHQiOmZhbHNlLCJzdHlsZSI6ZmFsc2V9LCJzeXN0ZW0iOnsibWFuYWdlIjpmYWxzZX19" edit-shortcuts="eyJlZGl0RmFiIjp0cnVlLCJlZGl0TWVudUJhciI6ZmFsc2UsImVkaXRNZW51QnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsQnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsTmFtZSI6IkdpdEh1YiIsImVkaXRNZW51RXh0ZXJuYWxJY29uIjoibWRpLWdpdGh1YiIsImVkaXRNZW51RXh0ZXJuYWxVcmwiOiJodHRwczovL2dpdGh1Yi5jb20vb3JnL3JlcG8vYmxvYi9tYWluL3tmaWxlbmFtZX0ifQ==" filename="cli.md"><template slot="contents"><div><h1 id="说明" class="toc-header"><a class="toc-anchor" href="#说明">¶</a> 说明</h1>
+<p><code>moviepilot</code> 是 MoviePilot V2 的本地安装与管理入口，适用于 <code>macOS</code> 和 <code>Linux</code> 源码部署场景。</p>
+<p>它负责：</p>
+<ul>
+<li>自动安装本地运行环境</li>
+<li>下载前端 release</li>
+<li>下载并同步资源文件</li>
+<li>初始化配置</li>
+<li>卸载本地运行环境</li>
+<li>启动、停止、重启前后端服务</li>
+<li>更新后端、前端和资源</li>
+<li>通过命令行完成配置、调试和 Agent 请求</li>
+</ul>
+<blockquote class="is-info">
+<p>Windows 用户如需使用本地 CLI，建议优先在 <code>WSL</code> 中运行；原生 Windows 仍建议使用安装版或 Docker。</p>
+</blockquote>
+<h1 id="一键安装" class="toc-header"><a class="toc-anchor" href="#一键安装">¶</a> 一键安装</h1>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-shell">curl -fsSL https://raw.githubusercontent.com/jxxghp/MoviePilot/v2/scripts/bootstrap-local.sh | bash
+</code></pre>
+<p>脚本会自动：</p>
+<ul>
+<li>检测操作系统</li>
+<li>自动检查并尽量安装 <code>git</code>、<code>curl</code>、<code>Python 3.12+</code></li>
+<li>克隆 <code>MoviePilot</code></li>
+<li>安装后端依赖</li>
+<li>下载 <code>MoviePilot-Frontend</code> 最新 release</li>
+<li>下载 <code>MoviePilot-Resources</code> 资源文件</li>
+<li>将 <code>resources.v2/*</code> 同步到后端 <code>app/helper</code></li>
+<li>自动下载本地 <code>Node</code> 运行时并安装前端运行依赖</li>
+<li>执行初始化向导</li>
+<li>创建全局 <code>moviepilot</code> 命令</li>
+<li>默认启动前后端服务</li>
+</ul>
+<p>如果安装完成后当前终端仍提示找不到 <code>moviepilot</code>：</p>
+<ul>
+<li>重新打开终端</li>
+<li>如果脚本提示使用了 <code>~/.local/bin</code>，执行 <code>source ~/.zshrc</code> 或 <code>source ~/.bashrc</code></li>
+</ul>
+<h1 id="配置目录" class="toc-header"><a class="toc-anchor" href="#配置目录">¶</a> 配置目录</h1>
+<p>本地 CLI 默认将配置目录放在程序目录外，避免删除程序目录时把配置一并删掉。</p>
+<ul>
+<li>macOS：<code>~/Library/Application Support/MoviePilot</code></li>
+<li>Linux：<code>${XDG_CONFIG_HOME:-~/.config}/moviepilot</code></li>
+</ul>
+<p>也可以在安装时手动指定：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-shell">moviepilot setup --config-dir /path/to/moviepilot-config
+</code></pre>
+<p>如果当前还没有可用配置目录，执行 <code>moviepilot setup</code> 或 <code>moviepilot init</code> 时会先展示默认路径并允许你确认或指定其它路径。</p>
+<p>查看当前实际配置目录：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-shell">moviepilot config path
+</code></pre>
+<h1 id="初始化向导" class="toc-header"><a class="toc-anchor" href="#初始化向导">¶</a> 初始化向导</h1>
+<p><code>moviepilot setup --wizard</code> 或 <code>moviepilot init --wizard</code> 会进入本地初始化向导。</p>
+<p>向导当前支持配置：</p>
+<ul>
+<li><code>API_TOKEN</code></li>
+<li>数据库类型
+<ul>
+<li>默认 <code>SQLite</code></li>
+<li>可切换为 <code>PostgreSQL</code>，并填写主机、端口、数据库名、用户名、密码</li>
+</ul>
+</li>
+<li>默认下载目录与媒体库目录</li>
+<li>下载器</li>
+<li>媒体服务器</li>
+<li>消息通知渠道</li>
+<li>用户站点认证
+<ul>
+<li>可直接选择支持的认证站点</li>
+<li>按站点要求填写 <code>用户名</code>、<code>UID</code>、<code>Passkey</code> 等参数</li>
+</ul>
+</li>
+<li>AI Agent
+<ul>
+<li>可按需启用 <code>AI_AGENT_ENABLE</code></li>
+<li>配置 <code>LLM_PROVIDER</code>、<code>LLM_MODEL</code>、<code>LLM_API_KEY</code>、<code>LLM_BASE_URL</code></li>
+<li>配置 <code>LLM_THINKING_LEVEL</code>、<code>LLM_SUPPORT_IMAGE_INPUT</code></li>
+<li>配置 <code>LLM_SUPPORT_AUDIO_INPUT</code>、<code>AUDIO_INPUT_*</code></li>
+<li>配置 <code>LLM_SUPPORT_AUDIO_OUTPUT</code>、<code>AUDIO_OUTPUT_*</code></li>
+<li>配置 <code>AI_RECOMMEND_ENABLED</code></li>
+</ul>
+</li>
+</ul>
+<blockquote class="is-info">
+<p>安装向导默认使用 <code>themoviedb</code> 作为识别来源，不再在首次安装流程中要求选择识别源。</p>
+</blockquote>
+<h1 id="常用命令" class="toc-header"><a class="toc-anchor" href="#常用命令">¶</a> 常用命令</h1>
+<h2 id="安装与初始化" class="toc-header"><a class="toc-anchor" href="#安装与初始化">¶</a> 安装与初始化</h2>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-shell">moviepilot install deps
+moviepilot install frontend
+moviepilot install resources
+moviepilot init --wizard
+moviepilot setup --wizard
+moviepilot uninstall
+</code></pre>
+<p>说明：</p>
+<ul>
+<li><code>install deps</code>：创建虚拟环境并安装后端依赖</li>
+<li><code>install frontend</code>：下载前端 release，并自动安装本地 <code>Node</code> 运行时</li>
+<li><code>install resources</code>：下载 <code>MoviePilot-Resources</code> 并同步到 <code>app/helper</code></li>
+<li><code>init</code>：初始化本地配置</li>
+<li><code>setup</code>：串行执行依赖安装、前端安装、资源同步和初始化</li>
+<li><code>uninstall</code>：卸载本地运行环境，默认保留配置目录</li>
+</ul>
+<h2 id="卸载" class="toc-header"><a class="toc-anchor" href="#卸载">¶</a> 卸载</h2>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-shell">moviepilot uninstall
+moviepilot uninstall --config-dir /path/to/moviepilot-config
+</code></pre>
+<p>说明：</p>
+<ul>
+<li>卸载时会进行两次确认</li>
+<li>默认不删除配置目录</li>
+<li>过程中会询问是否删除配置目录</li>
+<li>源码目录不会被删除</li>
+</ul>
+<h2 id="服务管理" class="toc-header"><a class="toc-anchor" href="#服务管理">¶</a> 服务管理</h2>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-shell">moviepilot start
+moviepilot stop
+moviepilot restart
+moviepilot status
+moviepilot logs
+moviepilot logs --frontend
+moviepilot logs --stdio
+moviepilot version
+</code></pre>
+<p>说明：</p>
+<ul>
+<li><code>start/stop/restart/status</code> 统一管理本地前后端服务</li>
+<li>通过系统内置重启入口触发重启时，如果当前实例是由 <code>moviepilot start</code> 管理起来的，本地安装模式也支持内建重启</li>
+<li><code>logs --frontend</code> 查看前端启动日志</li>
+<li><code>logs --stdio</code> 查看后端启动标准输出</li>
+</ul>
+<h2 id="更新" class="toc-header"><a class="toc-anchor" href="#更新">¶</a> 更新</h2>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-shell">moviepilot update backend
+moviepilot update frontend
+moviepilot update all
+</code></pre>
+<p>常见用法：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-shell">moviepilot stop
+moviepilot update all
+moviepilot start
+</code></pre>
+<p>也可以指定版本：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-shell">moviepilot update backend --ref v2.9.31
+moviepilot update frontend --frontend-version v2.9.31
+</code></pre>
+<p>说明：</p>
+<ul>
+<li><code>update backend</code> 会更新 Git 仓库并重新安装后端依赖</li>
+<li><code>update frontend</code> 会更新前端 release</li>
+<li><code>update all</code> 会同时更新后端、前端，并默认同步资源文件</li>
+<li>更新前建议先执行 <code>moviepilot stop</code></li>
+</ul>
+<h2 id="agent" class="toc-header"><a class="toc-anchor" href="#agent">¶</a> Agent</h2>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-shell">moviepilot agent 帮我分析最近一次搜索失败的原因
+moviepilot agent --user-id admin 帮我检查当前下载器配置
+moviepilot agent --session cli-debug-1 帮我看看为什么没有自动整理
+</code></pre>
+<p>说明：</p>
+<ul>
+<li><code>moviepilot agent</code> 会直接向本地 Agent 发送一次请求</li>
+<li>使用前需要先配置 LLM 参数，并开启 <code>AI_AGENT_ENABLE</code></li>
+<li>智能助手相关配置说明参考 <a href="/agent" class="is-internal-link is-valid-page">智能助手</a></li>
+</ul>
+<h2 id="配置-工具与调度" class="toc-header"><a class="toc-anchor" href="#配置-工具与调度">¶</a> 配置、工具与调度</h2>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-shell">moviepilot config path
+moviepilot config list
+moviepilot config get PORT
+moviepilot config set PORT 3001
+moviepilot config keys
+moviepilot config describe API_TOKEN
+
+moviepilot tool list
+moviepilot tool show query_schedulers
+moviepilot tool run query_schedulers
+
+moviepilot scheduler list
+moviepilot scheduler run subscribe_refresh
+</code></pre>
+<h1 id="帮助与发现" class="toc-header"><a class="toc-anchor" href="#帮助与发现">¶</a> 帮助与发现</h1>
+<p>根帮助：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-shell">moviepilot --help
+moviepilot help
+moviepilot commands
+</code></pre>
+<p>分级帮助：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-shell">moviepilot help install
+moviepilot help init
+moviepilot help setup
+moviepilot help update
+moviepilot help agent
+moviepilot help config
+moviepilot help config set
+moviepilot help tool
+moviepilot help scheduler
+</code></pre>
+<h1 id="完整命令清单" class="toc-header"><a class="toc-anchor" href="#完整命令清单">¶</a> 完整命令清单</h1>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-text">moviepilot install deps
+moviepilot install frontend
+moviepilot install resources
+moviepilot init
+moviepilot setup
+moviepilot uninstall
+moviepilot update backend
+moviepilot update frontend
+moviepilot update all
+moviepilot agent
+moviepilot start
+moviepilot stop
+moviepilot restart
+moviepilot status
+moviepilot logs
+moviepilot version
+moviepilot config path
+moviepilot config list
+moviepilot config get
+moviepilot config set
+moviepilot config keys
+moviepilot config describe
+moviepilot tool list
+moviepilot tool show
+moviepilot tool run
+moviepilot scheduler list
+moviepilot scheduler run
+moviepilot help
+moviepilot commands
+</code></pre>
+<h1 id="相关说明" class="toc-header"><a class="toc-anchor" href="#相关说明">¶</a> 相关说明</h1>
+<ul>
+<li>本地 CLI 安装模式会自动下载前端 release，不需要单独 clone 前端仓库</li>
+<li>资源文件会自动从 <code>MoviePilot-Resources</code> 下载，不需要手工复制到 <code>app/helper</code></li>
+<li>本地 CLI 安装模式的更新，不依赖 Docker 自动升级机制；请使用 <code>moviepilot update ...</code></li>
+<li>如果本地仓库存在已跟踪源码改动，更新命令会停止，避免覆盖本地修改；未跟踪文件不会再阻断更新</li>
+<li>如果你要把 MoviePilot 的工具能力接入 OpenClaw、Claude Code 等第三方 Agent，而不是直接在本地 CLI 里执行，可参考 <a href="/mcp" class="is-internal-link is-valid-page">MCP</a></li>
+</ul>
+</div></template><template slot="comments"><div><comments></comments></div></template></page></div><script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="08b26e68248fca9ada8b4500-|49" defer></script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a465c1d3c894c849',t:'MTc5MTMwMTE0OA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body></html>

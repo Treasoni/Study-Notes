@@ -1,0 +1,700 @@
+<!DOCTYPE html><html lang="zh"><head><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><meta name="msapplication-TileImage" content="/_assets/favicons/mstile-150x150.png"><title>进阶 | MoviePilot Wiki</title><meta name="description" content="词表、分类策略等高阶使用方法"><meta property="og:title" content="进阶"><meta property="og:type" content="website"><meta property="og:description" content="词表、分类策略等高阶使用方法"><meta property="og:image"><meta property="og:url" content="https://wiki.movie-pilot.org/advanced"><meta property="og:site_name" content="MoviePilot Wiki"><link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/_assets/favicons/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicons/favicon-16x16.png"><link rel="mask-icon" href="/_assets/favicons/safari-pinned-tab.svg" color="#1976d2"><link rel="manifest" href="/_assets/manifest.json"><script type="badd61348b8347cf38d18c21-text/javascript">var siteConfig = {"title":"MoviePilot Wiki","theme":"default","darkMode":false,"tocPosition":"right","lang":"zh","rtl":false,"company":"","contentLicense":"alr","footerOverride":"","logoUrl":"/assets/logo.svg"}
+var siteLangs = []
+</script><link type="text/css" rel="stylesheet" href="/_assets/css/app.0f8c3acc9686d9d11765.css"><script type="badd61348b8347cf38d18c21-text/javascript" src="/_assets/js/runtime.js?1777631845"></script><script type="badd61348b8347cf38d18c21-text/javascript" src="/_assets/js/app.js?1777631845"></script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MRPCZR1JF5" type="badd61348b8347cf38d18c21-text/javascript"></script>
+<script type="badd61348b8347cf38d18c21-text/javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MRPCZR1JF5');
+</script>
+</head><body><div id="root"><page locale="zh" path="advanced" title="进阶" description="词表、分类策略等高阶使用方法" :tags="[]" created-at="2024-05-30T09:47:08.061Z" updated-at="2026-10-02T06:40:25.696Z" author-name="Administrator" :author-id="1" editor="markdown" :is-published="true" toc="W3sidGl0bGUiOiLkvJjlhYjnuqfop4TliJkiLCJhbmNob3IiOiIj5LyY5YWI57qn6KeE5YiZIiwiY2hpbGRyZW4iOlt7InRpdGxlIjoi56S65L6LIiwiYW5jaG9yIjoiI+ekuuS+iyIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IuWIhuS6qyIsImFuY2hvciI6IiPliIbkuqsiLCJjaGlsZHJlbiI6W119XX0seyJ0aXRsZSI6IuiHquWumuS5ieivhuWIq+ivjSIsImFuY2hvciI6IiPoh6rlrprkuYnor4bliKvor40iLCJjaGlsZHJlbiI6W3sidGl0bGUiOiLnpLrkvosiLCJhbmNob3IiOiIj56S65L6LLTEiLCJjaGlsZHJlbiI6W119XX0seyJ0aXRsZSI6IuiHquWumuS5iemHjeWRveWQjSIsImFuY2hvciI6IiPoh6rlrprkuYnph43lkb3lkI0iLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLlpJrnm67lvZXmlK/mjIHkuI7liIbnsbsiLCJhbmNob3IiOiIj5aSa55uu5b2V5pSv5oyB5LiO5YiG57G7IiwiY2hpbGRyZW4iOlt7InRpdGxlIjoi5LqM57qn5YiG57G7562W55WlIiwiYW5jaG9yIjoiI+S6jOe6p+WIhuexu+etlueVpSIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IuebruW9lemFjee9ruekuuS+iyIsImFuY2hvciI6IiPnm67lvZXphY3nva7npLrkvosiLCJjaGlsZHJlbiI6W119XX0seyJ0aXRsZSI6IuaJuemHj+aJi+WKqOaVtOeQhiIsImFuY2hvciI6IiPmibnph4/miYvliqjmlbTnkIYiLCJjaGlsZHJlbiI6W119XQ==" :page-id="4" sidebar="W3siaSI6InNkaS0xIiwiayI6ImhlYWRlciIsImwiOiLlvIDlp4siLCJjIjpudWxsLCJ5IjpudWxsLCJ0IjpudWxsfSx7ImkiOiJzZGktMiIsImsiOiJsaW5rIiwibCI6IueOr+Wig+WHhuWkhyIsImMiOiJtZGktY2hlY2stY2lyY2xlLW91dGxpbmUiLCJ5IjoicGFnZSIsInQiOiIvemgvcmVhZHkifSx7ImkiOiJzZGktMyIsImsiOiJsaW5rIiwibCI6IuWuieijheaMh+W8lSIsImMiOiJtZGktZmxhcmUiLCJ5IjoicGFnZSIsInQiOiIvemgvaW5zdGFsbCJ9LHsiaSI6InNkaS00IiwiayI6ImxpbmsiLCJsIjoi5pys5ZywIENMSSIsImMiOiJtZGktY29uc29sZSIsInkiOiJwYWdlIiwidCI6Ii96aC9jbGkifSx7ImkiOiJzZGktNSIsImsiOiJsaW5rIiwibCI6IumFjee9ruWPguiAgyIsImMiOiJtZGktY29nLW91dGxpbmUiLCJ5IjoicGFnZSIsInQiOiIvemgvY29uZmlndXJhdGlvbiJ9LHsiaSI6InNkaS02IiwiayI6ImxpbmsiLCJsIjoi5Y2H57qnIiwiYyI6Im1kaS1wdWJsaXNoIiwieSI6InBhZ2UiLCJ0IjoiL3poL3VwZ3JhZGUifSx7ImkiOiJzZGktNyIsImsiOiJsaW5rIiwibCI6IuWPkeihjOivtOaYjiIsImMiOiJtZGktZmlyZSIsInkiOiJwYWdlIiwidCI6Ii96aC9yZWxlYXNlIn0seyJpIjoic2RpLTgiLCJrIjoibGluayIsImwiOiLlkajovrnpobnnm64iLCJjIjoibWRpLW9yYml0IiwieSI6InBhZ2UiLCJ0IjoiL3poL2Vjb3N5c3RlbSJ9LHsiaSI6InNkaS05IiwiayI6ImhlYWRlciIsImwiOiLnlKjmiLfmjIfljZciLCJjIjpudWxsLCJ5IjpudWxsLCJ0IjpudWxsfSx7ImkiOiJzZGktMTAiLCJrIjoibGluayIsImwiOiLln7rnoYAiLCJjIjoibWRpLWN1YmUtb3V0bGluZSIsInkiOiJwYWdlIiwidCI6Ii96aC9iYXNpYyJ9LHsiaSI6InNkaS0xMSIsImsiOiJsaW5rIiwibCI6IuermeeCuSIsImMiOiJtZGktd2ViIiwieSI6InBhZ2UiLCJ0IjoiL3poL3NpdGUifSx7ImkiOiJzZGktMTIiLCJrIjoibGluayIsImwiOiLmkJzntKIiLCJjIjoibWRpLW1hZ25pZnkiLCJ5IjoicGFnZSIsInQiOiIvemgvc2VhcmNoIn0seyJpIjoic2RpLTEzIiwiayI6ImxpbmsiLCJsIjoi5LiL6L29IiwiYyI6Im1kaS1kb3dubG9hZCIsInkiOiJwYWdlIiwidCI6Ii96aC9kb3dubG9hZCJ9LHsiaSI6InNkaS0xNCIsImsiOiJsaW5rIiwibCI6IuiuoumYhSIsImMiOiJtZGktcnNzIiwieSI6InBhZ2UiLCJ0IjoiL3poL3N1YnNjcmliZSJ9LHsiaSI6InNkaS0xNSIsImsiOiJsaW5rIiwibCI6IuaWh+S7tuaVtOeQhiIsImMiOiJtZGktZmlsZSIsInkiOiJwYWdlIiwidCI6Ii96aC9yZW9yZ2FuaXplIn0seyJpIjoic2RpLTE2IiwiayI6ImxpbmsiLCJsIjoi6YCa55+lIiwiYyI6Im1kaS1tZXNzYWdlIiwieSI6InBhZ2UiLCJ0IjoiL3poL25vdGlmaWNhdGlvbiJ9LHsiaSI6InNkaS0xNyIsImsiOiJsaW5rIiwibCI6IuaPkuS7tiIsImMiOiJtZGktcHV6emxlIiwieSI6InBhZ2UiLCJ0IjoiL3poL3BsdWdpbiJ9LHsiaSI6InNkaS0xOCIsImsiOiJsaW5rIiwibCI6IuaZuuiDveWKqeaJiyIsImMiOiJtZGktcm9ib3QiLCJ5IjoicGFnZSIsInQiOiIvemgvYWdlbnQifSx7ImkiOiJzZGktMTkiLCJrIjoibGluayIsImwiOiJNQ1AiLCJjIjoibWRpLXRvb2xzIiwieSI6InBhZ2UiLCJ0IjoiL3poL21jcCJ9LHsiaSI6InNkaS0yMCIsImsiOiJsaW5rIiwibCI6Iui/m+mYtiIsImMiOiJtZGktYXBwbGljYXRpb24tY29nIiwieSI6InBhZ2UiLCJ0IjoiL3poL2FkdmFuY2VkIn0seyJpIjoic2RpLTIxIiwiayI6ImxpbmsiLCJsIjoi6K+K5pat5LiO5L+u5aSNIiwiYyI6Im1kaS1kb2N0b3IiLCJ5IjoicGFnZSIsInQiOiIvemgvZG9jdG9yIn0seyJpIjoic2RpLTIyIiwiayI6ImxpbmsiLCJsIjoi5bi46KeB6Zeu6aKYIiwiYyI6Im1kaS1mcmVxdWVudGx5LWFza2VkLXF1ZXN0aW9ucyIsInkiOiJwYWdlIiwidCI6Ii96aC90cm91Ymxlc2hvb3RpbmcifSx7ImkiOiJzZGktMjMiLCJrIjoiaGVhZGVyIiwibCI6IuW8gOWPkeiAhSIsImMiOm51bGwsInkiOm51bGwsInQiOm51bGx9LHsiaSI6InNkaS0yNCIsImsiOiJsaW5rIiwibCI6IuaPkuS7tuW8gOWPkSIsImMiOiJtZGktYXBwcyIsInkiOiJwYWdlIiwidCI6Ii96aC9wbHVnaW5kZXYifSx7ImkiOiJzZGktMjUiLCJrIjoibGluayIsImwiOiLkuLvpopjpo47moLwiLCJjIjoibWRpLXBhbGV0dGUiLCJ5IjoicGFnZSIsInQiOiIvemgvdGhlbWVkZXYifV0=" nav-mode="MIXED" comments-enabled effective-permissions="eyJjb21tZW50cyI6eyJyZWFkIjp0cnVlLCJ3cml0ZSI6ZmFsc2UsIm1hbmFnZSI6ZmFsc2V9LCJoaXN0b3J5Ijp7InJlYWQiOmZhbHNlfSwic291cmNlIjp7InJlYWQiOmZhbHNlfSwicGFnZXMiOnsicmVhZCI6dHJ1ZSwid3JpdGUiOmZhbHNlLCJtYW5hZ2UiOmZhbHNlLCJkZWxldGUiOmZhbHNlLCJzY3JpcHQiOmZhbHNlLCJzdHlsZSI6ZmFsc2V9LCJzeXN0ZW0iOnsibWFuYWdlIjpmYWxzZX19" edit-shortcuts="eyJlZGl0RmFiIjp0cnVlLCJlZGl0TWVudUJhciI6ZmFsc2UsImVkaXRNZW51QnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsQnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsTmFtZSI6IkdpdEh1YiIsImVkaXRNZW51RXh0ZXJuYWxJY29uIjoibWRpLWdpdGh1YiIsImVkaXRNZW51RXh0ZXJuYWxVcmwiOiJodHRwczovL2dpdGh1Yi5jb20vb3JnL3JlcG8vYmxvYi9tYWluL3tmaWxlbmFtZX0ifQ==" filename="advanced.md"><template slot="contents"><div><h1 id="优先级规则" class="toc-header"><a class="toc-anchor" href="#优先级规则">¶</a> 优先级规则</h1>
+<p>优先级规则分为：订阅优先级、搜索优先级、洗版优先级，按如下规则应用：</p>
+<ol>
+<li>不设置优先级规则时，默认不使用优先级规则过滤。</li>
+<li>按规则先后顺序依次匹配，使用<strong>匹配通过的第一个规则作为该资源的优先级</strong>。<strong>如果所有规则均不匹配，则该资源会被过滤。</strong></li>
+<li>资源的匹配优先级越高（数字越小），则搜索和下载排序会在前面，最有可能会被下载。</li>
+<li>规则中的各规则项是<code>与</code>的关系，<strong>同类型规则项不能同时选择</strong>，比如<code>分辨率：1080P</code>和<code>分辨率：4K</code>不能同时选择，是不可能同时匹配通过的。</li>
+<li>需要全局排除一个规则项时，<strong>所有优先级规则中都需要排除这项</strong>，否则不能实现全局排除的目的。</li>
+</ol>
+<h2 id="示例" class="toc-header"><a class="toc-anchor" href="#示例">¶</a> 示例</h2>
+<p><strong>优先特效字幕、中文字幕，排除杜比和蓝光原盘，仅限4K和1080P，1080P优先</strong>：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-"> SPECSUB &amp; !BLU &amp; !DOLBY &amp; 1080P &gt; CNSUB &amp; !BLU &amp; !DOLBY &amp; 1080P &gt; SPECSUB &amp; BLU &amp; !DOLBY &amp; 4K &gt; CNSUB &amp; !BLU &amp; !DOLBY &amp; 4K  
+</code></pre>
+<p><img src="/subscribe_rule.png" alt="subscribe_rule.png"></p>
+<p>其中<code>中文字幕</code>规则只针对非国产电影和剧集生效。</p>
+<h2 id="分享" class="toc-header"><a class="toc-anchor" href="#分享">¶</a> 分享</h2>
+<p>点击优先级右上角按钮，选择<code>分享</code>，可将优先级规则复制到剪切板，选择<code>导入</code>可以快速导入别人分享的优先级规则。</p>
+<h1 id="自定义识别词" class="toc-header"><a class="toc-anchor" href="#自定义识别词">¶</a> 自定义识别词</h1>
+<p>对于命名不规范的资源，可以在<code>捷径 -&gt; 词表</code>中编写自定义识别词，使用正则表达式对资源名称进行校正，以便MoviePilot可以正确识别。</p>
+<blockquote class="is-success">
+<p>V2版本中支持在订阅中设定该订阅专用的识别词，同时可以将该订阅分享出去，让其他MPer参考订阅。</p>
+</blockquote>
+<p><strong>自定义识别词支持以下几种配置格式（注意连接符号左右的空格）：</strong></p>
+<ul>
+<li>屏蔽词</li>
+<li>被替换词 =&gt; 替换词</li>
+<li>前定位词 &lt;&gt; 后定位词 &gt;&gt; 集偏移量（EP）</li>
+<li>被替换词 =&gt; 替换词 &amp;&amp; 前定位词 &lt;&gt; 后定位词 &gt;&gt; 集偏移量（EP）</li>
+</ul>
+<p>其中:</p>
+<ul>
+<li><code>屏弊词</code>：将该词从待识别文本中去除。</li>
+<li><code>替换词</code>支持特定格式：<code>{[tmdbid=xxx;type=movie/tv;s=xxx;e=xxx]}</code>，也可按数据源使用 <code>doubanid</code>、<code>bangumiid</code> 或 <code>anilistid</code>，直接指定对应媒体 ID 识别。其中 <code>s</code>、<code>e</code> 为季数和集数（可选）。使用这种模式时，<strong>注意不要把资源的原标题替换掉了</strong>。</li>
+<li><code>集偏移</code>：定位待识别文本中的<code>集数位置</code>，并对识别出来的集数做运算，以解决识别出来的的集数与TMDB实际不一致的问题。<code>前后定位词</code>之间的所有数字（包括中文小写，不包括中文大写）视为集数，<code>偏移集数</code>支持运算，例如集数加1：<code>EP+1</code>；集数翻倍：<code>2*EP</code>；集数翻倍-1：<code>2*EP-1</code>（<code>EP</code>代表原集数）。</li>
+</ul>
+<h2 id="示例-1" class="toc-header"><a class="toc-anchor" href="#示例-1">¶</a> 示例</h2>
+<p>以下链接中有相关的示例，可通过<code>共享识别词</code>插件自动更新到本地使用：</p>
+<ul>
+<li><a href="https://movie-pilot.org/etherpad/p/MoviePilot_TV_Words" class="is-external-link">https://movie-pilot.org/etherpad/p/MoviePilot_TV_Words</a></li>
+<li><a href="https://movie-pilot.org/etherpad/p/MoviePilot_Anime_Words" class="is-external-link">https://movie-pilot.org/etherpad/p/MoviePilot_Anime_Words</a></li>
+</ul>
+<blockquote class="is-warning">
+<p>以上链接为大家自觉共享维护使用，请勿添加未充分识别测试的内容，请不要恶意破坏！</p>
+</blockquote>
+<blockquote class="is-success">
+<p>如果你使用了以上共享识别时，同时发现MoviePilot识别出现问题，一些本应该识别的都无法正常识别，有可能是共享识别词中出现了一些错误的内容导致。</p>
+</blockquote>
+<h1 id="自定义重命名" class="toc-header"><a class="toc-anchor" href="#自定义重命名">¶</a> 自定义重命名</h1>
+<p>MoviePilot文件重命名格式定义基于<code>jinja2</code>语法，关于语法的内容可参考 <a href="https://wsgzao.github.io/post/jinja/" class="is-external-link">模板引擎Jinja2语法介绍</a>。</p>
+<p><strong>可根据以下可配置项说明，参考默认的格式配置，调整命名格式：</strong></p>
+<ul>
+<li>以<code>/</code>分隔多级目录，可调整目录名和文件名格式。</li>
+<li>在使用一个变量前，建议增加<code>if</code>判定语句，<strong>变量不为空时才拼装</strong>。</li>
+</ul>
+<blockquote class="is-success">
+<p>V2版本中可以直接在前端界面中设置</p>
+</blockquote>
+<p><strong>重命名格式支持的通用配置项：</strong></p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td>TMDB/豆瓣中的标题</td>
+</tr>
+<tr>
+<td><code>en_title</code></td>
+<td>TMDB中的英文标题（暂不支持豆瓣）</td>
+</tr>
+<tr>
+<td><code>original_title</code></td>
+<td>TMDB/豆瓣中的原语种标题</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>从文件名中识别的名称（同时存在中英文时，优先使用中文）</td>
+</tr>
+<tr>
+<td><code>en_name</code></td>
+<td>从文件名中识别的英文名称（可能为空）</td>
+</tr>
+<tr>
+<td><code>original_name</code></td>
+<td>原文件名（包括文件后缀）</td>
+</tr>
+<tr>
+<td><code>year</code></td>
+<td>年份</td>
+</tr>
+<tr>
+<td><code>title_year</code></td>
+<td>标题和年份，如 <code>电影名 (2024)</code></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>媒体类型，如电影、电视剧</td>
+</tr>
+<tr>
+<td><code>category</code></td>
+<td>媒体分类</td>
+</tr>
+<tr>
+<td><code>vote_average</code></td>
+<td>评分</td>
+</tr>
+<tr>
+<td><code>poster</code></td>
+<td>海报图片地址</td>
+</tr>
+<tr>
+<td><code>backdrop</code></td>
+<td>背景图片地址</td>
+</tr>
+<tr>
+<td><code>actors</code></td>
+<td>演员，最多取前5位</td>
+</tr>
+<tr>
+<td><code>overview</code></td>
+<td>简介</td>
+</tr>
+<tr>
+<td><code>resourceType</code></td>
+<td>资源类型</td>
+</tr>
+<tr>
+<td><code>effect</code></td>
+<td>特效</td>
+</tr>
+<tr>
+<td><code>edition</code></td>
+<td>版本（资源类型+特效）</td>
+</tr>
+<tr>
+<td><code>videoFormat</code></td>
+<td>分辨率</td>
+</tr>
+<tr>
+<td><code>resource_term</code></td>
+<td>质量（资源类型+特效+分辨率）</td>
+</tr>
+<tr>
+<td><code>releaseGroup</code></td>
+<td>制作组/字幕组</td>
+</tr>
+<tr>
+<td><code>videoCodec</code></td>
+<td>视频编码</td>
+</tr>
+<tr>
+<td><code>videoBit</code></td>
+<td>视频位深，如 <code>8bit</code>、<code>10bit</code></td>
+</tr>
+<tr>
+<td><code>audioCodec</code></td>
+<td>音频编码</td>
+</tr>
+<tr>
+<td><code>fps</code></td>
+<td>帧率</td>
+</tr>
+<tr>
+<td><code>webSource</code></td>
+<td>流媒体平台</td>
+</tr>
+<tr>
+<td><code>tmdbid</code></td>
+<td>TMDB ID（非TMDB识别源时为空）</td>
+</tr>
+<tr>
+<td><code>imdbid</code></td>
+<td>IMDB ID（可能为空）</td>
+</tr>
+<tr>
+<td><code>doubanid</code></td>
+<td>豆瓣ID（非豆瓣识别源时为空）</td>
+</tr>
+<tr>
+<td><code>part</code></td>
+<td>段/节</td>
+</tr>
+<tr>
+<td><code>fileExt</code></td>
+<td>文件扩展名，如 <code>.mkv</code></td>
+</tr>
+<tr>
+<td><code>customization</code></td>
+<td>自定义占位符</td>
+</tr>
+</tbody>
+</table></div>
+<p>例如需要在文件名中加入视频编码和位深，可写为：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-jinja2" v-pre="true">{{title}}{% if year %} ({{year}}){% endif %}/{{title}}{% if year %} ({{year}}){% endif %}{% if videoCodec %} - {{videoCodec}}{% endif %}{% if videoBit %} {{videoBit}}{% endif %}{{fileExt}}
+</code></pre>
+<p><strong><code>TV_RENAME_FORMAT</code>额外支持的配置项：</strong></p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>season</code></td>
+<td>季号数字</td>
+</tr>
+<tr>
+<td><code>season_fmt</code></td>
+<td>季号格式，如 <code>S01</code></td>
+</tr>
+<tr>
+<td><code>season_year</code></td>
+<td>季年份</td>
+</tr>
+<tr>
+<td><code>episode</code></td>
+<td>集号或集号范围</td>
+</tr>
+<tr>
+<td><code>season_episode</code></td>
+<td>季集，如 <code>S01E02</code></td>
+</tr>
+<tr>
+<td><code>episode_title</code></td>
+<td>集标题</td>
+</tr>
+<tr>
+<td><code>episode_date</code></td>
+<td>集播出日期</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>音乐（<code>MUSIC_RENAME_FORMAT</code>）</strong></p>
+<p>音乐作为独立媒体类型拥有单独的重命名格式，在<code>设定 -&gt; 目录 -&gt; 音乐重命名格式</code>中配置，与电影、电视剧格式互不影响。音乐重命名<strong>优先读取音频文件标签</strong>（标题、艺术家、专辑、年份、碟号、曲号、ISRC、技术参数等），并结合订阅或搜索时保存的音乐元数据，标签缺失的字段回退使用音乐元数据，因此无需依赖影视资源命名规范。</p>
+<p>默认的音乐重命名格式为：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-" v-pre="true">{{album_artist or artist or 'Unknown Artist'}}
+/{{album or 'Unknown Album'}}{% if year %} ({{year}}){% endif %}
+{% if total_discs and total_discs &gt; 1 %}/Disc {{disc_number or 1}}{% endif %}
+/{% if track %}{{track}} - {% endif %}{{title}}{{fileExt}}
+</code></pre>
+<p>默认格式生成的目录结构为：<code>艺术家（专辑艺术家）/专辑 (年份)/曲号 - 曲名.扩展名</code>，多碟专辑会在专辑目录下追加<code>Disc N</code>目录。用户可参考此格式结合下表自定义：</p>
+<p><strong><code>MUSIC_RENAME_FORMAT</code>支持的配置项（在通用配置项基础上额外支持）：</strong></p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>artist</code></td>
+<td>艺术家，多个艺术家以<code>/</code>分隔</td>
+</tr>
+<tr>
+<td><code>artists</code></td>
+<td>艺术家列表</td>
+</tr>
+<tr>
+<td><code>album_artist</code></td>
+<td>专辑艺术家</td>
+</tr>
+<tr>
+<td><code>album</code></td>
+<td>专辑名称</td>
+</tr>
+<tr>
+<td><code>track</code></td>
+<td>曲号，两位数字补零显示，如 <code>01</code></td>
+</tr>
+<tr>
+<td><code>track_number</code></td>
+<td>曲号数字</td>
+</tr>
+<tr>
+<td><code>total_tracks</code></td>
+<td>专辑曲目总数</td>
+</tr>
+<tr>
+<td><code>disc_number</code></td>
+<td>碟号数字</td>
+</tr>
+<tr>
+<td><code>total_discs</code></td>
+<td>专辑总碟数</td>
+</tr>
+<tr>
+<td><code>audio_format</code></td>
+<td>音频格式，如 <code>FLAC</code>、<code>MP3</code></td>
+</tr>
+<tr>
+<td><code>bit_depth</code></td>
+<td>音频位深，如 <code>8bit</code>、<code>24bit</code></td>
+</tr>
+<tr>
+<td><code>sample_rate</code></td>
+<td>采样率</td>
+</tr>
+<tr>
+<td><code>bitrate</code></td>
+<td>码率</td>
+</tr>
+<tr>
+<td><code>duration</code></td>
+<td>时长（秒）</td>
+</tr>
+<tr>
+<td><code>isrc</code></td>
+<td>ISRC国际标准音像制品编码</td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td>版本，如<code>单曲</code>、<code>重制版</code>等</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="is-info">
+<p>音乐无季集概念，<code>season</code>、<code>episode</code> 等剧集变量不适用于音乐；音乐当前也不应用影视自定义识别词。</p>
+</blockquote>
+<h1 id="多目录支持与分类" class="toc-header"><a class="toc-anchor" href="#多目录支持与分类">¶</a> 多目录支持与分类</h1>
+<p><code>设定</code> 中可统一设定下载和媒体库目录，可添加多个目录配置项，系统按先后顺序依次匹配，<strong>匹配到的第一个附合条件的目录做为使用目录</strong>。通过拖动卡片调整目录项的优先顺序，一般情况下需要细化的目录需要调整到前面才能生效。</p>
+<p><strong>下载目录和媒体库目录均支持两级分类体系：</strong></p>
+<ul>
+<li>一级分类为<code>媒体类型</code>，固定分为：<code>电影</code>、<code>电视剧</code>。</li>
+<li>二级分类为<code>媒体类别</code>，通过分类策略结合TheMovieDb的元数据确定分类。</li>
+</ul>
+<p><strong>目录设置时请关注以下特性：</strong></p>
+<ul>
+<li><code>媒体类型</code>和<code>媒体类别</code>为使用这个目录的判定条件，按媒体的元数据进行匹配，<code>全部</code>代表匹配通过。</li>
+<li><code>自动分类</code>只有在<code>媒体类型</code>和<code>媒体类别</code>至少其中一个为<code>全部</code>时才会生效。</li>
+<li>当<code>自动分类</code>为<code>关</code>时，目录以设置的路径为准，不会自动创建子目录。</li>
+<li>当<code>自动分类</code>为<code>开</code>时：
+<ol>
+<li>如果<code>媒体类型</code>为<code>全部</code>、<code>媒体类别</code>为<code>全部</code>，会自动在设定路径下生成一级分类目录和二级分类目录；</li>
+<li>如果<code>媒体类型</code><strong>不</strong>为<code>全部</code>、<code>媒体类别</code>为<code>全部</code>，会自动在设定路径下创建二级分类目录；</li>
+<li>如果<code>媒体类型</code><strong>不</strong>为<code>全部</code>、<code>媒体类别</code><strong>不</strong>为<code>全部</code>，以设定路径为准不会自动创建子目录。</li>
+</ol>
+</li>
+</ul>
+<h2 id="二级分类策略" class="toc-header"><a class="toc-anchor" href="#二级分类策略">¶</a> 二级分类策略</h2>
+<p>V3 在「设定 → 存储 &amp; 目录 → 自动分类策略」中维护分类，无需编辑 YAML：</p>
+<ol>
+<li>在「分类目录」中设置名称和相对路径，并为电影、电视剧、音乐选择未匹配时的默认分类。实际下载或媒体库根目录仍在目录设置中配置。</li>
+<li>在「分类规则」中设置条件和归入分类。规则从上到下匹配，第一条命中后生效；可选择同时满足或满足任一条件。新规则默认停用，配置完成后再启用。</li>
+<li>在「测试与保存」中搜索并选择媒体，系统读取完整详情后展示分类结果。点击匹配规则可返回编辑；提示信息不足时，应检查缺失字段或高级设置中的信息补充方式。</li>
+<li>点击「检查当前规则」，确认近期记录的分类变化后保存。没有样本或无法读取详情时会明确提示。保存仅更新分类配置，不会移动现有文件。</li>
+</ol>
+<p>高级设置提供信息来源、匹配详情、恢复默认和版本回退。规则被其他页面更新时，可以重新载入，也可以保留本次修改后重新检查。</p>
+<p>新版默认模板为缺少语言信息的电影保留「未分类」，将覆盖多个亚洲国家的剧集命名为「亚洲剧」，并补充其他动画剧集及加拿大等地区。已有分类不会自动改写；恢复默认后需要检查并保存才生效。</p>
+<p>以下为旧版本的 YAML 配置说明。V3 首次迁移时保留旧规则的分类结果，迁移完成后的修改请使用界面。</p>
+<p>可以通过编辑 <code>/config/category.yaml</code> 文件来自定义二级分类策略，也可以通过插件<code>二级分类策略</code>编辑。</p>
+<p>以下为默认的二级分类策略配置文件，结合说明可自定义二级分类：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-yaml"># 配置电影的分类策略
+movie:
+  # 分类名同时也是目录名
+  动画电影:
+    # 匹配 genre_ids 内容类型，16是动漫
+    genre_ids: '16'
+  华语电影:
+    # 匹配语种
+    original_language: 'zh,cn,bo,za'
+  # 未匹配以上条件时，分类为外语电影
+  外语电影:
+
+# 配置电视剧的分类策略
+tv:
+  # 分类名同时也是目录名
+  国漫:
+    # 匹配 genre_ids 内容类型，16是动漫
+    genre_ids: '16'
+    # 匹配 origin_country 国家，CN是中国大陆，TW是中国台湾，HK是中国香港
+    origin_country: 'CN,TW,HK'
+  日番:
+    # 匹配 genre_ids 内容类型，16是动漫
+    genre_ids: '16'
+    # 匹配 origin_country 国家，JP是日本
+    origin_country: 'JP'
+  纪录片:
+     # 匹配 genre_ids 内容类型，99是纪录片
+    genre_ids: '99'
+  儿童:
+    # 匹配 genre_ids 内容类型，10762是儿童
+    genre_ids: '10762'
+  综艺:
+    # 匹配 genre_ids 内容类型，10764 10767都是综艺
+    genre_ids: '10764,10767'
+  国产剧:
+    # 匹配 origin_country 国家，CN是中国大陆，TW是中国台湾，HK是中国香港
+    origin_country: 'CN,TW,HK'
+  欧美剧:
+    # 匹配 origin_country 国家，主要欧美国家列表
+    origin_country: 'US,FR,GB,DE,ES,IT,NL,PT,RU,UK'
+  日韩剧:
+    # 匹配 origin_country 国家，主要亚洲国家列表
+    origin_country: 'JP,KP,KR,TH,IN,SG'
+  # 未匹配以上分类，则命名为未分类
+  未分类:
+</code></pre>
+<p><strong>二级分类策略配置说明：</strong></p>
+<ol>
+<li>该配置文件用于配置电影和电视剧的分类策略，配置后程序会按照配置的分类策略名称<strong>从上到下依次匹配</strong>确定分类，配置文件采用<code>yaml</code>格式，需要严格附合语法规则。</li>
+<li>配置文件中的一级分类名称：<code>movie</code>、<code>tv</code> 为固定名称不可修改，<strong>二级名称同时也是目录名称</strong>，会按先后顺序匹配到后程序会<strong>按这个名称建立二级目录</strong>。</li>
+<li>同一个分类名称下的多个判定条件为<code>与</code>的关系，一个判定条件内的多个值是<code>或</code>的关系，通过<code>,</code>连接。支持的判定条件有：
+<ul>
+<li><code>original_language</code> 语种，具体含义参考下方字典。</li>
+<li><code>production_countries</code> 国家或地区（电影）、<code>origin_country</code> 国家或地区（电视剧），具体含义参考下方字典。</li>
+<li><code>genre_ids</code> 内容类型，具体含义参考下方字典。</li>
+<li><code>release_year</code> 发行年份，格式：YYYY，电影实际对应<code>release_date</code>字段，电视剧实际对应<code>first_air_date</code>字段，支持范围设定，如：<code>YYYY-YYYY</code></li>
+<li>themoviedb 详情API返回的其它一级字段，API参考：<a href="https://developer.themoviedb.org/reference/movie-details" class="is-external-link">电影</a>、<a href="https://developer.themoviedb.org/reference/tv-series-details" class="is-external-link">电视剧</a>。</li>
+</ul>
+</li>
+<li>!条件值表示排除该值，一般用于将分类中的某子类单独分类的情况，同时不用考虑分类先后顺序</li>
+</ol>
+<p><strong><code>genre_ids</code> 内容类型字典：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-"># 注意部分中英文是不一样的
+#	28	Action
+#	12	Adventure
+#	16	Animation
+#	35	Comedy
+#	80	Crime
+#	99	Documentary
+#	18	Drama
+#	10751	Family
+#	14	Fantasy
+#	36	History
+#	27	Horror
+#	10402	Music
+#	9648	Mystery
+#	10749	Romance
+#	878  Science Fiction
+#	10770	TV Movie
+#	53	Thriller
+#	10752	War
+#	37	Western
+#	28	动作
+#	12	冒险
+#	16	动画
+#	35	喜剧
+#	80	犯罪
+#	99	纪录
+#	18	剧情
+#	10751	家庭
+#	14	奇幻
+#	36	历史
+#	27	恐怖
+#	10402	音乐
+#	9648	悬疑
+#	10749	爱情
+#	878	科幻
+#	10770	电视电影
+#	53	惊悚
+#	10752	战争
+#	37	西部
+</code></pre>
+<p><strong><code>original_language</code>语种字典：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">#	af	南非语
+#	ar	阿拉伯语
+#	az	阿塞拜疆语
+#	be	比利时语
+#	bg	保加利亚语
+#	ca	加泰隆语
+#	cs	捷克语
+#	cy	威尔士语
+#	da	丹麦语
+#	de	德语
+#	dv	第维埃语
+#	el	希腊语
+#	en	英语
+#	eo	世界语
+#	es	西班牙语
+#	et	爱沙尼亚语
+#	eu	巴士克语
+#	fa	法斯语
+#	fi	芬兰语
+#	fo	法罗语
+#	fr	法语
+#	gl	加里西亚语
+#	gu	古吉拉特语
+#	he	希伯来语
+#	hi	印地语
+#	hr	克罗地亚语
+#	hu	匈牙利语
+#	hy	亚美尼亚语
+#	id	印度尼西亚语
+#	is	冰岛语
+#	it	意大利语
+#	ja	日语
+#	ka	格鲁吉亚语
+#	kk	哈萨克语
+#	kn	卡纳拉语
+#	ko	朝鲜语
+#	kok	孔卡尼语
+#	ky	吉尔吉斯语
+#	lt	立陶宛语
+#	lv	拉脱维亚语
+#	mi	毛利语
+#	mk	马其顿语
+#	mn	蒙古语
+#	mr	马拉地语
+#	ms	马来语
+#	mt	马耳他语
+#	nb	挪威语(伯克梅尔)
+#	nl	荷兰语
+#	ns	北梭托语
+#	pa	旁遮普语
+#	pl	波兰语
+#	pt	葡萄牙语
+#	qu	克丘亚语
+#	ro	罗马尼亚语
+#	ru	俄语
+#	sa	梵文
+#	se	北萨摩斯语
+#	sk	斯洛伐克语
+#	sl	斯洛文尼亚语
+#	sq	阿尔巴尼亚语
+#	sv	瑞典语
+#	sw	斯瓦希里语
+#	syr	叙利亚语
+#	ta	泰米尔语
+#	te	泰卢固语
+#	th	泰语
+#	tl	塔加路语
+#	tn	茨瓦纳语
+#	tr	土耳其语
+#	ts	宗加语
+#	tt	鞑靼语
+#	uk	乌克兰语
+#	ur	乌都语
+#	uz	乌兹别克语
+#	vi	越南语
+#	xh	班图语
+#	zh	中文
+#	cn	中文
+#	zu	祖鲁语
+</code></pre>
+<p><strong><code>origin_country</code>/<code>production_countries</code> 国家地区字典：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">#	AR	阿根廷
+#	AU	澳大利亚
+#	BE	比利时
+#	BR	巴西
+#	CA	加拿大
+#	CH	瑞士
+#	CL	智利
+#	CO	哥伦比亚
+#	CZ	捷克
+#	DE	德国
+#	DK	丹麦
+#	EG	埃及
+#	ES	西班牙
+#	FR	法国
+#	GR	希腊
+#	HK	香港
+#	IL	以色列
+#	IN	印度
+#	IQ	伊拉克
+#	IR	伊朗
+#	IT	意大利
+#	JP	日本
+#	MM	缅甸
+#	MO	澳门
+#	MX	墨西哥
+#	MY	马来西亚
+#	NL	荷兰
+#	NO	挪威
+#	PH	菲律宾
+#	PK	巴基斯坦
+#	PL	波兰
+#	RU	俄罗斯
+#	SE	瑞典
+#	SG	新加坡
+#	TH	泰国
+#	TR	土耳其
+#	US	美国
+#	VN	越南
+#	CN	中国 内地
+#	GB	英国
+#	TW	中国台湾
+#	NZ	新西兰
+#	SA	沙特阿拉伯
+#	LA	老挝
+#	KP	朝鲜 北朝鲜
+#	KR	韩国 南朝鲜
+#	PT	葡萄牙
+#	MN	蒙古国 蒙古
+</code></pre>
+<h2 id="目录配置示例" class="toc-header"><a class="toc-anchor" href="#目录配置示例">¶</a> 目录配置示例</h2>
+<p><strong>各分类场景示例：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">* 假设根目录为：/video
+
+1、需要一二级自动分类
+
+- 路径：/video
+  类型：全部
+  类别：全部
+  自动分类：开
+  
+2、一级手动分类，二级自动分类
+
+- 路径：/video/电影
+  类型：电影
+  类别：全部
+  自动分类：开
+
+- 路径：/video/电视剧
+  类型：电视剧
+  类别：全部
+  自动分类：开
+  
+
+3、一级手动分类，二级不分类
+
+- 路径：/video/电影
+  类型：电影
+  类别：全部
+  自动分类：关
+
+- 路径：/video/电视剧
+  类型：电视剧
+  类别：全部
+  自动分类：关
+
+
+4、不需要分类
+
+- 路径：/video/其它
+  类型：全部
+  类别：全部
+  自动分类：关
+
+
+5、一级不分类，二级自动分类
+
+- 路径：/video
+  类型：电影
+  类别：全部
+  自动分类：开
+
+- 路径：/video
+  类型：电视剧
+  类别：全部
+  自动分类：开
+</code></pre>
+<p><strong>动漫独立一级目录示例：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">
+1. 仅适用于v1.9.1-1+
+
+2. 在分类策略配置文件中 movie/tv 下配置好动漫二级分类，anime配置项已弃用
+
+3. 在目录设定中按如下格式新增目录，并提高优先级，仅为示例，同样的原理名称和路径都可以自己灵活调整，也可以不加（此时在电影/电视剧二级目录下）
+
+- 路径：/video/动漫
+   类型：电影
+   类别：动画电影
+
+- 路径：/video/动漫
+   类型：电视剧
+   类别：国漫
+</code></pre>
+<h1 id="批量手动整理" class="toc-header"><a class="toc-anchor" href="#批量手动整理">¶</a> 批量手动整理</h1>
+<p>当有较多命名类似的文件无法识别时（比如剧集有多集），往往需要批量手动整理，MoviePilot提供批量处理的方式以快速手动整理文件：</p>
+<ul>
+<li><code>文件管理</code>功能中选择一整个目录进行整理。</li>
+<li><code>历史记录</code>中按关键字将某剧集相关的记录查询出来，全选后选择<code>重新整理</code>。</li>
+</ul>
+<p><strong>弹出整理对话框后，通过以下字段的使用实现批量整理功能：</strong></p>
+<ul>
+<li>
+<p><strong>自动重新整理</strong>：所有选项均不填，此时使用内置识别重新整理所有文件。</p>
+</li>
+<li>
+<p><strong>指定集数</strong>：无法识别出集数时直接指定集数，例如 <code>1</code>表示第1集, <code>1-2</code>表示第1-2集(两集合并为一个文件)，<code>1,3</code>表示只处理第1到第3集的文件。</p>
+</li>
+<li>
+<p><strong>指定Part</strong>: 无法识别出Part时直接指定Part，需符合以下正则写法<code>(PART[0-9ABCI]{0,2}|^CD[0-9]{0,2}|^DVD[0-9]{0,2}|^DISK[0-9]{0,2}|^DISC[0-9]{0,2})</code>，例如<code>Part1</code>, <code>PartC</code>, <code>PartIII</code>, <code>Cd1</code>, <code>Dvd2</code>, <code>Disk10</code>, <code>Disc12</code>。</p>
+</li>
+<li>
+<p><strong>集数定位</strong>：使用表达式来确定集数的位置，<code>{ep}</code>占位符代表集数。例如：<code>(BD)十二国記 第45話「東の海神 西の滄海 五章」(1440x1080 x264-10bpp flac).mkv</code>、<code>(BD)十二国記 第32話「風の万里 黎明の空　九章」(1440x1080 x264-10bpp flac).mkv</code> 共3个文件需要批量整理，此处可以填<code>(BD)十二国記 第{ep}話{a}(1440x1080 x264-10bpp flac).mkv</code>， <code>{ep}</code>表示集，<code>{a}</code>表示随意用一个变量来替代不需要的但又不一致的部分，如果除了集数外没有其余不一样的内容，则只标定<code>{ep}</code>就行。</p>
+</li>
+<li>
+<p><strong>集数偏移</strong>：对识别的集数做运算，以解决文件中集数与媒体元数据中的集数不一致的情况。例如<code>{ep}</code>定位出集数是11, 实际是第1集, 此处填<code>-10</code>, 以应付多季合集的场景。对于需要复杂运算时，可使用<code>EP</code>代表识别出来的集数进行运算，如：<code>EP*2-1</code>。</p>
+</li>
+</ul>
+</div></template><template slot="comments"><div><comments></comments></div></template></page></div><script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="badd61348b8347cf38d18c21-|49" defer></script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a465c1c75d583201',t:'MTc5MTMwMTE0Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body></html>

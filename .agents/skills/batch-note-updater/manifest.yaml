@@ -2,8 +2,8 @@ apiVersion: agent-platform/v1
 kind: Skill
 metadata:
   name: batch-note-updater
-  version: 1.0.0
-  description: "Plan and orchestrate safe partial updates across multiple existing notes."
+  version: 1.1.0
+  description: "Plan and orchestrate safe partial updates across multiple existing notes. The plan checks each note's upstream upkeep (`pushed_at`/`archived`) and marks an unmaintained upstream as a cross-set re-source rather than a partial update, keeping official separate from community integration scripts."
 spec:
   entrypoint: SKILL.md
   capabilities:

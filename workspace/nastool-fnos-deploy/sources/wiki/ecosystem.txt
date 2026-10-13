@@ -1,0 +1,13 @@
+周边项目 | MoviePilot Wiki
+¶
+周边项目
+MoviePilot 社区提供了适用于不同平台和使用场景的周边项目，可根据需要选择使用。
+Windows 版本
+developer-wlj/Windows-MoviePilot，在 Windows 系统中安装和使用 MoviePilot。
+移动端版本
+singleton-altman/MoviePilotLite，在移动设备上使用 MoviePilot。
+Apple TV 版本
+CHANTXU64/MoviePilot-TV，在 Apple TV 上使用 MoviePilot。
+浏览器扩展
+KoWming/MoviePilot-Tools，扩展浏览器中的 MoviePilot 使用体验。
+各周边项目由对应仓库的开发者维护，具体安装方法、支持范围和问题反馈方式请以项目说明为准。

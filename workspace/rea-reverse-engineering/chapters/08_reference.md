@@ -1,0 +1,104 @@
+# 第 8 章 小结与速查附录：名词表、CLI 速查、退出码
+
+前七章从「REA 是什么」一路走到「边界与安全」，信息密度不低。这一章不讲新概念，只做一件事：把全篇用到的术语、命令、输出与退出码收成几张能随时回查的表。读到某个词想不起什么意思、跑命令忘了参数、看到退出码不确定是否成功，翻到这里即可。若要复习一遍主线，回到第 1 章的「一句话看懂」，再顺着第 3→4/5→6→7 章走。
+
+> [!summary] 一句话看懂
+> 这一章是**回查手册**，不是新内容：三张主表（名词、命令、退出码）＋两条口径（会话模型、生态分发）。术语与数字全部与前面各章一致。
+
+## 8.1 名词扫盲表
+
+书名对应的核心词都在下表。这里只保留一句话版本；要完整背景，按「详见」列回跳对应章节。
+
+| 术语 | 一句话说明 | 详见 |
+| --- | --- | --- |
+| 逆向工程 | 没有源码，也把软件「拆开看清楚」它是怎么做的 | 第 1 章 |
+| MCP | Model Context Protocol，让 AI agent 调用外部工具的一套标准插口 | 第 1 章 |
+| 证据 / 局限 | REA 不只给结论，还给出「凭什么这么说」和「哪里说不准」 | 第 1 章 |
+| 静态分析 | 只读文件、不运行程序 | 第 1 章 |
+| 运行时捕获 | 真的把程序或浏览器跑起来，记录它的行为 | 第 1 章 |
+| provider | 提供原生分析能力的后端引擎，如 Hopper / Ghidra / IDA | 第 6 章 |
+| IPC | 进程间通信；在 Electron 里指 renderer 与 main 之间传消息的通道[^c8-1] | 第 4 章 |
+| CDP | Chrome DevTools Protocol；REA 通过它连接你自己开的 Chrome 系浏览器观测页面[^c8-2] | 第 5 章 |
+| TOON | REA 终端输出的默认格式；要把结果喂给 JSON 消费者时改用 `--json`[^c8-3] | 本章 8.3 |
+
+另有几个只在个别章节出现的词（伪代码、汇编、WAT、CIL、WAL 等），已在对应章节就地解释，这里不重复收录。
+
+## 8.2 CLI 命令速查表
+
+不装全局时，把下表的 `rea <命令>` 换成 `npx -y rea-agents@latest <命令>` 即可[^c8-4]。
+
+| 分类 | 命令 | 用途 / 备注 |
+| --- | --- | --- |
+| 静态 JS/Electron | `analyze-javascript-application PATH --json` | 静态分析 JS/Electron 应用；`PATH` 为目录或 `.asar` |
+| 静态 JS/Electron | `inspect-analysis-view VIEW.json` | 把大证据投影成摘要／模块页，先落盘再投影 |
+| 零引擎其他 | `inspect-managed-artifact` / `inspect-managed-members` | .NET 元数据与 CIL，不执行程序集 |
+| 零引擎其他 | `inspect-sqlite-database PATH [--table N --row-limit 20]` | 读 SQLite 快照，无需原生引擎 |
+| 零引擎其他 | `inspect-go-binary PATH` | 读 Go 构建元数据，无需安装 Go |
+| 原生分析 | `analyze` | 原生二进制分析入口（需 provider） |
+| 原生分析 | `search` | 在分析结果里检索 |
+| 原生分析 | `function` | 定位／查看函数 |
+| 原生分析 | `decompile` | 反编译出伪代码 |
+| 原生分析 | `xrefs` | 查交叉引用 |
+| 原生分析 | `trace --provider X` | 运行时追踪，用 `--provider` 指定引擎 |
+| Provider / 诊断 | `providers --json` | 列出可用 provider |
+| Provider / 诊断 | `capabilities --json` | 列出能力 |
+| Provider / 诊断 | `doctor --provider ID --json` | 诊断指定引擎是否就绪 |
+| 证据 | `evidence-import` | 校验／导入证据包 |
+| 证据 | `evidence-export` | 导出证据包 |
+| 证据 | `compare` | 对比证据（如构建前后） |
+| 证据 | `import-reference-source PATH` | 导入历史源码用于对比（Linux/macOS） |
+| 浏览器 | `list-browser-targets` | 列出可观测的浏览器页面 target |
+| 浏览器 | `inspect-web-page` | 观测选定页面（被动、非自动化） |
+
+命令取值一律来自官方 CLI 文档，未在此列出的命令以你连接的 server 实际工具列表为准（见 8.4）[^c8-5]。
+
+**怎么用这张表**：想跑「零原生引擎」的目标，只用前两类——静态 JS/Electron 与「零引擎其他」；其中 .NET、SQLite、Go 三条都不需要 Hopper / Ghidra / IDA。等到要动原生二进制（伪代码、反编译、交叉引用）时，才需要装一个 provider，走「原生分析」一类，并先用 `doctor` 确认引擎就绪。浏览器一类是第 5 章的被动观测，只记录、不自动化、不远程控制。
+
+## 8.3 输出格式与退出码
+
+**输出格式**：默认终端格式是 **TOON**。要保存给 JSON 程序消费时加 `--json`——它在终端里是缩进的，被管道或重定向时变紧凑，从而让大结果对 agent 与脚本更小；需要缩进文件就再过一道 `jq .`。输出格式的选择**不改变操作状态**，成败只看退出码[^c8-3]。一句话概括：TOON 面向终端阅读，`--json` 面向程序消费，两者只是展示层不同，同一份结果的内容一致。
+
+**退出码**（下表同属「Output and exit status」一节）[^c8-6]：
+
+| 退出码 | 含义 |
+| --- | --- |
+| `0` | 操作完成。结果里可能仍含部分证据、警告或未决问题 |
+| `1` | 操作未能完成。有结构化输出时会指出无效输入、权限、取消、超时或其它失败 |
+| `128 + N` | 进程被信号 `N` 终止（shell 或运行时保留这一约定状态） |
+
+几个容易记混的边界情形：
+
+- `setup --dry-run` 返回 `planned` 并**退出 `0`**；**取消 setup 也退出 `0`**。
+- `setup` 在 `needs_confirmation` 或 `needs_human` 时返回 `1`。
+- `doctor` 在所选就绪范围内必需检查失败时返回 `1`；无关任务下不可用的可选 provider 只是信息提示。
+- 若在下游接了格式化命令，记得开启 shell 的 `pipefail`——默认情况下「管道前段失败、后段成功」会被算作整条成功，开了它才能让上游的失败状态传下来[^c8-6]。
+
+关于两条容易误读的语义：`0` 的含义是「操作完成了」，**不等于**「一切干净」——结果里可能仍带着部分证据、警告或未决问题，要读内容自己判断；反过来 `1` 是「没能完成」，REA 会尽量在结构化输出里说明原因（无效输入、权限、取消、超时等）。
+
+## 8.4 会话模型：以运行时工具列表为准
+
+REA 有一份构建期生成的机器可读目录（`docs/public/product-catalog.json`），但**它不是权威**——它描述的是被构建的那次源码修订，并非签入的快照。对正在运行的 server，`binary_session` 才是目录标识与工具可用性的权威来源。所以：**工具／命令全集以你 connected server 的实际工具列表为准，而非某一版文档或目录文件**[^c8-7]。为什么以运行时为准——那份构建期目录会随源码修订变化，而文档快照又可能落后于你实际装的版本；只有正在运行的 server 自报的工具列表，才反映你此刻真正能调用的能力。本节 8.2 的表是稳定入口，完整清单请以连接后的实际列表核对。
+
+## 8.5 生态补充：注册表装的是同一个包
+
+REA 在官方 MCP Registry 上的名字是 `io.github.morluto/rea`。注册表客户端能发现这个 server 并安装**已有的公开 npm 包 `rea-agents`**——注册表条目**不引入第二分发物**；它发布的元数据仍是用 `npx` 拉起同一个 stdio server 的 `mcp` 命令[^c8-8]。换句话说：无论走 npm 直装还是走注册表发现，落到机器上的都是同一个 `rea-agents` 包——你不必在两者之间做「装哪个」的选择，它们最终指向同一套包与工具。这样你无论从哪种客户端出发，本手册里出现的包名、命令与退出码都是同一套。
+
+## 小结
+
+- **名词**：逆向工程 / MCP / 证据与局限 / 静态分析 / 运行时捕获 / provider / IPC / CDP / TOON，见 8.1。
+- **命令**：静态 JS/Electron、零引擎其他、原生分析、provider 诊断、证据、浏览器六类，共 20 条，见 8.2。
+- **输出**：默认 TOON；`--json` 终端缩进、管道紧凑；退出码 `0` 完成 / `1` 未完成 / `128+N` 被信号终止；`setup --dry-run` 与取消 setup 都退 `0`。
+- **口径**：工具全集以 **connected server 实际列表**为准；注册表装的是同一个 npm 包，无第二分发物。
+
+全书到这里结束。想动手时，从第 3 章的 `setup` 起步，再跑第 4 章（静态 JS/Electron）与第 5 章（浏览器观测）两条实战；遇到原生目标或平台限制，回查第 6 章与本章速查表。
+
+---
+
+[^c8-1]: `sources/README.md:162`
+[^c8-2]: `sources/docs_browser-observation.md:9`
+[^c8-3]: `sources/docs_cli.md:256`
+[^c8-4]: `sources/docs_cli.md:9`
+[^c8-5]: `sources/docs_cli.md:103`
+[^c8-6]: `sources/docs_cli.md:254`
+[^c8-7]: `sources/docs_mcp-contracts.md:681`
+[^c8-8]: `sources/docs_installation.md:784`

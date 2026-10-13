@@ -21,7 +21,7 @@
 
 ```json
 "SessionEnd": [{ "matcher": "", "hooks": [{ "type": "command",
-  "command": "python .llm/prompt-cache/collect-usage.py" }] }]
+  "command": "python3 .llm/prompt-cache/collect-usage.py" }] }]
 ```
 
 > 采集器不会把转录路径、原始提示词或输出写入事件日志；事件仅保存文件名、消息 ID 和 provider usage 字段。
@@ -31,9 +31,11 @@
 **手动**：
 
 ```bash
-python .llm/prompt-cache/collect-usage.py --project /path/to/claude-project
-python .llm/prompt-cache/collect-usage.py --project /path/to/claude-project --dry-run
+python3 .llm/prompt-cache/collect-usage.py --project /path/to/claude-project
+python3 .llm/prompt-cache/collect-usage.py --project /path/to/claude-project --dry-run
 ```
+
+在非交互环境（脚本 / agent 工具）调用时请重定向 stdin（如 `< /dev/null`）：脚本在参数解析阶段会尝试读取 stdin 上的 hook JSON，非 TTY 且流未关闭时会在那里阻塞。
 
 幂等：按（会话文件, 消息 id）去重，重复运行不会产生重复事件。hook 失败只记日志、不阻断会话。
 
@@ -52,7 +54,7 @@ python .llm/prompt-cache/collect-usage.py --project /path/to/claude-project --dr
 ## 基线
 
 - **历史基线（2026-08-03 / 2026-08-10，均已失效）**：两个批次分别因采集路径失效被清空或从未落盘；本 README 曾声称的「2026-08-10：99 会话 / 2,436 事件」在磁盘上不存在。教训：基线必须能由 `usage-events.jsonl` 复算，不能只写在文档里。
-- **当前基线（2026-09-14，窗口 2026-08-15 → 2026-09-14，含子代理）**：8,972 条事件（按消息 id 去重，JSONL 为 append-only）：
+- **历史基线（2026-09-14，冻结源不在这台机器上，本机不可复算）**：8,972 条事件（按消息 id 去重，JSONL 为 append-only）。本机账本同窗口仅 500 条、全部历史仅 26 个会话，与 8,972 条 / 75 会话对不上，仅作历史参考、不再用于对照：
 
 | 层 | 规模 | 新鲜输入 | 缓存读取 |
 | --- | --- | --- | --- |
@@ -64,6 +66,15 @@ python .llm/prompt-cache/collect-usage.py --project /path/to/claude-project --dr
   - **冷启动/固定前缀主导**：主会话首个请求新鲜输入中位数 ~34.9k（p90 ~38.3k）；子代理首请求 ~5.0k。
   - **子代理层是最大一块全价输入**（59%）：其中 chapter-writer 一类占子代理新鲜输入的 45%（7.07M）。
   - 本基线是 2026-09-14 token/缓存优化（`docs/superpowers/reports/2026-09-14-token-cost-optimization.md`）的验收对照：主指标 = 全价输入 −30%（冲刺 −50%），命中率不得回退。
+- **当前基线（2026-10-07，本机账本冻结）**：全部 5,622 条事件（06-21 起）；旋钮按冻结时的活会话配置固定为 `max` / `high` / `max`：
+
+| 层 | 规模 | 新鲜输入 | 缓存读取 | fresh/ctx 中位 |
+| --- | --- | --- | --- | --- |
+| 主会话 | 138 上下文 / 4,727 事件 | 19,053,215 | 432,976,687 | 110,088 |
+| 子代理 | 82 上下文 / 895 事件 | 2,696,753 | 47,926,784 | 28,954 |
+
+  - 命中率：主会话 95.8% / 子代理 94.7%。
+  - 重冻原因：09-14 基线跨机不可复算，且其冻结旋钮 `medium` 与本机现役配置不符——基线必须与对照数据同源、同旋钮。冻结后立即对照为 `insufficient data (0/10 contexts)`，判定窗口从零开始积累。
 - 回归样本逐例基线待下次自然运行对应工作流时回填（`baseline.*` 字段）。
 - 模板/模型/工具定义变更后：运行同一批回归样本，只有质量检查通过时缓存指标变化才算有效优化。
 - Codex 桌面未提供可由项目自动读取的 provider usage 边界，因此不写入或混入 Claude 的缓存指标；它只复用同一份提示缓存规则。

@@ -81,7 +81,16 @@ CJK = re.compile(r"[一-鿿]")
 ASCII_WORD = re.compile(r"[A-Za-z][A-Za-z0-9'’\-]*")
 # 相邻的 ASCII 词串（>= 2 个词，只隔空格）——「该译没译」的可疑形态。
 ASCII_PHRASE = re.compile(r"[A-Za-z][A-Za-z0-9'’\-]*(?:\s+[A-Za-z][A-Za-z0-9'’\-]*)+")
-CITE_FULL = re.compile(r"^(research|workspace|sources|docs)/\S+\.md(:[\d,\-]+)*$")
+# 出处列取值域：允许 .md 产出物，也允许抓取留档的原始快照（.txt/.html/.json/.sh）。
+# 只认 .md 会把「引文直接回原始快照」的合法出处误判为非法（原始来源本就可能是 txt/html）；
+# 一键安装脚本这类**以脚本为唯一来源**的主题，逐字引文的出处就是 .sh 快照本身。
+# 出处列还常带**来源 ID 前缀**（`L1-1 · sources/…`、`L3-1 · sources/…`），以及
+# 本项目抓取留档的 .rst/.yml/.py/.env 快照（官方文档源码、compose/env/entrypoint
+# 脚本本身就是唯一来源）。只认无前缀的 .md/.txt/.html/.json/.sh 会把「出处写得
+# 比规定更全」的**正确写法**误判为非法。
+CITE_FULL = re.compile(
+    r"^(?:[A-Za-z0-9][A-Za-z0-9_\-]*\s*·\s*)?"
+    r"(research|workspace|sources|docs)/\S+\.(?:md|txt|html|json|sh|rst|yml|yaml|py|env)(:[\d,\-]+)*$")
 CITE_NUM_ARTIFACT = re.compile(r"^\d\d_[A-Za-z0-9_\-]+\.md(:[\d,\-]+)*$")
 # 指针形态：`research/octop/src/octop/api/deps.py:65-89`、`02_deep_research.md:313`。
 # 反引号里的**路径 + 行号**是出处指针，不是引文——它本来就不该在语料里出现。
@@ -483,10 +492,15 @@ def check_style(files, appendix_title):
                     if lines[i].lstrip().startswith("|"):
                         rows.append((i + 1, lines[i]))
             for lineno, row in rows[2:]:        # 跳表头 + 分隔行
-                if row.count("|") != 5:
-                    table_bad.append((path.name, lineno, "管道数 %d != 5" % row.count("|"), row[:110]))
+                # 只有**未转义**的 `|` 才是单元格分隔符，`\|` 是单元格内的内容
+                # （Markdown 表格转义：引文里引用一行 shell 命令或一行表格时，
+                # 里面的竖线必须写成 `\|`，否则整行会被拆开）。按原始 `|` 计数会把
+                # 这种**正确写法**误判成「管道数不对」。
+                npipe = len(re.findall(r"(?<!\\)\|", row))
+                if npipe != 5:
+                    table_bad.append((path.name, lineno, "管道数 %d != 5" % npipe, row[:110]))
                     continue
-                cells = [c.strip() for c in row.split("|")]
+                cells = [c.strip() for c in re.split(r"(?<!\\)\|", row)]
                 src = cells[4].strip("`").strip() if len(cells) == 6 else ""
                 ok = (not src) or src == "—" or CITE_FULL.match(src) or CITE_NUM_ARTIFACT.match(src)
                 if not ok:
@@ -580,14 +594,17 @@ def main():
         body_files.append(final)
     if vault and vault.is_file():
         body_files.append(vault)
-    if not body_files:
-        print("没找到任何待检查文件（%s/chapters/*.md）" % project)
+    # P2 自检只给 `--file 02_deep_research.md`，此时还没有 chapters/，body_files 为空。
+    # 只按 body_files 判空会让文档化的 P2 命令直接退出、V 检查根本没跑，所以空判要
+    # 把 extra_files 也算进来。
+    if not body_files and not extra_files:
+        print("没找到任何待检查文件（%s/chapters/*.md，或 --file 指定文件）" % project)
         return 2
 
     print("=" * 72)
     print("引文纪律校验  project=%s  mode=%s" % (project.as_posix(), args.mode))
     print("待检查 %d 个文件；章文件 %d 个%s"
-          % (len(body_files), len(chapter_files),
+          % (len(body_files) + len(extra_files), len(chapter_files),
              ("；额外逐字回源 %d 个（%s）" % (len(extra_files), ", ".join(p.name for p in extra_files)))
              if extra_files else ""))
     print("=" * 72)

@@ -14,6 +14,7 @@
     D 出处列写了产品文件名        → exit 1，对照表结构报「出处列非法」
     E 引文只在**自己的中间产物**里 → exit 1，weak 按硬失败处理（ERR-20260929-013 那一族）
     F 同 E 但加 `--allow-weak`    → exit 0（显式降级确实有效）
+    G 引文里含**转义竖线** `\|`     → exit 0（正确写法不该被当成「管道数不对」）
 
 C 与 E 是关键用例：B 红得靠副本漂移，C 把副本拉平后仍然红，才说明 V 不是摆设；
 E 证明「中间件自己错了一手」这类**最隐蔽**的缺陷会被拦住，F 证明拦住它的方式
@@ -168,9 +169,19 @@ def main():
                  must_not=("仅中间产物命中按硬失败处理",),
                  extra=("--allow-weak",))
 
+    # G 引文里引用了**一行带竖线的内容**（shell 管道、一行 Markdown 表格）：
+    #     单元格里的竖线必须转义成 `\|`，这是正确写法。按原始 `|` 计数会误判成
+    #     「管道数 != 5」→ 门禁对**没有缺陷**的笔记报红。
+    pipe_row = ("| 3 | `\\| 小雅Alist \\| ✅ \\|` | 引用一行带竖线的内容 | `%s` |\n"
+                % POINTER_MD)
+    build(combo, chapter=CHAPTER + pipe_row)
+    allok &= run("G 引文含转义竖线", 0,
+                 must_in=("判定：✅ 无硬失败",),
+                 must_not=("管道数", "❌"))
+
     wipe()
     FIX.rmdir()
-    print("\n总判定：%s" % ("✅ 六个用例全部符合预期（门禁能红）" if allok
+    print("\n总判定：%s" % ("✅ 七个用例全部符合预期（门禁能红）" if allok
                             else "❌ 有用例不符合预期"))
     print("清理：%s 已删除 = %s" % (FIX, not FIX.exists()))
     return 0 if allok else 1

@@ -86,6 +86,7 @@ id,relative_path,title,updated,status,reason,priority,size_bytes
 - 本次更新目标和判断依据。
 - 笔记分组：按主题、版本、依赖、目录或优先级。
 - 每篇笔记动作：`update`、`flag-only`、`skip`、`needs-review`。
+- **上游维护状态核对（定动作的依据）**：对笔记所依赖的上游项目核一次维护状态（GitHub API 的 `pushed_at` / `archived`）。**停维护的上游不能只写 `update`**——标为**换源重写**并单独列出：它会横跨整套笔记（一次 8 篇部署笔记集因主线停维护而整体重写），分批时不要把它混进「局部更新」批次。同时分清**官方项目**与**社区整合脚本**。
 - 是否需要共享资料包。
 - 第一批处理列表，默认不超过 `batch_size`。
 - 目标输出模式和覆盖风险。

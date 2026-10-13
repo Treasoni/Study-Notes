@@ -186,6 +186,13 @@ if ! python3 .agent-sync/validate_portability.py --root .; then
   fail "Shared agent assets are not portable across machines."
 fi
 
+# Tombstone guard for the retired `.codex/skills` root. It had no caller until now,
+# and the 2026-09-11 removal left untracked, gitignored `__pycache__` residue that no
+# git-based check can see; only a filesystem reader catches the path coming back.
+if ! python3 .agent-sync/migrate_legacy_skills.py; then
+  fail "The retired .codex/skills root exists again; see the guard's message."
+fi
+
 # Usage-ledger guard. The frozen baseline in .llm/prompt-cache/ pins the reasoning knobs
 # (effortLevel / thinkingBudget / savedProviderEffort.claude) and the per-context
 # full-price input medians. It stays quiet until >=10 post-change contexts exist per

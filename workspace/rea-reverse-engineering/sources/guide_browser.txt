@@ -1,0 +1,174 @@
+Home / Guides / Browser
+          observation
+
+### See what happens
+when you click.
+
+          Use a small browser app to connect an action, its network request and
+          the JavaScript that builds a download.
+
+          In this guide
+
+            - The example
+
+            - Open the browser
+
+            - Ask your agent
+
+            - Capture from CLI
+
+            - Read the request and script
+
+### What happens when you click Export?
+
+              The
+              Notes browser example has
+              an Export notes button. Clicking it loads
+              notes.json, formats the two notes as CSV, and starts
+              a download.
+
+              From the click to the CSV download
+
+                -
+                  01 · YouClick Export notesPerform the action in your browser while the capture is
+                    running.
+
+                -
+                  02 · REARecord the requestCapture the request URL, response status and JSON structure
+                    from the selected page.
+
+                -
+                  03 · Your agentRead the export codeConnect the observed request to
+                    fetch("./notes.json") in
+                    export.js.
+
+                GET notes.json → 200 → notes[] → CSV
+
+                Start the capture before clicking Export notes.
+
+### Open Chrome with remote debugging
+
+              Open the hosted Notes example with a separate browser profile and
+              a local debugging port. On Linux:
+
+                Start the example browser
+                  Copy
+
+              google-chrome \
+  --remote-debugging-port=9222 \
+  --user-data-dir=/tmp/rea-notes-browser \
+  https://rea.tools/examples/notes-web/
+
+              Use your installed browser's executable path on macOS or Windows.
+              You can replace the page URL with another page you want to
+              inspect.
+
+              REA connects to this existing browser. You keep control of the
+              page, perform the action, and close the browser when finished.
+
+### Ask your agent to watch one action
+
+                Your coding agent
+                  Copy
+
+                ›Use REA to inspect this page while I click Export notes. What
+                  request does it make, and how is the CSV built?
+
+              Example prompt. Give your agent the debugging endpoint,
+              http://127.0.0.1:9222, and the page URL. Let it start
+              the capture before you click.
+
+              Your agent discovers the page target, starts an observation
+              window, and reads the resulting evidence. It can then inspect the
+              script behind the export.
+
+### Or capture from the terminal
+
+            Find the page's target ID:
+
+                Find the page
+                  Copy
+
+              npx -y rea-agents@latest list-browser-targets \
+  http://127.0.0.1:9222 --json
+
+              Choose the target with the Notes example URL. Replace
+              TARGET_ID below with its ID, then run:
+
+                Capture the next ten seconds
+                  Copy
+
+              npx -y rea-agents@latest inspect-web-page \
+  http://127.0.0.1:9222 TARGET_ID \
+  --observation-ms 10000 \
+  --include-accessibility-text \
+  --include-json-body-shapes --json
+
+              Let the command connect for a few seconds, then click
+              Export notes in that browser. The result arrives
+              after the observation window ends.
+
+              The captured result includes the selected page, network activity
+              during that window, and the shape of the JSON response. Earlier
+              requests are outside this capture.
+
+### Read the request and export script
+
+                  Recorded with REA 4.1.0 on the local Notes example
+
+                 |
+
+                     | Captured fact
+                     | Value
+
+                     | Request
+                     | GET /examples/notes-web/notes.json
+
+                     | Response
+                     | 200 · application/json
+
+                     | Request initiator
+                     | export.js · script
+
+                     | Response structure
+                     |
+                      notes[] with id and
+                      title fields
+
+                Read the loaded scripts
+                  Copy
+
+              npx -y rea-agents@latest inspect-web-page \
+  http://127.0.0.1:9222 TARGET_ID \
+  --include-script-sources --json
+
+              The request identifies the data source, and REA records
+              export.js as its initiator. Read the captured script
+              source to see how the data is used:
+
+                export.js · example source
+                  excerpt
+
+              const response = await fetch("./notes.json");
+const { notes } = await response.json();
+// Format each note as a CSV row.
+const url = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
+link.href = url;
+link.download = "notes.csv";
+link.click();
+
+              The download is constructed in the page using the JSON response.
+              The CSV formatting step comes from the script; the network capture
+              establishes that this click requested notes.json.
+
+              Open the example ·
+              Download export.js
+              ·
+              Download notes.json
+
+                Find the script that requests notes.json. How does
+                it escape titles containing commas or quotation marks?
+
+              For an installed JavaScript or Electron app, continue with the
+              application workflow to follow files
+              and process boundaries.

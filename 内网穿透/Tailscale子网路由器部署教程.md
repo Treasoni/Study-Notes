@@ -152,7 +152,7 @@ fnOS 桌面打开 **Docker → Compose → 新建项目**，粘贴 YAML，填项
 > 社区帖路径（来源 S2, S3）可能随 fnOS 版本微调（待实机确认）。核心逻辑不变：新建 Compose 项目 → 粘贴 YAML → 部署。
 
 先获得tailscale的认证需要的key（在settings->Keys，中的Auth keys）：
-![](../Pasted%20image%2020260914211452.png)
+![](../assets/Tailscale子网路由器部署教程/Pasted%20image%2020260914211452.png)
 
 ### 2.2 推荐版 Compose（privileged，省心）
 
@@ -209,7 +209,7 @@ services:
 
 宣告路由只是完成了**客户端通告**。无论通过哪种方式配置，宣告之后都必须前往 **Tailscale Admin Console（网页后台）**，在对应机器的 `Edit route settings` 选项中，手动勾选批准（Approve）该网段，其他节点才能真正通过此路由访问内网。
 
-![](../Pasted%20image%2020260914225231.png)
+![](../assets/Tailscale子网路由器部署教程/Pasted%20image%2020260914225231.png)
 
 > [!note] 为什么用 host 网络
 > Docker 对 host 网络不额外创建 iptables 规则（来源 S8），且 tailscaled 需在宿主机网络命名空间建 `tailscale0`、改路由。这是社区共识基线（来源 S2, S3, S0）。

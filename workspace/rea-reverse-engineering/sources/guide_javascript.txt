@@ -1,0 +1,181 @@
+Home / Guides / JavaScript
+          & Electron
+
+### Trace an Electron
+CSV export.
+
+          Follow a button click from the page API, through Electron IPC, to the
+          CSV file writer.
+
+          In this guide
+
+            - The example
+
+            - Ask your agent
+
+            - Trace the export code
+
+            - Try the example
+
+            - Inspect the CSV writer
+
+### Where does “Export notes” go?
+
+              This guide uses a small Electron app. Clicking
+              Export notes calls an API in the page, crosses
+              into the main process, and writes a CSV. The behavior is spread
+              across several files.
+
+                The CSV export across Electron processes
+
+                -
+                  Renderer → preloadnotes.exportCsv()renderer.js calls the API exposed by
+                    preload.js.
+
+                -
+                  Between processesnotes:exportThe preload invokes an IPC channel: a named message to the
+                    main process.
+
+                -
+                  Main processAn export handlermain.js handles that channel and calls the CSV
+                    writer.
+
+                csv.js formats the notes →
+                main.js writes downloads/notes.csv.
+
+                REA matches the literal IPC call to its handler and identifies
+                the exposed API. The path is inferred from code; a runtime
+                capture can check what executes.
+
+### Ask about the CSV export
+
+              Connect your agent to REA
+              and give it the app directory or ASAR file:
+
+                Your coding agent
+                  Copy
+
+                ›Use REA to find what happens when I export notes in this app.
+                  Where is the CSV created?
+
+              Example prompt. Include the absolute path to the application
+              folder or app.asar.
+
+              REA reads the application files and builds a map of entrypoints,
+              modules and process boundaries. Your agent uses that map to narrow
+              the investigation to the export feature.
+
+### Trace the export code
+
+### The page calls a small API
+
+                renderer.js · example
+                  source
+
+              document.querySelector("#export").addEventListener("click", async () => {
+  const destination = await window.notes.exportCsv();
+  document.querySelector("#status").textContent = `Saved to ${destination}`;
+});
+
+              The page knows the method name. The implementation lives in the
+              preload, which exposes it to the renderer.
+
+                preload.js · example source
+
+              contextBridge.exposeInMainWorld("notes", {
+  exportCsv: () => ipcRenderer.invoke("notes:export"),
+});
+
+              REA records notes.exportCsv and the literal channel
+              notes:export. It pairs that invocation with the
+              single matching handler in the main process.
+
+                main.js · example source
+
+              ipcMain.handle("notes:export", () => {
+  const destination = path.join(app.getPath("downloads"), "notes.csv");
+  writeFileSync(destination, toCsv(notes), "utf8");
+  return destination;
+});
+
+              Reading the handler answers the original question:
+              csv.js formats the notes, and the main process writes
+              notes.csv into the user's Downloads folder.
+
+                REA result · summary.ipc excerpt
+
+              {
+  "literal_channels": 1,
+  "renderer_transmissions": 1,
+  "main_handlers": 1,
+  "paired_renderer_transmissions": 1,
+  "ambiguous_renderer_transmissions": 0
+}
+
+              Recorded by REA 4.1.0 on the downloadable example below. Source
+              locations accompany the API, channel and handler findings.
+
+### Analyze the example yourself
+
+              Download the example and unzip it. The archive contains the
+              complete notes-example folder. Analyze it with
+              Node.js and npm; Electron is not
+              needed for this example.
+
+              Download example ZIP
+
+              Browse the six source files
+
+                -
+                  package.json
+
+                -
+                  main.js
+
+                -
+                  preload.js
+
+                -
+                  renderer.js
+
+                -
+                  csv.js
+
+                -
+                  index.html
+
+                Static application analysis
+                  Copy
+
+              npx -y rea-agents@latest analyze-javascript-application \
+  /absolute/path/to/notes-example --json
+
+              Replace the path with the folder you unzipped. You should find one
+              IPC channel and one matching handler in
+              normalized_result.summary.ipc. Source locations are
+              in normalized_result.graph.
+
+              For your own app, use the same command with its directory or ASAR
+              path. An agent can follow a literal string, API name or IPC
+              channel with REA's feature tracing tools.
+
+### Inspect the CSV writer
+
+                Follow notes:export to its handler. Which inputs
+                reach the CSV writer, and what happens if writing the file
+                fails?
+
+              Use the source locations to inspect those details. Computed
+              channel names and ambiguous handlers can remain unresolved;
+              runtime observations give you another way to investigate them.
+
+              -
+                Follow Notion's clipboard bridge
+                Apply the same approach to a packaged Electron app.
+
+              -
+                Observe a browser exportCapture a real click and see which request it makes.
+
+              -
+                Follow a native functionContinue into a binary when a feature depends on native
+                  code.

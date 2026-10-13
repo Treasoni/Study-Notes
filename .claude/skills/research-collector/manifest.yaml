@@ -2,8 +2,8 @@ apiVersion: agent-platform/v1
 kind: Skill
 metadata:
   name: research-collector
-  version: 2.4.0
-  description: "Collect and curate staged, source-backed research with a cache-stable prompt contract and batched fan-out (<=3 delegates per phase); forbids paraphrase-as-citation in downstream dispatch and requires the shared citation checker on the artifact before write-out."
+  version: 2.5.0
+  description: "Collect and curate staged, source-backed research with a cache-stable prompt contract and batched fan-out (<=3 delegates per phase); forbids paraphrase-as-citation in downstream dispatch and requires the shared citation checker on the artifact before write-out. A repository's upkeep is part of its source tier: candidates carry `pushed_at`/`archived`, an unmaintained project is disqualified as a note set's mainline, and official is stated separately from community integration scripts."
 spec:
   entrypoint: SKILL.md
   capabilities:

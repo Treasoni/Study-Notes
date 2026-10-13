@@ -1,0 +1,287 @@
+Home / Showcases / Notion
+
+        Case study · Electron
+
+### How Notion copies
+text and HTML.
+
+          Trace a clipboard call from Notion's page API, through the preload and
+          main process, to Electron's clipboard writer.
+
+        Notion Desktop 7.6.1 · JavaScript · REA
+
+        The bridge inside Notion's desktop package
+
+          -
+            01 · Page-facing API
+            clipboard.write(data)
+            The preload exposes a callable method.
+
+          -
+            02 · Preload wrapper
+            ipcRenderer.invoke
+            The wrapper sends the channel and arguments.
+
+          -
+            03 · Main-process handler
+            ipcMain.handle
+            The receiver checks which page sent it.
+
+          -
+            04 · System clipboard
+            clipboard.write(data)
+            Electron writes the supplied text and HTML.
+
+          One channel joins the two sides:
+          notion:clipboard:write
+
+          The packaged code uses the same channel in the preload and main
+          process. Resolving the wrappers reveals the Electron calls behind
+          those names.
+
+          In this case study
+
+            - Follow the clipboard bridge
+
+            - Keeping a block's structure
+
+            - More examples and sources
+
+### Where does the copy operation go?
+
+              The page sees a method called clipboard.write. Its
+              implementation in the preload is a wrapper. The useful question is
+              what that wrapper sends, and which code receives it.
+
+                Your coding agent
+                  Copy
+
+                ›Use REA to trace how Notion copies text and HTML to the
+                  system clipboard. Show the code at each step.
+
+              An example prompt with Notion's local application package
+              available to your coding agent.
+
+### REA finds where to start reading
+
+              Analyzing the tab preload with REA locates the API exposed to the
+              page and the call that sends an IPC request. Both findings come
+              with source ranges in the minified bundle:
+
+              REA findings → two places to open
+
+                  Exposed page API
+
+                  api_key: "__electronApi"
+api_status: "dynamic"
+source: preload.js:1:22764–22828
+
+                  Renderer IPC call
+
+                  operation: "invoke"
+channel_expression: "e"
+source: preload.js:1:6486–6522
+
+                Selected fields from a fresh
+                analyze_javascript_application result on Notion's
+                tab preload, recorded with REA 4.1.0. Positions use the original
+                bundle's line and zero-based column.
+
+              The agent opens those locations, finds the clipboard member in the
+              assembled API, and reads invokerInMain. Its call site
+              supplies
+              notion:clipboard:write. That
+              name gives the agent something precise to look for in the main
+              bundle. The four excerpts below show the route it connects.
+
+### Four short pieces of code
+
+              Simplified from the packaged JavaScript, with readable variable
+              names. Unrelated members are omitted.
+
+              -
+
+### Start at the API exposed to the page
+
+                    tab_browser_view/preload.js ·
+                      API member
+                      Copy
+
+                  const clipboardApi = {
+  write: invokerInMain("notion:clipboard:write")
+};
+
+// Included in the API exposed through contextBridge:
+// window.__electronApi.clipboard
+
+                  This member supplies the channel name. The implementation of
+                  invokerInMain tells us how the request leaves the
+                  page's process.
+
+              -
+
+### Resolve the preload's wrapper
+
+                    tab_browser_view/preload.js ·
+                      IPC helper
+                      Copy
+
+                  function invokerInMain(channel) {
+  return (...args) => invokeInMainAndReturnResult(channel, ...args);
+}
+
+function invokeInMainAndReturnResult(channel, ...args) {
+  return ipcRenderer.invoke(channel, ...args);
+}
+
+                  The returned function forwards the arguments through
+                  Electron's request-and-response IPC. We can now look for
+                  notion:clipboard:write
+                  on the main-process side.
+
+              -
+
+### Check how the receiver is registered
+
+                    main/index.js · handler
+                      helper
+                      Copy
+
+                  const handleRequestFromRenderer = {
+  addListener(channel, handler) {
+    ipcMain.handle(channel, handler);
+  }
+};
+
+                  The main process uses another wrapper. Its
+                  addListener method registers an
+                  ipcMain.handle receiver for that channel.
+
+              -
+
+### Find the write and its sender check
+
+                    main/index.js · clipboard
+                      receiver
+                      Copy
+
+                  handleRequestFromRenderer.addListener(
+  "notion:clipboard:write",
+  (event, data) =>
+    isNotionWebContents(event.sender)
+      ? clipboard.write(data)
+      : undefined
+);
+
+                  This is the destination. After checking the sender, the
+                  handler passes the supplied data to Electron's clipboard API.
+                  The channel and the two resolved wrappers connect the exposed
+                  method to this call.
+
+### How does a copied block keep its structure?
+
+              Notion's web editor sends text and HTML through
+              electronApi.clipboard.write. It keeps the block data
+              locally and puts an ID in the copied HTML to connect them.
+
+              HTML links to saved block data
+
+                    Sent to the system clipboard
+
+                  text: "Project notes"
+html: "<p>Project notes</p>"
+    + "<!-- notionvc: <copy-id> -->"
+
+                    Saved locally by Notion
+
+                  id: <copy-id>
+mimeTypes:
+  text/_notion-blocks-v3-production
+    → structured block data
+
+                - Read the HTML ID
+
+                - Find the same local ID
+
+                - Restore Notion block data
+
+                Illustrative text and ID. The recorded module test restores the
+                block data when IDs match; a stale entry returns only text and
+                HTML.
+
+              On paste, Notion looks for the HTML ID and checks it against the
+              saved copy. Matching IDs restore the block data.
+
+              Clipboard format recorded from web assets cached on July 13, 2026.
+
+### More examples and sources
+
+              Another example: Markdown tables
+
+                Notion parses Markdown into block data. This example shows how a
+                table becomes header and data rows.
+
+                  A table through Notion's Markdown parser
+
+                    Markdown input
+
+                    | A | B |
+| - | - |
+| 1 | 2 |
+
+                      Structured parser output · excerpt
+
+                    table · headerRow: true
+  table_row
+    cells: ["A"], ["B"]
+  table_row
+    cells: ["1"], ["2"]
+
+                  Recorded output from an extracted Markdown parser. The table
+                  becomes rows and cells.
+
+              Another path: the offline SQLite connection
+
+                Notion's renderer requests getSqliteMeta through
+                IPC. The main process creates a message channel and gives one
+                port to the renderer and the other to a SQLite utility process.
+                Subsequent statement batches and results travel over that port.
+
+                Following this handoff explains where the database work runs,
+                and why tracing only the initial IPC request misses the later
+                conversation.
+
+              Sources and how to read the excerpts
+
+                The clipboard bridge comes from Notion Desktop 7.6.1's
+                app.asar: the tab preload and
+                main/index.js. The excerpts expand minified
+                variable names and omit unrelated code; the sender-check helper
+                is shown with its underlying
+                isNotionWebContents call.
+
+                The virtual clipboard and Markdown examples come from web assets
+                cached on July 13, 2026, including modules 747001,
+                58169, 736810 and 422457.
+                Those assets have their own version. Saved probes executed
+                extracted modules and small harnesses; their outputs describe
+                those probes rather than a captured desktop UI session.
+
+                The REA result shown here is a focused analysis of the saved tab
+                preload, recorded with the published REA 4.1.0 package. It
+                locates the API and invoke operation. The clipboard member and
+                matching receiver are connected by reading their wrapper
+                implementations in the package.
+
+                The Markdown example uses parser module 422457.
+                Saved module tests show that both page and chat filters preserve
+                this table. The paste/import, structured Markdown and AI/chat
+                parsers have separate entry points and intermediate formats.
+
+              -
+                JavaScript application guideFollow a small Electron application's export feature.
+
+              -
+                DX-Ball reconstructionFollow native instructions to a checked C function.
+
+              Analyze your own app

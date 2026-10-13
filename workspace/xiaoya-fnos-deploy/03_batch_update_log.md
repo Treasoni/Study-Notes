@@ -1,83 +1,45 @@
-# 批处理日志：小雅 fnOS 单容器部署笔记集 → 统一 monlor 单一路线
+# 批量更新执行日志（run: update-xiaoya-fnos-alist）
 
-- 工作流：batch-note-update-flow ｜ 运行标识 `update-xiaoya-fnos-routes`
-- 编辑面：`workspace/xiaoya-fnos-deploy/chapters/`（唯一人工编辑处）
-- 输出模式：`patch-in-place` + 全副本同步（`chapters/` → `output/` → vault）
-- 批次大小：3
+对应 `02_batch_update_plan.md`。批次编排见其 §2.3；本文件只记**实际执行结果**，不改计划。
 
-## 发布变换（本轮实测）
+输出模式：**patch-in-place**——`updated_note` 即 `chapters/{file}`；整批计划即 `02_batch_update_plan.md`（故不再单列 `update_plan.md`）。
 
-```text
-chapters/XX.md  ──机械变换──▶  output/XX YYY.md  ──同源重建──▶  流媒体与影音/小雅 fnOS 单容器部署/XX YYY.md
-```
+## 批 1 · 部署主线（ch04 → ch03 → ch07）
 
-发布件结构 = 文件头（frontmatter + 章首导航行）+ `"\n\n"` + 正文 + 正文后空白 + `"---\n\n"` + 章末返回导航行 + 尾换行。
-正文区与尾部空白**从发布件自身推导**，不查 git、不假设 GAP 值（脚本 `publish_copies.py`）。
-**验证方式**：对未改动篇重算后必须与原文逐字节相同；本轮 01/02/03/05/06/07 均通过。
+| 序 | note_id | 文件 | 动作 | 结果 | 校验 | 证据 |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | ch04 | `chapters/04_部署实战.md` | update（重写） | ✅ 完成 | `publish_copies.py --check --only 04` = OK；两张 monlor 截图经 Obsidian 回收站删除 | `updates/04_部署实战/{stale_map.md,update_report.md}` |
+| 2 | ch03 | `chapters/03_动手前准备.md` | update | ✅ 完成 | `publish_copies.py --check --only 03` = OK（output==、vault==） | `updates/03_动手前准备/{stale_map.md,update_report.md}` |
+| 3 | ch07 | `chapters/07_运维与收尾.md` | update | ✅ 完成 | `publish_copies.py --check --only 07` = OK（output==、vault==） | `updates/07_运维与收尾/{stale_map.md,update_report.md}` |
 
-另有单文件**合并件** `output/final_note.md`（7 章装配版）：框架（头部说明 + 章间 `---` 分隔）同样从原件自身推导，只替换各章正文区（脚本 `assemble_final.py`）。验证方式相同：自证重建原文逐字节一致，未改动章（02/05/06）重装后逐字节不变。
+## 批 2 · 定位与选型（ch01 → ch02 → overview）
 
-## 批 1
+| 序 | note_id | 文件 | 动作 | 结果 | 校验 | 证据 |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | ch01 | `chapters/01_开篇定位.md` | update | ✅ 完成 | `publish_copies.py --check --only 01` = OK；引文对照 8→13 条，新增术语校正 note | `updates/01_开篇定位/{stale_map.md,update_report.md}` |
+| 2 | ch02 | `chapters/02_选型对比.md` | update | ✅ 完成 | `publish_copies.py --check --only 02` = OK（output==、vault==）；引文对照 17→28 条 | `updates/02_选型对比/{stale_map.md,update_report.md}` |
+| 3 | overview | `output/小雅 fnOS 单容器部署（总览）.md` + vault 同名 | update（**不在 `chapters/`，两处手改**） | ✅ 完成 | output 与 vault 两处 diff 一致；ch04 条目与读前须知换源 | `updates/02_选型对比/update_report.md`（overview 段） |
 
-| 时间 | 序 | 文件 | 动作 | 结果 | 三副本 |
-|------|----|------|------|------|--------|
-| 2026-10-06 | 1 | `chapters/04_部署实战.md` | 删 4.2 官方镜像整节；章名去「两条镜像路线」；原 4.3 升 4.2；4.1 与原 4.4 合并重写；引文对照 20→11 条 | ✅ 成功 | output = vault = ✔ |
-| 2026-10-06 | 2 | `chapters/03_动手前准备.md` | 删文件凭据三件套小节与端口冲突段；凭据/夸克收敛为环境变量；WebDAV 收敛 `dav` / `guest_Api789`；引文对照 40→30 条 | ✅ 成功 | output = vault = ✔ |
-| 2026-10-06 | 3 | `chapters/07_运维与收尾.md` | 更新口径表双列→单列；删官方重启刷新索引段；改 warning/比喻/未决项表/小结；引文对照 11→9 条；补「更新记录」节 | ✅ 成功 | output = vault = ✔ |
+## 批 3 · 前端与避坑（ch05 → ch06）
 
-## 批 2
+| 序 | note_id | 文件 | 动作 | 结果 | 校验 | 证据 |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | ch05 | `chapters/05_前端接入.md` | update（轻） | ✅ 完成 | `publish_copies.py --check --only 05` = OK（output==、vault==）；5.6 三处换源，引文对照 23/24/28 行换挂 `all_in_one.sh` | `updates/05_前端接入/{stale_map.md,update_report.md}` |
+| 2 | ch06 | `chapters/06_避坑清单.md` | update（轻） | ✅ 完成 | `publish_copies.py --check --only 06` = OK（output==、vault==）；6.2 清理口径分两处、新增 6.5 坑五、引文对照 12→22 条 | `updates/06_避坑清单/{stale_map.md,update_report.md}` |
+| 3 | overview（回灌） | `output/…（总览）.md` + vault 同名；`chapters/05_前端接入.md` | update（章名/预告回灌） | ✅ 完成 | overview 章节目录第 6 条改章名、ch05「下一章预告」四类→五类；两处 overview diff 一致；ch05 已重发布 | `updates/06_避坑清单/update_report.md`（遗留 #5） |
 
-| 时间 | 序 | 文件 | 动作 | 结果 | 三副本 |
-|------|----|------|------|------|--------|
-| 2026-10-06 | 4 | `chapters/01_开篇定位.md` | 删 1.1「小雅官方镜像的作者自述」引文与引导句；1.5「官方来源（官方镜像页、官方脚本仓库）」收窄为「官方来源（官方脚本仓库等）」；warning 里删「或直接运行官方镜像 `xiaoyaliu/alist`」；引文对照 9→8 条；补「更新记录」节 | ✅ 成功 | output = vault = ✔ |
-| 2026-10-06 | 5 | 入口页 `小雅 fnOS 单容器部署（总览）.md` | 第 4 章目录项改用新章名「单容器小雅（monlor 镜像）」；第 3 章目录项「凭据文件准备清单」→「凭据准备清单」；读前须知第 3 条改为「以你当时所用镜像的项目说明为准（本笔记用 `ghcr.io/monlor/xiaoya-alist`）」 | ✅ 成功 | vault（权威）→ output 同步，diff 空 |
+## 批间复核记录
 
-## 收口补记（P4 尾 / P5）
-
-| 时间 | 序 | 文件 | 动作 | 结果 | 三副本 |
-|------|----|------|------|------|--------|
-| 2026-10-06 | 收口 1 | `chapters/03_动手前准备.md` | 回填 vault 版（Obsidian 侧）已存在的两个小节标题 `### 3.3.1 如何选用夸克和115`、`### 3.3.2 WebDAV 账号` 到源头；**纯增不改**，回填后 output 与 vault 逐字节一致 | ✅ 成功 | output = vault = ✔ |
-| 2026-10-06 | 收口 2 | `output/final_note.md` | 单文件合并件按当前 7 章重装配（原停在 20:34 旧版，仍含已删的官方镜像路线） | ✅ 成功 | C 族 0 差异 |
-| 2026-10-06 | 收口 3 | `chapters/03_动手前准备.md`、`chapters/04_部署实战.md` | **WebDAV 默认用户由 `dav` 更正为 `guest`（用户实战反证）**：03 §3.3.2 正文 / warning / 大白话 / 本章小结、引文对照第 8、12 行中译并新增第 31–33 行、更新记录；04 自检第 4 条 / 本章小结 / 引文对照第 5 行中译 / 更新记录；monlor env 注释出处 `:32` → `:31` | ✅ 成功 | output = vault = ✔ |
-
-## 校验记录
-
-- `python3 publish_copies.py --check`（全篇 7 篇）：`output ==` 与 `vault ==` **全通过**。运行中途 05 的 vault 副本曾出现 Obsidian 表格分隔行/列宽对齐差异（纯格式、去掉多余空格后内容逐字相同），随后由并行会话重建 05 三副本时一并消除；本轮自始至终未改 05。
-- `python3 assemble_final.py --check`：自证重建原文逐字节一致；未改动章 02/05/06 重装后逐字节不变。
-- `python3 .claude/scripts/note-citation-check.py workspace/xiaoya-fnos-deploy`：**判定 ✅ 无硬失败**（V 逐字回源 / S4 对照表结构 / C 多副本一致 全通过）。C 族「8 份副本、比对 7 组、差异 0 处」。
-- `python3 .claude/scripts/check-md-structure.py`：改动篇 + 合并件扫描，0 处可疑。
-- 禁用词 grep：`两条镜像路线` / `路线一` / `官方镜像` / `xiaoyaliu` 在 chapters、output、vault 三处**正文命中为 0**；仅剩「更新记录」留痕行，以及 `# monlor 路线一键脚本（可重复执行）` 这类含「路线一键」的误命中。
-- **收口 3 后复跑**（WebDAV 用户名更正）：`publish_copies.py --check` 7 篇 `output==` / `vault==` 全通过；`assemble_final.py --check` 0 章需更新（重装时仅 03/04 变、01/02/05/06/07 逐字节不变）；`note-citation-check.py workspace/xiaoya-fnos-deploy` **判定 ✅ 无硬失败**，C 族「8 份副本、比对 7 组、差异 0 处」，S4 引文对照表 0 处不合格；`check-md-structure.py` 改动篇 + 合并件 + vault 副本，0 处可疑。残留 `dav` 命中仅三类：monlor env 注释的**逐字留档**、更正后的解释句、历史「更新记录」留痕行。
-
-## 与计划的口径差异（记录，非偏离）
-
-- 计划仅点名阿里云盘「文件凭据三件套」；执行时按冻结口径第 4 条「凭据**只走环境变量**」一并把 **夸克 `quark_cookie.txt` 文件路线**收敛为环境变量 `QUARK_COOKIE`，正文与引文对照同步删除该文件路线条目（1 行）。
-- 第 7 章原无「更新记录」节（与第 1、6 章一致）；因本轮有实质变更，按项目惯例补建该节。
-
-## 跳过文件（未触碰，逐字核对）
-
-| 文件 | 原因 |
-|------|------|
-| `chapters/02_选型对比.md` | 本章「两条路线」= Emby 全家桶(E) vs 飞牛影视(F)，与镜像路线无关 |
-| `chapters/05_前端接入.md` | 0 处官方镜像命中；本轮不动（运行期间该章由**并行会话**改动，见「并发说明」） |
-| `chapters/06_避坑清单.md` | 0 处路线关键词命中 |
-
-## 外部改动登记（并行会话，事后补记）
-
-上表「未触碰」仅指**本 run 执行期间**。run 完成后，**并行会话**在 `chapters/02_选型对比.md` 与 `chapters/05_前端接入.md` 上做了 MediaWarp 302 口径修正（详见 `update_report_mediawarp-302.md`）：核对 raw Markdown 后确认 MediaWarp 的「适配 飞牛影视」为 **`- [x]`（已完成）**，此前「待办 / 成熟度未决」的结论作废。两章的三副本（`chapters/` → `output/` → vault）与合并件 `final_note.md` 均已同步。
-
-| 文件 | 本 run 动作 | 事后（并行会话） |
-|------|------------|------------------|
-| `chapters/02_选型对比.md` | 未触碰 | **已改**：2.5 标题与结论（未决→已确证）、2.2 表、2.3.3、小结、引文表、更新记录 |
-| `chapters/05_前端接入.md` | 未触碰（期间已由并行会话改） | **已改**：5.4 整节重写（以 MediaWarp 为主）+ 小结 + 引文表 + 更新记录 |
-| `chapters/06_避坑清单.md` | 未触碰 | 仍未改 |
-
-登记后已复跑 `publish_copies.py --check`（7 章全 `output==` / `vault==`）、`assemble_final.py --check`（0 章需更新）与 `note-citation-check.py --mode all`（✅ 无硬失败，C 族 0 差异）。
-
-## 并发说明（重要）
-
-本轮执行期间，同一笔记集上有一个**并行会话**在改动第 5 章（内容是把「MediaWarp 对飞牛影视仍是待办项」的旧结论更正为「已适配」，依据是其新抓取的 `sources/lens-b/mediawarp/02_readme_todo.md` 与 `03_blog_akimio_top.md`）。
-
-- 两者互不重叠：本轮的编辑面是第 1 / 3 / 4 / 7 章正文与入口页，05 全程属跳过文件。
-- **共享写点**是合并件 `output/final_note.md`（两个会话都会按 7 章重装配）。该步是幂等的：只要读到的 `chapters/` 一致，写出的结果就一致；本轮收口时的最后一次校验已确认合并件同时含 05 的新内容与本轮的 01/03/04/07 更改。
-- 收口快照（C 族 0 差异 / 三副本全 `==`）以 2026-10-06 21:1x 为准；此后若并行会话继续编辑，需重跑 `publish_copies.py --check` 与 `note-citation-check.py`。
+| 时间 | 批次 | 复核项 | 结论 |
+| --- | --- | --- | --- |
+| 2026-10-07 | 批 1（ch04） | 引文锚点回源（`all_in_one.sh`） | 发现 `:1302`→`:1304`、`:1290-1292`→`:1293-1294` 等 3 处偏移，**已修正**；连带修正 `stale_map.md`、`update_report.md` |
+| 2026-10-07 | 批 1（ch03） | 引文锚点回源（`all_in_one.sh`） | 发现 `:737`→`:742`、`:735-742`→`:740-742`、`:679-688`→`:680`、`:1302`→`:1304`、`:1291/:1292`→`:1293/:1294`、`:1240-1246`→`:1237-1245` 共 13 处偏移，**已修正**；连带修正 `shared_research/source_bank.md`（S2、S7 两处） |
+| 2026-10-07 | 批 1（ch07） | 引文锚点回源（`01_github_com.md` / README / hub / `all_in_one.sh`） | 全部命中，无偏移；仅补正引文对照第 2 条原文末尾漏掉的 `！`，并修正手动命令出处为 `01_github_com.md:38/48/51/55/58` |
+| 2026-10-07 | 批 1 收口 | 残留扫描 `rg -n "monlor\|ghcr.io/monlor" chapters/{03,04,07}*.md` | 03：仅 3 处有意保留（3.2 对照 warning、引文对照逐字引文、更新记录）；04：仅 4.1 背景/note + 引文对照第 7 行 + 更新记录；07：仅更新记录。**批 1 通过** |
+| 2026-10-07 | 批 2（ch01） | 引文锚点回源（hub / README / `all_in_one.sh` / lens-b） | 全部命中，无偏移；引文对照 8→13 条，新增术语校正 note（官方＝`xiaoyaliu/alist`） |
+| 2026-10-07 | 批 2（ch02） | 引文锚点回源（README `:75-181`、hub、`all_in_one.sh:3479/3485/6061`、lens-b、forum） | 全部命中，无偏移；硬解段与 2.4 资源门槛**整节重写**；引文对照 17→28 条。**批 2 定位与选型（ch01/ch02）通过**，overview 待续 |
+| 2026-10-07 | 批 2 收口 | overview 两处副本一致 + 残留扫描 | overview `diff -q` = SYNCED；残留仅读前须知**有意保留**的「早期 `monlor/xiaoya-alist` 已停维护」一句 |
+| 2026-10-07 | 批 3（ch05） | 引文锚点回源（`all_in_one.sh:895/912/1154`、`forum/tid-21673.md:11/13`） | 全部命中；首轮残留扫描发现 2 处正文漏改（`:360` `ALIYUN_TO_115`、`:416` 小结 `monlor-144.md:273`），**已定点修正**；复扫仅更新记录行 |
+| 2026-10-07 | 批 3（ch06） | 引文锚点回源（`all_in_one.sh:1304/1377/1401/1403/3830`、README `:80/116/117/292`、hub `:18`、club `:51`） | 全部命中；body 无 `monlor` 字样，仅 6.2 `[!note]`（旧写法适用面）+ 引文对照第 17 行含 `AUTO_CLEAR_ENABLED` |
+| 2026-10-07 | 批 3 收口 | 章名回灌扫描 `rg -n "避坑清单\|四类" chapters/` | ch06 H1 改「…、UA 与登录」后，overview 第 6 条与 ch05「下一章预告」**两处已回灌**并重发布；ch01:96 为泛指「避坑清单」，无需改。**批 3 前端与避坑通过** |
+| 2026-10-07 | P4 收口 | 全量 `publish_copies.py --check` | 发现 **ch04 output/vault 副本滞留在旧锚点**（`:1302`、`:1290-1292`），而 `chapters/04` 已是批 1 修正后的 `:1304`、`:1293-1294`——即批 1 的锚点修正在 ch04 只落到了副本、漏回 `chapters/04`（或副本未随之重发布）。**已核对源码**（`all_in_one.sh:1304` = 强制登入用户名；`:1293-1294` = 两条 WARN）确认真值后 `--apply --only 04` 重发布，七章副本全部 `OK`；`assemble_final.py --apply/--check` 均 `需更新 0 章` |
