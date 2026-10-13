@@ -29,6 +29,7 @@ graph TB
     OpenCode[📁 OpenCode]
     Hermes[📁 Hermes Agent]
     REA[📁 REA 逆向工程]
+    Jailbreak[📁 AI 破甲]
     end
 
     Basics --> A1[AI Agents]
@@ -239,6 +240,12 @@ graph TB
 > [[REA 逆向工程 MOC]] — 完整目录与导航入口
 
 - [[REA 逆向工程 MOC|REA 逆向工程（8 章）]] — 从零认识 REA（把逆向工程能力接给 AI agent 的 MCP server + CLI）：是什么、22 类可分析目标全景、安装接入、两条「零引擎」实战（静态 JS/Electron、网站观测）、provider 与平台限制、边界与安全、速查附录 #AI学习 #逆向工程 #REA #MCP
+
+### AI 破甲
+
+> [[AI 破甲 MOC]] — 完整目录与导航入口
+
+- [[AI 破甲 MOC|AI 破甲（5 章）]] — 从安全视角看懂 AI 越狱：破甲是什么、与提示注入/红队/对齐怎么分，对齐为什么挡不住它，攻击在机制层分成哪几类，以及检测、护栏、评测与治理；只讲机制与原理，不含载荷 #AI学习 #AI安全 #破甲 #越狱 #LLM安全
 
 ---
 

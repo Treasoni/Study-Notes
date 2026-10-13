@@ -10,11 +10,11 @@ topic: "什么叫 AI 破甲、为什么要破甲、如何破甲（AI 越狱 / Ja
 project_slug: "ai-jailbreak"
 created_at: "2026-10-13"
 last_updated: "2026-10-13"
-current_phase: P6
-current_status: ready
+current_phase: done
+current_status: complete
 mode: outline
 blocked_reason: ""
-quality_gate: pending
+quality_gate: passed
 quality_gate_owner: ""
 quality_gate_due: ""
 ---
@@ -26,7 +26,7 @@ quality_gate_due: ""
 > 运行标识：ai-jailbreak
 > 项目标识：ai-jailbreak
 > 创建时间：2026-10-13
-> 当前阶段：阶段 6
+> 当前阶段：完成
 > 状态图例：⬜ 未开始 | 🔲 进行中 | ✅ 已完成 | ⏭️ 跳过
 
 ---
@@ -115,7 +115,7 @@ quality_gate_due: ""
 - [ ] frontmatter、标签、Callout、双链已按 Obsidian 规则处理
 - [ ] 最终 Markdown 已保存到用户指定位置或 `./output/final_note.md`
 
-> [P6] ⬜ 未开始
+> [P6] ✅ 已完成 {complete}
 
 ---
 
@@ -125,7 +125,7 @@ quality_gate_due: ""
 - [ ] 已去重并更新摘要/标签
 - [ ] MOC 只保留索引，不复制正文
 
-> [P7] ⬜ 未开始
+> [P7] ✅ 已完成 {complete}
 
 ---
 
@@ -133,6 +133,8 @@ quality_gate_due: ""
 
 | 阶段 | 确认内容 | 时间 |
 |------|----------|------|
+| P7 | P7 完成：AI学习/00-索引/AI学习 MOC.md 已加入 mermaid 节点 Jailbreak[📁 AI 破甲] 与 ### AI 破甲 章节（含 > [[AI 破甲 MOC]] 导航行与带标签索引条目）；结构自检 0 可疑。 | 2026-10-13 21:19 |
+| P6 | P6 完成：按用户「按你推荐的来」采用分册结构，发布到 vault AI学习/AI 破甲/（5 章 + AI 破甲 MOC.md + sortspec.md，共 7 文件），项目侧保留 output/final_note.md。全门绿：C 多副本 5 组比对 0 差异、V 逐字回源 0 未命中、S1-S4 全 0、结构自检 0 可疑、校验器自检 7/7、27 条双链目标全部存在。说明：00_intent 预计目录为 AI学习/AI 安全/，此处按 vault 既有「主题文件夹 + 同名 MOC」惯例改用 AI 破甲/。 | 2026-10-13 21:19 |
 | P5 | 组装完成：output/final_note.md（15,289 汉字 / 84.9 KB，5 章、5 张引文对照表）。全门绿：V 218/218 逐字回源命中、S1–S4 全 0、C 多副本 5 组比对 0 差异、结构自检 0 可疑。按用户'按你推荐的来'：采用分册结构（对齐 AI学习/REA 逆向工程 先例）。 | 2026-10-13 21:15 |
 | P5 | 组装完成：output/final_note.md（15,289 汉字 / 84.9 KB，5 章、5 张引文对照表）。全门绿：V 218/218 逐字回源命中、S1–S4 全 0、C 多副本 5 组比对 0 差异、结构自检 0 可疑。按用户'按你推荐的来'批准：采用分册结构。 | 2026-10-13 21:14 |
 | P4 | 第 1–5 章全部写完；用户授权免逐章确认（'可以，全部写完'）。独立复核：V 109/109 命中、S1–S4 全 0、check-md-structure 0 可疑；跨章一致性三类全覆盖通过；修掉 4.4% 中间产物泄漏 8 处、补第 2 章缺失的「四层递进表」；全文 14,821 汉字（区间 1.2–1.5 万内）。 | 2026-10-13 21:10 |
@@ -172,11 +174,15 @@ quality_gate_due: ""
 
 > **取数纪律**：下表的体积 / 字数 / 章数 / 锚点数 / Callout 数必须**当场重新运行取数或重新计数**，并把命令留在「取数命令」一行；不要从上下文里的历史输出誊抄，也不要手算合计。产物在记录之后又被改动时，grep 同一数字的**所有**出现处一并更新（同一组数字常同时出现在阶段段落与本节）。
 
-- **笔记类型**：
-- **总字数**：
-- **章节数**：
-- **输出格式**：
+- **笔记类型**：概念 + 安全视角分析（入门 → 上手，面向零基础）
+- **总字数**：项目侧 `output/final_note.md` 15,289 汉字 / 84,882 字节；vault 分册 5 章合计 15,214 汉字（差额 75 字为单文件独有的导读 + 目录包装）
+- **章节数**：5 章；vault 侧共 7 个文件（5 章 + `AI 破甲 MOC.md` + `sortspec.md`）
+- **输出格式**：Obsidian Markdown 分册（独立章文件 + 顶部/底部导航双链 + MOC），项目侧另留一份完整单文件
 - **取数命令**：
-- **文件路径**：
-- **Obsidian Vault**：
-- **MOC 路径**：
+  ```bash
+  python3 -c "import re,pathlib;p=pathlib.Path('workspace/ai-jailbreak/output/final_note.md');t=p.read_text();print('汉字',len(re.findall(r'[一-鿿]',t)),'字节',p.stat().st_size,'H1章数',len(re.findall(r'^# 第',t,re.M)),'Callout',len(re.findall(r'^> \[!',t,re.M)),'引文对照表行',len(re.findall(r'^\| \d+ \|',t,re.M)))"
+  ```
+  同批取数结果：H1 章数 5 / Callout 15 / 引文对照表行 57；vault 分册双链 27 条（目标全部存在）。
+- **文件路径**：`workspace/ai-jailbreak/output/final_note.md`（完整单文件，canonical）
+- **Obsidian Vault**：`AI学习/AI 破甲/`（5 章 + `AI 破甲 MOC.md` + `sortspec.md`）
+- **MOC 路径**：`AI学习/AI 破甲/AI 破甲 MOC.md`；索引页 `AI学习/00-索引/AI学习 MOC.md`（已加 mermaid 节点 + `### AI 破甲` 条目）
