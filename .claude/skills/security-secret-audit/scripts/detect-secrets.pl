@@ -63,8 +63,9 @@ while (my $line = <STDIN>) {
     my @rules;
 
     push @rules, 'private-key-material'
-        if $line =~ /-----BEGIN (?:[A-Z ]+ )?PRIVATE KEY-----/;
-    if ($line =~ /\b(sk-[A-Za-z0-9_-]{16,})\b/ && !is_placeholder($1)) {
+        if $line =~ /-----BEGIN (?:[A-Z ]+ )?PRIVATE KEY-----/
+        && $line !~ /XXXX|\.\.\.|\byour\b|placeholder/i;
+    if ($line =~ /\b(sk-(?!ssh-|ecdsa-)[A-Za-z0-9_-]{16,})\b/ && !is_placeholder($1)) {
         push @rules, 'openai-style-api-key';
     }
     if ($line =~ /\b(gh[pousr]_[A-Za-z0-9_]{30,}|github_pat_[A-Za-z0-9_]{22,})\b/ && !is_placeholder($1)) {
