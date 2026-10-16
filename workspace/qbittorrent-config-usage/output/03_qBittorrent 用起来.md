@@ -11,7 +11,7 @@ tags:
   - BT下载
   - 入门教程
 created: 2026-10-07
-updated: 2026-10-07
+updated: 2026-10-16
 status: active
 source_project: qbittorrent-config-usage
 ---
@@ -30,7 +30,7 @@ source_project: qbittorrent-config-usage
 - 第 5 章 用起来（上）：加种、Tracker、DHT/PeX/LPD 与 RSS
   - 5.1 结论先行：加进来 → 找到人 → 被找到
   - 5.2 加种：磁力链接 / torrent 文件，与「添加时」触发
-  - 5.3 Tracker：公告地址与公共列表（F11）
+  - 5.3 Tracker：公告地址、公共列表与界面状态（F11）
   - 5.4 DHT / PeX / LPD：官方一句话描述，与「为什么私种要关」（G2）
   - 5.5 RSS：官方选项页未覆盖，来源薄弱（G7）
 - 第 6 章 用起来（下）：分享率、H&R 与「没速度」排查
@@ -68,7 +68,7 @@ qB 可以被设为打开 `.torrent` 文件 / 点击磁力链接时的默认应�
 
 加种时还能顺手触发一件事：qB 有一个触发点叫 `torrentAdded`（**添加时**）[^c5-lb6-124]，对应配置键 `AutoRun/OnTorrentAdded/Enabled`，**默认关闭**[^c5-lb6-145]。它和中册第 4 章的「完成时」回调是一对——一个管「刚加进来」，一个管「下完了」。
 
-### 5.3 Tracker：公告地址与公共列表（F11）
+### 5.3 Tracker：公告地址、公共列表与界面状态（F11）
 
 **Tracker 是公告服务器**：你的客户端向它报到，它回给你一串同伴地址。官方对它的响应格式有明确说法：
 
@@ -91,6 +91,29 @@ qB 可以被设为打开 `.torrent` 文件 / 点击磁力链接时的默认应�
 ```text
 https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt
 ```
+
+**界面上的「状态」到底有哪几种？**
+
+在 Tracker 列表（F11）里，每条 Tracker 后面都跟着一个状态词。它不是随手写的文案，而是 qB 内部一组固定取值在界面上的显示（下列串取自 qBittorrent 官方源码 @ `df402f91d456`）：
+
+| 界面显示（英文原串） | 内部取值 | 说人话 |
+| --- | --- | --- |
+| `Working` | `Working = 2` | 正常报到，工作正常 |
+| `Not working` | `NotWorking = 4` | 联系上了，但没在正常工作 |
+| `Tracker error` | `TrackerError = 5` | Tracker 那头明确返回了错误 |
+| `Unreachable` | `Unreachable = 6` | 连不上（地址 / 网络不通） |
+| `Not contacted yet` | `NotContacted = 1` | 还没联系过（刚添加、等待中） |
+| `Updating...` | 无（是标记，不是状态） | 正在更新，稍后会被上面某一档顶替 |
+| `Disabled` | WebUI 记 `0` | 这条 Tracker 被禁用 |
+
+> [!warning] 别漏了 `Tracker error` 与 `Unreachable`
+> 网上流传的一张手抄状态表只列了 `Working` / `Updating` / `Not Working` / `Not Contacted` / `Disabled`，**漏掉了 `Tracker error`（5）与 `Unreachable`（6）**，还把 `Updating` 当成一种状态。按源码，状态枚举只有五档 `1 / 2 / 4 / 5 / 6`（`3` 未被使用）[^c5-lb9-24]；`Updating...` 是一个独立的「正在更新」标记，为真时**先于**状态判断返回，所以它不是一种状态[^c5-lb9-42]。
+
+> [!note] 桌面版还多两条说明串
+> 桌面版的 Tracker 列表里还会出现 `Disabled for this torrent`（**因这个种子**而被禁用）与 `This torrent is private`（**私种**）[^c5-lb9-37]。这两条是说明文字，不在上面那五档状态里。WebUI 另把被禁用的那条记为数值 `0`[^c5-lb9-62]。
+
+> [!tip] 大白话
+> 把状态词当成**快递物流的几条轨迹**：`Not contacted yet` = 刚下单；`Working` = 派送中一切正常；`Not working` / `Tracker error` / `Unreachable` = 三种不同的「没送成」——分别是「联系上了但没正常工作」「Tracker 那头报了错」「压根联系不上」。`Updating...` 则是「正在查询」，是个过程提示，不是最终结果。
 
 ### 5.4 DHT / PeX / LPD：官方一句话描述，与「为什么私种要关」（G2）
 
@@ -120,6 +143,7 @@ qBittorrent 有 RSS 功能，但**本册没有可依的官方一手说明**：�
 
 - 加种、找人、被找到三步；`.torrent` 文件带 metainfo，磁力链接只带 `info_hash`[^c5-lc1-83]。
 - Tracker 是公告服务器，响应是 bencoded 字典[^c5-lc1-106]；公共列表由机器人每日更新[^c5-lc4-29]，**条目数是变动值**（F11），引用要绑日期。
+- 界面上的 Tracker 状态是五档枚举（`1/2/4/5/6`）[^c5-lb9-24]；`Updating...` 是标记、不是状态[^c5-lb9-42]；桌面版另有「因这个种子被禁」「私种」两条说明串[^c5-lb9-37]——**别漏 `Tracker error` 与 `Unreachable`**。
 - 「添加时」有独立触发点 `torrentAdded` 与配置键 `AutoRun/OnTorrentAdded/Enabled`（默认关）[^c5-lb6-124][^c5-lb6-145]。
 - DHT / PeX / LPD 是三个可关的开关[^c5-lc5-12]；定义以官方术语为准（G2），私种常见要求关掉，具体以目标站 rules / FAQ 为准。
 - RSS 官方选项页未覆盖，来源薄弱（G7），本册不展开。
@@ -163,6 +187,10 @@ qBittorrent 有 RSS 功能，但**本册没有可依的官方一手说明**：�
 [^c5-lb1-14]: LB-1 · `sources/l2-1_options-explained.md:14-31`（选项页目录，无 RSS 标签页）。
 [^c5-lb6-124]: LB-6 · `sources/l2-6_placeholder-source.md:124`（触发点 `Application::torrentAdded`）。
 [^c5-lb6-145]: LB-6 · `sources/l2-6_placeholder-source.md:145-147`（`AutoRun/OnTorrentAdded/Enabled`，默认 `false`）。
+[^c5-lb9-24]: LB-9 · `sources/l3-9_tracker-status-official-source.md:24-31`（状态枚举 `TrackerEndpointState`：`NotContacted = 1` / `Working = 2` / `NotWorking = 4` / `TrackerError = 5` / `Unreachable = 6`；无 `0`、无 `3`）。
+[^c5-lb9-42]: LB-9 · `sources/l3-9_tracker-status-official-source.md:42-43`（`isUpdating` 为真时先于 `switch` 返回 `Updating...`，故它不是枚举状态）。
+[^c5-lb9-37]: LB-9 · `sources/l3-9_tracker-status-official-source.md:37-38`（桌面版另有 `Disabled for this torrent` 与 `This torrent is private` 两条说明串）。
+[^c5-lb9-62]: LB-9 · `sources/l3-9_tracker-status-official-source.md:62-78`（WebUI `trackerStatusText`：`0` = `Disabled`、`1` = `Not contacted yet`、`2` = `Working`、`4` = `Not working`、`5` = `Tracker error`、`6` = `Unreachable`）。
 
 ## 第 6 章 用起来（下）：分享率、H&R 与「没速度」排查
 
@@ -358,3 +386,9 @@ qBittorrent 有 RSS 功能，但**本册没有可依的官方一手说明**：�
 [^c6-lc3-79]: LC-3 · `sources/l3-3_archwiki-deluge.md:79`（conntrack 可能把合法 DHT 流量当 INVALID 丢弃）。
 [^c6-la1-60]: LA-1 · `sources/l1-1_official-docker-readme.md:60`（官方镜像 torrenting 端口默认 `6881`）。
 [^c6-la2-91]: LA-2 · `sources/l1-2_linuxserver-qbittorrent.md:91`（linuxserver 镜像端口映射示例：`8080` 对应 WebUI）。
+
+## 更新记录
+
+| 日期 | 变更 | 来源 |
+| --- | --- | --- |
+| 2026-10-16 | §5.3 新增「界面上的 Tracker 状态对照表」：补 `Tracker error`(5) 与 `Unreachable`(6) 两个状态，纠正 `Updating...` 不是状态；桌面版两条说明串单列 | LB-9 · `sources/l3-9_tracker-status-official-source.md` |

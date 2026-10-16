@@ -10,7 +10,7 @@ status: 已完成（待用户确认 workspace 同步方向）
 
 ## 一句话摘要
 
-按用户确认的「第 0 步（补实）+ 第 1 步（归位）+ 第 2 步（去重）」执行：**中册 §4.4 代理一节从「只给接入点」补成「字段以源码为准」；顶层散乱的 `qBittorent/` 迁入分册目录并标记归档；孤儿附件去重**。四份成品在 vault 与 workspace 两处仍逐字节一致。
+按用户确认的「第 0 步（补实）+ 第 1 步（归位）+ 第 2 步（去重）」执行：**中册 §4.4 代理一节从「只给接入点」补成「字段以源码为准」；顶层散乱的 `qBittorent/` 迁入分册目录并标记归档；孤儿附件去重**。其后按用户追加确认，做**增量 2**：**下册 §5.3 补入「界面上的 Tracker 状态对照表」**（补 `Tracker error`/`Unreachable` 两档、纠正 `Updating...` 非状态）。四份成品在 vault 与 workspace 两处仍逐字节一致。
 
 ## 改动明细
 
@@ -82,6 +82,26 @@ Callout 16 → 20；脚注引用 84 → 114、定义 66 → 94。
   （`../../../流媒体与影音/…`），破坏证据链，已改回原文 `assets/qBittorrent配置代理/file-20260202223705113.png`。
   （vault 根 = 项目根，`workspace/` 也在 Obsidian 索引范围内，这是本仓库的已知副作用。）
 
+### G. 增量 2：下册 §5.3 新增「界面上的 Tracker 状态对照表」（vault + workspace output 同步）
+
+第二个增量，针对旧散记《qBittorrent的Tracker》里**唯一一处「有内容但成品没有」**的实料：Tracker 状态表。用户选定「先做低风险的那个 Tracker 状态表（纯 UI 枚举、可逐字取证）」。
+
+| 位置 | 前 | 后 |
+| --- | --- | --- |
+| §5.3 标题 / 目录条目 | `Tracker：公告地址与公共列表（F11）` | `Tracker：公告地址、公共列表与界面状态（F11）`（不改编号，避免 5.4/5.5 连带重排） |
+| §5.3 末尾（公共列表代码块之后） | 直接结束，接 §5.4 | 新增 7 行状态对照表 + 1 处 `[!warning]`「别漏 `Tracker error` 与 `Unreachable`」+ 1 处 `[!note]`「桌面版还多两条说明串」+ 1 处 `[!tip] 大白话`（快递轨迹类比） |
+| 本章小结 | 5 条 | 6 条（新增「状态是五档枚举 / `Updating...` 是标记 / 别漏 5 与 6」） |
+| 脚注 | 第 5 章 19 条定义 | 新增 `[^c5-lb9-*]` 4 条 |
+| frontmatter | `updated: 2026-10-07` | `updated: 2026-10-16` |
+| 文末 | — | 新增 `## 更新记录`（1 行：2026-10-16 / LB-9） |
+
+**本增量纠正的口径错**（旧散记的表本身有缺漏）：旧散记列 `Working / Updating / Not Working / Not Contacted / Disabled`，**漏了 `Tracker error`（枚举 5）与 `Unreachable`（枚举 6）**，并把 `Updating` 当成一种状态。按源码 `trackerentrystatus.h:40-47`，状态枚举只有五档 `1 / 2 / 4 / 5 / 6`（`0` 是 WebUI 侧的 `Disabled`，`3` 未被使用）；`Updating...` 是 `isUpdating` 标记，为真时**先于** `switch` 返回（`trackerlistmodel.cpp:218-219`、`prop-trackers.js:47-48`），不是状态。桌面版另有 `Disabled for this torrent` 与 `This torrent is private` 两条说明串（`trackerlistmodel.cpp:68-69`），已单列并注明**仅桌面版**。
+
+**新增来源件 LB-9**（primary，qBittorrent 源码 @ `df402f91d456`）：`sources/l3-9_tracker-status-official-source.md`，逐字留档 `trackerentrystatus.h`（枚举）、`trackerlistmodel.cpp`（桌面版状态串 + `statusText()`）、`prop-trackers.js`（WebUI 状态串与数值映射）三处片段。**未**写入任何「某状态该怎么办」的处置建议——那属教程性建议，无来源，故不写。
+
+> [!warning] 一处自查纠正（本增量开工时）
+> LB-9 首次生成时**片段标题与片段正文错位**（`## 片段 3` 标题压在 `trackerlistmodel.cpp` 正文之上）；已按「片段 1 = 枚举 / 片段 2 = 桌面版 / 片段 3 = WebUI / 读法」重排，并补齐标题前空行。
+
 ## 校验
 
 | 检查 | 命令 | 结果 |
@@ -92,12 +112,22 @@ Callout 16 → 20；脚注引用 84 → 114、定义 66 → 94。
 | 双链解析 | `obsidian vault="项目" links path=…` | 总览 10 条、旧散记互链与图片全部解析；**0 未解析**（改前有 1 条悬空） |
 | 副本一致性 | python `read_bytes()` 全量比对 4 组 | **4/4 逐字节一致**（vault ↔ `workspace/.../output/`） |
 
+**增量 2（下册 §5.3）复核**
+
+| 检查 | 命令 | 结果 |
+| --- | --- | --- |
+| 逐字引文回源（下册） | `python3 .claude/scripts/note-citation-check.py workspace/qbittorrent-config-usage --mode verbatim --file "<vault 下册绝对路径>"` | 英文整句 **89** 处，原始来源命中 **89** / 仅中间产物 0 / **未命中 0** |
+| 脚注配对（下册，全文） | python 复核 | 引用 76 / 定义 76（去重）；新增 `c5-lb9-24 / 37 / 42 / 62` 定义 4/4 全被引用；无未定义、无孤立 |
+| 结构自检（下册） | `python3 .claude/scripts/check-md-structure.py "<下册绝对路径>"` | 扫描 1 个文件，**0 处可疑** |
+| 双链解析（下册） | `obsidian vault="项目" links path=…` | 出链 2 条全部解析；**0 未解析** |
+| 副本一致性 | python `read_bytes()` | 下册 vault ↔ output **逐字节一致**（35,077 B） |
+
 ## 未处理风险 / 遗留
 
 1. **`chapters/` 未同步**：`workspace/qbittorrent-config-usage/chapters/` 是**组装前形态**，
    与发布件本就不同形（六个章文件 + 引文对照在章末）。本次 §4.4 的改动**没有**回写章文件，
    因为回写需要重跑 `note-assembler` 才能保持 `output/` 一致；已按 note-updater 的边界如实留在沉默之外——
-   若日后有人从 `chapters/` 重新组装，会**丢掉**本次 §4.4/§4.6 的全部补实。
+   若日后有人从 `chapters/` 重新组装，会**丢掉**本次 §4.4/§4.6 的全部补实，以及增量 2 的 §5.3 状态表。
 2. **workspace 同步方向待确认**：本次 vault 与 `output/` 两侧都改了，`chapters/` 与 `_merge/` 未改。
    本次选择的是「vault → output 单侧镜像」；是否要把 vault 正文回灌 `chapters/`，需用户决定
    （回灌 = 重跑 note-assembler；不回灌 = 明确弃用 `chapters/` 作为再发布源）。
@@ -119,3 +149,4 @@ Callout 16 → 20；脚注引用 84 → 114、定义 66 → 94。
 | --- | --- | --- |
 | LB-7 | `sources/l2-7_proxy-official-source.md` | primary（qBittorrent 源码 @ `df402f91d456`） |
 | LB-8 | `sources/l2-8_proxy-user-practice.md` | 用户自测（第一手，**非官方**） |
+| LB-9 | `sources/l3-9_tracker-status-official-source.md` | primary（qBittorrent 源码 @ `df402f91d456`：Tracker 状态枚举 / 桌面版状态串 / WebUI 数值映射） |
