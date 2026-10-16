@@ -44,6 +44,23 @@ sub is_config_like_path {
     return 0;
 }
 
+# Source and prose files are named after what they implement or discuss, so a
+# basename like `proxyconfigurationmanager.cpp` or `qbittorrent-config-guide.md`
+# reads as "configuration" to the heuristic above. Inside such files an unquoted
+# right-hand side is a variable reference or a code excerpt
+# (`m_config.password = m_storeProxyPassword`), not a literal secret, so only
+# quoted literals are reported there. Provider formats and private keys are
+# still matched anywhere by the rules below; `.env`, `.ini`, `.cfg`, `.conf`,
+# `.yaml`, `.toml`, and `.properties` keep the looser unquoted match.
+sub is_source_or_prose_path {
+    return 1 if $path eq '';
+
+    my ($name) = $path =~ m{([^/]+)$};
+    return 1 if $name =~ /\.(?:c|cc|cpp|cxx|h|hh|hpp|hxx|m|mm|cs|java|kt|kts|swift|go|rs|py|pyi|rb|php|pl|pm|js|jsx|mjs|cjs|ts|tsx|vue|svelte|sh|bash|zsh|fish|ps1|sql|css|scss|less|html|htm|xml|ui|md|markdown|txt|rst|adoc)$/i;
+
+    return 0;
+}
+
 my $secret_suffix = qr/(?:api[_-]?key|secret|password|passwd|private[_-]?key|access[_-]?key|client[_-]?secret)/i;
 my $secret_name = qr/
     (?:
@@ -93,9 +110,12 @@ while (my $line = <STDIN>) {
     # An unquoted value ends at markup, quote, or non-ASCII bytes so trailing
     # HTML/prose after a short token is not folded into the captured value.
     if (is_config_like_path() && $line =~ /\b($secret_name)\b\s*[:=]\s*(?:"([^"]*)"|'([^']*)'|([^\s,;\}\]\)#<>"'\x80-\xFF]+))/) {
+        my $quoted = defined $2 || defined $3;
         my $value = defined $2 ? $2 : defined $3 ? $3 : $4;
         push @rules, 'named-secret-literal'
-            if length($value) >= 16 && !is_placeholder($value);
+            if ($quoted || !is_source_or_prose_path())
+            && length($value) >= 16
+            && !is_placeholder($value);
     }
 
     my %seen;

@@ -1,7 +1,8 @@
 ---
 title: qBittorrent Tracker 配置详解
 created: 2026-02-05
-updated: 2026-04-05
+updated: 2026-10-16
+status: archived
 tags:
   - qBittorrent
   - Tracker
@@ -9,6 +10,10 @@ tags:
 ---
 
 # qBittorrent Tracker 配置详解
+
+> [!warning] 已归档（旧散记）
+> 本篇是 2026-02 ~ 2026-04 的旧散记，**不再维护**，仅作补充参考；版本号、字段取值、站点规则一律**以本分册三册成品与总览为准**：[[流媒体与影音/qBittorrent 配置与使用/qBittorrent 配置与使用（总览）|qBittorrent 配置与使用（总览）]]。
+> 已知过时点：Tracker 列表的「81 / 149 / 72 个」为当时的快照计数，未复核；代理一节同前一篇，作用范围写错了。
 
 ## 1. Tracker 是干嘛的？（一句话版）
 
@@ -51,7 +56,7 @@ tags:
 
 ## 3. 无法下载是为什么？
 
-![](assets/qBittorrent的Tracker/截��2026-02-05%2021.08.11.png)
+![](assets/qBittorrent的Tracker/截屏2026-02-05%2021.08.11.png)
 
 结合截图里的信息：
 
@@ -196,4 +201,4 @@ tags:
 - [Best qBittorrent Settings 2026](https://www.rapidseedbox.com/blog/qbittorrent-settings) - RapidSeedbox 优化指南
 
 ---
-*最后更新：2026-04-05*
+*最后更新：2026-04-05（已于 2026-10-16 归档）*

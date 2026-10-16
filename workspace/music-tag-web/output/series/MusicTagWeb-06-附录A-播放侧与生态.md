@@ -218,7 +218,7 @@ networks:
 
 ## 相关笔记
 
-- [[qBittorrent的使用]] —— 同为自托管媒体服务，下载侧的对照读物
+- [[../../../../流媒体与影音/qBittorrent 配置与使用/旧散记/qBittorrent的使用]] —— 同为自托管媒体服务，下载侧的对照读物
 - [[Docker与DockerCompose命令速查]] —— 联动容器时的编排字段
 
 ---

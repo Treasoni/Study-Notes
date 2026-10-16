@@ -1,7 +1,8 @@
 ---
 title: qBittorrent PT站点与分享率管理
 created: 2026-02-05
-updated: 2026-04-05
+updated: 2026-10-16
+status: archived
 tags:
   - qBittorrent
   - PT
@@ -10,6 +11,10 @@ tags:
 ---
 
 # qBittorrent PT站点与分享率管理
+
+> [!warning] 已归档（旧散记）
+> 本篇是 2026-02 ~ 2026-04 的旧散记，**不再维护**，仅作补充参考；版本号、字段取值、站点规则一律**以本分册三册成品与总览为准**：[[流媒体与影音/qBittorrent 配置与使用/qBittorrent 配置与使用（总览）|qBittorrent 配置与使用（总览）]]。
+> 已知过时点：各站「最低分享率 / 考核周期」表是**站点特定规则**，且未逐站核实；本站口径一律以目标站 rules / FAQ 为准。
 
 ## 1. 公站 vs 私站（PT）
 
@@ -394,4 +399,4 @@ curl -X GET "http://localhost:8080/api/v2/torrents/info" \
 - [XIU2/TrackersListCollection](https://github.com/XIU2/TrackersListCollection) - Tracker 列表（每日更新）
 
 ---
-*最后更新：2026-04-05*
+*最后更新：2026-04-05（已于 2026-10-16 归档）*

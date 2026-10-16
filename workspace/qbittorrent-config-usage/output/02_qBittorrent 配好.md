@@ -11,7 +11,7 @@ tags:
   - BT下载
   - 入门教程
 created: 2026-10-07
-updated: 2026-10-07
+updated: 2026-10-16
 status: active
 source_project: qbittorrent-config-usage
 ---
@@ -37,7 +37,7 @@ source_project: qbittorrent-config-usage
   - 4.1 结论先行：让下载「自动收尾」
   - 4.2 分类与标签：为「自动整理」铺路
   - 4.3 队列与限速：只搬官方自查清单，不给万能值
-  - 4.4 代理：接入点在这里，字段来源薄弱（标注）
+  - 4.4 代理：字段以源码为准，取值只长在你自己的环境里
   - 4.5 完成回调：以源码占位符为准（F6/F7），与 MoviePilot 对接
   - 4.6 动手实践（新手可跳过）
 
@@ -280,12 +280,66 @@ id your_user
 > [!tip] 大白话
 > 限速像**给水管装阀门**：开多大要看你家水压（实测带宽），别人家的开度抄不来。官方那张清单问的是「阀门、管子、接头各是什么规格」，从不给你一个「拧到 3.5 圈」的万能答案。
 
-### 4.4 代理：接入点在这里，字段来源薄弱（标注）
+### 4.4 代理：字段以源码为准，取值只长在你自己的环境里
 
-代理的入口在 `Connection` → `Proxy server` 一节[^c4-lb1-91][^c4-lb1-105]：官方说明它用于「下载种子时使用代理服务器」[^c4-lb1-106]。
+**结论先行**：代理＝让 qBittorrent 的流量先绕到一台「中转站」再出去。入口在 `Connection` → `Proxy Server`[^c4-lb1-91][^c4-lb1-105]；官方对这块的整段说明只有一句——代理用于「下载种子时使用代理服务器」[^c4-lb1-106]。
 
-> [!warning] 本册不给代理的具体字段
-> 代理涉及一串字段（类型、主机、端口、认证等），本册**没有 qBittorrent 一手来源**逐字给出取值。这里只给「接入点在哪」，**字段一律以官方选项页为准**。
+官方那张选项说明页**一个代理字段都没列**。所以本节字段一律**以源码为准**（来源 ID `LB-7`）。
+
+**① 界面上有哪些字段**
+
+| 界面字段（官方英文原文） | 出处 | 说明 |
+| --- | --- | --- |
+| `Type:` | LB-7[^c4-lb7-33] | 下拉四选一：`None` / `HTTP` / `SOCKS5` / `SOCKS4`[^c4-lb7-111] |
+| `Host:` | LB-7[^c4-lb7-41] | 代理地址（IP 或域名） |
+| `Port:` | LB-7[^c4-lb7-49] | 代理端口 |
+| 认证（一组，勾选后才可填） | LB-7[^c4-lb7-68] | 代理要求认证时填 `Username` / `Password`[^c4-lb7-71] |
+| `Perform hostname lookup via proxy` | LB-7[^c4-lb7-65] | 勾上＝域名解析也走代理[^c4-lb7-62] |
+| `Use proxy for BitTorrent purposes` | LB-7[^c4-lb7-79] | 种子相关流量是否用代理 |
+| `Use proxy for peer connections` | LB-7[^c4-lb7-87] | 勾上才让 **P2P 同伴连接**也走代理[^c4-lb7-84] |
+| `Use proxy for RSS purposes` | LB-7[^c4-lb7-95] | RSS 是否走代理[^c4-lb7-92] |
+| `Use proxy for general purposes` | LB-7[^c4-lb7-103] | 搜索引擎 / 软件更新等是否走代理[^c4-lb7-100] |
+
+顺带一句源码里的界面提示：**选了某些代理类型后，部分功能会不可用**——界面原文是「Some functions are unavailable with the chosen proxy type!」[^c4-lb7-57]。这解释了你为什么会在界面上看到变灰、点不动的勾选项：不是坏了，是所选代理类型不支持。
+
+> [!warning] 最容易配错的一处：「走了代理」到底走了什么
+> 官方源码里那句 tooltip 写得很明确：**`Use proxy for peer connections` 不勾时，代理只用于 tracker 连接**[^c4-lb7-84]。
+> 所以「我配了代理，为什么 P2P 流量还是直连？」——**它本来就该直连**；要让 P2P 也走代理，必须勾上 `Use proxy for peer connections`。留意这句话的作用范围：是**这一项没勾**时「仅走 tracker」，**不要**记成「qBittorrent 的代理一概不管 P2P」。（仓库顶层旧散记把这一受限情形写成了无条件结论，已在 `sources/l2-8_proxy-user-practice.md` 里逐字留档并在表前说明。）
+
+> [!tip] 大白话
+> 代理像**寄信的代收点**：`Use proxy for BitTorrent purposes` 是「这批信要不要走代收点」，`Use proxy for peer connections` 是「**上门取送那一段**要不要也交给代收点」。不勾后者，代收点只替你收「公告栏」（tracker），真正搬货（P2P 数据）还是两端直接对接。
+
+**② 具体填什么值：只有两个合法来源**
+
+代理取值**没有官方推荐值**，只有两个来源：① 官方文档 / 源码逐字给出（上面那张表就是）；② **你自己环境的实测值**。下面这份是**本文档作者本人环境**的实测样例，只能当「一份填好的长什么样」的参照：
+
+| 字段 | 实测值 | 当时的情形 |
+| --- | --- | --- |
+| `Type:` | `HTTP` | 该代理是 Clash 的**混合端口**，HTTP 与 SOCKS5 都能接[^c4-lb8-35] |
+| `Host:` | `192.168.110.119` | iStoreOS 旁路由的**局域网 IP**[^c4-lb8-44] |
+| `Port:` | `7893` | Clash 的 `mixed-port`[^c4-lb8-45] |
+
+> [!warning] 这是**别人的**实测值，照抄一定不通
+> `192.168.110.119` 是那位作者家里的局域网地址，你的网段几乎不可能一样。能照抄的只是**「怎么填」的形态**——类型 / 地址 / 端口三件；三个具体数字必须换成你自己的。
+
+若你的代理也是 Clash、且要让局域网里其他设备连上它，Clash 侧至少要有这三行（同一份实测记录）[^c4-lb8-107]：
+
+```yaml
+mixed-port: 7893
+allow-lan: true
+bind-address: "*"
+```
+
+**③ 怎么知道生效了**
+
+| 方法 | 怎么做 | 看到什么算通 |
+| --- | --- | --- |
+| 看 tracker 状态 | 加一个需要走代理的 tracker | 状态由 Not Working 变 Working[^c4-lb8-53] |
+| 用测试种子 | 加一个国外公开站的种子 | 能连上 tracker、有 peer |
+| 看日志 | 菜单 `视图` → `日志` | 出现代理连接相关记录[^c4-lb8-63] |
+
+> [!note] 这三条是「怎么试」的经验，不是官方判定标准
+> 官方文档没有给代理的验收步骤，上表来自本文档作者的实测记录（`LB-8`）。要硬证「确实走了代理」，最终依据仍是你在代理软件那一侧看到的连接记录。
 
 ### 4.5 完成回调：以源码占位符为准（F6/F7），与 MoviePilot 对接
 
@@ -329,7 +383,7 @@ id your_user
 ### 4.6 动手实践（新手可跳过）
 
 > [!tip] 新手可跳过
-> 这一节是可以直接照填的内容；不打算配回调的读者可跳过。
+> 这一节是可以直接照填的内容；不打算配回调的读者可跳过。（⑤ 只是「要不要手改配置文件」的说明，不配代理的读者同样可跳过。）
 
 **① 填进「完成回调」的命令**（地址、端口、token 按实际调整）[^c4-lb3-15]：
 
@@ -361,12 +415,27 @@ chmod 755 /path/to/script
 > [!warning] 别把种子名直接拼进 shell
 > qBittorrent 默认**不给外部程序注入 shell 环境**，正是为了防止「用种子名做命令注入」——源码注释里写得很清楚[^c4-lb6-54]。所以别写 `sh -c "... %N ..."` 这类把不可信字符串直接拼进 shell 的命令；要处理种子名，交给脚本的参数去接。
 
+**⑤ 代理要不要手改配置文件？** 一般不用：代理改界面就够了，qBittorrent 会自己写进配置文件。如果你确实要核对配置文件，代理的存储键在 `Network/Proxy/` 下[^c4-lb7-120]：
+
+| 键 | 对应界面 | 源码里的默认值 |
+| --- | --- | --- |
+| `Network/Proxy/Type` | `Type:` | `None`（不启用）[^c4-lb7-130] |
+| `Network/Proxy/IP` | `Host:` | 类型非 `None` 时默认 `0.0.0.0`[^c4-lb7-133] |
+| `Network/Proxy/Port` | `Port:` | `8080`[^c4-lb7-134] |
+| `Network/Proxy/AuthEnabled` / `Username` / `Password` | 认证组 | 关（`AuthEnabled` 默认不启用） |
+| `Network/Proxy/HostnameLookupEnabled` | `Perform hostname lookup via proxy` | `true`[^c4-lb7-138] |
+| `Network/Proxy/Profiles/BitTorrent` / `RSS` / `Misc` | 三个「用途」开关 | 见 4.4 ①[^c4-lb7-145] |
+
+> [!note] 表里的默认值不是「推荐值」
+> `8080` / `0.0.0.0` 只是**源码里的出厂默认**[^c4-lb7-134]，与任何一台真实代理的地址无关。真要填什么，仍按 4.4 ② 的两个来源来。
+
 ### 本章小结
 
 - 「自动收尾」＝配好分类与标签、队列与限速、代理、**完成回调**四件事；设置项都在同一张官方合并页里、按标签页分组（F5）。
 - 分类是**一个大抽屉**，标签是**抽屉里的便利贴**；MoviePilot 可「只整理带某标签的下载」[^c4-lb3-91]。
 - 限速 / 连接数**没有万能值**：官方让你先实测、再按自查清单逐项报[^c4-lc2-14]。
-- 代理只给「接入点」，字段以你自己的官方选项页为准（来源薄弱，已标注）。
+- 代理字段**以源码为准**（LB-7）：类型四选一（`None` / `HTTP` / `SOCKS5` / `SOCKS4`）、主机、端口、认证、三个「用途」开关；取值只有两个来源——官方文档 / 源码逐字给出，或你自己环境的实测值。
+- 代理的作用范围要记准（LB-7）：**`Use proxy for peer connections` 不勾时，代理只用于 tracker 连接**；想让 P2P 也走代理，必须勾上它。
 - 完成回调占位符**以源码为准**（13 个、大小写敏感，F6）；触发点 `torrentAdded` / `torrentFinished`；wiki 与源码不同步，**以源码为准**（F7）。
 - 回调地址填宿主还是容器名没有一手来源（G4）：同网络用服务名，跨网络用双方可达的宿主地址。
 
@@ -387,6 +456,16 @@ chmod 755 /path/to/script
 | 5 | `%G: Tags (separated by comma)` | %G：标签（以逗号分隔） | `LB-6 · sources/l2-6_placeholder-source.md:36` |
 | 6 | `Run on torrent added:` | 添加种子时运行： | `LB-6 · sources/l2-6_placeholder-source.md:221` |
 | 7 | `Run on torrent finished:` | 种子完成时运行： | `LB-6 · sources/l2-6_placeholder-source.md:239` |
+| 8 | `Some functions are unavailable with the chosen proxy type!` | 使用所选代理类型时，某些功能不可用！ | `LB-7 · sources/l2-7_proxy-official-source.md:57` |
+| 9 | `If checked, hostname lookups are done via the proxy` | 勾选后，域名解析通过代理进行。 | `LB-7 · sources/l2-7_proxy-official-source.md:62` |
+| 10 | `Perform hostname lookup via proxy` | 通过代理进行域名解析 | `LB-7 · sources/l2-7_proxy-official-source.md:65` |
+| 11 | `Use proxy for BitTorrent purposes` | 将代理用于 BitTorrent 用途 | `LB-7 · sources/l2-7_proxy-official-source.md:79` |
+| 12 | `Otherwise, the proxy server is only used for tracker connections` | 否则，代理服务器只用于 tracker 连接。 | `LB-7 · sources/l2-7_proxy-official-source.md:84` |
+| 13 | `Use proxy for peer connections` | 将代理用于同伴连接 | `LB-7 · sources/l2-7_proxy-official-source.md:87` |
+| 14 | `RSS feeds will use proxy` | RSS 订阅将使用代理。 | `LB-7 · sources/l2-7_proxy-official-source.md:92` |
+| 15 | `Use proxy for RSS purposes` | 将代理用于 RSS 用途 | `LB-7 · sources/l2-7_proxy-official-source.md:95` |
+| 16 | `Search engine, software updates or anything else will use proxy` | 搜索引擎、软件更新或其它任何流量都将使用代理。 | `LB-7 · sources/l2-7_proxy-official-source.md:100` |
+| 17 | `Use proxy for general purposes` | 将代理用于一般用途 | `LB-7 · sources/l2-7_proxy-official-source.md:103` |
 
 ### 脚注
 
@@ -431,3 +510,39 @@ chmod 755 /path/to/script
 [^c4-lc2-26]: LC-2 · `sources/l3-2_speed-issues.md:26`（自查项：加密开关）。
 [^c4-lc2-27]: LC-2 · `sources/l3-2_speed-issues.md:27`（自查项：IPv6 开关）。
 [^c4-lc2-31]: LC-2 · `sources/l3-2_speed-issues.md:31`（自查项：是否使用代理 / VPN）。
+[^c4-lb7-33]: LB-7 · `sources/l2-7_proxy-official-source.md:33`（`Type:` 标签，上游 `src/gui/optionsdialog.ui:2172`）。
+[^c4-lb7-41]: LB-7 · `sources/l2-7_proxy-official-source.md:41`（`Host:` 标签，上游 `:2182`）。
+[^c4-lb7-49]: LB-7 · `sources/l2-7_proxy-official-source.md:49`（`Port:` 标签，上游 `:2192`）。
+[^c4-lb7-57]: LB-7 · `sources/l2-7_proxy-official-source.md:57`（「Some functions are unavailable with the chosen proxy type!」，上游 `:2232`）。
+[^c4-lb7-62]: LB-7 · `sources/l2-7_proxy-official-source.md:62`（tooltip：勾选后域名解析走代理，上游 `:2239`）。
+[^c4-lb7-65]: LB-7 · `sources/l2-7_proxy-official-source.md:65`（`Perform hostname lookup via proxy`，上游 `:2242`）。
+[^c4-lb7-68]: LB-7 · `sources/l2-7_proxy-official-source.md:68`（认证组 `QGroupBox name="checkProxyAuth"`，上游 `:2247`）。
+[^c4-lb7-71]: LB-7 · `sources/l2-7_proxy-official-source.md:71`（`Username` 输入框，上游 `:2271`）。
+[^c4-lb7-79]: LB-7 · `sources/l2-7_proxy-official-source.md:79`（`Use proxy for BitTorrent purposes`，上游 `:2302`）。
+[^c4-lb7-84]: LB-7 · `sources/l2-7_proxy-official-source.md:84`（`Otherwise, the proxy server is only used for tracker connections`，上游 `:2314`）。
+[^c4-lb7-87]: LB-7 · `sources/l2-7_proxy-official-source.md:87`（`Use proxy for peer connections`，上游 `:2317`）。
+[^c4-lb7-92]: LB-7 · `sources/l2-7_proxy-official-source.md:92`（`RSS feeds will use proxy`，上游 `:2327`）。
+[^c4-lb7-95]: LB-7 · `sources/l2-7_proxy-official-source.md:95`（`Use proxy for RSS purposes`，上游 `:2330`）。
+[^c4-lb7-100]: LB-7 · `sources/l2-7_proxy-official-source.md:100`（`Search engine, software updates or anything else will use proxy`，上游 `:2340`）。
+[^c4-lb7-103]: LB-7 · `sources/l2-7_proxy-official-source.md:103`（`Use proxy for general purposes`，上游 `:2343`）。
+[^c4-lb7-111]: LB-7 · `sources/l2-7_proxy-official-source.md:111-114`（类型枚举 `None` / `HTTP` / `SOCKS5` / `SOCKS4`，上游 `src/base/net/proxytype.h:41-44`）。
+[^c4-lb7-120]: LB-7 · `sources/l2-7_proxy-official-source.md:120`（配置键前缀 `Network/Proxy/`，上游 `src/base/net/proxyconfigurationmanager.cpp:31`）。
+[^c4-lb7-130]: LB-7 · `sources/l2-7_proxy-official-source.md:130`（类型键默认取 `ProxyType::None`，上游 `:58`）。
+[^c4-lb7-133]: LB-7 · `sources/l2-7_proxy-official-source.md:133`（`IP` 在类型非 `None` 时默认 `0.0.0.0`，上游 `:61`）。
+[^c4-lb7-134]: LB-7 · `sources/l2-7_proxy-official-source.md:134`（`Port` 默认 `8080`，上游 `:62`）。
+[^c4-lb7-138]: LB-7 · `sources/l2-7_proxy-official-source.md:138`（`HostnameLookupEnabled` 默认 `true`，上游 `:66`）。
+[^c4-lb7-145]: LB-7 · `sources/l2-7_proxy-official-source.md:145`（`Network/Proxy/Profiles/BitTorrent`，上游 `src/base/preferences.cpp:2084`）。
+[^c4-lb8-35]: LB-8 · `sources/l2-8_proxy-user-practice.md:35`（旧散记「混合代理（重点）」并列出 HTTP / SOCKS5，上游旧散记 `:30-39`）。
+[^c4-lb8-44]: LB-8 · `sources/l2-8_proxy-user-practice.md:44`（实测「主机 = iStoreOS 的 IP（如 192.168.110.119）」，上游 `:46`）。
+[^c4-lb8-45]: LB-8 · `sources/l2-8_proxy-user-practice.md:45`（实测「端口 = 7893」，上游 `:47`）。
+[^c4-lb8-53]: LB-8 · `sources/l2-8_proxy-user-practice.md:53-56`（实测验证法：查看 tracker 状态是否变为 Working，上游 `:58-61`）。
+[^c4-lb8-63]: LB-8 · `sources/l2-8_proxy-user-practice.md:63`（实测验证法：检查日志，上游 `:68-70`）。
+[^c4-lb8-107]: LB-8 · `sources/l2-8_proxy-user-practice.md:107-109`（Clash `config.yaml` 的 `mixed-port` / `allow-lan` / `bind-address` 三行，上游 `:140-142`）。
+
+---
+
+## 更新记录
+
+| 日期 | 变更 | 来源 |
+| --- | --- | --- |
+| 2026-10-16 | 4.4 代理：由「只给接入点、字段来源薄弱」补实为**完整字段表 + 取值来源 + 验证方法**；并纠正旧散记「P2P 不经代理」的不完整说法，按源码 tooltip 的作用范围改写。4.6 增补 ⑤「代理要不要手改配置文件」。 | `LB-7`（上游源码）、`LB-8`（旧散记实测） |

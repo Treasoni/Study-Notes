@@ -1,7 +1,8 @@
 ---
 title: qBittorrent 代理配置指南
 created: 2026-02-02
-updated: 2026-04-05
+updated: 2026-10-16
+status: archived
 tags:
   - qBittorrent
   - 代理
@@ -9,6 +10,10 @@ tags:
 ---
 
 # qBittorrent 代理配置指南
+
+> [!warning] 已归档（旧散记）
+> 本篇是 2026-02 ~ 2026-04 的旧散记，**不再维护**，仅作补充参考；版本号、字段取值、站点规则一律**以本分册三册成品与总览为准**：[[流媒体与影音/qBittorrent 配置与使用/qBittorrent 配置与使用（总览）|qBittorrent 配置与使用（总览）]]。
+> 已知过时点：「P2P 数据下载通常不经过代理」被写成**无条件结论**——官方源码口径是「只有不勾 `Use proxy for peer connections` 时，代理才仅用于 tracker 连接」；另「仅对 Tracker 使用代理」这一勾选项名与现版界面不符。详见中册 §4.4。
 
 > [!info] 前提条件
 > 我的 qBittorrent 配置在 Pve 中的 Linux 中的 Docker 里，我还在 pve 中搭建了 iStoreOS 旁路由。
@@ -49,7 +54,7 @@ tags:
 | 密码 | 设了鉴权就填 |
 
 > [!warning] 重点警告
-> qb -> iStoreOS 上的 Clash（局域网），这里是否需要密码看 [[docker进行代理#2.3 什么时候【需要】账号密码？]]
+> qb -> iStoreOS 上的 Clash（局域网），这里是否需要密码，看你的 Clash 有没有开局域网鉴权（`allow-lan` 与认证配置）
 
 ![](assets/qBittorrent配置代理/截屏2026-02-05%2021.17.18.png)
 
@@ -171,4 +176,4 @@ bind-address: "*"
 - [Best qBittorrent Settings 2026](https://www.rapidseedbox.com/blog/qbittorrent-settings) - RapidSeedbox 优化指南
 
 ---
-*最后更新: 2026-04-05*
+*最后更新: 2026-04-05（已于 2026-10-16 归档）*

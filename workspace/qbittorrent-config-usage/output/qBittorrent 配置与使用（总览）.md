@@ -12,7 +12,7 @@ tags:
   - BT下载
   - 入门教程
 created: 2026-10-07
-updated: 2026-10-07
+updated: 2026-10-16
 status: active
 source_project: qbittorrent-config-usage
 ---
@@ -50,8 +50,17 @@ source_project: qbittorrent-config-usage
 - 上级分册 [[流媒体与影音/nastool 家庭影院 fnOS 部署/07 对接下载器与媒体服务器|第 7 章 对接下载器与媒体服务器]] 只给**两行对接配置**（下载目录映射、完成回调填 `curl`）；
 - 本分册补的正是「**怎么装、怎么配、怎么用**」这段被跳过的内容，并与上级分册的对接口径保持一致（下载目录同根、完成回调）。
 
-> [!note] 另有一组更早的散记
-> 仓库顶层 `qBittorent/`（文件夹名有拼写笔误）下还有四篇更早的散记：`qBittorrent的使用`、`qBittorrent PT站点与分享率`、`qBittorrent的Tracker`、`qBittorrent配置代理`。它们**保持原位不动**，作为补充参考；本分册是新写的系统教程，口径以官方文档与本分册为准。
+> [!note] 另有一组更早的散记（已归档）
+> 本目录下的 `旧散记/` 子文件夹里是四篇更早的散记（2026-02 ~ 2026-04）：[[流媒体与影音/qBittorrent 配置与使用/旧散记/qBittorrent的使用|qBittorrent 使用指南]]、[[流媒体与影音/qBittorrent 配置与使用/旧散记/qBittorrent配置代理|qBittorrent 代理配置指南]]、[[流媒体与影音/qBittorrent 配置与使用/旧散记/qBittorrent的Tracker|qBittorrent Tracker 配置详解]]、[[流媒体与影音/qBittorrent 配置与使用/旧散记/qBittorrent PT站点与分享率|qBittorrent PT 站点与分享率管理]]。
+> 它们**已归档、不再维护**，只在翻历史细节时作补充参考；版本号、字段取值、站点规则一律**以本分册为准**（四篇各自的过时点已写在各自文首的归档提示里）。
 
 > [!warning] 边界：通用机制 ≠ 某站规则
 > 「私种关 DHT / PeX / LPD」「分享率 / H&R 的阈值 / 最低做种时长」在本分册里讲的都是**通用机制**，**不是 qBittorrent 的官方规定，也不是某个站的规则**。**具体是否要关、阈值是多少，一律以你目标站的 rules / FAQ 为准**——本分册不给任何站的达标线。
+
+---
+
+## 更新记录
+
+| 日期 | 变更 | 来源 |
+| --- | --- | --- |
+| 2026-10-16 | 「另有一组更早的散记」改为 `旧散记/` 双链 + 归档口径；旧散记迁入本目录并标记归档 | `workspace/qbittorrent-config-usage/updates/01/update_report.md` |

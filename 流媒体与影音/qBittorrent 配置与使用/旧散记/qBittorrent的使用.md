@@ -1,7 +1,8 @@
 ---
 title: qBittorrent 使用指南
 created: 2026-02-02
-updated: 2026-04-05
+updated: 2026-10-16
+status: archived
 tags:
   - qBittorrent
   - BT下载
@@ -10,6 +11,10 @@ tags:
 ---
 
 # qBittorrent 使用指南
+
+> [!warning] 已归档（旧散记）
+> 本篇是 2026-02 ~ 2026-04 的旧散记，**不再维护**，仅作补充参考；版本号、字段取值、站点规则一律**以本分册三册成品与总览为准**：[[流媒体与影音/qBittorrent 配置与使用/qBittorrent 配置与使用（总览）|qBittorrent 配置与使用（总览）]]。
+> 已知过时点：版本号停在 v5.1.x / v5.2.0rc1（截至 2026-09 官方稳定版已到 v5.2.4）；`设置 → 下载 → 缓存` 等项在新版已改位置。
 
 > [!info] 2026 版本状态
 > - **官方稳定版**：v5.1.x 系列
@@ -345,4 +350,4 @@ qB 配置文件位置：
 - [Best qBittorrent Settings 2026](https://www.rapidseedbox.com/blog/qbittorrent-settings) - RapidSeedbox 优化指南
 
 ---
-*最后更新：2026-04-05*
+*最后更新：2026-04-05（已于 2026-10-16 归档）*
