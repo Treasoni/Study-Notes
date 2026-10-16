@@ -11,7 +11,7 @@ tags:
   - BT下载
   - 入门教程
 created: 2026-10-07
-updated: 2026-10-07
+updated: 2026-10-16
 status: active
 source_project: qbittorrent-config-usage
 ---
@@ -37,7 +37,8 @@ source_project: qbittorrent-config-usage
   - 2.2 三选一：三个镜像，差在环境变量前缀
   - 2.3 卷映射：两个根目录，`/config` 与 `/downloads`
   - 2.4 WebUI 首次登录：口令随版本变（F1）
-  - 2.5 动手实践（新手可跳过）
+  - 2.5 WebUI 的对外访问与安全：默认防护是开着的
+  - 2.6 动手实践（新手可跳过）
 
 ## 第 1 章 qBittorrent 是什么，以及它在你家庭影院里的位置
 
@@ -233,7 +234,40 @@ source_project: qbittorrent-config-usage
 
 登录后**立刻改密码**[^c2-la1-154]：WebUI 里 `Tools` 菜单 → `Options...` → `WebUI` 标签页 → `Authentication`。不改的话，很多镜像**每次启动都会重新生成一个临时口令**，你下次又登不进去[^c2-la2-25]。
 
-### 2.5 动手实践（新手可跳过）
+### 2.5 WebUI 的对外访问与安全：默认防护是开着的
+
+**一句话看懂**：WebUI 是你远程管理 qB 的入口，它默认「监听所有网卡、端口 `8080`、用户名 `admin`」；同时**四个防护开关默认都是开着的**。要做的第一件事是**改掉默认口令**，而不是去关防护。
+
+> [!tip] 大白话
+> 把 WebUI 想成**你家的门**：`IP address` 是门开在哪面墙（默认 `*`，四面墙都开）、`Port` 是门牌号（默认 `8080`）、`Username` / `Password` 是门锁（默认用户名 `admin`、口令留空待设）。那一组防护开关则是**门链和猫眼**——默认就挂着，别为了图方便先拆掉。
+
+**先认清 `Options` → `WebUI` 这一页的字段**（界面原串与默认值取自官方源码 @ `df402f91d456`）：
+
+| 界面原文 | 配置键 | 源码默认 | 说人话 |
+| --- | --- | --- | --- |
+| `Web User Interface (Remote control)` | `WebUI\Enabled` | 视构建而定（**不猜**） | 整个 WebUI 的总开关 |
+| `IP address:` | `WebUI\Address` | `*`[^c2-lb10-855] | 门开在哪面墙；官方写明 `*` 表示 IPv4 与 IPv6 **都**监听[^c2-lb10-3777] |
+| `Port:` | `WebUI\Port` | `8080`[^c2-lb10-868] | 门牌号，就是 §2.4 里用的那个端口 |
+| `Use UPnP / NAT-PMP to forward the port from my router` | `WebUI\UseUPnP` | `false`[^c2-lb10-882] | 让路由器自动开端口，默认**不开** |
+| `Use HTTPS instead of HTTP`（配 `Certificate:` / `Key:`） | `WebUI\HTTPS\Enabled` / `CertificatePath` / `KeyPath` | `false`[^c2-lb10-1038] | 加密入口；默认**关**，要用得填证书与私钥 |
+| `Username:` / `Password:` | `WebUI\Username` / `Password_PBKDF2` | `admin`[^c2-lb10-895] / 空 | 门锁；默认用户名 `admin`，口令留空待设 |
+
+**再看那四个「默认就开着」的防护**（都在同一页的 `Security` 区）：
+
+| 界面原文 | 配置键 | 源码默认 | 它挡什么 |
+| --- | --- | --- | --- |
+| `Enable Cross-Site Request Forgery (CSRF) protection` | `WebUI\CSRFProtection` | **`true`**[^c2-lb10-999] | 跨站伪造请求 |
+| `Enable Host header validation`（配 `Server domains:`） | `WebUI\HostHeaderValidation` / `ServerDomains` | **`true`**[^c2-lb10-1025] / `*`[^c2-lb10-842] | 防 **DNS rebinding**：只接受 Host 头在白名单内的请求[^c2-lb10-4225] |
+| `Enable clickjacking protection` | `WebUI\ClickjackingProtection` | **`true`**[^c2-lb10-986] | 被别的站点套进框架里骗点击 |
+| `Enable cookie Secure flag (requires HTTPS or localhost connection)` | `WebUI\SecureCookie` | **`true`**[^c2-lb10-1012] | 只在 HTTPS / localhost 下发送登录 Cookie |
+
+> [!warning] 不要为了「浏览器不跳 https」去关防护
+> 本章 §2.6 记过一条**社区经验**：改 `qBittorrent.conf`，设 `WebUI\HostHeaderValidation=false` 与 `WebUI\CSRFProtection=false`，好绕开某些浏览器强制 https 的跳转。现在有源码口径了——这两个键**默认就是 `true`**[^c2-lb10-1025][^c2-lb10-999]，设成 `false` 是在**关掉**默认开启的防护。要用这条社区做法，请清楚自己是在拿**安全性**换方便。
+
+> [!tip] 想从公网访问？走加密，别拆门链（新手可跳过）
+> 要让 WebUI 在局域网外可用，正规做法有两条：① 在同一页勾 `Use HTTPS instead of HTTP` 并填 `Certificate:` / `Key:`[^c2-lb10-1038]；② 在前面挂一个**反向代理**，并在 WebUI 页勾 `Enable reverse proxy support`，把代理地址填进 `Trusted proxies list`（源码默认**关**[^c2-lb10-1129]；官方说明该列表是为了取用转发后的客户端地址，即 `X-Forwarded-For` 头[^c2-lb10-4285]）。具体怎么配属环境相关，照官方 wiki 的「Reverse proxy setup」示例即可（源码界面里就链到那一页），本册不代你给一份「万能 nginx」。
+
+### 2.6 动手实践（新手可跳过）
 
 > [!tip] 新手可跳过
 > 这一节是可直接照抄的配制。不打算自己写 compose 的读者可以跳过，直接照搬下面的文件、改掉路径即可。
@@ -305,7 +339,7 @@ docker logs qbittorrent-nox
 ```
 
 > [!warning] 可选：改 conf 去掉 https 跳转（社区经验）
-> 有人会先停容器、再编辑 `qBittorrent.conf`，在 `[Preferences]` 里加 `WebUI\HostHeaderValidation=false` 与 `WebUI\CSRFProtection=false`，以绕开某些浏览器强制 https 的问题[^c2-la4-35]。这是**社区经验**（非官方口径）；它同时**降低了安全性**（关掉了跨站请求防护），请只在你清楚后果时使用，并记得**先停容器再改**，否则配置会被重置[^c2-la4-42]。
+> 有人会先停容器、再编辑 `qBittorrent.conf`，在 `[Preferences]` 里加 `WebUI\HostHeaderValidation=false` 与 `WebUI\CSRFProtection=false`，以绕开某些浏览器强制 https 的问题[^c2-la4-35]。这是**社区经验**（非官方口径）；它同时**降低了安全性**（关掉了跨站请求防护），请只在你清楚后果时使用，并记得**先停容器再改**，否则配置会被重置[^c2-la4-42]。这两个键的**默认值与语义**见 §2.5。
 
 一个小提醒：上面的镜像名、端口、卷路径都回官方镜像 README 与 LinuxServer 文档核对过；网上社区配方（含 fnOS 论坛）只作交叉参考，不作为精确口径——曾见过配方里 `PUID`/`PGID` 给成 `0`（以 root 运行），本册不放这种值[^c2-la5-20]。
 
@@ -315,6 +349,7 @@ docker logs qbittorrent-nox
 - 三个镜像的功能等价，最容易踩的差别是**环境变量前缀**：官方用 `QBT_*`，LinuxServer 用不带前缀的名字，两套互不识别，抄错会被静默忽略（F2）。
 - 卷必须写**宿主机上的绝对路径**；`/config` 要独占一个干净目录，`/downloads` 要和 MoviePilot 看到的**是同一个**。
 - 首登口令**随版本变**：`≥ 4.6.1` 去容器日志抄临时口令，`< 4.6.1` 用默认口令；进去后**立刻改密码**（F1）。
+- WebUI 页的**四个防护开关默认都开着**（CSRF / Host 头校验 / 点击劫持 / Secure Cookie）[^c2-lb10-999][^c2-lb10-1025][^c2-lb10-986][^c2-lb10-1012]；要暴露到公网请走 HTTPS 或反向代理，**别关防护**。
 - 官方镜像两个必改项：`stop_grace_period: 30m`（默认 10 秒太短，会损坏文件）、用了 `PUID`/`PGID` 就要 `read_only: false`。
 
 ### 下一章预告
@@ -361,3 +396,23 @@ docker logs qbittorrent-nox
 [^c2-la4-42]: LA-4 · `sources/l1-4_fnOS-community-1.md:42`。
 [^c2-la5-20]: LA-5 · `sources/l1-5_fnOS-community-2.md:20`（社区 compose 示例，仅作交叉参考）。
 [^c2-la5-32]: LA-5 · `sources/l1-5_fnOS-community-2.md:24,32`（社区 compose 出现 `network_mode: host`；第 24 行「或者使用host模式」，仅作交叉参考）。
+[^c2-lb10-855]: LB-10 · `sources/l1-10_webui-access-security-official-source.md:855`（`WebUI/Address` 默认 `*`）。
+[^c2-lb10-3777]: LB-10 · `sources/l1-10_webui-access-security-official-source.md:3777-3779`（`IP address` 的官方 tooltip：`*` 表示 IPv4 与 IPv6 都监听）。
+[^c2-lb10-868]: LB-10 · `sources/l1-10_webui-access-security-official-source.md:868`（`WebUI/Port` 默认 `8080`）。
+[^c2-lb10-882]: LB-10 · `sources/l1-10_webui-access-security-official-source.md:882`（`WebUI/UseUPnP` 默认 `false`）。
+[^c2-lb10-1038]: LB-10 · `sources/l1-10_webui-access-security-official-source.md:1038`（`WebUI/HTTPS/Enabled` 默认 `false`）。
+[^c2-lb10-895]: LB-10 · `sources/l1-10_webui-access-security-official-source.md:895`（`WebUI/Username` 默认 `admin`）。
+[^c2-lb10-999]: LB-10 · `sources/l1-10_webui-access-security-official-source.md:999`（`WebUI/CSRFProtection` 默认 `true`）。
+[^c2-lb10-1025]: LB-10 · `sources/l1-10_webui-access-security-official-source.md:1025`（`WebUI/HostHeaderValidation` 默认 `true`）。
+[^c2-lb10-842]: LB-10 · `sources/l1-10_webui-access-security-official-source.md:842`（`WebUI/ServerDomains` 默认 `*`）。
+[^c2-lb10-4225]: LB-10 · `sources/l1-10_webui-access-security-official-source.md:4225-4229`（`Server domains` 的官方 tooltip：过滤 HTTP `Host` 头，防 DNS rebinding）。
+[^c2-lb10-986]: LB-10 · `sources/l1-10_webui-access-security-official-source.md:986`（`WebUI/ClickjackingProtection` 默认 `true`）。
+[^c2-lb10-1012]: LB-10 · `sources/l1-10_webui-access-security-official-source.md:1012`（`WebUI/SecureCookie` 默认 `true`）。
+[^c2-lb10-1129]: LB-10 · `sources/l1-10_webui-access-security-official-source.md:1129`（`WebUI/ReverseProxySupportEnabled` 默认 `false`）。
+[^c2-lb10-4285]: LB-10 · `sources/l1-10_webui-access-security-official-source.md:4285-4287`（`Trusted proxies list` 的官方 tooltip：用于取 `X-Forwarded-For` 转发地址）。
+
+## 更新记录
+
+| 日期 | 变更 | 来源 |
+| --- | --- | --- |
+| 2026-10-16 | 新增 §2.5「WebUI 的对外访问与安全」：给出 WebUI 页字段与四个防护开关的**源码默认值**，把 §2.6 那条 LA-4 社区经验（关 `HostHeaderValidation`/`CSRFProtection`）按官方口径补齐并加警示；原 §2.5 动手实践顺延为 §2.6 | LB-10 · `sources/l1-10_webui-access-security-official-source.md` |

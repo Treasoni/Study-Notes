@@ -10,7 +10,7 @@ status: 已完成（待用户确认 workspace 同步方向）
 
 ## 一句话摘要
 
-按用户确认的「第 0 步（补实）+ 第 1 步（归位）+ 第 2 步（去重）」执行：**中册 §4.4 代理一节从「只给接入点」补成「字段以源码为准」；顶层散乱的 `qBittorent/` 迁入分册目录并标记归档；孤儿附件去重**。其后按用户追加确认，做**增量 2**：**下册 §5.3 补入「界面上的 Tracker 状态对照表」**（补 `Tracker error`/`Unreachable` 两档、纠正 `Updating...` 非状态）。四份成品在 vault 与 workspace 两处仍逐字节一致。
+按用户确认的「第 0 步（补实）+ 第 1 步（归位）+ 第 2 步（去重）」执行：**中册 §4.4 代理一节从「只给接入点」补成「字段以源码为准」；顶层散乱的 `qBittorent/` 迁入分册目录并标记归档；孤儿附件去重**。其后按用户追加确认，做**增量 2**：**下册 §5.3 补入「界面上的 Tracker 状态对照表」**（补 `Tracker error`/`Unreachable` 两档、纠正 `Updating...` 非状态）；再做**增量 3**：**上册新增 §2.5「WebUI 的对外访问与安全」**（把原 §2.6 的 LA-4 社区经验升格为源码口径，给出四个默认开启的防护开关）。四份成品在 vault 与 workspace 两处仍逐字节一致。
 
 ## 改动明细
 
@@ -102,6 +102,33 @@ Callout 16 → 20；脚注引用 84 → 114、定义 66 → 94。
 > [!warning] 一处自查纠正（本增量开工时）
 > LB-9 首次生成时**片段标题与片段正文错位**（`## 片段 3` 标题压在 `trackerlistmodel.cpp` 正文之上）；已按「片段 1 = 枚举 / 片段 2 = 桌面版 / 片段 3 = WebUI / 读法」重排，并补齐标题前空行。
 
+### H. 增量 3：上册新增 §2.5「WebUI 的对外访问与安全」（vault + workspace output 同步）
+
+用户确认做原先提议的**块 3**。核心不是「新塞一章」，而是**把上册 §2.6 里那条以社区经验身份出现的 LA-4 提示升格为可核对的官方口径**——那条提示只说「关掉 `HostHeaderValidation` / `CSRFProtection` 可以绕开强制 https」，**从没给默认值与语义**。
+
+| 位置 | 前 | 后 |
+| --- | --- | --- |
+| 目录 / 标题 | `2.5 动手实践（新手可跳过）` | 新增 `2.5 WebUI 的对外访问与安全：默认防护是开着的`；原 2.5 顺延为 `2.6` |
+| 上册 §2.5（新） | — | 两张对照表（WebUI 页字段 / 四个防护开关，均含「界面原文 · 配置键 · 源码默认 · 说人话」）+ `[!warning]`（别为绕 https 关防护）+ `[!tip] 大白话`（门的比喻）+ `[!tip] 新手可跳过`（HTTPS / 反向代理） |
+| 上册 §2.6 的 LA-4 提示 | 只写「关掉可绕强制 https」 | 末尾加「这两个键的**默认值与语义**见 §2.5」 |
+| 本章小结 | 5 条 | 6 条（新增「四个防护开关默认都开着，公网访问请走 HTTPS / 反向代理」） |
+| 脚注 | 第 2 章 45 条定义 | 新增 `[^c2-lb10-*]` 14 条 |
+| frontmatter | `updated: 2026-10-07` | `updated: 2026-10-16` |
+| 文末 | — | 新增 `## 更新记录`（1 行：2026-10-16 / LB-10） |
+
+**补实/纠错的口径**（全部有源码默认值可核）：
+
+- `WebUI\HostHeaderValidation` 默认 **`true`**（`preferences.cpp:1025`）、`WebUI\CSRFProtection` 默认 **`true`**（`:999`）——**关掉它们 = 拆掉默认开启的防护**。同时补上 `ClickjackingProtection`（`:986`）与 `SecureCookie`（`:1012`）两个同组开关，默认同样为 `true`。
+- `WebUI\Address` 默认 `*`（`:855`，官方 tooltip 写明 `*` = IPv4 与 IPv6 都监听，`optionsdialog.ui:3777-3779`）；`WebUI\Port` 默认 `8080`（`:868`）；`WebUI\Username` 默认 `admin`（`:895`）。
+- `HostHeaderValidation` 的用途有官方 tooltip 兜底：**防 DNS rebinding**（`optionsdialog.ui:4225-4229`）——此前只有「关掉可绕 https」这一面，现在有了「它本来在防什么」。
+- HTTPS 默认**关**（`WebUI\HTTPS\Enabled`, `:1038`）、反向代理支持默认**关**（`WebUI\ReverseProxySupportEnabled`, `:1129`，官方 tooltip 说明是为了取 `X-Forwarded-For`，`optionsdialog.ui:4285-4287`）。
+- `WebUI\Enabled` 的默认值由构建传入（`preferences.cpp:776` 为 `value(…, defaultValue)`），**未见固定常量，故写「不猜」**，未编造。
+
+**新增来源件 LB-10**（primary，qBittorrent 源码 @ `df402f91d456`）：`sources/l1-10_webui-access-security-official-source.md`，逐字留档 `optionsdialog.ui` 的 WebUI 页字段串（含**完整多行 tooltip**）与 `preferences.cpp` 的 22 个 WebUI 配置键默认值。
+
+> [!warning] 一处自查纠正（本增量开工时）
+> LB-10 首次生成时，**多行 `<string>` 只截到第一行**（如 `IP address that the Web UI will bind to.` 之后的两行被丢掉，留下未闭合的 `<string>`）。已改为「进入 `<string>` 后一直取到 `</string>`」重生成。
+
 ## 校验
 
 | 检查 | 命令 | 结果 |
@@ -122,12 +149,23 @@ Callout 16 → 20；脚注引用 84 → 114、定义 66 → 94。
 | 双链解析（下册） | `obsidian vault="项目" links path=…` | 出链 2 条全部解析；**0 未解析** |
 | 副本一致性 | python `read_bytes()` | 下册 vault ↔ output **逐字节一致**（35,077 B） |
 
+**增量 3（上册 §2.5）复核**
+
+| 检查 | 命令 | 结果 |
+| --- | --- | --- |
+| 逐字引文回源（上册） | `python3 .claude/scripts/note-citation-check.py workspace/qbittorrent-config-usage --mode verbatim --file "<vault 上册绝对路径>"` | 英文整句 **82** 处，原始来源命中 **82** / 仅中间产物 0 / **未命中 0** |
+| 脚注配对（上册） | python 复核 | 引用 59 / 定义 59（去重）；新增 `c2-lb10-*` 定义 **14/14** 全被引用；无未定义、无孤立 |
+| 结构自检 | `python3 .claude/scripts/check-md-structure.py "<分册目录>"` | 扫描 9 个文件，**0 处可疑** |
+| 双链解析（上册） | `obsidian vault="项目" links path=…` | 出链 2 条全部解析；**0 未解析** |
+| 小节编号一致性 | `grep -rn "2\\.5\\|2\\.6"`（排除旧散记） | 目录 / 两处标题 / 两处正文引用 / 更新记录 **全部一致**，无残留「§2.5 动手实践」 |
+| 副本一致性 | python `read_bytes()` | 上册 vault ↔ output **逐字节一致**（34,610 B） |
+
 ## 未处理风险 / 遗留
 
 1. **`chapters/` 未同步**：`workspace/qbittorrent-config-usage/chapters/` 是**组装前形态**，
    与发布件本就不同形（六个章文件 + 引文对照在章末）。本次 §4.4 的改动**没有**回写章文件，
    因为回写需要重跑 `note-assembler` 才能保持 `output/` 一致；已按 note-updater 的边界如实留在沉默之外——
-   若日后有人从 `chapters/` 重新组装，会**丢掉**本次 §4.4/§4.6 的全部补实，以及增量 2 的 §5.3 状态表。
+   若日后有人从 `chapters/` 重新组装，会**丢掉**本次 §4.4/§4.6 的全部补实、增量 2 的 §5.3 状态表，以及增量 3 的 §2.5 WebUI 安全节。
 2. **workspace 同步方向待确认**：本次 vault 与 `output/` 两侧都改了，`chapters/` 与 `_merge/` 未改。
    本次选择的是「vault → output 单侧镜像」；是否要把 vault 正文回灌 `chapters/`，需用户决定
    （回灌 = 重跑 note-assembler；不回灌 = 明确弃用 `chapters/` 作为再发布源）。
@@ -150,3 +188,4 @@ Callout 16 → 20；脚注引用 84 → 114、定义 66 → 94。
 | LB-7 | `sources/l2-7_proxy-official-source.md` | primary（qBittorrent 源码 @ `df402f91d456`） |
 | LB-8 | `sources/l2-8_proxy-user-practice.md` | 用户自测（第一手，**非官方**） |
 | LB-9 | `sources/l3-9_tracker-status-official-source.md` | primary（qBittorrent 源码 @ `df402f91d456`：Tracker 状态枚举 / 桌面版状态串 / WebUI 数值映射） |
+| LB-10 | `sources/l1-10_webui-access-security-official-source.md` | primary（qBittorrent 源码 @ `df402f91d456`：WebUI 页字段串 + 22 个 WebUI 配置键默认值） |
