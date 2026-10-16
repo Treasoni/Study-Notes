@@ -176,7 +176,7 @@ quality_gate_due: ""
 |------|------|---------|---------|
 | 2026-10-16 | 完成后 | 用户要求「补实 + 归位 + 去重」：中册 §4.4 代理一节补实、顶层 `qBittorent/` 迁入本册 `旧散记/` 并归档、孤儿附件去重、MOC 加索引 | 走 `note-updater`（**未新建 run、未推进本 run 阶段**）；详见 `workspace/qbittorrent-config-usage/updates/01/`；`chapters/` 未同步，已登记 |
 | 2026-10-16 | 完成后 | 增量 2：用户确认先做低风险项——下册 §5.3 补入「界面上的 Tracker 状态对照表」（补 `Tracker error`(5) / `Unreachable`(6)、纠正 `Updating...` 非状态） | 同属 `note-updater` 的 `updates/01/`（**未新建 run**）；新增来源件 LB-9；vault 与 `output/` 逐字节同步，`chapters/` 仍未同步 |
-| 2026-10-16 | 完成后 | 增量 3：用户确认做块 3——上册新增 §2.5「WebUI 的对外访问与安全」（四个防护开关的源码默认值，原 §2.5 动手实践顺延为 §2.6） | 同属 `note-updater` 的 `updates/01/`（**未新建 run**）；新增来源件 LB-10；vault 与 `output/` 逐字节同步，`chapters/` 仍未同步（同步方向待用户定，建议弃用） |
+| 2026-10-16 | 完成后 | 增量 3：用户确认做块 3——上册新增 §2.5「WebUI 的对外访问与安全」（四个防护开关的源码默认值，原 §2.5 动手实践顺延为 §2.6） | 同属 `note-updater` 的 `updates/01/`（**未新建 run**）；新增来源件 LB-10；vault 与 `output/` 逐字节同步，`chapters/` 已明确弃用（方案 B：置 `_RETIRED.md` 面包屑，不再追平） |
 | | | | |
 
 ---

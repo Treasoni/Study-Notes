@@ -3,7 +3,7 @@ note_set: qBittorrent 配置与使用（三册 + 总览）
 run: qbittorrent-config-usage
 date: 2026-10-16
 mode: patch-in-place
-status: 已完成（待用户确认 workspace 同步方向）
+status: 已完成（workspace 同步方向已定：明确弃用 `chapters/`）
 ---
 
 # update_report — qBittorrent 配置与使用
@@ -166,9 +166,12 @@ Callout 16 → 20；脚注引用 84 → 114、定义 66 → 94。
    与发布件本就不同形（六个章文件 + 引文对照在章末）。本次 §4.4 的改动**没有**回写章文件，
    因为回写需要重跑 `note-assembler` 才能保持 `output/` 一致；已按 note-updater 的边界如实留在沉默之外——
    若日后有人从 `chapters/` 重新组装，会**丢掉**本次 §4.4/§4.6 的全部补实、增量 2 的 §5.3 状态表，以及增量 3 的 §2.5 WebUI 安全节。
-2. **workspace 同步方向待确认**：本次 vault 与 `output/` 两侧都改了，`chapters/` 与 `_merge/` 未改。
-   本次选择的是「vault → output 单侧镜像」；是否要把 vault 正文回灌 `chapters/`，需用户决定
-   （回灌 = 重跑 note-assembler；不回灌 = 明确弃用 `chapters/` 作为再发布源）。
+2. **workspace 同步方向已定：明确弃用 `chapters/`**（2026-10-16 用户确认，方案 B）。本次 vault 与
+   `output/` 两侧都改了，`chapters/` 与 `_merge/` 未改，且**今后也不再追平**——已在
+   `workspace/qbittorrent-config-usage/chapters/_RETIRED.md` 放下三行面包屑，写明「组装前形态 /
+   自 2026-10-16 停止维护 / 权威稿见 `../output/` 与 vault / 要从头重装请以 `output/` 为源」。
+   弃用而非回灌的理由：回灌要重做组装阶段的 16 处跨册引用改写 + 12 处 `##→###` 层级归一，
+   等于把已验收的发布字节重新生成一遍，且追平后 `chapters/` **依然不是**发布源。
    该 run 已是 `current_phase: done`，`output/` 不会再被任何流程写；两边同名文件极易被误当权威稿，
    故在此登记。
 3. **`workspace/music-tag-web/output/series/MusicTagWeb-06-附录A-播放侧与生态.md:221`** 有一条
